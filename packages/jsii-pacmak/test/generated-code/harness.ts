@@ -14,7 +14,9 @@ export const JSII_TEST_PACKAGES: readonly string[] = [
   'jsii-calc',
 ];
 
+const CREATED = Symbol('created');
 const DELETED = Symbol('deleted');
+
 const DIFF = Symbol('diff');
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
@@ -80,19 +82,6 @@ export function verifyGeneratedCodeFor(
     test(`Generated code for ${JSON.stringify(pkg)}`, async () => {
       const pkgRoot = path.resolve(__dirname, '..', '..', '..', pkg);
 
-      const outDirRuntimeTypeChecked = path.join(
-        outDir,
-        'runtime-type-checking',
-      );
-      await runPacmak(pkgRoot, targetName, outDirRuntimeTypeChecked);
-      expect({ [TREE]: checkTree(outDirRuntimeTypeChecked) }).toMatchSnapshot(
-        '<outDir>/',
-      );
-      if (targetName === TargetName.PYTHON && !process.env.SKIP_MYPY_CHECK) {
-        await runMypy(path.join(outDirRuntimeTypeChecked, targetName));
-      }
-
-      // Now we'll generate WITHOUT runtime type-checks, and assert on the differences
       const outDirNotRuntimeTypeChecked = path.join(
         outDir,
         'no-runtime-type-checking',
@@ -101,9 +90,27 @@ export function verifyGeneratedCodeFor(
         runtimeTypeChecking: false,
       });
       expect({
+        [TREE]: checkTree(outDirNotRuntimeTypeChecked),
+      }).toMatchSnapshot('<outDir>/');
+
+      // Now we'll generate WITHOUT runtime type-checks, and assert on the differences
+      const outDirRuntimeTypeChecked = path.join(
+        outDir,
+        'runtime-type-checking',
+      );
+      await runPacmak(pkgRoot, targetName, outDirRuntimeTypeChecked, {
+        runtimeTypeChecking: true,
+      });
+
+      // Run MyPY on Python generated code...
+      if (targetName === TargetName.PYTHON && !process.env.SKIP_MYPY_CHECK) {
+        await runMypy(path.join(outDirRuntimeTypeChecked, targetName));
+      }
+
+      expect({
         [TREE]: diffTrees(
-          outDirRuntimeTypeChecked,
           outDirNotRuntimeTypeChecked,
+          outDirRuntimeTypeChecked,
         ),
         [TREE_ROOT]: '<runtime-type-check-diff>',
       }).toMatchSnapshot('<runtime-type-check-diff>/');
@@ -177,21 +184,26 @@ export function diffTrees(
   }
 
   // Should exist on both sides AND have the same file type
-  expect(originalStat?.isDirectory()).toBe(updatedStat?.isDirectory());
-  expect(originalStat?.isFile()).toBe(updatedStat?.isFile());
+  if (originalStat != null) {
+    expect(originalStat?.isDirectory()).toBe(updatedStat?.isDirectory());
+    expect(originalStat?.isFile()).toBe(updatedStat?.isFile());
+  }
 
-  if (originalStat?.isFile()) {
+  if (updatedStat.isFile()) {
     if (original.endsWith('.tgz') || original.endsWith('.png')) {
+      // Allow no difference in binary file existence...
+      expect(originalStat).toBeDefined();
       // This is a binary object, these should match exactly
       expect(fs.readFileSync(original)).toEqual(fs.readFileSync(updated));
       return undefined;
     }
     const patch = createPatch(
       relativeFile,
-      fs.readFileSync(original, 'utf-8'),
+      // Note: if originalStat is null, the file is new in the diff...
+      originalStat != null ? fs.readFileSync(original, 'utf-8') : '',
       fs.readFileSync(updated, 'utf-8'),
-      '--runtime-type-checking',
       '--no-runtime-type-checking',
+      '--runtime-type-checking',
       {
         context: 5,
         ignoreWhitespace: false,
@@ -208,11 +220,15 @@ export function diffTrees(
 
     const snapshotName = `<runtime-type-check-diff>/${relativeFile}.diff`;
     expect({ [DIFF]: patch.join('\n') }).toMatchSnapshot(snapshotName);
-    return `${path.basename(original)}.diff`;
+    return originalStat != null
+      ? `${path.basename(original)}.diff`
+      : { [CREATED]: `${path.basename(original)}.diff` };
   }
 
-  return fs
-    .readdirSync(original)
+  return Array.from(
+    new Set([...fs.readdirSync(original), ...fs.readdirSync(updated)]),
+  )
+    .sort()
     .map((entry) => ({
       entry,
       subtree: diffTrees(
@@ -248,9 +264,7 @@ async function runPacmak(
   root: string,
   targetName: TargetName,
   outdir: string,
-  {
-    runtimeTypeChecking = true,
-  }: { readonly runtimeTypeChecking?: boolean } = {},
+  { runtimeTypeChecking }: { readonly runtimeTypeChecking: boolean },
 ): Promise<void> {
   return expect(
     pacmak({
@@ -373,6 +387,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
 type TreeStructure =
   | string
   | { [name: string]: TreeStructure }
+  | { [CREATED]: string }
   | { [DELETED]: string };
 
 function formatTree(tree: TreeStructure | undefined): string {
@@ -386,6 +401,9 @@ function formatTree(tree: TreeStructure | undefined): string {
 
   if (DELETED in tree) {
     return `┗━ 🗑 ${(tree as any)[DELETED]}`;
+  }
+  if (CREATED in tree) {
+    return `┗━ 🆕 ${(tree as any)[CREATED]}`;
   }
 
   // Sort the entries by name to minimize differences.
@@ -401,6 +419,12 @@ function formatTree(tree: TreeStructure | undefined): string {
 
       if (DELETED in children) {
         return `${box}━ 🗑 ${name}`;
+      }
+      if (
+        CREATED in children &&
+        typeof (children as any)[CREATED] === 'string'
+      ) {
+        return `${box}━ 🆕 ${name}`;
       }
 
       const subtree = formatTree(children)
