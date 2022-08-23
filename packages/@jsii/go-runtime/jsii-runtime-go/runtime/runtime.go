@@ -100,7 +100,7 @@ func RegisterStruct(fqn FQN, strct reflect.Type) {
 // RegisterStructValidator adds a validator function to an already registered
 // struct type. This is separate call largely to maintain backwards compatibility
 // with existing code.
-func RegisterStructValidator(strct reflect.Type, validator func(interface{},string)error) {
+func RegisterStructValidator(strct reflect.Type, validator func(interface{}, string) error) {
 	client := kernel.GetClient()
 	if err := client.Types().RegisterStructValidator(strct, validator); err != nil {
 		panic(err)

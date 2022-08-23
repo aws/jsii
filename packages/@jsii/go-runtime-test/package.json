@@ -5,12 +5,11 @@
   "description": "",
   "scripts": {
     "build": "tsc --build && yarn gen:calc",
-    "fmt": "yarn --silent go:run goimports -w .",
-    "lint": "cd project && go vet ./... && yarn --silent go:run golint ./...",
+    "fmt": "cd project && go run golang.org/x/tools/cmd/goimports -w .",
+    "lint": "cd project && go vet ./... && go run golang.org/x/lint/golint ./...",
     "test": "cd project && go test ./...",
     "lint:fix": "yarn lint && yarn fmt",
-    "gen:calc": "node build-tools/gen-calc.js",
-    "go:run": "cd project && go mod download && node ../build-tools/go-run.js"
+    "gen:calc": "node build-tools/gen-calc.js"
   },
   "keywords": [],
   "author": "",

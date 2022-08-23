@@ -2,10 +2,11 @@ package tests
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/aws/jsii-runtime-go"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/anonymous"
-	"testing"
 )
 
 func TestConstructor(t *testing.T) {
@@ -49,6 +50,33 @@ func TestAnonymousObjectIsValid(t *testing.T) {
 	if *anonymous.UseOptions_Consume(iface) != "A" {
 		t.Error("Expected iface to produce A")
 	}
+}
+
+func TestNestedUnion(t *testing.T) {
+	func() {
+		defer expectPanic(t, "parameter unionProperty[0] must be one of the allowed types: *map[string]interface{}, *[]interface{}; received 1337.42 (a float64)")
+		jsiicalc.NewClassWithNestedUnion(&[]interface{}{1337.42})
+	}()
+
+	func() {
+		defer expectPanic(t, "parameter unionProperty[0][1] must be one of the allowed types: *StructA, *StructB; received 1337.42 (a float64)")
+		jsiicalc.NewClassWithNestedUnion(&[]interface{}{
+			[]interface{}{
+				jsiicalc.StructA{RequiredString: jsii.String("present")},
+				1337.42,
+			},
+		})
+	}()
+
+	func() {
+		defer expectPanic(t, "parameter unionProperty[0][bad] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
+		jsiicalc.NewClassWithNestedUnion(&[]interface{}{
+			map[string]interface{}{
+				"good": jsiicalc.StructA{RequiredString: jsii.String("present")},
+				"bad":  "Not a StructA or StructB",
+			},
+		})
+	}()
 }
 
 func expectPanic(t *testing.T, expected string) {

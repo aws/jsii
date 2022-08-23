@@ -67,7 +67,9 @@ func New() *TypeRegistry {
 // a pointer to one.
 func (t *TypeRegistry) IsAnonymousProxy(v interface{}) bool {
 	_, ok := v.(*anonymousProxy)
-	if !ok { _, ok = v.(anonymousProxy) }
+	if !ok {
+		_, ok = v.(anonymousProxy)
+	}
 	return ok
 }
 
