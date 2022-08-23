@@ -968,6 +968,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ mutableObject property (stable)
  │   │     └── type: jsii-calc.IMutableObjectLiteral
+ │   ├─┬ class ClassWithNestedUnion (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   └─┬ unionProperty property (stable)
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties (stable)
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
@@ -3704,6 +3712,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
+ │   ├── class ClassWithNestedUnion
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties
  │   ├── class ConfusingToJackson
@@ -4482,6 +4491,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── mutableObject property
+ │   ├─┬ class ClassWithNestedUnion
+ │   │ └─┬ members
+ │   │   ├── <initializer>(unionProperty) initializer
+ │   │   └── unionProperty property
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └─┬ members
  │   │   ├── static create(readOnlyString,readWriteString) method
@@ -5795,6 +5808,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
+ │   ├── class ClassWithNestedUnion
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
  │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut

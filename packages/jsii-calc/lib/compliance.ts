@@ -3074,3 +3074,11 @@ export class ClassWithCollectionOfUnions {
 export interface StructWithCollectionOfUnionts {
   readonly unionProperty: Array<Record<string, StructA | StructB>>;
 }
+
+export class ClassWithNestedUnion {
+  public constructor(
+    public unionProperty: Array<
+      Array<StructA | StructB> | Record<string, StructA | StructB>
+    >,
+  ) {}
+}
