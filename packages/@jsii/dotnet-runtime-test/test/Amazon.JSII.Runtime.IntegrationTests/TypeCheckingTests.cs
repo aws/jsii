@@ -73,5 +73,29 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.IsType<AnonymousObject>(anonymousObject);
             Assert.Equal("A", UseOptions.Consume(anonymousObject));
         }
+
+        [Fact(DisplayName = Prefix + nameof(NestedUnion))]
+        public void NestedUnion()
+        {
+            var exception1 = Assert.Throws<System.ArgumentException>(() =>
+                new ClassWithNestedUnion(new object[] { 1337.42 }));
+            Assert.Equal("Expected argument unionProperty[0] to be one of: System.Collections.Generic.IDictionary<string, object>, object[]; received System.Double (Parameter 'unionProperty')", exception1.Message);
+
+            var exception2 = Assert.Throws<System.ArgumentException>(() =>
+                new ClassWithNestedUnion(new object[]
+                    { new object[] { new StructA { RequiredString = "present" }, 1337 } }));
+            Assert.Equal("Expected argument unionProperty[0][1] to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.Int32 (Parameter 'unionProperty')", exception2.Message);
+
+            var exception3 = Assert.Throws<System.ArgumentException>(() =>
+                new ClassWithNestedUnion(new object[]
+                {
+                    new Dictionary<string, object>
+                    {
+                        { "good", new StructA { RequiredString = "present" } },
+                        { "bad", "Not a StructA or StructB" }
+                    }
+                }));
+            Assert.Equal("Expected argument unionProperty[0][\"bad\"] to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.String (Parameter 'unionProperty')", exception3.Message);
+        }
     }
 }

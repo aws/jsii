@@ -2976,6 +2976,136 @@
       ],
       "symbolId": "lib/compliance:ClassWithMutableObjectLiteralProperty"
     },
+    "jsii-calc.ClassWithNestedUnion": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ClassWithNestedUnion",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3079
+        },
+        "parameters": [
+          {
+            "name": "unionProperty",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "union": {
+                    "types": [
+                      {
+                        "collection": {
+                          "elementtype": {
+                            "union": {
+                              "types": [
+                                {
+                                  "fqn": "jsii-calc.StructA"
+                                },
+                                {
+                                  "fqn": "jsii-calc.StructB"
+                                }
+                              ]
+                            }
+                          },
+                          "kind": "map"
+                        }
+                      },
+                      {
+                        "collection": {
+                          "elementtype": {
+                            "union": {
+                              "types": [
+                                {
+                                  "fqn": "jsii-calc.StructA"
+                                },
+                                {
+                                  "fqn": "jsii-calc.StructB"
+                                }
+                              ]
+                            }
+                          },
+                          "kind": "array"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "kind": "array"
+              }
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3078
+      },
+      "name": "ClassWithNestedUnion",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3080
+          },
+          "name": "unionProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "union": {
+                  "types": [
+                    {
+                      "collection": {
+                        "elementtype": {
+                          "union": {
+                            "types": [
+                              {
+                                "fqn": "jsii-calc.StructA"
+                              },
+                              {
+                                "fqn": "jsii-calc.StructB"
+                              }
+                            ]
+                          }
+                        },
+                        "kind": "map"
+                      }
+                    },
+                    {
+                      "collection": {
+                        "elementtype": {
+                          "union": {
+                            "types": [
+                              {
+                                "fqn": "jsii-calc.StructA"
+                              },
+                              {
+                                "fqn": "jsii-calc.StructB"
+                              }
+                            ]
+                          }
+                        },
+                        "kind": "array"
+                      }
+                    }
+                  ]
+                }
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:ClassWithNestedUnion"
+    },
     "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": {
       "assembly": "jsii-calc",
       "docs": {
@@ -18001,5 +18131,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "w4jjSmxpafX7pHdksFL0F5FZxa/zM6MB8oFCANIU05k="
+  "fingerprint": "LBLJQQycukWu6zWQmp2/IbKS/Sfd+4e2zWrX+1KA+Aw="
 }

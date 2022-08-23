@@ -2285,6 +2285,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_ClassWithDocs.go
        ┣━ 📄 jsiicalc_ClassWithJavaReservedWords.go
        ┣━ 📄 jsiicalc_ClassWithMutableObjectLiteralProperty.go
+       ┣━ 📄 jsiicalc_ClassWithNestedUnion.go
        ┣━ 📄 jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties.go
        ┣━ 📄 jsiicalc_ConfusingToJackson.go
        ┣━ 📄 jsiicalc_ConfusingToJacksonStruct.go
@@ -4229,6 +4230,16 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_ClassWithMutableObjectLiteralProperty{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.ClassWithNestedUnion",
+		reflect.TypeOf((*ClassWithNestedUnion)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ClassWithNestedUnion{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -8966,6 +8977,71 @@ func (j *jsiiProxy_ClassWithMutableObjectLiteralProperty) SetMutableObject(val I
 	_jsii_.Set(
 		j,
 		"mutableObject",
+		val,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ClassWithNestedUnion.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type ClassWithNestedUnion interface {
+	UnionProperty() *[]interface{}
+	SetUnionProperty(val *[]interface{})
+}
+
+// The jsii proxy struct for ClassWithNestedUnion
+type jsiiProxy_ClassWithNestedUnion struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_ClassWithNestedUnion) UnionProperty() *[]interface{} {
+	var returns *[]interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClassWithNestedUnion(unionProperty *[]interface{}) ClassWithNestedUnion {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithNestedUnion{}
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithNestedUnion",
+		[]interface{}{unionProperty},
+		&j,
+	)
+
+	return &j
+}
+
+func NewClassWithNestedUnion_Override(c ClassWithNestedUnion, unionProperty *[]interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithNestedUnion",
+		[]interface{}{unionProperty},
+		c,
+	)
+}
+
+func (j *jsiiProxy_ClassWithNestedUnion) SetUnionProperty(val *[]interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
 		val,
 	)
 }
