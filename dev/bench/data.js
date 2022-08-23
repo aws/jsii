@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661186586992,
+  "lastUpdate": 1661295932607,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5313,6 +5313,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 818030.1535548579,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65491.07487925 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "362326e989e1d9f2a032d4c15c34f3d60e712051",
+          "message": "fix(.net): missing dynamic type checking for collection-nested unions (#3720)\n\nThe .NET runtime type checking was not checking type unions that\nare nested within a collection (list or map), although this is\nnecessary since the `is <type>` guard does not allow making any\nassumption about the contents of the collection.\n\nThis adds the missing checks, and replaces the guard clauses\nwith a `switch` statement using pattern matching, resulting\nin somewhat more elegant code (also with better `null` safety).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-23T22:14:33Z",
+          "tree_id": "f63c81f427467ba9c48c0fd271f0063e499aa5d3",
+          "url": "https://github.com/aws/jsii/commit/362326e989e1d9f2a032d4c15c34f3d60e712051"
+        },
+        "date": 1661295929617,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63240.12026379999,
+            "unit": "milliseconds",
+            "range": 1210931.2003451346,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63240.12026379999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 44635.721034999995,
+            "unit": "milliseconds",
+            "range": 29633.890308461723,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44635.721034999995 milliseconds over 20 runs"
           }
         ]
       }
