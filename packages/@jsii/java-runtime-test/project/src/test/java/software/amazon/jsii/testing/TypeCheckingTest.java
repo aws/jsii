@@ -90,6 +90,15 @@ public class TypeCheckingTest {
         assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'unionProperty')", e.getMessage());
     }
 
+    @Test
+    public void Variadic() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
+        {
+            new VariadicTypeUnion(new StructAImplementer("present"), 1337.42);
+        });
+        assertEquals("Expected __union__asList.get(1) to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double, (Parameter 'union')", e.getMessage());
+    }
+
     /*
     @Test
     public void setter() {

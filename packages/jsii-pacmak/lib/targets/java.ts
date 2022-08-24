@@ -1538,13 +1538,34 @@ class JavaGenerator extends Generator {
     }
 
     for (const param of unionParameters) {
-      validate.call(
-        this,
-        param.name,
-        `.append("${param.name}")`,
-        param.type,
-        param.name,
-      );
+      if (param.variadic) {
+        const javaType = this.toJavaType(param.type);
+        const asListName = `__${param.name}__asList`;
+        this.code.line(
+          `java.util.ArrayList<${javaType}> ${asListName} = new java.util.ArrayList<${javaType}>(java.util.Arrays.asList(${param.name}));`,
+        );
+
+        validate.call(
+          this,
+          asListName,
+          `.append("${asListName}")`,
+          {
+            collection: {
+              kind: spec.CollectionKind.Array,
+              elementtype: param.type,
+            },
+          },
+          param.name,
+        );
+      } else {
+        validate.call(
+          this,
+          param.name,
+          `.append("${param.name}")`,
+          param.type,
+          param.name,
+        );
+      }
     }
 
     function validate(
