@@ -708,7 +708,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       `${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(
         method,
-      )})${methodThrowsDecl(method)}`,
+      )})${methodThrowsDecl(method, this.runtimeTypeChecking)}`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
@@ -3507,8 +3507,11 @@ function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
-function methodThrowsDecl(method: spec.Callable): string {
-  return methodParametersContainUnionType(method)
+function methodThrowsDecl(
+  method: spec.Callable,
+  runtimeTypeChecking: boolean,
+): string {
+  return methodParametersContainUnionType(method) && runtimeTypeChecking
     ? ' throws IllegalArgumentException'
     : '';
 }

@@ -34,8 +34,7 @@ class StructAImplementer implements StructA, StructB {
 
 public class TypeCheckingTest {
     @Test
-    public void Constructor() {
-        boolean thrown = false;
+    public void constructor() {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("good", new StructAImplementer("present"));
         map.put("bad", "Not a StructA or StructB");
@@ -50,7 +49,7 @@ public class TypeCheckingTest {
     }
 
     @Test
-    public void AnonymousObjectIsValid()
+    public void anonymousObjectIsValid()
     {
         Object anonymousObject = UseOptions.provide("A");
         assertEquals(JsiiObject.class, anonymousObject.getClass());
@@ -58,7 +57,7 @@ public class TypeCheckingTest {
     }
 
     @Test
-    public void NestedUnion() {
+    public void nestedUnion() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
         {
             ArrayList<Object> list = new ArrayList<Object>();
@@ -91,7 +90,7 @@ public class TypeCheckingTest {
     }
 
     @Test
-    public void Variadic() {
+    public void variadic() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
         {
             new VariadicTypeUnion(new StructAImplementer("present"), 1337.42);
@@ -115,7 +114,7 @@ public class TypeCheckingTest {
     }
 
     @Test
-    public void StaticMethod()
+    public void staticMethod()
     {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             StructUnionConsumer.isStructA("Not a StructA");
