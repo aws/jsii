@@ -1454,13 +1454,18 @@ class JavaGenerator extends Generator {
         this.emitStabilityAnnotations(prop);
         const signature = `${modifiers.join(
           ' ',
-        )} void set${propName}(final ${type} value)`;
+        )} void set${propName}(final ${type} value)${methodThrowsDecl(
+          { parameters: [{ name: 'value', type: prop.type }] },
+          this.runtimeTypeChecking,
+        )}`;
         if (prop.abstract && !defaultImpl) {
           this.code.line(`${signature};`);
         } else {
           this.code.openBlock(signature);
           let statement = '';
 
+          // do not emit these checks for primitive-only unions,
+          // because Java does not allow the check these in this case (eg if a String instanceof Number)
           if (type.includes('java.lang.Object')) {
             this.emitUnionParameterValdation([
               { name: 'value', type: prop.type },
@@ -1520,7 +1525,12 @@ class JavaGenerator extends Generator {
     if (method.abstract && !defaultImpl) {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
-      this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
+      this.code.openBlock(
+        `${modifiers.join(' ')} ${signature}${methodThrowsDecl(
+          method,
+          this.runtimeTypeChecking,
+        )}`,
+      );
       this.emitUnionParameterValdation(method.parameters);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();

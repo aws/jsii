@@ -27889,6 +27889,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                             ┣━ 📄 AllTypes.java.diff
                             ┣━ 📁 anonymous
                             ┃  ┗━ 📄 UseOptions.java.diff
+                            ┣━ 📄 Calculator.java.diff
                             ┣━ 📄 ClassWithCollectionOfUnions.java.diff
                             ┣━ 📄 ClassWithNestedUnion.java.diff
                             ┣━ 📄 ConfusingToJackson.java.diff
@@ -27899,12 +27900,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java	--runtime-type-checking
-@@ -220,10 +220,27 @@
+@@ -219,12 +219,29 @@
+     }
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
+-    public void setUnionArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
++    public void setUnionArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) throws IllegalArgumentException {
+ 
 +        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
 +            if (
 +                 !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.lang.Number)
@@ -27927,12 +27931,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
-@@ -234,10 +251,28 @@
+@@ -234,12 +251,30 @@
+     }
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) {
+-    public void setUnionMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) {
++    public void setUnionMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) throws IllegalArgumentException {
+ 
 +        for (java.util.Map.Entry<String, java.lang.Object> __item_ac66f0: ((java.util.Map<java.lang.String, java.lang.Object>)(value)).entrySet()) {
 +            if (
 +                 !(__item_ac66f0.getValue() instanceof java.lang.String)
@@ -27956,6 +27963,84 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
+@@ -249,35 +284,35 @@
+     }
+ 
+     /**
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+     }
+ 
+     /**
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.lang.Number value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+     }
+ 
+     /**
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+     }
+ 
+     /**
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Multiply value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Multiply value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+     }
+ 
+     /**
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/Calculator.java.diff 1`] = `
+--- java/src/main/java/software/amazon/jsii/tests/calculator/Calculator.java	--no-runtime-type-checking
++++ java/src/main/java/software/amazon/jsii/tests/calculator/Calculator.java	--runtime-type-checking
+@@ -169,29 +169,29 @@
+ 
+     /**
+      * Example of a property that accepts a union of types.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Add value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Add value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", value);
+     }
+ 
+     /**
+      * Example of a property that accepts a union of types.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Multiply value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Multiply value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", value);
+     }
+ 
+     /**
+      * Example of a property that accepts a union of types.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Power value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Power value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", value);
+     }
+ 
+     /**
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java.diff 1`] = `
@@ -27995,12 +28080,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
-@@ -34,8 +53,27 @@
+@@ -33,10 +52,29 @@
+     }
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> value) {
+-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> value) throws IllegalArgumentException {
+ 
 +        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(value)).size(); __idx_ac66f0++) {
 +            for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(value)).get(__idx_ac66f0))).entrySet()) {
 +                if (
@@ -28098,12 +28186,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
-@@ -34,8 +89,63 @@
+@@ -33,10 +88,65 @@
+     }
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
+-    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) throws IllegalArgumentException {
+ 
 +        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
 +            if (
 +                 !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.Map)
@@ -28167,12 +28258,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--runtime-type-checking
-@@ -48,8 +48,42 @@
+@@ -40,18 +40,52 @@
+     }
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<java.lang.Object> value) {
+-    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.IFriendly value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.IFriendly value) throws IllegalArgumentException {
+ 
+         software.amazon.jsii.Kernel.set(this, "unionProperty", value);
+     }
+ 
+     /**
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+-    public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<java.lang.Object> value) {
++    public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<java.lang.Object> value) throws IllegalArgumentException {
+ 
 +        if (
 +             !(value instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
 +            && !(value instanceof java.util.List)
@@ -28215,12 +28318,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java	--runtime-type-checking
-@@ -18,18 +18,48 @@
+@@ -17,21 +17,51 @@
+ 
      /**
       * @param struct This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
+-    public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
++    public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) throws IllegalArgumentException {
+ 
 +        if (
 +             !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
 +            && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
@@ -28243,7 +28349,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
       * @param struct This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
+-    public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
++    public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) throws IllegalArgumentException {
+ 
 +        if (
 +             !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
 +            && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
@@ -28302,12 +28410,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
-@@ -34,8 +52,25 @@
+@@ -33,10 +51,27 @@
+     }
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
+-    public void setUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
++    public void setUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) throws IllegalArgumentException {
+ 
 +        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
 +            if (
 +                 !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -28333,12 +28444,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java	--runtime-type-checking
-@@ -18,10 +18,25 @@
+@@ -17,12 +17,27 @@
+ 
      /**
       * @param option This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
+-    public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
++    public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) throws IllegalArgumentException {
+ 
 +        if (
 +             !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionA)
 +            && !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionB)
