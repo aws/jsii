@@ -73,7 +73,7 @@ func CloseClient() {
 
 // newClient initializes a client, making it ready for business.
 func newClient() (*Client, error) {
-	if process, err := process.NewProcess(fmt.Sprintf("^%s", version)); err != nil {
+	if process, err := process.NewProcess(fmt.Sprintf("^%v", version)); err != nil {
 		return nil, err
 	} else {
 		result := &Client{

@@ -25,6 +25,8 @@ exports[`diamond-struct-parameter.ts: <outDir>/ 1`] = `
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┗━ 📄 jsii.go
  ┃     ┣━ 📄 testpkg_Baz.go
+ ┃     ┣━ 📄 testpkg_Consumer__no_runtime_type_checking.go
+ ┃     ┣━ 📄 testpkg_Consumer__runtime_type_checks.go
  ┃     ┣━ 📄 testpkg_Consumer.go
  ┃     ┣━ 📄 testpkg_Foo.go
  ┃     ┣━ 📄 testpkg_FooBar.go
@@ -482,11 +484,57 @@ type jsiiProxy_Consumer struct {
 func Consumer_ConsumeBaz(baz *Baz) {
 	_init_.Initialize()
 
+	if err := validateConsumer_ConsumeBazParameters(baz); err != nil {
+		panic(err)
+	}
 	_jsii_.StaticInvokeVoid(
 		"testpkg.Consumer",
 		"consumeBaz",
 		[]interface{}{baz},
 	)
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__no_runtime_type_checking.go 1`] = `
+//go:build no_runtime_type_checking
+// +build no_runtime_type_checking
+
+// testpkg
+package testpkg
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
+	return nil
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__runtime_type_checks.go 1`] = `
+//go:build !no_runtime_type_checking
+// +build !no_runtime_type_checking
+
+// testpkg
+package testpkg
+
+import (
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
+	if baz == nil {
+		return fmt.Errorf("parameter baz is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(baz, func() string { return "parameter baz" }); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 

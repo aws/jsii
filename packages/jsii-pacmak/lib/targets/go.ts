@@ -18,7 +18,7 @@ export class Golang extends Target {
 
   public constructor(options: TargetOptions) {
     super(options);
-    this.goGenerator = new GoGenerator(options.rosetta);
+    this.goGenerator = new GoGenerator(options);
   }
 
   public get generator() {
@@ -146,8 +146,16 @@ class GoGenerator implements IGenerator {
   });
   private readonly documenter: Documentation;
 
-  public constructor(private readonly rosetta: Rosetta) {
+  private readonly rosetta: Rosetta;
+  private readonly runtimeTypeChecking: boolean;
+
+  public constructor(options: {
+    readonly rosetta: Rosetta;
+    readonly runtimeTypeChecking: boolean;
+  }) {
+    this.rosetta = options.rosetta;
     this.documenter = new Documentation(this.code, this.rosetta);
+    this.runtimeTypeChecking = options.runtimeTypeChecking;
   }
 
   public async load(_: string, assembly: Assembly): Promise<void> {
@@ -165,6 +173,7 @@ class GoGenerator implements IGenerator {
     return this.rootPackage.emit({
       code: this.code,
       documenter: this.documenter,
+      runtimeTypeChecking: this.runtimeTypeChecking,
     });
   }
 

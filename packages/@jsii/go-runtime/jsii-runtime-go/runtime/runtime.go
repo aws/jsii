@@ -97,6 +97,16 @@ func RegisterStruct(fqn FQN, strct reflect.Type) {
 	}
 }
 
+// RegisterStructValidator adds a validator function to an already registered
+// struct type. This is separate call largely to maintain backwards compatibility
+// with existing code.
+func RegisterStructValidator(strct reflect.Type, validator func(interface{}, func() string) error) {
+	client := kernel.GetClient()
+	if err := client.Types().RegisterStructValidator(strct, validator); err != nil {
+		panic(err)
+	}
+}
+
 // InitJsiiProxy initializes a jsii proxy instance at the provided pointer.
 // Panics if the pointer cannot be initialized to a proxy instance (i.e: the
 // element of it is not a registered jsii interface or class type).
@@ -105,6 +115,12 @@ func InitJsiiProxy(ptr interface{}) {
 	if err := kernel.GetClient().Types().InitJsiiProxy(ptrVal, ptrVal.Type()); err != nil {
 		panic(err)
 	}
+}
+
+// IsAnonymousProxy tells whether the value v is an anonymous object proxy, or
+// a pointer to one.
+func IsAnonymousProxy(v interface{}) bool {
+	return kernel.GetClient().Types().IsAnonymousProxy(v)
 }
 
 // Create will construct a new JSII object within the kernel runtime. This is
@@ -147,7 +163,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 	// If overriding struct has no overriding methods, could happen if
 	// overriding methods are not defined with pointer receiver.
 	if len(mOverrides) == 0 && !strings.HasPrefix(instType.Name(), "jsiiProxy_") {
-		panic(fmt.Errorf("%s has no overriding methods. Overriding methods must be defined with a pointer receiver", instType.Name()))
+		panic(fmt.Errorf("%v has no overriding methods. Overriding methods must be defined with a pointer receiver", instType.Name()))
 	}
 	var overrides []api.Override
 	registry := client.Types()
@@ -375,7 +391,7 @@ func getMethodOverrides(ptr interface{}, basePrefix string) (methods []string) {
 	mCache := make(map[string]bool)
 	getMethodOverridesRec(ptr, basePrefix, mCache)
 	// Return overriden methods names in embedding hierarchy
-	for m, _ := range mCache {
+	for m := range mCache {
 		methods = append(methods, m)
 	}
 	return
