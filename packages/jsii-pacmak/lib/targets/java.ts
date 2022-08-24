@@ -1535,6 +1535,10 @@ class JavaGenerator extends Generator {
   private emitUnionParameterValdation(
     parameters?: readonly spec.Parameter[],
   ): void {
+    if (!this.runtimeTypeChecking) {
+      // We were configured not to emit those, so bail out now.
+      return;
+    }
     const unionParameters = parameters?.filter(({ type }) =>
       containsUnionType(type),
     );
