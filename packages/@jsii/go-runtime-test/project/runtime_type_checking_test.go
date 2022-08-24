@@ -79,6 +79,16 @@ func TestNestedUnion(t *testing.T) {
 	}()
 }
 
+func TestVariadic(t *testing.T) {
+	func() {
+		defer expectPanic(t, "parameter union[1] must be one of the allowed types: *StructA, *StructB; received 1337.42 (a float64)")
+		jsiicalc.NewVariadicTypeUnion(jsiicalc.StructA{RequiredString: jsii.String("present")}, 1337.42)
+	}()
+
+	// Should not raise
+	jsiicalc.NewVariadicTypeUnion()
+}
+
 func expectPanic(t *testing.T, expected string) {
 	if err := recover(); err != nil {
 		actual := fmt.Sprintf("%v", err)

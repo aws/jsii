@@ -97,5 +97,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 }));
             Assert.Equal("Expected argument unionProperty[0][\"bad\"] to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.String (Parameter 'unionProperty')", exception3.Message);
         }
+
+        [Fact(DisplayName = Prefix + nameof(Variadic))]
+        public void Variadic()
+        {
+            var exception1 = Assert.Throws<System.ArgumentException>(() =>
+                new VariadicTypeUnion(
+                    new StructA{RequiredString = "present"},
+                    1337.42
+                ));
+            Assert.Equal("Expected argument union[1] to be one of: Amazon.JSII.Tests.CalculatorNamespace.IStructA, Amazon.JSII.Tests.CalculatorNamespace.IStructB; received System.Double (Parameter 'union')", exception1.Message);
+
+            Assert.NotNull(new VariadicTypeUnion());
+        }
     }
 }

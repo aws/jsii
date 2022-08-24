@@ -3905,6 +3905,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 UsesInterfaceWithProperties.java
           ┃                 ┣━ 📄 VariadicInvoker.java
           ┃                 ┣━ 📄 VariadicMethod.java
+          ┃                 ┣━ 📄 VariadicTypeUnion.java
           ┃                 ┣━ 📄 VirtualMethodPlayground.java
           ┃                 ┣━ 📄 VoidCallback.java
           ┃                 ┗━ 📄 WithPrivatePropertyInConstructor.java
@@ -23130,6 +23131,50 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.VariadicTypeUnion")
+public class VariadicTypeUnion extends software.amazon.jsii.JsiiObject {
+
+    protected VariadicTypeUnion(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected VariadicTypeUnion(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param union This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public VariadicTypeUnion(final @org.jetbrains.annotations.NotNull java.lang.Object... union) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(union).toArray(Object[]::new));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getUnion() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.Kernel.get(this, "union", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void setUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
+        software.amazon.jsii.Kernel.set(this, "union", java.util.Objects.requireNonNull(value, "union is required"));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/VirtualMethodPlayground.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -27768,6 +27813,7 @@ jsii-calc.UseCalcBase=software.amazon.jsii.tests.calculator.UseCalcBase
 jsii-calc.UsesInterfaceWithProperties=software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties
 jsii-calc.VariadicInvoker=software.amazon.jsii.tests.calculator.VariadicInvoker
 jsii-calc.VariadicMethod=software.amazon.jsii.tests.calculator.VariadicMethod
+jsii-calc.VariadicTypeUnion=software.amazon.jsii.tests.calculator.VariadicTypeUnion
 jsii-calc.VirtualMethodPlayground=software.amazon.jsii.tests.calculator.VirtualMethodPlayground
 jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor

@@ -494,71 +494,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/version 1`]
 
 exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 1`] = `
 <runtime-type-check-diff>
- ┗━ 📁 go
-    ┗━ 📁 jcb
-       ┣━ 🆕 jcb_StaticConsumer__no_runtime_type_checking.go
-       ┣━ 🆕 jcb_StaticConsumer__runtime_type_checks.go
-       ┗━ 📄 jcb_StaticConsumer.go.diff
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/go/jcb/jcb_StaticConsumer.go.diff 1`] = `
---- go/jcb/jcb_StaticConsumer.go	--no-runtime-type-checking
-+++ go/jcb/jcb_StaticConsumer.go	--runtime-type-checking
-@@ -40,10 +40,13 @@
- }
- 
- func StaticConsumer_Consume(args ...interface{}) {
- 	_init_.Initialize()
- 
-+	if err := validateStaticConsumer_ConsumeParameters(args); err != nil {
-+		panic(err)
-+	}
- 	args_ := []interface{}{}
- 	for _, a := range args {
- 		args_ = append(args_, a)
- 	}
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/go/jcb/jcb_StaticConsumer__no_runtime_type_checking.go.diff 1`] = `
---- go/jcb/jcb_StaticConsumer__no_runtime_type_checking.go	--no-runtime-type-checking
-+++ go/jcb/jcb_StaticConsumer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
-+//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
-+
-+// An example direct dependency for jsii-calc.
-+package jcb
-+
-+// Building without runtime type checking enabled, so all the below just return nil
-+
-+func validateStaticConsumer_ConsumeParameters(args []interface{}) error {
-+	return nil
-+}
-+
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/go/jcb/jcb_StaticConsumer__runtime_type_checks.go.diff 1`] = `
---- go/jcb/jcb_StaticConsumer__runtime_type_checks.go	--no-runtime-type-checking
-+++ go/jcb/jcb_StaticConsumer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
-+//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
-+
-+// An example direct dependency for jsii-calc.
-+package jcb
-+
-+import (
-+	"fmt"
-+)
-+
-+func validateStaticConsumer_ConsumeParameters(args []interface{}) error {
-+	if args == nil {
-+		return fmt.Errorf("parameter args is required, but nil was provided")
-+	}
-+
-+	return nil
-+}
-+
+┗━ 🕳 There is nothing here
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
@@ -1019,71 +955,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/ 1`] = `
 <runtime-type-check-diff>
- ┗━ 📁 go
-    ┗━ 📁 scopejsiicalcbaseofbase
-       ┣━ 🆕 scopejsiicalcbaseofbase_StaticConsumer__no_runtime_type_checking.go
-       ┣━ 🆕 scopejsiicalcbaseofbase_StaticConsumer__runtime_type_checks.go
-       ┗━ 📄 scopejsiicalcbaseofbase_StaticConsumer.go.diff
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer.go.diff 1`] = `
---- go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer.go	--no-runtime-type-checking
-+++ go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer.go	--runtime-type-checking
-@@ -15,10 +15,13 @@
- }
- 
- func StaticConsumer_Consume(_args ...interface{}) {
- 	_init_.Initialize()
- 
-+	if err := validateStaticConsumer_ConsumeParameters(_args); err != nil {
-+		panic(err)
-+	}
- 	args := []interface{}{}
- 	for _, a := range _args {
- 		args = append(args, a)
- 	}
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__no_runtime_type_checking.go.diff 1`] = `
---- go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__no_runtime_type_checking.go	--no-runtime-type-checking
-+++ go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
-+//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
-+
-+// An example transitive dependency for jsii-calc.
-+package scopejsiicalcbaseofbase
-+
-+// Building without runtime type checking enabled, so all the below just return nil
-+
-+func validateStaticConsumer_ConsumeParameters(_args []interface{}) error {
-+	return nil
-+}
-+
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__runtime_type_checks.go.diff 1`] = `
---- go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__runtime_type_checks.go	--no-runtime-type-checking
-+++ go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase_StaticConsumer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
-+//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
-+
-+// An example transitive dependency for jsii-calc.
-+package scopejsiicalcbaseofbase
-+
-+import (
-+	"fmt"
-+)
-+
-+func validateStaticConsumer_ConsumeParameters(_args []interface{}) error {
-+	if _args == nil {
-+		return fmt.Errorf("parameter _args is required, but nil was provided")
-+	}
-+
-+	return nil
-+}
-+
+┗━ 🕳 There is nothing here
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
@@ -2821,6 +2693,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_UsesInterfaceWithProperties.go
        ┣━ 📄 jsiicalc_VariadicInvoker.go
        ┣━ 📄 jsiicalc_VariadicMethod.go
+       ┣━ 📄 jsiicalc_VariadicTypeUnion.go
        ┣━ 📄 jsiicalc_VirtualMethodPlayground.go
        ┣━ 📄 jsiicalc_VoidCallback.go
        ┣━ 📄 jsiicalc_WithPrivatePropertyInConstructor.go
@@ -6498,6 +6371,16 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_VariadicMethod{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.VariadicTypeUnion",
+		reflect.TypeOf((*VariadicTypeUnion)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "union", GoGetter: "Union"},
+		},
+		func() interface{} {
+			return &jsiiProxy_VariadicTypeUnion{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -20996,6 +20879,81 @@ func (v *jsiiProxy_VariadicMethod) AsArray(first *float64, others ...*float64) *
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VariadicTypeUnion.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type VariadicTypeUnion interface {
+	Union() *[]interface{}
+	SetUnion(val *[]interface{})
+}
+
+// The jsii proxy struct for VariadicTypeUnion
+type jsiiProxy_VariadicTypeUnion struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_VariadicTypeUnion) Union() *[]interface{} {
+	var returns *[]interface{}
+	_jsii_.Get(
+		j,
+		"union",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewVariadicTypeUnion(union ...interface{}) VariadicTypeUnion {
+	_init_.Initialize()
+
+	args := []interface{}{}
+	for _, a := range union {
+		args = append(args, a)
+	}
+
+	j := jsiiProxy_VariadicTypeUnion{}
+
+	_jsii_.Create(
+		"jsii-calc.VariadicTypeUnion",
+		args,
+		&j,
+	)
+
+	return &j
+}
+
+func NewVariadicTypeUnion_Override(v VariadicTypeUnion, union ...interface{}) {
+	_init_.Initialize()
+
+	args := []interface{}{}
+	for _, a := range union {
+		args = append(args, a)
+	}
+
+	_jsii_.Create(
+		"jsii-calc.VariadicTypeUnion",
+		args,
+		v,
+	)
+}
+
+func (j *jsiiProxy_VariadicTypeUnion)SetUnion(val *[]interface{}) {
+	_jsii_.Set(
+		j,
+		"union",
+		val,
+	)
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_VirtualMethodPlayground.go 1`] = `
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24326,9 +24284,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 jsiicalc_DoNotRecognizeAnyAsOptional__no_runtime_type_checking.go
        ┣━ 🆕 jsiicalc_DoNotRecognizeAnyAsOptional__runtime_type_checks.go
        ┣━ 📄 jsiicalc_DoNotRecognizeAnyAsOptional.go.diff
-       ┣━ 🆕 jsiicalc_DontComplainAboutVariadicAfterOptional__no_runtime_type_checking.go
-       ┣━ 🆕 jsiicalc_DontComplainAboutVariadicAfterOptional__runtime_type_checks.go
-       ┣━ 📄 jsiicalc_DontComplainAboutVariadicAfterOptional.go.diff
        ┣━ 🆕 jsiicalc_DynamicPropertyBearer__no_runtime_type_checking.go
        ┣━ 🆕 jsiicalc_DynamicPropertyBearer__runtime_type_checks.go
        ┣━ 📄 jsiicalc_DynamicPropertyBearer.go.diff
@@ -24508,6 +24463,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 jsiicalc_VariadicMethod__no_runtime_type_checking.go
        ┣━ 🆕 jsiicalc_VariadicMethod__runtime_type_checks.go
        ┣━ 📄 jsiicalc_VariadicMethod.go.diff
+       ┣━ 🆕 jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go
+       ┣━ 🆕 jsiicalc_VariadicTypeUnion__runtime_type_checks.go
+       ┣━ 📄 jsiicalc_VariadicTypeUnion.go.diff
        ┣━ 🆕 jsiicalc_VirtualMethodPlayground__no_runtime_type_checking.go
        ┣━ 🆕 jsiicalc_VirtualMethodPlayground__runtime_type_checks.go
        ┣━ 📄 jsiicalc_VirtualMethodPlayground.go.diff
@@ -28892,66 +28850,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +
 `;
 
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional.go.diff 1`] = `
---- go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional.go	--no-runtime-type-checking
-+++ go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional.go	--runtime-type-checking
-@@ -38,10 +38,13 @@
- 		d,
- 	)
- }
- 
- func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(optional *string, things ...*string) *string {
-+	if err := d.validateOptionalAndVariadicParameters(things); err != nil {
-+		panic(err)
-+	}
- 	args := []interface{}{optional}
- 	for _, a := range things {
- 		args = append(args, a)
- 	}
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__no_runtime_type_checking.go.diff 1`] = `
---- go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__no_runtime_type_checking.go	--no-runtime-type-checking
-+++ go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
-+//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
-+
-+// A simple calcuator built on JSII.
-+package jsiicalc
-+
-+// Building without runtime type checking enabled, so all the below just return nil
-+
-+func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) validateOptionalAndVariadicParameters(things []*string) error {
-+	return nil
-+}
-+
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__runtime_type_checks.go.diff 1`] = `
---- go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__runtime_type_checks.go	--no-runtime-type-checking
-+++ go/jsiicalc/jsiicalc_DontComplainAboutVariadicAfterOptional__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
-+//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
-+
-+// A simple calcuator built on JSII.
-+package jsiicalc
-+
-+import (
-+	"fmt"
-+)
-+
-+func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) validateOptionalAndVariadicParameters(things []*string) error {
-+	if things == nil {
-+		return fmt.Errorf("parameter things is required, but nil was provided")
-+	}
-+
-+	return nil
-+}
-+
-`;
-
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DynamicPropertyBearer.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DynamicPropertyBearer.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DynamicPropertyBearer.go	--runtime-type-checking
@@ -32451,7 +32349,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
  func StructPassing_HowManyVarArgsDidIPass(_positional *float64, inputs ...*TopLevelStruct) *float64 {
  	_init_.Initialize()
  
-+	if err := validateStructPassing_HowManyVarArgsDidIPassParameters(_positional, inputs); err != nil {
++	if err := validateStructPassing_HowManyVarArgsDidIPassParameters(_positional, &inputs); err != nil {
 +		panic(err)
 +	}
  	args := []interface{}{_positional}
@@ -32487,7 +32385,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +
 +// Building without runtime type checking enabled, so all the below just return nil
 +
-+func validateStructPassing_HowManyVarArgsDidIPassParameters(_positional *float64, inputs []*TopLevelStruct) error {
++func validateStructPassing_HowManyVarArgsDidIPassParameters(_positional *float64, inputs *[]*TopLevelStruct) error {
 +	return nil
 +}
 +
@@ -32500,7 +32398,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,41 @@
 +//go:build !no_runtime_type_checking
 +// +build !no_runtime_type_checking
 +
@@ -32513,16 +32411,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 +)
 +
-+func validateStructPassing_HowManyVarArgsDidIPassParameters(_positional *float64, inputs []*TopLevelStruct) error {
++func validateStructPassing_HowManyVarArgsDidIPassParameters(_positional *float64, inputs *[]*TopLevelStruct) error {
 +	if _positional == nil {
 +		return fmt.Errorf("parameter _positional is required, but nil was provided")
 +	}
 +
-+	if inputs == nil {
-+		return fmt.Errorf("parameter inputs is required, but nil was provided")
-+	}
-+	if err := _jsii_.ValidateStruct(inputs, func() string { return "parameter inputs" }); err != nil {
-+		return err
++	for idx_323815, v := range *inputs {
++		if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter inputs[%#v]", idx_323815) }); err != nil {
++			return err
++		}
 +	}
 +
 +	return nil
@@ -32858,7 +32755,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
  func NewSupportsNiceJavaBuilder(id *float64, defaultBar *float64, props *SupportsNiceJavaBuilderProps, rest ...*string) SupportsNiceJavaBuilder {
  	_init_.Initialize()
  
-+	if err := validateNewSupportsNiceJavaBuilderParameters(id, props, rest); err != nil {
++	if err := validateNewSupportsNiceJavaBuilderParameters(id, props); err != nil {
 +		panic(err)
 +	}
  	args := []interface{}{id, defaultBar, props}
@@ -32879,7 +32776,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +
 +// Building without runtime type checking enabled, so all the below just return nil
 +
-+func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNiceJavaBuilderProps, rest []*string) error {
++func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNiceJavaBuilderProps) error {
 +	return nil
 +}
 +
@@ -32888,7 +32785,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,24 @@
 +//go:build !no_runtime_type_checking
 +// +build !no_runtime_type_checking
 +
@@ -32901,17 +32798,13 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 +)
 +
-+func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNiceJavaBuilderProps, rest []*string) error {
++func validateNewSupportsNiceJavaBuilderParameters(id *float64, props *SupportsNiceJavaBuilderProps) error {
 +	if id == nil {
 +		return fmt.Errorf("parameter id is required, but nil was provided")
 +	}
 +
 +	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
-+	}
-+
-+	if rest == nil {
-+		return fmt.Errorf("parameter rest is required, but nil was provided")
 +	}
 +
 +	return nil
@@ -33573,25 +33466,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
  	_jsii_.Create(
  		"jsii-calc.VariadicInvoker",
  		[]interface{}{method},
-@@ -38,10 +41,13 @@
- 		v,
- 	)
- }
- 
- func (v *jsiiProxy_VariadicInvoker) AsArray(values ...*float64) *[]*float64 {
-+	if err := v.validateAsArrayParameters(values); err != nil {
-+		panic(err)
-+	}
- 	args := []interface{}{}
- 	for _, a := range values {
- 		args = append(args, a)
- 	}
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,12 @@
 +//go:build no_runtime_type_checking
 +// +build no_runtime_type_checking
 +
@@ -33599,10 +33479,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +package jsiicalc
 +
 +// Building without runtime type checking enabled, so all the below just return nil
-+
-+func (v *jsiiProxy_VariadicInvoker) validateAsArrayParameters(values []*float64) error {
-+	return nil
-+}
 +
 +func validateNewVariadicInvokerParameters(method VariadicMethod) error {
 +	return nil
@@ -33613,7 +33489,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,18 @@
 +//go:build !no_runtime_type_checking
 +// +build !no_runtime_type_checking
 +
@@ -33623,14 +33499,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +import (
 +	"fmt"
 +)
-+
-+func (v *jsiiProxy_VariadicInvoker) validateAsArrayParameters(values []*float64) error {
-+	if values == nil {
-+		return fmt.Errorf("parameter values is required, but nil was provided")
-+	}
-+
-+	return nil
-+}
 +
 +func validateNewVariadicInvokerParameters(method VariadicMethod) error {
 +	if method == nil {
@@ -33645,27 +33513,13 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicMethod.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicMethod.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicMethod.go	--runtime-type-checking
-@@ -16,10 +16,13 @@
- }
- 
- func NewVariadicMethod(prefix ...*float64) VariadicMethod {
- 	_init_.Initialize()
- 
-+	if err := validateNewVariadicMethodParameters(prefix); err != nil {
-+		panic(err)
-+	}
- 	args := []interface{}{}
- 	for _, a := range prefix {
- 		args = append(args, a)
- 	}
- 
-@@ -48,10 +51,13 @@
+@@ -48,10 +48,13 @@
  		v,
  	)
  }
  
  func (v *jsiiProxy_VariadicMethod) AsArray(first *float64, others ...*float64) *[]*float64 {
-+	if err := v.validateAsArrayParameters(first, others); err != nil {
++	if err := v.validateAsArrayParameters(first); err != nil {
 +		panic(err)
 +	}
  	args := []interface{}{first}
@@ -33677,7 +33531,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,12 @@
 +//go:build no_runtime_type_checking
 +// +build no_runtime_type_checking
 +
@@ -33686,11 +33540,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +
 +// Building without runtime type checking enabled, so all the below just return nil
 +
-+func (v *jsiiProxy_VariadicMethod) validateAsArrayParameters(first *float64, others []*float64) error {
-+	return nil
-+}
-+
-+func validateNewVariadicMethodParameters(prefix []*float64) error {
++func (v *jsiiProxy_VariadicMethod) validateAsArrayParameters(first *float64) error {
 +	return nil
 +}
 +
@@ -33699,7 +33549,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,30 @@
+@@ -0,0 +1,18 @@
 +//go:build !no_runtime_type_checking
 +// +build !no_runtime_type_checking
 +
@@ -33710,21 +33560,155 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	"fmt"
 +)
 +
-+func (v *jsiiProxy_VariadicMethod) validateAsArrayParameters(first *float64, others []*float64) error {
++func (v *jsiiProxy_VariadicMethod) validateAsArrayParameters(first *float64) error {
 +	if first == nil {
 +		return fmt.Errorf("parameter first is required, but nil was provided")
-+	}
-+
-+	if others == nil {
-+		return fmt.Errorf("parameter others is required, but nil was provided")
 +	}
 +
 +	return nil
 +}
 +
-+func validateNewVariadicMethodParameters(prefix []*float64) error {
-+	if prefix == nil {
-+		return fmt.Errorf("parameter prefix is required, but nil was provided")
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicTypeUnion.go.diff 1`] = `
+--- go/jsiicalc/jsiicalc_VariadicTypeUnion.go	--no-runtime-type-checking
++++ go/jsiicalc/jsiicalc_VariadicTypeUnion.go	--runtime-type-checking
+@@ -28,10 +28,13 @@
+ 
+ 
+ func NewVariadicTypeUnion(union ...interface{}) VariadicTypeUnion {
+ 	_init_.Initialize()
+ 
++	if err := validateNewVariadicTypeUnionParameters(&union); err != nil {
++		panic(err)
++	}
+ 	args := []interface{}{}
+ 	for _, a := range union {
+ 		args = append(args, a)
+ 	}
+ 
+@@ -60,10 +63,13 @@
+ 		v,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_VariadicTypeUnion)SetUnion(val *[]interface{}) {
++	if err := j.validateSetUnionParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"union",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go.diff 1`] = `
+--- go/jsiicalc/jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go	--no-runtime-type-checking
++++ go/jsiicalc/jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build no_runtime_type_checking
++// +build no_runtime_type_checking
++
++// A simple calcuator built on JSII.
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (j *jsiiProxy_VariadicTypeUnion) validateSetUnionParameters(val *[]interface{}) error {
++	return nil
++}
++
++func validateNewVariadicTypeUnionParameters(union *[]interface{}) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicTypeUnion__runtime_type_checks.go.diff 1`] = `
+--- go/jsiicalc/jsiicalc_VariadicTypeUnion__runtime_type_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/jsiicalc_VariadicTypeUnion__runtime_type_checks.go	--runtime-type-checking
+@@ -0,0 +1,85 @@
++//go:build !no_runtime_type_checking
++// +build !no_runtime_type_checking
++
++// A simple calcuator built on JSII.
++package jsiicalc
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func (j *jsiiProxy_VariadicTypeUnion) validateSetUnionParameters(val *[]interface{}) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++	for idx_97dfc6, v := range *val {
++		switch v.(type) {
++		case *StructA:
++			v := v.(*StructA)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v]", idx_97dfc6) }); err != nil {
++				return err
++			}
++		case StructA:
++			v_ := v.(StructA)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v]", idx_97dfc6) }); err != nil {
++				return err
++			}
++		case *StructB:
++			v := v.(*StructB)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v]", idx_97dfc6) }); err != nil {
++				return err
++			}
++		case StructB:
++			v_ := v.(StructB)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v]", idx_97dfc6) }); err != nil {
++				return err
++			}
++		default:
++			if !_jsii_.IsAnonymousProxy(v) {
++				return fmt.Errorf("parameter val[%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, v, v)
++			}
++		}
++	}
++
++	return nil
++}
++
++func validateNewVariadicTypeUnionParameters(union *[]interface{}) error {
++	for idx_ef3ff7, v := range *union {
++		switch v.(type) {
++		case *StructA:
++			v := v.(*StructA)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter union[%#v]", idx_ef3ff7) }); err != nil {
++				return err
++			}
++		case StructA:
++			v_ := v.(StructA)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter union[%#v]", idx_ef3ff7) }); err != nil {
++				return err
++			}
++		case *StructB:
++			v := v.(*StructB)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter union[%#v]", idx_ef3ff7) }); err != nil {
++				return err
++			}
++		case StructB:
++			v_ := v.(StructB)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter union[%#v]", idx_ef3ff7) }); err != nil {
++				return err
++			}
++		default:
++			if !_jsii_.IsAnonymousProxy(v) {
++				return fmt.Errorf("parameter union[%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_ef3ff7, v, v)
++			}
++		}
 +	}
 +
 +	return nil

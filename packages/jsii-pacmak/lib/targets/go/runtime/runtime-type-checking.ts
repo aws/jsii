@@ -83,13 +83,15 @@ export class ParameterValidator {
       const descr = `parameter ${param.name}`;
 
       const validations = new Array<Validation>();
-      if (!param.isOptional) {
+      if (!param.isOptional && !param.isVariadic) {
         validations.push(Validation.nullCheck(expr, descr, param.reference));
       }
       const validation = Validation.forTypeMap(
         expr,
         descr,
-        param.reference.typeMap,
+        param.isVariadic
+          ? { type: 'array', value: param.reference }
+          : param.reference.typeMap,
       );
       if (validation) {
         validations.push(validation);
@@ -144,7 +146,9 @@ export class ParameterValidator {
 
   public emitCall(code: CodeMaker): void {
     const recv = this.receiver?.name ? `${this.receiver.name}.` : '';
-    const params = this.parameters.map((p) => p.name).join(', ');
+    const params = this.parameters
+      .map((p) => (p.isVariadic ? `&${p.name}` : p.name))
+      .join(', ');
 
     code.openBlock(`if err := ${recv}${this.name}(${params}); err != nil`);
     code.line(`panic(err)`);
@@ -162,7 +166,7 @@ export class ParameterValidator {
       }${this.name}(${this.parameters
         .map((p) =>
           p.isVariadic
-            ? `${p.name} []${p.reference.scopedReference(scope)}`
+            ? `${p.name} *[]${p.reference.scopedReference(scope)}`
             : p.toString(),
         )
         .join(', ')}) error`,
