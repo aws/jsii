@@ -708,7 +708,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       `${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(
         method,
-      )})${methodThrowsDecl(method, this.runtimeTypeChecking)}`,
+      )})${this.methodThrowsDecl(method)}`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
@@ -1454,10 +1454,14 @@ class JavaGenerator extends Generator {
         this.emitStabilityAnnotations(prop);
         const signature = `${modifiers.join(
           ' ',
-        )} void set${propName}(final ${type} value)${methodThrowsDecl(
-          { parameters: [{ name: 'value', type: prop.type }] },
-          this.runtimeTypeChecking,
-        )}`;
+        )} void set${propName}(final ${type} value)${this.methodThrowsDecl({
+          parameters: [
+            {
+              name: 'value',
+              type: prop.type,
+            },
+          ],
+        })}`;
         if (prop.abstract && !defaultImpl) {
           this.code.line(`${signature};`);
         } else {
@@ -1526,10 +1530,7 @@ class JavaGenerator extends Generator {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
       this.code.openBlock(
-        `${modifiers.join(' ')} ${signature}${methodThrowsDecl(
-          method,
-          this.runtimeTypeChecking,
-        )}`,
+        `${modifiers.join(' ')} ${signature}${this.methodThrowsDecl(method)}`,
       );
       this.emitUnionParameterValdation(method.parameters);
       this.code.line(this.renderMethodCall(cls, method, async));
@@ -3292,6 +3293,30 @@ class JavaGenerator extends Generator {
 
     return Array.from(result);
   }
+
+  private methodThrowsDecl(method: spec.Callable): string {
+    return this.methodParametersContainUnionType(method) &&
+      this.runtimeTypeChecking
+      ? ' throws IllegalArgumentException'
+      : '';
+  }
+
+  private methodParametersContainUnionType(method: spec.Callable): boolean {
+    if (!method.parameters) {
+      return false;
+    }
+
+    for (const param of method.parameters) {
+      if (
+        containsUnionType(param.type) &&
+        this.toJavaType(param.type).includes('java.lang.Object')
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
 
 /**
@@ -3517,28 +3542,7 @@ function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
-function methodThrowsDecl(
-  method: spec.Callable,
-  runtimeTypeChecking: boolean,
-): string {
-  return methodParametersContainUnionType(method) && runtimeTypeChecking
-    ? ' throws IllegalArgumentException'
-    : '';
-}
 
-function methodParametersContainUnionType(method: spec.Callable): boolean {
-  if (!method.parameters) {
-    return false;
-  }
-
-  for (const param of method.parameters) {
-    if (containsUnionType(param.type)) {
-      return true;
-    }
-  }
-
-  return false;
-}
 
 function containsUnionType(
   typeRef: spec.TypeReference,
