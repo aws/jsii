@@ -203,15 +203,21 @@ abstract class Validation {
           code.unindent(false);
         }
         code.indent('case null:');
+
+        const acceptedTypes = validTypes
+          .map((t) =>
+            t.startsWith('"')
+              ? t.slice(1, t.length - 1)
+              : t.startsWith('$"')
+              ? t.slice(2, t.length - 1)
+              : `{${t}}`,
+          )
+          .join(', ');
         if (allowNull) {
           code.line('break;');
         } else {
           const message = JSON.stringify(
-            `Expected ${description} to be one of: ${validTypes
-              .map((t) =>
-                t.startsWith('"') ? t.slice(1, t.length - 1) : `{${t}}`,
-              )
-              .join(', ')}; received null`,
+            `Expected ${description} to be one of: ${acceptedTypes}; received null`,
           );
           code.line(
             `throw new System.ArgumentException($${message}, ${argument});`,
@@ -220,11 +226,7 @@ abstract class Validation {
         code.unindent(false);
         code.indent('default:');
         const message = JSON.stringify(
-          `Expected ${description} to be one of: ${validTypes
-            .map((t) =>
-              t.startsWith('"') ? t.slice(1, t.length - 1) : `{${t}}`,
-            )
-            .join(', ')}; received {${expression}.GetType().FullName}`,
+          `Expected ${description} to be one of: ${acceptedTypes}; received {${expression}.GetType().FullName}`,
         );
         code.line(
           `throw new System.ArgumentException($${message}, ${argument});`,
