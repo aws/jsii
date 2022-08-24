@@ -279,7 +279,7 @@ export abstract class Package {
       this,
       join(
         this.directory,
-        `${this.packageName}_${type.name}__no_runtime_type_checks.go`,
+        `${this.packageName}_${type.name}__no_runtime_type_checking.go`,
       ),
       true,
     );
@@ -287,9 +287,9 @@ export abstract class Package {
     function emit(this: Package, filePath: string, forNoOp: boolean) {
       code.openFile(filePath);
       // Conditional compilation tag...
-      code.line(`//go:build ${forNoOp ? '' : '!'}no_runtime_type_checks`);
+      code.line(`//go:build ${forNoOp ? '' : '!'}no_runtime_type_checking`);
       // For go1.16 compatibility
-      code.line(`// +build ${forNoOp ? '' : '!'}no_runtime_type_checks`);
+      code.line(`// +build ${forNoOp ? '' : '!'}no_runtime_type_checking`);
       code.line();
       this.emitHeader(code);
 

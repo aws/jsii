@@ -25,7 +25,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/ 1`] = `
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┗━ 📄 jsii.go
  ┃     ┣━ 📄 testpkg_Baz.go
- ┃     ┣━ 📄 testpkg_Consumer__no_runtime_type_checks.go
+ ┃     ┣━ 📄 testpkg_Consumer__no_runtime_type_checking.go
  ┃     ┣━ 📄 testpkg_Consumer__runtime_type_checks.go
  ┃     ┣━ 📄 testpkg_Consumer.go
  ┃     ┣━ 📄 testpkg_Foo.go
@@ -497,9 +497,9 @@ func Consumer_ConsumeBaz(baz *Baz) {
 
 `;
 
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__no_runtime_type_checks.go 1`] = `
-//go:build no_runtime_type_checks
-// +build no_runtime_type_checks
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__no_runtime_type_checking.go 1`] = `
+//go:build no_runtime_type_checking
+// +build no_runtime_type_checking
 
 // testpkg
 package testpkg
@@ -514,8 +514,8 @@ func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__runtime_type_checks.go 1`] = `
-//go:build !no_runtime_type_checks
-// +build !no_runtime_type_checks
+//go:build !no_runtime_type_checking
+// +build !no_runtime_type_checking
 
 // testpkg
 package testpkg
