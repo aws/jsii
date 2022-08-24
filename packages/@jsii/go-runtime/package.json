@@ -8,13 +8,12 @@
     "build": "tsc --build && npm run gen:rt",
     "gen:rt": "node build-tools/gen.js",
     "generate": "npm run gen:rt",
-    "go:run": "go mod download && node build-tools/go-run.js",
     "package": "build-tools/package.sh && package-private",
-    "doc": "(cd jsii-runtime-go && yarn --silent go:run godoc)",
-    "fmt": "yarn --silent go:run goimports -w jsii-runtime-go",
-    "lint": "(cd jsii-runtime-go && go vet ./... && yarn --silent go:run golint ./...)",
+    "doc": "cd jsii-runtime-go && go run golang.org/x/tools/cmd/godoc",
+    "fmt": "cd jsii-runtime-go && go run golang.org/x/tools/cmd/goimports -w .",
+    "lint": "cd jsii-runtime-go && go vet ./... && go run golang.org/x/lint/golint ./...",
     "lint:fix": "yarn lint && yarn fmt",
-    "test": "(cd jsii-runtime-go && go test ./...)"
+    "test": "cd jsii-runtime-go && go test ./..."
   },
   "keywords": [],
   "author": "",

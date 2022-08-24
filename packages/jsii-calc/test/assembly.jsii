@@ -15428,6 +15428,77 @@
       "name": "VariadicMethod",
       "symbolId": "lib/compliance:VariadicMethod"
     },
+    "jsii-calc.VariadicTypeUnion": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.VariadicTypeUnion",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3089
+        },
+        "parameters": [
+          {
+            "name": "union",
+            "type": {
+              "union": {
+                "types": [
+                  {
+                    "fqn": "jsii-calc.StructA"
+                  },
+                  {
+                    "fqn": "jsii-calc.StructB"
+                  }
+                ]
+              }
+            },
+            "variadic": true
+          }
+        ],
+        "variadic": true
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3086
+      },
+      "name": "VariadicTypeUnion",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3087
+          },
+          "name": "union",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "union": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.StructA"
+                    },
+                    {
+                      "fqn": "jsii-calc.StructB"
+                    }
+                  ]
+                }
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:VariadicTypeUnion"
+    },
     "jsii-calc.VirtualMethodPlayground": {
       "assembly": "jsii-calc",
       "docs": {

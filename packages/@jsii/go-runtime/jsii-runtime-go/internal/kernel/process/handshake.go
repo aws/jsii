@@ -20,6 +20,6 @@ func (h *handshakeResponse) runtimeVersion() (*semver.Version, error) {
 	case 3:
 		return semver.NewVersion(parts[2])
 	default:
-		return nil, fmt.Errorf("invalid handshake payload: %s", h.Hello)
+		return nil, fmt.Errorf("invalid handshake payload: %v", h.Hello)
 	}
 }

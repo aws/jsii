@@ -1,5 +1,6 @@
 import { CodeMaker } from 'codemaker';
 
+import { EmitContext } from '../emit-context';
 import { GoClassConstructor } from '../types';
 import { JSII_CREATE_FUNC } from './constants';
 import { emitArguments } from './emit-arguments';
@@ -8,9 +9,13 @@ import { slugify, emitInitialization } from './util';
 export class ClassConstructor {
   public constructor(public readonly parent: GoClassConstructor) {}
 
-  public emit(code: CodeMaker) {
+  public emit({ code, runtimeTypeChecking }: EmitContext) {
     emitInitialization(code);
     code.line();
+
+    if (runtimeTypeChecking) {
+      this.parent.validator?.emitCall(code);
+    }
 
     const resultVar = slugify(
       this.parent.parent.proxyName[0],

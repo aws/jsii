@@ -31,7 +31,7 @@ func (c *Client) Load(props LoadProps, tarball []byte) (response LoadResponse, e
 	}
 
 	tmpfile, err := ioutil.TempFile("", fmt.Sprintf(
-		"%s-%s.*.tgz",
+		"%v-%v.*.tgz",
 		regexp.MustCompile("[^a-zA-Z0-9_-]").ReplaceAllString(props.Name, "-"),
 		version,
 	))

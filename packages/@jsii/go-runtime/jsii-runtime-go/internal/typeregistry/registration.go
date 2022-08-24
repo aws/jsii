@@ -23,8 +23,9 @@ type registeredType struct {
 }
 
 type registeredStruct struct {
-	FQN    api.FQN
-	Fields []reflect.StructField
+	FQN       api.FQN
+	Fields    []reflect.StructField
+	Validator func(interface{}, func() string) error
 }
 
 // RegisterClass maps the given FQN to the provided class interface, list of
@@ -36,7 +37,7 @@ func (t *TypeRegistry) RegisterClass(fqn api.FQN, class reflect.Type, overrides 
 	}
 
 	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != class {
-		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
+		return fmt.Errorf("another type was already registered with %v: %v", fqn, existing)
 	}
 
 	t.fqnToType[fqn] = registeredType{class, classType}
@@ -60,15 +61,15 @@ func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 		return fmt.Errorf("the provided enum is not a string derivative: %v", enm)
 	}
 	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != enm {
-		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
+		return fmt.Errorf("another type was already registered with %v: %v", fqn, existing)
 	}
 	if existing, exists := t.typeToEnumFQN[enm]; exists && existing != fqn {
-		return fmt.Errorf("attempted to re-register %v as %s, but it was registered as %s", enm, fqn, existing)
+		return fmt.Errorf("attempted to re-register %v as %v, but it was registered as %v", enm, fqn, existing)
 	}
 	for memberName, memberVal := range members {
 		vt := reflect.ValueOf(memberVal).Type()
 		if vt != enm {
-			return fmt.Errorf("the enum entry for key %s has incorrect type %v", memberName, vt)
+			return fmt.Errorf("the enum entry for key %v has incorrect type %v", memberName, vt)
 		}
 		// Not setting in t.fqnToEnumMember here so we don't cause any side-effects
 		// if the pre-condition fails at any point. This is done in a second loop.
@@ -77,7 +78,7 @@ func (t *TypeRegistry) RegisterEnum(fqn api.FQN, enm reflect.Type, members map[s
 	t.fqnToType[fqn] = registeredType{enm, enumType}
 	t.typeToEnumFQN[enm] = fqn
 	for memberName, memberVal := range members {
-		memberFQN := fmt.Sprintf("%s/%s", fqn, memberName)
+		memberFQN := fmt.Sprintf("%v/%v", fqn, memberName)
 		t.fqnToEnumMember[memberFQN] = memberVal
 	}
 
@@ -93,11 +94,11 @@ func (t *TypeRegistry) RegisterInterface(fqn api.FQN, iface reflect.Type, overri
 	}
 
 	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != iface {
-		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
+		return fmt.Errorf("another type was already registered with %v: %v", fqn, existing)
 	}
 
 	if existing, exists := t.typeToInterfaceFQN[iface]; exists && existing != fqn {
-		return fmt.Errorf("anoter FQN was already registered with %v: %s", iface, existing)
+		return fmt.Errorf("anoter FQN was already registered with %v: %v", iface, existing)
 	}
 
 	t.fqnToType[fqn] = registeredType{iface, interfaceType}
@@ -122,11 +123,11 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 	}
 
 	if existing, exists := t.fqnToType[fqn]; exists && existing.Type != strct {
-		return fmt.Errorf("another type was already registered with %s: %v", fqn, existing)
+		return fmt.Errorf("another type was already registered with %v: %v", fqn, existing)
 	}
 
 	if existing, exists := t.structInfo[strct]; exists && existing.FQN != fqn {
-		return fmt.Errorf("attempting to register type %s as %s, but it was already registered as: %s", strct.String(), fqn, existing.FQN)
+		return fmt.Errorf("attempting to register type %v as %v, but it was already registered as: %v", strct, fqn, existing.FQN)
 	}
 
 	numField := strct.NumField()
@@ -134,19 +135,36 @@ func (t *TypeRegistry) RegisterStruct(fqn api.FQN, strct reflect.Type) error {
 	for i := 0; i < numField; i++ {
 		field := strct.Field(i)
 		if field.Anonymous {
-			return fmt.Errorf("unexpected anonymous field %v in struct %s (%v)", field, fqn, strct)
+			return fmt.Errorf("unexpected anonymous field %v in struct %v (%v)", field, fqn, strct)
 		}
 		if field.PkgPath != "" {
-			return fmt.Errorf("unexpected un-exported field %v in struct %s (%v)", field, fqn, strct)
+			return fmt.Errorf("unexpected un-exported field %v in struct %v (%v)", field, fqn, strct)
 		}
 		if field.Tag.Get("json") == "" {
-			return fmt.Errorf("missing json tag on struct field %v of %s (%v)", field, fqn, strct)
+			return fmt.Errorf("missing json tag on struct field %v of %v (%v)", field, fqn, strct)
 		}
 		fields = append(fields, field)
 	}
 
 	t.fqnToType[fqn] = registeredType{strct, structType}
 	t.structInfo[strct] = registeredStruct{FQN: fqn, Fields: fields}
+
+	return nil
+}
+
+// RegisterStructValidator adds a validator function to an already registered struct type. This is separate call largely
+// to maintain backwards compatibility with existing code.
+func (t *TypeRegistry) RegisterStructValidator(strct reflect.Type, validator func(interface{}, func() string) error) error {
+	if strct.Kind() != reflect.Struct {
+		return fmt.Errorf("the provided struct is not a struct: %v", strct)
+	}
+
+	info, ok := t.structInfo[strct]
+	if !ok {
+		return fmt.Errorf("the provided struct %v is not registered (call RegisterStruct first)", strct)
+	}
+	info.Validator = validator
+	t.structInfo[strct] = info
 
 	return nil
 }

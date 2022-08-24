@@ -105,7 +105,7 @@ func NewProcess(compatibleVersions string) (*Process, error) {
 	// particular, we are setting NODE_OPTIONS only if `os.Environ()` does not have another value... So the user can
 	// control the environment... However, JSII_AGENT must always be controlled by this process.
 	p.cmd.Env = append([]string{"NODE_OPTIONS=--max-old-space-size=4069"}, os.Environ()...)
-	p.cmd.Env = append(p.cmd.Env, fmt.Sprintf("JSII_AGENT=%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH))
+	p.cmd.Env = append(p.cmd.Env, fmt.Sprintf("JSII_AGENT=%v/%v/%v", runtime.Version(), runtime.GOOS, runtime.GOARCH))
 
 	if stdin, err := p.cmd.StdinPipe(); err != nil {
 		p.Close()
@@ -163,13 +163,13 @@ func (p *Process) ensureStarted() error {
 			causes[i] = fmt.Sprintf("- %v", err)
 		}
 		p.Close()
-		return fmt.Errorf("incompatible runtime version:\n%s", strings.Join(causes, "\n"))
+		return fmt.Errorf("incompatible runtime version:\n%v", strings.Join(causes, "\n"))
 	}
 
 	go func() {
 		err := p.cmd.Wait()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Runtime process exited abnormally: %s", err.Error())
+			fmt.Fprintf(os.Stderr, "Runtime process exited abnormally: %v", err.Error())
 		}
 		p.Close()
 	}()

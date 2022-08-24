@@ -3174,6 +3174,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 UsesInterfaceWithProperties.cs
        ┃           ┣━ 📄 VariadicInvoker.cs
        ┃           ┣━ 📄 VariadicMethod.cs
+       ┃           ┣━ 📄 VariadicTypeUnion.cs
        ┃           ┣━ 📄 VirtualMethodPlayground.cs
        ┃           ┣━ 📄 VoidCallback.cs
        ┃           ┗━ 📄 WithPrivatePropertyInConstructor.cs
@@ -3705,20 +3706,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<object[]>()!;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
-                    {
-                        if (
-                            !(value[__idx_cd4240] is byte || value[__idx_cd4240] is decimal || value[__idx_cd4240] is double || value[__idx_cd4240] is float || value[__idx_cd4240] is int || value[__idx_cd4240] is long || value[__idx_cd4240] is sbyte || value[__idx_cd4240] is short || value[__idx_cd4240] is uint || value[__idx_cd4240] is ulong || value[__idx_cd4240] is ushort)
-                            && !(value[__idx_cd4240] is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value[{__idx_cd4240}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received {value[__idx_cd4240].GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -3729,21 +3716,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>>()!;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    foreach (var __item_cd4240 in value)
-                    {
-                        if (
-                            !(__item_cd4240.Value is string)
-                            && !(__item_cd4240.Value is byte || __item_cd4240.Value is decimal || __item_cd4240.Value is double || __item_cd4240.Value is float || __item_cd4240.Value is int || __item_cd4240.Value is long || __item_cd4240.Value is sbyte || __item_cd4240.Value is short || __item_cd4240.Value is uint || __item_cd4240.Value is ulong || __item_cd4240.Value is ushort)
-                            && !(__item_cd4240.Value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value[\\"{__item_cd4240.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received {__item_cd4240.Value.GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -3754,19 +3726,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<object>()!;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (
-                        !(value is string)
-                        && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
-                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
-                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.Multiply)
-                    )
-
-                    {
-                        throw new System.ArgumentException($"Expected value to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}; received {value.GetType().FullName}", $"value");
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -4029,18 +3988,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Anonymous
         [JsiiMethod(name: "consume", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"option\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.anonymous.IOptionA\\"},{\\"fqn\\":\\"jsii-calc.anonymous.IOptionB\\"}]}}}]")]
         public static string Consume(object option)
         {
-            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-            {
-                if (
-                    !(option is Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA)
-                    && !(option is Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB)
-                    && !(option is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                )
-
-                {
-                    throw new System.ArgumentException($"Expected argument {nameof(option)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB).FullName}; received {option.GetType().FullName}", $"{nameof(option)}");
-                }
-            }
             return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), new System.Type[]{typeof(object)}, new object[]{option})!;
         }
 
@@ -4688,21 +4635,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<object?>();
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (value != null)
-                    {
-                        if (
-                            !(value is Amazon.JSII.Tests.CalculatorNamespace.Add)
-                            && !(value is Amazon.JSII.Tests.CalculatorNamespace.Multiply)
-                            && !(value is Amazon.JSII.Tests.CalculatorNamespace.Power)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Add).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Power).FullName}; received {value.GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -5052,24 +4984,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static DeputyProps _MakeDeputyProps(System.Collections.Generic.IDictionary<string, object>[] unionProperty)
         {
-            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-            {
-                for (int __idx_452e2d = 0 ; __idx_452e2d < unionProperty.Length ; __idx_452e2d++)
-                {
-                    foreach (var __item_f994c5 in unionProperty[__idx_452e2d])
-                    {
-                        if (
-                            !(__item_f994c5.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                            && !(__item_f994c5.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
-                            && !(__item_f994c5.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_452e2d}][\\"{__item_f994c5.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_f994c5.Value.GetType().FullName}", $"{nameof(unionProperty)}");
-                        }
-                    }
-                }
-            }
             return new DeputyProps(new object?[]{unionProperty});
         }
 
@@ -5093,24 +5007,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>[]>()!;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
-                    {
-                        foreach (var __item_db0d7d in value[__idx_cd4240])
-                        {
-                            if (
-                                !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                                && !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
-                                && !(__item_db0d7d.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                            )
-
-                            {
-                                throw new System.ArgumentException($"Expected value[{__idx_cd4240}][\\"{__item_db0d7d.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_db0d7d.Value.GetType().FullName}", $"value");
-                            }
-                        }
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -5695,21 +5591,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<object?>();
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (value != null)
-                    {
-                        if (
-                            !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
-                            && !(value is object[])
-                            && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {$"{"object"}[]"}; received {value.GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -5737,21 +5618,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => _unionProperty;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (value != null)
-                    {
-                        if (
-                            !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
-                            && !(value is object[])
-                            && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {$"{"object"}[]"}; received {value.GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 _unionProperty = value;
             }
         }
@@ -18286,36 +18152,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "isStructA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
         public static bool IsStructA(object @struct)
         {
-            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-            {
-                if (
-                    !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                    && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
-                    && !(@struct is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                )
-
-                {
-                    throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", $"{nameof(@struct)}");
-                }
-            }
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
         }
 
         [JsiiMethod(name: "isStructB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
         public static bool IsStructB(object @struct)
         {
-            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-            {
-                if (
-                    !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                    && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
-                    && !(@struct is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                )
-
-                {
-                    throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", $"{nameof(@struct)}");
-                }
-            }
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
         }
 
@@ -18349,24 +18191,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => _unionProperty;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
-                    {
-                        foreach (var __item_db0d7d in value[__idx_cd4240])
-                        {
-                            if (
-                                !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
-                                && !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
-                                && !(__item_db0d7d.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                            )
-
-                            {
-                                throw new System.ArgumentException($"Expected value[{__idx_cd4240}][\\"{__item_db0d7d.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_db0d7d.Value.GetType().FullName}", $"value");
-                            }
-                        }
-                    }
-                }
                 _unionProperty = value;
             }
         }
@@ -19750,18 +19574,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => _secondLevel;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (
-                        !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
-                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct)
-                        && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
-                    )
-
-                    {
-                        throw new System.ArgumentException($"Expected value to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct).FullName}; received {value.GetType().FullName}", $"value");
-                    }
-                }
                 _secondLevel = value;
             }
         }
@@ -19998,18 +19810,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => _bar;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (
-                        !(value is string)
-                        && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
-                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.AllTypes)
-                    )
-
-                    {
-                        throw new System.ArgumentException($"Expected value to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes).FullName}; received {value.GetType().FullName}", $"value");
-                    }
-                }
                 _bar = value;
             }
         }
@@ -20023,20 +19823,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => _foo;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    if (value != null)
-                    {
-                        if (
-                            !(value is string)
-                            && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value to be one of: string, double; received {value.GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 _foo = value;
             }
         }
@@ -20333,6 +20119,54 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double[] AsArray(double first, params double[] others)
         {
             return InvokeInstanceMethod<double[]>(new System.Type[]{typeof(double), typeof(double[])}, new object[]{first, others})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicTypeUnion), fullyQualifiedName: "jsii-calc.VariadicTypeUnion", parametersJson: "[{\\"name\\":\\"union\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"variadic\\":true}]")]
+    public class VariadicTypeUnion : DeputyBase
+    {
+        public VariadicTypeUnion(params object[] union): base(_MakeDeputyProps(union))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(params object[] union)
+        {
+            return new DeputyProps(new object?[]{union});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VariadicTypeUnion(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VariadicTypeUnion(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "union", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"array\\"}}")]
+        public virtual object[] Union
+        {
+            get => GetInstanceProperty<object[]>()!;
+            set
+            {
+                SetInstanceProperty(value);
+            }
         }
     }
 }
@@ -20777,32 +20611,56 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┣━ 📄 StructUnionConsumer.cs.diff
                    ┣━ 📄 StructWithCollectionOfUnionts.cs.diff
                    ┣━ 📄 TopLevelStruct.cs.diff
-                   ┗━ 📄 UnionProperties.cs.diff
+                   ┣━ 📄 UnionProperties.cs.diff
+                   ┗━ 📄 VariadicTypeUnion.cs.diff
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs	--no-runtime-type-checking
-@@ -141,72 +141,30 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs	--runtime-type-checking
+@@ -141,30 +141,144 @@
          public virtual object[] UnionArrayProperty
          {
              get => GetInstanceProperty<object[]>()!;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
--                    {
--                        if (
--                            !(value[__idx_cd4240] is byte || value[__idx_cd4240] is decimal || value[__idx_cd4240] is double || value[__idx_cd4240] is float || value[__idx_cd4240] is int || value[__idx_cd4240] is long || value[__idx_cd4240] is sbyte || value[__idx_cd4240] is short || value[__idx_cd4240] is uint || value[__idx_cd4240] is ulong || value[__idx_cd4240] is ushort)
--                            && !(value[__idx_cd4240] is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value[{__idx_cd4240}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received {value[__idx_cd4240].GetType().FullName}", $"value");
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    for (var __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
++                    {
++                        switch (value[__idx_cd4240])
++                        {
++                            case double cast_e9c63e:
++                                break;
++                            case byte cast_e9c63e:
++                                break;
++                            case decimal cast_e9c63e:
++                                break;
++                            case float cast_e9c63e:
++                                break;
++                            case int cast_e9c63e:
++                                break;
++                            case long cast_e9c63e:
++                                break;
++                            case sbyte cast_e9c63e:
++                                break;
++                            case short cast_e9c63e:
++                                break;
++                            case uint cast_e9c63e:
++                                break;
++                            case ulong cast_e9c63e:
++                                break;
++                            case ushort cast_e9c63e:
++                                break;
++                            case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue cast_e9c63e:
++                                break;
++                            case null:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received null", nameof(value));
++                            default:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue).FullName}; received {value[__idx_cd4240].GetType().FullName}", nameof(value));
++                        }
++                    }
++                }
                  SetInstanceProperty(value);
              }
          }
@@ -20813,21 +20671,45 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
              get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>>()!;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    foreach (var __item_cd4240 in value)
--                    {
--                        if (
--                            !(__item_cd4240.Value is string)
--                            && !(__item_cd4240.Value is byte || __item_cd4240.Value is decimal || __item_cd4240.Value is double || __item_cd4240.Value is float || __item_cd4240.Value is int || __item_cd4240.Value is long || __item_cd4240.Value is sbyte || __item_cd4240.Value is short || __item_cd4240.Value is uint || __item_cd4240.Value is ulong || __item_cd4240.Value is ushort)
--                            && !(__item_cd4240.Value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value[\\"{__item_cd4240.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received {__item_cd4240.Value.GetType().FullName}", $"value");
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    foreach (var __item_cd4240 in value)
++                    {
++                        switch (__item_cd4240.Value)
++                        {
++                            case string cast_af5ffb:
++                                break;
++                            case double cast_af5ffb:
++                                break;
++                            case byte cast_af5ffb:
++                                break;
++                            case decimal cast_af5ffb:
++                                break;
++                            case float cast_af5ffb:
++                                break;
++                            case int cast_af5ffb:
++                                break;
++                            case long cast_af5ffb:
++                                break;
++                            case sbyte cast_af5ffb:
++                                break;
++                            case short cast_af5ffb:
++                                break;
++                            case uint cast_af5ffb:
++                                break;
++                            case ulong cast_af5ffb:
++                                break;
++                            case ushort cast_af5ffb:
++                                break;
++                            case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number cast_af5ffb:
++                                break;
++                            case null:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[\\"{__item_cd4240.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received null", nameof(value));
++                            default:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[\\"{__item_cd4240.Key}\\"] to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}; received {__item_cd4240.Value.GetType().FullName}", nameof(value));
++                        }
++                    }
++                }
                  SetInstanceProperty(value);
              }
          }
@@ -20838,19 +20720,44 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
              get => GetInstanceProperty<object>()!;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (
--                        !(value is string)
--                        && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
--                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)
--                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.Multiply)
--                    )
--
--                    {
--                        throw new System.ArgumentException($"Expected value to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}; received {value.GetType().FullName}", $"value");
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case string cast_cd4240:
++                            break;
++                        case double cast_cd4240:
++                            break;
++                        case byte cast_cd4240:
++                            break;
++                        case decimal cast_cd4240:
++                            break;
++                        case float cast_cd4240:
++                            break;
++                        case int cast_cd4240:
++                            break;
++                        case long cast_cd4240:
++                            break;
++                        case sbyte cast_cd4240:
++                            break;
++                        case short cast_cd4240:
++                            break;
++                        case uint cast_cd4240:
++                            break;
++                        case ulong cast_cd4240:
++                            break;
++                        case ushort cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Multiply cast_cd4240:
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}; received null", nameof(value));
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  SetInstanceProperty(value);
              }
          }
@@ -20859,26 +20766,31 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs	--no-runtime-type-checking
-@@ -22,22 +22,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs	--runtime-type-checking
+@@ -22,10 +22,27 @@
          }
  
          [JsiiMethod(name: "consume", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"option\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.anonymous.IOptionA\\"},{\\"fqn\\":\\"jsii-calc.anonymous.IOptionB\\"}]}}}]")]
          public static string Consume(object option)
          {
--            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--            {
--                if (
--                    !(option is Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA)
--                    && !(option is Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB)
--                    && !(option is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                )
--
--                {
--                    throw new System.ArgumentException($"Expected argument {nameof(option)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB).FullName}; received {option.GetType().FullName}", $"{nameof(option)}");
--                }
--            }
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (option)
++                {
++                    case Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA cast_a11a75:
++                        break;
++                    case Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB cast_a11a75:
++                        break;
++                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_a11a75:
++                        // Not enough information to type-check...
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(option)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB).FullName}; received null", nameof(option));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(option)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB).FullName}; received {option.GetType().FullName}", nameof(option));
++                }
++            }
              return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), new System.Type[]{typeof(object)}, new object[]{option})!;
          }
  
@@ -20887,29 +20799,30 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--no-runtime-type-checking
-@@ -131,25 +131,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--runtime-type-checking
+@@ -131,10 +131,26 @@
          public virtual object? UnionProperty
          {
              get => GetInstanceProperty<object?>();
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (value != null)
--                    {
--                        if (
--                            !(value is Amazon.JSII.Tests.CalculatorNamespace.Add)
--                            && !(value is Amazon.JSII.Tests.CalculatorNamespace.Multiply)
--                            && !(value is Amazon.JSII.Tests.CalculatorNamespace.Power)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Add).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Power).FullName}; received {value.GetType().FullName}", $"value");
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.Add cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Multiply cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Power cast_cd4240:
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Add).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Power).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  SetInstanceProperty(value);
              }
          }
@@ -20918,61 +20831,200 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithCollectionOfUnions.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithCollectionOfUnions.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithCollectionOfUnions.cs	--no-runtime-type-checking
-@@ -12,28 +12,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithCollectionOfUnions.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithCollectionOfUnions.cs	--runtime-type-checking
+@@ -12,10 +12,33 @@
          }
  
          [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
          private static DeputyProps _MakeDeputyProps(System.Collections.Generic.IDictionary<string, object>[] unionProperty)
          {
--            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--            {
--                for (int __idx_452e2d = 0 ; __idx_452e2d < unionProperty.Length ; __idx_452e2d++)
--                {
--                    foreach (var __item_f994c5 in unionProperty[__idx_452e2d])
--                    {
--                        if (
--                            !(__item_f994c5.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
--                            && !(__item_f994c5.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
--                            && !(__item_f994c5.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_452e2d}][\\"{__item_f994c5.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_f994c5.Value.GetType().FullName}", $"{nameof(unionProperty)}");
--                        }
--                    }
--                }
--            }
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                for (var __idx_7e4c6f = 0 ; __idx_7e4c6f < unionProperty.Length ; __idx_7e4c6f++)
++                {
++                    foreach (var __item_85d4f8 in unionProperty[__idx_7e4c6f])
++                    {
++                        switch (__item_85d4f8.Value)
++                        {
++                            case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_7df241:
++                                break;
++                            case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_7df241:
++                                break;
++                            case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_7df241:
++                                // Not enough information to type-check...
++                                break;
++                            case null:
++                                throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}][\\"{__item_85d4f8.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(unionProperty));
++                            default:
++                                throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}][\\"{__item_85d4f8.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_85d4f8.Value.GetType().FullName}", nameof(unionProperty));
++                        }
++                    }
++                }
++            }
              return new DeputyProps(new object?[]{unionProperty});
          }
  
          /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
          /// <param name="reference">The Javascript-owned object reference</param>
-@@ -53,28 +35,10 @@
+@@ -35,10 +58,33 @@
          public virtual System.Collections.Generic.IDictionary<string, object>[] UnionProperty
          {
              get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>[]>()!;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
--                    {
--                        foreach (var __item_db0d7d in value[__idx_cd4240])
--                        {
--                            if (
--                                !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
--                                && !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
--                                && !(__item_db0d7d.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                            )
--
--                            {
--                                throw new System.ArgumentException($"Expected value[{__idx_cd4240}][\\"{__item_db0d7d.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_db0d7d.Value.GetType().FullName}", $"value");
--                            }
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    for (var __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
++                    {
++                        foreach (var __item_e9c63e in value[__idx_cd4240])
++                        {
++                            switch (__item_e9c63e.Value)
++                            {
++                                case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_b53a7c:
++                                    break;
++                                case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_b53a7c:
++                                    break;
++                                case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_b53a7c:
++                                    // Not enough information to type-check...
++                                    break;
++                                case null:
++                                    throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_e9c63e.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(value));
++                                default:
++                                    throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_e9c63e.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_e9c63e.Value.GetType().FullName}", nameof(value));
++                            }
++                        }
++                    }
++                }
+                 SetInstanceProperty(value);
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs	--runtime-type-checking
+@@ -12,10 +12,61 @@
+         }
+ 
+         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+         private static DeputyProps _MakeDeputyProps(object[] unionProperty)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                for (var __idx_7e4c6f = 0 ; __idx_7e4c6f < unionProperty.Length ; __idx_7e4c6f++)
++                {
++                    switch (unionProperty[__idx_7e4c6f])
++                    {
++                        case System.Collections.Generic.IDictionary<string, object> cast_85d4f8:
++                            foreach (var __item_94dd05 in cast_85d4f8)
++                            {
++                                switch (__item_94dd05.Value)
++                                {
++                                    case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_dd6247:
++                                        break;
++                                    case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_dd6247:
++                                        break;
++                                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_dd6247:
++                                        // Not enough information to type-check...
++                                        break;
++                                    case null:
++                                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}][\\"{__item_94dd05.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(unionProperty));
++                                    default:
++                                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}][\\"{__item_94dd05.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_94dd05.Value.GetType().FullName}", nameof(unionProperty));
++                                }
++                            }
++                            break;
++                        case object[] cast_85d4f8:
++                            for (var __idx_94dd05 = 0 ; __idx_94dd05 < cast_85d4f8.Length ; __idx_94dd05++)
++                            {
++                                switch (cast_85d4f8[__idx_94dd05])
++                                {
++                                    case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_8facca:
++                                        break;
++                                    case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_8facca:
++                                        break;
++                                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_8facca:
++                                        // Not enough information to type-check...
++                                        break;
++                                    case null:
++                                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}][{__idx_94dd05}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(unionProperty));
++                                    default:
++                                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}][{__idx_94dd05}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {cast_85d4f8[__idx_94dd05].GetType().FullName}", nameof(unionProperty));
++                                }
++                            }
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}] to be one of: System.Collections.Generic.IDictionary<string, object>, object[]; received null", nameof(unionProperty));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_7e4c6f}] to be one of: System.Collections.Generic.IDictionary<string, object>, object[]; received {unionProperty[__idx_7e4c6f].GetType().FullName}", nameof(unionProperty));
++                    }
++                }
++            }
+             return new DeputyProps(new object?[]{unionProperty});
+         }
+ 
+         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+         /// <param name="reference">The Javascript-owned object reference</param>
+@@ -35,10 +86,61 @@
+         public virtual object[] UnionProperty
+         {
+             get => GetInstanceProperty<object[]>()!;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    for (var __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
++                    {
++                        switch (value[__idx_cd4240])
++                        {
++                            case System.Collections.Generic.IDictionary<string, object> cast_e9c63e:
++                                foreach (var __item_cce3ad in cast_e9c63e)
++                                {
++                                    switch (__item_cce3ad.Value)
++                                    {
++                                        case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_40706a:
++                                            break;
++                                        case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_40706a:
++                                            break;
++                                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_40706a:
++                                            // Not enough information to type-check...
++                                            break;
++                                        case null:
++                                            throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_cce3ad.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(value));
++                                        default:
++                                            throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_cce3ad.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_cce3ad.Value.GetType().FullName}", nameof(value));
++                                    }
++                                }
++                                break;
++                            case object[] cast_e9c63e:
++                                for (var __idx_cce3ad = 0 ; __idx_cce3ad < cast_e9c63e.Length ; __idx_cce3ad++)
++                                {
++                                    switch (cast_e9c63e[__idx_cce3ad])
++                                    {
++                                        case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_e1169c:
++                                            break;
++                                        case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_e1169c:
++                                            break;
++                                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_e1169c:
++                                            // Not enough information to type-check...
++                                            break;
++                                        case null:
++                                            throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][{__idx_cce3ad}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(value));
++                                        default:
++                                            throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][{__idx_cce3ad}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {cast_e9c63e[__idx_cce3ad].GetType().FullName}", nameof(value));
++                                    }
++                                }
++                                break;
++                            case null:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: System.Collections.Generic.IDictionary<string, object>, object[]; received null", nameof(value));
++                            default:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: System.Collections.Generic.IDictionary<string, object>, object[]; received {value[__idx_cd4240].GetType().FullName}", nameof(value));
++                        }
++                    }
++                }
                  SetInstanceProperty(value);
              }
          }
@@ -21036,29 +21088,48 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs	--no-runtime-type-checking
-@@ -42,25 +42,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs	--runtime-type-checking
+@@ -42,10 +42,44 @@
          public virtual object? UnionProperty
          {
              get => GetInstanceProperty<object?>();
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (value != null)
--                    {
--                        if (
--                            !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
--                            && !(value is object[])
--                            && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {$"{"object"}[]"}; received {value.GetType().FullName}", $"value");
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_cd4240:
++                            break;
++                        case object[] cast_cd4240:
++                            for (var __idx_f64a5c = 0 ; __idx_f64a5c < cast_cd4240.Length ; __idx_f64a5c++)
++                            {
++                                switch (cast_cd4240[__idx_f64a5c])
++                                {
++                                    case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_201718:
++                                        break;
++                                    case Amazon.JSII.Tests.CalculatorNamespace.AbstractClass cast_201718:
++                                        break;
++                                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_201718:
++                                        // Not enough information to type-check...
++                                        break;
++                                    case null:
++                                        throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_f64a5c}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClass).FullName}; received null", nameof(value));
++                                    default:
++                                        throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_f64a5c}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClass).FullName}; received {cast_cd4240[__idx_f64a5c].GetType().FullName}", nameof(value));
++                                }
++                            }
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, object[]; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  SetInstanceProperty(value);
              }
          }
@@ -21067,29 +21138,48 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJacksonStruct.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJacksonStruct.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJacksonStruct.cs	--no-runtime-type-checking
-@@ -14,25 +14,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJacksonStruct.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJacksonStruct.cs	--runtime-type-checking
+@@ -14,10 +14,44 @@
          public object? UnionProperty
          {
              get => _unionProperty;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (value != null)
--                    {
--                        if (
--                            !(value is Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)
--                            && !(value is object[])
--                            && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {$"{"object"}[]"}; received {value.GetType().FullName}", $"value");
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_cd4240:
++                            break;
++                        case object[] cast_cd4240:
++                            for (var __idx_f64a5c = 0 ; __idx_f64a5c < cast_cd4240.Length ; __idx_f64a5c++)
++                            {
++                                switch (cast_cd4240[__idx_f64a5c])
++                                {
++                                    case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_201718:
++                                        break;
++                                    case Amazon.JSII.Tests.CalculatorNamespace.AbstractClass cast_201718:
++                                        break;
++                                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_201718:
++                                        // Not enough information to type-check...
++                                        break;
++                                    case null:
++                                        throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_f64a5c}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClass).FullName}; received null", nameof(value));
++                                    default:
++                                        throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_f64a5c}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClass).FullName}; received {cast_cd4240[__idx_f64a5c].GetType().FullName}", nameof(value));
++                                }
++                            }
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, object[]; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  _unionProperty = value;
              }
          }
@@ -21098,44 +21188,54 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs	--no-runtime-type-checking
-@@ -22,40 +22,16 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs	--runtime-type-checking
+@@ -22,16 +22,50 @@
          }
  
          [JsiiMethod(name: "isStructA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
          public static bool IsStructA(object @struct)
          {
--            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--            {
--                if (
--                    !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
--                    && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
--                    && !(@struct is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                )
--
--                {
--                    throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", $"{nameof(@struct)}");
--                }
--            }
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (@struct)
++                {
++                    case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_309153:
++                        break;
++                    case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_309153:
++                        break;
++                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_309153:
++                        // Not enough information to type-check...
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(@struct));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", nameof(@struct));
++                }
++            }
              return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
          }
  
          [JsiiMethod(name: "isStructB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
          public static bool IsStructB(object @struct)
          {
--            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--            {
--                if (
--                    !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
--                    && !(@struct is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
--                    && !(@struct is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                )
--
--                {
--                    throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", $"{nameof(@struct)}");
--                }
--            }
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (@struct)
++                {
++                    case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_309153:
++                        break;
++                    case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_309153:
++                        break;
++                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_309153:
++                        // Not enough information to type-check...
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(@struct));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(@struct)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {@struct.GetType().FullName}", nameof(@struct));
++                }
++            }
              return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
          }
  
@@ -21144,32 +21244,37 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithCollectionOfUnionts.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithCollectionOfUnionts.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithCollectionOfUnionts.cs	--no-runtime-type-checking
-@@ -15,28 +15,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithCollectionOfUnionts.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructWithCollectionOfUnionts.cs	--runtime-type-checking
+@@ -15,10 +15,33 @@
          public System.Collections.Generic.IDictionary<string, object>[] UnionProperty
          {
              get => _unionProperty;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
--                    {
--                        foreach (var __item_db0d7d in value[__idx_cd4240])
--                        {
--                            if (
--                                !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructA)
--                                && !(__item_db0d7d.Value is Amazon.JSII.Tests.CalculatorNamespace.IStructB)
--                                && !(__item_db0d7d.Value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                            )
--
--                            {
--                                throw new System.ArgumentException($"Expected value[{__idx_cd4240}][\\"{__item_db0d7d.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_db0d7d.Value.GetType().FullName}", $"value");
--                            }
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    for (var __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
++                    {
++                        foreach (var __item_e9c63e in value[__idx_cd4240])
++                        {
++                            switch (__item_e9c63e.Value)
++                            {
++                                case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_b53a7c:
++                                    break;
++                                case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_b53a7c:
++                                    break;
++                                case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_b53a7c:
++                                    // Not enough information to type-check...
++                                    break;
++                                case null:
++                                    throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_e9c63e.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(value));
++                                default:
++                                    throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_e9c63e.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_e9c63e.Value.GetType().FullName}", nameof(value));
++                            }
++                        }
++                    }
++                }
                  _unionProperty = value;
              }
          }
@@ -21178,26 +21283,51 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TopLevelStruct.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TopLevelStruct.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TopLevelStruct.cs	--no-runtime-type-checking
-@@ -24,22 +24,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TopLevelStruct.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/TopLevelStruct.cs	--runtime-type-checking
+@@ -24,10 +24,47 @@
          public object SecondLevel
          {
              get => _secondLevel;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (
--                        !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
--                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct)
--                        && !(value is Amazon.JSII.Runtime.Deputy.AnonymousObject)
--                    )
--
--                    {
--                        throw new System.ArgumentException($"Expected value to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct).FullName}; received {value.GetType().FullName}", $"value");
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case double cast_cd4240:
++                            break;
++                        case byte cast_cd4240:
++                            break;
++                        case decimal cast_cd4240:
++                            break;
++                        case float cast_cd4240:
++                            break;
++                        case int cast_cd4240:
++                            break;
++                        case long cast_cd4240:
++                            break;
++                        case sbyte cast_cd4240:
++                            break;
++                        case short cast_cd4240:
++                            break;
++                        case uint cast_cd4240:
++                            break;
++                        case ulong cast_cd4240:
++                            break;
++                        case ushort cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct cast_cd4240:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct).FullName}; received null", nameof(value));
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  _secondLevel = value;
              }
          }
@@ -21206,52 +21336,163 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs	--no-runtime-type-checking
-@@ -15,22 +15,10 @@
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs	--runtime-type-checking
+@@ -15,10 +15,46 @@
          public object Bar
          {
              get => _bar;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (
--                        !(value is string)
--                        && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
--                        && !(value is Amazon.JSII.Tests.CalculatorNamespace.AllTypes)
--                    )
--
--                    {
--                        throw new System.ArgumentException($"Expected value to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes).FullName}; received {value.GetType().FullName}", $"value");
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case string cast_cd4240:
++                            break;
++                        case double cast_cd4240:
++                            break;
++                        case byte cast_cd4240:
++                            break;
++                        case decimal cast_cd4240:
++                            break;
++                        case float cast_cd4240:
++                            break;
++                        case int cast_cd4240:
++                            break;
++                        case long cast_cd4240:
++                            break;
++                        case sbyte cast_cd4240:
++                            break;
++                        case short cast_cd4240:
++                            break;
++                        case uint cast_cd4240:
++                            break;
++                        case ulong cast_cd4240:
++                            break;
++                        case ushort cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.AllTypes cast_cd4240:
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes).FullName}; received null", nameof(value));
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, double, {typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  _bar = value;
              }
          }
  
          private object? _foo;
-@@ -40,24 +28,10 @@
+@@ -28,10 +64,44 @@
          public object? Foo
          {
              get => _foo;
              set
              {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    if (value != null)
--                    {
--                        if (
--                            !(value is string)
--                            && !(value is byte || value is decimal || value is double || value is float || value is int || value is long || value is sbyte || value is short || value is uint || value is ulong || value is ushort)
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value to be one of: string, double; received {value.GetType().FullName}", $"value");
--                        }
--                    }
--                }
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case string cast_cd4240:
++                            break;
++                        case double cast_cd4240:
++                            break;
++                        case byte cast_cd4240:
++                            break;
++                        case decimal cast_cd4240:
++                            break;
++                        case float cast_cd4240:
++                            break;
++                        case int cast_cd4240:
++                            break;
++                        case long cast_cd4240:
++                            break;
++                        case sbyte cast_cd4240:
++                            break;
++                        case short cast_cd4240:
++                            break;
++                        case uint cast_cd4240:
++                            break;
++                        case ulong cast_cd4240:
++                            break;
++                        case ushort cast_cd4240:
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, double; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
                  _foo = value;
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs	--runtime-type-checking
+@@ -12,10 +12,30 @@
+         }
+ 
+         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+         private static DeputyProps _MakeDeputyProps(params object[] union)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                for (var __idx_ef3ff7 = 0 ; __idx_ef3ff7 < union.Length ; __idx_ef3ff7++)
++                {
++                    switch (union[__idx_ef3ff7])
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_0af1d4:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_0af1d4:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_0af1d4:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(union)}[{__idx_ef3ff7}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(union));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(union)}[{__idx_ef3ff7}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {union[__idx_ef3ff7].GetType().FullName}", nameof(union));
++                    }
++                }
++            }
+             return new DeputyProps(new object?[]{union});
+         }
+ 
+         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+         /// <param name="reference">The Javascript-owned object reference</param>
+@@ -35,10 +55,30 @@
+         public virtual object[] Union
+         {
+             get => GetInstanceProperty<object[]>()!;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    for (var __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
++                    {
++                        switch (value[__idx_cd4240])
++                        {
++                            case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_e9c63e:
++                                break;
++                            case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_e9c63e:
++                                break;
++                            case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_e9c63e:
++                                // Not enough information to type-check...
++                                break;
++                            case null:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(value));
++                            default:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {value[__idx_cd4240].GetType().FullName}", nameof(value));
++                        }
++                    }
++                }
+                 SetInstanceProperty(value);
              }
          }
      }
