@@ -99,23 +99,27 @@ public class TypeCheckingTest {
         assertEquals("Expected __union__asList.get(1) to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double, (Parameter 'union')", e.getMessage());
     }
 
-    /*
     @Test
     public void setter() {
-        boolean thrown = false;
-        try {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("good", new StructAImplementer("present"));
-            map.put("bad", "Not a StructA or StructB");
-            ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-            list.add(map);
-            new ClassWithCollectionOfUnions(list);
-        }
-        catch (JsiiException e) {
-            thrown = true;
-            assertEquals("foo", e.getMessage());
-        }
-        assertTrue(thrown);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("good", new StructAImplementer("present"));
+        map.put("bad", "Not a StructA or StructB");
+        ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        ClassWithCollectionOfUnions subject = new ClassWithCollectionOfUnions(list);
+        list.add(map);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            subject.setUnionProperty(list);
+        });
+        assertEquals("Expected value.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'value')", e.getMessage());
     }
-    */
+
+    @Test
+    public void StaticMethod()
+    {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            StructUnionConsumer.isStructA("Not a StructA");
+        });
+        assertEquals("Expected struct to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'struct')", e.getMessage());
+    }
 }

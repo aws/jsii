@@ -1461,6 +1461,11 @@ class JavaGenerator extends Generator {
           this.code.openBlock(signature);
           let statement = '';
 
+          if (type.includes('java.lang.Object')) {
+            this.emitUnionParameterValdation([
+              { name: 'value', type: prop.type },
+            ]);
+          }
           if (prop.static) {
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
           } else {
