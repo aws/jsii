@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661295932607,
+  "lastUpdate": 1661341703089,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5351,6 +5351,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 29633.890308461723,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44635.721034999995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c73c2ee6d973ea8ff14b320a5f97ae017107ebab",
+          "message": "feat(go): runtime type check type unions (#3712)\n\nRuntime type-checking can be disabled by adding\r\n`--tag=no_runtime_type_checking` to go compiler invocations. This can\r\nbe used to avoid paying the performance toll of runtime type checking\r\n(which should be modest in most cases), or to work around a bug in the\r\ntype checking code.",
+          "timestamp": "2022-08-24T12:51:17+02:00",
+          "tree_id": "7813efb8eb1d4ebe10f0f32fc52154b08133f9e8",
+          "url": "https://github.com/aws/jsii/commit/c73c2ee6d973ea8ff14b320a5f97ae017107ebab"
+        },
+        "date": 1661341699873,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 77572.04523955,
+            "unit": "milliseconds",
+            "range": 1536231.9571285194,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 77572.04523955 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53644.2063912,
+            "unit": "milliseconds",
+            "range": 172727.0591901959,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53644.2063912 milliseconds over 20 runs"
           }
         ]
       }
