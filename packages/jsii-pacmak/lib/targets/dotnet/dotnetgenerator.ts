@@ -1,6 +1,5 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
-import { createHash } from 'crypto';
 import * as fs from 'fs-extra';
 import * as http from 'http';
 import * as https from 'https';
@@ -16,6 +15,7 @@ import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { FileGenerator } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
+import { ParameterValidator } from './runtime-type-checking';
 
 /**
  * CODE GENERATOR V2
@@ -408,7 +408,10 @@ export class DotNetGenerator extends Generator {
       this.code.openBlock(
         `private static DeputyProps _MakeDeputyProps(${parametersDefinition})`,
       );
-      this.emitUnionParameterValdation(initializer.parameters);
+      this.emitUnionParameterValdation(
+        (this.reflectAssembly.findType(cls.fqn) as reflect.ClassType)
+          .initializer?.parameters,
+      );
       const args =
         parametersBase.length > 0
           ? `new object?[]{${parametersBase}}`
@@ -632,7 +635,13 @@ export class DotNetGenerator extends Generator {
       this.code.openBlock(
         `${access} ${staticKeyWord}${overrideKeyWord}${virtualKeyWord}${signature}`,
       );
-      this.emitUnionParameterValdation(method.parameters);
+      this.emitUnionParameterValdation(
+        (
+          this.reflectAssembly.findType(cls.fqn) as
+            | reflect.ClassType
+            | reflect.InterfaceType
+        ).allMethods.find((m) => m.name === method.name)!.parameters,
+      );
       this.code.line(
         this.dotnetRuntimeGenerator.createInvokeMethodIdentifier(
           method,
@@ -650,192 +659,28 @@ export class DotNetGenerator extends Generator {
    * @param noMangle   use parameter names as-is (useful for setters, for example) instead of mangling them.
    */
   private emitUnionParameterValdation(
-    parameters?: readonly spec.Parameter[],
-    { noMangle = false }: { noMangle?: boolean } = {},
+    parameters: readonly reflect.Parameter[] = [],
+    opts: { readonly noMangle: boolean } = { noMangle: false },
   ): void {
     if (!this.runtimeTypeChecking) {
       // We were configured not to emit those, so bail out now.
       return;
     }
 
-    const unionParameters = parameters?.filter(({ type }) =>
-      containsUnionType(type),
+    const validator = ParameterValidator.forParameters(
+      parameters,
+      this.nameutils,
+      opts,
     );
-    if (unionParameters == null || unionParameters.length === 0) {
+    if (validator == null) {
       return;
     }
+
     this.code.openBlock(
       'if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)',
     );
-    for (const param of unionParameters) {
-      const name = noMangle
-        ? param.name
-        : this.nameutils.convertParameterName(param.name);
-
-      if (param.optional) {
-        this.code.openBlock(`if (${name} != null)`);
-      }
-
-      validate.call(
-        this,
-        name,
-        noMangle ? name : `argument {nameof(${name})}`,
-        param.type,
-        noMangle ? name : `{nameof(${name})}`,
-      );
-
-      if (param.optional) {
-        this.code.closeBlock();
-      }
-    }
+    validator.emit(this.code, this.typeresolver);
     this.code.closeBlock();
-
-    function validate(
-      this: DotNetGenerator,
-      value: string,
-      descr: string,
-      type: spec.TypeReference,
-      parameterName: string,
-    ) {
-      if (spec.isUnionTypeReference(type)) {
-        validateTypeUnion.call(this, value, descr, type, parameterName);
-      } else {
-        const collectionType = type as spec.CollectionTypeReference;
-        if (collectionType.collection.kind === spec.CollectionKind.Array) {
-          validateArray.call(
-            this,
-            value,
-            descr,
-            collectionType.collection.elementtype,
-            parameterName,
-          );
-        } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
-          validateMap.call(
-            this,
-            value,
-            descr,
-            collectionType.collection.elementtype,
-            parameterName,
-          );
-        } else {
-          throw new Error(
-            `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
-          );
-        }
-      }
-    }
-
-    function validateArray(
-      this: DotNetGenerator,
-      value: string,
-      descr: string,
-      elementType: spec.TypeReference,
-      parameterName: string,
-    ) {
-      const varName = `__idx_${createHash('sha256')
-        .update(descr)
-        .digest('hex')
-        .slice(0, 6)}`;
-      this.code.openBlock(
-        `for (int ${varName} = 0 ; ${varName} < ${value}.Length ; ${varName}++)`,
-      );
-      validate.call(
-        this,
-        `${value}[${varName}]`,
-        `${descr}[{${varName}}]`,
-        elementType,
-        parameterName,
-      );
-      this.code.closeBlock();
-    }
-
-    function validateMap(
-      this: DotNetGenerator,
-      value: string,
-      descr: string,
-      elementType: spec.TypeReference,
-      parameterName: string,
-    ) {
-      const varName = `__item_${createHash('sha256')
-        .update(descr)
-        .digest('hex')
-        .slice(0, 6)}`;
-      this.code.openBlock(`foreach (var ${varName} in ${value})`);
-      validate.call(
-        this,
-        `${varName}.Value`,
-        `${descr}[\\"{${varName}.Key}\\"]`,
-        elementType,
-        parameterName,
-      );
-      this.code.closeBlock();
-    }
-
-    function validateTypeUnion(
-      this: DotNetGenerator,
-      value: string,
-      descr: string,
-      type: spec.UnionTypeReference,
-      parameterName: string,
-    ) {
-      this.code.indent('if (');
-      let emitAnd = false;
-      const typeRefs = type.union.types;
-      for (const typeRef of typeRefs) {
-        const prefix = emitAnd ? '&& ' : '';
-        const dotNetType = this.typeresolver.toDotNetType(typeRef);
-        // In the case of double, we test for all standard numeric types of .NET (these implicitly convert).
-        const test =
-          dotNetType === 'double'
-            ? [
-                'byte',
-                'decimal',
-                'double',
-                'float',
-                'int',
-                'long',
-                'sbyte',
-                'short',
-                'uint',
-                'ulong',
-                'ushort',
-              ]
-                .map((numeric) => `${value} is ${numeric}`)
-                .join(' || ')
-            : `${value} is ${dotNetType}`;
-        this.code.line(`${prefix}!(${test})`);
-        emitAnd = true;
-      }
-      if (
-        typeRefs.some(
-          (ref) =>
-            spec.isNamedTypeReference(ref) &&
-            spec.isInterfaceType(this.findType(ref.fqn)),
-        )
-      ) {
-        // AnonymousObject will convert to any interface type, even if unsafely. It is the opaque
-        // type returned when a non-intrinsically typed value is passed through an any or union
-        // return point. We basically cannot type-check that at runtime in a complete way.
-        this.code.line(
-          `&& !(${value} is Amazon.JSII.Runtime.Deputy.AnonymousObject)`,
-        );
-      }
-      this.code.unindent(')');
-      this.code.openBlock('');
-      const placeholders = typeRefs
-        .map((typeRef) => {
-          const typeName = this.typeresolver.toDotNetTypeName(typeRef);
-          if (typeName.startsWith('"') && typeName.endsWith('"')) {
-            return typeName.slice(1, -1);
-          }
-          return `{${typeName}}`;
-        })
-        .join(', ');
-      this.code.line(
-        `throw new System.ArgumentException($"Expected ${descr} to be one of: ${placeholders}; received {${value}.GetType().FullName}", $"${parameterName}");`,
-      );
-      this.code.closeBlock();
-    }
   }
 
   /**
@@ -1249,18 +1094,29 @@ export class DotNetGenerator extends Generator {
     }
 
     // Emit setters
+    const reflectCls = this.reflectAssembly.findType(cls.fqn) as
+      | reflect.ClassType
+      | reflect.InterfaceType;
+    const syntheticParam = new reflect.Parameter(
+      reflectCls.system,
+      reflectCls,
+      new reflect.Method(
+        reflectCls.system,
+        reflectCls.assembly,
+        reflectCls,
+        reflectCls,
+        { name: '<synthetic>' },
+      ),
+      {
+        name: 'value',
+        type: prop.type,
+        optional: prop.optional,
+      },
+    );
+
     if (backingFieldName) {
       this.code.openBlock('set');
-      this.emitUnionParameterValdation(
-        [
-          {
-            name: 'value',
-            type: prop.type,
-            optional: prop.optional,
-          },
-        ],
-        { noMangle: true },
-      );
+      this.emitUnionParameterValdation([syntheticParam], { noMangle: true });
       this.code.line(`${backingFieldName} = value;`);
       this.code.closeBlock();
     } else if (datatype || (!prop.immutable && prop.abstract)) {
@@ -1272,10 +1128,9 @@ export class DotNetGenerator extends Generator {
           : 'SetInstanceProperty(value);';
         if (containsUnionType(prop.type)) {
           this.code.openBlock('set');
-          this.emitUnionParameterValdation(
-            [{ name: 'value', optional: prop.optional, type: prop.type }],
-            { noMangle: true },
-          );
+          this.emitUnionParameterValdation([syntheticParam], {
+            noMangle: true,
+          });
           this.code.line(setCode);
           this.code.closeBlock();
         } else {
