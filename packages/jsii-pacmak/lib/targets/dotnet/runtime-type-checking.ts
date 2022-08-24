@@ -1,3 +1,4 @@
+import { CollectionKind } from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
 import { createHash } from 'crypto';
 import { Parameter, TypeReference } from 'jsii-reflect';
@@ -27,7 +28,14 @@ export class ParameterValidator {
         argName,
         expr,
         `${noMangle ? '' : 'argument '}{${argName}}`,
-        param.type,
+        param.variadic
+          ? new TypeReference(param.system, {
+              collection: {
+                kind: CollectionKind.Array,
+                elementtype: param.type.spec!,
+              },
+            })
+          : param.type,
         param.optional,
       );
       if (validation) {

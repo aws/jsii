@@ -3174,6 +3174,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 UsesInterfaceWithProperties.cs
        ┃           ┣━ 📄 VariadicInvoker.cs
        ┃           ┣━ 📄 VariadicMethod.cs
+       ┃           ┣━ 📄 VariadicTypeUnion.cs
        ┃           ┣━ 📄 VirtualMethodPlayground.cs
        ┃           ┣━ 📄 VoidCallback.cs
        ┃           ┗━ 📄 WithPrivatePropertyInConstructor.cs
@@ -20096,6 +20097,54 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicTypeUnion), fullyQualifiedName: "jsii-calc.VariadicTypeUnion", parametersJson: "[{\\"name\\":\\"union\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"variadic\\":true}]")]
+    public class VariadicTypeUnion : DeputyBase
+    {
+        public VariadicTypeUnion(params object[] union): base(_MakeDeputyProps(union))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(params object[] union)
+        {
+            return new DeputyProps(new object?[]{union});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VariadicTypeUnion(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VariadicTypeUnion(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "union", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"array\\"}}")]
+        public virtual object[] Union
+        {
+            get => GetInstanceProperty<object[]>()!;
+            set
+            {
+                SetInstanceProperty(value);
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VirtualMethodPlayground.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -20534,7 +20583,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┣━ 📄 StructUnionConsumer.cs.diff
                    ┣━ 📄 StructWithCollectionOfUnionts.cs.diff
                    ┣━ 📄 TopLevelStruct.cs.diff
-                   ┗━ 📄 UnionProperties.cs.diff
+                   ┣━ 📄 UnionProperties.cs.diff
+                   ┗━ 📄 VariadicTypeUnion.cs.diff
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs.diff 1`] = `
@@ -21293,6 +21343,73 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                    }
 +                }
                  _foo = value;
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs	--runtime-type-checking
+@@ -12,10 +12,30 @@
+         }
+ 
+         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+         private static DeputyProps _MakeDeputyProps(params object[] union)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                for (var __idx_ef3ff7 = 0 ; __idx_ef3ff7 < union.Length ; __idx_ef3ff7++)
++                {
++                    switch (union[__idx_ef3ff7])
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_0af1d4:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_0af1d4:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_0af1d4:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(union)}[{__idx_ef3ff7}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(union));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(union)}[{__idx_ef3ff7}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {union[__idx_ef3ff7].GetType().FullName}", nameof(union));
++                    }
++                }
++            }
+             return new DeputyProps(new object?[]{union});
+         }
+ 
+         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+         /// <param name="reference">The Javascript-owned object reference</param>
+@@ -35,10 +55,30 @@
+         public virtual object[] Union
+         {
+             get => GetInstanceProperty<object[]>()!;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    for (var __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
++                    {
++                        switch (value[__idx_cd4240])
++                        {
++                            case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_e9c63e:
++                                break;
++                            case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_e9c63e:
++                                break;
++                            case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_e9c63e:
++                                // Not enough information to type-check...
++                                break;
++                            case null:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(value));
++                            default:
++                                throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {value[__idx_cd4240].GetType().FullName}", nameof(value));
++                        }
++                    }
++                }
+                 SetInstanceProperty(value);
              }
          }
      }

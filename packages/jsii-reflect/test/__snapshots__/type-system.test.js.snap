@@ -156,6 +156,7 @@ Array [
   "jsii-calc.UsesInterfaceWithProperties",
   "jsii-calc.VariadicInvoker",
   "jsii-calc.VariadicMethod",
+  "jsii-calc.VariadicTypeUnion",
   "jsii-calc.VirtualMethodPlayground",
   "jsii-calc.VoidCallback",
   "jsii-calc.WithPrivatePropertyInConstructor",
