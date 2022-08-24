@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661341703089,
+  "lastUpdate": 1661363190864,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5389,6 +5389,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 172727.0591901959,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53644.2063912 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "93aec85ada9fd9e505591766b8e87ee53c0bde6b",
+          "message": "fix: type unions in variadic position leads to invalid code-gen (#3722)\n\nThe code-gen for type unions was incorrect, as the value is typically\r\narray-typed, and the generated code hence needs to treat the value as\r\nsuch.",
+          "timestamp": "2022-08-24T18:47:27+02:00",
+          "tree_id": "5d1dc0412e7732024d42ef2af18159d4bf9a2514",
+          "url": "https://github.com/aws/jsii/commit/93aec85ada9fd9e505591766b8e87ee53c0bde6b"
+        },
+        "date": 1661363187792,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 77616.76348845001,
+            "unit": "milliseconds",
+            "range": 1851488.2034130245,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 77616.76348845001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 54436.943459650014,
+            "unit": "milliseconds",
+            "range": 275795.8068163713,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54436.943459650014 milliseconds over 20 runs"
           }
         ]
       }
