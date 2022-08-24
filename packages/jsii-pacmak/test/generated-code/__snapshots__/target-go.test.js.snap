@@ -9270,7 +9270,7 @@ func NewClassWithNestedUnion_Override(c ClassWithNestedUnion, unionProperty *[]i
 	)
 }
 
-func (j *jsiiProxy_ClassWithNestedUnion) SetUnionProperty(val *[]interface{}) {
+func (j *jsiiProxy_ClassWithNestedUnion)SetUnionProperty(val *[]interface{}) {
 	_jsii_.Set(
 		j,
 		"unionProperty",

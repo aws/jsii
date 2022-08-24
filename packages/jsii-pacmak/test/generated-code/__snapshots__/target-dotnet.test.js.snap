@@ -5319,20 +5319,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static DeputyProps _MakeDeputyProps(object[] unionProperty)
         {
-            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-            {
-                for (int __idx_452e2d = 0 ; __idx_452e2d < unionProperty.Length ; __idx_452e2d++)
-                {
-                    if (
-                        !(unionProperty[__idx_452e2d] is System.Collections.Generic.IDictionary<string, object>)
-                        && !(unionProperty[__idx_452e2d] is object[])
-                    )
-
-                    {
-                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_452e2d}] to be one of: {typeof(System.Collections.Generic.IDictionary<string, object>).FullName}, {$"{"object"}[]"}; received {unionProperty[__idx_452e2d].GetType().FullName}", $"{nameof(unionProperty)}");
-                    }
-                }
-            }
             return new DeputyProps(new object?[]{unionProperty});
         }
 
@@ -5356,20 +5342,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<object[]>()!;
             set
             {
-                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-                {
-                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
-                    {
-                        if (
-                            !(value[__idx_cd4240] is System.Collections.Generic.IDictionary<string, object>)
-                            && !(value[__idx_cd4240] is object[])
-                        )
-
-                        {
-                            throw new System.ArgumentException($"Expected value[{__idx_cd4240}] to be one of: {typeof(System.Collections.Generic.IDictionary<string, object>).FullName}, {$"{"object"}[]"}; received {value[__idx_cd4240].GetType().FullName}", $"value");
-                        }
-                    }
-                }
                 SetInstanceProperty(value);
             }
         }
@@ -21025,61 +20997,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                        }
 +                    }
 +                }
-                 SetInstanceProperty(value);
-             }
-         }
-     }
- }
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs	--runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs	--no-runtime-type-checking
-@@ -12,24 +12,10 @@
-         }
- 
-         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-         private static DeputyProps _MakeDeputyProps(object[] unionProperty)
-         {
--            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--            {
--                for (int __idx_452e2d = 0 ; __idx_452e2d < unionProperty.Length ; __idx_452e2d++)
--                {
--                    if (
--                        !(unionProperty[__idx_452e2d] is System.Collections.Generic.IDictionary<string, object>)
--                        && !(unionProperty[__idx_452e2d] is object[])
--                    )
--
--                    {
--                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)}[{__idx_452e2d}] to be one of: {typeof(System.Collections.Generic.IDictionary<string, object>).FullName}, {$"{"object"}[]"}; received {unionProperty[__idx_452e2d].GetType().FullName}", $"{nameof(unionProperty)}");
--                    }
--                }
--            }
-             return new DeputyProps(new object?[]{unionProperty});
-         }
- 
-         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
-         /// <param name="reference">The Javascript-owned object reference</param>
-@@ -49,24 +35,10 @@
-         public virtual object[] UnionProperty
-         {
-             get => GetInstanceProperty<object[]>()!;
-             set
-             {
--                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
--                {
--                    for (int __idx_cd4240 = 0 ; __idx_cd4240 < value.Length ; __idx_cd4240++)
--                    {
--                        if (
--                            !(value[__idx_cd4240] is System.Collections.Generic.IDictionary<string, object>)
--                            && !(value[__idx_cd4240] is object[])
--                        )
--
--                        {
--                            throw new System.ArgumentException($"Expected value[{__idx_cd4240}] to be one of: {typeof(System.Collections.Generic.IDictionary<string, object>).FullName}, {$"{"object"}[]"}; received {value[__idx_cd4240].GetType().FullName}", $"value");
--                        }
--                    }
--                }
                  SetInstanceProperty(value);
              }
          }
