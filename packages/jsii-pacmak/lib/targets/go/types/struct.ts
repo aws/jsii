@@ -83,7 +83,7 @@ export class Struct extends GoType<InterfaceType> {
     if (runtimeTypeChecking && this.structValidator) {
       code.open(`${JSII_RT_ALIAS}.RegisterStructValidator(`);
       code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
-      code.open('func (i interface{}, d string) error {');
+      code.open('func (i interface{}, d func() string) error {');
       code.line(`return (i.(*${this.name})).validate(d)`);
       code.close('},');
       code.close(')');

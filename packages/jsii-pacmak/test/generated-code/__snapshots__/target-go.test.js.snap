@@ -25083,7 +25083,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if opts == nil {
 +		return fmt.Errorf("parameter opts is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(opts, "parameter opts"); err != nil {
++	if err := _jsii_.ValidateStruct(opts, func() string { return "parameter opts" }); err != nil {
 +		return err
 +	}
 +
@@ -26204,7 +26204,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if props == nil {
 +		return fmt.Errorf("parameter props is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -26703,7 +26703,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +}
 +
 +func validateNewCalculatorParameters(props *CalculatorProps) error {
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -27052,24 +27052,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +			switch v.(type) {
 +			case *StructA:
 +				v := v.(*StructA)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			case StructA:
 +				v_ := v.(StructA)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			case *StructB:
 +				v := v.(*StructB)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			case StructB:
 +				v_ := v.(StructB)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			default:
@@ -27092,24 +27092,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +			switch v.(type) {
 +			case *StructA:
 +				v := v.(*StructA)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			case StructA:
 +				v_ := v.(StructA)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			case *StructB:
 +				v := v.(*StructB)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			case StructB:
 +				v_ := v.(StructB)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +					return err
 +				}
 +			default:
@@ -27349,7 +27349,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter array is required, but nil was provided")
 +	}
 +	for idx_dbe42c, v := range *array {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter array[%#v]", idx_dbe42c)); err != nil {
++		if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter array[%#v]", idx_dbe42c) }); err != nil {
 +			return err
 +		}
 +	}
@@ -27358,7 +27358,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter record is required, but nil was provided")
 +	}
 +	for idx_70ce87, v := range *record {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter record[%#v]", idx_70ce87)); err != nil {
++		if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter record[%#v]", idx_70ce87) }); err != nil {
 +			return err
 +		}
 +	}
@@ -27367,12 +27367,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter obj is required, but nil was provided")
 +	}
 +	for idx_772a5f, v := range *obj {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter obj[%#v]", idx_772a5f)); err != nil {
++		if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter obj[%#v]", idx_772a5f) }); err != nil {
 +			return err
 +		}
 +	}
 +
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -27612,24 +27612,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27645,24 +27645,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27677,24 +27677,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27710,24 +27710,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27756,24 +27756,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27789,24 +27789,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27821,24 +27821,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -27854,24 +27854,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448) }); err != nil {
 +						return err
 +					}
 +				default:
@@ -28623,7 +28623,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +)
 +
 +func (d *jsiiProxy_DataRenderer) validateRenderParameters(data *scopejsiicalclib.MyFirstStruct) error {
-+	if err := _jsii_.ValidateStruct(data, "parameter data"); err != nil {
++	if err := _jsii_.ValidateStruct(data, func() string { return "parameter data" }); err != nil {
 +		return err
 +	}
 +
@@ -28883,7 +28883,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +)
 +
 +func (d *jsiiProxy_DocumentedClass) validateGreetParameters(greetee *Greetee) error {
-+	if err := _jsii_.ValidateStruct(greetee, "parameter greetee"); err != nil {
++	if err := _jsii_.ValidateStruct(greetee, func() string { return "parameter greetee" }); err != nil {
 +		return err
 +	}
 +
@@ -29325,7 +29325,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if opts == nil {
 +		return fmt.Errorf("parameter opts is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(opts, "parameter opts"); err != nil {
++	if err := _jsii_.ValidateStruct(opts, func() string { return "parameter opts" }); err != nil {
 +		return err
 +	}
 +
@@ -29616,7 +29616,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if derived == nil {
 +		return fmt.Errorf("parameter derived is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(derived, "parameter derived"); err != nil {
++	if err := _jsii_.ValidateStruct(derived, func() string { return "parameter derived" }); err != nil {
 +		return err
 +	}
 +
@@ -29627,7 +29627,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if derived == nil {
 +		return fmt.Errorf("parameter derived is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(derived, "parameter derived"); err != nil {
++	if err := _jsii_.ValidateStruct(derived, func() string { return "parameter derived" }); err != nil {
 +		return err
 +	}
 +
@@ -29638,7 +29638,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if first == nil {
 +		return fmt.Errorf("parameter first is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(first, "parameter first"); err != nil {
++	if err := _jsii_.ValidateStruct(first, func() string { return "parameter first" }); err != nil {
 +		return err
 +	}
 +
@@ -30792,7 +30792,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if props == nil {
 +		return fmt.Errorf("parameter props is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -31006,7 +31006,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if input == nil {
 +		return fmt.Errorf("parameter input is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
++	if err := _jsii_.ValidateStruct(input, func() string { return "parameter input" }); err != nil {
 +		return err
 +	}
 +
@@ -31400,7 +31400,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +)
 +
 +func validateNewOptionalStructConsumerParameters(optionalStruct *OptionalStruct) error {
-+	if err := _jsii_.ValidateStruct(optionalStruct, "parameter optionalStruct"); err != nil {
++	if err := _jsii_.ValidateStruct(optionalStruct, func() string { return "parameter optionalStruct" }); err != nil {
 +		return err
 +	}
 +
@@ -31924,7 +31924,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if struct_ == nil {
 +		return fmt.Errorf("parameter struct_ is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++	if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +		return err
 +	}
 +
@@ -32521,7 +32521,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if inputs == nil {
 +		return fmt.Errorf("parameter inputs is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(inputs, "parameter inputs"); err != nil {
++	if err := _jsii_.ValidateStruct(inputs, func() string { return "parameter inputs" }); err != nil {
 +		return err
 +	}
 +
@@ -32536,7 +32536,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if input == nil {
 +		return fmt.Errorf("parameter input is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
++	if err := _jsii_.ValidateStruct(input, func() string { return "parameter input" }); err != nil {
 +		return err
 +	}
 +
@@ -32641,24 +32641,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	switch struct_.(type) {
 +	case *StructA:
 +		struct_ := struct_.(*StructA)
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	case StructA:
 +		struct__ := struct_.(StructA)
 +		struct_ := &struct__
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	case *StructB:
 +		struct_ := struct_.(*StructB)
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	case StructB:
 +		struct__ := struct_.(StructB)
 +		struct_ := &struct__
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	default:
@@ -32677,24 +32677,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	switch struct_.(type) {
 +	case *StructA:
 +		struct_ := struct_.(*StructA)
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	case StructA:
 +		struct__ := struct_.(StructA)
 +		struct_ := &struct__
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	case *StructB:
 +		struct_ := struct_.(*StructB)
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	case StructB:
 +		struct__ := struct_.(StructB)
 +		struct_ := &struct__
-+		if err := _jsii_.ValidateStruct(struct_, "parameter struct_"); err != nil {
++		if err := _jsii_.ValidateStruct(struct_, func() string { return "parameter struct_" }); err != nil {
 +			return err
 +		}
 +	default:
@@ -32906,7 +32906,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter id is required, but nil was provided")
 +	}
 +
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -32980,7 +32980,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if props == nil {
 +		return fmt.Errorf("parameter props is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -33318,7 +33318,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if input == nil {
 +		return fmt.Errorf("parameter input is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
++	if err := _jsii_.ValidateStruct(input, func() string { return "parameter input" }); err != nil {
 +		return err
 +	}
 +
@@ -33329,7 +33329,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +	if input == nil {
 +		return fmt.Errorf("parameter input is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(input, "parameter input"); err != nil {
++	if err := _jsii_.ValidateStruct(input, func() string { return "parameter input" }); err != nil {
 +		return err
 +	}
 +
@@ -34167,7 +34167,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +		return fmt.Errorf("parameter _bar is required, but nil was provided")
 +	}
 +	for idx_f35a19, v := range *_bar {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter _bar[%#v]", idx_f35a19)); err != nil {
++		if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter _bar[%#v]", idx_f35a19) }); err != nil {
 +			return err
 +		}
 +	}
@@ -34325,7 +34325,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 +	if props == nil {
 +		return fmt.Errorf("parameter props is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -34445,7 +34445,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 +)
 +
 +func validateKwargs_MethodParameters(props *child.KwargsProps) error {
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +
@@ -34530,7 +34530,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 +	if param == nil {
 +		return fmt.Errorf("parameter param is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(param, "parameter param"); err != nil {
++	if err := _jsii_.ValidateStruct(param, func() string { return "parameter param" }); err != nil {
 +		return err
 +	}
 +
@@ -34541,7 +34541,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 +	if props == nil {
 +		return fmt.Errorf("parameter props is required, but nil was provided")
 +	}
-+	if err := _jsii_.ValidateStruct(props, "parameter props"); err != nil {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 +		return err
 +	}
 +

@@ -122,7 +122,7 @@ func (t *TypeRegistry) InitJsiiProxy(val reflect.Value, valType reflect.Type) er
 				continue
 			}
 			if !field.Anonymous {
-				return fmt.Errorf("refusing to initialize non-anonymous field %s of %v", field.Name, val)
+				return fmt.Errorf("refusing to initialize non-anonymous field %v of %v", field.Name, val)
 			}
 			if err := t.InitJsiiProxy(val.Field(i), field.Type); err != nil {
 				return err
@@ -143,7 +143,7 @@ func (t *TypeRegistry) EnumMemberForEnumRef(ref api.EnumRef) (interface{}, error
 	if member, ok := t.fqnToEnumMember[ref.MemberFQN]; ok {
 		return member, nil
 	}
-	return nil, fmt.Errorf("no enum member registered for %s", ref.MemberFQN)
+	return nil, fmt.Errorf("no enum member registered for %v", ref.MemberFQN)
 }
 
 // TryRenderEnumRef returns an enumref if the provided value corresponds to a
@@ -158,7 +158,7 @@ func (t *TypeRegistry) TryRenderEnumRef(value reflect.Value) (ref *api.EnumRef, 
 	if enumFQN, ok := t.typeToEnumFQN[value.Type()]; ok {
 		isEnumRef = true
 		if memberName := value.String(); memberName != "" {
-			ref = &api.EnumRef{MemberFQN: fmt.Sprintf("%s/%s", enumFQN, memberName)}
+			ref = &api.EnumRef{MemberFQN: fmt.Sprintf("%v/%v", enumFQN, memberName)}
 		} else {
 			ref = nil
 		}

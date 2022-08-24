@@ -198,7 +198,7 @@ export class StructValidator {
     const fieldValidations = new Map<GoProperty, Validation[]>();
     for (const prop of struct.properties) {
       const expr = `${receiver.name}.${prop.name}`;
-      const descr = `@{desc}.${prop.name}`;
+      const descr = `@{desc()}.${prop.name}`;
 
       const validations = new Array<Validation>();
       if (!prop.property.optional) {
@@ -259,7 +259,7 @@ export class StructValidator {
     noOp = false,
   ): void {
     code.openBlock(
-      `func (${this.receiver.name} ${this.receiver.type}) validate(desc string) error`,
+      `func (${this.receiver.name} ${this.receiver.type}) validate(desc func() string) error`,
     );
     if (noOp) {
       code.line('return nil');
@@ -372,9 +372,9 @@ abstract class Validation {
 
       public emit(code: CodeMaker, _scope: Package): void {
         code.openBlock(
-          `if err := ${JSII_RT_ALIAS}.ValidateStruct(${expression}, ${interpolated(
+          `if err := ${JSII_RT_ALIAS}.ValidateStruct(${expression}, func() string { return ${interpolated(
             description,
-          )}); err != nil`,
+          )} }); err != nil`,
         );
         code.line(`return err`);
         code.closeBlock();

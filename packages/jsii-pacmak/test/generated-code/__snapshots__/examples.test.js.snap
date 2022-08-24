@@ -530,7 +530,7 @@ func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 	if baz == nil {
 		return fmt.Errorf("parameter baz is required, but nil was provided")
 	}
-	if err := _jsii_.ValidateStruct(baz, "parameter baz"); err != nil {
+	if err := _jsii_.ValidateStruct(baz, func() string { return "parameter baz" }); err != nil {
 		return err
 	}
 

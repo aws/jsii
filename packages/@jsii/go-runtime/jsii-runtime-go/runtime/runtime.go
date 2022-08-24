@@ -100,7 +100,7 @@ func RegisterStruct(fqn FQN, strct reflect.Type) {
 // RegisterStructValidator adds a validator function to an already registered
 // struct type. This is separate call largely to maintain backwards compatibility
 // with existing code.
-func RegisterStructValidator(strct reflect.Type, validator func(interface{}, string) error) {
+func RegisterStructValidator(strct reflect.Type, validator func(interface{}, func() string) error) {
 	client := kernel.GetClient()
 	if err := client.Types().RegisterStructValidator(strct, validator); err != nil {
 		panic(err)
@@ -163,7 +163,7 @@ func Create(fqn FQN, args []interface{}, inst interface{}) {
 	// If overriding struct has no overriding methods, could happen if
 	// overriding methods are not defined with pointer receiver.
 	if len(mOverrides) == 0 && !strings.HasPrefix(instType.Name(), "jsiiProxy_") {
-		panic(fmt.Errorf("%s has no overriding methods. Overriding methods must be defined with a pointer receiver", instType.Name()))
+		panic(fmt.Errorf("%v has no overriding methods. Overriding methods must be defined with a pointer receiver", instType.Name()))
 	}
 	var overrides []api.Override
 	registry := client.Types()

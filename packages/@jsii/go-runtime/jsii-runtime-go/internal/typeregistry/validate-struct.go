@@ -10,12 +10,12 @@ import (
 // provided value is of one of the allowed types.
 //
 // May panic if v is not a pointer to a struct value.
-func (t *TypeRegistry) ValidateStruct(v interface{}, d string) error {
+func (t *TypeRegistry) ValidateStruct(v interface{}, d func() string) error {
 	rt := reflect.TypeOf(v).Elem()
 
 	info, ok := t.structInfo[rt]
 	if !ok {
-		return fmt.Errorf("%s: %s is not a know struct type", d, rt)
+		return fmt.Errorf("%v: %v is not a know struct type", d(), rt)
 	}
 
 	// There may not be a validator (type is simple enough, etc...).

@@ -13,11 +13,11 @@ import (
 func UnsafeCast(from interface{}, into interface{}) {
 	rinto := reflect.ValueOf(into)
 	if rinto.Kind() != reflect.Ptr {
-		panic(fmt.Errorf("Second argument to UnsafeCast must be a pointer to an interface. Received %s", rinto.Type().String()))
+		panic(fmt.Errorf("second argument to UnsafeCast must be a pointer to an interface; received %v", rinto.Type()))
 	}
 	rinto = rinto.Elem()
 	if rinto.Kind() != reflect.Interface {
-		panic(fmt.Errorf("Second argument to UnsafeCast must be a pointer to an interface. Received pointer to %s", rinto.Type().String()))
+		panic(fmt.Errorf("second argument to UnsafeCast must be a pointer to an interface; received pointer to %v", rinto.Type()))
 	}
 
 	rfrom := reflect.ValueOf(from)
@@ -30,7 +30,7 @@ func UnsafeCast(from interface{}, into interface{}) {
 	}
 	// Interfaces may present as a pointer to an implementing struct, and that's fine...
 	if rfrom.Kind() != reflect.Interface && rfrom.Kind() != reflect.Ptr {
-		panic(fmt.Errorf("First argument to UnsafeCast must be an interface value. Received %s", rfrom.Type().String()))
+		panic(fmt.Errorf("first argument to UnsafeCast must be an interface value; received %v", rfrom.Type()))
 	}
 
 	// If rfrom can be directly converted to rinto, just do it.
@@ -55,5 +55,5 @@ func UnsafeCast(from interface{}, into interface{}) {
 		return
 	}
 
-	panic(fmt.Errorf("First argument to UnsafeCast must be a jsii proxy value. Received %s", rfrom.String()))
+	panic(fmt.Errorf("first argument to UnsafeCast must be a jsii proxy value; received %v", rfrom))
 }
