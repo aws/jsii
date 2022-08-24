@@ -10,7 +10,7 @@ import (
 )
 
 func TestConstructor(t *testing.T) {
-	defer expectPanic(t, "parameter unionProperty[0][bad] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
+	defer expectPanic(t, "parameter unionProperty[0][\"bad\"] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
 	jsiicalc.NewClassWithCollectionOfUnions(&[]*map[string]interface{}{
 		{
 			"good": jsiicalc.StructA{
@@ -24,7 +24,7 @@ func TestConstructor(t *testing.T) {
 func TestSetter(t *testing.T) {
 	subject := jsiicalc.NewClassWithCollectionOfUnions(&[]*map[string]interface{}{})
 
-	defer expectPanic(t, "parameter val[0][bad] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
+	defer expectPanic(t, "parameter val[0][\"bad\"] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
 	subject.SetUnionProperty(&[]*map[string]interface{}{
 		{
 			"good": jsiicalc.StructA{
@@ -69,7 +69,7 @@ func TestNestedUnion(t *testing.T) {
 	}()
 
 	func() {
-		defer expectPanic(t, "parameter unionProperty[0][bad] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
+		defer expectPanic(t, "parameter unionProperty[0][\"bad\"] must be one of the allowed types: *StructA, *StructB; received \"Not a StructA or StructB\" (a string)")
 		jsiicalc.NewClassWithNestedUnion(&[]interface{}{
 			map[string]interface{}{
 				"good": jsiicalc.StructA{RequiredString: jsii.String("present")},

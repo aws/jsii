@@ -25828,7 +25828,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +			// ok
 +		default:
 +			if !_jsii_.IsAnonymousProxy(v) {
-+				return fmt.Errorf("parameter val[%v] must be one of the allowed types: *float64, scopejsiicalclib.NumericValue; received %#v (a %T)", idx_97dfc6, v, v)
++				return fmt.Errorf("parameter val[%#v] must be one of the allowed types: *float64, scopejsiicalclib.NumericValue; received %#v (a %T)", idx_97dfc6, v, v)
 +			}
 +		}
 +	}
@@ -25894,7 +25894,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +			// ok
 +		default:
 +			if !_jsii_.IsAnonymousProxy(v) {
-+				return fmt.Errorf("parameter val[%v] must be one of the allowed types: *string, *float64, scopejsiicalclib.Number; received %#v (a %T)", idx_97dfc6, v, v)
++				return fmt.Errorf("parameter val[%#v] must be one of the allowed types: *string, *float64, scopejsiicalclib.Number; received %#v (a %T)", idx_97dfc6, v, v)
 +			}
 +		}
 +	}
@@ -27052,29 +27052,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +			switch v.(type) {
 +			case *StructA:
 +				v := v.(*StructA)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			case StructA:
 +				v_ := v.(StructA)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			case *StructB:
 +				v := v.(*StructB)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			case StructB:
 +				v_ := v.(StructB)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			default:
 +				if !_jsii_.IsAnonymousProxy(v) {
-+					return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
++					return fmt.Errorf("parameter val[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
 +				}
 +			}
 +		}
@@ -27092,29 +27092,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +			switch v.(type) {
 +			case *StructA:
 +				v := v.(*StructA)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			case StructA:
 +				v_ := v.(StructA)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			case *StructB:
 +				v := v.(*StructB)
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			case StructB:
 +				v_ := v.(StructB)
 +				v := &v_
-+				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++				if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +					return err
 +				}
 +			default:
 +				if !_jsii_.IsAnonymousProxy(v) {
-+					return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
++					return fmt.Errorf("parameter unionProperty[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
 +				}
 +			}
 +		}
@@ -27349,7 +27349,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter array is required, but nil was provided")
 +	}
 +	for idx_dbe42c, v := range *array {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter array[%v]", idx_dbe42c)); err != nil {
++		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter array[%#v]", idx_dbe42c)); err != nil {
 +			return err
 +		}
 +	}
@@ -27358,7 +27358,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter record is required, but nil was provided")
 +	}
 +	for idx_70ce87, v := range *record {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter record[%v]", idx_70ce87)); err != nil {
++		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter record[%#v]", idx_70ce87)); err != nil {
 +			return err
 +		}
 +	}
@@ -27367,7 +27367,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +		return fmt.Errorf("parameter obj is required, but nil was provided")
 +	}
 +	for idx_772a5f, v := range *obj {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter obj[%v]", idx_772a5f)); err != nil {
++		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter obj[%#v]", idx_772a5f)); err != nil {
 +			return err
 +		}
 +	}
@@ -27612,29 +27612,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
++						return fmt.Errorf("parameter val[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
 +					}
 +				}
 +			}
@@ -27645,29 +27645,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
++						return fmt.Errorf("parameter val[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
 +					}
 +				}
 +			}
@@ -27677,29 +27677,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
++						return fmt.Errorf("parameter val[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
 +					}
 +				}
 +			}
@@ -27710,34 +27710,34 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%v][%v]", idx_97dfc6, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter val[%#v][%#v]", idx_97dfc6, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter val[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
++						return fmt.Errorf("parameter val[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_97dfc6, idx_4c9448, v, v)
 +					}
 +				}
 +			}
 +		default:
-+			return fmt.Errorf("parameter val[%v] must be one of the allowed types: *map[string]interface{}, *[]interface{}; received %#v (a %T)", idx_97dfc6, v, v)
++			return fmt.Errorf("parameter val[%#v] must be one of the allowed types: *map[string]interface{}, *[]interface{}; received %#v (a %T)", idx_97dfc6, v, v)
 +		}
 +	}
 +
@@ -27756,29 +27756,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
++						return fmt.Errorf("parameter unionProperty[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
 +					}
 +				}
 +			}
@@ -27789,29 +27789,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
++						return fmt.Errorf("parameter unionProperty[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
 +					}
 +				}
 +			}
@@ -27821,29 +27821,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
++						return fmt.Errorf("parameter unionProperty[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
 +					}
 +				}
 +			}
@@ -27854,34 +27854,34 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				switch v.(type) {
 +				case *StructA:
 +					v := v.(*StructA)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructA:
 +					v_ := v.(StructA)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case *StructB:
 +					v := v.(*StructB)
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				case StructB:
 +					v_ := v.(StructB)
 +					v := &v_
-+					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%v][%v]", idx_7e4c6f, idx_4c9448)); err != nil {
++					if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter unionProperty[%#v][%#v]", idx_7e4c6f, idx_4c9448)); err != nil {
 +						return err
 +					}
 +				default:
 +					if !_jsii_.IsAnonymousProxy(v) {
-+						return fmt.Errorf("parameter unionProperty[%v][%v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
++						return fmt.Errorf("parameter unionProperty[%#v][%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_7e4c6f, idx_4c9448, v, v)
 +					}
 +				}
 +			}
 +		default:
-+			return fmt.Errorf("parameter unionProperty[%v] must be one of the allowed types: *map[string]interface{}, *[]interface{}; received %#v (a %T)", idx_7e4c6f, v, v)
++			return fmt.Errorf("parameter unionProperty[%#v] must be one of the allowed types: *map[string]interface{}, *[]interface{}; received %#v (a %T)", idx_7e4c6f, v, v)
 +		}
 +	}
 +
@@ -28049,7 +28049,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				// ok
 +			default:
 +				if !_jsii_.IsAnonymousProxy(v) {
-+					return fmt.Errorf("parameter val[%v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_97dfc6, v, v)
++					return fmt.Errorf("parameter val[%#v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_97dfc6, v, v)
 +				}
 +			}
 +		}
@@ -28064,7 +28064,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +				// ok
 +			default:
 +				if !_jsii_.IsAnonymousProxy(v) {
-+					return fmt.Errorf("parameter val[%v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_97dfc6, v, v)
++					return fmt.Errorf("parameter val[%#v] must be one of the allowed types: scopejsiicalclib.IFriendly, AbstractClass; received %#v (a %T)", idx_97dfc6, v, v)
 +				}
 +			}
 +		}
@@ -34167,7 +34167,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +		return fmt.Errorf("parameter _bar is required, but nil was provided")
 +	}
 +	for idx_f35a19, v := range *_bar {
-+		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter _bar[%v]", idx_f35a19)); err != nil {
++		if err := _jsii_.ValidateStruct(v, fmt.Sprintf("parameter _bar[%#v]", idx_f35a19)); err != nil {
 +			return err
 +		}
 +	}

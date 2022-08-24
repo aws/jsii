@@ -297,7 +297,6 @@ abstract class Validation {
         return Validation.collectionCheck(
           expression,
           description,
-          typeMap.type,
           typeMap.value,
         );
       case 'primitive':
@@ -309,12 +308,18 @@ abstract class Validation {
   public static collectionCheck(
     expression: string,
     description: string,
-    _type: 'array' | 'map',
     elementType: GoTypeRef,
   ): Validation | undefined {
+    // We need to come up with a unique-enough ID here... so we use a hash.
+    const idx = `idx_${createHash('sha256')
+      .update(expression)
+      .digest('hex')
+      .slice(0, 6)}`;
+
+    // This is actually unused
     const elementValidator = Validation.forTypeMap(
-      `${expression}[idx]`,
-      `${description}[@{idx}]`,
+      'v',
+      `${description}[@{${idx}:#v}]`,
       elementType.typeMap,
     );
     if (elementValidator == null) {
@@ -331,18 +336,9 @@ abstract class Validation {
       }
 
       public emit(code: CodeMaker, scope: Package): void {
-        // We need to come up with a unique-enough ID here... so we use a hash.
-        const idx = `idx_${createHash('sha256')
-          .update(expression)
-          .digest('hex')
-          .slice(0, 6)}`;
         // We need to de-reference the pointer here (range does not operate on pointers)
         code.openBlock(`for ${idx}, v := range *${expression}`);
-        Validation.forTypeMap(
-          'v',
-          `${description}[@{${idx}}]`,
-          elementType.typeMap,
-        )!.emit(code, scope);
+        elementValidator!.emit(code, scope);
         code.closeBlock();
       }
     }
