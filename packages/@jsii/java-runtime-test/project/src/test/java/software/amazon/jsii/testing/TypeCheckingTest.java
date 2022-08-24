@@ -61,9 +61,6 @@ public class TypeCheckingTest {
     public void NestedUnion() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
         {
-            // we must put the declaration of these variables in assertThrows()'s scope
-            // since all variables in java lambda functions (at minimum, `list`)
-            // must be effectively final
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(1337.42);
             new ClassWithNestedUnion(list);

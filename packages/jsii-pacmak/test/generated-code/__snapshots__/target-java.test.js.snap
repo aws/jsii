@@ -6477,21 +6477,21 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) throws IllegalArgumentException {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        for (int __idx_____unionProperty__ = 0; __idx_____unionProperty__ < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).size(); __idx_____unionProperty__++) {
-            for (java.util.Map.Entry<String, java.lang.Object> __item_____unionProperty________________idx_____unionProperty__________: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).get(__idx_____unionProperty__))).entrySet()) {
+        for (int __idx_1ccdf0 = 0; __idx_1ccdf0 < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).size(); __idx_1ccdf0++) {
+            for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).get(__idx_1ccdf0))).entrySet()) {
                 if (
-                     !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
-                    && !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
-                    && !(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
+                     !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
+                    && !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
+                    && !(__item_fb617d.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
                 )
                  {
                     throw new IllegalArgumentException(
                     new java.lang.StringBuilder("Expected ")
-                    .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\")")
+                    .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(\\"").append((__item_fb617d.getKey())).append("\\")")
                     .append(" to be one of: ")
                     .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
                     .append("; received ")
-                    .append(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass())
+                    .append(__item_fb617d.getValue().getClass())
                     .append(", (Parameter 'unionProperty')").toString());
                 }
             }
@@ -6921,56 +6921,56 @@ public class ClassWithNestedUnion extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithNestedUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> unionProperty) throws IllegalArgumentException {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        for (int __idx_____unionProperty__ = 0; __idx_____unionProperty__ < ((java.util.List<java.lang.Object>)(unionProperty)).size(); __idx_____unionProperty__++) {
+        for (int __idx_1ccdf0 = 0; __idx_1ccdf0 < ((java.util.List<java.lang.Object>)(unionProperty)).size(); __idx_1ccdf0++) {
             if (
-                 !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__) instanceof java.util.Map)
-                && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__) instanceof java.util.List)
-                && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__).getClass().equals(software.amazon.jsii.JsiiObject.class))
+                 !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.Map)
+                && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.List)
+                && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0).getClass().equals(software.amazon.jsii.JsiiObject.class))
             )
              {
                 throw new IllegalArgumentException(
                 new java.lang.StringBuilder("Expected ")
-                .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")")
+                .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")")
                 .append(" to be one of: ")
                 .append("java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>")
                 .append("; received ")
-                .append(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__).getClass())
+                .append(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0).getClass())
                 .append(", (Parameter 'unionProperty')").toString());
             }
-            if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__) instanceof java.util.Map) {
-                for (java.util.Map.Entry<String, java.lang.Object> __item_____unionProperty________________idx_____unionProperty__________: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__))).entrySet()) {
+            if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.Map) {
+                for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).entrySet()) {
                     if (
-                         !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
-                        && !(__item_____unionProperty________________idx_____unionProperty__________.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
-                        && !(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
+                         !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
+                        && !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
+                        && !(__item_fb617d.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
                     )
                      {
                         throw new IllegalArgumentException(
                         new java.lang.StringBuilder("Expected ")
-                        .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(\\"").append((__item_____unionProperty________________idx_____unionProperty__________.getKey())).append("\\")")
+                        .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(\\"").append((__item_fb617d.getKey())).append("\\")")
                         .append(" to be one of: ")
                         .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
                         .append("; received ")
-                        .append(__item_____unionProperty________________idx_____unionProperty__________.getValue().getClass())
+                        .append(__item_fb617d.getValue().getClass())
                         .append(", (Parameter 'unionProperty')").toString());
                     }
                 }
             }
-            if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__) instanceof java.util.List) {
-                for (int __idx_____unionProperty________________idx_____unionProperty__________ = 0; __idx_____unionProperty________________idx_____unionProperty__________ < ((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__))).size(); __idx_____unionProperty________________idx_____unionProperty__________++) {
+            if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.List) {
+                for (int __idx_fb617d = 0; __idx_fb617d < ((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).size(); __idx_fb617d++) {
                     if (
-                         !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__))).get(__idx_____unionProperty________________idx_____unionProperty__________) instanceof software.amazon.jsii.tests.calculator.StructA)
-                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__))).get(__idx_____unionProperty________________idx_____unionProperty__________) instanceof software.amazon.jsii.tests.calculator.StructB)
-                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__))).get(__idx_____unionProperty________________idx_____unionProperty__________).getClass().equals(software.amazon.jsii.JsiiObject.class))
+                         !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d) instanceof software.amazon.jsii.tests.calculator.StructA)
+                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d) instanceof software.amazon.jsii.tests.calculator.StructB)
+                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d).getClass().equals(software.amazon.jsii.JsiiObject.class))
                     )
                      {
                         throw new IllegalArgumentException(
                         new java.lang.StringBuilder("Expected ")
-                        .append("unionProperty").append(".get(").append(__idx_____unionProperty__).append(")").append(".get(").append(__idx_____unionProperty________________idx_____unionProperty__________).append(")")
+                        .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(").append(__idx_fb617d).append(")")
                         .append(" to be one of: ")
                         .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
                         .append("; received ")
-                        .append(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_____unionProperty__))).get(__idx_____unionProperty________________idx_____unionProperty__________).getClass())
+                        .append(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d).getClass())
                         .append(", (Parameter 'unionProperty')").toString());
                     }
                 }

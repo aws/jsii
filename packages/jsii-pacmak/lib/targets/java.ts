@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import { toSnakeCase } from 'codemaker/lib/case-utils';
+import { createHash } from 'crypto';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
@@ -1556,9 +1557,9 @@ class JavaGenerator extends Generator {
       if (spec.isUnionTypeReference(type)) {
         validateTypeUnion.call(this, value, descr, type, parameterName);
       } else {
-        // we must cast Map and Array if they are in a nested union type,
-        // since the union that contains this Map will be rendered as an Object
-        // meaning that the compiler cannot tell that this is actually a Collection
+        // we must cast Collections to access their methods
+        // if they are nested in a union type,
+        // since that union will be rendered as an Object.
         const collectionType = type as spec.CollectionTypeReference;
         if (collectionType.collection.kind === spec.CollectionKind.Array) {
           validateArray.call(
@@ -1591,7 +1592,10 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__idx_${descr.replace(/[^a-z0-9_]|get|append/gi, '_')}`;
+      const varName = `__idx_${createHash('sha256')
+        .update(descr)
+        .digest('hex')
+        .slice(0, 6)}`;
       this.code.openBlock(
         `for (int ${varName} = 0; ${varName} < ${value}.size(); ${varName}++)`,
       );
@@ -1612,7 +1616,10 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__item_${descr.replace(/[^a-z0-9_]|get|append/gi, '_')}`;
+      const varName = `__item_${createHash('sha256')
+        .update(descr)
+        .digest('hex')
+        .slice(0, 6)}`;
       const javaElemType = this.toJavaType(elementType);
       this.code.openBlock(
         `for (java.util.Map.Entry<String, ${javaElemType}> ${varName}: ${value}.entrySet())`,
@@ -1648,8 +1655,7 @@ class JavaGenerator extends Generator {
         this.code.line(`${prefix} !(${test})`);
         emitAnd = true;
       }
-      // All anonymous objects at runtime will be `JsiiObject`s.
-      // We cannot type check that at runtime.
+      // Only anonymous objects at runtime can be `JsiiObject`s.
       this.code.line(
         `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
       );
