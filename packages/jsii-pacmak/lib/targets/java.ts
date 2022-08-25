@@ -3542,8 +3542,6 @@ function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
-
-
 function containsUnionType(
   typeRef: spec.TypeReference,
 ): typeRef is spec.UnionTypeReference | spec.CollectionTypeReference {
