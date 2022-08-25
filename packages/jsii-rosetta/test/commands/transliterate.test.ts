@@ -2,11 +2,13 @@ import { Assembly, SPEC_FILE_NAME, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as jsii from 'jsii';
 import * as path from 'path';
+import { gzipSync } from 'zlib';
 
 import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage, targetName } from '../../lib/languages/target-language';
 import { TabletSchema } from '../../lib/tablets/schema';
+import { DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../../lib/tablets/tablets';
 import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 jest.setTimeout(60_000);
@@ -1387,6 +1389,62 @@ test('will read translations from cache even if they are dirty', async () => {
   }
 });
 
+test('will read translations from cache when tablet is compressed', async () => {
+  const infusedAssembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+        /**
+         * ClassA
+         *
+         * @example x
+         */
+        export class ClassA {
+          public someMethod() {
+          }
+        }
+        `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    // Run an extract
+    await extractSnippets([infusedAssembly.moduleDirectory]);
+
+    // Mess up the extracted source file
+    const schema: TabletSchema = JSON.parse(
+      await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, DEFAULT_TABLET_NAME), 'utf-8'),
+    );
+    for (const snippet of Object.values(schema.snippets)) {
+      snippet.translations[TargetLanguage.PYTHON] = {
+        source: 'oops',
+        version: '999',
+      };
+    }
+
+    // Compress tablet
+    await fs.promises.writeFile(
+      path.join(infusedAssembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED),
+      gzipSync(Buffer.from(JSON.stringify(schema, null, 2))),
+    );
+
+    // Remove original tablet
+    await fs.promises.unlink(path.join(infusedAssembly.moduleDirectory, DEFAULT_TABLET_NAME));
+
+    // Run a transliterate, should have used the translation from the cache even though the version is wrong
+    await transliterateAssembly([infusedAssembly.moduleDirectory], [TargetLanguage.PYTHON]);
+
+    const translated: Assembly = JSON.parse(
+      await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, '.jsii.python'), 'utf-8'),
+    );
+    expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('oops');
+  } finally {
+    infusedAssembly.cleanup();
+  }
+});
+
 test('will output to specified directory', async () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN
@@ -1717,6 +1775,8 @@ export class ClassName implements IInterface {
         outdir,
       }),
     ).resolves.not.toThrow();
+    // eslint-disable-next-line no-debugger
+    debugger;
 
     Object.values(TargetLanguage).forEach((lang) => {
       expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);
