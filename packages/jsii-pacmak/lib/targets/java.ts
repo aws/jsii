@@ -708,7 +708,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       `${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(
         method,
-      )})${this.methodThrowsDecl(method)}`,
+      )})`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
@@ -1454,14 +1454,7 @@ class JavaGenerator extends Generator {
         this.emitStabilityAnnotations(prop);
         const signature = `${modifiers.join(
           ' ',
-        )} void set${propName}(final ${type} value)${this.methodThrowsDecl({
-          parameters: [
-            {
-              name: 'value',
-              type: prop.type,
-            },
-          ],
-        })}`;
+        )} void set${propName}(final ${type} value)`;
         if (prop.abstract && !defaultImpl) {
           this.code.line(`${signature};`);
         } else {
@@ -1530,7 +1523,7 @@ class JavaGenerator extends Generator {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
       this.code.openBlock(
-        `${modifiers.join(' ')} ${signature}${this.methodThrowsDecl(method)}`,
+        `${modifiers.join(' ')} ${signature}`,
       );
       this.emitUnionParameterValdation(method.parameters);
       this.code.line(this.renderMethodCall(cls, method, async));
@@ -3292,30 +3285,6 @@ class JavaGenerator extends Generator {
     }
 
     return Array.from(result);
-  }
-
-  private methodThrowsDecl(method: spec.Callable): string {
-    return this.methodParametersContainUnionType(method) &&
-      this.runtimeTypeChecking
-      ? ' throws IllegalArgumentException'
-      : '';
-  }
-
-  private methodParametersContainUnionType(method: spec.Callable): boolean {
-    if (!method.parameters) {
-      return false;
-    }
-
-    for (const param of method.parameters) {
-      if (
-        containsUnionType(param.type) &&
-        this.toJavaType(param.type).includes('java.lang.Object')
-      ) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }
 
