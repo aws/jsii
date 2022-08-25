@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 
-import { allTypeScriptSnippets, getTabletLocation as guessTabletLocation } from './jsii/assemblies';
+import { allTypeScriptSnippets, guessTabletLocation } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
 import * as logging from './logging';
 import { transformMarkdown } from './markdown/markdown';

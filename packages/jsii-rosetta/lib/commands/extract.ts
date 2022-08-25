@@ -174,12 +174,14 @@ export async function extractSnippets(
   if (options.writeToImplicitTablets ?? true) {
     await Promise.all(
       Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
+        // Compress the implicit tablet if explicitly asked to, otherwise compress only if the original tablet was compressed.
         const compressedTablet = options.compressTablet ?? compressedTabletExists(location);
+
         const asmTabletFile = path.join(
           location,
           compressedTablet ? DEFAULT_TABLET_NAME_COMPRESSED : DEFAULT_TABLET_NAME,
         );
-        console.log(`Writing ${snips.length} translations to ${asmTabletFile}`);
+        logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
         const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
 
         const asmTablet = new LanguageTablet();
@@ -198,6 +200,7 @@ export async function extractSnippets(
     output.addTablets(translator.tablet);
     await output.save(options.cacheToFile, options.compressCacheToFile);
   }
+
   return { diagnostics, tablet: translator.tablet };
 }
 

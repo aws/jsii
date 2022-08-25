@@ -1775,8 +1775,6 @@ export class ClassName implements IInterface {
         outdir,
       }),
     ).resolves.not.toThrow();
-    // eslint-disable-next-line no-debugger
-    debugger;
 
     Object.values(TargetLanguage).forEach((lang) => {
       expect(fs.statSync(path.join(outdir, `${SPEC_FILE_NAME}.${lang}`)).isFile()).toBe(true);

@@ -84,7 +84,7 @@ export async function loadAllDefaultTablets(asms: readonly LoadedAssembly[]): Pr
   return mkDict(
     await Promise.all(
       asms.map(
-        async (a) => [a.directory, await LanguageTablet.fromOptionalFile(getTabletLocation(a.directory))] as const,
+        async (a) => [a.directory, await LanguageTablet.fromOptionalFile(guessTabletLocation(a.directory))] as const,
       ),
     ),
   );
@@ -92,9 +92,10 @@ export async function loadAllDefaultTablets(asms: readonly LoadedAssembly[]): Pr
 
 /**
  * Returns the location of the tablet file, either .jsii.tabl.json or .jsii.tabl.json.gz.
- * Assumes that a tablet exists in the directory or is handled by the caller of this function.
+ * Assumes that a tablet exists in the directory and if not, the ensuing behavior is 
+ * handled by the caller of this function.
  */
-export function getTabletLocation(directory: string) {
+export function guessTabletLocation(directory: string) {
   return compressedTabletExists(directory)
     ? path.join(directory, DEFAULT_TABLET_NAME_COMPRESSED)
     : path.join(directory, DEFAULT_TABLET_NAME);
