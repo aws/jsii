@@ -1550,6 +1550,7 @@ class JavaGenerator extends Generator {
       return;
     }
 
+    this.code.openBlock('if (software.amazon.jsii.Configuration.getRuntimeTypeChecking())');
     for (const param of unionParameters) {
       if (param.variadic) {
         const javaType = this.toJavaType(param.type);
@@ -1580,6 +1581,7 @@ class JavaGenerator extends Generator {
         );
       }
     }
+    this.code.closeBlock();
 
     function validate(
       this: JavaGenerator,

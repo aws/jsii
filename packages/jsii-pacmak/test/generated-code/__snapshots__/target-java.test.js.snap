@@ -27899,27 +27899,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java	--runtime-type-checking
-@@ -220,10 +220,27 @@
+@@ -220,10 +220,29 @@
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public void setUnionArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
-+        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
-+            if (
-+                 !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.lang.Number)
-+                && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.lib.NumericValue)
-+                && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            )
-+             {
-+                throw new IllegalArgumentException(
-+                new java.lang.StringBuilder("Expected ")
-+                .append("value").append(".get(").append(__idx_ac66f0).append(")")
-+                .append(" to be one of: ")
-+                .append("java.lang.Number, software.amazon.jsii.tests.calculator.lib.NumericValue")
-+                .append("; received ")
-+                .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
-+                .append(", (Parameter 'value')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
++                if (
++                     !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.lang.Number)
++                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.lib.NumericValue)
++                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                )
++                 {
++                    throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                    .append("value").append(".get(").append(__idx_ac66f0).append(")")
++                    .append(" to be one of: ")
++                    .append("java.lang.Number, software.amazon.jsii.tests.calculator.lib.NumericValue")
++                    .append("; received ")
++                    .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
++                    .append(", (Parameter 'value')").toString());
++                }
 +            }
 +        }
          software.amazon.jsii.Kernel.set(this, "unionArrayProperty", java.util.Objects.requireNonNull(value, "unionArrayProperty is required"));
@@ -27927,28 +27929,30 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
-@@ -234,10 +251,28 @@
+@@ -234,10 +253,30 @@
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public void setUnionMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) {
-+        for (java.util.Map.Entry<String, java.lang.Object> __item_ac66f0: ((java.util.Map<java.lang.String, java.lang.Object>)(value)).entrySet()) {
-+            if (
-+                 !(__item_ac66f0.getValue() instanceof java.lang.String)
-+                && !(__item_ac66f0.getValue() instanceof java.lang.Number)
-+                && !(__item_ac66f0.getValue() instanceof software.amazon.jsii.tests.calculator.lib.Number)
-+                && !(__item_ac66f0.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            )
-+             {
-+                throw new IllegalArgumentException(
-+                new java.lang.StringBuilder("Expected ")
-+                .append("value").append(".get(\\"").append((__item_ac66f0.getKey())).append("\\")")
-+                .append(" to be one of: ")
-+                .append("java.lang.String, java.lang.Number, software.amazon.jsii.tests.calculator.lib.Number")
-+                .append("; received ")
-+                .append(__item_ac66f0.getValue().getClass())
-+                .append(", (Parameter 'value')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (java.util.Map.Entry<String, java.lang.Object> __item_ac66f0: ((java.util.Map<java.lang.String, java.lang.Object>)(value)).entrySet()) {
++                if (
++                     !(__item_ac66f0.getValue() instanceof java.lang.String)
++                    && !(__item_ac66f0.getValue() instanceof java.lang.Number)
++                    && !(__item_ac66f0.getValue() instanceof software.amazon.jsii.tests.calculator.lib.Number)
++                    && !(__item_ac66f0.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
++                )
++                 {
++                    throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                    .append("value").append(".get(\\"").append((__item_ac66f0.getKey())).append("\\")")
++                    .append(" to be one of: ")
++                    .append("java.lang.String, java.lang.Number, software.amazon.jsii.tests.calculator.lib.Number")
++                    .append("; received ")
++                    .append(__item_ac66f0.getValue().getClass())
++                    .append(", (Parameter 'value')").toString());
++                }
 +            }
 +        }
          software.amazon.jsii.Kernel.set(this, "unionMapProperty", java.util.Objects.requireNonNull(value, "unionMapProperty is required"));
@@ -27961,93 +27965,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java	--runtime-type-checking
-@@ -19,10 +19,29 @@
+@@ -19,10 +19,31 @@
       * @param unionProperty This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) {
          super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-+        for (int __idx_1ccdf0 = 0; __idx_1ccdf0 < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).size(); __idx_1ccdf0++) {
-+            for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).get(__idx_1ccdf0))).entrySet()) {
-+                if (
-+                     !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
-+                    && !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
-+                    && !(__item_fb617d.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
-+                )
-+                 {
-+                    throw new IllegalArgumentException(
-+                    new java.lang.StringBuilder("Expected ")
-+                    .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(\\"").append((__item_fb617d.getKey())).append("\\")")
-+                    .append(" to be one of: ")
-+                    .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+                    .append("; received ")
-+                    .append(__item_fb617d.getValue().getClass())
-+                    .append(", (Parameter 'unionProperty')").toString());
-+                }
-+            }
-+        }
-         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
-     }
- 
-     /**
-      */
-@@ -33,8 +52,27 @@
- 
-     /**
-      */
-     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> value) {
-+        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(value)).size(); __idx_ac66f0++) {
-+            for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(value)).get(__idx_ac66f0))).entrySet()) {
-+                if (
-+                     !(__item_58ec25.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
-+                    && !(__item_58ec25.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
-+                    && !(__item_58ec25.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
-+                )
-+                 {
-+                    throw new IllegalArgumentException(
-+                    new java.lang.StringBuilder("Expected ")
-+                    .append("value").append(".get(").append(__idx_ac66f0).append(")").append(".get(\\"").append((__item_58ec25.getKey())).append("\\")")
-+                    .append(" to be one of: ")
-+                    .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+                    .append("; received ")
-+                    .append(__item_58ec25.getValue().getClass())
-+                    .append(", (Parameter 'value')").toString());
-+                }
-+            }
-+        }
-         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
-     }
- }
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java.diff 1`] = `
---- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java	--no-runtime-type-checking
-+++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java	--runtime-type-checking
-@@ -19,10 +19,65 @@
-      * @param unionProperty This parameter is required.
-      */
-     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public ClassWithNestedUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> unionProperty) {
-         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-+        for (int __idx_1ccdf0 = 0; __idx_1ccdf0 < ((java.util.List<java.lang.Object>)(unionProperty)).size(); __idx_1ccdf0++) {
-+            if (
-+                 !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.Map)
-+                && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.List)
-+                && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            )
-+             {
-+                throw new IllegalArgumentException(
-+                new java.lang.StringBuilder("Expected ")
-+                .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")")
-+                .append(" to be one of: ")
-+                .append("java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>")
-+                .append("; received ")
-+                .append(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0).getClass())
-+                .append(", (Parameter 'unionProperty')").toString());
-+            }
-+            if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.Map) {
-+                for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).entrySet()) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_1ccdf0 = 0; __idx_1ccdf0 < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).size(); __idx_1ccdf0++) {
++                for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(unionProperty)).get(__idx_1ccdf0))).entrySet()) {
 +                    if (
 +                         !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
 +                        && !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
@@ -28065,55 +27991,21 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                    }
 +                }
 +            }
-+            if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.List) {
-+                for (int __idx_fb617d = 0; __idx_fb617d < ((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).size(); __idx_fb617d++) {
-+                    if (
-+                         !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d) instanceof software.amazon.jsii.tests.calculator.StructA)
-+                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d) instanceof software.amazon.jsii.tests.calculator.StructB)
-+                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+                    )
-+                     {
-+                        throw new IllegalArgumentException(
-+                        new java.lang.StringBuilder("Expected ")
-+                        .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(").append(__idx_fb617d).append(")")
-+                        .append(" to be one of: ")
-+                        .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+                        .append("; received ")
-+                        .append(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d).getClass())
-+                        .append(", (Parameter 'unionProperty')").toString());
-+                    }
-+                }
-+            }
 +        }
          software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
      }
  
      /**
       */
-@@ -33,8 +88,63 @@
+@@ -33,8 +54,29 @@
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
-+        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
-+            if (
-+                 !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.Map)
-+                && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.List)
-+                && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            )
-+             {
-+                throw new IllegalArgumentException(
-+                new java.lang.StringBuilder("Expected ")
-+                .append("value").append(".get(").append(__idx_ac66f0).append(")")
-+                .append(" to be one of: ")
-+                .append("java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>")
-+                .append("; received ")
-+                .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
-+                .append(", (Parameter 'value')").toString());
-+            }
-+            if (((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.Map) {
-+                for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).entrySet()) {
+     public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> value) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(value)).size(); __idx_ac66f0++) {
++                for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)(value)).get(__idx_ac66f0))).entrySet()) {
 +                    if (
 +                         !(__item_58ec25.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
 +                        && !(__item_58ec25.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
@@ -28131,22 +28023,142 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                    }
 +                }
 +            }
-+            if (((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.List) {
-+                for (int __idx_58ec25 = 0; __idx_58ec25 < ((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).size(); __idx_58ec25++) {
-+                    if (
-+                         !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25) instanceof software.amazon.jsii.tests.calculator.StructA)
-+                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25) instanceof software.amazon.jsii.tests.calculator.StructB)
-+                        && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+                    )
-+                     {
-+                        throw new IllegalArgumentException(
-+                        new java.lang.StringBuilder("Expected ")
-+                        .append("value").append(".get(").append(__idx_ac66f0).append(")").append(".get(").append(__idx_58ec25).append(")")
-+                        .append(" to be one of: ")
-+                        .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+                        .append("; received ")
-+                        .append(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25).getClass())
-+                        .append(", (Parameter 'value')").toString());
++        }
+         software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java.diff 1`] = `
+--- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java	--no-runtime-type-checking
++++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java	--runtime-type-checking
+@@ -19,10 +19,67 @@
+      * @param unionProperty This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public ClassWithNestedUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> unionProperty) {
+         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_1ccdf0 = 0; __idx_1ccdf0 < ((java.util.List<java.lang.Object>)(unionProperty)).size(); __idx_1ccdf0++) {
++                if (
++                     !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.Map)
++                    && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.List)
++                    && !(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                )
++                 {
++                    throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                    .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")")
++                    .append(" to be one of: ")
++                    .append("java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>")
++                    .append("; received ")
++                    .append(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0).getClass())
++                    .append(", (Parameter 'unionProperty')").toString());
++                }
++                if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.Map) {
++                    for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).entrySet()) {
++                        if (
++                             !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
++                            && !(__item_fb617d.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
++                            && !(__item_fb617d.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
++                        )
++                         {
++                            throw new IllegalArgumentException(
++                            new java.lang.StringBuilder("Expected ")
++                            .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(\\"").append((__item_fb617d.getKey())).append("\\")")
++                            .append(" to be one of: ")
++                            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                            .append("; received ")
++                            .append(__item_fb617d.getValue().getClass())
++                            .append(", (Parameter 'unionProperty')").toString());
++                        }
++                    }
++                }
++                if (((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0) instanceof java.util.List) {
++                    for (int __idx_fb617d = 0; __idx_fb617d < ((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).size(); __idx_fb617d++) {
++                        if (
++                             !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d) instanceof software.amazon.jsii.tests.calculator.StructA)
++                            && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d) instanceof software.amazon.jsii.tests.calculator.StructB)
++                            && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                        )
++                         {
++                            throw new IllegalArgumentException(
++                            new java.lang.StringBuilder("Expected ")
++                            .append("unionProperty").append(".get(").append(__idx_1ccdf0).append(")").append(".get(").append(__idx_fb617d).append(")")
++                            .append(" to be one of: ")
++                            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                            .append("; received ")
++                            .append(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(unionProperty)).get(__idx_1ccdf0))).get(__idx_fb617d).getClass())
++                            .append(", (Parameter 'unionProperty')").toString());
++                        }
++                    }
++                }
++            }
++        }
+         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
+     }
+ 
+     /**
+      */
+@@ -33,8 +90,65 @@
+ 
+     /**
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
++                if (
++                     !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.Map)
++                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.List)
++                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                )
++                 {
++                    throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                    .append("value").append(".get(").append(__idx_ac66f0).append(")")
++                    .append(" to be one of: ")
++                    .append("java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>")
++                    .append("; received ")
++                    .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
++                    .append(", (Parameter 'value')").toString());
++                }
++                if (((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.Map) {
++                    for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).entrySet()) {
++                        if (
++                             !(__item_58ec25.getValue() instanceof software.amazon.jsii.tests.calculator.StructA)
++                            && !(__item_58ec25.getValue() instanceof software.amazon.jsii.tests.calculator.StructB)
++                            && !(__item_58ec25.getValue().getClass().equals(software.amazon.jsii.JsiiObject.class))
++                        )
++                         {
++                            throw new IllegalArgumentException(
++                            new java.lang.StringBuilder("Expected ")
++                            .append("value").append(".get(").append(__idx_ac66f0).append(")").append(".get(\\"").append((__item_58ec25.getKey())).append("\\")")
++                            .append(" to be one of: ")
++                            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                            .append("; received ")
++                            .append(__item_58ec25.getValue().getClass())
++                            .append(", (Parameter 'value')").toString());
++                        }
++                    }
++                }
++                if (((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof java.util.List) {
++                    for (int __idx_58ec25 = 0; __idx_58ec25 < ((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).size(); __idx_58ec25++) {
++                        if (
++                             !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25) instanceof software.amazon.jsii.tests.calculator.StructA)
++                            && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25) instanceof software.amazon.jsii.tests.calculator.StructB)
++                            && !(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                        )
++                         {
++                            throw new IllegalArgumentException(
++                            new java.lang.StringBuilder("Expected ")
++                            .append("value").append(".get(").append(__idx_ac66f0).append(")").append(".get(").append(__idx_58ec25).append(")")
++                            .append(" to be one of: ")
++                            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                            .append("; received ")
++                            .append(((java.util.List<java.lang.Object>)(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0))).get(__idx_58ec25).getClass())
++                            .append(", (Parameter 'value')").toString());
++                        }
 +                    }
 +                }
 +            }
@@ -28159,43 +28171,45 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--runtime-type-checking
-@@ -48,8 +48,42 @@
+@@ -48,8 +48,44 @@
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<java.lang.Object> value) {
-+        if (
-+             !(value instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
-+            && !(value instanceof java.util.List)
-+            && !(value.getClass().equals(software.amazon.jsii.JsiiObject.class))
-+        )
-+         {
-+            throw new IllegalArgumentException(
-+            new java.lang.StringBuilder("Expected ")
-+            .append("value")
-+            .append(" to be one of: ")
-+            .append("software.amazon.jsii.tests.calculator.lib.IFriendly, java.util.List<java.lang.Object>")
-+            .append("; received ")
-+            .append(value.getClass())
-+            .append(", (Parameter 'value')").toString());
-+        }
-+        if (value instanceof java.util.List) {
-+            for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
-+                if (
-+                     !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
-+                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.AbstractClass)
-+                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+                )
-+                 {
-+                    throw new IllegalArgumentException(
-+                    new java.lang.StringBuilder("Expected ")
-+                    .append("value").append(".get(").append(__idx_ac66f0).append(")")
-+                    .append(" to be one of: ")
-+                    .append("software.amazon.jsii.tests.calculator.lib.IFriendly, software.amazon.jsii.tests.calculator.AbstractClass")
-+                    .append("; received ")
-+                    .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
-+                    .append(", (Parameter 'value')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(value instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
++                && !(value instanceof java.util.List)
++                && !(value.getClass().equals(software.amazon.jsii.JsiiObject.class))
++            )
++             {
++                throw new IllegalArgumentException(
++                new java.lang.StringBuilder("Expected ")
++                .append("value")
++                .append(" to be one of: ")
++                .append("software.amazon.jsii.tests.calculator.lib.IFriendly, java.util.List<java.lang.Object>")
++                .append("; received ")
++                .append(value.getClass())
++                .append(", (Parameter 'value')").toString());
++            }
++            if (value instanceof java.util.List) {
++                for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
++                    if (
++                         !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
++                        && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.AbstractClass)
++                        && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                    )
++                     {
++                        throw new IllegalArgumentException(
++                        new java.lang.StringBuilder("Expected ")
++                        .append("value").append(".get(").append(__idx_ac66f0).append(")")
++                        .append(" to be one of: ")
++                        .append("software.amazon.jsii.tests.calculator.lib.IFriendly, software.amazon.jsii.tests.calculator.AbstractClass")
++                        .append("; received ")
++                        .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
++                        .append(", (Parameter 'value')").toString());
++                    }
 +                }
 +            }
 +        }
@@ -28207,26 +28221,28 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java	--runtime-type-checking
-@@ -18,18 +18,48 @@
+@@ -18,18 +18,52 @@
      /**
       * @param struct This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
-+        if (
-+             !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
-+            && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
-+            && !(struct.getClass().equals(software.amazon.jsii.JsiiObject.class))
-+        )
-+         {
-+            throw new IllegalArgumentException(
-+            new java.lang.StringBuilder("Expected ")
-+            .append("struct")
-+            .append(" to be one of: ")
-+            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+            .append("; received ")
-+            .append(struct.getClass())
-+            .append(", (Parameter 'struct')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
++                && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
++                && !(struct.getClass().equals(software.amazon.jsii.JsiiObject.class))
++            )
++             {
++                throw new IllegalArgumentException(
++                new java.lang.StringBuilder("Expected ")
++                .append("struct")
++                .append(" to be one of: ")
++                .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                .append("; received ")
++                .append(struct.getClass())
++                .append(", (Parameter 'struct')").toString());
++            }
 +        }
          return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructUnionConsumer.class, "isStructA", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
      }
@@ -28236,20 +28252,22 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
-+        if (
-+             !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
-+            && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
-+            && !(struct.getClass().equals(software.amazon.jsii.JsiiObject.class))
-+        )
-+         {
-+            throw new IllegalArgumentException(
-+            new java.lang.StringBuilder("Expected ")
-+            .append("struct")
-+            .append(" to be one of: ")
-+            .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+            .append("; received ")
-+            .append(struct.getClass())
-+            .append(", (Parameter 'struct')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(struct instanceof software.amazon.jsii.tests.calculator.StructA)
++                && !(struct instanceof software.amazon.jsii.tests.calculator.StructB)
++                && !(struct.getClass().equals(software.amazon.jsii.JsiiObject.class))
++            )
++             {
++                throw new IllegalArgumentException(
++                new java.lang.StringBuilder("Expected ")
++                .append("struct")
++                .append(" to be one of: ")
++                .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                .append("; received ")
++                .append(struct.getClass())
++                .append(", (Parameter 'struct')").toString());
++            }
 +        }
          return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructUnionConsumer.class, "isStructB", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
      }
@@ -28261,28 +28279,30 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java	--runtime-type-checking
-@@ -19,10 +19,28 @@
+@@ -19,10 +19,30 @@
       * @param union This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public VariadicTypeUnion(final @org.jetbrains.annotations.NotNull java.lang.Object... union) {
          super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-+        java.util.ArrayList<java.lang.Object> __union__asList = new java.util.ArrayList<java.lang.Object>(java.util.Arrays.asList(union));
-+        for (int __idx_e5e653 = 0; __idx_e5e653 < ((java.util.List<java.lang.Object>)(__union__asList)).size(); __idx_e5e653++) {
-+            if (
-+                 !(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653) instanceof software.amazon.jsii.tests.calculator.StructA)
-+                && !(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653) instanceof software.amazon.jsii.tests.calculator.StructB)
-+                && !(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            )
-+             {
-+                throw new IllegalArgumentException(
-+                new java.lang.StringBuilder("Expected ")
-+                .append("__union__asList").append(".get(").append(__idx_e5e653).append(")")
-+                .append(" to be one of: ")
-+                .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+                .append("; received ")
-+                .append(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653).getClass())
-+                .append(", (Parameter 'union')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            java.util.ArrayList<java.lang.Object> __union__asList = new java.util.ArrayList<java.lang.Object>(java.util.Arrays.asList(union));
++            for (int __idx_e5e653 = 0; __idx_e5e653 < ((java.util.List<java.lang.Object>)(__union__asList)).size(); __idx_e5e653++) {
++                if (
++                     !(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653) instanceof software.amazon.jsii.tests.calculator.StructA)
++                    && !(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653) instanceof software.amazon.jsii.tests.calculator.StructB)
++                    && !(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                )
++                 {
++                    throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                    .append("__union__asList").append(".get(").append(__idx_e5e653).append(")")
++                    .append(" to be one of: ")
++                    .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                    .append("; received ")
++                    .append(((java.util.List<java.lang.Object>)(__union__asList)).get(__idx_e5e653).getClass())
++                    .append(", (Parameter 'union')").toString());
++                }
 +            }
 +        }
          software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(union).toArray(Object[]::new));
@@ -28290,27 +28310,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       */
-@@ -33,8 +51,25 @@
+@@ -33,8 +53,27 @@
  
      /**
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public void setUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
-+        for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
-+            if (
-+                 !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.StructA)
-+                && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.StructB)
-+                && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            )
-+             {
-+                throw new IllegalArgumentException(
-+                new java.lang.StringBuilder("Expected ")
-+                .append("value").append(".get(").append(__idx_ac66f0).append(")")
-+                .append(" to be one of: ")
-+                .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
-+                .append("; received ")
-+                .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
-+                .append(", (Parameter 'value')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_ac66f0 = 0; __idx_ac66f0 < ((java.util.List<java.lang.Object>)(value)).size(); __idx_ac66f0++) {
++                if (
++                     !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.StructA)
++                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0) instanceof software.amazon.jsii.tests.calculator.StructB)
++                    && !(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass().equals(software.amazon.jsii.JsiiObject.class))
++                )
++                 {
++                    throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                    .append("value").append(".get(").append(__idx_ac66f0).append(")")
++                    .append(" to be one of: ")
++                    .append("software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB")
++                    .append("; received ")
++                    .append(((java.util.List<java.lang.Object>)(value)).get(__idx_ac66f0).getClass())
++                    .append(", (Parameter 'value')").toString());
++                }
 +            }
 +        }
          software.amazon.jsii.Kernel.set(this, "union", java.util.Objects.requireNonNull(value, "union is required"));
@@ -28321,26 +28343,28 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java	--runtime-type-checking
-@@ -18,10 +18,25 @@
+@@ -18,10 +18,27 @@
      /**
       * @param option This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
-+        if (
-+             !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionA)
-+            && !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionB)
-+            && !(option.getClass().equals(software.amazon.jsii.JsiiObject.class))
-+        )
-+         {
-+            throw new IllegalArgumentException(
-+            new java.lang.StringBuilder("Expected ")
-+            .append("option")
-+            .append(" to be one of: ")
-+            .append("software.amazon.jsii.tests.calculator.anonymous.IOptionA, software.amazon.jsii.tests.calculator.anonymous.IOptionB")
-+            .append("; received ")
-+            .append(option.getClass())
-+            .append(", (Parameter 'option')").toString());
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionA)
++                && !(option instanceof software.amazon.jsii.tests.calculator.anonymous.IOptionB)
++                && !(option.getClass().equals(software.amazon.jsii.JsiiObject.class))
++            )
++             {
++                throw new IllegalArgumentException(
++                new java.lang.StringBuilder("Expected ")
++                .append("option")
++                .append(" to be one of: ")
++                .append("software.amazon.jsii.tests.calculator.anonymous.IOptionA, software.amazon.jsii.tests.calculator.anonymous.IOptionB")
++                .append("; received ")
++                .append(option.getClass())
++                .append(", (Parameter 'option')").toString());
++            }
 +        }
          return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.anonymous.UseOptions.class, "consume", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(option, "option is required") });
      }
