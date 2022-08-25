@@ -92,7 +92,7 @@ export async function loadAllDefaultTablets(asms: readonly LoadedAssembly[]): Pr
 
 /**
  * Returns the location of the tablet file, either .jsii.tabl.json or .jsii.tabl.json.gz.
- * Assumes that a tablet exists in the directory and if not, the ensuing behavior is 
+ * Assumes that a tablet exists in the directory and if not, the ensuing behavior is
  * handled by the caller of this function.
  */
 export function guessTabletLocation(directory: string) {
