@@ -8,6 +8,7 @@ exports[`defaults 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├── anonymous
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
@@ -59,6 +60,7 @@ exports[`inheritance 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├── anonymous
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
@@ -110,6 +112,7 @@ exports[`members 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├── anonymous
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
@@ -231,6 +234,38 @@ exports[`showAll 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: string
+ │ │ ├─┬ anonymous
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class UseOptions
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ static consume(option) method
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ option
+ │ │ │   │   │ │   └── type: jsii-calc.anonymous.IOptionA | jsii-calc.anonymous.IOptionB
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   ├─┬ static privideAsAny(which) method
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ which
+ │ │ │   │   │ │   └── type: string
+ │ │ │   │   │ └── returns: any
+ │ │ │   │   └─┬ static provide(which) method
+ │ │ │   │     ├── static
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ which
+ │ │ │   │     │   └── type: string
+ │ │ │   │     └── returns: jsii-calc.anonymous.IOptionA | jsii-calc.anonymous.IOptionB
+ │ │ │   ├─┬ interface IOptionA
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ doSomething() method
+ │ │ │   │     ├── abstract
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface IOptionB
+ │ │ │     └─┬ members
+ │ │ │       └─┬ doSomethingElse() method
+ │ │ │         ├── abstract
+ │ │ │         └── returns: string
  │ │ ├─┬ cdk16625
  │ │ │ ├─┬ submodules
  │ │ │ │ └─┬ donotimport
@@ -1089,6 +1124,14 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ mutableObject property
  │   │     └── type: jsii-calc.IMutableObjectLiteral
+ │   ├─┬ class ClassWithNestedUnion
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   └─┬ unionProperty property
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
@@ -2285,12 +2328,18 @@ exports[`showAll 1`] = `
  │   │   │ │ └─┬ struct
  │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
  │   │   │ └── returns: boolean
- │   │   └─┬ static isStructB(struct) method
+ │   │   ├─┬ static isStructB(struct) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ struct
+ │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │ └── returns: boolean
+ │   │   └─┬ static provideStruct(which) method
  │   │     ├── static
  │   │     ├─┬ parameters
- │   │     │ └─┬ struct
- │   │     │   └── type: jsii-calc.StructA | jsii-calc.StructB
- │   │     └── returns: boolean
+ │   │     │ └─┬ which
+ │   │     │   └── type: string
+ │   │     └── returns: jsii-calc.StructA | jsii-calc.StructB
  │   ├─┬ class Sum
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -2516,6 +2565,16 @@ exports[`showAll 1`] = `
  │   │     │   ├── type: number
  │   │     │   └── variadic
  │   │     └── returns: Array<number>
+ │   ├─┬ class VariadicTypeUnion
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(union) initializer
+ │   │   │ ├── variadic
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ union
+ │   │   │     ├── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │     └── variadic
+ │   │   └─┬ union property
+ │   │     └── type: Array<jsii-calc.StructA | jsii-calc.StructB>
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3618,6 +3677,7 @@ exports[`signatures 1`] = `
  │   ├── InterfaceInNamespaceIncludesClasses
  │   ├── InterfaceInNamespaceOnlyInterface
  │   ├── PythonSelf
+ │   ├── anonymous
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
@@ -3682,6 +3742,11 @@ exports[`types 1`] = `
  │ │ │   ├── class ClassWithSelfKwarg
  │ │ │   ├── interface IInterfaceWithSelf
  │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ anonymous
+ │ │ │ └─┬ types
+ │ │ │   ├── class UseOptions
+ │ │ │   ├── interface IOptionA
+ │ │ │   └── interface IOptionB
  │ │ ├─┬ cdk16625
  │ │ │ ├─┬ submodules
  │ │ │ │ └─┬ donotimport
@@ -3822,6 +3887,7 @@ exports[`types 1`] = `
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
+ │   ├── class ClassWithNestedUnion
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
  │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
@@ -3925,6 +3991,7 @@ exports[`types 1`] = `
  │   ├── class UsesInterfaceWithProperties
  │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
+ │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor

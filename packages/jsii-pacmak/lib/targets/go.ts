@@ -18,7 +18,7 @@ export class Golang extends Target {
 
   public constructor(options: TargetOptions) {
     super(options);
-    this.goGenerator = new GoGenerator(options.rosetta);
+    this.goGenerator = new GoGenerator(options);
   }
 
   public get generator() {
@@ -41,7 +41,7 @@ export class Golang extends Target {
     const localGoMod = await this.writeLocalGoMod(pkgDir);
 
     try {
-      // run `go build` with local.go.mod, go 1.16 requires that we download
+      // run `go build` with local.go.mod, go 1.16+ requires that we download
       // modules explicit so go.sum is updated. We'd normally want to use
       // `go mod download`, but because of a bug in go 1.16, we have to use
       // `go mod tidy` instead.
@@ -146,8 +146,16 @@ class GoGenerator implements IGenerator {
   });
   private readonly documenter: Documentation;
 
-  public constructor(private readonly rosetta: Rosetta) {
+  private readonly rosetta: Rosetta;
+  private readonly runtimeTypeChecking: boolean;
+
+  public constructor(options: {
+    readonly rosetta: Rosetta;
+    readonly runtimeTypeChecking: boolean;
+  }) {
+    this.rosetta = options.rosetta;
     this.documenter = new Documentation(this.code, this.rosetta);
+    this.runtimeTypeChecking = options.runtimeTypeChecking;
   }
 
   public async load(_: string, assembly: Assembly): Promise<void> {
@@ -165,6 +173,7 @@ class GoGenerator implements IGenerator {
     return this.rootPackage.emit({
       code: this.code,
       documenter: this.documenter,
+      runtimeTypeChecking: this.runtimeTypeChecking,
     });
   }
 

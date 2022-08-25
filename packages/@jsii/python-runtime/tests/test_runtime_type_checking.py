@@ -119,3 +119,32 @@ class TestRuntimeTypeChecking:
     def test_nested_struct(self):
         # None of these should throw...
         NestingClass.NestedStruct(name="Queen B")
+
+    def test_anonymous_object(self):
+        struct = jsii_calc.StructUnionConsumer.provide_struct("A")
+        assert jsii_calc.StructUnionConsumer.is_struct_a(struct)
+
+        iface = jsii_calc.anonymous.UseOptions.provide("A")
+        assert jsii_calc.anonymous.UseOptions.consume(iface) == "A"
+
+    def test_nested_union(self):
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument union_property[0] must be one of (Mapping[str, Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]], Sequence[Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]); got float instead"
+            ),
+        ):
+            jsii_calc.ClassWithNestedUnion([1337.42])  # type:ignore
+
+    def test_variadic(self):
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument union[1] must be one of (jsii_calc.StructA, jsii_calc.StructB); got float instead"
+            ),
+        ):
+            jsii_calc.VariadicTypeUnion(
+                jsii_calc.StructA(required_string="present"), 1337.42  # type:ignore
+            )
+
+        jsii_calc.VariadicTypeUnion()

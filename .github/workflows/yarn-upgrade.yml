@@ -70,9 +70,9 @@ jobs:
         # We special-case typescript because it's not semantically versionned, and major.minor is the API contract
         run: |-
           # Upgrade devDependencies at repository root
-          ncu --upgrade --target=minor --filter=@types/node,@jest/types,jest-config,jest-circus
+          ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus
           ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/node,typescript,@jest/types,jest-config,jest-circus
+          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
@@ -85,7 +85,7 @@ jobs:
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/node,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/inquirer,@types/node,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
@@ -141,7 +141,6 @@ jobs:
           body: |-
             Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
           labels: contribution/core,dependencies,auto-approve
-          team-reviewers: aws-cdk-team
           # Privileged token so automated PR validation happens
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
 

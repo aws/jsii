@@ -1,4 +1,3 @@
-import { CodeMaker } from 'codemaker';
 import { EnumType, EnumMember, Docs } from 'jsii-reflect';
 import { ApiLocation } from 'jsii-rosetta';
 
@@ -15,6 +14,10 @@ export class Enum extends GoType<EnumType> {
     super(pkg, type);
 
     this.members = type.members.map((mem) => new GoEnumMember(this, mem));
+  }
+
+  public get parameterValidators() {
+    return [];
   }
 
   public emit(context: EmitContext) {
@@ -36,7 +39,7 @@ export class Enum extends GoType<EnumType> {
     code.line();
   }
 
-  public emitRegistration(code: CodeMaker): void {
+  public emitRegistration({ code }: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterEnum(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
@@ -54,9 +57,10 @@ export class Enum extends GoType<EnumType> {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: false,
+      fmt: false,
       init: false,
       internal: false,
+      runtime: false,
       time: false,
     };
   }

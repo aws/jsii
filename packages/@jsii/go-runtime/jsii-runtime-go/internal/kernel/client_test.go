@@ -10,7 +10,7 @@ import (
 func TestClient(t *testing.T) {
 	client, err := newClient()
 	if err != nil {
-		t.Fatalf("client init failed: %s", err.Error())
+		t.Fatalf("client init failed: %v", err.Error())
 	}
 	defer client.close()
 
@@ -31,7 +31,7 @@ func TestClient(t *testing.T) {
 	t.Run("Type registry survives CloseClient()", func(t *testing.T) {
 		client, err := newClient()
 		if err != nil {
-			t.Fatalf("client init failed: %s", err.Error())
+			t.Fatalf("client init failed: %v", err.Error())
 		}
 
 		// Clean up after ourselves, so this test does not leave traces behind.
@@ -47,7 +47,7 @@ func TestClient(t *testing.T) {
 			map[string]interface{}{"FOO": enumTypeFOO},
 		)
 		if err != nil {
-			t.Fatalf("failed registering enum: %s", err.Error())
+			t.Fatalf("failed registering enum: %v", err.Error())
 		}
 
 		CloseClient()
