@@ -2,13 +2,11 @@ import { Assembly, SPEC_FILE_NAME, writeAssembly } from '@jsii/spec';
 import * as fs from 'fs';
 import * as jsii from 'jsii';
 import * as path from 'path';
-import { gzipSync } from 'zlib';
 
 import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage, targetName } from '../../lib/languages/target-language';
 import { TabletSchema } from '../../lib/tablets/schema';
-import { DEFAULT_TABLET_NAME, DEFAULT_TABLET_NAME_COMPRESSED } from '../../lib/tablets/tablets';
 import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 jest.setTimeout(60_000);
@@ -1410,36 +1408,17 @@ test('will read translations from cache when tablet is compressed', async () => 
     },
   );
   try {
-    // Run an extract
-    await extractSnippets([infusedAssembly.moduleDirectory]);
+    // Run an extract and tell it to compress the tablet
+    await extractSnippets([infusedAssembly.moduleDirectory], {
+      compressTablet: true,
+    });
 
-    // Mess up the extracted source file
-    const schema: TabletSchema = JSON.parse(
-      await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, DEFAULT_TABLET_NAME), 'utf-8'),
-    );
-    for (const snippet of Object.values(schema.snippets)) {
-      snippet.translations[TargetLanguage.PYTHON] = {
-        source: 'oops',
-        version: '999',
-      };
-    }
-
-    // Compress tablet
-    await fs.promises.writeFile(
-      path.join(infusedAssembly.moduleDirectory, DEFAULT_TABLET_NAME_COMPRESSED),
-      gzipSync(Buffer.from(JSON.stringify(schema, null, 2))),
-    );
-
-    // Remove original tablet
-    await fs.promises.unlink(path.join(infusedAssembly.moduleDirectory, DEFAULT_TABLET_NAME));
-
-    // Run a transliterate, should have used the translation from the cache even though the version is wrong
     await transliterateAssembly([infusedAssembly.moduleDirectory], [TargetLanguage.PYTHON]);
 
     const translated: Assembly = JSON.parse(
       await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, '.jsii.python'), 'utf-8'),
     );
-    expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('oops');
+    expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('x');
   } finally {
     infusedAssembly.cleanup();
   }
