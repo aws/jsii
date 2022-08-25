@@ -45,7 +45,7 @@ public class TypeCheckingTest {
             new ClassWithCollectionOfUnions(list);
         });
 
-        assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'unionProperty')", e.getMessage());
+        assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String", e.getMessage());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TypeCheckingTest {
             list.add(1337.42);
             new ClassWithNestedUnion(list);
         });
-        assertEquals("Expected unionProperty.get(0) to be one of: java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>; received class java.lang.Double, (Parameter 'unionProperty')", e.getMessage());
+        assertEquals("Expected unionProperty.get(0) to be one of: java.util.Map<java.lang.String, java.lang.Object>, java.util.List<java.lang.Object>; received class java.lang.Double", e.getMessage());
 
         e = assertThrows(IllegalArgumentException.class, () ->
         {
@@ -75,7 +75,7 @@ public class TypeCheckingTest {
             list.add(nestedList);
             new ClassWithNestedUnion(list);
         });
-        assertEquals("Expected unionProperty.get(0).get(1) to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double, (Parameter 'unionProperty')", e.getMessage());
+        assertEquals("Expected unionProperty.get(0).get(1) to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double", e.getMessage());
 
         e = assertThrows(IllegalArgumentException.class, () ->
         {
@@ -86,7 +86,7 @@ public class TypeCheckingTest {
             list.add(map);
             new ClassWithNestedUnion(list);
         });
-        assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'unionProperty')", e.getMessage());
+        assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String", e.getMessage());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class TypeCheckingTest {
         {
             new VariadicTypeUnion(new StructAImplementer("present"), 1337.42);
         });
-        assertEquals("Expected __union__asList.get(1) to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double, (Parameter 'union')", e.getMessage());
+        assertEquals("Expected union[1] to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.Double", e.getMessage());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class TypeCheckingTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             subject.setUnionProperty(list);
         });
-        assertEquals("Expected value.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'value')", e.getMessage());
+        assertEquals("Expected value.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String", e.getMessage());
     }
 
     @Test
@@ -119,6 +119,6 @@ public class TypeCheckingTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             StructUnionConsumer.isStructA("Not a StructA");
         });
-        assertEquals("Expected struct to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String, (Parameter 'struct')", e.getMessage());
+        assertEquals("Expected struct to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String", e.getMessage());
     }
 }

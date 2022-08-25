@@ -1461,8 +1461,13 @@ class JavaGenerator extends Generator {
           this.code.openBlock(signature);
           let statement = '';
 
-          // do not emit these checks for primitive-only unions,
-          // because Java does not allow the check these in this case (eg if a String instanceof Number)
+          // Setters have one overload for each possible type in the union parameter.
+          // If a setter can take a `String | Number`, then we render two setters;
+          // one that takes a string, and one that takes a number.
+          // This allows the compiler to do this type checking for us,
+          // so we should not emit these checks for primitive-only unions.
+          // Also, Java does not allow us to perform these checks if the types
+          // have no overlap (eg if a String instanceof Number).
           if (type.includes('java.lang.Object')) {
             this.emitUnionParameterValdation([
               { name: 'value', type: prop.type },
@@ -1522,9 +1527,7 @@ class JavaGenerator extends Generator {
     if (method.abstract && !defaultImpl) {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
-      this.code.openBlock(
-        `${modifiers.join(' ')} ${signature}`,
-      );
+      this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
       this.emitUnionParameterValdation(method.parameters);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
@@ -1550,19 +1553,22 @@ class JavaGenerator extends Generator {
       return;
     }
 
-    this.code.openBlock('if (software.amazon.jsii.Configuration.getRuntimeTypeChecking())');
+    /*this.code.openBlock(
+      'if (software.amazon.jsii.Configuration.getRuntimeTypeChecking())',
+    );
+    */
     for (const param of unionParameters) {
       if (param.variadic) {
         const javaType = this.toJavaType(param.type);
         const asListName = `__${param.name}__asList`;
         this.code.line(
-          `java.util.ArrayList<${javaType}> ${asListName} = new java.util.ArrayList<${javaType}>(java.util.Arrays.asList(${param.name}));`,
+          `final java.util.List<${javaType}> ${asListName} = java.util.Arrays.asList(${param.name});`,
         );
 
         validate.call(
           this,
           asListName,
-          `.append("${asListName}")`,
+          `.append("${param.name}")`,
           {
             collection: {
               kind: spec.CollectionKind.Array,
@@ -1570,6 +1576,7 @@ class JavaGenerator extends Generator {
             },
           },
           param.name,
+          true,
         );
       } else {
         validate.call(
@@ -1581,7 +1588,7 @@ class JavaGenerator extends Generator {
         );
       }
     }
-    this.code.closeBlock();
+    //this.code.closeBlock();
 
     function validate(
       this: JavaGenerator,
@@ -1589,26 +1596,25 @@ class JavaGenerator extends Generator {
       descr: string,
       type: spec.TypeReference,
       parameterName: string,
+      isRawArray = false,
     ) {
       if (spec.isUnionTypeReference(type)) {
         validateTypeUnion.call(this, value, descr, type, parameterName);
       } else {
-        // we must cast Collections to access their methods
-        // if they are nested in a union type,
-        // since that union will be rendered as an Object.
         const collectionType = type as spec.CollectionTypeReference;
         if (collectionType.collection.kind === spec.CollectionKind.Array) {
           validateArray.call(
             this,
-            `((${this.toJavaType(type)})(${value}))`,
+            value,
             descr,
             collectionType.collection.elementtype,
             parameterName,
+            isRawArray,
           );
         } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
           validateMap.call(
             this,
-            `((${this.toJavaType(type)})(${value}))`,
+            value,
             descr,
             collectionType.collection.elementtype,
             parameterName,
@@ -1627,18 +1633,25 @@ class JavaGenerator extends Generator {
       descr: string,
       elementType: spec.TypeReference,
       parameterName: string,
+      isRawArray = false,
     ) {
-      const varName = `__idx_${createHash('sha256')
+      const suffix = createHash('sha256')
         .update(descr)
         .digest('hex')
-        .slice(0, 6)}`;
+        .slice(0, 6);
+      const idxName = `__idx_${suffix}`;
+      const valName = `__val_${suffix}`;
       this.code.openBlock(
-        `for (int ${varName} = 0; ${varName} < ${value}.size(); ${varName}++)`,
+        `for (int ${idxName} = 0; ${idxName} < ${value}.size(); ${idxName}++)`,
       );
+      const eltType = this.toJavaType(elementType);
+      this.code.line(`final ${eltType} ${valName} = ${value}.get(${idxName});`);
       validate.call(
         this,
-        `${value}.get(${varName})`,
-        `${descr}.append(".get(").append(${varName}).append(")")`,
+        valName,
+        isRawArray
+          ? `${descr}.append("[").append(${idxName}).append("]")`
+          : `${descr}.append(".get(").append(${idxName}).append(")")`,
         elementType,
         parameterName,
       );
@@ -1652,17 +1665,22 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
-      const varName = `__item_${createHash('sha256')
+      const suffix = createHash('sha256')
         .update(descr)
         .digest('hex')
-        .slice(0, 6)}`;
+        .slice(0, 6);
+      const varName = `__item_${suffix}`;
+      const valName = `__val_${suffix}`;
       const javaElemType = this.toJavaType(elementType);
       this.code.openBlock(
         `for (java.util.Map.Entry<String, ${javaElemType}> ${varName}: ${value}.entrySet())`,
       );
+      this.code.line(
+        `final ${javaElemType} ${valName} = ${varName}.getValue();`,
+      );
       validate.call(
         this,
-        `${varName}.getValue()`,
+        valName,
         `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\")")`,
         elementType,
         parameterName,
@@ -1705,23 +1723,29 @@ class JavaGenerator extends Generator {
         })
         .join(', ');
 
-      this.code.line(`throw new IllegalArgumentException(`);
-      this.code.line(`new java.lang.StringBuilder("Expected ")`);
-      this.code.line(`${descr}`);
-      this.code.line(`.append(" to be one of: ")`);
-      this.code.line(`.append("${placeholders}")`);
-      this.code.line(`.append("; received ")`);
-      this.code.line(`.append(${value}.getClass())`);
-      this.code.line(
-        `.append(", (Parameter '${parameterName}')").toString());`,
-      );
+      this.code.indent(`throw new IllegalArgumentException(`);
+      this.code.indent(`new java.lang.StringBuilder("Expected ")`);
+      this.code.line(descr);
+      this.code.line(`.append(" to be one of: ${placeholders}; received ")`);
+      this.code.line(`.append(${value}.getClass()).toString());`);
+      this.code.unindent(false);
+      this.code.unindent(false);
       this.code.closeBlock();
 
       for (const typeRef of nestedCollectionUnionTypes) {
         this.code.openBlock(
           `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
         );
-        validate.call(this, value, descr, typeRef, parameterName);
+        validate.call(
+          this,
+          // we must cast Collections to access their methods
+          // if they are nested in a union type,
+          // since that union will be rendered as an Object.
+          `((${this.toJavaType(typeRef)})(${value}))`,
+          descr,
+          typeRef,
+          parameterName,
+        );
         this.code.closeBlock();
       }
     }
