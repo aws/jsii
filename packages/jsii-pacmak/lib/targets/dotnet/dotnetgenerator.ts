@@ -676,7 +676,11 @@ export class DotNetGenerator extends Generator {
       return;
     }
 
+    this.code.openBlock(
+      'if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)',
+    );
     validator.emit(this.code, this.typeresolver);
+    this.code.closeBlock();
   }
 
   /**
