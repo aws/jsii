@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661363190864,
+  "lastUpdate": 1661542412079,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5427,6 +5427,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 275795.8068163713,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54436.943459650014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9768e2a7f2eb8847d8d06e3f40deeedac0c7dec4",
+          "message": "fix(rosetta): rosetta reader expects default tablet file to be uncompressed (#3723)\n\nDue to a bug in `rosetta-reader.ts`, we always expect to find the implicit tablet at `.jsii.tabl.json`. This means that any compressed implicit tablets will be unable to be used as a cache, and causes the following failure:\n\n```bash\nThe following snippet was not found in any of the loaded tablets: ...\n```\n\nThis PR also slightly changes the default behavior of `compressTablet`; previously it was `false` by default. Now it respects the original compression status of the implicit tablet, i.e. if it was previously compressed, then `extract` will update it as compressed.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-26T18:36:02Z",
+          "tree_id": "e8269d05b91f98ee89d392c0be65a548a4671b13",
+          "url": "https://github.com/aws/jsii/commit/9768e2a7f2eb8847d8d06e3f40deeedac0c7dec4"
+        },
+        "date": 1661542409531,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72881.35604079996,
+            "unit": "milliseconds",
+            "range": 5569966.245313966,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72881.35604079996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50224.770119449975,
+            "unit": "milliseconds",
+            "range": 1904439.47343355,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50224.770119449975 milliseconds over 20 runs"
           }
         ]
       }
