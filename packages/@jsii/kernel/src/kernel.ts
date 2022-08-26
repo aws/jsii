@@ -1,23 +1,29 @@
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
+import { renameSync } from 'fs';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
 import * as os from 'os';
 import * as path from 'path';
-import * as tar from 'tar';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
+import { link } from './link';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
 import * as wire from './serialization';
+import * as tar from './tar-cache';
 
 export class Kernel {
   /**
    * Set to true for verbose debugging.
    */
   public traceEnabled = false;
+  /**
+   * Set to true for timing data to be emitted.
+   */
+  public debugTimingEnabled = false;
 
   private readonly assemblies = new Map<string, Assembly>();
   private readonly objects = new ObjectTable(this._typeInfoForFqn.bind(this));
@@ -40,6 +46,13 @@ export class Kernel {
   public constructor(public callbackHandler: (callback: api.Callback) => any) {}
 
   public load(req: api.LoadRequest): api.LoadResponse {
+    return this._debugTime(
+      () => this._load(req),
+      `load(${JSON.stringify(req, null, 2)})`,
+    );
+  }
+
+  private _load(req: api.LoadRequest): api.LoadResponse {
     this._debug('load', req);
 
     if ('assembly' in req) {
@@ -74,21 +87,41 @@ export class Kernel {
       };
     }
 
-    // Create the install directory (there may be several path components for @scoped/packages)
-    fs.mkdirpSync(packageDir);
-
     // Force umask to have npm-install-like permissions
     const originalUmask = process.umask(0o022);
     try {
       // untar the archive to its final location
-      tar.extract({
-        cwd: packageDir,
-        file: req.tarball,
-        strict: true,
-        strip: 1, // Removes the 'package/' path element from entries
-        sync: true,
-        unlink: true,
-      });
+      const { path: extractedTo, cache } = this._debugTime(
+        () =>
+          tar.extract(
+            req.tarball,
+            {
+              strict: true,
+              strip: 1, // Removes the 'package/' path element from entries
+              unlink: true,
+            },
+            req.name,
+            req.version,
+          ),
+        `tar.extract(${req.tarball}) => ${packageDir}`,
+      );
+
+      // Create the install directory (there may be several path components for @scoped/packages)
+      fs.mkdirSync(path.dirname(packageDir), { recursive: true });
+      if (cache != null) {
+        this._debug(
+          `Package cache enabled, extraction resulted in a cache ${cache}`,
+        );
+
+        // Link the package into place.
+        this._debugTime(
+          () => link(extractedTo, packageDir),
+          `link(${extractedTo}, ${packageDir})`,
+        );
+      } else {
+        // This is not from cache, so we move it around instead of copying.
+        renameSync(extractedTo, packageDir);
+      }
     } finally {
       // Reset umask to the initial value
       process.umask(originalUmask);
@@ -97,15 +130,26 @@ export class Kernel {
     // read .jsii metadata from the root of the package
     let assmSpec;
     try {
-      assmSpec = loadAssemblyFromPath(packageDir);
+      assmSpec = this._debugTime(
+        () => loadAssemblyFromPath(packageDir),
+        `loadAssemblyFromPath(${packageDir})`,
+      );
     } catch (e: any) {
       throw new Error(`Error for package tarball ${req.tarball}: ${e.message}`);
     }
 
     // load the module and capture its closure
-    const closure = this.require!(packageDir);
+    const closure = this._debugTime(
+      () => this.require!(packageDir),
+      `require(${packageDir})`,
+    );
     const assm = new Assembly(assmSpec, closure);
-    this._addAssembly(assm);
+    this._debugTime(
+      () => this._addAssembly(assm),
+      `registerAssembly({ name: ${assm.metadata.name}, types: ${
+        Object.keys(assm.metadata.types ?? {}).length
+      } })`,
+    );
 
     return {
       assembly: assmSpec.name,
@@ -511,7 +555,7 @@ export class Kernel {
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
           const constructor = this._findSymbol(fqn);
-          tagJsiiConstructor(constructor, fqn);
+          tagJsiiConstructor(constructor, fqn, assm.metadata.version);
       }
     }
   }
@@ -1209,6 +1253,20 @@ export class Kernel {
   private _debug(...args: any[]) {
     if (this.traceEnabled) {
       console.error('[@jsii/kernel]', ...args);
+    }
+  }
+
+  private _debugTime<T>(cb: () => T, label: string): T {
+    const fullLabel = `[@jsii/kernel:timing] ${label}`;
+    if (this.debugTimingEnabled) {
+      console.time(fullLabel);
+    }
+    try {
+      return cb();
+    } finally {
+      if (this.debugTimingEnabled) {
+        console.timeEnd(fullLabel);
+      }
     }
   }
 

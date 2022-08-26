@@ -33,12 +33,14 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^10.1.0",
+    "lockfile": "^1.0.4",
     "tar": "^6.1.11"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
+    "@types/lockfile": "^1.0.2",
     "@types/tar": "^6.1.2",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",

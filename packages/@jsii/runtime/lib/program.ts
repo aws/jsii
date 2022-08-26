@@ -8,6 +8,7 @@ const version = packageInfo.version;
 
 const noStack = !!process.env.JSII_NOSTACK;
 const debug = !!process.env.JSII_DEBUG;
+const debugTiming = !!process.env.JSII_DEBUG_TIMING;
 
 // This assumes FD#3 is opened for reading and writing. This is normally
 // performed by`bin/jsii-runtime.js`, and we will not be verifying this once
@@ -24,7 +25,7 @@ const stdio = new SyncStdio({
 });
 
 const inout = new InputOutput(stdio);
-const host = new KernelHost(inout, { debug, noStack });
+const host = new KernelHost(inout, { debug, noStack, debugTiming });
 
 host.once('exit', process.exit.bind(process));
 
