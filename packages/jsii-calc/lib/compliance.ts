@@ -3082,3 +3082,11 @@ export class ClassWithNestedUnion {
     >,
   ) {}
 }
+
+export class VariadicTypeUnion {
+  public union: Array<StructA | StructB>;
+
+  public constructor(...union: Array<StructA | StructB>) {
+    this.union = union;
+  }
+}

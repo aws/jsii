@@ -2565,6 +2565,16 @@ exports[`showAll 1`] = `
  │   │     │   ├── type: number
  │   │     │   └── variadic
  │   │     └── returns: Array<number>
+ │   ├─┬ class VariadicTypeUnion
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(union) initializer
+ │   │   │ ├── variadic
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ union
+ │   │   │     ├── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │     └── variadic
+ │   │   └─┬ union property
+ │   │     └── type: Array<jsii-calc.StructA | jsii-calc.StructB>
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3981,6 +3991,7 @@ exports[`types 1`] = `
  │   ├── class UsesInterfaceWithProperties
  │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
+ │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor

@@ -2409,6 +2409,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     │   ├── type: number
  │   │     │   └── variadic
  │   │     └── returns: Array<number>
+ │   ├─┬ class VariadicTypeUnion (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(union) initializer (stable)
+ │   │   │ ├── variadic
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ union
+ │   │   │     ├── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │     └── variadic
+ │   │   └─┬ union property (stable)
+ │   │     └── type: Array<jsii-calc.StructA | jsii-calc.StructB>
  │   ├─┬ class VirtualMethodPlayground (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3838,6 +3848,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class UsesInterfaceWithProperties
  │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
+ │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor
@@ -5112,6 +5123,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>(prefix) initializer
  │   │   └── asArray(first,others) method
+ │   ├─┬ class VariadicTypeUnion
+ │   │ └─┬ members
+ │   │   ├── <initializer>(union) initializer
+ │   │   └── union property
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5912,6 +5927,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class UsesInterfaceWithProperties
  │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
+ │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor
