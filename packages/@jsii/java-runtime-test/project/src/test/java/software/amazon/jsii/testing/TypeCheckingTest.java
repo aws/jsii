@@ -16,23 +16,23 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StructAImplementer implements StructA, StructB {
-  public String requiredString;
-
-  StructAImplementer(String param) {
-    requiredString = param;
-  }
-
-  public void setRequiredString(String param) {
-    requiredString = param;
-  }
-
-  public String getRequiredString() {
-    return requiredString;
-  }
-}
-
 public class TypeCheckingTest {
+    private static class StructAImplementer implements StructA, StructB {
+      public String requiredString;
+
+      StructAImplementer(String param) {
+        requiredString = param;
+      }
+
+      public void setRequiredString(String param) {
+        requiredString = param;
+      }
+
+      public String getRequiredString() {
+        return requiredString;
+      }
+    }
+
     @Test
     public void constructor() {
         HashMap<String, Object> map = new HashMap<String, Object>();
@@ -87,6 +87,20 @@ public class TypeCheckingTest {
             new ClassWithNestedUnion(list);
         });
         assertEquals("Expected unionProperty.get(0).get(\"bad\") to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String", e.getMessage());
+    }
+
+    @Test
+    public void keysAreTypeChecked() {
+        HashMap<Object, Object> map = new HashMap<Object, Object>();
+        ArrayList<Object> list = new ArrayList<Object>();
+        map.put("good", new StructAImplementer("present"));
+        map.put(1337.42, new StructAImplementer("present"));
+        list.add(map);
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            new ClassWithNestedUnion(list);
+        });
+        assertEquals("Expected unionProperty.get(0).keySet() to contain class String; received class java.lang.Double", e.getMessage());
     }
 
     @Test

@@ -1267,7 +1267,11 @@ class JavaGenerator extends Generator {
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: toMavenVersionRange(`^${VERSION}`),
+        version:
+          VERSION === '0.0.0'
+            ? '[0.0.0-SNAPSHOT]'
+            : // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              toMavenVersionRange(`^${VERSION}`),
       });
 
       // Provides @org.jetbrains.*
@@ -1553,10 +1557,9 @@ class JavaGenerator extends Generator {
       return;
     }
 
-    /*this.code.openBlock(
+    this.code.openBlock(
       'if (software.amazon.jsii.Configuration.getRuntimeTypeChecking())',
     );
-    */
     for (const param of unionParameters) {
       if (param.variadic) {
         const javaType = this.toJavaType(param.type);
@@ -1588,7 +1591,7 @@ class JavaGenerator extends Generator {
         );
       }
     }
-    //this.code.closeBlock();
+    this.code.closeBlock();
 
     function validate(
       this: JavaGenerator,
@@ -1665,6 +1668,23 @@ class JavaGenerator extends Generator {
       elementType: spec.TypeReference,
       parameterName: string,
     ) {
+      // we have to perform this check before the loop,
+      // because the loop will assume that the keys are Strings;
+      // this throws a ClassCastException
+      this.code.openBlock(
+        `if (!(${value}.keySet().toArray()[0] instanceof String))`,
+      );
+      this.code.indent(`throw new IllegalArgumentException(`);
+      this.code.indent(`new java.lang.StringBuilder("Expected ")`);
+      this.code.line(`${descr}.append(".keySet()")`);
+      this.code.line(`.append(" to contain class String; received ")`);
+      this.code.line(
+        `.append(${value}.keySet().toArray()[0].getClass()).toString());`,
+      );
+      this.code.unindent(false);
+      this.code.unindent(false);
+      this.code.closeBlock();
+
       const suffix = createHash('sha256')
         .update(descr)
         .digest('hex')
@@ -1736,12 +1756,22 @@ class JavaGenerator extends Generator {
         this.code.openBlock(
           `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
         );
+        const varName = `__cast_${createHash('sha256')
+          .update(value)
+          .digest('hex')
+          .slice(0, 6)}`;
+        const javaTypeFull = this.toJavaType(typeRef);
+        this.code.line(`@SuppressWarnings("unchecked")`);
+        this.code.line(
+          `final ${javaTypeFull} ${varName} = (${javaTypeFull})${value};`,
+        );
+        validate.call(this, varName, descr, typeRef, parameterName);
         validate.call(
           this,
           // we must cast Collections to access their methods
           // if they are nested in a union type,
           // since that union will be rendered as an Object.
-          `((${this.toJavaType(typeRef)})(${value}))`,
+          `((${this.toJavaType(typeRef)})(${varName}))`,
           descr,
           typeRef,
           parameterName,

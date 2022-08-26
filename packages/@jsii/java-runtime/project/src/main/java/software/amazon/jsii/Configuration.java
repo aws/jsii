@@ -15,7 +15,7 @@ public final class Configuration {
    * checking, however it will produce degraded error messages in case of a
    * developer error.
    */
-  public boolean getRuntimeTypeChecking() {
+  public static boolean getRuntimeTypeChecking() {
     return Configuration.runtimeTypeChecking;
   }
 
