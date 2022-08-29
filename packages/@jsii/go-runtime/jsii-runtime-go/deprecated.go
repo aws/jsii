@@ -1,9 +1,10 @@
 package jsii
 
 import (
+	"reflect"
+
 	"github.com/aws/jsii-runtime-go/internal/api"
 	"github.com/aws/jsii-runtime-go/runtime"
-	"reflect"
 )
 
 // Deprecated: FQN represents a fully-qualified type name in the jsii type system.

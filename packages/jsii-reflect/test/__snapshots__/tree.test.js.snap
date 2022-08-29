@@ -1124,6 +1124,14 @@ exports[`showAll 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   └─┬ mutableObject property
  │   │     └── type: jsii-calc.IMutableObjectLiteral
+ │   ├─┬ class ClassWithNestedUnion
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   └─┬ unionProperty property
+ │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
@@ -2557,6 +2565,16 @@ exports[`showAll 1`] = `
  │   │     │   ├── type: number
  │   │     │   └── variadic
  │   │     └── returns: Array<number>
+ │   ├─┬ class VariadicTypeUnion
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(union) initializer
+ │   │   │ ├── variadic
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ union
+ │   │   │     ├── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │     └── variadic
+ │   │   └─┬ union property
+ │   │     └── type: Array<jsii-calc.StructA | jsii-calc.StructB>
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3869,6 +3887,7 @@ exports[`types 1`] = `
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
+ │   ├── class ClassWithNestedUnion
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
  │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
@@ -3972,6 +3991,7 @@ exports[`types 1`] = `
  │   ├── class UsesInterfaceWithProperties
  │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
+ │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor

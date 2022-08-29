@@ -71,9 +71,9 @@ type ObjectRef struct {
 }
 
 func (o *ObjectRef) TypeFQN() FQN {
-	re := regexp.MustCompile("^(.+)@(\\d+)$")
+	re := regexp.MustCompile(`^(.+)@(\d+)$`)
 	if parts := re.FindStringSubmatch(o.InstanceID); parts == nil {
-		panic(fmt.Errorf("invalid instance id: %s", o.InstanceID))
+		panic(fmt.Errorf("invalid instance id: %#v", o.InstanceID))
 	} else {
 		return FQN(parts[1])
 	}

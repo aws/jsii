@@ -1,4 +1,3 @@
-import { CodeMaker } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
@@ -11,9 +10,8 @@ import {
   JSII_RT_ALIAS,
   MethodCall,
   slugify,
-  StaticGetProperty,
-  StaticSetProperty,
 } from '../runtime';
+import { ParameterValidator } from '../runtime/runtime-type-checking';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -33,6 +31,7 @@ export class GoClass extends GoType<ClassType> {
   private _implements?: readonly GoInterface[];
 
   private readonly initializer?: GoClassConstructor;
+  #parameterValidators?: ParameterValidator[];
 
   public constructor(pkg: Package, type: ClassType) {
     super(pkg, type);
@@ -66,6 +65,21 @@ export class GoClass extends GoType<ClassType> {
     if (type.initializer) {
       this.initializer = new GoClassConstructor(this, type.initializer);
     }
+  }
+
+  public get parameterValidators(): readonly ParameterValidator[] {
+    if (this.#parameterValidators === undefined) {
+      this.#parameterValidators = [
+        ...this.methods.map((m) => m.validator!).filter((v) => v != null),
+        ...this.staticMethods.map((m) => m.validator!).filter((v) => v != null),
+        ...this.properties.map((m) => m.validator!).filter((v) => v != null),
+        ...this.staticProperties
+          .map((m) => m.validator!)
+          .filter((v) => v != null),
+        ...(this.initializer?.validator ? [this.initializer.validator] : []),
+      ];
+    }
+    return this.#parameterValidators;
   }
 
   public get extends(): GoClass | undefined {
@@ -111,7 +125,8 @@ export class GoClass extends GoType<ClassType> {
     }
 
     for (const prop of this.staticProperties) {
-      this.emitStaticProperty(context, prop);
+      prop.emitGetterProxy(context);
+      prop.emitSetterProxy(context);
     }
 
     for (const method of this.methods) {
@@ -119,7 +134,7 @@ export class GoClass extends GoType<ClassType> {
     }
   }
 
-  public emitRegistration(code: CodeMaker): void {
+  public emitRegistration({ code }: EmitContext): void {
     code.open(`${JSII_RT_ALIAS}.RegisterClass(`);
     code.line(`"${this.fqn}",`);
     code.line(`reflect.TypeOf((*${this.name})(nil)).Elem(),`);
@@ -158,11 +173,12 @@ export class GoClass extends GoType<ClassType> {
 
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: this.initializer != null || this.members.length > 0,
+      fmt: false,
       init:
         this.initializer != null ||
         this.members.some((m) => m.specialDependencies.init),
       internal: this.baseTypes.some((base) => this.pkg.isExternalType(base)),
+      runtime: this.initializer != null || this.members.length > 0,
       time:
         !!this.initializer?.specialDependencies.time ||
         this.members.some((m) => m.specialDependencies.time),
@@ -228,29 +244,6 @@ export class GoClass extends GoType<ClassType> {
     code.line();
   }
 
-  private emitStaticProperty({ code }: EmitContext, prop: GoProperty): void {
-    const getCaller = new StaticGetProperty(prop);
-
-    const propertyName = jsiiToPascalCase(prop.name);
-    const name = `${this.name}_${propertyName}`;
-
-    code.openBlock(`func ${name}() ${prop.returnType}`);
-    getCaller.emit(code);
-
-    code.closeBlock();
-    code.line();
-
-    if (!prop.immutable) {
-      const setCaller = new StaticSetProperty(prop);
-      const name = `${this.name}_Set${propertyName}`;
-      code.openBlock(`func ${name}(val ${prop.returnType})`);
-      setCaller.emit(code);
-
-      code.closeBlock();
-      code.line();
-    }
-  }
-
   // emits the implementation of the setters for the struct
   private emitSetters(context: EmitContext): void {
     for (const property of this.properties) {
@@ -277,6 +270,7 @@ export class GoClass extends GoType<ClassType> {
 
 export class GoClassConstructor extends GoMethod {
   private readonly constructorRuntimeCall: ClassConstructor;
+  #validator: ParameterValidator | undefined | null = null;
 
   public constructor(
     public readonly parent: GoClass,
@@ -286,11 +280,19 @@ export class GoClassConstructor extends GoMethod {
     this.constructorRuntimeCall = new ClassConstructor(this);
   }
 
+  public get validator() {
+    if (this.#validator === null) {
+      this.#validator = ParameterValidator.forConstructor(this);
+    }
+    return this.#validator;
+  }
+
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: true,
+      fmt: false,
       init: true,
       internal: false,
+      runtime: true,
       time: this.parameters.some((p) => p.reference.specialDependencies.time),
     };
   }
@@ -306,7 +308,9 @@ export class GoClassConstructor extends GoMethod {
     }
   }
 
-  private emitNew({ code, documenter }: EmitContext) {
+  private emitNew(context: EmitContext) {
+    const { code, documenter } = context;
+
     const constr = `New${this.parent.name}`;
     const paramString =
       this.parameters.length === 0
@@ -315,7 +319,7 @@ export class GoClassConstructor extends GoMethod {
 
     documenter.emit(this.type.docs, this.apiLocation);
     code.openBlock(`func ${constr}(${paramString}) ${this.parent.name}`);
-    this.constructorRuntimeCall.emit(code);
+    this.constructorRuntimeCall.emit(context);
     code.closeBlock();
 
     code.line();
@@ -348,9 +352,10 @@ export class ClassMethod extends GoMethod {
   }
 
   /* emit generates method implementation on the class */
-  public emit({ code }: EmitContext) {
+  public emit(context: EmitContext) {
     const name = this.name;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    const { code } = context;
 
     code.openBlock(
       `func (${this.instanceArg} *${
@@ -358,7 +363,7 @@ export class ClassMethod extends GoMethod {
       }) ${name}(${this.paramString()})${returnTypeString}`,
     );
 
-    this.runtimeCall.emit(code);
+    this.runtimeCall.emit(context);
 
     code.closeBlock();
     code.line();
@@ -375,11 +380,16 @@ export class ClassMethod extends GoMethod {
     return this.parent.name.substring(0, 1).toLowerCase();
   }
 
+  public get static(): boolean {
+    return !!this.method.spec.static;
+  }
+
   public get specialDependencies(): SpecialDependencies {
     return {
-      runtime: true,
+      fmt: false,
       init: this.method.static,
       internal: false,
+      runtime: true,
       time:
         !!this.parameters.some((p) => p.reference.specialDependencies.time) ||
         !!this.reference?.specialDependencies.time,
@@ -388,21 +398,27 @@ export class ClassMethod extends GoMethod {
 }
 
 export class StaticMethod extends ClassMethod {
+  public readonly name: string;
+
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
     super(parent, method);
+
+    this.name = `${this.parent.name}_${jsiiToPascalCase(method.name)}`;
   }
 
-  public emit({ code, documenter }: EmitContext) {
-    const name = `${this.parent.name}_${this.name}`;
+  public emit(context: EmitContext) {
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    const { code, documenter } = context;
 
     documenter.emit(this.method.docs, this.apiLocation);
-    code.openBlock(`func ${name}(${this.paramString()})${returnTypeString}`);
+    code.openBlock(
+      `func ${this.name}(${this.paramString()})${returnTypeString}`,
+    );
 
-    this.runtimeCall.emit(code);
+    this.runtimeCall.emit(context);
 
     code.closeBlock();
     code.line();
