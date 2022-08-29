@@ -14,7 +14,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **.net:** missing dynamic type checking for collection-nested unions ([#3720](https://github.com/aws/jsii/issues/3720)) ([362326e](https://github.com/aws/jsii/commit/362326e989e1d9f2a032d4c15c34f3d60e712051))
-* **python:** reference to type does not use alias ([#3728](https://github.com/aws/jsii/issues/3728)) ([e626597](https://github.com/aws/jsii/commit/e626597b0deda6d8fdb3e09249388b81e068afd3))
 * **rosetta:** rosetta reader expects default tablet file to be uncompressed ([#3723](https://github.com/aws/jsii/issues/3723)) ([9768e2a](https://github.com/aws/jsii/commit/9768e2a7f2eb8847d8d06e3f40deeedac0c7dec4))
 * type unions in variadic position leads to invalid code-gen ([#3722](https://github.com/aws/jsii/issues/3722)) ([93aec85](https://github.com/aws/jsii/commit/93aec85ada9fd9e505591766b8e87ee53c0bde6b))
 
