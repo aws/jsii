@@ -1693,7 +1693,7 @@ class JavaGenerator extends Generator {
       const valName = `__val_${suffix}`;
       const javaElemType = this.toJavaType(elementType);
       this.code.openBlock(
-        `for (java.util.Map.Entry<String, ${javaElemType}> ${varName}: ${value}.entrySet())`,
+        `for (final java.util.Map.Entry<String, ${javaElemType}> ${varName}: ${value}.entrySet())`,
       );
       this.code.line(
         `final ${javaElemType} ${valName} = ${varName}.getValue();`,

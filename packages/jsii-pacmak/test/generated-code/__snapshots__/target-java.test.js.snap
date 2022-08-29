@@ -27941,7 +27941,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                        .append(" to contain class String; received ")
 +                        .append(value.keySet().toArray()[0].getClass()).toString());
 +            }
-+            for (java.util.Map.Entry<String, java.lang.Object> __item_ac66f0: value.entrySet()) {
++            for (final java.util.Map.Entry<String, java.lang.Object> __item_ac66f0: value.entrySet()) {
 +                final java.lang.Object __val_ac66f0 = __item_ac66f0.getValue();
 +                if (
 +                     !(__val_ac66f0 instanceof java.lang.String)
@@ -27984,7 +27984,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                            .append(" to contain class String; received ")
 +                            .append(__val_1ccdf0.keySet().toArray()[0].getClass()).toString());
 +                }
-+                for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: __val_1ccdf0.entrySet()) {
++                for (final java.util.Map.Entry<String, java.lang.Object> __item_fb617d: __val_1ccdf0.entrySet()) {
 +                    final java.lang.Object __val_fb617d = __item_fb617d.getValue();
 +                    if (
 +                         !(__val_fb617d instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -28022,7 +28022,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                            .append(" to contain class String; received ")
 +                            .append(__val_ac66f0.keySet().toArray()[0].getClass()).toString());
 +                }
-+                for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: __val_ac66f0.entrySet()) {
++                for (final java.util.Map.Entry<String, java.lang.Object> __item_58ec25: __val_ac66f0.entrySet()) {
 +                    final java.lang.Object __val_58ec25 = __item_58ec25.getValue();
 +                    if (
 +                         !(__val_58ec25 instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -28078,7 +28078,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                                .append(" to contain class String; received ")
 +                                .append(__cast_7c6d77.keySet().toArray()[0].getClass()).toString());
 +                    }
-+                    for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: __cast_7c6d77.entrySet()) {
++                    for (final java.util.Map.Entry<String, java.lang.Object> __item_fb617d: __cast_7c6d77.entrySet()) {
 +                        final java.lang.Object __val_fb617d = __item_fb617d.getValue();
 +                        if (
 +                             !(__val_fb617d instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -28100,7 +28100,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                                .append(" to contain class String; received ")
 +                                .append(((java.util.Map<java.lang.String, java.lang.Object>)(__cast_7c6d77)).keySet().toArray()[0].getClass()).toString());
 +                    }
-+                    for (java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(__cast_7c6d77)).entrySet()) {
++                    for (final java.util.Map.Entry<String, java.lang.Object> __item_fb617d: ((java.util.Map<java.lang.String, java.lang.Object>)(__cast_7c6d77)).entrySet()) {
 +                        final java.lang.Object __val_fb617d = __item_fb617d.getValue();
 +                        if (
 +                             !(__val_fb617d instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -28188,7 +28188,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                                .append(" to contain class String; received ")
 +                                .append(__cast_7fc174.keySet().toArray()[0].getClass()).toString());
 +                    }
-+                    for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: __cast_7fc174.entrySet()) {
++                    for (final java.util.Map.Entry<String, java.lang.Object> __item_58ec25: __cast_7fc174.entrySet()) {
 +                        final java.lang.Object __val_58ec25 = __item_58ec25.getValue();
 +                        if (
 +                             !(__val_58ec25 instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -28210,7 +28210,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                                .append(" to contain class String; received ")
 +                                .append(((java.util.Map<java.lang.String, java.lang.Object>)(__cast_7fc174)).keySet().toArray()[0].getClass()).toString());
 +                    }
-+                    for (java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(__cast_7fc174)).entrySet()) {
++                    for (final java.util.Map.Entry<String, java.lang.Object> __item_58ec25: ((java.util.Map<java.lang.String, java.lang.Object>)(__cast_7fc174)).entrySet()) {
 +                        final java.lang.Object __val_58ec25 = __item_58ec25.getValue();
 +                        if (
 +                             !(__val_58ec25 instanceof software.amazon.jsii.tests.calculator.StructA)
