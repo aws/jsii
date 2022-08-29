@@ -74,7 +74,7 @@ func (o *ObjectStore) Register(value reflect.Value, objectRef api.ObjectRef) err
 			o.mergeInterfaces(objectRef)
 			return nil
 		}
-		return fmt.Errorf("attempting to register %s as %s, but it was already registered as %s", value, objectRef.InstanceID, existing)
+		return fmt.Errorf("attempting to register %v as %v, but it was already registered as %v", value, objectRef.InstanceID, existing)
 	}
 
 	aliases := findAliases(value)
@@ -95,7 +95,7 @@ func (o *ObjectStore) Register(value reflect.Value, objectRef api.ObjectRef) err
 	for _, alias := range aliases {
 		ptr := alias.Pointer()
 		if existing, found := o.objectToID[ptr]; found && existing != objectRef.InstanceID {
-			return fmt.Errorf("value %s is embedded in %s which has ID %s, but was already assigned %s", alias.String(), value.String(), objectRef.InstanceID, existing)
+			return fmt.Errorf("value %v is embedded in %v which has ID %v, but was already assigned %v", alias.String(), value.String(), objectRef.InstanceID, existing)
 		}
 	}
 
@@ -216,7 +216,7 @@ func canonicalValue(value reflect.Value) (reflect.Value, error) {
 	result := reflect.ValueOf(reflect.Indirect(value).Interface())
 
 	if result.Kind() != reflect.Ptr {
-		return reflect.Value{}, fmt.Errorf("illegal argument: %s is not a pointer", result.String())
+		return reflect.Value{}, fmt.Errorf("illegal argument: %v is not a pointer", result.String())
 	}
 
 	return result, nil

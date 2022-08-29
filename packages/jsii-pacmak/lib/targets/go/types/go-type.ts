@@ -6,6 +6,10 @@ import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
+import {
+  ParameterValidator,
+  StructValidator,
+} from '../runtime/runtime-type-checking';
 import { GoClass } from './class';
 import { GoInterface } from './interface';
 
@@ -36,9 +40,15 @@ export abstract class GoType<T extends Type = Type> {
     this.apiLocation = { api: 'type', fqn: this.fqn };
   }
 
+  public get structValidator(): StructValidator | undefined {
+    return undefined;
+  }
+
+  public abstract get parameterValidators(): readonly ParameterValidator[];
+
   public abstract emit(context: EmitContext): void;
 
-  public abstract emitRegistration(code: CodeMaker): void;
+  public abstract emitRegistration(context: EmitContext): void;
 
   public abstract get dependencies(): Package[];
   public abstract get specialDependencies(): SpecialDependencies;

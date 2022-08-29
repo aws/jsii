@@ -243,15 +243,18 @@ export class DotNetTypeResolver {
    * Translates a collection in jsii to the name of a native .NET collection
    */
   private toDotNetCollectionName(ref: spec.CollectionTypeReference): string {
+    const [_, dollar, quote, content] = /^(?:(\$)?("))?([^"]+)"?$/.exec(
+      this.toDotNetTypeName(ref.collection.elementtype),
+    )!;
+
+    const interpolates = dollar || !quote ? '$' : '';
+    const elementTypeName = quote ? content : `{${content}}`;
+
     switch (ref.collection.kind) {
       case spec.CollectionKind.Array:
-        const elementDotNetTypeName = this.toDotNetTypeName(
-          ref.collection.elementtype,
-        );
-        return `$"{${elementDotNetTypeName}}[]"`;
+        return `${interpolates}"${elementTypeName}[]"`;
       case spec.CollectionKind.Map:
-        const elementDotNetType = this.toDotNetType(ref.collection.elementtype);
-        return `typeof(System.Collections.Generic.IDictionary<string, ${elementDotNetType}>).FullName`;
+        return `${interpolates}"System.Collections.Generic.IDictionary<string, ${elementTypeName}>"`;
       default:
         throw new Error(
           `Unsupported collection kind: ${ref.collection.kind as any}`,

@@ -1387,6 +1387,43 @@ test('will read translations from cache even if they are dirty', async () => {
   }
 });
 
+test('will read translations from cache when tablet is compressed', async () => {
+  const infusedAssembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+        /**
+         * ClassA
+         *
+         * @example x
+         */
+        export class ClassA {
+          public someMethod() {
+          }
+        }
+        `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    // Run an extract and tell it to compress the tablet
+    await extractSnippets([infusedAssembly.moduleDirectory], {
+      compressTablet: true,
+    });
+
+    await transliterateAssembly([infusedAssembly.moduleDirectory], [TargetLanguage.PYTHON]);
+
+    const translated: Assembly = JSON.parse(
+      await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, '.jsii.python'), 'utf-8'),
+    );
+    expect(translated.types?.['my_assembly.ClassA'].docs?.example).toEqual('x');
+  } finally {
+    infusedAssembly.cleanup();
+  }
+});
+
 test('will output to specified directory', async () =>
   withTemporaryDirectory(async (tmpDir) => {
     // GIVEN

@@ -38,7 +38,7 @@ func TestVersionCheck(t *testing.T) {
 	acceptedVersions := []string{"4.3.2", "4.3.1337", "4.1337.42"}
 
 	for _, mockVersion := range acceptedVersions {
-		t.Run(fmt.Sprintf("accepts version %s", mockVersion), func(t *testing.T) {
+		t.Run(fmt.Sprintf("accepts version %v", mockVersion), func(t *testing.T) {
 			oldJsiiRuntime := os.Getenv(JSII_RUNTIME)
 			if runtime, err := makeCustomRuntime(mockVersion); err != nil {
 				t.Fatal(err)
@@ -53,7 +53,7 @@ func TestVersionCheck(t *testing.T) {
 				return
 			}
 			defer process.Close()
-			t.Logf("Subprocess command: %s", strings.Join(process.cmd.Args, " "))
+			t.Logf("Subprocess command: %v", strings.Join(process.cmd.Args, " "))
 
 			var (
 				request  = EchoRequest{Message: "Oh, hi!"}
@@ -63,7 +63,7 @@ func TestVersionCheck(t *testing.T) {
 				t.Fatal(err)
 			}
 			if response.Message != request.Message {
-				t.Errorf("Expected %s, received %s", request.Message, response.Message)
+				t.Errorf("Expected %v, received %v", request.Message, response.Message)
 			}
 		})
 	}
@@ -71,7 +71,7 @@ func TestVersionCheck(t *testing.T) {
 	rejectedVersions := []string{"3.1337.42", "5.0.0-0", "4.3.2-pre.0", "4.3.3-pre.0"}
 
 	for _, mockVersion := range rejectedVersions {
-		t.Run(fmt.Sprintf("rejects version %s", mockVersion), func(t *testing.T) {
+		t.Run(fmt.Sprintf("rejects version %v", mockVersion), func(t *testing.T) {
 			oldJsiiRuntime := os.Getenv(JSII_RUNTIME)
 			if runtime, err := makeCustomRuntime(mockVersion); err != nil {
 				t.Fatal(err)
@@ -80,13 +80,13 @@ func TestVersionCheck(t *testing.T) {
 			}
 			defer os.Setenv(JSII_RUNTIME, oldJsiiRuntime)
 
-			process, err := NewProcess(fmt.Sprintf("^4.3.2"))
+			process, err := NewProcess("^4.3.2")
 			if err != nil {
 				t.Fatal(err)
 				return
 			}
 			defer process.Close()
-			t.Logf("Subprocess command: %s", strings.Join(process.cmd.Args, " "))
+			t.Logf("Subprocess command: %v", strings.Join(process.cmd.Args, " "))
 
 			var (
 				request  = EchoRequest{Message: "Oh, hi!"}
@@ -95,7 +95,7 @@ func TestVersionCheck(t *testing.T) {
 			if err := process.Request(request, &response); err == nil {
 				t.Errorf("expected an error, but no error received")
 			} else if !strings.Contains(err.Error(), "incompatible runtime version") {
-				t.Errorf("expected incompatible runtime version error, got %s", err.Error())
+				t.Errorf("expected incompatible runtime version error, got %v", err.Error())
 			}
 		})
 	}
@@ -122,5 +122,5 @@ func makeCustomRuntime(mockVersion string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s %s %s", node, mockRuntime, mockVersion), nil
+	return fmt.Sprintf("%v %v %v", node, mockRuntime, mockVersion), nil
 }
