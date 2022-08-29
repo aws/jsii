@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661542412079,
+  "lastUpdate": 1661792895322,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5465,6 +5465,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1904439.47343355,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50224.770119449975 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e626597b0deda6d8fdb3e09249388b81e068afd3",
+          "message": "fix(python): reference to type does not use alias (#3728)\n\nType references in a keyword property position may not have used\nthe aliased import as intended, resulting in a runtime error due\nto referring to an undefined symbol.\n\nAdditionally, keyword properties referencing structs did not\nallow dicts to be used in lieu of a struct instance.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-29T16:09:19Z",
+          "tree_id": "bd752be86b5528c9833af670c3cecd1cb9baac69",
+          "url": "https://github.com/aws/jsii/commit/e626597b0deda6d8fdb3e09249388b81e068afd3"
+        },
+        "date": 1661792892850,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 78329.85152135,
+            "unit": "milliseconds",
+            "range": 1315800.2378688273,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 78329.85152135 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53475.43280334999,
+            "unit": "milliseconds",
+            "range": 148662.70379325224,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53475.43280334999 milliseconds over 20 runs"
           }
         ]
       }
