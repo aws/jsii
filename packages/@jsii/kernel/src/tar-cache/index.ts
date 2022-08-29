@@ -3,8 +3,8 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import * as tar from 'tar';
 
+import { DiskCache } from '../disk-cache';
 import { defaultCacheRoot } from './default-cache-root';
-import { DiskCache } from './disk-cache';
 
 export type ExtractOptions = Omit<
   tar.ExtractOptions & tar.FileOptions,

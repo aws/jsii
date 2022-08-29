@@ -14,11 +14,11 @@ import {
   WireStruct,
   TOKEN_STRUCT,
 } from './api';
+import { DiskCache } from './disk-cache';
 import { Kernel } from './kernel';
 import { closeRecording, recordInteraction } from './recording';
 import * as tar from './tar-cache';
 import { defaultCacheRoot } from './tar-cache/default-cache-root';
-import { DiskCache } from './tar-cache/disk-cache';
 
 /* eslint-disable require-atomic-updates */
 

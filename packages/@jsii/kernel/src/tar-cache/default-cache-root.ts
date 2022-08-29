@@ -10,6 +10,7 @@ export function defaultCacheRoot(): string {
           'Library',
           'Caches',
           'com.amazonaws.jsii',
+          'package-cache',
         );
       break;
     case 'linux':

@@ -2,6 +2,7 @@ import {
   existsSync,
   mkdirSync,
   readdirSync,
+  readFileSync,
   realpathSync,
   rmdirSync,
   rmSync,
@@ -48,17 +49,34 @@ export class DiskCache {
     process.once('beforeExit', () => this.pruneExpiredEntries());
   }
 
-  public entryFor(path: string, ...comments: readonly string[]) {
-    const rawDigest = digestFile(path, ...comments);
+  public entry(...key: readonly string[]): Entry {
+    if (key.length === 0) {
+      throw new Error(`Cache entry key must contain at least 1 element!`);
+    }
+
     return new Entry(
       join(
         this.#root,
-        ...comments.flatMap((s) =>
-          s.replace(/[^@a-z0-9_.\\/-]+/g, '_').split(/[\\/]+/),
+        ...key.flatMap((s) =>
+          s
+            .replace(/[^@a-z0-9_.\\/-]+/g, '_')
+            .split(/[\\/]+/)
+            .map((ss) => {
+              if (ss === '..') {
+                throw new Error(
+                  `A cache entry key cannot contain a '..' path segment! (${s})`,
+                );
+              }
+              return ss;
+            }),
         ),
-        rawDigest.toString('hex'),
       ),
     );
+  }
+
+  public entryFor(path: string, ...comments: readonly string[]): Entry {
+    const rawDigest = digestFile(path, ...comments);
+    return this.entry(...comments, rawDigest.toString('hex'));
   }
 
   public pruneExpiredEntries() {
@@ -148,6 +166,19 @@ export class Entry {
           }
           rmSync(this.path, { force: true, recursive: true });
         },
+        write: (name, content) => {
+          if (disposed) {
+            throw new Error(
+              `Cannot write ${join(
+                this.path,
+                name,
+              )} once the lock block as returned!`,
+            );
+          }
+
+          mkdirSync(dirname(join(this.path, name)), { recursive: true });
+          writeFileSync(join(this.path, name), content);
+        },
         touch: () => {
           if (disposed) {
             throw new Error(
@@ -169,10 +200,23 @@ export class Entry {
       unlockSync(this.lockFile);
     }
   }
+
+  public read(file: string): Buffer | undefined {
+    try {
+      return readFileSync(join(this.path, file));
+    } catch (error: any) {
+      if (error.code === 'ENOENT') {
+        return undefined;
+      }
+      throw error;
+    }
+  }
 }
 
 export interface LockedEntry {
   delete(): void;
+  write(name: string, data: Buffer): void;
+
   touch(): void;
 }
 
