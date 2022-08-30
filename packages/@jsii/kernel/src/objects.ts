@@ -16,7 +16,16 @@ const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 /**
  * Symbol we use to tag the constructor of a JSII class
  */
-const JSII_SYMBOL = Symbol.for('__jsii__');
+const JSII_RTTI_SYMBOL = Symbol.for('jsii.rtti');
+
+interface ManagedConstructor {
+  readonly [JSII_RTTI_SYMBOL]: {
+    readonly fqn: string;
+    readonly version: string;
+  };
+}
+
+type MaybeManagedConstructor = Partial<ManagedConstructor>;
 
 /**
  * Get the JSII fqn for an object (if available)
@@ -26,7 +35,7 @@ const JSII_SYMBOL = Symbol.for('__jsii__');
  * information.
  */
 export function jsiiTypeFqn(obj: any): string | undefined {
-  return obj.constructor[JSII_SYMBOL]?.fqn;
+  return (obj.constructor as MaybeManagedConstructor)[JSII_RTTI_SYMBOL]?.fqn;
 }
 
 /**
@@ -86,12 +95,19 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
 /**
  * Set the JSII FQN for classes produced by a given constructor
  */
-export function tagJsiiConstructor(constructor: any, fqn: string) {
-  Object.defineProperty(constructor, JSII_SYMBOL, {
+export function tagJsiiConstructor(
+  constructor: any,
+  fqn: string,
+  version: string,
+) {
+  if (Object.prototype.hasOwnProperty.call(constructor, JSII_RTTI_SYMBOL)) {
+    return;
+  }
+  Object.defineProperty(constructor, JSII_RTTI_SYMBOL, {
     configurable: false,
     enumerable: false,
     writable: false,
-    value: { fqn },
+    value: { fqn, version },
   });
 }
 
