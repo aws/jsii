@@ -9,9 +9,14 @@ export class KernelHost {
 
   public constructor(
     private readonly inout: IInputOutput,
-    private readonly opts: { debug?: boolean; noStack?: boolean } = {},
+    private readonly opts: {
+      debug?: boolean;
+      debugTiming?: boolean;
+      noStack?: boolean;
+    } = {},
   ) {
-    this.kernel.traceEnabled = opts.debug ? true : false;
+    this.kernel.traceEnabled = opts.debug ?? false;
+    this.kernel.debugTimingEnabled = opts.debugTiming ?? false;
   }
 
   public run() {

@@ -14,8 +14,11 @@ import {
   WireStruct,
   TOKEN_STRUCT,
 } from './api';
+import { DiskCache } from './disk-cache';
 import { Kernel } from './kernel';
 import { closeRecording, recordInteraction } from './recording';
+import * as tar from './tar-cache';
+import { defaultCacheRoot } from './tar-cache/default-cache-root';
 
 /* eslint-disable require-atomic-updates */
 
@@ -48,6 +51,11 @@ if (recordingOutput) {
   fs.mkdirpSync(recordingOutput);
   console.error(`JSII_RECORD=${recordingOutput}`);
 }
+
+afterAll(() => {
+  // Jest prevents execution of "beforeExit" events.
+  DiskCache.inDirectory(defaultCacheRoot()).pruneExpiredEntries();
+});
 
 function defineTest(
   name: string,
@@ -2147,6 +2155,9 @@ defineTest('invokeBinScript() return output', (sandbox) => {
 const testNames: { [name: string]: boolean } = {};
 
 async function createCalculatorSandbox(name: string) {
+  // Run half the tests with cache, half without cache... so we test both.
+  tar.setPackageCacheEnabled(!tar.getPackageCacheEnabled());
+
   if (name in testNames) {
     throw new Error(`Duplicate test name: ${name}`);
   }
