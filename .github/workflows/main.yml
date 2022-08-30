@@ -432,10 +432,16 @@ jobs:
       # Show time!
       - name: Prepare Work Tree
         run: |-
-          npm install --no-save aws-cdk-lib@2                                   \
+          npm install --no-save aws-cdk-lib@2 constructs@10                     \
                                 ${{ runner.temp }}/release-package/js/*.tgz     \
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         run: |-
-          ${{ github.workspace }}/node_modules/.bin/jsii-pacmak
-        working-directory: node_modules/aws-cdk-lib
+          ./node_modules/.bin/jsii-pacmak ./node_modules/aws-cdk-lib
+      # Upload artifact (we'll tar it up to save time)
+      - name: 'Upload Artifact: integtest_aws-cdk-lib'
+        uses: actions/upload-artifact@v3
+        with:
+          name: integtest_aws-cdk-lib
+          path: ./node_modules/aws-cdk-lib/dist/
+
