@@ -603,7 +603,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,)</version>
+      <version>[0.0.0-SNAPSHOT]</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -2199,7 +2199,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,)</version>
+      <version>[0.0.0-SNAPSHOT]</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
