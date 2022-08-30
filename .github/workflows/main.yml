@@ -395,8 +395,8 @@ jobs:
     name: Integration test (jsii-pacmak)
     runs-on: ubuntu-latest
     needs: create-release-package
-    jobs:
-      - # Check out the code
+    steps:
+      # Check out the code
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
