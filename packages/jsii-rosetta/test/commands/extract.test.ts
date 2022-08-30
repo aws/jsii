@@ -106,6 +106,78 @@ test('extract can compress implicit tablet file', async () => {
   expect(tablet.snippetKeys.length).toEqual(1);
 });
 
+describe('extract behavior regarding compressing implicit tablets', () => {
+  function hasCompressedDefaultTablet(directory: string) {
+    return (
+      fs.existsSync(path.join(directory, DEFAULT_TABLET_NAME_COMPRESSED)) &&
+      !fs.existsSync(path.join(directory, DEFAULT_TABLET_NAME))
+    );
+  }
+
+  function hasUncompressedDefaultTablet(directory: string) {
+    return (
+      !fs.existsSync(path.join(directory, DEFAULT_TABLET_NAME_COMPRESSED)) &&
+      fs.existsSync(path.join(directory, DEFAULT_TABLET_NAME))
+    );
+  }
+
+  function hasBothDefaultTablets(directory: string) {
+    return (
+      fs.existsSync(path.join(directory, DEFAULT_TABLET_NAME_COMPRESSED)) &&
+      fs.existsSync(path.join(directory, DEFAULT_TABLET_NAME))
+    );
+  }
+
+  test('preserve uncompressed tablet by default', async () => {
+    // Run extract with compressTablet = false to create .jsii.tabl.json file
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      ...defaultExtractOptions,
+      compressTablet: false,
+    });
+
+    expect(hasUncompressedDefaultTablet(assembly.moduleDirectory)).toBeTruthy();
+
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      ...defaultExtractOptions,
+    });
+
+    expect(hasUncompressedDefaultTablet(assembly.moduleDirectory)).toBeTruthy();
+  });
+
+  test('preserve compressed tablet by default', async () => {
+    // Run extract with compressTablet = true to create .jsii.tabl.json.gz file
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      ...defaultExtractOptions,
+      compressTablet: true,
+    });
+
+    expect(hasCompressedDefaultTablet(assembly.moduleDirectory)).toBeTruthy();
+
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      ...defaultExtractOptions,
+    });
+
+    expect(hasCompressedDefaultTablet(assembly.moduleDirectory)).toBeTruthy();
+  });
+
+  test('respects the explicit call to compress the tablet', async () => {
+    // Run extract with compressTablet = false to create .jsii.tabl.json file
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      ...defaultExtractOptions,
+      compressTablet: false,
+    });
+
+    expect(hasUncompressedDefaultTablet(assembly.moduleDirectory)).toBeTruthy();
+
+    await extract.extractSnippets([assembly.moduleDirectory], {
+      ...defaultExtractOptions,
+      compressTablet: true,
+    });
+
+    expect(hasBothDefaultTablets(assembly.moduleDirectory)).toBeTruthy();
+  });
+});
+
 test('extract works from compressed test assembly', async () => {
   const compressedAssembly = TestJsiiModule.fromSource(
     {
