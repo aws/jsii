@@ -1,8 +1,10 @@
 package software.amazon.jsii;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -47,14 +49,22 @@ public final class JsiiObjectRef {
      * @param node The JSON node that includes the objref.
      */
     private JsiiObjectRef(final String objId, final JsonNode node) {
-        this.objId = objId;
-        this.node = node;
+        this(objId, node.has(TOKEN_INTERFACES)
+                ? parseInterfaces(node.get(TOKEN_INTERFACES))
+                : Collections.emptySet(), node);
+    }
 
+    @VisibleForTesting
+    JsiiObjectRef(final String objId, final Set<String> interfaces) {
+        this(objId, interfaces, JsiiObjectRef.makeJson(objId, interfaces));
+    }
+
+    private JsiiObjectRef(final String objId, final Set<String> interfaces, final JsonNode node) {
+        this.objId = objId;
         int fqnDelimiter = this.objId.lastIndexOf("@");
         this.fqn = this.objId.substring(0, fqnDelimiter);
-        this.interfaces = node.has(TOKEN_INTERFACES)
-            ? parseInterfaces(node.get(TOKEN_INTERFACES))
-            : Collections.emptySet();
+        this.interfaces = interfaces;
+        this.node = node;
     }
 
     /**
@@ -79,6 +89,24 @@ public final class JsiiObjectRef {
         ObjectNode node = JsonNodeFactory.instance.objectNode();
         node.put(TOKEN_REF, objId);
         return new JsiiObjectRef(objId, node);
+    }
+
+    JsiiObjectRef withInterface(final String fqn) {
+        final Set<String> interfaces = new HashSet<>(this.interfaces);
+        interfaces.add(fqn);
+
+        return new JsiiObjectRef(this.objId, interfaces);
+    }
+
+    private static JsonNode makeJson(final String objId, final Set<String> interfaces) {
+        final ObjectNode node = JsonNodeFactory.instance.objectNode();
+        node.put(TOKEN_REF, objId);
+        final ArrayNode jsonInterfaces = JsonNodeFactory.instance.arrayNode();
+        for (final String iface : interfaces) {
+            jsonInterfaces.add(JsonNodeFactory.instance.textNode(iface));
+        }
+        node.set(TOKEN_INTERFACES, jsonInterfaces);
+        return node;
     }
 
     private static Set<String> parseInterfaces(final JsonNode node) {
