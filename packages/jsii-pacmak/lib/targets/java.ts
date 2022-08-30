@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 import * as clone from 'clone';
 import { toSnakeCase } from 'codemaker/lib/case-utils';
 import { createHash } from 'crypto';
@@ -1472,9 +1473,20 @@ class JavaGenerator extends Generator {
           // so we should not emit these checks for primitive-only unions.
           // Also, Java does not allow us to perform these checks if the types
           // have no overlap (eg if a String instanceof Number).
-          if (type.includes('java.lang.Object')) {
+          if (
+            type.includes('java.lang.Object') &&
+            (!spec.isPrimitiveTypeReference(prop.type) ||
+              prop.type.primitive === spec.PrimitiveType.Any)
+          ) {
             this.emitUnionParameterValdation([
-              { name: 'value', type: prop.type },
+              {
+                name: 'value',
+                type: this.filterType(
+                  prop.type,
+                  { covariant: prop.static, optional: prop.optional },
+                  type,
+                ),
+              },
             ]);
           }
           if (prop.static) {
@@ -1491,6 +1503,40 @@ class JavaGenerator extends Generator {
         }
       }
     }
+  }
+
+  /**
+   * Filters types from a union to select only those that correspond to the
+   * specified javaType.
+   *
+   * @param ref the type to be filtered.
+   * @param javaType the java type that is expected.
+   * @param covariant whether collections should use the covariant form.
+   * @param optional whether the type at an optional location or not
+   *
+   * @returns a type reference that matches the provided javaType.
+   */
+  private filterType(
+    ref: spec.TypeReference,
+    { covariant, optional }: { covariant?: boolean; optional?: boolean },
+    javaType: string,
+  ): spec.TypeReference {
+    if (!spec.isUnionTypeReference(ref)) {
+      // No filterning needed -- this isn't a type union!
+      return ref;
+    }
+    const types = ref.union.types.filter(
+      (t) =>
+        this.toDecoratedJavaType({ optional, type: t }, { covariant }) ===
+        javaType,
+    );
+    assert(
+      types.length > 0,
+      `No type found in ${spec.describeTypeReference(
+        ref,
+      )} has Java type ${javaType}`,
+    );
+    return { union: { types } };
   }
 
   private emitMethod(
@@ -1715,68 +1761,86 @@ class JavaGenerator extends Generator {
       type: spec.UnionTypeReference,
       parameterName: string,
     ) {
-      this.code.indent('if (');
       let emitAnd = false;
-      const nestedCollectionUnionTypes = [];
+      const nestedCollectionUnionTypes = new Map<string, spec.TypeReference>();
       const typeRefs = type.union.types;
+      if (typeRefs.length > 1) {
+        this.code.indent('if (');
+      }
+      const checked = new Set<string>();
       for (const typeRef of typeRefs) {
         const prefix = emitAnd ? '&&' : '';
-        const javaType = this.toJavaTypeNoGenerics(typeRef);
-        if (javaType !== this.toJavaType(typeRef)) {
-          nestedCollectionUnionTypes.push(typeRef);
+        const javaRawType = this.toJavaTypeNoGenerics(typeRef);
+        if (checked.has(javaRawType)) {
+          continue;
+        } else {
+          checked.add(javaRawType);
         }
-        const test = `${value} instanceof ${javaType}`;
-        this.code.line(`${prefix} !(${test})`);
+        const javaType = this.toJavaType(typeRef);
+        if (javaRawType !== javaType) {
+          nestedCollectionUnionTypes.set(javaType, typeRef);
+        }
+        const test = `${value} instanceof ${javaRawType}`;
+        if (typeRefs.length > 1) {
+          this.code.line(`${prefix} !(${test})`);
+        }
         emitAnd = true;
       }
-      // Only anonymous objects at runtime can be `JsiiObject`s.
-      this.code.line(
-        `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
-      );
-
-      this.code.unindent(')');
-      this.code.openBlock('');
-
-      const placeholders = typeRefs
-        .map((typeRef) => {
-          return `${this.toJavaType(typeRef)}`;
-        })
-        .join(', ');
-
-      this.code.indent(`throw new IllegalArgumentException(`);
-      this.code.indent(`new java.lang.StringBuilder("Expected ")`);
-      this.code.line(descr);
-      this.code.line(`.append(" to be one of: ${placeholders}; received ")`);
-      this.code.line(`.append(${value}.getClass()).toString());`);
-      this.code.unindent(false);
-      this.code.unindent(false);
-      this.code.closeBlock();
-
-      for (const typeRef of nestedCollectionUnionTypes) {
-        this.code.openBlock(
-          `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
-        );
-        const varName = `__cast_${createHash('sha256')
-          .update(value)
-          .digest('hex')
-          .slice(0, 6)}`;
-        const javaTypeFull = this.toJavaType(typeRef);
-        this.code.line(`@SuppressWarnings("unchecked")`);
+      if (
+        typeRefs.length > 1 &&
+        typeRefs.some(
+          (t) =>
+            spec.isNamedTypeReference(t) &&
+            spec.isInterfaceType(this.findType(t.fqn)),
+        )
+      ) {
+        // Only anonymous objects at runtime can be `JsiiObject`s.
         this.code.line(
-          `final ${javaTypeFull} ${varName} = (${javaTypeFull})${value};`,
+          `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
         );
-        validate.call(this, varName, descr, typeRef, parameterName);
-        validate.call(
-          this,
-          // we must cast Collections to access their methods
-          // if they are nested in a union type,
-          // since that union will be rendered as an Object.
-          `((${this.toJavaType(typeRef)})(${varName}))`,
-          descr,
-          typeRef,
-          parameterName,
-        );
+      }
+
+      if (typeRefs.length > 1) {
+        this.code.unindent(false);
+        this.code.openBlock(')');
+
+        const placeholders = typeRefs
+          .map((typeRef) => {
+            return `${this.toJavaType(typeRef)}`;
+          })
+          .join(', ');
+
+        this.code.indent(`throw new IllegalArgumentException(`);
+        this.code.indent(`new java.lang.StringBuilder("Expected ")`);
+        this.code.line(descr);
+        this.code.line(`.append(" to be one of: ${placeholders}; received ")`);
+        this.code.line(`.append(${value}.getClass()).toString());`);
+        this.code.unindent(false);
+        this.code.unindent(false);
         this.code.closeBlock();
+      }
+
+      for (const [javaType, typeRef] of nestedCollectionUnionTypes) {
+        const varName =
+          typeRefs.length > 1
+            ? `__cast_${createHash('sha256')
+                .update(value)
+                .digest('hex')
+                .slice(0, 6)}`
+            : value;
+        if (typeRefs.length > 1) {
+          this.code.openBlock(
+            `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
+          );
+          this.code.line(`@SuppressWarnings("unchecked")`);
+          this.code.line(
+            `final ${javaType} ${varName} = (${javaType})${value};`,
+          );
+        }
+        validate.call(this, varName, descr, typeRef, parameterName);
+        if (typeRefs.length > 1) {
+          this.code.closeBlock();
+        }
       }
     }
   }
