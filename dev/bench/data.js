@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661875296409,
+  "lastUpdate": 1661899462859,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5883,6 +5883,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 61337.13373678913,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46175.39797960002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cf04f79d28d10861a7e3e7d80b7dfb5dabd0068b",
+          "message": "fix(java): type generation code-gen issues (#3735)\n\nSome collection validations were emitted twice, due to a bad merge\nconflict resolution.\n\nAdditionally, in certain cases where overrides are being emitted for\ntype unions, the type checking code made unnecessary assertions, some of\nwhich ending up being prohibited by the compiler.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-30T21:27:15Z",
+          "tree_id": "873369955add60bd2cc024a1aff104505e9cdeff",
+          "url": "https://github.com/aws/jsii/commit/cf04f79d28d10861a7e3e7d80b7dfb5dabd0068b"
+        },
+        "date": 1661899458448,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 106237.78462295006,
+            "unit": "milliseconds",
+            "range": 5683287.894118441,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 106237.78462295006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73758.26778485,
+            "unit": "milliseconds",
+            "range": 887906.490916339,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73758.26778485 milliseconds over 20 runs"
           }
         ]
       }
