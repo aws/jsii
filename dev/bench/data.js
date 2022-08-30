@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661872534166,
+  "lastUpdate": 1661875296409,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5845,6 +5845,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 251100.74232410817,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74684.03570879999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4c2dcd5562b2abdfb2a454cb0ee487c4a0533e12",
+          "message": "feat(kernel): experimental runtime package cache (#3724)\n\nAdds an experimental (hence opt-in) feature that caches the contents of\nloaded libraries in a directory that persists between executions, in\norder to spare the time it takes to extract the tarballs.\n\nWhen this feature is enabled, packages present in the cache will be used\nas-is (i.e: they are not checked for tampering) instead of being\nextracted from the tarball. The cache is keyed on:\n- The hash of the tarball\n- The name of the library\n- The version of the library\n\nObjects in the cache will expire if they are not used for 30 days, and\nare subsequently removed from disk (this avoids a cache growing\nextremely large over time).\n\nIn order to enable the feature, the following environment variables are\nused:\n- `JSII_RUNTIME_PACKAGE_CACHE` must be set to `enabled` in order for the\n  package cache to be active at all;\n- `JSII_RUNTIME_PACKAGE_CACHE_ROOT` can be used to change which\n  directory is used as a cache root. It defaults to:\n  * On MacOS: `$HOME/Library/Caches/com.amazonaws.jsii`\n  * On Linux: `$HOME/.cache/aws/jsii/package-cache`\n  * On Windows: `%LOCALAPPDATA%\\AWS\\jsii\\package-cache`\n  * On other platforms: `$TMP/aws-jsii-package-cache`\n- `JSII_RUNTIME_PACKAGE_CACHE_TTL` can be used to change the default\n  time entries will remain in cache before expiring if they are not\n  used. This defaults to 30 days, and the value is expressed in days.\n  Set to `0` to immediately expire all the cache's content.\n\nWhen troubleshooting load performance, it is possible to obtain timing\ndata for some critical parts of the library load process within the jsii\nkernel by setting `JSII_DEBUG_TIMING` environment variable.\n\nRelated to #3389\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-30T15:11:23Z",
+          "tree_id": "a1f41b4deaa23a0bb1843ac2743a8778df9f9b3f",
+          "url": "https://github.com/aws/jsii/commit/4c2dcd5562b2abdfb2a454cb0ee487c4a0533e12"
+        },
+        "date": 1661875293905,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63524.494314950054,
+            "unit": "milliseconds",
+            "range": 3078905.1623573476,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63524.494314950054 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46175.39797960002,
+            "unit": "milliseconds",
+            "range": 61337.13373678913,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46175.39797960002 milliseconds over 20 runs"
           }
         ]
       }
