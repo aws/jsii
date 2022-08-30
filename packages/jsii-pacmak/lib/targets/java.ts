@@ -1603,26 +1603,26 @@ class JavaGenerator extends Generator {
     ) {
       if (spec.isUnionTypeReference(type)) {
         validateTypeUnion.call(this, value, descr, type, parameterName);
-      } else {
-        const collectionType = type as spec.CollectionTypeReference;
-        if (collectionType.collection.kind === spec.CollectionKind.Array) {
-          validateArray.call(
+      } else if (spec.isCollectionTypeReference(type)) {
+        switch (type.collection.kind) {
+        case spec.CollectionKind.Array:
+          return validateArray.call(
             this,
             value,
             descr,
-            collectionType.collection.elementtype,
+            type.collection.elementtype,
             parameterName,
             isRawArray,
           );
-        } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
-          validateMap.call(
+        case spec.CollectionKind.Map:
+          return  validateMap.call(
             this,
             value,
             descr,
-            collectionType.collection.elementtype,
+            type.collection.elementtype,
             parameterName,
           );
-        } else {
+        default:
           throw new Error(
             `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
           );
