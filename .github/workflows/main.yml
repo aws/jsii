@@ -432,8 +432,8 @@ jobs:
       # Show time!
       - name: Prepare Work Tree
         run: |-
-          yarn install --no-save aws-cdk-lib@2                                  \
-                                ${{ runner.temp }}/release-package/js/*.tgz    \
+          npm install --no-save aws-cdk-lib@2                                   \
+                                ${{ runner.temp }}/release-package/js/*.tgz     \
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         run: |-
