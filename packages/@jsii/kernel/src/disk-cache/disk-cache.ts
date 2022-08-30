@@ -161,7 +161,7 @@ export class Entry {
         delete: () => {
           if (disposed) {
             throw new Error(
-              `Cannot delete ${this.path} once the lock block as returned!`,
+              `Cannot delete ${this.path} once the lock block was returned!`,
             );
           }
           rmSync(this.path, { force: true, recursive: true });
@@ -172,7 +172,7 @@ export class Entry {
               `Cannot write ${join(
                 this.path,
                 name,
-              )} once the lock block as returned!`,
+              )} once the lock block was returned!`,
             );
           }
 
@@ -182,7 +182,7 @@ export class Entry {
         touch: () => {
           if (disposed) {
             throw new Error(
-              `Cannot touch ${this.path} once the lock block as returned!`,
+              `Cannot touch ${this.path} once the lock block was returned!`,
             );
           }
           if (this.pathExists) {
