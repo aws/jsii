@@ -437,4 +437,5 @@ jobs:
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         run: |-
-          node_modules/.bin/jsii-pacmak node_modules/aws-cdk-lib
+          node_modules/.bin/jsii-pacmak
+        working-directory: node_modules/aws-cdk-lib
