@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661859967972,
+  "lastUpdate": 1661862398059,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5731,6 +5731,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1382168.1510322925,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74985.27718615002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "distinct": true,
+          "id": "1fd58db1e94a0024d173d53597416f1d2a2fa941",
+          "message": "fix(pacmak): crash when generating java code\n\nA missing condition in the code generator could have resulted\nin attempting to read a property on undefined, resulting in\na crash.",
+          "timestamp": "2022-08-30T13:21:51+02:00",
+          "tree_id": "0327e905ac2f027cf49d7b9f54cc21d9e11d6842",
+          "url": "https://github.com/aws/jsii/commit/1fd58db1e94a0024d173d53597416f1d2a2fa941"
+        },
+        "date": 1661862394781,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 85335.52889234999,
+            "unit": "milliseconds",
+            "range": 8535489.535748985,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 85335.52889234999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 58547.724800749995,
+            "unit": "milliseconds",
+            "range": 797659.7645818049,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 58547.724800749995 milliseconds over 20 runs"
           }
         ]
       }
