@@ -593,6 +593,7 @@ abstract class BaseMethod implements PythonBase {
           const paramType = toTypeName(prop.prop).pythonType({
             ...context,
             parameterType: true,
+            typeAnnotation: true,
           });
           const paramDefault = prop.prop.optional ? ' = None' : '';
 
@@ -1133,10 +1134,10 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toPythonFullName(
-        (member.type.type as spec.NamedTypeReference).fqn,
-        context.assembly,
-      );
+      const typeName = toTypeName(member.type.type).pythonType({
+        ...context,
+        typeAnnotation: false,
+      });
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
