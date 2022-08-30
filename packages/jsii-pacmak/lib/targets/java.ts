@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import { toSnakeCase } from 'codemaker/lib/case-utils';
+import { createHash } from 'crypto';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
@@ -712,6 +713,7 @@ class JavaGenerator extends Generator {
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
+    this.emitUnionParameterValdation(method.parameters);
     this.code.line(
       `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(
         method,
@@ -1265,7 +1267,11 @@ class JavaGenerator extends Generator {
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: toMavenVersionRange(`^${VERSION}`),
+        version:
+          VERSION === '0.0.0'
+            ? '[0.0.0-SNAPSHOT]'
+            : // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              toMavenVersionRange(`^${VERSION}`),
       });
 
       // Provides @org.jetbrains.*
@@ -1459,6 +1465,18 @@ class JavaGenerator extends Generator {
           this.code.openBlock(signature);
           let statement = '';
 
+          // Setters have one overload for each possible type in the union parameter.
+          // If a setter can take a `String | Number`, then we render two setters;
+          // one that takes a string, and one that takes a number.
+          // This allows the compiler to do this type checking for us,
+          // so we should not emit these checks for primitive-only unions.
+          // Also, Java does not allow us to perform these checks if the types
+          // have no overlap (eg if a String instanceof Number).
+          if (type.includes('java.lang.Object')) {
+            this.emitUnionParameterValdation([
+              { name: 'value', type: prop.type },
+            ]);
+          }
           if (prop.static) {
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
           } else {
@@ -1514,8 +1532,252 @@ class JavaGenerator extends Generator {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
       this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
+      this.emitUnionParameterValdation(method.parameters);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
+    }
+  }
+
+  /**
+   * Emits type checks for values passed for type union parameters.
+   *
+   * @param parameters the list of parameters received by the function.
+   */
+  private emitUnionParameterValdation(
+    parameters?: readonly spec.Parameter[],
+  ): void {
+    if (!this.runtimeTypeChecking) {
+      // We were configured not to emit those, so bail out now.
+      return;
+    }
+    const unionParameters = parameters?.filter(({ type }) =>
+      containsUnionType(type),
+    );
+    if (unionParameters == null || unionParameters.length === 0) {
+      return;
+    }
+
+    this.code.openBlock(
+      'if (software.amazon.jsii.Configuration.getRuntimeTypeChecking())',
+    );
+    for (const param of unionParameters) {
+      if (param.variadic) {
+        const javaType = this.toJavaType(param.type);
+        const asListName = `__${param.name}__asList`;
+        this.code.line(
+          `final java.util.List<${javaType}> ${asListName} = java.util.Arrays.asList(${param.name});`,
+        );
+
+        validate.call(
+          this,
+          asListName,
+          `.append("${param.name}")`,
+          {
+            collection: {
+              kind: spec.CollectionKind.Array,
+              elementtype: param.type,
+            },
+          },
+          param.name,
+          true,
+        );
+      } else {
+        validate.call(
+          this,
+          param.name,
+          `.append("${param.name}")`,
+          param.type,
+          param.name,
+        );
+      }
+    }
+    this.code.closeBlock();
+
+    function validate(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      type: spec.TypeReference,
+      parameterName: string,
+      isRawArray = false,
+    ) {
+      if (spec.isUnionTypeReference(type)) {
+        validateTypeUnion.call(this, value, descr, type, parameterName);
+      } else {
+        const collectionType = type as spec.CollectionTypeReference;
+        if (collectionType.collection.kind === spec.CollectionKind.Array) {
+          validateArray.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+            parameterName,
+            isRawArray,
+          );
+        } else if (collectionType.collection.kind === spec.CollectionKind.Map) {
+          validateMap.call(
+            this,
+            value,
+            descr,
+            collectionType.collection.elementtype,
+            parameterName,
+          );
+        } else {
+          throw new Error(
+            `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
+          );
+        }
+      }
+    }
+
+    function validateArray(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+      parameterName: string,
+      isRawArray = false,
+    ) {
+      const suffix = createHash('sha256')
+        .update(descr)
+        .digest('hex')
+        .slice(0, 6);
+      const idxName = `__idx_${suffix}`;
+      const valName = `__val_${suffix}`;
+      this.code.openBlock(
+        `for (int ${idxName} = 0; ${idxName} < ${value}.size(); ${idxName}++)`,
+      );
+      const eltType = this.toJavaType(elementType);
+      this.code.line(`final ${eltType} ${valName} = ${value}.get(${idxName});`);
+      validate.call(
+        this,
+        valName,
+        isRawArray
+          ? `${descr}.append("[").append(${idxName}).append("]")`
+          : `${descr}.append(".get(").append(${idxName}).append(")")`,
+        elementType,
+        parameterName,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateMap(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      elementType: spec.TypeReference,
+      parameterName: string,
+    ) {
+      // we have to perform this check before the loop,
+      // because the loop will assume that the keys are Strings;
+      // this throws a ClassCastException
+      this.code.openBlock(
+        `if (!(${value}.keySet().toArray()[0] instanceof String))`,
+      );
+      this.code.indent(`throw new IllegalArgumentException(`);
+      this.code.indent(`new java.lang.StringBuilder("Expected ")`);
+      this.code.line(`${descr}.append(".keySet()")`);
+      this.code.line(`.append(" to contain class String; received ")`);
+      this.code.line(
+        `.append(${value}.keySet().toArray()[0].getClass()).toString());`,
+      );
+      this.code.unindent(false);
+      this.code.unindent(false);
+      this.code.closeBlock();
+
+      const suffix = createHash('sha256')
+        .update(descr)
+        .digest('hex')
+        .slice(0, 6);
+      const varName = `__item_${suffix}`;
+      const valName = `__val_${suffix}`;
+      const javaElemType = this.toJavaType(elementType);
+      this.code.openBlock(
+        `for (final java.util.Map.Entry<String, ${javaElemType}> ${varName}: ${value}.entrySet())`,
+      );
+      this.code.line(
+        `final ${javaElemType} ${valName} = ${varName}.getValue();`,
+      );
+      validate.call(
+        this,
+        valName,
+        `${descr}.append(".get(\\"").append((${varName}.getKey())).append("\\")")`,
+        elementType,
+        parameterName,
+      );
+      this.code.closeBlock();
+    }
+
+    function validateTypeUnion(
+      this: JavaGenerator,
+      value: string,
+      descr: string,
+      type: spec.UnionTypeReference,
+      parameterName: string,
+    ) {
+      this.code.indent('if (');
+      let emitAnd = false;
+      const nestedCollectionUnionTypes = [];
+      const typeRefs = type.union.types;
+      for (const typeRef of typeRefs) {
+        const prefix = emitAnd ? '&&' : '';
+        const javaType = this.toJavaTypeNoGenerics(typeRef);
+        if (javaType !== this.toJavaType(typeRef)) {
+          nestedCollectionUnionTypes.push(typeRef);
+        }
+        const test = `${value} instanceof ${javaType}`;
+        this.code.line(`${prefix} !(${test})`);
+        emitAnd = true;
+      }
+      // Only anonymous objects at runtime can be `JsiiObject`s.
+      this.code.line(
+        `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
+      );
+
+      this.code.unindent(')');
+      this.code.openBlock('');
+
+      const placeholders = typeRefs
+        .map((typeRef) => {
+          return `${this.toJavaType(typeRef)}`;
+        })
+        .join(', ');
+
+      this.code.indent(`throw new IllegalArgumentException(`);
+      this.code.indent(`new java.lang.StringBuilder("Expected ")`);
+      this.code.line(descr);
+      this.code.line(`.append(" to be one of: ${placeholders}; received ")`);
+      this.code.line(`.append(${value}.getClass()).toString());`);
+      this.code.unindent(false);
+      this.code.unindent(false);
+      this.code.closeBlock();
+
+      for (const typeRef of nestedCollectionUnionTypes) {
+        this.code.openBlock(
+          `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
+        );
+        const varName = `__cast_${createHash('sha256')
+          .update(value)
+          .digest('hex')
+          .slice(0, 6)}`;
+        const javaTypeFull = this.toJavaType(typeRef);
+        this.code.line(`@SuppressWarnings("unchecked")`);
+        this.code.line(
+          `final ${javaTypeFull} ${varName} = (${javaTypeFull})${value};`,
+        );
+        validate.call(this, varName, descr, typeRef, parameterName);
+        validate.call(
+          this,
+          // we must cast Collections to access their methods
+          // if they are nested in a union type,
+          // since that union will be rendered as an Object.
+          `((${this.toJavaType(typeRef)})(${varName}))`,
+          descr,
+          typeRef,
+          parameterName,
+        );
+        this.code.closeBlock();
+      }
     }
   }
 
@@ -2497,6 +2759,31 @@ class JavaGenerator extends Generator {
     );
   }
 
+  // Strips <*> from the type name.
+  // necessary, because of type erasure; the compiler
+  // will not let you check `foo instanceof Map<String, Foo>`,
+  // and you must instead check `foo instanceof Map`.
+  private toJavaTypeNoGenerics(
+    type: spec.TypeReference,
+    opts?: { forMarshalling?: boolean; covariant?: boolean },
+  ): string {
+    const typeStr = this.toJavaType(type, opts);
+
+    const leftAngleBracketIdx = typeStr.indexOf('<');
+    const rightAngleBracketIdx = typeStr.indexOf('>');
+
+    if (
+      (leftAngleBracketIdx < 0 && rightAngleBracketIdx >= 0) ||
+      (leftAngleBracketIdx >= 0 && rightAngleBracketIdx < 0)
+    ) {
+      throw new Error(`Invalid generic type: found ${typeStr}`);
+    }
+
+    return leftAngleBracketIdx > 0 && rightAngleBracketIdx > 0
+      ? typeStr.slice(0, leftAngleBracketIdx)
+      : typeStr;
+  }
+
   private toJavaType(
     type: spec.TypeReference,
     opts?: { forMarshalling?: boolean; covariant?: boolean },
@@ -3278,4 +3565,14 @@ function splitNamespace(ns: string): [string, string] {
  */
 function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
+}
+
+function containsUnionType(
+  typeRef: spec.TypeReference,
+): typeRef is spec.UnionTypeReference | spec.CollectionTypeReference {
+  return (
+    spec.isUnionTypeReference(typeRef) ||
+    (spec.isCollectionTypeReference(typeRef) &&
+      containsUnionType(typeRef.collection.elementtype))
+  );
 }
