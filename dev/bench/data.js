@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661865125976,
+  "lastUpdate": 1661872534166,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5807,6 +5807,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 34184.60557686035,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49516.256124249994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4a52d4cbc31e88d744ed84d5a64df8c8f9651017",
+          "message": "feat(java): utility to perform unsafe cast (#3730)\n\nAdds an `UnsafeCast.unsafeCast` method to the Jsii runtime for Java that\nallows unsafely casting an instance to a managed interface of the user's\nchoice.\n\nThis can be useful when dealing with type unions composed of interfaces\nor structs, as there is otherwise no way to convert the instance without\njumping through hoops.\n\nFixes https://github.com/aws/jsii/issues/3726 (sort of)\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-08-30T13:57:58Z",
+          "tree_id": "71e748d4b26a5a1d2acc7ab180f5a502ac476fc0",
+          "url": "https://github.com/aws/jsii/commit/4a52d4cbc31e88d744ed84d5a64df8c8f9651017"
+        },
+        "date": 1661872528831,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 105289.98083235002,
+            "unit": "milliseconds",
+            "range": 2389241.458852303,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 105289.98083235002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74684.03570879999,
+            "unit": "milliseconds",
+            "range": 251100.74232410817,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74684.03570879999 milliseconds over 20 runs"
           }
         ]
       }
