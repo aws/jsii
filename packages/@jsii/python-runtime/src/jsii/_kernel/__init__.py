@@ -3,7 +3,7 @@ import inspect
 import itertools
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
-from typing import cast, Any, List, Optional, Sequence, Type
+from typing import Callable, cast, Any, List, Optional, Sequence, Type
 
 import functools
 
@@ -129,7 +129,7 @@ def _get_overides(klass: Type, obj: Any) -> List[Override]:
     return overrides
 
 
-def _recursize_dereference(kernel, d):
+def _recursize_dereference(kernel: "Kernel", d: Any) -> Any:
     if isinstance(d, dict):
         return {k: _recursize_dereference(kernel, v) for k, v in d.items()}
     elif isinstance(d, list):
@@ -142,9 +142,9 @@ def _recursize_dereference(kernel, d):
         return d
 
 
-def _dereferenced(fn):
+def _dereferenced(fn: Callable) -> Callable:
     @functools.wraps(fn)
-    def wrapped(kernel, *args, **kwargs):
+    def wrapped(kernel: "Kernel", *args: Any, **kwargs: Any):
         return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
 
     return wrapped
@@ -152,7 +152,7 @@ def _dereferenced(fn):
 
 # We need to recurse through our data structure and look for anything that the JSII
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
-def _make_reference_for_native(kernel, d):
+def _make_reference_for_native(kernel: "Kernel", d: Any) -> Any:
     if isinstance(d, dict):
         return {
             "$jsii.map": {
@@ -206,13 +206,13 @@ def _make_reference_for_native(kernel, d):
         return d
 
 
-def _handle_callback(kernel, callback):
+def _handle_callback(kernel: "Kernel", callback: Callback) -> Any:
     # need to handle get, set requests here as well as invoke requests
     if callback.invoke:
         obj = _reference_map.resolve_id(callback.invoke.objref.ref)
         method = getattr(obj, callback.cookie)
         hydrated_args = [
-            _recursize_dereference(kernel, a) for a in callback.invoke.args
+            _recursize_dereference(kernel, a) for a in callback.invoke.args or []
         ]
 
         # If keyword arguments are accepted, we may need to turn a struct into keywords...
@@ -253,7 +253,7 @@ def _handle_callback(kernel, callback):
 
 
 def _callback_till_result(
-    kernel, response: Callback, response_type: Type[KernelResponse]
+    kernel: "Kernel", response: Callback, response_type: Type[KernelResponse]
 ) -> Any:
     while isinstance(response, Callback):
         try:
