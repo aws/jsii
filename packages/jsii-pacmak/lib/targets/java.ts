@@ -1605,27 +1605,27 @@ class JavaGenerator extends Generator {
         validateTypeUnion.call(this, value, descr, type, parameterName);
       } else if (spec.isCollectionTypeReference(type)) {
         switch (type.collection.kind) {
-        case spec.CollectionKind.Array:
-          return validateArray.call(
-            this,
-            value,
-            descr,
-            type.collection.elementtype,
-            parameterName,
-            isRawArray,
-          );
-        case spec.CollectionKind.Map:
-          return  validateMap.call(
-            this,
-            value,
-            descr,
-            type.collection.elementtype,
-            parameterName,
-          );
-        default:
-          throw new Error(
-            `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
-          );
+          case spec.CollectionKind.Array:
+            return validateArray.call(
+              this,
+              value,
+              descr,
+              type.collection.elementtype,
+              parameterName,
+              isRawArray,
+            );
+          case spec.CollectionKind.Map:
+            return validateMap.call(
+              this,
+              value,
+              descr,
+              type.collection.elementtype,
+              parameterName,
+            );
+          default:
+            throw new Error(
+              `Unhandled collection kind: ${spec.describeTypeReference(type)}`,
+            );
         }
       }
     }
