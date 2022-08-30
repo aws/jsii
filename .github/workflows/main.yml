@@ -422,7 +422,6 @@ jobs:
       - name: Set up Node 14
         uses: actions/setup-node@v3
         with:
-          cache: yarn
           node-version: '14'
       - name: Set up Python 3.7
         uses: actions/setup-python@v4
