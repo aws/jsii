@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -53,6 +54,11 @@ public final class JsiiObjectRef {
                 : Collections.emptySet(), node);
     }
 
+    @VisibleForTesting
+    JsiiObjectRef(final String objId, final Set<String> interfaces) {
+        this(objId, interfaces, JsiiObjectRef.makeJson(objId, interfaces));
+    }
+
     private JsiiObjectRef(final String objId, final Set<String> interfaces, final JsonNode node) {
         this.objId = objId;
         int fqnDelimiter = this.objId.lastIndexOf("@");
@@ -89,15 +95,18 @@ public final class JsiiObjectRef {
         final Set<String> interfaces = new HashSet<>(this.interfaces);
         interfaces.add(fqn);
 
+        return new JsiiObjectRef(this.objId, interfaces);
+    }
+
+    private static JsonNode makeJson(final String objId, final Set<String> interfaces) {
         final ObjectNode node = JsonNodeFactory.instance.objectNode();
-        node.put(TOKEN_REF, this.objId);
+        node.put(TOKEN_REF, objId);
         final ArrayNode jsonInterfaces = JsonNodeFactory.instance.arrayNode();
         for (final String iface : interfaces) {
             jsonInterfaces.add(JsonNodeFactory.instance.textNode(iface));
         }
         node.set(TOKEN_INTERFACES, jsonInterfaces);
-
-        return new JsiiObjectRef(this.objId, interfaces, node);
+        return node;
     }
 
     private static Set<String> parseInterfaces(final JsonNode node) {
