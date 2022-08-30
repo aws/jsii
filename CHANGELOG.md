@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.66.0](https://github.com/aws/jsii/compare/v1.65.1...v1.66.0) (2022-08-29)
+
+
+### Features
+
+* **go:** emit deprecation warning when using go1.16 and go1.17 ([#3718](https://github.com/aws/jsii/issues/3718)) ([3cf5c28](https://github.com/aws/jsii/commit/3cf5c28b26e189db1a05f9543a5f6f38583e8868))
+* **go:** runtime type check type unions ([#3712](https://github.com/aws/jsii/issues/3712)) ([c73c2ee](https://github.com/aws/jsii/commit/c73c2ee6d973ea8ff14b320a5f97ae017107ebab))
+
+
+### Bug Fixes
+
+* **.net:** missing dynamic type checking for collection-nested unions ([#3720](https://github.com/aws/jsii/issues/3720)) ([362326e](https://github.com/aws/jsii/commit/362326e989e1d9f2a032d4c15c34f3d60e712051))
+* **rosetta:** rosetta reader expects default tablet file to be uncompressed ([#3723](https://github.com/aws/jsii/issues/3723)) ([9768e2a](https://github.com/aws/jsii/commit/9768e2a7f2eb8847d8d06e3f40deeedac0c7dec4))
+* type unions in variadic position leads to invalid code-gen ([#3722](https://github.com/aws/jsii/issues/3722)) ([93aec85](https://github.com/aws/jsii/commit/93aec85ada9fd9e505591766b8e87ee53c0bde6b))
+
+## [1.65.1](https://github.com/aws/jsii/compare/v1.65.0...v1.65.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **python:** reference to type does not use alias ([#3728](https://github.com/aws/jsii/pull/3728))
+
+
 ## [1.65.0](https://github.com/aws/jsii/compare/v1.64.0...v1.65.0) (2022-08-18)
 
 

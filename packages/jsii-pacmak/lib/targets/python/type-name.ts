@@ -335,7 +335,7 @@ class UserType implements TypeName {
       // Identify declarations that are not yet initialized and hence cannot be
       // used as part of a type qualification. Since this is not a forward
       // reference, the type was already emitted and its un-qualified name must
-      // be used instead of it's locally qualified name.
+      // be used instead of its locally qualified name.
       const nestingParent = surroundingTypeFqns
         ?.map((fqn) => toPythonFqn(fqn, assembly).pythonFqn)
         ?.reverse()
@@ -357,7 +357,7 @@ class UserType implements TypeName {
         // This is not for a type annotation, so we should be at a point in time
         // where the surrounding symbol has been defined entirely, so we can
         // refer to it "normally" now.
-        return { pythonType: pythonFqn.substring(nestingParent.length + 1) };
+        return { pythonType: pythonFqn.slice(packageName.length + 1) };
       }
 
       // We'll just make a module-qualified reference at this point.
@@ -380,7 +380,7 @@ class UserType implements TypeName {
     const alias = `_${toImport}_${aliasSuffix}`;
 
     return {
-      pythonType: [alias, ...nested].join('.'),
+      pythonType: wrapType([alias, ...nested].join('.')),
       requiredImport: {
         sourcePackage: relativeImportPath(
           submodulePythonName,

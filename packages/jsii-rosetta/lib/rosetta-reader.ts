@@ -1,7 +1,6 @@
 import * as spec from '@jsii/spec';
-import * as path from 'path';
 
-import { allTypeScriptSnippets } from './jsii/assemblies';
+import { allTypeScriptSnippets, guessTabletLocation } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
 import * as logging from './logging';
 import { transformMarkdown } from './markdown/markdown';
@@ -16,7 +15,7 @@ import {
   typeScriptSnippetFromSource,
 } from './snippet';
 import { snippetKey } from './tablets/key';
-import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
+import { LanguageTablet, Translation } from './tablets/tablets';
 import { Translator } from './translate';
 import { commentToken, pathExists, printDiagnostics } from './util';
 
@@ -148,7 +147,7 @@ export class RosettaTabletReader {
    * pacmak sends our way later on is not going to be enough to do that.
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
-    const defaultTablet = path.join(assemblyDir, DEFAULT_TABLET_NAME);
+    const defaultTablet = guessTabletLocation(assemblyDir);
     if (await pathExists(defaultTablet)) {
       try {
         await this.loadTabletFromFile(defaultTablet);

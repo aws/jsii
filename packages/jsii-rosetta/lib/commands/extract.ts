@@ -1,6 +1,11 @@
 import * as path from 'path';
 
-import { loadAssemblies, allTypeScriptSnippets, loadAllDefaultTablets } from '../jsii/assemblies';
+import {
+  loadAssemblies,
+  allTypeScriptSnippets,
+  loadAllDefaultTablets,
+  compressedTabletExists,
+} from '../jsii/assemblies';
 import * as logging from '../logging';
 import { RosettaTranslator, RosettaTranslatorOptions } from '../rosetta-translator';
 import { TypeScriptSnippet, SnippetParameters } from '../snippet';
@@ -75,9 +80,9 @@ export interface ExtractOptions {
   readonly allowDirtyTranslations?: boolean;
 
   /**
-   * Compress the implicit tablet files
+   * Compress the implicit tablet files.
    *
-   * @default false
+   * @default - preserves the original compression status of each individual implicit tablet file.
    */
   readonly compressTablet?: boolean;
 
@@ -169,16 +174,19 @@ export async function extractSnippets(
   if (options.writeToImplicitTablets ?? true) {
     await Promise.all(
       Object.entries(snippetsPerAssembly).map(async ([location, snips]) => {
+        // Compress the implicit tablet if explicitly asked to, otherwise compress only if the original tablet was compressed.
+        const compressedTablet = options.compressTablet ?? compressedTabletExists(location);
+
         const asmTabletFile = path.join(
           location,
-          options.compressTablet ? DEFAULT_TABLET_NAME_COMPRESSED : DEFAULT_TABLET_NAME,
+          compressedTablet ? DEFAULT_TABLET_NAME_COMPRESSED : DEFAULT_TABLET_NAME,
         );
         logging.debug(`Writing ${snips.length} translations to ${asmTabletFile}`);
         const translations = snips.map(({ key }) => translator.tablet.tryGetSnippet(key)).filter(isDefined);
 
         const asmTablet = new LanguageTablet();
         asmTablet.addSnippets(...translations);
-        await asmTablet.save(asmTabletFile, options.compressTablet);
+        await asmTablet.save(asmTabletFile, compressedTablet);
       }),
     );
   }
