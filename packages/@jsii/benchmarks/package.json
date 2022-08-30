@@ -7,7 +7,7 @@
   "dependencies": {
     "fs-extra": "^10.1.0",
     "jsii": "^0.0.0",
-    "npm": "^8.17.0",
+    "npm": "^8.18.0",
     "tar": "^6.1.11",
     "typescript": "~3.9.10",
     "yargs": "^16.2.0"

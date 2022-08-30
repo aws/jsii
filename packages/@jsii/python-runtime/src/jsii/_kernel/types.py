@@ -176,7 +176,7 @@ class EndResponse:
 class Callback:
 
     cbid: str
-    cookie: Optional[str] = None
+    cookie: str
     invoke: Optional[InvokeRequest] = None
     get: Optional[GetRequest] = None
     set: Optional[SetRequest] = None
