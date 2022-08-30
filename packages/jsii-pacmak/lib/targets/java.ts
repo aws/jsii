@@ -1,5 +1,5 @@
-import * as assert from 'assert';
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 import * as clone from 'clone';
 import { toSnakeCase } from 'codemaker/lib/case-utils';
 import { createHash } from 'crypto';
@@ -1473,9 +1473,20 @@ class JavaGenerator extends Generator {
           // so we should not emit these checks for primitive-only unions.
           // Also, Java does not allow us to perform these checks if the types
           // have no overlap (eg if a String instanceof Number).
-          if (type.includes('java.lang.Object') && (!spec.isPrimitiveTypeReference(prop.type) || prop.type.primitive === spec.PrimitiveType.Any)) {
+          if (
+            type.includes('java.lang.Object') &&
+            (!spec.isPrimitiveTypeReference(prop.type) ||
+              prop.type.primitive === spec.PrimitiveType.Any)
+          ) {
             this.emitUnionParameterValdation([
-              { name: 'value', type: this.filterType(prop.type, { covariant: prop.static, optional: prop.optional }, type) },
+              {
+                name: 'value',
+                type: this.filterType(
+                  prop.type,
+                  { covariant: prop.static, optional: prop.optional },
+                  type,
+                ),
+              },
             ]);
           }
           if (prop.static) {
@@ -1505,13 +1516,26 @@ class JavaGenerator extends Generator {
    *
    * @returns a type reference that matches the provided javaType.
    */
-  private filterType(ref: spec.TypeReference, { covariant, optional }: { covariant?: boolean, optional?: boolean }, javaType: string): spec.TypeReference {
+  private filterType(
+    ref: spec.TypeReference,
+    { covariant, optional }: { covariant?: boolean; optional?: boolean },
+    javaType: string,
+  ): spec.TypeReference {
     if (!spec.isUnionTypeReference(ref)) {
       // No filterning needed -- this isn't a type union!
       return ref;
     }
-    const types = ref.union.types.filter((t) => this.toDecoratedJavaType({ optional, type: t }, { covariant }) === javaType);
-    assert(types.length > 0, `No type found in ${spec.describeTypeReference(ref)} has Java type ${javaType}`);
+    const types = ref.union.types.filter(
+      (t) =>
+        this.toDecoratedJavaType({ optional, type: t }, { covariant }) ===
+        javaType,
+    );
+    assert(
+      types.length > 0,
+      `No type found in ${spec.describeTypeReference(
+        ref,
+      )} has Java type ${javaType}`,
+    );
     return { union: { types } };
   }
 
@@ -1740,7 +1764,9 @@ class JavaGenerator extends Generator {
       let emitAnd = false;
       const nestedCollectionUnionTypes = new Map<string, spec.TypeReference>();
       const typeRefs = type.union.types;
-      if (typeRefs.length > 1) { this.code.indent('if ('); }
+      if (typeRefs.length > 1) {
+        this.code.indent('if (');
+      }
       const checked = new Set<string>();
       for (const typeRef of typeRefs) {
         const prefix = emitAnd ? '&&' : '';
@@ -1755,10 +1781,19 @@ class JavaGenerator extends Generator {
           nestedCollectionUnionTypes.set(javaType, typeRef);
         }
         const test = `${value} instanceof ${javaRawType}`;
-        if (typeRefs.length > 1) { this.code.line(`${prefix} !(${test})`); }
+        if (typeRefs.length > 1) {
+          this.code.line(`${prefix} !(${test})`);
+        }
         emitAnd = true;
       }
-      if (typeRefs.length > 1 && typeRefs.some(t => spec.isNamedTypeReference(t) && spec.isInterfaceType(this.findType(t.fqn)))) {
+      if (
+        typeRefs.length > 1 &&
+        typeRefs.some(
+          (t) =>
+            spec.isNamedTypeReference(t) &&
+            spec.isInterfaceType(this.findType(t.fqn)),
+        )
+      ) {
         // Only anonymous objects at runtime can be `JsiiObject`s.
         this.code.line(
           `&& !(${value}.getClass().equals(software.amazon.jsii.JsiiObject.class))`,
@@ -1786,12 +1821,13 @@ class JavaGenerator extends Generator {
       }
 
       for (const [javaType, typeRef] of nestedCollectionUnionTypes) {
-        const varName = typeRefs.length > 1
-        ?  `__cast_${createHash('sha256')
-          .update(value)
-          .digest('hex')
-            .slice(0, 6)}`
-          : value;
+        const varName =
+          typeRefs.length > 1
+            ? `__cast_${createHash('sha256')
+                .update(value)
+                .digest('hex')
+                .slice(0, 6)}`
+            : value;
         if (typeRefs.length > 1) {
           this.code.openBlock(
             `if (${value} instanceof ${this.toJavaTypeNoGenerics(typeRef)})`,
