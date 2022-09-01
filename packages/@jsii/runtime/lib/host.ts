@@ -1,4 +1,4 @@
-import { api, Kernel } from '@jsii/kernel';
+import { api, Kernel, JsiiFault } from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
@@ -48,7 +48,7 @@ export class KernelHost {
     function completeCallback(this: KernelHost): void {
       const req = this.inout.read();
       if (!req || 'exit' in req) {
-        throw new Error('Interrupted before callback returned');
+        throw new JsiiFault('Interrupted before callback returned');
       }
 
       // if this is a completion for the current callback, then we can
@@ -59,7 +59,7 @@ export class KernelHost {
         completeReq.complete.cbid === callback.cbid
       ) {
         if (completeReq.complete.err) {
-          throw new Error(completeReq.complete.err);
+          throw new JsiiFault(completeReq.complete.err);
         }
 
         return completeReq.complete.result;
@@ -93,13 +93,13 @@ export class KernelHost {
    */
   private processRequest(req: Input, next: () => void, sync = false) {
     if ('callback' in req) {
-      throw new Error(
+      throw new JsiiFault(
         'Unexpected `callback` result. This request should have been processed by a callback handler',
       );
     }
 
     if (!('api' in req)) {
-      throw new Error('Malformed request, "api" field is required');
+      throw new JsiiFault('Malformed request, "api" field is required');
     }
 
     const apiReq = req;
@@ -161,7 +161,7 @@ export class KernelHost {
 
     function checkIfAsyncIsAllowed() {
       if (sync) {
-        throw new Error(
+        throw new JsiiFault(
           'Cannot handle async operations while waiting for a sync callback to return',
         );
       }

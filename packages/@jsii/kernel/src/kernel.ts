@@ -15,6 +15,13 @@ import * as onExit from './on-exit';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
+export class JsiiFault extends Error {
+  public constructor(message: string) {
+    super(message);
+    this.name = 'JsiiFault';
+  }
+}
+
 export class Kernel {
   /**
    * Set to true for verbose debugging.
@@ -56,7 +63,7 @@ export class Kernel {
     this._debug('load', req);
 
     if ('assembly' in req) {
-      throw new Error(
+      throw new JsiiFault(
         '`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead',
       );
     }
@@ -70,7 +77,7 @@ export class Kernel {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
       if (epkg.version !== pkgver) {
-        throw new Error(
+        throw new JsiiFault(
           `Multiple versions ${pkgver} and ${epkg.version} of the ` +
             `package '${pkgname}' cannot be loaded together since this is unsupported by ` +
             'some runtime environments',
@@ -135,7 +142,9 @@ export class Kernel {
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
-      throw new Error(`Error for package tarball ${req.tarball}: ${e.message}`);
+      throw new JsiiFault(
+        `Error for package tarball ${req.tarball}: ${e.message}`,
+      );
     }
 
     // load the module and capture its closure
@@ -166,13 +175,15 @@ export class Kernel {
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
 
       if (!epkg.bin) {
-        throw new Error('There is no bin scripts defined for this package.');
+        throw new JsiiFault(
+          'There is no bin scripts defined for this package.',
+        );
       }
 
       const scriptPath = epkg.bin[req.script];
 
       if (!epkg.bin) {
-        throw new Error(`Script with name ${req.script} was not defined.`);
+        throw new JsiiFault(`Script with name ${req.script} was not defined.`);
       }
 
       const result = cp.spawnSync(
@@ -198,7 +209,7 @@ export class Kernel {
         signal: result.signal,
       };
     }
-    throw new Error(`Package with name ${req.assembly} was not loaded.`);
+    throw new JsiiFault(`Package with name ${req.assembly} was not loaded.`);
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
@@ -221,7 +232,7 @@ export class Kernel {
     const ti = this._typeInfoForProperty(property, fqn);
 
     if (!ti.static) {
-      throw new Error(`property ${symbol} is not static`);
+      throw new JsiiFault(`property ${symbol} is not static`);
     }
 
     const prototype = this._findSymbol(fqn);
@@ -244,11 +255,11 @@ export class Kernel {
     const ti = this._typeInfoForProperty(property, fqn);
 
     if (!ti.static) {
-      throw new Error(`property ${symbol} is not static`);
+      throw new JsiiFault(`property ${symbol} is not static`);
     }
 
     if (ti.immutable) {
-      throw new Error(`static property ${symbol} is readonly`);
+      throw new JsiiFault(`static property ${symbol} is readonly`);
     }
 
     const prototype = this._findSymbol(fqn);
@@ -299,7 +310,7 @@ export class Kernel {
     const propInfo = this._typeInfoForProperty(req.property, fqn, interfaces);
 
     if (propInfo.immutable) {
-      throw new Error(
+      throw new JsiiFault(
         `Cannot set value of immutable property ${req.property} to ${req.value}`,
       );
     }
@@ -328,7 +339,7 @@ export class Kernel {
 
     // verify this is not an async method
     if (ti.async) {
-      throw new Error(`${method} is an async method, use "begin" instead`);
+      throw new JsiiFault(`${method} is an async method, use "begin" instead`);
     }
 
     const fqn = jsiiTypeFqn(obj);
@@ -365,12 +376,12 @@ export class Kernel {
     const ti = this._typeInfoForMethod(method, fqn);
 
     if (!ti.static) {
-      throw new Error(`${fqn}.${method} is not a static method`);
+      throw new JsiiFault(`${fqn}.${method} is not a static method`);
     }
 
     // verify this is not an async method
     if (ti.async) {
-      throw new Error(`${method} is an async method, use "begin" instead`);
+      throw new JsiiFault(`${method} is an async method, use "begin" instead`);
     }
 
     const prototype = this._findSymbol(fqn);
@@ -404,7 +415,7 @@ export class Kernel {
     this._debug('begin', objref, method, args);
 
     if (this.syncInProgress) {
-      throw new Error(
+      throw new JsiiFault(
         `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.syncInProgress} is being processed`,
       );
     }
@@ -413,7 +424,7 @@ export class Kernel {
 
     // verify this is indeed an async method
     if (!ti.async) {
-      throw new Error(`Method ${method} is expected to be an async method`);
+      throw new JsiiFault(`Method ${method} is expected to be an async method`);
     }
 
     const fqn = jsiiTypeFqn(obj);
@@ -448,7 +459,7 @@ export class Kernel {
 
     const storedPromise = this.promises.get(promiseid);
     if (storedPromise == null) {
-      throw new Error(`Cannot find promise with ID: ${promiseid}`);
+      throw new JsiiFault(`Cannot find promise with ID: ${promiseid}`);
     }
     const { promise, method } = storedPromise;
 
@@ -458,7 +469,7 @@ export class Kernel {
       this._debug('promise result:', result);
     } catch (e) {
       this._debug('promise error:', e);
-      throw e;
+      throw new JsiiFault((e as any).message);
     }
 
     return {
@@ -497,7 +508,7 @@ export class Kernel {
 
     const cb = this.waiting.get(cbid);
     if (!cb) {
-      throw new Error(`Callback ${cbid} not found`);
+      throw new JsiiFault(`Callback ${cbid} not found`);
     }
 
     if (err) {
@@ -530,7 +541,9 @@ export class Kernel {
     const assembly = this._assemblyFor(assemblyName);
     const targets = assembly.metadata.targets;
     if (!targets) {
-      throw new Error(`Unexpected - "targets" for ${assemblyName} is missing!`);
+      throw new JsiiFault(
+        `Unexpected - "targets" for ${assemblyName} is missing!`,
+      );
     }
 
     return { naming: targets };
@@ -581,12 +594,12 @@ export class Kernel {
         };
 
       case spec.TypeKind.Interface:
-        throw new Error(
+        throw new JsiiFault(
           `Cannot create an object with an FQN of an interface: ${fqn}`,
         );
 
       default:
-        throw new Error(`Unexpected FQN kind: ${fqn}`);
+        throw new JsiiFault(`Unexpected FQN kind: ${fqn}`);
     }
   }
 
@@ -635,10 +648,10 @@ export class Kernel {
       for (const override of overrides) {
         if (api.isMethodOverride(override)) {
           if (api.isPropertyOverride(override)) {
-            throw new Error(overrideTypeErrorMessage);
+            throw new JsiiFault(overrideTypeErrorMessage);
           }
           if (methods.has(override.method)) {
-            throw new Error(
+            throw new JsiiFault(
               `Duplicate override for method '${override.method}'`,
             );
           }
@@ -647,10 +660,10 @@ export class Kernel {
           this._applyMethodOverride(obj, objref, fqn, interfaces, override);
         } else if (api.isPropertyOverride(override)) {
           if (api.isMethodOverride(override)) {
-            throw new Error(overrideTypeErrorMessage);
+            throw new JsiiFault(overrideTypeErrorMessage);
           }
           if (properties.has(override.property)) {
-            throw Error(
+            throw new JsiiFault(
               `Duplicate override for property '${override.property}'`,
             );
           }
@@ -658,7 +671,7 @@ export class Kernel {
 
           this._applyPropertyOverride(obj, objref, fqn, interfaces, override);
         } else {
-          throw new Error(overrideTypeErrorMessage);
+          throw new JsiiFault(overrideTypeErrorMessage);
         }
       }
     }
@@ -679,7 +692,7 @@ export class Kernel {
   ) {
     // error if we can find a method with this name
     if (this._tryTypeInfoForMethod(override.property, typeFqn, interfaces)) {
-      throw new Error(
+      throw new JsiiFault(
         `Trying to override method '${override.property}' as a property`,
       );
     }
@@ -802,7 +815,7 @@ export class Kernel {
   ) {
     // error if we can find a property with this name
     if (this._tryTypeInfoForProperty(override.method, typeFqn, interfaces)) {
-      throw new Error(
+      throw new JsiiFault(
         `Trying to override property '${override.method}' as a method`,
       );
     }
@@ -940,7 +953,7 @@ export class Kernel {
     if (!fn) {
       fn = instance[methodName];
       if (!fn) {
-        throw new Error(`Cannot find ${methodName} on object`);
+        throw new JsiiFault(`Cannot find ${methodName} on object`);
       }
     }
     return { ti, obj: instance, fn };
@@ -954,7 +967,7 @@ export class Kernel {
 
     // error if args > params
     if (args.length > params.length && !(method && method.variadic)) {
-      throw new Error(
+      throw new JsiiFault(
         `Too many arguments (method accepts ${params.length} parameters, got ${args.length} arguments)`,
       );
     }
@@ -969,7 +982,7 @@ export class Kernel {
         } // No vararg was provided
         for (let j = i; j < params.length; j++) {
           if (!param.optional && params[j] === undefined) {
-            throw new Error(
+            throw new JsiiFault(
               `Unexpected 'undefined' value at index ${
                 j - i
               } of variadic argument '${
@@ -979,7 +992,7 @@ export class Kernel {
           }
         }
       } else if (!param.optional && arg === undefined) {
-        throw new Error(
+        throw new JsiiFault(
           `Not enough arguments. Missing argument for the required parameter '${
             param.name
           }' of type '${spec.describeTypeReference(param.type)}'`,
@@ -991,7 +1004,7 @@ export class Kernel {
   private _assemblyFor(assemblyName: string) {
     const assembly = this.assemblies.get(assemblyName);
     if (!assembly) {
-      throw new Error(`Could not find assembly: ${assemblyName}`);
+      throw new JsiiFault(`Could not find assembly: ${assemblyName}`);
     }
     return assembly;
   }
@@ -1010,7 +1023,7 @@ export class Kernel {
       curr = curr[name];
     }
     if (!curr) {
-      throw new Error(`Could not find symbol ${fqn}`);
+      throw new JsiiFault(`Could not find symbol ${fqn}`);
     }
     return curr;
   }
@@ -1021,13 +1034,13 @@ export class Kernel {
 
     const assembly = this.assemblies.get(moduleName);
     if (!assembly) {
-      throw new Error(`Module '${moduleName}' not found`);
+      throw new JsiiFault(`Module '${moduleName}' not found`);
     }
 
     const types = assembly.metadata.types ?? {};
     const fqnInfo = types[fqn];
     if (!fqnInfo) {
-      throw new Error(`Type '${fqn}' not found`);
+      throw new JsiiFault(`Type '${fqn}' not found`);
     }
 
     return fqnInfo;
@@ -1044,7 +1057,7 @@ export class Kernel {
         interfaces && interfaces.length > 0
           ? ` or interface(s) ${interfaces.join(', ')}`
           : '';
-      throw new Error(
+      throw new JsiiFault(
         `Class ${fqn}${addendum} doesn't have a method '${methodName}'`,
       );
     }
@@ -1114,7 +1127,7 @@ export class Kernel {
         properties = interfaceTypeInfo.properties;
         bases = interfaceTypeInfo.interfaces ?? [];
       } else {
-        throw new Error(
+        throw new JsiiFault(
           `Type of kind ${typeInfo.kind} does not have properties`,
         );
       }
@@ -1148,7 +1161,7 @@ export class Kernel {
         interfaces && interfaces.length > 0
           ? ` or interface(s) ${interfaces.join(', ')}`
           : '';
-      throw new Error(
+      throw new JsiiFault(
         `Type ${fqn}${addendum} doesn't have a property '${property}'`,
       );
     }
@@ -1233,7 +1246,7 @@ export class Kernel {
       parametersCopy.push(parametersCopy[parametersCopy.length - 1]);
     }
     if (xs.length > parametersCopy.length) {
-      throw new Error(
+      throw new JsiiFault(
         `Argument list (${JSON.stringify(
           xs,
         )}) not same size as expected argument list (length ${
