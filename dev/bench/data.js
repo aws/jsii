@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661899462859,
+  "lastUpdate": 1662064728091,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -5921,6 +5921,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 887906.490916339,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73758.26778485 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "883f17efad38e2d81bcb931060b5ff09f41fc719",
+          "message": "chore: update sudoers settings (#3737)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-01T19:45:55Z",
+          "tree_id": "fdafb14f16f0687872f6fe94b37f0e04f8ed0ce0",
+          "url": "https://github.com/aws/jsii/commit/883f17efad38e2d81bcb931060b5ff09f41fc719"
+        },
+        "date": 1662064725497,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 65617.20817094999,
+            "unit": "milliseconds",
+            "range": 3748702.24289273,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 65617.20817094999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47186.645235650016,
+            "unit": "milliseconds",
+            "range": 479560.6352310837,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47186.645235650016 milliseconds over 20 runs"
           }
         ]
       }
