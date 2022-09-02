@@ -199,7 +199,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,)</version>
+      <version>[0.0.0-SNAPSHOT]</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -708,7 +708,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,)</version>
+      <version>[0.0.0-SNAPSHOT]</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1205,7 +1205,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,)</version>
+      <version>[0.0.0-SNAPSHOT]</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1691,7 +1691,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,)</version>
+      <version>[0.0.0-SNAPSHOT]</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
