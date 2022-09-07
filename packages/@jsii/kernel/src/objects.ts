@@ -1,8 +1,8 @@
 import * as spec from '@jsii/spec';
 
 import * as api from './api';
-import { EMPTY_OBJECT_FQN } from './serialization';
 import { JsiiFault } from './kernel';
+import { EMPTY_OBJECT_FQN } from './serialization';
 
 /**
  * Symbol under which we store the { type -> objid } map on object instances
@@ -180,7 +180,9 @@ export class ObjectTable {
    */
   public findObject(objref: api.ObjRef): RegisteredObject {
     if (typeof objref !== 'object' || !(api.TOKEN_REF in objref)) {
-      throw new JsiiFault(`Malformed object reference: ${JSON.stringify(objref)}`);
+      throw new JsiiFault(
+        `Malformed object reference: ${JSON.stringify(objref)}`,
+      );
     }
 
     const objid = objref[api.TOKEN_REF];

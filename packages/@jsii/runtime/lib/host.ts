@@ -1,4 +1,4 @@
-import { api, Kernel, JsiiFault } from '@jsii/kernel';
+import { api, Kernel, JsiiFault, JsiiError } from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
@@ -152,7 +152,7 @@ export class KernelHost {
       }
 
       this.writeOkay(ret);
-    } catch (e) {
+    } catch (e: any) {
       this.writeError(e);
     }
 
@@ -179,11 +179,12 @@ export class KernelHost {
   /**
    * Writes an "error" result to stdout.
    */
-  private writeError(error: any) {
-    const res = { error: error.message, stack: undefined };
-    if (!this.opts.noStack) {
-      res.stack = error.stack;
-    }
+  private writeError(error: JsiiError) {
+    const res = {
+      error: error.message,
+      type: error.type,
+      stack: this.opts.noStack ? undefined : error.stack,
+    };
     this.inout.write(res);
   }
 

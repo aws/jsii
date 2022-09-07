@@ -15,10 +15,18 @@ import * as onExit from './on-exit';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
-export class JsiiFault extends Error {
+export enum JsiiErrorType {
+  JSII_FAULT = 'jsii-fault',
+}
+
+export interface JsiiError extends Error {
+  readonly type: JsiiErrorType;
+}
+
+export class JsiiFault extends Error implements JsiiError {
+  public readonly type = JsiiErrorType.JSII_FAULT;
   public constructor(message: string) {
     super(message);
-    this.name = 'JsiiFault';
   }
 }
 

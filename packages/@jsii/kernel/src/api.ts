@@ -1,3 +1,5 @@
+//import { JsiiErrorType } from './kernel';
+
 export const TOKEN_REF = '$jsii.byref';
 export const TOKEN_INTERFACES = '$jsii.interfaces';
 export const TOKEN_DATE = '$jsii.date';
@@ -276,5 +278,6 @@ export interface OkayResponse {
 
 export interface ErrorResponse {
   readonly error: string;
+  //readonly type: JsiiErrorType;
   readonly stack?: string;
 }
