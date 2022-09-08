@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662663668350,
+  "lastUpdate": 1662668421349,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6111,6 +6111,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 103236.34311696954,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45612.20373735001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "74b3eaebb1d0fc654de404876e80ee22e43135b6",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.3.0 to 17.3.1 in /packages/@jsii/dotnet-runtime-test/test (#3745)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.3.0 to 17.3.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.3.1</h2>\n<p>See the release notes <a href=\"https://github.com/microsoft/vstest-docs/blob/main/docs/releases.md#1731\">here</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/83d2f8162d29a66a8ff323c4bba93c8250013511\"><code>83d2f81</code></a> Bump version to 17.3.1 and cherry-pick loc files (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/3966\">#3966</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/016e237314184136ec3512e615d6d8cc4d78b41d\"><code>016e237</code></a> [rel/17.3] Do not match .NET Standard to Dotnet testhost runner (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/3958\">#3958</a>)</li>\n<li>See full diff in <a href=\"https://github.com/microsoft/vstest/compare/v17.3.0...v17.3.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.3.0&new-version=17.3.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-09-08T19:23:56Z",
+          "tree_id": "b451bd0cf9f363815df77b584c9f609dfcf40894",
+          "url": "https://github.com/aws/jsii/commit/74b3eaebb1d0fc654de404876e80ee22e43135b6"
+        },
+        "date": 1662668419053,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 76422.46655919998,
+            "unit": "milliseconds",
+            "range": 204498.08717032825,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 76422.46655919998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53126.24290675002,
+            "unit": "milliseconds",
+            "range": 407907.1156291029,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53126.24290675002 milliseconds over 20 runs"
           }
         ]
       }
