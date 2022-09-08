@@ -50,7 +50,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
                     ok(value);
                   })
                   .catch((err: any) => {
-                    logOutput({ error: err.message });
+                    logOutput({ error: err.message, type: err.type });
                     fail(err);
                   });
               });
@@ -59,7 +59,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
             logOutput({ ok: ret });
             return ret;
           } catch (e: any) {
-            logOutput({ error: e.message });
+            logOutput({ error: e.message, type: e.type });
             throw new JsiiFault(e.message);
           }
         },
