@@ -4,13 +4,13 @@ package software.amazon.jsii;
  * Represents an irrecoverable error, such as a
  * broken pipe.
  */
-public final class JsiiException extends JsiiE {
+public final class JsException extends JsiiE {
 
   /**
    * Creates an exception.
    * @param message The error message
    */
-  JsiiException(final String message) {
+  JsException(final String message) {
       super(message);
   }
 
@@ -18,7 +18,7 @@ public final class JsiiException extends JsiiE {
    * Creates an exception.
    * @param e The error that caused this exception
    */
-  JsiiException(final Throwable e) {
+  JsException(final Throwable e) {
       super(e);
   }
 
@@ -27,7 +27,7 @@ public final class JsiiException extends JsiiE {
    * @param message The error message
    * @param e The error that caused this exception
    */
-  JsiiException(final String message, final Throwable e) {
+  JsException(final String message, final Throwable e) {
       super(message, e);
   }
 }

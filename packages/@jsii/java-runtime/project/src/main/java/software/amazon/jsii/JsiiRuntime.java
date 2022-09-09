@@ -116,11 +116,19 @@ public final class JsiiRuntime {
      * @return Never
      */
     private JsonNode processErrorResponse(final JsonNode resp) {
+        String errorType = resp.get("type").asText();
         String errorMessage = resp.get("error").asText();
         if (resp.has("stack")) {
             errorMessage += "\n" + resp.get("stack").asText();
         }
 
+        if (errorType.equals(JsiiException.Type.JS_EXCEPTION.toString())) {
+          throw new JsException(errorMessage);
+        }
+
+        // TODO: check for the type checking exception here
+        
+        // default to JsiiException
         throw new JsiiException(errorMessage);
     }
 

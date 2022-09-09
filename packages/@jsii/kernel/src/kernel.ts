@@ -17,6 +17,7 @@ import * as tar from './tar-cache';
 
 export enum JsiiErrorType {
   JSII_FAULT = 'jsii-fault',
+  JS_ERROR = 'js-error',
 }
 
 export interface JsiiError extends Error {
