@@ -654,7 +654,7 @@ export class Thrower {
   }
 
   private doThrowError() {
-    throw new Error();
+    throw new Error(); // TODO: need to ensure that this is a JSError: playback sees it, and it should have `type: js-error`, not `jsii-fault`.
   }
 }
 

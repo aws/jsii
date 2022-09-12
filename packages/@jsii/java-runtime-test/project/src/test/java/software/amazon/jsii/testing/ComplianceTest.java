@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.jsii.ComplianceSuiteHarness;
+import software.amazon.jsii.JsException;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.ReloadingClassLoader;
@@ -335,7 +336,7 @@ public class ComplianceTest {
         assertEquals(23, calc3.getValue());
         boolean thrown = false;
         try { calc3.add(10); }
-        catch (JsiiException e) { thrown = true; }
+        catch (JsException e) { e.printStackTrace(); thrown = true; }
         assertTrue(thrown);
         calc3.setMaxValue(40);
         calc3.add(10);

@@ -31,6 +31,12 @@ export class JsiiFault extends Error implements JsiiError {
   }
 }
 
+export class JsError extends Error implements JsiiError {
+  public readonly type = JsiiErrorType.JS_ERROR;
+  public constructor(message: string) {
+    super(message);
+  }
+}
 export class Kernel {
   /**
    * Set to true for verbose debugging.

@@ -20,6 +20,7 @@ public abstract class JsiiBaseException extends RuntimeException {
         }
     }
     public static final long serialVersionUID = 1L;
+    //public final Type type;
 
     /**
      * Creates an exception.

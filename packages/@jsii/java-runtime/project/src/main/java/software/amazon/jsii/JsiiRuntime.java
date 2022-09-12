@@ -110,7 +110,7 @@ public final class JsiiRuntime {
 
     /**
      * Handles an "error" response by extracting the message and stack trace
-     * and throwing a JsiiException.
+     * and throwing a JsiiException or a JsException.
      *
      * @param resp The response
      * @return Never
