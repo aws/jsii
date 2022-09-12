@@ -4,7 +4,7 @@ package software.amazon.jsii;
  * Represents an irrecoverable error, such as a
  * broken pipe.
  */
-public final class JsiiException extends JsiiE {
+public final class JsiiException extends JsiiBaseException {
 
   /**
    * Creates an exception.

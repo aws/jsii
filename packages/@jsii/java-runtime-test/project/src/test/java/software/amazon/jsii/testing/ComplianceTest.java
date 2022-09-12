@@ -335,7 +335,7 @@ public class ComplianceTest {
         assertEquals(23, calc3.getValue());
         boolean thrown = false;
         try { calc3.add(10); }
-        catch (Exception e) { thrown = true; }
+        catch (JsiiException e) { thrown = true; }
         assertTrue(thrown);
         calc3.setMaxValue(40);
         calc3.add(10);
