@@ -3,10 +3,11 @@ package software.amazon.jsii;
 /**
  * An error raised by the jsii runtime.
  */
-public abstract class JsiiE extends RuntimeException {
+public abstract class JsiiBaseException extends RuntimeException {
     public static enum Type {
         JSII_FAULT("jsii-fault"),
         JS_EXCEPTION("js-error");
+        // TYPE_CHECKING_EXCEPTION("type-checking-exception");
 
         private final String errorType;
 
@@ -24,7 +25,7 @@ public abstract class JsiiE extends RuntimeException {
      * Creates an exception.
      * @param message The error message
      */
-    JsiiE(final String message) {
+    JsiiBaseException(final String message) {
         super(message);
     }
 
@@ -32,7 +33,7 @@ public abstract class JsiiE extends RuntimeException {
      * Creates an exception.
      * @param e The error that caused this exception
      */
-    JsiiE(final Throwable e) {
+    JsiiBaseException(final Throwable e) {
         super(e);
     }
 
@@ -41,7 +42,7 @@ public abstract class JsiiE extends RuntimeException {
      * @param message The error message
      * @param e The error that caused this exception
      */
-    JsiiE(final String message, final Throwable e) {
+    JsiiBaseException(final String message, final Throwable e) {
         super(message, e);
     }
 }
