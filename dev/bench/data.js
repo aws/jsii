@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662668421349,
+  "lastUpdate": 1663000878632,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6149,6 +6149,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 407907.1156291029,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53126.24290675002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "danielmschmidt92@gmail.com",
+            "name": "Daniel Schmidt",
+            "username": "DanielMSchmidt"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "12173b29a8458c94c3e08ef540f7a2a16b41c3bc",
+          "message": "perf(jsii-pacmak): cache type lookups for go (#3748)\n\nThis improved the performance of cdktf get on our go/azure example by two minutes\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-12T15:45:26Z",
+          "tree_id": "36c40d69de19469118104aa9851a3a08bb176107",
+          "url": "https://github.com/aws/jsii/commit/12173b29a8458c94c3e08ef540f7a2a16b41c3bc"
+        },
+        "date": 1663000876412,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72562.19938915002,
+            "unit": "milliseconds",
+            "range": 1441226.758126701,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72562.19938915002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50365.57910894999,
+            "unit": "milliseconds",
+            "range": 111694.14023090512,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50365.57910894999 milliseconds over 20 runs"
           }
         ]
       }
