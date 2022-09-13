@@ -312,9 +312,12 @@ class DependencyResolver {
 
       const actualVersion = resolved.dependencyInfo.assembly.version;
       if (!semver.satisfies(actualVersion, declaration)) {
-        throw new Error(
-          `Declared dependency on version ${declaration} of ${name}, but version ${actualVersion} was found`,
-        );
+        // Allow URI declarations
+        if (!declaration.match(/^[a-z][A-Z]:/)) {
+          throw new Error(
+            `Declared dependency on version ${declaration} of ${name}, but version ${actualVersion} was found`,
+          );
+        }
       }
 
       ret[name] = resolved.resolvedFile;

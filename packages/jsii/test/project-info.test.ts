@@ -176,6 +176,17 @@ describe('loadProjectInfo', () => {
       },
     ));
 
+  test('accepts URI dependency version', () =>
+    _withTestProject(
+      (projectRoot) => {
+        loadProjectInfo(projectRoot);
+      },
+      (info) => {
+        info.dependencies[TEST_DEP_ASSEMBLY.name] = 'file:example/';
+        info.peerDependencies[TEST_DEP_ASSEMBLY.name] = 'FILE:example/';
+      },
+    ));
+
   test('missing peerDependencies are allowed', () =>
     _withTestProject(
       (projectRoot) =>
