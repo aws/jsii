@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 
-import { JsiiFault, Kernel } from './kernel';
+import { JsError, JsiiErrorType, JsiiFault, Kernel } from './kernel';
 
 export async function closeRecording(kernel: Kernel): Promise<void> {
   const logfile: fs.WriteStream = (kernel as any).logfile;
@@ -60,6 +60,9 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
             return ret;
           } catch (e: any) {
             logOutput({ error: e.message, type: e.type });
+            if (e.type === JsiiErrorType.JS_ERROR) {
+              throw new JsError(e);
+            }
             throw new JsiiFault(e.message);
           }
         },

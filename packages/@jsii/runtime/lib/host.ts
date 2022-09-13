@@ -180,7 +180,6 @@ export class KernelHost {
    * Writes an "error" result to stdout.
    */
   private writeError(error: JsiiError) {
-    console.log(error)
     const res = {
       error: error.message,
       type: error.type,
