@@ -1306,6 +1306,13 @@ export class Kernel {
     this.syncInProgress = desc;
     try {
       return fn();
+    } catch (e: any) {
+      if (e.type === JsiiErrorType.JSII_FAULT) {
+        throw new JsiiFault(e);
+      }
+      // default to JsError because any JsiiFaults have been emitted from the kernel
+      // with their type field populated before the request was made to the js code.
+      throw new JsError(e);
     } finally {
       delete this.syncInProgress;
     }
