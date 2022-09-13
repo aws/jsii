@@ -313,7 +313,7 @@ class DependencyResolver {
       const actualVersion = resolved.dependencyInfo.assembly.version;
       if (!semver.satisfies(actualVersion, declaration)) {
         // Allow URI declarations
-        if (!declaration.match(/^[a-z][A-Z]:/)) {
+        if (!declaration.match(/^[a-z]+:/)) {
           throw new Error(
             `Declared dependency on version ${declaration} of ${name}, but version ${actualVersion} was found`,
           );

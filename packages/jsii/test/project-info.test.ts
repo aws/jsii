@@ -183,7 +183,6 @@ describe('loadProjectInfo', () => {
       },
       (info) => {
         info.dependencies[TEST_DEP_ASSEMBLY.name] = 'file:example/';
-        info.peerDependencies[TEST_DEP_ASSEMBLY.name] = 'FILE:example/';
       },
     ));
 
