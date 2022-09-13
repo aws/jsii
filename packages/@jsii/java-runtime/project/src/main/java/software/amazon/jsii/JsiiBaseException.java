@@ -7,7 +7,6 @@ public abstract class JsiiBaseException extends RuntimeException {
     public static enum Type {
         JSII_FAULT("jsii-fault"),
         JS_EXCEPTION("js-error");
-        // TYPE_CHECKING_EXCEPTION("type-checking-exception");
 
         private final String errorType;
 
@@ -20,7 +19,6 @@ public abstract class JsiiBaseException extends RuntimeException {
         }
     }
     public static final long serialVersionUID = 1L;
-    //public final Type type;
 
     /**
      * Creates an exception.
