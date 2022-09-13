@@ -1,4 +1,4 @@
-import { api, Kernel, JsiiFault, JsiiError } from '@jsii/kernel';
+import { api, Kernel, JsiiFault, JsiiError, JsiiErrorType } from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
@@ -182,7 +182,7 @@ export class KernelHost {
   private writeError(error: JsiiError) {
     const res = {
       error: error.message,
-      type: error.type,
+      type: error.type ?? JsiiErrorType.JS_ERROR, // TODO: this doesn't feel like the right place to determine JS_ERRORs...
       stack: this.opts.noStack ? undefined : error.stack,
     };
     this.inout.write(res);
