@@ -34,7 +34,7 @@
     "yargs": "^16.2.0",
     "semver": "^7.3.7",
     "semver-intersect": "^1.4.0",
-    "fast-glob": "^3.2.11",
+    "fast-glob": "^3.2.12",
     "jsii": "0.0.0"
   },
   "license": "Apache-2.0",
