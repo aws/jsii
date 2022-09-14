@@ -1,8 +1,7 @@
 package software.amazon.jsii;
 
 /*
- * Represents an irrecoverable error, such as a
- * broken pipe.
+ * Represents an irrecoverable error, likely thrown from the kernel.
  */
 public final class JsiiException extends JsiiBaseException {
 
