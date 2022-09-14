@@ -519,7 +519,7 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             so.retrieveValueOfTheProperty();
-        } catch (Exception e) {
+        } catch (JsiiException e) {
             assertTrue(e.getMessage().contains("Oh no, this is bad"));
             thrown = true;
         }
@@ -537,7 +537,7 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             so.modifyValueOfTheProperty("Hii");
-        } catch (Exception e) {
+        } catch (JsiiException e) {
             assertTrue(e.getMessage().contains("Exception from overloaded setter"));
             thrown = true;
         }
