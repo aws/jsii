@@ -116,13 +116,13 @@ public final class JsiiRuntime {
      * @return Never
      */
     private JsonNode processErrorResponse(final JsonNode resp) {
-        String errorType = resp.get("type").asText();
+        String errorName = resp.get("name").asText();
         String errorMessage = resp.get("error").asText();
         if (resp.has("stack")) {
             errorMessage += "\n" + resp.get("stack").asText();
         }
 
-        if (errorType.equals(JsiiException.Type.JS_EXCEPTION.toString())) {
+        if (errorName.equals(JsiiException.Type.JS_EXCEPTION.toString())) {
           throw new JsException(errorMessage);
         }
 

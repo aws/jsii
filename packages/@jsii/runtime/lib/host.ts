@@ -182,7 +182,7 @@ export class KernelHost {
   private writeError(error: JsiiError) {
     const res = {
       error: error.message,
-      type: error.type,
+      name: error.name,
       stack: this.opts.noStack ? undefined : error.stack,
     };
     this.inout.write(res);

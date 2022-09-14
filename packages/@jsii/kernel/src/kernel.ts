@@ -16,23 +16,23 @@ import * as wire from './serialization';
 import * as tar from './tar-cache';
 
 export enum JsiiErrorType {
-  JSII_FAULT = 'jsii-fault',
-  JS_ERROR = 'js-error',
+  JSII_FAULT = '@jsii/kernel.Fault',
+  JS_ERROR = '@jsii/kernel.JSError',
 }
 
 export interface JsiiError extends Error {
-  readonly type: JsiiErrorType;
+  readonly name: JsiiErrorType;
 }
 
 export class JsiiFault extends Error implements JsiiError {
-  public readonly type = JsiiErrorType.JSII_FAULT;
+  public readonly name = JsiiErrorType.JSII_FAULT;
   public constructor(message: string) {
     super(message);
   }
 }
 
 export class JsError extends Error implements JsiiError {
-  public readonly type = JsiiErrorType.JS_ERROR;
+  public readonly name = JsiiErrorType.JS_ERROR;
   public constructor(message: string) {
     super(message);
   }
@@ -1307,7 +1307,7 @@ export class Kernel {
     try {
       return fn();
     } catch (e: any) {
-      if (e.type === JsiiErrorType.JSII_FAULT) {
+      if (e.name === JsiiErrorType.JSII_FAULT) {
         throw new JsiiFault(e);
       }
       // default to JsError because any JsiiFaults have been emitted from the kernel

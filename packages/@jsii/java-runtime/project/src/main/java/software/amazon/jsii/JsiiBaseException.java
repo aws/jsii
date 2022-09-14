@@ -5,8 +5,8 @@ package software.amazon.jsii;
  */
 public abstract class JsiiBaseException extends RuntimeException {
     public static enum Type {
-        JSII_FAULT("jsii-fault"),
-        JS_EXCEPTION("js-error");
+        JSII_FAULT("@jsii/kernel.Fault"),
+        JS_EXCEPTION("@jsii/kernel.JSError");
 
         private final String errorType;
 
