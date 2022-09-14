@@ -126,9 +126,6 @@ public final class JsiiRuntime {
           throw new JsException(errorMessage);
         }
 
-        // TODO: check for the type checking exception here
-        
-        // default to JsiiException
         throw new JsiiException(errorMessage);
     }
 
