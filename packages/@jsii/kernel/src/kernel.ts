@@ -1310,8 +1310,10 @@ export class Kernel {
       if (e.name === JsiiErrorType.JSII_FAULT) {
         throw new JsiiFault(e);
       }
-      // default to JsError because any JsiiFaults have been emitted from the kernel
-      // with their type field populated before the request was made to the js code.
+      // This error comes from the kernel, which means it can either be an error
+      // thrown by the kernel directly, or an error that the kernel is rethrowing from
+      // user code. If the error comes from the kernel, then its name field will be populated;
+      // this implies that the name field is only empty for user code.
       throw new JsError(e);
     } finally {
       delete this.syncInProgress;
