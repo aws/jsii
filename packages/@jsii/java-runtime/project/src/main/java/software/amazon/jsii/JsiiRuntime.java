@@ -110,7 +110,7 @@ public final class JsiiRuntime {
 
     /**
      * Handles an "error" response by extracting the message and stack trace
-     * and throwing a JsiiException or a JsException.
+     * and throwing a JsiiException or a JSException.
      *
      * @param resp The response
      * @return Never
@@ -123,7 +123,7 @@ public final class JsiiRuntime {
         }
 
         if (errorName.equals(JsiiException.Type.JS_EXCEPTION.toString())) {
-          throw new JsException(errorMessage);
+          throw new JSException(errorMessage);
         }
 
         throw new JsiiException(errorMessage);

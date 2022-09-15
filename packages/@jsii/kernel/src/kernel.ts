@@ -31,7 +31,7 @@ export class JsiiFault extends Error implements JsiiError {
   }
 }
 
-export class JsError extends Error implements JsiiError {
+export class JSError extends Error implements JsiiError {
   public readonly name = JsiiErrorType.JS_ERROR;
   public constructor(message: string) {
     super(message);
@@ -1313,7 +1313,7 @@ export class Kernel {
       // This error can be thrown by the kernel directly, or it can be
       // thrown from user code. If the error comes from the kernel, then its name field will be populated;
       // if the error comes from user code, the name field will not be populated.
-      throw new JsError(e);
+      throw new JSError(e);
     } finally {
       delete this.syncInProgress;
     }
