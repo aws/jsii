@@ -29,6 +29,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   noUnusedLocals: true,
   noUnusedParameters: true,
   resolveJsonModule: true,
+  skipLibCheck: true,
   strict: true,
   strictNullChecks: true,
   strictPropertyInitialization: true,
