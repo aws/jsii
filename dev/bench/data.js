@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663570658753,
+  "lastUpdate": 1663613265897,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6225,6 +6225,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 348208.2797479095,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51173.68587640001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "852b3dc5da113546bc090d99f9250104f526f5af",
+          "message": "fix(jsii): unable to return Promise<void> (#3752)\n\nThe void-check only accounted for the literal `void` type, but failed to account for the `Promise<void>` case. This is now fixed.\n\nFixes #51\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-19T17:58:47Z",
+          "tree_id": "5e0ef696bec147003a8347b9e7dd50c65a971fc5",
+          "url": "https://github.com/aws/jsii/commit/852b3dc5da113546bc090d99f9250104f526f5af"
+        },
+        "date": 1663613263665,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63108.62290309996,
+            "unit": "milliseconds",
+            "range": 2731974.107906886,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63108.62290309996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45278.974355299986,
+            "unit": "milliseconds",
+            "range": 43519.46739098861,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45278.974355299986 milliseconds over 20 runs"
           }
         ]
       }
