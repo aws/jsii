@@ -1,15 +1,15 @@
 package software.amazon.jsii;
 
-/*
- * Represents an error thrown from the user JS library.
+/**
+ * A nonrecoverable error from the jsii runtime,
+ * usually the kernel.
  */
-public final class JSException extends JsiiBaseException {
-
+public class JsiiError extends JsiiException {
   /**
    * Creates an exception.
    * @param message The error message
    */
-  JSException(final String message) {
+  JsiiError(final String message) {
       super(message);
   }
 
@@ -17,7 +17,7 @@ public final class JSException extends JsiiBaseException {
    * Creates an exception.
    * @param e The error that caused this exception
    */
-  JSException(final Throwable e) {
+  JsiiError(final Throwable e) {
       super(e);
   }
 
@@ -26,7 +26,7 @@ public final class JSException extends JsiiBaseException {
    * @param message The error message
    * @param e The error that caused this exception
    */
-  JSException(final String message, final Throwable e) {
+  JsiiError(final String message, final Throwable e) {
       super(message, e);
   }
 }

@@ -1,9 +1,25 @@
 package software.amazon.jsii;
 
 /*
- * Represents an irrecoverable error, likely thrown from the kernel.
+ * An error raised by the jsii runtime.
  */
-public final class JsiiException extends JsiiBaseException {
+public abstract class JsiiException extends RuntimeException {
+    public static final long serialVersionUID = 1L;
+
+    public static enum Type {
+        JSII_FAULT("@jsii/kernel.Fault"),
+        RUNTIME_EXCEPTION("@jsii/kernel.RuntimeException");
+
+        private final String errorType;
+
+        Type(String str) {
+            this.errorType = str;
+        }
+
+        public String toString() {
+            return this.errorType;
+        }
+    }
 
   /**
    * Creates an exception.

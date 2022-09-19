@@ -17,7 +17,7 @@ import * as tar from './tar-cache';
 
 export enum JsiiErrorType {
   JSII_FAULT = '@jsii/kernel.Fault',
-  JS_ERROR = '@jsii/kernel.JSError',
+  RUNTIME_ERROR = '@jsii/kernel.RuntimeError',
 }
 
 export interface JsiiError extends Error {
@@ -31,8 +31,8 @@ export class JsiiFault extends Error implements JsiiError {
   }
 }
 
-export class JSError extends Error implements JsiiError {
-  public readonly name = JsiiErrorType.JS_ERROR;
+export class RuntimeError extends Error implements JsiiError {
+  public readonly name = JsiiErrorType.RUNTIME_ERROR;
   public constructor(message: string) {
     super(message);
   }
@@ -1313,7 +1313,7 @@ export class Kernel {
       // This error can be thrown by the kernel directly, or it can be
       // thrown from user code. If the error comes from the kernel, then its name field will be populated;
       // if the error comes from user code, the name field will not be populated.
-      throw new JSError(e);
+      throw new RuntimeError(e);
     } finally {
       delete this.syncInProgress;
     }
