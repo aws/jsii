@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663673327337,
+  "lastUpdate": 1663677745085,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6301,6 +6301,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 273881.7874700662,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59559.15144210004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "79951b73aedfbd5c639d72194846fd3da95d9462",
+          "message": "chore(superchain): grant passwordless sudo to superchain user (#3758)\n\nInstead of granting only via `sudo` group, allow the `superchain` user to passwordless sudo, in hopes this fixes the currently broken behavior in GitHub Actions.\n\nAdditionally, remove the `dockerd-entrypoint.sh` script that did not work propertly and was neither tested, nor used (to our knowledge).\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-20T11:33:36Z",
+          "tree_id": "bedb127aeeab5898cf00e7df2692c2c2c7fb40be",
+          "url": "https://github.com/aws/jsii/commit/79951b73aedfbd5c639d72194846fd3da95d9462"
+        },
+        "date": 1663677741663,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 96323.00279139997,
+            "unit": "milliseconds",
+            "range": 3325061.8179154545,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 96323.00279139997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 67611.30861050003,
+            "unit": "milliseconds",
+            "range": 180511.9009586855,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 67611.30861050003 milliseconds over 20 runs"
           }
         ]
       }
