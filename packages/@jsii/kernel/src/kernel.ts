@@ -15,7 +15,7 @@ import * as onExit from './on-exit';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
-export enum JsiiErrorType {
+export const enum JsiiErrorType {
   JSII_FAULT = '@jsii/kernel.Fault',
   RUNTIME_ERROR = '@jsii/kernel.RuntimeError',
 }

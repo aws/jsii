@@ -76,7 +76,8 @@ public final class JsiiRuntime {
      *
      * @param request The JSON request
      * @return The JSON response
-     * @throws RuntimeException or JsiiError If the runtime returns an error response.
+     * @throws JsiiError If the runtime returns an error response originating from the @jsii/kernel.
+     * @throws RuntimeException If the runtime returns an error response.
      */
     JsonNode requestResponse(final JsonNode request) {
         try {

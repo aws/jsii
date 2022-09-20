@@ -4,7 +4,9 @@ package software.amazon.jsii;
  * A nonrecoverable error from the jsii runtime,
  * usually the kernel.
  */
-public class JsiiError extends JsiiException {
+public final class JsiiError extends JsiiException {
+  public static final long serialVersionUID = 1L;
+
   /**
    * Creates an exception.
    * @param message The error message

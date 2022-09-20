@@ -6,7 +6,7 @@ package software.amazon.jsii;
 public abstract class JsiiException extends RuntimeException {
     public static final long serialVersionUID = 1L;
 
-    public static enum Type {
+    static enum Type {
         JSII_FAULT("@jsii/kernel.Fault"),
         RUNTIME_EXCEPTION("@jsii/kernel.RuntimeException");
 
