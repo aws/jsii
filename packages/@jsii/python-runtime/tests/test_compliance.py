@@ -437,7 +437,7 @@ def test_exceptions():
 
     assert calc3.value == 23
 
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         calc3.add(10)
 
     calc3.max_value = 40
@@ -543,7 +543,7 @@ def test_asyncOverrides_overrideThrows():
 
     obj = ThrowingAsyncVirtualMethods()
 
-    with pytest.raises(Exception, match="Thrown by native code"):
+    with pytest.raises(RuntimeError, match="Thrown by native code"):
         obj.call_me()
 
 
@@ -622,7 +622,7 @@ def test_propertyOverrides_get_throws():
 
     so = ThrowingSyncVirtualMethods()
 
-    with pytest.raises(Exception, match="Oh no, this is bad"):
+    with pytest.raises(RuntimeError, match="Oh no, this is bad"):
         so.retrieve_value_of_the_property()
 
 
@@ -638,7 +638,7 @@ def test_propertyOverrides_set_throws():
 
     so = ThrowingSyncVirtualMethods()
 
-    with pytest.raises(Exception, match="Exception from overloaded setter"):
+    with pytest.raises(RuntimeError, match="Exception from overloaded setter"):
         so.modify_value_of_the_property("Hii")
 
 
@@ -703,7 +703,7 @@ def test_fail_syncOverrides_callsDoubleAsync_method():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         obj.caller_is_method()
 
 
@@ -712,7 +712,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         obj.caller_is_property
 
 
@@ -722,7 +722,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         obj.caller_is_property = 12
 
 

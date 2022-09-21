@@ -326,7 +326,7 @@ class _NodeProcess:
         elif isinstance(resp, _CallbackResponse):
             return resp.callback
         else:
-            raise JSIIError(resp.error) from JavaScriptError(resp.stack)
+            raise RuntimeError(resp.error) from JavaScriptError(resp.stack)
 
 
 class ProcessProvider(BaseProvider):
