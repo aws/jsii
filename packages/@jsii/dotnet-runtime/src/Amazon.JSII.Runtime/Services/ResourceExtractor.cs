@@ -41,7 +41,7 @@ namespace Amazon.JSII.Runtime.Services
                 using var stream = assembly.GetManifestResourceStream(resourceName);
                 if (stream == null)
                 {
-                    throw new JsiiException($"Cannot find embedded resource: {resourceName} in {String.Join(", ", assembly.GetManifestResourceNames())}", null);
+                    throw new JsiiError($"Cannot find embedded resource: {resourceName} in {String.Join(", ", assembly.GetManifestResourceNames())}", null);
                 }
 
                 stream.CopyTo(output);

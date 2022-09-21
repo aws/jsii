@@ -15,25 +15,25 @@ namespace Amazon.JSII.Runtime.Services
         System.Type GetClassType(string fullyQualifiedName)
         {
             return TryGetClassType(fullyQualifiedName)
-                   ?? throw new JsiiException($"Unable to find class for jsii FQN \"{fullyQualifiedName}\"");
+                   ?? throw new JsiiError($"Unable to find class for jsii FQN \"{fullyQualifiedName}\"");
         }
 
         System.Type GetEnumType(string fullyQualifiedName)
         {
             return TryGetEnumType(fullyQualifiedName)
-                   ?? throw new JsiiException($"Unable to find enum for jsii FQN \"{fullyQualifiedName}\"");
+                   ?? throw new JsiiError($"Unable to find enum for jsii FQN \"{fullyQualifiedName}\"");
         }
 
         System.Type GetInterfaceType(string fullyQualifiedName)
         {
             return TryGetInterfaceType(fullyQualifiedName)
-                   ?? throw new JsiiException($"Unable to find interface for jsii FQN \"{fullyQualifiedName}\"");
+                   ?? throw new JsiiError($"Unable to find interface for jsii FQN \"{fullyQualifiedName}\"");
         }
 
         System.Type GetProxyType(string fullyQualifiedName)
         {
             return TryGetProxyType(fullyQualifiedName)
-                   ?? throw new JsiiException($"Unable to find proxy type for jsii FQN \"{fullyQualifiedName}\"");
+                   ?? throw new JsiiError($"Unable to find proxy type for jsii FQN \"{fullyQualifiedName}\"");
         }
 
         System.Type GetFrameworkType(TypeReference reference, bool isOptional);
