@@ -28468,7 +28468,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java	--runtime-type-checking
-@@ -18,8 +18,21 @@
+@@ -18,8 +18,22 @@
      /**
       * @param param This parameter is required.
       */
@@ -28478,12 +28478,13 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +            if (
 +                 !(param instanceof software.amazon.jsii.tests.calculator.union.IResolvable)
 +                && !(param instanceof software.amazon.jsii.tests.calculator.union.Resolvable)
++                && !(param instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
 +                && !(param.getClass().equals(software.amazon.jsii.JsiiObject.class))
 +            ) {
 +                throw new IllegalArgumentException(
 +                    new java.lang.StringBuilder("Expected ")
 +                        .append("param")
-+                        .append(" to be one of: software.amazon.jsii.tests.calculator.union.IResolvable, software.amazon.jsii.tests.calculator.union.Resolvable; received ")
++                        .append(" to be one of: software.amazon.jsii.tests.calculator.union.IResolvable, software.amazon.jsii.tests.calculator.union.Resolvable, software.amazon.jsii.tests.calculator.lib.IFriendly; received ")
 +                        .append(param.getClass()).toString());
 +            }
 +        }

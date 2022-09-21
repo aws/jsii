@@ -13662,11 +13662,16 @@ from typeguard import check_type
 
 from .._jsii import *
 
+import scope.jsii_calc_lib
+
 
 class ConsumesUnion(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.union.ConsumesUnion"):
     @jsii.member(jsii_name="unionType")
     @builtins.classmethod
-    def union_type(cls, param: typing.Union["IResolvable", "Resolvable"]) -> None:
+    def union_type(
+        cls,
+        param: typing.Union["IResolvable", "Resolvable", scope.jsii_calc_lib.IFriendly],
+    ) -> None:
         '''
         :param param: -
         '''
@@ -17436,9 +17441,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/union/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/union/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/union/__init__.py	--runtime-type-checking
-@@ -18,10 +18,13 @@
-     @builtins.classmethod
-     def union_type(cls, param: typing.Union["IResolvable", "Resolvable"]) -> None:
+@@ -23,10 +23,13 @@
+         param: typing.Union["IResolvable", "Resolvable", scope.jsii_calc_lib.IFriendly],
+     ) -> None:
          '''
          :param param: -
          '''
