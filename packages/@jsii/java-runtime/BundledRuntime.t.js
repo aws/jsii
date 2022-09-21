@@ -34,7 +34,7 @@ ${resources.map(extractResource).map(indent(12)).join('\n')}
 
             return entrypoint.toString();
         } catch (final IOException ioe) {
-            throw new JsiiException("Unable to extract bundled @jsii/runtime library", ioe);
+            throw new JsiiError("Unable to extract bundled @jsii/runtime library", ioe);
         }
     }
 

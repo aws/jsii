@@ -59,7 +59,7 @@ public final class JsiiClient {
                 Files.delete(tarball.getParent());
             }
         } catch (IOException e) {
-            throw new JsiiException("Unable to extract resource " + module.getBundleResourceName(), e);
+            throw new JsiiError("Unable to extract resource " + module.getBundleResourceName(), e);
         }
     }
 
@@ -226,7 +226,7 @@ public final class JsiiClient {
 
         JsonNode callbacksResp = resp.get("callbacks");
         if (callbacksResp == null || !callbacksResp.isArray()) {
-            throw new JsiiException("Expecting a 'callbacks' key with an array in response");
+            throw new JsiiError("Expecting a 'callbacks' key with an array in response");
         }
 
         ArrayNode callbacksArray = (ArrayNode) callbacksResp;
