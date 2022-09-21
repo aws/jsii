@@ -175,7 +175,7 @@ test('Fixture allows use of import statements', async () => {
   expect(snippets[0].completeSource).toMatchInlineSnapshot(`
     "// Hoisted imports begin after !show marker below
     /// !show
-    import { exit } from \\"process\\";
+    import { exit } from "process";
     /// !hide
     // Hoisted imports ended before !hide marker above
     // This is a fixture
