@@ -87,7 +87,7 @@ class _ErrorResponse:
 
     error: str
     stack: str
-    name: ErrorType
+    name: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -327,7 +327,7 @@ class _NodeProcess:
         elif isinstance(resp, _CallbackResponse):
             return resp.callback
         else:
-            if resp.name == ErrorType.RUNTIME_EXCEPTION:
+            if resp.name == ErrorType.RUNTIME_ERROR:
                 raise RuntimeError(resp.error) from JavaScriptError(resp.stack)
             raise JSIIError(resp.error) from JavaScriptError(resp.stack)
 
