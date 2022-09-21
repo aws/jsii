@@ -62,7 +62,7 @@ from ..types import (
     CompleteRequest,
     CompleteResponse,
 )
-from ...errors import JSIIError, JavaScriptError
+from ...errors import ErrorType, JSIIError, JavaScriptError
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -83,10 +83,11 @@ class _OkayResponse:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class _ErrorRespose:
+class _ErrorResponse:
 
     error: str
     stack: str
+    name: ErrorType
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -101,7 +102,7 @@ class _CompleteRequest:
     complete: CompleteRequest
 
 
-_ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
+_ProcessResponse = Union[_OkayResponse, _ErrorResponse, _CallbackResponse]
 
 
 def _with_api_key(api_name, asdict):
@@ -326,7 +327,9 @@ class _NodeProcess:
         elif isinstance(resp, _CallbackResponse):
             return resp.callback
         else:
-            raise RuntimeError(resp.error) from JavaScriptError(resp.stack)
+            if resp.name == ErrorType.RUNTIME_EXCEPTION:
+                raise RuntimeError(resp.error) from JavaScriptError(resp.stack)
+            raise JSIIError(resp.error) from JavaScriptError(resp.stack)
 
 
 class ProcessProvider(BaseProvider):

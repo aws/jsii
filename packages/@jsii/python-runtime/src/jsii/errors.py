@@ -1,4 +1,5 @@
 import textwrap
+from enum import Enum
 
 
 class JSIIError(Exception):
@@ -11,3 +12,8 @@ class JavaScriptError(Exception):
 
     def __str__(self):
         return "\n" + textwrap.indent(self.stack, "  ", lambda line: bool(line))
+
+
+class ErrorType(Enum):
+    JSII_FAULT = "@jsii/kernel.Fault"
+    RUNTIME_ERROR = "@jsii/kernel.RuntimeError"
