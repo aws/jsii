@@ -1,9 +1,10 @@
 import abc
 import os
+import sys
 
 import attr
 
-from typing import cast, Any, Callable, List, Optional, Mapping, Type, TypeVar
+from typing import Sequence, cast, Any, Callable, List, Optional, Mapping, Type, TypeVar
 
 from . import _reference_map
 from ._compat import importlib_resources
@@ -47,10 +48,23 @@ class JSIIAssembly:
 
     @classmethod
     def invokeBinScript(
-        cls, pkgname: str, script: str, *args: str, _kernel=kernel
-    ) -> None:
+        cls,
+        pkgname: str,
+        script: str,
+        args: Optional[Sequence[str]] = None,
+        _kernel=kernel,
+    ) -> int:
+        if args is None:
+            args = []
+
         response = _kernel.invokeBinScript(pkgname, script, args)
-        print(response.stdout)
+        if response.stdout:
+            print(response.stdout)
+
+        if response.stderr:
+            print(response.stderr, file=sys.stderr)
+
+        return response.status
 
 
 class JSIIMeta(_ClassPropertyMeta, type):
