@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`can load libraries from within a callback 1`] = `
-Object {
-  "ok": Object {
+{
+  "ok": {
     "assembly": "@scope/jsii-calc-base-of-base",
     "types": "*redacted*",
   },
@@ -10,8 +10,8 @@ Object {
 `;
 
 exports[`can load libraries from within a callback 2`] = `
-Object {
-  "ok": Object {
+{
+  "ok": {
     "assembly": "@scope/jsii-calc-base",
     "types": "*redacted*",
   },
@@ -19,8 +19,8 @@ Object {
 `;
 
 exports[`can load libraries from within a callback 3`] = `
-Object {
-  "ok": Object {
+{
+  "ok": {
     "assembly": "@scope/jsii-calc-lib",
     "types": "*redacted*",
   },
@@ -28,10 +28,10 @@ Object {
 `;
 
 exports[`can load libraries from within a callback 4`] = `
-Object {
-  "ok": Object {
+{
+  "ok": {
     "$jsii.byref": "Object@10000",
-    "$jsii.interfaces": Array [
+    "$jsii.interfaces": [
       "@scope/jsii-calc-lib.IFriendly",
     ],
   },
@@ -39,16 +39,16 @@ Object {
 `;
 
 exports[`can load libraries from within a callback 5`] = `
-Object {
-  "callback": Object {
+{
+  "callback": {
     "cbid": "jsii::callback::20000",
     "cookie": undefined,
-    "invoke": Object {
-      "args": Array [],
+    "invoke": {
+      "args": [],
       "method": "hello",
-      "objref": Object {
+      "objref": {
         "$jsii.byref": "Object@10000",
-        "$jsii.interfaces": Array [
+        "$jsii.interfaces": [
           "@scope/jsii-calc-lib.IFriendly",
         ],
       },
@@ -58,8 +58,8 @@ Object {
 `;
 
 exports[`can load libraries from within a callback 6`] = `
-Object {
-  "ok": Object {
+{
+  "ok": {
     "assembly": "jsii-calc",
     "types": "*redacted*",
   },
@@ -67,8 +67,8 @@ Object {
 `;
 
 exports[`can load libraries from within a callback 7`] = `
-Object {
-  "ok": Object {
+{
+  "ok": {
     "result": "SUCCESS!",
   },
 }

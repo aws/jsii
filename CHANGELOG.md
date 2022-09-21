@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.67.0](https://github.com/aws/jsii/compare/v1.66.0...v1.67.0) (2022-09-02)
+
+
+### Features
+
+* **java:** dynamic type checking for union-typed parameters ([#3703](https://github.com/aws/jsii/issues/3703)) ([26ca47c](https://github.com/aws/jsii/commit/26ca47cfef15ce346f610d75991e62d5bd0597e3))
+* **java:** utility to perform unsafe cast ([#3730](https://github.com/aws/jsii/issues/3730)) ([4a52d4c](https://github.com/aws/jsii/commit/4a52d4cbc31e88d744ed84d5a64df8c8f9651017))
+* **kernel:** experimental runtime package cache ([#3724](https://github.com/aws/jsii/issues/3724)) ([4c2dcd5](https://github.com/aws/jsii/commit/4c2dcd5562b2abdfb2a454cb0ee487c4a0533e12)), closes [#3389](https://github.com/aws/jsii/issues/3389)
+
+
+### Bug Fixes
+
+* **java:** type generation code-gen issues ([#3735](https://github.com/aws/jsii/issues/3735)) ([cf04f79](https://github.com/aws/jsii/commit/cf04f79d28d10861a7e3e7d80b7dfb5dabd0068b))
+* **pacmak:** crash when generating java code ([1fd58db](https://github.com/aws/jsii/commit/1fd58db1e94a0024d173d53597416f1d2a2fa941))
+
 ## [1.66.0](https://github.com/aws/jsii/compare/v1.65.1...v1.66.0) (2022-08-29)
 
 

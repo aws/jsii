@@ -2222,7 +2222,11 @@ export class Assembler implements Emitter {
         protected: _isProtected(symbol) || undefined,
         returns: _isVoid(returnType)
           ? undefined
-          : this._optionalValue(returnType, declaration.name, 'return type'),
+          : this._optionalValue(
+              returnType,
+              declaration.type ?? declaration.name,
+              'return type',
+            ),
         async: _isPromise(returnType) || undefined,
         static: _isStatic(symbol) || undefined,
         locationInModule: this.declarationLocation(declaration),
@@ -2435,7 +2439,7 @@ export class Assembler implements Emitter {
       {
         ...this._optionalValue(
           this._typeChecker.getTypeAtLocation(paramDeclaration),
-          paramDeclaration.name,
+          paramDeclaration.type ?? paramDeclaration.name,
           'parameter type',
         ),
         name: paramSymbol.name,
@@ -2969,7 +2973,22 @@ function _isStatic(symbol: ts.Symbol): boolean {
   );
 }
 
+/**
+ * Determines whether a given type is void or Promise<void>.
+ *
+ * @param type the tested type
+ *
+ * @returns `true` if the type is void or Promise<void>
+ */
 function _isVoid(type: ts.Type): boolean {
+  if (_isPromise(type)) {
+    const typeRef = type as ts.TypeReference;
+    return (
+      typeRef.typeArguments != null &&
+      typeRef.typeArguments.length === 1 &&
+      _isVoid(typeRef.typeArguments[0])
+    );
+  }
   return (type.flags & ts.TypeFlags.Void) !== 0;
 }
 

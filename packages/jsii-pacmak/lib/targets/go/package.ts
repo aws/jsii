@@ -379,6 +379,7 @@ export class RootPackage extends Package {
   public readonly assembly: Assembly;
   public readonly version: string;
   private readonly versionFile: VersionFile;
+  private typeCache: Record<string, GoType | undefined> = {};
 
   // This cache of root packages is shared across all root packages derived created by this one (via dependencies).
   private readonly rootPackageCache: Map<string, RootPackage>;
@@ -459,15 +460,18 @@ export class RootPackage extends Package {
    * This allows resolving type references from other JSII modules
    */
   public findType(fqn: string): GoType | undefined {
-    return this.packageDependencies.reduce(
-      (accum: GoType | undefined, current: RootPackage) => {
-        if (accum) {
-          return accum;
-        }
-        return current.findType(fqn);
-      },
-      super.findType(fqn),
-    );
+    if (!this.typeCache[fqn]) {
+      this.typeCache[fqn] = this.packageDependencies.reduce(
+        (accum: GoType | undefined, current: RootPackage) => {
+          if (accum) {
+            return accum;
+          }
+          return current.findType(fqn);
+        },
+        super.findType(fqn),
+      );
+    }
+    return this.typeCache[fqn];
   }
 
   /*

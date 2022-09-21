@@ -125,10 +125,10 @@ export class ClassName implements IInterface {
         targets: expect.any(Object),
       },
       `
-      Object {
-        "author": Object {
+      {
+        "author": {
           "name": "John Doe",
-          "roles": Array [
+          "roles": [
             "author",
           ],
         },
@@ -137,101 +137,101 @@ export class ClassName implements IInterface {
         "homepage": "https://github.com/aws/jsii.git",
         "jsiiVersion": Any<String>,
         "license": "Apache-2.0",
-        "metadata": Object {
-          "jsii": Object {
-            "pacmak": Object {
+        "metadata": {
+          "jsii": {
+            "pacmak": {
               "hasDefaultInterfaces": true,
             },
           },
         },
         "name": "testpkg",
-        "readme": Object {
+        "readme": {
           "markdown": "# README
 
       \`\`\`csharp
-      IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps { Foo = \\"bar\\" });
+      IInterface object = new ClassName("this", 1337, new ClassNameProps { Foo = "bar" });
       object.Property = EnumType.OPTION_A;
       object.MethodCall();
 
       ClassName.StaticMethod(EnumType.OPTION_B);
       \`\`\`",
         },
-        "repository": Object {
+        "repository": {
           "type": "git",
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
         "targets": Any<Object>,
-        "types": Object {
-          "testpkg.ClassName": Object {
+        "types": {
+          "testpkg.ClassName": {
             "assembly": "testpkg",
             "fqn": "testpkg.ClassName",
-            "initializer": Object {
-              "docs": Object {
-                "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+            "initializer": {
+              "docs": {
+                "example": "new ClassName("this", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 "summary": "Create a new instance of ClassName.",
               },
-              "locationInModule": Object {
+              "locationInModule": {
                 "filename": "index.ts",
                 "line": 57,
               },
-              "parameters": Array [
-                Object {
+              "parameters": [
+                {
                   "name": "_this",
-                  "type": Object {
+                  "type": {
                     "primitive": "string",
                   },
                 },
-                Object {
+                {
                   "name": "_elite",
-                  "type": Object {
+                  "type": {
                     "primitive": "number",
                   },
                 },
-                Object {
+                {
                   "name": "props",
-                  "type": Object {
+                  "type": {
                     "fqn": "testpkg.ClassNameProps",
                   },
                 },
               ],
             },
-            "interfaces": Array [
+            "interfaces": [
               "testpkg.IInterface",
             ],
             "kind": "class",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 40,
             },
-            "methods": Array [
-              Object {
-                "docs": Object {
+            "methods": [
+              {
+                "docs": {
                   "example": "ClassName.StaticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 46,
                 },
                 "name": "staticMethod",
-                "parameters": Array [
-                  Object {
+                "parameters": [
+                  {
                     "name": "_enm",
                     "optional": true,
-                    "type": Object {
+                    "type": {
                       "fqn": "testpkg.EnumType",
                     },
                   },
                 ],
                 "static": true,
               },
-              Object {
-                "docs": Object {
+              {
+                "docs": {
                   "summary": "An instance method call.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 61,
                 },
@@ -240,85 +240,85 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "ClassName",
-            "properties": Array [
-              Object {
-                "docs": Object {
+            "properties": [
+              {
+                "docs": {
                   "summary": "A property value.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 50,
                 },
                 "name": "property",
                 "overrides": "testpkg.IInterface",
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
             ],
             "symbolId": "index:ClassName",
           },
-          "testpkg.ClassNameProps": Object {
+          "testpkg.ClassNameProps": {
             "assembly": "testpkg",
             "datatype": true,
             "fqn": "testpkg.ClassNameProps",
             "kind": "interface",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 35,
             },
             "name": "ClassNameProps",
-            "properties": Array [
-              Object {
+            "properties": [
+              {
                 "abstract": true,
                 "immutable": true,
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 37,
                 },
                 "name": "foo",
                 "optional": true,
-                "type": Object {
+                "type": {
                   "primitive": "string",
                 },
               },
-              Object {
+              {
                 "abstract": true,
                 "immutable": true,
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 36,
                 },
                 "name": "property",
                 "optional": true,
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
             ],
             "symbolId": "index:ClassNameProps",
           },
-          "testpkg.EnumType": Object {
+          "testpkg.EnumType": {
             "assembly": "testpkg",
-            "docs": Object {
-              "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+            "docs": {
+              "example": "new ClassName("this", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 5,
             },
-            "members": Array [
-              Object {
-                "docs": Object {
-                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
+            "members": [
+              {
+                "docs": {
+                  "example": "new ClassName("this", 1337, new ClassNameProps { Property = EnumType.OPTION_A });",
                 },
                 "name": "OPTION_A",
               },
-              Object {
-                "docs": Object {
-                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
+              {
+                "docs": {
+                  "example": "new ClassName("this", 1337, new ClassNameProps { Property = EnumType.OPTION_B });",
                 },
                 "name": "OPTION_B",
               },
@@ -326,22 +326,22 @@ export class ClassName implements IInterface {
             "name": "EnumType",
             "symbolId": "index:EnumType",
           },
-          "testpkg.IInterface": Object {
+          "testpkg.IInterface": {
             "assembly": "testpkg",
             "fqn": "testpkg.IInterface",
             "kind": "interface",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 17,
             },
-            "methods": Array [
-              Object {
+            "methods": [
+              {
                 "abstract": true,
-                "docs": Object {
+                "docs": {
                   "example": "iface.MethodCall();",
                   "summary": "An instance method call.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 32,
                 },
@@ -349,19 +349,19 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "IInterface",
-            "properties": Array [
-              Object {
+            "properties": [
+              {
                 "abstract": true,
-                "docs": Object {
+                "docs": {
                   "example": "iface.Property = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 24,
                 },
                 "name": "property",
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
@@ -380,10 +380,10 @@ export class ClassName implements IInterface {
         targets: expect.any(Object),
       },
       `
-      Object {
-        "author": Object {
+      {
+        "author": {
           "name": "John Doe",
-          "roles": Array [
+          "roles": [
             "author",
           ],
         },
@@ -392,101 +392,101 @@ export class ClassName implements IInterface {
         "homepage": "https://github.com/aws/jsii.git",
         "jsiiVersion": Any<String>,
         "license": "Apache-2.0",
-        "metadata": Object {
-          "jsii": Object {
-            "pacmak": Object {
+        "metadata": {
+          "jsii": {
+            "pacmak": {
               "hasDefaultInterfaces": true,
             },
           },
         },
         "name": "testpkg",
-        "readme": Object {
+        "readme": {
           "markdown": "# README
 
       \`\`\`java
-      IInterface object = new ClassName(\\"this\\", 1337, new ClassNameProps().foo(\\"bar\\"));
+      IInterface object = new ClassName("this", 1337, new ClassNameProps().foo("bar"));
       object.getProperty() = EnumType.OPTION_A;
       object.methodCall();
 
       ClassName.staticMethod(EnumType.OPTION_B);
       \`\`\`",
         },
-        "repository": Object {
+        "repository": {
           "type": "git",
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
         "targets": Any<Object>,
-        "types": Object {
-          "testpkg.ClassName": Object {
+        "types": {
+          "testpkg.ClassName": {
             "assembly": "testpkg",
             "fqn": "testpkg.ClassName",
-            "initializer": Object {
-              "docs": Object {
-                "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
+            "initializer": {
+              "docs": {
+                "example": "new ClassName("this", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 "summary": "Create a new instance of ClassName.",
               },
-              "locationInModule": Object {
+              "locationInModule": {
                 "filename": "index.ts",
                 "line": 57,
               },
-              "parameters": Array [
-                Object {
+              "parameters": [
+                {
                   "name": "_this",
-                  "type": Object {
+                  "type": {
                     "primitive": "string",
                   },
                 },
-                Object {
+                {
                   "name": "_elite",
-                  "type": Object {
+                  "type": {
                     "primitive": "number",
                   },
                 },
-                Object {
+                {
                   "name": "props",
-                  "type": Object {
+                  "type": {
                     "fqn": "testpkg.ClassNameProps",
                   },
                 },
               ],
             },
-            "interfaces": Array [
+            "interfaces": [
               "testpkg.IInterface",
             ],
             "kind": "class",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 40,
             },
-            "methods": Array [
-              Object {
-                "docs": Object {
+            "methods": [
+              {
+                "docs": {
                   "example": "ClassName.staticMethod();",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 46,
                 },
                 "name": "staticMethod",
-                "parameters": Array [
-                  Object {
+                "parameters": [
+                  {
                     "name": "_enm",
                     "optional": true,
-                    "type": Object {
+                    "type": {
                       "fqn": "testpkg.EnumType",
                     },
                   },
                 ],
                 "static": true,
               },
-              Object {
-                "docs": Object {
+              {
+                "docs": {
                   "summary": "An instance method call.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 61,
                 },
@@ -495,85 +495,85 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "ClassName",
-            "properties": Array [
-              Object {
-                "docs": Object {
+            "properties": [
+              {
+                "docs": {
                   "summary": "A property value.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 50,
                 },
                 "name": "property",
                 "overrides": "testpkg.IInterface",
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
             ],
             "symbolId": "index:ClassName",
           },
-          "testpkg.ClassNameProps": Object {
+          "testpkg.ClassNameProps": {
             "assembly": "testpkg",
             "datatype": true,
             "fqn": "testpkg.ClassNameProps",
             "kind": "interface",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 35,
             },
             "name": "ClassNameProps",
-            "properties": Array [
-              Object {
+            "properties": [
+              {
                 "abstract": true,
                 "immutable": true,
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 37,
                 },
                 "name": "foo",
                 "optional": true,
-                "type": Object {
+                "type": {
                   "primitive": "string",
                 },
               },
-              Object {
+              {
                 "abstract": true,
                 "immutable": true,
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 36,
                 },
                 "name": "property",
                 "optional": true,
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
             ],
             "symbolId": "index:ClassNameProps",
           },
-          "testpkg.EnumType": Object {
+          "testpkg.EnumType": {
             "assembly": "testpkg",
-            "docs": Object {
-              "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
+            "docs": {
+              "example": "new ClassName("this", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 5,
             },
-            "members": Array [
-              Object {
-                "docs": Object {
-                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_A));",
+            "members": [
+              {
+                "docs": {
+                  "example": "new ClassName("this", 1337, new ClassNameProps().property(EnumType.OPTION_A));",
                 },
                 "name": "OPTION_A",
               },
-              Object {
-                "docs": Object {
-                  "example": "new ClassName(\\"this\\", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
+              {
+                "docs": {
+                  "example": "new ClassName("this", 1337, new ClassNameProps().property(EnumType.OPTION_B));",
                 },
                 "name": "OPTION_B",
               },
@@ -581,22 +581,22 @@ export class ClassName implements IInterface {
             "name": "EnumType",
             "symbolId": "index:EnumType",
           },
-          "testpkg.IInterface": Object {
+          "testpkg.IInterface": {
             "assembly": "testpkg",
             "fqn": "testpkg.IInterface",
             "kind": "interface",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 17,
             },
-            "methods": Array [
-              Object {
+            "methods": [
+              {
                 "abstract": true,
-                "docs": Object {
+                "docs": {
                   "example": "iface.methodCall();",
                   "summary": "An instance method call.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 32,
                 },
@@ -604,19 +604,19 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "IInterface",
-            "properties": Array [
-              Object {
+            "properties": [
+              {
                 "abstract": true,
-                "docs": Object {
+                "docs": {
                   "example": "iface.getProperty() = EnumType.OPTION_B;",
                   "summary": "A property value.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 24,
                 },
                 "name": "property",
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
@@ -635,10 +635,10 @@ export class ClassName implements IInterface {
         targets: expect.any(Object),
       },
       `
-      Object {
-        "author": Object {
+      {
+        "author": {
           "name": "John Doe",
-          "roles": Array [
+          "roles": [
             "author",
           ],
         },
@@ -647,101 +647,101 @@ export class ClassName implements IInterface {
         "homepage": "https://github.com/aws/jsii.git",
         "jsiiVersion": Any<String>,
         "license": "Apache-2.0",
-        "metadata": Object {
-          "jsii": Object {
-            "pacmak": Object {
+        "metadata": {
+          "jsii": {
+            "pacmak": {
               "hasDefaultInterfaces": true,
             },
           },
         },
         "name": "testpkg",
-        "readme": Object {
+        "readme": {
           "markdown": "# README
 
       \`\`\`python
-      object = ClassName(\\"this\\", 1337, foo=\\"bar\\")
+      object = ClassName("this", 1337, foo="bar")
       object.property = EnumType.OPTION_A
       object.method_call()
 
       ClassName.static_method(EnumType.OPTION_B)
       \`\`\`",
         },
-        "repository": Object {
+        "repository": {
           "type": "git",
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
         "targets": Any<Object>,
-        "types": Object {
-          "testpkg.ClassName": Object {
+        "types": {
+          "testpkg.ClassName": {
             "assembly": "testpkg",
             "fqn": "testpkg.ClassName",
-            "initializer": Object {
-              "docs": Object {
-                "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+            "initializer": {
+              "docs": {
+                "example": "ClassName("this", 1337, property=EnumType.OPTION_B)",
                 "summary": "Create a new instance of ClassName.",
               },
-              "locationInModule": Object {
+              "locationInModule": {
                 "filename": "index.ts",
                 "line": 57,
               },
-              "parameters": Array [
-                Object {
+              "parameters": [
+                {
                   "name": "_this",
-                  "type": Object {
+                  "type": {
                     "primitive": "string",
                   },
                 },
-                Object {
+                {
                   "name": "_elite",
-                  "type": Object {
+                  "type": {
                     "primitive": "number",
                   },
                 },
-                Object {
+                {
                   "name": "props",
-                  "type": Object {
+                  "type": {
                     "fqn": "testpkg.ClassNameProps",
                   },
                 },
               ],
             },
-            "interfaces": Array [
+            "interfaces": [
               "testpkg.IInterface",
             ],
             "kind": "class",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 40,
             },
-            "methods": Array [
-              Object {
-                "docs": Object {
+            "methods": [
+              {
+                "docs": {
                   "example": "ClassName.static_method()",
                   "remarks": "It can be invoked easily.",
                   "summary": "A static method.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 46,
                 },
                 "name": "staticMethod",
-                "parameters": Array [
-                  Object {
+                "parameters": [
+                  {
                     "name": "_enm",
                     "optional": true,
-                    "type": Object {
+                    "type": {
                       "fqn": "testpkg.EnumType",
                     },
                   },
                 ],
                 "static": true,
               },
-              Object {
-                "docs": Object {
+              {
+                "docs": {
                   "summary": "An instance method call.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 61,
                 },
@@ -750,85 +750,85 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "ClassName",
-            "properties": Array [
-              Object {
-                "docs": Object {
+            "properties": [
+              {
+                "docs": {
                   "summary": "A property value.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 50,
                 },
                 "name": "property",
                 "overrides": "testpkg.IInterface",
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
             ],
             "symbolId": "index:ClassName",
           },
-          "testpkg.ClassNameProps": Object {
+          "testpkg.ClassNameProps": {
             "assembly": "testpkg",
             "datatype": true,
             "fqn": "testpkg.ClassNameProps",
             "kind": "interface",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 35,
             },
             "name": "ClassNameProps",
-            "properties": Array [
-              Object {
+            "properties": [
+              {
                 "abstract": true,
                 "immutable": true,
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 37,
                 },
                 "name": "foo",
                 "optional": true,
-                "type": Object {
+                "type": {
                   "primitive": "string",
                 },
               },
-              Object {
+              {
                 "abstract": true,
                 "immutable": true,
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 36,
                 },
                 "name": "property",
                 "optional": true,
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
             ],
             "symbolId": "index:ClassNameProps",
           },
-          "testpkg.EnumType": Object {
+          "testpkg.EnumType": {
             "assembly": "testpkg",
-            "docs": Object {
-              "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+            "docs": {
+              "example": "ClassName("this", 1337, property=EnumType.OPTION_B)",
             },
             "fqn": "testpkg.EnumType",
             "kind": "enum",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 5,
             },
-            "members": Array [
-              Object {
-                "docs": Object {
-                  "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_A)",
+            "members": [
+              {
+                "docs": {
+                  "example": "ClassName("this", 1337, property=EnumType.OPTION_A)",
                 },
                 "name": "OPTION_A",
               },
-              Object {
-                "docs": Object {
-                  "example": "ClassName(\\"this\\", 1337, property=EnumType.OPTION_B)",
+              {
+                "docs": {
+                  "example": "ClassName("this", 1337, property=EnumType.OPTION_B)",
                 },
                 "name": "OPTION_B",
               },
@@ -836,22 +836,22 @@ export class ClassName implements IInterface {
             "name": "EnumType",
             "symbolId": "index:EnumType",
           },
-          "testpkg.IInterface": Object {
+          "testpkg.IInterface": {
             "assembly": "testpkg",
             "fqn": "testpkg.IInterface",
             "kind": "interface",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 17,
             },
-            "methods": Array [
-              Object {
+            "methods": [
+              {
                 "abstract": true,
-                "docs": Object {
+                "docs": {
                   "example": "iface.method_call()",
                   "summary": "An instance method call.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 32,
                 },
@@ -859,19 +859,19 @@ export class ClassName implements IInterface {
               },
             ],
             "name": "IInterface",
-            "properties": Array [
-              Object {
+            "properties": [
+              {
                 "abstract": true,
-                "docs": Object {
+                "docs": {
                   "example": "iface.property = EnumType.OPTION_B",
                   "summary": "A property value.",
                 },
-                "locationInModule": Object {
+                "locationInModule": {
                   "filename": "index.ts",
                   "line": 24,
                 },
                 "name": "property",
-                "type": Object {
+                "type": {
                   "fqn": "testpkg.EnumType",
                 },
               },
@@ -957,10 +957,10 @@ new SampleClass('omitted-literate');
         targets: expect.any(Object),
       },
       `
-      Object {
-        "author": Object {
+      {
+        "author": {
           "name": "John Doe",
-          "roles": Array [
+          "roles": [
             "author",
           ],
         },
@@ -969,22 +969,22 @@ new SampleClass('omitted-literate');
         "homepage": "https://github.com/aws/jsii.git",
         "jsiiVersion": Any<String>,
         "license": "Apache-2.0",
-        "metadata": Object {
-          "jsii": Object {
-            "pacmak": Object {
+        "metadata": {
+          "jsii": {
+            "pacmak": {
               "hasDefaultInterfaces": true,
             },
           },
         },
         "name": "testpkg",
-        "readme": Object {
+        "readme": {
           "markdown": "# Missing literate source
 
       ## This is a heading within the literate file!
 
       \`\`\`csharp
       // Example automatically generated from non-compiling source. May contain errors.
-      new SampleClass(\\"literate\\");
+      new SampleClass("literate");
       \`\`\`
 
       # Missing literate source and fallback
@@ -993,46 +993,46 @@ new SampleClass('omitted-literate');
 
       \`\`\`csharp
       // Example automatically generated from non-compiling source. May contain errors.
-      new SampleClass(\\"omitted-literate\\");
+      new SampleClass("omitted-literate");
       \`\`\`
 
       # Missing fixture
 
       \`\`\`csharp
       // Example automatically generated from non-compiling source. May contain errors.
-      new SampleClass(\\"README.md\\");
+      new SampleClass("README.md");
       \`\`\`",
         },
-        "repository": Object {
+        "repository": {
           "type": "git",
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
         "targets": Any<Object>,
-        "types": Object {
-          "testpkg.SampleClass": Object {
+        "types": {
+          "testpkg.SampleClass": {
             "assembly": "testpkg",
-            "docs": Object {
+            "docs": {
               "example": "// Example automatically generated from non-compiling source. May contain errors.
-      new DoesNotCompile(this, \\"That\\", new Struct { Foo = 1337 });",
+      new DoesNotCompile(this, "That", new Struct { Foo = 1337 });",
             },
             "fqn": "testpkg.SampleClass",
-            "initializer": Object {
-              "locationInModule": Object {
+            "initializer": {
+              "locationInModule": {
                 "filename": "index.ts",
                 "line": 8,
               },
-              "parameters": Array [
-                Object {
+              "parameters": [
+                {
                   "name": "_source",
-                  "type": Object {
+                  "type": {
                     "primitive": "string",
                   },
                 },
               ],
             },
             "kind": "class",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 7,
             },
@@ -1052,10 +1052,10 @@ new SampleClass('omitted-literate');
         targets: expect.any(Object),
       },
       `
-      Object {
-        "author": Object {
+      {
+        "author": {
           "name": "John Doe",
-          "roles": Array [
+          "roles": [
             "author",
           ],
         },
@@ -1064,22 +1064,22 @@ new SampleClass('omitted-literate');
         "homepage": "https://github.com/aws/jsii.git",
         "jsiiVersion": Any<String>,
         "license": "Apache-2.0",
-        "metadata": Object {
-          "jsii": Object {
-            "pacmak": Object {
+        "metadata": {
+          "jsii": {
+            "pacmak": {
               "hasDefaultInterfaces": true,
             },
           },
         },
         "name": "testpkg",
-        "readme": Object {
+        "readme": {
           "markdown": "# Missing literate source
 
       ## This is a heading within the literate file!
 
       \`\`\`java
       // Example automatically generated from non-compiling source. May contain errors.
-      new SampleClass(\\"literate\\");
+      new SampleClass("literate");
       \`\`\`
 
       # Missing literate source and fallback
@@ -1088,46 +1088,46 @@ new SampleClass('omitted-literate');
 
       \`\`\`java
       // Example automatically generated from non-compiling source. May contain errors.
-      new SampleClass(\\"omitted-literate\\");
+      new SampleClass("omitted-literate");
       \`\`\`
 
       # Missing fixture
 
       \`\`\`java
       // Example automatically generated from non-compiling source. May contain errors.
-      new SampleClass(\\"README.md\\");
+      new SampleClass("README.md");
       \`\`\`",
         },
-        "repository": Object {
+        "repository": {
           "type": "git",
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
         "targets": Any<Object>,
-        "types": Object {
-          "testpkg.SampleClass": Object {
+        "types": {
+          "testpkg.SampleClass": {
             "assembly": "testpkg",
-            "docs": Object {
+            "docs": {
               "example": "// Example automatically generated from non-compiling source. May contain errors.
-      DoesNotCompile.Builder.create(this, \\"That\\").foo(1337).build();",
+      DoesNotCompile.Builder.create(this, "That").foo(1337).build();",
             },
             "fqn": "testpkg.SampleClass",
-            "initializer": Object {
-              "locationInModule": Object {
+            "initializer": {
+              "locationInModule": {
                 "filename": "index.ts",
                 "line": 8,
               },
-              "parameters": Array [
-                Object {
+              "parameters": [
+                {
                   "name": "_source",
-                  "type": Object {
+                  "type": {
                     "primitive": "string",
                   },
                 },
               ],
             },
             "kind": "class",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 7,
             },
@@ -1147,10 +1147,10 @@ new SampleClass('omitted-literate');
         targets: expect.any(Object),
       },
       `
-      Object {
-        "author": Object {
+      {
+        "author": {
           "name": "John Doe",
-          "roles": Array [
+          "roles": [
             "author",
           ],
         },
@@ -1159,22 +1159,22 @@ new SampleClass('omitted-literate');
         "homepage": "https://github.com/aws/jsii.git",
         "jsiiVersion": Any<String>,
         "license": "Apache-2.0",
-        "metadata": Object {
-          "jsii": Object {
-            "pacmak": Object {
+        "metadata": {
+          "jsii": {
+            "pacmak": {
               "hasDefaultInterfaces": true,
             },
           },
         },
         "name": "testpkg",
-        "readme": Object {
+        "readme": {
           "markdown": "# Missing literate source
 
       ## This is a heading within the literate file!
 
       \`\`\`python
       # Example automatically generated from non-compiling source. May contain errors.
-      SampleClass(\\"literate\\")
+      SampleClass("literate")
       \`\`\`
 
       # Missing literate source and fallback
@@ -1183,46 +1183,46 @@ new SampleClass('omitted-literate');
 
       \`\`\`python
       # Example automatically generated from non-compiling source. May contain errors.
-      SampleClass(\\"omitted-literate\\")
+      SampleClass("omitted-literate")
       \`\`\`
 
       # Missing fixture
 
       \`\`\`python
       # Example automatically generated from non-compiling source. May contain errors.
-      SampleClass(\\"README.md\\")
+      SampleClass("README.md")
       \`\`\`",
         },
-        "repository": Object {
+        "repository": {
           "type": "git",
           "url": "https://github.com/aws/jsii.git",
         },
         "schema": "jsii/0.10.0",
         "targets": Any<Object>,
-        "types": Object {
-          "testpkg.SampleClass": Object {
+        "types": {
+          "testpkg.SampleClass": {
             "assembly": "testpkg",
-            "docs": Object {
+            "docs": {
               "example": "# Example automatically generated from non-compiling source. May contain errors.
-      DoesNotCompile(self, \\"That\\", foo=1337)",
+      DoesNotCompile(self, "That", foo=1337)",
             },
             "fqn": "testpkg.SampleClass",
-            "initializer": Object {
-              "locationInModule": Object {
+            "initializer": {
+              "locationInModule": {
                 "filename": "index.ts",
                 "line": 8,
               },
-              "parameters": Array [
-                Object {
+              "parameters": [
+                {
                   "name": "_source",
-                  "type": Object {
+                  "type": {
                     "primitive": "string",
                   },
                 },
               ],
             },
             "kind": "class",
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "index.ts",
               "line": 7,
             },
