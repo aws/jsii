@@ -181,13 +181,18 @@ abstract class Validation {
            *
            * This is useful because the TypeScript compiler and jsii do not guarantee that
            * all entries in a type union are unrelated, but the C# compiler treats dead
-           * code as an error, and will refuse to compile (error CS8120) a patter-matching
+           * code as an error, and will refuse to compile (error CS8120) a pattern-matching
            * switch case if it cannot be matched (for example, if it matches on a child of
            * a type that was previously matched on already).
            */
           if (
-            (type.type?.isClassType() || type.type?.isInterfaceType())
-            && types.some((other) => other !== type && other.type != null && type.type!.extends(other.type))
+            (type.type?.isClassType() || type.type?.isInterfaceType()) &&
+            types.some(
+              (other) =>
+                other !== type &&
+                other.type != null &&
+                type.type!.extends(other.type),
+            )
           ) {
             continue;
           }
