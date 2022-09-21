@@ -1,5 +1,6 @@
 import subprocess
 
+
 class TestInvokeBinScript:
     def test_invoke_script(self) -> None:
         result = subprocess.run(".env/bin/calc", capture_output=True)
