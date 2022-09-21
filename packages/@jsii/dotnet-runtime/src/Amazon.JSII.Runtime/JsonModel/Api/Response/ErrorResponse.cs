@@ -8,7 +8,7 @@ namespace Amazon.JSII.JsonModel.Api.Response
     {
         [EnumMember(Value = "@jsii/kernel.Fault")]
         JsiiError,
-        [EnumMember(Value = "@jsii/kernel.RuntimeException")]
+        [EnumMember(Value = "@jsii/kernel.RuntimeError")]
         RuntimeException,
     }
 

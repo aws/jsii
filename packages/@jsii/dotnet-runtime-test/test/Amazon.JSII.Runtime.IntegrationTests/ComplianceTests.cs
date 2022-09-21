@@ -377,7 +377,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             calc.Add(3);
             Assert.Equal(23d, calc.Value);
 
-            Assert.Throws<JsiiException>(() => calc.Add(10));
+            Assert.Throws<JsiiError>(() => calc.Add(10));
 
             calc.MaxValue = 40;
             calc.Add(10);
@@ -490,7 +490,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             AsyncVirtualMethodsChild obj = new AsyncVirtualMethodsChild();
 
-            JsiiException exception = Assert.Throws<JsiiException>(() => obj.CallMe());
+            JsiiError exception = Assert.Throws<JsiiError>(() => obj.CallMe());
             Assert.Contains("Thrown by native code", exception.Message);
         }
 
@@ -557,7 +557,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            JsiiException exception = Assert.Throws<JsiiException>(() => so.RetrieveValueOfTheProperty());
+            JsiiError exception = Assert.Throws<JsiiError>(() => so.RetrieveValueOfTheProperty());
             Assert.Contains("Oh no, this is bad", exception.Message);
         }
 
@@ -575,7 +575,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            JsiiException exception = Assert.Throws<JsiiException>(() => so.ModifyValueOfTheProperty("Hii"));
+            JsiiError exception = Assert.Throws<JsiiError>(() => so.ModifyValueOfTheProperty("Hii"));
             Assert.Contains("Exception from overloaded setter", exception.Message);
         }
 
@@ -623,7 +623,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             SyncOverrides obj = new SyncOverrides();
             obj.CallAsync = true;
 
-            Assert.Throws<JsiiException>(() => obj.CallerIsMethod());
+            Assert.Throws<JsiiError>(() => obj.CallerIsMethod());
         }
 
         [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsDoubleAsyncPropertyGetterFails))]
@@ -632,7 +632,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             SyncOverrides obj = new SyncOverrides();
             obj.CallAsync = true;
 
-            Assert.Throws<JsiiException>(() => obj.CallerIsProperty);
+            Assert.Throws<JsiiError>(() => obj.CallerIsProperty);
         }
 
         [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsDoubleAsyncPropertySetterFails))]
@@ -641,7 +641,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             SyncOverrides obj = new SyncOverrides();
             obj.CallAsync = true;
 
-            Assert.Throws<JsiiException>(() => obj.CallerIsProperty = 12);
+            Assert.Throws<JsiiError>(() => obj.CallerIsProperty = 12);
         }
 
         [Fact(DisplayName = Prefix + nameof(TestInterfaces))]
