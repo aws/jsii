@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663843820896,
+  "lastUpdate": 1663864121766,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6529,6 +6529,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 193724.56013436473,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46065.92762665001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ad085ebd279c29cd8b2697c26e65677ef46514c0",
+          "message": "chore(pacmak): use Map instead of object (#3757)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-22T15:16:10Z",
+          "tree_id": "2649c31a3bf7911b0585f41e0cbe6577c159ab3e",
+          "url": "https://github.com/aws/jsii/commit/ad085ebd279c29cd8b2697c26e65677ef46514c0"
+        },
+        "date": 1663864118355,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 105682.01966485006,
+            "unit": "milliseconds",
+            "range": 1951430.3316973816,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 105682.01966485006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 75440.32738365003,
+            "unit": "milliseconds",
+            "range": 370817.7354224497,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 75440.32738365003 milliseconds over 20 runs"
           }
         ]
       }
