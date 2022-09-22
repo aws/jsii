@@ -114,7 +114,7 @@ const warningTypes = Object.keys(enabledWarnings);
     projectInfo,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
-    stripDeprecated: !!argv['strip-deprecated'],
+    stripDeprecated: argv['strip-deprecated'] != null,
     stripDeprecatedAllowListFile: argv['strip-deprecated'],
     addDeprecationWarnings: argv['add-deprecation-warnings'],
     generateTypeScriptConfig: argv['generate-tsconfig'],

@@ -34,6 +34,7 @@ exports[`defaults 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -49,6 +50,7 @@ exports[`defaults 1`] = `
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;
@@ -87,6 +89,7 @@ exports[`inheritance 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -102,6 +105,7 @@ exports[`inheritance 1`] = `
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;
@@ -140,6 +144,7 @@ exports[`members 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -155,6 +160,7 @@ exports[`members 1`] = `
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;
@@ -604,6 +610,18 @@ exports[`showAll 1`] = `
  │ │ │       └─┬ static staticMethod() method
  │ │ │         ├── static
  │ │ │         └── returns: string
+ │ │ ├─┬ selective
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ExportedFactory
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ static create() method
+ │ │ │   │     ├── static
+ │ │ │   │     └── returns: jsii-calc.selective.IExported
+ │ │ │   └─┬ interface IExported
+ │ │ │     └─┬ members
+ │ │ │       └─┬ method() method
+ │ │ │         ├── abstract
+ │ │ │         └── returns: void
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3537,6 +3555,18 @@ exports[`showAll 1`] = `
    │ ├── @scope/jsii-calc-base
    │ └── @scope/jsii-calc-base-of-base
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├─┬ class InterfaceFactory
+   │ │   │ └─┬ members
+   │ │   │   └─┬ static create() method
+   │ │   │     ├── static
+   │ │   │     └── returns: @scope/jsii-calc-lib.deprecationRemoval.IInterface
+   │ │   └─┬ interface IInterface
+   │ │     └─┬ members
+   │ │       └─┬ method() method
+   │ │         ├── abstract
+   │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
    │     ├─┬ class NestingClass
@@ -3726,6 +3756,7 @@ exports[`signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -3741,6 +3772,7 @@ exports[`signatures 1`] = `
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;
@@ -3851,6 +3883,10 @@ exports[`types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ selective
+ │ │ │ └─┬ types
+ │ │ │   ├── class ExportedFactory
+ │ │ │   └── interface IExported
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -4124,6 +4160,10 @@ exports[`types 1`] = `
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├── class InterfaceFactory
+   │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
    │     ├── class NestingClass
