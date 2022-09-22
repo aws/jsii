@@ -703,7 +703,9 @@ describe('thrown exceptions have the expected stack trace', () => {
 
         DeprecationError: testpkg.DeprecatedConstructor is deprecated.
          for testing
-         This API will be removed in the next major release."
+         This API will be removed in the next major release.
+            at test (index.js:23:5)
+            at index.js:25:1"
       `);
     }
   });
@@ -744,7 +746,9 @@ describe('thrown exceptions have the expected stack trace', () => {
 
         DeprecationError: testpkg.DeprecatedConstructor#property is deprecated.
          for testing
-         This API will be removed in the next major release."
+         This API will be removed in the next major release.
+            at test (index.js:27:20)
+            at index.js:29:1"
       `);
     }
   });
@@ -791,7 +795,9 @@ describe('thrown exceptions have the expected stack trace', () => {
 
         DeprecationError: testpkg.DeprecatedConstructor#property is deprecated.
          for testing
-         This API will be removed in the next major release."
+         This API will be removed in the next major release.
+            at test (index.js:42:22)
+            at index.js:44:1"
       `);
     }
   });
@@ -832,7 +838,9 @@ describe('thrown exceptions have the expected stack trace', () => {
 
         DeprecationError: testpkg.DeprecatedConstructor#deprecated is deprecated.
          for testing
-         This API will be removed in the next major release."
+         This API will be removed in the next major release.
+            at test (index.js:26:13)
+            at index.js:28:1"
       `);
     }
   });
