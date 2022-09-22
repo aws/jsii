@@ -3167,6 +3167,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 TwoMethodsWithSimilarCapitalization.cs
        ┃           ┣━ 📄 UmaskCheck.cs
        ┃           ┣━ 📄 UnaryOperation.cs
+       ┃           ┣━ 📁 Union
+       ┃           ┃  ┣━ 📄 ConsumesUnion.cs
+       ┃           ┃  ┣━ 📄 IResolvable.cs
+       ┃           ┃  ┗━ 📄 Resolvable.cs
        ┃           ┣━ 📄 UnionProperties.cs
        ┃           ┣━ 📄 UpcasingReflectable.cs
        ┃           ┣━ 📄 UseBundledDependency.cs
@@ -19762,6 +19766,105 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Union
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), fullyQualifiedName: "jsii-calc.union.ConsumesUnion")]
+    public class ConsumesUnion : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ConsumesUnion(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ConsumesUnion(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}}]")]
+        public static void UnionType(object param)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), new System.Type[]{typeof(object)}, new object[]{param});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/IResolvable.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Union
+{
+    [JsiiInterface(nativeType: typeof(IResolvable), fullyQualifiedName: "jsii-calc.union.IResolvable")]
+    public interface IResolvable
+    {
+        [JsiiMethod(name: "resolve", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+        object Resolve();
+
+        [JsiiTypeProxy(nativeType: typeof(IResolvable), fullyQualifiedName: "jsii-calc.union.IResolvable")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "resolve", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+            public object Resolve()
+            {
+                return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/Resolvable.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Union
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable), fullyQualifiedName: "jsii-calc.union.Resolvable")]
+    public class Resolvable : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Resolvable(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Resolvable(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "resolve", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+        public virtual object Resolve()
+        {
+            return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -20583,6 +20686,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┣━ 📄 StructUnionConsumer.cs.diff
                    ┣━ 📄 StructWithCollectionOfUnionts.cs.diff
                    ┣━ 📄 TopLevelStruct.cs.diff
+                   ┣━ 📁 Union
+                   ┃  ┗━ 📄 ConsumesUnion.cs.diff
                    ┣━ 📄 UnionProperties.cs.diff
                    ┗━ 📄 VariadicTypeUnion.cs.diff
 `;
@@ -21250,6 +21355,38 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
          }
  
          /// <summary>You don't have to pass this.</summary>
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs	--runtime-type-checking
+@@ -22,9 +22,26 @@
+         }
+ 
+         [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}}]")]
+         public static void UnionType(object param)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (param)
++                {
++                    case Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable cast_ccaaac:
++                        break;
++                    case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_ccaaac:
++                        break;
++                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_ccaaac:
++                        // Not enough information to type-check...
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}; received null", nameof(param));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}; received {param.GetType().FullName}", nameof(param));
++                }
++            }
+             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), new System.Type[]{typeof(object)}, new object[]{param});
+         }
+     }
+ }
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/UnionProperties.cs.diff 1`] = `
