@@ -74,7 +74,7 @@ public final class JsiiObjectRef {
      */
     public static JsiiObjectRef parse(final JsonNode objRef) {
         if (!objRef.has(TOKEN_REF)) {
-            throw new JsiiException("Malformed object reference. Expecting " + TOKEN_REF);
+            throw new JsiiError("Malformed object reference. Expecting " + TOKEN_REF);
         }
 
         return new JsiiObjectRef(objRef.get(TOKEN_REF).textValue(), objRef);
