@@ -3378,6 +3378,18 @@ exports[`jsii-tree --all 1`] = `
    │ ├── @scope/jsii-calc-base
    │ └── @scope/jsii-calc-base-of-base
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├─┬ class InterfaceFactory (deprecated)
+   │ │   │ └─┬ members
+   │ │   │   └─┬ static create() method (deprecated)
+   │ │   │     ├── static
+   │ │   │     └── returns: @scope/jsii-calc-lib.deprecationRemoval.IInterface
+   │ │   └─┬ interface IInterface (deprecated)
+   │ │     └─┬ members
+   │ │       └─┬ method() method (deprecated)
+   │ │         ├── abstract
+   │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
    │     ├─┬ class NestingClass (deprecated)
@@ -4011,6 +4023,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├── class InterfaceFactory
+   │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
    │     ├── class NestingClass
@@ -5568,6 +5584,14 @@ exports[`jsii-tree --members 1`] = `
  │       └── foo property
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├─┬ class InterfaceFactory
+   │ │   │ └─┬ members
+   │ │   │   └── static create() method
+   │ │   └─┬ interface IInterface
+   │ │     └─┬ members
+   │ │       └── method() method
    │ └─┬ submodule
    │   └─┬ types
    │     ├─┬ class NestingClass
@@ -5691,6 +5715,7 @@ exports[`jsii-tree --signatures 1`] = `
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;
@@ -6074,6 +6099,10 @@ exports[`jsii-tree --types 1`] = `
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├── class InterfaceFactory
+   │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
    │     ├── class NestingClass
@@ -6147,6 +6176,7 @@ exports[`jsii-tree 1`] = `
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;

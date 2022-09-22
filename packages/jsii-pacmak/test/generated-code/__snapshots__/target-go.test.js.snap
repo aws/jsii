@@ -971,6 +971,10 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃  ┣━ 📄 customsubmodulename_Reflector.go
        ┃  ┣━ 📄 customsubmodulename.go
        ┃  ┗━ 📄 README.md
+       ┣━ 📁 deprecationremoval
+       ┃  ┣━ 📄 deprecationremoval_IInterface.go
+       ┃  ┣━ 📄 deprecationremoval_InterfaceFactory.go
+       ┃  ┗━ 📄 deprecationremoval.go
        ┣━ 📄 go.mod
        ┣━ 📁 internal
        ┃  ┗━ 📄 types.go
@@ -1464,6 +1468,103 @@ func (r *jsiiProxy_Reflector) AsMap(reflectable IReflectable) *map[string]interf
 		r,
 		"asMap",
 		[]interface{}{reflectable},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/deprecationremoval.go 1`] = `
+package deprecationremoval
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterInterface(
+		"@scope/jsii-calc-lib.deprecationRemoval.IInterface",
+		reflect.TypeOf((*IInterface)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "method", GoMethod: "Method"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IInterface{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory",
+		reflect.TypeOf((*InterfaceFactory)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_InterfaceFactory{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/deprecationremoval_IInterface.go 1`] = `
+package deprecationremoval
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+// Deprecated.
+type IInterface interface {
+	// Deprecated.
+	Method()
+}
+
+// The jsii proxy for IInterface
+type jsiiProxy_IInterface struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IInterface) Method() {
+	_jsii_.InvokeVoid(
+		i,
+		"method",
+		nil, // no parameters
+	)
+}
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/deprecationremoval_InterfaceFactory.go 1`] = `
+package deprecationremoval
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// Deprecated.
+type InterfaceFactory interface {
+}
+
+// The jsii proxy struct for InterfaceFactory
+type jsiiProxy_InterfaceFactory struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func InterfaceFactory_Create() IInterface {
+	_init_.Initialize()
+
+	var returns IInterface
+
+	_jsii_.StaticInvoke(
+		"@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory",
+		"create",
+		nil, // no parameters
 		&returns,
 	)
 

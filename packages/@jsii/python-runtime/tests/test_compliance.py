@@ -86,6 +86,7 @@ from jsii_calc.submodule.isolated import Kwargs
 from jsii_calc.submodule.child import SomeEnum
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
+from scope.jsii_calc_lib.deprecation_removal import InterfaceFactory
 
 # Note: The names of these test functions have been chosen to map as closely to the
 #       Java Compliance tests as possible.
@@ -1343,3 +1344,7 @@ def test_class_can_be_used_when_not_expressedly_loaded():
 
     # This should NOT throw
     Subject().test()
+
+
+def test_stripped_deprecated_member_can_be_received():
+    assert InterfaceFactory.create() is not None
