@@ -3898,6 +3898,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 TwoMethodsWithSimilarCapitalization.java
           ┃                 ┣━ 📄 UmaskCheck.java
           ┃                 ┣━ 📄 UnaryOperation.java
+          ┃                 ┣━ 📁 union
+          ┃                 ┃  ┣━ 📄 ConsumesUnion.java
+          ┃                 ┃  ┣━ 📄 IResolvable.java
+          ┃                 ┃  ┗━ 📄 Resolvable.java
           ┃                 ┣━ 📄 UnionProperties.java
           ┃                 ┣━ 📄 UpcasingReflectable.java
           ┃                 ┣━ 📄 UseBundledDependency.java
@@ -27588,6 +27592,116 @@ public class ReturnsSpecialParameter extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java 1`] = `
+package software.amazon.jsii.tests.calculator.union;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.union.ConsumesUnion")
+public class ConsumesUnion extends software.amazon.jsii.JsiiObject {
+
+    protected ConsumesUnion(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ConsumesUnion(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param param This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void unionType(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.union.ConsumesUnion.class, "unionType", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/union/IResolvable.java 1`] = `
+package software.amazon.jsii.tests.calculator.union;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.union.IResolvable")
+@software.amazon.jsii.Jsii.Proxy(IResolvable.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IResolvable extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.Object resolve();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.union.IResolvable.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object resolve() {
+            return software.amazon.jsii.Kernel.call(this, "resolve", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IResolvable}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IResolvable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.Object resolve() {
+            return software.amazon.jsii.Kernel.call(this, "resolve", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/union/Resolvable.java 1`] = `
+package software.amazon.jsii.tests.calculator.union;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.union.Resolvable")
+public class Resolvable extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.union.IResolvable {
+
+    protected Resolvable(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Resolvable(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.Object resolve() {
+        return software.amazon.jsii.Kernel.call(this, "resolve", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/$Module.txt 1`] = `
 jsii-calc.AbstractClass=software.amazon.jsii.tests.calculator.AbstractClass
 jsii-calc.AbstractClassBase=software.amazon.jsii.tests.calculator.AbstractClassBase
@@ -27870,6 +27984,9 @@ jsii-calc.submodule.nested_submodule.Namespaced=software.amazon.jsii.tests.calcu
 jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced=software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested.INamespaced
 jsii-calc.submodule.param.SpecialParameter=software.amazon.jsii.tests.calculator.submodule.param.SpecialParameter
 jsii-calc.submodule.returnsparam.ReturnsSpecialParameter=software.amazon.jsii.tests.calculator.submodule.returnsparam.ReturnsSpecialParameter
+jsii-calc.union.ConsumesUnion=software.amazon.jsii.tests.calculator.union.ConsumesUnion
+jsii-calc.union.IResolvable=software.amazon.jsii.tests.calculator.union.IResolvable
+jsii-calc.union.Resolvable=software.amazon.jsii.tests.calculator.union.Resolvable
 
 `;
 
@@ -27893,6 +28010,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                             ┣━ 📄 ClassWithNestedUnion.java.diff
                             ┣━ 📄 ConfusingToJackson.java.diff
                             ┣━ 📄 StructUnionConsumer.java.diff
+                            ┣━ 📁 union
+                            ┃  ┗━ 📄 ConsumesUnion.java.diff
                             ┗━ 📄 VariadicTypeUnion.java.diff
 `;
 
@@ -28344,4 +28463,32 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       * @param which This parameter is required.
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java.diff 1`] = `
+--- java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java	--no-runtime-type-checking
++++ java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java	--runtime-type-checking
+@@ -18,8 +18,22 @@
+     /**
+      * @param param This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public static void unionType(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(param instanceof software.amazon.jsii.tests.calculator.union.IResolvable)
++                && !(param instanceof software.amazon.jsii.tests.calculator.union.Resolvable)
++                && !(param instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
++                && !(param.getClass().equals(software.amazon.jsii.JsiiObject.class))
++            ) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("param")
++                        .append(" to be one of: software.amazon.jsii.tests.calculator.union.IResolvable, software.amazon.jsii.tests.calculator.union.Resolvable, software.amazon.jsii.tests.calculator.lib.IFriendly; received ")
++                        .append(param.getClass()).toString());
++            }
++        }
+         software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.union.ConsumesUnion.class, "unionType", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+     }
+ }
 `;

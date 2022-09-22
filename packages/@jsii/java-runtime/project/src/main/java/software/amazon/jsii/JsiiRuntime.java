@@ -76,7 +76,8 @@ public final class JsiiRuntime {
      *
      * @param request The JSON request
      * @return The JSON response
-     * @throws JsiiException If the runtime returns an error response.
+     * @throws JsiiError If the runtime returns an error response originating from the @jsii/kernel.
+     * @throws RuntimeException If the runtime returns an error response.
      */
     JsonNode requestResponse(final JsonNode request) {
         try {
@@ -104,24 +105,29 @@ public final class JsiiRuntime {
             return resp.get("ok");
 
         } catch (IOException e) {
-            throw new JsiiException("Unable to send request to jsii-runtime: " + e.toString(), e);
+            throw new JsiiError("Unable to send request to jsii-runtime: " + e.toString(), e);
         }
     }
 
     /**
      * Handles an "error" response by extracting the message and stack trace
-     * and throwing a JsiiException.
+     * and throwing a JsiiError or a RuntimeException.
      *
      * @param resp The response
      * @return Never
      */
     private JsonNode processErrorResponse(final JsonNode resp) {
+        String errorName = resp.get("name").asText();
         String errorMessage = resp.get("error").asText();
         if (resp.has("stack")) {
             errorMessage += "\n" + resp.get("stack").asText();
         }
 
-        throw new JsiiException(errorMessage);
+        if (errorName.equals(JsiiException.Type.RUNTIME_EXCEPTION.toString())) {
+          throw new RuntimeException(errorMessage);
+        }
+
+        throw new JsiiError(errorMessage);
     }
 
     /**
@@ -133,7 +139,7 @@ public final class JsiiRuntime {
      */
     private JsonNode processCallbackResponse(final JsonNode resp) {
         if (this.callbackHandler == null) {
-            throw new JsiiException("Cannot process callback since callbackHandler was not set");
+            throw new JsiiError("Cannot process callback since callbackHandler was not set");
         }
 
         Callback callback = JsiiObjectMapper.treeToValue(resp.get("callback"), NativeType.forClass(Callback.class));
@@ -310,7 +316,7 @@ public final class JsiiRuntime {
         JsonNode helloResponse = this.readNextResponse();
 
         if (!helloResponse.has("hello")) {
-            throw new JsiiException("Expecting 'hello' message from jsii-runtime");
+            throw new JsiiError("Expecting 'hello' message from jsii-runtime");
         }
 
         String runtimeVersion = helloResponse.get("hello").asText();
@@ -321,19 +327,19 @@ public final class JsiiRuntime {
      * Reads the next response from STDOUT of the child process.
      *
      * @return The parsed JSON response.
-     * @throws JsiiException if we couldn't parse the response.
+     * @throws JsiiError if we couldn't parse the response.
      */
     JsonNode readNextResponse() {
         try {
             String responseLine = this.stdout.readLine();
             if (responseLine == null) {
-                throw new JsiiException("Child process exited unexpectedly!");
+                throw new JsiiError("Child process exited unexpectedly!");
             }
             final JsonNode response = JsiiObjectMapper.INSTANCE.readTree(responseLine);
             JsiiRuntime.notifyInspector(response, MessageInspector.MessageType.Response);
             return response;
         } catch (IOException e) {
-            throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
+            throw new JsiiError("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }
     }
 
@@ -345,7 +351,7 @@ public final class JsiiRuntime {
     public JsiiClient getClient() {
         this.startRuntimeIfNeeded();
         if (this.client == null) {
-            throw new JsiiException("Client not created");
+            throw new JsiiError("Client not created");
         }
         return this.client;
     }
@@ -356,13 +362,13 @@ public final class JsiiRuntime {
      *
      * @param expectedVersion The version this client expects from the runtime
      * @param actualVersion   The actual version the runtime reports
-     * @throws JsiiException if versions mismatch
+     * @throws JsiiError if versions mismatch
      */
     static void assertVersionCompatible(final String expectedVersion, final String actualVersion) {
         final String shortActualVersion = actualVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
         final String shortExpectedVersion = expectedVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
         if (shortExpectedVersion.compareTo(shortActualVersion) != 0) {
-            throw new JsiiException("Incompatible jsii-runtime version. Expecting "
+            throw new JsiiError("Incompatible jsii-runtime version. Expecting "
                     + shortExpectedVersion
                     + ", actual was " + shortActualVersion);
         }

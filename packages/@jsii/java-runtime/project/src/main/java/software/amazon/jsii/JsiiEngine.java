@@ -164,7 +164,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      */
     public void loadModule(final Class<? extends JsiiModule> moduleClass) {
         if (!JsiiModule.class.isAssignableFrom(moduleClass)) {
-            throw new JsiiException("Invalid module class "
+            throw new JsiiError("Invalid module class "
                     + moduleClass.getName()
                     + ". It must be derived from JsiiModule");
         }
@@ -173,7 +173,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         try {
             module = moduleClass.getConstructor().newInstance();
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-            throw new JsiiException(e);
+            throw new JsiiError(e);
         }
 
         if (this.loadedModules.containsKey(module.getModuleName())) {
@@ -270,12 +270,12 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      *
      * @param objRef The object reference
      * @return a JsiiObject
-     * @throws JsiiException If the object is not found.
+     * @throws JsiiError If the object is not found.
      */
     public Object getObject(final JsiiObjectRef objRef) {
         Object obj = this.objects.get(objRef.getObjId());
         if (obj == null) {
-            throw new JsiiException("Cannot find jsii object: " + objRef.getObjId());
+            throw new JsiiError("Cannot find jsii object: " + objRef.getObjId());
         }
         return obj;
     }
@@ -303,24 +303,24 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         }
         String[] parts = fqn.split("\\.");
         if (parts.length < 2) {
-            throw new JsiiException("Malformed FQN: " + fqn);
+            throw new JsiiError("Malformed FQN: " + fqn);
         }
 
         String moduleName = parts[0];
 
         JsonNode names = this.getClient().getModuleNames(moduleName);
         if (!names.has("java")) {
-            throw new JsiiException("No java name for module " + moduleName);
+            throw new JsiiError("No java name for module " + moduleName);
         }
 
         final JsiiModule module = this.loadedModules.get(moduleName);
         if (module == null) {
-            throw new JsiiException("No loaded module is named " + moduleName);
+            throw new JsiiError("No loaded module is named " + moduleName);
         }
         try {
             return module.resolveClass(fqn);
         } catch (final ClassNotFoundException cfne) {
-            throw new JsiiException(cfne);
+            throw new JsiiError(cfne);
         }
     }
 
@@ -346,12 +346,12 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 ctor.setAccessible(false);
                 return newObj;
             } catch (NoSuchMethodException e) {
-                throw new JsiiException("Cannot create native object of type "
+                throw new JsiiError("Cannot create native object of type "
                         + klass.getName()
                         + " without a constructor that accepts an InitializationMode argument", e);
 
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                throw new JsiiException("Unable to instantiate a new object for FQN " + fqn + ": "
+                throw new JsiiError("Unable to instantiate a new object for FQN " + fqn + ": "
                         + e.getMessage(), e);
             }
         } catch (ClassNotFoundException e) {
@@ -369,7 +369,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     public Enum<?> findEnumValue(final String enumRef) {
         int sep = enumRef.lastIndexOf('/');
         if (sep == -1) {
-            throw new JsiiException("Malformed enum reference: " + enumRef);
+            throw new JsiiError("Malformed enum reference: " + enumRef);
         }
 
         String typeName = enumRef.substring(0, sep);
@@ -396,7 +396,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * Invokes a local callback and returns the result/error.
      * @param callback The callback to invoke.
      * @return The return value
-     * @throws JsiiException if the callback failed.
+     * @throws JsiiError if the callback failed.
      */
     public JsonNode handleCallback(final Callback callback) {
 
@@ -408,7 +408,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             return invokeCallbackSet(callback.getSet());
         }
 
-        throw new JsiiException("Unrecognized callback type: get/set/invoke");
+        throw new JsiiError("Unrecognized callback type: get/set/invoke");
     }
 
     /**
@@ -486,9 +486,9 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 throw e;
             }
         } catch (InvocationTargetException e) {
-            throw new JsiiException(e.getTargetException());
+            throw new JsiiError(e.getTargetException());
         } catch (IllegalAccessException e) {
-            throw new JsiiException(e);
+            throw new JsiiError(e);
         } finally {
             // revert accessibility.
             method.setAccessible(accessibility);
@@ -503,7 +503,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         try {
             JsonNode result = handleCallback(callback);
             this.getClient().completeCallback(callback, null, result);
-        } catch (JsiiException e) {
+        } catch (JsiiError e) {
             this.getClient().completeCallback(callback, e.getMessage(), null);
         }
     }
@@ -528,7 +528,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             return findCallbackMethod(klass.getSuperclass(), signature);
         }
 
-        throw new JsiiException("Unable to find callback method with signature: " + signature);
+        throw new JsiiError("Unable to find callback method with signature: " + signature);
     }
 
     /**
@@ -536,7 +536,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param klass is the type on which the getter is to be searched for
      * @param methodName is the name of the getter method
      * @return the found Method
-     * @throws JsiiException if no such method is found
+     * @throws JsiiError if no such method is found
      */
     private Method findCallbackGetter(final Class<?> klass, final String methodName) {
         try {
@@ -549,7 +549,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                     // Ignored!
                 }
             }
-            throw new JsiiException(nsme);
+            throw new JsiiError(nsme);
         }
     }
 
@@ -559,7 +559,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param methodName is the name of the setter method
      * @param valueType is the type of the argument the setter accepts
      * @return the found Method
-     * @throws JsiiException if no such method is found
+     * @throws JsiiError if no such method is found
      */
     private Method findCallbackSetter(final Class<?> klass, final String methodName, final Class<?> valueType) {
         try {
@@ -572,7 +572,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                     // Ignored!
                 }
             }
-            throw new JsiiException(nsme);
+            throw new JsiiError(nsme);
         }
     }
 
@@ -731,7 +731,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     String loadModuleForClass(Class<?> nativeClass) {
         final Jsii jsii = tryGetJsiiAnnotation(nativeClass, true);
         if (jsii == null) {
-            throw new JsiiException("Unable to find @Jsii annotation for class");
+            throw new JsiiError("Unable to find @Jsii annotation for class");
         }
 
         this.loadModule(jsii.module());

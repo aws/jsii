@@ -53,7 +53,7 @@ public class JsiiObject implements JsiiSerializable {
     JsiiObject(@Nullable final JsiiEngine engine, final InitializationMode initializationMode) {
         this.jsii$engine = JsiiEngine.getEngineFor(this, engine);
         if (initializationMode != InitializationMode.JSII) {
-            throw new JsiiException("The only supported initialization mode is '" + InitializationMode.JSII + "'");
+            throw new JsiiError("The only supported initialization mode is '" + InitializationMode.JSII + "'");
         }
     }
 
@@ -380,11 +380,11 @@ public class JsiiObject implements JsiiSerializable {
                     constructor.setAccessible(oldAccessible);
                 }
             } catch(final NoSuchMethodException nsme) {
-                throw new JsiiException("Unable to find interface proxy constructor on " + proxyClass.getCanonicalName(), nsme);
+                throw new JsiiError("Unable to find interface proxy constructor on " + proxyClass.getCanonicalName(), nsme);
             } catch (final InvocationTargetException | InstantiationException e) {
-                throw new JsiiException("Unable to initialize interface proxy " + proxyClass.getCanonicalName(), e);
+                throw new JsiiError("Unable to initialize interface proxy " + proxyClass.getCanonicalName(), e);
             } catch (final IllegalAccessException iae) {
-                throw new JsiiException("Unable to invoke constructor of " + proxyClass.getCanonicalName(), iae);
+                throw new JsiiError("Unable to invoke constructor of " + proxyClass.getCanonicalName(), iae);
             }
         }
         @SuppressWarnings("unchecked")

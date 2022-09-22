@@ -90,7 +90,7 @@ final class Util {
     static String javaPropertyToJSProperty(final Method method) {
         final String getterSetterMethod = method.getName();
         if (!isJavaPropertyMethod(method)) {
-            throw new JsiiException("Invalid getter/setter method. Must start with get/set");
+            throw new JsiiError("Invalid getter/setter method. Must start with get/set");
         }
 
         String camelCase = getterSetterMethod.substring(
@@ -112,7 +112,7 @@ final class Util {
      */
     static String javaScriptPropertyToJavaPropertyName(final String prefix, final String jsPropertyName) {
         if (jsPropertyName.isEmpty()) {
-            throw new JsiiException("jsPropertyName must not be empty");
+            throw new JsiiError("jsPropertyName must not be empty");
         }
 
         StringBuilder sb = new StringBuilder();

@@ -13,23 +13,23 @@ test('produces correct output', () => {
     { stripDeprecated: true },
   );
   expect(result.assembly.types).toMatchInlineSnapshot(`
-    Object {
-      "testpkg.GrandChild": Object {
+    {
+      "testpkg.GrandChild": {
         "assembly": "testpkg",
         "base": "testpkg.Retained",
         "fqn": "testpkg.GrandChild",
-        "initializer": Object {},
-        "interfaces": Array [
+        "initializer": {},
+        "interfaces": [
           "testpkg.IRetainedInterface",
         ],
         "kind": "class",
-        "locationInModule": Object {
+        "locationInModule": {
           "filename": "mixed.ts",
           "line": 11,
         },
-        "methods": Array [
-          Object {
-            "locationInModule": Object {
+        "methods": [
+          {
+            "locationInModule": {
               "filename": "mixed.ts",
               "line": 12,
             },
@@ -39,65 +39,65 @@ test('produces correct output', () => {
         "name": "GrandChild",
         "symbolId": "mixed:GrandChild",
       },
-      "testpkg.IRetainedInterface": Object {
+      "testpkg.IRetainedInterface": {
         "assembly": "testpkg",
         "fqn": "testpkg.IRetainedInterface",
         "kind": "interface",
-        "locationInModule": Object {
+        "locationInModule": {
           "filename": "retained.ts",
           "line": 2,
         },
         "name": "IRetainedInterface",
         "symbolId": "retained:IRetainedInterface",
       },
-      "testpkg.Retained": Object {
+      "testpkg.Retained": {
         "abstract": true,
         "assembly": "testpkg",
         "fqn": "testpkg.Retained",
-        "initializer": Object {},
+        "initializer": {},
         "kind": "class",
-        "locationInModule": Object {
+        "locationInModule": {
           "filename": "mixed.ts",
           "line": 4,
         },
         "name": "Retained",
-        "properties": Array [
-          Object {
+        "properties": [
+          {
             "immutable": true,
-            "locationInModule": Object {
+            "locationInModule": {
               "filename": "mixed.ts",
               "line": 7,
             },
             "name": "retained",
-            "type": Object {
+            "type": {
               "primitive": "string",
             },
           },
         ],
         "symbolId": "mixed:Retained",
       },
-      "testpkg.RetainedClass": Object {
+      "testpkg.RetainedClass": {
         "assembly": "testpkg",
         "fqn": "testpkg.RetainedClass",
-        "initializer": Object {},
+        "initializer": {},
         "kind": "class",
-        "locationInModule": Object {
+        "locationInModule": {
           "filename": "retained.ts",
           "line": 3,
         },
         "name": "RetainedClass",
         "symbolId": "retained:RetainedClass",
       },
-      "testpkg.SomeEnum": Object {
+      "testpkg.SomeEnum": {
         "assembly": "testpkg",
         "fqn": "testpkg.SomeEnum",
         "kind": "enum",
-        "locationInModule": Object {
+        "locationInModule": {
           "filename": "enums.ts",
           "line": 2,
         },
-        "members": Array [
-          Object {
+        "members": [
+          {
             "name": "VALUE_RETAINED",
           },
         ],
@@ -140,10 +140,10 @@ test('produces correct output', () => {
 
     //////////////////
     /// mixed.d.ts ///
-    import * as retained_1 from \\"./retained\\";
+    import * as retained_1 from "./retained";
     import { IRetainedInterface } from './retained';
     export declare abstract class Retained {
-        readonly retained = \\"YEAH\\";
+        readonly retained = "YEAH";
     }
     export declare class GrandChild extends Retained implements retained_1.IRetainedInterface {
         retainedMethod(): void;
@@ -275,176 +275,176 @@ describe('stripDeprecatedAllowList', () => {
     );
 
     expect(result.assembly.types).toMatchInlineSnapshot(`
-          Object {
-            "testpkg.Deprecated": Object {
-              "assembly": "testpkg",
-              "base": "testpkg.Retained",
-              "docs": Object {
+      {
+        "testpkg.Deprecated": {
+          "assembly": "testpkg",
+          "base": "testpkg.Retained",
+          "docs": {
+            "deprecated": "stripped",
+            "stability": "deprecated",
+          },
+          "fqn": "testpkg.Deprecated",
+          "initializer": {},
+          "interfaces": [
+            "testpkg.IRetainedInterface",
+          ],
+          "kind": "class",
+          "locationInModule": {
+            "filename": "mixed.ts",
+            "line": 10,
+          },
+          "name": "Deprecated",
+          "symbolId": "mixed:Deprecated",
+        },
+        "testpkg.DeprecatedClass": {
+          "assembly": "testpkg",
+          "docs": {
+            "deprecated": "stripped",
+            "stability": "deprecated",
+          },
+          "fqn": "testpkg.DeprecatedClass",
+          "initializer": {},
+          "kind": "class",
+          "locationInModule": {
+            "filename": "deprecated.ts",
+            "line": 5,
+          },
+          "name": "DeprecatedClass",
+          "symbolId": "deprecated:DeprecatedClass",
+        },
+        "testpkg.DeprecatedEnum": {
+          "assembly": "testpkg",
+          "docs": {
+            "deprecated": "stripped",
+            "stability": "deprecated",
+          },
+          "fqn": "testpkg.DeprecatedEnum",
+          "kind": "enum",
+          "locationInModule": {
+            "filename": "enums.ts",
+            "line": 8,
+          },
+          "members": [
+            {
+              "docs": {
+                "stability": "deprecated",
+              },
+              "name": "VALUE_ONE",
+            },
+            {
+              "docs": {
+                "stability": "deprecated",
+              },
+              "name": "VALUE_TWO",
+            },
+          ],
+          "name": "DeprecatedEnum",
+          "symbolId": "enums:DeprecatedEnum",
+        },
+        "testpkg.GrandChild": {
+          "assembly": "testpkg",
+          "base": "testpkg.Deprecated",
+          "fqn": "testpkg.GrandChild",
+          "initializer": {},
+          "kind": "class",
+          "locationInModule": {
+            "filename": "mixed.ts",
+            "line": 11,
+          },
+          "methods": [
+            {
+              "locationInModule": {
+                "filename": "mixed.ts",
+                "line": 12,
+              },
+              "name": "retainedMethod",
+            },
+          ],
+          "name": "GrandChild",
+          "symbolId": "mixed:GrandChild",
+        },
+        "testpkg.IRetainedInterface": {
+          "assembly": "testpkg",
+          "fqn": "testpkg.IRetainedInterface",
+          "kind": "interface",
+          "locationInModule": {
+            "filename": "retained.ts",
+            "line": 2,
+          },
+          "name": "IRetainedInterface",
+          "symbolId": "retained:IRetainedInterface",
+        },
+        "testpkg.Retained": {
+          "abstract": true,
+          "assembly": "testpkg",
+          "fqn": "testpkg.Retained",
+          "initializer": {},
+          "kind": "class",
+          "locationInModule": {
+            "filename": "mixed.ts",
+            "line": 4,
+          },
+          "name": "Retained",
+          "properties": [
+            {
+              "docs": {
                 "deprecated": "stripped",
                 "stability": "deprecated",
               },
-              "fqn": "testpkg.Deprecated",
-              "initializer": Object {},
-              "interfaces": Array [
-                "testpkg.IRetainedInterface",
-              ],
-              "kind": "class",
-              "locationInModule": Object {
+              "immutable": true,
+              "locationInModule": {
                 "filename": "mixed.ts",
-                "line": 10,
+                "line": 6,
               },
-              "name": "Deprecated",
-              "symbolId": "mixed:Deprecated",
+              "name": "deprecated",
+              "type": {
+                "primitive": "number",
+              },
             },
-            "testpkg.DeprecatedClass": Object {
-              "assembly": "testpkg",
-              "docs": Object {
-                "deprecated": "stripped",
-                "stability": "deprecated",
-              },
-              "fqn": "testpkg.DeprecatedClass",
-              "initializer": Object {},
-              "kind": "class",
-              "locationInModule": Object {
-                "filename": "deprecated.ts",
-                "line": 5,
-              },
-              "name": "DeprecatedClass",
-              "symbolId": "deprecated:DeprecatedClass",
-            },
-            "testpkg.DeprecatedEnum": Object {
-              "assembly": "testpkg",
-              "docs": Object {
-                "deprecated": "stripped",
-                "stability": "deprecated",
-              },
-              "fqn": "testpkg.DeprecatedEnum",
-              "kind": "enum",
-              "locationInModule": Object {
-                "filename": "enums.ts",
-                "line": 8,
-              },
-              "members": Array [
-                Object {
-                  "docs": Object {
-                    "stability": "deprecated",
-                  },
-                  "name": "VALUE_ONE",
-                },
-                Object {
-                  "docs": Object {
-                    "stability": "deprecated",
-                  },
-                  "name": "VALUE_TWO",
-                },
-              ],
-              "name": "DeprecatedEnum",
-              "symbolId": "enums:DeprecatedEnum",
-            },
-            "testpkg.GrandChild": Object {
-              "assembly": "testpkg",
-              "base": "testpkg.Deprecated",
-              "fqn": "testpkg.GrandChild",
-              "initializer": Object {},
-              "kind": "class",
-              "locationInModule": Object {
+            {
+              "immutable": true,
+              "locationInModule": {
                 "filename": "mixed.ts",
-                "line": 11,
+                "line": 7,
               },
-              "methods": Array [
-                Object {
-                  "locationInModule": Object {
-                    "filename": "mixed.ts",
-                    "line": 12,
-                  },
-                  "name": "retainedMethod",
-                },
-              ],
-              "name": "GrandChild",
-              "symbolId": "mixed:GrandChild",
-            },
-            "testpkg.IRetainedInterface": Object {
-              "assembly": "testpkg",
-              "fqn": "testpkg.IRetainedInterface",
-              "kind": "interface",
-              "locationInModule": Object {
-                "filename": "retained.ts",
-                "line": 2,
+              "name": "retained",
+              "type": {
+                "primitive": "string",
               },
-              "name": "IRetainedInterface",
-              "symbolId": "retained:IRetainedInterface",
             },
-            "testpkg.Retained": Object {
-              "abstract": true,
-              "assembly": "testpkg",
-              "fqn": "testpkg.Retained",
-              "initializer": Object {},
-              "kind": "class",
-              "locationInModule": Object {
-                "filename": "mixed.ts",
-                "line": 4,
-              },
-              "name": "Retained",
-              "properties": Array [
-                Object {
-                  "docs": Object {
-                    "deprecated": "stripped",
-                    "stability": "deprecated",
-                  },
-                  "immutable": true,
-                  "locationInModule": Object {
-                    "filename": "mixed.ts",
-                    "line": 6,
-                  },
-                  "name": "deprecated",
-                  "type": Object {
-                    "primitive": "number",
-                  },
-                },
-                Object {
-                  "immutable": true,
-                  "locationInModule": Object {
-                    "filename": "mixed.ts",
-                    "line": 7,
-                  },
-                  "name": "retained",
-                  "type": Object {
-                    "primitive": "string",
-                  },
-                },
-              ],
-              "symbolId": "mixed:Retained",
+          ],
+          "symbolId": "mixed:Retained",
+        },
+        "testpkg.RetainedClass": {
+          "assembly": "testpkg",
+          "fqn": "testpkg.RetainedClass",
+          "initializer": {},
+          "kind": "class",
+          "locationInModule": {
+            "filename": "retained.ts",
+            "line": 3,
+          },
+          "name": "RetainedClass",
+          "symbolId": "retained:RetainedClass",
+        },
+        "testpkg.SomeEnum": {
+          "assembly": "testpkg",
+          "fqn": "testpkg.SomeEnum",
+          "kind": "enum",
+          "locationInModule": {
+            "filename": "enums.ts",
+            "line": 2,
+          },
+          "members": [
+            {
+              "name": "VALUE_RETAINED",
             },
-            "testpkg.RetainedClass": Object {
-              "assembly": "testpkg",
-              "fqn": "testpkg.RetainedClass",
-              "initializer": Object {},
-              "kind": "class",
-              "locationInModule": Object {
-                "filename": "retained.ts",
-                "line": 3,
-              },
-              "name": "RetainedClass",
-              "symbolId": "retained:RetainedClass",
-            },
-            "testpkg.SomeEnum": Object {
-              "assembly": "testpkg",
-              "fqn": "testpkg.SomeEnum",
-              "kind": "enum",
-              "locationInModule": Object {
-                "filename": "enums.ts",
-                "line": 2,
-              },
-              "members": Array [
-                Object {
-                  "name": "VALUE_RETAINED",
-                },
-              ],
-              "name": "SomeEnum",
-              "symbolId": "enums:SomeEnum",
-            },
-          }
-      `);
+          ],
+          "name": "SomeEnum",
+          "symbolId": "enums:SomeEnum",
+        },
+      }
+    `);
     expect(declFilesSnapshot(result)).toMatchInlineSnapshot(`
       "//////////////////
       /// index.d.ts ///
@@ -491,7 +491,7 @@ describe('stripDeprecatedAllowList', () => {
       export declare abstract class Retained {
           /** @deprecated stripped */
           readonly deprecated = 1337;
-          readonly retained = \\"YEAH\\";
+          readonly retained = "YEAH";
       }
       /** @deprecated stripped */
       export declare class Deprecated extends Retained implements IRetainedInterface {
