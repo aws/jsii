@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663800815786,
+  "lastUpdate": 1663843820896,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6491,6 +6491,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2664504.2694712034,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 56948.750173399996 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "783ec7f1d40619677f34318ee247244b682cd92d",
+          "message": "fix(pacmak): .NET bindings fail to compile with error CS8120 (#3760)\n\nIf a type union includes several candidates that are related to each other (A extends B or A implements B), `jsii-pacmak` may generate type checking clauses in a pattern matching `switch` statement in an order such that the compiler identifies dead clauses, which is an error in C#.\n\nThis adds a provision to NOT emit such a clause so as to not cause the error. It is worth mentioning that the error cannot be \"opted out\" of via a `#pragma` directive like a warning would be, which is unfortunate.\n\nFixes #3759\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-22T10:02:32Z",
+          "tree_id": "f9482661f8500e2a7aa911e63b05f0fc01e9c89b",
+          "url": "https://github.com/aws/jsii/commit/783ec7f1d40619677f34318ee247244b682cd92d"
+        },
+        "date": 1663843818551,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62085.16938250007,
+            "unit": "milliseconds",
+            "range": 2708483.6181845893,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62085.16938250007 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46065.92762665001,
+            "unit": "milliseconds",
+            "range": 193724.56013436473,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46065.92762665001 milliseconds over 20 runs"
           }
         ]
       }
