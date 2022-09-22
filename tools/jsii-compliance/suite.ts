@@ -516,5 +516,9 @@ export const suite: schema.Suite = {
       name: 'downcasting',
       description: 'Ensures unsafe-cast features work as expected',
     },
+    {
+      name: 'deprecatedMemberCanBeReceived',
+      description: 'Ensures --strip-deprecated does not cause odd runtime errors',
+    },
   ],
 };
