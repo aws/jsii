@@ -386,7 +386,7 @@ function testpkg_Baz(p) {
 
     compile(calcBaseOfBaseRoot, false);
     compile(calcBaseRoot, true);
-    compile(calcLibRoot, true);
+    compile(calcLibRoot, true, path.join(calcLibRoot, 'deprecated-to-strip.txt'));
     const warningsFile = loadWarningsFile(calcBaseRoot);
 
     // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
@@ -905,12 +905,14 @@ function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-function compile(projectRoot: string, addDeprecationWarnings: boolean) {
+function compile(projectRoot: string, addDeprecationWarnings: boolean, stripDeprecated?: string) {
   const { projectInfo } = loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
     projectInfo,
     addDeprecationWarnings,
+    stripDeprecated: stripDeprecated != null,
+    stripDeprecatedAllowListFile: stripDeprecated,
   });
 
   compiler.emit();
