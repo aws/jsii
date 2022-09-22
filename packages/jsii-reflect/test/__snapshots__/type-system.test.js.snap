@@ -189,6 +189,8 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.submodule.isolated.Kwargs",
   "jsii-calc.submodule.nested_submodule.Namespaced",
   "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+  "jsii-calc.union.ConsumesUnion",
+  "jsii-calc.union.Resolvable",
 ]
 `;
 
