@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663864121766,
+  "lastUpdate": 1663874462518,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6567,6 +6567,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 370817.7354224497,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 75440.32738365003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c7dfad3ec905a5ee795be1d313d9c078ab3b4234",
+          "message": "fix(runtime): type not found (#3763)\n\nWhen a jsii module returned a private class implementation of an interface, consuming jsii.rtti data may return an FQN for the internal class, which does not exist in foreign languages, leading to an error.\r\n\r\nRevert to tagging FQNs directly instead.\r\n\r\nFixes #3742",
+          "timestamp": "2022-09-22T20:11:22+02:00",
+          "tree_id": "656bb4744c447436e902f7d4280de88f8d0b7216",
+          "url": "https://github.com/aws/jsii/commit/c7dfad3ec905a5ee795be1d313d9c078ab3b4234"
+        },
+        "date": 1663874457870,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 101657.02220954993,
+            "unit": "milliseconds",
+            "range": 4048219.580712837,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 101657.02220954993 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 71943.93953195002,
+            "unit": "milliseconds",
+            "range": 5581805.271785507,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71943.93953195002 milliseconds over 20 runs"
           }
         ]
       }
