@@ -383,10 +383,14 @@ function testpkg_Baz(p) {
     );
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
+    const calcLibStripDeprecated = path.join(
+      calcLibRoot,
+      'deprecated-to-strip.txt',
+    );
 
     compile(calcBaseOfBaseRoot, false);
     compile(calcBaseRoot, true);
-    compile(calcLibRoot, true);
+    compile(calcLibRoot, true, calcLibStripDeprecated);
     const warningsFile = loadWarningsFile(calcBaseRoot);
 
     // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
@@ -397,7 +401,7 @@ function testpkg_Baz(p) {
 
     // Recompiling without deprecation warning to leave the packages in a clean state
     compile(calcBaseRoot, false);
-    compile(calcLibRoot, false);
+    compile(calcLibRoot, false, calcLibStripDeprecated);
   }, 120000);
 });
 
@@ -474,19 +478,19 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatchInlineSnapshot(`
-      "\\"use strict\\";
+      ""use strict";
       var _a;
-      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      Object.defineProperty(exports, "__esModule", { value: true });
       exports.Foo = void 0;
-      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
-      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      const jsiiDeprecationWarnings = require("./.warnings.jsii.js");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");
       class Foo {
           /** @deprecated Use something else */
           bar() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#bar\\", \\"Use something else\\");
+              jsiiDeprecationWarnings.print("testpkg.Foo#bar", "Use something else");
           }
           catch (error) {
-              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
                   Error.captureStackTrace(error, this.bar);
               }
               throw error;
@@ -494,7 +498,7 @@ describe('Call injections', () => {
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
-      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      Foo[_a] = { fqn: "testpkg.Foo", version: "0.0.1" };
       //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFDZCxxQ0FBcUM7SUFDOUIsR0FBRzs7Ozs7Ozs7T0FBSTs7QUFGaEIsa0JBR0MiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICAgIHB1YmxpYyBiYXIoKXt9XG4gICAgfVxuICAiXX0="
     `);
   });
@@ -511,18 +515,18 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatchInlineSnapshot(`
-      "\\"use strict\\";
+      ""use strict";
       var _a;
-      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      Object.defineProperty(exports, "__esModule", { value: true });
       exports.Foo = void 0;
-      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
-      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      const jsiiDeprecationWarnings = require("./.warnings.jsii.js");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");
       class Foo {
           bar(a, b) { try {
               jsiiDeprecationWarnings.testpkg_A(a);
           }
           catch (error) {
-              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
                   Error.captureStackTrace(error, this.bar);
               }
               throw error;
@@ -530,7 +534,7 @@ describe('Call injections', () => {
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
-      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      Foo[_a] = { fqn: "testpkg.Foo", version: "0.0.1" };
       //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFUyxNQUFhLEdBQUc7SUFDUixHQUFHLENBQUMsQ0FBSSxFQUFFLENBQVM7Ozs7Ozs7O01BQUUsT0FBTyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxFQUFDOztBQUQ3QyxrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgICAgICBleHBvcnQgaW50ZXJmYWNlIEEge3JlYWRvbmx5IHg6IG51bWJlcjt9XG4gICAgICAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgICAgICBwdWJsaWMgYmFyKGE6IEEsIGI6IG51bWJlcil7cmV0dXJuIGEueCArIGI7fVxuICAgICAgICAgfSJdfQ=="
     `);
   }, 60000);
@@ -549,30 +553,30 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatchInlineSnapshot(`
-      "\\"use strict\\";
+      ""use strict";
       var _a;
-      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      Object.defineProperty(exports, "__esModule", { value: true });
       exports.Foo = void 0;
-      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
-      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      const jsiiDeprecationWarnings = require("./.warnings.jsii.js");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");
       class Foo {
           constructor() {
               this._x = 0;
           }
           /** @deprecated Use something else */
           get x() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+              jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else");
           }
           catch (error) {
-              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").get);
+              if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, "x").get);
               }
               throw error;
           } return this._x; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
-      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      Foo[_a] = { fqn: "testpkg.Foo", version: "0.0.1" };
       //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBR2hCO0lBRkMscUNBQXFDO0lBQ3JDLElBQVcsQ0FBQzs7Ozs7Ozs7TUFBRyxPQUFPLElBQUksQ0FBQyxFQUFFLENBQUEsRUFBQzs7QUFIaEMsa0JBSUMiLCJzb3VyY2VzQ29udGVudCI6WyJcbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIHByaXZhdGUgX3ggPSAwO1xuICAgICAgLyoqIEBkZXByZWNhdGVkIFVzZSBzb21ldGhpbmcgZWxzZSAqL1xuICAgICAgcHVibGljIGdldCB4KCl7cmV0dXJuIHRoaXMuX3h9XG4gICAgfVxuICAiXX0="
     `);
   });
@@ -593,39 +597,39 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatchInlineSnapshot(`
-      "\\"use strict\\";
+      ""use strict";
       var _a;
-      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      Object.defineProperty(exports, "__esModule", { value: true });
       exports.Foo = void 0;
-      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
-      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      const jsiiDeprecationWarnings = require("./.warnings.jsii.js");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");
       class Foo {
           constructor() {
               this._x = 0;
           }
           get x() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+              jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else");
           }
           catch (error) {
-              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").get);
+              if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, "x").get);
               }
               throw error;
           } return this._x; }
           /** @deprecated Use something else */
           set x(_x) { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo#x\\", \\"Use something else\\");
+              jsiiDeprecationWarnings.print("testpkg.Foo#x", "Use something else");
           }
           catch (error) {
-              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
-                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, \\"x\\").set);
+              if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                  Error.captureStackTrace(error, jsiiDeprecationWarnings.getPropertyDescriptor(this, "x").set);
               }
               throw error;
           } this._x = _x; }
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
-      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      Foo[_a] = { fqn: "testpkg.Foo", version: "0.0.1" };
       //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxNQUFhLEdBQUc7SUFBaEI7UUFDVSxPQUFFLEdBQUcsQ0FBQyxDQUFDO0tBS2hCO0lBSkMsSUFBVyxDQUFDOzs7Ozs7OztNQUFHLE9BQU8sSUFBSSxDQUFDLEVBQUUsQ0FBQSxFQUFDO0lBRTlCLHFDQUFxQztJQUNyQyxJQUFXLENBQUMsQ0FBQyxFQUFVOzs7Ozs7OztNQUFHLElBQUksQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUM7O0FBTDFDLGtCQU1DIiwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgZXhwb3J0IGNsYXNzIEZvbyB7XG4gICAgICBwcml2YXRlIF94ID0gMDtcbiAgICAgIHB1YmxpYyBnZXQgeCgpe3JldHVybiB0aGlzLl94fVxuXG4gICAgICAvKiogQGRlcHJlY2F0ZWQgVXNlIHNvbWV0aGluZyBlbHNlICovXG4gICAgICBwdWJsaWMgc2V0IHgoX3g6IG51bWJlcikge3RoaXMuX3ggPSBfeDt9XG4gICAgfVxuICAiXX0="
     `);
   });
@@ -643,19 +647,19 @@ describe('Call injections', () => {
     );
 
     expect(jsFile(result)).toMatchInlineSnapshot(`
-      "\\"use strict\\";
+      ""use strict";
       var _a;
-      Object.defineProperty(exports, \\"__esModule\\", { value: true });
+      Object.defineProperty(exports, "__esModule", { value: true });
       exports.Foo = void 0;
-      const jsiiDeprecationWarnings = require(\\"./.warnings.jsii.js\\");
-      const JSII_RTTI_SYMBOL_1 = Symbol.for(\\"jsii.rtti\\");
+      const jsiiDeprecationWarnings = require("./.warnings.jsii.js");
+      const JSII_RTTI_SYMBOL_1 = Symbol.for("jsii.rtti");
       /** @deprecated Use something else */
       class Foo {
           constructor() { try {
-              jsiiDeprecationWarnings.print(\\"testpkg.Foo\\", \\"Use something else\\");
+              jsiiDeprecationWarnings.print("testpkg.Foo", "Use something else");
           }
           catch (error) {
-              if (process.env.JSII_DEBUG !== \\"1\\" && error.name === \\"DeprecationError\\") {
+              if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
                   Error.captureStackTrace(error, Foo);
               }
               throw error;
@@ -663,7 +667,7 @@ describe('Call injections', () => {
       }
       exports.Foo = Foo;
       _a = JSII_RTTI_SYMBOL_1;
-      Foo[_a] = { fqn: \\"testpkg.Foo\\", version: \\"0.0.1\\" };
+      Foo[_a] = { fqn: "testpkg.Foo", version: "0.0.1" };
       //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDSSxxQ0FBcUM7QUFDckMsTUFBYSxHQUFHO0lBQ2Q7Ozs7OzJDQURXLEdBQUc7OztPQUNDOztBQURqQixrQkFFQyIsInNvdXJjZXNDb250ZW50IjpbIlxuICAgIC8qKiBAZGVwcmVjYXRlZCBVc2Ugc29tZXRoaW5nIGVsc2UgKi9cbiAgICBleHBvcnQgY2xhc3MgRm9vIHtcbiAgICAgIGNvbnN0cnVjdG9yKCl7fVxuICAgIH1cbiAgIl19"
     `);
   });
@@ -905,12 +909,18 @@ function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-function compile(projectRoot: string, addDeprecationWarnings: boolean) {
+function compile(
+  projectRoot: string,
+  addDeprecationWarnings: boolean,
+  stripDeprecated?: string,
+) {
   const { projectInfo } = loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
     projectInfo,
     addDeprecationWarnings,
+    stripDeprecated: stripDeprecated != null,
+    stripDeprecatedAllowListFile: stripDeprecated,
   });
 
   compiler.emit();

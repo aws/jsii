@@ -7,6 +7,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.Cdk16625;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -1534,9 +1535,15 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         private sealed class Cdk16625Impl: Cdk16625 {
-                protected override double Unwrap(IRandomNumberGenerator rng) {
-                    return rng.Next();
-                }
+            protected override double Unwrap(IRandomNumberGenerator rng) {
+                return rng.Next();
             }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StrippedDeprecatedMemberCanBeReceived))]
+        public void StrippedDeprecatedMemberCanBeReceived()
+        {
+            Assert.NotNull(InterfaceFactory.Create());
+        }
     }
 }

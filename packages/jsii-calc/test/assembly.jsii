@@ -95,6 +95,7 @@
     },
     "@scope/jsii-calc-lib": {
       "submodules": {
+        "@scope/jsii-calc-lib.deprecationRemoval": {},
         "@scope/jsii-calc-lib.submodule": {
           "targets": {
             "dotnet": {
@@ -421,6 +422,13 @@
         "line": 4
       },
       "symbolId": "lib/submodule/returns-param/index:"
+    },
+    "jsii-calc.union": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 28
+      },
+      "symbolId": "lib/union:"
     }
   },
   "targets": {
@@ -18199,8 +18207,125 @@
       "name": "ReturnsSpecialParameter",
       "namespace": "submodule.returnsparam",
       "symbolId": "lib/submodule/returns-param/index:ReturnsSpecialParameter"
+    },
+    "jsii-calc.union.ConsumesUnion": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.union.ConsumesUnion",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/union.ts",
+        "line": 15
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/union.ts",
+            "line": 16
+          },
+          "name": "unionType",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "union": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.union.IResolvable"
+                    },
+                    {
+                      "fqn": "jsii-calc.union.Resolvable"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.IFriendly"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "static": true
+        }
+      ],
+      "name": "ConsumesUnion",
+      "namespace": "union",
+      "symbolId": "lib/union:ConsumesUnion"
+    },
+    "jsii-calc.union.IResolvable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.union.IResolvable",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/union.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/union.ts",
+            "line": 4
+          },
+          "name": "resolve",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          }
+        }
+      ],
+      "name": "IResolvable",
+      "namespace": "union",
+      "symbolId": "lib/union:IResolvable"
+    },
+    "jsii-calc.union.Resolvable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.union.Resolvable",
+      "interfaces": [
+        "jsii-calc.union.IResolvable"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/union.ts",
+        "line": 7
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/union.ts",
+            "line": 10
+          },
+          "name": "resolve",
+          "overrides": "jsii-calc.union.IResolvable",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          }
+        }
+      ],
+      "name": "Resolvable",
+      "namespace": "union",
+      "symbolId": "lib/union:Resolvable"
     }
   },
   "version": "3.20.120",
-  "fingerprint": "Ze43eowG9ImRufT3MQ8yO+bW8JzOQlZIYtFsjpc960E="
+  "fingerprint": "O7e7hA2s4dwiCigDIFE0ANjlmeXIQydXdSodi9WHja4="
 }

@@ -1,6 +1,8 @@
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 
 import * as api from './api';
+import { JsiiFault } from './kernel';
 import { EMPTY_OBJECT_FQN } from './serialization';
 
 /**
@@ -14,15 +16,12 @@ const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
 /**
- * Symbol we use to tag the constructor of a JSII class
+ * Symbol we use to tag constructors that are exported from a JSII module.
  */
-const JSII_RTTI_SYMBOL = Symbol.for('jsii.rtti');
+const JSII_TYPE_FQN_SYMBOL = Symbol('$__jsii__fqn__$');
 
 interface ManagedConstructor {
-  readonly [JSII_RTTI_SYMBOL]: {
-    readonly fqn: string;
-    readonly version: string;
-  };
+  readonly [JSII_TYPE_FQN_SYMBOL]: string;
 }
 
 type MaybeManagedConstructor = Partial<ManagedConstructor>;
@@ -35,7 +34,7 @@ type MaybeManagedConstructor = Partial<ManagedConstructor>;
  * information.
  */
 export function jsiiTypeFqn(obj: any): string | undefined {
-  return (obj.constructor as MaybeManagedConstructor)[JSII_RTTI_SYMBOL]?.fqn;
+  return (obj.constructor as MaybeManagedConstructor)[JSII_TYPE_FQN_SYMBOL];
 }
 
 /**
@@ -95,19 +94,21 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
 /**
  * Set the JSII FQN for classes produced by a given constructor
  */
-export function tagJsiiConstructor(
-  constructor: any,
-  fqn: string,
-  version: string,
-) {
-  if (Object.prototype.hasOwnProperty.call(constructor, JSII_RTTI_SYMBOL)) {
-    return;
+export function tagJsiiConstructor(constructor: any, fqn: string) {
+  if (Object.prototype.hasOwnProperty.call(constructor, JSII_TYPE_FQN_SYMBOL)) {
+    return assert(
+      constructor[JSII_TYPE_FQN_SYMBOL] === fqn,
+      `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${constructor[JSII_TYPE_FQN_SYMBOL]}`,
+    );
   }
-  Object.defineProperty(constructor, JSII_RTTI_SYMBOL, {
+
+  // Mark this constructor as exported from a jsii module, so we know we
+  // should be considering it's FQN as a valid exported type.
+  Object.defineProperty(constructor, JSII_TYPE_FQN_SYMBOL, {
     configurable: false,
     enumerable: false,
     writable: false,
-    value: { fqn, version },
+    value: fqn,
   });
 }
 
@@ -136,7 +137,7 @@ export class ObjectTable {
     interfaces?: string[],
   ): api.ObjRef {
     if (fqn === undefined) {
-      throw new Error('FQN cannot be undefined');
+      throw new JsiiFault('FQN cannot be undefined');
     }
 
     const existingRef = objectReference(obj);
@@ -179,13 +180,15 @@ export class ObjectTable {
    */
   public findObject(objref: api.ObjRef): RegisteredObject {
     if (typeof objref !== 'object' || !(api.TOKEN_REF in objref)) {
-      throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
+      throw new JsiiFault(
+        `Malformed object reference: ${JSON.stringify(objref)}`,
+      );
     }
 
     const objid = objref[api.TOKEN_REF];
     const obj = this.objects.get(objid);
     if (!obj) {
-      throw new Error(`Object ${objid} not found`);
+      throw new JsiiFault(`Object ${objid} not found`);
     }
 
     // If there are "additional" interfaces declared on the objref, merge them
@@ -215,7 +218,7 @@ export class ObjectTable {
    */
   public deleteObject({ [api.TOKEN_REF]: objid }: api.ObjRef) {
     if (!this.objects.delete(objid)) {
-      throw new Error(`Object ${objid} not found`);
+      throw new JsiiFault(`Object ${objid} not found`);
     }
   }
 
@@ -267,7 +270,7 @@ class InterfaceCollection implements Iterable<string> {
   public addFromClass(fqn: string): void {
     const ti = this.resolveType(fqn);
     if (!spec.isClassType(ti)) {
-      throw new Error(
+      throw new JsiiFault(
         `Expected a class, but received ${spec.describeTypeReference(ti)}`,
       );
     }
@@ -288,7 +291,7 @@ class InterfaceCollection implements Iterable<string> {
   public addFromInterface(fqn: string): void {
     const ti = this.resolveType(fqn);
     if (!spec.isInterfaceType(ti)) {
-      throw new Error(
+      throw new JsiiFault(
         `Expected an interface, but received ${spec.describeTypeReference(ti)}`,
       );
     }

@@ -32,7 +32,7 @@ public final class JsiiObjectMapper {
 
   /**
    * Similar to calling JsiiObjectMapper.INSTANCE.treeToValue, but handles a null JsonNode argument
-   * well, and throws JsiiException instead of JsonProcessingException.
+   * well, and throws JsiiError instead of JsonProcessingException.
    *
    * @param tree the JSON object to parse
    * @param valueType the expected type value type
@@ -228,7 +228,7 @@ public final class JsiiObjectMapper {
     public void serialize(final Enum value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
       Jsii jsii = this.tryGetJsiiAnnotation(value.getClass());
       if (jsii == null) {
-        throw new JsiiException("Cannot serialize non-jsii enums");
+        throw new JsiiError("Cannot serialize non-jsii enums");
       } else {
         gen.writeStartObject();
         gen.writeStringField(TOKEN_ENUM, jsii.fqn() + "/" + value.toString());

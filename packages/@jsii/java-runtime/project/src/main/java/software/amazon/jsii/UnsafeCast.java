@@ -49,11 +49,11 @@ public final class UnsafeCast {
                 constructor.setAccessible(oldAccessible);
             }
         } catch (final NoSuchMethodException nsme) {
-            throw new JsiiException(String.format("Unable to find interface proxy constructor on %s", annotation.value().getCanonicalName()), nsme);
+            throw new JsiiError(String.format("Unable to find interface proxy constructor on %s", annotation.value().getCanonicalName()), nsme);
         } catch (final InvocationTargetException | InstantiationException e) {
-            throw new JsiiException(String.format("Unable to initialize interface proxy %s", annotation.value().getCanonicalName()), e);
+            throw new JsiiError(String.format("Unable to initialize interface proxy %s", annotation.value().getCanonicalName()), e);
         } catch (final IllegalAccessException iae) {
-            throw new JsiiException(String.format("Unable to invoke constructor of %s", annotation.value().getCanonicalName()), iae);
+            throw new JsiiError(String.format("Unable to invoke constructor of %s", annotation.value().getCanonicalName()), iae);
         }
     }
 

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.68.0](https://github.com/aws/jsii/compare/v1.67.0...v1.68.0) (2022-09-22)
+
+
+### Features
+
+* **kernel:** distinguish framework errors from userland errors in Java ([#3747](https://github.com/aws/jsii/issues/3747)) ([a4d39c6](https://github.com/aws/jsii/commit/a4d39c6fb619cd4d7c9103ec70a731ab6fb23374))
+
+
+### Bug Fixes
+
+* **jsii:** unable to return Promise<void> ([#3752](https://github.com/aws/jsii/issues/3752)) ([852b3dc](https://github.com/aws/jsii/commit/852b3dc5da113546bc090d99f9250104f526f5af)), closes [#51](https://github.com/aws/jsii/issues/51)
+* **pacmak:** .NET bindings fail to compile with error CS8120 ([#3760](https://github.com/aws/jsii/issues/3760)) ([783ec7f](https://github.com/aws/jsii/commit/783ec7f1d40619677f34318ee247244b682cd92d)), closes [#3759](https://github.com/aws/jsii/issues/3759)
+* **runtime:** type not found ([#3763](https://github.com/aws/jsii/issues/3763)) ([c7dfad3](https://github.com/aws/jsii/commit/c7dfad3ec905a5ee795be1d313d9c078ab3b4234)), closes [#3742](https://github.com/aws/jsii/issues/3742)
+
 ## [1.67.0](https://github.com/aws/jsii/compare/v1.66.0...v1.67.0) (2022-09-02)
 
 

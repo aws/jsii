@@ -1056,6 +1056,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
              ┃  ┗━ 📄 jsii-calc-lib@0.0.0.jsii.tgz
              ┣━ 📁 custom_submodule_name
              ┃  ┗━ 📄 __init__.py
+             ┣━ 📁 deprecation_removal
+             ┃  ┗━ 📄 __init__.py
              ┗━ 📄 py.typed
 `;
 
@@ -1320,7 +1322,8 @@ kwargs = json.loads(
     "packages": [
         "scope.jsii_calc_lib",
         "scope.jsii_calc_lib._jsii",
-        "scope.jsii_calc_lib.custom_submodule_name"
+        "scope.jsii_calc_lib.custom_submodule_name",
+        "scope.jsii_calc_lib.deprecation_removal"
     ],
     "package_data": {
         "scope.jsii_calc_lib._jsii": [
@@ -1944,12 +1947,14 @@ __all__ = [
     "Operation",
     "StructWithOnlyOptionals",
     "custom_submodule_name",
+    "deprecation_removal",
 ]
 
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
 from . import custom_submodule_name
+from . import deprecation_removal
 
 `;
 
@@ -2190,6 +2195,80 @@ __all__ = [
     "NestingClass",
     "ReflectableEntry",
     "Reflector",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/deprecation_removal/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+
+@jsii.interface(jsii_type="@scope/jsii-calc-lib.deprecationRemoval.IInterface")
+class IInterface(typing_extensions.Protocol):
+    '''
+    :stability: deprecated
+    '''
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        ...
+
+
+class _IInterfaceProxy:
+    '''
+    :stability: deprecated
+    '''
+
+    __jsii_type__: typing.ClassVar[str] = "@scope/jsii-calc-lib.deprecationRemoval.IInterface"
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast(None, jsii.invoke(self, "method", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IInterface).__jsii_proxy_class__ = lambda : _IInterfaceProxy
+
+
+class InterfaceFactory(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory",
+):
+    '''
+    :stability: deprecated
+    '''
+
+    @jsii.member(jsii_name="create")
+    @builtins.classmethod
+    def create(cls) -> IInterface:
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast(IInterface, jsii.sinvoke(cls, "create", []))
+
+
+__all__ = [
+    "IInterface",
+    "InterfaceFactory",
 ]
 
 publication.publish()
@@ -2437,22 +2516,24 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┣━ 📄 py.typed
           ┣━ 📁 python_self
           ┃  ┗━ 📄 __init__.py
-          ┗━ 📁 submodule
-             ┣━ 📄 __init__.py
-             ┣━ 📁 back_references
-             ┃  ┗━ 📄 __init__.py
-             ┣━ 📁 child
-             ┃  ┗━ 📄 __init__.py
-             ┣━ 📁 isolated
-             ┃  ┗━ 📄 __init__.py
-             ┣━ 📁 nested_submodule
-             ┃  ┣━ 📄 __init__.py
-             ┃  ┗━ 📁 deeply_nested
-             ┃     ┗━ 📄 __init__.py
-             ┣━ 📁 param
-             ┃  ┗━ 📄 __init__.py
-             ┗━ 📁 returnsparam
-                ┗━ 📄 __init__.py
+          ┣━ 📁 submodule
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 back_references
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┣━ 📁 child
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┣━ 📁 isolated
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┣━ 📁 nested_submodule
+          ┃  ┃  ┣━ 📄 __init__.py
+          ┃  ┃  ┗━ 📁 deeply_nested
+          ┃  ┃     ┗━ 📄 __init__.py
+          ┃  ┣━ 📁 param
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┗━ 📁 returnsparam
+          ┃     ┗━ 📄 __init__.py
+          ┗━ 📁 union
+             ┗━ 📄 __init__.py
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/LICENSE 1`] = `
@@ -2771,7 +2852,8 @@ kwargs = json.loads(
         "jsii_calc.submodule.nested_submodule",
         "jsii_calc.submodule.nested_submodule.deeply_nested",
         "jsii_calc.submodule.param",
-        "jsii_calc.submodule.returnsparam"
+        "jsii_calc.submodule.returnsparam",
+        "jsii_calc.union"
     ],
     "package_data": {
         "jsii_calc._jsii": [
@@ -11149,6 +11231,7 @@ __all__ = [
     "onlystatic",
     "python_self",
     "submodule",
+    "union",
 ]
 
 publication.publish()
@@ -11172,6 +11255,7 @@ from . import nodirect
 from . import onlystatic
 from . import python_self
 from . import submodule
+from . import union
 
 `;
 
@@ -13642,6 +13726,72 @@ publication.publish()
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/union/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+import scope.jsii_calc_lib
+
+
+class ConsumesUnion(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.union.ConsumesUnion"):
+    @jsii.member(jsii_name="unionType")
+    @builtins.classmethod
+    def union_type(
+        cls,
+        param: typing.Union["IResolvable", "Resolvable", scope.jsii_calc_lib.IFriendly],
+    ) -> None:
+        '''
+        :param param: -
+        '''
+        return typing.cast(None, jsii.sinvoke(cls, "unionType", [param]))
+
+
+@jsii.interface(jsii_type="jsii-calc.union.IResolvable")
+class IResolvable(typing_extensions.Protocol):
+    @jsii.member(jsii_name="resolve")
+    def resolve(self) -> typing.Any:
+        ...
+
+
+class _IResolvableProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.union.IResolvable"
+
+    @jsii.member(jsii_name="resolve")
+    def resolve(self) -> typing.Any:
+        return typing.cast(typing.Any, jsii.invoke(self, "resolve", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IResolvable).__jsii_proxy_class__ = lambda : _IResolvableProxy
+
+
+@jsii.implements(IResolvable)
+class Resolvable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.union.Resolvable"):
+    @jsii.member(jsii_name="resolve")
+    def resolve(self) -> typing.Any:
+        return typing.cast(typing.Any, jsii.invoke(self, "resolve", []))
+
+
+__all__ = [
+    "ConsumesUnion",
+    "IResolvable",
+    "Resolvable",
+]
+
+publication.publish()
+
+`;
+
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
 <runtime-type-check-diff>
  ┗━ 📁 python
@@ -13680,14 +13830,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
           ┃     ┗━ 📄 __init__.py.diff
           ┣━ 📁 python_self
           ┃  ┗━ 📄 __init__.py.diff
-          ┗━ 📁 submodule
-             ┣━ 📄 __init__.py.diff
-             ┣━ 📁 back_references
-             ┃  ┗━ 📄 __init__.py.diff
-             ┣━ 📁 child
-             ┃  ┗━ 📄 __init__.py.diff
-             ┗━ 📁 param
-                ┗━ 📄 __init__.py.diff
+          ┣━ 📁 submodule
+          ┃  ┣━ 📄 __init__.py.diff
+          ┃  ┣━ 📁 back_references
+          ┃  ┃  ┗━ 📄 __init__.py.diff
+          ┃  ┣━ 📁 child
+          ┃  ┃  ┗━ 📄 __init__.py.diff
+          ┃  ┗━ 📁 param
+          ┃     ┗━ 📄 __init__.py.diff
+          ┗━ 📁 union
+             ┗━ 📄 __init__.py.diff
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/__init__.py.diff 1`] = `
@@ -17363,4 +17515,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/union/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/union/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/union/__init__.py	--runtime-type-checking
+@@ -23,10 +23,13 @@
+         param: typing.Union["IResolvable", "Resolvable", scope.jsii_calc_lib.IFriendly],
+     ) -> None:
+         '''
+         :param param: -
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(ConsumesUnion.union_type)
++            check_type(argname="argument param", value=param, expected_type=type_hints["param"])
+         return typing.cast(None, jsii.sinvoke(cls, "unionType", [param]))
+ 
+ 
+ @jsii.interface(jsii_type="jsii-calc.union.IResolvable")
+ class IResolvable(typing_extensions.Protocol):
 `;

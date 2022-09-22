@@ -624,19 +624,19 @@ neg.omit.2.ts:7:32 - error JSII3004: Illegal implements clause for an exported A
 `;
 
 exports[`omit.3 1`] = `
-neg.omit.3.ts:8:3 - error JSII1003: Only string-indexed map types are supported
+neg.omit.3.ts:8:10 - error JSII1003: Only string-indexed map types are supported
 
 8   bar(): Omit<FooBar, 'foo'>;
-    ~~~
+           ~~~~~~~~~~~~~~~~~~~
 
 
 `;
 
 exports[`omit.4 1`] = `
-neg.omit.4.ts:8:7 - error JSII1003: Only string-indexed map types are supported
+neg.omit.4.ts:8:13 - error JSII1003: Only string-indexed map types are supported
 
 8   bar(opts: Omit<FooBar, 'foo'>): void;
-        ~~~~
+              ~~~~~~~~~~~~~~~~~~~
 
 
 `;

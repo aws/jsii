@@ -3,6 +3,7 @@ package software.amazon.jsii.testing;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.jsii.ComplianceSuiteHarness;
@@ -14,6 +15,7 @@ import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
 import software.amazon.jsii.tests.calculator.cdk16625.Cdk16625;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedStruct;
+import software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
 import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
@@ -24,10 +26,6 @@ import software.amazon.jsii.tests.calculator.submodule.child.OuterClass;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.security.AccessController;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -334,8 +332,11 @@ public class ComplianceTest {
         calc3.add(3);
         assertEquals(23, calc3.getValue());
         boolean thrown = false;
-        try { calc3.add(10); }
-        catch (Exception e) { thrown = true; }
+        try {
+          calc3.add(10);
+        } catch (RuntimeException e) {
+          thrown = true;
+        }
         assertTrue(thrown);
         calc3.setMaxValue(40);
         calc3.add(10);
@@ -449,7 +450,7 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             obj.callMe();
-        } catch (JsiiException e) {
+        } catch (RuntimeException e) {
             assertTrue(e.getMessage().contains( "Thrown by native code"));
             thrown = true;
         }
@@ -518,7 +519,7 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             so.retrieveValueOfTheProperty();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             assertTrue(e.getMessage().contains("Oh no, this is bad"));
             thrown = true;
         }
@@ -536,7 +537,7 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             so.modifyValueOfTheProperty("Hii");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             assertTrue(e.getMessage().contains("Exception from overloaded setter"));
             thrown = true;
         }
@@ -1787,13 +1788,17 @@ public class ComplianceTest {
         final String nowAsISO = df.format(new Date());
 
         final IWallClock wallClock = new IWallClock() {
+            @NotNull
+            @Override
             public String iso8601Now() {
                 return nowAsISO;
             }
         };
 
         final Entropy entropy = new Entropy(wallClock) {
-            public String repeat(final String word) {
+            @NotNull
+            @Override
+            public String repeat(@NotNull final String word) {
                 return word;
             }
         };
@@ -1804,11 +1809,17 @@ public class ComplianceTest {
     @Test
     public void classCanBeUsedWhenNotExpressedlyLoaded() {
         final Cdk16625 subject = new Cdk16625() {
+            @NotNull
             @Override
             protected java.lang.Number unwrap(final IRandomNumberGenerator rng) {
                 return rng.next();
             }
         };
         subject.test();
+    }
+
+    @Test
+    public void strippedDeprecatedMemberCanBeReceived() {
+        assertNotNull(InterfaceFactory.create());
     }
 }

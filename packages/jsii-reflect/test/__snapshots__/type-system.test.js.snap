@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TypeSystem.assemblies lists all the loaded assemblies 1`] = `
-Array [
+[
   "@scope/jsii-calc-base",
   "@scope/jsii-calc-base-of-base",
   "@scope/jsii-calc-lib",
@@ -10,7 +10,7 @@ Array [
 `;
 
 exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
-Array [
+[
   "@scope/jsii-calc-base-of-base.StaticConsumer",
   "@scope/jsii-calc-base-of-base.Very",
   "@scope/jsii-calc-base.Base",
@@ -19,6 +19,7 @@ Array [
   "@scope/jsii-calc-lib.Number",
   "@scope/jsii-calc-lib.NumericValue",
   "@scope/jsii-calc-lib.Operation",
+  "@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory",
   "@scope/jsii-calc-lib.submodule.NestingClass",
   "@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
   "@scope/jsii-calc-lib.submodule.Reflector",
@@ -189,6 +190,8 @@ Array [
   "jsii-calc.submodule.isolated.Kwargs",
   "jsii-calc.submodule.nested_submodule.Namespaced",
   "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+  "jsii-calc.union.ConsumesUnion",
+  "jsii-calc.union.Resolvable",
 ]
 `;
 
