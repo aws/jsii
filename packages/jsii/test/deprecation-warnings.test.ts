@@ -383,10 +383,14 @@ function testpkg_Baz(p) {
     );
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
+    const calcLibStripDeprecated = path.join(
+      calcLibRoot,
+      'deprecated-to-strip.txt',
+    );
 
     compile(calcBaseOfBaseRoot, false);
     compile(calcBaseRoot, true);
-    compile(calcLibRoot, true, path.join(calcLibRoot, 'deprecated-to-strip.txt'));
+    compile(calcLibRoot, true, calcLibStripDeprecated);
     const warningsFile = loadWarningsFile(calcBaseRoot);
 
     // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
@@ -397,7 +401,7 @@ function testpkg_Baz(p) {
 
     // Recompiling without deprecation warning to leave the packages in a clean state
     compile(calcBaseRoot, false);
-    compile(calcLibRoot, false);
+    compile(calcLibRoot, false, calcLibStripDeprecated);
   }, 120000);
 });
 
@@ -905,7 +909,11 @@ function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-function compile(projectRoot: string, addDeprecationWarnings: boolean, stripDeprecated?: string) {
+function compile(
+  projectRoot: string,
+  addDeprecationWarnings: boolean,
+  stripDeprecated?: string,
+) {
   const { projectInfo } = loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
