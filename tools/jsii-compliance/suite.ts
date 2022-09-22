@@ -517,7 +517,7 @@ export const suite: schema.Suite = {
       description: 'Ensures unsafe-cast features work as expected',
     },
     {
-      name: 'deprecatedMemberCanBeReceived',
+      name: 'strippedDeprecatedMemberCanBeReceived',
       description: 'Ensures --strip-deprecated does not cause odd runtime errors',
     },
   ],
