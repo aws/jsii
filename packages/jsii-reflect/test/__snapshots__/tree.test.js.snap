@@ -34,7 +34,6 @@ exports[`defaults 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -89,7 +88,6 @@ exports[`inheritance 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -144,7 +142,6 @@ exports[`members 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -610,18 +607,6 @@ exports[`showAll 1`] = `
  │ │ │       └─┬ static staticMethod() method
  │ │ │         ├── static
  │ │ │         └── returns: string
- │ │ ├─┬ selective
- │ │ │ └─┬ types
- │ │ │   ├─┬ class ExportedFactory
- │ │ │   │ └─┬ members
- │ │ │   │   └─┬ static create() method
- │ │ │   │     ├── static
- │ │ │   │     └── returns: jsii-calc.selective.IExported
- │ │ │   └─┬ interface IExported
- │ │ │     └─┬ members
- │ │ │       └─┬ method() method
- │ │ │         ├── abstract
- │ │ │         └── returns: void
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3756,7 +3741,6 @@ exports[`signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -3883,10 +3867,6 @@ exports[`types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
- │ │ ├─┬ selective
- │ │ │ └─┬ types
- │ │ │   ├── class ExportedFactory
- │ │ │   └── interface IExported
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references

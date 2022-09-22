@@ -445,18 +445,6 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       └─┬ static staticMethod() method (stable)
  │ │ │         ├── static
  │ │ │         └── returns: string
- │ │ ├─┬ selective
- │ │ │ └─┬ types
- │ │ │   ├─┬ class ExportedFactory (stable)
- │ │ │   │ └─┬ members
- │ │ │   │   └─┬ static create() method (stable)
- │ │ │   │     ├── static
- │ │ │   │     └── returns: jsii-calc.selective.IExported
- │ │ │   └─┬ interface IExported (stable)
- │ │ │     └─┬ members
- │ │ │       └─┬ method() method (stable)
- │ │ │         ├── abstract
- │ │ │         └── returns: void
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3692,10 +3680,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
- │ │ ├─┬ selective
- │ │ │ └─┬ types
- │ │ │   ├── class ExportedFactory
- │ │ │   └── interface IExported
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -4317,14 +4301,6 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ class OnlyStaticMethods
  │ │ │     └─┬ members
  │ │ │       └── static staticMethod() method
- │ │ ├─┬ selective
- │ │ │ └─┬ types
- │ │ │   ├─┬ class ExportedFactory
- │ │ │   │ └─┬ members
- │ │ │   │   └── static create() method
- │ │ │   └─┬ interface IExported
- │ │ │     └─┬ members
- │ │ │       └── method() method
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -5724,7 +5700,6 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -5851,10 +5826,6 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
- │ │ ├─┬ selective
- │ │ │ └─┬ types
- │ │ │   ├── class ExportedFactory
- │ │ │   └── interface IExported
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -6190,7 +6161,6 @@ exports[`jsii-tree 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   ├── selective
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
