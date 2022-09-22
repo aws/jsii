@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 
 import * as api from './api';
+import { JsiiFault } from './kernel';
 import { EMPTY_OBJECT_FQN } from './serialization';
 
 /**
@@ -136,7 +137,7 @@ export class ObjectTable {
     interfaces?: string[],
   ): api.ObjRef {
     if (fqn === undefined) {
-      throw new Error('FQN cannot be undefined');
+      throw new JsiiFault('FQN cannot be undefined');
     }
 
     const existingRef = objectReference(obj);
@@ -179,13 +180,15 @@ export class ObjectTable {
    */
   public findObject(objref: api.ObjRef): RegisteredObject {
     if (typeof objref !== 'object' || !(api.TOKEN_REF in objref)) {
-      throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
+      throw new JsiiFault(
+        `Malformed object reference: ${JSON.stringify(objref)}`,
+      );
     }
 
     const objid = objref[api.TOKEN_REF];
     const obj = this.objects.get(objid);
     if (!obj) {
-      throw new Error(`Object ${objid} not found`);
+      throw new JsiiFault(`Object ${objid} not found`);
     }
 
     // If there are "additional" interfaces declared on the objref, merge them
@@ -215,7 +218,7 @@ export class ObjectTable {
    */
   public deleteObject({ [api.TOKEN_REF]: objid }: api.ObjRef) {
     if (!this.objects.delete(objid)) {
-      throw new Error(`Object ${objid} not found`);
+      throw new JsiiFault(`Object ${objid} not found`);
     }
   }
 
@@ -267,7 +270,7 @@ class InterfaceCollection implements Iterable<string> {
   public addFromClass(fqn: string): void {
     const ti = this.resolveType(fqn);
     if (!spec.isClassType(ti)) {
-      throw new Error(
+      throw new JsiiFault(
         `Expected a class, but received ${spec.describeTypeReference(ti)}`,
       );
     }
@@ -288,7 +291,7 @@ class InterfaceCollection implements Iterable<string> {
   public addFromInterface(fqn: string): void {
     const ti = this.resolveType(fqn);
     if (!spec.isInterfaceType(ti)) {
-      throw new Error(
+      throw new JsiiFault(
         `Expected an interface, but received ${spec.describeTypeReference(ti)}`,
       );
     }
