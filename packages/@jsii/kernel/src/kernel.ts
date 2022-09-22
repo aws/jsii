@@ -583,7 +583,7 @@ export class Kernel {
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
           const constructor = this._findSymbol(fqn);
-          tagJsiiConstructor(constructor, fqn, assm.metadata.version);
+          tagJsiiConstructor(constructor, fqn);
       }
     }
   }

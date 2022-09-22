@@ -1428,6 +1428,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "cn-cit",
+      "name": "cn-cit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27255477?v=4",
+      "profile": "https://github.com/cn-cit",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
