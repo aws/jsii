@@ -14,7 +14,7 @@ class TestErrorHandling:
         obj = jsii_calc.Calculator()
 
         with pytest.raises(
-            RuntimeError, match="Class jsii-calc.Calculator doesn't have a method"
+            JSIIError, match="Class jsii-calc.Calculator doesn't have a method"
         ):
             jsii.kernel.invoke(obj, "nonexistentMethod")
 

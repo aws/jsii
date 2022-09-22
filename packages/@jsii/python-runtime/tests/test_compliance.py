@@ -87,6 +87,8 @@ from jsii_calc.submodule.child import SomeEnum
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 
+from src.jsii.errors import JSIIError
+
 # Note: The names of these test functions have been chosen to map as closely to the
 #       Java Compliance tests as possible.
 # Note: While we could write more expressive and better tests using the functionality
@@ -638,7 +640,7 @@ def test_propertyOverrides_set_throws():
 
     so = ThrowingSyncVirtualMethods()
 
-    with pytest.raises(RuntimeError, match="Exception from overloaded setter"):
+    with pytest.raises(JSIIError, match="Exception from overloaded setter"):
         so.modify_value_of_the_property("Hii")
 
 
@@ -703,7 +705,7 @@ def test_fail_syncOverrides_callsDoubleAsync_method():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(RuntimeError):
+    with pytest.raises(JSIIError):
         obj.caller_is_method()
 
 
@@ -712,7 +714,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(RuntimeError):
+    with pytest.raises(JSIIError):
         obj.caller_is_property
 
 
