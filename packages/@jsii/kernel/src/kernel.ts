@@ -482,9 +482,15 @@ export class Kernel {
     try {
       result = await promise;
       this._debug('promise result:', result);
-    } catch (e) {
+    } catch (e: any) {
       this._debug('promise error:', e);
-      throw new JsiiFault((e as any).message);
+      if (e.name === JsiiErrorType.JSII_FAULT) {
+        throw new JsiiFault(e.message);
+      }
+
+      // default to RuntimeError, since non-kernel errors will not
+      // have their `name` field defined
+      throw new RuntimeError(e);
     }
 
     return {

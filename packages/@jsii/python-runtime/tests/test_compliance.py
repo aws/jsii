@@ -640,7 +640,7 @@ def test_propertyOverrides_set_throws():
 
     so = ThrowingSyncVirtualMethods()
 
-    with pytest.raises(JSIIError, match="Exception from overloaded setter"):
+    with pytest.raises(RuntimeError, match="Exception from overloaded setter"):
         so.modify_value_of_the_property("Hii")
 
 
@@ -705,7 +705,7 @@ def test_fail_syncOverrides_callsDoubleAsync_method():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(JSIIError):
+    with pytest.raises(RuntimeError):
         obj.caller_is_method()
 
 
@@ -714,7 +714,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
     obj.call_async = True
 
     # TODO: Error Handling
-    with pytest.raises(JSIIError):
+    with pytest.raises(RuntimeError):
         obj.caller_is_property
 
 

@@ -1,4 +1,4 @@
-import { api, Kernel, JsiiFault, JsiiError } from '@jsii/kernel';
+import { api, Kernel, JsiiFault, JsiiError, RuntimeError } from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
@@ -59,7 +59,8 @@ export class KernelHost {
         completeReq.complete.cbid === callback.cbid
       ) {
         if (completeReq.complete.err) {
-          throw new JsiiFault(completeReq.complete.err);
+          // TODO: add name to the api so we can use it to decide which type to throw here?
+          throw new RuntimeError(completeReq.complete.err);
         }
 
         return completeReq.complete.result;
