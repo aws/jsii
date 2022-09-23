@@ -2144,10 +2144,27 @@ defineTest('invokeBinScript() return output', (sandbox) => {
     script: 'calc',
   });
 
-  expect(result.stdout).toEqual('Hello World!\n');
-  expect(result.stderr).toEqual('');
-  expect(result.status).toEqual(0);
-  expect(result.signal).toBeNull();
+  expect(result).toMatchObject<api.InvokeScriptResponse>({
+    status: 0,
+    stdout: 'Hello World!\n',
+    stderr: '',
+    signal: null,
+  });
+});
+
+defineTest('invokeBinScript() accepts arguments', (sandbox) => {
+  const result = sandbox.invokeBinScript({
+    assembly: 'jsii-calc',
+    script: 'calc',
+    args: ['arg1', 'arg2'],
+  });
+
+  expect(result).toMatchObject<api.InvokeScriptResponse>({
+    status: 0,
+    stdout: 'Hello World!\n  arguments: arg1, arg2\n',
+    stderr: '',
+    signal: null,
+  });
 });
 
 // =================================================================================================

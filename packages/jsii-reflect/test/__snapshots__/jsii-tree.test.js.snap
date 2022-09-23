@@ -445,139 +445,159 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       └─┬ static staticMethod() method (stable)
  │ │ │         ├── static
  │ │ │         └── returns: string
- │ │ └─┬ submodule
- │ │   ├─┬ submodules
- │ │   │ ├─┬ back_references
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ interface MyClassReference (stable)
- │ │   │ │     └─┬ members
- │ │   │ │       └─┬ reference property (stable)
- │ │   │ │         ├── abstract
- │ │   │ │         ├── immutable
- │ │   │ │         └── type: jsii-calc.submodule.MyClass
- │ │   │ ├─┬ child
- │ │   │ │ └─┬ types
- │ │   │ │   ├─┬ class InnerClass (stable)
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   ├── <initializer>() initializer (stable)
- │ │   │ │   │   └─┬ static staticProp property (stable)
- │ │   │ │   │     ├── const
- │ │   │ │   │     ├── immutable
- │ │   │ │   │     ├── static
- │ │   │ │   │     └── type: jsii-calc.submodule.child.SomeStruct
- │ │   │ │   ├─┬ class OuterClass (stable)
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   ├── <initializer>() initializer (stable)
- │ │   │ │   │   └─┬ innerClass property (stable)
- │ │   │ │   │     ├── immutable
- │ │   │ │   │     └── type: jsii-calc.submodule.child.InnerClass
- │ │   │ │   ├─┬ interface KwargsProps (stable)
- │ │   │ │   │ ├─┬ interfaces
- │ │   │ │   │ │ └── SomeStruct
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   └─┬ extra property (stable)
- │ │   │ │   │     ├── abstract
- │ │   │ │   │     ├── immutable
- │ │   │ │   │     └── type: Optional<string>
- │ │   │ │   ├─┬ interface SomeStruct (stable)
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   └─┬ prop property (stable)
- │ │   │ │   │     ├── abstract
- │ │   │ │   │     ├── immutable
- │ │   │ │   │     └── type: jsii-calc.submodule.child.SomeEnum
- │ │   │ │   ├─┬ interface Structure (stable)
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   └─┬ bool property (stable)
- │ │   │ │   │     ├── abstract
- │ │   │ │   │     ├── immutable
- │ │   │ │   │     └── type: boolean
- │ │   │ │   ├─┬ enum Awesomeness (stable)
- │ │   │ │   │ └── AWESOME (stable)
- │ │   │ │   ├─┬ enum Goodness (stable)
- │ │   │ │   │ ├── PRETTY_GOOD (stable)
- │ │   │ │   │ ├── REALLY_GOOD (stable)
- │ │   │ │   │ └── AMAZINGLY_GOOD (stable)
- │ │   │ │   └─┬ enum SomeEnum (stable)
- │ │   │ │     └── SOME (stable)
- │ │   │ ├─┬ isolated
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ class Kwargs (stable)
- │ │   │ │     └─┬ members
- │ │   │ │       └─┬ static method(props) method (stable)
- │ │   │ │         ├── static
- │ │   │ │         ├─┬ parameters
- │ │   │ │         │ └─┬ props
- │ │   │ │         │   └── type: Optional<jsii-calc.submodule.child.KwargsProps>
- │ │   │ │         └── returns: boolean
- │ │   │ ├─┬ nested_submodule
- │ │   │ │ ├─┬ submodules
- │ │   │ │ │ └─┬ deeplyNested
- │ │   │ │ │   └─┬ types
- │ │   │ │ │     └─┬ interface INamespaced (stable)
- │ │   │ │ │       └─┬ members
- │ │   │ │ │         └─┬ definedAt property (stable)
- │ │   │ │ │           ├── abstract
- │ │   │ │ │           ├── immutable
- │ │   │ │ │           └── type: string
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ class Namespaced (stable)
- │ │   │ │     ├── interfaces: INamespaced
- │ │   │ │     └─┬ members
- │ │   │ │       ├─┬ definedAt property (stable)
- │ │   │ │       │ ├── immutable
- │ │   │ │       │ └── type: string
- │ │   │ │       └─┬ goodness property (stable)
- │ │   │ │         ├── abstract
- │ │   │ │         ├── immutable
- │ │   │ │         └── type: jsii-calc.submodule.child.Goodness
- │ │   │ ├─┬ param
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ interface SpecialParameter (stable)
- │ │   │ │     └─┬ members
- │ │   │ │       └─┬ value property (stable)
- │ │   │ │         ├── abstract
- │ │   │ │         ├── immutable
- │ │   │ │         └── type: string
- │ │   │ └─┬ returnsparam
- │ │   │   └─┬ types
- │ │   │     └─┬ class ReturnsSpecialParameter (stable)
- │ │   │       └─┬ members
- │ │   │         ├── <initializer>() initializer (stable)
- │ │   │         └─┬ returnsSpecialParam() method (stable)
- │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
+ │ │ ├─┬ submodule
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ back_references
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface MyClassReference (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ reference property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: jsii-calc.submodule.MyClass
+ │ │ │ │ ├─┬ child
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├─┬ class InnerClass (stable)
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │ │ │   │   └─┬ static staticProp property (stable)
+ │ │ │ │ │   │     ├── const
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     ├── static
+ │ │ │ │ │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │ │ │ │   ├─┬ class OuterClass (stable)
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   ├── <initializer>() initializer (stable)
+ │ │ │ │ │   │   └─┬ innerClass property (stable)
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     └── type: jsii-calc.submodule.child.InnerClass
+ │ │ │ │ │   ├─┬ interface KwargsProps (stable)
+ │ │ │ │ │   │ ├─┬ interfaces
+ │ │ │ │ │   │ │ └── SomeStruct
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ extra property (stable)
+ │ │ │ │ │   │     ├── abstract
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     └── type: Optional<string>
+ │ │ │ │ │   ├─┬ interface SomeStruct (stable)
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ prop property (stable)
+ │ │ │ │ │   │     ├── abstract
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     └── type: jsii-calc.submodule.child.SomeEnum
+ │ │ │ │ │   ├─┬ interface Structure (stable)
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ bool property (stable)
+ │ │ │ │ │   │     ├── abstract
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     └── type: boolean
+ │ │ │ │ │   ├─┬ enum Awesomeness (stable)
+ │ │ │ │ │   │ └── AWESOME (stable)
+ │ │ │ │ │   ├─┬ enum Goodness (stable)
+ │ │ │ │ │   │ ├── PRETTY_GOOD (stable)
+ │ │ │ │ │   │ ├── REALLY_GOOD (stable)
+ │ │ │ │ │   │ └── AMAZINGLY_GOOD (stable)
+ │ │ │ │ │   └─┬ enum SomeEnum (stable)
+ │ │ │ │ │     └── SOME (stable)
+ │ │ │ │ ├─┬ isolated
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class Kwargs (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ static method(props) method (stable)
+ │ │ │ │ │         ├── static
+ │ │ │ │ │         ├─┬ parameters
+ │ │ │ │ │         │ └─┬ props
+ │ │ │ │ │         │   └── type: Optional<jsii-calc.submodule.child.KwargsProps>
+ │ │ │ │ │         └── returns: boolean
+ │ │ │ │ ├─┬ nested_submodule
+ │ │ │ │ │ ├─┬ submodules
+ │ │ │ │ │ │ └─┬ deeplyNested
+ │ │ │ │ │ │   └─┬ types
+ │ │ │ │ │ │     └─┬ interface INamespaced (stable)
+ │ │ │ │ │ │       └─┬ members
+ │ │ │ │ │ │         └─┬ definedAt property (stable)
+ │ │ │ │ │ │           ├── abstract
+ │ │ │ │ │ │           ├── immutable
+ │ │ │ │ │ │           └── type: string
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class Namespaced (stable)
+ │ │ │ │ │     ├── interfaces: INamespaced
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├─┬ definedAt property (stable)
+ │ │ │ │ │       │ ├── immutable
+ │ │ │ │ │       │ └── type: string
+ │ │ │ │ │       └─┬ goodness property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: jsii-calc.submodule.child.Goodness
+ │ │ │ │ ├─┬ param
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface SpecialParameter (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ value property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: string
+ │ │ │ │ └─┬ returnsparam
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class ReturnsSpecialParameter (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer (stable)
+ │ │ │ │         └─┬ returnsSpecialParam() method (stable)
+ │ │ │ │           └── returns: jsii-calc.submodule.param.SpecialParameter
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class MyClass (stable)
+ │ │ │   │ ├── interfaces: INamespaced
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer (stable)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │ │   │   ├─┬ methodWithSpecialParam(param) method (stable)
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ param
+ │ │ │   │   │ │   └── type: jsii-calc.submodule.param.SpecialParameter
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   ├─┬ awesomeness property (stable)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: jsii-calc.submodule.child.Awesomeness
+ │ │ │   │   ├─┬ definedAt property (stable)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: string
+ │ │ │   │   ├─┬ goodness property (stable)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: jsii-calc.submodule.child.Goodness
+ │ │ │   │   ├─┬ props property (stable)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: jsii-calc.submodule.child.SomeStruct
+ │ │ │   │   └─┬ allTypes property (stable)
+ │ │ │   │     └── type: Optional<jsii-calc.AllTypes>
+ │ │ │   └─┬ interface Default (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ foo property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ └─┬ union
  │ │   └─┬ types
- │ │     ├─┬ class MyClass (stable)
- │ │     │ ├── interfaces: INamespaced
+ │ │     ├─┬ class ConsumesUnion (stable)
  │ │     │ └─┬ members
- │ │     │   ├─┬ <initializer>(props) initializer (stable)
- │ │     │   │ └─┬ parameters
- │ │     │   │   └─┬ props
- │ │     │   │     └── type: jsii-calc.submodule.child.SomeStruct
- │ │     │   ├─┬ methodWithSpecialParam(param) method (stable)
- │ │     │   │ ├─┬ parameters
- │ │     │   │ │ └─┬ param
- │ │     │   │ │   └── type: jsii-calc.submodule.param.SpecialParameter
- │ │     │   │ └── returns: string
- │ │     │   ├─┬ awesomeness property (stable)
- │ │     │   │ ├── immutable
- │ │     │   │ └── type: jsii-calc.submodule.child.Awesomeness
- │ │     │   ├─┬ definedAt property (stable)
- │ │     │   │ ├── immutable
- │ │     │   │ └── type: string
- │ │     │   ├─┬ goodness property (stable)
- │ │     │   │ ├── immutable
- │ │     │   │ └── type: jsii-calc.submodule.child.Goodness
- │ │     │   ├─┬ props property (stable)
- │ │     │   │ ├── immutable
- │ │     │   │ └── type: jsii-calc.submodule.child.SomeStruct
- │ │     │   └─┬ allTypes property (stable)
- │ │     │     └── type: Optional<jsii-calc.AllTypes>
- │ │     └─┬ interface Default (stable)
+ │ │     │   └─┬ static unionType(param) method (stable)
+ │ │     │     ├── static
+ │ │     │     ├─┬ parameters
+ │ │     │     │ └─┬ param
+ │ │     │     │   └── type: jsii-calc.union.IResolvable | jsii-calc.union.Resolvable | @scope/jsii-calc-lib.IFriendly
+ │ │     │     └── returns: void
+ │ │     ├─┬ class Resolvable (stable)
+ │ │     │ ├── interfaces: IResolvable
+ │ │     │ └─┬ members
+ │ │     │   └─┬ resolve() method (stable)
+ │ │     │     └── returns: any
+ │ │     └─┬ interface IResolvable (stable)
  │ │       └─┬ members
- │ │         └─┬ foo property (stable)
+ │ │         └─┬ resolve() method (stable)
  │ │           ├── abstract
- │ │           ├── immutable
- │ │           └── type: number
+ │ │           └── returns: any
  │ └─┬ types
  │   ├─┬ class AbstractClass (stable)
  │   │ ├── base: AbstractClassBase
@@ -3358,6 +3378,18 @@ exports[`jsii-tree --all 1`] = `
    │ ├── @scope/jsii-calc-base
    │ └── @scope/jsii-calc-base-of-base
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├─┬ class InterfaceFactory (deprecated)
+   │ │   │ └─┬ members
+   │ │   │   └─┬ static create() method (deprecated)
+   │ │   │     ├── static
+   │ │   │     └── returns: @scope/jsii-calc-lib.deprecationRemoval.IInterface
+   │ │   └─┬ interface IInterface (deprecated)
+   │ │     └─┬ members
+   │ │       └─┬ method() method (deprecated)
+   │ │         ├── abstract
+   │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
    │     ├─┬ class NestingClass (deprecated)
@@ -3648,44 +3680,50 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
- │ │ └─┬ submodule
- │ │   ├─┬ submodules
- │ │   │ ├─┬ back_references
- │ │   │ │ └─┬ types
- │ │   │ │   └── interface MyClassReference
- │ │   │ ├─┬ child
- │ │   │ │ └─┬ types
- │ │   │ │   ├── class InnerClass
- │ │   │ │   ├── class OuterClass
- │ │   │ │   ├─┬ interface KwargsProps
- │ │   │ │   │ └─┬ interfaces
- │ │   │ │   │   └── SomeStruct
- │ │   │ │   ├── interface SomeStruct
- │ │   │ │   ├── interface Structure
- │ │   │ │   ├── enum Awesomeness
- │ │   │ │   ├── enum Goodness
- │ │   │ │   └── enum SomeEnum
- │ │   │ ├─┬ isolated
- │ │   │ │ └─┬ types
- │ │   │ │   └── class Kwargs
- │ │   │ ├─┬ nested_submodule
- │ │   │ │ ├─┬ submodules
- │ │   │ │ │ └─┬ deeplyNested
- │ │   │ │ │   └─┬ types
- │ │   │ │ │     └── interface INamespaced
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ class Namespaced
- │ │   │ │     └── interfaces: INamespaced
- │ │   │ ├─┬ param
- │ │   │ │ └─┬ types
- │ │   │ │   └── interface SpecialParameter
- │ │   │ └─┬ returnsparam
- │ │   │   └─┬ types
- │ │   │     └── class ReturnsSpecialParameter
+ │ │ ├─┬ submodule
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ back_references
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface MyClassReference
+ │ │ │ │ ├─┬ child
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├── class InnerClass
+ │ │ │ │ │   ├── class OuterClass
+ │ │ │ │ │   ├─┬ interface KwargsProps
+ │ │ │ │ │   │ └─┬ interfaces
+ │ │ │ │ │   │   └── SomeStruct
+ │ │ │ │ │   ├── interface SomeStruct
+ │ │ │ │ │   ├── interface Structure
+ │ │ │ │ │   ├── enum Awesomeness
+ │ │ │ │ │   ├── enum Goodness
+ │ │ │ │ │   └── enum SomeEnum
+ │ │ │ │ ├─┬ isolated
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class Kwargs
+ │ │ │ │ ├─┬ nested_submodule
+ │ │ │ │ │ ├─┬ submodules
+ │ │ │ │ │ │ └─┬ deeplyNested
+ │ │ │ │ │ │   └─┬ types
+ │ │ │ │ │ │     └── interface INamespaced
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class Namespaced
+ │ │ │ │ │     └── interfaces: INamespaced
+ │ │ │ │ ├─┬ param
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface SpecialParameter
+ │ │ │ │ └─┬ returnsparam
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class ReturnsSpecialParameter
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class MyClass
+ │ │ │   │ └── interfaces: INamespaced
+ │ │ │   └── interface Default
+ │ │ └─┬ union
  │ │   └─┬ types
- │ │     ├─┬ class MyClass
- │ │     │ └── interfaces: INamespaced
- │ │     └── interface Default
+ │ │     ├── class ConsumesUnion
+ │ │     ├─┬ class Resolvable
+ │ │     │ └── interfaces: IResolvable
+ │ │     └── interface IResolvable
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -3985,6 +4023,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├── class InterfaceFactory
+   │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
    │     ├── class NestingClass
@@ -4259,81 +4301,92 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ class OnlyStaticMethods
  │ │ │     └─┬ members
  │ │ │       └── static staticMethod() method
- │ │ └─┬ submodule
- │ │   ├─┬ submodules
- │ │   │ ├─┬ back_references
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ interface MyClassReference
- │ │   │ │     └─┬ members
- │ │   │ │       └── reference property
- │ │   │ ├─┬ child
- │ │   │ │ └─┬ types
- │ │   │ │   ├─┬ class InnerClass
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   ├── <initializer>() initializer
- │ │   │ │   │   └── static staticProp property
- │ │   │ │   ├─┬ class OuterClass
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   ├── <initializer>() initializer
- │ │   │ │   │   └── innerClass property
- │ │   │ │   ├─┬ interface KwargsProps
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   └── extra property
- │ │   │ │   ├─┬ interface SomeStruct
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   └── prop property
- │ │   │ │   ├─┬ interface Structure
- │ │   │ │   │ └─┬ members
- │ │   │ │   │   └── bool property
- │ │   │ │   ├─┬ enum Awesomeness
- │ │   │ │   │ └── AWESOME
- │ │   │ │   ├─┬ enum Goodness
- │ │   │ │   │ ├── PRETTY_GOOD
- │ │   │ │   │ ├── REALLY_GOOD
- │ │   │ │   │ └── AMAZINGLY_GOOD
- │ │   │ │   └─┬ enum SomeEnum
- │ │   │ │     └── SOME
- │ │   │ ├─┬ isolated
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ class Kwargs
- │ │   │ │     └─┬ members
- │ │   │ │       └── static method(props) method
- │ │   │ ├─┬ nested_submodule
- │ │   │ │ ├─┬ submodules
- │ │   │ │ │ └─┬ deeplyNested
- │ │   │ │ │   └─┬ types
- │ │   │ │ │     └─┬ interface INamespaced
- │ │   │ │ │       └─┬ members
- │ │   │ │ │         └── definedAt property
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ class Namespaced
- │ │   │ │     └─┬ members
- │ │   │ │       ├── definedAt property
- │ │   │ │       └── goodness property
- │ │   │ ├─┬ param
- │ │   │ │ └─┬ types
- │ │   │ │   └─┬ interface SpecialParameter
- │ │   │ │     └─┬ members
- │ │   │ │       └── value property
- │ │   │ └─┬ returnsparam
- │ │   │   └─┬ types
- │ │   │     └─┬ class ReturnsSpecialParameter
- │ │   │       └─┬ members
- │ │   │         ├── <initializer>() initializer
- │ │   │         └── returnsSpecialParam() method
+ │ │ ├─┬ submodule
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ back_references
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface MyClassReference
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── reference property
+ │ │ │ │ ├─┬ child
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├─┬ class InnerClass
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   ├── <initializer>() initializer
+ │ │ │ │ │   │   └── static staticProp property
+ │ │ │ │ │   ├─┬ class OuterClass
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   ├── <initializer>() initializer
+ │ │ │ │ │   │   └── innerClass property
+ │ │ │ │ │   ├─┬ interface KwargsProps
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └── extra property
+ │ │ │ │ │   ├─┬ interface SomeStruct
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └── prop property
+ │ │ │ │ │   ├─┬ interface Structure
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └── bool property
+ │ │ │ │ │   ├─┬ enum Awesomeness
+ │ │ │ │ │   │ └── AWESOME
+ │ │ │ │ │   ├─┬ enum Goodness
+ │ │ │ │ │   │ ├── PRETTY_GOOD
+ │ │ │ │ │   │ ├── REALLY_GOOD
+ │ │ │ │ │   │ └── AMAZINGLY_GOOD
+ │ │ │ │ │   └─┬ enum SomeEnum
+ │ │ │ │ │     └── SOME
+ │ │ │ │ ├─┬ isolated
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class Kwargs
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── static method(props) method
+ │ │ │ │ ├─┬ nested_submodule
+ │ │ │ │ │ ├─┬ submodules
+ │ │ │ │ │ │ └─┬ deeplyNested
+ │ │ │ │ │ │   └─┬ types
+ │ │ │ │ │ │     └─┬ interface INamespaced
+ │ │ │ │ │ │       └─┬ members
+ │ │ │ │ │ │         └── definedAt property
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ class Namespaced
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       ├── definedAt property
+ │ │ │ │ │       └── goodness property
+ │ │ │ │ ├─┬ param
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └─┬ interface SpecialParameter
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── value property
+ │ │ │ │ └─┬ returnsparam
+ │ │ │ │   └─┬ types
+ │ │ │ │     └─┬ class ReturnsSpecialParameter
+ │ │ │ │       └─┬ members
+ │ │ │ │         ├── <initializer>() initializer
+ │ │ │ │         └── returnsSpecialParam() method
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class MyClass
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>(props) initializer
+ │ │ │   │   ├── methodWithSpecialParam(param) method
+ │ │ │   │   ├── awesomeness property
+ │ │ │   │   ├── definedAt property
+ │ │ │   │   ├── goodness property
+ │ │ │   │   ├── props property
+ │ │ │   │   └── allTypes property
+ │ │ │   └─┬ interface Default
+ │ │ │     └─┬ members
+ │ │ │       └── foo property
+ │ │ └─┬ union
  │ │   └─┬ types
- │ │     ├─┬ class MyClass
+ │ │     ├─┬ class ConsumesUnion
  │ │     │ └─┬ members
- │ │     │   ├── <initializer>(props) initializer
- │ │     │   ├── methodWithSpecialParam(param) method
- │ │     │   ├── awesomeness property
- │ │     │   ├── definedAt property
- │ │     │   ├── goodness property
- │ │     │   ├── props property
- │ │     │   └── allTypes property
- │ │     └─┬ interface Default
+ │ │     │   └── static unionType(param) method
+ │ │     ├─┬ class Resolvable
+ │ │     │ └─┬ members
+ │ │     │   └── resolve() method
+ │ │     └─┬ interface IResolvable
  │ │       └─┬ members
- │ │         └── foo property
+ │ │         └── resolve() method
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
@@ -5531,6 +5584,14 @@ exports[`jsii-tree --members 1`] = `
  │       └── foo property
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├─┬ class InterfaceFactory
+   │ │   │ └─┬ members
+   │ │   │   └── static create() method
+   │ │   └─┬ interface IInterface
+   │ │     └─┬ members
+   │ │       └── method() method
    │ └─┬ submodule
    │   └─┬ types
    │     ├─┬ class NestingClass
@@ -5639,20 +5700,22 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   └─┬ submodule
- │     └─┬ submodules
- │       ├── back_references
- │       ├── child
- │       ├── isolated
- │       ├─┬ nested_submodule
- │       │ └─┬ submodules
- │       │   └── deeplyNested
- │       ├── param
- │       └── returnsparam
+ │   ├─┬ submodule
+ │   │ └─┬ submodules
+ │   │   ├── back_references
+ │   │   ├── child
+ │   │   ├── isolated
+ │   │   ├─┬ nested_submodule
+ │   │   │ └─┬ submodules
+ │   │   │   └── deeplyNested
+ │   │   ├── param
+ │   │   └── returnsparam
+ │   └── union
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;
@@ -5763,40 +5826,45 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
- │ │ └─┬ submodule
- │ │   ├─┬ submodules
- │ │   │ ├─┬ back_references
- │ │   │ │ └─┬ types
- │ │   │ │   └── interface MyClassReference
- │ │   │ ├─┬ child
- │ │   │ │ └─┬ types
- │ │   │ │   ├── class InnerClass
- │ │   │ │   ├── class OuterClass
- │ │   │ │   ├── interface KwargsProps
- │ │   │ │   ├── interface SomeStruct
- │ │   │ │   ├── interface Structure
- │ │   │ │   ├── enum Awesomeness
- │ │   │ │   ├── enum Goodness
- │ │   │ │   └── enum SomeEnum
- │ │   │ ├─┬ isolated
- │ │   │ │ └─┬ types
- │ │   │ │   └── class Kwargs
- │ │   │ ├─┬ nested_submodule
- │ │   │ │ ├─┬ submodules
- │ │   │ │ │ └─┬ deeplyNested
- │ │   │ │ │   └─┬ types
- │ │   │ │ │     └── interface INamespaced
- │ │   │ │ └─┬ types
- │ │   │ │   └── class Namespaced
- │ │   │ ├─┬ param
- │ │   │ │ └─┬ types
- │ │   │ │   └── interface SpecialParameter
- │ │   │ └─┬ returnsparam
- │ │   │   └─┬ types
- │ │   │     └── class ReturnsSpecialParameter
+ │ │ ├─┬ submodule
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ back_references
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface MyClassReference
+ │ │ │ │ ├─┬ child
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├── class InnerClass
+ │ │ │ │ │   ├── class OuterClass
+ │ │ │ │ │   ├── interface KwargsProps
+ │ │ │ │ │   ├── interface SomeStruct
+ │ │ │ │ │   ├── interface Structure
+ │ │ │ │ │   ├── enum Awesomeness
+ │ │ │ │ │   ├── enum Goodness
+ │ │ │ │ │   └── enum SomeEnum
+ │ │ │ │ ├─┬ isolated
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class Kwargs
+ │ │ │ │ ├─┬ nested_submodule
+ │ │ │ │ │ ├─┬ submodules
+ │ │ │ │ │ │ └─┬ deeplyNested
+ │ │ │ │ │ │   └─┬ types
+ │ │ │ │ │ │     └── interface INamespaced
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── class Namespaced
+ │ │ │ │ ├─┬ param
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   └── interface SpecialParameter
+ │ │ │ │ └─┬ returnsparam
+ │ │ │ │   └─┬ types
+ │ │ │ │     └── class ReturnsSpecialParameter
+ │ │ │ └─┬ types
+ │ │ │   ├── class MyClass
+ │ │ │   └── interface Default
+ │ │ └─┬ union
  │ │   └─┬ types
- │ │     ├── class MyClass
- │ │     └── interface Default
+ │ │     ├── class ConsumesUnion
+ │ │     ├── class Resolvable
+ │ │     └── interface IResolvable
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -6031,6 +6099,10 @@ exports[`jsii-tree --types 1`] = `
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
    ├─┬ submodules
+   │ ├─┬ deprecationRemoval
+   │ │ └─┬ types
+   │ │   ├── class InterfaceFactory
+   │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
    │     ├── class NestingClass
@@ -6089,20 +6161,22 @@ exports[`jsii-tree 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
- │   └─┬ submodule
- │     └─┬ submodules
- │       ├── back_references
- │       ├── child
- │       ├── isolated
- │       ├─┬ nested_submodule
- │       │ └─┬ submodules
- │       │   └── deeplyNested
- │       ├── param
- │       └── returnsparam
+ │   ├─┬ submodule
+ │   │ └─┬ submodules
+ │   │   ├── back_references
+ │   │   ├── child
+ │   │   ├── isolated
+ │   │   ├─┬ nested_submodule
+ │   │   │ └─┬ submodules
+ │   │   │   └── deeplyNested
+ │   │   ├── param
+ │   │   └── returnsparam
+ │   └── union
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
    └─┬ submodules
+     ├── deprecationRemoval
      └── submodule
 "
 `;

@@ -1272,7 +1272,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/66279577?v=4",
       "profile": "https://github.com/comcalvi",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
@@ -1427,6 +1428,52 @@
       "profile": "https://github.com/gshpychka",
       "contributions": [
         "bug"
+      ]
+    },
+    {
+      "login": "DanielMSchmidt",
+      "name": "Daniel Schmidt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1337046?v=4",
+      "profile": "http://danielmschmidt.de/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "kaizencc",
+      "name": "Kaizen Conroy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36202692?v=4",
+      "profile": "https://github.com/kaizencc",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Naumel",
+      "name": "Naumel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/104374999?v=4",
+      "profile": "https://github.com/Naumel",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "cn-cit",
+      "name": "cn-cit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27255477?v=4",
+      "profile": "https://github.com/cn-cit",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "jmalins",
+      "name": "Jeff Malins",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2001356?v=4",
+      "profile": "https://github.com/jmalins",
+      "contributions": [
+        "code"
       ]
     }
   ],
