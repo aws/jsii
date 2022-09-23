@@ -1434,6 +1434,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                 ┗━ 📁 lib
           ┃                    ┣━ 📄 $Module.java
           ┃                    ┣━ 📄 BaseFor2647.java
+          ┃                    ┣━ 📁 deprecation_removal
+          ┃                    ┃  ┣━ 📄 IInterface.java
+          ┃                    ┃  ┗━ 📄 InterfaceFactory.java
           ┃                    ┣━ 📄 DiamondLeft.java
           ┃                    ┣━ 📄 DiamondRight.java
           ┃                    ┣━ 📄 EnumFromScopedModule.java
@@ -3539,6 +3542,92 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/deprecation_removal/IInterface.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib.deprecation_removal;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.deprecationRemoval.IInterface")
+@software.amazon.jsii.Jsii.Proxy(IInterface.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+public interface IInterface extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    void method();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public final void method() {
+            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IInterface}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IInterface {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        default void method() {
+            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/deprecation_removal/InterfaceFactory.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib.deprecation_removal;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory")
+public class InterfaceFactory extends software.amazon.jsii.JsiiObject {
+
+    protected InterfaceFactory(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected InterfaceFactory(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface create() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory.class, "create", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/package-info.java 1`] = `
 /**
  *
@@ -3563,6 +3652,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 @scope/jsii-calc-lib.NumericValue=software.amazon.jsii.tests.calculator.lib.NumericValue
 @scope/jsii-calc-lib.Operation=software.amazon.jsii.tests.calculator.lib.Operation
 @scope/jsii-calc-lib.StructWithOnlyOptionals=software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals
+@scope/jsii-calc-lib.deprecationRemoval.IInterface=software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface
+@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory=software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory
 @scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable
 @scope/jsii-calc-lib.submodule.NestingClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass
 @scope/jsii-calc-lib.submodule.NestingClass.NestedClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass$NestedClass

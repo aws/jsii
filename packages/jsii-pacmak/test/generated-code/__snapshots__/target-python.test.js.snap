@@ -1056,6 +1056,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
              ┃  ┗━ 📄 jsii-calc-lib@0.0.0.jsii.tgz
              ┣━ 📁 custom_submodule_name
              ┃  ┗━ 📄 __init__.py
+             ┣━ 📁 deprecation_removal
+             ┃  ┗━ 📄 __init__.py
              ┗━ 📄 py.typed
 `;
 
@@ -1320,7 +1322,8 @@ kwargs = json.loads(
     "packages": [
         "scope.jsii_calc_lib",
         "scope.jsii_calc_lib._jsii",
-        "scope.jsii_calc_lib.custom_submodule_name"
+        "scope.jsii_calc_lib.custom_submodule_name",
+        "scope.jsii_calc_lib.deprecation_removal"
     ],
     "package_data": {
         "scope.jsii_calc_lib._jsii": [
@@ -1944,12 +1947,14 @@ __all__ = [
     "Operation",
     "StructWithOnlyOptionals",
     "custom_submodule_name",
+    "deprecation_removal",
 ]
 
 publication.publish()
 
 # Loading modules to ensure their types are registered with the jsii runtime library
 from . import custom_submodule_name
+from . import deprecation_removal
 
 `;
 
@@ -2190,6 +2195,80 @@ __all__ = [
     "NestingClass",
     "ReflectableEntry",
     "Reflector",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/deprecation_removal/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+
+@jsii.interface(jsii_type="@scope/jsii-calc-lib.deprecationRemoval.IInterface")
+class IInterface(typing_extensions.Protocol):
+    '''
+    :stability: deprecated
+    '''
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        ...
+
+
+class _IInterfaceProxy:
+    '''
+    :stability: deprecated
+    '''
+
+    __jsii_type__: typing.ClassVar[str] = "@scope/jsii-calc-lib.deprecationRemoval.IInterface"
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast(None, jsii.invoke(self, "method", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IInterface).__jsii_proxy_class__ = lambda : _IInterfaceProxy
+
+
+class InterfaceFactory(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory",
+):
+    '''
+    :stability: deprecated
+    '''
+
+    @jsii.member(jsii_name="create")
+    @builtins.classmethod
+    def create(cls) -> IInterface:
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast(IInterface, jsii.sinvoke(cls, "create", []))
+
+
+__all__ = [
+    "IInterface",
+    "InterfaceFactory",
 ]
 
 publication.publish()

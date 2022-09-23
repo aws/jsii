@@ -92,6 +92,13 @@
   },
   "schema": "jsii/0.10.0",
   "submodules": {
+    "@scope/jsii-calc-lib.deprecationRemoval": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 132
+      },
+      "symbolId": "lib/deprecation-removal:"
+    },
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -729,6 +736,67 @@
       ],
       "symbolId": "lib/index:StructWithOnlyOptionals"
     },
+    "@scope/jsii-calc-lib.deprecationRemoval.IInterface": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.deprecationRemoval.IInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/deprecation-removal.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/deprecation-removal.ts",
+            "line": 2
+          },
+          "name": "method"
+        }
+      ],
+      "name": "IInterface",
+      "namespace": "deprecationRemoval",
+      "symbolId": "lib/deprecation-removal:IInterface"
+    },
+    "@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/deprecation-removal.ts",
+        "line": 10
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/deprecation-removal.ts",
+            "line": 11
+          },
+          "name": "create",
+          "returns": {
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.deprecationRemoval.IInterface"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "InterfaceFactory",
+      "namespace": "deprecationRemoval",
+      "symbolId": "lib/deprecation-removal:InterfaceFactory"
+    },
     "@scope/jsii-calc-lib.submodule.IReflectable": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
@@ -954,5 +1022,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "kYLYyNyPod3JTyJWmgPJL1Z85k0HEEhQeMIs4zH4bEQ="
+  "fingerprint": "XDMAZYhhgc09X8VS8hpn3ch21YxKDn+HB0w82IofsRM="
 }
