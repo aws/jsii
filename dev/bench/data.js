@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663946908964,
+  "lastUpdate": 1663953310265,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6795,6 +6795,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 167038.66258621533,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46206.99908125 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jmalins@gmail.com",
+            "name": "Jeff Malins",
+            "username": "jmalins"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0cf500864c918a799505625b08025293431031c7",
+          "message": "fix(python): bin script python support, test argument passing (#3762)\n\nCorrects multiple issues with running `bin` scripts from python.\n\nThese were discovered in the context of this `projen` issue: https://github.com/projen/projen/issues/2103\n\n - Corrects broken argument marshaling to binary scripts introduced in #3694\n - Exposes exit code and stderr from script execution instead of failing silently\n\nAdditionally, adds more robust test coverage of passing arguments to `bin` scripts.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-23T16:06:00Z",
+          "tree_id": "28571601069c32a0278a76b935dd1641d09480eb",
+          "url": "https://github.com/aws/jsii/commit/0cf500864c918a799505625b08025293431031c7"
+        },
+        "date": 1663953305307,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 99009.20731515002,
+            "unit": "milliseconds",
+            "range": 4684672.643765152,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 99009.20731515002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 70768.1393982,
+            "unit": "milliseconds",
+            "range": 2954105.942897587,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70768.1393982 milliseconds over 20 runs"
           }
         ]
       }
