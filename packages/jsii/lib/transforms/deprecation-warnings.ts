@@ -10,6 +10,7 @@ import { symbolIdentifier } from '../symbol-id';
 export const WARNINGSCODE_FILE_NAME = '.warnings.jsii.js';
 const WARNING_FUNCTION_NAME = 'print';
 const PARAMETER_NAME = 'p';
+const FOR_LOOP_ITEM_NAME = 'o';
 const NAMESPACE = 'jsiiDeprecationWarnings';
 const LOCAL_ENUM_NAMESPACE = 'ns';
 const VISITED_OBJECTS_SET_NAME = 'visitedObjects';
@@ -236,6 +237,7 @@ function processInterfaceType(
         const statement = createTypeHandlerCall(
           functionName,
           `${PARAMETER_NAME}.${prop.name}`,
+          prop.type.collection.kind,
         );
         statementsByProp.set(`${prop.name}_`, statement);
       }
@@ -718,25 +720,67 @@ function findType(typeName: string, assemblies: Assembly[]) {
 function createTypeHandlerCall(
   functionName: string,
   parameter: string,
+  collectionKind?: spec.CollectionKind,
 ): ts.Statement {
-  return ts.createIf(
-    ts.createPrefix(
-      ts.SyntaxKind.ExclamationToken,
-      ts.createCall(
-        ts.createPropertyAccess(
-          ts.createIdentifier(VISITED_OBJECTS_SET_NAME),
-          ts.createIdentifier('has'),
+  switch (collectionKind) {
+    case spec.CollectionKind.Array:
+      return ts.createIf(
+        ts.createBinary(
+          ts.createIdentifier(parameter),
+          ts.SyntaxKind.ExclamationEqualsToken,
+          ts.createNull(),
         ),
-        undefined,
-        [ts.createIdentifier(parameter)],
-      ),
-    ),
-    ts.createExpressionStatement(
-      ts.createCall(ts.createIdentifier(functionName), undefined, [
-        ts.createIdentifier(parameter),
-      ]),
-    ),
-  );
+        ts.createForOf(
+          undefined,
+          ts.createVariableDeclarationList(
+            [ts.createVariableDeclaration(FOR_LOOP_ITEM_NAME)],
+            ts.NodeFlags.Const,
+          ),
+          ts.createIdentifier(parameter),
+          createTypeHandlerCall(functionName, FOR_LOOP_ITEM_NAME),
+        ),
+      );
+    case spec.CollectionKind.Map:
+      return ts.createIf(
+        ts.createBinary(
+          ts.createIdentifier(parameter),
+          ts.SyntaxKind.ExclamationEqualsToken,
+          ts.createNull(),
+        ),
+        ts.createForOf(
+          undefined,
+          ts.createVariableDeclarationList(
+            [ts.createVariableDeclaration(FOR_LOOP_ITEM_NAME)],
+            ts.NodeFlags.Const,
+          ),
+          ts.createCall(
+            ts.createPropertyAccess(ts.createIdentifier('Object'), 'values'),
+            undefined,
+            [ts.createIdentifier(parameter)],
+          ),
+          createTypeHandlerCall(functionName, FOR_LOOP_ITEM_NAME),
+        ),
+      );
+    case undefined:
+      return ts.createIf(
+        ts.createPrefix(
+          ts.SyntaxKind.ExclamationToken,
+          ts.createCall(
+            ts.createPropertyAccess(
+              ts.createIdentifier(VISITED_OBJECTS_SET_NAME),
+              ts.createIdentifier('has'),
+            ),
+            undefined,
+            [ts.createIdentifier(parameter)],
+          ),
+        ),
+        ts.createExpressionStatement(
+          ts.createCall(ts.createIdentifier(functionName), undefined, [
+            ts.createIdentifier(parameter),
+          ]),
+        ),
+      );
+  }
 }
 
 /**
