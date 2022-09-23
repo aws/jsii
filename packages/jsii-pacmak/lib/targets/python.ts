@@ -1792,7 +1792,7 @@ class PythonModule implements PythonType {
           code.line();
           emitList(
             code,
-            '__jsii_assembly__.invokeBinScript(',
+            'exit_code = __jsii_assembly__.invokeBinScript(',
             [
               JSON.stringify(this.assembly.name),
               JSON.stringify(name),
@@ -1800,6 +1800,7 @@ class PythonModule implements PythonType {
             ],
             ')',
           );
+          code.line('exit(exit_code)');
           code.closeFile(script_file);
           scripts.push(script_file.replace(/\\/g, '/'));
         }

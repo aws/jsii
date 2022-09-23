@@ -11297,7 +11297,8 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
     "jsii-calc", "3.20.120", "jsii_calc", "jsii-calc@3.20.120.jsii.tgz"
 )
 
-__jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
+exit_code = __jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
+exit(exit_code)
 
 `;
 
