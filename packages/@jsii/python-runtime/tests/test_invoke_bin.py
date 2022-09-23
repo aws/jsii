@@ -5,7 +5,10 @@ import pytest
 
 
 class TestInvokeBinScript:
-    @pytest.mark.skipif(platform.system() == "Windows", reason="jsii-pacmak does not generate windows scripts")
+    @pytest.mark.skipif(
+        platform.system() == "Windows",
+        reason="jsii-pacmak does not generate windows scripts",
+    )
     def test_invoke_script(self) -> None:
         result = run_script("calc")
 
@@ -13,7 +16,10 @@ class TestInvokeBinScript:
         assert result.stdout == b"Hello World!\n\n"
         assert result.stderr == b""
 
-    @pytest.mark.skipif(platform.system() == "Windows", reason="jsii-pacmak does not generate windows scripts")
+    @pytest.mark.skipif(
+        platform.system() == "Windows",
+        reason="jsii-pacmak does not generate windows scripts",
+    )
     def test_invoke_script_with_args(self) -> None:
         result = run_script("calc", "arg1", "arg2")
 
