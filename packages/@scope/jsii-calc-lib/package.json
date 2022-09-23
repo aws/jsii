@@ -26,7 +26,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "jsii --project-references && jsii-rosetta",
+    "build": "jsii --project-references --strip-deprecated=deprecated-to-strip.txt && jsii-rosetta",
     "pacmak": "jsii-pacmak",
     "test": "diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"

@@ -95,6 +95,7 @@
     },
     "@scope/jsii-calc-lib": {
       "submodules": {
+        "@scope/jsii-calc-lib.deprecationRemoval": {},
         "@scope/jsii-calc-lib.submodule": {
           "targets": {
             "dotnet": {
@@ -18326,5 +18327,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "OaHwYmdPa8tbAJnlREahLGpRaNNBor2aoG04vsA/SvM="
+  "fingerprint": "O7e7hA2s4dwiCigDIFE0ANjlmeXIQydXdSodi9WHja4="
 }
