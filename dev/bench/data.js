@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663891729253,
+  "lastUpdate": 1663946908964,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6757,6 +6757,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 295398.1279781651,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45232.052128500014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "72f2e7ca82555c2dce647f873bed923a98808f95",
+          "message": "fix(jsii): missing deprecation warning in collections (#3756)\n\nWhen a deprecated member was nested under a collection of values, no deprecation warning was being generated, despite all the necessary information being available.\n\nThere was a missing case that caused the collection to be validated as if it was the element type, which is obviously incorrect, but thankfully did not cause errors as it typically led to verifying `undefined`, which silently succeeds.\n\nAdded the necessary code so that collections are deep-validated as they should have been.\n\nFixes #3755\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-23T14:39:47Z",
+          "tree_id": "5aa853dbc16a698ee022feece31cc07559fe046d",
+          "url": "https://github.com/aws/jsii/commit/72f2e7ca82555c2dce647f873bed923a98808f95"
+        },
+        "date": 1663946906527,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62418.19116005003,
+            "unit": "milliseconds",
+            "range": 1292833.9891289657,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62418.19116005003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46206.99908125,
+            "unit": "milliseconds",
+            "range": 167038.66258621533,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46206.99908125 milliseconds over 20 runs"
           }
         ]
       }
