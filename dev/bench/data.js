@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663953310265,
+  "lastUpdate": 1664038107037,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6833,6 +6833,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2954105.942897587,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70768.1393982 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mitchellvaline@yahoo.com",
+            "name": "Mitchell Valine",
+            "username": "MrArnoldPalmer"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "283dae57647cb28323f4f02ef040deef81248f3a",
+          "message": "feat(dotnet): distinguish error types (#3764)\n\nAdds a new class `JsiiError` that subclasses `JsiiException` to help\ndistinguish jsii kernel errors that are likely unrecoverable from\n`RuntimeErrors` which may be errors expected and handled within the JS\nprocess and may be caught and handled in the host language runtime.\n\nSee https://github.com/aws/jsii/pull/3747 for more information\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-24T15:48:51Z",
+          "tree_id": "4951006e2c930407f242dc7273e626ea97c37baa",
+          "url": "https://github.com/aws/jsii/commit/283dae57647cb28323f4f02ef040deef81248f3a"
+        },
+        "date": 1664038102481,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 84756.0113165,
+            "unit": "milliseconds",
+            "range": 2045165.5233031765,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 84756.0113165 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60454.687932100016,
+            "unit": "milliseconds",
+            "range": 846002.7737163402,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60454.687932100016 milliseconds over 20 runs"
           }
         ]
       }
