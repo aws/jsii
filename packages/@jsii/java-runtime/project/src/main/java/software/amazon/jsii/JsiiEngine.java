@@ -486,7 +486,16 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 throw e;
             }
         } catch (InvocationTargetException e) {
-            throw new JsiiError(e.getTargetException());
+            System.err.println("in invokeMethod()");
+            System.err.println("caught InvocationTargetException e with target class: " + e.getTargetException().getClass());
+            System.err.println("caught InvocationTargetException e with message: " + e.getCause().getMessage());
+            System.err.println("caught InvocationTargetException e with target message: " + e.getTargetException().getMessage());
+            System.err.println("rethrowing as runtime error");
+            if (e.getTargetException().getClass().equals(JsiiError.class)) {
+                throw new JsiiError(e.getTargetException());
+            } else {
+                throw new RuntimeException(e.getTargetException());
+            }
         } catch (IllegalAccessException e) {
             throw new JsiiError(e);
         } finally {
@@ -503,7 +512,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         try {
             JsonNode result = handleCallback(callback);
             this.getClient().completeCallback(callback, null, result);
-        } catch (JsiiError e) {
+        } catch (Exception e) {
             this.getClient().completeCallback(callback, e.getMessage(), null);
         }
     }

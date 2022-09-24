@@ -123,10 +123,14 @@ public final class JsiiRuntime {
             errorMessage += "\n" + resp.get("stack").asText();
         }
 
-        if (errorName.equals(JsiiException.Type.RUNTIME_EXCEPTION.toString())) {
+        System.err.println("in processErrorResponse()");
+        System.err.println("errorName in processResponse is: " + errorName);
+        if (errorName.equals(JsiiException.Type.RUNTIME_ERROR.toString())) {
+          System.err.println("processResponse throwing RuntimeException");
           throw new RuntimeException(errorMessage);
         }
 
+        System.err.println("processResponse throwing JsiiError");
         throw new JsiiError(errorMessage);
     }
 
@@ -146,6 +150,7 @@ public final class JsiiRuntime {
 
         JsonNode result = null;
         String error = null;
+        String name = null;
         try {
             result = this.callbackHandler.handleCallback(callback);
         } catch (Exception e) {
@@ -154,12 +159,25 @@ public final class JsiiRuntime {
             } else {
                 error = e.getMessage();
             }
+
+            String errClass = e.getClass().toString();
+            System.err.println("in processCallbackResponse()");
+            System.err.println("errClass == " + errClass);
+            //e.printStackTrace();
+            if (errClass.equals("class software.amazon.jsii.JsiiError")) {
+                name = JsiiException.Type.JSII_FAULT.toString();
+            } else {
+                name = JsiiException.Type.RUNTIME_ERROR.toString();
+            }
         }
 
         ObjectNode completeResponse = JsonNodeFactory.instance.objectNode();
         completeResponse.put("cbid", callback.getCbid());
         if (error != null) {
             completeResponse.put("err", error);
+            completeResponse.put("name", name);
+            System.err.println("java runtime is putting an error field: " + error);
+            System.err.println("java runtime is putting a name field: " + name);
         }
         if (result != null) {
             completeResponse.set("result", result);

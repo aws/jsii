@@ -1,4 +1,11 @@
-import { api, Kernel, JsiiFault, JsiiError, RuntimeError } from '@jsii/kernel';
+import {
+  api,
+  Kernel,
+  JsiiFault,
+  JsiiError,
+  RuntimeError,
+  JsiiErrorType,
+} from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
@@ -59,7 +66,16 @@ export class KernelHost {
         completeReq.complete.cbid === callback.cbid
       ) {
         if (completeReq.complete.err) {
-          // TODO: add name to the api so we can use it to decide which type to throw here?
+          console.log('-=-===------------------------------------');
+          console.log(
+            `completeReq.complete.err detected with name field ${completeReq.complete.name}`,
+          );
+          console.log('-=-===------------------------------------');
+          if (completeReq.complete.name === JsiiErrorType.JSII_FAULT) {
+            console.log(`host throwing fault: ${completeReq.complete.err}`);
+            throw new JsiiFault(completeReq.complete.err);
+          }
+          console.log(`host throwing runtime err: ${completeReq.complete.err}`);
           throw new RuntimeError(completeReq.complete.err);
         }
 

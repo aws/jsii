@@ -490,6 +490,7 @@ export class Kernel {
 
       // default to RuntimeError, since non-kernel errors will not
       // have their `name` field defined
+      console.log(`kernel throwing ${e.message}`);
       throw new RuntimeError(e);
     }
 
@@ -523,7 +524,7 @@ export class Kernel {
   }
 
   public complete(req: api.CompleteRequest): api.CompleteResponse {
-    const { cbid, err, result } = req;
+    const { cbid, err, result /*, name*/ } = req;
 
     this._debug('complete', cbid, err, result);
 
@@ -1319,6 +1320,7 @@ export class Kernel {
       // This error can be thrown by the kernel directly, or it can be
       // thrown from user code. If the error comes from the kernel, then its name field will be populated;
       // if the error comes from user code, the name field will not be populated.
+      console.log(`kernel throwing ${e.message}`);
       throw new RuntimeError(e);
     } finally {
       delete this.syncInProgress;

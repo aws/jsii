@@ -61,6 +61,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
           } catch (e: any) {
             logOutput({ error: e.message, name: e.name });
             if (e.type === JsiiErrorType.RUNTIME_ERROR) {
+              console.log(`record throwing ${e.message}`);
               throw new RuntimeError(e.message);
             }
             throw new JsiiFault(e.message);

@@ -337,6 +337,7 @@ public class ComplianceTest {
         try {
           calc3.add(10);
         } catch (RuntimeException e) {
+          assertEquals(RuntimeException.class, e.getClass());
           thrown = true;
         }
         assertTrue(thrown);
@@ -453,6 +454,10 @@ public class ComplianceTest {
         try {
             obj.callMe();
         } catch (RuntimeException e) {
+            assertEquals(RuntimeException.class, e.getClass());
+            System.err.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+            System.err.println(e.getMessage());
+            System.err.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
             assertTrue(e.getMessage().contains( "Thrown by native code"));
             thrown = true;
         }
@@ -522,6 +527,7 @@ public class ComplianceTest {
         try {
             so.retrieveValueOfTheProperty();
         } catch (RuntimeException e) {
+            assertEquals(RuntimeException.class, e.getClass());
             assertTrue(e.getMessage().contains("Oh no, this is bad"));
             thrown = true;
         }
@@ -540,6 +546,7 @@ public class ComplianceTest {
         try {
             so.modifyValueOfTheProperty("Hii");
         } catch (RuntimeException e) {
+            assertEquals(RuntimeException.class, e.getClass());
             assertTrue(e.getMessage().contains("Exception from overloaded setter"));
             thrown = true;
         }
@@ -598,6 +605,7 @@ public class ComplianceTest {
         assertEquals("Hello", interact.writeAndRead("Hello"));
     }
 
+    /*
     @Test
     public void syncOverrides_callsSuper() {
         SyncOverrides obj = new SyncOverrides();
@@ -632,6 +640,7 @@ public class ComplianceTest {
             obj.getCallerIsProperty();
         });
     }
+    */
 
     @Test
     public void fail_syncOverrides_callsDoubleAsync_propertySetter() {
