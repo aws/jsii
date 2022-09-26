@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664205238359,
+  "lastUpdate": 1664210797754,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6947,6 +6947,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 375124.58977236296,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44911.37697194998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "686631a778412db220ad91db3522421f49dcacd7",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.5.2 to ~=8.5.3 in /gh-pages (#3768)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.5.3</h2>\n<ul>\n<li>Fixed build error when enabling cookie consent without analytics</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4381\">#4381</a>: Code blocks render ligatures for some fonts</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.5.3+insiders-4.23.6 (2022-09-22)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4389\">#4389</a>: Blog posts in first week of year in wrong archive</li>\n<li>Fixed (= switched) footer previous and next links for blog posts</li>\n</ul>\n<p>mkdocs-material-8.5.3 (2022-09-20)</p>\n<ul>\n<li>Fixed build error when enabling cookie consent without analytics</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4381\">#4381</a>: Code blocks render ligatures for some fonts</li>\n</ul>\n<p>mkdocs-material-8.5.2+insiders-4.23.5 (2022-09-18)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4367\">#4367</a>: Improved blog plugin date handling for MultiMarkdown syntax</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4374\">#4374</a>: Fixed invalid URLs of related links to other blog posts</li>\n</ul>\n<p>mkdocs-material-8.5.2 (2022-09-18)</p>\n<ul>\n<li>Updated Mermaid.js to version 9.1.7</li>\n<li>Fixed overly large headlines in search results (8.5.0 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4358\">#4358</a>: Navigation sections appear as clickable (8.5.0 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4356\">#4356</a>: GitHub repository statistics fetched before cookie consent</li>\n</ul>\n<p>mkdocs-material-8.5.1 (2022-09-15)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4366\">#4366</a>: Removed dependencies with native extensions</li>\n</ul>\n<p>mkdocs-material-8.5.0+insiders-4.23.4 (2022-09-14)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4365\">#4365</a>: Recursion error in blog plugin due to deepcopy</li>\n<li>Fixed path errors for blog plugin on Windows</li>\n<li>Fixed publishing workflow in forked repositories</li>\n</ul>\n<p>mkdocs-material-8.5.0+insiders-4.23.3 (2022-09-13)</p>\n<ul>\n<li>Fixed previous and next page links for drafts of blog posts</li>\n</ul>\n<p>mkdocs-material-8.5.0 (2022-09-13)</p>\n<ul>\n<li>Added support for social cards</li>\n<li>Added support for code annotation anchor links (deep linking)</li>\n<li>Added support for code annotation comment stripping (syntax modifier)</li>\n<li>Added support for sidebars scrolling automatically to active item</li>\n<li>Added support for anchor following table of contents (= auto scroll)</li>\n<li>Added support for tag icons</li>\n</ul>\n<p>mkdocs-material-8.4.4+insiders-4.23.2 (2022-09-13)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4348\">#4348</a>: Blog plugin crashes on custom nav title</li>\n<li>Fixed blog plugin crashing when category contained only drafts</li>\n<li>Fixed rendering of content from blog index file</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e607379e70dc68987a0a93dfa0f8d4eb6842c9ce\"><code>e607379</code></a> Prepare 8.5.3 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c7deb06b790fbf68034407c29bcf845641796198\"><code>c7deb06</code></a> Fixed cookie consent when analytics was not set</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1f0578849c74c69546d2431b8985233d9c92f7fe\"><code>1f05788</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/dcab57dd1cced4b77875c1aa1b53467c62709d31\"><code>dcab57d</code></a> Removed ligatures from code blocks</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1410254c1a5f2a5372b987a460d9acdea3c58286\"><code>1410254</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/35b3e17f817a7c715f074e8a54322f7c939385e2\"><code>35b3e17</code></a> Added Automation Technology to premium sponsors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e6d829556aaa78cff59f91433943708488fb290c\"><code>e6d8295</code></a> Fix typo (<a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4375\">#4375</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/af613275fb78c8eaac2d10c2a37138936cb09815\"><code>af61327</code></a> Formatting</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/16bb4379d1868ef1ae8ac3f8ee0b796657e56422\"><code>16bb437</code></a> Modernized metadata (<a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4341\">#4341</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/209b653cb6e09fada48a92b76dbf560056799d0c\"><code>209b653</code></a> Updated Insiders changelog</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.5.2...8.5.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once it's up-to-date and CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-09-26T15:41:20Z",
+          "tree_id": "b64c9f2a51631e01d6fb18b4d27619dc5b5d6707",
+          "url": "https://github.com/aws/jsii/commit/686631a778412db220ad91db3522421f49dcacd7"
+        },
+        "date": 1664210792967,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 90560.54593809997,
+            "unit": "milliseconds",
+            "range": 3651995.6717857695,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 90560.54593809997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 69458.01871389998,
+            "unit": "milliseconds",
+            "range": 1537051.5708713315,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 69458.01871389998 milliseconds over 20 runs"
           }
         ]
       }
