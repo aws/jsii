@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664038107037,
+  "lastUpdate": 1664185874788,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6871,6 +6871,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 846002.7737163402,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60454.687932100016 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bcce9897a2f0da20c3af6b3573ae08d5cd8398df",
+          "message": "chore(jsii): enable skipLibCheck (#3754)\n\nDisable type-checking declarations files from dependencies, which is the recommended setting of the TypeScript compiler, and might speed up compilation of modules with large dependencies where only a subset of the dependency is being used (as is often the case with AWS CDK use).\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-26T08:56:27Z",
+          "tree_id": "12d8b14f44a8b12ca84ca3adc592109fd21df9d7",
+          "url": "https://github.com/aws/jsii/commit/bcce9897a2f0da20c3af6b3573ae08d5cd8398df"
+        },
+        "date": 1664185871653,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70898.32435844999,
+            "unit": "milliseconds",
+            "range": 622117.380934553,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70898.32435844999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52550.1509736,
+            "unit": "milliseconds",
+            "range": 289038.5720521424,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52550.1509736 milliseconds over 20 runs"
           }
         ]
       }
