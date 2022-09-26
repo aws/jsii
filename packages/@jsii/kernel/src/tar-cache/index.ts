@@ -41,12 +41,18 @@ export function extract(
   options: ExtractOptions,
   ...comments: readonly string[]
 ): ExtractResult {
-  return (packageCacheEnabled ? extractViaCache : extractToOutDir)(
-    file,
-    outDir,
-    options,
-    ...comments,
-  );
+  mkdirSync(outDir, { recursive: true });
+  try {
+    return (packageCacheEnabled ? extractViaCache : extractToOutDir)(
+      file,
+      outDir,
+      options,
+      ...comments,
+    );
+  } catch (err) {
+    rmSync(outDir, { force: true, recursive: true });
+    throw err;
+  }
 }
 
 function extractViaCache(

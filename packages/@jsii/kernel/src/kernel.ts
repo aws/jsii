@@ -110,9 +110,6 @@ export class Kernel {
     // Force umask to have npm-install-like permissions
     const originalUmask = process.umask(0o022);
     try {
-      // Create the install directory (there may be several path components for @scoped/packages)
-      fs.mkdirSync(path.dirname(packageDir), { recursive: true });
-
       // untar the archive to its final location
       const { cache } = this._debugTime(
         () =>
