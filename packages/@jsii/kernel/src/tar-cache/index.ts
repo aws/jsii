@@ -1,9 +1,8 @@
-import { mkdirSync, mkdtempSync, renameSync, rmSync } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
+import { mkdirSync, rmSync } from 'fs';
 import * as tar from 'tar';
 
 import { DiskCache } from '../disk-cache';
+import { link } from '../link';
 import { defaultCacheRoot } from './default-cache-root';
 
 export type ExtractOptions = Omit<
@@ -12,11 +11,6 @@ export type ExtractOptions = Omit<
 >;
 
 export interface ExtractResult {
-  /**
-   * The path in which the extracted files are located
-   */
-  readonly path: string;
-
   /**
    * When `'hit'`, the data was already present in cache and was returned from
    * cache.
@@ -43,38 +37,43 @@ let packageCacheEnabled =
  */
 export function extract(
   file: string,
+  outDir: string,
   options: ExtractOptions,
   ...comments: readonly string[]
 ): ExtractResult {
-  return (packageCacheEnabled ? extractToCache : extractToTemporary)(
+  return (packageCacheEnabled ? extractViaCache : extractToOutDir)(
     file,
+    outDir,
     options,
     ...comments,
   );
 }
 
-function extractToCache(
+function extractViaCache(
   file: string,
+  outDir: string,
   options: ExtractOptions = {},
   ...comments: readonly string[]
-): { path: string; cache: 'hit' | 'miss' } {
+): { cache: 'hit' | 'miss' } {
   const cacheRoot =
     process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT ?? defaultCacheRoot();
-  const cache = DiskCache.inDirectory(cacheRoot);
+  const dirCache = DiskCache.inDirectory(cacheRoot);
 
-  const entry = cache.entryFor(file, ...comments);
-  return entry.lock((lock) => {
+  const entry = dirCache.entryFor(file, ...comments);
+  const { path, cache } = entry.lock((lock) => {
     let cache: 'hit' | 'miss' = 'hit';
     if (!entry.pathExists) {
-      const tmpPath = `${entry.path}.tmp`;
-      mkdirSync(tmpPath, { recursive: true });
+      // !!!IMPORTANT!!!
+      // Extract directly into the final target directory, as certain antivirus
+      // software configurations on Windows will make a `renameSync` operation
+      // fail with EPERM until the files have been fully analyzed.
+      mkdirSync(entry.path, { recursive: true });
       try {
         untarInto({
           ...options,
-          cwd: tmpPath,
+          cwd: entry.path,
           file,
         });
-        renameSync(tmpPath, entry.path);
       } catch (error) {
         rmSync(entry.path, { force: true, recursive: true });
         throw error;
@@ -84,17 +83,23 @@ function extractToCache(
     lock.touch();
     return { path: entry.path, cache };
   });
+
+  link(path, outDir);
+
+  return { cache };
 }
 
-function extractToTemporary(
+function extractToOutDir(
   file: string,
+  cwd: string,
   options: ExtractOptions = {},
-): { path: string } {
-  const path = mkdtempSync(join(tmpdir(), 'jsii-runtime-untar-'));
-
-  untarInto({ ...options, cwd: path, file });
-
-  return { path };
+): { cache?: undefined } {
+  // !!!IMPORTANT!!!
+  // Extract directly into the final target directory, as certain antivirus
+  // software configurations on Windows will make a `renameSync` operation
+  // fail with EPERM until the files have been fully analyzed.
+  untarInto({ ...options, cwd, file });
+  return {};
 }
 
 function untarInto(
