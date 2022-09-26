@@ -511,9 +511,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private void processCallback(final Callback callback) {
         try {
             JsonNode result = handleCallback(callback);
-            this.getClient().completeCallback(callback, null, result);
+            this.getClient().completeCallback(callback, null, null, result);
         } catch (Exception e) {
-            this.getClient().completeCallback(callback, e.getMessage(), null);
+            System.err.println("JsiiEngine processing callback with Exception " + e.getMessage() + " of type " + e.getClass());
+            this.getClient().completeCallback(callback, e.getMessage(), null, null);
         }
     }
 

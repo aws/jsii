@@ -605,7 +605,6 @@ public class ComplianceTest {
         assertEquals("Hello", interact.writeAndRead("Hello"));
     }
 
-    /*
     @Test
     public void syncOverrides_callsSuper() {
         SyncOverrides obj = new SyncOverrides();
@@ -640,7 +639,6 @@ public class ComplianceTest {
             obj.getCallerIsProperty();
         });
     }
-    */
 
     @Test
     public void fail_syncOverrides_callsDoubleAsync_propertySetter() {

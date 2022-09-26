@@ -524,7 +524,7 @@ export class Kernel {
   }
 
   public complete(req: api.CompleteRequest): api.CompleteResponse {
-    const { cbid, err, result /*, name*/ } = req;
+    const { cbid, err, result, name } = req;
 
     this._debug('complete', cbid, err, result);
 
@@ -535,7 +535,14 @@ export class Kernel {
 
     if (err) {
       this._debug('completed with error:', err);
-      cb.fail(new Error(err));
+      console.error(
+        `KERNEL found err in complete() with name ${name} and message ${err}`,
+      );
+      cb.fail(
+        name === JsiiErrorType.JSII_FAULT
+          ? new JsiiFault(err)
+          : new RuntimeError(err),
+      );
     } else {
       const sandoxResult = this._toSandbox(
         result,
@@ -1315,6 +1322,7 @@ export class Kernel {
       return fn();
     } catch (e: any) {
       if (e.name === JsiiErrorType.JSII_FAULT) {
+        console.log(`kernel faulting ${e.message}`);
         throw new JsiiFault(e);
       }
       // This error can be thrown by the kernel directly, or it can be
