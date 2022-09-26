@@ -1475,6 +1475,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "andipabst",
+      "name": "Andi Pabst",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9639382?v=4",
+      "profile": "https://github.com/andipabst",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
