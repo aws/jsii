@@ -1466,6 +1466,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "jmalins",
+      "name": "Jeff Malins",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2001356?v=4",
+      "profile": "https://github.com/jmalins",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github",
