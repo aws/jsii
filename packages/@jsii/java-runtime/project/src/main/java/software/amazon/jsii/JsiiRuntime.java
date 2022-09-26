@@ -158,7 +158,8 @@ public final class JsiiRuntime {
 
             String errClass = e.getClass().toString();
             name = errClass.equals("class software.amazon.jsii.JsiiError")
-            ?  JsiiException.Type.JSII_FAULT.toString() : JsiiException.Type.RUNTIME_ERROR.toString();
+            ?  JsiiException.Type.JSII_FAULT.toString()
+            : JsiiException.Type.RUNTIME_ERROR.toString();
         }
 
         ObjectNode completeResponse = JsonNodeFactory.instance.objectNode();
