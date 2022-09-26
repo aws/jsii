@@ -455,9 +455,6 @@ public class ComplianceTest {
             obj.callMe();
         } catch (RuntimeException e) {
             assertEquals(RuntimeException.class, e.getClass());
-            System.err.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-            System.err.println(e.getMessage());
-            System.err.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
             assertTrue(e.getMessage().contains( "Thrown by native code"));
             thrown = true;
         }

@@ -253,7 +253,6 @@ public final class JsiiClient {
         req.put("cbid", callback.getCbid());
         req.put("err", error);
         req.put("name", name);
-        ////////////////// PUT NAME HEREEEEEEEEEEEEEEEEEEE
         req.set("result", result);
 
         this.runtime.requestResponse(req);

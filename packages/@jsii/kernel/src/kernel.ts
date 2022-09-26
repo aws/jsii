@@ -490,7 +490,6 @@ export class Kernel {
 
       // default to RuntimeError, since non-kernel errors will not
       // have their `name` field defined
-      console.log(`kernel throwing ${e.message}`);
       throw new RuntimeError(e);
     }
 
@@ -535,9 +534,6 @@ export class Kernel {
 
     if (err) {
       this._debug('completed with error:', err);
-      console.error(
-        `KERNEL found err in complete() with name ${name} and message ${err}`,
-      );
       cb.fail(
         name === JsiiErrorType.JSII_FAULT
           ? new JsiiFault(err)
@@ -1322,13 +1318,11 @@ export class Kernel {
       return fn();
     } catch (e: any) {
       if (e.name === JsiiErrorType.JSII_FAULT) {
-        console.log(`kernel faulting ${e.message}`);
         throw new JsiiFault(e);
       }
       // This error can be thrown by the kernel directly, or it can be
       // thrown from user code. If the error comes from the kernel, then its name field will be populated;
       // if the error comes from user code, the name field will not be populated.
-      console.log(`kernel throwing ${e.message}`);
       throw new RuntimeError(e);
     } finally {
       delete this.syncInProgress;
