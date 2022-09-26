@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664185874788,
+  "lastUpdate": 1664205238359,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -6909,6 +6909,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 289038.5720521424,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52550.1509736 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bab1d388e8bed41c4930566ba5834acf57cc696c",
+          "message": "fix(kernel): EPERM on rename operation on Windows (#3769)\n\nWindows does not allow renaming files that are currently open, or directories that contain open files. When antivirus software is used, files are open for analysis by the A/V software, making it impossible to rename files too quickly after they've been created.\n\nThis was already reported in #992 and addressed, however the issue was re-introduced in #3724, in which tarballs were extracted into temporary directories that were then renamed.\n\nChanged the code back to a form taht extracts files directly into their final place instead of staging via a temporary space, and added comments warning maintainers about the specific issue being solved here, so that hopefully the problem does not get re-introduced again in the future.\n\nFixes #3751\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-26T14:27:57Z",
+          "tree_id": "9ceff25bd6678487d87c59708f98ed987bcebc20",
+          "url": "https://github.com/aws/jsii/commit/bab1d388e8bed41c4930566ba5834acf57cc696c"
+        },
+        "date": 1664205236146,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 58251.77098545001,
+            "unit": "milliseconds",
+            "range": 2436569.609387734,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 58251.77098545001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 44911.37697194998,
+            "unit": "milliseconds",
+            "range": 375124.58977236296,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 44911.37697194998 milliseconds over 20 runs"
           }
         ]
       }
