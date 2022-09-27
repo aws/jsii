@@ -277,7 +277,6 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ matrix.dotnet }}
-          include-prerelease: ${{ matrix.dotnet-prerelease }}
       - name: Set up Go ${{ matrix.go }}
         uses: actions/setup-go@v3
         with:
