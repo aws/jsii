@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664290437050,
+  "lastUpdate": 1664297992275,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7175,6 +7175,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 816726.8256214012,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72052.85299434999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d98aa1b7120d0f0b62482cbee3a6253c6ea06715",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.3.1 to 17.3.2 in /packages/@jsii/dotnet-runtime-test/test (#3767)\n\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>\r\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2022-09-27T17:49:03+02:00",
+          "tree_id": "01fadfb63e72d11d0b3352c38609f19e119643fb",
+          "url": "https://github.com/aws/jsii/commit/d98aa1b7120d0f0b62482cbee3a6253c6ea06715"
+        },
+        "date": 1664297987326,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 99298.1363324,
+            "unit": "milliseconds",
+            "range": 5307272.678999484,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 99298.1363324 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73308.69520540003,
+            "unit": "milliseconds",
+            "range": 1704843.5398118235,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73308.69520540003 milliseconds over 20 runs"
           }
         ]
       }
