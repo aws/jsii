@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.69.0](https://github.com/aws/jsii/compare/v1.68.0...v1.69.0) (2022-09-27)
+
+
+### Features
+
+* **dotnet:** distinguish error types ([#3764](https://github.com/aws/jsii/issues/3764)) ([283dae5](https://github.com/aws/jsii/commit/283dae57647cb28323f4f02ef040deef81248f3a))
+
+
+### Bug Fixes
+
+* **jsii:** missing deprecation warning in collections ([#3756](https://github.com/aws/jsii/issues/3756)) ([72f2e7c](https://github.com/aws/jsii/commit/72f2e7ca82555c2dce647f873bed923a98808f95)), closes [#3755](https://github.com/aws/jsii/issues/3755)
+* **kernel:** EPERM on rename operation on Windows ([#3769](https://github.com/aws/jsii/issues/3769)) ([bab1d38](https://github.com/aws/jsii/commit/bab1d388e8bed41c4930566ba5834acf57cc696c)), closes [#992](https://github.com/aws/jsii/issues/992) [#3724](https://github.com/aws/jsii/issues/3724) [#3751](https://github.com/aws/jsii/issues/3751)
+* **python:** bin script python support, test argument passing ([#3762](https://github.com/aws/jsii/issues/3762)) ([0cf5008](https://github.com/aws/jsii/commit/0cf500864c918a799505625b08025293431031c7)), closes [#3694](https://github.com/aws/jsii/issues/3694)
+
 ## [1.68.0](https://github.com/aws/jsii/compare/v1.67.0...v1.68.0) (2022-09-22)
 
 
