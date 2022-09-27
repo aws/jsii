@@ -488,7 +488,7 @@ export class Kernel {
         throw new JsiiFault(e.message);
       }
 
-      // default to RuntimeError, since non-kernel errors will not
+      // default to RuntimeError, since non-kernel errors may not
       // have their `name` field defined
       throw new RuntimeError(e);
     }

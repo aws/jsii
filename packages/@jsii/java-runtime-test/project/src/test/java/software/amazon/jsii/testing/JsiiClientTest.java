@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import software.amazon.jsii.JsiiClient;
-import software.amazon.jsii.JsiiError;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.JsiiObjectMapper;
 import software.amazon.jsii.JsiiObjectRef;
@@ -183,15 +182,14 @@ public class JsiiClientTest {
         assertEquals(obj.getObjId(), JsiiObjectRef.parse(first.getInvoke().getObjref()).getObjId());
 
         // now complete the callback with an error
-        client.completeCallback(first, "The kernel encountered a fault", "@jsii/kernel.Fault", null);
+        client.completeCallback(first, "Hello, Fault", "@jsii/kernel.Fault", null);
 
         // end the async invocation, but now we expect the value to be different since we override the method.
         boolean thrown = false;
         try {
             client.endAsyncMethod(promise);
-        } catch (JsiiError e) {
-            assertEquals(JsiiError.class, e.getClass());
-            assertTrue(e.getMessage().contains("The kernel encountered a fault"));
+        } catch (JsiiException e) {
+            assertTrue(e.getMessage().contains("Hello, Fault"));
             thrown = true;
         }
         assertTrue(thrown);

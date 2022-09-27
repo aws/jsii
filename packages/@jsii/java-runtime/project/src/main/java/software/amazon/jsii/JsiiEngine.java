@@ -486,9 +486,13 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 throw e;
             }
         } catch (InvocationTargetException e) {
-            if (e.getTargetException().getClass().equals(JsiiError.class)) {
-                throw new JsiiError(e.getTargetException());
+            if (e.getTargetException() instanceof JsiiError){
+                throw (JsiiError)(e.getTargetException());
+            } else if (e.getTargetException() instanceof RuntimeException) {
+                // can rethrow without wrapping here
+                throw (RuntimeException)(e.getTargetException());
             } else {
+                // Can't just throw a checked error without wrapping it :(
                 throw new RuntimeException(e.getTargetException());
             }
         } catch (IllegalAccessException e) {
@@ -508,7 +512,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             JsonNode result = handleCallback(callback);
             this.getClient().completeCallback(callback, null, null, result);
         } catch (Exception e) {
-            this.getClient().completeCallback(callback, e.getMessage(), null, null);
+            String name = e instanceof JsiiException
+              ? JsiiException.Type.JSII_FAULT.toString()
+              : JsiiException.Type.RUNTIME_ERROR.toString();
+            this.getClient().completeCallback(callback, e.getMessage(), name, null);
         }
     }
 

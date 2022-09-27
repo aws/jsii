@@ -336,9 +336,11 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
           calc3.add(10);
+        } catch (JsiiException e) {
+          // We expect a RuntimeException that is NOT a JsiiException.
+          throw e;
         } catch (RuntimeException e) {
-          assertEquals(RuntimeException.class, e.getClass());
-          thrown = true;
+            thrown = true;
         }
         assertTrue(thrown);
         calc3.setMaxValue(40);
@@ -453,8 +455,9 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             obj.callMe();
+        } catch (JsiiException e) {
+            throw e;
         } catch (RuntimeException e) {
-            assertEquals(RuntimeException.class, e.getClass());
             assertTrue(e.getMessage().contains( "Thrown by native code"));
             thrown = true;
         }
@@ -523,8 +526,9 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             so.retrieveValueOfTheProperty();
+        } catch (JsiiException e) {
+            throw e;
         } catch (RuntimeException e) {
-            assertEquals(RuntimeException.class, e.getClass());
             assertTrue(e.getMessage().contains("Oh no, this is bad"));
             thrown = true;
         }
@@ -542,8 +546,9 @@ public class ComplianceTest {
         boolean thrown = false;
         try {
             so.modifyValueOfTheProperty("Hii");
+        } catch (JsiiException e) {
+            throw e;
         } catch (RuntimeException e) {
-            assertEquals(RuntimeException.class, e.getClass());
             assertTrue(e.getMessage().contains("Exception from overloaded setter"));
             thrown = true;
         }
