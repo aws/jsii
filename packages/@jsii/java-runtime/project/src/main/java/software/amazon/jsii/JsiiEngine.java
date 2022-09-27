@@ -513,8 +513,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             this.getClient().completeCallback(callback, null, null, result);
         } catch (Exception e) {
             String name = e instanceof JsiiException
-              ? JsiiException.Type.JSII_FAULT.toString()
-              : JsiiException.Type.RUNTIME_ERROR.toString();
+                ? JsiiException.Type.JSII_FAULT.toString()
+                : JsiiException.Type.RUNTIME_ERROR.toString();
             this.getClient().completeCallback(callback, e.getMessage(), name, null);
         }
     }

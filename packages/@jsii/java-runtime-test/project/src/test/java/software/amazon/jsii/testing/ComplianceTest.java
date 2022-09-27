@@ -335,10 +335,10 @@ public class ComplianceTest {
         assertEquals(23, calc3.getValue());
         boolean thrown = false;
         try {
-          calc3.add(10);
+            calc3.add(10);
         } catch (JsiiException e) {
-          // We expect a RuntimeException that is NOT a JsiiException.
-          throw e;
+            // We expect a RuntimeException that is NOT a JsiiException.
+            throw e;
         } catch (RuntimeException e) {
             thrown = true;
         }

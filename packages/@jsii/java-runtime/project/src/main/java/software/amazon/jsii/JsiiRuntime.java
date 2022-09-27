@@ -157,8 +157,8 @@ public final class JsiiRuntime {
             }
 
             name = e instanceof JsiiError
-            ? JsiiException.Type.JSII_FAULT.toString()
-            : JsiiException.Type.RUNTIME_ERROR.toString();
+                ? JsiiException.Type.JSII_FAULT.toString()
+                : JsiiException.Type.RUNTIME_ERROR.toString();
         }
 
         ObjectNode completeResponse = JsonNodeFactory.instance.objectNode();
