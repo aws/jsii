@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664297992275,
+  "lastUpdate": 1664301659845,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7213,6 +7213,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1704843.5398118235,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73308.69520540003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4fd370b886b4fd915c23f91e3d5947b5c1211da8",
+          "message": "chore: drop support for go < 1.18 (#3774)\n\nThose have been end-of-life for a while now, and\r\ngo 1.20 is expected to release in February 2023.",
+          "timestamp": "2022-09-27T18:54:57+02:00",
+          "tree_id": "0bf1c07e0793f8c929703a1ce6455dea08362108",
+          "url": "https://github.com/aws/jsii/commit/4fd370b886b4fd915c23f91e3d5947b5c1211da8"
+        },
+        "date": 1664301656724,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 92620.4183669,
+            "unit": "milliseconds",
+            "range": 3015157.568770352,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 92620.4183669 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 70667.26222974999,
+            "unit": "milliseconds",
+            "range": 1190557.5879071436,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70667.26222974999 milliseconds over 20 runs"
           }
         ]
       }
