@@ -234,7 +234,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/jcb
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -729,7 +729,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1577,7 +1577,7 @@ func InterfaceFactory_Create() IInterface {
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/scopejsiicalclib
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -2347,9 +2347,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__no_runtime_type_checking.go.diff 1`] = `
 --- go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package customsubmodulename
 +
@@ -2364,9 +2363,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__runtime_type_checks.go.diff 1`] = `
 --- go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/customsubmodulename/customsubmodulename_Reflector__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,16 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package customsubmodulename
 +
@@ -2420,9 +2418,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__no_runtime_type_checking.go.diff 1`] = `
 --- go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator library built on JSII.
 +package scopejsiicalclib
@@ -2442,9 +2439,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__runtime_type_checks.go.diff 1`] = `
 --- go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/scopejsiicalclib_BaseFor2647__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,29 @@
+@@ -0,0 +1,28 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator library built on JSII.
 +package scopejsiicalclib
@@ -2496,9 +2492,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/scopejsiicalclib_Number__no_runtime_type_checking.go.diff 1`] = `
 --- go/scopejsiicalclib/scopejsiicalclib_Number__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/scopejsiicalclib_Number__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator library built on JSII.
 +package scopejsiicalclib
@@ -2514,9 +2509,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/scopejsiicalclib_Number__runtime_type_checks.go.diff 1`] = `
 --- go/scopejsiicalclib/scopejsiicalclib_Number__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/scopejsiicalclib_Number__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator library built on JSII.
 +package scopejsiicalclib
@@ -3901,7 +3895,7 @@ func (j *jsiiProxy_Derived)SetProp(val *string) {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/go.mod 1`] = `
 module github.com/aws/jsii/jsii-calc/go/jsiicalc/v3
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -24800,9 +24794,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/a
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/anonymous/anonymous_UseOptions__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/anonymous/anonymous_UseOptions__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/anonymous/anonymous_UseOptions__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,18 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package anonymous
 +
@@ -24825,9 +24818,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/a
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/anonymous/anonymous_UseOptions__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/anonymous/anonymous_UseOptions__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/anonymous/anonymous_UseOptions__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,44 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package anonymous
 +
@@ -24895,9 +24887,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk16625/cdk16625_Cdk16625__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/cdk16625/cdk16625_Cdk16625__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/cdk16625/cdk16625_Cdk16625__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package cdk16625
 +
@@ -24912,9 +24903,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk16625/cdk16625_Cdk16625__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/cdk16625/cdk16625_Cdk16625__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/cdk16625/cdk16625_Cdk16625__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,18 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package cdk16625
 +
@@ -24956,9 +24946,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package donotimport
 +
@@ -24973,9 +24962,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/cdk16625/donotimport/donotimport_UnimportedSubmoduleType__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,16 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package donotimport
 +
@@ -25037,9 +25025,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/composition/composition_CompositeOperation__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/composition/composition_CompositeOperation__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/composition/composition_CompositeOperation__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,18 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package composition
 +
@@ -25062,9 +25049,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/composition/composition_CompositeOperation__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/composition/composition_CompositeOperation__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/composition/composition_CompositeOperation__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,32 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package composition
 +
@@ -25120,9 +25106,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/d
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package derivedclasshasnoproperties
 +
@@ -25137,9 +25122,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/d
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Base__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,16 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package derivedclasshasnoproperties
 +
@@ -25179,9 +25163,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/d
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package derivedclasshasnoproperties
 +
@@ -25196,9 +25179,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/d
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties_Derived__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,16 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package derivedclasshasnoproperties
 +
@@ -25252,9 +25234,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsii3656/jsii3656_OverrideMe__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsii3656/jsii3656_OverrideMe__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsii3656/jsii3656_OverrideMe__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package jsii3656
 +
@@ -25273,9 +25254,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsii3656/jsii3656_OverrideMe__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsii3656/jsii3656_OverrideMe__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsii3656/jsii3656_OverrideMe__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,30 @@
+@@ -0,0 +1,29 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package jsii3656
 +
@@ -25328,9 +25308,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AbstractClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AbstractClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AbstractClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25346,9 +25325,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AbstractClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AbstractClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AbstractClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25414,9 +25392,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AbstractSuite__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AbstractSuite__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AbstractSuite__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25440,9 +25417,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AbstractSuite__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AbstractSuite__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AbstractSuite__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,33 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25499,9 +25475,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Add__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Add__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Add__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25517,9 +25492,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Add__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Add__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Add__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25770,9 +25744,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AllTypes__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AllTypes__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AllTypes__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,83 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -25860,9 +25833,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AllTypes__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AllTypes__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AllTypes__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,337 @@
+@@ -0,0 +1,336 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26258,9 +26230,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AllowedMethodNames__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AllowedMethodNames__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AllowedMethodNames__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26288,9 +26259,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AllowedMethodNames__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AllowedMethodNames__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AllowedMethodNames__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,58 @@
+@@ -0,0 +1,57 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26371,9 +26341,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AmbiguousParameters__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AmbiguousParameters__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AmbiguousParameters__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26389,9 +26358,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AmbiguousParameters__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AmbiguousParameters__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AmbiguousParameters__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,26 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26441,9 +26409,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AsyncVirtualMethods__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AsyncVirtualMethods__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AsyncVirtualMethods__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26459,9 +26426,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_AsyncVirtualMethods__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_AsyncVirtualMethods__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_AsyncVirtualMethods__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26502,9 +26468,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Bell__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Bell__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Bell__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26520,9 +26485,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Bell__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Bell__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Bell__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26544,9 +26508,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_BinaryOperation__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_BinaryOperation__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_BinaryOperation__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26562,9 +26525,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_BinaryOperation__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_BinaryOperation__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_BinaryOperation__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26611,9 +26573,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_BurriedAnonymousObject__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_BurriedAnonymousObject__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_BurriedAnonymousObject__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26629,9 +26590,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_BurriedAnonymousObject__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_BurriedAnonymousObject__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_BurriedAnonymousObject__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26769,9 +26729,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Calculator__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Calculator__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Calculator__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,43 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26819,9 +26778,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Calculator__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Calculator__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Calculator__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,96 @@
+@@ -0,0 +1,95 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -26973,9 +26931,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27003,9 +26960,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassThatImplementsTheInternalInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,41 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27103,9 +27059,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27133,9 +27088,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassThatImplementsThePrivateInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,41 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27214,9 +27168,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27236,9 +27189,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithCollectionOfUnions__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,92 @@
+@@ -0,0 +1,91 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27406,9 +27358,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithCollections__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithCollections__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithCollections__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,27 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27440,9 +27391,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithCollections__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithCollections__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithCollections__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,54 @@
+@@ -0,0 +1,53 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27519,9 +27469,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithContainerTypes__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithContainerTypes__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithContainerTypes__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27537,9 +27486,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithContainerTypes__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithContainerTypes__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithContainerTypes__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,47 @@
+@@ -0,0 +1,46 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27623,9 +27571,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27645,9 +27592,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithJavaReservedWords__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,25 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27696,9 +27642,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27714,9 +27659,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithMutableObjectLiteralProperty__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27771,9 +27715,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithNestedUnion__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithNestedUnion__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithNestedUnion__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -27793,9 +27736,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithNestedUnion__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithNestedUnion__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithNestedUnion__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,300 @@
+@@ -0,0 +1,299 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28131,9 +28073,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28153,9 +28094,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ClassWithPrivateConstructorAndAutomaticProperties__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,30 @@
+@@ -0,0 +1,29 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28208,9 +28148,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConfusingToJackson__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConfusingToJackson__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConfusingToJackson__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28226,9 +28165,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConfusingToJackson__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConfusingToJackson__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConfusingToJackson__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,55 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28307,9 +28245,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConstructorPassesThisOut__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConstructorPassesThisOut__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConstructorPassesThisOut__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28325,9 +28262,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConstructorPassesThisOut__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConstructorPassesThisOut__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConstructorPassesThisOut__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28368,9 +28304,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConsumePureInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConsumePureInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConsumePureInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28386,9 +28321,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConsumePureInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConsumePureInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConsumePureInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28527,9 +28461,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConsumerCanRingBell__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConsumerCanRingBell__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConsumerCanRingBell__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,39 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28573,9 +28506,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConsumerCanRingBell__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConsumerCanRingBell__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConsumerCanRingBell__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,73 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28686,9 +28618,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28708,9 +28639,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ConsumersOfThisCrazyTypeSystem__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,25 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28787,9 +28717,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DataRenderer__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DataRenderer__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DataRenderer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28813,9 +28742,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DataRenderer__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DataRenderer__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DataRenderer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,37 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28876,9 +28804,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DeprecatedClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DeprecatedClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DeprecatedClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28894,9 +28821,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DeprecatedClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DeprecatedClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DeprecatedClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28937,9 +28863,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DoNotOverridePrivates__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DoNotOverridePrivates__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DoNotOverridePrivates__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28955,9 +28880,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DoNotOverridePrivates__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DoNotOverridePrivates__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DoNotOverridePrivates__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -28998,9 +28922,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29016,9 +28939,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DoNotRecognizeAnyAsOptional__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29059,9 +28981,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DocumentedClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DocumentedClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DocumentedClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29077,9 +28998,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DocumentedClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DocumentedClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DocumentedClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29145,9 +29065,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DynamicPropertyBearer__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DynamicPropertyBearer__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DynamicPropertyBearer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29171,9 +29090,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DynamicPropertyBearer__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DynamicPropertyBearer__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DynamicPropertyBearer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,33 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29266,9 +29184,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29296,9 +29213,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DynamicPropertyBearerChild__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,41 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29363,9 +29279,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Entropy__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Entropy__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Entropy__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29385,9 +29300,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Entropy__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Entropy__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Entropy__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,25 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29436,9 +29350,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_EraseUndefinedHashValues__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_EraseUndefinedHashValues__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_EraseUndefinedHashValues__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29454,9 +29367,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_EraseUndefinedHashValues__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_EraseUndefinedHashValues__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_EraseUndefinedHashValues__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,26 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29506,9 +29418,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ExperimentalClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ExperimentalClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ExperimentalClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29524,9 +29435,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ExperimentalClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ExperimentalClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ExperimentalClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29567,9 +29477,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ExportedBaseClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ExportedBaseClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ExportedBaseClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29585,9 +29494,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ExportedBaseClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ExportedBaseClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ExportedBaseClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29628,9 +29536,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ExternalClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ExternalClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ExternalClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29646,9 +29553,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ExternalClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ExternalClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ExternalClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29717,9 +29623,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_GiveMeStructs__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_GiveMeStructs__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_GiveMeStructs__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29743,9 +29648,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_GiveMeStructs__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_GiveMeStructs__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_GiveMeStructs__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,47 @@
+@@ -0,0 +1,46 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29815,9 +29719,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_GreetingAugmenter__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_GreetingAugmenter__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_GreetingAugmenter__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29833,9 +29736,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_GreetingAugmenter__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_GreetingAugmenter__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_GreetingAugmenter__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29878,9 +29780,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IAnotherPublicInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IAnotherPublicInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IAnotherPublicInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29896,9 +29797,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IAnotherPublicInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IAnotherPublicInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IAnotherPublicInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29939,9 +29839,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IBellRinger__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IBellRinger__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IBellRinger__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -29957,9 +29856,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IBellRinger__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IBellRinger__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IBellRinger__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30000,9 +29898,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IConcreteBellRinger__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IConcreteBellRinger__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IConcreteBellRinger__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30018,9 +29915,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IConcreteBellRinger__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IConcreteBellRinger__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IConcreteBellRinger__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30061,9 +29957,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IExtendsPrivateInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IExtendsPrivateInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IExtendsPrivateInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30079,9 +29974,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IExtendsPrivateInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IExtendsPrivateInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IExtendsPrivateInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30122,9 +30016,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30140,9 +30033,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IInterfaceWithOptionalMethodArguments__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30183,9 +30075,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IInterfaceWithProperties__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IInterfaceWithProperties__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IInterfaceWithProperties__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30201,9 +30092,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IInterfaceWithProperties__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IInterfaceWithProperties__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IInterfaceWithProperties__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30244,9 +30134,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30262,9 +30151,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IInterfaceWithPropertiesExtension__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30305,9 +30193,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IMutableObjectLiteral__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IMutableObjectLiteral__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IMutableObjectLiteral__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30323,9 +30210,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IMutableObjectLiteral__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IMutableObjectLiteral__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IMutableObjectLiteral__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30380,9 +30266,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_INonInternalInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_INonInternalInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_INonInternalInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30402,9 +30287,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_INonInternalInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_INonInternalInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_INonInternalInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,25 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30453,9 +30337,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IObjectWithProperty__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IObjectWithProperty__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IObjectWithProperty__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30471,9 +30354,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_IObjectWithProperty__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_IObjectWithProperty__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_IObjectWithProperty__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30514,9 +30396,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ImplementInternalInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ImplementInternalInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ImplementInternalInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30532,9 +30413,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ImplementInternalInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ImplementInternalInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ImplementInternalInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30575,9 +30455,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ImplementsPrivateInterface__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ImplementsPrivateInterface__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ImplementsPrivateInterface__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30593,9 +30472,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ImplementsPrivateInterface__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ImplementsPrivateInterface__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ImplementsPrivateInterface__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30636,9 +30514,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_InterfacesMaker__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_InterfacesMaker__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_InterfacesMaker__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30654,9 +30531,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_InterfacesMaker__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_InterfacesMaker__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_InterfacesMaker__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30697,9 +30573,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_JSII417Derived__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_JSII417Derived__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_JSII417Derived__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30715,9 +30590,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_JSII417Derived__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_JSII417Derived__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_JSII417Derived__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30769,9 +30643,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30791,9 +30664,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_JSObjectLiteralToNativeClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,25 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30842,9 +30714,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_JavaReservedWords__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_JavaReservedWords__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_JavaReservedWords__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30860,9 +30731,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_JavaReservedWords__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_JavaReservedWords__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_JavaReservedWords__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30903,9 +30773,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_LevelOne__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_LevelOne__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_LevelOne__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30921,9 +30790,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_LevelOne__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_LevelOne__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_LevelOne__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,22 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30969,9 +30837,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Multiply__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Multiply__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Multiply__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -30987,9 +30854,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Multiply__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Multiply__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Multiply__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31036,9 +30902,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Negate__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Negate__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Negate__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31054,9 +30919,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Negate__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Negate__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Negate__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31113,9 +30977,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31135,9 +30998,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_NullShouldBeTreatedAsUndefined__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,31 @@
+@@ -0,0 +1,30 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31216,9 +31078,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_NumberGenerator__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_NumberGenerator__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_NumberGenerator__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31242,9 +31103,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_NumberGenerator__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_NumberGenerator__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_NumberGenerator__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,33 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31315,9 +31175,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ObjectRefsInCollections__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ObjectRefsInCollections__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ObjectRefsInCollections__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31337,9 +31196,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ObjectRefsInCollections__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ObjectRefsInCollections__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ObjectRefsInCollections__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,27 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31390,9 +31248,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OptionalArgumentInvoker__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OptionalArgumentInvoker__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OptionalArgumentInvoker__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31408,9 +31265,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OptionalArgumentInvoker__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OptionalArgumentInvoker__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OptionalArgumentInvoker__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31451,9 +31307,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OptionalConstructorArgument__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OptionalConstructorArgument__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OptionalConstructorArgument__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31469,9 +31324,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OptionalConstructorArgument__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OptionalConstructorArgument__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OptionalConstructorArgument__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,21 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31516,9 +31370,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OptionalStructConsumer__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OptionalStructConsumer__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OptionalStructConsumer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31534,9 +31387,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OptionalStructConsumer__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OptionalStructConsumer__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OptionalStructConsumer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31577,9 +31429,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OverridableProtectedMember__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OverridableProtectedMember__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OverridableProtectedMember__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31595,9 +31446,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OverridableProtectedMember__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OverridableProtectedMember__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OverridableProtectedMember__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31638,9 +31488,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OverrideReturnsObject__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OverrideReturnsObject__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OverrideReturnsObject__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31656,9 +31505,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_OverrideReturnsObject__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_OverrideReturnsObject__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_OverrideReturnsObject__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31699,9 +31547,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31717,9 +31564,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_PartiallyInitializedThisConsumer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,26 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31769,9 +31615,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Polymorphism__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Polymorphism__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Polymorphism__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31787,9 +31632,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Polymorphism__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Polymorphism__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Polymorphism__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31868,9 +31712,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Power__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Power__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Power__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31898,9 +31741,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Power__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Power__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Power__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,48 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31972,9 +31814,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -31990,9 +31831,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_ReferenceEnumFromScopedPackage__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32035,9 +31875,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_RootStructValidator__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_RootStructValidator__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_RootStructValidator__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32053,9 +31892,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_RootStructValidator__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_RootStructValidator__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_RootStructValidator__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,22 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32101,9 +31939,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_RuntimeTypeChecking__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_RuntimeTypeChecking__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_RuntimeTypeChecking__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32119,9 +31956,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_RuntimeTypeChecking__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_RuntimeTypeChecking__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_RuntimeTypeChecking__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,21 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32166,9 +32002,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SingletonInt__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SingletonInt__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SingletonInt__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32184,9 +32019,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SingletonInt__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SingletonInt__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SingletonInt__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32227,9 +32061,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SingletonString__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SingletonString__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SingletonString__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32245,9 +32078,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SingletonString__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SingletonString__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SingletonString__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32288,9 +32120,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StableClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StableClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StableClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32306,9 +32137,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StableClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StableClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StableClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32349,9 +32179,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StaticContext__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StaticContext__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StaticContext__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32367,9 +32196,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StaticContext__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StaticContext__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StaticContext__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32452,9 +32280,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Statics__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Statics__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Statics__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32482,9 +32309,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Statics__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Statics__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Statics__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,41 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32549,9 +32375,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StripInternal__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StripInternal__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StripInternal__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32567,9 +32392,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StripInternal__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StripInternal__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StripInternal__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32624,9 +32448,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StructPassing__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StructPassing__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StructPassing__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32646,9 +32469,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StructPassing__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,40 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32740,9 +32562,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StructUnionConsumer__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StructUnionConsumer__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StructUnionConsumer__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32766,9 +32587,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_StructUnionConsumer__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_StructUnionConsumer__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_StructUnionConsumer__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,92 @@
+@@ -0,0 +1,91 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32916,9 +32736,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Sum__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Sum__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Sum__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -32946,9 +32765,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_Sum__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_Sum__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_Sum__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,44 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33015,9 +32833,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33033,9 +32850,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SupportsNiceJavaBuilder__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,23 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33082,9 +32898,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33100,9 +32915,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SupportsNiceJavaBuilderWithRequiredProps__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,26 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33249,9 +33063,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SyncVirtualMethods__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SyncVirtualMethods__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SyncVirtualMethods__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,43 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33299,9 +33112,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_SyncVirtualMethods__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_SyncVirtualMethods__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_SyncVirtualMethods__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,82 @@
+@@ -0,0 +1,81 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33420,9 +33232,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_TestStructWithEnum__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_TestStructWithEnum__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_TestStructWithEnum__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33442,9 +33253,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_TestStructWithEnum__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_TestStructWithEnum__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_TestStructWithEnum__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,33 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33482,9 +33292,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_UnaryOperation__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_UnaryOperation__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_UnaryOperation__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33500,9 +33309,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_UnaryOperation__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_UnaryOperation__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_UnaryOperation__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33545,9 +33353,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_UpcasingReflectable__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_UpcasingReflectable__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_UpcasingReflectable__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33563,9 +33370,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_UpcasingReflectable__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_UpcasingReflectable__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_UpcasingReflectable__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33634,9 +33440,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,19 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33660,9 +33465,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_UsesInterfaceWithProperties__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,33 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33719,9 +33523,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicInvoker__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33737,9 +33540,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicInvoker__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33779,9 +33581,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicMethod__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,11 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33797,9 +33598,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicMethod__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,17 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33854,9 +33654,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicTypeUnion__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,15 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -33876,9 +33675,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VariadicTypeUnion__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VariadicTypeUnion__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VariadicTypeUnion__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,85 @@
+@@ -0,0 +1,84 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -34042,9 +33840,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VirtualMethodPlayground__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VirtualMethodPlayground__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VirtualMethodPlayground__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,27 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -34076,9 +33873,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_VirtualMethodPlayground__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_VirtualMethodPlayground__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_VirtualMethodPlayground__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,50 @@
+@@ -0,0 +1,49 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +// A simple calcuator built on JSII.
 +package jsiicalc
@@ -34176,9 +33972,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/module2530_MyClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/module2530/module2530_MyClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/module2530_MyClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,18 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package module2530
 +
@@ -34201,9 +33996,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/module2530_MyClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/module2530/module2530_MyClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/module2530_MyClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,32 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package module2530
 +
@@ -34273,9 +34067,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2647/module2647_ExtendAndImplement__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/module2647/module2647_ExtendAndImplement__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2647/module2647_ExtendAndImplement__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package module2647
 +
@@ -34294,9 +34087,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2647/module2647_ExtendAndImplement__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/module2647/module2647_ExtendAndImplement__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2647/module2647_ExtendAndImplement__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,27 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package module2647
 +
@@ -34358,9 +34150,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2689/methods/methods_MyClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/module2689/methods/methods_MyClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2689/methods/methods_MyClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package methods
 +
@@ -34379,9 +34170,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2689/methods/methods_MyClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/module2689/methods/methods_MyClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2689/methods/methods_MyClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,35 @@
+@@ -0,0 +1,34 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package methods
 +
@@ -34453,9 +34243,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/pythonself/pythonself_ClassWithSelf__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/pythonself/pythonself_ClassWithSelf__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/pythonself/pythonself_ClassWithSelf__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package pythonself
 +
@@ -34474,9 +34263,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/pythonself/pythonself_ClassWithSelf__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/pythonself/pythonself_ClassWithSelf__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/pythonself/pythonself_ClassWithSelf__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,24 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package pythonself
 +
@@ -34524,9 +34312,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package pythonself
 +
@@ -34541,9 +34328,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/pythonself/pythonself_ClassWithSelfKwarg__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,21 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package pythonself
 +
@@ -34588,9 +34374,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package pythonself
 +
@@ -34605,9 +34390,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/p
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/pythonself/pythonself_IInterfaceWithSelf__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,16 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package pythonself
 +
@@ -34647,9 +34431,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/submodule/isolated/isolated_Kwargs__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/submodule/isolated/isolated_Kwargs__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/submodule/isolated/isolated_Kwargs__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package isolated
 +
@@ -34664,9 +34447,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/submodule/isolated/isolated_Kwargs__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/submodule/isolated/isolated_Kwargs__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/submodule/isolated/isolated_Kwargs__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,18 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package isolated
 +
@@ -34722,9 +34504,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/submodule/submodule_MyClass__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/submodule/submodule_MyClass__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/submodule/submodule_MyClass__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package submodule
 +
@@ -34743,9 +34524,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/submodule/submodule_MyClass__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/submodule/submodule_MyClass__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/submodule/submodule_MyClass__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,35 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package submodule
 +
@@ -34804,9 +34584,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/union_ConsumesUnion__no_runtime_type_checking.go.diff 1`] = `
 --- go/jsiicalc/union/union_ConsumesUnion__no_runtime_type_checking.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/union_ConsumesUnion__no_runtime_type_checking.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
-+// +build no_runtime_type_checking
 +
 +package union
 +
@@ -34821,9 +34600,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/union_ConsumesUnion__runtime_type_checks.go.diff 1`] = `
 --- go/jsiicalc/union/union_ConsumesUnion__runtime_type_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/union_ConsumesUnion__runtime_type_checks.go	--runtime-type-checking
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,32 @@
 +//go:build !no_runtime_type_checking
-+// +build !no_runtime_type_checking
 +
 +package union
 +

@@ -226,18 +226,6 @@ jobs:
           # Test alternate Gos
           - java: '8'
             dotnet: '3.1.x'
-            go: '1.16' # EOL since March 15, 2022 (in grace period until end of september 2022)
-            node: '14'
-            os: ubuntu-latest
-            python: '3.7'
-          - java: '8'
-            dotnet: '3.1.x'
-            go: '1.17' # EOL since August 02, 2022 (in grace period until end of september 2022)
-            node: '14'
-            os: ubuntu-latest
-            python: '3.7'
-          - java: '8'
-            dotnet: '3.1.x'
             go: '1.19'
             node: '14'
             os: ubuntu-latest
