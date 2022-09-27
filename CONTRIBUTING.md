@@ -50,6 +50,7 @@ in your development environment.
   + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   + [`wheel`](https://pypi.org/project/wheel/)
   + *Recommended:* [`twine`](https://pypi.org/project/twine/)
+- [Go] `1.18` or newer
 
 [Node `14.6.0`]: https://nodejs.org/download/release/v14.6.0/
 [Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
@@ -57,6 +58,7 @@ in your development environment.
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
 [.NET Core `3.1`]: https://www.microsoft.com/net/download
 [Python `3.7.3`]: https://www.python.org/downloads/release/python-373/
+[Go]: https://go.dev/dl/
 
 ## Getting Started
 ### Bootstrapping
