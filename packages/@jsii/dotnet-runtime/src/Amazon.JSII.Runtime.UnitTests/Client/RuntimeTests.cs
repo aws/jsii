@@ -24,12 +24,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             _sut = new Services.Runtime(_nodeProcessMock);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ThrowsJsiiExceptionWhenResponseNotReceived))]
-        public void ThrowsJsiiExceptionWhenResponseNotReceived()
+        [Fact(DisplayName = Prefix + nameof(ThrowsJsiiErrorWhenResponseNotReceived))]
+        public void ThrowsJsiiErrorWhenResponseNotReceived()
         {
             _nodeProcessMock.StandardOutput.ReadLine().ReturnsNull();
 
-            var ex = Assert.Throws<JsiiException>(() => _sut.ReadResponse());
+            var ex = Assert.Throws<JsiiError>(() => _sut.ReadResponse());
             Assert.Equal("Child process exited unexpectedly!", ex.Message);
         }
     }

@@ -3,9 +3,10 @@ using Amazon.JSII.JsonModel.Api.Response;
 
 namespace Amazon.JSII.Runtime
 {
-    public sealed class JsiiException : Exception
+    public abstract class JsiiException : Exception
     {
         public ErrorResponse? ErrorResponse { get; }
+        public Type? ExceptionType { get; }
 
         internal JsiiException() : base()
         {
@@ -25,5 +26,27 @@ namespace Amazon.JSII.Runtime
         {
             ErrorResponse = response;
         }
+    }
+
+    public sealed class JsiiError : JsiiException
+    {
+      internal JsiiError() : base()
+      {
+      }
+
+      internal JsiiError(string message) : base(message)
+      {
+      }
+
+      internal JsiiError(string message, Exception? innerException)
+          : base(message, innerException)
+      {
+      }
+
+      internal JsiiError(ErrorResponse response, Exception? innerException)
+          : base(response, innerException)
+      {
+      }
+
     }
 }

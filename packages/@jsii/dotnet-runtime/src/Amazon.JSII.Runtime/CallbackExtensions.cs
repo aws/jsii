@@ -94,7 +94,7 @@ namespace Amazon.JSII.Runtime
                     if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap,
                         request.Arguments![n], out var value))
                     {
-                        throw new JsiiException($"Unable to convert {request.Arguments![n]} to {requiredType.Name}");
+                        throw new JsiiError($"Unable to convert {request.Arguments![n]} to {requiredType.Name}");
                     }
 
                     if (attribute.Parameters[paramIndex].IsVariadic)

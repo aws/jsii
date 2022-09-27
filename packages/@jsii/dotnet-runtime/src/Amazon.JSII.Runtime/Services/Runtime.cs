@@ -16,7 +16,7 @@ namespace Amazon.JSII.Runtime.Services
             var response = _nodeProcess.StandardOutput.ReadLine();
             if (string.IsNullOrEmpty(response))
             {
-                throw new JsiiException("Child process exited unexpectedly!");
+                throw new JsiiError("Child process exited unexpectedly!");
             }
 
             return response;

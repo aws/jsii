@@ -1,8 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Runtime.Serialization;
 
 namespace Amazon.JSII.JsonModel.Api.Response
 {
+    public enum ErrorResponseName
+    {
+        [EnumMember(Value = "@jsii/kernel.Fault")]
+        JsiiError,
+        [EnumMember(Value = "@jsii/kernel.RuntimeError")]
+        RuntimeException,
+    }
+
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public sealed class ErrorResponse
     {
@@ -17,5 +26,8 @@ namespace Amazon.JSII.JsonModel.Api.Response
 
         [JsonProperty("stack", NullValueHandling = NullValueHandling.Ignore)]
         public string? Stack { get; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public ErrorResponseName Name { get ; }
     }
 }
