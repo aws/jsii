@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664301659845,
+  "lastUpdate": 1664359208555,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7251,6 +7251,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1190557.5879071436,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70667.26222974999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "66279577+comcalvi@users.noreply.github.com",
+            "name": "Calvin Combs",
+            "username": "comcalvi"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e3f7d5e2c9683b13092e4ba05c13ade8b2a5e823",
+          "message": "feat(python): add error differentiation to Python. (#3772)\n\nUses `RuntimeError` and `JsiiError` to indicate recoverable vs non-recoverable errors respectively. Also fixes three bugs in the Java logic for the same feature:\n\n* Callbacks did not pass the error type over the wire, meaning that some faults were rethrown as runtime errors and vice versa\n* async method invocations did not pass the error type over the wire, meaning that some faults were rethrown as runtime errors and vice versa.\n* the java enum used `RuntimeException` in the string where it should have used `RuntimeError`, meaning that some errors would always be rethrown as `RuntimeException`s even when they should be `JsiiError`s. \n\nThese bugs happened because the Java tests did not check for type of the exception thrown, meaning that `JsiiError`s could be passed where `RuntimeException`s were expected. The tests now verify the type of the exception thrown. \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-28T09:12:55Z",
+          "tree_id": "2aa674fdbc5b15b767465eb75a4d5ceb8377f159",
+          "url": "https://github.com/aws/jsii/commit/e3f7d5e2c9683b13092e4ba05c13ade8b2a5e823"
+        },
+        "date": 1664359206078,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 58987.15812429999,
+            "unit": "milliseconds",
+            "range": 2693075.3456985885,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 58987.15812429999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46181.2214454,
+            "unit": "milliseconds",
+            "range": 174079.76754395757,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46181.2214454 milliseconds over 20 runs"
           }
         ]
       }
