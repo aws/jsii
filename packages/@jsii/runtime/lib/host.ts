@@ -1,4 +1,11 @@
-import { api, Kernel, JsiiFault, JsiiError } from '@jsii/kernel';
+import {
+  api,
+  Kernel,
+  JsiiFault,
+  JsiiError,
+  RuntimeError,
+  JsiiErrorType,
+} from '@jsii/kernel';
 import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
@@ -59,7 +66,10 @@ export class KernelHost {
         completeReq.complete.cbid === callback.cbid
       ) {
         if (completeReq.complete.err) {
-          throw new JsiiFault(completeReq.complete.err);
+          if (completeReq.complete.name === JsiiErrorType.JSII_FAULT) {
+            throw new JsiiFault(completeReq.complete.err);
+          }
+          throw new RuntimeError(completeReq.complete.err);
         }
 
         return completeReq.complete.result;

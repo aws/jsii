@@ -123,7 +123,7 @@ public final class JsiiRuntime {
             errorMessage += "\n" + resp.get("stack").asText();
         }
 
-        if (errorName.equals(JsiiException.Type.RUNTIME_EXCEPTION.toString())) {
+        if (errorName.equals(JsiiException.Type.RUNTIME_ERROR.toString())) {
           throw new RuntimeException(errorMessage);
         }
 
@@ -146,6 +146,7 @@ public final class JsiiRuntime {
 
         JsonNode result = null;
         String error = null;
+        String name = null;
         try {
             result = this.callbackHandler.handleCallback(callback);
         } catch (Exception e) {
@@ -154,12 +155,17 @@ public final class JsiiRuntime {
             } else {
                 error = e.getMessage();
             }
+
+            name = e instanceof JsiiError
+                ? JsiiException.Type.JSII_FAULT.toString()
+                : JsiiException.Type.RUNTIME_ERROR.toString();
         }
 
         ObjectNode completeResponse = JsonNodeFactory.instance.objectNode();
         completeResponse.put("cbid", callback.getCbid());
         if (error != null) {
             completeResponse.put("err", error);
+            completeResponse.put("name", name);
         }
         if (result != null) {
             completeResponse.set("result", result);

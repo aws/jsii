@@ -243,12 +243,14 @@ public final class JsiiClient {
      * Completes a callback.
      * @param callback The callback to complete.
      * @param error Error information (or null).
+     * @param name Error type (or null).
      * @param result Result (or null).
      */
-    public void completeCallback(final Callback callback, final String error, final JsonNode result) {
+    public void completeCallback(final Callback callback, final String error, final String name, final JsonNode result) {
         ObjectNode req = makeRequest("complete");
         req.put("cbid", callback.getCbid());
         req.put("err", error);
+        req.put("name", name);
         req.set("result", result);
 
         this.runtime.requestResponse(req);

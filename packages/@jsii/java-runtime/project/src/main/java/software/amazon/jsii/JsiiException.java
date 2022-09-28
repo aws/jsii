@@ -8,7 +8,7 @@ public abstract class JsiiException extends RuntimeException {
 
     static enum Type {
         JSII_FAULT("@jsii/kernel.Fault"),
-        RUNTIME_EXCEPTION("@jsii/kernel.RuntimeException");
+        RUNTIME_ERROR("@jsii/kernel.RuntimeError");
 
         private final String errorType;
 
