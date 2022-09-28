@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664359208555,
+  "lastUpdate": 1664364300613,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7289,6 +7289,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 174079.76754395757,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46181.2214454 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "chrisr@monada.co",
+            "name": "Chris Rybicki",
+            "username": "Chriscbr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "db809e212735b559d54e96666a2be6b18e432893",
+          "message": "fix(jsii-reflect): TypeMember is not SourceLocatable (#3778)\n\nFixes #3777\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-09-28T10:23:44Z",
+          "tree_id": "946104fd63c5ac4fa310ccc92dfbd3d93ae00d23",
+          "url": "https://github.com/aws/jsii/commit/db809e212735b559d54e96666a2be6b18e432893"
+        },
+        "date": 1664364297302,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 82185.64767019996,
+            "unit": "milliseconds",
+            "range": 1369673.254435615,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 82185.64767019996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 61430.417934599995,
+            "unit": "milliseconds",
+            "range": 333854.48515013896,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61430.417934599995 milliseconds over 20 runs"
           }
         ]
       }
