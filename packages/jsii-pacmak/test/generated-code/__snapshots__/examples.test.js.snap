@@ -383,7 +383,7 @@ namespace Example.Test.Demo.Internal.DependencyResolution
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -499,7 +499,6 @@ func Consumer_ConsumeBaz(baz *Baz) {
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__no_runtime_type_checking.go 1`] = `
 //go:build no_runtime_type_checking
-// +build no_runtime_type_checking
 
 // testpkg
 package testpkg
@@ -515,7 +514,6 @@ func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checking
-// +build !no_runtime_type_checking
 
 // testpkg
 package testpkg
@@ -1833,7 +1831,7 @@ namespace Example.Test.Demo
 exports[`nested-types.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0

@@ -36,7 +36,7 @@ import {
 import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
-export const GO_VERSION = '1.16';
+export const GO_VERSION = '1.18';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -288,8 +288,6 @@ export abstract class Package {
       code.openFile(filePath);
       // Conditional compilation tag...
       code.line(`//go:build ${forNoOp ? '' : '!'}no_runtime_type_checking`);
-      // For go1.16 compatibility
-      code.line(`// +build ${forNoOp ? '' : '!'}no_runtime_type_checking`);
       code.line();
       this.emitHeader(code);
 
@@ -379,7 +377,7 @@ export class RootPackage extends Package {
   public readonly assembly: Assembly;
   public readonly version: string;
   private readonly versionFile: VersionFile;
-  private typeCache: Record<string, GoType | undefined> = {};
+  private readonly typeCache = new Map<string, GoType | undefined>();
 
   // This cache of root packages is shared across all root packages derived created by this one (via dependencies).
   private readonly rootPackageCache: Map<string, RootPackage>;
@@ -460,18 +458,21 @@ export class RootPackage extends Package {
    * This allows resolving type references from other JSII modules
    */
   public findType(fqn: string): GoType | undefined {
-    if (!this.typeCache[fqn]) {
-      this.typeCache[fqn] = this.packageDependencies.reduce(
-        (accum: GoType | undefined, current: RootPackage) => {
-          if (accum) {
-            return accum;
-          }
-          return current.findType(fqn);
-        },
-        super.findType(fqn),
+    if (!this.typeCache.has(fqn)) {
+      this.typeCache.set(
+        fqn,
+        this.packageDependencies.reduce(
+          (accum: GoType | undefined, current: RootPackage) => {
+            if (accum) {
+              return accum;
+            }
+            return current.findType(fqn);
+          },
+          super.findType(fqn),
+        ),
       );
     }
-    return this.typeCache[fqn];
+    return this.typeCache.get(fqn);
   }
 
   /*

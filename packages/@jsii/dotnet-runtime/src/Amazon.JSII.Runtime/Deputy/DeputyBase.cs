@@ -576,7 +576,7 @@ namespace Amazon.JSII.Runtime.Deputy
             );
             if (constructorInfo == null)
             {
-                throw new JsiiException($"Could not find constructor to instantiate {proxyType.FullName}");
+                throw new JsiiError($"Could not find constructor to instantiate {proxyType.FullName}");
             }
 
             result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });

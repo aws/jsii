@@ -67,7 +67,7 @@ namespace Amazon.JSII.Runtime.Services
                 ConstructorInfo? constructorInfo = type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
                 if (constructorInfo == null)
                 {
-                    throw new JsiiException($"Could not find constructor to initialize {type.FullName} with a {typeof(ByRefValue).FullName}");
+                    throw new JsiiError($"Could not find constructor to initialize {type.FullName} with a {typeof(ByRefValue).FullName}");
                 }
                 return constructorInfo;
             }

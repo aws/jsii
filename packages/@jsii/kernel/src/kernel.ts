@@ -1,7 +1,6 @@
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
-import { renameSync } from 'fs';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
 import * as os from 'os';
@@ -9,7 +8,6 @@ import * as path from 'path';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
-import { link } from './link';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
 import * as wire from './serialization';
@@ -113,10 +111,11 @@ export class Kernel {
     const originalUmask = process.umask(0o022);
     try {
       // untar the archive to its final location
-      const { path: extractedTo, cache } = this._debugTime(
+      const { cache } = this._debugTime(
         () =>
           tar.extract(
             req.tarball,
+            packageDir,
             {
               strict: true,
               strip: 1, // Removes the 'package/' path element from entries
@@ -128,21 +127,10 @@ export class Kernel {
         `tar.extract(${req.tarball}) => ${packageDir}`,
       );
 
-      // Create the install directory (there may be several path components for @scoped/packages)
-      fs.mkdirSync(path.dirname(packageDir), { recursive: true });
       if (cache != null) {
         this._debug(
           `Package cache enabled, extraction resulted in a cache ${cache}`,
         );
-
-        // Link the package into place.
-        this._debugTime(
-          () => link(extractedTo, packageDir),
-          `link(${extractedTo}, ${packageDir})`,
-        );
-      } else {
-        // This is not from cache, so we move it around instead of copying.
-        renameSync(extractedTo, packageDir);
       }
     } finally {
       // Reset umask to the initial value
@@ -593,7 +581,7 @@ export class Kernel {
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
           const constructor = this._findSymbol(fqn);
-          tagJsiiConstructor(constructor, fqn, assm.metadata.version);
+          tagJsiiConstructor(constructor, fqn);
       }
     }
   }

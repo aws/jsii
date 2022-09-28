@@ -179,6 +179,64 @@ function testpkg_Baz(p) {
     );
   });
 
+  test('checks array elements', () => {
+    const result = compileJsiiForTest(
+      `
+      export interface Used { readonly property: boolean; }
+      export interface Uses { readonly array: Used[]; }
+      `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFunction(result, 'testpkg_Uses', '.warnings.jsii'))
+      .toMatchInlineSnapshot(`
+      "function testpkg_Uses(p) {
+          if (p == null)
+              return;
+          visitedObjects.add(p);
+          try {
+              if (p.array != null)
+                  for (const o of p.array)
+                      if (!visitedObjects.has(o))
+                          testpkg_Used(o);
+          }
+          finally {
+              visitedObjects.delete(p);
+          }
+      }"
+    `);
+  });
+
+  test('checks map elements', () => {
+    const result = compileJsiiForTest(
+      `
+      export interface Used { readonly property: boolean; }
+      export interface Uses { readonly map: Record<string, Used>; }
+      `,
+      undefined /* callback */,
+      { addDeprecationWarnings: true },
+    );
+
+    expect(jsFunction(result, 'testpkg_Uses', '.warnings.jsii'))
+      .toMatchInlineSnapshot(`
+      "function testpkg_Uses(p) {
+          if (p == null)
+              return;
+          visitedObjects.add(p);
+          try {
+              if (p.map != null)
+                  for (const o of Object.values(p.map))
+                      if (!visitedObjects.has(o))
+                          testpkg_Used(o);
+          }
+          finally {
+              visitedObjects.delete(p);
+          }
+      }"
+    `);
+  });
+
   test('generates exports for all the functions', () => {
     const result = compileJsiiForTest(
       `
@@ -383,10 +441,14 @@ function testpkg_Baz(p) {
     );
     const calcBaseRoot = resolveModuleDir('@scope/jsii-calc-base');
     const calcLibRoot = resolveModuleDir('@scope/jsii-calc-lib');
+    const calcLibStripDeprecated = path.join(
+      calcLibRoot,
+      'deprecated-to-strip.txt',
+    );
 
     compile(calcBaseOfBaseRoot, false);
     compile(calcBaseRoot, true);
-    compile(calcLibRoot, true);
+    compile(calcLibRoot, true, calcLibStripDeprecated);
     const warningsFile = loadWarningsFile(calcBaseRoot);
 
     // jsii-calc-base was compiled with warnings. So we expect to see handlers for its types in the warnings file
@@ -397,7 +459,7 @@ function testpkg_Baz(p) {
 
     // Recompiling without deprecation warning to leave the packages in a clean state
     compile(calcBaseRoot, false);
-    compile(calcLibRoot, false);
+    compile(calcLibRoot, false, calcLibStripDeprecated);
   }, 120000);
 });
 
@@ -858,6 +920,24 @@ function jsFile(result: HelperCompilationResult, baseName = 'index'): string {
   return file[1];
 }
 
+function jsFunction(
+  result: HelperCompilationResult,
+  functionName: string,
+  baseName = 'index',
+): string {
+  const lines = jsFile(result, baseName).split(/\n/);
+
+  const startIndex = lines.indexOf(`function ${functionName}(p) {`);
+  if (startIndex < 0) {
+    throw new Error(
+      `Could not find declaration of ${functionName} in file with base name: ${baseName}`,
+    );
+  }
+  const endIndex = lines.indexOf('}', startIndex);
+
+  return lines.slice(startIndex, endIndex + 1).join('\n');
+}
+
 function createVmContext(compilation: HelperCompilationResult) {
   const context = vm.createContext({
     exports: {},
@@ -905,12 +985,18 @@ function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
 
-function compile(projectRoot: string, addDeprecationWarnings: boolean) {
+function compile(
+  projectRoot: string,
+  addDeprecationWarnings: boolean,
+  stripDeprecated?: string,
+) {
   const { projectInfo } = loadProjectInfo(projectRoot);
 
   const compiler = new Compiler({
     projectInfo,
     addDeprecationWarnings,
+    stripDeprecated: stripDeprecated != null,
+    stripDeprecatedAllowListFile: stripDeprecated,
   });
 
   compiler.emit();

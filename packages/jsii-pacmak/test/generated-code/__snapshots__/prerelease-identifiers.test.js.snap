@@ -118,7 +118,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/foo
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
 module foo
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -627,7 +627,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
 module foo
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1134,7 +1134,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/foo-2.0.0-rc.42.tgz 1`] =
 exports[`foo@2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
 module foo/v2
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -1620,7 +1620,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/foo-4.5.6-pre.1337.tgz
 exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
 module foo/v4
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0

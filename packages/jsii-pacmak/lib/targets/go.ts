@@ -42,11 +42,9 @@ export class Golang extends Target {
 
     try {
       // run `go build` with local.go.mod, go 1.16+ requires that we download
-      // modules explicit so go.sum is updated. We'd normally want to use
-      // `go mod download`, but because of a bug in go 1.16, we have to use
-      // `go mod tidy` instead.
-      //
-      // See: https://github.com/golang/go/issues/44129
+      // modules explicit so go.sum is updated. We'd want to use
+      // `go mod download`, but it does not add missing entries in the `go.sum`
+      // file while `go mod tidy` does.
       await go('mod', ['tidy', '-modfile', localGoMod.path], {
         cwd: pkgDir,
       });

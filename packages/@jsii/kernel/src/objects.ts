@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import * as assert from 'assert';
 
 import * as api from './api';
 import { JsiiFault } from './kernel';
@@ -15,15 +16,12 @@ const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
 /**
- * Symbol we use to tag the constructor of a JSII class
+ * Symbol we use to tag constructors that are exported from a JSII module.
  */
-const JSII_RTTI_SYMBOL = Symbol.for('jsii.rtti');
+const JSII_TYPE_FQN_SYMBOL = Symbol('$__jsii__fqn__$');
 
 interface ManagedConstructor {
-  readonly [JSII_RTTI_SYMBOL]: {
-    readonly fqn: string;
-    readonly version: string;
-  };
+  readonly [JSII_TYPE_FQN_SYMBOL]: string;
 }
 
 type MaybeManagedConstructor = Partial<ManagedConstructor>;
@@ -36,7 +34,7 @@ type MaybeManagedConstructor = Partial<ManagedConstructor>;
  * information.
  */
 export function jsiiTypeFqn(obj: any): string | undefined {
-  return (obj.constructor as MaybeManagedConstructor)[JSII_RTTI_SYMBOL]?.fqn;
+  return (obj.constructor as MaybeManagedConstructor)[JSII_TYPE_FQN_SYMBOL];
 }
 
 /**
@@ -96,19 +94,21 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
 /**
  * Set the JSII FQN for classes produced by a given constructor
  */
-export function tagJsiiConstructor(
-  constructor: any,
-  fqn: string,
-  version: string,
-) {
-  if (Object.prototype.hasOwnProperty.call(constructor, JSII_RTTI_SYMBOL)) {
-    return;
+export function tagJsiiConstructor(constructor: any, fqn: string) {
+  if (Object.prototype.hasOwnProperty.call(constructor, JSII_TYPE_FQN_SYMBOL)) {
+    return assert(
+      constructor[JSII_TYPE_FQN_SYMBOL] === fqn,
+      `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${constructor[JSII_TYPE_FQN_SYMBOL]}`,
+    );
   }
-  Object.defineProperty(constructor, JSII_RTTI_SYMBOL, {
+
+  // Mark this constructor as exported from a jsii module, so we know we
+  // should be considering it's FQN as a valid exported type.
+  Object.defineProperty(constructor, JSII_TYPE_FQN_SYMBOL, {
     configurable: false,
     enumerable: false,
     writable: false,
-    value: { fqn, version },
+    value: fqn,
   });
 }
 

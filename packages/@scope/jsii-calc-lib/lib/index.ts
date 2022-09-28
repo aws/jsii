@@ -129,3 +129,4 @@ export class BaseFor2647 {
 
 export * as submodule from './submodule';
 export * from './duplicate-inherited-prop';
+export * as deprecationRemoval from './deprecation-removal';

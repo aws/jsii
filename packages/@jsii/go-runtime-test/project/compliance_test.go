@@ -24,6 +24,7 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/deprecationremoval"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
@@ -1653,6 +1654,12 @@ func (suite *ComplianceSuite) TestDownCasting() {
 	jsii.UnsafeCast(anyValue, &realValue)
 
 	require.Equal(realValue.Foo(), jsii.Number(1337))
+}
+
+func (suite *ComplianceSuite) TestStrippedDeprecatedMemberCanBeReceived() {
+	require := suite.Require()
+
+	require.NotNil(deprecationremoval.InterfaceFactory_Create())
 }
 
 // required to make `go test` recognize the suite.

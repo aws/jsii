@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.69.0](https://github.com/aws/jsii/compare/v1.68.0...v1.69.0) (2022-09-27)
+
+
+### Features
+
+* **dotnet:** distinguish error types ([#3764](https://github.com/aws/jsii/issues/3764)) ([283dae5](https://github.com/aws/jsii/commit/283dae57647cb28323f4f02ef040deef81248f3a))
+
+
+### Bug Fixes
+
+* **jsii:** missing deprecation warning in collections ([#3756](https://github.com/aws/jsii/issues/3756)) ([72f2e7c](https://github.com/aws/jsii/commit/72f2e7ca82555c2dce647f873bed923a98808f95)), closes [#3755](https://github.com/aws/jsii/issues/3755)
+* **kernel:** EPERM on rename operation on Windows ([#3769](https://github.com/aws/jsii/issues/3769)) ([bab1d38](https://github.com/aws/jsii/commit/bab1d388e8bed41c4930566ba5834acf57cc696c)), closes [#992](https://github.com/aws/jsii/issues/992) [#3724](https://github.com/aws/jsii/issues/3724) [#3751](https://github.com/aws/jsii/issues/3751)
+* **python:** bin script python support, test argument passing ([#3762](https://github.com/aws/jsii/issues/3762)) ([0cf5008](https://github.com/aws/jsii/commit/0cf500864c918a799505625b08025293431031c7)), closes [#3694](https://github.com/aws/jsii/issues/3694)
+
+## [1.68.0](https://github.com/aws/jsii/compare/v1.67.0...v1.68.0) (2022-09-22)
+
+
+### Features
+
+* **kernel:** distinguish framework errors from userland errors in Java ([#3747](https://github.com/aws/jsii/issues/3747)) ([a4d39c6](https://github.com/aws/jsii/commit/a4d39c6fb619cd4d7c9103ec70a731ab6fb23374))
+
+
+### Bug Fixes
+
+* **jsii:** unable to return Promise<void> ([#3752](https://github.com/aws/jsii/issues/3752)) ([852b3dc](https://github.com/aws/jsii/commit/852b3dc5da113546bc090d99f9250104f526f5af)), closes [#51](https://github.com/aws/jsii/issues/51)
+* **pacmak:** .NET bindings fail to compile with error CS8120 ([#3760](https://github.com/aws/jsii/issues/3760)) ([783ec7f](https://github.com/aws/jsii/commit/783ec7f1d40619677f34318ee247244b682cd92d)), closes [#3759](https://github.com/aws/jsii/issues/3759)
+* **runtime:** type not found ([#3763](https://github.com/aws/jsii/issues/3763)) ([c7dfad3](https://github.com/aws/jsii/commit/c7dfad3ec905a5ee795be1d313d9c078ab3b4234)), closes [#3742](https://github.com/aws/jsii/issues/3742)
+
 ## [1.67.0](https://github.com/aws/jsii/compare/v1.66.0...v1.67.0) (2022-09-02)
 
 

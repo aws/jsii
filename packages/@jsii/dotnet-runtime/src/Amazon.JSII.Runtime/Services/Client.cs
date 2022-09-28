@@ -78,7 +78,7 @@ namespace Amazon.JSII.Runtime.Services
             }
             catch (IOException exception)
             {
-                throw new JsiiException("Unexpected error communicating with jsii-runtime", exception);
+                throw new JsiiError("Unexpected error communicating with jsii-runtime", exception);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Amazon.JSII.Runtime.Services
             }
             catch (IOException exception)
             {
-                throw new JsiiException("Unexpected error communicating with jsii-runtime", exception);
+                throw new JsiiError("Unexpected error communicating with jsii-runtime", exception);
             }
         }
 
@@ -109,7 +109,12 @@ namespace Amazon.JSII.Runtime.Services
             {
                 ErrorResponse errorResponse = responseObject.ToObject<ErrorResponse>()!;
 
-                throw new JsiiException(errorResponse, null);
+                if (errorResponse.Name.Equals(ErrorResponseName.JsiiError))
+                {
+                    throw new JsiiError(errorResponse, null);
+                }
+
+                throw new Exception(errorResponse.Error);
             }
 
             if (typeof(TResponse).IsAssignableFrom(typeof(HelloResponse)))
