@@ -2,8 +2,9 @@ import { Documentable } from './docs';
 import { Initializer } from './initializer';
 import { Method } from './method';
 import { Property } from './property';
+import { SourceLocatable } from './source';
 
-export interface TypeMember extends Documentable {
+export interface TypeMember extends Documentable, SourceLocatable {
   name: string;
   abstract: boolean;
 
