@@ -217,6 +217,7 @@ export interface CallbacksResponse {
 export interface CompleteRequest {
   readonly cbid: string;
   readonly err?: string;
+  readonly name?: string;
   readonly result?: any;
 }
 
