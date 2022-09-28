@@ -27,6 +27,6 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
-    "@types/tar": "^6.1.2"
+    "@types/tar": "^6.1.3"
   }
 }
