@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664456386030,
+  "lastUpdate": 1664613910306,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7441,6 +7441,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 678470.2199032204,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70707.05412680002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeff@curisium.com",
+            "name": "Jeff Malins",
+            "username": "jmalins"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "306b24845d6b36a7079ddb88aaeab2847f7bb238",
+          "message": "feat(superchain): add 'acl' package to support projen GHA (#3783)\n\nAdds the `acl` package to the superchain image.\n\nA recent [projen PR](https://github.com/projen/projen/issues/2103) added a build-time dependency on the `getfacl` and `setfacl` tools in this package to workaround a bug in GitHub Actions. The package is included in the GHA `ubuntu-latest` image, but not superchain.\n\nShould address: https://github.com/projen/projen/issues/2134\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-10-01T07:38:40Z",
+          "tree_id": "dcde964765102a8ffba4a31d183e4469b816af5b",
+          "url": "https://github.com/aws/jsii/commit/306b24845d6b36a7079ddb88aaeab2847f7bb238"
+        },
+        "date": 1664613906134,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 93931.8258916,
+            "unit": "milliseconds",
+            "range": 4265781.192750851,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 93931.8258916 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 65329.323369549995,
+            "unit": "milliseconds",
+            "range": 5595335.855279341,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65329.323369549995 milliseconds over 20 runs"
           }
         ]
       }
