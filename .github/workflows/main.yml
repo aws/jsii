@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v3
       # Set up all of our standard runtimes
       - name: Set up .NET 6
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.18
@@ -112,7 +112,7 @@ jobs:
         uses: actions/checkout@v3
       # Set up all of our standard runtimes
       - name: Set up .NET 6
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.18
@@ -274,7 +274,7 @@ jobs:
           rm built-tree.tgz
       # Set up all of our standard runtimes (this is matrix-based)
       - name: Set up .NET ${{ matrix.dotnet }}
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - name: Set up Go ${{ matrix.go }}
@@ -394,7 +394,7 @@ jobs:
           path: ${{ runner.temp }}/release-package
       # Set up all of our standard runtimes
       - name: Set up .NET 6
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.18
