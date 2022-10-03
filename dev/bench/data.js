@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664805748886,
+  "lastUpdate": 1664807690476,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7593,6 +7593,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 654777.8707001713,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74221.80583055 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b7fc7fed80185fe1fbeb82398b5201619b85bcbe",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.5.3 to ~=8.5.6 in /gh-pages (#3788)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.5.6</h2>\n<ul>\n<li>Modernized appearance of admonitions (with fallback, see <a href=\"https://squidfunk.github.io/mkdocs-material/reference/admonitions/#classic-admonitions\">docs</a>)</li>\n<li>Improved appearance of inline code blocks in admonition titles</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.5.6+insiders-4.25.0 (2022-10-02)</p>\n<ul>\n<li>Added support for navigation subtitles</li>\n<li>Added support for defining an allow list for built-in tags plugin</li>\n<li>Added support for custom slugify functions for built-in tags plugin</li>\n<li>Improved stability of search plugin when using --dirtyreload</li>\n</ul>\n<p>mkdocs-material-8.5.6 (2022-10-02)</p>\n<ul>\n<li>Modernized appearance of admonitions (with fallback, see docs)</li>\n<li>Improved appearance of inline code blocks in admonition titles</li>\n</ul>\n<p>mkdocs-material-8.5.5+insiders-4.24.2 (2022-10-01)</p>\n<ul>\n<li>Updated MkDocs to 1.4</li>\n<li>Fixed compatibility issues with MkDocs 1.4</li>\n<li>Fixed incorrectly generated paths in privacy plugin</li>\n<li>Fixed blog index page not showing navigation when using meta plugin</li>\n</ul>\n<p>mkdocs-material-8.5.5 (2022-10-01)</p>\n<ul>\n<li>Updated MkDocs to 1.4</li>\n<li>Fixed compatibility issues with MkDocs 1.4</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4430\">#4430</a>: build error when enabling consent without repository URL</li>\n</ul>\n<p>mkdocs-material-8.5.4+insiders-4.24.1 (2022-09-30)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4430\">#4430</a>: build error when enabling consent without repository URL</li>\n</ul>\n<p>mkdocs-material-8.5.4 (2022-09-30)</p>\n<ul>\n<li>Fixed expand icons shift on sidebar overflow (using scrollbar-gutter)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4429\">#4429</a>: Text in sequence diagrams overflows in Firefox</li>\n</ul>\n<p>mkdocs-material-8.5.3+insiders-4.24.0 (2022-09-27)</p>\n<ul>\n<li>Added support for custom content on index pages (blog)</li>\n<li>Added support for keeping content on paginated index pages (blog)</li>\n<li>Added support for limiting categories in post excerpts (blog)</li>\n<li>Added support for simple override of templates via front matter (blog)</li>\n<li>Added icon in navigation for pages with encrypted content</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4396\">#4396</a>: Front matter of index pages not inherited by pagination (blog)</li>\n<li>Improved performance by building post excerpts once (blog)</li>\n</ul>\n<p>mkdocs-material-8.5.3+insiders-4.23.6 (2022-09-22)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4389\">#4389</a>: Blog posts in first week of year in wrong archive</li>\n<li>Fixed (= switched) footer previous and next links for blog posts</li>\n</ul>\n<p>mkdocs-material-8.5.3 (2022-09-20)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f139b54c61b2df4512f15149cba2c222475e2bc9\"><code>f139b54</code></a> Prepare 8.5.6 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d1fc8598212532a58c924a43f18b8f1fa8a096d3\"><code>d1fc859</code></a> Prepare 8.5.6 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c44baee78d5cffec89c5d39c79b6504609795331\"><code>c44baee</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ee1e675da613fb26b71d0385f732a55eac6aea73\"><code>ee1e675</code></a> Update slug reference</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/29f00a5bb8edabddaf2d6d211434b59bdde25c3d\"><code>29f00a5</code></a> Modernized look of admonitions</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6edbcf896833026667149c47514542a8c438d490\"><code>6edbcf8</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4392\">#4392</a> from squidfunk/pin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1e508d6292a5b7fb7e57ddea75b0c672e0a4ffc5\"><code>1e508d6</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0a5ab025b5a356facb6d2fc3b1bbbe1e4b6e806c\"><code>0a5ab02</code></a> Updated documentation and fixed syntax error in schema</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/cec89f0c6dd95fb6c6c6f2ae17551090f5639f1d\"><code>cec89f0</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4303\">#4303</a> from ojacques/master</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/26b307070ad60d2bc4a103ef4c0d27a1d888d62f\"><code>26b3070</code></a> Updated Insiders changelog</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.5.3...8.5.6\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-03T13:42:16Z",
+          "tree_id": "c0f19c97fc56b78410088056670e7a1c2fa5c6ae",
+          "url": "https://github.com/aws/jsii/commit/b7fc7fed80185fe1fbeb82398b5201619b85bcbe"
+        },
+        "date": 1664807688140,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72190.62955479999,
+            "unit": "milliseconds",
+            "range": 962642.1614251466,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72190.62955479999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52410.8136532,
+            "unit": "milliseconds",
+            "range": 816253.3526256571,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52410.8136532 milliseconds over 20 runs"
           }
         ]
       }
