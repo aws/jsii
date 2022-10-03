@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664814414337,
+  "lastUpdate": 1664819041974,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7707,6 +7707,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1134608.9445408208,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63723.97458434999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "63f729faa54480fc09659f25094940ddc8e24381",
+          "message": "chore(deps): Update pytest-mypy requirement from ~=0.9 to ~=0.10 in /packages/@jsii/python-runtime (#3786)\n\nUpdates the requirements on [pytest-mypy](https://github.com/dbader/pytest-mypy) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dbader/pytest-mypy/releases\">pytest-mypy's releases</a>.</em></p>\n<blockquote>\n<h2>v0.10.0</h2>\n<p><a href=\"https://github.com/dbader/pytest-mypy/milestone/18\">https://github.com/dbader/pytest-mypy/milestone/18</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/dbader/pytest-mypy/blob/master/changelog.md\">pytest-mypy's changelog</a>.</em></p>\n<blockquote>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/18\">0.10.0</a></h2>\n<ul>\n<li>Drop support for python&lt;3.6.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/17\">0.9.1</a></h2>\n<ul>\n<li>Add support for pytest 7.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/14\">0.9.0</a></h2>\n<ul>\n<li>Drop support for pytest&lt;4.6.</li>\n<li>Add --mypy-config-file.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/16\">0.8.1</a></h2>\n<ul>\n<li>Add a partial workaround for <a href=\"https://github-redirect.dependabot.com/pytest-dev/pytest/issues/8016\">pytest-dev/pytest#8016</a>.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/15\">0.8.0</a></h2>\n<ul>\n<li>Add support for Python 3.9.</li>\n<li>Stop injecting <code>MypyStatusItem</code> in <code>pytest_collection_modifyitems</code> to fix <code>--looponfail</code>.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/13\">0.7.0</a></h2>\n<ul>\n<li>Remove the upper bound on <code>python_requires</code>.</li>\n<li>Require Python 3.5 or greater.</li>\n<li>Enable custom error formatting.</li>\n<li>Fix compatibility with pytest-xdist 2.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/12\">0.6.2</a></h2>\n<ul>\n<li>Stop ignoring <code>.pyi</code> files.</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/11\">0.6.1</a></h2>\n<ul>\n<li>Fix a PytestDeprecationWarning emitted by pytest&gt;=5.4</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/10\">0.6.0</a></h2>\n<ul>\n<li>Inject a test that checks the mypy exit status</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/9\">0.5.0</a></h2>\n<ul>\n<li>Remove <code>MypyItem.mypy_path</code></li>\n<li>Add support for pytest-xdist</li>\n<li>Add a configurable name to MypyItem node IDs</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/8\">0.4.2</a></h2>\n<ul>\n<li>Make success message green instead of red</li>\n<li>Remove Python 3.8 beta/dev references</li>\n<li>Stop blacklisting early 0.5x and 0.7x mypy releases</li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/7\">0.4.1</a></h2>\n<ul>\n<li>Stop overlapping <code>python_version</code>s in <code>install_requires</code></li>\n</ul>\n<h2><a href=\"https://github.com/dbader/pytest-mypy/milestone/6\">0.4.0</a></h2>\n<ul>\n<li>Run mypy once per session instead of once per file</li>\n<li>Stop passing --incremental (which mypy now defaults to)</li>\n<li>Support configuring the plugin in a conftest.py</li>\n<li>Add support for Python 3.8</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/7575b6462b2d96b6cdcb79f4a4ac0a816ec010dc\"><code>7575b64</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dbader/pytest-mypy/issues/140\">#140</a> from dmtucker/mypy13701</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/3e6c6e552130204a5cc12db848b7f2b5a256edc4\"><code>3e6c6e5</code></a> Xfail <a href=\"https://github-redirect.dependabot.com/python/mypy/issues/13701\">python/mypy#13701</a></li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/9710ab44edb57f6e7048c5909351f629b19c832a\"><code>9710ab4</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dbader/pytest-mypy/issues/136\">#136</a> from dmtucker/dev</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/29823367a96d145966106f74aad134a43b560c20\"><code>2982336</code></a> Upgrade flake8</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/e9bc67b9b6aa603aee08dd64de0d2bdd395dd940\"><code>e9bc67b</code></a> Drop Python 3.5 support</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/0c68c07c7639d3910e974524b1fb576a817ae099\"><code>0c68c07</code></a> Upgrade black</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/3c9d8d5ff8d090e63d80a7a7c6c82d37b0ae2d2a\"><code>3c9d8d5</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dbader/pytest-mypy/issues/132\">#132</a> from dmtucker/pytest7</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/00c720446707b36506989f017c10f806d711faf5\"><code>00c7204</code></a> Update the changelog for 0.9.1</li>\n<li><a href=\"https://github.com/dbader/pytest-mypy/commit/2b6e20704b4044063214be3b701e183163cb196e\"><code>2b6e207</code></a> Add support for pytest 7</li>\n<li>See full diff in <a href=\"https://github.com/dbader/pytest-mypy/compare/v0.9.0...v0.10.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-03T15:25:56Z",
+          "tree_id": "69277ac579fb28141d20b16dfd3aa64e351d5af7",
+          "url": "https://github.com/aws/jsii/commit/63f729faa54480fc09659f25094940ddc8e24381"
+        },
+        "date": 1664819039506,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69205.20390994997,
+            "unit": "milliseconds",
+            "range": 895492.4493903264,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69205.20390994997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50875.498204849995,
+            "unit": "milliseconds",
+            "range": 715641.5989643487,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50875.498204849995 milliseconds over 20 runs"
           }
         ]
       }
