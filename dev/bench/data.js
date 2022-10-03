@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664613910306,
+  "lastUpdate": 1664798112286,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7479,6 +7479,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 5595335.855279341,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65329.323369549995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "38775b768615b18cf6c4ad24138d1277d4c20f6a",
+          "message": "chore(deps): Bump actions/setup-dotnet from 2 to 3 (#3781)\n\nBumps [actions/setup-dotnet](https://github.com/actions/setup-dotnet) from 2 to 3.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/actions/setup-dotnet/releases\">actions/setup-dotnet's releases</a>.</em></p>\n<blockquote>\n<h2>v3.0.0</h2>\n<p>This major release includes the following <strong>changes:</strong></p>\n<ul>\n<li><a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/issues/219\">#219</a> New input <code>dotnet-quality</code> was added in <a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/pull/315\">#315</a>:</li>\n</ul>\n<pre lang=\"yaml\"><code>    - uses: actions/setup-dotnet@v3\n      with:\n        dotnet-version: '6.0.x'\n        dotnet-quality: 'preview'\n    - run: dotnet build &lt;my project&gt;\n</code></pre>\n<p>More in detail <a href=\"https://github.com/actions/setup-dotnet#using-the-dotnet-quality-input\">here</a>.</p>\n<ul>\n<li><a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/issues/241\">#241</a> The output variable <code>dotnet-version</code> which contains the installed by the action SDK version was added in <a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/pull/324\">#324</a>:</li>\n</ul>\n<pre lang=\"yaml\"><code>    - uses: actions/setup-dotnet@v3\n      id: cp310\n      with:\n        dotnet-version: '3.1.422'\n    - run: echo '${{ steps.cp310.outputs.dotnet-version }}' # outputs 3.1.422\n</code></pre>\n<p>More in detail <a href=\"https://github.com/actions/setup-dotnet/tree/main#dotnet-version\">here</a>.</p>\n<ul>\n<li>The <code>dotnet-version</code> syntax was updated and now it allows to specify the prerelease version without using <code>include-prerelease</code> input. The <code>include-prerelease</code> input was cut out:</li>\n</ul>\n<pre lang=\"yaml\"><code>    - uses: actions/setup-dotnet@v3\n      with:\n        dotnet-version: '5.0.0-preview.6'\n</code></pre>\n<p>More in detail <a href=\"https://github.com/actions/setup-dotnet#supported-version-syntax\">here</a>.</p>\n<ul>\n<li><a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/issues/251\">#251</a> The problem with out of support .NET version warnings was solved in <a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/pull/315\">#315</a>.</li>\n</ul>\n<p><strong>Breaking changes</strong>:</p>\n<ul>\n<li>Installation paths for Windows and Ubuntu images were changed to match the location of pre-installed SDKs. In more detail, read <a href=\"https://github.com/actions/setup-dotnet/blob/main/docs/adrs/v3-setup-dotnet.md#breaking-changes\">here</a>.</li>\n</ul>\n<h2>Add support for Windows-arm</h2>\n<p>In scope of this release we <a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/pull/320\">add support for Windows-arm</a>. Besides, we change getInput to <a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/pull/250\">getBooleanInput</a> for include-prerelease.</p>\n<h2>Package updates, support for global json file in a subdirectory, installer scripts updates</h2>\n<p>This release includes the following PRs:</p>\n<ul>\n<li>Adding support for the <code>global-json-file</code> input: <a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/issues/276\">#276</a>\nExample of usage:\n<pre lang=\"yaml\"><code>- uses: actions/setup-dotnet@v2\n  with:\n    global-json-file: csharp/global.json\n- run: dotnet build &lt;my project&gt;\n  working-directory: csharp\n</code></pre>\n</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/actions/setup-dotnet/commit/c7e7147fd3e41056e75a761416c06f5fa781b5fb\"><code>c7e7147</code></a> Add ability to write resolved version of SDK into the output variable (<a href=\"https://github-redirect.dependabot.com/actions/setup-dotnet/issues/324\">#324</a>)</li>\n<li><a href=\"https://github.com/actions/setup-dotnet/commit/0705ef0281736c0ca177266c8d04eb08f72072de\"><code>0705ef0</code></a> Implement proposal stated in ADR for setup-dotnet v3 and functionality from f...</li>\n<li>See full diff in <a href=\"https://github.com/actions/setup-dotnet/compare/v2...v3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=actions/setup-dotnet&package-manager=github_actions&previous-version=2&new-version=3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once it's up-to-date and CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-03T11:09:42Z",
+          "tree_id": "0fab77d7391cb3f8aab4871df4adbfc0de5fe8d7",
+          "url": "https://github.com/aws/jsii/commit/38775b768615b18cf6c4ad24138d1277d4c20f6a"
+        },
+        "date": 1664798109955,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59362.81319450001,
+            "unit": "milliseconds",
+            "range": 3386635.524559798,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59362.81319450001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45752.64453479998,
+            "unit": "milliseconds",
+            "range": 232416.93376625297,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45752.64453479998 milliseconds over 20 runs"
           }
         ]
       }
