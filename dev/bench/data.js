@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664807690476,
+  "lastUpdate": 1664811027751,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7631,6 +7631,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 816253.3526256571,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52410.8136532 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d86aa92cd18ba67d02adaa32ed2238fd6db482d9",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.3.1 to ~=1.4.0 in /gh-pages (#3787)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.4.0</h2>\n<h2>Feature upgrades</h2>\n<h3>Hooks (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2978\">#2978</a>)</h3>\n<p>The new <code>hooks:</code> config allows you to add plugin-like event handlers from local Python files, without needing to set up and install an actual plugin.</p>\n<p>See <a href=\"https://www.mkdocs.org/user-guide/configuration/#hooks\"><strong>documentation</strong></a>.</p>\n<h3><code>edit_uri</code> flexibility (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2927\">#2927</a>)</h3>\n<p>There is a new <code>edit_uri_template:</code> config.<br />\nIt works like <code>edit_uri</code> but more generally covers ways to construct an edit URL.<br />\nSee <a href=\"https://www.mkdocs.org/user-guide/configuration/#edit_uri_template\"><strong>documentation</strong></a>.</p>\n<p>Additionally, the <code>edit_uri</code> functionality will now fully work even if <code>repo_url</code> is omitted (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2928\">#2928</a>)</p>\n<h2>Upgrades for plugin developers</h2>\n<p>NOTE: This release has big changes to the implementation of plugins and their configs. But, the intention is to have zero breaking changes in all reasonably common use cases. Or at the very least if a code fix is required, there should always be a way to stay compatible with older MkDocs versions. Please report if this release breaks something.</p>\n<h3>Customize event order for plugin event handlers (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2973\">#2973</a>)</h3>\n<p>Plugins can now choose to set a priority value for their event handlers. This can override the old behavior where for each event type, the handlers are called in the order that their plugins appear in the <a href=\"https://www.mkdocs.org/user-guide/configuration/#plugins\"><code>plugins</code> config</a>.</p>\n<p>If this is set, events with higher priority are called first. Events without a chosen priority get a default of 0. Events that have the same priority are ordered as they appear in the config.</p>\n<p>Recommended priority values: <code>100</code> &quot;first&quot;, <code>50</code> &quot;early&quot;, <code>0</code> &quot;default&quot;, <code>-50</code> &quot;late&quot;, <code>-100</code> &quot;last&quot;.<br />\nAs different plugins discover more precise relations to each other, the values should be further tweaked.</p>\n<p>See <a href=\"https://www.mkdocs.org/dev-guide/plugins/#event-priorities\"><strong>documentation</strong></a>.</p>\n<h3>New events that persist across builds in <code>mkdocs serve</code> (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2972\">#2972</a>)</h3>\n<p>The new events are <code>on_startup</code> and <code>on_shutdown</code>. They run at the very beginning and very end of an <code>mkdocs</code> invocation.<br />\n<code>on_startup</code> also receives information on how <code>mkdocs</code> was invoked (e.g. <code>serve</code> <code>--dirtyreload</code>).</p>\n<p>See <a href=\"https://www.mkdocs.org/dev-guide/plugins/#events\"><strong>documentation</strong></a>.</p>\n<h3>Replace <code>File.src_path</code> to not deal with backslashes (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2930\">#2930</a>)</h3>\n<p>The property <code>src_path</code> uses backslashes on Windows, which doesn't make sense as it's a virtual path.<br />\nTo not make a breaking change, there's no change to how <em>this</em> property is used, but now you should:</p>\n<ul>\n<li>Use <strong><code>File.src_uri</code></strong> instead of <code>File.src_path</code></li>\n<li>and <strong><code>File.dest_uri</code></strong> instead of <code>File.dest_path</code>.</li>\n</ul>\n<p>These consistently use forward slashes, and are now the definitive source that MkDocs itself uses.</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/927ee2684b7534b6dedf681fcb5cf753c8c47b7b\"><code>927ee26</code></a> Release 1.4.0 (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2986\">#2986</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/5cce5012b4a35e11dcd31a7bd9d10800fd90b17a\"><code>5cce501</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2962\">#2962</a> from mkdocs/meta</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/5015fa72af4d7fc6b42089c15825396ef7c3e657\"><code>5015fa7</code></a> Add examples of class-based schema with ListOfItems</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/cc627f7ba3bfb667b63df0cfd297dd456972d447\"><code>cc627f7</code></a> Prevent wrapping into Optional when the option has a default</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/aeffe614990a6ca3024dc7f3ddd0a3b7bfcff550\"><code>aeffe61</code></a> Change config_options.URL's default from '' to None</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/51569476c054103fa8e23123ae6c924a91188979\"><code>5156947</code></a> Add a test for subclassing a config schema</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/ff8552a57abf2c32f2d0344ef12707b88e008493\"><code>ff8552a</code></a> Add tests for new class-based configs</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/6d8c4d1c7fb1ccb8de21e2b03c697541d15705d5\"><code>6d8c4d1</code></a> Preserve a copy of config_options_tests before reworking it</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/452f56c61fb4afbb402784ba5e714ab7ed8c6ea1\"><code>452f56c</code></a> Move config_options_tests.py before reworking it</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/cf9d23757e4da73b3f4bf6346a86e67eb7619756\"><code>cf9d237</code></a> Change ListOfItems' &quot;default default&quot; from [] to None</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.3.1...1.4.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-03T14:36:41Z",
+          "tree_id": "da969a53ac70ca49d15d04ef8c1f176a2878a837",
+          "url": "https://github.com/aws/jsii/commit/d86aa92cd18ba67d02adaa32ed2238fd6db482d9"
+        },
+        "date": 1664811025239,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72399.88236835001,
+            "unit": "milliseconds",
+            "range": 442408.62306641985,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72399.88236835001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53194.71829115,
+            "unit": "milliseconds",
+            "range": 442220.63448934455,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53194.71829115 milliseconds over 20 runs"
           }
         ]
       }
