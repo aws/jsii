@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664819041974,
+  "lastUpdate": 1664878812971,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7745,6 +7745,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 715641.5989643487,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50875.498204849995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "46447321+allcontributors[bot]@users.noreply.github.com",
+            "name": "allcontributors[bot]",
+            "username": "allcontributors[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0b09cb34b42b2556f5a3532b6819bf171b04a39a",
+          "message": "docs: add Chriscbr as a contributor for bug, and code (#3779)\n\nCo-authored-by: allcontributors[bot] <46447321+allcontributors[bot]@users.noreply.github.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>\r\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>",
+          "timestamp": "2022-10-04T11:19:44+02:00",
+          "tree_id": "614d2da57d34da7c9a684060cb93d61fb82e1420",
+          "url": "https://github.com/aws/jsii/commit/0b09cb34b42b2556f5a3532b6819bf171b04a39a"
+        },
+        "date": 1664878810029,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 81585.5582134,
+            "unit": "milliseconds",
+            "range": 1549097.5412921102,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 81585.5582134 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60801.51966749999,
+            "unit": "milliseconds",
+            "range": 299423.7852356708,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60801.51966749999 milliseconds over 20 runs"
           }
         ]
       }
