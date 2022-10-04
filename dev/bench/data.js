@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664878812971,
+  "lastUpdate": 1664894563774,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7783,6 +7783,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 299423.7852356708,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60801.51966749999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "27cd853784f151de41bd31a787b86cbf7fbac86e",
+          "message": "chore(spec): improve assembly validation error messages (#3790)\n\nuse the ajv error message formatter instead of only outputting the `e.message` as the later fails to include useful information to determine where the actual error is.\n\nTurn the validation test into a snapshot test to draw attention on the error message format.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-10-04T13:33:38Z",
+          "tree_id": "33003503c2af2d9011a1d9b72b6b87780a8dc804",
+          "url": "https://github.com/aws/jsii/commit/27cd853784f151de41bd31a787b86cbf7fbac86e"
+        },
+        "date": 1664894560136,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 97496.51468015001,
+            "unit": "milliseconds",
+            "range": 16438812.016895432,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 97496.51468015001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74402.71448419997,
+            "unit": "milliseconds",
+            "range": 4806921.088762746,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74402.71448419997 milliseconds over 20 runs"
           }
         ]
       }
