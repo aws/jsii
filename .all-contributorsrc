@@ -1010,7 +1010,9 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/5008987?v=4",
       "profile": "https://rybicki.io/",
       "contributions": [
-        "doc"
+        "doc",
+        "bug",
+        "code"
       ]
     },
     {
