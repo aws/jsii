@@ -21,8 +21,8 @@ export function validateAssembly(obj: any): Assembly {
           : ` ${obj.name}`;
     }
     throw new Error(
-      `Invalid assembly${descr}:\n* ${ajv.errorsText(validate.errors, {
-        separator: '\n* ',
+      `Invalid assembly${descr}:\n * ${ajv.errorsText(validate.errors, {
+        separator: '\n * ',
         dataVar: 'assembly',
       })}`,
     );

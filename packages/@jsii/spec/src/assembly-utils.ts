@@ -151,11 +151,7 @@ export function loadAssemblyFromPath(
   validate = true,
 ): Assembly {
   const assemblyFile = findAssemblyFile(directory);
-  try {
-    return loadAssemblyFromFile(assemblyFile, validate);
-  } catch (e: any) {
-    throw new Error(`Error loading assembly from path ${directory}:\n${e}`);
-  }
+  return loadAssemblyFromFile(assemblyFile, validate);
 }
 
 /**

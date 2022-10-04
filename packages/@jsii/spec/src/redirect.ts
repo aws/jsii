@@ -43,16 +43,18 @@ export function isAssemblyRedirect(obj: unknown): obj is AssemblyRedirect {
  * @returns the validated value.
  */
 export function validateAssemblyRedirect(obj: unknown): AssemblyRedirect {
-  const ajv = new Ajv();
+  const ajv = new Ajv({
+    allErrors: true,
+  });
   const validate = ajv.compile(assemblyRedirectSchema);
   validate(obj);
 
   if (validate.errors) {
     throw new Error(
-      `Invalid assembly redirect:\n${validate.errors
-        .map((e) => ` * ${e.message}`)
-        .join('\n')
-        .toString()}`,
+      `Invalid assembly redirect:\n * ${ajv.errorsText(validate.errors, {
+        separator: '\n * ',
+        dataVar: 'redirect',
+      })}`,
     );
   }
 
