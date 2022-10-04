@@ -6,16 +6,25 @@ import { Assembly } from './assembly';
 export const schema = require('../schema/jsii-spec.schema.json');
 
 export function validateAssembly(obj: any): Assembly {
-  const ajv = new Ajv();
+  const ajv = new Ajv({
+    allErrors: true,
+  });
   const validate = ajv.compile(schema);
   validate(obj);
 
   if (validate.errors) {
+    let descr = '';
+    if (typeof obj.name === 'string' && obj.name !== '') {
+      descr =
+        typeof obj.version === 'string'
+          ? ` ${obj.name}@${obj.version}`
+          : ` ${obj.name}`;
+    }
     throw new Error(
-      `Invalid assembly:\n${validate.errors
-        .map((e) => ` * ${e.message}`)
-        .join('\n')
-        .toString()}`,
+      `Invalid assembly${descr}:\n* ${ajv.errorsText(validate.errors, {
+        separator: '\n* ',
+        dataVar: 'assembly',
+      })}`,
     );
   }
   return obj;

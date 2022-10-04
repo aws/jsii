@@ -151,7 +151,11 @@ export function loadAssemblyFromPath(
   validate = true,
 ): Assembly {
   const assemblyFile = findAssemblyFile(directory);
-  return loadAssemblyFromFile(assemblyFile, validate);
+  try {
+    return loadAssemblyFromFile(assemblyFile, validate);
+  } catch (e: any) {
+    throw new Error(`Error loading assembly from path ${directory}:\n${e}`);
+  }
 }
 
 /**
@@ -167,11 +171,15 @@ export function loadAssemblyFromFile(
   validate = true,
 ): Assembly {
   const data = fs.readFileSync(pathToFile);
-  return loadAssemblyFromBuffer(
-    data,
-    (filename) => fs.readFileSync(path.resolve(pathToFile, '..', filename)),
-    validate,
-  );
+  try {
+    return loadAssemblyFromBuffer(
+      data,
+      (filename) => fs.readFileSync(path.resolve(pathToFile, '..', filename)),
+      validate,
+    );
+  } catch (e: any) {
+    throw new Error(`Error loading assembly from file ${pathToFile}:\n${e}`);
+  }
 }
 
 function followRedirect(
