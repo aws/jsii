@@ -24,7 +24,6 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
-  toPythonFullName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -123,6 +122,9 @@ interface EmitContext extends NamingContext {
 
   /** Whether to emit runtime type checking code */
   readonly runtimeTypeChecking: boolean;
+
+  /** Whether to runtime type check keyword arguments (i.e: struct constructors) */
+  readonly runtimeTypeCheckKwargs?: boolean;
 }
 
 const pythonModuleNameToFilename = (name: string): string => {
@@ -664,14 +666,7 @@ abstract class BaseMethod implements PythonBase {
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
-      emitParameterTypeChecks(
-        code,
-        context,
-        pythonParams.slice(1),
-        `${toPythonFullName(this.parent.fqn, context.assembly)}.${
-          this.pythonName
-        }`,
-      );
+      emitParameterTypeChecks(code, context, pythonParams.slice(1));
     }
     this.emitBody(
       code,
@@ -945,18 +940,7 @@ abstract class BaseProperty implements PythonBase {
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
-        emitParameterTypeChecks(
-          code,
-          context,
-          [`value: ${pythonType}`],
-          // In order to get a property accessor, we must resort to getting the
-          // attribute on the type, instead of the value (where the getter would
-          // be implicitly invoked for us...)
-          `getattr(${toPythonFullName(
-            this.parent.fqn,
-            context.assembly,
-          )}, ${JSON.stringify(this.pythonName)}).fset`,
-        );
+        emitParameterTypeChecks(code, context, [`value: ${pythonType}`]);
         code.line(
           `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
         );
@@ -1142,12 +1126,14 @@ class Struct extends BasePythonClassType {
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
     }
-    emitParameterTypeChecks(
-      code,
-      context,
-      kwargs,
-      `${toPythonFullName(this.spec.fqn, context.assembly)}.__init__`,
-    );
+    if (kwargs.length > 0) {
+      emitParameterTypeChecks(
+        code,
+        // Runtime type check keyword args as this is a struct __init__ function.
+        { ...context, runtimeTypeCheckKwargs: true },
+        ['*', ...kwargs],
+      );
+    }
 
     // Required properties, those will always be put into the dict
     assignDictionary(
@@ -3055,14 +3041,13 @@ function openSignature(
  * Emits runtime type checking code for parameters.
  *
  * @param code        the CodeMaker to use for emitting code.
+ * @param context     the emit context used when emitting this code.
  * @param params      the parameter signatures to be type-checked.
- * @param typedEntity the type-annotated entity.
  */
 function emitParameterTypeChecks(
   code: CodeMaker,
   context: EmitContext,
   params: readonly string[],
-  typedEntity: string,
 ): void {
   if (!context.runtimeTypeChecking) {
     return;
@@ -3078,24 +3063,36 @@ function emitParameterTypeChecks(
     return { name };
   });
 
-  const typesVar = slugifyAsNeeded(
-    'type_hints',
-    paramInfo
-      .filter((param) => param.name != null)
-      .map((param) => param.name!.split(/\s*:\s*/)[0]),
-  );
+  const paramNames = paramInfo
+    .filter((param) => param.name != null)
+    .map((param) => param.name!.split(/\s*:\s*/)[0]);
+  const typesVar = slugifyAsNeeded('type_hints', paramNames);
 
   let openedBlock = false;
   for (const { is_rest, kwargsMark, name } of paramInfo) {
     if (kwargsMark) {
-      // This is the keyword-args separator, we won't check keyword arguments here because the kwargs will be rolled
-      // up into a struct instance, and that struct's constructor will be checking again...
-      break;
+      if (!context.runtimeTypeCheckKwargs) {
+        // This is the keyword-args separator, we won't check keyword arguments here because the kwargs will be rolled
+        // up into a struct instance, and that struct's constructor will be checking again...
+        break;
+      }
+      // Skip this (there is nothing to be checked as this is just a marker...)
+      continue;
     }
 
     if (!openedBlock) {
       code.openBlock('if __debug__');
-      code.line(`${typesVar} = typing.get_type_hints(${typedEntity})`);
+      const stubVar = slugifyAsNeeded('stub', [...paramNames, typesVar]);
+      // Inline a stub function to be able to have the required type hints regardless of what customers do with the
+      // code. Using a reference to the `Type.function` may result in incorrect data if some function was replaced (e.g.
+      // by a decorated version with different type annotations). We also cannot construct the actual value expected by
+      // typeguard's `check_type` because Python does not expose the APIs necessary to build many of these objects in
+      // regular Python code.
+      openSignature(code, 'def', stubVar, params, 'None');
+      code.line('...');
+      code.closeBlock();
+
+      code.line(`${typesVar} = typing.get_type_hints(${stubVar})`);
       openedBlock = true;
     }
 

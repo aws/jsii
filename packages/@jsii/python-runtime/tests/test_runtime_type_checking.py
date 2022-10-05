@@ -21,6 +21,30 @@ class TestRuntimeTypeChecking:
         ):
             jsii_calc.Calculator(initial_value="nope")  # type:ignore
 
+    def test_constructor_decorated(self):
+        """
+        This test verifies that runtime type checking is not broken when a function is wrapped with a decorator, as was
+        the case with the original implementation (due to a dynamic access to type_hints for the method via the type).
+        """
+
+        with pytest.raises(
+            TypeError,
+            match=re.escape(
+                "type of argument maximum_value must be one of (int, float, NoneType); got str instead"
+            ),
+        ):
+            orig_init = jsii_calc.Calculator.__init__
+            # For toy, swap initial_value and maximum_values here
+            jsii_calc.Calculator.__init__ = (
+                lambda self, *, initial_value=None, maximum_value=None: orig_init(
+                    self, initial_value=maximum_value, maximum_value=initial_value
+                )
+            )
+            try:
+                jsii_calc.Calculator(initial_value="nope")  # type:ignore
+            finally:
+                jsii_calc.Calculator.__init__ = orig_init
+
     def test_struct(self):
         with pytest.raises(
             TypeError,
