@@ -404,20 +404,6 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
 }
 
 /**
- * Computes the nesting-qualified name of a type.
- *
- * @param fqn      the fully qualified jsii name of the type.
- * @param rootAssm the root assembly for the project.
- *
- * @returns the nesting-qualified python type name (the name of the class,
- *          qualified with all nesting parent classes).
- */
-export function toPythonFullName(fqn: string, rootAssm: Assembly): string {
-  const { packageName, pythonFqn } = toPythonFqn(fqn, rootAssm);
-  return pythonFqn.slice(packageName.length + 1);
-}
-
-/**
  * Computes the python relative import path from `fromModule` to `toModule`.
  *
  * @param fromPkg the package where the relative import statement is located.
