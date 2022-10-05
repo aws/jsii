@@ -220,6 +220,11 @@ func (p *Process) readResponse(into interface{}) error {
 	var errResp ErrorResponse
 	if _, ok := respmap["error"]; ok {
 		json.Unmarshal(raw, &errResp)
+
+		if errResp.Name != nil && *errResp.Name == "@jsii/kernel.Fault" {
+			return fmt.Errorf("JsiiError: %s", *errResp.Name)
+		}
+
 		return errors.New(errResp.Error)
 	}
 
