@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664894563774,
+  "lastUpdate": 1664984960025,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7821,6 +7821,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4806921.088762746,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74402.71448419997 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "dae724c39ba274c6facd8fb9f4b93cc2db52e311",
+          "message": "fix(python): KeyError in type checks when decorating methods (#3791)\n\nWhen methods are decorated by users (e.g: replaced with an alternate function that delegates back to the original one), type annotations are not carried over to the new function.\n\nSince type checking code relied on dynamically accessing the checked function for the purpose of getting type hints,this resulted in unexpected errors when executing type checking code.\n\nIn order to address this, the type checking code now declares a stub function locally with the relevant type information in order to have a reliable/stable source of type annotations (these cannot be constructed dynamically as Python does not expose the necessary constructors).\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-10-05T15:03:53Z",
+          "tree_id": "b06573af1ea6b00d163ce8db7b8d8aaf0bffee00",
+          "url": "https://github.com/aws/jsii/commit/dae724c39ba274c6facd8fb9f4b93cc2db52e311"
+        },
+        "date": 1664984957628,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 58810.78670399993,
+            "unit": "milliseconds",
+            "range": 4056905.1534684584,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 58810.78670399993 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45581.06782320001,
+            "unit": "milliseconds",
+            "range": 101907.02402220706,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45581.06782320001 milliseconds over 20 runs"
           }
         ]
       }
