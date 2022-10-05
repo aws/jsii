@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "semver": "^7.3.7"
+    "semver": "^7.3.8"
   }
 }

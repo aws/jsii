@@ -32,7 +32,7 @@
     "@xmldom/xmldom": "^0.8.2",
     "workerpool": "^6.2.1",
     "yargs": "^16.2.0",
-    "semver": "^7.3.7",
+    "semver": "^7.3.8",
     "semver-intersect": "^1.4.0",
     "fast-glob": "^3.2.12",
     "jsii": "0.0.0"
