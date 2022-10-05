@@ -1536,7 +1536,7 @@ func (i ImplementsStructReturningDelegate) ReturnStruct() *calc.StructB {
 }
 
 func (suite *ComplianceSuite) TestExceptions() {
-
+	// t := suite.T()
 	require := suite.Require()
 
 	calc3 := calc.NewCalculator(&calc.CalculatorProps{InitialValue: jsii.Number(20), MaximumValue: jsii.Number(30)})
@@ -1544,7 +1544,7 @@ func (suite *ComplianceSuite) TestExceptions() {
 	require.Equal(float64(23), *calc3.Value())
 
 	// TODO: should assert the actual error here - not working for some reasons
-	require.Panics(func() {
+	require.PanicsWithError("Error: Operation 33 exceeded maximum value 30", func() {
 		calc3.Add(jsii.Number(10))
 	})
 
