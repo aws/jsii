@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1664984960025,
+  "lastUpdate": 1665067884745,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7859,6 +7859,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 101907.02402220706,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45581.06782320001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mitchellvaline@yahoo.com",
+            "name": "Mitchell Valine",
+            "username": "MrArnoldPalmer"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9b6a3072ae4c95be152196f8fea36237fa2d0f99",
+          "message": "feat: add error awareness to go deserialization (#3793)\n\nAdds logic to detect when error responses are returned from the kernel within the go runtime library. This allows us to bubble up the correct error messaging from the kernel instead of just failed deserialization with unexpected response format.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-10-06T13:40:02Z",
+          "tree_id": "f061df5fd5838d3fd06181513de6f0adfdc908ee",
+          "url": "https://github.com/aws/jsii/commit/9b6a3072ae4c95be152196f8fea36237fa2d0f99"
+        },
+        "date": 1665067880049,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 99000.40928610002,
+            "unit": "milliseconds",
+            "range": 5202300.704647409,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 99000.40928610002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 76646.31684320002,
+            "unit": "milliseconds",
+            "range": 1461718.5387059662,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76646.31684320002 milliseconds over 20 runs"
           }
         ]
       }
