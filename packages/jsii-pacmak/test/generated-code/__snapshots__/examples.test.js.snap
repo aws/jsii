@@ -1344,7 +1344,9 @@ class Foo:
         :param foo: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(Foo.__init__)
+            def stub(*, foo: jsii.Number) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -1385,7 +1387,13 @@ class FooBar:
         :param bar: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(FooBar.__init__)
+            def stub(
+                *,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -1436,7 +1444,14 @@ class Baz(Foo, FooBar):
         :param baz: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(Baz.__init__)
+            def stub(
+                *,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+                baz: builtins.bool,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
@@ -2729,7 +2744,9 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             :param bar: -
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(Namespace1.Foo.__init__)
+                def stub(*, bar: builtins.str) -> None:
+                    ...
+                type_hints = typing.get_type_hints(stub)
                 check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             self._values: typing.Dict[str, typing.Any] = {
                 "bar": bar,
