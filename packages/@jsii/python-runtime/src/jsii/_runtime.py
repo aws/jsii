@@ -4,13 +4,22 @@ import sys
 
 import attr
 
-from typing import Sequence, cast, Any, Callable, List, Optional, Mapping, Type, TypeVar
+from typing import (
+    Any,
+    Callable,
+    cast,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Type,
+    TypeVar,
+)
 
 from . import _reference_map
 from ._compat import importlib_resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
-from ._kernel.types import ObjRef
 
 
 # Yea, a global here is kind of gross, however, there's not really a better way of

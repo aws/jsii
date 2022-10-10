@@ -2,6 +2,7 @@ package process
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -16,6 +17,12 @@ import (
 )
 
 const JSII_RUNTIME string = "JSII_RUNTIME"
+
+type ErrorResponse struct {
+	Error string  `json:"error"`
+	Stack *string `json:"stack"`
+	Name  *string `json:"name"`
+}
 
 // Process is a simple interface over the child process hosting the
 // @jsii/kernel process. It only exposes a very straight-forward
@@ -197,7 +204,31 @@ func (p *Process) readResponse(into interface{}) error {
 	if !p.responses.More() {
 		return fmt.Errorf("no response received from child process")
 	}
-	return p.responses.Decode(into)
+
+	var raw json.RawMessage
+	var respmap map[string]interface{}
+	err := p.responses.Decode(&raw)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(raw, &respmap)
+	if err != nil {
+		return err
+	}
+
+	var errResp ErrorResponse
+	if _, ok := respmap["error"]; ok {
+		json.Unmarshal(raw, &errResp)
+
+		if errResp.Name != nil && *errResp.Name == "@jsii/kernel.Fault" {
+			return fmt.Errorf("JsiiError: %s", *errResp.Name)
+		}
+
+		return errors.New(errResp.Error)
+	}
+
+	return json.Unmarshal(raw, &into)
 }
 
 func (p *Process) Close() {
