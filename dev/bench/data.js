@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1665401563475,
+  "lastUpdate": 1665404214373,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -7935,6 +7935,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 332387.4711425203,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64298.253602900004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9a63055c2250bbe919660d9d7ae9d7db1f3b40ff",
+          "message": "chore(deps-dev): Bump mypy from 0.981 to 0.982 in /packages/jsii-pacmak/test/generated-code (#3789)\n\nBumps [mypy](https://github.com/python/mypy) from 0.981 to 0.982.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/1c2b899fa9029538b9b9e6d30401901d94536202\"><code>1c2b899</code></a> Bump version to 0.982</li>\n<li><a href=\"https://github.com/python/mypy/commit/51d9858b09c82499c79023d0a80693a71baa7bed\"><code>51d9858</code></a> Restore Type vs Callable special-casing that was broken in refactoring (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/13784\">#13784</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/d03f201762df7138c6da157b5cbb8e634acef45f\"><code>d03f201</code></a> Suggest using upper bound for unbound tvar (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/13730\">#13730</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/5b17cc6c393280326ed15d763e599cbaeefbc0e6\"><code>5b17cc6</code></a> Fix overload overlap check for UninhabitedType (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/13461\">#13461</a>)</li>\n<li>See full diff in <a href=\"https://github.com/python/mypy/compare/v0.981...v0.982\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=0.981&new-version=0.982)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-10T11:26:26Z",
+          "tree_id": "dad20b76b9047416c60c49599358779bf6223352",
+          "url": "https://github.com/aws/jsii/commit/9a63055c2250bbe919660d9d7ae9d7db1f3b40ff"
+        },
+        "date": 1665404212062,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69334.09446035002,
+            "unit": "milliseconds",
+            "range": 316923.70037029736,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69334.09446035002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50488.36880090002,
+            "unit": "milliseconds",
+            "range": 445220.3851431164,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50488.36880090002 milliseconds over 20 runs"
           }
         ]
       }
