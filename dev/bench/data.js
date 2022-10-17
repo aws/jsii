@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1666010609530,
+  "lastUpdate": 1666015592759,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8049,6 +8049,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1423644.6730043334,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60253.395471750024 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5d5e9216438c32dc279d578c8a7f1dd3a2134fdf",
+          "message": "chore(deps): Bump Microsoft.Extensions.DependencyInjection from 6.0.0 to 6.0.1 in /packages/@jsii/dotnet-runtime-test/test (#3802)\n\nBumps [Microsoft.Extensions.DependencyInjection](https://github.com/dotnet/runtime) from 6.0.0 to 6.0.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/runtime/releases\">Microsoft.Extensions.DependencyInjection's releases</a>.</em></p>\n<blockquote>\n<h2>.NET 6.0.1</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.1\">Release</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/dotnet/runtime/commit/3a25a7f1cc446b60678ed25c9d829420d6321eba\"><code>3a25a7f</code></a> Merge in 'release/6.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/e9036b04357e8454439a0e6cf22186a0cb19e616\"><code>e9036b0</code></a> [release/6.0] Add packaging changes for System.Text.Json (<a href=\"https://github-redirect.dependabot.com/dotnet/runtime/issues/61703\">#61703</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/bfdc5e92677d896f3c96318ddffbf3b70138bb20\"><code>bfdc5e9</code></a> Merge branch 'internal/release/6.0' of <a href=\"https://dev.azure.com/dnceng/internal/\">https://dev.azure.com/dnceng/internal/</a>...</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/756a3c0edbafe83c6f37b16c7680ea457b2e85c9\"><code>756a3c0</code></a> Merge remote-tracking branch 'upstream/release/6.0' into internal/release/6.0</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/479322e221506aada3bc0a983a1246807a5819e3\"><code>479322e</code></a> Merge in 'release/6.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/f35d5b02ee6b702b982c0fde5a3b382341bb05e7\"><code>f35d5b0</code></a> Merge in 'release/6.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/c1e9122f0c3202545aee28243c18b0f33c5c12d9\"><code>c1e9122</code></a> [release/6.0] Disable native ports package validation (<a href=\"https://github-redirect.dependabot.com/dotnet/runtime/issues/61697\">#61697</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/c91170a7ae2d8529541ad846bde1a8a563429bd8\"><code>c91170a</code></a> HostFactoryResolver - Increase default timeout and add env var option (<a href=\"https://github-redirect.dependabot.com/dotnet/runtime/issues/61688\">#61688</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/32a62c9ff81c706c609d39b346cebe1c6825757e\"><code>32a62c9</code></a> Merge in 'release/6.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/1aaf3bf3a17241438d9ad615304ab194be573949\"><code>1aaf3bf</code></a> [release/6.0] Disable activation host tests that fail with a 6.0 RC2 or newer...</li>\n<li>Additional commits viewable in <a href=\"https://github.com/dotnet/runtime/compare/v6.0.0...v6.0.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.Extensions.DependencyInjection&package-manager=nuget&previous-version=6.0.0&new-version=6.0.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-17T12:58:35Z",
+          "tree_id": "8198c77c1a1411f915e662a745f258be1c7b2772",
+          "url": "https://github.com/aws/jsii/commit/5d5e9216438c32dc279d578c8a7f1dd3a2134fdf"
+        },
+        "date": 1666015589361,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 96069.66250669998,
+            "unit": "milliseconds",
+            "range": 7629031.561627778,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 96069.66250669998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 72987.64245245002,
+            "unit": "milliseconds",
+            "range": 1805292.3226772964,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72987.64245245002 milliseconds over 20 runs"
           }
         ]
       }
