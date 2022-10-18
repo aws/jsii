@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1666019603607,
+  "lastUpdate": 1666109663459,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8125,6 +8125,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 175427.51478696777,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51143.192391350014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e6f497b15848f8a6a55a66c5e4b7291ca98c1b59",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.4.0 to ~=1.4.1 in /gh-pages (#3804)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.4.1</h2>\n<ul>\n<li>\n<p>Support theme-namespaced plugin loading (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2998\">#2998</a>)</p>\n<p>Plugins' entry points can be named as 'sometheme/someplugin'. That will have the following outcome:</p>\n<ul>\n<li>If the current theme is 'sometheme', the plugin 'sometheme/someplugin' will always be preferred over 'someplugin'.</li>\n<li>If the current theme <em>isn't</em> 'sometheme', the only way to use this plugin is by specifying <code>plugins: [sometheme/someplugin]</code>.</li>\n</ul>\n<p>One can also specify <code>plugins: ['/someplugin']</code> instead of <code>plugins: ['someplugin']</code> to definitely avoid the theme-namespaced plugin.</p>\n</li>\n<li>\n<p>Bugfix: <code>mkdocs serve</code> will work correctly with non-ASCII paths and redirects (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3001\">#3001</a>)</p>\n</li>\n<li>\n<p>Windows: 'colorama' is now a dependency of MkDocs, to ensure colorful log output (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2987\">#2987</a>)</p>\n</li>\n<li>\n<p>Plugin-related config options have more reliable validation and error reporting (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2997\">#2997</a>)</p>\n</li>\n<li>\n<p>Translation sub-commands of <code>setup.py</code> were completely dropped. See documentation <a href=\"https://www.mkdocs.org/about/contributing/#submitting-changes-to-the-builtin-themes\">[1]</a> <a href=\"https://www.mkdocs.org/dev-guide/translations/#updating-the-translation-catalogs\">[2]</a> for their new replacements (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2990\">#2990</a>)</p>\n</li>\n<li>\n<p>The <a href=\"https://pypi.org/project/mkdocs/#files\">'mkdocs' package</a> (wheel and source) is now produced by Hatch build system and pyproject.toml instead of setup.py (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2988\">#2988</a>)</p>\n</li>\n</ul>\n<p>Other small improvements; see <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.0...1.4.1\">commit log</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/aa9eabea1a474ddaf817bbdca8bada7cec61aa11\"><code>aa9eabe</code></a> Release 1.4.1 (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3004\">#3004</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/79fa445717d059071f09c10418eb531992e05027\"><code>79fa445</code></a> URL-encode paths when serving a redirect (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3001\">#3001</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/64c42a69430cf4b2a3d021e4cbc43bf5b1dd5354\"><code>64c42a6</code></a> Fix tests for previous commit</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/6b7d0a55e094259dbd6d84c88721f43ed1869394\"><code>6b7d0a5</code></a> Prevent a confusing stack trace when theme config fails validation</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/6fca6b59a29c07b7106d3c2ec58b7a3c136b09d8\"><code>6fca6b5</code></a> Support theme-namespaced plugin loading (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2998\">#2998</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/568e63ec3f55d8764dee9917b7060c5380416be7\"><code>568e63e</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/2997\">#2997</a> from mkdocs/plugconf</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/aaf819f183fec9f2bda14449ad9fc875ad830e45\"><code>aaf819f</code></a> Better guard an edge case in plugin config</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/b964e05372b04a557663f5a963c1c772f8b0f4c6\"><code>b964e05</code></a> Refactor <code>load_plugin</code> usage</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/9ada9bf96918153fd6e28eee5292e63040f57d23\"><code>9ada9bf</code></a> Also tighten warnings of plugin configs</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/6b4d20e1eb922e010617ee65f48dc470a82a3584\"><code>6b4d20e</code></a> Refactor plugin_cache usage to avoid nested exception</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.0...1.4.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-17T14:22:54Z",
+          "tree_id": "24841fd1ab9f0888a2466d8ba6c69b7a4ae1e07d",
+          "url": "https://github.com/aws/jsii/commit/e6f497b15848f8a6a55a66c5e4b7291ca98c1b59"
+        },
+        "date": 1666109660641,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72176.96359409997,
+            "unit": "milliseconds",
+            "range": 349699.4733774592,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72176.96359409997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53465.97214695,
+            "unit": "milliseconds",
+            "range": 443413.95562441676,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53465.97214695 milliseconds over 20 runs"
           }
         ]
       }
