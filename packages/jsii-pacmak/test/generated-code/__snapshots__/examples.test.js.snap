@@ -383,7 +383,7 @@ namespace Example.Test.Demo.Internal.DependencyResolution
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -499,7 +499,6 @@ func Consumer_ConsumeBaz(baz *Baz) {
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__no_runtime_type_checking.go 1`] = `
 //go:build no_runtime_type_checking
-// +build no_runtime_type_checking
 
 // testpkg
 package testpkg
@@ -515,7 +514,6 @@ func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__runtime_type_checks.go 1`] = `
 //go:build !no_runtime_type_checking
-// +build !no_runtime_type_checking
 
 // testpkg
 package testpkg
@@ -1346,7 +1344,9 @@ class Foo:
         :param foo: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(Foo.__init__)
+            def stub(*, foo: jsii.Number) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[str, typing.Any] = {
             "foo": foo,
@@ -1387,7 +1387,13 @@ class FooBar:
         :param bar: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(FooBar.__init__)
+            def stub(
+                *,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[str, typing.Any] = {
@@ -1438,7 +1444,14 @@ class Baz(Foo, FooBar):
         :param baz: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(Baz.__init__)
+            def stub(
+                *,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+                baz: builtins.bool,
+            ) -> None:
+                ...
+            type_hints = typing.get_type_hints(stub)
             check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
@@ -1833,7 +1846,7 @@ namespace Example.Test.Demo
 exports[`nested-types.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
-go 1.16
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -2731,7 +2744,9 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             :param bar: -
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(Namespace1.Foo.__init__)
+                def stub(*, bar: builtins.str) -> None:
+                    ...
+                type_hints = typing.get_type_hints(stub)
                 check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             self._values: typing.Dict[str, typing.Any] = {
                 "bar": bar,

@@ -117,7 +117,7 @@ public class JsiiClientTest {
         assertEquals(obj.getObjId(), JsiiObjectRef.parse(first.getInvoke().getObjref()).getObjId());
 
         // now complete the callback with some override value
-        client.completeCallback(first, null, toSandbox(999));
+        client.completeCallback(first, null, null, toSandbox(999));
 
         // end the async invocation, but now we expect the value to be different since we override the method.
         JsonNode result = client.endAsyncMethod(promise);
@@ -146,14 +146,50 @@ public class JsiiClientTest {
         assertEquals(obj.getObjId(), JsiiObjectRef.parse(first.getInvoke().getObjref()).getObjId());
 
         // now complete the callback with an error
-        client.completeCallback(first, "Hello, Error", null);
+        client.completeCallback(first, "Hello, Error", null, null);
+
+        // end the async invocation, but now we expect the value to be different since we override the method.
+        boolean thrown = false;
+        try {
+            client.endAsyncMethod(promise);
+        } catch (RuntimeException e) {
+            assertEquals(RuntimeException.class, e.getClass());
+            assertTrue(e.getMessage().contains("Hello, Error"));
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    public void asyncMethodOverridesThrowWithFault() {
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
+
+        // begin will return a promise
+        JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
+        assertFalse(promise.getPromiseId().isEmpty());
+
+        // now we expect to see a callback to "overrideMe" in the pending callbacks queue
+
+        List<Callback> callbacks = client.pendingCallbacks();
+
+        assertEquals(1, callbacks.size());
+
+        Callback first = callbacks.get(0);
+        assertEquals("overrideMe", first.getInvoke().getMethod());
+        assertEquals("myCookie", first.getCookie());
+        assertEquals(1, first.getInvoke().getArgs().size());
+        assertEquals(JsiiObjectMapper.valueToTree(10), first.getInvoke().getArgs().get(0));
+        assertEquals(obj.getObjId(), JsiiObjectRef.parse(first.getInvoke().getObjref()).getObjId());
+
+        // now complete the callback with an error
+        client.completeCallback(first, "Hello, Fault", "@jsii/kernel.Fault", null);
 
         // end the async invocation, but now we expect the value to be different since we override the method.
         boolean thrown = false;
         try {
             client.endAsyncMethod(promise);
         } catch (JsiiException e) {
-            assertTrue(e.getMessage().contains("Hello, Error"));
+            assertTrue(e.getMessage().contains("Hello, Fault"));
             thrown = true;
         }
         assertTrue(thrown);

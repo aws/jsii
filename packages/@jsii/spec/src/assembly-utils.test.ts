@@ -128,11 +128,9 @@ describe(loadAssemblyFromPath, () => {
       filename: '.jsii.7z',
     });
 
-    expect(() => loadAssemblyFromPath(tmpdir))
-      .toThrowErrorMatchingInlineSnapshot(`
-      "Invalid assembly redirect:
-       * must be equal to one of the allowed values"
-    `);
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrowError(
+      /Error: Invalid assembly redirect:\n \* redirect\/compression must be equal to one of the allowed values/m,
+    );
   });
 
   test('throws if redirect object is missing filename', () => {
@@ -140,11 +138,9 @@ describe(loadAssemblyFromPath, () => {
       schema: 'jsii/file-redirect',
     });
 
-    expect(() => loadAssemblyFromPath(tmpdir))
-      .toThrowErrorMatchingInlineSnapshot(`
-      "Invalid assembly redirect:
-       * must have required property 'filename'"
-    `);
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrowError(
+      /Error: Invalid assembly redirect:\n \* redirect must have required property 'filename'/m,
+    );
   });
 
   test('throws if assembly is invalid', () => {
