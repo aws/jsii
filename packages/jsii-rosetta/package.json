@@ -29,7 +29,7 @@
     "@jsii/spec": "0.0.0",
     "commonmark": "^0.30.0",
     "typescript": "~3.9.10",
-    "@xmldom/xmldom": "^0.8.2",
+    "@xmldom/xmldom": "^0.8.3",
     "workerpool": "^6.2.1",
     "yargs": "^16.2.0",
     "semver": "^7.3.8",

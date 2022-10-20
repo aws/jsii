@@ -168,17 +168,37 @@ export class Assembly extends ModuleLike {
   }
 
   /**
-   * All types, even those in submodules and nested submodules.
-   */
-  public get types(): readonly Type[] {
-    return Array.from(this.typeMap.values());
-  }
-
-  /**
-   * Return all types in the current assembly/submodule and all submodules underneath
+   * All types in the assembly and all of its submodules
    */
   public get allTypes(): readonly Type[] {
     return [...this.types, ...this.allSubmodules.flatMap((s) => s.types)];
+  }
+
+  /**
+   * All classes in the assembly and all of its submodules
+   */
+  public get allClasses(): readonly ClassType[] {
+    return this.allTypes
+      .filter((t) => t instanceof ClassType)
+      .map((t) => t as ClassType);
+  }
+
+  /**
+   * All interfaces in the assembly and all of its submodules
+   */
+  public get allInterfaces(): readonly InterfaceType[] {
+    return this.allTypes
+      .filter((t) => t instanceof InterfaceType)
+      .map((t) => t as InterfaceType);
+  }
+
+  /**
+   * All interfaces in the assembly and all of its submodules
+   */
+  public get allEnums(): readonly EnumType[] {
+    return this.allTypes
+      .filter((t) => t instanceof EnumType)
+      .map((t) => t as EnumType);
   }
 
   public findType(fqn: string) {
