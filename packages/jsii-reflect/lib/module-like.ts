@@ -34,22 +34,34 @@ export abstract class ModuleLike {
     return Array.from(this.submoduleMap.values());
   }
 
+  /**
+   * All types in this module/namespace (not submodules)
+   */
   public get types(): readonly Type[] {
     return Array.from(this.typeMap.values());
   }
 
+  /**
+   * All classes in this module/namespace (not submodules)
+   */
   public get classes(): readonly ClassType[] {
     return this.types
       .filter((t) => t instanceof ClassType)
       .map((t) => t as ClassType);
   }
 
+  /**
+   * All interfaces in this module/namespace (not submodules)
+   */
   public get interfaces(): readonly InterfaceType[] {
     return this.types
       .filter((t) => t instanceof InterfaceType)
       .map((t) => t as InterfaceType);
   }
 
+  /**
+   * All enums in this module/namespace (not submodules)
+   */
   public get enums(): readonly EnumType[] {
     return this.types
       .filter((t) => t instanceof EnumType)
