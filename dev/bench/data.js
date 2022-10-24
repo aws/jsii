@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1666640581731,
+  "lastUpdate": 1666643524517,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8543,6 +8543,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 730972.3465767562,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61429.70328995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43035978+corymhall@users.noreply.github.com",
+            "name": "Cory Hall",
+            "username": "corymhall"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fb278c0fa243ed58266e765f1ab4f5576a1edaf2",
+          "message": "chore: fix auto-approve workflow (#3814)\n\nThe condition could only pass for `pull_request` events. For most auto-approve PRs though this workflow would be triggered by `labeled` event, which requires a different condition.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-10-24T19:41:48Z",
+          "tree_id": "79a7bc61d85e981f0d1ceea67f4f4fe46ef74377",
+          "url": "https://github.com/aws/jsii/commit/fb278c0fa243ed58266e765f1ab4f5576a1edaf2"
+        },
+        "date": 1666643521063,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 68406.18974029997,
+            "unit": "milliseconds",
+            "range": 363144.1556386238,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 68406.18974029997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50258.46544419999,
+            "unit": "milliseconds",
+            "range": 212890.38933709744,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50258.46544419999 milliseconds over 20 runs"
           }
         ]
       }
