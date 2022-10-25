@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1666649897613,
+  "lastUpdate": 1666657257708,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8619,6 +8619,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 518612.2192111031,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60272.796493949994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f91eeeead018f5fed1bb431df89dcbd39d07d99a",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.5.6 to ~=8.5.7 in /gh-pages (#3811)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.5.7</h2>\n<ul>\n<li>Deprecated additional admonition qualifiers to reduce size of CSS</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4511\">#4511</a>: Search boost does not apply to sections</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.5.7+insiders-4.26.0 (2022-10-22)</p>\n<ul>\n<li>Improved reporting of configuration errors in tags plugin</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4515\">#4515</a>: Privacy plugin fails when site URL is not defined</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4514\">#4514</a>: Privacy plugin doesn't fetch Google fonts (4.26.0 regression)</li>\n</ul>\n<p>mkdocs-material-8.5.7 (2022-10-22)</p>\n<ul>\n<li>Deprecated additional admonition qualifiers to reduce size of CSS</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4511\">#4511</a>: Search boost does not apply to sections</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.26.0 (2022-10-18)</p>\n<ul>\n<li>Refactored privacy plugin to prepare for new features</li>\n<li>Added support for rel=noopener links in privacy plugin</li>\n<li>Resolve encoding issues with blog and privacy plugin</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.25.5 (2022-10-16)</p>\n<ul>\n<li>Updated MkDocs to 1.4.1</li>\n<li>Added namespace prefix to built-in plugins</li>\n<li>Updated content and header partial</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.25.4 (2022-10-09)</p>\n<ul>\n<li>Fixed other path issues for standalone blogs (4.24.2 regression)</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.25.3 (2022-10-09)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4457\">#4457</a>: Posts not collected for standalone blog (4.24.2 regression)</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.25.2 (2022-10-04)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4452\">#4452</a>: Blog and tags plugin crash when specifying slugify function</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.25.1 (2022-10-03)</p>\n<ul>\n<li>Updated mkdocs-rss-plugin in Dockerfile to fix MkDocs compat errors</li>\n</ul>\n<p>mkdocs-material-8.5.6+insiders-4.25.0 (2022-10-02)</p>\n<ul>\n<li>Added support for navigation subtitles</li>\n<li>Added support for defining an allow list for built-in tags plugin</li>\n<li>Added support for custom slugify functions for built-in tags plugin</li>\n<li>Improved stability of search plugin when using --dirtyreload</li>\n</ul>\n<p>mkdocs-material-8.5.6 (2022-10-02)</p>\n<ul>\n<li>Modernized appearance of admonitions (with fallback, see docs)</li>\n<li>Improved appearance of inline code blocks in admonition titles</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/23f12fe7675d2865af06ca5bfe756c5bc2fa92c8\"><code>23f12fe</code></a> Prepare 8.5.7 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/922fde070166898cbde561739670e1249423abe2\"><code>922fde0</code></a> Fixed search boost not being applied to document sections</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f13a5526d024bb646f4dfdb48904a8adea81d026\"><code>f13a552</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b2f310a2201724ed9292521399fbbb3f417654ed\"><code>b2f310a</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/93daab252d229e6ec2c9fd0a0a88eea4a191d4c3\"><code>93daab2</code></a> Updated Insiders changelog and documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b8161e01790d02277623dfebf3e6b0c7b2404365\"><code>b8161e0</code></a> Added warning for social plugin when site_url is not defined</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ed6f0b1b57a379df797b2d9891d33efd4f81cbb5\"><code>ed6f0b1</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/34f563cfd23dbb6d6015f38112a4dc056384a7aa\"><code>34f563c</code></a> Temporarily disabled no-misused-promise check due to ESLint error</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2b08c42c09c058d01664ff958b807e0abe048fd0\"><code>2b08c42</code></a> Fixed linter errors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b0afb7f1dfea2cc8003f7f592bccc095914bf143\"><code>b0afb7f</code></a> Updated dependencies</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.5.6...8.5.7\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-10-24T23:20:13Z",
+          "tree_id": "712d054dd10f2dbd319959ed37f4bf5235b31447",
+          "url": "https://github.com/aws/jsii/commit/f91eeeead018f5fed1bb431df89dcbd39d07d99a"
+        },
+        "date": 1666657254546,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 83498.2389389,
+            "unit": "milliseconds",
+            "range": 998300.472482558,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 83498.2389389 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 62410.341404399995,
+            "unit": "milliseconds",
+            "range": 277167.80891974346,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62410.341404399995 milliseconds over 20 runs"
           }
         ]
       }
