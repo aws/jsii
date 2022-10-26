@@ -26,7 +26,7 @@
   "dependencies": {
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "^0.0.0",
-    "inquirer": "^8.2.4",
+    "inquirer": "^8.2.5",
     "yargs": "^16.2.0"
   }
 }
