@@ -219,6 +219,17 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
 RUN pip install aws-sam-cli                                                                                             \
   && sam --version
 
+# Install Amazon SSM agent (allows debugging of builds via `codebuild-breakpoint`, https://go.aws/3TVW7vL)
+RUN apt-get update                                                                                                      \
+  && apt-get -y install curl                                                                                            \
+  && curl -fSsL "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${TARGETPLATFORM#linux/}/amazon-ssm-agent.deb"      \
+  -o /tmp/amazon-ssm-agent.deb                                                                                          \
+  && dpkg -i /tmp/amazon-ssm-agent.deb                                                                                  \
+  && systemctl enable amazon-ssm-agent                                                                                  \
+  && rm -rf /var/lib/apt/lists/*
+COPY --chown=superchain:superchain superchain/amazon-ssm-agent.json /etc/amazon/ssm/amazon-ssm-agent.json
+
+
 # Install some configuration
 COPY superchain/ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
