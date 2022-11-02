@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1667408218355,
+  "lastUpdate": 1667416893495,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8771,6 +8771,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4151612.9495866983,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65298.1092543 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Huijbers",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d3c3b170057b976cdbd196f357e287e6437bb1aa",
+          "message": "feat(superchain): add Amazon SSM agent (#3819)\n\nAdd the Amazon SSM agent to our image, so that we will be able to debug builds using the CodeBuild `<->` SSM breakpoint feature.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-11-02T18:12:55Z",
+          "tree_id": "68842523d031cfde8920aa26087bb84a0390aea0",
+          "url": "https://github.com/aws/jsii/commit/d3c3b170057b976cdbd196f357e287e6437bb1aa"
+        },
+        "date": 1667416889682,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 96003.62993044998,
+            "unit": "milliseconds",
+            "range": 5207979.23569861,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 96003.62993044998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73008.14844825,
+            "unit": "milliseconds",
+            "range": 1062370.7986406432,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73008.14844825 milliseconds over 20 runs"
           }
         ]
       }
