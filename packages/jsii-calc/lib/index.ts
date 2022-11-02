@@ -26,3 +26,4 @@ export * as jsii3656 from './jsii3656';
 
 export * as anonymous from './anonymous';
 export * as union from './union';
+export * as homonymousForwardReferences from './homonymous';

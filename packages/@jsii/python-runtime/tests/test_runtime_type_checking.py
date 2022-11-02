@@ -172,3 +172,18 @@ class TestRuntimeTypeChecking:
             )
 
         jsii_calc.VariadicTypeUnion()
+
+    def test_homonymous_forward_references(self):
+        """Verifies homonymous forward references don't trip the type checker
+
+        This has been an issue when stub functions were introduced to create a reliable source for type checking
+        information, which was reported in https://github.com/aws/jsii/issues/3818.
+        """
+        # This uses a ForwardRef["Homonymous"] that should resolve to jsii_calc.homonymous_forward_references.foo.Homonymous
+        jsii_calc.homonymous_forward_references.foo.Consumer.consume(
+            homonymous={"string_property": "Check!"}
+        )
+        # This uses a ForwardRef["Homonymous"] that should resolve to jsii_calc.homonymous_forward_references.bar.Homonymous
+        jsii_calc.homonymous_forward_references.bar.Consumer.consume(
+            homonymous={"numeric_property": 1337}
+        )

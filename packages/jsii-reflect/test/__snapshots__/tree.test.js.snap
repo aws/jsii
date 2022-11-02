@@ -13,6 +13,10 @@ exports[`defaults 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├─┬ homonymousForwardReferences
+ │   │ └─┬ submodules
+ │   │   ├── bar
+ │   │   └── foo
  │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
@@ -67,6 +71,10 @@ exports[`inheritance 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├─┬ homonymousForwardReferences
+ │   │ └─┬ submodules
+ │   │   ├── bar
+ │   │   └── foo
  │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
@@ -121,6 +129,10 @@ exports[`members 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├─┬ homonymousForwardReferences
+ │   │ └─┬ submodules
+ │   │   ├── bar
+ │   │   └── foo
  │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
@@ -322,6 +334,53 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ homonymousForwardReferences
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ bar
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├─┬ class Consumer
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ static consume(props) method
+ │ │ │ │ │   │     ├── static
+ │ │ │ │ │   │     ├─┬ parameters
+ │ │ │ │ │   │     │ └─┬ props
+ │ │ │ │ │   │     │   └── type: jsii-calc.homonymousForwardReferences.bar.ConsumerProps
+ │ │ │ │ │   │     └── returns: jsii-calc.homonymousForwardReferences.bar.Homonymous
+ │ │ │ │ │   ├─┬ interface ConsumerProps
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ homonymous property
+ │ │ │ │ │   │     ├── abstract
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     └── type: jsii-calc.homonymousForwardReferences.bar.Homonymous
+ │ │ │ │ │   └─┬ interface Homonymous
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ numericProperty property
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: number
+ │ │ │ │ └─┬ foo
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class Consumer
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ static consume(props) method
+ │ │ │ │     │     ├── static
+ │ │ │ │     │     ├─┬ parameters
+ │ │ │ │     │     │ └─┬ props
+ │ │ │ │     │     │   └── type: jsii-calc.homonymousForwardReferences.foo.ConsumerProps
+ │ │ │ │     │     └── returns: jsii-calc.homonymousForwardReferences.foo.Homonymous
+ │ │ │ │     ├─┬ interface ConsumerProps
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ homonymous property
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: jsii-calc.homonymousForwardReferences.foo.Homonymous
+ │ │ │ │     └─┬ interface Homonymous
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ stringProperty property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
+ │ │ │ └── types
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe
@@ -3720,6 +3779,10 @@ exports[`signatures 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├─┬ homonymousForwardReferences
+ │   │ └─┬ submodules
+ │   │   ├── bar
+ │   │   └── foo
  │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
@@ -3798,6 +3861,19 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ homonymousForwardReferences
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ bar
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├── class Consumer
+ │ │ │ │ │   ├── interface ConsumerProps
+ │ │ │ │ │   └── interface Homonymous
+ │ │ │ │ └─┬ foo
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── class Consumer
+ │ │ │ │     ├── interface ConsumerProps
+ │ │ │ │     └── interface Homonymous
+ │ │ │ └── types
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
