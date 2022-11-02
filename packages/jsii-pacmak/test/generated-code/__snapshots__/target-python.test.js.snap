@@ -2523,6 +2523,12 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 derived_class_has_no_properties
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 homonymous_forward_references
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 bar
+          ┃  ┃  ┗━ 📄 __init__.py
+          ┃  ┗━ 📁 foo
+          ┃     ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_includes_classes
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
@@ -2874,6 +2880,9 @@ kwargs = json.loads(
         "jsii_calc.cdk16625.donotimport",
         "jsii_calc.composition",
         "jsii_calc.derived_class_has_no_properties",
+        "jsii_calc.homonymous_forward_references",
+        "jsii_calc.homonymous_forward_references.bar",
+        "jsii_calc.homonymous_forward_references.foo",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
         "jsii_calc.jsii3656",
@@ -11267,6 +11276,7 @@ __all__ = [
     "cdk16625",
     "composition",
     "derived_class_has_no_properties",
+    "homonymous_forward_references",
     "interface_in_namespace_includes_classes",
     "interface_in_namespace_only_interface",
     "jsii3656",
@@ -11291,6 +11301,7 @@ from . import anonymous
 from . import cdk16625
 from . import composition
 from . import derived_class_has_no_properties
+from . import homonymous_forward_references
 from . import interface_in_namespace_includes_classes
 from . import interface_in_namespace_only_interface
 from . import jsii3656
@@ -11723,6 +11734,270 @@ class Derived(
 __all__ = [
     "Base",
     "Derived",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/homonymous_forward_references/__init__.py 1`] = `
+'''
+Verifies homonymous forward references don't trip the Python type checker
+
+This has been an issue when stub functions were introduced to create a reliable source for type checking
+information, which was reported in https://github.com/aws/jsii/issues/3818.
+'''
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+__all__ = [
+    "bar",
+    "foo",
+]
+
+publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import bar
+from . import foo
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/homonymous_forward_references/bar/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from ..._jsii import *
+
+
+class Consumer(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.homonymousForwardReferences.bar.Consumer",
+):
+    @jsii.member(jsii_name="consume")
+    @builtins.classmethod
+    def consume(
+        cls,
+        *,
+        homonymous: typing.Union["Homonymous", typing.Dict[str, typing.Any]],
+    ) -> "Homonymous":
+        '''
+        :param homonymous: 
+        '''
+        props = ConsumerProps(homonymous=homonymous)
+
+        return typing.cast("Homonymous", jsii.sinvoke(cls, "consume", [props]))
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.homonymousForwardReferences.bar.ConsumerProps",
+    jsii_struct_bases=[],
+    name_mapping={"homonymous": "homonymous"},
+)
+class ConsumerProps:
+    def __init__(
+        self,
+        *,
+        homonymous: typing.Union["Homonymous", typing.Dict[str, typing.Any]],
+    ) -> None:
+        '''
+        :param homonymous: 
+        '''
+        if isinstance(homonymous, dict):
+            homonymous = Homonymous(**homonymous)
+        self._values: typing.Dict[str, typing.Any] = {
+            "homonymous": homonymous,
+        }
+
+    @builtins.property
+    def homonymous(self) -> "Homonymous":
+        result = self._values.get("homonymous")
+        assert result is not None, "Required property 'homonymous' is missing"
+        return typing.cast("Homonymous", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ConsumerProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.homonymousForwardReferences.bar.Homonymous",
+    jsii_struct_bases=[],
+    name_mapping={"numeric_property": "numericProperty"},
+)
+class Homonymous:
+    def __init__(self, *, numeric_property: jsii.Number) -> None:
+        '''
+        :param numeric_property: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "numeric_property": numeric_property,
+        }
+
+    @builtins.property
+    def numeric_property(self) -> jsii.Number:
+        result = self._values.get("numeric_property")
+        assert result is not None, "Required property 'numeric_property' is missing"
+        return typing.cast(jsii.Number, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Homonymous(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Consumer",
+    "ConsumerProps",
+    "Homonymous",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/homonymous_forward_references/foo/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from ..._jsii import *
+
+
+class Consumer(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.homonymousForwardReferences.foo.Consumer",
+):
+    @jsii.member(jsii_name="consume")
+    @builtins.classmethod
+    def consume(
+        cls,
+        *,
+        homonymous: typing.Union["Homonymous", typing.Dict[str, typing.Any]],
+    ) -> "Homonymous":
+        '''
+        :param homonymous: 
+        '''
+        props = ConsumerProps(homonymous=homonymous)
+
+        return typing.cast("Homonymous", jsii.sinvoke(cls, "consume", [props]))
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.homonymousForwardReferences.foo.ConsumerProps",
+    jsii_struct_bases=[],
+    name_mapping={"homonymous": "homonymous"},
+)
+class ConsumerProps:
+    def __init__(
+        self,
+        *,
+        homonymous: typing.Union["Homonymous", typing.Dict[str, typing.Any]],
+    ) -> None:
+        '''
+        :param homonymous: 
+        '''
+        if isinstance(homonymous, dict):
+            homonymous = Homonymous(**homonymous)
+        self._values: typing.Dict[str, typing.Any] = {
+            "homonymous": homonymous,
+        }
+
+    @builtins.property
+    def homonymous(self) -> "Homonymous":
+        result = self._values.get("homonymous")
+        assert result is not None, "Required property 'homonymous' is missing"
+        return typing.cast("Homonymous", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ConsumerProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.homonymousForwardReferences.foo.Homonymous",
+    jsii_struct_bases=[],
+    name_mapping={"string_property": "stringProperty"},
+)
+class Homonymous:
+    def __init__(self, *, string_property: builtins.str) -> None:
+        '''
+        :param string_property: 
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "string_property": string_property,
+        }
+
+    @builtins.property
+    def string_property(self) -> builtins.str:
+        result = self._values.get("string_property")
+        assert result is not None, "Required property 'string_property' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Homonymous(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Consumer",
+    "ConsumerProps",
+    "Homonymous",
 ]
 
 publication.publish()
@@ -13859,6 +14134,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 derived_class_has_no_properties
           ┃  ┗━ 📄 __init__.py.diff
+          ┣━ 📁 homonymous_forward_references
+          ┃  ┣━ 📁 bar
+          ┃  ┃  ┗━ 📄 __init__.py.diff
+          ┃  ┗━ 📁 foo
+          ┃     ┗━ 📄 __init__.py.diff
           ┣━ 📁 interface_in_namespace_includes_classes
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 interface_in_namespace_only_interface
@@ -13965,7 +14245,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param value: -
          '''
 +        if __debug__:
-+            def stub(value: "StringEnum") -> None:
++            def stub(value: StringEnum) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -14065,7 +14345,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @enum_property.setter
      def enum_property(self, value: "AllTypesEnum") -> None:
 +        if __debug__:
-+            def stub(value: "AllTypesEnum") -> None:
++            def stub(value: AllTypesEnum) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -14178,7 +14458,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      ) -> None:
 +        if __debug__:
 +            def stub(
-+                value: typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number, "Multiply"],
++                value: typing.Union[builtins.str, jsii.Number, scope.jsii_calc_lib.Number, Multiply],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14237,7 +14517,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @optional_enum_value.setter
      def optional_enum_value(self, value: typing.Optional["StringEnum"]) -> None:
 +        if __debug__:
-+            def stub(value: typing.Optional["StringEnum"]) -> None:
++            def stub(value: typing.Optional[StringEnum]) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -14315,7 +14595,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
 +        if __debug__:
 +            def stub(
-+                scope_: "Bell",
++                scope_: Bell,
 +                *,
 +                scope: builtins.str,
 +                props: typing.Optional[builtins.bool] = None,
@@ -14464,7 +14744,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      ) -> None:
 +        if __debug__:
 +            def stub(
-+                value: typing.Optional[typing.Union["Add", "Multiply", "Power"]],
++                value: typing.Optional[typing.Union[Add, Multiply, Power]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14503,7 +14783,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
 +        if __debug__:
 +            def stub(
-+                union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[str, typing.Any]], typing.Union["StructB", typing.Dict[str, typing.Any]]]]],
++                union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14521,7 +14801,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      ) -> None:
 +        if __debug__:
 +            def stub(
-+                value: typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]],
++                value: typing.List[typing.Mapping[builtins.str, typing.Union[StructA, StructB]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14617,13 +14897,13 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
 +        if __debug__:
 +            def stub(
-+                array: typing.Sequence[typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
-+                record: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
-+                obj: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
++                array: typing.Sequence[typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
++                record: typing.Mapping[builtins.str, typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
++                obj: typing.Mapping[builtins.str, typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
 +                *,
-+                array_prop: typing.Sequence[typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
-+                obj_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
-+                record_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
++                array_prop: typing.Sequence[typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
++                obj_prop: typing.Mapping[builtins.str, typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
++                record_prop: typing.Mapping[builtins.str, typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14670,7 +14950,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @mutable_object.setter
      def mutable_object(self, value: "IMutableObjectLiteral") -> None:
 +        if __debug__:
-+            def stub(value: "IMutableObjectLiteral") -> None:
++            def stub(value: IMutableObjectLiteral) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -14687,7 +14967,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
 +        if __debug__:
 +            def stub(
-+                union_property: typing.Sequence[typing.Union[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[str, typing.Any]], typing.Union["StructB", typing.Dict[str, typing.Any]]]], typing.Sequence[typing.Union[typing.Union["StructA", typing.Dict[str, typing.Any]], typing.Union["StructB", typing.Dict[str, typing.Any]]]]]],
++                union_property: typing.Sequence[typing.Union[typing.Mapping[builtins.str, typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]]], typing.Sequence[typing.Union[typing.Union[StructA, typing.Dict[str, typing.Any]], typing.Union[StructB, typing.Dict[str, typing.Any]]]]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14705,7 +14985,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      ) -> None:
 +        if __debug__:
 +            def stub(
-+                value: typing.List[typing.Union[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]], typing.List[typing.Union["StructA", "StructB"]]]],
++                value: typing.List[typing.Union[typing.Mapping[builtins.str, typing.Union[StructA, StructB]], typing.List[typing.Union[StructA, StructB]]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14723,7 +15003,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      ) -> None:
 +        if __debug__:
 +            def stub(
-+                value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]],
++                value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, AbstractClass]]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14742,7 +15022,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            def stub(
 +                *,
-+                union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.Sequence[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]] = None,
++                union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.Sequence[typing.Union[scope.jsii_calc_lib.IFriendly, AbstractClass]]]] = None,
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -14759,7 +15039,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param consumer: -
          '''
 +        if __debug__:
-+            def stub(consumer: "PartiallyInitializedThisConsumer") -> None:
++            def stub(consumer: PartiallyInitializedThisConsumer) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument consumer", value=consumer, expected_type=type_hints["consumer"])
@@ -14775,7 +15055,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param delegate: -
          '''
 +        if __debug__:
-+            def stub(delegate: "IStructReturningDelegate") -> None:
++            def stub(delegate: IStructReturningDelegate) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument delegate", value=delegate, expected_type=type_hints["delegate"])
@@ -14791,7 +15071,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IBellRinger") -> None:
++            def stub(ringer: IBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14807,7 +15087,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IBellRinger") -> None:
++            def stub(ringer: IBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14823,7 +15103,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IBellRinger") -> None:
++            def stub(ringer: IBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14839,7 +15119,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IConcreteBellRinger") -> None:
++            def stub(ringer: IConcreteBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14854,7 +15134,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IBellRinger") -> None:
++            def stub(ringer: IBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14869,7 +15149,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IBellRinger") -> None:
++            def stub(ringer: IBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14884,7 +15164,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IBellRinger") -> None:
++            def stub(ringer: IBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14899,7 +15179,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param ringer: -
          '''
 +        if __debug__:
-+            def stub(ringer: "IConcreteBellRinger") -> None:
++            def stub(ringer: IConcreteBellRinger) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
@@ -14915,7 +15195,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param obj: -
          '''
 +        if __debug__:
-+            def stub(obj: "IAnotherPublicInterface") -> None:
++            def stub(obj: IAnotherPublicInterface) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
@@ -14930,7 +15210,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param obj: -
          '''
 +        if __debug__:
-+            def stub(obj: "INonInternalInterface") -> None:
++            def stub(obj: INonInternalInterface) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
@@ -14948,9 +15228,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            def stub(
 +                *,
-+                array_prop: typing.Sequence[typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
-+                obj_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
-+                record_prop: typing.Mapping[builtins.str, typing.Union["DummyObj", typing.Dict[str, typing.Any]]],
++                array_prop: typing.Sequence[typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
++                obj_prop: typing.Mapping[builtins.str, typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
++                record_prop: typing.Mapping[builtins.str, typing.Union[DummyObj, typing.Dict[str, typing.Any]]],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
@@ -15078,7 +15358,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +                first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
 +                another_required: datetime.datetime,
 +                bool: builtins.bool,
-+                non_primitive: "DoubleTrouble",
++                non_primitive: DoubleTrouble,
 +                another_optional: typing.Optional[typing.Mapping[builtins.str, scope.jsii_calc_lib.NumericValue]] = None,
 +                optional_any: typing.Any = None,
 +                optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
@@ -15363,7 +15643,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param clock: your implementation of \`\`WallClock\`\`.
          '''
 +        if __debug__:
-+            def stub(clock: "IWallClock") -> None:
++            def stub(clock: IWallClock) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument clock", value=clock, expected_type=type_hints["clock"])
@@ -15396,7 +15676,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
 +        if __debug__:
 +            def stub(
-+                opts: typing.Union["EraseUndefinedHashValuesOptions", typing.Dict[str, typing.Any]],
++                opts: typing.Union[EraseUndefinedHashValuesOptions, typing.Dict[str, typing.Any]],
 +                key: builtins.str,
 +            ) -> None:
 +                ...
@@ -15637,7 +15917,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param bell: -
          '''
 +        if __debug__:
-+            def stub(bell: "Bell") -> None:
++            def stub(bell: Bell) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument bell", value=bell, expected_type=type_hints["bell"])
@@ -15998,7 +16278,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +            if __debug__:
 +                def stub(
 +                    *,
-+                    prop: typing.Union["LevelOne.PropBooleanValue", typing.Dict[str, typing.Any]],
++                    prop: typing.Union[LevelOne.PropBooleanValue, typing.Dict[str, typing.Any]],
 +                ) -> None:
 +                    ...
 +                type_hints = typing.get_type_hints(stub)
@@ -16680,7 +16960,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @instance.setter # type: ignore[no-redef]
      def instance(cls, value: "Statics") -> None:
 +        if __debug__:
-+            def stub(value: "Statics") -> None:
++            def stub(value: Statics) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -16793,7 +17073,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param inputs: -
          '''
 +        if __debug__:
-+            def stub(_positional: jsii.Number, *inputs: "TopLevelStruct") -> None:
++            def stub(_positional: jsii.Number, *inputs: TopLevelStruct) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument _positional", value=_positional, expected_type=type_hints["_positional"])
@@ -17252,7 +17532,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param method: -
          '''
 +        if __debug__:
-+            def stub(method: "VariadicMethod") -> None:
++            def stub(method: VariadicMethod) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument method", value=method, expected_type=type_hints["method"])
@@ -17820,7 +18100,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @string_style.setter
      def string_style(self, value: "CompositeOperation.CompositionStringStyle") -> None:
 +        if __debug__:
-+            def stub(value: "CompositeOperation.CompositionStringStyle") -> None:
++            def stub(value: CompositeOperation.CompositionStringStyle) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -17850,6 +18130,86 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Derived(
      Base,
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/homonymous_forward_references/bar/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/homonymous_forward_references/bar/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/homonymous_forward_references/bar/__init__.py	--runtime-type-checking
+@@ -46,10 +46,18 @@
+         '''
+         :param homonymous: 
+         '''
+         if isinstance(homonymous, dict):
+             homonymous = Homonymous(**homonymous)
++        if __debug__:
++            def stub(
++                *,
++                homonymous: typing.Union[Homonymous, typing.Dict[str, typing.Any]],
++            ) -> None:
++                ...
++            type_hints = typing.get_type_hints(stub)
++            check_type(argname="argument homonymous", value=homonymous, expected_type=type_hints["homonymous"])
+         self._values: typing.Dict[str, typing.Any] = {
+             "homonymous": homonymous,
+         }
+ 
+     @builtins.property
+@@ -78,10 +86,15 @@
+ class Homonymous:
+     def __init__(self, *, numeric_property: jsii.Number) -> None:
+         '''
+         :param numeric_property: 
+         '''
++        if __debug__:
++            def stub(*, numeric_property: jsii.Number) -> None:
++                ...
++            type_hints = typing.get_type_hints(stub)
++            check_type(argname="argument numeric_property", value=numeric_property, expected_type=type_hints["numeric_property"])
+         self._values: typing.Dict[str, typing.Any] = {
+             "numeric_property": numeric_property,
+         }
+ 
+     @builtins.property
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/homonymous_forward_references/foo/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/homonymous_forward_references/foo/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/homonymous_forward_references/foo/__init__.py	--runtime-type-checking
+@@ -46,10 +46,18 @@
+         '''
+         :param homonymous: 
+         '''
+         if isinstance(homonymous, dict):
+             homonymous = Homonymous(**homonymous)
++        if __debug__:
++            def stub(
++                *,
++                homonymous: typing.Union[Homonymous, typing.Dict[str, typing.Any]],
++            ) -> None:
++                ...
++            type_hints = typing.get_type_hints(stub)
++            check_type(argname="argument homonymous", value=homonymous, expected_type=type_hints["homonymous"])
+         self._values: typing.Dict[str, typing.Any] = {
+             "homonymous": homonymous,
+         }
+ 
+     @builtins.property
+@@ -78,10 +86,15 @@
+ class Homonymous:
+     def __init__(self, *, string_property: builtins.str) -> None:
+         '''
+         :param string_property: 
+         '''
++        if __debug__:
++            def stub(*, string_property: builtins.str) -> None:
++                ...
++            type_hints = typing.get_type_hints(stub)
++            check_type(argname="argument string_property", value=string_property, expected_type=type_hints["string_property"])
+         self._values: typing.Dict[str, typing.Any] = {
+             "string_property": string_property,
+         }
+ 
+     @builtins.property
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/interface_in_namespace_includes_classes/__init__.py.diff 1`] = `
@@ -17941,7 +18301,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          :param receiver: -
          '''
 +        if __debug__:
-+            def stub(receiver: "OverrideMe") -> None:
++            def stub(receiver: OverrideMe) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
 +            check_type(argname="argument receiver", value=receiver, expected_type=type_hints["receiver"])
@@ -18357,7 +18717,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
 +        if __debug__:
 +            def stub(
-+                param: typing.Union["IResolvable", "Resolvable", scope.jsii_calc_lib.IFriendly],
++                param: typing.Union[IResolvable, Resolvable, scope.jsii_calc_lib.IFriendly],
 +            ) -> None:
 +                ...
 +            type_hints = typing.get_type_hints(stub)
