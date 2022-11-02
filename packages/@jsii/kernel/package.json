@@ -34,7 +34,7 @@
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^10.1.0",
     "lockfile": "^1.0.4",
-    "tar": "^6.1.11"
+    "tar": "^6.1.12"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
