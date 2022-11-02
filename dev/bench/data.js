@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1667401423879,
+  "lastUpdate": 1667408218355,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8733,6 +8733,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 217699.05267295442,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45923.86456975001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e9d4084d06cd2611e4ff25cc7533f823878d1281",
+          "message": "fix(python): type-checking may require incorrect type (#3820)\n\nSince dae724c, Python type-checking\nrelies on a nested stub function as a type annotations source. The\nparameter signature of that stub was copied verbatim from the\nsurrounding function, including any forward type references.\n\nHowever, the forward references can safely be replaced with regular type\nreferences as the module is guaranteed to be fully loaded by the time\nthe stub is created, and using forward-references there results in\n`typeguard` possibly evaluating those in a different context than the\none where the surrounding function was defined. The consequence of this\nis that multiple different foward references by the same name may be\nincorrectly treated as referring to the same type, despite coming from\ndifferent modules.\n\nThis is fixed by turning forward type references in the stub with\nregular type references (in other words, removing any `\"` from the\nparameter signature of the stub), which lets the type be resolved from\nthe local definition context instead of the final runtime context in\nwhich the function is called.\n\nFixes #3818\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-11-02T14:17:14Z",
+          "tree_id": "2a1eb344e36e7d31096358a2d17b6e89c8c67e7e",
+          "url": "https://github.com/aws/jsii/commit/e9d4084d06cd2611e4ff25cc7533f823878d1281"
+        },
+        "date": 1667408214284,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 87820.62409820003,
+            "unit": "milliseconds",
+            "range": 7562601.914837581,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 87820.62409820003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 65298.1092543,
+            "unit": "milliseconds",
+            "range": 4151612.9495866983,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65298.1092543 milliseconds over 20 runs"
           }
         ]
       }
