@@ -3088,7 +3088,18 @@ function emitParameterTypeChecks(
       // by a decorated version with different type annotations). We also cannot construct the actual value expected by
       // typeguard's `check_type` because Python does not expose the APIs necessary to build many of these objects in
       // regular Python code.
-      openSignature(code, 'def', stubVar, params, 'None');
+      //
+      // Since the nesting function will only be callable once this module is fully loaded, we can convert forward type
+      // references into regular references, so that the type checker is not confused by multiple type references
+      // sharing the same leaf type name (the ForwardRef resolution may be cached in the execution scope, which causes
+      // order-of-initialization problems, as can be seen in aws/jsii#3818).
+      openSignature(
+        code,
+        'def',
+        stubVar,
+        params.map((param) => param.replace(/"/g, '')),
+        'None',
+      );
       code.line('...');
       code.closeBlock();
 
