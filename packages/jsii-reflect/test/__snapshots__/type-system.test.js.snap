@@ -165,6 +165,8 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.cdk16625.Cdk16625",
   "jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType",
   "jsii-calc.composition.CompositeOperation",
+  "jsii-calc.homonymousForwardReferences.bar.Consumer",
+  "jsii-calc.homonymousForwardReferences.foo.Consumer",
   "jsii-calc.jsii3656.OverrideMe",
   "jsii-calc.module2530.MyClass",
   "jsii-calc.module2617.OnlyStatics",
