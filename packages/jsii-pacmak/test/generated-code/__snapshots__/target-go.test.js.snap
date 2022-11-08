@@ -2557,6 +2557,18 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 derivedclasshasnoproperties_Derived.go
        ┃  ┗━ 📄 derivedclasshasnoproperties.go
        ┣━ 📄 go.mod
+       ┣━ 📁 homonymousforwardreferences
+       ┃  ┣━ 📁 bar
+       ┃  ┃  ┣━ 📄 bar_Consumer.go
+       ┃  ┃  ┣━ 📄 bar_ConsumerProps.go
+       ┃  ┃  ┣━ 📄 bar_Homonymous.go
+       ┃  ┃  ┗━ 📄 bar.go
+       ┃  ┣━ 📁 foo
+       ┃  ┃  ┣━ 📄 foo_Consumer.go
+       ┃  ┃  ┣━ 📄 foo_ConsumerProps.go
+       ┃  ┃  ┣━ 📄 foo_Homonymous.go
+       ┃  ┃  ┗━ 📄 foo.go
+       ┃  ┗━ 📄 README.md
        ┣━ 📁 interfaceinnamespaceincludesclasses
        ┃  ┣━ 📄 interfaceinnamespaceincludesclasses_Foo.go
        ┃  ┣━ 📄 interfaceinnamespaceincludesclasses_Hello.go
@@ -3903,6 +3915,186 @@ require (
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0-devpreview
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2 v2.1.1 // indirect
 )
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/README.md 1`] = `
+Verifies homonymous forward references don't trip the Python type checker
+
+This has been an issue when stub functions were introduced to create a reliable source for type checking
+information, which was reported in https://github.com/aws/jsii/issues/3818.
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/bar/bar.go 1`] = `
+package bar
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.homonymousForwardReferences.bar.Consumer",
+		reflect.TypeOf((*Consumer)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_Consumer{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.homonymousForwardReferences.bar.ConsumerProps",
+		reflect.TypeOf((*ConsumerProps)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.homonymousForwardReferences.bar.Homonymous",
+		reflect.TypeOf((*Homonymous)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer.go 1`] = `
+package bar
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type Consumer interface {
+}
+
+// The jsii proxy struct for Consumer
+type jsiiProxy_Consumer struct {
+	_ byte // padding
+}
+
+func Consumer_Consume(props *ConsumerProps) *Homonymous {
+	_init_.Initialize()
+
+	var returns *Homonymous
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.homonymousForwardReferences.bar.Consumer",
+		"consume",
+		[]interface{}{props},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/bar/bar_ConsumerProps.go 1`] = `
+package bar
+
+
+type ConsumerProps struct {
+	Homonymous *Homonymous \`field:"required" json:"homonymous" yaml:"homonymous"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/bar/bar_Homonymous.go 1`] = `
+package bar
+
+
+type Homonymous struct {
+	NumericProperty *float64 \`field:"required" json:"numericProperty" yaml:"numericProperty"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/foo/foo.go 1`] = `
+package foo
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.homonymousForwardReferences.foo.Consumer",
+		reflect.TypeOf((*Consumer)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_Consumer{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.homonymousForwardReferences.foo.ConsumerProps",
+		reflect.TypeOf((*ConsumerProps)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.homonymousForwardReferences.foo.Homonymous",
+		reflect.TypeOf((*Homonymous)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer.go 1`] = `
+package foo
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type Consumer interface {
+}
+
+// The jsii proxy struct for Consumer
+type jsiiProxy_Consumer struct {
+	_ byte // padding
+}
+
+func Consumer_Consume(props *ConsumerProps) *Homonymous {
+	_init_.Initialize()
+
+	var returns *Homonymous
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.homonymousForwardReferences.foo.Consumer",
+		"consume",
+		[]interface{}{props},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/foo/foo_ConsumerProps.go 1`] = `
+package foo
+
+
+type ConsumerProps struct {
+	Homonymous *Homonymous \`field:"required" json:"homonymous" yaml:"homonymous"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/homonymousforwardreferences/foo/foo_Homonymous.go 1`] = `
+package foo
+
+
+type Homonymous struct {
+	StringProperty *string \`field:"required" json:"stringProperty" yaml:"stringProperty"\`
+}
+
 
 `;
 
@@ -24429,6 +24621,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┃  ┣━ 🆕 derivedclasshasnoproperties_Derived__no_runtime_type_checking.go
        ┃  ┣━ 🆕 derivedclasshasnoproperties_Derived__runtime_type_checks.go
        ┃  ┗━ 📄 derivedclasshasnoproperties_Derived.go.diff
+       ┣━ 📁 homonymousforwardreferences
+       ┃  ┣━ 📁 bar
+       ┃  ┃  ┣━ 🆕 bar_Consumer__no_runtime_type_checking.go
+       ┃  ┃  ┣━ 🆕 bar_Consumer__runtime_type_checks.go
+       ┃  ┃  ┗━ 📄 bar_Consumer.go.diff
+       ┃  ┗━ 📁 foo
+       ┃     ┣━ 🆕 foo_Consumer__no_runtime_type_checking.go
+       ┃     ┣━ 🆕 foo_Consumer__runtime_type_checks.go
+       ┃     ┗━ 📄 foo_Consumer.go.diff
        ┣━ 📁 jsii3656
        ┃  ┣━ 🆕 jsii3656_OverrideMe__no_runtime_type_checking.go
        ┃  ┣━ 🆕 jsii3656_OverrideMe__runtime_type_checks.go
@@ -25191,6 +25392,130 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/d
 +func (j *jsiiProxy_Derived) validateSetPropParameters(val *string) error {
 +	if val == nil {
 +		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer.go.diff 1`] = `
+--- go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer.go	--no-runtime-type-checking
++++ go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer.go	--runtime-type-checking
+@@ -14,10 +14,13 @@
+ }
+ 
+ func Consumer_Consume(props *ConsumerProps) *Homonymous {
+ 	_init_.Initialize()
+ 
++	if err := validateConsumer_ConsumeParameters(props); err != nil {
++		panic(err)
++	}
+ 	var returns *Homonymous
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.homonymousForwardReferences.bar.Consumer",
+ 		"consume",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer__no_runtime_type_checking.go.diff 1`] = `
+--- go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer__no_runtime_type_checking.go	--no-runtime-type-checking
++++ go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer__no_runtime_type_checking.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package bar
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateConsumer_ConsumeParameters(props *ConsumerProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer__runtime_type_checks.go.diff 1`] = `
+--- go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer__runtime_type_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/homonymousforwardreferences/bar/bar_Consumer__runtime_type_checks.go	--runtime-type-checking
+@@ -0,0 +1,21 @@
++//go:build !no_runtime_type_checking
++
++package bar
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func validateConsumer_ConsumeParameters(props *ConsumerProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer.go.diff 1`] = `
+--- go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer.go	--no-runtime-type-checking
++++ go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer.go	--runtime-type-checking
+@@ -14,10 +14,13 @@
+ }
+ 
+ func Consumer_Consume(props *ConsumerProps) *Homonymous {
+ 	_init_.Initialize()
+ 
++	if err := validateConsumer_ConsumeParameters(props); err != nil {
++		panic(err)
++	}
+ 	var returns *Homonymous
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.homonymousForwardReferences.foo.Consumer",
+ 		"consume",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer__no_runtime_type_checking.go.diff 1`] = `
+--- go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer__no_runtime_type_checking.go	--no-runtime-type-checking
++++ go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer__no_runtime_type_checking.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package foo
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateConsumer_ConsumeParameters(props *ConsumerProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer__runtime_type_checks.go.diff 1`] = `
+--- go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer__runtime_type_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/homonymousforwardreferences/foo/foo_Consumer__runtime_type_checks.go	--runtime-type-checking
+@@ -0,0 +1,21 @@
++//go:build !no_runtime_type_checking
++
++package foo
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func validateConsumer_ConsumeParameters(props *ConsumerProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
 +	}
 +
 +	return nil

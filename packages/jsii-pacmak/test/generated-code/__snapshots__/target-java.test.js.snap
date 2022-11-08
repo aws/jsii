@@ -3774,6 +3774,16 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 GiveMeStructs.java
           ┃                 ┣━ 📄 Greetee.java
           ┃                 ┣━ 📄 GreetingAugmenter.java
+          ┃                 ┣━ 📁 homonymous_forward_references
+          ┃                 ┃  ┣━ 📁 bar
+          ┃                 ┃  ┃  ┣━ 📄 Consumer.java
+          ┃                 ┃  ┃  ┣━ 📄 ConsumerProps.java
+          ┃                 ┃  ┃  ┗━ 📄 Homonymous.java
+          ┃                 ┃  ┣━ 📁 foo
+          ┃                 ┃  ┃  ┣━ 📄 Consumer.java
+          ┃                 ┃  ┃  ┣━ 📄 ConsumerProps.java
+          ┃                 ┃  ┃  ┗━ 📄 Homonymous.java
+          ┃                 ┃  ┗━ 📄 package-info.java
           ┃                 ┣━ 📄 IAnonymousImplementationProvider.java
           ┃                 ┣━ 📄 IAnonymouslyImplementMe.java
           ┃                 ┣━ 📄 IAnotherPublicInterface.java
@@ -23932,6 +23942,559 @@ public class Derived extends software.amazon.jsii.tests.calculator.derived_class
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/bar/Consumer.java 1`] = `
+package software.amazon.jsii.tests.calculator.homonymous_forward_references.bar;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.homonymousForwardReferences.bar.Consumer")
+public class Consumer extends software.amazon.jsii.JsiiObject {
+
+    protected Consumer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Consumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param props This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous consume(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.ConsumerProps props) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Consumer.class, "consume", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous.class), new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/bar/ConsumerProps.java 1`] = `
+package software.amazon.jsii.tests.calculator.homonymous_forward_references.bar;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.homonymousForwardReferences.bar.ConsumerProps")
+@software.amazon.jsii.Jsii.Proxy(ConsumerProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface ConsumerProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous getHomonymous();
+
+    /**
+     * @return a {@link Builder} of {@link ConsumerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link ConsumerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<ConsumerProps> {
+        software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous homonymous;
+
+        /**
+         * Sets the value of {@link ConsumerProps#getHomonymous}
+         * @param homonymous the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder homonymous(software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous homonymous) {
+            this.homonymous = homonymous;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link ConsumerProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public ConsumerProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link ConsumerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ConsumerProps {
+        private final software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous homonymous;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.homonymous = software.amazon.jsii.Kernel.get(this, "homonymous", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.homonymous = java.util.Objects.requireNonNull(builder.homonymous, "homonymous is required");
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous getHomonymous() {
+            return this.homonymous;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("homonymous", om.valueToTree(this.getHomonymous()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.homonymousForwardReferences.bar.ConsumerProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ConsumerProps.Jsii$Proxy that = (ConsumerProps.Jsii$Proxy) o;
+
+            return this.homonymous.equals(that.homonymous);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.homonymous.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/bar/Homonymous.java 1`] = `
+package software.amazon.jsii.tests.calculator.homonymous_forward_references.bar;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.homonymousForwardReferences.bar.Homonymous")
+@software.amazon.jsii.Jsii.Proxy(Homonymous.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface Homonymous extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.Number getNumericProperty();
+
+    /**
+     * @return a {@link Builder} of {@link Homonymous}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link Homonymous}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<Homonymous> {
+        java.lang.Number numericProperty;
+
+        /**
+         * Sets the value of {@link Homonymous#getNumericProperty}
+         * @param numericProperty the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder numericProperty(java.lang.Number numericProperty) {
+            this.numericProperty = numericProperty;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link Homonymous}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public Homonymous build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link Homonymous}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Homonymous {
+        private final java.lang.Number numericProperty;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.numericProperty = software.amazon.jsii.Kernel.get(this, "numericProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.numericProperty = java.util.Objects.requireNonNull(builder.numericProperty, "numericProperty is required");
+        }
+
+        @Override
+        public final java.lang.Number getNumericProperty() {
+            return this.numericProperty;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("numericProperty", om.valueToTree(this.getNumericProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.homonymousForwardReferences.bar.Homonymous"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Homonymous.Jsii$Proxy that = (Homonymous.Jsii$Proxy) o;
+
+            return this.numericProperty.equals(that.numericProperty);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.numericProperty.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/foo/Consumer.java 1`] = `
+package software.amazon.jsii.tests.calculator.homonymous_forward_references.foo;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.homonymousForwardReferences.foo.Consumer")
+public class Consumer extends software.amazon.jsii.JsiiObject {
+
+    protected Consumer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Consumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param props This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous consume(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.ConsumerProps props) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Consumer.class, "consume", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous.class), new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/foo/ConsumerProps.java 1`] = `
+package software.amazon.jsii.tests.calculator.homonymous_forward_references.foo;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.homonymousForwardReferences.foo.ConsumerProps")
+@software.amazon.jsii.Jsii.Proxy(ConsumerProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface ConsumerProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous getHomonymous();
+
+    /**
+     * @return a {@link Builder} of {@link ConsumerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link ConsumerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<ConsumerProps> {
+        software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous homonymous;
+
+        /**
+         * Sets the value of {@link ConsumerProps#getHomonymous}
+         * @param homonymous the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder homonymous(software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous homonymous) {
+            this.homonymous = homonymous;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link ConsumerProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public ConsumerProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link ConsumerProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ConsumerProps {
+        private final software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous homonymous;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.homonymous = software.amazon.jsii.Kernel.get(this, "homonymous", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.homonymous = java.util.Objects.requireNonNull(builder.homonymous, "homonymous is required");
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous getHomonymous() {
+            return this.homonymous;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("homonymous", om.valueToTree(this.getHomonymous()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.homonymousForwardReferences.foo.ConsumerProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ConsumerProps.Jsii$Proxy that = (ConsumerProps.Jsii$Proxy) o;
+
+            return this.homonymous.equals(that.homonymous);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.homonymous.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/foo/Homonymous.java 1`] = `
+package software.amazon.jsii.tests.calculator.homonymous_forward_references.foo;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.homonymousForwardReferences.foo.Homonymous")
+@software.amazon.jsii.Jsii.Proxy(Homonymous.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface Homonymous extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getStringProperty();
+
+    /**
+     * @return a {@link Builder} of {@link Homonymous}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link Homonymous}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<Homonymous> {
+        java.lang.String stringProperty;
+
+        /**
+         * Sets the value of {@link Homonymous#getStringProperty}
+         * @param stringProperty the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder stringProperty(java.lang.String stringProperty) {
+            this.stringProperty = stringProperty;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link Homonymous}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public Homonymous build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link Homonymous}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Homonymous {
+        private final java.lang.String stringProperty;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.stringProperty = software.amazon.jsii.Kernel.get(this, "stringProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.stringProperty = java.util.Objects.requireNonNull(builder.stringProperty, "stringProperty is required");
+        }
+
+        @Override
+        public final java.lang.String getStringProperty() {
+            return this.stringProperty;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("stringProperty", om.valueToTree(this.getStringProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.homonymousForwardReferences.foo.Homonymous"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Homonymous.Jsii$Proxy that = (Homonymous.Jsii$Proxy) o;
+
+            return this.stringProperty.equals(that.stringProperty);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.stringProperty.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/homonymous_forward_references/package-info.java 1`] = `
+/**
+ * Verifies homonymous forward references don't trip the Python type checker
+ * <p>
+ * This has been an issue when stub functions were introduced to create a reliable source for type checking
+ * information, which was reported in https://github.com/aws/jsii/issues/3818.
+ */
+package software.amazon.jsii.tests.calculator.homonymous_forward_references;
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/interface_in_namespace_includes_classes/Foo.java 1`] = `
 package software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes;
 
@@ -28029,6 +28592,12 @@ jsii-calc.cdk16625.Cdk16625=software.amazon.jsii.tests.calculator.cdk16625.Cdk16
 jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType=software.amazon.jsii.tests.calculator.cdk16625.donotimport.UnimportedSubmoduleType
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
+jsii-calc.homonymousForwardReferences.bar.Consumer=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Consumer
+jsii-calc.homonymousForwardReferences.bar.ConsumerProps=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.ConsumerProps
+jsii-calc.homonymousForwardReferences.bar.Homonymous=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous
+jsii-calc.homonymousForwardReferences.foo.Consumer=software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Consumer
+jsii-calc.homonymousForwardReferences.foo.ConsumerProps=software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.ConsumerProps
+jsii-calc.homonymousForwardReferences.foo.Homonymous=software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous
 jsii-calc.jsii3656.ImplementMeOpts=software.amazon.jsii.tests.calculator.jsii3656.ImplementMeOpts
 jsii-calc.jsii3656.OverrideMe=software.amazon.jsii.tests.calculator.jsii3656.OverrideMe
 jsii-calc.module2530.MyClass=software.amazon.jsii.tests.calculator.module2530.MyClass

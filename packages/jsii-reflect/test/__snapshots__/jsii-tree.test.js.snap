@@ -160,6 +160,53 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ homonymousForwardReferences
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ bar
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├─┬ class Consumer (stable)
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ static consume(props) method (stable)
+ │ │ │ │ │   │     ├── static
+ │ │ │ │ │   │     ├─┬ parameters
+ │ │ │ │ │   │     │ └─┬ props
+ │ │ │ │ │   │     │   └── type: jsii-calc.homonymousForwardReferences.bar.ConsumerProps
+ │ │ │ │ │   │     └── returns: jsii-calc.homonymousForwardReferences.bar.Homonymous
+ │ │ │ │ │   ├─┬ interface ConsumerProps (stable)
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └─┬ homonymous property (stable)
+ │ │ │ │ │   │     ├── abstract
+ │ │ │ │ │   │     ├── immutable
+ │ │ │ │ │   │     └── type: jsii-calc.homonymousForwardReferences.bar.Homonymous
+ │ │ │ │ │   └─┬ interface Homonymous (stable)
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └─┬ numericProperty property (stable)
+ │ │ │ │ │         ├── abstract
+ │ │ │ │ │         ├── immutable
+ │ │ │ │ │         └── type: number
+ │ │ │ │ └─┬ foo
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class Consumer (stable)
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ static consume(props) method (stable)
+ │ │ │ │     │     ├── static
+ │ │ │ │     │     ├─┬ parameters
+ │ │ │ │     │     │ └─┬ props
+ │ │ │ │     │     │   └── type: jsii-calc.homonymousForwardReferences.foo.ConsumerProps
+ │ │ │ │     │     └── returns: jsii-calc.homonymousForwardReferences.foo.Homonymous
+ │ │ │ │     ├─┬ interface ConsumerProps (stable)
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └─┬ homonymous property (stable)
+ │ │ │ │     │     ├── abstract
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: jsii-calc.homonymousForwardReferences.foo.Homonymous
+ │ │ │ │     └─┬ interface Homonymous (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ stringProperty property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: string
+ │ │ │ └── types
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe (stable)
@@ -3585,6 +3632,19 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ homonymousForwardReferences
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ bar
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├── class Consumer
+ │ │ │ │ │   ├── interface ConsumerProps
+ │ │ │ │ │   └── interface Homonymous
+ │ │ │ │ └─┬ foo
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── class Consumer
+ │ │ │ │     ├── interface ConsumerProps
+ │ │ │ │     └── interface Homonymous
+ │ │ │ └── types
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
@@ -4142,6 +4202,31 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ homonymousForwardReferences
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ bar
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├─┬ class Consumer
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └── static consume(props) method
+ │ │ │ │ │   ├─┬ interface ConsumerProps
+ │ │ │ │ │   │ └─┬ members
+ │ │ │ │ │   │   └── homonymous property
+ │ │ │ │ │   └─┬ interface Homonymous
+ │ │ │ │ │     └─┬ members
+ │ │ │ │ │       └── numericProperty property
+ │ │ │ │ └─┬ foo
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class Consumer
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── static consume(props) method
+ │ │ │ │     ├─┬ interface ConsumerProps
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── homonymous property
+ │ │ │ │     └─┬ interface Homonymous
+ │ │ │ │       └─┬ members
+ │ │ │ │         └── stringProperty property
+ │ │ │ └── types
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe
@@ -5679,6 +5764,10 @@ exports[`jsii-tree --signatures 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├─┬ homonymousForwardReferences
+ │   │ └─┬ submodules
+ │   │   ├── bar
+ │   │   └── foo
  │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
@@ -5757,6 +5846,19 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ homonymousForwardReferences
+ │ │ │ ├─┬ submodules
+ │ │ │ │ ├─┬ bar
+ │ │ │ │ │ └─┬ types
+ │ │ │ │ │   ├── class Consumer
+ │ │ │ │ │   ├── interface ConsumerProps
+ │ │ │ │ │   └── interface Homonymous
+ │ │ │ │ └─┬ foo
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── class Consumer
+ │ │ │ │     ├── interface ConsumerProps
+ │ │ │ │     └── interface Homonymous
+ │ │ │ └── types
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
@@ -6140,6 +6242,10 @@ exports[`jsii-tree 1`] = `
  │   │ └─┬ submodules
  │   │   └── donotimport
  │   ├── composition
+ │   ├─┬ homonymousForwardReferences
+ │   │ └─┬ submodules
+ │   │   ├── bar
+ │   │   └── foo
  │   ├── jsii3656
  │   ├── module2530
  │   ├── module2617
