@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1667907738130,
+  "lastUpdate": 1667911175884,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -8885,6 +8885,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1409153.5468440384,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72236.42602854998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8ac1f415920a171639a0be5d462ec9b67906bef3",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.4.1 to ~=1.4.2 in /gh-pages (#3823)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.4.2</h2>\n<ul>\n<li>\n<p>Officially support Python 3.11 (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3020\">#3020</a>)</p>\n<blockquote>\n<p><strong>Note</strong>: Simply upgrading to Python 3.11 can cut off 10-15% of your site's build time.</p>\n</blockquote>\n</li>\n<li>\n<p>Support multiple instances of the same plugin (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3027\">#3027</a>)</p>\n<p>If a plugin is specified multiple times in the list under the <code>plugins:</code> config, that will create 2 (or more) instances of the plugin with their own config each.</p>\n<p>Previously this case was unforeseen and, as such, bugged.</p>\n<p>Now even though this works, by default a warning will appear from MkDocs anyway, unless the plugin adds a class variable <code>supports_multiple_instances = True</code>.</p>\n</li>\n<li>\n<p>Bugfix (regression in 1.4.1): Don't error when a plugin puts a plain string into <code>warnings</code> (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3016\">#3016</a>)</p>\n</li>\n<li>\n<p>Bugfix: Relative links will always render with a trailing slash (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3022\">#3022</a>)</p>\n<p>Previously under <code>use_directory_urls</code>, links <em>from</em> a sub-page <em>to</em> the main index page rendered as e.g. <code>&lt;a href=&quot;../..&quot;&gt;</code> even though in all other cases the links look like <code>&lt;a href=&quot;../../&quot;&gt;</code>. This caused unwanted behavior on some combinations of Web browsers and servers. Now this special-case bug was removed.</p>\n</li>\n<li>\n<p>Built-in &quot;mkdocs&quot; theme now also supports Norwegian language (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3024\">#3024</a>)</p>\n</li>\n<li>\n<p>Plugin-related warnings look more readable (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3016\">#3016</a>)</p>\n</li>\n</ul>\n<p>See <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.1...1.4.2\">commit log</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/ec7eee6ce375e2599458a2502c259ec185adce53\"><code>ec7eee6</code></a> Release 1.4.2 (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3032\">#3032</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/c99ec45a320194d8f05f6f7124656294e3cb8098\"><code>c99ec45</code></a> Support multiple instances of the same plugin (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3027\">#3027</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/452c39eae25f5ac3140f3d1b3889b5425b07da87\"><code>452c39e</code></a> Chore dependency upgrade</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/f190c35a9909c16bcc9394573c0992b8b69dbade\"><code>f190c35</code></a> Translate mkdocs theme to Norwegian (nb and nn) (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3024\">#3024</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/c576f07d30e7f1e20ee2292c94dab3b585d9006c\"><code>c576f07</code></a> Declare support for Python 3.11 (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3020\">#3020</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/32359f3e93f5ca7778b9f7c3d6d92f49a629c84c\"><code>32359f3</code></a> Relative links end with slash even for homepage links (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3022\">#3022</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/1fa2af7926b334a5b02229c3ea1649ff04955b77\"><code>1fa2af7</code></a> Expand type checking coverage (<a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3019\">#3019</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/d76cae90590b9735c7690cd1cca0638321b20152\"><code>d76cae9</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/mkdocs/mkdocs/issues/3016\">#3016</a> from mkdocs/optw</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/9d73c2a82462cc0daba1574e4fb11b428b3b1490\"><code>9d73c2a</code></a> Reduce redundancy in config errors/warnings</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/427d553c2bf2e1c7e7a71a78a544f174dba082ac\"><code>427d553</code></a> Let plugins put strings into <code>warnings</code></li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.1...1.4.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-11-08T11:29:06Z",
+          "tree_id": "460a133a08cc24580ddd21f7eef2eaa2a957989e",
+          "url": "https://github.com/aws/jsii/commit/8ac1f415920a171639a0be5d462ec9b67906bef3"
+        },
+        "date": 1667911171923,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 100624.84405989994,
+            "unit": "milliseconds",
+            "range": 4343374.904988489,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 100624.84405989994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 75654.13811460002,
+            "unit": "milliseconds",
+            "range": 801130.7195972356,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 75654.13811460002 milliseconds over 20 runs"
           }
         ]
       }
