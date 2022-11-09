@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.71.0](https://github.com/aws/jsii/compare/v1.70.0...v1.71.0) (2022-11-09)
+
+
+### Features
+
+* **superchain:** add Amazon SSM agent ([#3819](https://github.com/aws/jsii/issues/3819)) ([d3c3b17](https://github.com/aws/jsii/commit/d3c3b170057b976cdbd196f357e287e6437bb1aa))
+
+
+### Bug Fixes
+
+* **jsii-diff:** does not check types in submodules ([#3808](https://github.com/aws/jsii/issues/3808)) ([12ea38e](https://github.com/aws/jsii/commit/12ea38ef6123ff2293c7d15f4b318c79e9ccddbe))
+* **python:** type-checking may require incorrect type ([#3820](https://github.com/aws/jsii/issues/3820)) ([e9d4084](https://github.com/aws/jsii/commit/e9d4084d06cd2611e4ff25cc7533f823878d1281)), closes [#3818](https://github.com/aws/jsii/issues/3818)
+
 ## [1.70.0](https://github.com/aws/jsii/compare/v1.69.0...v1.70.0) (2022-10-19)
 
 
