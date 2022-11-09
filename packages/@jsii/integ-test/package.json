@@ -23,7 +23,7 @@
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "tar": "^6.1.11"
+    "tar": "^6.1.12"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",

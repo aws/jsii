@@ -62,11 +62,11 @@ export class AssemblyComparison {
    */
   public load(original: reflect.Assembly, updated: reflect.Assembly) {
     /* eslint-disable prettier/prettier */
-    for (const [origClass, updatedClass] of this.typePairs(original.classes, updated)) {
+    for (const [origClass, updatedClass] of this.typePairs(original.allClasses, updated)) {
       this.types.set(origClass.fqn, new ComparableClassType(this, origClass, updatedClass));
     }
 
-    for (const [origIface, updatedIface] of this.typePairs(original.interfaces, updated)) {
+    for (const [origIface, updatedIface] of this.typePairs(original.allInterfaces, updated)) {
       if (origIface.datatype !== updatedIface.datatype) {
         this.mismatches.report({
           ruleKey: 'iface-type',
@@ -83,7 +83,7 @@ export class AssemblyComparison {
         : new ComparableInterfaceType(this, origIface, updatedIface));
     }
 
-    for (const [origEnum, updatedEnum] of this.typePairs(original.enums, updated)) {
+    for (const [origEnum, updatedEnum] of this.typePairs(original.allEnums, updated)) {
       this.types.set(origEnum.fqn, new ComparableEnumType(this, origEnum, updatedEnum));
     }
     /* eslint-enable prettier/prettier */
@@ -93,6 +93,7 @@ export class AssemblyComparison {
    * Perform the comparison for all loaded types
    */
   public compare() {
+    LOG.debug(`Comparing ${this.comparableTypes.length} types`);
     this.comparableTypes.forEach((t) => t.markTypeRoles());
     this.comparableTypes.forEach((t) => t.compare());
   }
@@ -275,6 +276,8 @@ export abstract class ComparableReferenceType<
    * Compare members of the reference types
    */
   public compare() {
+    LOG.debug(`Reference type ${this.oldType.fqn}`);
+
     validateStabilities(this.oldType, this.newType, this.mismatches);
     validateBaseTypeAssignability(this.oldType, this.newType, this.mismatches);
 
@@ -476,6 +479,8 @@ export class ComparableInterfaceType extends ComparableReferenceType<reflect.Int
  */
 export class ComparableStructType extends ComparableType<reflect.InterfaceType> {
   public compare() {
+    LOG.debug(`Struct type ${this.oldType.fqn}`);
+
     validateStabilities(this.oldType, this.newType, this.mismatches);
     validateBaseTypeAssignability(this.oldType, this.newType, this.mismatches);
     this.validateNoPropertiesRemoved();
@@ -576,6 +581,8 @@ export class ComparableEnumType extends ComparableType<reflect.EnumType> {
    * Perform comparisons on enum members
    */
   public compare() {
+    LOG.debug(`Enum type ${this.oldType.fqn}`);
+
     validateStabilities(this.oldType, this.newType, this.mismatches);
 
     validateExistingMembers(

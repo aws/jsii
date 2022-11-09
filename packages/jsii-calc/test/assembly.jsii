@@ -235,6 +235,30 @@
       },
       "symbolId": "lib/calculator:composition"
     },
+    "jsii-calc.homonymousForwardReferences": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 29
+      },
+      "readme": {
+        "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
+      },
+      "symbolId": "lib/homonymous/index:"
+    },
+    "jsii-calc.homonymousForwardReferences.bar": {
+      "locationInModule": {
+        "filename": "lib/homonymous/index.ts",
+        "line": 1
+      },
+      "symbolId": "lib/homonymous/bar:"
+    },
+    "jsii-calc.homonymousForwardReferences.foo": {
+      "locationInModule": {
+        "filename": "lib/homonymous/index.ts",
+        "line": 2
+      },
+      "symbolId": "lib/homonymous/foo:"
+    },
     "jsii-calc.jsii3656": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -16208,6 +16232,220 @@
       "namespace": "composition.CompositeOperation",
       "symbolId": "lib/calculator:composition.CompositeOperation.CompositionStringStyle"
     },
+    "jsii-calc.homonymousForwardReferences.bar.Consumer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.homonymousForwardReferences.bar.Consumer",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/homonymous/bar.ts",
+        "line": 9
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/homonymous/bar.ts",
+            "line": 10
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "props",
+              "type": {
+                "fqn": "jsii-calc.homonymousForwardReferences.bar.ConsumerProps"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.homonymousForwardReferences.bar.Homonymous"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "Consumer",
+      "namespace": "homonymousForwardReferences.bar",
+      "symbolId": "lib/homonymous/bar:Consumer"
+    },
+    "jsii-calc.homonymousForwardReferences.bar.ConsumerProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.homonymousForwardReferences.bar.ConsumerProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/homonymous/bar.ts",
+        "line": 5
+      },
+      "name": "ConsumerProps",
+      "namespace": "homonymousForwardReferences.bar",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/homonymous/bar.ts",
+            "line": 6
+          },
+          "name": "homonymous",
+          "type": {
+            "fqn": "jsii-calc.homonymousForwardReferences.bar.Homonymous"
+          }
+        }
+      ],
+      "symbolId": "lib/homonymous/bar:ConsumerProps"
+    },
+    "jsii-calc.homonymousForwardReferences.bar.Homonymous": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.homonymousForwardReferences.bar.Homonymous",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/homonymous/bar.ts",
+        "line": 1
+      },
+      "name": "Homonymous",
+      "namespace": "homonymousForwardReferences.bar",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/homonymous/bar.ts",
+            "line": 2
+          },
+          "name": "numericProperty",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ],
+      "symbolId": "lib/homonymous/bar:Homonymous"
+    },
+    "jsii-calc.homonymousForwardReferences.foo.Consumer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.homonymousForwardReferences.foo.Consumer",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/homonymous/foo.ts",
+        "line": 9
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/homonymous/foo.ts",
+            "line": 10
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "props",
+              "type": {
+                "fqn": "jsii-calc.homonymousForwardReferences.foo.ConsumerProps"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.homonymousForwardReferences.foo.Homonymous"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "Consumer",
+      "namespace": "homonymousForwardReferences.foo",
+      "symbolId": "lib/homonymous/foo:Consumer"
+    },
+    "jsii-calc.homonymousForwardReferences.foo.ConsumerProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.homonymousForwardReferences.foo.ConsumerProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/homonymous/foo.ts",
+        "line": 5
+      },
+      "name": "ConsumerProps",
+      "namespace": "homonymousForwardReferences.foo",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/homonymous/foo.ts",
+            "line": 6
+          },
+          "name": "homonymous",
+          "type": {
+            "fqn": "jsii-calc.homonymousForwardReferences.foo.Homonymous"
+          }
+        }
+      ],
+      "symbolId": "lib/homonymous/foo:ConsumerProps"
+    },
+    "jsii-calc.homonymousForwardReferences.foo.Homonymous": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.homonymousForwardReferences.foo.Homonymous",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/homonymous/foo.ts",
+        "line": 1
+      },
+      "name": "Homonymous",
+      "namespace": "homonymousForwardReferences.foo",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/homonymous/foo.ts",
+            "line": 2
+          },
+          "name": "stringProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/homonymous/foo:Homonymous"
+    },
     "jsii-calc.jsii3656.ImplementMeOpts": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -18327,5 +18565,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "O7e7hA2s4dwiCigDIFE0ANjlmeXIQydXdSodi9WHja4="
+  "fingerprint": "b2P7abkCSB3ezfp46ujoSHTYSgRV0o7O1avtvIe5xX8="
 }
