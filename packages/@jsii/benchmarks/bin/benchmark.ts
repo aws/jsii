@@ -6,7 +6,7 @@ import { benchmarks } from '../lib';
 import { Benchmark } from '../lib/benchmark';
 
 /**
- * Format of benchmark output used by continous benchmarking action.
+ * Format of benchmark output used by continuous benchmarking action.
  * See [documentation](https://github.com/benchmark-action/github-action-benchmark/blob/master/README.md) for details
  */
 interface ResultsJson {
