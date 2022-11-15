@@ -1315,13 +1315,7 @@ export class Kernel {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
 
-      if (!epkg.bin) {
-        throw new JsiiFault(
-          'There is no bin scripts defined for this package.',
-        );
-      }
-
-      const scriptPath = epkg.bin[req.script];
+      const scriptPath = epkg.bin?.[req.script];
 
       if (!epkg.bin) {
         throw new JsiiFault(`Script with name ${req.script} was not defined.`);
