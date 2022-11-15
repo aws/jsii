@@ -43,7 +43,7 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "source-map-loader": "^4.0.0",
+    "source-map-loader": "^4.0.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }

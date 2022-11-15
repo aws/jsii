@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.71.0](https://github.com/aws/jsii/compare/v1.70.0...v1.71.0) (2022-11-09)
+
+
+### Features
+
+* **superchain:** add Amazon SSM agent ([#3819](https://github.com/aws/jsii/issues/3819)) ([d3c3b17](https://github.com/aws/jsii/commit/d3c3b170057b976cdbd196f357e287e6437bb1aa))
+
+
+### Bug Fixes
+
+* **jsii-diff:** does not check types in submodules ([#3808](https://github.com/aws/jsii/issues/3808)) ([12ea38e](https://github.com/aws/jsii/commit/12ea38ef6123ff2293c7d15f4b318c79e9ccddbe))
+* **python:** type-checking may require incorrect type ([#3820](https://github.com/aws/jsii/issues/3820)) ([e9d4084](https://github.com/aws/jsii/commit/e9d4084d06cd2611e4ff25cc7533f823878d1281)), closes [#3818](https://github.com/aws/jsii/issues/3818)
+
+## [1.70.0](https://github.com/aws/jsii/compare/v1.69.0...v1.70.0) (2022-10-19)
+
+
+### Features
+
+* add error awareness to go deserialization ([#3793](https://github.com/aws/jsii/issues/3793)) ([9b6a307](https://github.com/aws/jsii/commit/9b6a3072ae4c95be152196f8fea36237fa2d0f99))
+* **python:** add error differentiation to Python. ([#3772](https://github.com/aws/jsii/issues/3772)) ([e3f7d5e](https://github.com/aws/jsii/commit/e3f7d5e2c9683b13092e4ba05c13ade8b2a5e823))
+* **superchain:** add 'acl' package to support projen GHA ([#3783](https://github.com/aws/jsii/issues/3783)) ([306b248](https://github.com/aws/jsii/commit/306b24845d6b36a7079ddb88aaeab2847f7bb238))
+
+
+### Bug Fixes
+
+* **jsii-reflect:** TypeMember is not SourceLocatable ([#3778](https://github.com/aws/jsii/issues/3778)) ([db809e2](https://github.com/aws/jsii/commit/db809e212735b559d54e96666a2be6b18e432893)), closes [#3777](https://github.com/aws/jsii/issues/3777)
+* **python:** KeyError in type checks when decorating methods ([#3791](https://github.com/aws/jsii/issues/3791)) ([dae724c](https://github.com/aws/jsii/commit/dae724c39ba274c6facd8fb9f4b93cc2db52e311))
+
 ## [1.69.0](https://github.com/aws/jsii/compare/v1.68.0...v1.69.0) (2022-09-27)
 
 

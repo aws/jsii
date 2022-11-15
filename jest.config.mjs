@@ -35,7 +35,7 @@ const config = {
   // quickly run out of control, and make everything very, very slow.)
   maxConcurrency: Math.max(Math.min(cpus().length - 1, 4), 2),
   // When in Continuous Integration, allow double the default test timeout (assuming "frugal" runner type)
-  testTimeout: env.CI === 'true' ? 10_000 : undefined,
+  testTimeout: env.CI === 'true' ? 30_000 : undefined,
 };
 
 /**

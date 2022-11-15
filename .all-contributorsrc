@@ -1486,6 +1486,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "shamelesscookie",
+      "name": "Christian Moore",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36210509?v=4",
+      "profile": "https://christianmoore.me/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "khellan",
+      "name": "Knut O. Hellan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51441?v=4",
+      "profile": "http://findable.no/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
