@@ -78,7 +78,7 @@ defineTest.skip = function (
   return defineTest(name, method, test.skip);
 };
 
-defineTest.skipIf = (expr: boolean) => expr ? defineTest.skip : defineTest;
+defineTest.skipIf = (expr: boolean) => (expr ? defineTest.skip : defineTest);
 
 // Note: this test asserts file permissions, which work differently on Windows, so we skip it there
 (process.platform === 'win32' ? test.skip : test)(
