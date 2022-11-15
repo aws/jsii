@@ -1,10 +1,13 @@
-import { sourceToAssemblyHelper } from 'jsii';
+import { MultipleSourceFiles, sourceToAssemblyHelper } from 'jsii';
 import * as reflect from 'jsii-reflect';
 
 import { compareAssemblies } from '../lib';
 import { Mismatches } from '../lib/types';
 
-export function expectNoError(original: string, updated: string) {
+export function expectNoError(
+  original: string | MultipleSourceFiles,
+  updated: string | MultipleSourceFiles,
+) {
   const mms = compare(original, updated);
   for (const msg of mms.messages()) {
     console.error(`- ${msg}`);
@@ -14,8 +17,8 @@ export function expectNoError(original: string, updated: string) {
 
 export function expectError(
   error: RegExp | undefined,
-  original: string,
-  updated: string,
+  original: string | MultipleSourceFiles,
+  updated: string | MultipleSourceFiles,
 ) {
   if (error == null) {
     expectNoError(original, updated);
@@ -32,7 +35,10 @@ export function expectError(
   }
 }
 
-export function compare(original: string, updated: string): Mismatches {
+export function compare(
+  original: string | MultipleSourceFiles,
+  updated: string | MultipleSourceFiles,
+): Mismatches {
   const ass1 = sourceToAssemblyHelper(original);
   const ts1 = new reflect.TypeSystem();
   const originalAssembly = ts1.addAssembly(new reflect.Assembly(ts1, ass1));

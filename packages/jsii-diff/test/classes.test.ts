@@ -749,3 +749,20 @@ test.each([
       `,
     ),
 );
+
+// ----------------------------------------------------------------------
+
+test('will find mismatches in submodules', () =>
+  expectError(
+    /number is not assignable to string/,
+    {
+      'index.ts': 'export * as submodule from "./subdir"',
+      'subdir/index.ts':
+        'export class Foo { public static readonly PROP = "abc"; }',
+    },
+    {
+      'index.ts': 'export * as submodule from "./subdir"',
+      'subdir/index.ts':
+        'export class Foo { public static readonly PROP = 42; }',
+    },
+  ));
