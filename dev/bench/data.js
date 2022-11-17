@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1668614014482,
+  "lastUpdate": 1668685434374,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9265,6 +9265,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 233337.55911282715,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45250.60896685002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7eb9814eae96316c1554f69909ea50b669c01d05",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.3.2 to 17.4.0 in /packages/@jsii/dotnet-runtime-test/test (#3836)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.3.2 to 17.4.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.4.0</h2>\n<p>See the release notes <a href=\"https://github.com/microsoft/vstest-docs/blob/main/docs/releases.md#1740\">here</a>.</p>\n<h2>v17.4.0-preview-20221003-03</h2>\n<p>See the release notes <a href=\"https://github.com/microsoft/vstest-docs/blob/main/docs/releases.md#1740-preview-20221003-03\">here</a>.</p>\n<h2>v17.4.0-preview-20220726-02</h2>\n<p>See the release notes <a href=\"https://github.com/microsoft/vstest-docs/blob/main/docs/releases.md#1740-preview-20220726-02\">here</a>.</p>\n<h2>v17.4.0-preview-20220707-01</h2>\n<p>See the release notes <a href=\"https://github.com/microsoft/vstest-docs/blob/master/docs/releases.md#1740-preview-20220707-01\">here</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/9caf0b62a22673b991be61ba10352148b5ca7710\"><code>9caf0b6</code></a> Revert &quot;Run tests with Server GC enabled &amp; concurrent GC disabled. (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/3661\">#3661</a>)&quot; (...</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/1e498a28bade5a3f8ae14643a8688de92df53ff5\"><code>1e498a2</code></a> Revert making Microsoft.NET.Test.Sdk package transitive (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4105\">#4105</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/c02ece877c62577810f893c44279ce79af820112\"><code>c02ece8</code></a> [rel/17.4] Fix Invalid target architecture 'S390x' error (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4079\">#4079</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/f760ea37e968179d52444ae7ac1e30a784e8b938\"><code>f760ea3</code></a> Fix release note and prebuild scripts</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/576a7cc1b259976393cf576a6a9c5df967bb2b7d\"><code>576a7cc</code></a> Update dependencies from <a href=\"https://dev.azure.com/devdiv/DevDiv/_git/vs-code-cov\">https://dev.azure.com/devdiv/DevDiv/_git/vs-code-cov</a>...</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/e3ef271ba4d8ef1cda34bfa544e33c350fce622e\"><code>e3ef271</code></a> [rel/17.4] Remove portable CPP adapter and dbghelp (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4020\">#4020</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/41db8f89639e3d32600ce83ca66f2e40e44fbff1\"><code>41db8f8</code></a> Mark the branch as <code>release</code>.</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/d433ffebdd7e3da0ba64c22f8e1e8b5d4d3c5669\"><code>d433ffe</code></a> Mirror test commit.</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/3c560f92eb7832d353f9cbeaa120b234e02ef027\"><code>3c560f9</code></a> Update dependencies from <a href=\"https://dev.azure.com/devdiv/DevDiv/_git/vs-code-cov\">https://dev.azure.com/devdiv/DevDiv/_git/vs-code-cov</a>...</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/d94aafd04f9ebecda6d36cce3f8cc1605d88f4ed\"><code>d94aafd</code></a> [main] Update dependencies from devdiv/DevDiv/vs-code-coverage (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4010\">#4010</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/microsoft/vstest/compare/v17.3.2...v17.4.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.3.2&new-version=17.4.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-11-17T10:53:32Z",
+          "tree_id": "8e6d3ce251b1ed71187ccda126eb934e166ad199",
+          "url": "https://github.com/aws/jsii/commit/7eb9814eae96316c1554f69909ea50b669c01d05"
+        },
+        "date": 1668685431709,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69028.34533170002,
+            "unit": "milliseconds",
+            "range": 499286.4205192324,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69028.34533170002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50687.985749949985,
+            "unit": "milliseconds",
+            "range": 307720.6343616991,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50687.985749949985 milliseconds over 20 runs"
           }
         ]
       }
