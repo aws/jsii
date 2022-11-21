@@ -3090,3 +3090,16 @@ export class VariadicTypeUnion {
     this.union = union;
   }
 }
+
+/**
+ * Validate that namespaces being shadowed by local variables does not cause
+ * type checking issues.
+ *
+ * @see https://github.com/aws/aws-cdk/issues/22975
+ */
+export class ParamShadowsScope {
+  // @scope/* packages are under the "scope." namespace in Python.
+  public useScope(scope: LibNumber) {
+    return scope;
+  }
+}
