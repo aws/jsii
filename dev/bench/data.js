@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1668685434374,
+  "lastUpdate": 1669037845613,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9303,6 +9303,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 307720.6343616991,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50687.985749949985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1cb02245cccbe94fa7dcbdfa311abf0aa3f0fa67",
+          "message": "chore(deps): Bump aws-actions/stale-issue-cleanup from 5 to 6 (#3844)\n\nBumps [aws-actions/stale-issue-cleanup](https://github.com/aws-actions/stale-issue-cleanup) from 5 to 6.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/e4ca97939734a033ea39a4e812661ee3e8daa66b\"><code>e4ca979</code></a> in progress: v6 release</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/92b8e7d6ebf0f6c280fbbf8c6c8bcd936c3ceb00\"><code>92b8e7d</code></a> in progress: v6</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/35061ab8d5cae7c19929740b10df341a26415c80\"><code>35061ab</code></a> add PR support</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/aa3cf88a3a9449ea8922e4b04a314ea6755896aa\"><code>aa3cf88</code></a> add PR support</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/79cd2382574c8997bff8692fde32f23b39849668\"><code>79cd238</code></a> generic label/action interface</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/1e9625a5a1b2b8ce58185a2365f0e2d219800f9c\"><code>1e9625a</code></a> Initial commit for v6</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/770989b0c8a666e80df3551d34ce1fa2c251f16c\"><code>770989b</code></a> build(deps): bump minimist from 1.2.5 to 1.2.6 (<a href=\"https://github-redirect.dependabot.com/aws-actions/stale-issue-cleanup/issues/140\">#140</a>)</li>\n<li><a href=\"https://github.com/aws-actions/stale-issue-cleanup/commit/c6795b366ad780512eaad65286b27dd191b85de4\"><code>c6795b3</code></a> build(deps-dev): bump prettier from 2.2.1 to 2.6.2 (<a href=\"https://github-redirect.dependabot.com/aws-actions/stale-issue-cleanup/issues/141\">#141</a>)</li>\n<li>See full diff in <a href=\"https://github.com/aws-actions/stale-issue-cleanup/compare/v5...v6\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=aws-actions/stale-issue-cleanup&package-manager=github_actions&previous-version=5&new-version=6)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-11-21T12:51:40Z",
+          "tree_id": "1e7e4552eb932bc6266463e66dd5c5789f31116b",
+          "url": "https://github.com/aws/jsii/commit/1cb02245cccbe94fa7dcbdfa311abf0aa3f0fa67"
+        },
+        "date": 1669037843043,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59291.54630070003,
+            "unit": "milliseconds",
+            "range": 2472847.85752224,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59291.54630070003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45655.764612299994,
+            "unit": "milliseconds",
+            "range": 279280.7863860473,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45655.764612299994 milliseconds over 20 runs"
           }
         ]
       }
