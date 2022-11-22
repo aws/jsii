@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669041331160,
+  "lastUpdate": 1669140339221,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9379,6 +9379,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 194022.14907896385,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46028.71003730001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8bac0126832ebce2a5391c86ba9702b12f248b01",
+          "message": "fix(python): parameter names shadow imported modules (#3848)\n\nIn certain cases, a function parameter may shadow an imported module name, resultin in run-time errors either during type-checking or during the type-cast that is performed before returning a kernel call's result.\n\nThis change adds a test case that covers this particular scenario in Python, and changes how foreign modules are imported so that an alias is always generated for those, removing the risk for collisions. It also moves the type-checking stubs out to the root of the module to remove the risk of more \"runtime context\" polluting the type evaluation.\n\nFixes https://github.com/aws/aws-cdk/issues/22975\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-11-22T17:19:35Z",
+          "tree_id": "1db369b5e099223e7fd644cbcb76dc269bdae5a3",
+          "url": "https://github.com/aws/jsii/commit/8bac0126832ebce2a5391c86ba9702b12f248b01"
+        },
+        "date": 1669140336206,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59809.430483249984,
+            "unit": "milliseconds",
+            "range": 3754739.2582561634,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59809.430483249984 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45634.365649149986,
+            "unit": "milliseconds",
+            "range": 399721.92971938953,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45634.365649149986 milliseconds over 20 runs"
           }
         ]
       }
