@@ -3920,6 +3920,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 OverridableProtectedMember.java
           ┃                 ┣━ 📄 OverrideReturnsObject.java
           ┃                 ┣━ 📄 package-info.java
+          ┃                 ┣━ 📄 ParamShadowsScope.java
           ┃                 ┣━ 📄 ParentStruct982.java
           ┃                 ┣━ 📄 PartiallyInitializedThisConsumer.java
           ┃                 ┣━ 📄 Polymorphism.java
@@ -18544,6 +18545,46 @@ public class OverrideReturnsObject extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ParamShadowsScope.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Validate that namespaces being shadowed by local variables does not cause type checking issues.
+ * <p>
+ * @see <a href="https://github.com/aws/aws-cdk/issues/22975">https://github.com/aws/aws-cdk/issues/22975</a>
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ParamShadowsScope")
+public class ParamShadowsScope extends software.amazon.jsii.JsiiObject {
+
+    protected ParamShadowsScope(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ParamShadowsScope(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ParamShadowsScope() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * @param scope This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number useScope(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number scope) {
+        return software.amazon.jsii.Kernel.call(this, "useScope", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Number.class), new Object[] { java.util.Objects.requireNonNull(scope, "scope is required") });
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ParentStruct982.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -28522,6 +28563,7 @@ jsii-calc.OptionalStruct=software.amazon.jsii.tests.calculator.OptionalStruct
 jsii-calc.OptionalStructConsumer=software.amazon.jsii.tests.calculator.OptionalStructConsumer
 jsii-calc.OverridableProtectedMember=software.amazon.jsii.tests.calculator.OverridableProtectedMember
 jsii-calc.OverrideReturnsObject=software.amazon.jsii.tests.calculator.OverrideReturnsObject
+jsii-calc.ParamShadowsScope=software.amazon.jsii.tests.calculator.ParamShadowsScope
 jsii-calc.ParentStruct982=software.amazon.jsii.tests.calculator.ParentStruct982
 jsii-calc.PartiallyInitializedThisConsumer=software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer
 jsii-calc.Polymorphism=software.amazon.jsii.tests.calculator.Polymorphism

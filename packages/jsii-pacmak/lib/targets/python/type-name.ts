@@ -314,12 +314,22 @@ class UserType implements TypeName {
             `typing.Union[${pyType}, typing.Dict[str, typing.Any]]`
         : (pyType: string) => pyType;
 
+    // Emit aliased imports for dependencies (this avoids name collisions)
     if (assemblyName !== assembly.name) {
+      const aliasSuffix = createHash('sha256')
+        .update(assemblyName)
+        .update('.*')
+        .digest('hex')
+        .substring(0, 8);
+      const alias = `_${packageName.replace(/\./g, '_')}_${aliasSuffix}`;
+
+      const aliasedFqn = `${alias}${pythonFqn.slice(packageName.length)}`;
+
       return {
         // If it's a struct, then we allow passing as a dict, too...
-        pythonType: wrapType(pythonFqn),
+        pythonType: wrapType(aliasedFqn),
         requiredImport: {
-          sourcePackage: packageName,
+          sourcePackage: `${packageName} as ${alias}`,
           item: '',
         },
       };
@@ -327,7 +337,7 @@ class UserType implements TypeName {
 
     const submodulePythonName = toPythonFqn(submodule, assembly).pythonFqn;
     const typeSubmodulePythonName = toPythonFqn(
-      findParentSubmodule(assembly.types![this.#fqn], assembly),
+      findParentSubmodule(type, assembly),
       assembly,
     ).pythonFqn;
 
