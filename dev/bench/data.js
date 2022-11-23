@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669198734023,
+  "lastUpdate": 1669201490846,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9455,6 +9455,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1100287.0228425215,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64706.795981899995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeff@curisium.com",
+            "name": "Jeff Malins",
+            "username": "jmalins"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7a41349b6abf230c6798fe8f0019fa5eb7584020",
+          "message": "feat(python): streaming bin script output (#3794)\n\nResolves #3782.\n\nInverts control on bin script execution by returning the script to execute (as well as arguments and ENV variables), rather than running it within the kernel process. This allows the calling process to pipe the output streams, rather than the kernel buffering the output and returning it at the end of the synchronous call.\n\nAlso, adds more complete tests to the python runtime to validate `stderr`, exit codes and streaming response.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-11-23T10:11:06Z",
+          "tree_id": "efa428cadba286d41f2dc0b7e8574b53b8451eee",
+          "url": "https://github.com/aws/jsii/commit/7a41349b6abf230c6798fe8f0019fa5eb7584020"
+        },
+        "date": 1669201487796,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70243.01826394997,
+            "unit": "milliseconds",
+            "range": 768470.1090423947,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70243.01826394997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51172.6001403,
+            "unit": "milliseconds",
+            "range": 306191.045276031,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51172.6001403 milliseconds over 20 runs"
           }
         ]
       }
