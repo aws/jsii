@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669208734306,
+  "lastUpdate": 1669214181750,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9531,6 +9531,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 439608.9005164928,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52133.48183740002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "33850400+jpantzlaff@users.noreply.github.com",
+            "name": "John Pantzlaff",
+            "username": "jpantzlaff"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5643c5057ab5f40f3d76a960fee926720dc1287d",
+          "message": "fix(python): dereference values returned from Kernel.ainvoke (#3847)\n\nCurrently, calling an async method via the Python runtime results in an `ObjRef` being returned, rather than an instance of the desired object.\n\nApplying the `@_dereferenced` decorator to `Kernel.ainvoke`, similar to what is already done for `sinvoke`, fixes the problem.\n\nFixes https://github.com/aws/jsii/issues/3620\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-11-23T13:24:16Z",
+          "tree_id": "c66cdae2eec1a95559860cb1140304bf70930ebf",
+          "url": "https://github.com/aws/jsii/commit/5643c5057ab5f40f3d76a960fee926720dc1287d"
+        },
+        "date": 1669214178653,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 100222.78150275,
+            "unit": "milliseconds",
+            "range": 6362011.1068063155,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 100222.78150275 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 75535.13505710001,
+            "unit": "milliseconds",
+            "range": 796406.6087856092,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 75535.13505710001 milliseconds over 20 runs"
           }
         ]
       }
