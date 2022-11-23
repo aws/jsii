@@ -1,6 +1,7 @@
 import abc
 import os
 import sys
+import subprocess
 
 import attr
 
@@ -66,14 +67,15 @@ class JSIIAssembly:
         if args is None:
             args = []
 
-        response = _kernel.invokeBinScript(pkgname, script, args)
-        if response.stdout:
-            print(response.stdout)
+        response = _kernel.getBinScriptCommand(pkgname, script, args)
 
-        if response.stderr:
-            print(response.stderr, file=sys.stderr)
-
-        return response.status
+        result = subprocess.run(
+            " ".join([response.command, *response.args]),
+            encoding="utf-8",
+            shell=True,
+            env=response.env,
+        )
+        return result.returncode
 
 
 class JSIIMeta(_ClassPropertyMeta, type):

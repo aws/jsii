@@ -2,15 +2,15 @@
   <ItemGroup>
     <!-- Central configuration of dependency versions for all DotNet packages -->
 
-    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Update="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
 
-    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.3.1" />
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.4.0" />
     <PackageReference Update="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" />
     <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.3.2" />
 
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <PackageReference Update="NSubstitute" Version="4.4.0" />
     <PackageReference Update="xunit" Version="2.4.2" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.5" />

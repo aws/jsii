@@ -11425,6 +11425,52 @@
       "name": "OverrideReturnsObject",
       "symbolId": "lib/compliance:OverrideReturnsObject"
     },
+    "jsii-calc.ParamShadowsScope": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/22975",
+        "stability": "stable",
+        "summary": "Validate that namespaces being shadowed by local variables does not cause type checking issues."
+      },
+      "fqn": "jsii-calc.ParamShadowsScope",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3100
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3102
+          },
+          "name": "useScope",
+          "parameters": [
+            {
+              "name": "scope",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.Number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Number"
+            }
+          }
+        }
+      ],
+      "name": "ParamShadowsScope",
+      "symbolId": "lib/compliance:ParamShadowsScope"
+    },
     "jsii-calc.ParentStruct982": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -18565,5 +18611,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "b2P7abkCSB3ezfp46ujoSHTYSgRV0o7O1avtvIe5xX8="
+  "fingerprint": "qTr3P5AD9cBorxBMjHTT6y6sMYWUgGf/acN7eejGTgQ="
 }

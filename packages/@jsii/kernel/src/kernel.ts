@@ -169,50 +169,29 @@ export class Kernel {
     };
   }
 
+  public getBinScriptCommand(
+    req: api.GetScriptCommandRequest,
+  ): api.GetScriptCommandResponse {
+    return this._getBinScriptCommand(req);
+  }
+
   public invokeBinScript(
     req: api.InvokeScriptRequest,
   ): api.InvokeScriptResponse {
-    const packageDir = this._getPackageDir(req.assembly);
-    if (fs.pathExistsSync(packageDir)) {
-      // module exists, verify version
-      const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
+    const { command, args, env } = this._getBinScriptCommand(req);
 
-      if (!epkg.bin) {
-        throw new JsiiFault(
-          'There is no bin scripts defined for this package.',
-        );
-      }
+    const result = cp.spawnSync(command, args, {
+      encoding: 'utf-8',
+      env,
+      shell: true,
+    });
 
-      const scriptPath = epkg.bin[req.script];
-
-      if (!epkg.bin) {
-        throw new JsiiFault(`Script with name ${req.script} was not defined.`);
-      }
-
-      const result = cp.spawnSync(
-        path.join(packageDir, scriptPath),
-        req.args ?? [],
-        {
-          encoding: 'utf-8',
-          env: {
-            ...process.env,
-            // Make sure the current NODE_OPTIONS are honored if we shell out to node
-            NODE_OPTIONS: process.execArgv.join(' '),
-            // Make sure "this" node is ahead of $PATH just in case
-            PATH: `${path.dirname(process.execPath)}:${process.env.PATH}`,
-          },
-          shell: true,
-        },
-      );
-
-      return {
-        stdout: result.stdout,
-        stderr: result.stderr,
-        status: result.status,
-        signal: result.signal,
-      };
-    }
-    throw new JsiiFault(`Package with name ${req.assembly} was not loaded.`);
+    return {
+      stdout: result.stdout,
+      stderr: result.stderr,
+      status: result.status,
+      signal: result.signal,
+    };
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
@@ -1323,6 +1302,38 @@ export class Kernel {
       return superProp;
     }
     return property;
+  }
+
+  /**
+   * Shared (non-public implementation) to as not to break API recording.
+   */
+  private _getBinScriptCommand(
+    req: api.GetScriptCommandRequest,
+  ): api.GetScriptCommandResponse {
+    const packageDir = this._getPackageDir(req.assembly);
+    if (fs.pathExistsSync(packageDir)) {
+      // module exists, verify version
+      const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
+
+      const scriptPath = epkg.bin?.[req.script];
+
+      if (!epkg.bin) {
+        throw new JsiiFault(`Script with name ${req.script} was not defined.`);
+      }
+
+      return {
+        command: path.join(packageDir, scriptPath),
+        args: req.args ?? [],
+        env: {
+          ...process.env,
+          // Make sure the current NODE_OPTIONS are honored if we shell out to node
+          NODE_OPTIONS: process.execArgv.join(' '),
+          // Make sure "this" node is ahead of $PATH just in case
+          PATH: `${path.dirname(process.execPath)}:${process.env.PATH}`,
+        },
+      };
+    }
+    throw new JsiiFault(`Package with name ${req.assembly} was not loaded.`);
   }
 
   //
