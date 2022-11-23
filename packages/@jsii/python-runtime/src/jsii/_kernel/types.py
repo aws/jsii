@@ -1,4 +1,4 @@
-from typing import Any, Generic, List, Optional, Mapping, TypeVar, Union
+from typing import Any, Dict, Generic, List, Optional, Mapping, TypeVar, Union
 from typing_extensions import Protocol
 
 import attr
@@ -39,6 +39,22 @@ class LoadResponse:
 
     assembly: str
     types: int
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class GetScriptCommandRequest:
+
+    assembly: str
+    script: str
+    args: List[Any] = attr.Factory(list)
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class GetScriptCommandResponse:
+
+    command: str
+    args: List[str] = attr.Factory(list)
+    env: Dict[str, str] = attr.Factory(dict)
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
