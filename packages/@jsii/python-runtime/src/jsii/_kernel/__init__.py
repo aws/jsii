@@ -451,6 +451,7 @@ class Kernel(metaclass=Singleton):
             response_type=response_type,
         )
 
+    @_dereferenced
     def ainvoke(self, obj: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []

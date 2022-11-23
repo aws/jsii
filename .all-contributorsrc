@@ -1504,6 +1504,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "jpantzlaff",
+      "name": "John Pantzlaff",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33850400?v=4",
+      "profile": "https://github.com/jpantzlaff",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "TomBonnerAtDerivitec",
+      "name": "Tom Bonner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/83637254?v=4",
+      "profile": "https://github.com/TomBonnerAtDerivitec",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
