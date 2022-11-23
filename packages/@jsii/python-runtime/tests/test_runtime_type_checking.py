@@ -2,6 +2,7 @@ import pytest
 import re
 
 from scope.jsii_calc_lib.custom_submodule_name import NestingClass
+from scope.jsii_calc_lib import Number
 import jsii_calc
 
 
@@ -187,3 +188,14 @@ class TestRuntimeTypeChecking:
         jsii_calc.homonymous_forward_references.bar.Consumer.consume(
             homonymous={"numeric_property": 1337}
         )
+
+    def test_shadowed_namespaces_are_not_a_problem(self):
+        """Verifies that a parameter shadowing a namespace does not cause errors
+
+        This has caused https://github.com/aws/aws-cdk/issues/22975.
+        """
+
+        subject = jsii_calc.ParamShadowsScope()
+        num = Number(1337)
+        # The parameter is named "scope" which shadows the "scope" module...
+        assert num == subject.use_scope(num)

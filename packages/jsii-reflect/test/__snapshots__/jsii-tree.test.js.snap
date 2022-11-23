@@ -1917,6 +1917,14 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ obj
  │   │     │   └── type: jsii-calc.IReturnsNumber
  │   │     └── returns: number
+ │   ├─┬ class ParamShadowsScope (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ useScope(scope) method (stable)
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ scope
+ │   │     │   └── type: @scope/jsii-calc-lib.Number
+ │   │     └── returns: @scope/jsii-calc-lib.Number
  │   ├─┬ class PartiallyInitializedThisConsumer (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3903,6 +3911,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
  │   ├── class OverrideReturnsObject
+ │   ├── class ParamShadowsScope
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├─┬ class Power
@@ -5034,6 +5043,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── test(obj) method
+ │   ├─┬ class ParamShadowsScope
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── useScope(scope) method
  │   ├─┬ class PartiallyInitializedThisConsumer
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -6060,6 +6073,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
  │   ├── class OverrideReturnsObject
+ │   ├── class ParamShadowsScope
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├── class Power

@@ -2745,6 +2745,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsiicalc_OptionalStructConsumer.go
        ┣━ 📄 jsiicalc_OverridableProtectedMember.go
        ┣━ 📄 jsiicalc_OverrideReturnsObject.go
+       ┣━ 📄 jsiicalc_ParamShadowsScope.go
        ┣━ 📄 jsiicalc_ParentStruct982.go
        ┣━ 📄 jsiicalc_PartiallyInitializedThisConsumer.go
        ┣━ 📄 jsiicalc_Polymorphism.go
@@ -6122,6 +6123,16 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_OverrideReturnsObject{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.ParamShadowsScope",
+		reflect.TypeOf((*ParamShadowsScope)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "useScope", GoMethod: "UseScope"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ParamShadowsScope{}
 		},
 	)
 	_jsii_.RegisterStruct(
@@ -17558,6 +17569,69 @@ func (o *jsiiProxy_OverrideReturnsObject) Test(obj IReturnsNumber) *float64 {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ParamShadowsScope.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
+
+// Validate that namespaces being shadowed by local variables does not cause type checking issues.
+// See: https://github.com/aws/aws-cdk/issues/22975
+//
+type ParamShadowsScope interface {
+	UseScope(scope scopejsiicalclib.Number) scopejsiicalclib.Number
+}
+
+// The jsii proxy struct for ParamShadowsScope
+type jsiiProxy_ParamShadowsScope struct {
+	_ byte // padding
+}
+
+func NewParamShadowsScope() ParamShadowsScope {
+	_init_.Initialize()
+
+	j := jsiiProxy_ParamShadowsScope{}
+
+	_jsii_.Create(
+		"jsii-calc.ParamShadowsScope",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewParamShadowsScope_Override(p ParamShadowsScope) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ParamShadowsScope",
+		nil, // no parameters
+		p,
+	)
+}
+
+func (p *jsiiProxy_ParamShadowsScope) UseScope(scope scopejsiicalclib.Number) scopejsiicalclib.Number {
+	var returns scopejsiicalclib.Number
+
+	_jsii_.Invoke(
+		p,
+		"useScope",
+		[]interface{}{scope},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc_ParentStruct982.go 1`] = `
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -24831,6 +24905,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 jsiicalc_OverrideReturnsObject__no_runtime_type_checking.go
        ┣━ 🆕 jsiicalc_OverrideReturnsObject__runtime_type_checks.go
        ┣━ 📄 jsiicalc_OverrideReturnsObject.go.diff
+       ┣━ 🆕 jsiicalc_ParamShadowsScope__no_runtime_type_checking.go
+       ┣━ 🆕 jsiicalc_ParamShadowsScope__runtime_type_checks.go
+       ┣━ 📄 jsiicalc_ParamShadowsScope.go.diff
        ┣━ 🆕 jsiicalc_PartiallyInitializedThisConsumer__no_runtime_type_checking.go
        ┣━ 🆕 jsiicalc_PartiallyInitializedThisConsumer__runtime_type_checks.go
        ┣━ 📄 jsiicalc_PartiallyInitializedThisConsumer.go.diff
@@ -31843,6 +31920,67 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 +func (o *jsiiProxy_OverrideReturnsObject) validateTestParameters(obj IReturnsNumber) error {
 +	if obj == nil {
 +		return fmt.Errorf("parameter obj is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ParamShadowsScope.go.diff 1`] = `
+--- go/jsiicalc/jsiicalc_ParamShadowsScope.go	--no-runtime-type-checking
++++ go/jsiicalc/jsiicalc_ParamShadowsScope.go	--runtime-type-checking
+@@ -43,10 +43,13 @@
+ 		p,
+ 	)
+ }
+ 
+ func (p *jsiiProxy_ParamShadowsScope) UseScope(scope scopejsiicalclib.Number) scopejsiicalclib.Number {
++	if err := p.validateUseScopeParameters(scope); err != nil {
++		panic(err)
++	}
+ 	var returns scopejsiicalclib.Number
+ 
+ 	_jsii_.Invoke(
+ 		p,
+ 		"useScope",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ParamShadowsScope__no_runtime_type_checking.go.diff 1`] = `
+--- go/jsiicalc/jsiicalc_ParamShadowsScope__no_runtime_type_checking.go	--no-runtime-type-checking
++++ go/jsiicalc/jsiicalc_ParamShadowsScope__no_runtime_type_checking.go	--runtime-type-checking
+@@ -0,0 +1,11 @@
++//go:build no_runtime_type_checking
++
++// A simple calcuator built on JSII.
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (p *jsiiProxy_ParamShadowsScope) validateUseScopeParameters(scope scopejsiicalclib.Number) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_ParamShadowsScope__runtime_type_checks.go.diff 1`] = `
+--- go/jsiicalc/jsiicalc_ParamShadowsScope__runtime_type_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/jsiicalc_ParamShadowsScope__runtime_type_checks.go	--runtime-type-checking
+@@ -0,0 +1,19 @@
++//go:build !no_runtime_type_checking
++
++// A simple calcuator built on JSII.
++package jsiicalc
++
++import (
++	"fmt"
++
++	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
++)
++
++func (p *jsiiProxy_ParamShadowsScope) validateUseScopeParameters(scope scopejsiicalclib.Number) error {
++	if scope == nil {
++		return fmt.Errorf("parameter scope is required, but nil was provided")
 +	}
 +
 +	return nil
