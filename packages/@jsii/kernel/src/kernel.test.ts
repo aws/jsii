@@ -78,6 +78,8 @@ defineTest.skip = function (
   return defineTest(name, method, test.skip);
 };
 
+defineTest.skipIf = (expr: boolean) => (expr ? defineTest.skip : defineTest);
+
 // Note: this test asserts file permissions, which work differently on Windows, so we skip it there
 (process.platform === 'win32' ? test.skip : test)(
   'load preserves file permissions',
@@ -2137,6 +2139,49 @@ defineTest('Override transitive property', (sandbox) => {
   // Check the overridden property didn't change...
   expect(propValue).toBe('N3W');
 });
+
+defineTest.skipIf(!!recordingOutput)(
+  'getBinScriptCommand() returns output',
+  (sandbox) => {
+    const result = sandbox.getBinScriptCommand({
+      assembly: 'jsii-calc',
+      script: 'calc',
+    });
+
+    expect(result).toMatchObject<api.GetScriptCommandResponse>({
+      command: expect.stringMatching(
+        /node_modules[/\\]jsii-calc[/\\]bin[/\\]run$/,
+      ),
+      args: [],
+      env: {
+        NODE_OPTIONS: expect.any(String),
+        PATH: expect.any(String),
+      },
+    });
+  },
+);
+
+defineTest.skipIf(!!recordingOutput)(
+  'getBinScriptCommand() accepts arguments',
+  (sandbox) => {
+    const result = sandbox.getBinScriptCommand({
+      assembly: 'jsii-calc',
+      script: 'calc',
+      args: ['arg1', 'arg2'],
+    });
+
+    expect(result).toMatchObject<api.GetScriptCommandResponse>({
+      command: expect.stringMatching(
+        /node_modules[/\\]jsii-calc[/\\]bin[/\\]run$/,
+      ),
+      args: ['arg1', 'arg2'],
+      env: {
+        NODE_OPTIONS: expect.any(String),
+        PATH: expect.any(String),
+      },
+    });
+  },
+);
 
 defineTest('invokeBinScript() return output', (sandbox) => {
   const result = sandbox.invokeBinScript({
