@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669140339221,
+  "lastUpdate": 1669198734023,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9417,6 +9417,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 399721.92971938953,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45634.365649149986 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@ryanparker.dev",
+            "name": "Ryan Parker",
+            "username": "ryparker"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6700f1aa84c1635e739ccf970dfa18b5ca289b83",
+          "message": "fix: revert \"chore(deps): Bump aws-actions/stale-issue-cleanup from 5 to 6\" (#3850)\n\nReverts aws/jsii#3844\n\nv6 is broken and was not ready for prod. It must have been accidentally released.\n\nhttps://github.com/aws-actions/stale-issue-cleanup/tree/v6",
+          "timestamp": "2022-11-23T09:15:19Z",
+          "tree_id": "54fce37e677ad4306df5053ca2bc3bba08740629",
+          "url": "https://github.com/aws/jsii/commit/6700f1aa84c1635e739ccf970dfa18b5ca289b83"
+        },
+        "date": 1669198730204,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 87127.67583265007,
+            "unit": "milliseconds",
+            "range": 3779655.025510916,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 87127.67583265007 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 64706.795981899995,
+            "unit": "milliseconds",
+            "range": 1100287.0228425215,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64706.795981899995 milliseconds over 20 runs"
           }
         ]
       }
