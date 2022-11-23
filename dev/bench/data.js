@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669214181750,
+  "lastUpdate": 1669221109932,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9569,6 +9569,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 796406.6087856092,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 75535.13505710001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "89cf6f23e965bbfe0a919b6d76302452b15bba6d",
+          "message": "chore(deps-dev): Update wheel requirement from ~=0.37.1 to ~=0.38.4 in /packages/jsii-pacmak/lib/targets/python (#3832)\n\nUpdates the requirements on [wheel](https://github.com/pypa/wheel) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/blob/main/docs/news.rst\">wheel's changelog</a>.</em></p>\n<blockquote>\n<h1>Release Notes</h1>\n<p><strong>0.38.4 (2022-11-09)</strong></p>\n<ul>\n<li>Fixed <code>PKG-INFO</code> conversion in <code>bdist_wheel</code> mangling UTF-8 header values in\n<code>METADATA</code> (PR by Anderson Bravalheri)</li>\n</ul>\n<p><strong>0.38.3 (2022-11-08)</strong></p>\n<ul>\n<li>Fixed install failure when used with <code>--no-binary</code>, reported on Ubuntu 20.04, by\nremoving <code>setup_requires</code> from <code>setup.cfg</code></li>\n</ul>\n<p><strong>0.38.2 (2022-11-05)</strong></p>\n<ul>\n<li>Fixed regression introduced in v0.38.1 which broke parsing of wheel file names with\nmultiple platform tags</li>\n</ul>\n<p><strong>0.38.1 (2022-11-04)</strong></p>\n<ul>\n<li>Removed install dependency on setuptools</li>\n<li>The future-proof fix in 0.36.0 for converting PyPy's SOABI into a abi tag was\nfaulty. Fixed so that future changes in the SOABI will not change the tag.</li>\n</ul>\n<p><strong>0.38.0 (2022-10-21)</strong></p>\n<ul>\n<li>Dropped support for Python &lt; 3.7</li>\n<li>Updated vendored <code>packaging</code> to 21.3</li>\n<li>Replaced all uses of <code>distutils</code> with <code>setuptools</code></li>\n<li>The handling of <code>license_files</code> (including glob patterns and default\nvalues) is now delegated to <code>setuptools&gt;=57.0.0</code> (<a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/466\">#466</a>).\nThe package dependencies were updated to reflect this change.</li>\n<li>Fixed potential DoS attack via the <code>WHEEL_INFO_RE</code> regular expression</li>\n<li>Fixed <code>ValueError: ZIP does not support timestamps before 1980</code> when using\n<code>SOURCE_DATE_EPOCH=0</code> or when on-disk timestamps are earlier than 1980-01-01. Such\ntimestamps are now changed to the minimum value before packaging.</li>\n</ul>\n<p><strong>0.37.1 (2021-12-22)</strong></p>\n<ul>\n<li>Fixed <code>wheel pack</code> duplicating the <code>WHEEL</code> contents when the build number has changed (<a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/415\">#415</a>)</li>\n<li>Fixed parsing of file names containing commas in <code>RECORD</code> (PR by Hood Chatham)</li>\n</ul>\n<p><strong>0.37.0 (2021-08-09)</strong></p>\n<ul>\n<li>Added official Python 3.10 support</li>\n<li>Updated vendored <code>packaging</code> library to v20.9</li>\n</ul>\n<p><strong>0.36.2 (2020-12-13)</strong></p>\n<ul>\n<li>Updated vendored <code>packaging</code> library to v20.8</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/wheel/commit/814c2efe8e40051039c5a6de6945e04ecdd162ee\"><code>814c2ef</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/10a422dade0d7f31de03b66a2eb89a22d1598697\"><code>10a422d</code></a> Added news item about PR <a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/489\">#489</a></li>\n<li><a href=\"https://github.com/pypa/wheel/commit/3f8bdf1eb67ead22b857445c7c9aa4751ea6bd9a\"><code>3f8bdf1</code></a> Allow <code>METADATA</code> file to contain UTF-8 chars (<a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/489\">#489</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/daeb157c8207b1459fc7baa5f234c165a7a5faf4\"><code>daeb157</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/7a633c92f04d7a135459ad07700e0307900c549e\"><code>7a633c9</code></a> Removed setup_requires</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/44193907eb308930de05deed863fb4d157c5c866\"><code>4419390</code></a> Fixed parsing of wheel file names with multiple platform tags</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/6f1608dc1a88f00d2390b9044bd655753f39234c\"><code>6f1608d</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/cf8f5ef50e32b836c4ffb43af68107f78dca8d80\"><code>cf8f5ef</code></a> Moved news item from PR <a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/484\">#484</a> to its proper place</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/9ec201660fa07ee0714edd17c979a7039ea852a4\"><code>9ec2016</code></a> Removed install dependency on setuptools (<a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/483\">#483</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/747e1f6090547abcf65108c5a229cbe21a64a2ae\"><code>747e1f6</code></a> Fixed PyPy SOABI parsing (<a href=\"https://github-redirect.dependabot.com/pypa/wheel/issues/484\">#484</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/wheel/compare/0.37.1...0.38.4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-11-23T15:33:17Z",
+          "tree_id": "d995f6121d5c6257b3858f3614ff01a9572dac3d",
+          "url": "https://github.com/aws/jsii/commit/89cf6f23e965bbfe0a919b6d76302452b15bba6d"
+        },
+        "date": 1669221105993,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 79768.4535575,
+            "unit": "milliseconds",
+            "range": 3417611.0607436784,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 79768.4535575 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 57829.79362930001,
+            "unit": "milliseconds",
+            "range": 958002.4275025639,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57829.79362930001 milliseconds over 20 runs"
           }
         ]
       }
