@@ -40,7 +40,7 @@ describe('jsii-config', () => {
       });
 
       await expect(jsiiConfig('package.json')).rejects.toThrow(
-        'Unexpected token "I", \"INVALID JSON STRING\" is not valid JSON',
+        'Unexpected token "I", "INVALID JSON STRING" is not valid JSON',
       );
     });
   });
