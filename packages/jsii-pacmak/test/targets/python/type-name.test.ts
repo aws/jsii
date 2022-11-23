@@ -173,14 +173,19 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Foreign)',
       input: { fqn: '@remote/classes.FancyClass' },
-      pythonType: `${REMOTE_MODULE}.FancyClass`,
-      requiredImports: { [REMOTE_MODULE]: new Set(['']) },
+      pythonType: `_remote_module_name_fb17b8fa.FancyClass`,
+      requiredImports: {
+        [`${REMOTE_MODULE} as _remote_module_name_fb17b8fa`]: new Set(['']),
+      },
     },
     {
       name: 'User Type (Foreign, Submodule)',
       input: { fqn: '@remote/classes.nested.SubmoduledType' },
-      pythonType: `${REMOTE_MODULE}.submodule.SubmoduledType`,
-      requiredImports: { [`${REMOTE_MODULE}.submodule`]: new Set(['']) },
+      pythonType: `_remote_module_name_submodule_fb17b8fa.SubmoduledType`,
+      requiredImports: {
+        [`${REMOTE_MODULE}.submodule as _remote_module_name_submodule_fb17b8fa`]:
+          new Set(['']),
+      },
     },
     {
       name: 'User Type (Local)',

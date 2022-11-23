@@ -3187,6 +3187,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 OptionalStructConsumer.cs
        ┃           ┣━ 📄 OverridableProtectedMember.cs
        ┃           ┣━ 📄 OverrideReturnsObject.cs
+       ┃           ┣━ 📄 ParamShadowsScope.cs
        ┃           ┣━ 📄 ParentStruct982.cs
        ┃           ┣━ 📄 PartiallyInitializedThisConsumer.cs
        ┃           ┣━ 📄 Polymorphism.cs
@@ -16716,6 +16717,54 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double Test(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber obj)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber)}, new object[]{obj})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ParamShadowsScope.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Validate that namespaces being shadowed by local variables does not cause type checking issues.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/aws-cdk/issues/22975
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ParamShadowsScope), fullyQualifiedName: "jsii-calc.ParamShadowsScope")]
+    public class ParamShadowsScope : DeputyBase
+    {
+        public ParamShadowsScope(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ParamShadowsScope(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ParamShadowsScope(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "useScope", returnsJson: "{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"}}", parametersJson: "[{\\"name\\":\\"scope\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"}}]")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number UseScope(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number scope)
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)}, new object[]{scope})!;
         }
     }
 }

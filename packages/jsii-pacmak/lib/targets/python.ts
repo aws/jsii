@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as assert from 'assert';
 import { CodeMaker, toSnakeCase } from 'codemaker';
+import * as crypto from 'crypto';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
@@ -125,6 +126,57 @@ interface EmitContext extends NamingContext {
 
   /** Whether to runtime type check keyword arguments (i.e: struct constructors) */
   readonly runtimeTypeCheckKwargs?: boolean;
+
+  /** The numerical IDs used for type annotation data storing */
+  readonly typeCheckingHelper: TypeCheckingHelper;
+}
+
+class TypeCheckingHelper {
+  #stubs = new Array<TypeCheckingStub>();
+
+  public getTypeHints(fqn: string, args: readonly string[]): string {
+    const stub = new TypeCheckingStub(fqn, args);
+    this.#stubs.push(stub);
+    return `typing.get_type_hints(${stub.name})`;
+  }
+
+  /** Emits instructions that create the annotations data... */
+  public flushStubs(code: CodeMaker) {
+    for (const stub of this.#stubs) {
+      stub.emit(code);
+    }
+    // Reset the stubs list
+    this.#stubs = [];
+  }
+}
+
+class TypeCheckingStub {
+  static readonly #PREFIX = '_typecheckingstub__';
+
+  readonly #arguments: readonly string[];
+  readonly #hash: string;
+
+  public constructor(fqn: string, args: readonly string[]) {
+    // Removing the quoted type names -- this will be emitted at the very end of the module.
+    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    this.#hash = crypto
+      .createHash('sha256')
+      .update(TypeCheckingStub.#PREFIX)
+      .update(fqn)
+      .digest('hex');
+  }
+
+  public get name(): string {
+    return `${TypeCheckingStub.#PREFIX}${this.#hash}`;
+  }
+
+  public emit(code: CodeMaker) {
+    code.line();
+    openSignature(code, 'def', this.name, this.#arguments, 'None');
+    code.line(`"""Type checking stubs"""`);
+    code.line('pass');
+    code.closeBlock();
+  }
 }
 
 const pythonModuleNameToFilename = (name: string): string => {
@@ -472,6 +524,7 @@ abstract class BaseMethod implements PythonBase {
     private readonly returns: spec.OptionalValue | undefined,
     public readonly docs: spec.Docs | undefined,
     public readonly isStatic: boolean,
+    private readonly pythonParent: PythonType,
     opts: BaseMethodOpts,
   ) {
     this.abstract = !!opts.abstract;
@@ -666,7 +719,14 @@ abstract class BaseMethod implements PythonBase {
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
-      emitParameterTypeChecks(code, context, pythonParams.slice(1));
+      emitParameterTypeChecks(
+        code,
+        context,
+        pythonParams.slice(1),
+        `${this.pythonParent.fqn ?? this.pythonParent.pythonName}#${
+          this.pythonName
+        }`,
+      );
     }
     this.emitBody(
       code,
@@ -858,6 +918,7 @@ abstract class BaseProperty implements PythonBase {
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     public readonly docs: spec.Docs | undefined,
+    private readonly pythonParent: PythonType,
     opts: BasePropertyOpts,
   ) {
     const { abstract = false, immutable = false, isStatic = false } = opts;
@@ -940,7 +1001,14 @@ abstract class BaseProperty implements PythonBase {
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
-        emitParameterTypeChecks(code, context, [`value: ${pythonType}`]);
+        emitParameterTypeChecks(
+          code,
+          context,
+          [`value: ${pythonType}`],
+          `${this.pythonParent.fqn ?? this.pythonParent.pythonName}#${
+            this.pythonName
+          }`,
+        );
         code.line(
           `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
         );
@@ -1132,6 +1200,7 @@ class Struct extends BasePythonClassType {
         // Runtime type check keyword args as this is a struct __init__ function.
         { ...context, runtimeTypeCheckKwargs: true },
         ['*', ...kwargs],
+        `${this.fqn ?? this.pythonName}#__init__`,
       );
     }
 
@@ -1965,6 +2034,7 @@ class Package {
 
       code.openFile(filename);
       mod.emit(code, context);
+      context.typeCheckingHelper.flushStubs(code);
       code.closeFile(filename);
 
       scripts.push(...mod.emitBinScripts(code));
@@ -2530,6 +2600,7 @@ class PythonGenerator extends Generator {
       resolver,
       runtimeTypeChecking: this.runtimeTypeChecking,
       submodule: assm.name,
+      typeCheckingHelper: new TypeCheckingHelper(),
       typeResolver: (fqn) => resolver.dereference(fqn),
     });
   }
@@ -2605,6 +2676,7 @@ class PythonGenerator extends Generator {
           undefined,
           cls.initializer.docs,
           false, // Never static
+          klass,
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
         ),
       );
@@ -2627,6 +2699,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         true, // Always static
+        klass,
         {
           abstract: method.abstract,
           liftedProp: this.getliftedProp(method),
@@ -2645,6 +2718,7 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
+        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2670,6 +2744,7 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
+          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2687,6 +2762,7 @@ class PythonGenerator extends Generator {
           method.returns,
           method.docs,
           !!method.static,
+          klass,
           {
             abstract: method.abstract,
             liftedProp: this.getliftedProp(method),
@@ -2706,6 +2782,7 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
+        klass,
         {
           abstract: prop.abstract,
           immutable: prop.immutable,
@@ -2767,6 +2844,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         !!method.static,
+        klass,
         { liftedProp: this.getliftedProp(method), parent: ifc },
       ),
     );
@@ -2786,6 +2864,7 @@ class PythonGenerator extends Generator {
         prop.name,
         prop,
         prop.docs,
+        klass,
         { immutable: prop.immutable, isStatic: prop.static, parent: ifc },
       );
     }
@@ -3043,14 +3122,16 @@ function openSignature(
  * @param code        the CodeMaker to use for emitting code.
  * @param context     the emit context used when emitting this code.
  * @param params      the parameter signatures to be type-checked.
+ * @params pythonName the name of the Python function being checked (qualified).
  */
 function emitParameterTypeChecks(
   code: CodeMaker,
   context: EmitContext,
   params: readonly string[],
-): void {
+  fqn: string,
+): boolean {
   if (!context.runtimeTypeChecking) {
-    return;
+    return false;
   }
 
   const paramInfo = params.map((param) => {
@@ -3082,28 +3163,9 @@ function emitParameterTypeChecks(
 
     if (!openedBlock) {
       code.openBlock('if __debug__');
-      const stubVar = slugifyAsNeeded('stub', [...paramNames, typesVar]);
-      // Inline a stub function to be able to have the required type hints regardless of what customers do with the
-      // code. Using a reference to the `Type.function` may result in incorrect data if some function was replaced (e.g.
-      // by a decorated version with different type annotations). We also cannot construct the actual value expected by
-      // typeguard's `check_type` because Python does not expose the APIs necessary to build many of these objects in
-      // regular Python code.
-      //
-      // Since the nesting function will only be callable once this module is fully loaded, we can convert forward type
-      // references into regular references, so that the type checker is not confused by multiple type references
-      // sharing the same leaf type name (the ForwardRef resolution may be cached in the execution scope, which causes
-      // order-of-initialization problems, as can be seen in aws/jsii#3818).
-      openSignature(
-        code,
-        'def',
-        stubVar,
-        params.map((param) => param.replace(/"/g, '')),
-        'None',
+      code.line(
+        `${typesVar} = ${context.typeCheckingHelper.getTypeHints(fqn, params)}`,
       );
-      code.line('...');
-      code.closeBlock();
-
-      code.line(`${typesVar} = typing.get_type_hints(${stubVar})`);
       openedBlock = true;
     }
 
@@ -3123,7 +3185,10 @@ function emitParameterTypeChecks(
   }
   if (openedBlock) {
     code.closeBlock();
+    return true;
   }
+  // We did not reference type annotations data if we never opened a type-checking block.
+  return false;
 }
 
 function assignCallResult(
