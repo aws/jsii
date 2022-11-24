@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669229234912,
+  "lastUpdate": 1669298562479,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9683,6 +9683,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1425910.4496800385,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74737.34545449997 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "880dbccc883005d10f00a1536561e0fe84b5fda6",
+          "message": "feat(check-node): allow silencing @jsii/check-node warnings (#3841)\n\nAllows silencing @jsii/check-node warnings when the runtime is not End-of-Life, so that users who know what they are doing can suppress the extraneous output.\r\n\r\nThis is particularly useful for new Node releases that are un-tested, but can typically be expected to work, or known broken releases that happen to work for a given use-case that is carefully crafted to avoid the known issues; but is also possible for deprecated node releases.\r\n\r\nMessages about using end-of-life releases are intentionally not suppressible.\r\n\r\nAlso updated the message for un-tested and known-broken releases to better frame the fact that these might work fine, and urge users to retry using a known supported release before they file a bug report.\r\n\r\nAdditionally adds testing for Node 19.x.\r\n\r\nFixes #3817\r\nFixes #3171",
+          "timestamp": "2022-11-24T14:14:23+01:00",
+          "tree_id": "038f032c852f7e1a40d7fbc93ddd70fa8e70385c",
+          "url": "https://github.com/aws/jsii/commit/880dbccc883005d10f00a1536561e0fe84b5fda6"
+        },
+        "date": 1669298559836,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60048.481080150035,
+            "unit": "milliseconds",
+            "range": 2858548.256794645,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60048.481080150035 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46735.54833029999,
+            "unit": "milliseconds",
+            "range": 157207.69423502212,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46735.54833029999 milliseconds over 20 runs"
           }
         ]
       }
