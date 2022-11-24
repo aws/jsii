@@ -40,7 +40,14 @@ describe('jsii-config', () => {
       });
 
       await expect(jsiiConfig('package.json')).rejects.toThrow(
-        'Unexpected token I in JSON at position 0',
+        new RegExp(
+          [
+            // Error produced by JSON.parse in Node < 19
+            'Unexpected token I in JSON at position 0',
+            // Error produced by JSON.parse in Node >= 19
+            `Unexpected token 'I', "INVALID JSON STRING" is not valid JSON`,
+          ].join('|'),
+        ),
       );
     });
   });

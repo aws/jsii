@@ -99,6 +99,18 @@ export interface LoadResponse {
   readonly types: number;
 }
 
+export interface GetScriptCommandRequest {
+  readonly assembly: string;
+  readonly script: string;
+  readonly args?: string[];
+}
+
+export interface GetScriptCommandResponse {
+  command: string;
+  args: string[];
+  env: Record<string, string>;
+}
+
 export interface InvokeScriptRequest {
   readonly assembly: string;
   readonly script: string;

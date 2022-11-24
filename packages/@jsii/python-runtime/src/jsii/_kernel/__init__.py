@@ -14,7 +14,6 @@ from ..errors import JSIIError
 from .. import _reference_map
 from .._utils import Singleton
 from .providers import BaseProvider, ProcessProvider
-from .types import Callback
 from .types import (
     EnumRef,
     LoadRequest,
@@ -34,6 +33,8 @@ from .types import (
     GetResponse,
     InvokeRequest,
     InvokeResponse,
+    GetScriptCommandRequest,
+    GetScriptCommandResponse,
     InvokeScriptRequest,
     InvokeScriptResponse,
     KernelResponse,
@@ -299,6 +300,20 @@ class Kernel(metaclass=Singleton):
     def load(self, name: str, version: str, tarball: str) -> None:
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
+    def getBinScriptCommand(
+        self, pkgname: str, script: str, args: Optional[Sequence[str]] = None
+    ) -> GetScriptCommandResponse:
+        if args is None:
+            args = []
+
+        return self.provider.getScriptCommand(
+            GetScriptCommandRequest(
+                assembly=pkgname,
+                script=script,
+                args=_make_reference_for_native(self, args),
+            )
+        )
+
     def invokeBinScript(
         self, pkgname: str, script: str, args: Optional[Sequence[str]] = None
     ) -> InvokeScriptResponse:
@@ -436,6 +451,7 @@ class Kernel(metaclass=Singleton):
             response_type=response_type,
         )
 
+    @_dereferenced
     def ainvoke(self, obj: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []
