@@ -7,8 +7,8 @@ namespace Amazon.JSII.JsonModel.Api
     internal sealed class NamedError
     {
         internal NamedError(Exception exception): this(exception.ToString(), exception is JsiiError ? ErrorName.JsiiError : (ErrorName?)null) {}
-        
-        private NamedError(string message, ErrorName? name)
+
+        internal NamedError(string message, ErrorName? name)
         {
             Message = message;
             Name = name;
@@ -17,7 +17,7 @@ namespace Amazon.JSII.JsonModel.Api
         public string Message { get;  }
         public ErrorName? Name { get;}
     }
-    
+
     [JsonConverter(typeof(ErrorNameConverter))]
     public enum ErrorName
     {
@@ -29,7 +29,7 @@ namespace Amazon.JSII.JsonModel.Api
     {
         private const string ErrorNameFault = "@jsii/kernel.Fault";
         private const string ErrorNameRuntime = "@jsii/kernel.RuntimeError";
-        
+
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             string? enumString = (string?)reader.Value;
