@@ -518,7 +518,8 @@ export const suite: schema.Suite = {
     },
     {
       name: 'strippedDeprecatedMemberCanBeReceived',
-      description: 'Ensures --strip-deprecated does not cause odd runtime errors',
+      description:
+        'Ensures --strip-deprecated does not cause odd runtime errors',
     },
   ],
 };

@@ -4,6 +4,7 @@ using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using Amazon.JSII.Tests.CalculatorNamespace.Cdk16625;
+using Amazon.JSII.Tests.CalculatorNamespace.Cdk22369;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
@@ -383,6 +384,31 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             calc.MaxValue = 40;
             calc.Add(10);
             Assert.Equal(33d, calc.Value);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ExceptionMessage))]
+        public void ExceptionMessage()
+        {
+          try
+          {
+              new AcceptsPath(new AcceptsPathProps {
+                  SourcePath = "A Bad Path"
+              });
+          }
+          catch (JsiiError e)
+          {
+              Assert.Equal("Cannot find asset", e.Message);
+          }
+          catch (Exception e)
+          {
+              Assert.Fail(
+                  string.Format(
+                      "Unexpected exception of type {0} caught: {1}",
+                      e.GetType(),
+                      e.Message
+                  )
+              );
+          }
         }
 
         [Fact(DisplayName = Prefix + nameof(UnionProperties))]

@@ -22,6 +22,7 @@ export * as module2530 from './module2530';
 export * as module2700 from './module2700';
 
 export * as cdk16625 from './cdk16625';
+export * as cdk22369 from './cdk22369';
 export * as jsii3656 from './jsii3656';
 
 export * as anonymous from './anonymous';

@@ -4,6 +4,39 @@ using System.Runtime.Serialization;
 
 namespace Amazon.JSII.JsonModel.Api.Response
 {
+    public class ErrorResponseNameConverter : JsonConverter {
+        // Use default implementation for write
+        public override bool CanWrite { get { return false; } }
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        {
+            string? enumString = (string?)reader.Value;
+            ErrorResponseName? errorResponseName = null;
+            switch (enumString) {
+                case "@jsii/kernel.Fault":
+                {
+                    errorResponseName = ErrorResponseName.JsiiError;
+                    break;
+                }
+                case "@jsii/kernel.RuntimeError":
+                {
+                    errorResponseName = ErrorResponseName.RuntimeException;
+                    break;
+                }
+            }
+
+            return errorResponseName;
+        }
+
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        } 
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(string);
+        }
+    }
     public enum ErrorResponseName
     {
         [EnumMember(Value = "@jsii/kernel.Fault")]
@@ -28,6 +61,7 @@ namespace Amazon.JSII.JsonModel.Api.Response
         public string? Stack { get; }
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public ErrorResponseName Name { get ; }
+        [JsonConverter(typeof(ErrorResponseNameConverter))]
+        public ErrorResponseName Name { get; }
     }
 }
