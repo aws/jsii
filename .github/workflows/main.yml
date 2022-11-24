@@ -198,6 +198,7 @@ jobs:
           - '14' # EOL 2023-04-30
           - '16' # EOL 2023-09-11
           - '18' # EOL 2025-04-30
+          - '19' # EOL 2023-06-01
         os: [ubuntu-latest]
         python: ['3.7']
         # Add specific combinations to be tested against "node 14" (to restrict cardinality)
