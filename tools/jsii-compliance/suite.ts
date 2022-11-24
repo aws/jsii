@@ -521,5 +521,10 @@ export const suite: schema.Suite = {
       description:
         'Ensures --strip-deprecated does not cause odd runtime errors',
     },
+    {
+      name: 'exceptionMessage',
+      description:
+        'Verifies that custom exception names are correctly forwarded',
+    },
   ],
 };

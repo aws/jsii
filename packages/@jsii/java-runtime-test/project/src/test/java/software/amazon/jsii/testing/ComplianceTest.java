@@ -13,6 +13,7 @@ import software.amazon.jsii.ReloadingClassLoader;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
 import software.amazon.jsii.tests.calculator.cdk16625.Cdk16625;
+import software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedStruct;
 import software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory;
@@ -1830,5 +1831,19 @@ public class ComplianceTest {
     @Test
     public void strippedDeprecatedMemberCanBeReceived() {
         assertNotNull(InterfaceFactory.create());
+    }
+
+    @Test
+    public void exceptionMessage() {
+        boolean thrown = false;
+        try {
+            AcceptsPath.Builder.create()
+                .sourcePath("A Bad Path")
+                .build();
+        } catch (final RuntimeException e) {
+            assertTrue(e.getMessage().startsWith("Cannot find asset"));
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 }

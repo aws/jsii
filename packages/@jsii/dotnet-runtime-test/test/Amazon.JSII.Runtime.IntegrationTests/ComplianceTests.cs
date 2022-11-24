@@ -379,7 +379,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             calc.Add(3);
             Assert.Equal(23d, calc.Value);
 
-            Assert.Throws<JsiiError>(() => calc.Add(10));
+            Assert.Throws<Exception>(() => calc.Add(10));
 
             calc.MaxValue = 40;
             calc.Add(10);
@@ -389,26 +389,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(ExceptionMessage))]
         public void ExceptionMessage()
         {
-          try
-          {
-              new AcceptsPath(new AcceptsPathProps {
-                  SourcePath = "A Bad Path"
-              });
-          }
-          catch (JsiiError e)
-          {
-              Assert.Equal("Cannot find asset", e.Message);
-          }
-          catch (Exception e)
-          {
-              Assert.Fail(
-                  string.Format(
-                      "Unexpected exception of type {0} caught: {1}",
-                      e.GetType(),
-                      e.Message
-                  )
-              );
-          }
+            var e = Assert.Throws<Exception>(() =>
+                new AcceptsPath(new AcceptsPathProps { SourcePath = "A Bad Path" })
+            );
+            Assert.Equal("Cannot find asset", e.Message);
         }
 
         [Fact(DisplayName = Prefix + nameof(UnionProperties))]
@@ -517,7 +501,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             AsyncVirtualMethodsChild obj = new AsyncVirtualMethodsChild();
 
-            JsiiError exception = Assert.Throws<JsiiError>(() => obj.CallMe());
+            var exception = Assert.Throws<Exception>(() => obj.CallMe());
             Assert.Contains("Thrown by native code", exception.Message);
         }
 
@@ -584,7 +568,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            JsiiError exception = Assert.Throws<JsiiError>(() => so.RetrieveValueOfTheProperty());
+            var exception = Assert.Throws<Exception>(() => so.RetrieveValueOfTheProperty());
             Assert.Contains("Oh no, this is bad", exception.Message);
         }
 
@@ -602,7 +586,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            JsiiError exception = Assert.Throws<JsiiError>(() => so.ModifyValueOfTheProperty("Hii"));
+            var exception = Assert.Throws<Exception>(() => so.ModifyValueOfTheProperty("Hii"));
             Assert.Contains("Exception from overloaded setter", exception.Message);
         }
 

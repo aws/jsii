@@ -20,6 +20,7 @@ import (
 	"github.com/aws/jsii/go-runtime-test/internal/wallClock"
 	"github.com/aws/jsii/jsii-calc/go/jcb"
 	calc "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/cdk22369"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/composition"
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/submodule/child"
 	calclib "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
@@ -1658,6 +1659,18 @@ func (suite *ComplianceSuite) TestStrippedDeprecatedMemberCanBeReceived() {
 	require := suite.Require()
 
 	require.NotNil(deprecationremoval.InterfaceFactory_Create())
+}
+
+func (suite *ComplianceSuite) TestExceptionMessage() {
+	require := suite.Require()
+
+	defer func() {
+		err := recover()
+		require.NotNil(err, "expected a failure to occur")
+		require.Contains(err.(error).Error(), "Cannot find asset")
+	}()
+
+	cdk22369.NewAcceptsPath(&cdk22369.AcceptsPathProps{SourcePath: jsii.String("A Bad Path")})
 }
 
 // required to make `go test` recognize the suite.

@@ -2928,6 +2928,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 Cdk16625.cs
        ┃           ┃  ┗━ 📁 Donotimport
        ┃           ┃     ┗━ 📄 UnimportedSubmoduleType.cs
+       ┃           ┣━ 📁 Cdk22369
+       ┃           ┃  ┣━ 📄 AcceptsPath.cs
+       ┃           ┃  ┣━ 📄 AcceptsPathProps.cs
+       ┃           ┃  ┗━ 📄 IAcceptsPathProps.cs
        ┃           ┣━ 📄 ChildStruct982.cs
        ┃           ┣━ 📄 ClassThatImplementsTheInternalInterface.cs
        ┃           ┣━ 📄 ClassThatImplementsThePrivateInterface.cs
@@ -4910,6 +4914,104 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk22369/AcceptsPath.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk22369
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.AcceptsPath), fullyQualifiedName: "jsii-calc.cdk22369.AcceptsPath", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.cdk22369.AcceptsPathProps\\"}}]")]
+    public class AcceptsPath : DeputyBase
+    {
+        public AcceptsPath(Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps props): base(_MakeDeputyProps(props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps props)
+        {
+            return new DeputyProps(new object?[]{props});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AcceptsPath(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AcceptsPath(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk22369/AcceptsPathProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk22369
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.cdk22369.AcceptsPathProps")]
+    public class AcceptsPathProps : Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps
+    {
+        /// <summary>A path that doesn't exist.</summary>
+        [JsiiProperty(name: "sourcePath", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string SourcePath
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk22369/IAcceptsPathProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk22369
+{
+    [JsiiInterface(nativeType: typeof(IAcceptsPathProps), fullyQualifiedName: "jsii-calc.cdk22369.AcceptsPathProps")]
+    public interface IAcceptsPathProps
+    {
+        /// <summary>A path that doesn't exist.</summary>
+        [JsiiProperty(name: "sourcePath", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string SourcePath
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IAcceptsPathProps), fullyQualifiedName: "jsii-calc.cdk22369.AcceptsPathProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>A path that doesn't exist.</summary>
+            [JsiiProperty(name: "sourcePath", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string SourcePath
+            {
+                get => GetInstanceProperty<string>()!;
+            }
         }
     }
 }

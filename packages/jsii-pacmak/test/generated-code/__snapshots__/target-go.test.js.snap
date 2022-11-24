@@ -2546,6 +2546,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃     ┣━ 📄 donotimport.go
        ┃     ┗━ 📁 internal
        ┃        ┗━ 📄 types.go
+       ┣━ 📁 cdk22369
+       ┃  ┣━ 📄 cdk22369_AcceptsPath.go
+       ┃  ┣━ 📄 cdk22369_AcceptsPathProps.go
+       ┃  ┗━ 📄 cdk22369.go
        ┣━ 📁 composition
        ┃  ┣━ 📄 composition_CompositeOperation_CompositionStringStyle.go
        ┃  ┣━ 📄 composition_CompositeOperation.go
@@ -3517,6 +3521,87 @@ import (
 	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3"
 )
 type Type__jsiicalcIRandomNumberGenerator = jsiicalc.IRandomNumberGenerator
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk22369/cdk22369.go 1`] = `
+package cdk22369
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.cdk22369.AcceptsPath",
+		reflect.TypeOf((*AcceptsPath)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_AcceptsPath{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.cdk22369.AcceptsPathProps",
+		reflect.TypeOf((*AcceptsPathProps)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk22369/cdk22369_AcceptsPath.go 1`] = `
+package cdk22369
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type AcceptsPath interface {
+}
+
+// The jsii proxy struct for AcceptsPath
+type jsiiProxy_AcceptsPath struct {
+	_ byte // padding
+}
+
+func NewAcceptsPath(props *AcceptsPathProps) AcceptsPath {
+	_init_.Initialize()
+
+	j := jsiiProxy_AcceptsPath{}
+
+	_jsii_.Create(
+		"jsii-calc.cdk22369.AcceptsPath",
+		[]interface{}{props},
+		&j,
+	)
+
+	return &j
+}
+
+func NewAcceptsPath_Override(a AcceptsPath, props *AcceptsPathProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.cdk22369.AcceptsPath",
+		[]interface{}{props},
+		a,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/cdk22369/cdk22369_AcceptsPathProps.go 1`] = `
+package cdk22369
+
+
+type AcceptsPathProps struct {
+	// A path that doesn't exist.
+	SourcePath *string \`field:"required" json:"sourcePath" yaml:"sourcePath"\`
+}
+
 
 `;
 
@@ -24684,6 +24769,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┃     ┣━ 🆕 donotimport_UnimportedSubmoduleType__no_runtime_type_checking.go
        ┃     ┣━ 🆕 donotimport_UnimportedSubmoduleType__runtime_type_checks.go
        ┃     ┗━ 📄 donotimport_UnimportedSubmoduleType.go.diff
+       ┣━ 📁 cdk22369
+       ┃  ┣━ 🆕 cdk22369_AcceptsPath__no_runtime_type_checking.go
+       ┃  ┣━ 🆕 cdk22369_AcceptsPath__runtime_type_checks.go
+       ┃  ┗━ 📄 cdk22369_AcceptsPath.go.diff
        ┣━ 📁 composition
        ┃  ┣━ 🆕 composition_CompositeOperation__no_runtime_type_checking.go
        ┃  ┣━ 🆕 composition_CompositeOperation__runtime_type_checks.go
@@ -25252,6 +25341,68 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 +func validateNewUnimportedSubmoduleTypeParameters(value *float64) error {
 +	if value == nil {
 +		return fmt.Errorf("parameter value is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk22369/cdk22369_AcceptsPath.go.diff 1`] = `
+--- go/jsiicalc/cdk22369/cdk22369_AcceptsPath.go	--no-runtime-type-checking
++++ go/jsiicalc/cdk22369/cdk22369_AcceptsPath.go	--runtime-type-checking
+@@ -14,10 +14,13 @@
+ }
+ 
+ func NewAcceptsPath(props *AcceptsPathProps) AcceptsPath {
+ 	_init_.Initialize()
+ 
++	if err := validateNewAcceptsPathParameters(props); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_AcceptsPath{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.cdk22369.AcceptsPath",
+ 		[]interface{}{props},
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk22369/cdk22369_AcceptsPath__no_runtime_type_checking.go.diff 1`] = `
+--- go/jsiicalc/cdk22369/cdk22369_AcceptsPath__no_runtime_type_checking.go	--no-runtime-type-checking
++++ go/jsiicalc/cdk22369/cdk22369_AcceptsPath__no_runtime_type_checking.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package cdk22369
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateNewAcceptsPathParameters(props *AcceptsPathProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/cdk22369/cdk22369_AcceptsPath__runtime_type_checks.go.diff 1`] = `
+--- go/jsiicalc/cdk22369/cdk22369_AcceptsPath__runtime_type_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/cdk22369/cdk22369_AcceptsPath__runtime_type_checks.go	--runtime-type-checking
+@@ -0,0 +1,21 @@
++//go:build !no_runtime_type_checking
++
++package cdk22369
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func validateNewAcceptsPathParameters(props *AcceptsPathProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
 +	}
 +
 +	return nil

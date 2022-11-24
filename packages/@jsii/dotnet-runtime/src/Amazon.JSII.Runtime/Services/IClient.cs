@@ -58,7 +58,7 @@ namespace Amazon.JSII.Runtime.Services
 
         CallbacksResponse Callbacks(CallbacksRequest request);
 
-        CompleteResponse Complete(string callbackId, string? error = null, object? result = null);
+        CompleteResponse Complete(string callbackId, NamedError? error = null, object? result = null);
 
         CompleteResponse Complete(CompleteRequest request);
 

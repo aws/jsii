@@ -12,6 +12,7 @@ exports[`defaults 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -70,6 +71,7 @@ exports[`inheritance 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -128,6 +130,7 @@ exports[`members 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -310,6 +313,20 @@ exports[`showAll 1`] = `
  │ │ │         │ └─┬ gen
  │ │ │         │   └── type: jsii-calc.IRandomNumberGenerator
  │ │ │         └── returns: number
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class AcceptsPath
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: jsii-calc.cdk22369.AcceptsPathProps
+ │ │ │   └─┬ interface AcceptsPathProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ sourcePath property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -3786,6 +3803,7 @@ exports[`signatures 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -3865,6 +3883,10 @@ exports[`types 1`] = `
  │ │ │ │     └── class UnimportedSubmoduleType
  │ │ │ └─┬ types
  │ │ │   └── class Cdk16625
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├── class AcceptsPath
+ │ │ │   └── interface AcceptsPathProps
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation

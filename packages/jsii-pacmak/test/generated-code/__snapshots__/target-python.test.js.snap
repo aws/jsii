@@ -2593,6 +2593,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📄 __init__.py
           ┃  ┗━ 📁 donotimport
           ┃     ┗━ 📄 __init__.py
+          ┣━ 📁 cdk22369
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 derived_class_has_no_properties
@@ -2952,6 +2954,7 @@ kwargs = json.loads(
         "jsii_calc.anonymous",
         "jsii_calc.cdk16625",
         "jsii_calc.cdk16625.donotimport",
+        "jsii_calc.cdk22369",
         "jsii_calc.composition",
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.homonymous_forward_references",
@@ -11394,6 +11397,7 @@ __all__ = [
     "WithPrivatePropertyInConstructor",
     "anonymous",
     "cdk16625",
+    "cdk22369",
     "composition",
     "derived_class_has_no_properties",
     "homonymous_forward_references",
@@ -11419,6 +11423,7 @@ publication.publish()
 # Loading modules to ensure their types are registered with the jsii runtime library
 from . import anonymous
 from . import cdk16625
+from . import cdk22369
 from . import composition
 from . import derived_class_has_no_properties
 from . import homonymous_forward_references
@@ -11687,6 +11692,74 @@ class UnimportedSubmoduleType(
 
 __all__ = [
     "UnimportedSubmoduleType",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/cdk22369/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from typeguard import check_type
+
+from .._jsii import *
+
+
+class AcceptsPath(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.cdk22369.AcceptsPath"):
+    def __init__(self, *, source_path: builtins.str) -> None:
+        '''
+        :param source_path: A path that doesn't exist.
+        '''
+        props = AcceptsPathProps(source_path=source_path)
+
+        jsii.create(self.__class__, self, [props])
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.cdk22369.AcceptsPathProps",
+    jsii_struct_bases=[],
+    name_mapping={"source_path": "sourcePath"},
+)
+class AcceptsPathProps:
+    def __init__(self, *, source_path: builtins.str) -> None:
+        '''
+        :param source_path: A path that doesn't exist.
+        '''
+        self._values: typing.Dict[str, typing.Any] = {
+            "source_path": source_path,
+        }
+
+    @builtins.property
+    def source_path(self) -> builtins.str:
+        '''A path that doesn't exist.'''
+        result = self._values.get("source_path")
+        assert result is not None, "Required property 'source_path' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "AcceptsPathProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "AcceptsPath",
+    "AcceptsPathProps",
 ]
 
 publication.publish()
@@ -14259,6 +14332,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
           ┃  ┣━ 📄 __init__.py.diff
           ┃  ┗━ 📁 donotimport
           ┃     ┗━ 📄 __init__.py.diff
+          ┣━ 📁 cdk22369
+          ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 derived_class_has_no_properties
@@ -17424,7 +17499,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8399,5 +9162,1502 @@
+@@ -8401,5 +9164,1502 @@
  from . import nodirect
  from . import onlystatic
  from . import python_self
@@ -19050,6 +19125,38 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +
 +def _typecheckingstub__e2659669d69691129e05836f0722a48449fe2efe197706d9d59c10c141470a4b(
 +    value: jsii.Number,
++) -> None:
++    """Type checking stubs"""
++    pass
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/cdk22369/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/cdk22369/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/cdk22369/__init__.py	--runtime-type-checking
+@@ -31,10 +31,13 @@
+ class AcceptsPathProps:
+     def __init__(self, *, source_path: builtins.str) -> None:
+         '''
+         :param source_path: A path that doesn't exist.
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__5a067c851774273f33badeac9c167720ebde25d4301ab096dec54b2e615dc8a4)
++            check_type(argname="argument source_path", value=source_path, expected_type=type_hints["source_path"])
+         self._values: typing.Dict[str, typing.Any] = {
+             "source_path": source_path,
+         }
+ 
+     @builtins.property
+@@ -60,5 +63,12 @@
+     "AcceptsPath",
+     "AcceptsPathProps",
+ ]
+ 
+ publication.publish()
++
++def _typecheckingstub__5a067c851774273f33badeac9c167720ebde25d4301ab096dec54b2e615dc8a4(
++    *,
++    source_path: builtins.str,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
