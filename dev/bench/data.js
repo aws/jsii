@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669298562479,
+  "lastUpdate": 1669308661609,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9721,6 +9721,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 157207.69423502212,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46735.54833029999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mitchellvaline@gmail.com",
+            "name": "Mitchell Valine",
+            "username": "MrArnoldPalmer"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "be008d4de8ac65d2dc3c59dedd3993c1850073fb",
+          "message": "fix(dotnet): broken error name deserialization (#3855)\n\nFixes a bug where the `name` field of an `ErrorResponse` would not deserialize into our enum of known names correctly. Initially it was thought that if the `name` field was non-null, it would only be one of our known values, but the kernel is in fact not setting this field explicitly in all cases of \"user land\" errors. This results in the `name` field being `\"Error\"`in the default case and would cause a JSON deserialization error.\r\n\r\nImplements a custom deserializer for the `ErrorName` to explicitly return null if the string is not defined or unknown. Additionally makes the `name` field nullable.\r\n\r\nFixes https://github.com/aws/aws-cdk/issues/22369\r\n\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2022-11-24T16:41:57+01:00",
+          "tree_id": "39f6a2461c0d7f37bf9ca42e2608e4b2537b97ee",
+          "url": "https://github.com/aws/jsii/commit/be008d4de8ac65d2dc3c59dedd3993c1850073fb"
+        },
+        "date": 1669308658572,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 98237.13863035005,
+            "unit": "milliseconds",
+            "range": 8455144.337706467,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 98237.13863035005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73082.74265444998,
+            "unit": "milliseconds",
+            "range": 1377605.2310769923,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73082.74265444998 milliseconds over 20 runs"
           }
         ]
       }
