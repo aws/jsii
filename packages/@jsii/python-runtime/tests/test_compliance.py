@@ -78,6 +78,7 @@ from jsii_calc import (
     UpcasingReflectable,
 )
 from jsii_calc.cdk16625 import Cdk16625
+from jsii_calc.cdk22369 import AcceptsPath
 from jsii_calc.python_self import (
     ClassWithSelf,
     ClassWithSelfKwarg,
@@ -1348,3 +1349,8 @@ def test_class_can_be_used_when_not_expressedly_loaded():
 
 def test_stripped_deprecated_member_can_be_received():
     assert InterfaceFactory.create() is not None
+
+
+def test_exception_message():
+    with pytest.raises(RuntimeError, match="Cannot find asset"):
+        AcceptsPath(source_path="A Bad Path")

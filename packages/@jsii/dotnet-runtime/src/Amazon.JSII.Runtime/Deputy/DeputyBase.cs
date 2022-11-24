@@ -328,8 +328,8 @@ namespace Amazon.JSII.Runtime.Deputy
                 foreach (var callback in callbacks.Callbacks)
                 {
                     var result = callback.InvokeCallback(referenceMap, converter, out var error);
-
-                    client.Complete(callback.CallbackId, error, result);
+                    var namedError = error is null ? null : new NamedError(error);
+                    client.Complete(callback.CallbackId, namedError, result);
                 }
 
                 callbacks = client.Callbacks();

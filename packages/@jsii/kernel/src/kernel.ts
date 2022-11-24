@@ -452,11 +452,17 @@ export class Kernel {
     } catch (e: any) {
       this._debug('promise error:', e);
       if (e.name === JsiiErrorType.JSII_FAULT) {
+        if (e instanceof JsiiFault) {
+          throw e;
+        }
         throw new JsiiFault(e.message);
       }
 
       // default to RuntimeError, since non-kernel errors may not
       // have their `name` field defined
+      if (e instanceof RuntimeError) {
+        throw e;
+      }
       throw new RuntimeError(e);
     }
 
@@ -1285,11 +1291,17 @@ export class Kernel {
       return fn();
     } catch (e: any) {
       if (e.name === JsiiErrorType.JSII_FAULT) {
+        if (e instanceof JsiiFault) {
+          throw e;
+        }
         throw new JsiiFault(e);
       }
       // This error can be thrown by the kernel directly, or it can be
       // thrown from user code. If the error comes from the kernel, then its name field will be populated;
       // if the error comes from user code, the name field will not be populated.
+      if (e instanceof RuntimeError) {
+        throw e;
+      }
       throw new RuntimeError(e);
     } finally {
       delete this.syncInProgress;

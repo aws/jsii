@@ -109,7 +109,7 @@ namespace Amazon.JSII.Runtime.Services
             {
                 ErrorResponse errorResponse = responseObject.ToObject<ErrorResponse>()!;
 
-                if (errorResponse.Name.Equals(ErrorResponseName.JsiiError))
+                if (ErrorName.JsiiError.Equals(errorResponse.Name))
                 {
                     throw new JsiiError(errorResponse, null);
                 }
@@ -127,11 +127,12 @@ namespace Amazon.JSII.Runtime.Services
                 CallbackResponse callbackResponse = responseObject.ToObject<CallbackResponse>()!;
                 Callback callback = callbackResponse.Callback;
 
-                object? result = callback.InvokeCallback(_referenceMap, _frameworkToJsiiConverter, out string? error);
+                object? result = callback.InvokeCallback(_referenceMap, _frameworkToJsiiConverter, out Exception? error);
+                var namedError = error is null ? null : new NamedError(error);
 
                 return Send<SynchronousCompleteRequest, TResponse>(new SynchronousCompleteRequest
                 (
-                    new CompleteRequest(callback.CallbackId, error, result)
+                    new CompleteRequest(callback.CallbackId, namedError, result)
                 ));
             }
 
@@ -293,7 +294,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<CallbacksRequest, CallbacksResponse>(request);
         }
 
-        public CompleteResponse Complete(string callbackId, string? error = null, object? result = null)
+        public CompleteResponse Complete(string callbackId, NamedError? error = null, object? result = null)
         {
             return Complete(new CompleteRequest(callbackId, error, result));
         }

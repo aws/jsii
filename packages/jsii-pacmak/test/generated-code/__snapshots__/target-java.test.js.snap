@@ -3712,6 +3712,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 Cdk16625.java
           ┃                 ┃  ┗━ 📁 donotimport
           ┃                 ┃     ┗━ 📄 UnimportedSubmoduleType.java
+          ┃                 ┣━ 📁 cdk22369
+          ┃                 ┃  ┣━ 📄 AcceptsPath.java
+          ┃                 ┃  ┗━ 📄 AcceptsPathProps.java
           ┃                 ┣━ 📄 ChildStruct982.java
           ┃                 ┣━ 📄 ClassThatImplementsTheInternalInterface.java
           ┃                 ┣━ 📄 ClassThatImplementsThePrivateInterface.java
@@ -23772,6 +23775,201 @@ public class UnimportedSubmoduleType extends software.amazon.jsii.JsiiObject imp
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/cdk22369/AcceptsPath.java 1`] = `
+package software.amazon.jsii.tests.calculator.cdk22369;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.cdk22369.AcceptsPath")
+public class AcceptsPath extends software.amazon.jsii.JsiiObject {
+
+    protected AcceptsPath(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected AcceptsPath(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param props This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public AcceptsPath(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.cdk22369.AcceptsPathProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath> {
+        /**
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private final software.amazon.jsii.tests.calculator.cdk22369.AcceptsPathProps.Builder props;
+
+        private Builder() {
+            this.props = new software.amazon.jsii.tests.calculator.cdk22369.AcceptsPathProps.Builder();
+        }
+
+        /**
+         * A path that doesn't exist.
+         * <p>
+         * @return {@code this}
+         * @param sourcePath A path that doesn't exist. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder sourcePath(final java.lang.String sourcePath) {
+            this.props.sourcePath(sourcePath);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath build() {
+            return new software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath(
+                this.props.build()
+            );
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/cdk22369/AcceptsPathProps.java 1`] = `
+package software.amazon.jsii.tests.calculator.cdk22369;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.cdk22369.AcceptsPathProps")
+@software.amazon.jsii.Jsii.Proxy(AcceptsPathProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface AcceptsPathProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     * A path that doesn't exist.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getSourcePath();
+
+    /**
+     * @return a {@link Builder} of {@link AcceptsPathProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link AcceptsPathProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<AcceptsPathProps> {
+        java.lang.String sourcePath;
+
+        /**
+         * Sets the value of {@link AcceptsPathProps#getSourcePath}
+         * @param sourcePath A path that doesn't exist. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder sourcePath(java.lang.String sourcePath) {
+            this.sourcePath = sourcePath;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link AcceptsPathProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public AcceptsPathProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link AcceptsPathProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements AcceptsPathProps {
+        private final java.lang.String sourcePath;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.sourcePath = software.amazon.jsii.Kernel.get(this, "sourcePath", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.sourcePath = java.util.Objects.requireNonNull(builder.sourcePath, "sourcePath is required");
+        }
+
+        @Override
+        public final java.lang.String getSourcePath() {
+            return this.sourcePath;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("sourcePath", om.valueToTree(this.getSourcePath()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.cdk22369.AcceptsPathProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            AcceptsPathProps.Jsii$Proxy that = (AcceptsPathProps.Jsii$Proxy) o;
+
+            return this.sourcePath.equals(that.sourcePath);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.sourcePath.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/composition/CompositeOperation.java 1`] = `
 package software.amazon.jsii.tests.calculator.composition;
 
@@ -28632,6 +28830,8 @@ jsii-calc.anonymous.IOptionB=software.amazon.jsii.tests.calculator.anonymous.IOp
 jsii-calc.anonymous.UseOptions=software.amazon.jsii.tests.calculator.anonymous.UseOptions
 jsii-calc.cdk16625.Cdk16625=software.amazon.jsii.tests.calculator.cdk16625.Cdk16625
 jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType=software.amazon.jsii.tests.calculator.cdk16625.donotimport.UnimportedSubmoduleType
+jsii-calc.cdk22369.AcceptsPath=software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath
+jsii-calc.cdk22369.AcceptsPathProps=software.amazon.jsii.tests.calculator.cdk22369.AcceptsPathProps
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
 jsii-calc.homonymousForwardReferences.bar.Consumer=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Consumer

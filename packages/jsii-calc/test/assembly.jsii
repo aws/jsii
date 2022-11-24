@@ -210,7 +210,7 @@
     "jsii-calc.anonymous": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 27
+        "line": 28
       },
       "symbolId": "lib/anonymous/index:"
     },
@@ -228,6 +228,13 @@
       },
       "symbolId": "lib/cdk16625/donotimport/index:"
     },
+    "jsii-calc.cdk22369": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 25
+      },
+      "symbolId": "lib/cdk22369/index:"
+    },
     "jsii-calc.composition": {
       "locationInModule": {
         "filename": "lib/calculator.ts",
@@ -238,7 +245,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 29
+        "line": 30
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -262,7 +269,7 @@
     "jsii-calc.jsii3656": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 25
+        "line": 26
       },
       "symbolId": "lib/jsii3656/index:"
     },
@@ -450,7 +457,7 @@
     "jsii-calc.union": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 28
+        "line": 29
       },
       "symbolId": "lib/union:"
     }
@@ -16121,6 +16128,72 @@
       "namespace": "cdk16625.donotimport",
       "symbolId": "lib/cdk16625/donotimport/index:UnimportedSubmoduleType"
     },
+    "jsii-calc.cdk22369.AcceptsPath": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.cdk22369.AcceptsPath",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/cdk22369/index.ts",
+          "line": 19
+        },
+        "parameters": [
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.cdk22369.AcceptsPathProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/cdk22369/index.ts",
+        "line": 17
+      },
+      "name": "AcceptsPath",
+      "namespace": "cdk22369",
+      "symbolId": "lib/cdk22369/index:AcceptsPath"
+    },
+    "jsii-calc.cdk22369.AcceptsPathProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.cdk22369.AcceptsPathProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/cdk22369/index.ts",
+        "line": 10
+      },
+      "name": "AcceptsPathProps",
+      "namespace": "cdk22369",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable",
+            "summary": "A path that doesn't exist."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/cdk22369/index.ts",
+            "line": 14
+          },
+          "name": "sourcePath",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/cdk22369/index:AcceptsPathProps"
+    },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -18611,5 +18684,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "qTr3P5AD9cBorxBMjHTT6y6sMYWUgGf/acN7eejGTgQ="
+  "fingerprint": "rlyZv1z894G2z+Tv8sRGq/ICddvDv3o3auHbiPYCPZI="
 }

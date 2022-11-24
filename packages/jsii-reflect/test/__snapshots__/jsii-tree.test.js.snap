@@ -136,6 +136,20 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         │ └─┬ gen
  │ │ │         │   └── type: jsii-calc.IRandomNumberGenerator
  │ │ │         └── returns: number
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class AcceptsPath (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer (stable)
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: jsii-calc.cdk22369.AcceptsPathProps
+ │ │ │   └─┬ interface AcceptsPathProps (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ sourcePath property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation (stable)
@@ -3635,6 +3649,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ │       └── interfaces: IRandomNumberGenerator
  │ │ │ └─┬ types
  │ │ │   └── class Cdk16625
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├── class AcceptsPath
+ │ │ │   └── interface AcceptsPathProps
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -4197,6 +4215,14 @@ exports[`jsii-tree --members 1`] = `
  │ │ │       ├── <initializer>() initializer
  │ │ │       ├── test() method
  │ │ │       └── unwrap(gen) method
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class AcceptsPath
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>(props) initializer
+ │ │ │   └─┬ interface AcceptsPathProps
+ │ │ │     └─┬ members
+ │ │ │       └── sourcePath property
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -5776,6 +5802,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -5855,6 +5882,10 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ │     └── class UnimportedSubmoduleType
  │ │ │ └─┬ types
  │ │ │   └── class Cdk16625
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├── class AcceptsPath
+ │ │ │   └── interface AcceptsPathProps
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
@@ -6255,6 +6286,7 @@ exports[`jsii-tree 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
