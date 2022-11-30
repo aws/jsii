@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669308661609,
+  "lastUpdate": 1669818929047,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9759,6 +9759,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1377605.2310769923,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73082.74265444998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9c3d043fdf909430c29e3c546b4e4695422045fb",
+          "message": "revert: \"chore(deps): Bump aws-actions/stale-issue-cleanup from 5 to 6\" (#3862)\n\nReverts aws/jsii#3851\n\nv6 was accidentally released and removed again. Dependabot was too eager to upgrade.",
+          "timestamp": "2022-11-30T13:44:16Z",
+          "tree_id": "4f9debfece002a17cfc4b6d0a7cfcd4fe8c09b27",
+          "url": "https://github.com/aws/jsii/commit/9c3d043fdf909430c29e3c546b4e4695422045fb"
+        },
+        "date": 1669818925556,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70542.4791821,
+            "unit": "milliseconds",
+            "range": 184026.81395006817,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70542.4791821 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51428.96799695,
+            "unit": "milliseconds",
+            "range": 441641.59890255507,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51428.96799695 milliseconds over 20 runs"
           }
         ]
       }
