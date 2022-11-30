@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669822142987,
+  "lastUpdate": 1669826174327,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9835,6 +9835,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2014155.7672735497,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51108.747862100005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0b7dcc8fbe7a5c74c6b9aa05b1dc4e7812a5583a",
+          "message": "chore(deps): Bump Newtonsoft.Json from 13.0.1 to 13.0.2 in /packages/@jsii/dotnet-runtime-test/test (#3859)\n\nBumps [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) from 13.0.1 to 13.0.2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/JamesNK/Newtonsoft.Json/releases\">Newtonsoft.Json's releases</a>.</em></p>\n<blockquote>\n<h2>13.0.2</h2>\n<ul>\n<li>New feature - Add support for DateOnly and TimeOnly</li>\n<li>New feature - Add UnixDateTimeConverter.AllowPreEpoch property</li>\n<li>New feature - Add copy constructor to JsonSerializerSettings</li>\n<li>New feature - Add JsonCloneSettings to disable copy annotations</li>\n<li>Change - Add nullable annotation to JToken.ToObject(Type, JsonSerializer)</li>\n<li>Change - Reduced allocations by reusing boxed values</li>\n<li>Fix - Fixed MaxDepth when used with ToObject inside of a JsonConverter</li>\n<li>Fix - Fixed deserializing mismatched JToken types in properties</li>\n<li>Fix - Fixed merging enumerable content and validate content</li>\n<li>Fix - Fixed using $type with arrays of more than two dimensions</li>\n<li>Fix - Fixed rare race condition in name table when deserializing on device with ARM processors</li>\n<li>Fix - Fixed deserializing via constructor with ignored base type properties</li>\n<li>Fix - Fixed MaxDepth not being used with ISerializable deserialization</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/4fba53a324c445f06ee08e45a015c346000a7ef2\"><code>4fba53a</code></a> Remove prerelease for 13.0.2</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/b15df4b50de66065711d5d613f2531e372297fcf\"><code>b15df4b</code></a> Add missing headers</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/789bfd3bbcd3d5e567bcfb57a1d08fb8611adf96\"><code>789bfd3</code></a> Update to 13.0.2-beta3</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/b13717a1c13b0747853568f11fc9e2aa0abf4649\"><code>b13717a</code></a> Add JsonCloneSettings to disable copy annotations (<a href=\"https://github-redirect.dependabot.com/JamesNK/Newtonsoft.Json/issues/2757\">#2757</a>)</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/d0a328e8a46304d62d2174b8bba54721d02be3d3\"><code>d0a328e</code></a> Fix MaxDepth not being used with ISerializable deserialization (<a href=\"https://github-redirect.dependabot.com/JamesNK/Newtonsoft.Json/issues/2736\">#2736</a>)</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/aae9284e2091e4f2409df175d273cba496c21ccc\"><code>aae9284</code></a> Update SDK</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/bd989708b17d5a47b43571414f69ecc0b699eccc\"><code>bd98970</code></a> Update to 13.0.2-beta2</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/4dc9af66e07dea321ad101bfb379326127251a80\"><code>4dc9af6</code></a> Add roll forward to global.json (<a href=\"https://github-redirect.dependabot.com/JamesNK/Newtonsoft.Json/issues/2726\">#2726</a>)</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/b8f4ef0f980a8ee36f511cdec2feb25d5d5d0054\"><code>b8f4ef0</code></a> Fixing misspelling (<a href=\"https://github-redirect.dependabot.com/JamesNK/Newtonsoft.Json/issues/2698\">#2698</a>)</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/cb9eed96665019f7398c53c540a87ce675f5d938\"><code>cb9eed9</code></a> Fix deserializing via constructor with ignored base type properties (<a href=\"https://github-redirect.dependabot.com/JamesNK/Newtonsoft.Json/issues/2711\">#2711</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/JamesNK/Newtonsoft.Json/compare/13.0.1...13.0.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Newtonsoft.Json&package-manager=nuget&previous-version=13.0.1&new-version=13.0.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-11-30T15:47:52Z",
+          "tree_id": "2c43d11331f964a82f1878a2e9fb19cf6cb61c0e",
+          "url": "https://github.com/aws/jsii/commit/0b7dcc8fbe7a5c74c6b9aa05b1dc4e7812a5583a"
+        },
+        "date": 1669826170277,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63229.542649350056,
+            "unit": "milliseconds",
+            "range": 2893768.5699218987,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63229.542649350056 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49340.858796300025,
+            "unit": "milliseconds",
+            "range": 1133689.4599627536,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49340.858796300025 milliseconds over 20 runs"
           }
         ]
       }
