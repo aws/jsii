@@ -1931,6 +1931,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ obj
  │   │     │   └── type: jsii-calc.IReturnsNumber
  │   │     └── returns: number
+ │   ├─┬ class ParamShadowsBuiltins (stable)
+ │   │ └─┬ members
+ │   │   └─┬ <initializer>(builtins,str,props) initializer (stable)
+ │   │     └─┬ parameters
+ │   │       ├─┬ builtins
+ │   │       │ └── type: string
+ │   │       ├─┬ str
+ │   │       │ └── type: string
+ │   │       └─┬ props
+ │   │         └── type: jsii-calc.ParamShadowsBuiltinsProps
  │   ├─┬ class ParamShadowsScope (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3207,6 +3217,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface ParamShadowsBuiltinsProps (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ booleanProperty property (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: boolean
+ │   │   ├─┬ stringProperty property (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ structProperty property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructA
  │   ├─┬ interface ParentStruct982 (stable)
  │   │ └─┬ members
  │   │   └─┬ foo property (stable)
@@ -3929,6 +3953,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
  │   ├── class OverrideReturnsObject
+ │   ├── class ParamShadowsBuiltins
  │   ├── class ParamShadowsScope
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
@@ -4070,6 +4095,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParamShadowsBuiltinsProps
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
@@ -5069,6 +5095,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── test(obj) method
+ │   ├─┬ class ParamShadowsBuiltins
+ │   │ └─┬ members
+ │   │   └── <initializer>(builtins,str,props) initializer
  │   ├─┬ class ParamShadowsScope
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5593,6 +5622,11 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface ParamShadowsBuiltinsProps
+ │   │ └─┬ members
+ │   │   ├── booleanProperty property
+ │   │   ├── stringProperty property
+ │   │   └── structProperty property
  │   ├─┬ interface ParentStruct982
  │   │ └─┬ members
  │   │   └── foo property
@@ -6104,6 +6138,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
  │   ├── class OverrideReturnsObject
+ │   ├── class ParamShadowsBuiltins
  │   ├── class ParamShadowsScope
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
@@ -6210,6 +6245,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParamShadowsBuiltinsProps
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct

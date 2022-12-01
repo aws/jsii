@@ -1207,7 +1207,7 @@ class Struct extends BasePythonClassType {
     // Required properties, those will always be put into the dict
     assignDictionary(
       code,
-      `${implicitParameter}._values: typing.Dict[str, typing.Any]`,
+      `${implicitParameter}._values: typing.Dict[builtins.str, typing.Any]`,
       members
         .filter((m) => !m.optional)
         .map(
