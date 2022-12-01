@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669826174327,
+  "lastUpdate": 1669895611856,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -9873,6 +9873,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1133689.4599627536,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49340.858796300025 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "danielmschmidt92@gmail.com",
+            "name": "Daniel Schmidt",
+            "username": "DanielMSchmidt"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "843ef35d7f8ed9746d26650c35216ba7b9846c60",
+          "message": "chore(python): use builtins.str instead of just str in Dict keys (#3866)\n\nAdded an integration test to verify parameters named `builtins` or `str`\ndo not shadow the relevant type names, which used to be problematic\nuntil #3848 fixed the overarching issue, hoever the existing test only\ncovered the case where a parameter name shadowed an namespace/import.\n    \nAdditionally, changes various `typing.Dict` keys that were mistakenly\nspelled out as `str` to use `builtins.str` in order to improve overall\nconsistency in type declarations (see also #3866).\n    \nCo-authored-by: rmuller@amazon.fr\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-12-01T10:45:26Z",
+          "tree_id": "a04d2617652b37604d4ee5c1b14cc7f880b2b6d4",
+          "url": "https://github.com/aws/jsii/commit/843ef35d7f8ed9746d26650c35216ba7b9846c60"
+        },
+        "date": 1669895607680,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95938.92839865,
+            "unit": "milliseconds",
+            "range": 5863115.053417293,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95938.92839865 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 72007.80172480001,
+            "unit": "milliseconds",
+            "range": 1398311.8765415056,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72007.80172480001 milliseconds over 20 runs"
           }
         ]
       }
