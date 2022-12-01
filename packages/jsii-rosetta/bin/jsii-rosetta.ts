@@ -73,8 +73,8 @@ function main() {
         command
           .positional('ASSEMBLY', {
             type: 'string',
-            string: true,
-            default: new Array<string>(),
+            array: true,
+            default: [],
             describe: 'Assembly or directory to mutate',
           })
           .option('log-file', {
@@ -142,8 +142,8 @@ function main() {
         command
           .positional('ASSEMBLY', {
             type: 'string',
-            string: true,
-            default: new Array<string>(),
+            array: true,
+            default: [],
             describe: 'Assembly or directory to extract from',
           })
           .option('output', {
@@ -165,9 +165,10 @@ function main() {
           })
           .option('include', {
             alias: 'i',
-            type: 'array',
+            type: 'string',
+            array: true,
             describe: 'Extract only snippets with given ids',
-            default: new Array<string>(),
+            default: [],
           })
           .option('infuse', {
             type: 'boolean',
@@ -281,16 +282,16 @@ function main() {
         command
           .positional('ASSEMBLY', {
             type: 'string',
-            string: true,
-            default: new Array<string>(),
+            array: true,
+            default: [],
             required: true,
             describe: 'Assembly to transliterate',
           })
           .option('language', {
             alias: 'l',
             type: 'string',
-            string: true,
-            default: new Array<string>(),
+            array: true,
+            default: [],
             describe: 'Language ID to transliterate to',
           })
           .options('strict', {
@@ -343,8 +344,8 @@ function main() {
           })
           .positional('ASSEMBLY', {
             type: 'string',
-            string: true,
-            default: new Array<string>(),
+            array: true,
+            default: [],
             describe: 'Assembly or directory to search',
           })
           .demandOption('TABLET'),
@@ -361,7 +362,7 @@ function main() {
       (command) =>
         command.positional('ASSEMBLY', {
           type: 'string',
-          string: true,
+          array: true,
           default: ['.'],
           describe: 'Assembly or directory to search',
         }),
