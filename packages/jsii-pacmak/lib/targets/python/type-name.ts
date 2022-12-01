@@ -311,7 +311,7 @@ class UserType implements TypeName {
     const wrapType =
       typeAnnotation && parameterType && isStruct
         ? (pyType: string) =>
-            `typing.Union[${pyType}, typing.Dict[str, typing.Any]]`
+            `typing.Union[${pyType}, typing.Dict[builtins.str, typing.Any]]`
         : (pyType: string) => pyType;
 
     // Emit aliased imports for dependencies (this avoids name collisions)
