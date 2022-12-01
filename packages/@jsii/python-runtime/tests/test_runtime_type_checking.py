@@ -199,3 +199,16 @@ class TestRuntimeTypeChecking:
         num = Number(1337)
         # The parameter is named "scope" which shadows the "scope" module...
         assert num == subject.use_scope(num)
+
+    def test_shadowed_builtins_are_not_a_problem(self):
+        """Verifies that a parameter shadowing a built-in name does not cause errors"""
+
+        jsii_calc.ParamShadowsBuiltins(
+            "${not a Python type (builtins)}",
+            "${not a Python type (str)}",
+            string_property="Most definitely a string",
+            boolean_property=True,
+            struct_property={
+                "required_string": "Present!",
+            },
+        )
