@@ -25,7 +25,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "bash ./generate.sh",
-    "build": "tsc --build && npm run gen && cd project && mvn -version && mvn -B deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo --settings=user.xml",
+    "build": "tsc --build && npm run gen && cd project && mvn -version && mvn -B deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo --settings=user.xml -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false",
     "dist-clean": "rm -rf dist maven-repo && cd project && mvn -B clean --settings=user.xml",
     "test": "echo 'Tests are run as part of the build target'",
     "test:update": "UPDATE_DIFF=1 npm run test",
