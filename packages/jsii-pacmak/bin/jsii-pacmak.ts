@@ -17,6 +17,7 @@ import { VERSION_DESC } from '../lib/version';
       (argv) =>
         argv.positional('PROJECTS', {
           type: 'string',
+          array: true,
           desc: 'Project(s) to generate',
           normalize: true,
           default: ['.'],
