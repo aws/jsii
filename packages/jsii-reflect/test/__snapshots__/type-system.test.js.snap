@@ -118,6 +118,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.OptionalStructConsumer",
   "jsii-calc.OverridableProtectedMember",
   "jsii-calc.OverrideReturnsObject",
+  "jsii-calc.ParamShadowsBuiltins",
   "jsii-calc.ParamShadowsScope",
   "jsii-calc.PartiallyInitializedThisConsumer",
   "jsii-calc.Polymorphism",

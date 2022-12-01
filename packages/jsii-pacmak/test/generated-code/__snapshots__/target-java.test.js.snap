@@ -3923,6 +3923,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 OverridableProtectedMember.java
           ┃                 ┣━ 📄 OverrideReturnsObject.java
           ┃                 ┣━ 📄 package-info.java
+          ┃                 ┣━ 📄 ParamShadowsBuiltins.java
+          ┃                 ┣━ 📄 ParamShadowsBuiltinsProps.java
           ┃                 ┣━ 📄 ParamShadowsScope.java
           ┃                 ┣━ 📄 ParentStruct982.java
           ┃                 ┣━ 📄 PartiallyInitializedThisConsumer.java
@@ -18548,6 +18550,285 @@ public class OverrideReturnsObject extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ParamShadowsBuiltins.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Validate that parameters named "str" or "builtins" do not shadow the actual type names in Python.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ParamShadowsBuiltins")
+public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
+
+    protected ParamShadowsBuiltins(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ParamShadowsBuiltins(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param builtins should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}""). This parameter is required.
+     * @param str should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}""). This parameter is required.
+     * @param props should be set to valid values. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ParamShadowsBuiltins(final @org.jetbrains.annotations.NotNull java.lang.String builtins, final @org.jetbrains.annotations.NotNull java.lang.String str, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ParamShadowsBuiltinsProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(builtins, "builtins is required"), java.util.Objects.requireNonNull(str, "str is required"), java.util.Objects.requireNonNull(props, "props is required") });
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.ParamShadowsBuiltins}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.ParamShadowsBuiltins> {
+        /**
+         * @return a new instance of {@link Builder}.
+         * @param builtins should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}""). This parameter is required.
+         * @param str should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}""). This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create(final java.lang.String builtins, final java.lang.String str) {
+            return new Builder(builtins, str);
+        }
+
+        private final java.lang.String builtins;
+        private final java.lang.String str;
+        private final software.amazon.jsii.tests.calculator.ParamShadowsBuiltinsProps.Builder props;
+
+        private Builder(final java.lang.String builtins, final java.lang.String str) {
+            this.builtins = builtins;
+            this.str = str;
+            this.props = new software.amazon.jsii.tests.calculator.ParamShadowsBuiltinsProps.Builder();
+        }
+
+        /**
+         * @return {@code this}
+         * @param booleanProperty This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder booleanProperty(final java.lang.Boolean booleanProperty) {
+            this.props.booleanProperty(booleanProperty);
+            return this;
+        }
+
+        /**
+         * @return {@code this}
+         * @param stringProperty This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder stringProperty(final java.lang.String stringProperty) {
+            this.props.stringProperty(stringProperty);
+            return this;
+        }
+
+        /**
+         * @return {@code this}
+         * @param structProperty This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder structProperty(final software.amazon.jsii.tests.calculator.StructA structProperty) {
+            this.props.structProperty(structProperty);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.ParamShadowsBuiltins}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.ParamShadowsBuiltins build() {
+            return new software.amazon.jsii.tests.calculator.ParamShadowsBuiltins(
+                this.builtins,
+                this.str,
+                this.props.build()
+            );
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ParamShadowsBuiltinsProps.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ParamShadowsBuiltinsProps")
+@software.amazon.jsii.Jsii.Proxy(ParamShadowsBuiltinsProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface ParamShadowsBuiltinsProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBooleanProperty();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String getStringProperty();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructA getStructProperty();
+
+    /**
+     * @return a {@link Builder} of {@link ParamShadowsBuiltinsProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link ParamShadowsBuiltinsProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<ParamShadowsBuiltinsProps> {
+        java.lang.Boolean booleanProperty;
+        java.lang.String stringProperty;
+        software.amazon.jsii.tests.calculator.StructA structProperty;
+
+        /**
+         * Sets the value of {@link ParamShadowsBuiltinsProps#getBooleanProperty}
+         * @param booleanProperty the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder booleanProperty(java.lang.Boolean booleanProperty) {
+            this.booleanProperty = booleanProperty;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link ParamShadowsBuiltinsProps#getStringProperty}
+         * @param stringProperty the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder stringProperty(java.lang.String stringProperty) {
+            this.stringProperty = stringProperty;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link ParamShadowsBuiltinsProps#getStructProperty}
+         * @param structProperty the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder structProperty(software.amazon.jsii.tests.calculator.StructA structProperty) {
+            this.structProperty = structProperty;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link ParamShadowsBuiltinsProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public ParamShadowsBuiltinsProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link ParamShadowsBuiltinsProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ParamShadowsBuiltinsProps {
+        private final java.lang.Boolean booleanProperty;
+        private final java.lang.String stringProperty;
+        private final software.amazon.jsii.tests.calculator.StructA structProperty;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.booleanProperty = software.amazon.jsii.Kernel.get(this, "booleanProperty", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            this.stringProperty = software.amazon.jsii.Kernel.get(this, "stringProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.structProperty = software.amazon.jsii.Kernel.get(this, "structProperty", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructA.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.booleanProperty = java.util.Objects.requireNonNull(builder.booleanProperty, "booleanProperty is required");
+            this.stringProperty = java.util.Objects.requireNonNull(builder.stringProperty, "stringProperty is required");
+            this.structProperty = java.util.Objects.requireNonNull(builder.structProperty, "structProperty is required");
+        }
+
+        @Override
+        public final java.lang.Boolean getBooleanProperty() {
+            return this.booleanProperty;
+        }
+
+        @Override
+        public final java.lang.String getStringProperty() {
+            return this.stringProperty;
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.StructA getStructProperty() {
+            return this.structProperty;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("booleanProperty", om.valueToTree(this.getBooleanProperty()));
+            data.set("stringProperty", om.valueToTree(this.getStringProperty()));
+            data.set("structProperty", om.valueToTree(this.getStructProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.ParamShadowsBuiltinsProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ParamShadowsBuiltinsProps.Jsii$Proxy that = (ParamShadowsBuiltinsProps.Jsii$Proxy) o;
+
+            if (!booleanProperty.equals(that.booleanProperty)) return false;
+            if (!stringProperty.equals(that.stringProperty)) return false;
+            return this.structProperty.equals(that.structProperty);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.booleanProperty.hashCode();
+            result = 31 * result + (this.stringProperty.hashCode());
+            result = 31 * result + (this.structProperty.hashCode());
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ParamShadowsScope.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -28761,6 +29042,8 @@ jsii-calc.OptionalStruct=software.amazon.jsii.tests.calculator.OptionalStruct
 jsii-calc.OptionalStructConsumer=software.amazon.jsii.tests.calculator.OptionalStructConsumer
 jsii-calc.OverridableProtectedMember=software.amazon.jsii.tests.calculator.OverridableProtectedMember
 jsii-calc.OverrideReturnsObject=software.amazon.jsii.tests.calculator.OverrideReturnsObject
+jsii-calc.ParamShadowsBuiltins=software.amazon.jsii.tests.calculator.ParamShadowsBuiltins
+jsii-calc.ParamShadowsBuiltinsProps=software.amazon.jsii.tests.calculator.ParamShadowsBuiltinsProps
 jsii-calc.ParamShadowsScope=software.amazon.jsii.tests.calculator.ParamShadowsScope
 jsii-calc.ParentStruct982=software.amazon.jsii.tests.calculator.ParentStruct982
 jsii-calc.PartiallyInitializedThisConsumer=software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer
