@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669912906952,
+  "lastUpdate": 1669983091514,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10063,6 +10063,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 389575.67366852437,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51220.01872625002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "288203+otaviomacedo@users.noreply.github.com",
+            "name": "Otavio Macedo",
+            "username": "otaviomacedo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3509a0c2b89495d3b9cae052fdffb561bca13818",
+          "message": "chore: added HTTP options to make Maven call more resilient (#3865)\n\nThe build of `@jsii/java-runtime` may sometimes fail in the pipeline with a message like this:\n\n> [ERROR] Plugin org.apache.maven.plugins:maven-source-plugin:3.2.1 or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.apache.maven.plugins:maven-source-plugin:jar:3.2.1: Could not transfer artifact org.apache.maven.plugins:maven-source-plugin:pom:3.2.1 from/to central (https://repo.maven.apache.org/maven2): transfer failed for https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-source-plugin/3.2.1/maven-source-plugin-3.2.1.pom: Connect to repo.maven.apache.org:443 [repo.maven.apache.org/146.75.32.215] failed: Connection timed out (Connection timed out) -> [Help 1]\n\nThe recommended solution is to disable the connection pooling with `-Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false`\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2022-12-02T11:23:44Z",
+          "tree_id": "98594dbc44ccb1b2f3acc323d1e3be6093187136",
+          "url": "https://github.com/aws/jsii/commit/3509a0c2b89495d3b9cae052fdffb561bca13818"
+        },
+        "date": 1669983088339,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61440.43608710001,
+            "unit": "milliseconds",
+            "range": 3126576.60373176,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61440.43608710001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47209.99501825002,
+            "unit": "milliseconds",
+            "range": 275546.5928614812,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47209.99501825002 milliseconds over 20 runs"
           }
         ]
       }
