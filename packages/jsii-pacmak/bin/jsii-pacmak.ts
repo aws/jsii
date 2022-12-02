@@ -17,6 +17,7 @@ import { VERSION_DESC } from '../lib/version';
       (argv) =>
         argv.positional('PROJECTS', {
           type: 'string',
+          array: true,
           desc: 'Project(s) to generate',
           normalize: true,
           default: ['.'],
@@ -24,11 +25,25 @@ import { VERSION_DESC } from '../lib/version';
     )
     .option('targets', {
       alias: ['target', 't'],
-      type: 'array',
+      type: 'string',
+      array: true,
       desc: 'target languages for which to generate bindings',
       defaultDescription:
         'all targets defined in `package.json` will be generated',
-      choices: Object.values(TargetName),
+      coerce: (value: string | string[]) =>
+        (typeof value === 'string'
+          ? value.split(',')
+          : value.flatMap((item) => item.split(','))
+        ).map((choice) => {
+          if (Object.values(TargetName).includes(choice as any)) {
+            return choice as TargetName;
+          }
+          throw new Error(
+            `Invalid target name: ${choice} (valid values are: ${Object.values(
+              TargetName,
+            ).join(', ')})`,
+          );
+        }),
       required: false,
     })
     .option('outdir', {
@@ -161,7 +176,7 @@ import { VERSION_DESC } from '../lib/version';
   }
 
   const rosettaUnknownSnippets =
-    (argv['rosetta-unknown-snippets'] as UnknownSnippetMode | undefined) ??
+    argv['rosetta-unknown-snippets'] ??
     (argv['rosetta-translate-live']
       ? UnknownSnippetMode.TRANSLATE
       : UnknownSnippetMode.VERBATIM);
@@ -181,7 +196,7 @@ import { VERSION_DESC } from '../lib/version';
     rosettaUnknownSnippets,
     rosettaTablet: argv['rosetta-tablet'],
     runtimeTypeChecking: argv['runtime-type-checking'],
-    targets: argv.targets?.map((target) => target as TargetName),
+    targets: argv.targets?.map((target) => target),
     updateNpmIgnoreFiles: argv.npmignore,
     validateAssemblies: argv['validate-assemblies'],
   });

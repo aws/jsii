@@ -3103,3 +3103,31 @@ export class ParamShadowsScope {
     return scope;
   }
 }
+
+/**
+ * Validate that parameters named "str" or "builtins" do not shadow the actual
+ * type names in Python.
+ */
+export class ParamShadowsBuiltins {
+  /**
+   * @param builtins should be set to something that is NOT a valid expression in Python (e.g: "${NOPE}"")
+   * @param str      should be set to something that is NOT a valid expression in Python (e.g: "${NOPE}"")
+   * @param props    should be set to valid values.
+   */
+  public constructor(
+    builtins: string,
+    str: string,
+    props: ParamShadowsBuiltinsProps,
+  ) {
+    this.consumeArgs(builtins, str, props);
+  }
+
+  private consumeArgs(..._args: unknown[]) {
+    return;
+  }
+}
+export interface ParamShadowsBuiltinsProps {
+  readonly stringProperty: string;
+  readonly booleanProperty: boolean;
+  readonly structProperty: StructA;
+}

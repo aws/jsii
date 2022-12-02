@@ -11432,6 +11432,121 @@
       "name": "OverrideReturnsObject",
       "symbolId": "lib/compliance:OverrideReturnsObject"
     },
+    "jsii-calc.ParamShadowsBuiltins": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Validate that parameters named \"str\" or \"builtins\" do not shadow the actual type names in Python."
+      },
+      "fqn": "jsii-calc.ParamShadowsBuiltins",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3117
+        },
+        "parameters": [
+          {
+            "docs": {
+              "summary": "should be set to something that is NOT a valid expression in Python (e.g: \"${NOPE}\"\")."
+            },
+            "name": "builtins",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "docs": {
+              "summary": "should be set to something that is NOT a valid expression in Python (e.g: \"${NOPE}\"\")."
+            },
+            "name": "str",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "docs": {
+              "summary": "should be set to valid values."
+            },
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.ParamShadowsBuiltinsProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3111
+      },
+      "name": "ParamShadowsBuiltins",
+      "symbolId": "lib/compliance:ParamShadowsBuiltins"
+    },
+    "jsii-calc.ParamShadowsBuiltinsProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ParamShadowsBuiltinsProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3129
+      },
+      "name": "ParamShadowsBuiltinsProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3131
+          },
+          "name": "booleanProperty",
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3130
+          },
+          "name": "stringProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3132
+          },
+          "name": "structProperty",
+          "type": {
+            "fqn": "jsii-calc.StructA"
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:ParamShadowsBuiltinsProps"
+    },
     "jsii-calc.ParamShadowsScope": {
       "assembly": "jsii-calc",
       "docs": {
@@ -18684,5 +18799,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "rlyZv1z894G2z+Tv8sRGq/ICddvDv3o3auHbiPYCPZI="
+  "fingerprint": "kmlc5is+t/xffykk7b4m8jurrxFDkj9pjv2cW/V1J50="
 }
