@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1669983091514,
+  "lastUpdate": 1670005775419,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10101,6 +10101,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 275546.5928614812,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47209.99501825002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c8afc6e6543cc0ed0ac798152bc539bcf3dd5b30",
+          "message": "revert(deps): Bump aws-actions/stale-issue-cleanup from 5 to 6 (#3871)\n\nReverts aws/jsii#3867\n\nDependabot is really aggressive with this one 🤔",
+          "timestamp": "2022-12-02T17:43:01Z",
+          "tree_id": "6d72658247c19ecaff4faaa1fecf231aedaf7a82",
+          "url": "https://github.com/aws/jsii/commit/c8afc6e6543cc0ed0ac798152bc539bcf3dd5b30"
+        },
+        "date": 1670005772643,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59462.55448220002,
+            "unit": "milliseconds",
+            "range": 3173695.056601295,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59462.55448220002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45653.38397874999,
+            "unit": "milliseconds",
+            "range": 236227.7940241453,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45653.38397874999 milliseconds over 20 runs"
           }
         ]
       }
