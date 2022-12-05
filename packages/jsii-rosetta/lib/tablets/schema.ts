@@ -7,7 +7,7 @@ export interface TabletSchema {
   /**
    * Schema version
    */
-  version: string;
+  readonly version: string;
 
   /**
    * What version of the tool this schema was generated with
@@ -19,12 +19,12 @@ export interface TabletSchema {
    * designed to be stored long-term, this limitation does not impact
    * usability.
    */
-  toolVersion: string;
+  readonly toolVersion: string;
 
   /**
    * All the snippets in the tablet
    */
-  snippets: { [key: string]: TranslatedSnippetSchema };
+  readonly snippets: { readonly [key: string]: TranslatedSnippetSchema };
 }
 
 export const ORIGINAL_SNIPPET_KEY = '$';
@@ -39,7 +39,7 @@ export interface TranslatedSnippetSchema {
    * Since TypeScript is a valid output translation, the original will be
    * listed under the key '$'.
    */
-  readonly translations: { [key: string]: TranslationSchema };
+  readonly translations: { readonly [key: string]: TranslationSchema };
 
   /**
    * A description of the location this code snippet was found
@@ -74,7 +74,7 @@ export interface TranslatedSnippetSchema {
   /**
    * Counts the number of instances each kind of Typescript object shows up in the snippet AST.
    */
-  readonly syntaxKindCounter?: { [key: string]: number };
+  readonly syntaxKindCounter?: { readonly [key: string]: number };
 
   /**
    * The full source (with fixture) that was compiled

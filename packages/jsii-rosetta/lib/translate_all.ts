@@ -48,7 +48,7 @@ export async function translateAll(
     // Combine results
     for (const response of responses) {
       diagnostics.push(...response.diagnostics);
-      translatedSnippets.push(...response.translatedSchemas.map(TranslatedSnippet.fromSchema));
+      translatedSnippets.push(...response.translatedSchemas.map((snippet) => TranslatedSnippet.fromSchema(snippet)));
     }
     return { diagnostics, translatedSnippets };
   } finally {

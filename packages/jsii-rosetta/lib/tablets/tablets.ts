@@ -7,7 +7,7 @@ import * as logging from '../logging';
 import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
 import { mapValues, Mutable } from '../util';
 import { snippetKey } from './key';
-import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY } from './schema';
+import { TabletSchema, TranslatedSnippetSchema, ORIGINAL_SNIPPET_KEY, TranslationSchema } from './schema';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const TOOL_VERSION = require('../../package.json').version;
@@ -60,15 +60,15 @@ export class LanguageTablet {
    */
   public compressedSource = false;
 
-  private readonly snippets: Record<string, TranslatedSnippet> = {};
+  private readonly snippets = new Map<string, TranslatedSnippet>();
 
   /**
    * Add one or more snippets to this tablet
    */
   public addSnippets(...snippets: TranslatedSnippet[]) {
     for (const snippet of snippets) {
-      const existingSnippet = this.snippets[snippet.key];
-      this.snippets[snippet.key] = existingSnippet ? existingSnippet.mergeTranslations(snippet) : snippet;
+      const existingSnippet = this.snippets.get(snippet.key);
+      this.snippets.set(snippet.key, existingSnippet ? existingSnippet.mergeTranslations(snippet) : snippet);
     }
   }
 
@@ -82,7 +82,7 @@ export class LanguageTablet {
   }
 
   public get snippetKeys() {
-    return Object.keys(this.snippets);
+    return Array.from(this.snippets.keys());
   }
 
   /**
@@ -90,9 +90,7 @@ export class LanguageTablet {
    */
   public addTablets(...tablets: LanguageTablet[]) {
     for (const tablet of tablets) {
-      for (const snippet of Object.values(tablet.snippets)) {
-        this.addSnippet(snippet);
-      }
+      this.addSnippets(...tablet.snippets.values());
     }
   }
 
@@ -106,7 +104,7 @@ export class LanguageTablet {
   }
 
   public tryGetSnippet(key: string): TranslatedSnippet | undefined {
-    return this.snippets[key];
+    return this.snippets.get(key);
   }
 
   /**
@@ -125,7 +123,7 @@ export class LanguageTablet {
     typeScriptSource: TypeScriptSnippet,
     language: TargetLanguage,
   ): Translation | undefined {
-    const snippet = this.snippets[snippetKey(typeScriptSource)];
+    const snippet = this.snippets.get(snippetKey(typeScriptSource));
     return snippet?.get(language);
   }
 
@@ -133,7 +131,7 @@ export class LanguageTablet {
    * Lookup the translated verion of a TypeScript snippet
    */
   public lookupBySource(typeScriptSource: TypeScriptSnippet): TranslatedSnippet | undefined {
-    return this.snippets[snippetKey(typeScriptSource)];
+    return this.snippets.get(snippetKey(typeScriptSource));
   }
 
   /**
@@ -163,15 +161,18 @@ export class LanguageTablet {
       );
     }
 
-    Object.assign(this.snippets, mapValues(obj.snippets, TranslatedSnippet.fromSchema));
+    for (const [key, schema] of Object.entries(obj.snippets)) {
+      const snippet = TranslatedSnippet.fromSchema(schema, filename);
+      this.snippets.set(key, snippet);
+    }
   }
 
   public get count() {
-    return Object.keys(this.snippets).length;
+    return this.snippets.size;
   }
 
   public get translatedSnippets() {
-    return Object.values(this.snippets);
+    return Array.from(this.snippets.values());
   }
 
   /**
@@ -193,7 +194,7 @@ export class LanguageTablet {
     return {
       version: CURRENT_SCHEMA_VERSION,
       toolVersion: TOOL_VERSION,
-      snippets: mapValues(this.snippets, (s) => s.snippet),
+      snippets: mapValues(Object.fromEntries(this.snippets), (s) => s.snippet),
     };
   }
 }
@@ -202,11 +203,11 @@ export class LanguageTablet {
  * Mutable operations on an underlying TranslatedSnippetSchema
  */
 export class TranslatedSnippet {
-  public static fromSchema(schema: TranslatedSnippetSchema) {
+  public static fromSchema(schema: TranslatedSnippetSchema, loadedFrom?: string) {
     if (!schema.translations[ORIGINAL_SNIPPET_KEY]) {
       throw new Error(`Input schema must have '${ORIGINAL_SNIPPET_KEY}' key set in translations`);
     }
-    return new TranslatedSnippet(schema);
+    return new TranslatedSnippet(schema, loadedFrom);
   }
 
   public static fromTypeScript(original: TypeScriptSnippet, didCompile?: boolean) {
@@ -220,14 +221,30 @@ export class TranslatedSnippet {
     });
   }
 
-  public readonly snippet: TranslatedSnippetSchema;
-
-  private readonly _snippet: Mutable<TranslatedSnippetSchema>;
+  private readonly _schema: Mutable<Omit<TranslatedSnippetSchema, 'translations'>>;
+  private readonly _translations: Map<string, TranslationSchema & { readonly loadedFrom?: string }>;
   private _key?: string;
 
-  private constructor(snippet: TranslatedSnippetSchema) {
-    this._snippet = { ...snippet };
-    this.snippet = this._snippet;
+  private constructor(snippet: TranslatedSnippetSchema, loadedFrom?: string) {
+    this._schema = { ...snippet };
+    // Just avoid duplicated storage of the translations data.
+    delete (this._schema as any).translations;
+
+    this._translations = new Map(
+      Object.entries(snippet.translations).map(([key, value]) => [key, { ...value, loadedFrom }]),
+    );
+  }
+
+  public get snippet(): TranslatedSnippetSchema {
+    return {
+      ...this._schema,
+      translations: Object.fromEntries(
+        Array.from(this._translations.entries()).map(([key, value]): [string, TranslationSchema] => [
+          key,
+          { source: value.source, version: value.version },
+        ]),
+      ),
+    };
   }
 
   public get key() {
@@ -242,30 +259,32 @@ export class TranslatedSnippet {
       source: this.snippet.translations[ORIGINAL_SNIPPET_KEY].source,
       language: 'typescript',
       didCompile: this.snippet.didCompile,
+      loadedFrom: undefined,
     };
   }
 
   public addTranslation(language: TargetLanguage, translation: string, version: string): Translation {
-    this.snippet.translations[language] = { source: translation, version };
+    this._translations.set(language, { source: translation, version });
 
     return {
       source: translation,
       language,
       didCompile: this.snippet.didCompile,
+      loadedFrom: undefined,
     };
   }
 
   public fqnsReferenced() {
-    return this._snippet.fqnsReferenced ?? [];
+    return this._schema.fqnsReferenced ?? [];
   }
 
   public addSyntaxKindCounter(syntaxKindCounter: Record<string, number>) {
-    if (!this._snippet.syntaxKindCounter) {
-      this._snippet.syntaxKindCounter = {};
+    if (!this._schema.syntaxKindCounter) {
+      this._schema.syntaxKindCounter = {};
     }
     for (const [key, value] of Object.entries(syntaxKindCounter)) {
-      const x = this._snippet.syntaxKindCounter[key] ?? 0;
-      this._snippet.syntaxKindCounter[key] = value + x;
+      const x = this._schema.syntaxKindCounter[key] ?? 0;
+      this._schema.syntaxKindCounter[key] = value + x;
     }
   }
 
@@ -274,8 +293,8 @@ export class TranslatedSnippet {
   }
 
   public get(language: TargetLanguage): Translation | undefined {
-    const t = this.snippet.translations[language];
-    return t && { source: t.source, language, didCompile: this.snippet.didCompile };
+    const t = this._translations.get(language);
+    return t && { source: t.source, language, didCompile: this.snippet.didCompile, loadedFrom: t.loadedFrom };
   }
 
   public mergeTranslations(other: TranslatedSnippet) {
@@ -299,8 +318,8 @@ export class TranslatedSnippet {
     });
   }
 
-  public toJSON() {
-    return this._snippet;
+  public toJSON(): TranslatedSnippetSchema {
+    return this.snippet;
   }
 
   private asTypescriptSnippet(): TypeScriptSnippet {
@@ -315,4 +334,5 @@ export interface Translation {
   source: string;
   language: string;
   didCompile?: boolean;
+  loadedFrom: string | undefined;
 }

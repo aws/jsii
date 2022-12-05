@@ -188,7 +188,7 @@ export class RosettaTabletReader {
   public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
     // Look for it in loaded tablets (or previous conversions)
     for (const tab of this.allTablets) {
-      const ret = tab.lookup(source, targetLang);
+      const ret = tab.lookupTranslationBySource(source, targetLang);
       if (ret !== undefined) {
         return this.prefixDisclaimer(ret, this._prefixDisclaimer);
       }
@@ -199,6 +199,7 @@ export class RosettaTabletReader {
         {
           language: targetLang,
           source: source.visibleSource,
+          loadedFrom: undefined,
         },
         this._prefixDisclaimer,
       );
@@ -257,7 +258,7 @@ export class RosettaTabletReader {
 
     const translated = this.translateSnippet(snippet, targetLang);
 
-    return translated ?? { language: 'typescript', source: example };
+    return translated ?? { language: 'typescript', source: example, loadedFrom: undefined };
   }
 
   /**
@@ -273,6 +274,7 @@ export class RosettaTabletReader {
     strict: boolean,
     translationToCodeBlock: (x: Translation) => CodeBlock = id,
     compileDirectory = process.cwd(),
+    onTranslation?: (tx: Translation) => void,
   ): string {
     return transformMarkdown(
       markdown,
@@ -287,6 +289,8 @@ export class RosettaTabletReader {
         if (!translated) {
           return undefined;
         }
+
+        onTranslation?.(translated);
 
         return translationToCodeBlock(translated);
       }),
@@ -305,6 +309,8 @@ export class RosettaTabletReader {
     return [...this.loadedTablets, this.liveTablet];
   }
 
+  private prefixDisclaimer(translation: Translation, prefixDisclaimer: boolean): Translation;
+  private prefixDisclaimer(translation: Translation | undefined, prefixDisclaimer: boolean): Translation | undefined;
   /**
    * Adds a disclaimer to the front of the example if the prefixDisclaimer
    * flag is set and we know it does not compile.

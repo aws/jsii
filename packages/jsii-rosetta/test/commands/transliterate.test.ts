@@ -7,6 +7,7 @@ import { extractSnippets } from '../../lib/commands/extract';
 import { transliterateAssembly } from '../../lib/commands/transliterate';
 import { TargetLanguage, targetName } from '../../lib/languages/target-language';
 import { TabletSchema } from '../../lib/tablets/schema';
+import { Mutable } from '../../lib/util';
 import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../testutil';
 
 jest.setTimeout(60_000);
@@ -1364,7 +1365,7 @@ test('will read translations from cache even if they are dirty', async () => {
     await extractSnippets([infusedAssembly.moduleDirectory]);
 
     // Mess up the extracted source file
-    const schema: TabletSchema = JSON.parse(
+    const schema: Mutable<TabletSchema> = JSON.parse(
       await fs.promises.readFile(path.join(infusedAssembly.moduleDirectory, '.jsii.tabl.json'), 'utf-8'),
     );
     for (const snippet of Object.values(schema.snippets)) {

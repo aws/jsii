@@ -7,6 +7,7 @@ import { targetName } from '../languages/target-language';
 import { debug } from '../logging';
 import { RosettaTabletReader, UnknownSnippetMode } from '../rosetta-reader';
 import { typeScriptSnippetFromVisibleSource, ApiLocation } from '../snippet';
+import { Translation } from '../tablets/tablets';
 import { Mutable } from '../util';
 import { extractSnippets } from './extract';
 
@@ -65,7 +66,7 @@ export async function transliterateAssembly(
   assemblyLocations: readonly string[],
   targetLanguages: readonly TargetLanguage[],
   options: TransliterateAssemblyOptions = {},
-): Promise<void> {
+): Promise<TransliterateAssemblyResult> {
   // Start by doing an 'extract' for all these assemblies
   //
   // This will locate all examples that haven't been translated yet and translate
@@ -95,6 +96,17 @@ export async function transliterateAssembly(
 
   const assemblies = await loadAssemblies(assemblyLocations, rosetta);
 
+  let foundInTablet = 0;
+  let missingFromTablet = 0;
+  const onTranslation = (translation: Translation) => {
+    if (translation.loadedFrom != null) {
+      foundInTablet++;
+    } else {
+      debug(`Translation missing from tablet: ${translation.source}`);
+      missingFromTablet++;
+    }
+  };
+
   for (const [location, loadAssembly] of assemblies.entries()) {
     for (const language of targetLanguages) {
       const now = new Date().getTime();
@@ -111,10 +123,13 @@ export async function transliterateAssembly(
           result.readme.markdown,
           language,
           true /* strict */,
+          undefined,
+          undefined,
+          onTranslation,
         );
       }
       for (const type of Object.values(result.types ?? {})) {
-        transliterateType(type, rosetta, language);
+        transliterateType(type, rosetta, language, onTranslation);
       }
       // eslint-disable-next-line no-await-in-loop
       await fs.writeFile(
@@ -130,6 +145,18 @@ export async function transliterateAssembly(
   if (rosetta.hasErrors && options.strict) {
     throw new Error('Strict mode is enabled and some examples failed compilation!');
   }
+
+  return { foundInTablet, missingFromTablet };
+}
+
+/**
+ * Transliteration information provided for observability purposes.
+ */
+export interface TransliterateAssemblyResult {
+  /** The count of translations that were found in provided tablets (and re-used). */
+  readonly foundInTablet: number;
+  /** The count of translations that were missing from provided tablets. */
+  readonly missingFromTablet: number;
 }
 
 /**
@@ -162,35 +189,41 @@ async function loadAssemblies(
 
 type AssemblyLoader = () => Mutable<Assembly>;
 
-function transliterateType(type: Type, rosetta: RosettaTabletReader, language: TargetLanguage): void {
-  transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs);
+function transliterateType(
+  type: Type,
+  rosetta: RosettaTabletReader,
+  language: TargetLanguage,
+  onTranslation?: (tx: Translation) => void,
+): void {
+  transliterateDocs({ api: 'type', fqn: type.fqn }, type.docs, onTranslation);
   switch (type.kind) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore 7029
     case TypeKind.Class:
       if (type.initializer) {
-        transliterateDocs({ api: 'initializer', fqn: type.fqn }, type.initializer.docs);
+        transliterateDocs({ api: 'initializer', fqn: type.fqn }, type.initializer.docs, onTranslation);
       }
 
     // fallthrough
     case TypeKind.Interface:
       for (const method of type.methods ?? []) {
-        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: method.name }, method.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: method.name }, method.docs, onTranslation);
         for (const parameter of method.parameters ?? []) {
           transliterateDocs(
             { api: 'parameter', fqn: type.fqn, methodName: method.name, parameterName: parameter.name },
             parameter.docs,
+            onTranslation,
           );
         }
       }
       for (const property of type.properties ?? []) {
-        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: property.name }, property.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: property.name }, property.docs, onTranslation);
       }
       break;
 
     case TypeKind.Enum:
       for (const member of type.members) {
-        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: member.name }, member.docs);
+        transliterateDocs({ api: 'member', fqn: type.fqn, memberName: member.name }, member.docs, onTranslation);
       }
       break;
 
@@ -198,9 +231,21 @@ function transliterateType(type: Type, rosetta: RosettaTabletReader, language: T
       throw new Error(`Unsupported type kind: ${(type as any).kind}`);
   }
 
-  function transliterateDocs(api: ApiLocation, docs: Docs | undefined) {
+  function transliterateDocs(
+    api: ApiLocation,
+    docs: Docs | undefined,
+    onTranslation: ((tx: Translation) => void) | undefined,
+  ) {
     if (docs?.remarks) {
-      docs.remarks = rosetta.translateSnippetsInMarkdown(api, docs.remarks, language, true /* strict */);
+      docs.remarks = rosetta.translateSnippetsInMarkdown(
+        api,
+        docs.remarks,
+        language,
+        true /* strict */,
+        undefined,
+        undefined,
+        onTranslation,
+      );
     }
 
     if (docs?.example) {
@@ -208,6 +253,7 @@ function transliterateType(type: Type, rosetta: RosettaTabletReader, language: T
       const snippet = typeScriptSnippetFromVisibleSource(docs.example, location, true /* strict */);
       const translation = rosetta.translateSnippet(snippet, language);
       if (translation != null) {
+        onTranslation?.(translation);
         docs.example = translation.source;
       }
     }
