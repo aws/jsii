@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.72.0](https://github.com/aws/jsii/compare/v1.71.0...v1.72.0) (2022-12-05)
+
+
+### Features
+
+* **check-node:** allow silencing @jsii/check-node warnings ([#3841](https://github.com/aws/jsii/issues/3841)) ([880dbcc](https://github.com/aws/jsii/commit/880dbccc883005d10f00a1536561e0fe84b5fda6)), closes [#3817](https://github.com/aws/jsii/issues/3817) [#3171](https://github.com/aws/jsii/issues/3171)
+* **python:** streaming bin script output ([#3794](https://github.com/aws/jsii/issues/3794)) ([7a41349](https://github.com/aws/jsii/commit/7a41349b6abf230c6798fe8f0019fa5eb7584020)), closes [#3782](https://github.com/aws/jsii/issues/3782)
+
+
+### Bug Fixes
+
+* **dotnet:** broken error name deserialization ([#3855](https://github.com/aws/jsii/issues/3855)) ([be008d4](https://github.com/aws/jsii/commit/be008d4de8ac65d2dc3c59dedd3993c1850073fb))
+* **python:** dereference values returned from Kernel.ainvoke ([#3847](https://github.com/aws/jsii/issues/3847)) ([5643c50](https://github.com/aws/jsii/commit/5643c5057ab5f40f3d76a960fee926720dc1287d))
+* **python:** parameter names shadow imported modules ([#3848](https://github.com/aws/jsii/issues/3848)) ([8bac012](https://github.com/aws/jsii/commit/8bac0126832ebce2a5391c86ba9702b12f248b01))
+* revert "chore(deps): Bump aws-actions/stale-issue-cleanup from 5 to 6" ([#3850](https://github.com/aws/jsii/issues/3850)) ([6700f1a](https://github.com/aws/jsii/commit/6700f1aa84c1635e739ccf970dfa18b5ca289b83)), closes [aws/jsii#3844](https://github.com/aws/jsii/issues/3844)
+
 ## [1.71.0](https://github.com/aws/jsii/compare/v1.70.0...v1.71.0) (2022-11-09)
 
 
