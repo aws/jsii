@@ -17,7 +17,7 @@ namespace Amazon.JSII.Runtime
     internal static class CallbackExtensions
     {
         public static object? InvokeCallback(this Callback callback, IReferenceMap referenceMap,
-            IFrameworkToJsiiConverter converter, out string? error)
+            IFrameworkToJsiiConverter converter, out Exception? error)
         {
             try
             {
@@ -36,13 +36,13 @@ namespace Amazon.JSII.Runtime
             catch (TargetInvocationException e)
             {
                 // An exception was thrown by the method being invoked
-                error = e.InnerException?.ToString();
+                error = e.InnerException;
                 return null;
             }
             catch (Exception e)
             {
                 // An exception was thrown while preparing the request or processing the result
-                error = e.ToString();
+                error = e;
                 return null;
             }
         }

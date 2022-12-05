@@ -2928,6 +2928,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 Cdk16625.cs
        ┃           ┃  ┗━ 📁 Donotimport
        ┃           ┃     ┗━ 📄 UnimportedSubmoduleType.cs
+       ┃           ┣━ 📁 Cdk22369
+       ┃           ┃  ┣━ 📄 AcceptsPath.cs
+       ┃           ┃  ┣━ 📄 AcceptsPathProps.cs
+       ┃           ┃  ┗━ 📄 IAcceptsPathProps.cs
        ┃           ┣━ 📄 ChildStruct982.cs
        ┃           ┣━ 📄 ClassThatImplementsTheInternalInterface.cs
        ┃           ┣━ 📄 ClassThatImplementsThePrivateInterface.cs
@@ -3076,6 +3080,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IObjectWithProperty.cs
        ┃           ┣━ 📄 IOptionalMethod.cs
        ┃           ┣━ 📄 IOptionalStruct.cs
+       ┃           ┣━ 📄 IParamShadowsBuiltinsProps.cs
        ┃           ┣━ 📄 IParentStruct982.cs
        ┃           ┣━ 📄 IPrivatelyImplemented.cs
        ┃           ┣━ 📄 IPublicInterface.cs
@@ -3187,6 +3192,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 OptionalStructConsumer.cs
        ┃           ┣━ 📄 OverridableProtectedMember.cs
        ┃           ┣━ 📄 OverrideReturnsObject.cs
+       ┃           ┣━ 📄 ParamShadowsBuiltins.cs
+       ┃           ┣━ 📄 ParamShadowsBuiltinsProps.cs
+       ┃           ┣━ 📄 ParamShadowsScope.cs
        ┃           ┣━ 📄 ParentStruct982.cs
        ┃           ┣━ 📄 PartiallyInitializedThisConsumer.cs
        ┃           ┣━ 📄 Polymorphism.cs
@@ -4909,6 +4917,104 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk16625.Donotimport
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk22369/AcceptsPath.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk22369
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.AcceptsPath), fullyQualifiedName: "jsii-calc.cdk22369.AcceptsPath", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.cdk22369.AcceptsPathProps\\"}}]")]
+    public class AcceptsPath : DeputyBase
+    {
+        public AcceptsPath(Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps props): base(_MakeDeputyProps(props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps props)
+        {
+            return new DeputyProps(new object?[]{props});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AcceptsPath(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AcceptsPath(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk22369/AcceptsPathProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk22369
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.cdk22369.AcceptsPathProps")]
+    public class AcceptsPathProps : Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps
+    {
+        /// <summary>A path that doesn't exist.</summary>
+        [JsiiProperty(name: "sourcePath", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string SourcePath
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Cdk22369/IAcceptsPathProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Cdk22369
+{
+    [JsiiInterface(nativeType: typeof(IAcceptsPathProps), fullyQualifiedName: "jsii-calc.cdk22369.AcceptsPathProps")]
+    public interface IAcceptsPathProps
+    {
+        /// <summary>A path that doesn't exist.</summary>
+        [JsiiProperty(name: "sourcePath", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string SourcePath
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IAcceptsPathProps), fullyQualifiedName: "jsii-calc.cdk22369.AcceptsPathProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Cdk22369.IAcceptsPathProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>A path that doesn't exist.</summary>
+            [JsiiProperty(name: "sourcePath", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string SourcePath
+            {
+                get => GetInstanceProperty<string>()!;
+            }
         }
     }
 }
@@ -11319,6 +11425,64 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IParamShadowsBuiltinsProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IParamShadowsBuiltinsProps), fullyQualifiedName: "jsii-calc.ParamShadowsBuiltinsProps")]
+    public interface IParamShadowsBuiltinsProps
+    {
+        [JsiiProperty(name: "booleanProperty", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        bool BooleanProperty
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "stringProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string StringProperty
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "structProperty", typeJson: "{\\"fqn\\":\\"jsii-calc.StructA\\"}")]
+        Amazon.JSII.Tests.CalculatorNamespace.IStructA StructProperty
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IParamShadowsBuiltinsProps), fullyQualifiedName: "jsii-calc.ParamShadowsBuiltinsProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IParamShadowsBuiltinsProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "booleanProperty", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+            public bool BooleanProperty
+            {
+                get => GetInstanceProperty<bool>()!;
+            }
+
+            [JsiiProperty(name: "stringProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string StringProperty
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+
+            [JsiiProperty(name: "structProperty", typeJson: "{\\"fqn\\":\\"jsii-calc.StructA\\"}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.IStructA StructProperty
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IStructA>()!;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IParentStruct982.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -16716,6 +16880,133 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double Test(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber obj)
         {
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber)}, new object[]{obj})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ParamShadowsBuiltins.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Validate that parameters named "str" or "builtins" do not shadow the actual type names in Python.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ParamShadowsBuiltins), fullyQualifiedName: "jsii-calc.ParamShadowsBuiltins", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"should be set to something that is NOT a valid expression in Python (e.g: test\${NOPE}testtest).\\"},\\"name\\":\\"builtins\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"docs\\":{\\"summary\\":\\"should be set to something that is NOT a valid expression in Python (e.g: test\${NOPE}testtest).\\"},\\"name\\":\\"str\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"docs\\":{\\"summary\\":\\"should be set to valid values.\\"},\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.ParamShadowsBuiltinsProps\\"}}]")]
+    public class ParamShadowsBuiltins : DeputyBase
+    {
+        /// <param name="builtins">should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}"").</param>
+        /// <param name="str">should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}"").</param>
+        /// <param name="props">should be set to valid values.</param>
+        public ParamShadowsBuiltins(string builtins, string str, Amazon.JSII.Tests.CalculatorNamespace.IParamShadowsBuiltinsProps props): base(_MakeDeputyProps(builtins, str, props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(string builtins, string str, Amazon.JSII.Tests.CalculatorNamespace.IParamShadowsBuiltinsProps props)
+        {
+            return new DeputyProps(new object?[]{builtins, str, props});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ParamShadowsBuiltins(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ParamShadowsBuiltins(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ParamShadowsBuiltinsProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.ParamShadowsBuiltinsProps")]
+    public class ParamShadowsBuiltinsProps : Amazon.JSII.Tests.CalculatorNamespace.IParamShadowsBuiltinsProps
+    {
+        [JsiiProperty(name: "booleanProperty", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        public bool BooleanProperty
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "stringProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string StringProperty
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "structProperty", typeJson: "{\\"fqn\\":\\"jsii-calc.StructA\\"}")]
+        public Amazon.JSII.Tests.CalculatorNamespace.IStructA StructProperty
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ParamShadowsScope.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Validate that namespaces being shadowed by local variables does not cause type checking issues.</summary>
+    /// <remarks>
+    /// <strong>See</strong>: https://github.com/aws/aws-cdk/issues/22975
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ParamShadowsScope), fullyQualifiedName: "jsii-calc.ParamShadowsScope")]
+    public class ParamShadowsScope : DeputyBase
+    {
+        public ParamShadowsScope(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ParamShadowsScope(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ParamShadowsScope(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "useScope", returnsJson: "{\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"}}", parametersJson: "[{\\"name\\":\\"scope\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.Number\\"}}]")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number UseScope(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number scope)
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number)}, new object[]{scope})!;
         }
     }
 }

@@ -3090,3 +3090,44 @@ export class VariadicTypeUnion {
     this.union = union;
   }
 }
+
+/**
+ * Validate that namespaces being shadowed by local variables does not cause
+ * type checking issues.
+ *
+ * @see https://github.com/aws/aws-cdk/issues/22975
+ */
+export class ParamShadowsScope {
+  // @scope/* packages are under the "scope." namespace in Python.
+  public useScope(scope: LibNumber) {
+    return scope;
+  }
+}
+
+/**
+ * Validate that parameters named "str" or "builtins" do not shadow the actual
+ * type names in Python.
+ */
+export class ParamShadowsBuiltins {
+  /**
+   * @param builtins should be set to something that is NOT a valid expression in Python (e.g: "${NOPE}"")
+   * @param str      should be set to something that is NOT a valid expression in Python (e.g: "${NOPE}"")
+   * @param props    should be set to valid values.
+   */
+  public constructor(
+    builtins: string,
+    str: string,
+    props: ParamShadowsBuiltinsProps,
+  ) {
+    this.consumeArgs(builtins, str, props);
+  }
+
+  private consumeArgs(..._args: unknown[]) {
+    return;
+  }
+}
+export interface ParamShadowsBuiltinsProps {
+  readonly stringProperty: string;
+  readonly booleanProperty: boolean;
+  readonly structProperty: StructA;
+}

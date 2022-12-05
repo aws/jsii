@@ -24,7 +24,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
         public abstract class ClientTestBase
         {
             private readonly IFileSystem _fileSystem;
-            
+
             internal readonly IRuntime _runtime;
             private readonly IReferenceMap _referenceMap;
             private readonly IFrameworkToJsiiConverter _frameworkToJsiiConverter;
@@ -498,7 +498,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 CompleteRequest request = new CompleteRequest
                 (
                     callbackId: "myCallbackId",
-                    error: "myError",
+                    error: new NamedError("myError", null),
                     result: "myResult"
                 );
                 client.Complete(request);

@@ -210,7 +210,7 @@
     "jsii-calc.anonymous": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 27
+        "line": 28
       },
       "symbolId": "lib/anonymous/index:"
     },
@@ -228,6 +228,13 @@
       },
       "symbolId": "lib/cdk16625/donotimport/index:"
     },
+    "jsii-calc.cdk22369": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 25
+      },
+      "symbolId": "lib/cdk22369/index:"
+    },
     "jsii-calc.composition": {
       "locationInModule": {
         "filename": "lib/calculator.ts",
@@ -238,7 +245,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 29
+        "line": 30
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -262,7 +269,7 @@
     "jsii-calc.jsii3656": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 25
+        "line": 26
       },
       "symbolId": "lib/jsii3656/index:"
     },
@@ -450,7 +457,7 @@
     "jsii-calc.union": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 28
+        "line": 29
       },
       "symbolId": "lib/union:"
     }
@@ -11425,6 +11432,167 @@
       "name": "OverrideReturnsObject",
       "symbolId": "lib/compliance:OverrideReturnsObject"
     },
+    "jsii-calc.ParamShadowsBuiltins": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Validate that parameters named \"str\" or \"builtins\" do not shadow the actual type names in Python."
+      },
+      "fqn": "jsii-calc.ParamShadowsBuiltins",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3117
+        },
+        "parameters": [
+          {
+            "docs": {
+              "summary": "should be set to something that is NOT a valid expression in Python (e.g: \"${NOPE}\"\")."
+            },
+            "name": "builtins",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "docs": {
+              "summary": "should be set to something that is NOT a valid expression in Python (e.g: \"${NOPE}\"\")."
+            },
+            "name": "str",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "docs": {
+              "summary": "should be set to valid values."
+            },
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.ParamShadowsBuiltinsProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3111
+      },
+      "name": "ParamShadowsBuiltins",
+      "symbolId": "lib/compliance:ParamShadowsBuiltins"
+    },
+    "jsii-calc.ParamShadowsBuiltinsProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ParamShadowsBuiltinsProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3129
+      },
+      "name": "ParamShadowsBuiltinsProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3131
+          },
+          "name": "booleanProperty",
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3130
+          },
+          "name": "stringProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3132
+          },
+          "name": "structProperty",
+          "type": {
+            "fqn": "jsii-calc.StructA"
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:ParamShadowsBuiltinsProps"
+    },
+    "jsii-calc.ParamShadowsScope": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/22975",
+        "stability": "stable",
+        "summary": "Validate that namespaces being shadowed by local variables does not cause type checking issues."
+      },
+      "fqn": "jsii-calc.ParamShadowsScope",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3100
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3102
+          },
+          "name": "useScope",
+          "parameters": [
+            {
+              "name": "scope",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.Number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Number"
+            }
+          }
+        }
+      ],
+      "name": "ParamShadowsScope",
+      "symbolId": "lib/compliance:ParamShadowsScope"
+    },
     "jsii-calc.ParentStruct982": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -16075,6 +16243,72 @@
       "namespace": "cdk16625.donotimport",
       "symbolId": "lib/cdk16625/donotimport/index:UnimportedSubmoduleType"
     },
+    "jsii-calc.cdk22369.AcceptsPath": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.cdk22369.AcceptsPath",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/cdk22369/index.ts",
+          "line": 19
+        },
+        "parameters": [
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.cdk22369.AcceptsPathProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/cdk22369/index.ts",
+        "line": 17
+      },
+      "name": "AcceptsPath",
+      "namespace": "cdk22369",
+      "symbolId": "lib/cdk22369/index:AcceptsPath"
+    },
+    "jsii-calc.cdk22369.AcceptsPathProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.cdk22369.AcceptsPathProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/cdk22369/index.ts",
+        "line": 10
+      },
+      "name": "AcceptsPathProps",
+      "namespace": "cdk22369",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable",
+            "summary": "A path that doesn't exist."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/cdk22369/index.ts",
+            "line": 14
+          },
+          "name": "sourcePath",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/cdk22369/index:AcceptsPathProps"
+    },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -18565,5 +18799,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "b2P7abkCSB3ezfp46ujoSHTYSgRV0o7O1avtvIe5xX8="
+  "fingerprint": "kmlc5is+t/xffykk7b4m8jurrxFDkj9pjv2cW/V1J50="
 }

@@ -38,7 +38,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             _categoryName = categoryName ?? throw new ArgumentNullException(nameof(categoryName));
         }
 
-        void ILogger.Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        void ILogger.Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string> formatter)
         {
             var str = state?.ToString() ?? "";
             // Only log lines starting with > or < (kernel traces)

@@ -8,9 +8,15 @@ import { NodeRelease } from './constants';
  * Checks the current process' node runtime version against the release support
  * matrix, and issues a warning to STDERR if the current version is not fully
  * supported (i.e: it is deprecated, end-of-life, or untested).
+ *
+ * @param envPrefix will be prepended to environment variable names that can be
+ *                  used to silence version check warnings.
  */
-export function checkNode(): void {
+export function checkNode(envPrefix = 'JSII'): void {
   const { nodeRelease, knownBroken } = NodeRelease.forThisRuntime();
+
+  const defaultCallToAction =
+    'Should you encounter odd runtime issues, please try using one of the supported release before filing a bug report.';
 
   if (nodeRelease?.endOfLife) {
     const qualifier = nodeRelease.endOfLifeDate
@@ -22,28 +28,42 @@ export function checkNode(): void {
       `Please upgrade to a supported node version as soon as possible.`,
     );
   } else if (knownBroken) {
-    veryVisibleMessage(
-      bgRed.white.bold,
-      `Node ${version} is unsupported and has known compatibility issues with this software.`,
-    );
+    const silenceVariable = `${envPrefix}_SILENCE_WARNING_KNOWN_BROKEN_NODE_VERSION`;
+    if (!process.env[silenceVariable])
+      veryVisibleMessage(
+        bgRed.white.bold,
+        `Node ${version} is unsupported and has known compatibility issues with this software.`,
+        defaultCallToAction,
+        silenceVariable,
+      );
   } else if (!nodeRelease || nodeRelease.untested) {
-    veryVisibleMessage(
-      bgYellow.black,
-      `This software has not been tested with node ${version}.`,
-    );
+    const silenceVariable = `${envPrefix}_SILENCE_WARNING_UNTESTED_NODE_VERSION`;
+    if (!process.env[silenceVariable]) {
+      veryVisibleMessage(
+        bgYellow.black,
+        `This software has not been tested with node ${version}.`,
+        defaultCallToAction,
+        silenceVariable,
+      );
+    }
   } else if (nodeRelease?.deprecated) {
-    const deadline = nodeRelease.endOfLifeDate!.toISOString().slice(0, 10);
-    veryVisibleMessage(
-      bgYellowBright.black,
-      `Node ${nodeRelease.majorVersion} is approaching end-of-life and will no longer be supported in new releases after ${deadline}.`,
-      `Please upgrade to a supported node version as soon as possible.`,
-    );
+    const silenceVariable = `${envPrefix}_SILENCE_WARNING_DEPRECATED_NODE_VERSION`;
+    if (!process.env[silenceVariable]) {
+      const deadline = nodeRelease.endOfLifeDate!.toISOString().slice(0, 10);
+      veryVisibleMessage(
+        bgYellowBright.black,
+        `Node ${nodeRelease.majorVersion} is approaching end-of-life and will no longer be supported in new releases after ${deadline}.`,
+        `Please upgrade to a supported node version as soon as possible.`,
+        silenceVariable,
+      );
+    }
   }
 
   function veryVisibleMessage(
     chalk: Chalk,
     message: string,
-    callToAction = 'You may to encounter runtime issues, and should switch to a supported release.',
+    callToAction: string,
+    silenceVariable?: string,
   ): void {
     const lines = [
       message,
@@ -64,6 +84,13 @@ export function checkNode(): void {
               release.deprecated ? ' [DEPRECATED]' : ''
             }`,
         ),
+      // Add blurb on how this message can be silenced (if it can be silenced).
+      ...(silenceVariable
+        ? [
+            '',
+            `This warning can be silenced by setting the ${silenceVariable} environment variable.`,
+          ]
+        : []),
     ];
     const len = Math.max(...lines.map((l) => l.length));
     const border = chalk('!'.repeat(len + 8));

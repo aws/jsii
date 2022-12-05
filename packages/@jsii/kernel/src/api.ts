@@ -1,3 +1,5 @@
+import { JsiiErrorType } from './kernel';
+
 export const TOKEN_REF = '$jsii.byref';
 export const TOKEN_INTERFACES = '$jsii.interfaces';
 export const TOKEN_DATE = '$jsii.date';
@@ -95,6 +97,18 @@ export interface LoadRequest {
 export interface LoadResponse {
   readonly assembly: string;
   readonly types: number;
+}
+
+export interface GetScriptCommandRequest {
+  readonly assembly: string;
+  readonly script: string;
+  readonly args?: string[];
+}
+
+export interface GetScriptCommandResponse {
+  command: string;
+  args: string[];
+  env: Record<string, string>;
 }
 
 export interface InvokeScriptRequest {
@@ -278,4 +292,5 @@ export interface OkayResponse {
 export interface ErrorResponse {
   readonly error: string;
   readonly stack?: string;
+  readonly name?: JsiiErrorType;
 }

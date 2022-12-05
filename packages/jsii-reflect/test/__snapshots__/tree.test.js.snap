@@ -12,6 +12,7 @@ exports[`defaults 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -70,6 +71,7 @@ exports[`inheritance 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -128,6 +130,7 @@ exports[`members 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -310,6 +313,20 @@ exports[`showAll 1`] = `
  │ │ │         │ └─┬ gen
  │ │ │         │   └── type: jsii-calc.IRandomNumberGenerator
  │ │ │         └── returns: number
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class AcceptsPath
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: jsii-calc.cdk22369.AcceptsPathProps
+ │ │ │   └─┬ interface AcceptsPathProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ sourcePath property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├─┬ class CompositeOperation
@@ -2091,6 +2108,24 @@ exports[`showAll 1`] = `
  │   │     │ └─┬ obj
  │   │     │   └── type: jsii-calc.IReturnsNumber
  │   │     └── returns: number
+ │   ├─┬ class ParamShadowsBuiltins
+ │   │ └─┬ members
+ │   │   └─┬ <initializer>(builtins,str,props) initializer
+ │   │     └─┬ parameters
+ │   │       ├─┬ builtins
+ │   │       │ └── type: string
+ │   │       ├─┬ str
+ │   │       │ └── type: string
+ │   │       └─┬ props
+ │   │         └── type: jsii-calc.ParamShadowsBuiltinsProps
+ │   ├─┬ class ParamShadowsScope
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ useScope(scope) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ scope
+ │   │     │   └── type: @scope/jsii-calc-lib.Number
+ │   │     └── returns: @scope/jsii-calc-lib.Number
  │   ├─┬ class PartiallyInitializedThisConsumer
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3359,6 +3394,20 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface ParamShadowsBuiltinsProps
+ │   │ └─┬ members
+ │   │   ├─┬ booleanProperty property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: boolean
+ │   │   ├─┬ stringProperty property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ structProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.StructA
  │   ├─┬ interface ParentStruct982
  │   │ └─┬ members
  │   │   └─┬ foo property
@@ -3778,6 +3827,7 @@ exports[`signatures 1`] = `
  │   ├─┬ cdk16625
  │   │ └─┬ submodules
  │   │   └── donotimport
+ │   ├── cdk22369
  │   ├── composition
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
@@ -3857,6 +3907,10 @@ exports[`types 1`] = `
  │ │ │ │     └── class UnimportedSubmoduleType
  │ │ │ └─┬ types
  │ │ │   └── class Cdk16625
+ │ │ ├─┬ cdk22369
+ │ │ │ └─┬ types
+ │ │ │   ├── class AcceptsPath
+ │ │ │   └── interface AcceptsPathProps
  │ │ ├─┬ composition
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
@@ -4075,6 +4129,8 @@ exports[`types 1`] = `
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
  │   ├── class OverrideReturnsObject
+ │   ├── class ParamShadowsBuiltins
+ │   ├── class ParamShadowsScope
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├── class Power
@@ -4180,6 +4236,7 @@ exports[`types 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParamShadowsBuiltinsProps
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct

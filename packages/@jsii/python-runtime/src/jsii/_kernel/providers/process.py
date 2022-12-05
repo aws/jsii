@@ -41,6 +41,8 @@ from ..types import (
     GetResponse,
     InvokeRequest,
     InvokeResponse,
+    GetScriptCommandRequest,
+    GetScriptCommandResponse,
     InvokeScriptRequest,
     InvokeScriptResponse,
     SetRequest,
@@ -159,6 +161,12 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             LoadRequest,
             _with_api_key("load", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            GetScriptCommandRequest,
+            _with_api_key(
+                "getBinScriptCommand", self._serializer.unstructure_attrs_asdict
+            ),
         )
         self._serializer.register_unstructure_hook(
             InvokeScriptRequest,
@@ -327,9 +335,9 @@ class _NodeProcess:
         elif isinstance(resp, _CallbackResponse):
             return resp.callback
         else:
-            if resp.name == ErrorType.RUNTIME_ERROR.value:
-                raise RuntimeError(resp.error) from JavaScriptError(resp.stack)
-            raise JSIIError(resp.error) from JavaScriptError(resp.stack)
+            if resp.name == ErrorType.JSII_FAULT.value:
+                raise JSIIError(resp.error) from JavaScriptError(resp.stack)
+            raise RuntimeError(resp.error) from JavaScriptError(resp.stack)
 
 
 class ProcessProvider(BaseProvider):
@@ -342,6 +350,11 @@ class ProcessProvider(BaseProvider):
 
     def load(self, request: LoadRequest) -> LoadResponse:
         return self._process.send(request, LoadResponse)
+
+    def getScriptCommand(
+        self, request: GetScriptCommandRequest
+    ) -> GetScriptCommandResponse:
+        return self._process.send(request, GetScriptCommandResponse)
 
     def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse:
         return self._process.send(request, InvokeScriptResponse)
