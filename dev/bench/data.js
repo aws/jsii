@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1670427396797,
+  "lastUpdate": 1670431082090,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10253,6 +10253,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1931780.7512795627,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54471.390407099985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7184a5887df306070a20223332d1e289e396dba2",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=8.5.10 to ~=8.5.11 in /gh-pages (#3874)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-8.5.11</h2>\n<ul>\n<li>Let it snow, see <a href=\"https://twitter.com/squidfunk/status/1597939243090788352\">https://twitter.com/squidfunk/status/1597939243090788352</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-8.5.11 (2022-11-30)</p>\n<ul>\n<li>Let it snow, see <a href=\"https://twitter.com/squidfunk/status/1597939243090788352\">https://twitter.com/squidfunk/status/1597939243090788352</a></li>\n</ul>\n<p>mkdocs-material-8.5.10+insiders-4.26.6 (2022-11-28)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4683\">#4683</a>: Tags plugin crashes when a tag is empty</li>\n</ul>\n<p>mkdocs-material-8.5.10+insiders-4.26.5 (2022-11-27)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4632\">#4632</a>: Post excerpt title link doesn't point to top of the page</li>\n</ul>\n<p>mkdocs-material-8.5.10+insiders-4.26.4 (2022-11-27)</p>\n<ul>\n<li>Fixed redundant file extension when using privacy plugin</li>\n</ul>\n<p>mkdocs-material-8.5.10+insiders-4.26.3 (2022-11-15)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4637\">#4637</a>: Attachments w/o titles in related links error in blog plugin</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4631\">#4631</a>: Remote favicons not downloaded and inlined by privacy plugin</li>\n</ul>\n<p>mkdocs-material-8.5.10 (2022-11-11)</p>\n<ul>\n<li>Adjusted CSS to better allow for custom primary and accent colors</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4620\">#4620</a>: Primary color is not applied (8.5.9 regression)</li>\n</ul>\n<p>mkdocs-material-8.5.9 (2022-11-08)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4600\">#4600</a>: Illegible link colors for black and white primary colors</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4594\">#4594</a>: Need to set schema to change link color</li>\n</ul>\n<p>mkdocs-material-8.5.8+insiders-4.26.2 (2022-11-03)</p>\n<ul>\n<li>Updated MkDocs to 1.4.2</li>\n<li>Added support for tag compare functions when sorting on index pages</li>\n<li>Fixed footnotes being rendered in post excerpts without separators</li>\n<li>Fixed error in blog plugin when toc extension is not enabled</li>\n<li>Fixed issues with invalid asset paths and linked post titles</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4572\">#4572</a>: Privacy plugin fails when symlinks cannot be created</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4545\">#4545</a>: Blog plugin doesn't automatically link headline to post</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4542\">#4542</a>: Blog plugin doesn't allow for multiple instances</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4532\">#4532</a>: Blog plugin doesn't allow for mixed use of date and datetime</li>\n</ul>\n<p>mkdocs-material-8.5.8 (2022-11-03)</p>\n<ul>\n<li>Added support for always showing settings in cookie consent</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4571\">#4571</a>: Buttons invisible if primary color is white or black</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4517\">#4517</a>: Illegible note in sequence diagram when using slate scheme</li>\n</ul>\n<p>mkdocs-material-8.5.7+insiders-4.26.1 (2022-10-22)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b2dc6b11313c4222e49fc42a4cdd94ef5b70ae00\"><code>b2dc6b1</code></a> Prepare 8.5.11 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2f676c20ec9ca2cfd0a6410aa56eb2b5b899ad9b\"><code>2f676c2</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ec60f45c0773bf6e61c38b1cbc3be9b422b86a1c\"><code>ec60f45</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/40c6d586a7a07237062bf8271eddc0c936eba81c\"><code>40c6d58</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/39124f99145f76559faecad530ada337554ae0d5\"><code>39124f9</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8748c71df88f872a796a92c34673b0d5c0041bbe\"><code>8748c71</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8914c8dec5cd1c68c54b2f53fad1e4e7489f8307\"><code>8914c8d</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2127c361af98c7a4aedbcbf1ab31ce5c7b8d2a92\"><code>2127c36</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0618f0048c755ea42009e8c27d243446dc248d5d\"><code>0618f00</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/87e313993e7bdf15cd9fd68ecf75d8f5d07ad9e1\"><code>87e3139</code></a> Updated dependencies</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/8.5.10...8.5.11\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-12-07T15:51:24Z",
+          "tree_id": "a5099f620bd6307fe05f900e31a2b41902e63889",
+          "url": "https://github.com/aws/jsii/commit/7184a5887df306070a20223332d1e289e396dba2"
+        },
+        "date": 1670431078650,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60375.86396079997,
+            "unit": "milliseconds",
+            "range": 2626241.189551146,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60375.86396079997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46723.612550249985,
+            "unit": "milliseconds",
+            "range": 427079.66597374843,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46723.612550249985 milliseconds over 20 runs"
           }
         ]
       }
