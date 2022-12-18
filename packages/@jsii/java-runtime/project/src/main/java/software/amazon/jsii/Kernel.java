@@ -36,7 +36,7 @@ public final class Kernel {
     /**
      * Calls a JavaScript method on a receiver.
      *
-     * @param receiver the receiver for hte method call
+     * @param receiver the receiver for the method call
      * @param method The name of the method.
      * @param nativeType The return type.
      * @param args Method arguments.
