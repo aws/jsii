@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671636808211,
+  "lastUpdate": 1671641005573,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10481,6 +10481,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 440540.0782240429,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52783.600043549995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a11a1c5065118b46c80ca8f4994663e7f5262966",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.4.0 to 17.4.1 in /packages/@jsii/dotnet-runtime-test/test (#3887)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.4.0 to 17.4.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.4.1</h2>\n<p>See the release notes <a href=\"https://github.com/microsoft/vstest/blob/main/docs/releases.md#1741\">here</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/blob/main/docs/releases.md\">Microsoft.NET.Test.Sdk's changelog</a>.</em></p>\n<blockquote>\n<h2>17.4.1</h2>\n<h3>Issues Fixed</h3>\n<ul>\n<li>Fix satellite resolution for Microsoft.TestPlatform.Common <a href=\"https://github-redirect.dependabot.com/microsoft/vstest/pull/4147\">#4147</a></li>\n</ul>\n<p>See full log <a href=\"https://github.com/microsoft/vstest/compare/v17.4.0...v17.4.1\">here</a></p>\n<h3>Drops</h3>\n<ul>\n<li>TestPlatform vsix: <a href=\"https://vsdrop.corp.microsoft.com/file/v1/Products/DevDiv/microsoft/vstest/17.4/20221215-01;/TestPlatform.vsix\">17.4.1</a></li>\n<li>Microsoft.TestPlatform.ObjectModel : <a href=\"https://www.nuget.org/packages/Microsoft.TestPlatform.ObjectModel/17.4.1\">17.4.1</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/31e8b9580bec7c5ee5c58439fbcb4c91483a2434\"><code>31e8b95</code></a> Fix satellite resolution for Microsoft.TestPlatform.Common (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4147\">#4147</a>) (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4150\">#4150</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/3789e2bb692f13d67a12a1fc1956d64ff173def7\"><code>3789e2b</code></a> Fix versions (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4137\">#4137</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/78924516527353bab3c3fec5f9323f3dccb78cff\"><code>7892451</code></a> Add custom satellite assemblies resolution (<a href=\"https://github-redirect.dependabot.com/microsoft/vstest/issues/4136\">#4136</a>)</li>\n<li>See full diff in <a href=\"https://github.com/microsoft/vstest/compare/v17.4.0...v17.4.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.4.0&new-version=17.4.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2022-12-21T15:51:22Z",
+          "tree_id": "5aa489ec20381fad0416fd370d4dfc0ab887d137",
+          "url": "https://github.com/aws/jsii/commit/a11a1c5065118b46c80ca8f4994663e7f5262966"
+        },
+        "date": 1671641002904,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69419.61536125003,
+            "unit": "milliseconds",
+            "range": 1739595.786327498,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69419.61536125003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51323.76475439999,
+            "unit": "milliseconds",
+            "range": 366422.71533353464,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51323.76475439999 milliseconds over 20 runs"
           }
         ]
       }
