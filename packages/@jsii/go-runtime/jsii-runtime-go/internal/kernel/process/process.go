@@ -16,6 +16,7 @@ import (
 	"github.com/aws/jsii-runtime-go/internal/embedded"
 )
 
+const JSII_NODE string = "JSII_NODE"
 const JSII_RUNTIME string = "JSII_RUNTIME"
 
 type ErrorResponse struct {
@@ -104,7 +105,11 @@ func NewProcess(compatibleVersions string) (*Process, error) {
 			p.Close()
 			return nil, err
 		} else {
-			p.cmd = exec.Command("node", entrypoint)
+			if node := os.Getenv(JSII_NODE); node != "" {
+				p.cmd = exec.Command(node, entrypoint)
+			} else {
+				p.cmd = exec.Command("node", entrypoint)
+			}
 		}
 	}
 
