@@ -285,6 +285,43 @@ export class JavaBuilder implements TargetBuilder {
 
     const profileName = 'local-jsii-modules';
     const localRepository = this.options.arguments['maven-local-repository'];
+
+    const repos = localRepos.map((repo) => ({
+      id: repo.replace(/[\\/:"<>|?*]/g, '$'),
+      url: `file://${repo}`,
+    }));
+
+    let servers = undefined;
+
+    // Add repository provided by user to support edge cases
+    // e.g. corporate proxies and other remote repositories
+    const extraRepositoryId: string | undefined =
+      this.options.arguments['maven-extra-repository-id'];
+    const extraRepositoryUrl: string | undefined =
+      this.options.arguments['maven-extra-repository-url'];
+    const extraRepositoryUsername: string | undefined =
+      this.options.arguments['maven-extra-repository-username'];
+    const extraRepositoryPassword: string | undefined =
+      this.options.arguments['maven-extra-repository-password'];
+
+    if (extraRepositoryId) {
+      if (!extraRepositoryUrl)
+        throw new Error(
+          'Extra repository requested but no URL was provided! Use the --maven-extra-repository-url argument to provide a value.',
+        );
+
+      repos.push({ id: extraRepositoryId, url: extraRepositoryUrl });
+      servers = {
+        server: [
+          {
+            id: extraRepositoryId,
+            username: extraRepositoryUsername,
+            password: extraRepositoryPassword,
+          },
+        ],
+      };
+    }
+
     const settings = xmlbuilder
       .create(
         {
@@ -302,15 +339,13 @@ export class JavaBuilder implements TargetBuilder {
             localRepository: localRepository
               ? path.resolve(process.cwd(), localRepository)
               : path.resolve(where, '.m2', 'repository'),
+            servers,
             // Register locations of locally-sourced dependencies
             profiles: {
               profile: {
                 id: profileName,
                 repositories: {
-                  repository: localRepos.map((repo) => ({
-                    id: repo.replace(/[\\/:"<>|?*]/g, '$'),
-                    url: `file://${repo}`,
-                  })),
+                  repository: repos,
                 },
               },
             },

@@ -153,6 +153,34 @@ import { VERSION_DESC } from '../lib/version';
       default: undefined,
       hidden: true,
     })
+    .option('maven-extra-repository-id', {
+      type: 'string',
+      desc: 'ID of additional repository to add to Maven settings file',
+      defaultDescription: 'No extra repository is registered.',
+      default: undefined,
+      hidden: true,
+    })
+    .option('maven-extra-repository-url', {
+      type: 'string',
+      desc: 'URL of additional repository to add to Maven settings file',
+      defaultDescription: 'No extra repository is registered.',
+      default: undefined,
+      hidden: true,
+    })
+    .option('maven-extra-repository-username', {
+      type: 'string',
+      desc: 'Username for authenticating to extra repository',
+      defaultDescription: 'No extra repository is registered.',
+      default: undefined,
+      hidden: true,
+    })
+    .option('maven-extra-repository-password', {
+      type: 'string',
+      desc: 'Password for authenticating to extra repository',
+      defaultDescription: 'No extra repository is registered.',
+      default: undefined,
+      hidden: true,
+    })
     .option('validate-assemblies', {
       type: 'boolean',
       desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
