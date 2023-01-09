@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1672872472197,
+  "lastUpdate": 1673290917805,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10709,6 +10709,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 286051.29875201,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46381.0419908 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "eltociear@gmail.com",
+            "name": "Ikko Eltociear Ashimine",
+            "username": "eltociear"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8a1d168f39d0a8730965f5f5759dc5209d5341be",
+          "message": "chore: fix typo in Kernel.java (#3886)\n\nhte -> the\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-09T18:13:54Z",
+          "tree_id": "36dc998af0364ebb8c2331d34daa5a59b058e69f",
+          "url": "https://github.com/aws/jsii/commit/8a1d168f39d0a8730965f5f5759dc5209d5341be"
+        },
+        "date": 1673290914569,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 58796.8176195,
+            "unit": "milliseconds",
+            "range": 1436678.1486031765,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 58796.8176195 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46150.042223100005,
+            "unit": "milliseconds",
+            "range": 255518.91057965718,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46150.042223100005 milliseconds over 20 runs"
           }
         ]
       }
