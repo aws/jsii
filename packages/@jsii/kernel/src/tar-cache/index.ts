@@ -24,7 +24,7 @@ export interface ExtractResult {
 }
 
 let packageCacheEnabled =
-  process.env.JSII_RUNTIME_PACKAGE_CACHE?.toLocaleUpperCase() === 'enabled';
+  process.env.JSII_RUNTIME_PACKAGE_CACHE?.toLocaleLowerCase() === 'enabled';
 
 /**
  * Extracts the content of a tarball, possibly caching it on disk.
