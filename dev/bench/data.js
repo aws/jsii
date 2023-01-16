@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1673537251456,
+  "lastUpdate": 1673892961780,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10785,6 +10785,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 299848.6399426536,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51426.1004872 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0d51278d32e059af4b0fbb146a76861de2a68b81",
+          "message": "chore(superchain): use `pipx` instead of `pip` to install CLIs (#3913)\n\nWe recently ran into a situation where we ended up with with a Python distribution where the following failed:\n\n```shell\n$ python3\n>>> import OpenSSL\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\n  File \"/usr/local/lib/python3.7/dist-packages/OpenSSL/__init__.py\", line 8, in <module>\n    from OpenSSL import crypto, SSL\n  File \"/usr/local/lib/python3.7/dist-packages/OpenSSL/crypto.py\", line 3268, in <module>\n    _lib.OpenSSL_add_all_algorithms()\nAttributeError: module 'lib' has no attribute 'OpenSSL_add_all_algorithms'\n```\n\nBecause we had `cryptography==39.0.0` but `PyOpenSSL==22.0.0`, which should have been `22.1.0`.\n\nThe reason `PyOpenSSL` was held back looks to be because SAM CLI had a hardcoded dependency on the old version.\n\nTo prevent this from happening in the future, use `pipx` to install CLIs, so that each CLI gets its own virtual env and their dependency sets don't interfere with each other.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-16T17:14:46Z",
+          "tree_id": "c89bde176efe0a3d6b500c94b62fafa68a9f65b0",
+          "url": "https://github.com/aws/jsii/commit/0d51278d32e059af4b0fbb146a76861de2a68b81"
+        },
+        "date": 1673892958312,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 85591.61943290006,
+            "unit": "milliseconds",
+            "range": 2507875.456640766,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 85591.61943290006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 63844.01129510001,
+            "unit": "milliseconds",
+            "range": 647917.095827437,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63844.01129510001 milliseconds over 20 runs"
           }
         ]
       }
