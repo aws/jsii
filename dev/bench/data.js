@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1673892961780,
+  "lastUpdate": 1674065850508,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10823,6 +10823,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 647917.095827437,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63844.01129510001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e4c51c43ca5c37ea7c40ed13ebcf3f94f5da4299",
+          "message": "fix(rosetta): Rosetta does not support `await` (#3915)\n\nNow it does.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-18T17:26:40Z",
+          "tree_id": "554062dc90948bd6debf2f334ca3b078b6cb4275",
+          "url": "https://github.com/aws/jsii/commit/e4c51c43ca5c37ea7c40ed13ebcf3f94f5da4299"
+        },
+        "date": 1674065847932,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69752.31648844999,
+            "unit": "milliseconds",
+            "range": 1522003.469728791,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69752.31648844999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51645.68022065003,
+            "unit": "milliseconds",
+            "range": 291482.7894418015,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51645.68022065003 milliseconds over 20 runs"
           }
         ]
       }
