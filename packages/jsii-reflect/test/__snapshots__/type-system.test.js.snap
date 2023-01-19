@@ -123,6 +123,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.PartiallyInitializedThisConsumer",
   "jsii-calc.Polymorphism",
   "jsii-calc.Power",
+  "jsii-calc.PromiseNothing",
   "jsii-calc.PropertyNamedProperty",
   "jsii-calc.PublicClass",
   "jsii-calc.PythonReservedWords",
