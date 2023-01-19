@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674065850508,
+  "lastUpdate": 1674136630491,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10861,6 +10861,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 291482.7894418015,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51645.68022065003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "209d10eab284b4e8ad38e37c0d4b4bf3294569c4",
+          "message": "fix(python): returning Promise<void> breaks runtime (#3916)\n\nThe `EndResponse` struct did not supply a default value for the `result` property, making it required (despite it is typed `Any`, which `None` is valid for). Fix the schema to represent as `Optional[Any] = None` and add a compliance test to validate this scenario.\n\nNote for readers here - async support is very much experimental and only partially imported in most jsii front-end languages. Caution is still advised if you are going to expose async APIs.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-19T13:08:12Z",
+          "tree_id": "b170089eaf86aa0536acac9e7c76f791308152fb",
+          "url": "https://github.com/aws/jsii/commit/209d10eab284b4e8ad38e37c0d4b4bf3294569c4"
+        },
+        "date": 1674136626414,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61801.167560149974,
+            "unit": "milliseconds",
+            "range": 5898991.002145319,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61801.167560149974 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47929.28228995002,
+            "unit": "milliseconds",
+            "range": 2059947.3934277408,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47929.28228995002 milliseconds over 20 runs"
           }
         ]
       }
