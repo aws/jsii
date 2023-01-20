@@ -3131,3 +3131,13 @@ export interface ParamShadowsBuiltinsProps {
   readonly booleanProperty: boolean;
   readonly structProperty: StructA;
 }
+
+export class PromiseNothing {
+  public static async promiseIt(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  public async instancePromiseIt(): Promise<void> {
+    return PromiseNothing.promiseIt();
+  }
+}

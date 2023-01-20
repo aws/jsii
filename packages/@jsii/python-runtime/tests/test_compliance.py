@@ -76,6 +76,7 @@ from jsii_calc import (
     StructParameterType,
     AnonymousImplementationProvider,
     UpcasingReflectable,
+    PromiseNothing,
 )
 from jsii_calc.cdk16625 import Cdk16625
 from jsii_calc.cdk22369 import AcceptsPath
@@ -1354,3 +1355,11 @@ def test_stripped_deprecated_member_can_be_received():
 def test_exception_message():
     with pytest.raises(RuntimeError, match="Cannot find asset"):
         AcceptsPath(source_path="A Bad Path")
+
+
+def test_void_returning_async():
+    """Verifies it's okay to return a Promise<void>."""
+
+    assert PromiseNothing().instance_promise_it() is None
+    ## TODO: This is currently broken as code-gen is incorrect for static async.
+    # assert PromiseNothing.promise_it() is None
