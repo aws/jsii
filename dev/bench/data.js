@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674136630491,
+  "lastUpdate": 1674245340837,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10899,6 +10899,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2059947.3934277408,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47929.28228995002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a9f025f3c8faf62fb13000c5998d17f2a5f1047b",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.0.3 to ~=9.0.5 in /gh-pages (#3914)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.0.5</h2>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4842\">#4842</a>: Improved accessibility of search result list</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.0.5+insiders-4.28.0 (2023-01-14)</p>\n<ul>\n<li>Added support for navigation path (breadcrumbs)</li>\n</ul>\n<p>mkdocs-material-9.0.5 (2023-01-14)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4842\">#4842</a>: Improved accessibility of search result list</li>\n</ul>\n<p>mkdocs-material-9.0.4 (2023-01-12)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4823\">#4823</a>: Improved contrast ratio in footer (9.0.2 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4832\">#4832</a>: Set navigation items back to black (9.0.3 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4843\">#4843</a>: Emojis broken due to maxcdn.com shutting down</li>\n<li>Upgraded Python Markdown Extensions to 9.9.1</li>\n</ul>\n<p>mkdocs-material-9.0.3+insiders-4.27.1 (2023-01-08)</p>\n<ul>\n<li>Fixed rendering of succeeding navigation items in typeset plugin</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4795\">#4795</a>: Built-in typeset plugin changes MkDocs' title precedence</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4724\">#4724</a>: Blog plugin not rendering integrate table of contents</li>\n</ul>\n<p>mkdocs-material-9.0.3 (2023-01-08)</p>\n<ul>\n<li>Improved discernability of section index pages in navigation</li>\n<li>Improved collapsing of adjacent whitespace in search plugin</li>\n<li>Updated Indonesian translations</li>\n<li>Fixed view source of this page button when edit URL points to blob</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4829\">#4829</a>: Search overlay does not close for active anchor result</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4824\">#4824</a>: Search plugin crashes for h1-6 contained in other elements</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4804\">#4804</a>: Nested navigation items not expandable with keyboard</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4689\">#4689</a>: anchor tracking not working for anchors in tables</li>\n<li>Upgraded to Mermaid 9.3.0</li>\n</ul>\n<p>mkdocs-material-9.0.2 (2023-01-04)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4823\">#4823</a>: Improved contrast ratio in footer to meet WCAG guidelines</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4819\">#4819</a>: Social plugin crashes when card generation is disabled</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4817\">#4817</a>: Search plugin crashes on numeric page titles in nav</li>\n</ul>\n<p>mkdocs-material-9.0.1 (2023-01-03)</p>\n<ul>\n<li>Removed pipdeptree dependency for built-in info plugin</li>\n<li>Fixed appearance of linked tags when hovered (9.0.0 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4810\">#4810</a>: Abbreviations run out of screen on touch devices</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4813\">#4813</a>: View source and edit button links are the same</li>\n</ul>\n<p>mkdocs-material-9.0.0 (2023-01-02)</p>\n<p>Additions and improvements</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3cac37ef73f3efcba4ecc63b3be3c636ed609dec\"><code>3cac37e</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b33f3fda4756013957900170369a128cd19db625\"><code>b33f3fd</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3f3e11a958fc6eb05310f201f05806b5598be7d5\"><code>3f3e11a</code></a> Prepare 9.0.5 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a200e7d63d7d608be6e7b0545195127b3079b96d\"><code>a200e7d</code></a> Fixed accessibility issue with search result list</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/89a77c5c0b42a59ae17850b63dfc5f1d6d6dcf1d\"><code>89a77c5</code></a> Disabled dependabot labels</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/27831ce59b52f2fcc57bdc0f72337008299cd326\"><code>27831ce</code></a> Updated bug report template</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/798bf9934f7f6916a1aacc658523bee9840d3fdb\"><code>798bf99</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c5aee346d6c7439336c5467e6efe0320c33905dd\"><code>c5aee34</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4857\">#4857</a> from pktiuk/patch-1</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8671bed512340848274f76ea651d3a4564a6f06c\"><code>8671bed</code></a> Mention typeset plugin in Emoji docs</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/440d6efe76082f7d6fcc3886eea20800cd82f54b\"><code>440d6ef</code></a> Updated dependencies</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.0.3...9.0.5\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-01-20T19:17:32Z",
+          "tree_id": "2bf786953ff27410aee1fa3f6eef0a9a0ed3fc3c",
+          "url": "https://github.com/aws/jsii/commit/a9f025f3c8faf62fb13000c5998d17f2a5f1047b"
+        },
+        "date": 1674245337161,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69873.51471644995,
+            "unit": "milliseconds",
+            "range": 244613.6021641098,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69873.51471644995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51885.32933354999,
+            "unit": "milliseconds",
+            "range": 161781.99710550072,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51885.32933354999 milliseconds over 20 runs"
           }
         ]
       }
