@@ -90,6 +90,10 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     return this.defaultNode('newExpression', node, context);
   }
 
+  public awaitExpression(node: ts.AwaitExpression, context: AstRenderer<void>): OTree {
+    return this.defaultNode('await', node, context);
+  }
+
   public propertyAssignment(node: ts.PropertyAssignment, context: AstRenderer<void>): OTree {
     return this.defaultNode('propertyAssignment', node, context);
   }

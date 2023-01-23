@@ -5,7 +5,7 @@
 This section details the current state of each language binding with respect to our standard compliance suite.
 
 
-| number | test                                                                                                                                                             | java (98.36%) | golang (79.51%)                              | Dotnet | Python |
+| number | test                                                                                                                                                             | java (97.56%) | golang (78.86%)                              | Dotnet | Python |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------- | ------ | ------ |
 | 1      | asyncOverrides_overrideCallsSuper                                                                                                                                | 🟢            | [🔴](https://github.com/aws/jsii/issues/2670) | ⭕      | ⭕      |
 | 2      | [arrayReturnedByMethodCanBeRead]("Array created in the kernel can be queried for its elements")                                                                  | 🟢            | 🟢                                           | ⭕      | ⭕      |
@@ -129,3 +129,4 @@ This section details the current state of each language binding with respect to 
 | 120    | [downcasting]("Ensures unsafe-cast features work as expected")                                                                                                   | ⭕             | 🟢                                           | ⭕      | ⭕      |
 | 121    | [strippedDeprecatedMemberCanBeReceived]("Ensures --strip-deprecated does not cause odd runtime errors")                                                          | 🟢            | 🟢                                           | ⭕      | ⭕      |
 | 122    | [exceptionMessage]("Verifies that custom exception names are correctly forwarded")                                                                               | 🟢            | 🟢                                           | ⭕      | ⭕      |
+| 123    | [voidReturningAsync]("Verifies that returning Promise<void> is correctly handled")                                                                               | ⭕             | ⭕                                            | ⭕      | ⭕      |

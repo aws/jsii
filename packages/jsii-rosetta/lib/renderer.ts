@@ -284,6 +284,9 @@ export class AstRenderer<C> {
     if (ts.isPropertyAccessExpression(tree)) {
       return visitor.propertyAccessExpression(tree, this);
     }
+    if (ts.isAwaitExpression(tree)) {
+      return visitor.awaitExpression(tree, this);
+    }
     if (ts.isCallExpression(tree)) {
       return visitor.callExpression(tree, this);
     }
@@ -471,6 +474,7 @@ export interface AstHandler<C> {
   binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree;
   ifStatement(node: ts.IfStatement, context: AstRenderer<C>): OTree;
   propertyAccessExpression(node: ts.PropertyAccessExpression, context: AstRenderer<C>): OTree;
+  awaitExpression(node: ts.AwaitExpression, context: AstRenderer<C>): OTree;
   callExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree;
   expressionStatement(node: ts.ExpressionStatement, context: AstRenderer<C>): OTree;
   token<A extends ts.SyntaxKind>(node: ts.Token<A>, context: AstRenderer<C>): OTree;
