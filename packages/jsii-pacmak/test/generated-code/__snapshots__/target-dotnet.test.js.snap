@@ -4630,7 +4630,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     ///
     /// <code><![CDATA[
-    /// var calculator = new Calculator();
+    /// Calculator calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);
@@ -4639,7 +4639,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// I will repeat this example again, but in an @example tag.
     /// </remarks>
     /// <example>
-    /// <code>var calculator = new Calculator();
+    /// <code>Calculator calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);</code>
@@ -7086,11 +7086,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
-    /// <code>var x = 12 + 44;
-    /// var s1 = "string";
-    /// var s2 = @"string
+    /// <code>int x = 12 + 44;
+    /// string s1 = "string";
+    /// string s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
-    /// var s3 = @"string
+    /// string s3 = @"string
     ///             with
     ///             new lines";</code>
     /// </example>
@@ -15947,7 +15947,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     ///
     /// <code><![CDATA[
-    /// var calculator = new Calculator();
+    /// Calculator calculator = new Calculator();
     /// ]]></code>
     ///
     /// Then call some operations:
@@ -15960,7 +15960,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     ///
     /// <code><![CDATA[
     /// /* This is totes a magic comment in here, just you wait! */
-    /// var foo = "bar";
+    /// string foo = "bar";
     /// ]]></code>
     /// </remarks>
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
