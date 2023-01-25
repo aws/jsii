@@ -15,6 +15,7 @@ import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
 import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
+import { SubmoduleReference } from '../submodule-reference';
 import {
   matchAst,
   nodeOfType,
@@ -168,12 +169,13 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     if (node.imports.import === 'full') {
       const moduleName = fmap(node.moduleSymbol, findPythonName) ?? guessPythonPackageName(node.packageName);
 
+      const importName = node.imports.alias ?? node.imports.sourceName;
       this.addImport({
         importedFqn: node.moduleSymbol?.fqn ?? node.packageName,
-        importName: node.imports.alias,
+        importName,
       });
 
-      return new OTree([`import ${moduleName} as ${mangleIdentifier(node.imports.alias)}`], [], {
+      return new OTree([`import ${moduleName} as ${mangleIdentifier(importName)}`], [], {
         canBreakLine: true,
       });
     }
@@ -325,7 +327,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     );
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, context: PythonVisitorContext) {
+  public propertyAccessExpression(
+    node: ts.PropertyAccessExpression,
+    context: PythonVisitorContext,
+    submoduleReference: SubmoduleReference | undefined,
+  ) {
     const fullText = context.textOf(node);
     if (fullText in BUILTIN_FUNCTIONS) {
       return new OTree([BUILTIN_FUNCTIONS[fullText]]);
@@ -339,7 +345,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       return context.convert(node.name);
     }
 
-    return super.propertyAccessExpression(node, context);
+    if (submoduleReference != null) {
+      return context.convert(submoduleReference.lastNode);
+    }
+
+    return super.propertyAccessExpression(node, context, submoduleReference);
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, context: PythonVisitorContext): OTree {

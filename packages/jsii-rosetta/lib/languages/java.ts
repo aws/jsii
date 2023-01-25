@@ -6,6 +6,7 @@ import { jsiiTargetParameter } from '../jsii/packages';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
+import { SubmoduleReference } from '../submodule-reference';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { isEnumAccess, isStaticReadonlyAccess, determineReturnType } from '../typescript/types';
@@ -121,9 +122,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public importStatement(importStatement: ImportStatement): OTree {
     const guessedNamespace = guessJavaNamespaceName(importStatement.packageName);
-
     if (importStatement.imports.import === 'full') {
-      this.dropPropertyAccesses.add(importStatement.imports.alias);
+      this.dropPropertyAccesses.add(importStatement.imports.sourceName);
       const namespace = fmap(importStatement.moduleSymbol, findJavaName) ?? guessedNamespace;
 
       return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
@@ -132,7 +132,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const imports = importStatement.imports.elements.map((e) => {
       const fqn = fmap(e.importedSymbol, findJavaName) ?? `${guessedNamespace}.${e.sourceName}`;
 
-      return e.importedSymbol?.symbolType === 'module' ? `import ${fqn}.*;` : `import ${fqn};`;
+      // If there is no imported symbol, we check if there is anything looking like a type name in
+      // the source name (that is, any segment that starts with an upper case letter), and if none
+      // is found, assume this refers to a namespace/module.
+      return (e.importedSymbol?.symbolType == null &&
+        !e.sourceName.split('.').some((segment) => /^[A-Z]/.test(segment))) ||
+        e.importedSymbol?.symbolType === 'module'
+        ? `import ${fqn}.*;`
+        : `import ${fqn};`;
     });
 
     const localNames = importStatement.imports.elements
@@ -548,8 +555,17 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       : this.singlePropertyInJavaScriptObjectLiteralToFluentSetters(node.name, node.name, renderer);
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
+  public propertyAccessExpression(
+    node: ts.PropertyAccessExpression,
+    renderer: JavaRenderer,
+    submoduleRef: SubmoduleReference | undefined,
+  ): OTree {
     const rightHandSide = renderer.convert(node.name);
+    // If a submodule access, then just render the name, we emitted a * import of the expression segment already.
+    if (submoduleRef != null) {
+      return rightHandSide;
+    }
+
     let parts: Array<OTree | string | undefined>;
 
     const leftHandSide = renderer.textOf(node.expression);
@@ -860,7 +876,10 @@ function findJavaName(jsiiSymbol: JsiiSymbol): string | undefined {
       }
     }
 
-    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+    const ns = namespaceName(fqn);
+    const nsJavaName = recurse(ns);
+    const leaf = simpleName(fqn);
+    return `${nsJavaName}.${leaf}`;
   }
 }
 

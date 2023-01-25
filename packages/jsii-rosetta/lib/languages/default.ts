@@ -4,8 +4,10 @@ import { analyzeObjectLiteral, ObjectLiteralStruct } from '../jsii/jsii-types';
 import { isNamedLikeStruct, isJsiiProtocolType } from '../jsii/jsii-utils';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
+import { SubmoduleReference } from '../submodule-reference';
 import { voidExpressionString } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
+import { inferredTypeOfExpression } from '../typescript/types';
 
 import { TargetLanguage } from '.';
 
@@ -98,7 +100,11 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return this.notImplemented(node, context);
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, context: AstRenderer<C>): OTree {
+  public propertyAccessExpression(
+    node: ts.PropertyAccessExpression,
+    context: AstRenderer<C>,
+    _submoduleReference: SubmoduleReference | undefined,
+  ): OTree {
     return new OTree([context.convert(node.expression), '.', context.convert(node.name)]);
   }
 
@@ -169,7 +175,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
         : false,
     );
 
-    const inferredType = context.inferredTypeOfExpression(node);
+    const inferredType = inferredTypeOfExpression(context.typeChecker, node);
     if ((inferredType && isJsiiProtocolType(context.typeChecker, inferredType)) || anyMembersFunctions) {
       context.report(
         node,

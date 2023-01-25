@@ -242,7 +242,7 @@ describe('no submodule', () => {
         // eslint-disable-next-line prettier/prettier
         expectTranslation(trans, TargetLanguage.CSHARP, [
           'using Example.Test.Demo;',
-          'MyEnum x = MyEnum.OPTION_A;',
+          'var x = MyEnum.OPTION_A;',
         ]);
       });
     });
@@ -276,7 +276,7 @@ describe('no submodule', () => {
         // eslint-disable-next-line prettier/prettier
         expectTranslation(trans, TargetLanguage.CSHARP, [
           'using Example.Test.Demo;',
-          'MyEnum x = MyEnum.OPTION_A;',
+          'var x = MyEnum.OPTION_A;',
         ]);
       });
     });
@@ -482,7 +482,7 @@ const DEFAULT_JAVA_CODE = [
 
 // The implementation part of the CSharp code is always the same
 const DEFAULT_CSHARP_CODE = [
-  'MyClass obj = new MyClass("value", new MyClassProps {',
+  'var obj = new MyClass("value", new MyClassProps {',
   '    MyStruct = new MyStruct {',
   '        Value = "v"',
   '    }',
