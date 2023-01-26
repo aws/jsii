@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674245340837,
+  "lastUpdate": 1674748966941,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10937,6 +10937,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 161781.99710550072,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51885.32933354999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "64e22d221b02c0f6b7d74dc13e6a7e5bda02966c",
+          "message": "chore: rotate yarn GPG key (#3929)\n\nI just downloaded the latest from `https://dl.yarnpkg.com/debian/pubkey.gpg`. I hope that's what I'm supposed to do here.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-26T14:55:28Z",
+          "tree_id": "e3e7f04ab78920780a363821a9d7c06f9acdcde4",
+          "url": "https://github.com/aws/jsii/commit/64e22d221b02c0f6b7d74dc13e6a7e5bda02966c"
+        },
+        "date": 1674748962956,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 94563.09316589996,
+            "unit": "milliseconds",
+            "range": 1566069.0950002684,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 94563.09316589996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 69737.52852065003,
+            "unit": "milliseconds",
+            "range": 550048.7925713334,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 69737.52852065003 milliseconds over 20 runs"
           }
         ]
       }
