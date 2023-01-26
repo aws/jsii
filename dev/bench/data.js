@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674753973835,
+  "lastUpdate": 1674757025256,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11013,6 +11013,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 500634.2344088862,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77044.65434095003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "863b19b8a5d6278d0cbc8fa4d6f9e624d0688e39",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.0.5 to ~=9.0.6 in /gh-pages (#3921)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.0.6</h2>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4883\">#4883</a>: Automatically disable info plugin when serving</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4885\">#4885</a>: Search plugin crashes in some exotic cases (9.0.3 regression)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.0.6+insiders-4.29.0 (2023-01-21)</p>\n<ul>\n<li>Added built-in optimize plugin for automatically compressing images</li>\n<li>Switched reporting in built-in privacy plugin to info level</li>\n</ul>\n<p>mkdocs-material-9.0.6 (2023-01-19)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4883\">#4883</a>: Automatically disable info plugin when serving</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4885\">#4885</a>: Search plugin crashes in some exotic cases (9.0.3 regression)</li>\n</ul>\n<p>mkdocs-material-9.0.5+insiders-4.28.1 (2023-01-17)</p>\n<ul>\n<li>Fixed built-in info plugin erroring for Insiders on version check</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4865\">#4865</a>: Navigation paths render bug when there's no top-level section</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4875\">#4875</a>: Added support for hiding navigation paths</li>\n<li>Improved navigation path to not render for a single item</li>\n</ul>\n<p>mkdocs-material-9.0.5+insiders-4.28.0 (2023-01-14)</p>\n<ul>\n<li>Added support for navigation path (breadcrumbs)</li>\n</ul>\n<p>mkdocs-material-9.0.5 (2023-01-14)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4842\">#4842</a>: Improved accessibility of search result list</li>\n</ul>\n<p>mkdocs-material-9.0.4 (2023-01-12)</p>\n<ul>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4823\">#4823</a>: Improved contrast ratio in footer (9.0.2 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4832\">#4832</a>: Set navigation items back to black (9.0.3 regression)</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4843\">#4843</a>: Emojis broken due to maxcdn.com shutting down</li>\n<li>Upgraded Python Markdown Extensions to 9.9.1</li>\n</ul>\n<p>mkdocs-material-9.0.3+insiders-4.27.1 (2023-01-08)</p>\n<ul>\n<li>Fixed rendering of succeeding navigation items in typeset plugin</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4795\">#4795</a>: Built-in typeset plugin changes MkDocs' title precedence</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4724\">#4724</a>: Blog plugin not rendering integrate table of contents</li>\n</ul>\n<p>mkdocs-material-9.0.3 (2023-01-08)</p>\n<ul>\n<li>Improved discernability of section index pages in navigation</li>\n<li>Improved collapsing of adjacent whitespace in search plugin</li>\n<li>Updated Indonesian translations</li>\n<li>Fixed view source of this page button when edit URL points to blob</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4829\">#4829</a>: Search overlay does not close for active anchor result</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4824\">#4824</a>: Search plugin crashes for h1-6 contained in other elements</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4804\">#4804</a>: Nested navigation items not expandable with keyboard</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4689\">#4689</a>: anchor tracking not working for anchors in tables</li>\n<li>Upgraded to Mermaid 9.3.0</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5a228db63f7ce8936e220a78b261543f239b4ba7\"><code>5a228db</code></a> Prepare 9.0.6 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e7013e66a9acf4a384cd1a6b2be919ceea1f8a29\"><code>e7013e6</code></a> Fixed search crashing for some nested heading combinations (9.0.3 regression)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c31ef005b4fd791c48381694c68fb6f9701e72c7\"><code>c31ef00</code></a> Disabled info plugin on serve by default</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6119df5d56fcdc90e25c5b1a47f7d2eba77f589e\"><code>6119df5</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b4c2ce4c1376620fe5cdcdcb8c89974f588e6a10\"><code>b4c2ce4</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/30f8bf9d97f4673d8e3b123d460154be80b1ea2b\"><code>30f8bf9</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4876\">#4876</a> from timvink/patch-1</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f95de7ac888116b0cf06deb340d81f3f01c93936\"><code>f95de7a</code></a> Fix issue with 'detected dubious ownership' in docker image</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ba3948f854ac681764cfb39c33244aab201fb5d8\"><code>ba3948f</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b2611483fa068ce798faeb1d29ee7afbe1918390\"><code>b261148</code></a> Fixed info plugin latest version check for Insiders</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/28669259f0416e07260c62dbe64632e328ffdd73\"><code>2866925</code></a> Updated changelog</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.0.5...9.0.6\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-01-26T17:31:22Z",
+          "tree_id": "2f90f74b5d538a5850e1ae298074e5041437b42b",
+          "url": "https://github.com/aws/jsii/commit/863b19b8a5d6278d0cbc8fa4d6f9e624d0688e39"
+        },
+        "date": 1674757022253,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60154.15524129996,
+            "unit": "milliseconds",
+            "range": 3027643.7056643465,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60154.15524129996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46263.47149314999,
+            "unit": "milliseconds",
+            "range": 107849.86397464601,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46263.47149314999 milliseconds over 20 runs"
           }
         ]
       }
