@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674748966941,
+  "lastUpdate": 1674753973835,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -10975,6 +10975,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 550048.7925713334,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 69737.52852065003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d7199699a8431fb81d1d9c4462ca3d288d427704",
+          "message": "chore(deps): Bump Microsoft.CodeAnalysis.Analyzers from 3.3.3 to 3.3.4 in /packages/@jsii/dotnet-runtime-test/test (#3920)\n\nBumps [Microsoft.CodeAnalysis.Analyzers](https://github.com/dotnet/roslyn-analyzers) from 3.3.3 to 3.3.4.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/roslyn-analyzers/releases\">Microsoft.CodeAnalysis.Analyzers's releases</a>.</em></p>\n<blockquote>\n<h2>v3.3.4</h2>\n<p>Release build of Roslyn-analyzers based on Microsoft.CodeAnalysis 3.3.1 NuGet packages. Works with VS 2019 16.9 or later.</p>\n<ul>\n<li>Contains important functionality and performance bug fixes on top of v3.3.3 release</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/22ea6422f85b05ca0793cc3b76375487be407f5d\"><code>22ea642</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn-analyzers/issues/6436\">#6436</a> from ViktorHofer/patch-1</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/90180719ef9e1cfb4379e15edeba5ec2e29001ea\"><code>9018071</code></a> Fix buildtransitive vs buildTransitive difference</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/afa566573b7b1a2129d78a26f238a2ac3f8e58ef\"><code>afa5665</code></a> [main] Update dependencies from dotnet/arcade (<a href=\"https://github-redirect.dependabot.com/dotnet/roslyn-analyzers/issues/6423\">#6423</a>)</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/afee469c0c862c6af3670d30a4b4e5ff6f8fe45c\"><code>afee469</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn-analyzers/issues/6427\">#6427</a> from mavasani/CodeAnalysisTreatWarningsAsErrors_Glob...</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/b8589999feee4ce70459fbdbd3003f24512fc522\"><code>b858999</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn-analyzers/issues/6430\">#6430</a> from dotnet/locfiles/be3abf9f-1f22-469b-b26d-7648587...</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/0cbc3c5e5235e49f5ecdce6ed2c14ce3e14a495f\"><code>0cbc3c5</code></a> Localized file check-in by OneLocBuild Task: Build definition ID 830: Build I...</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/113dadcb587b1938d260575c0290e8475142eda0\"><code>113dadc</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn-analyzers/issues/6429\">#6429</a> from dotnet/revert-6364-net7-tests</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/356147f02e8f68039e184d0293a4e8277825866f\"><code>356147f</code></a> Revert &quot;Move tests to target .NET 7&quot;</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/1d7244a005436d15874e96b1d625292c4a7ae40f\"><code>1d7244a</code></a> Update documentation for <code>CodeAnalysisTreatWarningsAsErrors</code> implementation</li>\n<li><a href=\"https://github.com/dotnet/roslyn-analyzers/commit/6c028d32f46d5a7a88dcad3cdf3513e83c26c1a5\"><code>6c028d3</code></a> Re-implement CodeAnalysisTreatWarningsAsErrors with globalconfig files</li>\n<li>Additional commits viewable in <a href=\"https://github.com/dotnet/roslyn-analyzers/compare/v3.3.3...v3.3.4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.CodeAnalysis.Analyzers&package-manager=nuget&previous-version=3.3.3&new-version=3.3.4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-01-26T16:14:14Z",
+          "tree_id": "b805aadbe2170d6dc368d16e64d77f6996820a3c",
+          "url": "https://github.com/aws/jsii/commit/d7199699a8431fb81d1d9c4462ca3d288d427704"
+        },
+        "date": 1674753969436,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 101461.75086035002,
+            "unit": "milliseconds",
+            "range": 4675367.201076949,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 101461.75086035002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 77044.65434095003,
+            "unit": "milliseconds",
+            "range": 500634.2344088862,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77044.65434095003 milliseconds over 20 runs"
           }
         ]
       }
