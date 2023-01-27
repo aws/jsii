@@ -155,6 +155,7 @@ RUN apt-get update                                                              
   && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
   && python3 -m pip install --no-input --upgrade pip setuptools                                                         \
   && python3 -m pip install pipx                                                                                        \
+  && python3 -m pipx ensurepath                                                                                         \
   && python3 -m pipx install --system-site-packages awscli                                                              \
   && python3 -m pipx install --system-site-packages black                                                               \
   && python3 -m pipx install --system-site-packages twine                                                               \
