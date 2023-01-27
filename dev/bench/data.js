@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674771155730,
+  "lastUpdate": 1674832288622,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11089,6 +11089,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 203412.55959339265,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46742.19917469999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "941dca23f1a1815a4f26760632abdc705aecb41f",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.4.0 to 0.5.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#3902)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.4.0 to 0.5.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/golang/tools/releases\">golang.org/x/tools's releases</a>.</em></p>\n<blockquote>\n<h2>gopls/v0.5.0</h2>\n<p>A full list of issues closed can be found in the <a href=\"https://github.com/golang/go/milestone/138?closed=1\">gopls/v0.5.0 milestone</a>.</p>\n<h2>Memory usage</h2>\n<ul>\n<li>Rewrite of caching model, resulting in significant memory usage improvements (<a href=\"https://github.com/heschik\"><code>@​heschik</code></a>).</li>\n</ul>\n<h2>New features</h2>\n<ul>\n<li>Extract to function: Support for extracting code blocks that contain return statements (<a href=\"https://github.com/joshbaum\"><code>@​joshbaum</code></a>).</li>\n<li>Workspace symbols: Support for <a href=\"https://github.com/junegunn/fzf#search-syntax\">fzf-style search syntax</a> (<a href=\"https://github.com/findleyr\"><code>@​findleyr</code></a>). The following syntax is supported:\n<ul>\n<li><code>'</code> for exact matching</li>\n<li><code>^</code> for prefix matching</li>\n<li><code>$</code> for suffix matching</li>\n</ul>\n</li>\n</ul>\n<p><strong>Note</strong>: This feature does not yet work in VS Code. See <a href=\"https://github-redirect.dependabot.com/golang/vscode-go/issues/647\">golang/vscode-go#647</a> and <a href=\"https://github-redirect.dependabot.com/microsoft/vscode/issues/106788\">microsoft/vscode#106788</a>.</p>\n<ul>\n<li>An experimental new code lens to view GC optimization details (<a href=\"https://github.com/pjweinb\"><code>@​pjweinb</code></a>). Once the code lens is enabled, you will see a <code>Toggle gc details</code> annotation at the top of your file. Clicking it will show optimization diagnostics produced by the Go compiler, and clicking it once again will hide these diagnostics. Enable the code lens by adding the following to your settings:\n<pre lang=\"json5\"><code>&quot;codelens&quot;: {\n\t&quot;gc_details&quot;: true\n}\n</code></pre>\n</li>\n<li><code>go mod tidy</code> and <code>go mod vendor</code> code lenses for <code>go.mod</code> files (<a href=\"https://github.com/dandua98\"><code>@​dandua98</code></a>).</li>\n<li>Support for filling in matching in-scope variables instead of just empty values in fillstruct and fillreturns (<a href=\"https://github.com/joshbaum\"><code>@​joshbaum</code></a>).</li>\n<li>Autocompletion within import statements (<a href=\"https://github.com/dandua98\"><code>@​dandua98</code></a>).</li>\n<li>Autocompletion within package declarations (<a href=\"https://github.com/dandua98\"><code>@​dandua98</code></a>).</li>\n</ul>\n<h2>Improvements</h2>\n<ul>\n<li>Improvements to workspace symbols ranking and fuzzy matching (<a href=\"https://github.com/findleyr\"><code>@​findleyr</code></a>, <a href=\"https://github.com/myitcv\"><code>@​myitcv</code></a>).</li>\n<li>Better completion suggestions in type switch case clauses and for calls to <code>append</code>, function literals, and unnamed types (<a href=\"https://github.com/muirdm\"><code>@​muirdm</code></a>).</li>\n</ul>\n<h2>Thank you</h2>\n<p>Thank you to everyone who contributed to this release!</p>\n<p><a href=\"https://github.com/heschik\"><code>@​heschik</code></a>\n<a href=\"https://github.com/findleyr\"><code>@​findleyr</code></a>\n<a href=\"https://github.com/pjweinb\"><code>@​pjweinb</code></a>\n<a href=\"https://github.com/joshbaum\"><code>@​joshbaum</code></a>\n<a href=\"https://github.com/mcjcloud\"><code>@​mcjcloud</code></a>\n<a href=\"https://github.com/dandua98\"><code>@​dandua98</code></a>\n<a href=\"https://github.com/muirdm\"><code>@​muirdm</code></a>\n<a href=\"https://github.com/leitzler\"><code>@​leitzler</code></a>\n<a href=\"https://github.com/myitcv\"><code>@​myitcv</code></a>\n<a href=\"https://github.com/matloob\"><code>@​matloob</code></a>\n<a href=\"https://github.com/tennashi\"><code>@​tennashi</code></a>\n<a href=\"https://github.com/ainar-g\"><code>@​ainar-g</code></a>\n<a href=\"https://github.com/hasheddan\"><code>@​hasheddan</code></a></p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/7db99dd12661adab9ce92e9b9633b6ef90867fad\"><code>7db99dd</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/1e0dff28f4f920fb7a7f132f775bd68e3b1e1fff\"><code>1e0dff2</code></a> gopls/internal/regtest: avoid race in TestSwitchFromGOPATHToModuleMode</li>\n<li><a href=\"https://github.com/golang/tools/commit/0441b432cade7ecb5b47248667d73be87f8bc1a1\"><code>0441b43</code></a> gopls/internal/lsp/cache: use specific mutexes for module data</li>\n<li><a href=\"https://github.com/golang/tools/commit/33071fbe1aab4e4858458465acd0e80f0d750e62\"><code>33071fb</code></a> internal/robustio: move robustio</li>\n<li><a href=\"https://github.com/golang/tools/commit/b01e7a4e75d3f07db097384f829839c6628a46c8\"><code>b01e7a4</code></a> gopls/internal/regtest/watch: don't run TestSwitchFromGOPATHToModuleMode</li>\n<li><a href=\"https://github.com/golang/tools/commit/e417ea36bae18ab4aced13c6db31aa330d9f006a\"><code>e417ea3</code></a> gopls: remove dead analysis code</li>\n<li><a href=\"https://github.com/golang/tools/commit/1a08d01ac985cfa2b25f7217b4e885be47495870\"><code>1a08d01</code></a> gopls/internal/lsp: update replace directives in go.mod for package renaming</li>\n<li><a href=\"https://github.com/golang/tools/commit/eac36cb2aca798243ecfedcf127620caf808f702\"><code>eac36cb</code></a> gopls/internal/regtest: port experimental workspace tests to go.work</li>\n<li><a href=\"https://github.com/golang/tools/commit/224a61b354deb9afa3260a4abc12b59818b1a551\"><code>224a61b</code></a> gopls/internal/lsp/source: delete Snapshot.WriteEnv method</li>\n<li><a href=\"https://github.com/golang/tools/commit/81e741e32fac43eebb64438e6440cbf3dad7bbb5\"><code>81e741e</code></a> gopls/internal/lsp/safetoken: funnel more calls through this package</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.4.0...v0.5.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.4.0&new-version=0.5.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-01-27T14:06:30Z",
+          "tree_id": "62eac0f76f01ea946553347171a6a91f44e3d6fb",
+          "url": "https://github.com/aws/jsii/commit/941dca23f1a1815a4f26760632abdc705aecb41f"
+        },
+        "date": 1674832284824,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 88263.53808615006,
+            "unit": "milliseconds",
+            "range": 9376680.009606779,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 88263.53808615006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 68758.75272124998,
+            "unit": "milliseconds",
+            "range": 5431783.241072616,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 68758.75272124998 milliseconds over 20 runs"
           }
         ]
       }
