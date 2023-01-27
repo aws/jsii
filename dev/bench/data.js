@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674832288622,
+  "lastUpdate": 1674860657408,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11127,6 +11127,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 5431783.241072616,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 68758.75272124998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6067803305a10406416893ac9d1dbcd966cf2dbb",
+          "message": "chore: revert \"chore(superchain): use `pipx` instead of `pip` to install CLIs\" (#3940)\n\nReverts aws/jsii#3913",
+          "timestamp": "2023-01-27T21:56:25Z",
+          "tree_id": "86feb85dd46bc8390725a79e95d238fdef0b9483",
+          "url": "https://github.com/aws/jsii/commit/6067803305a10406416893ac9d1dbcd966cf2dbb"
+        },
+        "date": 1674860653413,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95170.86540055006,
+            "unit": "milliseconds",
+            "range": 7835949.06460467,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95170.86540055006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73061.33982060001,
+            "unit": "milliseconds",
+            "range": 1699633.4514283352,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73061.33982060001 milliseconds over 20 runs"
           }
         ]
       }
