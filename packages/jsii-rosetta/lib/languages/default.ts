@@ -117,6 +117,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return this.regularCallExpression(node, context);
   }
 
+  public awaitExpression(node: ts.AwaitExpression, context: AstRenderer<C>): OTree {
+    return context.convert(node.expression);
+  }
+
   public regularCallExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
     return new OTree([context.convert(node.expression), '(', this.argumentList(node.arguments, context), ')']);
   }

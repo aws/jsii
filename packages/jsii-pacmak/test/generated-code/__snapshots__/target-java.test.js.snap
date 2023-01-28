@@ -3930,6 +3930,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 PartiallyInitializedThisConsumer.java
           ┃                 ┣━ 📄 Polymorphism.java
           ┃                 ┣━ 📄 Power.java
+          ┃                 ┣━ 📄 PromiseNothing.java
           ┃                 ┣━ 📄 PropertyNamedProperty.java
           ┃                 ┣━ 📄 PublicClass.java
           ┃                 ┣━ 📁 python_self
@@ -19147,6 +19148,49 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/PromiseNothing.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.PromiseNothing")
+public class PromiseNothing extends software.amazon.jsii.JsiiObject {
+
+    protected PromiseNothing(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected PromiseNothing(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public PromiseNothing() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void promiseIt() {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.PromiseNothing.class, "promiseIt", software.amazon.jsii.NativeType.VOID);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void instancePromiseIt() {
+        software.amazon.jsii.Kernel.asyncCall(this, "instancePromiseIt", software.amazon.jsii.NativeType.VOID);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/PropertyNamedProperty.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -29049,6 +29093,7 @@ jsii-calc.ParentStruct982=software.amazon.jsii.tests.calculator.ParentStruct982
 jsii-calc.PartiallyInitializedThisConsumer=software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer
 jsii-calc.Polymorphism=software.amazon.jsii.tests.calculator.Polymorphism
 jsii-calc.Power=software.amazon.jsii.tests.calculator.Power
+jsii-calc.PromiseNothing=software.amazon.jsii.tests.calculator.PromiseNothing
 jsii-calc.PropertyNamedProperty=software.amazon.jsii.tests.calculator.PropertyNamedProperty
 jsii-calc.PublicClass=software.amazon.jsii.tests.calculator.PublicClass
 jsii-calc.PythonReservedWords=software.amazon.jsii.tests.calculator.PythonReservedWords
