@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 
 import { JsiiSymbol, parentSymbol, lookupJsiiSymbolFromNode } from '../jsii/jsii-utils';
 import { AstRenderer } from '../renderer';
+import { SubmoduleReferenceMap } from '../submodule-reference';
 import { fmap } from '../util';
 import { allOfType, matchAst, nodeOfType, stringFromLiteral } from './ast-utils';
 
@@ -17,7 +18,16 @@ export interface ImportStatement {
 
 export type FullImport = {
   readonly import: 'full';
-  readonly alias: string;
+  /**
+   * The name of the namespace prefix in the source code. Used to strip the
+   * prefix in certain languages (e.g: Java).
+   */
+  readonly sourceName: string;
+  /**
+   * The name under which this module is imported. Undefined if the module is
+   * not aliased (could be the case for namepsace/submodule imports).
+   */
+  readonly alias?: string;
 };
 
 export type SelectiveImport = {
@@ -42,15 +52,27 @@ export function analyzeImportEquals(node: ts.ImportEqualsDeclaration, context: A
     moduleName = stringFromLiteral(bindings.ref.expression);
   });
 
+  const sourceName = context.textOf(node.name);
+
   return {
     node,
     packageName: moduleName,
     moduleSymbol: lookupJsiiSymbolFromNode(context.typeChecker, node.name),
-    imports: { import: 'full', alias: context.textOf(node.name) },
+    imports: { import: 'full', alias: sourceName, sourceName },
   };
 }
 
-export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: AstRenderer<any>): ImportStatement {
+export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: AstRenderer<any>): ImportStatement;
+export function analyzeImportDeclaration(
+  node: ts.ImportDeclaration,
+  context: AstRenderer<any>,
+  submoduleReferences: SubmoduleReferenceMap,
+): ImportStatement[];
+export function analyzeImportDeclaration(
+  node: ts.ImportDeclaration,
+  context: AstRenderer<any>,
+  submoduleReferences?: SubmoduleReferenceMap,
+): ImportStatement | ImportStatement[] {
   const packageName = stringFromLiteral(node.moduleSpecifier);
 
   const starBindings = matchAst(
@@ -62,15 +84,54 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
   );
 
   if (starBindings) {
-    return {
+    const sourceName = context.textOf(starBindings.namespace.name);
+    const bareImport: ImportStatement = {
       node,
       packageName,
       moduleSymbol: lookupJsiiSymbolFromNode(context.typeChecker, starBindings.namespace.name),
       imports: {
         import: 'full',
-        alias: context.textOf(starBindings.namespace.name),
+        alias: sourceName,
+        sourceName,
       },
     };
+    if (submoduleReferences == null) {
+      return bareImport;
+    }
+
+    const rootSymbol = context.typeChecker.getSymbolAtLocation(starBindings.namespace.name);
+    const refs = rootSymbol && Array.from(submoduleReferences.values()).filter((ref) => ref.root === rootSymbol);
+    // No submodule reference, or only 1 where the path is empty (this is used to signal the use of the bare import so it's not erased)
+    if (refs == null || refs.length === 0 || (refs.length === 1 && refs[0].path.length === 0)) {
+      return [bareImport];
+    }
+
+    return refs.flatMap(({ lastNode, path, root, submoduleChain }, idx, array): ImportStatement[] => {
+      if (
+        array
+          .slice(0, idx)
+          .some(
+            (other) => other.root === root && context.textOf(other.submoduleChain) === context.textOf(submoduleChain),
+          )
+      ) {
+        // This would be a duplicate, so we're skipping it
+        return [];
+      }
+
+      const moduleSymbol = lookupJsiiSymbolFromNode(context.typeChecker, lastNode);
+      return [
+        {
+          node,
+          packageName: [packageName, ...path.map((node) => context.textOf(node))].join('/'),
+          moduleSymbol,
+          imports: {
+            import: 'full',
+            alias: undefined, // No alias exists in the source text for this...
+            sourceName: context.textOf(submoduleChain),
+          },
+        },
+      ];
+    });
   }
 
   const namedBindings = matchAst(
@@ -84,32 +145,77 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
     ),
   );
 
-  const elements: ImportBinding[] = [];
-  if (namedBindings) {
-    elements.push(
-      ...namedBindings.specifiers.map((spec) => {
-        // regular import { name }, renamed import { propertyName, name }
-        if (spec.propertyName) {
-          // Renamed import
-          return {
-            sourceName: context.textOf(spec.propertyName),
-            alias: context.textOf(spec.name),
-            importedSymbol: lookupJsiiSymbolFromNode(context.typeChecker, spec.propertyName),
-          } as ImportBinding;
-        }
+  const extraImports = new Array<ImportStatement>();
+  const elements: ImportBinding[] = (namedBindings?.specifiers ?? []).flatMap(
+    ({ name, propertyName }): ImportBinding[] => {
+      // regular import { name }
+      // renamed import { propertyName as name }
+      const directBinding = {
+        sourceName: context.textOf(propertyName ?? name),
+        alias: propertyName && context.textOf(name),
+        importedSymbol: lookupJsiiSymbolFromNode(context.typeChecker, propertyName ?? name),
+      } as const;
 
-        return {
-          sourceName: context.textOf(spec.name),
-          importedSymbol: lookupJsiiSymbolFromNode(context.typeChecker, spec.name),
-        };
-      }),
-    );
+      if (submoduleReferences != null) {
+        const symbol = context.typeChecker.getSymbolAtLocation(name);
+        let omitDirectBinding = false;
+        for (const match of Array.from(submoduleReferences.values()).filter((ref) => ref.root === symbol)) {
+          if (match.path.length === 0) {
+            // This is a namespace binding that is used as-is (not via a transitive path). It needs to be preserved.
+            omitDirectBinding = false;
+            continue;
+          }
+          const subPackageName = [packageName, ...match.path.map((node) => node.getText(node.getSourceFile()))].join(
+            '/',
+          );
+          const importedSymbol = lookupJsiiSymbolFromNode(context.typeChecker, match.lastNode);
+          const moduleSymbol = fmap(importedSymbol, parentSymbol);
+          const importStatement =
+            extraImports.find((stmt) => {
+              if (moduleSymbol != null) {
+                return stmt.moduleSymbol === moduleSymbol;
+              }
+              return stmt.packageName === subPackageName;
+            }) ??
+            extraImports[
+              extraImports.push({
+                moduleSymbol,
+                node: match.lastNode,
+                packageName: subPackageName,
+                imports: { import: 'selective', elements: [] },
+              }) - 1
+            ];
+
+          (importStatement.imports as SelectiveImport).elements.push({
+            sourceName: context.textOf(match.submoduleChain),
+            importedSymbol,
+          });
+        }
+        if (omitDirectBinding) {
+          return [];
+        }
+      }
+
+      return [directBinding];
+    },
+  );
+
+  if (submoduleReferences == null) {
+    return {
+      node,
+      packageName,
+      imports: { import: 'selective', elements },
+      moduleSymbol: fmap(elements?.[0]?.importedSymbol, parentSymbol),
+    };
   }
 
-  return {
-    node,
-    packageName,
-    imports: { import: 'selective', elements },
-    moduleSymbol: fmap(elements?.[0]?.importedSymbol, parentSymbol),
-  };
+  return [
+    {
+      node,
+      packageName,
+      imports: { import: 'selective', elements },
+      moduleSymbol: fmap(elements?.[0]?.importedSymbol, parentSymbol),
+    },
+    ...extraImports,
+  ];
 }
