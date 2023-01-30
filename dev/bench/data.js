@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674941619612,
+  "lastUpdate": 1675101433998,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11241,6 +11241,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1120441.4260511156,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72447.66080214999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1ff230d9f7bc969e888e418375e7858df2a14424",
+          "message": "fix(rosetta): submodule-qualified names produce invalid Go, Java (#3928)\n\nJava and Go do not support transitive access to a submodule's items via a qualified reference and instead require a dedicated import to be emitted.\n\nThis adds code to analyze use of imported symbols to detect when a namespace traversal occurs, to inject new imports & replace property access expressions as necessary.\n\nIn order to facilitate this work, these extra elements were done:\n- Replaced if-tree in the dispatcher with a switch statement, making the dispatch a lot faster, and also a lot nice to run through in a debugger\n- Emit `var` instead of a type name for variable declarations with an initializer in C#, to reduce \"invalid\" code generated in cases where the type name needs some qualification that we are missing\n- A couple of bug fixes here and there as the tests discovered them\n\nFixes #3551\n\n---\n\n> **Note**:\n> There are still some awkward issues with the rendered code, but those are significantly more difficult to tackle without profoundly refactoring `jsii-rosetta`... The current work is already chunky enough and I didn't want to make it worse.\n> - Some synthetic type references lack qualification (e.g: struct type names in Go & C#)\n> - There might still be edge cases where duplicated or unused imports are emitted\n> - Import paths (in Go) may not be computed correctly (this might not be too hard to address, though)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-30T16:55:38Z",
+          "tree_id": "a9b5dccd23a3555aaee3267d37c4dabd96a7358c",
+          "url": "https://github.com/aws/jsii/commit/1ff230d9f7bc969e888e418375e7858df2a14424"
+        },
+        "date": 1675101430412,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 73495.5052728999,
+            "unit": "milliseconds",
+            "range": 4437034.357739527,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 73495.5052728999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 55147.21195305001,
+            "unit": "milliseconds",
+            "range": 1775677.0152022361,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 55147.21195305001 milliseconds over 20 runs"
           }
         ]
       }
