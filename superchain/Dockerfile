@@ -149,16 +149,11 @@ RUN set -eo pipefail                                                            
   && chmod -R a+rw ${CARGO_HOME}
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
-# Install Python 3. Use 'pipx' for CLI scripts, so each gets its own venv
-ENV PATH=$PATH:/root/.local/bin
+# Install Python 3
 RUN apt-get update                                                                                                      \
   && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
-  && python3 -m pip install --no-input --upgrade pip setuptools                                                         \
-  && python3 -m pip install pipx                                                                                        \
-  && python3 -m pipx install --system-site-packages awscli                                                              \
-  && python3 -m pipx install --system-site-packages black                                                               \
-  && python3 -m pipx install --system-site-packages twine                                                               \
-  && python3 -m pipx inject --system-site-packages twine wheel                                                          \
+  && python3 -m pip install --no-input --upgrade pip                                                                    \
+  && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
@@ -221,7 +216,7 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
   && rm -rf /var/lib/apt/lists/*
 
 # Install SAM CLI
-RUN python3 -m pipx install --system-site-packages aws-sam-cli                                                          \
+RUN pip install aws-sam-cli                                                                                             \
   && sam --version
 
 # Install Amazon SSM agent (allows debugging of builds via `codebuild-breakpoint`, https://go.aws/3TVW7vL)
