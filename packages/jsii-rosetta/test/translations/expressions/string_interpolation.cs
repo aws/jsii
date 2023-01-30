@@ -1,5 +1,5 @@
-string x = "world";
-string y = "well";
+var x = "world";
+var y = "well";
 Console.WriteLine($"Hello, {x}, it works {y}!");
 
 // And now a multi-line expression

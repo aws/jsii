@@ -1,1 +1,1 @@
-int x = Future();
+var x = Future();

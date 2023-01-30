@@ -1,5 +1,5 @@
-string literal = @"
-This si a multiline string literal.
+var literal = @"
+This is a multiline string literal.
 
 ""It's cool!"".
 
