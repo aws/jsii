@@ -3158,7 +3158,7 @@ calculator := calc.NewCalculator()
 Then call some operations:
 
 \`\`\`go
-calculator.Add(jsii.Number(10))
+calculator.add(jsii.Number(10))
 \`\`\`
 
 ## Code Samples
@@ -8546,9 +8546,9 @@ import (
 //
 // Example:
 //   calculator := calc.NewCalculator()
-//   calculator.Add(jsii.Number(5))
-//   calculator.Mul(jsii.Number(3))
-//   fmt.Println(calculator.expression.Value)
+//   calculator.add(jsii.Number(5))
+//   calculator.mul(jsii.Number(3))
+//   fmt.Println(calculator.expression.value)
 //
 type Calculator interface {
 	composition.CompositeOperation
@@ -11110,9 +11110,7 @@ import (
 //   x := 12 + 44
 //   s1 := "string"
 //   s2 := "string \\nwith new newlines" // see https://github.com/aws/jsii/issues/2569
-//   s3 := \`string
-//               with
-//               new lines\`
+//   s3 := "string\\n            with\\n            new lines"
 //
 type DocumentedClass interface {
 	// Greet the indicated person.
@@ -29667,7 +29665,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/jsiicalc_DocumentedClass.go.diff 1`] = `
 --- go/jsiicalc/jsiicalc_DocumentedClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/jsiicalc_DocumentedClass.go	--runtime-type-checking
-@@ -62,10 +62,13 @@
+@@ -60,10 +60,13 @@
  		d,
  	)
  }
