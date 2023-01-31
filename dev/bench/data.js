@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675121527651,
+  "lastUpdate": 1675207896627,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11355,6 +11355,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 210580.37370628765,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46879.02666015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43035978+corymhall@users.noreply.github.com",
+            "name": "Cory Hall",
+            "username": "corymhall"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "10d74350ae78154cf8713f16d0df5e0a5be6f536",
+          "message": "chore: update dependencies (#3944)\n\nUpdating setuptools to address a [CVE](https://cwe.mitre.org/data/definitions/1333.html).\n\nsetuptools version >=64 had some breaking changes that require editable_mode to be set to `strict`. See [this issue](https://github.com/pypa/setuptools/issues/3518) for more details.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-01-31T22:20:50Z",
+          "tree_id": "f6885cb7e5213565823862726231ce233ae5ac37",
+          "url": "https://github.com/aws/jsii/commit/10d74350ae78154cf8713f16d0df5e0a5be6f536"
+        },
+        "date": 1675207892746,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 99470.64594970002,
+            "unit": "milliseconds",
+            "range": 5802882.914768068,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 99470.64594970002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74079.8986624,
+            "unit": "milliseconds",
+            "range": 3530934.6803611973,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74079.8986624 milliseconds over 20 runs"
           }
         ]
       }
