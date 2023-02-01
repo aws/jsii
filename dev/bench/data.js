@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675278603258,
+  "lastUpdate": 1675285656648,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11431,6 +11431,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 268374.4480076805,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46234.802928699995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43080478+aws-cdk-automation@users.noreply.github.com",
+            "name": "AWS CDK Automation",
+            "username": "aws-cdk-automation"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d0e4267e7629a0061f04786e260c520cc5079fac",
+          "message": "chore: npm-check-updates && yarn upgrade (#3947)\n\nRan npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.",
+          "timestamp": "2023-02-01T20:08:02Z",
+          "tree_id": "898bbe657177d3a3251dc054af3a95f249ba67a3",
+          "url": "https://github.com/aws/jsii/commit/d0e4267e7629a0061f04786e260c520cc5079fac"
+        },
+        "date": 1675285651926,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 80791.17549665002,
+            "unit": "milliseconds",
+            "range": 3602386.032045738,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 80791.17549665002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60574.44015100001,
+            "unit": "milliseconds",
+            "range": 629056.3704309976,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60574.44015100001 milliseconds over 20 runs"
           }
         ]
       }
