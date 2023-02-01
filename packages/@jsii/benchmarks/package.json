@@ -13,8 +13,8 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@types/glob": "^8.0.0",
-    "glob": "^8.0.3"
+    "@types/glob": "^8.0.1",
+    "glob": "^8.1.0"
   },
   "scripts": {
     "build": "yarn --silent tsc --build && npm run lint",
