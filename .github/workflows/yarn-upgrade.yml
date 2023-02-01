@@ -68,15 +68,18 @@ jobs:
 
       - name: Run "ncu -u"
         # We special-case typescript because it's not semantically versionned, and major.minor is the API contract
+        # We special-case @types/fs-extra because 9.0.13 is the last version that supports typescript@3.9
+        # We special-case @types/yargs because 17.0.13 is the last version that doesn't break
+        # We special-case eslint-plugin-import because 26 is the last version that works for us.
         run: |-
           # Upgrade devDependencies at repository root
           ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus
           ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus
+          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint-plugin-import
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
-            --filter='${{ steps.production-dependencies.outputs.list }}'                            \
+            --filter='@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'                            \
             --reject='typescript,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
@@ -85,7 +88,7 @@ jobs:
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/inquirer,@types/node,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/inquirer,@types/node,typescript,@types/fs-extra,@types/yargs,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
