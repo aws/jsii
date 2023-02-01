@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675207896627,
+  "lastUpdate": 1675278603258,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11393,6 +11393,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 3530934.6803611973,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74079.8986624 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43035978+corymhall@users.noreply.github.com",
+            "name": "Cory Hall",
+            "username": "corymhall"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bbe45f138cd2caece2ea76a2a5b5b038f8857831",
+          "message": "chore: fix version updates (#3946)\n\nThere are a couple of issues with some version updates\n\n- Only do minor version updates for `@types/fs-extra` This is the last major version that is compatible with typescript@3.9\n\n- `@types/yargs` is on longer compatible with typescript@3.9 so we need to pin it\n  - Other deps have a transient dependency on `@types/yargs` so add a resolution to keep the version\n- `eslint-plugin-import@27` breaks something. For some reason when this is upgraded the build for `@scope/jsii-calc-base-of-base` fails with this error and I have no idea why\n```\npackages/jsii-rosetta/lib/languages/record-references.js:11\nclass RecordReferencesVisitor extends default_1.DefaultVisitor {\n                                                ^\n\nTypeError: Class extends value undefined is not a constructor or null\n    at Object.<anonymous> (packages/jsii-rosetta/lib/languages/record-references.js:11:49)\n    at Module._compile (node:internal/modules/cjs/loader:1103:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1155:10)\n    at Module.load (node:internal/modules/cjs/loader:981:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:822:12)\n    at Module.require (node:internal/modules/cjs/loader:1005:19)\n    at require (node:internal/modules/cjs/helpers:102:18)\n    at Object.<anonymous> (packages/jsii-rosetta/lib/tablets/key.js:5:29)\n```\n\nAlso updated the `yarn-upgrade` workflow to have these exceptions\n\nThis is to fix issues in https://github.com/aws/jsii/pull/3945.\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-02-01T18:22:01Z",
+          "tree_id": "1d43826b28cfdd57d0382abf304311120f209178",
+          "url": "https://github.com/aws/jsii/commit/bbe45f138cd2caece2ea76a2a5b5b038f8857831"
+        },
+        "date": 1675278599932,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60351.490962499985,
+            "unit": "milliseconds",
+            "range": 3815327.4122008136,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60351.490962499985 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46234.802928699995,
+            "unit": "milliseconds",
+            "range": 268374.4480076805,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46234.802928699995 milliseconds over 20 runs"
           }
         ]
       }
