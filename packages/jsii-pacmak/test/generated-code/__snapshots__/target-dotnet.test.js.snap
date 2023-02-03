@@ -21,8 +21,6 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
-       ┣━ 📁 resources
-       ┃  ┗━ 📄 default-256-dark.png
        ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
 `;
 
@@ -31,7 +29,6 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
   <PropertyGroup>
     <!-- Package Identification -->
     <Description>An example direct dependency for jsii-calc.</Description>
-    <PackageIcon>resources\\default-256-dark.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -52,9 +49,6 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="resources\\default-256-dark.png" Pack="true" PackagePath="\\resources" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-base-0.0.0.tgz" />
   </ItemGroup>
@@ -513,8 +507,6 @@ jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
-
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/resources/default-256-dark.png 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/resources/default-256-dark.png is a binary file`;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
 
@@ -3301,9 +3293,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 jsii-calc-3.20.120.tgz
        ┣━ 📄 LICENSE
-       ┣━ 📄 NOTICE
-       ┗━ 📁 resources
-          ┗━ 📄 AWSLogo128x128.png
+       ┗━ 📄 NOTICE
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon.JSII.Tests.CalculatorPackageId.csproj 1`] = `
@@ -3311,7 +3301,6 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
   <PropertyGroup>
     <!-- Package Identification -->
     <Description>A simple calcuator built on JSII. (Stability: Stable)</Description>
-    <PackageIcon>resources\\AWSLogo128x128.png</PackageIcon>
     <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -3333,9 +3322,6 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="resources\\AWSLogo128x128.png" Pack="true" PackagePath="\\resources" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="jsii-calc-3.20.120.tgz" />
   </ItemGroup>
@@ -4630,7 +4616,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     ///
     /// <code><![CDATA[
-    /// Calculator calculator = new Calculator();
+    /// var calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);
@@ -4639,7 +4625,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// I will repeat this example again, but in an @example tag.
     /// </remarks>
     /// <example>
-    /// <code>Calculator calculator = new Calculator();
+    /// <code>var calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);</code>
@@ -7086,11 +7072,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
-    /// <code>int x = 12 + 44;
-    /// string s1 = "string";
-    /// string s2 = @"string
+    /// <code>var x = 12 + 44;
+    /// var s1 = "string";
+    /// var s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
-    /// string s3 = @"string
+    /// var s3 = @"string
     ///             with
     ///             new lines";</code>
     /// </example>
@@ -15947,7 +15933,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     ///
     /// <code><![CDATA[
-    /// Calculator calculator = new Calculator();
+    /// var calculator = new Calculator();
     /// ]]></code>
     ///
     /// Then call some operations:
@@ -15960,7 +15946,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     ///
     /// <code><![CDATA[
     /// /* This is totes a magic comment in here, just you wait! */
-    /// string foo = "bar";
+    /// var foo = "bar";
     /// ]]></code>
     /// </remarks>
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -21427,8 +21413,6 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz is a tarball`;
-
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/resources/AWSLogo128x128.png 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/resources/AWSLogo128x128.png is a binary file`;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
 <runtime-type-check-diff>
