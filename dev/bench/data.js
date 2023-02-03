@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675285656648,
+  "lastUpdate": 1675442351090,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11469,6 +11469,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 629056.3704309976,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60574.44015100001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "danielmschmidt92@gmail.com",
+            "name": "Daniel Schmidt",
+            "username": "DanielMSchmidt"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7697571542df82b5d228faf85d0e637edb254519",
+          "message": "fix(go): shorten file names for sub-packages (#3927)\n\nCDKTF is running into build issues one some providers due to file names being too long for golang to handle: https://github.com/cdktf/cdktf-provider-googlebeta/actions/runs/4002506018/jobs/6869839656#step:8:11\n\nThis is my slightly naive try to get rid of a few characters (especially with long package names)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-02-03T15:52:18Z",
+          "tree_id": "9c165553f1161923a5dbdcf18275cd5e0f96cc36",
+          "url": "https://github.com/aws/jsii/commit/7697571542df82b5d228faf85d0e637edb254519"
+        },
+        "date": 1675442347129,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60704.01141995005,
+            "unit": "milliseconds",
+            "range": 3177920.2294475185,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60704.01141995005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46847.12000004998,
+            "unit": "milliseconds",
+            "range": 420619.7887864898,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46847.12000004998 milliseconds over 20 runs"
           }
         ]
       }
