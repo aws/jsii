@@ -526,5 +526,9 @@ export const suite: schema.Suite = {
       description:
         'Verifies that custom exception names are correctly forwarded',
     },
+    {
+      name: 'voidReturningAsync',
+      description: 'Verifies that returning Promise<void> is correctly handled',
+    },
   ],
 };

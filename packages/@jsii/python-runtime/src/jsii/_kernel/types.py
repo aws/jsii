@@ -185,7 +185,7 @@ class EndRequest:
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class EndResponse:
 
-    result: Any
+    result: Optional[Any] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

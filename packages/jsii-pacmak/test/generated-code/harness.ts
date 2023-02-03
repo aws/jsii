@@ -321,7 +321,7 @@ export async function preparePythonVirtualEnv({
     ]),
   ).resolves.not.toThrowError();
 
-  // Install development dependencies as needed...
+  // First install dev dependencies
   await expect(
     shell(
       venvPython,
@@ -332,6 +332,19 @@ export async function preparePythonVirtualEnv({
         '--no-input',
         '-r',
         path.resolve(__dirname, 'requirements-dev.txt'),
+      ],
+      { env, retry: { maxAttempts: 5 } },
+    ),
+  ).resolves.not.toThrowError();
+
+  await expect(
+    shell(
+      venvPython,
+      [
+        '-m',
+        'pip',
+        'install',
+        '--no-input',
         // Additional install parameters
         ...install,
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
