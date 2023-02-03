@@ -21,16 +21,16 @@ exports[`diamond-struct-parameter.ts: <outDir>/ 1`] = `
  ┃     ┗━ 📄 Example.Test.Demo.csproj
  ┣━ 📁 go
  ┃  ┗━ 📁 testpkg
+ ┃     ┣━ 📄 Baz.go
+ ┃     ┣━ 📄 Consumer__checks.go
+ ┃     ┣━ 📄 Consumer__no_checks.go
+ ┃     ┣━ 📄 Consumer.go
+ ┃     ┣━ 📄 Foo.go
+ ┃     ┣━ 📄 FooBar.go
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┗━ 📄 jsii.go
- ┃     ┣━ 📄 testpkg_Baz.go
- ┃     ┣━ 📄 testpkg_Consumer__no_runtime_type_checking.go
- ┃     ┣━ 📄 testpkg_Consumer__runtime_type_checks.go
- ┃     ┣━ 📄 testpkg_Consumer.go
- ┃     ┣━ 📄 testpkg_Foo.go
- ┃     ┣━ 📄 testpkg_FooBar.go
- ┃     ┗━ 📄 testpkg.go
+ ┃     ┗━ 📄 main.go
  ┣━ 📁 java
  ┃  ┣━ 📄 pom.xml
  ┃  ┗━ 📁 src
@@ -380,6 +380,119 @@ namespace Example.Test.Demo.Internal.DependencyResolution
 
 `;
 
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Baz.go 1`] = `
+// testpkg
+package testpkg
+
+
+type Baz struct {
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
+	Baz *bool \`field:"required" json:"baz" yaml:"baz"\`
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	_init_ "example.test/demo/testpkg/jsii"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type Consumer interface {
+}
+
+// The jsii proxy struct for Consumer
+type jsiiProxy_Consumer struct {
+	_ byte // padding
+}
+
+func Consumer_ConsumeBaz(baz *Baz) {
+	_init_.Initialize()
+
+	if err := validateConsumer_ConsumeBazParameters(baz); err != nil {
+		panic(err)
+	}
+	_jsii_.StaticInvokeVoid(
+		"testpkg.Consumer",
+		"consumeBaz",
+		[]interface{}{baz},
+	)
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer__checks.go 1`] = `
+//go:build !no_runtime_type_checking
+
+// testpkg
+package testpkg
+
+import (
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
+	if baz == nil {
+		return fmt.Errorf("parameter baz is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(baz, func() string { return "parameter baz" }); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer__no_checks.go 1`] = `
+//go:build no_runtime_type_checking
+
+// testpkg
+package testpkg
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
+	return nil
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Foo.go 1`] = `
+// testpkg
+package testpkg
+
+
+type Foo struct {
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+}
+
+
+`;
+
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/FooBar.go 1`] = `
+// testpkg
+package testpkg
+
+
+type FooBar struct {
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
+}
+
+
+`;
+
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
@@ -416,7 +529,7 @@ func Initialize() {
 
 `;
 
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg.go 1`] = `
+exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/main.go 1`] = `
 package testpkg
 
 import (
@@ -447,119 +560,6 @@ func init() {
 		reflect.TypeOf((*FooBar)(nil)).Elem(),
 	)
 }
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Baz.go 1`] = `
-// testpkg
-package testpkg
-
-
-type Baz struct {
-	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
-	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
-	Baz *bool \`field:"required" json:"baz" yaml:"baz"\`
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer.go 1`] = `
-// testpkg
-package testpkg
-
-import (
-	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-type Consumer interface {
-}
-
-// The jsii proxy struct for Consumer
-type jsiiProxy_Consumer struct {
-	_ byte // padding
-}
-
-func Consumer_ConsumeBaz(baz *Baz) {
-	_init_.Initialize()
-
-	if err := validateConsumer_ConsumeBazParameters(baz); err != nil {
-		panic(err)
-	}
-	_jsii_.StaticInvokeVoid(
-		"testpkg.Consumer",
-		"consumeBaz",
-		[]interface{}{baz},
-	)
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__no_runtime_type_checking.go 1`] = `
-//go:build no_runtime_type_checking
-
-// testpkg
-package testpkg
-
-// Building without runtime type checking enabled, so all the below just return nil
-
-func validateConsumer_ConsumeBazParameters(baz *Baz) error {
-	return nil
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Consumer__runtime_type_checks.go 1`] = `
-//go:build !no_runtime_type_checking
-
-// testpkg
-package testpkg
-
-import (
-	"fmt"
-
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-func validateConsumer_ConsumeBazParameters(baz *Baz) error {
-	if baz == nil {
-		return fmt.Errorf("parameter baz is required, but nil was provided")
-	}
-	if err := _jsii_.ValidateStruct(baz, func() string { return "parameter baz" }); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_Foo.go 1`] = `
-// testpkg
-package testpkg
-
-
-type Foo struct {
-	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/testpkg_FooBar.go 1`] = `
-// testpkg
-package testpkg
-
-
-type FooBar struct {
-	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
-	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
-}
-
 
 `;
 
@@ -1560,13 +1560,13 @@ exports[`nested-types.ts: <outDir>/ 1`] = `
  ┃     ┣━ 📄 go.mod
  ┃     ┣━ 📁 jsii
  ┃     ┃  ┗━ 📄 jsii.go
- ┃     ┣━ 📄 testpkg_Namespace1_Foo.go
- ┃     ┣━ 📄 testpkg_Namespace1_IBar.go
- ┃     ┣━ 📄 testpkg_Namespace1.go
- ┃     ┣━ 📄 testpkg_Namespace2_Foo_Final.go
- ┃     ┣━ 📄 testpkg_Namespace2_Foo.go
- ┃     ┣━ 📄 testpkg_Namespace2.go
- ┃     ┗━ 📄 testpkg.go
+ ┃     ┣━ 📄 main.go
+ ┃     ┣━ 📄 Namespace1_Foo.go
+ ┃     ┣━ 📄 Namespace1_IBar.go
+ ┃     ┣━ 📄 Namespace1.go
+ ┃     ┣━ 📄 Namespace2_Foo_Final.go
+ ┃     ┣━ 📄 Namespace2_Foo.go
+ ┃     ┗━ 📄 Namespace2.go
  ┣━ 📁 java
  ┃  ┣━ 📄 pom.xml
  ┃  ┗━ 📁 src
@@ -1852,6 +1852,234 @@ namespace Example.Test.Demo
 
 `;
 
+exports[`nested-types.ts: <outDir>/go/testpkg/Namespace1.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	_init_ "example.test/demo/testpkg/jsii"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type Namespace1 interface {
+	Foo()
+}
+
+// The jsii proxy struct for Namespace1
+type jsiiProxy_Namespace1 struct {
+	_ byte // padding
+}
+
+func NewNamespace1() Namespace1 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Namespace1{}
+
+	_jsii_.Create(
+		"testpkg.Namespace1",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewNamespace1_Override(n Namespace1) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"testpkg.Namespace1",
+		nil, // no parameters
+		n,
+	)
+}
+
+func (n *jsiiProxy_Namespace1) Foo() {
+	_jsii_.InvokeVoid(
+		n,
+		"foo",
+		nil, // no parameters
+	)
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Namespace1_Foo.go 1`] = `
+// testpkg
+package testpkg
+
+
+type Namespace1_Foo struct {
+	Bar *string \`field:"required" json:"bar" yaml:"bar"\`
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Namespace1_IBar.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type Namespace1_IBar interface {
+	Method()
+	Bar() *string
+}
+
+// The jsii proxy for Namespace1_IBar
+type jsiiProxy_Namespace1_IBar struct {
+	_ byte // padding
+}
+
+func (n *jsiiProxy_Namespace1_IBar) Method() {
+	_jsii_.InvokeVoid(
+		n,
+		"method",
+		nil, // no parameters
+	)
+}
+
+func (j *jsiiProxy_Namespace1_IBar) Bar() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"bar",
+		&returns,
+	)
+	return returns
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Namespace2.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	_init_ "example.test/demo/testpkg/jsii"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type Namespace2 interface {
+	Foo()
+}
+
+// The jsii proxy struct for Namespace2
+type jsiiProxy_Namespace2 struct {
+	_ byte // padding
+}
+
+func NewNamespace2() Namespace2 {
+	_init_.Initialize()
+
+	j := jsiiProxy_Namespace2{}
+
+	_jsii_.Create(
+		"testpkg.Namespace2",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewNamespace2_Override(n Namespace2) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"testpkg.Namespace2",
+		nil, // no parameters
+		n,
+	)
+}
+
+func (n *jsiiProxy_Namespace2) Foo() {
+	_jsii_.InvokeVoid(
+		n,
+		"foo",
+		nil, // no parameters
+	)
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Namespace2_Foo.go 1`] = `
+// testpkg
+package testpkg
+
+
+type Namespace2_Foo string
+
+const (
+	Namespace2_Foo_BAR Namespace2_Foo = "BAR"
+	Namespace2_Foo_BAZ Namespace2_Foo = "BAZ"
+)
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Namespace2_Foo_Final.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	_init_ "example.test/demo/testpkg/jsii"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type Namespace2_Foo_Final interface {
+	Done() *bool
+}
+
+// The jsii proxy struct for Namespace2_Foo_Final
+type jsiiProxy_Namespace2_Foo_Final struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_Namespace2_Foo_Final) Done() *bool {
+	var returns *bool
+	_jsii_.Get(
+		j,
+		"done",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewNamespace2_Foo_Final() Namespace2_Foo_Final {
+	_init_.Initialize()
+
+	j := jsiiProxy_Namespace2_Foo_Final{}
+
+	_jsii_.Create(
+		"testpkg.Namespace2.Foo.Final",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewNamespace2_Foo_Final_Override(n Namespace2_Foo_Final) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"testpkg.Namespace2.Foo.Final",
+		nil, // no parameters
+		n,
+	)
+}
+
+
+`;
+
 exports[`nested-types.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
@@ -1888,7 +2116,7 @@ func Initialize() {
 
 `;
 
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg.go 1`] = `
+exports[`nested-types.ts: <outDir>/go/testpkg/main.go 1`] = `
 package testpkg
 
 import (
@@ -1952,234 +2180,6 @@ func init() {
 		},
 	)
 }
-
-`;
-
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg_Namespace1.go 1`] = `
-// testpkg
-package testpkg
-
-import (
-	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-type Namespace1 interface {
-	Foo()
-}
-
-// The jsii proxy struct for Namespace1
-type jsiiProxy_Namespace1 struct {
-	_ byte // padding
-}
-
-func NewNamespace1() Namespace1 {
-	_init_.Initialize()
-
-	j := jsiiProxy_Namespace1{}
-
-	_jsii_.Create(
-		"testpkg.Namespace1",
-		nil, // no parameters
-		&j,
-	)
-
-	return &j
-}
-
-func NewNamespace1_Override(n Namespace1) {
-	_init_.Initialize()
-
-	_jsii_.Create(
-		"testpkg.Namespace1",
-		nil, // no parameters
-		n,
-	)
-}
-
-func (n *jsiiProxy_Namespace1) Foo() {
-	_jsii_.InvokeVoid(
-		n,
-		"foo",
-		nil, // no parameters
-	)
-}
-
-
-`;
-
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg_Namespace1_Foo.go 1`] = `
-// testpkg
-package testpkg
-
-
-type Namespace1_Foo struct {
-	Bar *string \`field:"required" json:"bar" yaml:"bar"\`
-}
-
-
-`;
-
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg_Namespace1_IBar.go 1`] = `
-// testpkg
-package testpkg
-
-import (
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-type Namespace1_IBar interface {
-	Method()
-	Bar() *string
-}
-
-// The jsii proxy for Namespace1_IBar
-type jsiiProxy_Namespace1_IBar struct {
-	_ byte // padding
-}
-
-func (n *jsiiProxy_Namespace1_IBar) Method() {
-	_jsii_.InvokeVoid(
-		n,
-		"method",
-		nil, // no parameters
-	)
-}
-
-func (j *jsiiProxy_Namespace1_IBar) Bar() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"bar",
-		&returns,
-	)
-	return returns
-}
-
-
-`;
-
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg_Namespace2.go 1`] = `
-// testpkg
-package testpkg
-
-import (
-	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-type Namespace2 interface {
-	Foo()
-}
-
-// The jsii proxy struct for Namespace2
-type jsiiProxy_Namespace2 struct {
-	_ byte // padding
-}
-
-func NewNamespace2() Namespace2 {
-	_init_.Initialize()
-
-	j := jsiiProxy_Namespace2{}
-
-	_jsii_.Create(
-		"testpkg.Namespace2",
-		nil, // no parameters
-		&j,
-	)
-
-	return &j
-}
-
-func NewNamespace2_Override(n Namespace2) {
-	_init_.Initialize()
-
-	_jsii_.Create(
-		"testpkg.Namespace2",
-		nil, // no parameters
-		n,
-	)
-}
-
-func (n *jsiiProxy_Namespace2) Foo() {
-	_jsii_.InvokeVoid(
-		n,
-		"foo",
-		nil, // no parameters
-	)
-}
-
-
-`;
-
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg_Namespace2_Foo.go 1`] = `
-// testpkg
-package testpkg
-
-
-type Namespace2_Foo string
-
-const (
-	Namespace2_Foo_BAR Namespace2_Foo = "BAR"
-	Namespace2_Foo_BAZ Namespace2_Foo = "BAZ"
-)
-
-
-`;
-
-exports[`nested-types.ts: <outDir>/go/testpkg/testpkg_Namespace2_Foo_Final.go 1`] = `
-// testpkg
-package testpkg
-
-import (
-	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-type Namespace2_Foo_Final interface {
-	Done() *bool
-}
-
-// The jsii proxy struct for Namespace2_Foo_Final
-type jsiiProxy_Namespace2_Foo_Final struct {
-	_ byte // padding
-}
-
-func (j *jsiiProxy_Namespace2_Foo_Final) Done() *bool {
-	var returns *bool
-	_jsii_.Get(
-		j,
-		"done",
-		&returns,
-	)
-	return returns
-}
-
-
-func NewNamespace2_Foo_Final() Namespace2_Foo_Final {
-	_init_.Initialize()
-
-	j := jsiiProxy_Namespace2_Foo_Final{}
-
-	_jsii_.Create(
-		"testpkg.Namespace2.Foo.Final",
-		nil, // no parameters
-		&j,
-	)
-
-	return &j
-}
-
-func NewNamespace2_Foo_Final_Override(n Namespace2_Foo_Final) {
-	_init_.Initialize()
-
-	_jsii_.Create(
-		"testpkg.Namespace2.Foo.Final",
-		nil, // no parameters
-		n,
-	)
-}
-
 
 `;
 
