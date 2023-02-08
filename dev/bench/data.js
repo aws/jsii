@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675879428093,
+  "lastUpdate": 1675883074751,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11621,6 +11621,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 468162.81368658226,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63731.15146824999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d4edafa9593079b9ac86dd0865754cef0c132740",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.0.8 to ~=9.0.11 in /gh-pages (#3952)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.0.11</h2>\n<ul>\n<li>Added Mastodon verification for social links (<code>rel=me</code>)</li>\n<li>Updated Italian translations</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.0.11 (2023-02-03)</p>\n<ul>\n<li>Added Mastodon verification for social links (rel=me)</li>\n<li>Updated Italian translations</li>\n</ul>\n<p>mkdocs-material-9.0.10 (2023-02-02)</p>\n<ul>\n<li>Updated Arabic translations</li>\n<li>Updated Korean translations</li>\n<li>Updated Hungarian translations</li>\n<li>Updated Russian translations</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4977\">#4977</a>: Improved accessibility for content tabs</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4960\">#4960</a>: Sometimes anchor following doesn't bring last item into view</li>\n</ul>\n<p>mkdocs-material-9.0.9 (2023-01-30)</p>\n<ul>\n<li>Updated Bulgarian translations</li>\n<li>Updated Chinese (Simplified) translations</li>\n<li>Updated Dutch translations</li>\n<li>Updated Hindi translations</li>\n<li>Updated Japanese translations</li>\n<li>Updated Polish translations</li>\n</ul>\n<p>mkdocs-material-9.0.8 (2023-01-29)</p>\n<ul>\n<li>Updated Croatian translations</li>\n<li>Updated French translations</li>\n<li>Updated Hungarian translations</li>\n<li>Updated Portuguese (Brasilian) translations</li>\n<li>Updated Spanish translations</li>\n<li>Updated Ukrainian translations</li>\n<li>Updated Urdu translations</li>\n<li>Updated Vietnamese translations</li>\n</ul>\n<p>mkdocs-material-9.0.7 (2023-01-28)</p>\n<ul>\n<li>Improved accessibility of sidebar navigation</li>\n<li>Moved all translations into community edition</li>\n<li>Updated Polish and Portuguese (Brasilian) translations</li>\n<li>Fixed info plugin terminating on subsequent reload when serving</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4910\">#4910</a>: Sidebar navigation labels have invalid ARIA roles</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4884\">#4884</a>: Search query terms can't be separated by colons</li>\n</ul>\n<p>mkdocs-material-9.0.6+insiders-4.29.0 (2023-01-21)</p>\n<ul>\n<li>Added built-in optimize plugin for automatically compressing images</li>\n<li>Switched reporting in built-in privacy plugin to info level</li>\n</ul>\n<p>mkdocs-material-9.0.6 (2023-01-19)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/9aaa7ab8b36f6a036b8cef732ce87f7a3e7c3c73\"><code>9aaa7ab</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c727ef59a065b54e6e3c5ffb8704fbe6a8d0f1ce\"><code>c727ef5</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3c4f7c30b9bc5a32f99e88b915b4135ea5950831\"><code>3c4f7c3</code></a> Prepare 9.0.11 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f18be6c83bcf5a4edd68a357c51df4da8fa580fd\"><code>f18be6c</code></a> Bye Bye, Twitter</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3fc8b6be8b926f5ce4dd43c1eff7e0abe7a42e7a\"><code>3fc8b6b</code></a> Added Mastodon verification for social links</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fa1c5962232d1b84bc23fde03ad1f09208f108c0\"><code>fa1c596</code></a> Added CivicActions to premium sponsors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d0452104c122b58dd6f62736fff986e09b98e5b6\"><code>d045210</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a79608adeaf8672a2c7d811a2f8f42fc092973da\"><code>a79608a</code></a> Updated announcement bar</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a937dd23f5b7fa9f15227b291bdedcf50e3952fa\"><code>a937dd2</code></a> Fixed minor tag closing issues (<a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4971\">#4971</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/22c273e48a6fe6b5fd16392996a83d4132afd3e6\"><code>22c273e</code></a> Documentation (<a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4970\">#4970</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.0.8...9.0.11\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-02-08T18:12:32Z",
+          "tree_id": "eab15a18836c6d8a7912bea0fec8bda9c30ef275",
+          "url": "https://github.com/aws/jsii/commit/d4edafa9593079b9ac86dd0865754cef0c132740"
+        },
+        "date": 1675883071781,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70187.34452454993,
+            "unit": "milliseconds",
+            "range": 1941950.4047056586,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70187.34452454993 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51839.30539294998,
+            "unit": "milliseconds",
+            "range": 371880.99454734975,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51839.30539294998 milliseconds over 20 runs"
           }
         ]
       }
