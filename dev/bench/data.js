@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675869881846,
+  "lastUpdate": 1675873540683,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11545,6 +11545,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 358941.3685407577,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46693.408432000004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "647b1e23d0de924e40f9ae1ad95cf9793ae20ee3",
+          "message": "chore(deps): Bump XunitXml.TestLogger from 3.0.70 to 3.0.78 in /packages/@jsii/dotnet-runtime-test/test (#3949)\n\nBumps [XunitXml.TestLogger](https://github.com/spekt/xunit.testlogger) from 3.0.70 to 3.0.78.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/spekt/xunit.testlogger/releases\">XunitXml.TestLogger's releases</a>.</em></p>\n<blockquote>\n<h2>v3.0.78</h2>\n<ul>\n<li>Update core testlogger to 3.0.86 for xunit test adapter</li>\n<li>Fix: Explicit tests should be marked as Skipped. See\n<a href=\"https://github-redirect.dependabot.com/spekt/nunit.testlogger/issues/86\">spekt/nunit.testlogger#86</a></li>\n<li>Replace Test Case name parser <strong>Possible Breaking Change</strong>\n<ul>\n<li>For most or maybe all users the new parser should fix the issues shown below, without introducing new issues. In case you do encounter any new parsing failures a feature flag <code>Parser=Legacy</code> has been added to use the prior parser. See <a href=\"https://github.com/spekt/testlogger/wiki/Logger-Configuration\">logger config wiki</a> for details.</li>\n<li>Fix: Test case parse error if name contains special characters. See\n<a href=\"https://github-redirect.dependabot.com/spekt/nunit.testlogger/issues/90\">spekt/nunit.testlogger#90</a></li>\n<li>Fix: Covers several parsing issues. Thanks <a href=\"https://github.com/becha2\"><code>@​becha2</code></a> for all the detailed examples.\n<a href=\"https://github-redirect.dependabot.com/spekt/testlogger/issues/28\">spekt/testlogger#28</a></li>\n<li>Fix: Log member data. Thanks <a href=\"https://github.com/BottlecapDave\"><code>@​BottlecapDave</code></a> for the issue report and <a href=\"https://github.com/hach-que\"><code>@​hach-que</code></a> for the draft fix.\n<a href=\"https://github-redirect.dependabot.com/spekt/junit.testlogger/issues/50\">spekt/junit.testlogger#50</a></li>\n<li>Fix: Issue parsing chars. Thanks <a href=\"https://github.com/binarycow\"><code>@​binarycow</code></a> for the issue report.\n<a href=\"https://github-redirect.dependabot.com/spekt/nunit.testlogger/issues/90\">spekt/nunit.testlogger#90</a></li>\n<li>Reduce log verbosity: The parser, if it encounters problems, will only output one warning per run to the console instead of one per problem</li>\n<li>Fix: Issue parsing numbers. See <a href=\"https://github-redirect.dependabot.com/spekt/testlogger/issues/35\">spekt/testlogger#35</a></li>\n</ul>\n</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/spekt/xunit.testlogger/blob/master/CHANGELOG.md\">XunitXml.TestLogger's changelog</a>.</em></p>\n<blockquote>\n<h2>v3.0.78 - 2023/01/30</h2>\n<ul>\n<li>Update core testlogger to 3.0.86 for xunit test adapter</li>\n<li>Fix: Explicit tests should be marked as Skipped. See\n<a href=\"https://github-redirect.dependabot.com/spekt/nunit.testlogger/issues/86\">spekt/nunit.testlogger#86</a></li>\n<li>Replace Test Case name parser <strong>Possible Breaking Change</strong>\n<ul>\n<li>For most or maybe all users the new parser should fix the issues shown below, without introducing new issues. In case you do encounter any new parsing failures a feature flag <code>Parser=Legacy</code> has been added to use the prior parser. See <a href=\"https://github.com/spekt/testlogger/wiki/Logger-Configuration\">logger config wiki</a> for details.</li>\n<li>Fix: Test case parse error if name contains special characters. See\n<a href=\"https://github-redirect.dependabot.com/spekt/nunit.testlogger/issues/90\">spekt/nunit.testlogger#90</a></li>\n<li>Fix: Covers several parsing issues. Thanks <a href=\"https://github.com/becha2\"><code>@​becha2</code></a> for all the detailed examples.\n<a href=\"https://github-redirect.dependabot.com/spekt/testlogger/issues/28\">spekt/testlogger#28</a></li>\n<li>Fix: Log member data. Thanks <a href=\"https://github.com/BottlecapDave\"><code>@​BottlecapDave</code></a> for the issue report and <a href=\"https://github.com/hach-que\"><code>@​hach-que</code></a> for the draft fix.\n<a href=\"https://github-redirect.dependabot.com/spekt/junit.testlogger/issues/50\">spekt/junit.testlogger#50</a></li>\n<li>Fix: Issue parsing chars. Thanks <a href=\"https://github.com/binarycow\"><code>@​binarycow</code></a> for the issue report.\n<a href=\"https://github-redirect.dependabot.com/spekt/nunit.testlogger/issues/90\">spekt/nunit.testlogger#90</a></li>\n<li>Reduce log verbosity: The parser, if it encounters problems, will only output one warning per run to the console instead of one per problem</li>\n<li>Fix: Issue parsing numbers. See <a href=\"https://github-redirect.dependabot.com/spekt/testlogger/issues/35\">spekt/testlogger#35</a></li>\n</ul>\n</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/5a724f3a11c4ce00436df654191e0aa7b4631c10\"><code>5a724f3</code></a> chore: release v3.0.78</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/3754fbb7dda549132a68298c1286a328542615dd\"><code>3754fbb</code></a> fix: testcase name parser regex to include zero. (<a href=\"https://github-redirect.dependabot.com/spekt/xunit.testlogger/issues/42\">#42</a>)</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/7d6b7d5c0f83a096dd4fd3cbe1af51c2d84fd590\"><code>7d6b7d5</code></a> feat: use regex parser (<a href=\"https://github-redirect.dependabot.com/spekt/xunit.testlogger/issues/38\">#38</a>)</li>\n<li>See full diff in <a href=\"https://github.com/spekt/xunit.testlogger/compare/v3.0.70...v3.0.78\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=XunitXml.TestLogger&package-manager=nuget&previous-version=3.0.70&new-version=3.0.78)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-02-08T15:34:42Z",
+          "tree_id": "81777eebf9097d8fa4dae6cfce63b743a68b84f0",
+          "url": "https://github.com/aws/jsii/commit/647b1e23d0de924e40f9ae1ad95cf9793ae20ee3"
+        },
+        "date": 1675873537617,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63759.2456919,
+            "unit": "milliseconds",
+            "range": 2327512.0620587855,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63759.2456919 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49711.79873325001,
+            "unit": "milliseconds",
+            "range": 287248.09433948353,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49711.79873325001 milliseconds over 20 runs"
           }
         ]
       }
