@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675883074751,
+  "lastUpdate": 1675887537758,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11659,6 +11659,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 371880.99454734975,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51839.30539294998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "800ed0a0e4667afc34a2c86bb2e0bb1ef3f9f9a9",
+          "message": "chore(deps): Update pip requirement from ~=22.3 to ~=23.0 in /packages/@jsii/python-runtime (#3950)\n\nUpdates the requirements on [pip](https://github.com/pypa/pip) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.0 (2023-01-30)</h1>\n<h2>Features</h2>\n<ul>\n<li>Change the hashes in the installation report to be a mapping. Emit the\n<code>archive_info.hashes</code> dictionary in <code>direct_url.json</code>. (<code>[#11312](https://github.com/pypa/pip/issues/11312) &lt;https://github.com/pypa/pip/issues/11312&gt;</code>_)</li>\n<li>Implement logic to read the <code>EXTERNALLY-MANAGED</code> file as specified in PEP 668.\nThis allows a downstream Python distributor to prevent users from using pip to\nmodify the externally managed environment. (<code>[#11381](https://github.com/pypa/pip/issues/11381) &lt;https://github.com/pypa/pip/issues/11381&gt;</code>_)</li>\n<li>Enable the use of <code>keyring</code> found on <code>PATH</code>. This allows <code>keyring</code>\ninstalled using <code>pipx</code> to be used by <code>pip</code>. (<code>[#11589](https://github.com/pypa/pip/issues/11589) &lt;https://github.com/pypa/pip/issues/11589&gt;</code>_)</li>\n<li>The inspect and installation report formats are now declared stabled, and their version\nhas been bumped from <code>0</code> to <code>1</code>. (<code>[#11757](https://github.com/pypa/pip/issues/11757) &lt;https://github.com/pypa/pip/issues/11757&gt;</code>_)</li>\n</ul>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Wheel cache behavior is restored to match previous versions, allowing the\ncache to find existing entries. (<code>[#11527](https://github.com/pypa/pip/issues/11527) &lt;https://github.com/pypa/pip/issues/11527&gt;</code>_)</li>\n<li>Use the &quot;venv&quot; scheme if available to obtain prefixed lib paths. (<code>[#11598](https://github.com/pypa/pip/issues/11598) &lt;https://github.com/pypa/pip/issues/11598&gt;</code>_)</li>\n<li>Deprecated a historical ambiguity in how <code>egg</code> fragments in URL-style\nrequirements are formatted and handled. <code>egg</code> fragments that do not look\nlike PEP 508 names now produce a deprecation warning. (<code>[#11617](https://github.com/pypa/pip/issues/11617) &lt;https://github.com/pypa/pip/issues/11617&gt;</code>_)</li>\n<li>Fix scripts path in isolated build environment on Debian. (<code>[#11623](https://github.com/pypa/pip/issues/11623) &lt;https://github.com/pypa/pip/issues/11623&gt;</code>_)</li>\n<li>Make <code>pip show</code> show the editable location if package is editable (<code>[#11638](https://github.com/pypa/pip/issues/11638) &lt;https://github.com/pypa/pip/issues/11638&gt;</code>_)</li>\n<li>Stop checking that <code>wheel</code> is present when <code>build-system.requires</code>\nis provided without <code>build-system.build-backend</code> as <code>setuptools</code>\n(which we still check for) will inject it anyway. (<code>[#11673](https://github.com/pypa/pip/issues/11673) &lt;https://github.com/pypa/pip/issues/11673&gt;</code>_)</li>\n<li>Fix an issue when an already existing in-memory distribution would cause\nexceptions in <code>pip install</code> (<code>[#11704](https://github.com/pypa/pip/issues/11704) &lt;https://github.com/pypa/pip/issues/11704&gt;</code>_)</li>\n</ul>\n<h2>Vendored Libraries</h2>\n<ul>\n<li>Upgrade certifi to 2022.12.7</li>\n<li>Upgrade chardet to 5.1.0</li>\n<li>Upgrade colorama to 0.4.6</li>\n<li>Upgrade distro to 1.8.0</li>\n<li>Remove pep517 from vendored packages</li>\n<li>Upgrade platformdirs to 2.6.2</li>\n<li>Add pyproject-hooks 1.0.0</li>\n<li>Upgrade requests to 2.28.2</li>\n<li>Upgrade rich to 12.6.0</li>\n<li>Upgrade urllib3 to 1.26.14</li>\n</ul>\n<h2>Improved Documentation</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/368c7b4c557e673b05b0f8cffc967d3e333eee19\"><code>368c7b4</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/aa94ccadb45d6ee44defea8a82bd5b647ccba799\"><code>aa94cca</code></a> Update AUTHORS.txt</li>\n<li><a href=\"https://github.com/pypa/pip/commit/60ce5c0943c303e48f0aed8bce650f725dcd222d\"><code>60ce5c0</code></a> Fix the kind of news fragment</li>\n<li><a href=\"https://github.com/pypa/pip/commit/e3e7bc34eb486622ebbb6412afc98ee57fcbff4a\"><code>e3e7bc3</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11766\">#11766</a> from uranusjr/upgrade-pre-commit-isort</li>\n<li><a href=\"https://github.com/pypa/pip/commit/b653b129c56b29ad565886c1f423de89639d20f3\"><code>b653b12</code></a> Bump pre-commit isort to 5.12.0</li>\n<li><a href=\"https://github.com/pypa/pip/commit/a2a4feb588edc7233ae262d76b2c7291d6857a31\"><code>a2a4feb</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11761\">#11761</a> from sbidoul/direct-url-hashes-part-3-sbi</li>\n<li><a href=\"https://github.com/pypa/pip/commit/ec7eb6f179866151f148c7695fc773e66b8c3adc\"><code>ec7eb6f</code></a> Add version history to inspect and install report docs</li>\n<li><a href=\"https://github.com/pypa/pip/commit/169511e68eb64efff5705305f72b0c53d7bff580\"><code>169511e</code></a> Update direct URL hashes examples</li>\n<li><a href=\"https://github.com/pypa/pip/commit/efedf09c4967dcbe3105e3746aaca7bfb55d605f\"><code>efedf09</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11759\">#11759</a> from pradyunsg/fix-keyring-auth</li>\n<li><a href=\"https://github.com/pypa/pip/commit/60a45984404460192067f3990e0258deeeafa636\"><code>60a4598</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11758\">#11758</a> from pradyunsg/vendoring-update</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/pip/compare/22.3...23.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-02-08T19:06:25Z",
+          "tree_id": "0b336528b972cad697be369f81de632174b673ae",
+          "url": "https://github.com/aws/jsii/commit/800ed0a0e4667afc34a2c86bb2e0bb1ef3f9f9a9"
+        },
+        "date": 1675887533623,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 102344.98636279997,
+            "unit": "milliseconds",
+            "range": 5338044.67531033,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 102344.98636279997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 76454.77740605004,
+            "unit": "milliseconds",
+            "range": 3056952.6359875877,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76454.77740605004 milliseconds over 20 runs"
           }
         ]
       }
