@@ -191,7 +191,7 @@ jobs:
       fail-fast: false
       matrix:
         # All currently supported node versions (Maintenance LTS, Active LTS, Current)
-        dotnet: ['3.1.x']
+        dotnet: ['6.0.x']
         go: ['1.18']
         java: ['8']
         node:
@@ -205,14 +205,14 @@ jobs:
         include:
           # Test using Windows
           - os: windows-latest
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             python: '3.7'
           # Test using macOS
           - os: macos-latest
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
@@ -226,33 +226,33 @@ jobs:
             python: '3.7'
           # Test alternate Gos
           - java: '8'
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.19'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Javas
           - java: '11'
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.18'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Pythons
           - python: '3.8'
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest
           - python: '3.9'
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest
           - python: '3.10'
-            dotnet: '3.1.x'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
