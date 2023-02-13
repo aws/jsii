@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675887537758,
+  "lastUpdate": 1676299477926,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11697,6 +11697,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 3056952.6359875877,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76454.77740605004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7e18e57595317780f591d60e623c2e14794dbe7f",
+          "message": "feat(check-node): export NodeRelease class (#3959)\n\nThis can be useful, for example in projen templates, to automatically test fo all \"supported\" Node releases without having ot modify every single repository. This can serve as a central point of truth for what releases of node are supported by the Constructs ecosystem via jsii.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-02-13T13:56:55Z",
+          "tree_id": "021c175224fc5075b0505e0e82485a83564ab688",
+          "url": "https://github.com/aws/jsii/commit/7e18e57595317780f591d60e623c2e14794dbe7f"
+        },
+        "date": 1676299473799,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61169.40358464986,
+            "unit": "milliseconds",
+            "range": 2535847.17751186,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61169.40358464986 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46552.31158245,
+            "unit": "milliseconds",
+            "range": 246958.44233666183,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46552.31158245 milliseconds over 20 runs"
           }
         ]
       }
