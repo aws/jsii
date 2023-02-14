@@ -4,4 +4,5 @@ import { default as defaultConfig, overriddenConfig } from '../../jest.config.mj
 export default overriddenConfig({
   setupFiles: [createRequire(import.meta.url).resolve('./jestsetup.js')],
   testTimeout: process.env.CI === 'true' ? 30_000 : defaultConfig.testTimeout,
+  watchPathIgnorePatterns: ['(\\.d)?\\.tsx?$'],
 });

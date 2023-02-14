@@ -1,5 +1,5 @@
 literal = """
-This si a multiline string literal.
+This is a multiline string literal.
 
 "It's cool!".
 

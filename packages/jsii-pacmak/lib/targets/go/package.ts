@@ -203,7 +203,7 @@ export abstract class Package {
     if (this.types.length > 0) {
       const { code } = context;
 
-      const initFile = join(this.directory, `${this.packageName}.go`);
+      const initFile = join(this.directory, `main.go`);
       code.openFile(initFile);
       code.line(`package ${this.packageName}`);
       code.line();
@@ -238,10 +238,7 @@ export abstract class Package {
 
   private emitTypes(context: EmitContext) {
     for (const type of this.types) {
-      const filePath = join(
-        this.directory,
-        `${this.packageName}_${type.name}.go`,
-      );
+      const filePath = join(this.directory, `${type.name}.go`);
       context.code.openFile(filePath);
 
       this.emitHeader(context.code);
@@ -266,23 +263,9 @@ export abstract class Package {
       return;
     }
 
-    emit.call(
-      this,
-      join(
-        this.directory,
-        `${this.packageName}_${type.name}__runtime_type_checks.go`,
-      ),
-      false,
-    );
+    emit.call(this, join(this.directory, `${type.name}__checks.go`), false);
 
-    emit.call(
-      this,
-      join(
-        this.directory,
-        `${this.packageName}_${type.name}__no_runtime_type_checking.go`,
-      ),
-      true,
-    );
+    emit.call(this, join(this.directory, `${type.name}__no_checks.go`), true);
 
     function emit(this: Package, filePath: string, forNoOp: boolean) {
       code.openFile(filePath);

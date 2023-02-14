@@ -4,8 +4,10 @@ import { AssertionError } from 'assert';
 import * as ts from 'typescript';
 
 import { analyzeObjectLiteral, determineJsiiType, JsiiType, ObjectLiteralStruct } from '../jsii/jsii-types';
+import { lookupJsiiSymbolFromNode } from '../jsii/jsii-utils';
 import { OTree } from '../o-tree';
 import { AstRenderer } from '../renderer';
+import { SubmoduleReference } from '../submodule-reference';
 import { isExported, isPublic, isPrivate, isReadOnly, isStatic } from '../typescript/ast-utils';
 import { analyzeImportDeclaration, ImportStatement } from '../typescript/imports';
 import {
@@ -228,6 +230,15 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
             className: ucFirst(expr.name.text),
             classNamespace: renderer.updateContext({ isExported: false }).convert(expr.expression),
           };
+        } else if (
+          ts.isPropertyAccessExpression(expr.expression) &&
+          renderer.submoduleReferences.has(expr.expression)
+        ) {
+          const submodule = renderer.submoduleReferences.get(expr.expression)!;
+          return {
+            className: ucFirst(expr.name.text),
+            classNamespace: renderer.updateContext({ isExported: false }).convert(submodule.lastNode),
+          };
         }
         renderer.reportUnsupported(expr.expression, TargetLanguage.GO);
         return {
@@ -277,15 +288,17 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
           ? JSON.stringify(node.name.text)
           : this.goName(node.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(node.name))
         : renderer.convert(node.name);
-    // Struct member values are always pointers...
     return new OTree(
       [
         key,
         ': ',
         renderer
           .updateContext({
-            wrapPtr: renderer.currentContext.isStruct || renderer.currentContext.inMapLiteral,
+            // Reset isExported, as this was intended for the key name translation...
+            isExported: undefined,
+            // Struct member values are always pointers...
             isPtr: renderer.currentContext.isStruct,
+            wrapPtr: renderer.currentContext.isStruct || renderer.currentContext.inMapLiteral,
           })
           .convert(node.initializer),
       ],
@@ -389,13 +402,18 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     structType: ObjectLiteralStruct,
     renderer: GoRenderer,
   ): OTree {
+    const isExported = structType.kind === 'struct';
     return new OTree(
       [
         '&',
-        this.goName(structType.type.symbol.name, renderer.updateContext({ isPtr: false }), structType.type.symbol),
+        this.goName(
+          structType.type.symbol.name,
+          renderer.updateContext({ isExported, isPtr: false }),
+          structType.type.symbol,
+        ),
         '{',
       ],
-      renderer.updateContext({ isStruct: true }).convertAll(node.properties),
+      renderer.updateContext({ isExported, isStruct: true }).convertAll(node.properties),
       {
         suffix: '}',
         separator: ',',
@@ -444,16 +462,30 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     return new OTree(['fmt.Println(', renderedArgs, ')']);
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: GoRenderer): OTree {
+  public propertyAccessExpression(
+    node: ts.PropertyAccessExpression,
+    renderer: GoRenderer,
+    submoduleReference?: SubmoduleReference,
+  ): OTree {
+    if (submoduleReference != null) {
+      return new OTree([
+        renderer
+          .updateContext({ isExported: false, isPtr: false, wrapPtr: false })
+          .convert(submoduleReference.lastNode),
+      ]);
+    }
+
     const expressionType = typeOfExpression(renderer.typeChecker, node.expression);
     const valueSymbol = renderer.typeChecker.getSymbolAtLocation(node.name);
 
-    const isClassStaticMember =
+    const isStaticMember = valueSymbol?.valueDeclaration != null && isStatic(valueSymbol.valueDeclaration);
+    const isClassStaticPropertyAccess =
+      isStaticMember &&
       expressionType?.symbol?.valueDeclaration != null &&
       ts.isClassDeclaration(expressionType.symbol.valueDeclaration) &&
-      valueSymbol?.valueDeclaration != null &&
-      ts.isPropertyDeclaration(valueSymbol.valueDeclaration) &&
-      isStatic(valueSymbol.valueDeclaration);
+      (ts.isPropertyDeclaration(valueSymbol.valueDeclaration) || ts.isAccessor(valueSymbol.valueDeclaration));
+    const isClassStaticMethodAccess =
+      isStaticMember && !isClassStaticPropertyAccess && ts.isMethodDeclaration(valueSymbol.valueDeclaration);
 
     // When the expression has an unknown type (unresolved symbol), and has an upper-case first
     // letter, we assume it's a type name... In such cases, what comes after can be considered a
@@ -463,18 +495,32 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       expressionType.symbol == null &&
       /(?:\.|^)[A-Z][^.]*$/.exec(node.expression.getText(node.expression.getSourceFile())) != null;
 
-    const isEnum =
+    // Whether the node is an enum member reference.
+    const isEnumMember =
       expressionType?.symbol?.valueDeclaration != null && ts.isEnumDeclaration(expressionType.symbol.valueDeclaration);
 
-    const delimiter = isEnum || isClassStaticMember || expressionLooksLikeTypeReference ? '_' : '.';
+    const jsiiSymbol = lookupJsiiSymbolFromNode(renderer.typeChecker, node.name);
+    const isExportedTypeName = jsiiSymbol != null && jsiiSymbol.symbolType !== 'module';
+
+    const delimiter =
+      isEnumMember || isClassStaticPropertyAccess || isClassStaticMethodAccess || expressionLooksLikeTypeReference
+        ? '_'
+        : '.';
 
     return new OTree([
       renderer.convert(node.expression),
       delimiter,
       renderer
-        .updateContext({ isExported: isClassStaticMember || expressionLooksLikeTypeReference || isEnum })
+        .updateContext({
+          isExported:
+            isClassStaticPropertyAccess ||
+            isClassStaticMethodAccess ||
+            expressionLooksLikeTypeReference ||
+            isEnumMember ||
+            isExportedTypeName,
+        })
         .convert(node.name),
-      ...(isClassStaticMember
+      ...(isClassStaticPropertyAccess
         ? ['()']
         : // If the parent's not a call-like expression, and it's an inferred static property access, we need to put call
         // parentheses at the end, as static properties are accessed via synthetic readers.
@@ -578,8 +624,13 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     return wrapPtrExpression(renderer.typeChecker, node, output);
   }
 
-  public stringLiteral(node: ts.StringLiteral, renderer: GoRenderer): OTree {
-    const text = JSON.stringify(node.text);
+  public stringLiteral(node: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, renderer: GoRenderer): OTree {
+    // Go supports backtick-delimited multi-line string literals, similar/same as JavaScript no-substitution templates.
+    // We only use this trick if the literal includes actual new line characters (otherwise it just looks weird in go).
+    const text =
+      ts.isNoSubstitutionTemplateLiteral(node) && /[\n\r]/m.test(node.text)
+        ? node.getText(node.getSourceFile())
+        : JSON.stringify(node.text);
 
     return new OTree([`${renderer.currentContext.wrapPtr ? jsiiStr(text) : text}`]);
   }
@@ -801,25 +852,30 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
   public importStatement(node: ImportStatement, renderer: AstRenderer<GoLanguageContext>): OTree {
     const packageName =
       node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.packageName ??
-      this.goName(node.packageName, renderer, undefined);
+      node.packageName
+        // Special case namespaced npm package names, so they are mangled the same way pacmak does.
+        .replace(/@([a-z0-9_-]+)\/([a-z0-9_-])/, '$1$2')
+        .split('/')
+        .map((txt) => this.goName(txt, renderer, undefined))
+        .filter((txt) => txt !== '')
+        .join('/');
     const moduleName = node.moduleSymbol?.sourceAssembly?.packageJson.jsii?.targets?.go?.moduleName
       ? `${node.moduleSymbol.sourceAssembly.packageJson.jsii.targets.go.moduleName}/${packageName}`
       : `github.com/aws-samples/dummy/${packageName}`;
 
     if (node.imports.import === 'full') {
-      return new OTree(
-        ['import ', this.goName(node.imports.alias, renderer, undefined), ' "', moduleName, '"'],
-        undefined,
-        { canBreakLine: true },
-      );
+      // We don't emit the alias if it matches the last path segment (conventionally this is the package name)
+      const maybeAlias = node.imports.alias ? `${this.goName(node.imports.alias, renderer, undefined)} ` : '';
+
+      return new OTree([`import ${maybeAlias}${JSON.stringify(moduleName)}`], undefined, { canBreakLine: true });
     }
 
     if (node.imports.elements.length === 0) {
       // This is a blank import (for side-effects only)
-      return new OTree(['import _ "', moduleName, '"'], undefined, { canBreakLine: true });
+      return new OTree([`import _ ${JSON.stringify(moduleName)}`], undefined, { canBreakLine: true });
     }
 
-    return new OTree(['import "', moduleName, '"'], undefined, { canBreakLine: true });
+    return new OTree([`import ${JSON.stringify(moduleName)}`], undefined, { canBreakLine: true });
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: AstRenderer<GoLanguageContext>): OTree {

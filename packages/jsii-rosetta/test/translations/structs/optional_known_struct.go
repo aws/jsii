@@ -1,3 +1,3 @@
 NewVpc(this, jsii.String("Something"), &vpcProps{
-	argument: jsii.Number(5),
+	Argument: jsii.Number(5),
 })
