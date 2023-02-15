@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676416412436,
+  "lastUpdate": 1676475739695,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11849,6 +11849,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 632022.1683030466,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52318.39460780001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43080478+aws-cdk-automation@users.noreply.github.com",
+            "name": "AWS CDK Automation",
+            "username": "aws-cdk-automation"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a6336d6538ac6cf8bdb123584521922c9162cf93",
+          "message": "chore: npm-check-updates && yarn upgrade (#3969)\n\nRan npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.",
+          "timestamp": "2023-02-15T14:54:33Z",
+          "tree_id": "5666a1d87ccc625a25979f4dd6702a758db0a144",
+          "url": "https://github.com/aws/jsii/commit/a6336d6538ac6cf8bdb123584521922c9162cf93"
+        },
+        "date": 1676475736036,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61445.17213775001,
+            "unit": "milliseconds",
+            "range": 4702651.474261127,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61445.17213775001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46466.02616345,
+            "unit": "milliseconds",
+            "range": 141927.20485493974,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46466.02616345 milliseconds over 20 runs"
           }
         ]
       }
