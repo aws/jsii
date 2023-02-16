@@ -219,7 +219,7 @@ jobs:
             python: '3.7'
           # Test alternate .NETs
           - java: '8'
-            dotnet: '6.0.x'
+            dotnet: '7.0.x'
             go: '1.18'
             node: '14'
             os: ubuntu-latest

@@ -63,7 +63,7 @@ namespace Amazon.JSII.Runtime.Services
             // Registering shutdown hook to have JS process gracefully terminate.
             AppDomain.CurrentDomain.ProcessExit += (snd, evt) => { ((IDisposable) this).Dispose(); };
 
-            _process = Process.Start(startInfo);
+            _process = Process.Start(startInfo)!;
 
             StandardInput = _process.StandardInput;
             StandardOutput = _process.StandardOutput;

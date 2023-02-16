@@ -13,8 +13,8 @@ queue_rules:
       - status-success~=^Test \(.* node 18 .*$
       - status-success~=^Test \(.* node 19 .*$
       # One test for each supported dotnet version
-      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 6\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 7\.0\.x .*$
       # One test for each supported go version
       - status-success~=^Test \(.* go 1.18 .*$
       - status-success~=^Test \(.* go 1.19 .*$
@@ -66,8 +66,8 @@ pull_request_rules:
       - status-success~=^Test \(.* node 18 .*$
       - status-success~=^Test \(.* node 19 .*$
       # One test for each supported dotnet version
-      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 6\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 7\.0\.x .*$
       # One test for each supported go version
       - status-success~=^Test \(.* go 1.18 .*$
       - status-success~=^Test \(.* go 1.19 .*$
@@ -119,8 +119,8 @@ pull_request_rules:
       - status-success~=^Test \(.* node 18 .*$
       - status-success~=^Test \(.* node 19 .*$
       # One test for each supported dotnet version
-      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 6\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 7\.0\.x .*$
       # One test for each supported go version
       - status-success~=^Test \(.* go 1.18 .*$
       - status-success~=^Test \(.* go 1.19 .*$
@@ -172,8 +172,8 @@ pull_request_rules:
       - status-success~=^Test \(.* node 18 .*$
       - status-success~=^Test \(.* node 19 .*$
       # One test for each supported dotnet version
-      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
       - status-success~=^Test \(.* dotnet 6\.0\.x .*$
+      - status-success~=^Test \(.* dotnet 7\.0\.x .*$
       # One test for each supported go version
       - status-success~=^Test \(.* go 1.18 .*$
       - status-success~=^Test \(.* go 1.19 .*$

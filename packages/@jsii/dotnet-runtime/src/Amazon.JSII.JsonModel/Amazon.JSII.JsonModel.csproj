@@ -2,7 +2,7 @@
   <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <PackageId>Amazon.JSII.JsonModel</PackageId>
     <Title>[DEPRECATED] .NET JsonModel for JSII</Title>
     <PackageIcon>icon.png</PackageIcon>

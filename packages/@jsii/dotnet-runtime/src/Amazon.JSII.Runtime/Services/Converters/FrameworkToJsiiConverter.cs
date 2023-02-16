@@ -105,7 +105,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
 
             string? valueName = Enum.GetName(valueType, value);
-            FieldInfo fieldInfo = valueType.GetFields().FirstOrDefault(field => field.Name == valueName);
+            FieldInfo? fieldInfo = valueType.GetFields().FirstOrDefault(field => field.Name == valueName);
 
             if (fieldInfo == null)
             {
@@ -254,7 +254,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            Type dictionaryInterface = value.GetType()!
+            Type? dictionaryInterface = value.GetType()!
                 .GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
 
@@ -266,7 +266,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
 
             IEnumerable<string> keys = (IEnumerable<string>)dictionaryInterface.GetProperty("Keys")!.GetValue(value)!;
-            PropertyInfo indexer = ReflectionUtils.GetIndexer(dictionaryInterface);
+            PropertyInfo indexer = ReflectionUtils.GetIndexer(dictionaryInterface)!;
 
             JObject resultObject = new JObject();
             foreach (string key in keys)
@@ -399,7 +399,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 );
             }
 
-            Type dictionaryInterface = type.GetInterfaces()
+            Type? dictionaryInterface = type.GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
             if (dictionaryInterface != null)
             {
