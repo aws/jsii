@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676480912325,
+  "lastUpdate": 1676529627270,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -11925,6 +11925,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 49546.37555301946,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45773.665747999985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7e075eb62338cad13fee7d16d44cf60d78f378cc",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.0.11 to ~=9.0.12 in /gh-pages (#3962)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.0.12</h2>\n<ul>\n<li>Updated Catalan translations</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4975\">#4975</a>: Mermaid entity relationship rendering diagrams bug</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4924\">#4924</a>: Header title not reset when using instant loading</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.0.12+insiders-4.30.1 (2023-02-12)</p>\n<ul>\n<li>Fixed privacy plugin not handling static templates e.g. 404.html</li>\n</ul>\n<p>mkdocs-material-9.0.12 (2023-02-09)</p>\n<ul>\n<li>Updated Catalan translations</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4975\">#4975</a>: Mermaid entity relationship rendering diagrams bug</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4924\">#4924</a>: Header title not reset when using instant loading</li>\n</ul>\n<p>mkdocs-material-9.0.11+insiders-4.30.0 (2023-02-06)</p>\n<ul>\n<li>Rewrite of privacy plugin for concurrency, now twice as fast</li>\n<li>Added support for explicit inclusion for privacy plugin</li>\n<li>Added optimization support for privacy plugin (+ optimize plugin)</li>\n</ul>\n<p>mkdocs-material-9.0.11 (2023-02-03)</p>\n<ul>\n<li>Added Mastodon verification for social links (rel=me)</li>\n<li>Updated Italian translations</li>\n</ul>\n<p>mkdocs-material-9.0.10 (2023-02-02)</p>\n<ul>\n<li>Updated Arabic translations</li>\n<li>Updated Korean translations</li>\n<li>Updated Hungarian translations</li>\n<li>Updated Russian translations</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4977\">#4977</a>: Improved accessibility for content tabs</li>\n<li>Fixed <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/4960\">#4960</a>: Sometimes anchor following doesn't bring last item into view</li>\n</ul>\n<p>mkdocs-material-9.0.9 (2023-01-30)</p>\n<ul>\n<li>Updated Bulgarian translations</li>\n<li>Updated Chinese (Simplified) translations</li>\n<li>Updated Dutch translations</li>\n<li>Updated Hindi translations</li>\n<li>Updated Japanese translations</li>\n<li>Updated Polish translations</li>\n</ul>\n<p>mkdocs-material-9.0.8 (2023-01-29)</p>\n<ul>\n<li>Updated Croatian translations</li>\n<li>Updated French translations</li>\n<li>Updated Hungarian translations</li>\n<li>Updated Portuguese (Brasilian) translations</li>\n<li>Updated Spanish translations</li>\n<li>Updated Ukrainian translations</li>\n<li>Updated Urdu translations</li>\n<li>Updated Vietnamese translations</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5e438cc0dbe68c2425d7baaf219aa0437bdab7cd\"><code>5e438cc</code></a> Prepare 9.0.12 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3a62681e37566a8bebe2e49440567f02e37eb8b6\"><code>3a62681</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ff99e19741158800edeeffa093330ab85711123a\"><code>ff99e19</code></a> Fixed header title not reset on missing headline when using instant loading</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/803320f004345896c1a230bca6b2f8ef46ce41b9\"><code>803320f</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/5020\">#5020</a> from squidfunk/contributing/index</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/58d49fad66d26a75f19449508b0a56db26dd8ac5\"><code>58d49fa</code></a> Updated index page</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/48e8b2be30fed05c76dda6bc20ff039ed3e8601f\"><code>48e8b2b</code></a> Updated Catalan translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f7598410cba3af8dc184cdac7bcbb90394a4aab2\"><code>f759841</code></a> Fixed attribute styles in entity-relationship diagrams</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2e689f062f6f01bd7e20e850e92ec7811f719dea\"><code>2e689f0</code></a> Updated issue template</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f60fa205f9d6719e4aea925619fac844d04e937e\"><code>f60fa20</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/squidfunk/mkdocs-material/issues/5003\">#5003</a> from squidfunk/issue/bug-report-update</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/83468bc6ed9378850c4569e9500a2b62bcb26991\"><code>83468bc</code></a> Updated links in bug report</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.0.11...9.0.12\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-02-16T05:28:05Z",
+          "tree_id": "b68337f2e5dbcd9bdc1bee99907176d4e83b9f41",
+          "url": "https://github.com/aws/jsii/commit/7e075eb62338cad13fee7d16d44cf60d78f378cc"
+        },
+        "date": 1676529622909,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 101241.2350131,
+            "unit": "milliseconds",
+            "range": 10686742.31332656,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 101241.2350131 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74761.40776034999,
+            "unit": "milliseconds",
+            "range": 913609.3805063975,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74761.40776034999 milliseconds over 20 runs"
           }
         ]
       }
