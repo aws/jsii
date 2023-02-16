@@ -69,13 +69,11 @@ from ...errors import ErrorType, JSIIError, JavaScriptError
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _HelloResponse:
-
     hello: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _OkayResponse:
-
     # We could technically mark this as KernelResponse, because we know that
     # it is going to be one of those. However, we can't disambiguate the different
     # types because some of them have the same keys as each other, so the only way
@@ -86,7 +84,6 @@ class _OkayResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _ErrorResponse:
-
     error: str
     stack: str
     name: str
@@ -94,13 +91,11 @@ class _ErrorResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CallbackResponse:
-
     callback: Callback
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CompleteRequest:
-
     complete: CompleteRequest
 
 
