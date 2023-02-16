@@ -726,7 +726,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
         obj.caller_is_property = 12
 
 
-def test_testInterfaces():
+def test_testInterfaces() -> None:
     friendly: IFriendly
     friendlier: IFriendlier
     random_number_generator: IRandomNumberGenerator

@@ -279,7 +279,7 @@ class _NodeProcess:
 
         self.handshake()
 
-    def stop(self):
+    def stop(self) -> None:
         # This process is closing already, un-registering the hook to not fire twice
         atexit.unregister(self.stop)
 
@@ -299,7 +299,7 @@ class _NodeProcess:
 
         self._ctx_stack.close()
 
-    def handshake(self):
+    def handshake(self) -> None:
         # Get the version of the runtime that we're using.
         resp: _HelloResponse = self._serializer.structure(
             self._next_message(), _HelloResponse
