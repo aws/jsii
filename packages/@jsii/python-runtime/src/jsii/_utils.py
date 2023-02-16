@@ -4,7 +4,6 @@ from typing import Any, MutableMapping, Type
 
 
 class Singleton(type):
-
     _instances: MutableMapping[Type[Any], Any] = {}
 
     def __call__(cls, *args, **kwargs):
