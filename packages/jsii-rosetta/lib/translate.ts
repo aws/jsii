@@ -3,10 +3,12 @@ import { inspect } from 'util';
 
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
 import { RecordReferencesVisitor } from './languages/record-references';
+import { supportsTransitiveSubmoduleAccess } from './languages/target-language';
 import * as logging from './logging';
 import { renderTree } from './o-tree';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { TypeScriptSnippet, completeSource, SnippetParameters, formatLocation } from './snippet';
+import { SubmoduleReference, SubmoduleReferenceMap } from './submodule-reference';
 import { snippetKey } from './tablets/key';
 import { ORIGINAL_SNIPPET_KEY } from './tablets/schema';
 import { TranslatedSnippet } from './tablets/tablets';
@@ -50,10 +52,14 @@ export class Translator {
     const translator = this.translatorFor(snip);
 
     const translations = mkDict(
-      languages.map((lang) => {
+      languages.flatMap((lang, idx, languages) => {
+        if (languages.slice(0, idx).includes(lang)) {
+          // This language was duplicated in the request... we'll skip that here...
+          return [];
+        }
         const languageConverterFactory = TARGET_LANGUAGES[lang];
         const translated = translator.renderUsing(languageConverterFactory.createVisitor());
-        return [lang, { source: translated, version: languageConverterFactory.version }] as const;
+        return [[lang, { source: translated, version: languageConverterFactory.version }] as const];
       }),
     );
 
@@ -155,6 +161,7 @@ export class SnippetTranslator {
   private readonly visibleSpans: Spans;
   private readonly compilation!: CompilationResult;
   private readonly tryCompile: boolean;
+  private readonly submoduleReferences: SubmoduleReferenceMap;
 
   public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
     const compiler = options.compiler ?? new TypeScriptCompiler();
@@ -170,6 +177,12 @@ export class SnippetTranslator {
 
     // Respect '/// !hide' and '/// !show' directives
     this.visibleSpans = Spans.visibleSpansFromSource(source);
+
+    // Find submodule references on explicit imports
+    this.submoduleReferences = SubmoduleReference.inSourceFile(
+      this.compilation.rootFile,
+      this.compilation.program.getTypeChecker(),
+    );
 
     // This makes it about 5x slower, so only do it on demand
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
@@ -225,6 +238,8 @@ export class SnippetTranslator {
       this.compilation.program.getTypeChecker(),
       visitor,
       this.options,
+      // If we support transitive submodule access, don't provide a submodule reference map.
+      supportsTransitiveSubmoduleAccess(visitor.language) ? undefined : this.submoduleReferences,
     );
     const converted = converter.convert(this.compilation.rootFile);
     this.translateDiagnostics.push(...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans));
@@ -243,6 +258,7 @@ export class SnippetTranslator {
       this.compilation.program.getTypeChecker(),
       visitor,
       this.options,
+      this.submoduleReferences,
     );
     converter.convert(this.compilation.rootFile);
     return visitor.fqnsReferenced();

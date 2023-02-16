@@ -3199,6 +3199,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 PartiallyInitializedThisConsumer.cs
        ┃           ┣━ 📄 Polymorphism.cs
        ┃           ┣━ 📄 Power.cs
+       ┃           ┣━ 📄 PromiseNothing.cs
        ┃           ┣━ 📄 PropertyNamedProperty.cs
        ┃           ┣━ 📄 PublicClass.cs
        ┃           ┣━ 📄 PythonReservedWords.cs
@@ -4629,7 +4630,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     ///
     /// <code><![CDATA[
-    /// Calculator calculator = new Calculator();
+    /// var calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);
@@ -4638,7 +4639,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// I will repeat this example again, but in an @example tag.
     /// </remarks>
     /// <example>
-    /// <code>Calculator calculator = new Calculator();
+    /// <code>var calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
     /// Console.WriteLine(calculator.Expression.Value);</code>
@@ -7085,11 +7086,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
-    /// <code>int x = 12 + 44;
-    /// string s1 = "string";
-    /// string s2 = @"string
+    /// <code>var x = 12 + 44;
+    /// var s1 = "string";
+    /// var s2 = @"string
     /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
-    /// string s3 = @"string
+    /// var s3 = @"string
     ///             with
     ///             new lines";</code>
     /// </example>
@@ -15946,7 +15947,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     ///
     /// <code><![CDATA[
-    /// Calculator calculator = new Calculator();
+    /// var calculator = new Calculator();
     /// ]]></code>
     ///
     /// Then call some operations:
@@ -15959,7 +15960,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     ///
     /// <code><![CDATA[
     /// /* This is totes a magic comment in here, just you wait! */
-    /// string foo = "bar";
+    /// var foo = "bar";
     /// ]]></code>
     /// </remarks>
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -17197,6 +17198,56 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue Pow
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/PromiseNothing.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PromiseNothing), fullyQualifiedName: "jsii-calc.PromiseNothing")]
+    public class PromiseNothing : DeputyBase
+    {
+        public PromiseNothing(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected PromiseNothing(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected PromiseNothing(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "promiseIt", isAsync: true)]
+        public static void PromiseIt()
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.PromiseNothing), new System.Type[]{}, new object[]{});
+        }
+
+        [JsiiMethod(name: "instancePromiseIt", isAsync: true)]
+        public virtual void InstancePromiseIt()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
     }
 }

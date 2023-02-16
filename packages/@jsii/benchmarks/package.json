@@ -7,14 +7,14 @@
   "dependencies": {
     "fs-extra": "^10.1.0",
     "jsii": "^0.0.0",
-    "npm": "^8.19.3",
+    "npm": "^8.19.4",
     "tar": "^6.1.13",
     "typescript": "~3.9.10",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@types/glob": "^8.0.0",
-    "glob": "^8.0.3"
+    "@types/glob": "^8.0.1",
+    "glob": "^8.1.0"
   },
   "scripts": {
     "build": "yarn --silent tsc --build && npm run lint",

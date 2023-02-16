@@ -140,7 +140,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const namespace = fmap(importStatement.moduleSymbol, findDotnetName) ?? guessedNamespace;
 
     if (importStatement.imports.import === 'full') {
-      this.dropPropertyAccesses.add(importStatement.imports.alias);
+      this.dropPropertyAccesses.add(importStatement.imports.sourceName);
       this.alreadyImportedNamespaces.add(namespace);
       return new OTree([`using ${namespace};`], [], { canBreakLine: true });
     }
@@ -563,34 +563,34 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: CSharpRenderer): OTree {
-    let fallback = 'var';
-    if (node.type) {
-      fallback = node.type.getText();
-    }
+    let typeOrVar = 'var';
 
+    const fallback = node.type?.getText() ?? 'var';
     const type =
-      (node.type && renderer.typeOfType(node.type)) ||
+      (node.type && renderer.typeOfType(node.type)) ??
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    let renderedType = this.renderType(node, type, false, fallback, renderer);
-    if (renderedType === 'object') {
-      renderedType = 'var';
+    const varType = this.renderType(node, type, false, fallback, renderer);
+    // If there is an initializer, and the value isn't "IDictionary<...", we always use var, as this is the
+    // recommendation from Roslyn.
+    if (varType !== 'object' && (varType.startsWith('IDictionary<') || node.initializer == null)) {
+      typeOrVar = varType;
     }
 
     if (!node.initializer) {
-      return new OTree([renderedType, ' ', renderer.convert(node.name), ';'], []);
+      return new OTree([typeOrVar, ' ', renderer.convert(node.name), ';']);
     }
 
     return new OTree(
       [
-        renderedType,
+        typeOrVar,
         ' ',
         renderer.convert(node.name),
         ' = ',
         renderer.updateContext({ preferObjectLiteralAsStruct: false }).convert(node.initializer),
         ';',
       ],
-      [],
+      undefined,
       { canBreakLine: true },
     );
   }
@@ -715,7 +715,7 @@ function findDotnetName(jsiiSymbol: JsiiSymbol): string | undefined {
       }
     }
 
-    return `${recurse(namespaceName(fqn))}.${simpleName(jsiiSymbol.fqn)}`;
+    return `${recurse(namespaceName(fqn))}.${ucFirst(simpleName(jsiiSymbol.fqn))}`;
   }
 }
 
