@@ -4,6 +4,8 @@ import { version } from 'process';
 
 import { NodeRelease } from './constants';
 
+export { NodeRelease } from './constants';
+
 /**
  * Checks the current process' node runtime version against the release support
  * matrix, and issues a warning to STDERR if the current version is not fully
