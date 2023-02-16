@@ -1522,6 +1522,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "dastbe",
+      "name": "David Bell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/634735?v=4",
+      "profile": "https://github.com/dastbe",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Ragnoroct",
+      "name": "Will Bender",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19155205?v=4",
+      "profile": "https://github.com/Ragnoroct",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
