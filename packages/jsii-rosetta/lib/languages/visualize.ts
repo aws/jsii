@@ -3,8 +3,10 @@ import * as ts from 'typescript';
 import { OTree } from '../o-tree';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { ImportStatement } from '../typescript/imports';
+import { TargetLanguage } from './target-language';
 
 export class VisualizeAstVisitor implements AstHandler<void> {
+  public readonly language = TargetLanguage.VISUALIZE;
   public readonly defaultContext: void = undefined;
 
   public constructor(private readonly includeHandlerNames?: boolean) {}
@@ -88,6 +90,10 @@ export class VisualizeAstVisitor implements AstHandler<void> {
 
   public newExpression(node: ts.NewExpression, context: AstRenderer<void>): OTree {
     return this.defaultNode('newExpression', node, context);
+  }
+
+  public awaitExpression(node: ts.AwaitExpression, context: AstRenderer<void>): OTree {
+    return this.defaultNode('await', node, context);
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, context: AstRenderer<void>): OTree {

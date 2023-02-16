@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.75.0](https://github.com/aws/jsii/compare/v1.74.0...v1.75.0) (2023-02-14)
+
+
+### Features
+
+* **check-node:** export NodeRelease class ([#3959](https://github.com/aws/jsii/issues/3959)) ([7e18e57](https://github.com/aws/jsii/commit/7e18e57595317780f591d60e623c2e14794dbe7f))
+
+
+### Bug Fixes
+
+* **go:** shorten file names for sub-packages ([#3927](https://github.com/aws/jsii/issues/3927)) ([7697571](https://github.com/aws/jsii/commit/7697571542df82b5d228faf85d0e637edb254519))
+* **rosetta:** submodule-qualified names produce invalid Go, Java ([#3928](https://github.com/aws/jsii/issues/3928)) ([1ff230d](https://github.com/aws/jsii/commit/1ff230d9f7bc969e888e418375e7858df2a14424)), closes [#3551](https://github.com/aws/jsii/issues/3551)
+
+## [1.74.0](https://github.com/aws/jsii/compare/v1.73.0...v1.74.0) (2023-01-28)
+
+
+### Bug Fixes
+
+* **python:** returning Promise<void> breaks runtime ([#3916](https://github.com/aws/jsii/issues/3916)) ([209d10e](https://github.com/aws/jsii/commit/209d10eab284b4e8ad38e37c0d4b4bf3294569c4))
+* **rosetta:** Rosetta does not support `await` ([#3915](https://github.com/aws/jsii/issues/3915)) ([e4c51c4](https://github.com/aws/jsii/commit/e4c51c43ca5c37ea7c40ed13ebcf3f94f5da4299))
+
+## [1.73.0](https://github.com/aws/jsii/compare/v1.72.0...v1.73.0) (2023-01-04)
+
 ## [1.72.0](https://github.com/aws/jsii/compare/v1.71.0...v1.72.0) (2022-12-05)
 
 

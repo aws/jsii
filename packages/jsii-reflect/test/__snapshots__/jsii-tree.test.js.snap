@@ -1988,6 +1988,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ pow property (stable)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.NumericValue
+ │   ├─┬ class PromiseNothing (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ static promiseIt() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: Promise<void>
+ │   │   └─┬ instancePromiseIt() method (stable)
+ │   │     └── returns: Promise<void>
  │   ├─┬ class PropertyNamedProperty (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3959,6 +3967,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class Polymorphism
  │   ├─┬ class Power
  │   │ └── base: CompositeOperation
+ │   ├── class PromiseNothing
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
@@ -5116,6 +5125,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── base property
  │   │   ├── expression property
  │   │   └── pow property
+ │   ├─┬ class PromiseNothing
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static promiseIt() method
+ │   │   └── instancePromiseIt() method
  │   ├─┬ class PropertyNamedProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -6143,6 +6157,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├── class Power
+ │   ├── class PromiseNothing
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords

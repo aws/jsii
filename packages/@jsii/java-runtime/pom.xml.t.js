@@ -64,7 +64,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <javax-annotations.version>[1.3.2,1.4.0)</javax-annotations.version>
         <jetbrains-annotations.version>[13.0.0,24.0-a0)</jetbrains-annotations.version>
         <junit.version>[5.8.0,5.10-a0)</junit.version>
-        <mockito.version>[3.12.4,4.0-a0)</mockito.version>
+        <mockito.version>[4.11.0,5.0-a0)</mockito.version>
     </properties>
 
     <dependencies>

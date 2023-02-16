@@ -1,3 +1,3 @@
 NewIntegration(this, jsii.String("Something"), &integrationOptions{
-	argument: jsii.Number(5),
+	Argument: jsii.Number(5),
 })
