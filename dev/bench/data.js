@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676561370587,
+  "lastUpdate": 1676571605217,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12115,6 +12115,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 83026.41816234382,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53393.16305099998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "dastbe@users.noreply.github.com",
+            "name": "David Bell",
+            "username": "dastbe"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "357562a4340a40b3ffb869497b40d552fcfbbcdd",
+          "message": "feat(go): add JSII_NODE to override node entrypoint (#3890)\n\nBy default, jsii-go will lookup the node entrypoint from the PATH. This allows users to override with a specific node entrypoint via the JSII_NODE environment variable.\n\nissue: #3889\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-02-16T17:21:14Z",
+          "tree_id": "1e9282f54c33f12be80b2e9f2708c892fa02b7f6",
+          "url": "https://github.com/aws/jsii/commit/357562a4340a40b3ffb869497b40d552fcfbbcdd"
+        },
+        "date": 1676571600891,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 81594.75841270006,
+            "unit": "milliseconds",
+            "range": 2320005.610059141,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 81594.75841270006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 59280.990469849974,
+            "unit": "milliseconds",
+            "range": 366966.02469195984,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59280.990469849974 milliseconds over 20 runs"
           }
         ]
       }
