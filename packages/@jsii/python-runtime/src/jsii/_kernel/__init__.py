@@ -276,12 +276,10 @@ def _callback_till_result(
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class Statistics:
-
     object_count: int
 
 
 class Kernel(metaclass=Singleton):
-
     # This class translates between the Pythonic interface for the kernel, and the
     # Kernel Provider interface that maps more directly to the JSII Kernel interface.
     # It currently only supports the idea of a process kernel provider, however it

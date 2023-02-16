@@ -39,7 +39,6 @@ from ..types import (
 
 
 class BaseProvider(metaclass=abc.ABCMeta):
-
     # The API provided by this Provider is not very pythonic, however it is done to map
     # this API as closely to the JSII runtime as possible. Higher level abstractions
     # that layer ontop of the Provider will provide a translation layer that make this
