@@ -88,7 +88,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example.
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="testpkg-0.0.1.tgz" />
@@ -1220,7 +1220,7 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=65.5.1", "wheel~=0.38.4"]
+requires = ["setuptools~=67.3.2", "wheel~=0.38"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1622,7 +1622,7 @@ exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.cs
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="testpkg-0.0.1.tgz" />
@@ -2641,7 +2641,7 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=65.5.1", "wheel~=0.38.4"]
+requires = ["setuptools~=67.3.2", "wheel~=0.38"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]

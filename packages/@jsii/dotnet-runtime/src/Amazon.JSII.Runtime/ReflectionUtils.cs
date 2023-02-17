@@ -61,7 +61,7 @@ namespace Amazon.JSII.Runtime
             return propertyInfo;
         }
 
-        public static PropertyInfo GetIndexer(Type type)
+        public static PropertyInfo? GetIndexer(Type type)
         {
             return type.GetProperties().FirstOrDefault(p => p.GetIndexParameters().Any());
         }
@@ -76,7 +76,7 @@ namespace Amazon.JSII.Runtime
             return type.GetCustomAttribute<JsiiClassAttribute>()
                    ?? GetClassAttribute(type.BaseType);
         }
-        
+
         /// <summary>
         /// Looks for a Method attribute, starting from the current class hierarchy, and searching on implemented
         /// interfaces if none was found.
@@ -90,7 +90,7 @@ namespace Amazon.JSII.Runtime
         {
             var directAttribute = method.GetCustomAttribute<T>(inherit);
             if (directAttribute != null || !inherit) return directAttribute;
-            
+
             var type = method.ReflectedType;
             if (type == null)
             {
@@ -103,12 +103,12 @@ namespace Amazon.JSII.Runtime
                     Enumerable.Range(0, map.TargetMethods.Length)
                         .Where(n => map.TargetMethods[n] == method)
                         .Select(n => map.InterfaceMethods[n]));
-            
+
             return interfaceMethods
                 .Select(im => im.GetCustomAttribute<T>(true))
                 .FirstOrDefault(attribute => attribute != null);
         }
-        
+
         /// <summary>
         /// Looks for a Property attribute, starting from the current class hierarchy, and searching on implemented
         /// interfaces if none was found.
@@ -122,13 +122,13 @@ namespace Amazon.JSII.Runtime
         {
             var directAttribute = property.GetCustomAttribute<T>(inherit);
             if (directAttribute != null || !inherit) return directAttribute;
-            
+
             var type = property.ReflectedType;
             if (type == null)
             {
                 return null;
             }
-            
+
             var interfaceProperties = type.GetTypeInfo().ImplementedInterfaces
                 .Select(ii => type.GetInterfaceMap(ii))
                 .SelectMany(map =>
@@ -137,7 +137,7 @@ namespace Amazon.JSII.Runtime
                         .Select(n => map.InterfaceMethods[n])
                         .Select(im => map.InterfaceType.GetProperties()
                             .First(prop => prop.GetMethod == im || prop.SetMethod == im)));
-            
+
             return interfaceProperties
                 .Select(ip => ip.GetCustomAttribute<T>(true))
                 .FirstOrDefault(attribute => attribute != null);
