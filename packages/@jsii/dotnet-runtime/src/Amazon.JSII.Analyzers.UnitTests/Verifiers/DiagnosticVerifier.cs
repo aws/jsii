@@ -20,7 +20,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
         /// Get the CSharp analyzer being tested - to be implemented in non-abstract class
         /// </summary>
         protected abstract DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer();
-        
+
         #endregion
 
         #region Verifier wrappers
@@ -37,7 +37,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
         }
 
         /// <summary>
-        /// General method that gets a collection of actual diagnostics found in the source after the analyzer is run, 
+        /// General method that gets a collection of actual diagnostics found in the source after the analyzer is run,
         /// then verifies each of them.
         /// </summary>
         /// <param name="sources">An array of strings to create source documents from to run the analyzers on</param>
@@ -115,10 +115,10 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
                         $"Expected diagnostic severity to be \"{expected.Severity}\" was \"{actual.Severity}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
                 }
 
-                if (actual.GetMessage() != expected.Message)
+                if (actual.GetMessage(CultureInfo.InvariantCulture) != expected.Message)
                 {
                     Assert.True(false,
-                        $"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage()}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
+                        $"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage(CultureInfo.InvariantCulture)}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
                 }
             }
         }
@@ -173,7 +173,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Verifiers
             var builder = new StringBuilder();
             for (var i = 0; i < diagnostics.Length; ++i)
             {
-                builder.AppendLine($"// {diagnostics[i]}");
+                builder.AppendLine(CultureInfo.InvariantCulture, $"// {diagnostics[i]}");
 
                 var analyzerType = analyzer?.GetType();
                 if (analyzerType == null)

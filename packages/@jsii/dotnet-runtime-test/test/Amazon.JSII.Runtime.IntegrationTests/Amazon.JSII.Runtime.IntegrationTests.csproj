@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
 
@@ -29,11 +29,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\dotnet-runtime\src\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
-      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj" />
-      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj" />
-      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId.csproj" />
-      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId\Amazon.JSII.Tests.CalculatorPackageId.csproj" />
+        <ProjectReference
+            Include="..\..\..\dotnet-runtime\src\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
+        <ProjectReference
+            Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj" />
+        <ProjectReference
+            Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj" />
+        <ProjectReference
+            Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId.csproj" />
+        <ProjectReference
+            Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId\Amazon.JSII.Tests.CalculatorPackageId.csproj" />
     </ItemGroup>
 
 </Project>
