@@ -31,7 +31,6 @@ kernel = Kernel()
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class JSIIAssembly:
-
     name: str
     version: str
     module: str

@@ -101,6 +101,60 @@ func TestVersionCheck(t *testing.T) {
 	}
 }
 
+func TestJSIINode(t *testing.T) {
+	t.Run("successful node invocation", func(t *testing.T) {
+		node, err := getNodePath()
+		if err != nil {
+			t.Fatal(err)
+			return
+		}
+
+		oldJsiiNode := os.Getenv(JSII_NODE)
+		os.Setenv(JSII_NODE, node)
+		defer os.Setenv(JSII_NODE, oldJsiiNode)
+
+		process, err := NewProcess("0.0.0")
+		if err != nil {
+			t.Fatal(err)
+			return
+		}
+		defer process.Close()
+
+		err = process.Request(TestRequest{"stats"}, &TestResponse{})
+		if err != nil {
+			t.Fatal(err)
+			return
+		}
+	})
+
+	t.Run("unsuccessful node invocation", func(t *testing.T) {
+		oldJsiiNode := os.Getenv(JSII_NODE)
+		os.Setenv(JSII_NODE, "./absolute-gibberish")
+		defer os.Setenv(JSII_NODE, oldJsiiNode)
+
+		process, err := NewProcess("0.0.0")
+		if err != nil {
+			t.Fatal(err)
+			return
+		}
+		defer process.Close()
+
+		if err := process.Request(TestRequest{"stats"}, &TestResponse{}); err == nil {
+			t.Errorf("expected an error, but no error received")
+		} else if !strings.Contains(err.Error(), "no such file or directory") && !strings.Contains(err.Error(), "file does not exist") {
+			// We have 2 options here because Windows returns a different error message, of course...
+			t.Errorf("expected 'no such file or directory' or 'file does not exist', got %v", err.Error())
+		}
+	})
+}
+
+type TestRequest struct {
+	Api string `json:"api"`
+}
+
+type TestResponse struct {
+}
+
 type EchoRequest struct {
 	Message string `json:"message"`
 }
@@ -110,6 +164,15 @@ type EchoResponse struct {
 }
 
 func makeCustomRuntime(mockVersion string) (string, error) {
+	node, err := getNodePath()
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%v %v %v", node, mockRuntime, mockVersion), nil
+}
+
+func getNodePath() (string, error) {
 	var (
 		node string
 		err  error
@@ -119,8 +182,6 @@ func makeCustomRuntime(mockVersion string) (string, error) {
 	} else {
 		node, err = exec.LookPath("node")
 	}
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprintf("%v %v %v", node, mockRuntime, mockVersion), nil
+
+	return node, err
 }

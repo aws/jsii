@@ -185,74 +185,100 @@ jobs:
   test:
     permissions:
       contents: none
-    name: Test (${{ matrix.os }} / dotnet ${{ matrix.dotnet }} / go ${{ matrix.go }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
+    name: Test (${{ matrix.title }})
     needs: build
     strategy:
       fail-fast: false
       matrix:
-        # All currently supported node versions (Maintenance LTS, Active LTS, Current)
-        dotnet: ['3.1.x']
+        title: ['baseline']
+        dotnet: ['6.0.x']
         go: ['1.18']
         java: ['8']
-        node:
-          - '14' # EOL 2023-04-30
-          - '16' # EOL 2023-09-11
-          - '18' # EOL 2025-04-30
-          - '19' # EOL 2023-06-01
+        node: ['14'] # EOL 2023-04-30
         os: [ubuntu-latest]
         python: ['3.7']
         # Add specific combinations to be tested against "node 14" (to restrict cardinality)
         include:
           # Test using Windows
-          - os: windows-latest
-            dotnet: '3.1.x'
+          - title: 'Windows'
+            os: windows-latest
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             python: '3.7'
           # Test using macOS
-          - os: macos-latest
-            dotnet: '3.1.x'
+          - title: 'macOS'
+            os: macos-latest
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             python: '3.7'
-          # Test alternate .NETs
-          - java: '8'
+          # Test alternate Nodes
+          - title: 'Node 16'
+            java: '8'
             dotnet: '6.0.x'
+            go: '1.18'
+            node: '16' # EOL 2023-09-11
+            os: ubuntu-latest
+            python: '3.7'
+          - title: 'Node 18'
+            java: '8'
+            dotnet: '6.0.x'
+            go: '1.18'
+            node: '18' # EOL 2025-04-30
+            os: ubuntu-latest
+            python: '3.7'
+          - title: 'Node 19'
+            java: '8'
+            dotnet: '6.0.x'
+            go: '1.18'
+            node: '19' # EOL 2023-06-01
+            os: ubuntu-latest
+            python: '3.7'
+          # Test alternate .NETs
+          - title: '.NET 7.0'
+            java: '8'
+            dotnet: '7.0.x'
             go: '1.18'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Gos
-          - java: '8'
-            dotnet: '3.1.x'
+          - title: 'Go 1.19'
+            java: '8'
+            dotnet: '6.0.x'
             go: '1.19'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Javas
-          - java: '11'
-            dotnet: '3.1.x'
+          - title: 'Java 11'
+            java: '11'
+            dotnet: '6.0.x'
             go: '1.18'
             node: '14'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Pythons
-          - python: '3.8'
-            dotnet: '3.1.x'
+          - title: 'Python 3.8'
+            python: '3.8'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest
-          - python: '3.9'
-            dotnet: '3.1.x'
+          - title: 'Python 3.9'
+            python: '3.9'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'
             os: ubuntu-latest
-          - python: '3.10'
-            dotnet: '3.1.x'
+          - title: 'Python 3.10'
+            python: '3.10'
+            dotnet: '6.0.x'
             go: '1.18'
             java: '8'
             node: '14'

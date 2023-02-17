@@ -2081,7 +2081,10 @@ class Package {
     code.closeFile('README.md');
 
     // Strip " (build abcdef)" from the jsii version
-    const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
+    const jsiiVersionSimple = toReleaseVersion(
+      this.metadata.jsiiVersion.replace(/ .*$/, ''),
+      TargetName.PYTHON,
+    );
 
     const setupKwargs = {
       name: this.name,

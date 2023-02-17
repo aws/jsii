@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>Amazon.JSII.Runtime.UnitTests</AssemblyName>
     <IsPackable>false</IsPackable>
 
@@ -12,11 +12,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
     <RollForward>Major</RollForward>
-    
-    <NoWarn>
-      CA1034, <!-- Nested types should not be visible -->
-      CA1711, <!-- Identifiers should not have incorrect suffix -->
-      CA1724, <!-- Type names should not match namespaces -->
+
+    <NoWarn> CA1034, <!-- Nested types should not be visible --> CA1711, <!-- Identifiers should not have incorrect suffix --> CA1724, <!-- Type names should not match namespaces -->
     </NoWarn>
   </PropertyGroup>
 

@@ -69,13 +69,11 @@ from ...errors import ErrorType, JSIIError, JavaScriptError
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _HelloResponse:
-
     hello: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _OkayResponse:
-
     # We could technically mark this as KernelResponse, because we know that
     # it is going to be one of those. However, we can't disambiguate the different
     # types because some of them have the same keys as each other, so the only way
@@ -86,7 +84,6 @@ class _OkayResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _ErrorResponse:
-
     error: str
     stack: str
     name: str
@@ -94,13 +91,11 @@ class _ErrorResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CallbackResponse:
-
     callback: Callback
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CompleteRequest:
-
     complete: CompleteRequest
 
 
@@ -284,7 +279,7 @@ class _NodeProcess:
 
         self.handshake()
 
-    def stop(self):
+    def stop(self) -> None:
         # This process is closing already, un-registering the hook to not fire twice
         atexit.unregister(self.stop)
 
@@ -304,7 +299,7 @@ class _NodeProcess:
 
         self._ctx_stack.close()
 
-    def handshake(self):
+    def handshake(self) -> None:
         # Get the version of the runtime that we're using.
         resp: _HelloResponse = self._serializer.structure(
             self._next_message(), _HelloResponse

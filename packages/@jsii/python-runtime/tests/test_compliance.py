@@ -132,7 +132,6 @@ class TwoOverrides(AsyncVirtualMethods):
 
 
 class SyncOverrides(SyncVirtualMethods):
-
     multiplier = 1
     return_super = False
     call_async = False
@@ -648,7 +647,6 @@ def test_propertyOverrides_set_throws():
 def test_propertyOverrides_interfaces():
     @jsii.implements(IInterfaceWithProperties)
     class TInterfaceWithProperties:
-
         x = None
 
         @property
@@ -673,7 +671,6 @@ def test_propertyOverrides_interfaces():
 def test_interfaceBuilder():
     @jsii.implements(IInterfaceWithProperties)
     class TInterfaceWithProperties:
-
         x = "READ_WRITE"
 
         @property
@@ -729,7 +726,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
         obj.caller_is_property = 12
 
 
-def test_testInterfaces():
+def test_testInterfaces() -> None:
     friendly: IFriendly
     friendlier: IFriendlier
     random_number_generator: IRandomNumberGenerator
