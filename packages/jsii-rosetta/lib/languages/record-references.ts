@@ -4,6 +4,7 @@ import { lookupJsiiSymbol } from '../jsii/jsii-utils';
 import { TargetLanguage } from '../languages/target-language';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { AstRenderer } from '../renderer';
+import { SubmoduleReference } from '../submodule-reference';
 import { Spans } from '../typescript/visible-spans';
 import { DefaultVisitor } from './default';
 
@@ -18,7 +19,7 @@ type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
 export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesContext> {
   public static readonly VERSION = '2';
 
-  public readonly language = TargetLanguage.PYTHON; // Doesn't matter, but we need it to use the visitor infra :(
+  public readonly language = TargetLanguage.VISUALIZE;
   public readonly defaultContext = {};
   private readonly references = new Set<string>();
 
@@ -63,7 +64,11 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
     return super.newExpression(node, context);
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, context: RecordReferencesRenderer): OTree {
+  public propertyAccessExpression(
+    node: ts.PropertyAccessExpression,
+    context: RecordReferencesRenderer,
+    submoduleReference: SubmoduleReference | undefined,
+  ): OTree {
     if (this.visibleSpans.containsStartOfNode(node)) {
       // The property itself
       this.recordNode(node, context);
@@ -71,7 +76,7 @@ export class RecordReferencesVisitor extends DefaultVisitor<RecordReferencesCont
       // Not currently considering the return type as "referenced"
     }
 
-    return super.propertyAccessExpression(node, context);
+    return super.propertyAccessExpression(node, context, submoduleReference);
   }
 
   public regularCallExpression(node: ts.CallExpression, context: RecordReferencesRenderer): OTree {

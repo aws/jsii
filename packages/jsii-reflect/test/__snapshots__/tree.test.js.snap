@@ -2165,6 +2165,14 @@ exports[`showAll 1`] = `
  │   │   └─┬ pow property
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.NumericValue
+ │   ├─┬ class PromiseNothing
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ static promiseIt() method
+ │   │   │ ├── static
+ │   │   │ └── returns: Promise<void>
+ │   │   └─┬ instancePromiseIt() method
+ │   │     └── returns: Promise<void>
  │   ├─┬ class PropertyNamedProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4134,6 +4142,7 @@ exports[`types 1`] = `
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├── class Power
+ │   ├── class PromiseNothing
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords

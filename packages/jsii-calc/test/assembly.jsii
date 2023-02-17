@@ -11823,6 +11823,50 @@
       ],
       "symbolId": "lib/calculator:Power"
     },
+    "jsii-calc.PromiseNothing": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.PromiseNothing",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3135
+      },
+      "methods": [
+        {
+          "async": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3136
+          },
+          "name": "promiseIt",
+          "static": true
+        },
+        {
+          "async": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3140
+          },
+          "name": "instancePromiseIt"
+        }
+      ],
+      "name": "PromiseNothing",
+      "symbolId": "lib/compliance:PromiseNothing"
+    },
     "jsii-calc.PropertyNamedProperty": {
       "assembly": "jsii-calc",
       "docs": {
@@ -18799,5 +18843,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "kmlc5is+t/xffykk7b4m8jurrxFDkj9pjv2cW/V1J50="
+  "fingerprint": "EH7xszNdCh9PCFUZ8Foi7g2CPhdrKeZm8CQaUCNv4GQ="
 }

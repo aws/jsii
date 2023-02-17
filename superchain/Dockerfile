@@ -39,7 +39,7 @@ RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sou
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.8.6"
+ARG M2_VERSION="3.8.7"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
@@ -53,7 +53,7 @@ RUN set -eo pipefail                                                            
   && tar xzf /tmp/apache-maven.tar.gz -C /opt/apache/maven --strip-components=1
 
 # Prepare .NET Core distribution
-ARG DOTNET_CHANNEL="3.1"
+ARG DOTNET_CHANNEL="6.0"
 ENV DOTNET_FEED="https://dotnetcli.blob.core.windows.net/dotnet"
 RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.version")                                  \
   && DOTNET_ASSET="dotnet-sdk-${DOTNET_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                     \

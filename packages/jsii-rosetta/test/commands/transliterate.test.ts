@@ -150,7 +150,7 @@ export class ClassName implements IInterface {
           "markdown": "# README
 
       \`\`\`csharp
-      IInterface object = new ClassName("this", 1337, new ClassNameProps { Foo = "bar" });
+      var object = new ClassName("this", 1337, new ClassNameProps { Foo = "bar" });
       object.Property = EnumType.OPTION_A;
       object.MethodCall();
 

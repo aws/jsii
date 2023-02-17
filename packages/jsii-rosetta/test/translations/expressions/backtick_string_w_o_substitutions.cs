@@ -1,1 +1,1 @@
-string x = "some string";
+var x = "some string";

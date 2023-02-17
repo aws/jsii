@@ -77,7 +77,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="foo-1.2.3.tgz" />
@@ -407,7 +407,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=62.1.0", "wheel~=0.38.4"]
+requires = ["setuptools~=67.3.2", "wheel~=0.38"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -586,7 +586,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="foo-1.2.3.tgz" />
@@ -916,7 +916,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=62.1.0", "wheel~=0.38.4"]
+requires = ["setuptools~=67.3.2", "wheel~=0.38"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1095,7 +1095,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] =
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="foo-2.0.0-rc.42.tgz" />
@@ -1405,7 +1405,7 @@ foo
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=62.1.0", "wheel~=0.38.4"]
+requires = ["setuptools~=67.3.2", "wheel~=0.38"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1581,7 +1581,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="foo-4.5.6-pre.1337.tgz" />
@@ -1891,7 +1891,7 @@ foo
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=62.1.0", "wheel~=0.38.4"]
+requires = ["setuptools~=67.3.2", "wheel~=0.38"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]

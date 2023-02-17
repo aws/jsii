@@ -76,6 +76,7 @@ from jsii_calc import (
     StructParameterType,
     AnonymousImplementationProvider,
     UpcasingReflectable,
+    PromiseNothing,
 )
 from jsii_calc.cdk16625 import Cdk16625
 from jsii_calc.cdk22369 import AcceptsPath
@@ -131,7 +132,6 @@ class TwoOverrides(AsyncVirtualMethods):
 
 
 class SyncOverrides(SyncVirtualMethods):
-
     multiplier = 1
     return_super = False
     call_async = False
@@ -647,7 +647,6 @@ def test_propertyOverrides_set_throws():
 def test_propertyOverrides_interfaces():
     @jsii.implements(IInterfaceWithProperties)
     class TInterfaceWithProperties:
-
         x = None
 
         @property
@@ -672,7 +671,6 @@ def test_propertyOverrides_interfaces():
 def test_interfaceBuilder():
     @jsii.implements(IInterfaceWithProperties)
     class TInterfaceWithProperties:
-
         x = "READ_WRITE"
 
         @property
@@ -728,7 +726,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
         obj.caller_is_property = 12
 
 
-def test_testInterfaces():
+def test_testInterfaces() -> None:
     friendly: IFriendly
     friendlier: IFriendlier
     random_number_generator: IRandomNumberGenerator
@@ -1354,3 +1352,11 @@ def test_stripped_deprecated_member_can_be_received():
 def test_exception_message():
     with pytest.raises(RuntimeError, match="Cannot find asset"):
         AcceptsPath(source_path="A Bad Path")
+
+
+def test_void_returning_async():
+    """Verifies it's okay to return a Promise<void>."""
+
+    assert PromiseNothing().instance_promise_it() is None
+    ## TODO: This is currently broken as code-gen is incorrect for static async.
+    # assert PromiseNothing.promise_it() is None

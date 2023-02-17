@@ -6,21 +6,18 @@ import attr
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class ObjRef:
-
     ref: str
     interfaces: Optional[List[str]] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class EnumRef:
-
     ref: ObjRef
     member: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class Override:
-
     method: Optional[str] = None
     property: Optional[str] = None
     cookie: Optional[str] = None
@@ -28,7 +25,6 @@ class Override:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class LoadRequest:
-
     name: str
     version: str
     tarball: str
@@ -36,14 +32,12 @@ class LoadRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class LoadResponse:
-
     assembly: str
     types: int
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class GetScriptCommandRequest:
-
     assembly: str
     script: str
     args: List[Any] = attr.Factory(list)
@@ -51,7 +45,6 @@ class GetScriptCommandRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class GetScriptCommandResponse:
-
     command: str
     args: List[str] = attr.Factory(list)
     env: Dict[str, str] = attr.Factory(dict)
@@ -59,7 +52,6 @@ class GetScriptCommandResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class InvokeScriptRequest:
-
     assembly: str
     script: str
     args: List[Any] = attr.Factory(list)
@@ -67,7 +59,6 @@ class InvokeScriptRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class InvokeScriptResponse:
-
     status: int
     stdout: str
     stderr: str
@@ -76,7 +67,6 @@ class InvokeScriptResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class CreateRequest:
-
     fqn: str
     args: List[Any] = attr.Factory(list)
     overrides: List[Override] = attr.Factory(list)
@@ -90,7 +80,6 @@ class CreateResponse(ObjRef):
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class DeleteRequest:
-
     objref: ObjRef
 
 
@@ -101,27 +90,23 @@ class DeleteResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class GetRequest:
-
     objref: ObjRef
     property: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class StaticGetRequest:
-
     fqn: str
     property: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class GetResponse:
-
     value: Any = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class StaticSetRequest:
-
     fqn: str
     property: str
     value: str
@@ -129,7 +114,6 @@ class StaticSetRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class SetRequest:
-
     objref: ObjRef
     property: str
     value: Any
@@ -142,7 +126,6 @@ class SetResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class StaticInvokeRequest:
-
     fqn: str
     method: str
     args: Optional[List[Any]] = attr.Factory(list)
@@ -150,7 +133,6 @@ class StaticInvokeRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class InvokeRequest:
-
     objref: ObjRef
     method: str
     args: Optional[List[Any]] = attr.Factory(list)
@@ -158,13 +140,11 @@ class InvokeRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class InvokeResponse:
-
     result: Any = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class BeginRequest:
-
     objref: ObjRef
     method: str
     args: Optional[List[Any]] = attr.Factory(list)
@@ -172,25 +152,21 @@ class BeginRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class BeginResponse:
-
     promiseid: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class EndRequest:
-
     promiseid: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class EndResponse:
-
-    result: Any
+    result: Optional[Any] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class Callback:
-
     cbid: str
     cookie: str
     invoke: Optional[InvokeRequest] = None
@@ -205,13 +181,11 @@ class CallbacksRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class CallbacksResponse:
-
     callbacks: List[Callback]
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class CompleteRequest:
-
     cbid: str
     err: Optional[str] = None
     result: Optional[Any] = None
@@ -219,19 +193,16 @@ class CompleteRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class CompleteResponse:
-
     cbid: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class NamingRequest:
-
     assembly: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class NamingResponse:
-
     naming: Mapping[str, Mapping[str, Optional[Any]]]
 
 
@@ -242,7 +213,6 @@ class StatsRequest:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class StatsResponse:
-
     objectCount: int
 
 

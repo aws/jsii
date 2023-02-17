@@ -16,9 +16,9 @@ func foo(x *f64, outer *outerStruct) {
 }
 
 foo(jsii.Number(25), &outerStruct{
-	foo: jsii.Number(3),
-	deeper: &deeperStruct{
-		a: jsii.Number(1),
-		b: jsii.Number(2),
+	Foo: jsii.Number(3),
+	Deeper: &deeperStruct{
+		A: jsii.Number(1),
+		B: jsii.Number(2),
 	},
 })
