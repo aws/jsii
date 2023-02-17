@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676593383215,
+  "lastUpdate": 1676628192766,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12229,6 +12229,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 212496.70469172005,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52413.426675799994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bervianto.leo@gmail.com",
+            "name": "Bervianto Leo Pratama",
+            "username": "berviantoleo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ae335edc7aef0d918a4bbd32880d4b272a21da7d",
+          "message": "feat(dotnet): update TargetFramework to net6.0 (#3957)\n\nBREAKING CHANGE: The runtime library for .NET & generated .NET bindings will no longer support netcoreapp3.1 after this release. Users are advised to upgrade their apps to use net6.0 or net7.0 instead.\r\n\r\nRelated: aws/aws-cdk#23926\r\nRelated: aws/aws-cdk#23921\r\n\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>",
+          "timestamp": "2023-02-17T10:16:46+01:00",
+          "tree_id": "78eca62f8e3b1e87f6b42254d14ab16baa43ef7a",
+          "url": "https://github.com/aws/jsii/commit/ae335edc7aef0d918a4bbd32880d4b272a21da7d"
+        },
+        "date": 1676628189289,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60957.99771669998,
+            "unit": "milliseconds",
+            "range": 2694115.5474411184,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60957.99771669998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46446.3889548,
+            "unit": "milliseconds",
+            "range": 56793.06712257104,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46446.3889548 milliseconds over 20 runs"
           }
         ]
       }
