@@ -64,7 +64,7 @@ namespace Amazon.JSII.Runtime.Services
                 {
                     return MakeNullableIfOptional(enumType);
                 }
-                
+
                 var interfaceType = TryGetInterfaceType(typeReference.FullyQualifiedName);
                 if (interfaceType != null)
                 {
@@ -129,7 +129,7 @@ namespace Amazon.JSII.Runtime.Services
             {
                 return typeof(AnonymousObject);
             }
-            
+
             Type? type = null;
 
             lock (_lock)
@@ -161,9 +161,9 @@ namespace Amazon.JSII.Runtime.Services
 
         void CacheTypes(Assembly assembly)
         {
-            foreach (Type type in GetTypes(assembly).Where(t => t != null))
+            foreach (Type? type in GetTypes(assembly).Where(t => t != null))
             {
-                var attribute = type.GetCustomAttribute<JsiiTypeAttributeBase>();
+                var attribute = type?.GetCustomAttribute<JsiiTypeAttributeBase>();
                 if (attribute != null)
                 {
                     string fullyQualifiedName = attribute.FullyQualifiedName;
@@ -180,12 +180,12 @@ namespace Amazon.JSII.Runtime.Services
                         );
                     }
 
-                    _types[fullyQualifiedName] = type;
+                    _types[fullyQualifiedName] = type!;
                 }
             }
         }
 
-        IEnumerable<Type>? GetTypes(Assembly assembly)
+        IEnumerable<Type?> GetTypes(Assembly assembly)
         {
             try
             {

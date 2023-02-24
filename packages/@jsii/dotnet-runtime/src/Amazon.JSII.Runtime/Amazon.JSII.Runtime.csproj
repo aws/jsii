@@ -2,7 +2,7 @@
   <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <PackageId>Amazon.JSII.Runtime</PackageId>
     <Title>.NET Runtime for JSII</Title>
     <PackageIcon>icon.png</PackageIcon>
@@ -12,21 +12,12 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
-    <NoWarn>
-      CA1019, <!-- Define accessors for attribute arguments -->
-      CA1031, <!-- Do not catch general exception types -->
-      CA1033, <!-- Interface methods should be callable by child types -->
-      CA1034, <!-- Nested types should not be visible -->
-      CA1040, <!-- Avoid empty interfaces -->
-      CA1054, <!-- URI parameters should not be strings -->
-      CA1056, <!-- URI properties should not be strings -->
-      CA1062, <!-- Validate arguments of public methods (compiler complains the null-checks are unnecessary) -->
-      CA1508, <!-- Avoid dead conditional code (compiler argues the code is not dead ??) -->
-      CA1710, <!-- Identifiers should have correct suffix -->
-      CA1716, <!-- Identifiers should not match keywords -->
-      CA1720, <!-- Identifiers should not contain type names -->
-      CA1819, <!-- Properties should not return arrays -->
-      CA2225, <!-- Operator overloads have named alternates -->
+    <NoWarn> CA1019, <!-- Define accessors for attribute arguments --> CA1031, <!-- Do not catch general exception types --> CA1033, <!-- Interface methods should be callable by child types --> CA1034, <!-- Nested types should not be visible --> CA1040, <!-- Avoid empty interfaces --> CA1054, <!-- URI parameters should not be
+      strings --> CA1056, <!-- URI properties
+      should not be strings --> CA1062, <!-- Validate
+      arguments of public methods (compiler complains the null-checks are unnecessary) --> CA1508, <!--
+      Avoid dead conditional code (compiler argues the code is not dead ??) -->
+      CA1710, <!-- Identifiers should have correct suffix --> CA1716, <!-- Identifiers should not match keywords --> CA1720, <!-- Identifiers should not contain type names --> CA1819, <!-- Properties should not return arrays --> CA2225, <!-- Operator overloads have named alternates -->
     </NoWarn>
   </PropertyGroup>
 
