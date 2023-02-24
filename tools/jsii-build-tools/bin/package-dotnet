@@ -4,4 +4,4 @@ set -euo pipefail
 mkdir -p dist/dotnet
 
 dotnet build --force -c Release $1
-dotnet pack --include-symbols --include-source --output dist/dotnet -c Release $1
+dotnet pack --include-symbols --include-source --property:PackageOutputPath=dist/dotnet -c Release $1
