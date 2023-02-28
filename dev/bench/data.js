@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677511990212,
+  "lastUpdate": 1677587476999,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12457,6 +12457,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 330620.3200381687,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64949.01070220002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0fc9229383e23cd535d8fa0a5867e6e51618f00a",
+          "message": "fix(rosetta): prints colors to log file (#3953)\n\nRosetta error messages contain colors codes in the errors, which makes the errors produced by Rosetta look like garbage and very hard to parse.\n\nStrip the colors if we detect a non-TTY input.\n\n(Copied the regex from an MIT-licensed package to avoid adding extra dependencies)\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-02-28T11:40:01Z",
+          "tree_id": "5f9237904acfe951ac75a67fb6b614597540f599",
+          "url": "https://github.com/aws/jsii/commit/0fc9229383e23cd535d8fa0a5867e6e51618f00a"
+        },
+        "date": 1677587474087,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 68316.40229500004,
+            "unit": "milliseconds",
+            "range": 2399538.704322581,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 68316.40229500004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50148.516973350015,
+            "unit": "milliseconds",
+            "range": 33676.76901510707,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50148.516973350015 milliseconds over 20 runs"
           }
         ]
       }
