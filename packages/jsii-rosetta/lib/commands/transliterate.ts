@@ -126,7 +126,7 @@ export async function transliterateAssembly(
     }
   }
 
-  rosetta.printDiagnostics(process.stderr);
+  rosetta.printDiagnostics(process.stderr, process.stderr.isTTY);
   if (rosetta.hasErrors && options.strict) {
     throw new Error('Strict mode is enabled and some examples failed compilation!');
   }

@@ -293,8 +293,8 @@ export class RosettaTabletReader {
     );
   }
 
-  public printDiagnostics(stream: NodeJS.WritableStream) {
-    printDiagnostics(this.diagnostics, stream);
+  public printDiagnostics(stream: NodeJS.WritableStream, colors = true) {
+    printDiagnostics(this.diagnostics, stream, colors);
   }
 
   public get hasErrors() {
