@@ -244,6 +244,7 @@ export async function pathExists(path: string): Promise<boolean> {
   }
 }
 
+// Copy/pasted from the 'ansi-regex' package to avoid taking a dependency for this one line that will never change
 const ANSI_PATTERN = new RegExp(
   [
     '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)',
