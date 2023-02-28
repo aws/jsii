@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677593728128,
+  "lastUpdate": 1677597090222,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12533,6 +12533,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1077148.6760057036,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62089.20647395002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4f83b30bca485906fdf4493fc7279b5350f4bc3c",
+          "message": "chore(deps): Bump mypy from 1.0.0 to 1.0.1 in /packages/@jsii/python-runtime (#3971)\n\nBumps [mypy](https://github.com/python/mypy) from 1.0.0 to 1.0.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/ecf05e6388eb5c3c0c5d7ea963817c0f81b65618\"><code>ecf05e6</code></a> bump version to 1.0.1</li>\n<li><a href=\"https://github.com/python/mypy/commit/18c46938e77a3ab01e6e38b57c0b3f1286966109\"><code>18c4693</code></a> [Backport] Fix generic TypedDict/NamedTuple fixup (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/14701\">#14701</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/a9051d26711905a01382587b1ab3ee7acdae090e\"><code>a9051d2</code></a> [backport] [mypyc] Fix test case testI64Cast on 32-bit architectures (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/14700\">#14700</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/83db0856e2680fcdd84841a5e3ddb66508f533f8\"><code>83db085</code></a> [backport] [used before def] handle walrus declaration in match subject corre...</li>\n<li><a href=\"https://github.com/python/mypy/commit/c090ca2a55ef2343cc39222ffb6e503432cfe9f4\"><code>c090ca2</code></a> [backport] [used before def] correctly handle walrus operator (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/14646\">#14646</a>) (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/14654\">#14654</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/0c9958583cf7c2b9ba568b19853aa63aa9d6e670\"><code>0c99585</code></a> [backport] Fix crash on deferred value constrained TypeVar (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/14642\">#14642</a>) (<a href=\"https://github-redirect.dependabot.com/python/mypy/issues/14655\">#14655</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/b562f53110cf112eaa6f9642e9bae11a46f84e17\"><code>b562f53</code></a> bump version to 1.0.1+dev</li>\n<li>See full diff in <a href=\"https://github.com/python/mypy/compare/v1.0.0...v1.0.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.0.0&new-version=1.0.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-02-28T14:24:25Z",
+          "tree_id": "5bafed844f9901591b74423c3c67875493048c3f",
+          "url": "https://github.com/aws/jsii/commit/4f83b30bca485906fdf4493fc7279b5350f4bc3c"
+        },
+        "date": 1677597086641,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62434.661671049966,
+            "unit": "milliseconds",
+            "range": 3354005.3355702953,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62434.661671049966 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47249.11782045,
+            "unit": "milliseconds",
+            "range": 677041.2546235032,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47249.11782045 milliseconds over 20 runs"
           }
         ]
       }
