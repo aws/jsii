@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.76.0](https://github.com/aws/jsii/compare/v1.75.0...v1.76.0) (2023-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dotnet:** The runtime library for .NET & generated .NET bindings will no longer support netcoreapp3.1 after this release. Users are advised to upgrade their apps to use net6.0 or net7.0 instead.
+
+### Features
+
+* **dotnet:** update TargetFramework to net6.0 ([#3957](https://github.com/aws/jsii/issues/3957)) ([ae335ed](https://github.com/aws/jsii/commit/ae335edc7aef0d918a4bbd32880d4b272a21da7d)), closes [aws/aws-cdk#23926](https://github.com/aws/aws-cdk/issues/23926) [aws/aws-cdk#23921](https://github.com/aws/aws-cdk/issues/23921)
+* **go:** add JSII_NODE to override node entrypoint ([#3890](https://github.com/aws/jsii/issues/3890)) ([357562a](https://github.com/aws/jsii/commit/357562a4340a40b3ffb869497b40d552fcfbbcdd)), closes [#3889](https://github.com/aws/jsii/issues/3889)
+
+
+### Bug Fixes
+
+* JSII_RUNTIME_PACKAGE_CACHE improper case bug ([#3912](https://github.com/aws/jsii/issues/3912)) ([9c27b6e](https://github.com/aws/jsii/commit/9c27b6eb164ec0f86cafa96b7e1cb49517471abc)), closes [#3911](https://github.com/aws/jsii/issues/3911)
+
 ## [1.75.0](https://github.com/aws/jsii/compare/v1.74.0...v1.75.0) (2023-02-14)
 
 
