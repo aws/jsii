@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677605847201,
+  "lastUpdate": 1677611446484,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12647,6 +12647,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 51535.503575653885,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46153.12240524999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "52163f88e22ad48ed4fcbfb2ff002c9f8bf6dc52",
+          "message": "fix(rosetta): go may incorrectly emit _ instead of . (#3985)\n\nThe go transliteration uses a heuristic to determine if a property access expression is possibly a type name reference, however it failed to check whether the lead contains a call expression, which would make it impossible that the overall expression is a type reference.\n\nThis fixes the regular expression to address this.\n\nBackports a fix from [4.9](https://github.com/aws/jsii-rosetta/pull/7).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-02-28T16:49:58Z",
+          "tree_id": "9f22ef6a92ac87ca9995c947ccb70e403dc91810",
+          "url": "https://github.com/aws/jsii/commit/52163f88e22ad48ed4fcbfb2ff002c9f8bf6dc52"
+        },
+        "date": 1677611442608,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61750.96541760002,
+            "unit": "milliseconds",
+            "range": 4309488.713552716,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61750.96541760002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46923.828340499975,
+            "unit": "milliseconds",
+            "range": 2229374.98794253,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46923.828340499975 milliseconds over 20 runs"
           }
         ]
       }
