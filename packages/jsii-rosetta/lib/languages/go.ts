@@ -494,7 +494,7 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
     // for the last "." - delimited segment if there's dots in there...
     const expressionLooksLikeTypeReference =
       expressionType.symbol == null &&
-      /(?:\.|^)[A-Z][^.(]*$/.exec(node.expression.getText(node.expression.getSourceFile())) != null;
+      /(?:\.|^)[A-Z][^.)]*$/.exec(node.expression.getText(node.expression.getSourceFile())) != null;
 
     // Whether the node is an enum member reference.
     const isEnumMember =
