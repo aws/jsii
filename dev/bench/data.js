@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677611446484,
+  "lastUpdate": 1677772378491,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12685,6 +12685,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2229374.98794253,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46923.828340499975 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b730b801e2fc38bf49320f29554d2767f6d28137",
+          "message": "chore(deps): Bump Microsoft.CodeAnalysis.CSharp.Workspaces from 4.4.0 to 4.5.0 in /packages/@jsii/dotnet-runtime-test/test (#3979)\n\nBumps [Microsoft.CodeAnalysis.CSharp.Workspaces](https://github.com/dotnet/roslyn) from 4.4.0 to 4.5.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/roslyn/releases\">Microsoft.CodeAnalysis.CSharp.Workspaces's releases</a>.</em></p>\n<blockquote>\n<h2>.NET 6.0.1</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.1\">Release</a></p>\n<h2>.NET 5.0.4</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v5.0.4\">Release</a></p>\n<h2>.NET 5.0.2</h2>\n<p><a href=\"https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0.2/5.0.2.md\">Release Notes</a>\n<a href=\"https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0.2/5.0.2-install-instructions.md\">Install Instructions</a></p>\n<h1>Repos</h1>\n<ul>\n<li><a href=\"https://github.com/dotnet/core/releases/tag/v5.0.2\">Core</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/roslyn/blob/main/docs/Breaking%20API%20Changes.md\">Microsoft.CodeAnalysis.CSharp.Workspaces's changelog</a>.</em></p>\n<blockquote>\n<h1>API Breaking Changes</h1>\n<h1>Version 1.1.0</h1>\n<h3>Removed VisualBasicCommandLineParser.ctor</h3>\n<p>During a toolset update we noticed the constructor on <code>VisualBasicCommandLineParser</code> was <code>public</code>.  This in turn made many of the <code>protected</code> members of <code>CommandLineParser</code> a part of the API surface as it gave external customers an inheritance path.</p>\n<p>It was never the intent for these members to be a part of the supported API surface.  Creation of the parsers is meant to be done via the <code>Default</code> singleton properties.  There seems to be little risk that we broke any customers here and hence we decided to remove this API.</p>\n<p>PR: <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn/pull/4169\">dotnet/roslyn#4169</a></p>\n<h3>Changed Simplifier methods to throw ArgumentNullExceptions</h3>\n<p>Changed Simplifier.ReduceAsync, Simplifier.ExpandAsync, and Simplifier.Expand methods to throw ArgumentNullExceptions if any non-optional, nullable arguments are passed in.  Previously the user would get a NullReferenceException for synchronous methods and an AggregateException containing a NullReferenceException for asynchronous methods.</p>\n<p>PR: <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn/pull/5144\">dotnet/roslyn#5144</a></p>\n<h1>Version 1.3.0</h1>\n<h3>Treat a method marked with both public and private flags as private</h3>\n<p>The scenario is loading an assembly where some methods, fields or nested types have accessibility flags set to 7 (all three bits set), which mean public AND private.\nAfter the fix, such flags are loaded to mean private.\nThe compat change is we’re trading a compile-time success and runtime failure (native compiler) against a compile-time error (restoring the behavior of v1.2).</p>\n<p>Details below:</p>\n<ul>\n<li>The native compiler successfully compiles the method and field case (those only yield runtime error System.TypeLoadException: Invalid Field Access Flags) and reported an accessibility error on the nested type.</li>\n<li>The 1.2 compiler generated errors:</li>\n</ul>\n<pre><code>error BC30390: 'C.Private Overloads Sub M()' is not accessible in this context because it is 'Private'.\nerror BC30389: 'C.F' is not accessible in this context because it is 'Private'.\nerror BC30389: 'C.C2' is not accessible in this context because it is 'Protected Friend'.\nerror BC30390: 'C2.Private Overloads Sub M2()' is not accessible in this context because it is 'Private'.\n</code></pre>\n<ul>\n<li>The 1.3 compiler crashes.</li>\n<li>After fix, the same errors as 1.2 are generated again.</li>\n</ul>\n<p>PR: <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn/pull/11547\">dotnet/roslyn#11547</a></p>\n<h3>Don't emit bad DateTimeConstant, and load bad BadTimeConstant as default value instead</h3>\n<p>The change affects compatibility in two ways:</p>\n<ul>\n<li>When loading an invalid DateTimeConstant(-1), the compiler will use default(DateTime) instead, whereas the native compiler would produce code that fails to execute.</li>\n<li>DateTimeConstant(-1) will still count when we check that you don’t specify two default values. The compiler will produce an error, instead of succeeding (and producing IL with two attributes).</li>\n</ul>\n<p>PR: <a href=\"https://github-redirect.dependabot.com/dotnet/roslyn/pull/11536\">dotnet/roslyn#11536</a></p>\n<h1>Version 4.1.0</h1>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li>See full diff in <a href=\"https://github.com/dotnet/roslyn/commits\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.CodeAnalysis.CSharp.Workspaces&package-manager=nuget&previous-version=4.4.0&new-version=4.5.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-03-02T14:42:23Z",
+          "tree_id": "388e6d7612cf74c12169a22bf7c247fe9f60c768",
+          "url": "https://github.com/aws/jsii/commit/b730b801e2fc38bf49320f29554d2767f6d28137"
+        },
+        "date": 1677772375000,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 99943.97657275005,
+            "unit": "milliseconds",
+            "range": 4759985.900096507,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 99943.97657275005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74564.05367255,
+            "unit": "milliseconds",
+            "range": 1318347.5143755074,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74564.05367255 milliseconds over 20 runs"
           }
         ]
       }
