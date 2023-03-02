@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677772378491,
+  "lastUpdate": 1677775653271,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12723,6 +12723,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1318347.5143755074,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74564.05367255 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fcfc3936f6864358d3e8e584c0743691a3af689d",
+          "message": "chore(deps-dev): Bump pip from 23.0 to 23.0.1 in /packages/jsii-pacmak/test/generated-code (#3974)\n\nBumps [pip](https://github.com/pypa/pip) from 23.0 to 23.0.1.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.0.1 (2023-02-17)</h1>\n<h2>Features</h2>\n<ul>\n<li>Ignore PIP_REQUIRE_VIRTUALENV for <code>pip index</code> (<code>[#11671](https://github.com/pypa/pip/issues/11671) &lt;https://github.com/pypa/pip/issues/11671&gt;</code>_)</li>\n<li>Implement <code>--break-system-packages</code> to permit installing packages into\n<code>EXTERNALLY-MANAGED</code> Python installations. (<code>[#11780](https://github.com/pypa/pip/issues/11780) &lt;https://github.com/pypa/pip/issues/11780&gt;</code>_)</li>\n</ul>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Improve handling of isolated build environments on platforms that\ncustomize the Python's installation schemes, such as Debian and\nHomebrew. (<code>[#11740](https://github.com/pypa/pip/issues/11740) &lt;https://github.com/pypa/pip/issues/11740&gt;</code>_)</li>\n<li>Do not crash in presence of misformatted hash field in <code>direct_url.json</code>. (<code>[#11773](https://github.com/pypa/pip/issues/11773) &lt;https://github.com/pypa/pip/issues/11773&gt;</code>_)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/3817aef07f4c8a0cb1c43bb9a73f1bb624fc263b\"><code>3817aef</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/9a0d9301c24dc5268ce2640096c301ff7190dd8d\"><code>9a0d930</code></a> Reconcile computation of isolated build environment paths (<a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11740\">#11740</a>)</li>\n<li><a href=\"https://github.com/pypa/pip/commit/e6deb9b87c18cdd27a9ba27cb7e0670ffb81d45e\"><code>e6deb9b</code></a> Implement <code>--break-system-packages</code> for EXTERNALLY-MANAGED installations (<a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11\">#11</a>...</li>\n<li><a href=\"https://github.com/pypa/pip/commit/864fd7764b97ffac8c08946caccc2286bee36ed1\"><code>864fd77</code></a> Ignore PIP_REQUIRE_VIRTUALENV for <code>pip index</code> (<a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11671\">#11671</a>)</li>\n<li><a href=\"https://github.com/pypa/pip/commit/0138bd54c6d346fc2b14e0a9554a1b636fe17001\"><code>0138bd5</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/pypa/pip/issues/11779\">#11779</a> from sbidoul/fix-direct_url-invalid-hash-sbi</li>\n<li>See full diff in <a href=\"https://github.com/pypa/pip/compare/23.0...23.0.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.0&new-version=23.0.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-03-02T16:00:11Z",
+          "tree_id": "3f13f45b970649815d9e15c1b50e3147c37eff49",
+          "url": "https://github.com/aws/jsii/commit/fcfc3936f6864358d3e8e584c0743691a3af689d"
+        },
+        "date": 1677775650178,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61040.76314544992,
+            "unit": "milliseconds",
+            "range": 1613613.6231948934,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61040.76314544992 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47171.16703939999,
+            "unit": "milliseconds",
+            "range": 26504.85039078234,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47171.16703939999 milliseconds over 20 runs"
           }
         ]
       }
