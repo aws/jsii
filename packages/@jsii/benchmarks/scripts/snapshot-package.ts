@@ -42,7 +42,7 @@ function snapshotAwsCdk(tag: string, file: string) {
   fs.copySync(path.resolve(repoDir, 'packages', 'aws-cdk-lib'), intermediate);
 
   // Remove build artifacts so we can rebuild
-  const artifacts = glob.sync(
+  const artifacts = glob.globSync(
     path.join(intermediate, '**/*@(.js|.js.map|.d.ts|.tsbuildinfo)'),
   );
   const exceptions = new Set([

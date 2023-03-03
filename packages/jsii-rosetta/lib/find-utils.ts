@@ -62,7 +62,7 @@ export function findUp(
 
   return result ? directory : recurse();
 
-  function recurse() {
+  function recurse(): Promise<string | undefined> | string | undefined {
     const parent = path.dirname(directory);
     if (parent === directory) {
       return undefined;
