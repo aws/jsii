@@ -32,6 +32,7 @@ setuptools.setup(
     install_requires=[
         "attrs>=21.2,<23.0",
         "cattrs>=1.8,<22.3",
+        "importlib_resources; python_version<='3.9'",
         "publication>=0.0.3",  # This is used by all generated code.
         "typeguard~=2.13.3",  # This is used by all generated code.
         "python-dateutil",
@@ -48,6 +49,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Libraries",
         "Topic :: Utilities",
         "Typing :: Typed",

@@ -3,7 +3,7 @@ requires = ["setuptools~=62.2", "wheel~=0.37"]
 build-backend = 'setuptools.build_meta'
 
 [tool.black]
-target-version = ['py37', 'py38', 'py39', 'py310']
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
 include = '\.pyi?$'
 exclude = '\.(git|mypy_cache|env)'
 

@@ -44,11 +44,13 @@ class JSIIAssembly:
         assembly = cls(*args, **kwargs)
 
         # Actually load the assembly into the kernel, we're using the
-        # importlib.resources API here isntead of manually constructing the path, in
+        # importlib.resources API here instead of manually constructing the path, in
         # the hopes that this will make JSII modules able to be used with zipimport
         # instead of only on the FS.
-        with importlib_resources.path(
-            f"{assembly.module}._jsii", assembly.filename
+        with importlib_resources.as_file(
+            importlib_resources.files(f"{assembly.module}._jsii").joinpath(
+                assembly.filename
+            )
         ) as assembly_path:
             _kernel.load(assembly.name, assembly.version, os.fspath(assembly_path))
 

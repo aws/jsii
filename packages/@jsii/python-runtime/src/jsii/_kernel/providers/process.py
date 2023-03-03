@@ -237,7 +237,11 @@ class _NodeProcess:
         for resname, filename in resources.items():
             pathlib.Path(os.path.dirname(filename)).mkdir(exist_ok=True)
             with open(filename, "wb") as fp:
-                fp.write(importlib_resources.read_binary(jsii._embedded.jsii, resname))
+                fp.write(
+                    importlib_resources.files(jsii._embedded.jsii)
+                    .joinpath(resname)
+                    .read_bytes()
+                )
 
         # Return our first path, which should be the path for jsii-runtime.js
         return resources[jsii._embedded.jsii.ENTRYPOINT]
