@@ -1,6 +1,7 @@
 import datetime
 import inspect
 import itertools
+import time
 from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
 from typing import Callable, cast, Any, List, Optional, Sequence, Type
@@ -28,6 +29,7 @@ from .types import (
     CreateResponse,
     DeleteRequest,
     EndRequest,
+    EndResponse,
     EnumRef,
     GetRequest,
     GetResponse,
@@ -464,26 +466,11 @@ class Kernel(metaclass=Singleton):
         if isinstance(promise, Callback):
             promise = _callback_till_result(self, promise, BeginResponse)
 
-        callbacks = self.provider.callbacks(CallbacksRequest()).callbacks
-        while callbacks:
-            for callback in callbacks:
-                try:
-                    result = _handle_callback(self, callback)
-                except Exception as exc:
-                    # TODO: Maybe we want to print the whole traceback here?
-                    complete = self.provider.complete(
-                        CompleteRequest(cbid=callback.cbid, err=str(exc))
-                    )
-                else:
-                    complete = self.provider.complete(
-                        CompleteRequest(cbid=callback.cbid, result=result)
-                    )
-
-                assert complete.cbid == callback.cbid
-
-            callbacks = self.provider.callbacks(CallbacksRequest()).callbacks
-
-        return self.provider.end(EndRequest(promiseid=promise.promiseid)).result
+        response = self.provider.end(EndRequest(promiseid=promise.promiseid))
+        if isinstance(response, Callback):
+            return _callback_till_result(self, response, EndResponse).result
+        else:
+            return response.result
 
     def stats(self):
         resp = self.provider.stats(StatsRequest())

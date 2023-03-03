@@ -82,6 +82,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.GreetingAugmenter",
   "jsii-calc.ImplementInternalInterface",
   "jsii-calc.Implementation",
+  "jsii-calc.ImplementationFromAsyncContext",
   "jsii-calc.ImplementsInterfaceWithInternal",
   "jsii-calc.ImplementsInterfaceWithInternalSubclass",
   "jsii-calc.ImplementsPrivateInterface",

@@ -234,6 +234,7 @@ KernelResponse = Union[
     LoadResponse,
     CreateResponse,
     DeleteResponse,
+    EndResponse,
     GetResponse,
     InvokeResponse,
     InvokeScriptResponse,

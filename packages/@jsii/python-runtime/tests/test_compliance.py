@@ -77,6 +77,8 @@ from jsii_calc import (
     AnonymousImplementationProvider,
     UpcasingReflectable,
     PromiseNothing,
+    IPromiseProducer,
+    ImplementationFromAsyncContext,
 )
 from jsii_calc.cdk16625 import Cdk16625
 from jsii_calc.cdk22369 import AcceptsPath
@@ -527,6 +529,7 @@ def test_asyncOverrides_overrideAsyncMethodByParentClass():
     assert obj.call_me() == 4452
 
 
+# fails for no reason and poisons the runtime
 def test_asyncOverrides_overrideCallsSuper():
     obj = OverrideCallsSuper()
     assert obj.override_me(12) == 1441
@@ -1358,5 +1361,19 @@ def test_void_returning_async():
     """Verifies it's okay to return a Promise<void>."""
 
     assert PromiseNothing().instance_promise_it() is None
-    ## TODO: This is currently broken as code-gen is incorrect for static async.
+    # TODO: This is currently broken as code-gen is incorrect for static async.
     # assert PromiseNothing.promise_it() is None
+
+
+def test_calling_implementation_from_async_context():
+    @jsii.implements(IPromiseProducer)
+    class ConcreteProducer:
+        def produce(self) -> str:
+            return "result"
+
+    producer = ConcreteProducer()
+
+    assert producer.produce() == "result"
+
+    worker = ImplementationFromAsyncContext(producer)
+    assert worker.do_async_work() == "result"

@@ -3814,6 +3814,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 IJsii487External2.java
           ┃                 ┣━ 📄 IJsii496.java
           ┃                 ┣━ 📄 Implementation.java
+          ┃                 ┣━ 📄 ImplementationFromAsyncContext.java
           ┃                 ┣━ 📄 ImplementInternalInterface.java
           ┃                 ┣━ 📄 ImplementsInterfaceWithInternal.java
           ┃                 ┣━ 📄 ImplementsInterfaceWithInternalSubclass.java
@@ -3832,6 +3833,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 IObjectWithProperty.java
           ┃                 ┣━ 📄 IOptionalMethod.java
           ┃                 ┣━ 📄 IPrivatelyImplemented.java
+          ┃                 ┣━ 📄 IPromiseProducer.java
           ┃                 ┣━ 📄 IPublicInterface.java
           ┃                 ┣━ 📄 IPublicInterface2.java
           ┃                 ┣━ 📄 IRandomNumberGenerator.java
@@ -14573,6 +14575,61 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IPromiseProducer.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Async Context operations Validates features work when run from within an async context.
+ * <p>
+ * @see <a href="https://github.com/aws/jsii/issues/3917">https://github.com/aws/jsii/issues/3917</a>
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IPromiseProducer")
+@software.amazon.jsii.Jsii.Proxy(IPromiseProducer.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IPromiseProducer extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String produce();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IPromiseProducer.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String produce() {
+            return software.amazon.jsii.Kernel.asyncCall(this, "produce", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IPromiseProducer}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IPromiseProducer {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String produce() {
+            return software.amazon.jsii.Kernel.asyncCall(this, "produce", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IPublicInterface.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -15146,6 +15203,43 @@ public class Implementation extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ImplementationFromAsyncContext.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ImplementationFromAsyncContext")
+public class ImplementationFromAsyncContext extends software.amazon.jsii.JsiiObject {
+
+    protected ImplementationFromAsyncContext(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ImplementationFromAsyncContext(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param producer This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ImplementationFromAsyncContext(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IPromiseProducer producer) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(producer, "producer is required") });
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String doAsyncWork() {
+        return software.amazon.jsii.Kernel.asyncCall(this, "doAsyncWork", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 }
 
@@ -29030,6 +29124,7 @@ jsii-calc.INonInternalInterface=software.amazon.jsii.tests.calculator.INonIntern
 jsii-calc.IObjectWithProperty=software.amazon.jsii.tests.calculator.IObjectWithProperty
 jsii-calc.IOptionalMethod=software.amazon.jsii.tests.calculator.IOptionalMethod
 jsii-calc.IPrivatelyImplemented=software.amazon.jsii.tests.calculator.IPrivatelyImplemented
+jsii-calc.IPromiseProducer=software.amazon.jsii.tests.calculator.IPromiseProducer
 jsii-calc.IPublicInterface=software.amazon.jsii.tests.calculator.IPublicInterface
 jsii-calc.IPublicInterface2=software.amazon.jsii.tests.calculator.IPublicInterface2
 jsii-calc.IRandomNumberGenerator=software.amazon.jsii.tests.calculator.IRandomNumberGenerator
@@ -29040,6 +29135,7 @@ jsii-calc.IStructReturningDelegate=software.amazon.jsii.tests.calculator.IStruct
 jsii-calc.IWallClock=software.amazon.jsii.tests.calculator.IWallClock
 jsii-calc.ImplementInternalInterface=software.amazon.jsii.tests.calculator.ImplementInternalInterface
 jsii-calc.Implementation=software.amazon.jsii.tests.calculator.Implementation
+jsii-calc.ImplementationFromAsyncContext=software.amazon.jsii.tests.calculator.ImplementationFromAsyncContext
 jsii-calc.ImplementsInterfaceWithInternal=software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternal
 jsii-calc.ImplementsInterfaceWithInternalSubclass=software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternalSubclass
 jsii-calc.ImplementsPrivateInterface=software.amazon.jsii.tests.calculator.ImplementsPrivateInterface

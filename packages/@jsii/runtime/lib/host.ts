@@ -82,7 +82,7 @@ export class KernelHost {
       return this.processRequest(
         req,
         completeCallback.bind(this),
-        /* sync */ true,
+        callback.sync,
       );
     }
   }
@@ -126,7 +126,7 @@ export class KernelHost {
       // promises. see the kernel test 'async overrides: two overrides'
       // for an example for this use case.
       if (apiReq.api === 'begin' || apiReq.api === 'complete') {
-        checkIfAsyncIsAllowed();
+        assertAsyncIsAllowed();
 
         this.debug('processing pending promises before responding');
 
@@ -141,7 +141,7 @@ export class KernelHost {
       // if this is an async method, return immediately and
       // call next only when the promise is fulfilled.
       if (this.isPromise(ret)) {
-        checkIfAsyncIsAllowed();
+        assertAsyncIsAllowed();
 
         this.debug('waiting for promise to be fulfilled');
 
@@ -169,7 +169,7 @@ export class KernelHost {
     // indicate this request was processed (synchronously).
     return next();
 
-    function checkIfAsyncIsAllowed() {
+    function assertAsyncIsAllowed() {
       if (sync) {
         throw new JsiiFault(
           'Cannot handle async operations while waiting for a sync callback to return',

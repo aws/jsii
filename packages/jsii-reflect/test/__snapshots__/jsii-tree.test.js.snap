@@ -1460,6 +1460,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ value property (stable)
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ class ImplementationFromAsyncContext (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(producer) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ producer
+ │   │   │     └── type: jsii-calc.IPromiseProducer
+ │   │   └─┬ doAsyncWork() method (stable)
+ │   │     └── returns: Promise<string>
  │   ├─┬ class ImplementsInterfaceWithInternal (stable)
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
@@ -3107,6 +3115,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface IPromiseProducer (stable)
+ │   │ └─┬ members
+ │   │   └─┬ produce() method (stable)
+ │   │     ├── abstract
+ │   │     └── returns: Promise<string>
  │   ├─┬ interface IPublicInterface (stable)
  │   │ └─┬ members
  │   │   └─┬ bye() method (stable)
@@ -3915,6 +3928,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
+ │   ├── class ImplementationFromAsyncContext
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └── interfaces: IInterfaceWithInternal
  │   ├─┬ class ImplementsInterfaceWithInternalSubclass
@@ -4086,6 +4100,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IObjectWithProperty
  │   ├── interface IOptionalMethod
  │   ├── interface IPrivatelyImplemented
+ │   ├── interface IPromiseProducer
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
@@ -4874,6 +4889,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── value property
+ │   ├─┬ class ImplementationFromAsyncContext
+ │   │ └─┬ members
+ │   │   ├── <initializer>(producer) initializer
+ │   │   └── doAsyncWork() method
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5581,6 +5600,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
+ │   ├─┬ interface IPromiseProducer
+ │   │ └─┬ members
+ │   │   └── produce() method
  │   ├─┬ interface IPublicInterface
  │   │ └─┬ members
  │   │   └── bye() method
@@ -6117,6 +6139,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
+ │   ├── class ImplementationFromAsyncContext
  │   ├── class ImplementsInterfaceWithInternal
  │   ├── class ImplementsInterfaceWithInternalSubclass
  │   ├── class ImplementsPrivateInterface
@@ -6244,6 +6267,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IObjectWithProperty
  │   ├── interface IOptionalMethod
  │   ├── interface IPrivatelyImplemented
+ │   ├── interface IPromiseProducer
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator

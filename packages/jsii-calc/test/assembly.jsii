@@ -7915,6 +7915,41 @@
       ],
       "symbolId": "lib/compliance:IPrivatelyImplemented"
     },
+    "jsii-calc.IPromiseProducer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/3917",
+        "stability": "stable",
+        "summary": "Async Context operations Validates features work when run from within an async context."
+      },
+      "fqn": "jsii-calc.IPromiseProducer",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3151
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "async": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3152
+          },
+          "name": "produce",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IPromiseProducer",
+      "symbolId": "lib/compliance:IPromiseProducer"
+    },
     "jsii-calc.IPublicInterface": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8274,6 +8309,55 @@
         }
       ],
       "symbolId": "lib/compliance:Implementation"
+    },
+    "jsii-calc.ImplementationFromAsyncContext": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.ImplementationFromAsyncContext",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3156
+        },
+        "parameters": [
+          {
+            "name": "producer",
+            "type": {
+              "fqn": "jsii-calc.IPromiseProducer"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3155
+      },
+      "methods": [
+        {
+          "async": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3158
+          },
+          "name": "doAsyncWork",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "ImplementationFromAsyncContext",
+      "symbolId": "lib/compliance:ImplementationFromAsyncContext"
     },
     "jsii-calc.ImplementsInterfaceWithInternal": {
       "assembly": "jsii-calc",
@@ -18843,5 +18927,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "EH7xszNdCh9PCFUZ8Foi7g2CPhdrKeZm8CQaUCNv4GQ="
+  "fingerprint": "upzlEkc4X3Q+ylgpfLMlZpbuaOg6aAWbxxIgE5zV+SA="
 }

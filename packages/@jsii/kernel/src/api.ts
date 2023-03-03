@@ -73,6 +73,8 @@ export function isPropertyOverride(value: Override): value is PropertyOverride {
 
 export interface Callback {
   readonly cbid: string;
+  /** Whether this callback is synchronous. */
+  readonly sync: boolean;
   readonly cookie: string | undefined;
   readonly invoke?: InvokeRequest;
   readonly get?: GetRequest;

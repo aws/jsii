@@ -286,7 +286,7 @@ class _NodeProcess:
         assert self._process.stdin is not None
         if not self._process.stdin.closed:
             self._process.stdin.write(b'{"exit":0}\n')
-            # Close the process' STDIN, singaling we are done with it
+            # Close the process' STDIN, signaling we are done with it
             self._process.stdin.close()
 
         try:
