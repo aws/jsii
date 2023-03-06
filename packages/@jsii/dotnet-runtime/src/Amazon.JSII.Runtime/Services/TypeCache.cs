@@ -202,7 +202,7 @@ namespace Amazon.JSII.Runtime.Services
                     }
                 }
 
-                return e.Types;
+                return e.Types ?? Array.Empty<Type?>();
             }
         }
     }

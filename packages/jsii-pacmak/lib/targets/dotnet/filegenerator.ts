@@ -112,6 +112,8 @@ export class FileGenerator {
     propertyGroup.ele('Nullable', 'enable');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
     propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
+    // Transparently rolll forward across major SDK releases if needed
+    propertyGroup.ele('RollForward', 'Major');
 
     const itemGroup1 = rootNode.ele('ItemGroup');
     const embeddedResource = itemGroup1.ele('EmbeddedResource');
