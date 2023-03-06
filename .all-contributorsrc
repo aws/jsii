@@ -1549,6 +1549,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "greglucas",
+      "name": "Greg Lucas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12417828?v=4",
+      "profile": "https://github.com/greglucas",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github",
