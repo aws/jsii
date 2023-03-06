@@ -283,6 +283,13 @@ jobs:
             java: '8'
             node: '14'
             os: ubuntu-latest
+          - title: 'Python 3.11'
+            python: '3.11'
+            dotnet: '6.0.x'
+            go: '1.18'
+            java: '8'
+            node: '14'
+            os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 

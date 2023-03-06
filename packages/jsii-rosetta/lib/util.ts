@@ -12,12 +12,12 @@ export interface File {
   readonly fileName: string;
 }
 
-export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: NodeJS.WritableStream) {
+export function printDiagnostics(diags: readonly RosettaDiagnostic[], stream: NodeJS.WritableStream, colors: boolean) {
   // Don't print too much, at some point it just clogs up the log
   const maxDiags = 50;
 
   for (const diag of diags.slice(0, maxDiags)) {
-    stream.write(diag.formattedMessage);
+    stream.write(colors ? diag.formattedMessage : stripColorCodes(diag.formattedMessage));
   }
 
   if (diags.length > maxDiags) {
@@ -242,4 +242,17 @@ export async function pathExists(path: string): Promise<boolean> {
     }
     throw err;
   }
+}
+
+// Copy/pasted from the 'ansi-regex' package to avoid taking a dependency for this one line that will never change
+const ANSI_PATTERN = new RegExp(
+  [
+    '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)',
+    '(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))',
+  ].join('|'),
+  'g',
+);
+
+function stripColorCodes(x: string) {
+  return x.replace(ANSI_PATTERN, '');
 }

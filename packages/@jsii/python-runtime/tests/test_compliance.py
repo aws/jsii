@@ -602,7 +602,7 @@ def test_propertyOverrides_set_calls_super():
             # but this causes a problem because of:
             #   https://bugs.python.org/issue14965
             # so now we have this more convoluted form.
-            super(self.__class__, self.__class__).the_property.__set__(
+            super(self.__class__, self.__class__).the_property.__set__(  # type: ignore
                 self, f"{value}:by override"
             )
 

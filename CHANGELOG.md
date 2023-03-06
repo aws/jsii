@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.77.0](https://github.com/aws/jsii/compare/v1.76.0...v1.77.0) (2023-03-06)
+
+
+### Bug Fixes
+
+* **dotnet:** target netcoreapp3.1 with RollForward ([#3987](https://github.com/aws/jsii/issues/3987)) ([461446b](https://github.com/aws/jsii/commit/461446b1b65f60a789aff7d9804aec7b5d867cf7))
+* **rosetta:** go may incorrectly emit _ instead of . ([#3985](https://github.com/aws/jsii/issues/3985)) ([52163f8](https://github.com/aws/jsii/commit/52163f88e22ad48ed4fcbfb2ff002c9f8bf6dc52))
+* **rosetta:** prints colors to log file ([#3953](https://github.com/aws/jsii/issues/3953)) ([0fc9229](https://github.com/aws/jsii/commit/0fc9229383e23cd535d8fa0a5867e6e51618f00a))
+
 ## [1.76.0](https://github.com/aws/jsii/compare/v1.75.0...v1.76.0) (2023-02-24)
 
 
