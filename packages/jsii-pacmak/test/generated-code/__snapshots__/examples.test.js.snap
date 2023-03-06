@@ -88,7 +88,8 @@ exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example.
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="testpkg-0.0.1.tgz" />
@@ -1622,7 +1623,8 @@ exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.cs
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="testpkg-0.0.1.tgz" />
