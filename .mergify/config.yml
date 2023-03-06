@@ -22,6 +22,7 @@ queue_rules:
       - status-success=Test (Python 3.8)
       - status-success=Test (Python 3.9)
       - status-success=Test (Python 3.10)
+      - status-success=Test (Python 3.11)
 
 pull_request_rules:
   - name: label core
@@ -71,6 +72,7 @@ pull_request_rules:
       - status-success=Test (Python 3.8)
       - status-success=Test (Python 3.9)
       - status-success=Test (Python 3.10)
+      - status-success=Test (Python 3.11)
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -120,6 +122,7 @@ pull_request_rules:
       - status-success=Test (Python 3.8)
       - status-success=Test (Python 3.9)
       - status-success=Test (Python 3.10)
+      - status-success=Test (Python 3.11)
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -169,6 +172,7 @@ pull_request_rules:
       - status-success=Test (Python 3.8)
       - status-success=Test (Python 3.9)
       - status-success=Test (Python 3.10)
+      - status-success=Test (Python 3.11)
 
   - name: Clean branch up
     actions:
