@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677857578450,
+  "lastUpdate": 1678110298562,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12837,6 +12837,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2549009.783813509,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70231.55128759998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "461446b1b65f60a789aff7d9804aec7b5d867cf7",
+          "message": "fix(dotnet): target netcoreapp3.1 with RollForward (#3987)\n\nIssues where encountered with SDK compatibility when the target\r\nwas set to `net6.0` even when the .NET SDK 6.0 or newer was in\r\nuse. I suspect this is because of conflicting framework dependency\r\nrequirements across various packages.\r\n\r\nRe-target `netcoreapp3.1` while setting a roll-forward policy allowing\r\nuse of newer major-releases of the SDK when no exact match is found (this\r\nis tested to work correctly for all supported .NET SDK releases by our\r\nautomated test suite).",
+          "timestamp": "2023-03-06T13:54:02+01:00",
+          "tree_id": "b470c6cac4d4f89b994fd37dda7ccea302ad1027",
+          "url": "https://github.com/aws/jsii/commit/461446b1b65f60a789aff7d9804aec7b5d867cf7"
+        },
+        "date": 1678110293798,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69420.06081680002,
+            "unit": "milliseconds",
+            "range": 2576181.1372576924,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69420.06081680002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51329.0242508,
+            "unit": "milliseconds",
+            "range": 145647.51222246737,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51329.0242508 milliseconds over 20 runs"
           }
         ]
       }
