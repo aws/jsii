@@ -32,7 +32,7 @@ setuptools.setup(
     install_requires=[
         "attrs>=21.2,<23.0",
         "cattrs>=1.8,<22.3",
-        "importlib_resources~=5.12.0; python_version<='3.10'",
+        "importlib_resources~=5.12.0; python_version<'3.11'",
         "publication>=0.0.3",  # This is used by all generated code.
         "typeguard~=2.13.3",  # This is used by all generated code.
         "python-dateutil",
