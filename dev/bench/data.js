@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678110298562,
+  "lastUpdate": 1678116241041,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -12875,6 +12875,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 145647.51222246737,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51329.0242508 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "greg.m.lucas@gmail.com",
+            "name": "Greg Lucas",
+            "username": "greglucas"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6344840a461c07dbe782c74f5c58ec8df7b4a5e0",
+          "message": "chore(python-runtime): Update importlib resources to handle Python 3.11 deprecations (#3986)\n\nPython 3.11 deprecated some usage importlib.resources and has a new back-compatibility shim through 3.9. This updates the code to the new files()-based API usage and uses the shims for versions less than 3.9.\r\n\r\ndocs.python.org/3/library/importlib.resources.html#deprecated-functions\r\nimportlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy\r\ndiscuss.python.org/t/deprecating-importlib-resources-legacy-api/11386\r\n\r\ncloses #3958\r\n\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2023-03-06T15:11:32+01:00",
+          "tree_id": "0f059c84f2eee6961d1c824fd4fc417c6ee07118",
+          "url": "https://github.com/aws/jsii/commit/6344840a461c07dbe782c74f5c58ec8df7b4a5e0"
+        },
+        "date": 1678116236642,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 104226.88857304998,
+            "unit": "milliseconds",
+            "range": 5549282.437048169,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 104226.88857304998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 77540.55275754997,
+            "unit": "milliseconds",
+            "range": 666894.237338173,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77540.55275754997 milliseconds over 20 runs"
           }
         ]
       }
