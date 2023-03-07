@@ -458,7 +458,7 @@ jobs:
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         run: |-
-          ./node_modules/.bin/jsii-pacmak ./node_modules/aws-cdk-lib
+          ./node_modules/.bin/jsii-pacmak -v ./node_modules/aws-cdk-lib
       # Upload artifact (we'll tar it up to save time)
       - name: 'Upload Artifact: integtest_aws-cdk-lib'
         uses: actions/upload-artifact@v3
