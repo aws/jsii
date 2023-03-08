@@ -14,10 +14,13 @@ A *jsii module* can declare dependencies on any other *jsii module* by adding en
 `package.json` file. Since most other platforms do not support multiple different versions of the same library to
 coexist in the same closure, it is recommended to also declare all such dependencies as `peerDependencies`.
 
+### non-jsii dependencies
+
 Occasionally, a dependency on a *non-jsii module* is useful. Since such dependencies do not have generated bindings in
 all the supported languages, they must be bundled with the *jsii module* that depends on them, by adding the library
-into the `bundleDependencies` array in `package.json`. The API of the *jsii module* can not expose any type from bundled
-dependencies, since those types would not be available in other languages.
+into the `bundleDependencies` array in `package.json`. 
+
+The API of the *jsii module* can not expose any type from bundled dependencies, since those types would not be available in other languages. Typescript files that include a non-jsii dependency (Eg. a lambda handler for a CDK Construct) must be excluded in the tsconfig.
 
 !!! info
     For more information on `package.json` file contents, refer to the [npm documentation][package-json].
