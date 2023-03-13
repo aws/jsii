@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678718718921,
+  "lastUpdate": 1678721504628,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13217,6 +13217,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 216875.52254083287,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71589.474529 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "884b0ffc9993bd3b8a0f9a8b40ecab116ff34872",
+          "message": "fix(kernel): json deserialization fails on `null` value (#4000)\n\nThe JSON serialization class is a quasi-synonym for `Map<string, any>`, except it is meant to accept any valid JSON object, including one with `null` values. The serializer was however interpreting these as `Map<string, JSON>` when wired as a `$jsii.map` envelope, and this serialization class does NOT allow for null values.\n\nAddresses the \"easy\" part of aws/aws-cdk#14639 (more complicated is that it would need to preserve `null` across the process boundary, which is currently not possible).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-13T14:45:05Z",
+          "tree_id": "1a05856c077f7ebf95794a54f878013e4d1a7fbe",
+          "url": "https://github.com/aws/jsii/commit/884b0ffc9993bd3b8a0f9a8b40ecab116ff34872"
+        },
+        "date": 1678721500573,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59082.00005710004,
+            "unit": "milliseconds",
+            "range": 2158901.1937999674,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59082.00005710004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45774.10451870004,
+            "unit": "milliseconds",
+            "range": 107696.43020008388,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45774.10451870004 milliseconds over 20 runs"
           }
         ]
       }
