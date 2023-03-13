@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678705948115,
+  "lastUpdate": 1678712960580,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13141,6 +13141,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 927833.507752822,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57942.52420335003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9e2f33798464455e160347bb6b6f91d7beeb2e06",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.6.0 to 0.7.0 in /packages/@jsii/go-runtime-test/project (#3996)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.6.0 to 0.7.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/golang/tools/releases\">golang.org/x/tools's releases</a>.</em></p>\n<blockquote>\n<h1>gopls/v0.7.0</h1>\n<h2>Features</h2>\n<h3>Postfix completions</h3>\n<p>Postfix completions are a new style of completions that can save you time by inserting more complex pieces of commonly-written code. All of the results end with <code>!</code>. This feature was added experimentally in <code>gopls/v0.6.10</code> and is now enabled by default.</p>\n<p>See this example:</p>\n<p><img src=\"https://user-images.githubusercontent.com/5856771/114612163-c5df9800-9c6f-11eb-959c-8fe529018a21.gif\" alt=\"ezgif-3-a82b2077ff38\" /></p>\n<h3>New commands: <a href=\"https://github.com/golang/tools/blob/master/gopls/doc/commands.md#retrieves-a-list-of-packages\">List known packages</a> and <a href=\"https://github.com/golang/tools/blob/master/gopls/doc/commands.md#asks-the-server-to-add-an-import-path-to-a-given-go-file\">add import</a></h3>\n<p>These commands can be used to manually list available packages to import and then add an import to your file. They are currently not used by any known clients, but they will be made available through the Command Palette in VS Code in the next VS Code Go release.</p>\n<h2>Improvements</h2>\n<h3>Memory usage</h3>\n<p>Improved trimming of the ASTs of dependency packages results in reduced memory usage, especially for projects with many dependencies. This may result in some hard-to-diagnose bugs that we're not yet aware of, so please report any surprising behavior via <a href=\"https://golang.org/issues/new\">https://golang.org/issues/new</a>.</p>\n<h2>Fixes</h2>\n<p>A full list of all issues fixed can be found in the <a href=\"https://github.com/golang/go/milestone/213?closed=1\">gopls/v0.7.0 milestone</a>. To report a new problem, please file a new issue at <a href=\"https://golang.org/issues/new\">https://golang.org/issues/new</a>.</p>\n<h2>Thank you to our contributors!</h2>\n<p><a href=\"https://github.com/muirdm\"><code>@​muirdm</code></a> <a href=\"https://github.com/marwan-at-work\"><code>@​marwan-at-work</code></a> <a href=\"https://github.com/dominikh\"><code>@​dominikh</code></a> <a href=\"https://github.com/leitzler\"><code>@​leitzler</code></a> <a href=\"https://github.com/OneOfOne\"><code>@​OneOfOne</code></a> <a href=\"https://github.com/zyctree\"><code>@​zyctree</code></a>  <a href=\"https://github.com/ShoshinNikita\"><code>@​ShoshinNikita</code></a> <a href=\"https://github.com/KarthikNayak\"><code>@​KarthikNayak</code></a> <a href=\"https://github.com/suzmue\"><code>@​suzmue</code></a> <a href=\"https://github.com/bcmills\"><code>@​bcmills</code></a></p>\n<h1>gopls/v0.6.11</h1>\n<p>This release contains mainly bug fixes. A full list of all issues fixed can be found in the <a href=\"https://github.com/golang/go/milestone/211?closed=1\">gopls/v0.6.11 milestone</a>. To report a new problem, please file a new issue at <a href=\"https://golang.org/issues/new\">https://golang.org/issues/new</a>.</p>\n<h2>Thank you to our contributors!</h2>\n<p><a href=\"https://github.com/ShoshinNikita\"><code>@​ShoshinNikita</code></a> <a href=\"https://github.com/sakateka\"><code>@​sakateka</code></a> <a href=\"https://github.com/muirdm\"><code>@​muirdm</code></a> Will Langford <a href=\"https://github.com/empire\"><code>@​empire</code></a> <a href=\"https://github.com/justplesh\"><code>@​justplesh</code></a> <a href=\"https://github.com/suzmue\"><code>@​suzmue</code></a></p>\n<h1>gopls/v0.6.10</h1>\n<h2>Features</h2>\n<h3><code>t.Fatal</code> snippet</h3>\n<p>If you trigger completion in a test function, on the line after a call to a function that returns an error, you will be offered a completion snippet for:</p>\n<pre lang=\"go\"><code>if err != nil {\n    t.Fatal(err)\n}\n&lt;/tr&gt;&lt;/table&gt; \n</code></pre>\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/031fc75960d487b0b15db12fb328676236a3a39c\"><code>031fc75</code></a> gopls/internal/regtest/bench: don't run the iwl test with -short</li>\n<li><a href=\"https://github.com/golang/tools/commit/f477bf4a4181665f9244412427a423fe7e7f0c19\"><code>f477bf4</code></a> gopls/internal/lsp/source/completion: avoid Snapshot.CachedPackages</li>\n<li><a href=\"https://github.com/golang/tools/commit/b72edd12e5e7a2b2dda0cb3e2e2fa360e9386743\"><code>b72edd1</code></a> gopls/internal/lsp/filecache: GOPLS_CACHE -&gt; GOPLSCACHE</li>\n<li><a href=\"https://github.com/golang/tools/commit/d5669276356fa7d80be2dcae3bfaf3ba0b1f1426\"><code>d566927</code></a> gopls/internal/lsp/regtest: add <a href=\"https://github.com/suggestedfix\"><code>@​suggestedfix</code></a> marker</li>\n<li><a href=\"https://github.com/golang/tools/commit/fdb0da65a1fa4c7cd8f054e37b9b26e54c36af47\"><code>fdb0da6</code></a> gopls/internal/regtest/bench: add a benchmark for diagnosing a change</li>\n<li><a href=\"https://github.com/golang/tools/commit/6eb432f3b01c1737995d178a7eac935c84ef63c1\"><code>6eb432f</code></a> gopls/internal/regtest/bench: add benchmarks in a wider variety of repos</li>\n<li><a href=\"https://github.com/golang/tools/commit/c91d0b88c3be5a2b7990992fb3c153277f26c5eb\"><code>c91d0b8</code></a> gopls/internal/lsp/source: guard against concurrent writes in xrefs</li>\n<li><a href=\"https://github.com/golang/tools/commit/c0742f584bb22bf982da6377387cc647cafc0ffd\"><code>c0742f5</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/21d2256f2cdf2aa29551f16deb6a51975db463d9\"><code>21d2256</code></a> gopls/internal/lsp/cache: make type-checking incremental</li>\n<li><a href=\"https://github.com/golang/tools/commit/ae05609bd034f8eb7ded41b73e6af55c77b0d983\"><code>ae05609</code></a> internal/lsp/cache: add an LRU parse cache</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.6.0...v0.7.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.6.0&new-version=0.7.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-03-13T12:18:02Z",
+          "tree_id": "d22f8a610b9c1615a790ab333b5fc452cf4862b4",
+          "url": "https://github.com/aws/jsii/commit/9e2f33798464455e160347bb6b6f91d7beeb2e06"
+        },
+        "date": 1678712956725,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70126.6131511,
+            "unit": "milliseconds",
+            "range": 1753878.614245825,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70126.6131511 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51315.568090400004,
+            "unit": "milliseconds",
+            "range": 57053.193705713624,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51315.568090400004 milliseconds over 20 runs"
           }
         ]
       }
