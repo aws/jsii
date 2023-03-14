@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678731270040,
+  "lastUpdate": 1678799214882,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13331,6 +13331,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 206208.18081454563,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50890.897518999984 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1fd6cde89794dd329049d13008f6f2453663f251",
+          "message": "feat: jsii-reflect now renders union candidates sorted (#4005)\n\nSorting union members guarantees a uniform order is always presented, making it easier to visually compare assemblies (or pre-process them with `jsii-reflect` before using a textual `diff` tool). This also effects how `jsii-diff` compares assemblies, removing many false positives in breaking change detection.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-14T12:19:50Z",
+          "tree_id": "3d8ebfcab087c2fbf08df022245c1ce40955f48c",
+          "url": "https://github.com/aws/jsii/commit/1fd6cde89794dd329049d13008f6f2453663f251"
+        },
+        "date": 1678799211389,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60123.05598345005,
+            "unit": "milliseconds",
+            "range": 1561605.9530317902,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60123.05598345005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46186.81287455001,
+            "unit": "milliseconds",
+            "range": 43966.93669060794,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46186.81287455001 milliseconds over 20 runs"
           }
         ]
       }
