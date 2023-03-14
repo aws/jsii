@@ -48,7 +48,7 @@ test('type unions in return structs can be narrowed', () =>
 
 test('type unions in return structs can not be widened', () =>
   expectError(
-    /some of string \| number \| boolean are not assignable to string \| number/,
+    /some of boolean \| number \| string are not assignable to number \| string/,
     `
     export interface Henk {
       readonly henk: string | number;
@@ -112,7 +112,7 @@ test('type unions in input structs can be widened', () =>
 
 test('type unions in input structs can not be narrowed', () =>
   expectError(
-    /string \| number is not assignable to string/,
+    /number \| string is not assignable to string/,
     `
     export interface Henk {
       readonly henk: string | number;
