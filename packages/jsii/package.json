@@ -56,5 +56,8 @@
     "@types/semver": "^7.3.13",
     "clone": "^2.1.2",
     "jsii-build-tools": "^0.0.0"
+  },
+  "publishConfig": {
+    "tag": "v1"
   }
 }
