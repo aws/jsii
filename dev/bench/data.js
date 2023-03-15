@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678799214882,
+  "lastUpdate": 1678890110042,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13369,6 +13369,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 43966.93669060794,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46186.81287455001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ae16abc57bdd7fd439c4183cfcb015acadaaa3ae",
+          "message": "chore: configure default tag for jsii & jsii-rosetta (#4008)\n\nPreparing for the upcoming release of jsii@v4.9 and jsii-rosetta@v4.9, set up `publishConfig` for both `v1` packages so they no longer get released against the `latest` dist-tag, and instead get released against the `v1` dist-tag (`latest` will promptly point to `4.9.0`).\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-15T13:33:49Z",
+          "tree_id": "068bd76118ef75618c955ab65985ecf80aed81b4",
+          "url": "https://github.com/aws/jsii/commit/ae16abc57bdd7fd439c4183cfcb015acadaaa3ae"
+        },
+        "date": 1678890105841,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60977.01678395002,
+            "unit": "milliseconds",
+            "range": 2353799.9287441573,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60977.01678395002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46645.08525305001,
+            "unit": "milliseconds",
+            "range": 47396.95454137282,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46645.08525305001 milliseconds over 20 runs"
           }
         ]
       }
