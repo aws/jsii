@@ -74,7 +74,7 @@ jobs:
       # Federate into the PR Validation AWS Account
       - name: Federate into AWS
         if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
