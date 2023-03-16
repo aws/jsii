@@ -27,7 +27,9 @@ export class TypeReference {
       return `Map<string => ${this.mapOfType.toString()}>`;
     }
     if (this.unionOfTypes) {
-      return this.unionOfTypes.map((x) => x.toString()).join(' | ');
+      const union = this.unionOfTypes.map((x) => x.toString());
+      union.sort();
+      return union.join(' | ');
     }
 
     throw new Error('Invalid type reference');
