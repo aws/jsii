@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.78.1](https://github.com/aws/jsii/compare/v1.78.0...v1.78.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **pacmak:** runtime dependency should match pacmak release ([#4013](https://github.com/aws/jsii/issues/4013)) ([37c29f7](https://github.com/aws/jsii/commit/37c29f7c944b9abe9d7f26c313d729f7af6970a8))
+
 ## [1.78.0](https://github.com/aws/jsii/compare/v1.77.0...v1.78.0) (2023-03-15)
 
 
