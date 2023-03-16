@@ -111,6 +111,7 @@ interface Serializer {
     value: unknown,
     type: OptionalValueOrVoid,
     host: SerializerHost,
+    options?: { allowNullishMapValue?: boolean },
   ): any;
 }
 
@@ -236,7 +237,6 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         return SERIALIZERS[SerializationClass.Map].deserialize(
           value,
           {
-            optional: false,
             type: {
               collection: {
                 kind: spec.CollectionKind.Map,
@@ -245,6 +245,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             },
           },
           host,
+          { allowNullishMapValue: true },
         );
       }
 
@@ -266,9 +267,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           host,
           'deserialize',
           toMap,
-          {
-            type: { primitive: spec.PrimitiveType.Json },
-          },
+          { type: { primitive: spec.PrimitiveType.Json } },
           typeof key === 'string' ? `key ${inspect(key)}` : `index ${key}`,
         );
       }
@@ -387,7 +386,12 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         ),
       };
     },
-    deserialize(value, optionalValue, host) {
+    deserialize(
+      value,
+      optionalValue,
+      host,
+      { allowNullishMapValue = false } = {},
+    ) {
       if (nullAndOk(value, optionalValue)) {
         return undefined;
       }
@@ -401,7 +405,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             host,
             'deserialize',
             v,
-            { type: mapType.collection.elementtype },
+            {
+              optional: allowNullishMapValue,
+              type: mapType.collection.elementtype,
+            },
             `key ${inspect(key)}`,
           ),
         );
@@ -411,7 +418,10 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           host,
           'deserialize',
           v,
-          { type: mapType.collection.elementtype },
+          {
+            optional: allowNullishMapValue,
+            type: mapType.collection.elementtype,
+          },
           `key ${inspect(key)}`,
         ),
       );
@@ -1112,7 +1122,7 @@ export function process(
   context: string,
 ) {
   const wireTypes = serializationType(type, host.lookupType);
-  host.debug(serde, value, wireTypes);
+  host.debug(serde, value, ...wireTypes);
 
   const errors = new Array<any>();
   for (const { serializationClass, typeRef } of wireTypes) {

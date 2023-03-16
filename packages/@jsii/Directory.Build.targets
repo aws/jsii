@@ -16,6 +16,6 @@
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.5" />
     <PackageReference Update="XunitXml.TestLogger" Version="3.0.78" />
 
-    <PackageReference Update="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Update="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>

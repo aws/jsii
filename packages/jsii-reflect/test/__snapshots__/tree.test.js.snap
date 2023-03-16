@@ -824,7 +824,7 @@ exports[`showAll 1`] = `
  │ │     │     ├── static
  │ │     │     ├─┬ parameters
  │ │     │     │ └─┬ param
- │ │     │     │   └── type: jsii-calc.union.IResolvable | jsii-calc.union.Resolvable | @scope/jsii-calc-lib.IFriendly
+ │ │     │     │   └── type: @scope/jsii-calc-lib.IFriendly | jsii-calc.union.IResolvable | jsii-calc.union.Resolvable
  │ │     │     └── returns: void
  │ │     ├─┬ class Resolvable
  │ │     │ ├── interfaces: IResolvable
@@ -944,11 +944,11 @@ exports[`showAll 1`] = `
  │   │   ├─┬ stringProperty property
  │   │   │ └── type: string
  │   │   ├─┬ unionArrayProperty property
- │   │   │ └── type: Array<number | @scope/jsii-calc-lib.NumericValue>
+ │   │   │ └── type: Array<@scope/jsii-calc-lib.NumericValue | number>
  │   │   ├─┬ unionMapProperty property
- │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
+ │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number | number | string>
  │   │   ├─┬ unionProperty property
- │   │   │ └── type: string | number | @scope/jsii-calc-lib.Number | jsii-calc.Multiply
+ │   │   │ └── type: @scope/jsii-calc-lib.Number | jsii-calc.Multiply | number | string
  │   │   ├─┬ unknownArrayProperty property
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property
@@ -1231,9 +1231,9 @@ exports[`showAll 1`] = `
  │   │   ├─┬ <initializer>(unionProperty) initializer
  │   │   │ └─┬ parameters
  │   │   │   └─┬ unionProperty
- │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   │     └── type: Array<Array<jsii-calc.StructA | jsii-calc.StructB> | Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   │   └─┬ unionProperty property
- │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB> | Array<jsii-calc.StructA | jsii-calc.StructB>>
+ │   │     └── type: Array<Array<jsii-calc.StructA | jsii-calc.StructB> | Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
@@ -3549,7 +3549,7 @@ exports[`showAll 1`] = `
  │   │   ├─┬ secondLevel property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: number | jsii-calc.SecondLevelStruct
+ │   │   │ └── type: jsii-calc.SecondLevelStruct | number
  │   │   └─┬ optional property
  │   │     ├── abstract
  │   │     ├── immutable
@@ -3559,11 +3559,11 @@ exports[`showAll 1`] = `
  │   │   ├─┬ bar property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: string | number | jsii-calc.AllTypes
+ │   │   │ └── type: jsii-calc.AllTypes | number | string
  │   │   └─┬ foo property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Optional<string | number>
+ │   │     └── type: Optional<number | string>
  │   ├─┬ enum AllTypesEnum
  │   │ ├── MY_ENUM_VALUE
  │   │ ├── YOUR_ENUM_VALUE
