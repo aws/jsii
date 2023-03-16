@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678967147025,
+  "lastUpdate": 1678969968615,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13445,6 +13445,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 238723.97489283216,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61972.84900605 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5efc234bd0619fcd9c19c1fea7f6e8d89e0b97f6",
+          "message": "chore(deps): Bump Newtonsoft.Json from 13.0.2 to 13.0.3 in /packages/@jsii/dotnet-runtime-test/test (#4001)\n\nBumps [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) from 13.0.2 to 13.0.3.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/JamesNK/Newtonsoft.Json/releases\">Newtonsoft.Json's releases</a>.</em></p>\n<blockquote>\n<h2>13.0.3</h2>\n<ul>\n<li>Fix - Fixed parsed zero decimals losing trailing zeroes</li>\n<li>Fix - Fixed parsed negative zero double losing negative</li>\n<li>Fix - Fixed null string being reported as String rather than JTokenType.Null</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/0a2e291c0d9c0c7675d445703e51750363a549ef\"><code>0a2e291</code></a> Remove prerelease for 13.0.3</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/4949c66c3a6e3824c1d3eed042a6742fb54d1b1f\"><code>4949c66</code></a> Update to 13.0.3-beta1</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/57025815e564d36821acf778e2c00d02225aab35\"><code>5702581</code></a> Fix: Null String being reported as String rather than JTokenType.Null (<a href=\"https://redirect.github.com/JamesNK/Newtonsoft.Json/issues/2796\">#2796</a>)</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/c908de3017ee32278c5330f715cef0e9733ce9db\"><code>c908de3</code></a> Fix not returning negative double from box cache (<a href=\"https://redirect.github.com/JamesNK/Newtonsoft.Json/issues/2777\">#2777</a>)</li>\n<li><a href=\"https://github.com/JamesNK/Newtonsoft.Json/commit/2afdccdb6374c9452a9c82929e59967aab49b37f\"><code>2afdccd</code></a> Fix parsed decimal losing trailing zeroes (<a href=\"https://redirect.github.com/JamesNK/Newtonsoft.Json/issues/2769\">#2769</a>)</li>\n<li>See full diff in <a href=\"https://github.com/JamesNK/Newtonsoft.Json/compare/13.0.2...13.0.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Newtonsoft.Json&package-manager=nuget&previous-version=13.0.2&new-version=13.0.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-03-16T11:43:27Z",
+          "tree_id": "65d8ef259797c6e780869c86f409ae6e4db00447",
+          "url": "https://github.com/aws/jsii/commit/5efc234bd0619fcd9c19c1fea7f6e8d89e0b97f6"
+        },
+        "date": 1678969965100,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61199.161353600015,
+            "unit": "milliseconds",
+            "range": 2052471.6712572142,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61199.161353600015 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46877.023847299984,
+            "unit": "milliseconds",
+            "range": 93830.16288625632,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46877.023847299984 milliseconds over 20 runs"
           }
         ]
       }
