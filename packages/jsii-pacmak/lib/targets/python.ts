@@ -18,6 +18,7 @@ import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
+import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
   NamingContext,
@@ -2080,12 +2081,6 @@ class Package {
     );
     code.closeFile('README.md');
 
-    // Strip " (build abcdef)" from the jsii version
-    const jsiiVersionSimple = toReleaseVersion(
-      this.metadata.jsiiVersion.replace(/ .*$/, ''),
-      TargetName.PYTHON,
-    );
-
     const setupKwargs = {
       name: this.name,
       version: this.version,
@@ -2109,7 +2104,7 @@ class Package {
       package_data: packageData,
       python_requires: '~=3.7',
       install_requires: [
-        `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
+        `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
         'typeguard~=2.13.3',
       ]

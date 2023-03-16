@@ -84,7 +84,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com
     <EmbeddedResource Include="foo-1.2.3.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
     <PackageReference Include="Com.Acme.Bar" Version="[2.0.0-rc.42,3.0.0)" />
   </ItemGroup>
   <PropertyGroup>
@@ -453,7 +453,7 @@ kwargs = json.loads(
     "python_requires": "~=3.7",
     "install_requires": [
         "bar>=2.0.0.rc42, <3.0.0",
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],
@@ -595,7 +595,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/
     <EmbeddedResource Include="foo-1.2.3.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
     <PackageReference Include="Com.Acme.Bar" Version="[4.5.6-pre.1337,5.0.0)" />
   </ItemGroup>
   <PropertyGroup>
@@ -964,7 +964,7 @@ kwargs = json.loads(
     "python_requires": "~=3.7",
     "install_requires": [
         "bar>=4.5.6.dev1337, <5.0.0",
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],
@@ -1106,7 +1106,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] =
     <EmbeddedResource Include="foo-2.0.0-rc.42.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -1454,7 +1454,7 @@ kwargs = json.loads(
     },
     "python_requires": "~=3.7",
     "install_requires": [
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],
@@ -1594,7 +1594,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`
     <EmbeddedResource Include="foo-4.5.6-pre.1337.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -1942,7 +1942,7 @@ kwargs = json.loads(
     },
     "python_requires": "~=3.7",
     "install_requires": [
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],

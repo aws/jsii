@@ -5,6 +5,7 @@ import * as xmlbuilder from 'xmlbuilder';
 
 import { TargetName } from '..';
 import * as logging from '../../logging';
+import { VERSION } from '../../version';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
 import { DotNetNameUtils } from './nameutils';
@@ -119,13 +120,10 @@ export class FileGenerator {
     const embeddedResource = itemGroup1.ele('EmbeddedResource');
     embeddedResource.att('Include', this.tarballFileName);
 
-    // Strip " (build abcdef)" from the jsii version
-    const jsiiVersion = assembly.jsiiVersion.replace(/ .*$/, '');
-
     const itemGroup2 = rootNode.ele('ItemGroup');
     const packageReference = itemGroup2.ele('PackageReference');
     packageReference.att('Include', 'Amazon.JSII.Runtime');
-    packageReference.att('Version', toNuGetVersionRange(`^${jsiiVersion}`));
+    packageReference.att('Version', toNuGetVersionRange(`^${VERSION}`));
 
     dependencies.forEach((value: DotNetDependency) => {
       if (value.partOfCompilation) {
