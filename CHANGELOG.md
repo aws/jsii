@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.78.1](https://github.com/aws/jsii/compare/v1.78.0...v1.78.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **pacmak:** runtime dependency should match pacmak release ([#4013](https://github.com/aws/jsii/issues/4013)) ([37c29f7](https://github.com/aws/jsii/commit/37c29f7c944b9abe9d7f26c313d729f7af6970a8))
+
+## [1.78.0](https://github.com/aws/jsii/compare/v1.77.0...v1.78.0) (2023-03-15)
+
+
+### Features
+
+* jsii-reflect now renders union candidates sorted ([#4005](https://github.com/aws/jsii/issues/4005)) ([1fd6cde](https://github.com/aws/jsii/commit/1fd6cde89794dd329049d13008f6f2453663f251))
+
+
+### Bug Fixes
+
+* **kernel:** json deserialization fails on `null` value ([#4000](https://github.com/aws/jsii/issues/4000)) ([884b0ff](https://github.com/aws/jsii/commit/884b0ffc9993bd3b8a0f9a8b40ecab116ff34872)), closes [aws/aws-cdk#14639](https://github.com/aws/aws-cdk/issues/14639)
+
 ## [1.77.0](https://github.com/aws/jsii/compare/v1.76.0...v1.77.0) (2023-03-06)
 
 
