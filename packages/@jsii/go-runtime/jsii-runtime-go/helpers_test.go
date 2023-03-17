@@ -9,13 +9,13 @@ import (
 
 func TestV(t *testing.T) {
 	// Bool
-	assert.Equal(t, true, *V(true))
-	assert.Equal(t, false, *V(false))
+	assert.Equal(t, true, *Ptr(true))
+	assert.Equal(t, false, *Ptr(false))
 	// Bools
-	assert.Equal(t, []*bool{Bool(true), Bool(false), Bool(false), Bool(true)}, *Slice(true, false, false, true))
+	assert.Equal(t, []*bool{Bool(true), Bool(false), Bool(false), Bool(true)}, *PtrSlice(true, false, false, true))
 	// Float64 is supported because it doesn't require conversion.
-	assert.Equal(t, 123.45, *V(123.45))
-	assert.Equal(t, float64(123.45), *V(float64(123.45)))
+	assert.Equal(t, 123.45, *Ptr(123.45))
+	assert.Equal(t, float64(123.45), *Ptr(float64(123.45)))
 	// String
 	assert.Equal(t, "Hello", *String("Hello"))
 	// Strings
