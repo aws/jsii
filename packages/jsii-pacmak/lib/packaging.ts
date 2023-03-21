@@ -57,16 +57,17 @@ export class JsiiModule {
    */
   public async npmPack(packCommand = DEFAULT_PACK_COMMAND) {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      const args = packCommand.split(' ');
+      const args = [];
 
       // If using the default command, optimize by packing directly into the tmp dir to allow unit tests to run in parallel
       if (packCommand === DEFAULT_PACK_COMMAND) {
         args.push('--pack-destination', tmpdir);
+
+        if (logging.level >= logging.LEVEL_VERBOSE) {
+          args.push('--loglevel=verbose');
+        }
       }
-      if (logging.level >= logging.LEVEL_VERBOSE) {
-        args.push('--loglevel=verbose');
-      }
-      const out = await shell(args[0], args.slice(1), {
+      const out = await shell(packCommand, args, {
         cwd: this.moduleDirectory,
       });
       // Take only the last line of npm pack which should contain the
