@@ -6979,6 +6979,11 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
+pnpm@^7.30.0:
+  version "7.30.0"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-7.30.0.tgz#d22000cfbc9c2801424a5c41f0f1f7f53b54ec79"
+  integrity sha512-6SUdrWSZ4qvQ4uBVg7smnabVKOFrT7DgSz2NfViG54nRii4ODB395qmHprBiv5WBdlC/jZYBn99fSfmzIMI3WQ==
+
 postcss-selector-parser@^6.0.10:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.11.tgz#2e41dc39b7ad74046e1615185185cd0b17d0c8dc"

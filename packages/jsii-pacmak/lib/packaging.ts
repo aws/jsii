@@ -52,15 +52,19 @@ export class JsiiModule {
   /**
    * Prepare an NPM package from this source module
    */
-  public async npmPack() {
+  public async npmPack(
+    packCommand = 'npm pack --pack-destination {{destDir}}',
+  ) {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      // Quoting (JSON-stringifying) the module directory in order to avoid
-      // problems if there are spaces or other special characters in the path.
-      const args = ['pack', JSON.stringify(this.moduleDirectory)];
+      const args = [
+        ...packCommand.split(' ').map((c) => c.replace(/{{destDir}}/g, tmpdir)),
+      ];
       if (logging.level >= logging.LEVEL_VERBOSE) {
         args.push('--loglevel=verbose');
       }
-      const out = await shell('npm', args, { cwd: tmpdir });
+      const out = await shell(args[0], args.slice(1), {
+        cwd: this.moduleDirectory,
+      });
       // Take only the last line of npm pack which should contain the
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.

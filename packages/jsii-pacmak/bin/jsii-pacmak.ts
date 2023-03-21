@@ -153,6 +153,13 @@ import { VERSION_DESC } from '../lib/version';
       default: undefined,
       hidden: true,
     })
+    .option('npm-pack-command', {
+      type: 'string',
+      desc: 'Configure a custom command to execute when packaging i.e. pnpm pack --pack-destination {{destDir}}. Bundle must be written to {{destDir}} which will be substituted at runtime.',
+      defaultDescription: 'npm pack is used.',
+      default: 'npm pack --pack-destination {{destDir}}',
+      hidden: true,
+    })
     .option('validate-assemblies', {
       type: 'boolean',
       desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
