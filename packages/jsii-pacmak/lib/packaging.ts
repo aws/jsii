@@ -1,9 +1,12 @@
+import * as fs from 'fs';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as os from 'os';
 import * as path from 'path';
 
 import * as logging from '../lib/logging';
 import { Scratch, shell } from './util';
+
+export const DEFAULT_PACK_COMMAND = 'npm pack';
 
 export interface JsiiModuleOptions {
   /**
@@ -52,13 +55,14 @@ export class JsiiModule {
   /**
    * Prepare an NPM package from this source module
    */
-  public async npmPack(
-    packCommand = 'npm pack --pack-destination {{destDir}}',
-  ) {
+  public async npmPack(packCommand = DEFAULT_PACK_COMMAND) {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      const args = [
-        ...packCommand.split(' ').map((c) => c.replace(/{{destDir}}/g, tmpdir)),
-      ];
+      const args = packCommand.split(' ');
+
+      // If using the default command, optimize by packing directly into the tmp dir to allow unit tests to run in parallel
+      if (packCommand === DEFAULT_PACK_COMMAND) {
+        args.push('--pack-destination', tmpdir);
+      }
       if (logging.level >= logging.LEVEL_VERBOSE) {
         args.push('--loglevel=verbose');
       }
@@ -76,6 +80,14 @@ export class JsiiModule {
           `npm pack did not produce tarball from ${
             this.moduleDirectory
           } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
+        );
+      }
+
+      // move the tarball from the module dir to temp if using a custom command
+      if (packCommand !== DEFAULT_PACK_COMMAND) {
+        fs.renameSync(
+          path.resolve(this.moduleDirectory, lastLine),
+          path.resolve(tmpdir, lastLine),
         );
       }
 

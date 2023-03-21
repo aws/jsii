@@ -83,5 +83,5 @@ echo "Testing ALL-AT-ONCE build."
 ${pacmak} ${OPTS} -v --no-parallel $packagedirs
 
 clean_dists
-echo "Testing pnpm."
-${pacmak} ${OPTS} -v --no-parallel --npm-pack-command='yarn run pnpm pack --pack-destination {{destDir}}' $packagedirs
+echo "Testing pnpm custom pack command."
+${pacmak} ${OPTS} -v --no-parallel --pack-command='yarn run pnpm pack' $packagedirs
