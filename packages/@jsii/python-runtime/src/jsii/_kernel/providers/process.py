@@ -254,11 +254,12 @@ class _NodeProcess:
         environ = os.environ.copy()
         environ["JSII_AGENT"] = f"Python/{platform.python_version()}"
 
+        jsii_node = environ.get("JSII_NODE", "node")
         jsii_runtime = environ.get("JSII_RUNTIME", self._jsii_runtime())
 
         self._process = subprocess.Popen(
             [
-                "node",
+                jsii_node,
                 "--max-old-space-size=4069",
                 jsii_runtime,
             ],
