@@ -19,6 +19,7 @@ namespace Amazon.JSII.Runtime.Services
         readonly ILogger _logger;
 
         private const string JsiiRuntime = "JSII_RUNTIME";
+        private const string JsiiNode = "JSII_NODE";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
         private const string JsiiAgentVersionString = "DotNet/{0}/{1}/{2}";
@@ -34,10 +35,14 @@ namespace Amazon.JSII.Runtime.Services
             if (string.IsNullOrWhiteSpace(runtimePath))
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
 
+            var node = Environment.GetEnvironmentVariable(JsiiNode);
+            if (string.IsNullOrWhiteSpace(node))
+                node = "node";
+
             var utf8 = new UTF8Encoding(false /* no BOM */);
             var startInfo = new ProcessStartInfo
             {
-                FileName = "node",
+                FileName = node,
                 Arguments = $"--max-old-space-size=4096 {runtimePath}",
                 RedirectStandardInput = true,
                 StandardInputEncoding = utf8,
@@ -61,7 +66,7 @@ namespace Amazon.JSII.Runtime.Services
             _logger.LogDebug($"{startInfo.FileName} {startInfo.Arguments}");
 
             // Registering shutdown hook to have JS process gracefully terminate.
-            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => { ((IDisposable) this).Dispose(); };
+            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => { ((IDisposable)this).Dispose(); };
 
             _process = Process.Start(startInfo)!;
 

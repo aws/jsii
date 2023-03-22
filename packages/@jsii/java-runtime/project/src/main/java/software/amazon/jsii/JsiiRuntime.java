@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.VisibleForTesting;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -14,6 +15,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.channels.Channels;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -70,6 +72,24 @@ public final class JsiiRuntime {
      * The JVM shutdown hook registered by this instance, if any.
      */
     private Thread shutdownHook;
+
+    /** The value of the JSII_RUNTIME environment variable */
+    @Nullable
+    private final String customRuntime;
+
+    /** The value of the JSII_NODE environment variable */
+    @Nullable
+    private final String customNode;
+
+    public JsiiRuntime() {
+        this(System.getenv("JSII_RUNTIME"), System.getenv("JSII_NODE"));
+    }
+
+    @VisibleForTesting
+    JsiiRuntime(@Nullable final String customRuntime, @Nullable final String customNode) {
+        this.customRuntime = customRuntime;
+        this.customNode = customNode;
+    }
 
     /**
      * The main API of this class. Sends a JSON request to jsii-runtime and returns the JSON response.
@@ -273,13 +293,7 @@ public final class JsiiRuntime {
                 && !jsiiDebug.equalsIgnoreCase("false")
                 && !jsiiDebug.equalsIgnoreCase("0");
 
-        // If JSII_RUNTIME is set, use it to find the jsii-server executable
-        // otherwise, we default to "jsii-runtime" from PATH.
-        final String jsiiRuntimeEnv = System.getenv("JSII_RUNTIME");
-        final List<String> jsiiRuntimeCommand = jsiiRuntimeEnv == null
-                ? Arrays.asList("node", BundledRuntime.extract(getClass()))
-                : Collections.singletonList(jsiiRuntimeEnv);
-
+        final List<String> jsiiRuntimeCommand = jsiiRuntimeCommand();
         if (traceEnabled) {
             System.err.println("jsii-runtime: " + String.join(" ", jsiiRuntimeCommand));
         }
@@ -312,6 +326,56 @@ public final class JsiiRuntime {
         handshake();
 
         this.client = new JsiiClient(this);
+    }
+
+    /**
+     * Determines the correct command to execute in order to start the jsii runtime program. If custom runtimes are
+     * configured (either via `JSII_RUNTIME` or `JSII_NODE`), defer to `sh -c` in order to ensure platform-appropriate
+     * command parsing is performed, since {@link ProcessBuilder#command(String...)} won't do any of this by itself.
+     *
+     * @return The command to execute to start the jsii runtime program.
+     */
+    private List<String> jsiiRuntimeCommand() {
+        if (this.customRuntime != null) {
+            if (this.customRuntime.matches(".*\\s.*")) {
+                // Shell out only if the custom runtime includes white space.
+                return shellOut(this.customRuntime);
+            }
+            return Collections.singletonList(this.customRuntime);
+        }
+
+        // We don't use a custom runtime, so extract the bundled one...
+        final String bundledRuntime = BundledRuntime.extract(JsiiRuntime.class);
+
+        if (this.customNode != null && this.customNode.matches(".*\\s.*")) {
+            // Shell out only if the custom node includes white space.
+            return shellOut(this.customNode, bundledRuntime);
+        }
+        return Arrays.asList(this.customNode != null ? this.customNode : "node", bundledRuntime);
+    }
+
+    /**
+     * Creates a command to sub-shell to the specified end-user command, that uses `/bin/sh` on *NIXes, and %COMSPEC%, or
+     * cmd.exe on Windows.
+     *
+     * <p>
+     * This is heavily inspired from <a href="https://github.com/nodejs/node/blob/434bdde97464cc04f79ed3c8398f2a50c71c39d1/lib/child_process.js#L617-L642">how Node.js does the same thing</a>.
+     * </p>
+     *
+     * @param command the end-user command to be run.
+     *
+     * @return a full sub-shell command that is platform-appropriate.
+     */
+    private static List<String> shellOut(final String... command) {
+        final boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+        if (isWindows) {
+            String cmd = System.getenv("COMSPEC");
+            if (cmd == null) {
+                cmd = "cmd.exe";
+            }
+            return Arrays.asList(cmd, "/d", "/s", "/c", String.join(" ", command));
+        }
+        return Arrays.asList("/bin/sh", "-c", String.join(" ", command));
     }
 
     /**
