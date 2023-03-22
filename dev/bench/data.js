@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679509029384,
+  "lastUpdate": 1679510300886,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13977,6 +13977,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 76920.51836114509,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52301.687770150034 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "distinct": true,
+          "id": "ad5544bacf968d661b8764bb7a0575501dae5d8a",
+          "message": "chore: configure publishing container images to ECR Public (#4025)",
+          "timestamp": "2023-03-22T18:27:19+01:00",
+          "tree_id": "50d9fffe189e6ef560db9b4f2c5ebeb9ff4989bb",
+          "url": "https://github.com/aws/jsii/commit/ad5544bacf968d661b8764bb7a0575501dae5d8a"
+        },
+        "date": 1679510296446,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 98923.72756490001,
+            "unit": "milliseconds",
+            "range": 18946115.45807979,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 98923.72756490001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 70367.5337343,
+            "unit": "milliseconds",
+            "range": 1287030.301374568,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70367.5337343 milliseconds over 20 runs"
           }
         ]
       }
