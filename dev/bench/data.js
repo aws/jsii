@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679318130008,
+  "lastUpdate": 1679476508455,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13825,6 +13825,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 130933.10191237942,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45919.85344135 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "51220968+agdimech@users.noreply.github.com",
+            "name": "Adrian Dimech",
+            "username": "agdimech"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6b2fd186bd77416a9b341c5544a101f50793076d",
+          "message": "feat: add configurable pack command (#4021)\n\nThis PR adds support for configuring a custom pack command. This is needed when using other package managers like `pnpm`.\n\nIn terms of usage, developers would configure pacmak to use pnpm for example as follows:\n\n```\njsii-pacmak --pack-command='pnpm pack'\n```\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-22T08:26:56Z",
+          "tree_id": "1353eec38b4aca81bb060fa40afaa477820b1245",
+          "url": "https://github.com/aws/jsii/commit/6b2fd186bd77416a9b341c5544a101f50793076d"
+        },
+        "date": 1679476504468,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59986.35539764997,
+            "unit": "milliseconds",
+            "range": 2804647.869937775,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59986.35539764997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46104.2900773,
+            "unit": "milliseconds",
+            "range": 23563.98892691094,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46104.2900773 milliseconds over 20 runs"
           }
         ]
       }
