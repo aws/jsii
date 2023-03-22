@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679510300886,
+  "lastUpdate": 1679512831267,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14015,6 +14015,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1287030.301374568,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70367.5337343 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a54c54da348244223884f6fd7f0ac5a5c8321de6",
+          "message": "chore(deps): Bump actions/setup-go from 3 to 4 (#4011)\n\nBumps [actions/setup-go](https://github.com/actions/setup-go) from 3 to 4.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/actions/setup-go/releases\">actions/setup-go's releases</a>.</em></p>\n<blockquote>\n<h2>v4.0.0</h2>\n<p>In scope of release we enable cache by default. The action won’t throw an error if the cache can’t be restored or saved. The action will throw a warning message but it won’t stop a build process. The cache can be disabled by specifying <code>cache: false</code>.</p>\n<pre lang=\"yaml\"><code>steps:\n  - uses: actions/checkout@v3\n  - uses: actions/setup-go@v4\n    with:\n      go-version: ‘1.19’\n  - run: go run hello.go\n</code></pre>\n<p>Besides, we introduce such changes as</p>\n<ul>\n<li><a href=\"https://redirect.github.com/actions/setup-go/pull/305\">Allow to use only GOCACHE for cache</a></li>\n<li><a href=\"https://redirect.github.com/actions/setup-go/pull/315\">Bump json5 from 2.2.1 to 2.2.3</a></li>\n<li><a href=\"https://redirect.github.com/actions/setup-go/pull/323\">Use proper version for primary key in cache</a></li>\n<li><a href=\"https://redirect.github.com/actions/setup-go/pull/351\">Always add Go bin to the PATH</a></li>\n<li><a href=\"https://redirect.github.com/actions/setup-go/pull/350\">Add step warning if go-version input is empty</a></li>\n</ul>\n<h2>Add support for stable and oldstable aliases</h2>\n<p>In scope of this release we introduce aliases for the <code>go-version</code> input. The <code>stable</code> alias instals the latest stable version of Go. The <code>oldstable</code> alias installs previous latest minor release (the stable is 1.19.x -&gt; the oldstable is 1.18.x).</p>\n<h3>Stable</h3>\n<pre lang=\"yaml\"><code>steps:\n  - uses: actions/checkout@v3\n  - uses: actions/setup-go@v3\n    with:\n      go-version: 'stable'\n  - run: go run hello.go\n</code></pre>\n<h3>OldStable</h3>\n<pre lang=\"yaml\"><code>steps:\n  - uses: actions/checkout@v3\n  - uses: actions/setup-go@v3\n    with:\n      go-version: 'oldstable'\n  - run: go run hello.go\n</code></pre>\n<h2>Add support for go.work and pass the token input through on GHES</h2>\n<p>In scope of this release we added <a href=\"https://redirect.github.com/actions/setup-go/pull/283\">support for go.work file to pass it in go-version-file input</a>.</p>\n<pre lang=\"yaml\"><code>steps:\n  - uses: actions/checkout@v3\n  - uses: actions/setup-go@v3\n&lt;/tr&gt;&lt;/table&gt; \n</code></pre>\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/actions/setup-go/commit/4d34df0c2316fe8122ab82dc22947d607c0c91f9\"><code>4d34df0</code></a> Update configuration files (<a href=\"https://redirect.github.com/actions/setup-go/issues/348\">#348</a>)</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/fdc0d672a12b8fc05ef4c549c3fd5b0f03ebeb4c\"><code>fdc0d67</code></a> Add Go bin if go-version input is empty (<a href=\"https://redirect.github.com/actions/setup-go/issues/351\">#351</a>)</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/ebfdf6ac95bce0e7e743a60aba7adf59b400885b\"><code>ebfdf6a</code></a> add warning if go-version is empty (<a href=\"https://redirect.github.com/actions/setup-go/issues/350\">#350</a>)</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/b27d76912e7cb72b7262b5be2ec903b6cfaf358a\"><code>b27d769</code></a> fix lockfileVersion (<a href=\"https://redirect.github.com/actions/setup-go/issues/349\">#349</a>)</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/c51a7207680f1bee06f4a751214aab70667f9e25\"><code>c51a720</code></a> Enable caching by default with default input (<a href=\"https://redirect.github.com/actions/setup-go/issues/332\">#332</a>)</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/6b848af622919e18822928df24a57044dc6ea9ab\"><code>6b848af</code></a> Merge pull request <a href=\"https://redirect.github.com/actions/setup-go/issues/343\">#343</a> from akv-platform/reusable-workflow</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/12741cc20952a981105f1dc8366d69f1d24ed472\"><code>12741cc</code></a> Format update-config-files.yml</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/7a77a6aab66a15178e313f5908f5ed9b8500894c\"><code>7a77a6a</code></a> Merge branch 'main' into reusable-workflow</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/42a0cc8e1491c14a0e9486c3a895d2124f51af1a\"><code>42a0cc8</code></a> Add update-config-files.yml</li>\n<li><a href=\"https://github.com/actions/setup-go/commit/7406d654ad8f517886f6c77135494c2b99355381\"><code>7406d65</code></a> Add and configure ESLint and update configuration for Prettier (<a href=\"https://redirect.github.com/actions/setup-go/issues/341\">#341</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/actions/setup-go/compare/v3...v4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=actions/setup-go&package-manager=github_actions&previous-version=3&new-version=4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-03-22T18:34:10Z",
+          "tree_id": "8e74838a510e1d7f3c80627ae6c84e5768efc963",
+          "url": "https://github.com/aws/jsii/commit/a54c54da348244223884f6fd7f0ac5a5c8321de6"
+        },
+        "date": 1679512827083,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 59100.59681524994,
+            "unit": "milliseconds",
+            "range": 2328000.721917124,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 59100.59681524994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46087.469600099954,
+            "unit": "milliseconds",
+            "range": 63454.286342280066,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46087.469600099954 milliseconds over 20 runs"
           }
         ]
       }
