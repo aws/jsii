@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/commonmark": "^0.27.5",
     "@types/mock-fs": "^4.13.1",
-    "@types/workerpool": "^6.1.1",
+    "@types/workerpool": "^6.4.0",
     "@types/semver": "^7.3.13",
     "jsii-build-tools": "0.0.0",
     "jsii-calc": "3.20.120",
