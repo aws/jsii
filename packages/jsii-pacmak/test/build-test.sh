@@ -82,6 +82,7 @@ clean_dists
 echo "Testing ALL-AT-ONCE build."
 ${pacmak} ${OPTS} -v --no-parallel $packagedirs
 
+# Test custom pack command
 clean_dists
-echo "Testing pnpm custom pack command."
-${pacmak} ${OPTS} -v --no-parallel --pack-command='yarn run pnpm pack' $packagedirs
+echo "Testing yarn custom pack command."
+${pacmak} ${OPTS} -v --pack-command='yarn pack -f custom.tgz -s && echo custom.tgz' ${PWD}/../../@scope/jsii-calc-lib

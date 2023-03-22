@@ -65,8 +65,7 @@
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "pyright": "^1.1.296",
-    "pnpm": "^7.30.0"
+    "pyright": "^1.1.296"
   },
   "keywords": [
     "jsii",

@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as os from 'os';
 import * as path from 'path';
@@ -59,17 +59,23 @@ export class JsiiModule {
     this._tarball = await Scratch.make(async (tmpdir) => {
       const args = [];
 
-      // If using the default command, optimize by packing directly into the tmp dir to allow unit tests to run in parallel
       if (packCommand === DEFAULT_PACK_COMMAND) {
-        args.push('--pack-destination', tmpdir);
+        // Quoting (JSON-stringifying) the module directory in order to avoid
+        // problems if there are spaces or other special characters in the path.
+        args.push(JSON.stringify(this.moduleDirectory));
 
         if (logging.level >= logging.LEVEL_VERBOSE) {
           args.push('--loglevel=verbose');
         }
+      } else {
+        // Ensure module is copied to tmpdir to ensure parallel execution does not content on generated tarballs
+        await fs.copy(this.moduleDirectory, tmpdir);
       }
+
       const out = await shell(packCommand, args, {
-        cwd: this.moduleDirectory,
+        cwd: tmpdir,
       });
+
       // Take only the last line of npm pack which should contain the
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.
@@ -78,17 +84,9 @@ export class JsiiModule {
 
       if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
         throw new Error(
-          `npm pack did not produce tarball from ${
+          `${packCommand} did not produce tarball from ${
             this.moduleDirectory
           } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
-        );
-      }
-
-      // move the tarball from the module dir to temp if using a custom command
-      if (packCommand !== DEFAULT_PACK_COMMAND) {
-        fs.renameSync(
-          path.resolve(this.moduleDirectory, lastLine),
-          path.resolve(tmpdir, lastLine),
         );
       }
 
