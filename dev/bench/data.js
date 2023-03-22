@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679476508455,
+  "lastUpdate": 1679490888502,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -13863,6 +13863,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 23563.98892691094,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46104.2900773 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "a-h@users.noreply.github.com",
+            "name": "Adrian Hesketh",
+            "username": "a-h"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f653b3173760679562648710b08907bfe2c7c748",
+          "message": "feat: enable Go generics for jsii Go CDK code (#4009)\n\n## Current situation\n\nIn Go, strings are not nullable by default like they are in TypeScript, C# etc.\n\nThere's also no pointer literal - you can't do something like `&(\"string value\")` to create a pointer to a string literal, it's required to create a variable instead.\n\nWhile there's discussion on having something built into the language in https://github.com/golang/go/issues/45624 it hasn't concluded with a built-in as part of the language, or a standard library function.\n\nThe Go JSII library has worked around this by using the approach of creating functions that turn literals and variables into a pointer. Since Go < 1.18 didn't support generics, there's one for each supported JSII type. This means that you have to think about the type of any variables and use the right conversion function, while you're writing code.\n\n```go\nstringPtr := jsii.String(\"literal value\")\nfloat64Ptr := jsii.Number(123.45)\n```\n\n## Proposal\n\nIn Go 1.18, generics were added. These type parameters can be used to provide a single function that convert literals and variables into a pointer.\n\n```go\nfunc Ptr[T any](v T) *T {\n\treturn &v\n} \n```\n\nWe can further restrict the allowed types of `T` by using a constraint.\n\n```go\ntype Type interface {\n\tbool | string | float64 | time.Time\n}\n\nfunc Ptr[T Type](v T) *T {\n\treturn &v\n}\n```\n\nIf we adopt the name `V` instead of `Ptr` to save a further two characters (I'd still be happy with `Ptr`, `Val` etc. as a name), the previous example can be rewritten as:\n\n```go\nstringPtr := jsii.V(\"literal value\")\nfloat64Ptr := jsii.V(123.45)\nboolPtr := jsii.V(true)\n```\n\nThis means that only one function is used to convert multiple types, and the function name can be a few characters shorter.\n\nFor the `V` function, integer literals can not be converted to `float64`, since the output would be a pointer to the input type, not to the allowed `float64` type. Developers would be prompted that integer types are not in the set of allowed types (`string`, `float64`, `bool`, `time.Time`).\n\nHowever, the `Number` function can be updated in place to use generics to accept any numeric type, which simplifies code that uses integer values from:\n\n```go\nintPtrOK := jsii.Number(float64(123))\nvar x uint32\nintPtrOK = jsii.Number(float64(x))\n```\n\n```go\nintPtrOK := jsii.Number(123) // Would automatically be converted to `float64`\nvar x uint32\nintPtrOK = jsii.Number(x)\n```\n\n## Impact\n\nSince Go 1.18 is already required by the CDK, the use of generics is possible.\n\nFor backwards compatibility with existing code, the existing functions would be maintained, so no code would break.\n\n#### Before\n\n```go\n// DynamoDB.\nslotMachineTable := awsdynamodb.NewTable(stack, jsii.String(\"slotMachineTable\"), &awsdynamodb.TableProps{\n\tTableName:    jsii.String(\"slotMachine\"),\n\tPartitionKey: &awsdynamodb.Attribute{Name: jsii.String(\"_pk\"), Type: awsdynamodb.AttributeType_STRING},\n\tSortKey:      &awsdynamodb.Attribute{Name: jsii.String(\"_sk\"), Type: awsdynamodb.AttributeType_STRING},\n\tBillingMode:  awsdynamodb.BillingMode_PAY_PER_REQUEST,\n\tStream:       awsdynamodb.StreamViewType_NEW_IMAGE,\n})\n\n// Create an event bus.\neventBus := awsevents.NewEventBus(stack, jsii.String(\"slotMachineEventBus\"), &awsevents.EventBusProps{\n\tEventBusName: jsii.String(\"slotMachineEventBus\"),\n})\n\n// Process streams.\nstreamHandler := awslambdago.NewGoFunction(stack, jsii.String(\"streamHandler\"), &awslambdago.GoFunctionProps{\n\tRuntime:      awslambda.Runtime_PROVIDED_AL2(),\n\tArchitecture: awslambda.Architecture_ARM_64(),\n\tEntry:        jsii.String(\"../api/streamhandler/\"),\n\tEnvironment: &map[string]*string{\n\t\t\"EVENT_BUS_NAME\":    eventBus.EventBusName(),\n\t\t\"EVENT_SOURCE_NAME\": jsii.String(\"slot-machine\"),\n\t},\n\tTimeout:      awscdk.Duration_Minutes(jsii.Number(15)),\n\tLogRetention: awslogs.RetentionDays_ONE_YEAR,\n})\nslotMachineTable.GrantReadData(streamHandler)\neventBus.GrantPutEventsTo(streamHandler)\n```\n\n#### After\n\n```go\n// DynamoDB.\nslotMachineTable := awsdynamodb.NewTable(stack, jsii.V(\"slotMachineTable\"), &awsdynamodb.TableProps{\n\tTableName:    jsii.V(\"slotMachine\"),\n\tPartitionKey: &awsdynamodb.Attribute{Name: jsii.V(\"_pk\"), Type: awsdynamodb.AttributeType_STRING},\n\tSortKey:      &awsdynamodb.Attribute{Name: jsii.V(\"_sk\"), Type: awsdynamodb.AttributeType_STRING},\n\tBillingMode:  awsdynamodb.BillingMode_PAY_PER_REQUEST,\n\tStream:       awsdynamodb.StreamViewType_NEW_IMAGE,\n})\n\n// Create an event bus.\neventBus := awsevents.NewEventBus(stack, jsii.V(\"slotMachineEventBus\"), &awsevents.EventBusProps{\n\tEventBusName: jsii.V(\"slotMachineEventBus\"),\n})\n\n// Process streams.\nstreamHandler := awslambdago.NewGoFunction(stack, jsii.V(\"streamHandler\"), &awslambdago.GoFunctionProps{\n\tRuntime:      awslambda.Runtime_PROVIDED_AL2(),\n\tArchitecture: awslambda.Architecture_ARM_64(),\n\tEntry:        jsii.V(\"../api/streamhandler/\"),\n\tEnvironment: &map[string]*string{\n\t\t\"EVENT_BUS_NAME\":    eventBus.EventBusName(),\n\t\t\"EVENT_SOURCE_NAME\": jsii.V(\"slot-machine\"),\n\t},\n\tTimeout:      awscdk.Duration_Minutes(jsii.V(15.0)),\n\tLogRetention: awslogs.RetentionDays_ONE_YEAR,\n})\nslotMachineTable.GrantReadData(streamHandler)\neventBus.GrantPutEventsTo(streamHandler)\n```\n\n## Considerations\n\nThe name `V` is the shortest, but doesn't describe what it does.\n\nThe Go team might, at some point, introduce a change to automatically convert literals into pointers, in which case the `jsii.V` and `jsii.String` function calls would be redundant and could be stripped out of a codebase. However, this change doesn't make that potential outcome any worse.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-22T12:28:02Z",
+          "tree_id": "713ddab1e814b05fd3e93df504d91866503e1ce1",
+          "url": "https://github.com/aws/jsii/commit/f653b3173760679562648710b08907bfe2c7c748"
+        },
+        "date": 1679490884858,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61522.142096000025,
+            "unit": "milliseconds",
+            "range": 3256194.9194318694,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61522.142096000025 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46739.6196681,
+            "unit": "milliseconds",
+            "range": 66216.42517282785,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46739.6196681 milliseconds over 20 runs"
           }
         ]
       }
