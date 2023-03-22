@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679512831267,
+  "lastUpdate": 1679519216366,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14053,6 +14053,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 63454.286342280066,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46087.469600099954 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f8f2f13780f805cd41cb9945ad8febce9aec5900",
+          "message": "feat(runtimes): support JSII_NODE setting (#4024)\n\nUsers can customize the `node` runtime used by the jsii runtime libraries by providing the `JSII_NODE` environment variable.\n\nAdditionally, this corrects how the child process is spawned in Java so that `JSII_NODE` and `JSII_RUNTIME` can contain spaces (previously, this would result in a spawn error). Added a test to verify the various scenarios work as intended.\n\nFixes #4009\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-22T20:14:16Z",
+          "tree_id": "8f97a42edfcfb10355ebaea8fda9a67a9faa816e",
+          "url": "https://github.com/aws/jsii/commit/f8f2f13780f805cd41cb9945ad8febce9aec5900"
+        },
+        "date": 1679519212936,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70895.51211925002,
+            "unit": "milliseconds",
+            "range": 1185012.9300916616,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70895.51211925002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52017.98629085001,
+            "unit": "milliseconds",
+            "range": 138542.36019176134,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52017.98629085001 milliseconds over 20 runs"
           }
         ]
       }
