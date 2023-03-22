@@ -85,4 +85,4 @@ ${pacmak} ${OPTS} -v --no-parallel $packagedirs
 # Test custom pack command
 clean_dists
 echo "Testing yarn custom pack command."
-${pacmak} ${OPTS} -v --pack-command='yarn pack -f custom.tgz -s && echo custom.tgz' ${PWD}/../../@scope/jsii-calc-lib
+${pacmak} ${OPTS} -v --pack-command='yarn pack -f custom.tgz -s && echo custom.tgz' ${PWD}/../../@scope/jsii-calc-base-of-base
