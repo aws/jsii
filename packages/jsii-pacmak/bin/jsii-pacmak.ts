@@ -6,6 +6,7 @@ import * as yargs from 'yargs';
 
 import { pacmak, configureLogging, TargetName } from '../lib';
 import { debug } from '../lib/logging';
+import { DEFAULT_PACK_COMMAND } from '../lib/packaging';
 import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
@@ -151,6 +152,12 @@ import { VERSION_DESC } from '../lib/version';
       desc: 'Configure a custom path (relative to current working directory) to a repository when packaging a Java package.',
       defaultDescription: 'A temporary directory is used.',
       default: undefined,
+      hidden: true,
+    })
+    .option('pack-command', {
+      type: 'string',
+      desc: 'Configure a custom command to create package tarballs. Command must output the name of the tarball.',
+      default: DEFAULT_PACK_COMMAND,
       hidden: true,
     })
     .option('validate-assemblies', {

@@ -1558,6 +1558,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "a-h",
+      "name": "Adrian Hesketh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1029947?v=4",
+      "profile": "http://adrianhesketh.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github",
