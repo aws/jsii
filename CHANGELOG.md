@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.79.0](https://github.com/aws/jsii/compare/v1.78.1...v1.79.0) (2023-03-23)
+
+
+### Features
+
+* add configurable pack command ([#4021](https://github.com/aws/jsii/issues/4021)) ([6b2fd18](https://github.com/aws/jsii/commit/6b2fd186bd77416a9b341c5544a101f50793076d))
+* enable Go generics for jsii Go CDK code ([#4009](https://github.com/aws/jsii/issues/4009)) ([f653b31](https://github.com/aws/jsii/commit/f653b3173760679562648710b08907bfe2c7c748))
+* **runtimes:** support JSII_NODE setting ([#4024](https://github.com/aws/jsii/issues/4024)) ([f8f2f13](https://github.com/aws/jsii/commit/f8f2f13780f805cd41cb9945ad8febce9aec5900)), closes [#4009](https://github.com/aws/jsii/issues/4009)
+
 ## [1.78.1](https://github.com/aws/jsii/compare/v1.78.0...v1.78.1) (2023-03-16)
 
 
