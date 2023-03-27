@@ -2,23 +2,45 @@ package jsii
 
 import "time"
 
-// Bool obtains a pointer to the provided bool.
-func Bool(v bool) *bool { return &v }
+type basicType interface {
+	bool | string | float64 | time.Time
+}
 
-// Bools obtains a pointer to a slice of pointers to all the provided booleans.
-func Bools(v ...bool) *[]*bool {
-	slice := make([]*bool, len(v))
+// Ptr returns a pointer to the provided value.
+func Ptr[T basicType](v T) *T {
+	return &v
+}
+
+// PtrSlice returns a pointer to a slice of pointers to all of the provided values.
+func PtrSlice[T basicType](v ...T) *[]*T {
+	slice := make([]*T, len(v))
 	for i := 0; i < len(v); i++ {
-		slice[i] = Bool(v[i])
+		slice[i] = Ptr(v[i])
 	}
 	return &slice
 }
 
-// Number obtains a pointer to the provided float64.
-func Number(v float64) *float64 { return &v }
+// Bool returns a pointer to the provided bool.
+func Bool(v bool) *bool { return Ptr(v) }
 
-// Numbers obtains a pointer to a slice of pointers to all the provided numbers.
-func Numbers(v ...float64) *[]*float64 {
+// Bools returns a pointer to a slice of pointers to all of the provided booleans.
+func Bools(v ...bool) *[]*bool {
+	return PtrSlice(v...)
+}
+
+type numberType interface {
+	~float32 | ~float64 |
+		~int | ~int8 | ~int16 | ~int32 | ~int64 |
+		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr
+}
+
+// Number returns a pointer to the provided float64.
+func Number[T numberType](v T) *float64 {
+	return Ptr(float64(v))
+}
+
+// Numbers returns a pointer to a slice of pointers to all of the provided numbers.
+func Numbers[T numberType](v ...T) *[]*float64 {
 	slice := make([]*float64, len(v))
 	for i := 0; i < len(v); i++ {
 		slice[i] = Number(v[i])
@@ -26,26 +48,18 @@ func Numbers(v ...float64) *[]*float64 {
 	return &slice
 }
 
-// String obtains a pointer to the provided string.
-func String(v string) *string { return &v }
+// String returns a pointer to the provided string.
+func String(v string) *string { return Ptr(v) }
 
-// Strings obtains a pointer to a slice of pointers to all the provided strings.
+// Strings returns a pointer to a slice of pointers to all of the provided strings.
 func Strings(v ...string) *[]*string {
-	slice := make([]*string, len(v))
-	for i := 0; i < len(v); i++ {
-		slice[i] = String(v[i])
-	}
-	return &slice
+	return PtrSlice(v...)
 }
 
-// Time obtains a pointer to the provided time.Time.
-func Time(v time.Time) *time.Time { return &v }
+// Time returns a pointer to the provided time.Time.
+func Time(v time.Time) *time.Time { return Ptr(v) }
 
-// Times obtains a pointer to a slice of pointers to all the provided time.Time.
+// Times returns a pointer to a slice of pointers to all of the provided time.Time values.
 func Times(v ...time.Time) *[]*time.Time {
-	slice := make([]*time.Time, len(v))
-	for i := 0; i < len(v); i++ {
-		slice[i] = Time(v[i])
-	}
-	return &slice
+	return PtrSlice(v...)
 }

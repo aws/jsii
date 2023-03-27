@@ -1,9 +1,12 @@
+import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as os from 'os';
 import * as path from 'path';
 
 import * as logging from '../lib/logging';
 import { Scratch, shell } from './util';
+
+export const DEFAULT_PACK_COMMAND = 'npm pack';
 
 export interface JsiiModuleOptions {
   /**
@@ -52,15 +55,27 @@ export class JsiiModule {
   /**
    * Prepare an NPM package from this source module
    */
-  public async npmPack() {
+  public async npmPack(packCommand = DEFAULT_PACK_COMMAND) {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      // Quoting (JSON-stringifying) the module directory in order to avoid
-      // problems if there are spaces or other special characters in the path.
-      const args = ['pack', JSON.stringify(this.moduleDirectory)];
-      if (logging.level >= logging.LEVEL_VERBOSE) {
-        args.push('--loglevel=verbose');
+      const args = [];
+
+      if (packCommand === DEFAULT_PACK_COMMAND) {
+        // Quoting (JSON-stringifying) the module directory in order to avoid
+        // problems if there are spaces or other special characters in the path.
+        args.push(JSON.stringify(this.moduleDirectory));
+
+        if (logging.level >= logging.LEVEL_VERBOSE) {
+          args.push('--loglevel=verbose');
+        }
+      } else {
+        // Ensure module is copied to tmpdir to ensure parallel execution does not content on generated tarballs
+        await fs.copy(this.moduleDirectory, tmpdir);
       }
-      const out = await shell('npm', args, { cwd: tmpdir });
+
+      const out = await shell(packCommand, args, {
+        cwd: tmpdir,
+      });
+
       // Take only the last line of npm pack which should contain the
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.
@@ -69,7 +84,7 @@ export class JsiiModule {
 
       if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
         throw new Error(
-          `npm pack did not produce tarball from ${
+          `${packCommand} did not produce tarball from ${
             this.moduleDirectory
           } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
         );
