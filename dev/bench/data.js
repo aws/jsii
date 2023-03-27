@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679905171843,
+  "lastUpdate": 1679915109456,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14243,6 +14243,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 5942274.4336939,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70304.67371504998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1a3e74d585f8bab024ace2d8d46c12dc5c50e433",
+          "message": "chore: publish nightly images to ECR Public (#4031)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-27T10:13:24Z",
+          "tree_id": "99b8ec7e4b399aace9e8f5eb7e565a87b542adb4",
+          "url": "https://github.com/aws/jsii/commit/1a3e74d585f8bab024ace2d8d46c12dc5c50e433"
+        },
+        "date": 1679915106398,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70464.02709635001,
+            "unit": "milliseconds",
+            "range": 1562376.2958155037,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70464.02709635001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51483.254977750024,
+            "unit": "milliseconds",
+            "range": 131878.8824547897,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51483.254977750024 milliseconds over 20 runs"
           }
         ]
       }
