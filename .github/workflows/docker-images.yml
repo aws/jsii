@@ -169,56 +169,59 @@ jobs:
             -f superchain/Dockerfile                                            \
             .
 
-      # Only when puhsing to main/release from now on
-      - name: Publish (nightly)
-        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref != 'refs/heads/release'
-        # NOTE BELOW: The `--tag` flags can be provided multiple times... we use that capability...
-        run: |-
-          # If the current version is the default version, also tag this with the unqualified ':nightly' label
-          if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
-            docker buildx build                                                   \
-              --builder ${{ steps.buildx.outputs.name }}                          \
-              --platform linux/amd64,linux/arm64                                  \
-              --target superchain                                                 \
-              --cache-from type=local,src=/tmp/.buildx-cache                      \
-              --cache-to type=local,dest=/tmp/.buildx-cache                       \
-              --push                                                              \
-              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
-              --build-arg COMMIT_ID='${{ github.sha }}'                           \
-              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-              --tag "jsii/superchain:1-buster-slim-nightly"                       \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"\
-              -f superchain/Dockerfile                                            \
-              .
-          else
-            docker buildx build                                                   \
-              --builder ${{ steps.buildx.outputs.name }}                          \
-              --platform linux/amd64,linux/arm64                                  \
-              --target superchain                                                 \
-              --cache-from type=local,src=/tmp/.buildx-cache                      \
-              --cache-to type=local,dest=/tmp/.buildx-cache                       \
-              --push                                                              \
-              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
-              --build-arg COMMIT_ID='${{ github.sha }}'                           \
-              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"\
-              -f superchain/Dockerfile                                            \
-              .
-          fi
-
-      # We only switch to an ECR-Push capable role if this is a "release" push, for safety reasons...
-      - name: Federate with AWS role for ECE Public push
-        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/release'
+      # Re-authenticate to ECR Public, this time with image-push permissions
+      - name: Federate with AWS role for ECR Public push
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && (github.ref == 'refs/heads/release' || github.ref == 'refs/heads/main')
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_FOR_ECR_PUBLIC_PUSH }}
           role-session-name: GHA_aws-jsii_docker-images-PUSH
       - name: Authenticate with ECR Public for Push
-        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/release'
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && (github.ref == 'refs/heads/release' || github.ref == 'refs/heads/main')
         uses: aws-actions/amazon-ecr-login@v1
         with:
           registry-type: public
+
+      # Only when puhsing to main/release from now on
+      - name: Publish (nightly)
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        # NOTE BELOW: The `--tag` flags can be provided multiple times... we use that capability...
+        run: |-
+          # If the current version is the default version, also tag this with the unqualified ':nightly' label
+          if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
+            docker buildx build                                                                                         \
+              --builder ${{ steps.buildx.outputs.name }}                                                                \
+              --platform linux/amd64,linux/arm64                                                                        \
+              --target superchain                                                                                       \
+              --cache-from type=local,src=/tmp/.buildx-cache                                                            \
+              --cache-to type=local,dest=/tmp/.buildx-cache                                                             \
+              --push                                                                                                    \
+              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
+              --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
+              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                                         \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-nightly"                                          \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}-nightly"                   \
+              --tag "jsii/superchain:1-buster-slim-nightly"                                                             \
+              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"                                      \
+              -f superchain/Dockerfile                                                                                  \
+              .
+          else
+            docker buildx build                                                                                         \
+              --builder ${{ steps.buildx.outputs.name }}                                                                \
+              --platform linux/amd64,linux/arm64                                                                        \
+              --target superchain                                                                                       \
+              --cache-from type=local,src=/tmp/.buildx-cache                                                            \
+              --cache-to type=local,dest=/tmp/.buildx-cache                                                             \
+              --push                                                                                                    \
+              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
+              --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
+              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                                         \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}-nightly"                   \
+              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"                                      \
+              -f superchain/Dockerfile                                                                                  \
+              .
+          fi
 
       - name: Publish (latest)
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/release'
@@ -236,10 +239,10 @@ jobs:
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
               --build-arg COMMIT_ID='${{ github.sha }}'                                             \
               --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                     \
-              --tag "jsii/superchain:1-buster-slim"                                                 \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"                          \
               --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim"                              \
               --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}"       \
+              --tag "jsii/superchain:1-buster-slim"                                                 \
+              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"                          \
               -f superchain/Dockerfile                                                              \
               .
           else
@@ -253,8 +256,8 @@ jobs:
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
               --build-arg COMMIT_ID='${{ github.sha }}'                                             \
               --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                     \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"                          \
               --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}"       \
+              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"                          \
               -f superchain/Dockerfile                                                              \
               .
           fi
