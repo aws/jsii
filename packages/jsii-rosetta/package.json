@@ -18,6 +18,7 @@
   "devDependencies": {
     "@types/commonmark": "^0.27.5",
     "@types/mock-fs": "^4.13.1",
+    "@types/stream-json": "^1.7.3",
     "@types/workerpool": "^6.4.0",
     "@types/semver": "^7.3.13",
     "jsii-build-tools": "0.0.0",
@@ -33,6 +34,7 @@
     "@xmldom/xmldom": "^0.8.6",
     "workerpool": "^6.4.0",
     "yargs": "^16.2.0",
+    "stream-json": "^1.7.5",
     "semver": "^7.3.8",
     "semver-intersect": "^1.4.0",
     "fast-glob": "^3.2.12",
