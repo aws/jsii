@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679918904648,
+  "lastUpdate": 1680215422059,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14319,6 +14319,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 67700.60038547426,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45897.97750840002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d2ecb6d2a6a460e309e4985dc001a6b749b3aac7",
+          "message": "feat(rosetta): handle tablets with a streaming JSON codec (#4034)\n\nTablet files can grow pretty large, and cache files even larger. In order to avoir running into the maximum string length node supports when encoding or decoding those, use a streaming JSON encoder / decoder.\n\nBackports aws/jsii-rosetta#43\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-03-30T21:30:31Z",
+          "tree_id": "2b850c8f204751324456766bedfb0e4413094618",
+          "url": "https://github.com/aws/jsii/commit/d2ecb6d2a6a460e309e4985dc001a6b749b3aac7"
+        },
+        "date": 1680215416816,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 78981.22820955004,
+            "unit": "milliseconds",
+            "range": 1382549.6215126126,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 78981.22820955004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60732.543231950025,
+            "unit": "milliseconds",
+            "range": 450887.7840908179,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60732.543231950025 milliseconds over 20 runs"
           }
         ]
       }
