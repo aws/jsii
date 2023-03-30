@@ -1,7 +1,9 @@
-import { existsSync, promises as fs } from 'fs';
+import { createReadStream, createWriteStream, existsSync, promises as fs } from 'fs';
 import * as path from 'path';
+import { Readable, Writable } from 'stream';
 import * as zlib from 'zlib';
 
+import { parse, stringify } from '../json';
 import { TargetLanguage } from '../languages';
 import * as logging from '../logging';
 import { TypeScriptSnippet, SnippetLocation, completeSource } from '../snippet';
@@ -141,15 +143,17 @@ export class LanguageTablet {
    * compressed and decompress accordingly.
    */
   public async load(filename: string) {
-    let data = await fs.readFile(filename);
-    // Gzip objects start with 1f 8b 08
-    if (data[0] === 0x1f && data[1] === 0x8b && data[2] === 0x08) {
-      // This is a gz object, so we decompress it now...
-      data = zlib.gunzipSync(data);
+    let readStream: Readable;
+    if (await isGzipped(filename)) {
+      const gunzip = zlib.createGunzip();
+      createReadStream(filename).pipe(gunzip, { end: true });
+      readStream = gunzip;
       this.compressedSource = true;
+    } else {
+      readStream = createReadStream(filename);
     }
 
-    const obj: TabletSchema = JSON.parse(data.toString('utf-8'));
+    const obj: TabletSchema = await parse(readStream);
 
     if (!obj.toolVersion || !obj.snippets) {
       throw new Error(`File '${filename}' does not seem to be a Tablet file`);
@@ -181,12 +185,11 @@ export class LanguageTablet {
   public async save(filename: string, compress = false) {
     await fs.mkdir(path.dirname(filename), { recursive: true });
 
-    let schema = Buffer.from(JSON.stringify(this.toSchema(), null, 2));
-    if (compress) {
-      schema = zlib.gzipSync(schema);
-    }
+    const writeStream: Writable = createWriteStream(filename, { flags: 'w' });
+    const gzip = compress ? zlib.createGzip() : undefined;
+    gzip?.pipe(writeStream, { end: true });
 
-    await fs.writeFile(filename, schema);
+    return stringify(this.toSchema(), gzip ?? writeStream);
   }
 
   private toSchema(): TabletSchema {
@@ -315,4 +318,15 @@ export interface Translation {
   source: string;
   language: string;
   didCompile?: boolean;
+}
+
+async function isGzipped(filename: string) {
+  const openFile = await fs.open(filename, 'r');
+  try {
+    // Assumes that we can always read 3 bytes if there's that many in the file...
+    const { bytesRead, buffer } = await openFile.read(Buffer.alloc(4), 0, 3, 0);
+    return bytesRead >= 3 && buffer[0] === 0x1f && buffer[1] === 0x8b && buffer[2] === 0x08;
+  } finally {
+    await openFile.close();
+  }
 }
