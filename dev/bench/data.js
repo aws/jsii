@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680215422059,
+  "lastUpdate": 1680531528858,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14357,6 +14357,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 450887.7840908179,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60732.543231950025 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1f06ac9d6937e823e4333300398260d50cce2978",
+          "message": "fix(jsii): incorrect symbol-id generated with typesVersions (#4037)\n\nWhen using types sourced from redirected declarations files (using `typesVersions`), the `symbolId` generated for type lookups incorrectly refers to the redirected path instead of the canonical one. This adds code to reverse the `typesVersions` mapping to get back to the original and canonical path.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-03T13:07:36Z",
+          "tree_id": "10e3a093825e53a4e3c2edda31ac0a81c8d25eb0",
+          "url": "https://github.com/aws/jsii/commit/1f06ac9d6937e823e4333300398260d50cce2978"
+        },
+        "date": 1680531524291,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 98418.69638650001,
+            "unit": "milliseconds",
+            "range": 7390591.027113257,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 98418.69638650001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74651.18137964999,
+            "unit": "milliseconds",
+            "range": 723010.9375225503,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74651.18137964999 milliseconds over 20 runs"
           }
         ]
       }
