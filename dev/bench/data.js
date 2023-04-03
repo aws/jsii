@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680531528858,
+  "lastUpdate": 1680536174878,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14395,6 +14395,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 723010.9375225503,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74651.18137964999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ac7cc0199f620da02a1040495dc856835a94dd92",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.1.3 to ~=9.1.5 in /gh-pages (#4039)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.1.5</h2>\n<ul>\n<li>Updated Lithuanian and Japanese translations</li>\n<li>Updated Mermaid.js to version 9.4.3</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5290\">#5290</a>: Footer previous/next labels cut-off for short page titles</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.1.5 (2023-03-31)</p>\n<ul>\n<li>Updated Lithuanian and Japanese translations</li>\n<li>Updated Mermaid.js to version 9.4.3</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5290\">#5290</a>: Footer previous/next labels cut-off for short page titles</li>\n</ul>\n<p>mkdocs-material-9.1.4+insiders-4.32.4 (2023-03-24)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5241\">#5241</a>: Built-in typeset plugin jams navigation for anchors in headings</li>\n</ul>\n<p>mkdocs-material-9.1.4 (2023-03-24)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5239\">#5239</a>: Instant loading breaks anchors in details (9.1.1 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5211\">#5211</a>: Anchor following not working for Chinese (9.1.2 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.3 (2023-03-14)</p>\n<ul>\n<li>Added Kurdish (Soranî) translations</li>\n<li>Updated Norwegian (Bokmål), Portuguese and Romanian translations</li>\n<li>Improved compatibility with mkdocs-jupyter plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5198\">#5198</a>: Built-in search plugin not filtering script and style tags</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5176\">#5176</a>: Back-to-top + instant loading not working (9.1.1 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.2+insiders-4.32.3 (2023-03-09)</p>\n<ul>\n<li>Fixed Docker image release workflow (9.1.0 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5159\">#5159</a>: Missing underline for abbreviations (9.1.0 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.2 (2023-03-09)</p>\n<ul>\n<li>Updated Icelandic, Korean and Swedish translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5168\">#5168</a>: Mermaid text boxes overflow (9.0.13 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5155\">#5155</a>: Table of contents not highlighting percent-encoded URLs</li>\n</ul>\n<p>mkdocs-material-9.1.1 (2023-03-05)</p>\n<ul>\n<li>Updated Czech and Thai translations</li>\n<li>Improved instant loading (scroll restoration, slow connections)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5023\">#5023</a>: Instant loading not allowing to go back to initial page</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/3797\">#3797</a>: Instant loading does not work with section anchors in Safari</li>\n</ul>\n<p>mkdocs-material-9.1.0+insiders-4.32.2 (2023-03-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5127\">#5127</a>: Privacy plugin not handling large number of occurrences</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5126\">#5126</a>: Privacy plugin breaks when replacing specific emojis</li>\n</ul>\n<p>mkdocs-material-9.1.0 (2023-03-02)</p>\n<ul>\n<li>Docker image now available for amd64, arm64 and arm/v7</li>\n<li>Updated Chinese (Taiwanese) translations</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5f431ec92144be317c5d7ddfe7c386717f7a1395\"><code>5f431ec</code></a> Prepare 9.1.5 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d8b066565a833498f73430f8a4151a2410b5d892\"><code>d8b0665</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5295\">#5295</a> from AnaisUrlichs/master</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/062ee027cd2427568b2b3dcedd3321d85592d615\"><code>062ee02</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/1\">#1</a> from AnaisUrlichs/adding-trivy</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/338ff8c4a72210ffe178b8905a0ff192ee1a7d4b\"><code>338ff8c</code></a> adding Trivy to open source user list</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/355761d93c270e1e7e82e9c6d7efc2297a854b3f\"><code>355761d</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5293\">#5293</a> from tealgreen0503/hotfix/ja-translation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1c793ebaff0ef694e7231e69a40426bc047807da\"><code>1c793eb</code></a> fix Japanese translation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/cd18cb5dcb8faa4ac4f4839ca05126c0cad36d0d\"><code>cd18cb5</code></a> fix Japanese translation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f4d894d53bc19200a1712c93c97f6d6debe40665\"><code>f4d894d</code></a> Fixed footer direction label being cut off</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7c473e148b61830a4befa3848b0c87eb84fd6e4a\"><code>7c473e1</code></a> Added FastAPI as a silver sponsor 🎉</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0184b9701b89a05c5dc4664df974c7f0593fef8a\"><code>0184b97</code></a> Updated README</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.1.3...9.1.5\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-04-03T14:27:09Z",
+          "tree_id": "95d44dbe3a57fc76707b06829c1bd8124dcb05e1",
+          "url": "https://github.com/aws/jsii/commit/ac7cc0199f620da02a1040495dc856835a94dd92"
+        },
+        "date": 1680536170865,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95962.5176144,
+            "unit": "milliseconds",
+            "range": 12804259.598405264,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95962.5176144 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 71321.50021785001,
+            "unit": "milliseconds",
+            "range": 2796842.078364629,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71321.50021785001 milliseconds over 20 runs"
           }
         ]
       }
