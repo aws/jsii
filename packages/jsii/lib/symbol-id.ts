@@ -3,6 +3,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as ts from 'typescript';
 
+import { undoTypesVersionsRedirect } from './types-versions';
 import { findUp } from './utils';
 
 /**
@@ -125,6 +126,11 @@ class Helper {
       sourcePath = normalizePath(sourcePath, tscRootDir, tscOutDir);
     }
 
+    sourcePath = undoTypesVersionsRedirect(
+      sourcePath,
+      packageInfo.typesVersions,
+    );
+
     return sourcePath.replace(/(\.d)?\.ts$/, '');
 
     function removePrefix(prefix: string, filePath: string) {
@@ -156,13 +162,16 @@ class Helper {
       return this.packageInfo.get(packageJsonDir);
     }
 
-    const { jsii } = fs.readJsonSync(path.join(packageJsonDir, 'package.json'));
+    const { jsii, typesVersions } = fs.readJsonSync(
+      path.join(packageJsonDir, 'package.json'),
+    );
 
     const result = {
       packageJsonDir,
       outdir: jsii?.outdir,
       tscRootDir: jsii?.tsc?.rootDir,
       tscOutDir: jsii?.tsc?.outDir,
+      typesVersions,
     };
     this.packageInfo.set(from, result);
     this.packageInfo.set(packageJsonDir, result);
@@ -175,6 +184,13 @@ interface PackageInfo {
   readonly outdir: string | undefined;
   readonly tscRootDir: string | undefined;
   readonly tscOutDir: string | undefined;
+  readonly typesVersions:
+    | {
+        readonly [range: string]: {
+          readonly [glob: string]: readonly string[];
+        };
+      }
+    | undefined;
 }
 
 /**
