@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680536174878,
+  "lastUpdate": 1680546360573,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14433,6 +14433,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2796842.078364629,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71321.50021785001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "51220968+agdimech@users.noreply.github.com",
+            "name": "Adrian Dimech",
+            "username": "agdimech"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e00102bbd412be0edd5497948c63ae61c6717c5e",
+          "message": "fix: enable dereference when copying module to tmp dir (#4030)\n\nWhen executing the copy command, for symlinked node_modules like in the case of pnpm, the copy will treat nested folders as files which breaks the pack command. De-referencing will make sure any symlinked folders are actually dereferenced.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-03T17:14:35Z",
+          "tree_id": "8818b0501d250f06bdbd623fef88046b080b93ec",
+          "url": "https://github.com/aws/jsii/commit/e00102bbd412be0edd5497948c63ae61c6717c5e"
+        },
+        "date": 1680546355991,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 98929.70346055007,
+            "unit": "milliseconds",
+            "range": 4331058.85801672,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 98929.70346055007 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 72754.84570139999,
+            "unit": "milliseconds",
+            "range": 1586054.6813887628,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72754.84570139999 milliseconds over 20 runs"
           }
         ]
       }
