@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680546360573,
+  "lastUpdate": 1680548565441,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14471,6 +14471,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1586054.6813887628,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72754.84570139999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9f833f7b2e0a1d7fe9c7bfc641115062a03a59d9",
+          "message": "chore(deps): Bump github.com/mattn/go-isatty from 0.0.17 to 0.0.18 in /packages/@jsii/go-runtime/jsii-runtime-go (#4028)\n\nBumps [github.com/mattn/go-isatty](https://github.com/mattn/go-isatty) from 0.0.17 to 0.0.18.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mattn/go-isatty/commit/72a590e157f100a8191f6a086e84d5f6f73da9d6\"><code>72a590e</code></a> Merge pull request <a href=\"https://redirect.github.com/mattn/go-isatty/issues/82\">#82</a> from dolmen-go/upgrade-x-sys-tagged</li>\n<li><a href=\"https://github.com/mattn/go-isatty/commit/c84e2ccda8216de6795bcf44ecde47a7372d9681\"><code>c84e2cc</code></a> Merge pull request <a href=\"https://redirect.github.com/mattn/go-isatty/issues/83\">#83</a> from dolmen-go/ci-add-go1.20</li>\n<li><a href=\"https://github.com/mattn/go-isatty/commit/77d7704101a912de6bfa98e295d2a865a91bb781\"><code>77d7704</code></a> CI: add Go 1.20</li>\n<li><a href=\"https://github.com/mattn/go-isatty/commit/1f921902b3bfe527d60684acced8c1ae88e4e581\"><code>1f92190</code></a> CI: drop Go 1.15, 1.16</li>\n<li><a href=\"https://github.com/mattn/go-isatty/commit/ddec212a9a29fdabde3d2237352d9f8dc1a2c2a1\"><code>ddec212</code></a> deps: use a tagged version of golang.org/x/sys</li>\n<li>See full diff in <a href=\"https://github.com/mattn/go-isatty/compare/v0.0.17...v0.0.18\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/mattn/go-isatty&package-manager=go_modules&previous-version=0.0.17&new-version=0.0.18)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-04-03T18:15:28Z",
+          "tree_id": "e0cf95eb154f150d57dc736cac92e25f50bf2c60",
+          "url": "https://github.com/aws/jsii/commit/9f833f7b2e0a1d7fe9c7bfc641115062a03a59d9"
+        },
+        "date": 1680548562156,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60028.570697050054,
+            "unit": "milliseconds",
+            "range": 3478279.6542903194,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60028.570697050054 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 45626.32944044999,
+            "unit": "milliseconds",
+            "range": 113787.00195265077,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 45626.32944044999 milliseconds over 20 runs"
           }
         ]
       }
