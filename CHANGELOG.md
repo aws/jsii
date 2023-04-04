@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.80.0](https://github.com/aws/jsii/compare/v1.79.0...v1.80.0) (2023-04-04)
+
+
+### Features
+
+* **rosetta:** handle tablets with a streaming JSON codec ([#4034](https://github.com/aws/jsii/issues/4034)) ([d2ecb6d](https://github.com/aws/jsii/commit/d2ecb6d2a6a460e309e4985dc001a6b749b3aac7)), closes [aws/jsii-rosetta#43](https://github.com/aws/jsii-rosetta/issues/43)
+
+
+### Bug Fixes
+
+* enable dereference when copying module to tmp dir ([#4030](https://github.com/aws/jsii/issues/4030)) ([e00102b](https://github.com/aws/jsii/commit/e00102bbd412be0edd5497948c63ae61c6717c5e))
+* **jsii:** incorrect symbol-id generated with typesVersions ([#4037](https://github.com/aws/jsii/issues/4037)) ([1f06ac9](https://github.com/aws/jsii/commit/1f06ac9d6937e823e4333300398260d50cce2978))
+
 ## [1.79.0](https://github.com/aws/jsii/compare/v1.78.1...v1.79.0) (2023-03-23)
 
 
