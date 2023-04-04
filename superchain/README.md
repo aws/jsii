@@ -3,7 +3,7 @@
 A [`debian:10-slim`][debian]-based Docker image bundling all the SDKs and tools
 required in order to package [jsii] projects in all supported languages.
 
-[debian]: https://hub.docker.com/_/debian
+[debian]: https://gallery.ecr.aws/debian/debian
 [jsii]: https://github.com/aws/jsii
 
 ## Included Language SDKs
@@ -23,7 +23,7 @@ SDK             | Version
 Maintained image tags are named using the following pattern:
 
 ```
-jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
+public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 ```
 
 - `<JSII-MAJOR>` is the major line of the jsii toolchain
@@ -52,9 +52,9 @@ The previous image tags have been discontinued:
 
 We build multiple versions of this image, for different versions of Node. They are available as:
 
-* `jsii/superchain:1-buster-slim-node14(-nightly)`
-* `jsii/superchain:1-buster-slim-node16(-nightly)`
-* `jsii/superchain:1-buster-slim-node18(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node14(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node16(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node18(-nightly)`
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
