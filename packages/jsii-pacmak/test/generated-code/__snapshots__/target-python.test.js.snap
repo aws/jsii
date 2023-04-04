@@ -243,7 +243,7 @@ scope.jsii-calc-base
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.40"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -798,7 +798,7 @@ scope.jsii-calc-base-of-base
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.40"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1326,7 +1326,7 @@ scope.jsii-calc-lib
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.40"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -2917,7 +2917,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.40"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
