@@ -1389,7 +1389,7 @@ behavior across all the runtimes, reducing the cost of maintaining many of those
 <p><strong><img alt="⏰" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
 <p>Once code is generated and it has a <em>host</em> runtime library to rely on, [<code>jsii-pacmak</code>] needs to receive the additional
 logic required to compile and package the generated libraries as required, producing ready-to-publish artifacts.</p>
-<p>The necessary toolchain needs to be added to the [<code>jsii/superchain</code>] <em>Docker</em> image, so that <code>jsii</code> customers can rely
+<p>The necessary toolchain needs to be added to the [<code>public.ecr.aws/jsii/superchain</code>] <em>Docker</em> image, so that <code>jsii</code> customers can rely
 on this to build artifacts for any of the supported languages.</p>
 <p>In addition to this, standardized <em>Amazon CodePipeline</em> actions need to be developed in order to support publishing to
 the relevant idiomatic package managers.</p>
@@ -1434,7 +1434,7 @@ Available</em> languages, the new support can be considered for <em>General Avai
   <small>
     
       Last update:
-      2023-04-03
+      2023-04-04
     
   </small>
 </div>

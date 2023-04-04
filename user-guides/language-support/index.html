@@ -1465,8 +1465,8 @@ contribute to this process by documenting a general architecture that should be 
 languages (and thus, abstracting away language specificities).</p>
 </div>
 <h2 id="building-packaging">Building &amp; Packaging</h2>
-<p>The necessary toolchains should be added to he [<code>jsii/superchain</code>] Docker image, so that the [<code>jsii-pacmak</code>] generation
-can be changed to support building ready to publish artifacts instead of just code.</p>
+<p>The necessary toolchains should be added to he [<code>public.ecr.aws/jsii/superchain</code>] Docker image, so that the
+[<code>jsii-pacmak</code>] generation can be changed to support building ready to publish artifacts instead of just code.</p>
 <p>Before publishing any artifacts, ensure all packages (the <em>host library</em> as well as generated artifacts) are designated
 as <em>experimental</em> (e.g: <strong>Python</strong> packages were annotated with the <code>Development Status :: 4 - Beta</code> trove classifier on
 PyPI, and <strong>NuGet</strong> packages were published with a pre-release version such as <code>1.2.3-pre</code>).</p>
@@ -1510,7 +1510,7 @@ declared <em>Generally Available</em>. At this point, breaking changes are no lo
   <small>
     
       Last update:
-      2023-04-03
+      2023-04-04
     
   </small>
 </div>
