@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680612574385,
+  "lastUpdate": 1680617091729,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14585,6 +14585,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 532333.0412537517,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46973.1701098 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f4ea4c514fcdc7465fd21724c1b15751c46ba6e0",
+          "message": "docs: refer to ECR Public image (#4040)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-04T13:05:51Z",
+          "tree_id": "127eff2be3240d0bd3e86c9302223fe45f94ee4d",
+          "url": "https://github.com/aws/jsii/commit/f4ea4c514fcdc7465fd21724c1b15751c46ba6e0"
+        },
+        "date": 1680617087457,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 79767.7920585,
+            "unit": "milliseconds",
+            "range": 2427760.0368868555,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 79767.7920585 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 58946.88497815,
+            "unit": "milliseconds",
+            "range": 553481.1117227707,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 58946.88497815 milliseconds over 20 runs"
           }
         ]
       }
