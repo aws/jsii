@@ -4,7 +4,7 @@
 [![All Contributors](https://img.shields.io/github/all-contributors/aws/jsii/main?label=%E2%9C%A8%20All%20Contributors)](#contributors-)
 [![Build Status](https://github.com/aws/jsii/workflows/Main/badge.svg)](https://github.com/aws/jsii/actions?query=workflow%3AMain+branch%3Amain)
 [![npm](https://img.shields.io/npm/v/jsii?logo=npm)](https://www.npmjs.com/package/jsii)
-[![docker](https://img.shields.io/badge/docker-jsii%2Fsuperchain-brightgreen?logo=docker)](https://hub.docker.com/r/jsii/superchain)
+[![docker](https://img.shields.io/badge/Docker-public.ecr.aws%2Fjsii%2Fsuperchain-brightgreen?logo=docker)](https://gallery.ecr.aws/jsii/superchain)
 
 ## Overview
 

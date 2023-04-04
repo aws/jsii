@@ -105,8 +105,8 @@ possible to publish artifacts even when tests in the suite are failing. As soon 
 
 ## Building & Packaging
 
-The necessary toolchains should be added to he [`jsii/superchain`] Docker image, so that the [`jsii-pacmak`] generation
-can be changed to support building ready to publish artifacts instead of just code.
+The necessary toolchains should be added to he [`public.ecr.aws/jsii/superchain`] Docker image, so that the
+[`jsii-pacmak`] generation can be changed to support building ready to publish artifacts instead of just code.
 
 Before publishing any artifacts, ensure all packages (the _host library_ as well as generated artifacts) are designated
 as _experimental_ (e.g: **Python** packages were annotated with the `Development Status :: 4 - Beta` trove classifier on
@@ -165,7 +165,7 @@ declared _Generally Available_. At this point, breaking changes are no longer po
 [`jsii-pacmak`]: ../../packages/jsii-pacmak
 [`jsii-rosetta`]: ../../packages/jsii-rosetta
 [standard compliance suite]: ../../specification/4-standard-compliance-suite.md
-[`jsii/superchain`]: ../../superchain
+[`public.ecr.aws/jsii/superchain`]: ../../superchain
 [`aws-delivlib`]: https://github.com/awslabs/aws-delivlib
 [aws cdk]: https://github.com/aws/aws-cdk
 [semantic versioning]: https://semver.org

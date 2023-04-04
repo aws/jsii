@@ -250,7 +250,7 @@ COPY superchain /docker-source
 # Create the attributions document
 RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
   && RUSTUP_VERSION=$(rustup --version 2>/dev/null | cut -d' ' -f2)                                                     \
-  && echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                 \
+  && echo "This public.ecr.aws/jsii/superchain image includes the following third-party software/licensing:" > /NOTICE  \
   && echo "" >> /NOTICE                                                                                                 \
   # Start with the packages that didn't come from "apt-get" or don't have a copyright file
   && echo "################################################################################" >> /NOTICE                 \
