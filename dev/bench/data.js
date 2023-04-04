@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680607028580,
+  "lastUpdate": 1680612574385,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14547,6 +14547,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 263486.1243572282,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46241.47147179998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0759ead907b8436ce6a548dd9581e48d5562a38d",
+          "message": "chore(deps-dev): Update wheel requirement from ~=0.38 to ~=0.40 in /packages/jsii-pacmak/lib/targets/python (#4007)\n\nUpdates the requirements on [wheel](https://github.com/pypa/wheel) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/blob/main/docs/news.rst\">wheel's changelog</a>.</em></p>\n<blockquote>\n<h1>Release Notes</h1>\n<p><strong>0.40.0 (2023-03-14)</strong></p>\n<ul>\n<li>Added a <code>wheel tags</code> command to modify tags on an existing wheel\n(PR by Henry Schreiner)</li>\n<li>Updated vendored <code>packaging</code> to 23.0</li>\n<li><code>wheel unpack</code> now preserves the executable attribute of extracted files</li>\n<li>Fixed spaces in platform names not being converted to underscores (PR by David Tucker)</li>\n<li>Fixed <code>RECORD</code> files in generated wheels missing the regular file attribute</li>\n<li>Fixed <code>DeprecationWarning</code> about the use of the deprecated <code>pkg_resources</code> API\n(PR by Thomas Grainger)</li>\n<li>Wheel now uses flit-core as a build backend (PR by Henry Schreiner)</li>\n</ul>\n<p><strong>0.38.4 (2022-11-09)</strong></p>\n<ul>\n<li>Fixed <code>PKG-INFO</code> conversion in <code>bdist_wheel</code> mangling UTF-8 header values in\n<code>METADATA</code> (PR by Anderson Bravalheri)</li>\n</ul>\n<p><strong>0.38.3 (2022-11-08)</strong></p>\n<ul>\n<li>Fixed install failure when used with <code>--no-binary</code>, reported on Ubuntu 20.04, by\nremoving <code>setup_requires</code> from <code>setup.cfg</code></li>\n</ul>\n<p><strong>0.38.2 (2022-11-05)</strong></p>\n<ul>\n<li>Fixed regression introduced in v0.38.1 which broke parsing of wheel file names with\nmultiple platform tags</li>\n</ul>\n<p><strong>0.38.1 (2022-11-04)</strong></p>\n<ul>\n<li>Removed install dependency on setuptools</li>\n<li>The future-proof fix in 0.36.0 for converting PyPy's SOABI into a abi tag was\nfaulty. Fixed so that future changes in the SOABI will not change the tag.</li>\n</ul>\n<p><strong>0.38.0 (2022-10-21)</strong></p>\n<ul>\n<li>Dropped support for Python &lt; 3.7</li>\n<li>Updated vendored <code>packaging</code> to 21.3</li>\n<li>Replaced all uses of <code>distutils</code> with <code>setuptools</code></li>\n<li>The handling of <code>license_files</code> (including glob patterns and default\nvalues) is now delegated to <code>setuptools&gt;=57.0.0</code> (<a href=\"https://redirect.github.com/pypa/wheel/issues/466\">#466</a>).\nThe package dependencies were updated to reflect this change.</li>\n<li>Fixed potential DoS attack via the <code>WHEEL_INFO_RE</code> regular expression</li>\n<li>Fixed <code>ValueError: ZIP does not support timestamps before 1980</code> when using\n<code>SOURCE_DATE_EPOCH=0</code> or when on-disk timestamps are earlier than 1980-01-01. Such\ntimestamps are now changed to the minimum value before packaging.</li>\n</ul>\n<p><strong>0.37.1 (2021-12-22)</strong></p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/wheel/commit/461f7a3a2d4824009ca4855b3300d61e6d405dc4\"><code>461f7a3</code></a> Updated version number in <code>__init__.py</code></li>\n<li><a href=\"https://github.com/pypa/wheel/commit/e3344b498e69a0228ed1a915233ecc36203ce7e8\"><code>e3344b4</code></a> Removed unnecessary rule exemption</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/6aaf9c347e3e0893c89bd75aef5905f136a37de2\"><code>6aaf9c3</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/566644ac843e1b6ad4089e50ce0c64bf2f4e2417\"><code>566644a</code></a> Folded a long line to stay within 88 chars</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/e3f9b2b35659599c82e362d8c11f480ff6abb88a\"><code>e3f9b2b</code></a> Added missing PR attributions</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/9e280dbaab9858a753d9e00e87830d607ecfdb43\"><code>9e280db</code></a> Report stderr contents if <code>flit build</code> fails</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/4c68d19b5243f0eafa51243bb765ca7f21115fcf\"><code>4c68d19</code></a> Added venv* to .gitignore</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/a18a70781cc83911c46941d5be0702f4f98eea7c\"><code>a18a707</code></a> [pre-commit.ci] pre-commit autoupdate (<a href=\"https://redirect.github.com/pypa/wheel/issues/517\">#517</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/ba4b195a0ea86bdbe7bccab2dffef987d9d45510\"><code>ba4b195</code></a> Added a couple of missing changelog entries (<a href=\"https://redirect.github.com/pypa/wheel/issues/516\">#516</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/934fe177ff912c8e03d5ae951d3805e1fd90ba5e\"><code>934fe17</code></a> Changed <code>wheel unpack</code> to honor the original permissions of files (<a href=\"https://redirect.github.com/pypa/wheel/issues/514\">#514</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/wheel/compare/0.38.0...0.40.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\nDependabot will merge this PR once CI passes on it, as requested by @RomainMuller.\n\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-04-04T12:02:17Z",
+          "tree_id": "4ceed7f1f74ce2f67c788d3e414136492faacfdc",
+          "url": "https://github.com/aws/jsii/commit/0759ead907b8436ce6a548dd9581e48d5562a38d"
+        },
+        "date": 1680612570931,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61096.00429075002,
+            "unit": "milliseconds",
+            "range": 2509530.537903848,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61096.00429075002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46973.1701098,
+            "unit": "milliseconds",
+            "range": 532333.0412537517,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46973.1701098 milliseconds over 20 runs"
           }
         ]
       }
