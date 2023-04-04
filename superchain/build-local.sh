@@ -27,6 +27,6 @@ docker build                                                                    
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
   --build-arg REGISTRY="docker.io/library"                                      \
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \
-  -t "jsii/superchain:local"                                                    \
+  -t "public.ecr.aws/jsii/superchain:local"                                     \
   -f ${PWD}/Dockerfile                                                          \
   ..

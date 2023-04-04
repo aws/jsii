@@ -39,7 +39,7 @@ RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sou
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.9.0"
+ARG M2_VERSION="3.9.1"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
@@ -250,7 +250,7 @@ COPY superchain /docker-source
 # Create the attributions document
 RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
   && RUSTUP_VERSION=$(rustup --version 2>/dev/null | cut -d' ' -f2)                                                     \
-  && echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                 \
+  && echo "This public.ecr.aws/jsii/superchain image includes the following third-party software/licensing:" > /NOTICE  \
   && echo "" >> /NOTICE                                                                                                 \
   # Start with the packages that didn't come from "apt-get" or don't have a copyright file
   && echo "################################################################################" >> /NOTICE                 \

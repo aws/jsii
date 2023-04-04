@@ -68,8 +68,8 @@ export class JsiiModule {
           args.push('--loglevel=verbose');
         }
       } else {
-        // Ensure module is copied to tmpdir to ensure parallel execution does not content on generated tarballs
-        await fs.copy(this.moduleDirectory, tmpdir);
+        // Ensure module is copied to tmpdir to ensure parallel execution does not contend on generated tarballs
+        await fs.copy(this.moduleDirectory, tmpdir, { dereference: true });
       }
 
       const out = await shell(packCommand, args, {

@@ -59,13 +59,13 @@ code can be written. This component must be written in the new language.
 Once code is generated and it has a _host_ runtime library to rely on, [`jsii-pacmak`] needs to receive the additional
 logic required to compile and package the generated libraries as required, producing ready-to-publish artifacts.
 
-The necessary toolchain needs to be added to the [`jsii/superchain`] _Docker_ image, so that `jsii` customers can rely
+The necessary toolchain needs to be added to the [`public.ecr.aws/jsii/superchain`] _Docker_ image, so that `jsii` customers can rely
 on this to build artifacts for any of the supported languages.
 
 In addition to this, standardized _Amazon CodePipeline_ actions need to be developed in order to support publishing to
 the relevant idiomatic package managers.
 
-[`jsii/superchain`]: https://github.com/aws/jsii/tree/main/superchain
+[`public.ecr.aws/jsii/superchain`]: https://github.com/aws/jsii/tree/main/superchain
 
 ## Compliance Tests
 
