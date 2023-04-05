@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1680696678787,
+  "lastUpdate": 1680701913160,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14737,6 +14737,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 739558.644420028,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47487.95435255001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f70c0f77069c8beb30010395cfd5817ac013feba",
+          "message": "fix(rosetta): flakey trim-cache test (#4043)\n\nIt appears the trim-cache test using tablet compression occasionally fails in CI/CD. I suspect this is due to the `save` function returning before the GZip stream has bene closed, resulting in the subsequent read attempting to consume an incomplete GZip object.\n\nThis adds the necessary provisions to ensure the GZip stream is closed (or failed) before `save` returns.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-05T11:24:21Z",
+          "tree_id": "1296de1345bad3dcb19679defd5bda49d15677bb",
+          "url": "https://github.com/aws/jsii/commit/f70c0f77069c8beb30010395cfd5817ac013feba"
+        },
+        "date": 1680701909857,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60685.13303875002,
+            "unit": "milliseconds",
+            "range": 2268509.332208124,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60685.13303875002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46277.61937599998,
+            "unit": "milliseconds",
+            "range": 39998.204647132676,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46277.61937599998 milliseconds over 20 runs"
           }
         ]
       }
