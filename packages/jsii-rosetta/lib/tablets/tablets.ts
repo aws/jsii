@@ -189,7 +189,15 @@ export class LanguageTablet {
     const gzip = compress ? zlib.createGzip() : undefined;
     gzip?.pipe(writeStream, { end: true });
 
-    return stringify(this.toSchema(), gzip ?? writeStream);
+    // If we GZip, this promise ensures the GZip stream is closed before we return.
+    const gzipFinished =
+      gzip &&
+      new Promise<void>((ok, ko) => {
+        gzip.once('error', ko);
+        gzip.once('close', ok);
+      });
+
+    return Promise.all([stringify(this.toSchema(), gzip ?? writeStream), gzipFinished]).then(() => void undefined);
   }
 
   private toSchema(): TabletSchema {
