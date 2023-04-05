@@ -182,14 +182,13 @@ export class LanguageTablet {
    * Saves the tablet schema to a file. If the compress option is passed, then
    * the schema will be gzipped before writing to the file.
    */
-  public async save(filename: string, compress = false) {
+  public async save(filename: string, compress = false): Promise<void> {
     await fs.mkdir(path.dirname(filename), { recursive: true });
 
     const writeStream: Writable = createWriteStream(filename, { flags: 'w' });
     const gzip = compress ? zlib.createGzip() : undefined;
-    gzip?.pipe(writeStream, { end: true });
 
-    return stringify(this.toSchema(), gzip ?? writeStream);
+    return stringify(this.toSchema(), ...(gzip ? [gzip] : []), writeStream);
   }
 
   private toSchema(): TabletSchema {
