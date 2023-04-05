@@ -1,4 +1,4 @@
-import { Readable, Writable, pipeline } from 'node:stream';
+import { Readable, pipeline } from 'node:stream';
 import { promisify } from 'node:util';
 import { parser } from 'stream-json';
 import * as Assembler from 'stream-json/Assembler';
@@ -36,12 +36,15 @@ export async function parse(reader: Readable): Promise<any> {
  * better performance.
  *
  * @param value the value to be serialized.
- * @param writer the write in which to write the JSON text.
+ * @param writers the sequence of write streams to use to output the JSON text.
  */
-export async function stringify(value: any, writer: Writable): Promise<void> {
+export async function stringify(
+  value: any,
+  ...writers: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>
+): Promise<void> {
   const reader = new Readable({ objectMode: true });
   reader.push(value);
   reader.push(null);
 
-  return asyncPipeline(reader, disassembler(), stringer(), writer);
+  return asyncPipeline(reader, disassembler(), stringer(), ...writers);
 }
