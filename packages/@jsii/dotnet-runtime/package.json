@@ -41,6 +41,6 @@
     "@jsii/runtime": "^0.0.0",
     "@types/semver": "^7.3.13",
     "jsii-build-tools": "^0.0.0",
-    "semver": "^7.3.8"
+    "semver": "^7.4.0"
   }
 }
