@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1681314224253,
+  "lastUpdate": 1681733661323,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -14889,6 +14889,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 156624.76681758682,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48169.56679655002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6273e84a1bed28bb62b45e3bf67c37dfeb549ff8",
+          "message": "chore: remove node: pseudo-protocol (#4058)\n\nhttps://github.com/aws/jsii/commit/d2ecb6d2a6a460e309e4985dc001a6b749b3aac7 inadvertently introduced `node:` pseudo-protocol imports, which require use of more modern nodes than what is advertised. Massage them back into the old-school un-qualified name.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-17T11:01:25Z",
+          "tree_id": "48f744341b62633e8fda22b8ccf43177cd0846e9",
+          "url": "https://github.com/aws/jsii/commit/6273e84a1bed28bb62b45e3bf67c37dfeb549ff8"
+        },
+        "date": 1681733655124,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 100307.47074435007,
+            "unit": "milliseconds",
+            "range": 4048323.2413823768,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 100307.47074435007 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 74037.12108724998,
+            "unit": "milliseconds",
+            "range": 1638268.9775469347,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 74037.12108724998 milliseconds over 20 runs"
           }
         ]
       }
