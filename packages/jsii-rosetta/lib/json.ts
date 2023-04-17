@@ -1,5 +1,5 @@
-import { Readable, pipeline } from 'node:stream';
-import { promisify } from 'node:util';
+import { Readable, pipeline } from 'stream';
+import { promisify } from 'util';
 import { parser } from 'stream-json';
 import * as Assembler from 'stream-json/Assembler';
 import { disassembler } from 'stream-json/Disassembler';
