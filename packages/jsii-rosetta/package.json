@@ -35,7 +35,7 @@
     "workerpool": "^6.4.0",
     "yargs": "^16.2.0",
     "stream-json": "^1.7.5",
-    "semver": "^7.3.8",
+    "semver": "^7.4.0",
     "semver-intersect": "^1.4.0",
     "fast-glob": "^3.2.12",
     "jsii": "0.0.0"
