@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1681762529316,
+  "lastUpdate": 1681918813140,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15041,6 +15041,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 748014.6601807893,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 58781.4647649 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43080478+aws-cdk-automation@users.noreply.github.com",
+            "name": "AWS CDK Automation",
+            "username": "aws-cdk-automation"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5f473f4ebc170613123d289319c988fdba1d301e",
+          "message": "chore: npm-check-updates && yarn upgrade (#4063)\n\nRan npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.",
+          "timestamp": "2023-04-19T14:48:43Z",
+          "tree_id": "24771542d40ace686f00e7e6823b2fe60be6ce75",
+          "url": "https://github.com/aws/jsii/commit/5f473f4ebc170613123d289319c988fdba1d301e"
+        },
+        "date": 1681918809292,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61318.05294870002,
+            "unit": "milliseconds",
+            "range": 1994318.4478314153,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61318.05294870002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47076.0146493,
+            "unit": "milliseconds",
+            "range": 116347.6915647597,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47076.0146493 milliseconds over 20 runs"
           }
         ]
       }
