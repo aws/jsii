@@ -42,6 +42,6 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-pacmak": "^0.0.0",
-    "pyright": "^1.1.303"
+    "pyright": "^1.1.304"
   }
 }
