@@ -1,9 +1,9 @@
-import { Readable, pipeline } from 'node:stream';
-import { promisify } from 'node:util';
+import { Readable, pipeline } from 'stream';
 import { parser } from 'stream-json';
 import * as Assembler from 'stream-json/Assembler';
 import { disassembler } from 'stream-json/Disassembler';
 import { stringer } from 'stream-json/Stringer';
+import { promisify } from 'util';
 
 // NB: In node 15+, there is a node:stream.promises object that has this built-in.
 const asyncPipeline = promisify(pipeline);
