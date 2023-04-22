@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1682129025990,
+  "lastUpdate": 1682133810545,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15231,6 +15231,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 49984.75585306902,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46659.059247300014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2d5dd82bc5fe679e843b3391ebfaa9385189719c",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.7.0 to 0.8.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4047)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.7.0 to 0.8.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/golang/tools/releases\">golang.org/x/tools's releases</a>.</em></p>\n<blockquote>\n<h2>gopls/v0.8.0</h2>\n<h2>Go version support</h2>\n<h3>Support for Go 1.18</h3>\n<p>Version 0.8.0 of gopls supports features added to Go 1.18, specifically:</p>\n<ul>\n<li>Support for multi-module workspaces using <code>go.work</code> files.</li>\n<li>Diagnostics for Fuzz tests.</li>\n<li>Improved support for generics.</li>\n</ul>\n<p>To use these features, gopls must be installed using Go 1.18. See <a href=\"https://go.dev/dl/\">go.dev/dl</a> for the latest status of Go 1.18 -- as of writing Go 1.18 is not yet released, but Go 1.18 RC1 may be used.</p>\n<h3>Dropped support for Go 1.12</h3>\n<p>Version 0.8.0 of gopls no longer supports building at Go 1.12. See <a href=\"https://redirect.github.com/golang/go/issues/50827\">golang/go#50827</a> for more details.</p>\n<h2>New Features</h2>\n<h3><code>go.work</code> integration</h3>\n<p>Gopls now supports multi-module workspaces using <code>go.work</code> files. To use this feature, create a <code>go.work</code> file that includes the modules you want to work on, and then open your editor to the directory containing <code>go.work</code>.  For more information, see the  <a href=\"https://go.dev/ref/mod#workspaces\"><code>go.work</code> reference</a>, or the <a href=\"https://github.com/golang/tools/blob/master/gopls/doc/workspace.md\">gopls documentation</a> for multi-module workspaces.</p>\n<h3>Diagnostics for Fuzz tests</h3>\n<p>When writing <a href=\"https://go.dev/doc/fuzz/\">Fuzz tests</a>, gopls provides diagnostics for invalid arguments to <code>Fuzz</code>.\n<img src=\"https://user-images.githubusercontent.com/57144380/156475335-0a277e11-c113-460a-837b-d066b42898a6.png\" alt=\"image\" /></p>\n<h3>Improved support for generics</h3>\n<h4>Honor the language version configured in <code>go.mod</code></h4>\n<p>gopls now provides diagnostics for language features based on the <a href=\"https://go.dev/ref/mod#go-mod-file-go\"><code>go</code> directive</a> in the applicable <code>go.mod</code> file for a package.</p>\n<p>For some errors related to incompatible language versions, gopls offers a quick-fix to update the <code>go.mod</code> Go version. (note that if the <code>go.mod</code> file is open, it may need to be saved in order for language version changes to take effect)\n<img src=\"https://user-images.githubusercontent.com/57144380/156476752-7aacf34b-2835-41cb-b80d-7bf5103a43a0.gif\" alt=\"gomodedit\" /></p>\n<h4>Improved completion with type parameters</h4>\n<p>Gopls autocompletion is improved in several contexts when using generic types.</p>\n<p><img src=\"https://user-images.githubusercontent.com/57144380/156477933-a1aab4c7-06cd-4cac-85e6-a847b6515b91.gif\" alt=\"genericvarcompl\" /></p>\n<h3>New code action to add missing method stubs</h3>\n<p>Gopls now provides a code action to implement missing methods.</p>\n<p><img src=\"https://user-images.githubusercontent.com/57144380/156479262-482958e2-69a3-4a97-81a5-5dd27ac250ba.gif\" alt=\"implementiface\" /></p>\n<h3>Improved performance and accuracy for workspace symbol requests</h3>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/5ef3193183ecbeb75ee5b12e4d0d76129ec4da3d\"><code>5ef3193</code></a> gopls/internal/lsp/source/typerefs: reexpress tests wrt ExternalRefs</li>\n<li><a href=\"https://github.com/golang/tools/commit/c5f768a46c019dd04f52de3b4bd3c20f190047f4\"><code>c5f768a</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/7c33a561290d6022b3c6bb0bc9b3cc465183f4d2\"><code>7c33a56</code></a> gopls/internal/lsp/source: show both the original declaration and the value o...</li>\n<li><a href=\"https://github.com/golang/tools/commit/4d205d81b5a0f7cb051584b8964b7a0fd6d502c2\"><code>4d205d8</code></a> gopls/doc: add instructions for using go.work with the Go distribution</li>\n<li><a href=\"https://github.com/golang/tools/commit/d5076cc64d484da83963b1ae098aef830c21c448\"><code>d5076cc</code></a> gopls/internal/lsp/cache: don't trace a region for MetadataForFile</li>\n<li><a href=\"https://github.com/golang/tools/commit/f79636135d4e197cc6d78393efad122130a1d8e6\"><code>f796361</code></a> gopls/internal/lsp: add tracing instrumentation for all Server methods</li>\n<li><a href=\"https://github.com/golang/tools/commit/e10450195ecc38d4292a65e2650a45ba28116631\"><code>e104501</code></a> gopls/internal/astutil: TestPurgeFuncBodies requires source code for std</li>\n<li><a href=\"https://github.com/golang/tools/commit/65208701901cc838949d44fd9cc58ea2c18329a4\"><code>6520870</code></a> gopls/internal/lsp/source/typerefs: allow for duplicate decls</li>\n<li><a href=\"https://github.com/golang/tools/commit/902fdcadc132d6f7a844f6e6df47af75dd9b5d37\"><code>902fdca</code></a> gopls/internal/lsp/source/typerefs: purge func bodies before parsing</li>\n<li><a href=\"https://github.com/golang/tools/commit/58c9a6328cdc0c2bd336231261203f748e113fa5\"><code>58c9a63</code></a> go/packages/internal/nodecount: count ast.Node frequency</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.7.0...v0.8.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.7.0&new-version=0.8.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-04-22T02:18:54Z",
+          "tree_id": "03b6e33f992997b02e02ef8d908ff7123bfaaf20",
+          "url": "https://github.com/aws/jsii/commit/2d5dd82bc5fe679e843b3391ebfaa9385189719c"
+        },
+        "date": 1682133806065,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 93404.29880120003,
+            "unit": "milliseconds",
+            "range": 48311313.49423445,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 93404.29880120003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 63937.730054099986,
+            "unit": "milliseconds",
+            "range": 725900.1591089636,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63937.730054099986 milliseconds over 20 runs"
           }
         ]
       }
