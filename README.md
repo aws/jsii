@@ -22,9 +22,9 @@ Head over to our [documentation website](https://aws.github.io/jsii)!
 
 The jsii toolchain is spread out on multiple repositories:
 - [aws/jsii-compiler](https://github.com/aws/jsii-compiler) is where the `jsii` compiler is maintained (except releases
-  in the `1.x` line, which are maintenaned in this repository)
+  in the `1.x` line, which are maintained in this repository)
 - [aws/jsii-rosetta](https://github.com/aws/jsii-rosetta) is where the `jsii-rosetta` sample code transliteration tool
-  is maintained (except releases in the `1.x` line, which are maintenaned in this repository)
+  is maintained (except releases in the `1.x` line, which are maintained in this repository)
 - [aws/jsii](https://github.com/aws/jsii) is where the rest of the toolchain is maintained, including:
   - `@jsii/spec`, the package that defines the *`.jsii` assembly* specification
   - `jsii-config`, an interactive tool to help configure your jsii package

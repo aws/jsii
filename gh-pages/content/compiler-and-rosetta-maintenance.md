@@ -11,8 +11,8 @@ same time. Upgrading your `jsii` and `jsii-rosetta` dependencies to `v5.0.x` is 
 [RFC-374]: https://github.com/aws/aws-cdk-rfcs/blob/rmuller/jsii-version-unlock/text/0374-jsii-ts-version.md
 
 Starting with the `5.0.x` release of `jsii` and `jsii-rosetta`, we are using a new versioning strategy for these two
-tools. Going forward we will closely follow new TypeScript compiler releases with new `jsii` and `jsii-rosetta` releases
-going forward, enabling the entire jsii developer community to adopt new TypeScript syntax & benefit from bug fixes and
+tools. Going forward we will closely follow new TypeScript compiler releases with new `jsii` and `jsii-rosetta` releases, 
+enabling the entire jsii developer community to adopt new TypeScript syntax & benefit from bug fixes and
 performance enhancements brought into the TypeScript compiler, while retaining the ability control the timeline of these
 upgrades.
 
@@ -33,7 +33,7 @@ to migrate to the newer releases, which we believe will provide a better experie
 
 ## Frequently Asked Questions
 
-### How hard is it to migrate from `1.x` to 5.0.x?
+### How difficult is it to migrate from `1.x` to `5.0.x`?
 
 The TypeScript language incurred a number of breaking changes between 3.9 and 5.0, including the following:
 
@@ -96,7 +96,7 @@ In addition to these, two import changes affect jsii exported APIs specifically:
 
 The new versioning strategy only affects the `jsii` and `jsii-rosetta` packages. All other parts of the jsii toolchain
 will continue to be released under the `1.x` release line for the foreseeable future. The compilation artifacts produced
-by `jsii@5.0.0` and newer remain compatible with jsii tools from the `1.x` toolchain, so developers need not coordinate
+by `jsii@5.0.0` and newer remain compatible with jsii tools from the `1.x` toolchain, so developers do not have to coordinate
 upgrades with their dependents and dependencies.
 
 ### If I upgrade my package to `jsii@5.0.0`, are my dependents required to do the same?
