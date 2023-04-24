@@ -19,7 +19,7 @@
         <link rel="next" href="../runtime-architecture/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.7">
     
     
       
@@ -59,7 +59,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -399,6 +399,56 @@
     <li class="md-nav__item">
       <a href="../runtime-architecture/" class="md-nav__link">
         Runtime Architecture
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+          Maintenance Announcements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Maintenance Announcements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compiler-and-rosetta-maintenance/" class="md-nav__link">
+        jsii@v1.x & jsii-rosetta@v1.x
       </a>
     </li>
   
@@ -1213,53 +1263,75 @@
 <thead>
 <tr>
 <th>Name</th>
+<th>Release</th>
 <th>Stability</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/aws/jsii/tree/main/packages/jsii">jsii</a></td>
-<td>Stable</td>
-<td>Compiles TypeScript to jsii module</td>
+<td><a href="https://github.com/aws/jsii/tree/main/packages/jsii">jsii1</a></td>
+<td><code>1.x</code></td>
+<td><a href="../../compiler-and-rosetta-maintenance/">Maintenance</a></td>
+<td>Compiles TypeScript to jsii module (TypeScript 3.9 Syntax)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aws/jsii-compiler#readme">jsii</a></td>
+<td><code>5.0.x</code></td>
+<td>GA</td>
+<td>Compiles TypeScript to jsii module (TypeScript 5.0 Syntax)</td>
 </tr>
 <tr>
 <td><a href="https://github.com/aws/jsii/tree/main/packages/jsii-pacmak">jsii-pacmak</a></td>
-<td>Stable</td>
+<td><code>1.x</code></td>
+<td>GA</td>
 <td>Creates ready-to-publish language-specific packages from jsii modules</td>
 </tr>
 <tr>
 <td><a href="https://github.com/aws/jsii/tree/main/packages/jsii-reflect">jsii-reflect</a></td>
-<td>Stable</td>
+<td><code>1.x</code></td>
+<td>GA</td>
 <td>Strong-typed reflection library for jsii type systems</td>
 </tr>
 <tr>
 <td><a href="https://github.com/aws/jsii/tree/main/packages/jsii-diff">jsii-diff</a></td>
-<td>Stable</td>
+<td><code>1.x</code></td>
+<td>GA</td>
 <td>API backwards compatibility checker</td>
 </tr>
 <tr>
-<td><a href="https://github.com/aws/jsii/tree/main/packages/jsii-rosetta">jsii-rosetta</a></td>
+<td><a href="https://github.com/aws/jsii/tree/main/packages/jsii-rosetta">jsii-rosetta1</a></td>
+<td><code>1.x</code></td>
+<td><a href="../../compiler-and-rosetta-maintenance/">Maintenance</a></td>
+<td>Transpile code snippets (in docs) from TypeScript to jsii languages</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aws/jsii-rosetta#readme">jsii-rosetta</a></td>
+<td><code>5.0.x</code></td>
 <td>Experimental</td>
 <td>Transpile code snippets (in docs) from TypeScript to jsii languages</td>
 </tr>
 <tr>
 <td><a href="https://github.com/aws/jsii/tree/main/packages/jsii-config">jsii-config</a></td>
+<td><code>1.x</code></td>
 <td>Experimental</td>
 <td>Interactive tool for generating jsii configuration</td>
 </tr>
 <tr>
 <td><a href="https://github.com/eladb/jsii-release">jsii-release</a></td>
+<td><code>1.x</code></td>
 <td>Community</td>
 <td>Publishes jsii modules to all supported package managers</td>
 </tr>
 <tr>
 <td><a href="https://github.com/eladb/jsii-srcmak">jsii-srcmak</a></td>
+<td><code>1.x</code></td>
 <td>Community</td>
 <td>Generates relocatable source code in jsii languages from typescript</td>
 </tr>
 <tr>
 <td><a href="https://github.com/eladb/jsii-docgen">jsii-docgen</a></td>
+<td><code>1.x</code></td>
 <td>Community</td>
 <td>Generates markdown API documentation for jsii modules</td>
 </tr>
@@ -1268,11 +1340,15 @@
 <details class="question">
 <summary>Stability Definitions</summary>
 <ul>
-<li><strong>Stable</strong>: Projects that comply with the <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a> specification, and will hence not change
-  behavior or receive other breaking changes across minor and patch version bumps.</li>
+<li><strong>GA</strong>: Projects that are deemed <em>Generally Available</em> and for which customers can expect full support, including
+  new features, bug fixes, and security updates.</li>
 <li><strong>Experimental</strong>: Projects that are under active development and may change behavior or receive other breaking
   changes across minor releases.</li>
 <li><strong>Community</strong>: a community-maintained project, not officially supported by the <em>jsii core team</em>.</li>
+<li><strong><a href="../../compiler-and-rosetta-maintenance/">Maintenance</a></strong>: Project releases under <em>Maintenance</em> continue to receive full support, including new features,
+  bug fixes, and security updates for a limited time before moving to <em>Support</em>.</li>
+<li><strong>Support</strong>: Deprecated projects no longer receive new features, and are only updated with severe bug fixes and
+  security updates; until they are declared End-of-Support.</li>
 </ul>
 </details>
 
@@ -1281,7 +1357,7 @@
   <small>
     
       Last update:
-      2023-04-22
+      2023-04-24
     
   </small>
 </div>

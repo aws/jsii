@@ -10,27 +10,27 @@
       
       
       
-        <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/configuration/targets/java/">
+        <link rel="canonical" href="https://aws.github.io/jsii/compiler-and-rosetta-maintenance/">
       
       
-        <link rel="prev" href="../go/">
+        <link rel="prev" href="../overview/runtime-architecture/">
       
       
-        <link rel="next" href="../python/">
+        <link rel="next" href="../user-guides/">
       
-      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.7">
     
     
       
-        <title>Java - The jsii reference</title>
+        <title>jsii@v1.x & jsii-rosetta@v1.x - The jsii reference</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ded33207.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ded33207.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -40,11 +40,11 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/amazon-ember-display.css">
+      <link rel="stylesheet" href="../assets/stylesheets/amazon-ember-display.css">
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#java" class="md-skip">
+        <a href="#maintenance-announcement-jsii-jsii-rosetta-1x" class="md-skip">
           Skip to content
         </a>
       
@@ -83,9 +83,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../../.." title="The jsii reference" class="md-header__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+    <a href=".." title="The jsii reference" class="md-header__button md-logo" aria-label="The jsii reference" data-md-component="logo">
       
-  <img src="../../../../../assets/images/logo.png" alt="logo">
+  <img src="../assets/images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Java
+              jsii@v1.x & jsii-rosetta@v1.x
             
           </span>
         </div>
@@ -173,13 +173,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
         Welcome
       </a>
     </li>
@@ -189,15 +191,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../../" class="md-tabs__link md-tabs__link--active">
+      <a href="../user-guides/" class="md-tabs__link">
         User guides
       </a>
     </li>
@@ -213,7 +213,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../../specification/1-introduction/" class="md-tabs__link">
+      <a href="../specification/1-introduction/" class="md-tabs__link">
         Specification
       </a>
     </li>
@@ -229,7 +229,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../../decisions/introduction/" class="md-tabs__link">
+      <a href="../decisions/introduction/" class="md-tabs__link">
         Architecture Decisions
       </a>
     </li>
@@ -257,9 +257,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../../.." title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+    <a href=".." title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference" data-md-component="logo">
       
-  <img src="../../../../../assets/images/logo.png" alt="logo">
+  <img src="../assets/images/logo.png" alt="logo">
 
     </a>
     The jsii reference
@@ -285,16 +285,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-        
-      
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
       
       
       
@@ -303,7 +303,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Welcome
@@ -316,7 +316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -359,7 +359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../overview/features/" class="md-nav__link">
+      <a href="../overview/features/" class="md-nav__link">
         Features
       </a>
     </li>
@@ -373,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../overview/toolchain/" class="md-nav__link">
+      <a href="../overview/toolchain/" class="md-nav__link">
         Toolchain
       </a>
     </li>
@@ -387,7 +387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../overview/runtime-architecture/" class="md-nav__link">
+      <a href="../overview/runtime-architecture/" class="md-nav__link">
         Runtime Architecture
       </a>
     </li>
@@ -406,16 +406,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-        
-      
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" checked>
       
       
       
@@ -424,7 +424,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1_3">
           <span class="md-nav__icon md-icon"></span>
           Maintenance Announcements
@@ -435,11 +435,107 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../../../compiler-and-rosetta-maintenance/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          jsii@v1.x & jsii-rosetta@v1.x
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         jsii@v1.x & jsii-rosetta@v1.x
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    Frequently Asked Questions
+  </a>
+  
+    <nav class="md-nav" aria-label="Frequently Asked Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-difficult-is-it-to-migrate-from-1x-to-50x" class="md-nav__link">
+    How difficult is it to migrate from 1.x to 5.0.x?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-with-other-packages-of-the-jsii-toolchain-jsii-pacmak-jsii-config-etc" class="md-nav__link">
+    What happens with other packages of the jsii toolchain (jsii-pacmak, jsii-config, etc...)?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-i-upgrade-my-package-to-jsii500-are-my-dependents-required-to-do-the-same" class="md-nav__link">
+    If I upgrade my package to jsii@5.0.0, are my dependents required to do the same?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-my-app-have-dependencies-built-by-different-jsii-release-lines" class="md-nav__link">
+    Can my app have dependencies built by different jsii release lines?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-often-will-new-jsii-jsii-rosetta-release-lines-be-started" class="md-nav__link">
+    How often will new jsii &amp; jsii-rosetta release lines be started?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-support-policy-for-the-new-50x-and-newer-releases" class="md-nav__link">
+    What is the support policy for the new 5.0.x and newer releases?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-if-i-continue-using-releases-after-they-reach-end-of-support" class="md-nav__link">
+    What happens if I continue using releases after they reach End-of-Support?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -464,16 +560,16 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
       
       
       
@@ -482,7 +578,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           User guides
@@ -495,7 +591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../" class="md-nav__link">
+      <a href="../user-guides/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -507,16 +603,16 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
       
       
       
@@ -525,7 +621,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_2">
           <span class="md-nav__icon md-icon"></span>
           Library Author Guide
@@ -538,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../" class="md-nav__link">
+      <a href="../user-guides/lib-author/" class="md-nav__link">
         Prerequisites
       </a>
     </li>
@@ -581,7 +677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../quick-start/set-up/" class="md-nav__link">
+      <a href="../user-guides/lib-author/quick-start/set-up/" class="md-nav__link">
         Set Up
       </a>
     </li>
@@ -595,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../quick-start/write-code/" class="md-nav__link">
+      <a href="../user-guides/lib-author/quick-start/write-code/" class="md-nav__link">
         Write Code
       </a>
     </li>
@@ -616,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../typescript-restrictions/" class="md-nav__link">
+      <a href="../user-guides/lib-author/typescript-restrictions/" class="md-nav__link">
         TypeScript Restrictions
       </a>
     </li>
@@ -628,16 +724,16 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" checked>
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4" >
       
       
       
@@ -646,7 +742,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_2_4">
           <span class="md-nav__icon md-icon"></span>
           Configuration
@@ -659,7 +755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../user-guides/lib-author/configuration/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -671,16 +767,16 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4_2" checked>
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4_2" >
       
       
       
@@ -689,7 +785,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_4_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_4_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_2_4_2">
           <span class="md-nav__icon md-icon"></span>
           Configuration Reference
@@ -702,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dotnet/" class="md-nav__link">
+      <a href="../user-guides/lib-author/configuration/targets/dotnet/" class="md-nav__link">
         .NET
       </a>
     </li>
@@ -716,7 +812,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../go/" class="md-nav__link">
+      <a href="../user-guides/lib-author/configuration/targets/go/" class="md-nav__link">
         Go
       </a>
     </li>
@@ -728,21 +824,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../user-guides/lib-author/configuration/targets/java/" class="md-nav__link">
         Java
       </a>
-      
     </li>
   
 
@@ -754,7 +840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../python/" class="md-nav__link">
+      <a href="../user-guides/lib-author/configuration/targets/python/" class="md-nav__link">
         Python
       </a>
     </li>
@@ -782,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../hints/" class="md-nav__link">
+      <a href="../user-guides/lib-author/hints/" class="md-nav__link">
         Type system hints
       </a>
     </li>
@@ -825,7 +911,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../toolchain/jsii/" class="md-nav__link">
+      <a href="../user-guides/lib-author/toolchain/jsii/" class="md-nav__link">
         jsii
       </a>
     </li>
@@ -882,7 +968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../lib-user/" class="md-nav__link">
+      <a href="../user-guides/lib-user/" class="md-nav__link">
         Prerequisites
       </a>
     </li>
@@ -925,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../lib-user/language-specific/go/" class="md-nav__link">
+      <a href="../user-guides/lib-user/language-specific/go/" class="md-nav__link">
         Go
       </a>
     </li>
@@ -939,7 +1025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../lib-user/language-specific/python/" class="md-nav__link">
+      <a href="../user-guides/lib-user/language-specific/python/" class="md-nav__link">
         Python
       </a>
     </li>
@@ -996,7 +1082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../language-support/" class="md-nav__link">
+      <a href="../user-guides/language-support/" class="md-nav__link">
         Language Implementation
       </a>
     </li>
@@ -1010,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../language-support/assembly/" class="md-nav__link">
+      <a href="../user-guides/language-support/assembly/" class="md-nav__link">
         .jsii Assemblies
       </a>
     </li>
@@ -1024,7 +1110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../language-support/callbacks/" class="md-nav__link">
+      <a href="../user-guides/language-support/callbacks/" class="md-nav__link">
         Callbacks and Overrides
       </a>
     </li>
@@ -1082,7 +1168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../specification/1-introduction/" class="md-nav__link">
+      <a href="../specification/1-introduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1096,7 +1182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../specification/2-type-system/" class="md-nav__link">
+      <a href="../specification/2-type-system/" class="md-nav__link">
         The jsii type system
       </a>
     </li>
@@ -1110,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../specification/3-kernel-api/" class="md-nav__link">
+      <a href="../specification/3-kernel-api/" class="md-nav__link">
         The jsii kernel API
       </a>
     </li>
@@ -1124,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../specification/4-standard-compliance-suite/" class="md-nav__link">
+      <a href="../specification/4-standard-compliance-suite/" class="md-nav__link">
         Standard Compliance Suite
       </a>
     </li>
@@ -1138,7 +1224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../specification/5-new-language-intake/" class="md-nav__link">
+      <a href="../specification/5-new-language-intake/" class="md-nav__link">
         New Language Intake
       </a>
     </li>
@@ -1152,7 +1238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../specification/6-compliance-report/" class="md-nav__link">
+      <a href="../specification/6-compliance-report/" class="md-nav__link">
         Compliance Report
       </a>
     </li>
@@ -1203,7 +1289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../decisions/introduction/" class="md-nav__link">
+      <a href="../decisions/introduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1237,6 +1323,76 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    Frequently Asked Questions
+  </a>
+  
+    <nav class="md-nav" aria-label="Frequently Asked Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-difficult-is-it-to-migrate-from-1x-to-50x" class="md-nav__link">
+    How difficult is it to migrate from 1.x to 5.0.x?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-with-other-packages-of-the-jsii-toolchain-jsii-pacmak-jsii-config-etc" class="md-nav__link">
+    What happens with other packages of the jsii toolchain (jsii-pacmak, jsii-config, etc...)?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-i-upgrade-my-package-to-jsii500-are-my-dependents-required-to-do-the-same" class="md-nav__link">
+    If I upgrade my package to jsii@5.0.0, are my dependents required to do the same?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-my-app-have-dependencies-built-by-different-jsii-release-lines" class="md-nav__link">
+    Can my app have dependencies built by different jsii release lines?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-often-will-new-jsii-jsii-rosetta-release-lines-be-started" class="md-nav__link">
+    How often will new jsii &amp; jsii-rosetta release lines be started?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-support-policy-for-the-new-50x-and-newer-releases" class="md-nav__link">
+    What is the support policy for the new 5.0.x and newer releases?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-if-i-continue-using-releases-after-they-reach-end-of-support" class="md-nav__link">
+    What happens if I continue using releases after they reach End-of-Support?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1253,32 +1409,137 @@
   
 
 
-<h1 id="java"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M277.74 312.9c9.8-6.7 23.4-12.5 23.4-12.5s-38.7 7-77.2 10.2c-47.1 3.9-97.7 4.7-123.1 1.3-60.1-8 33-30.1 33-30.1s-36.1-2.4-80.6 19c-52.5 25.4 130 37 224.5 12.1zm-85.4-32.1c-19-42.7-83.1-80.2 0-145.8C296 53.2 242.84 0 242.84 0c21.5 84.5-75.6 110.1-110.7 162.6-23.9 35.9 11.7 74.4 60.2 118.2zm114.6-176.2c.1 0-175.2 43.8-91.5 140.2 24.7 28.4-6.5 54-6.5 54s62.7-32.4 33.9-72.9c-26.9-37.8-47.5-56.6 64.1-121.3zm-6.1 270.5a12.19 12.19 0 0 1-2 2.6c128.3-33.7 81.1-118.9 19.8-97.3a17.33 17.33 0 0 0-8.2 6.3 70.45 70.45 0 0 1 11-3c31-6.5 75.5 41.5-20.6 91.4zM348 437.4s14.5 11.9-15.9 21.2c-57.9 17.5-240.8 22.8-291.6.7-18.3-7.9 16-19 26.8-21.3 11.2-2.4 17.7-2 17.7-2-20.3-14.3-131.3 28.1-56.4 40.2C232.84 509.4 401 461.3 348 437.4zM124.44 396c-78.7 22 47.9 67.4 148.1 24.5a185.89 185.89 0 0 1-28.2-13.8c-44.7 8.5-65.4 9.1-106 4.5-33.5-3.8-13.9-15.2-13.9-15.2zm179.8 97.2c-78.7 14.8-175.8 13.1-233.3 3.6 0-.1 11.8 9.7 72.4 13.6 92.2 5.9 233.8-3.3 237.1-46.9 0 0-6.4 16.5-76.2 29.7zM260.64 353c-59.2 11.4-93.5 11.1-136.8 6.6-33.5-3.5-11.6-19.7-11.6-19.7-86.8 28.8 48.2 61.4 169.5 25.9a60.37 60.37 0 0 1-21.1-12.8z"/></svg></span> Java</h1>
-<p>The <code>java</code> target requires the following configuration:</p>
+<h1 id="maintenance-announcement-jsii-jsii-rosetta-1x">Maintenance Announcement: <code>jsii</code> &amp; <code>jsii-rosetta</code> 1.x</h1>
+<p><strong>Announcement Date:</strong> <code>2023-04-24</code></p>
+<p>We have recently released <code>jsii@5.0.0</code> and <code>jsii-rosetta@5.0.0</code>, built on the TypeScript <code>5.0.x</code> compiler, allowing
+package maintainers to migrate to a more modern TypeScript language version than 3.9 (which the <code>1.x</code> release line is
+built on). This change was designed in <a href="https://github.com/aws/aws-cdk-rfcs/blob/rmuller/jsii-version-unlock/text/0374-jsii-ts-version.md">RFC-374</a>, and removes the need for developers to pin some of their dependencies
+to releases still compatible with TypeScript 3.9 without necessarily requiring their dependents to do the same at the
+same time. Upgrading your <code>jsii</code> and <code>jsii-rosetta</code> dependencies to <code>v5.0.x</code> is transparent to your users.</p>
+<p>Starting with the <code>5.0.x</code> release of <code>jsii</code> and <code>jsii-rosetta</code>, we are using a new versioning strategy for these two
+tools. Going forward we will closely follow new TypeScript compiler releases with new <code>jsii</code> and <code>jsii-rosetta</code> releases, 
+enabling the entire jsii developer community to adopt new TypeScript syntax &amp; benefit from bug fixes and
+performance enhancements brought into the TypeScript compiler, while retaining the ability control the timeline of these
+upgrades.</p>
+<p>We believe the new versioning strategy will result in an improved developer experience for jsii library maintainers, and
+have decided to start the process of retiring the <code>1.x</code> release line. In accordance with our maintenance commitment for
+the <code>1.x</code> release line, the retirement timeline is the following:</p>
 <ul>
-<li><code>maven</code> - the <code>groupId</code> and <code>artifactId</code> for the <strong>Maven</strong> package.</li>
-<li>Optionally a <code>versionSuffix</code> can be provided that will be appended at the end of the <strong>Maven</strong> package's <code>version</code>
-    field. The suffix must start with a <code>.</code> or a <code>-</code>.</li>
-<li><code>package</code> - the root <strong>Java</strong> package name under which the types will be declared.</li>
+<li>On <code>2023-04-24</code>,  <code>jsii@1.x</code> and <code>jsii-rosetta@1.x</code> will enter the <strong>Maintenance Announcement</strong> stage. During this
+  stage, they will continue to be actively maintained, including new features back-ported from the current release
+  (<code>5.0.x</code> or later), bug fixes, and security updates.</li>
+<li>On <code>2023-10-31</code> (six months later), the releases will move into the <strong>Maintenance</strong> stage. During this stage, they
+  will continue receiving bug fixes and security updates, but will no longer receive new features.</li>
+<li>On <code>2024-10-31</code> (one year later), the releases will finally reach <strong>End-of-Support</strong>, and will no longer receive any
+  features, bug fixes, or security udpates.</li>
 </ul>
-<p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;jsii&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;java&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;package&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;acme.jsii.hello&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// Required</span>
-<span class="w">      </span><span class="s2">&quot;maven&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="s2">&quot;groupId&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;acme&quot;</span><span class="p">,</span><span class="w">            </span><span class="c1">// Required</span>
-<span class="w">        </span><span class="s2">&quot;artifactId&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jsii-hello&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// Required</span>
-<span class="w">        </span><span class="s2">&quot;versionSuffix&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;.PREVIEW&quot;</span><span class="w">   </span><span class="c1">// Optional</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="c1">// ...</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="c1">// ...</span>
+<p>Future <code>1.x</code> releases of <code>jsii</code> and <code>jsii-rosetta</code> will soon start displaying a warning when used, encouraging customers
+to migrate to the newer releases, which we believe will provide a better experience.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="how-difficult-is-it-to-migrate-from-1x-to-50x">How difficult is it to migrate from <code>1.x</code> to <code>5.0.x</code>?</h3>
+<p>The TypeScript language incurred a number of breaking changes between 3.9 and 5.0, including the following:</p>
+<ul>
+<li>Catch bindings are typed as <code>unknown</code> by default instead of being implicitly <code>any</code><ul>
+<li>You may need to explicitly type catch bindings as any: <code>catch (e)</code> → <code>catch (e: any)</code></li>
+</ul>
+</li>
+<li>It is no longer allowed to declare abstract methods <code>async</code><ul>
+<li>Simply remove the <code>async</code> keyword from <code>abstract</code> method declarations</li>
+</ul>
+</li>
+<li>Additional breaking changes may affect your code, and you can read more about these on the TypeScript release notes
+  for the respective versions:<ul>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-0/">TypeScript 4.0 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/">TypeScript 4.1 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/">TypeScript 4.2 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/">TypeScript 4.3 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-4/">TypeScript 4.4 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/">TypeScript 4.5 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-6/">TypeScript 4.6 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/">TypeScript 4.7 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-8/">TypeScript 4.8 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/">TypeScript 4.9 release notes</a></li>
+<li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/">TypeScript 5.0 release notes</a></li>
+</ul>
+</li>
+</ul>
+<p>In addition to these, two import changes affect jsii exported APIs specifically:</p>
+<ul>
+<li>
+<p>The <code>1.x</code> release line silently ignores index signatures (these are hence unavailable in other languages), and the
+  <code>5.0.x</code> release starts explicitly rejecting these</p>
+<ul>
+<li>You can explicitly opt into the <code>1.x</code> behavior by adding the <code>@jsii ignore</code> doc-tag:
+  <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Example</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * This API is not visible in non-TS/JS languages.</span>
+<span class="cm">   *</span>
+<span class="hll"><span class="cm">   * @jsii ignore</span>
+</span><span class="cm">   */</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>The resulting artifact is a <strong>Maven</strong> package that can be deployed to <a href="https://search.maven.org">Maven Central</a> using the
-<code>deploy-staged-repository</code> command of the <a href="https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin">nexus-staging-maven-plugin</a>.</p>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>The <code>1.x</code> release line incorrectly interprets tuple types as synonyms to <code>object</code> (resulting in those APIs often being
+  unusable from other languages), and the <code>5.0.x</code> release starts explicitly rejecting these</p>
+<ul>
+<li>These APIs need to be replaced. You can use the  <code>@jsii ignore</code> doc-tag to explicitly opt these APIs out of the
+  multi-language supported API, and provide an alternate API:
+  <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Example</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="hll"><span class="cm">     * @jsii ignore</span>
+</span><span class="hll"><span class="cm">     * @deprecated Prefer using `newMethod` instead.</span>
+</span><span class="cm">     */</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nx">method</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+
+<span class="hll"><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nx">newMethod</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StringAndNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StringAndNumber</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">readonly</span><span class="w"> </span><span class="nx">stringValue</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">    </span><span class="k">readonly</span><span class="w"> </span><span class="nx">numberValue</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="what-happens-with-other-packages-of-the-jsii-toolchain-jsii-pacmak-jsii-config-etc">What happens with other packages of the jsii toolchain (<code>jsii-pacmak</code>, <code>jsii-config</code>, etc...)?</h3>
+<p>The new versioning strategy only affects the <code>jsii</code> and <code>jsii-rosetta</code> packages. All other parts of the jsii toolchain
+will continue to be released under the <code>1.x</code> release line for the foreseeable future. The compilation artifacts produced
+by <code>jsii@5.0.0</code> and newer remain compatible with jsii tools from the <code>1.x</code> toolchain, so developers do not have to coordinate
+upgrades with their dependents and dependencies.</p>
+<h3 id="if-i-upgrade-my-package-to-jsii500-are-my-dependents-required-to-do-the-same">If I upgrade my package to <code>jsii@5.0.0</code>, are my dependents required to do the same?</h3>
+<p>You can decide to upgrade your <code>jsii</code> compiler as well as <code>jsii-rosetta</code> independently from your dependencies and
+dependents. Output artifacts are compatible across all tool releases, including the <code>1.x</code> line, at least until they
+reach <em>End-of-Support</em>.</p>
+<h3 id="can-my-app-have-dependencies-built-by-different-jsii-release-lines">Can my app have dependencies built by different <code>jsii</code> release lines?</h3>
+<p>The <code>jsii</code> compiler and <code>jsii-rosetta</code> versions used to build a library has no material impact on the runtime artifacts.
+The underlying runtime platform remains unchanged, and developers do not need to worry about which version of the
+compiler was used to produce their dependencies.</p>
+<h3 id="how-often-will-new-jsii-jsii-rosetta-release-lines-be-started">How often will new <code>jsii</code> &amp; <code>jsii-rosetta</code> release lines be started?</h3>
+<p>New releases will closely follow those of the TypeScript compiler, which are created approximately once per quarter.
+While we encourage customers to migrate to the latest release line as quickly as possible, the updated <em>Support &amp;
+Maintenance Policy</em> for these tools guarantees a minimum of six calendar months of bug fixes and security updates for
+non-current release lines, so that users can migrate on their own schedule.</p>
+<h3 id="what-is-the-support-policy-for-the-new-50x-and-newer-releases">What is the support policy for the new <code>5.0.x</code> and newer releases?</h3>
+<p>The applicable maintenance and support policy is documented in the <code>SUPPORT.md</code> file of the
+<a href="https://github.com/aws/jsii-compiler/blob/v5.0.0/SUPPORT.md"><code>aws/jsii-compiler</code></a> and <a href="https://github.com/aws/jsii-rosetta/blob/v5.0.0/SUPPORT.md"><code>aws/jsii-rosetta</code></a> repositories. The main aspects of the
+new support policy are:</p>
+<ul>
+<li>Only the latest release line is deemed <strong>Current</strong>, and receives new features, bug fixes, and security updates;</li>
+<li>Once a release stops being <strong>Current</strong>, it moves into <strong>Maintenance</strong>, where it continues receiving bug fixes and
+  security updates, but no new features will be added;</li>
+<li>After six (6) months in <strong>Maintenance</strong>, a release line moves to <strong>End-of-Support</strong>, and is no longer maintained.</li>
+</ul>
+<h3 id="what-happens-if-i-continue-using-releases-after-they-reach-end-of-support">What happens if I continue using releases after they reach End-of-Support?</h3>
+<p>Once End-of-Support is declared for the releases, we will no longer be able to provide support, bug fixes, or security
+updates for these releases. You may elect to continue to use them at your discretion (published releases will remain
+available to download from the <a href="http://npmjs.com/">npmjs.com</a> package registry indefinitely). You should be aware that,
+although there is no plan to introduce non-backwards compatible features at this stage, it is possible that some of your
+library’s dependencies may stop being compatible with <code>1.x</code> releases of the compiler in the future, and your library’s
+dependents may at some point no longer be able to consume <code>1.x</code> compiler output artifacts.</p>
 
   <hr>
 <div class="md-source-file">
@@ -1342,10 +1603,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.51198bba.min.js"></script>
+      <script src="../assets/javascripts/bundle.51198bba.min.js"></script>
       
     
   </body>
