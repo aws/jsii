@@ -4,8 +4,8 @@ if (process.env.JSII_SUPPRESS_UPGRADE_PROMPT == null) {
     [
       '#######################################################################################################',
       '### You are currently using jsii-rosetta@1.x. We recommend upgrading to jsii-rosetta@5.0.x or       ###',
-      '### later, which will allow you to use modern TypeScript syntax, and improves compatibility with    ###',
-      '### many common dependencies, such as recent versions of @types/node.                               ###',
+      '### later. This will allow you to use modern TypeScript syntax, and improves compatibility with     ###',
+      '### many common dependencies. For example, recent versions of @types/node.                          ###',
       '###                                                                                                 ###',
       '### 5.0.x and subsequent releases of jsii-rosetta use the same major.minor version as the           ###',
       '### TypeScript compiler they are built on. We recommend declaring a minor-pinned (also known as     ###',
