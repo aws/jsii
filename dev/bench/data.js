@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1682503794951,
+  "lastUpdate": 1682508000920,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15345,6 +15345,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 150276.51738404421,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60271.95381035 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "huyphan@users.noreply.github.com",
+            "name": "Huy Phan (Harry)",
+            "username": "huyphan"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3d49d6fd2dc64db45aa3f1164bb976c8cfe75175",
+          "message": "feat(jsii-pacmak): parsing arguments in non-strict mode (#4068)\n\nSome targets support extra target-specific arguments so users can customize the behavior of the build tools. For example, the Java target allows users to customize the `mvn` CLI behaviour with `--mvn-*` parameters. However the `jsi-pacmak` CLI is blocking this feature because it is using strict mode when parsing arguments. This change lifts that gate.\n\nThis address [#3465](https://github.com/aws/jsii/discussions/3465)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-26T10:26:56Z",
+          "tree_id": "49cefb36e2ee54a0eac6aa53fb1424400a0f569f",
+          "url": "https://github.com/aws/jsii/commit/3d49d6fd2dc64db45aa3f1164bb976c8cfe75175"
+        },
+        "date": 1682507996316,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69649.54494219998,
+            "unit": "milliseconds",
+            "range": 2197162.7892477023,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69649.54494219998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50739.170190650024,
+            "unit": "milliseconds",
+            "range": 71564.4310666322,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50739.170190650024 milliseconds over 20 runs"
           }
         ]
       }
