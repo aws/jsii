@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1682508000920,
+  "lastUpdate": 1682527561886,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15383,6 +15383,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 71564.4310666322,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50739.170190650024 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "131073567+colifran@users.noreply.github.com",
+            "name": "Colin Francis",
+            "username": "colifran"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "361428a05217186af6cbacd15ec0d4b9ae19c1d2",
+          "message": "chore: added colifran to mergify config file (#4064)\n\nCo-authored-by: Francis <colifran@3c22fbbba690.ant.amazon.com>\r\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2023-04-26T17:58:01+02:00",
+          "tree_id": "65010e42188f9becdc039057278b66ea67369319",
+          "url": "https://github.com/aws/jsii/commit/361428a05217186af6cbacd15ec0d4b9ae19c1d2"
+        },
+        "date": 1682527558200,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61947.112340000014,
+            "unit": "milliseconds",
+            "range": 5061596.999068857,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61947.112340000014 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46965.5901518,
+            "unit": "milliseconds",
+            "range": 1115519.7884657858,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46965.5901518 milliseconds over 20 runs"
           }
         ]
       }
