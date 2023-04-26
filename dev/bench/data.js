@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1682335963806,
+  "lastUpdate": 1682503794951,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15307,6 +15307,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 704104.5152845943,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51979.27576815001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2cb15f8286e2aff3a66e29912a9a20d4b91a3560",
+          "message": "chore: add upgrade prompt at load of jsii and jsii-rosetta 1.x (#4071)\n\nThis is to strongly incitate customers upgrade their dependencies, while trying to avoid alarming (there is 18 months left before the End-of-Support is scheduled, which is PLENTY of time).\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-04-26T09:11:19Z",
+          "tree_id": "1bc16244ae2e78f23cbfc618537367f72c6a8eeb",
+          "url": "https://github.com/aws/jsii/commit/2cb15f8286e2aff3a66e29912a9a20d4b91a3560"
+        },
+        "date": 1682503790140,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 82238.44212415002,
+            "unit": "milliseconds",
+            "range": 2597422.837360402,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 82238.44212415002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60271.95381035,
+            "unit": "milliseconds",
+            "range": 150276.51738404421,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60271.95381035 milliseconds over 20 runs"
           }
         ]
       }
