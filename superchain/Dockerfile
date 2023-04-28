@@ -200,9 +200,11 @@ COPY superchain/m2-settings.xml /root/.m2/settings.xml
 # Install Go
 COPY --from=bindist /opt/golang/go ${GOROOT}
 
-# Install Node 14+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
+# Install Node 18+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
+# This was previously node 14. Node 14 is EOL and 16 will be EOL early to coinside
+# with the deprecation of OpenSSL 1.1.1.
 ARG NODE_MAJOR_VERSION="18"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
