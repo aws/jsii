@@ -2,61 +2,82 @@
 
 __jsii-diff__ compares two jsii assemblies for compatibility.
 
-In the future, it will be able to do generic comparisons, but for
+In the future, it will be able to do generic comparisons.
+But for
 now it will compare assemblies for API compatibility, and exit
-with a non-zero exit code if any **stable** APIs have had incompatible
-changes.
+with a non-zero exit code if any __stable__ or __deprecated__ APIs have had incompatible changes.
 
-API items that have no stability are treated as **stable**. To treat
-unmarked API items as experimental, pass the `--default-experimental` flag.
+API items that have no stability are treated as __stable__.
+To treat unmarked API items as experimental, pass the `--default-experimental` flag.
 
 ## Usage
 
 To compare two JSII packages:
 
-    jsii-diff <old> [new]
+```console
+jsii-diff <old> [new]
+```
 
 Packages can be identified by either:
 
-* **A path**, in which case it should be the path to a JSII package directory,
+* __A path__, in which case it should be the path to a JSII package directory,
   or to a `.jsii` file.
-* **An NPM package specifier** of the form `npm:[<package>[@version]]`, in
+* __An NPM package specifier__ of the form `npm:[<package>[@version]]`, in
   which case the indicated version is downloaded and used. If `@version` is
   left out, the latest version will be used. If `package` is left out,
   the assembly name of `.jsii` in the current directory will be used.
 
 To compare current package against latest published NPM release:
 
-    jsii-diff npm:
+```console
+jsii-diff npm:<package>
+```
+
+### Stability Error Classes
+
+By default only incompatible changes to `stable` or `deprecated` APIs are treated as errors and fail the command.
+Changes to `experimental` or `external` APIs will emit a Warning.
+
+You might change this behavior by passing the `--error-on` flag:
+
+```console
+jsii-diff npm:<package> --error-on=stable --error-on=external 
+```
+
+Or fail for all incompatible changes:
+
+```console
+jsii-diff npm:<package> --error-on=all
+```
 
 ## Details
 
-__jsii-diff__ will assert that code written against version **A** of a library
-will still typecheck when compiled against version **B** of that library. It
+__jsii-diff__ will assert that code written against version __A__ of a library
+will still typecheck when compiled against version __B__ of that library. It
 does this by verifying the following properties:
 
-- Any type (class/interface/enum) in **A** must also exist in **B**.
-- Enums have only added members.
-- Classes and interfaces have only added members, or modified existing
+* Any type (class/interface/enum) in __A__ must also exist in __B__.
+* Enums have only added members.
+* Classes and interfaces have only added members, or modified existing
   members in an allowed way.
-- Property types are the same or have been strengthened (see below).
-- Methods have only added optional arguments, existing argument types have
+* Property types are the same or have been strengthened (see below).
+* Methods have only added optional arguments, existing argument types have
   only been weakened, and the return type has only been strengthened (see below).
 
 ### Strengthening and weakening
 
-- *Strengthening* a type refers to *excluding* more possible values. Changing
+* *Strengthening* a type refers to *excluding* more possible values. Changing
   a field from `optional` to `required`, or changing a type from `any` to
   `string` are examples of strengthening.
 
-- As the opposite of strengthening, *weakening* refers to *allowing* more
+* As the opposite of strengthening, *weakening* refers to *allowing* more
   possible values. Changing a field from `required` to `optional`, or
   changing a type to a superclass or interface are examples of weakening.
 
 An API can change in the following way without breaking its consumer:
 
-- It can *weaken* its input (require *less* from the caller); and
-- It can *strengthen* its output (guarantee *more* to the caller).
+* It can *weaken* its input (require *less* from the caller); and
+* It can *strengthen* its output (guarantee *more* to the caller).
 
 ### Struct types
 
@@ -64,12 +85,12 @@ Structs (interfaces consisting completely of `readonly` properties) are
 treated as bags of data. Their API compatibility will be evaluated depending
 on whether they appear in input or output position of operations.
 
-- Structs are *weakened* if all types of all of its properties are weakened.
+* Structs are *weakened* if all types of all of its properties are weakened.
   Normally removing properties would also be considered weakening, but
   because that may cause references to the fields in existing code bases to
   become undefined (which is not allowed in most programming languages) we
   disallow removing properties.
-- Structs are *strengthened* if all types of all of its properties are
+* Structs are *strengthened* if all types of all of its properties are
   strengthened, or if fields are added.
 
 __jsii-diff__ will check the evolution of structs against their position
