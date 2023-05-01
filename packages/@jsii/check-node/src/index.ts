@@ -21,14 +21,16 @@ export function checkNode(envPrefix = 'JSII'): void {
     'Should you encounter odd runtime issues, please try using one of the supported release before filing a bug report.';
 
   if (nodeRelease?.endOfLife) {
+    const silenceVariable = `${envPrefix}_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION`;
     const qualifier = nodeRelease.endOfLifeDate
       ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
       : '';
-    veryVisibleMessage(
-      bgRed.white.bold,
-      `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,
-      `Please upgrade to a supported node version as soon as possible.`,
-    );
+    if (!process.env[silenceVariable])
+      veryVisibleMessage(
+        bgRed.white.bold,
+        `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,
+        `Please upgrade to a supported node version as soon as possible.`,
+      );
   } else if (knownBroken) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_KNOWN_BROKEN_NODE_VERSION`;
     if (!process.env[silenceVariable])

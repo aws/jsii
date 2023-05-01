@@ -15,6 +15,7 @@ def silence_node_deprecation_warnings():
         "JSII_SILENCE_WARNING_KNOWN_BROKEN_NODE_VERSION",
         "JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION",
         "JSII_SILENCE_WARNING_DEPRECATED_NODE_VERSION",
+        "JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION",
     ]
 
     store = {var: environ.get(var, "") for var in variables}
