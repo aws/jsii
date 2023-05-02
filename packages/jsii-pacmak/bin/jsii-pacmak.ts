@@ -165,8 +165,7 @@ import { VERSION_DESC } from '../lib/version';
       desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
       default: false,
     })
-    .version(VERSION_DESC)
-    .strict().argv;
+    .version(VERSION_DESC).argv;
 
   configureLogging({ level: argv.verbose !== undefined ? argv.verbose : 0 });
 
