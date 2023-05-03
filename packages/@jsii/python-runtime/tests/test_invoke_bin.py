@@ -23,7 +23,7 @@ def silence_node_deprecation_warnings():
     for var in variables:
         environ[var] = "1"
 
-    nodeEolAcknowledgement = "I acknowledge end of life status for this node version"
+    nodeEolAcknowledgement = "I acknowledge end of life(EOL) status for this node version. The CDK reserves the right to pull support of EOL runtime releases a month after they went EOL status, and people are recommended to stop using those as soon as possible"
     environ["JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION"] = nodeEolAcknowledgement
 
     # Execute the test

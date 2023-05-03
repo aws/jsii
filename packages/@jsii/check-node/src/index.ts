@@ -23,7 +23,7 @@ export function checkNode(envPrefix = 'JSII'): void {
   if (nodeRelease?.endOfLife) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION`;
     const acknowledgeNodeEol =
-      'I acknowledge end of life status for this node version';
+      'I acknowledge end of life(EOL) status for this node version. The CDK reserves the right to pull support of EOL runtime releases a month after they went EOL status, and people are recommended to stop using those as soon as possible';
     const qualifier = nodeRelease.endOfLifeDate
       ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
       : '';
