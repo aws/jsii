@@ -23,7 +23,7 @@ export function checkNode(envPrefix = 'JSII'): void {
   if (nodeRelease?.endOfLife) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION`;
     const acknowledgeNodeEol =
-      'I acknowledge end of life(EOL) status for this node version. The CDK reserves the right to pull support of EOL runtime releases a month after they went EOL status, and people are recommended to stop using those as soon as possible';
+      'Node14 is now end of life (EOL) as of April 30, 2023. Support of EOL runtimes are only guaranteed for 30 days after EOL. By silencing this warning you acknowledge that you are using an EOL version of Node and will upgrade to a supported version as soon as possible.';
     const qualifier = nodeRelease.endOfLifeDate
       ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
       : '';
