@@ -22,10 +22,12 @@ export function checkNode(envPrefix = 'JSII'): void {
 
   if (nodeRelease?.endOfLife) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION`;
+    const acknowledgeNodeEol =
+      'I acknowledge end of life status for this node version';
     const qualifier = nodeRelease.endOfLifeDate
       ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
       : '';
-    if (!process.env[silenceVariable])
+    if (!(process.env[silenceVariable] === acknowledgeNodeEol))
       veryVisibleMessage(
         bgRed.white.bold,
         `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,

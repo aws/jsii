@@ -11,6 +11,9 @@ def silence_node_deprecation_warnings():
     test output assertions to be invalidated.
     """
 
+    nodeEolAcknowledgement = "I acknowledge end of life status for this node version"
+    environ["JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION"] = nodeEolAcknowledgement
+
     variables = [
         "JSII_SILENCE_WARNING_KNOWN_BROKEN_NODE_VERSION",
         "JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION",
