@@ -35,20 +35,22 @@ jsii-diff npm:<package>
 
 ### Stability Error Classes
 
-By default only incompatible changes to `stable` or `deprecated` APIs are treated as errors and fail the command.
-Changes to `experimental` or `external` APIs will emit a Warning.
+By default only incompatible changes to `stable` or `deprecated` APIs are treated as errors and will fail the command.
+Changes to `experimental` or `external` APIs emit a warning.
 
-You might change this behavior by passing the `--error-on` flag:
-
-```console
-jsii-diff npm:<package> --error-on=stable --error-on=external 
-```
-
-Or fail for all incompatible changes:
+Change this behavior with the `--error-on` flag:
 
 ```console
 jsii-diff npm:<package> --error-on=all
 ```
+
+The following `--error-on` groups are available:
+
+| `--error-on`       | Stabilities that cause an ERROR                    |
+| ------------------ | -------------------------------------------------- |
+| `prod` (default)   | `stable`, `deprecated`                             |
+| `non-experimental` | `stable`, `deprecated`, `external`                 |
+| `all`              | `stable`, `deprecated`, `experimental`, `external` |
 
 ## Details
 

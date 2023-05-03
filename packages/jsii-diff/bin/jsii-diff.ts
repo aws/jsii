@@ -45,11 +45,11 @@ async function main(): Promise<number> {
       type: 'boolean',
       default: false,
       desc: 'Error on experimental API changes',
-      deprecate: 'Use `--errors` instead',
+      deprecate: 'Use `--error-on` instead',
     })
     .option('error-on', {
-      type: 'array',
-      default: ['prod'],
+      type: 'string',
+      default: 'prod',
       choices: ERROR_CLASSES,
       desc: 'Which type of API changes should be treated as an error',
     })
@@ -129,10 +129,7 @@ async function main(): Promise<number> {
   if (mismatches.count > 0) {
     const diags = classifyDiagnostics(
       mismatches,
-      treatAsError(
-        argv['error-on'] as ErrorClass[],
-        argv['experimental-errors'],
-      ),
+      treatAsError(argv['error-on'] as ErrorClass, argv['experimental-errors']),
       await loadFilter(argv['ignore-file']),
     );
 

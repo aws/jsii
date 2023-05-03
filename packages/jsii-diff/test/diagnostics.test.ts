@@ -22,34 +22,28 @@ test('experimental stability violations lead to warnings', () => {
   `,
   );
 
-  const diags = classifyDiagnostics(mms, treatAsError(['stable']));
+  const diags = classifyDiagnostics(mms, treatAsError('prod'));
 
   expect(diags.length).toBe(1);
   expect(hasErrors(diags)).toBeFalsy();
 });
 
 // ----------------------------------------------------------------------
-test('only experimental stability violations are turned into errors', () => {
+test('experimental stability violations can be turned into errors', () => {
   const mms = compare(
     `
     /** @experimental */
     export class Foo1 { }
-
-    /** @stability external */
-    export class Foo2 { }    
   `,
     `
     export class FooNew { }
   `,
   );
 
-  const diags = classifyDiagnostics(
-    mms,
-    treatAsError(['stable', 'experimental']),
-  );
+  const diags = classifyDiagnostics(mms, treatAsError('all'));
 
   expect(onlyErrors(diags).length).toBe(1);
-  expect(onlyWarnings(diags).length).toBe(1);
+  expect(onlyWarnings(diags).length).toBe(0);
   expect(hasErrors(diags)).toBeTruthy();
 });
 
@@ -66,14 +60,14 @@ test('external stability violations are reported as warnings', () => {
   `,
   );
 
-  const diags = classifyDiagnostics(mms, treatAsError(['stable']));
+  const diags = classifyDiagnostics(mms, treatAsError('prod'));
 
   expect(diags.length).toBe(1);
   expect(hasErrors(diags)).toBeFalsy();
 });
 
 // ----------------------------------------------------------------------
-test('only external stability violations are turned into errors', () => {
+test('external stability violations can be turned into errors', () => {
   const mms = compare(
     `
     /** @stability external */
@@ -87,7 +81,7 @@ test('only external stability violations are turned into errors', () => {
   `,
   );
 
-  const diags = classifyDiagnostics(mms, treatAsError(['stable', 'external']));
+  const diags = classifyDiagnostics(mms, treatAsError('non-experimental'));
 
   expect(onlyErrors(diags).length).toBe(1);
   expect(onlyWarnings(diags).length).toBe(1);
@@ -95,7 +89,7 @@ test('only external stability violations are turned into errors', () => {
 });
 
 // ----------------------------------------------------------------------
-test('deprecated stability violations are reported as warnings', () => {
+test('deprecated stability violations are reported as errors', () => {
   const mms = compare(
     `
     /** @deprecated for some reason */
@@ -107,43 +101,18 @@ test('deprecated stability violations are reported as warnings', () => {
   `,
   );
 
-  const diags = classifyDiagnostics(mms, treatAsError(['stable']));
+  const diags = classifyDiagnostics(mms, treatAsError('prod'));
 
   expect(diags.length).toBe(1);
-  expect(hasErrors(diags)).toBeFalsy();
-});
-
-// ----------------------------------------------------------------------
-test('only deprecated stability violations are turned into errors', () => {
-  const mms = compare(
-    `
-    /** @deprecated for some reason */
-    export class Foo1 { }
-
-    /** @stability experimental */
-    export class Foo2 { }    
-  `,
-    `
-    export class FooNew { }
-  `,
-  );
-
-  const diags = classifyDiagnostics(
-    mms,
-    treatAsError(['stable', 'deprecated']),
-  );
-
-  expect(onlyErrors(diags).length).toBe(1);
-  expect(onlyWarnings(diags).length).toBe(1);
   expect(hasErrors(diags)).toBeTruthy();
 });
 
 // ----------------------------------------------------------------------
 describe('treatAsError', () => {
-  test.each<[ErrorClass[], Stability[]]>([
-    [['prod'], [Stability.Deprecated, Stability.Stable]],
+  test.each<[ErrorClass, Stability[]]>([
+    ['prod', [Stability.Deprecated, Stability.Stable]],
     [
-      ['all'],
+      'all',
       [
         Stability.Deprecated,
         Stability.Experimental,
@@ -152,16 +121,8 @@ describe('treatAsError', () => {
       ],
     ],
     [
-      ['non-experimental'],
+      'non-experimental',
       [Stability.Deprecated, Stability.External, Stability.Stable],
-    ],
-    [['stable'], [Stability.Stable]],
-    [['experimental'], [Stability.Experimental]],
-    [['external'], [Stability.External]],
-    [['deprecated'], [Stability.Deprecated]],
-    [
-      ['stable', 'deprecated'],
-      [Stability.Stable, Stability.Deprecated],
     ],
   ])('%s', (errorClasses, expectedStabilities) => {
     const shouldError = treatAsError(errorClasses);
@@ -185,7 +146,7 @@ test('errors can be skipped by key', () => {
 
   const diags = classifyDiagnostics(
     mms,
-    treatAsError(['stable', 'experimental']),
+    treatAsError('prod'),
     new Set([mms.mismatches[0].violationKey]),
   );
 
@@ -206,7 +167,7 @@ test('changing stable to experimental is breaking', () => {
   `,
   );
 
-  const diags = classifyDiagnostics(mms, treatAsError(['stable']));
+  const diags = classifyDiagnostics(mms, treatAsError('prod'));
 
   expect(diags.length).toBeGreaterThan(0);
   expect(
@@ -244,7 +205,7 @@ test('can make fields optional in output struct if it is marked @external', () =
     `,
   );
 
-  const diags = classifyDiagnostics(mms, treatAsError(['stable']));
+  const diags = classifyDiagnostics(mms, treatAsError('prod'));
 
   expect(diags.length).toBe(1);
   expect(hasErrors(diags)).toBeFalsy();

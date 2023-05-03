@@ -44,47 +44,33 @@ export function onlyWarnings(diags: Diagnostic[]) {
   return diags.filter((diag) => diag.level === DiagLevel.Warning);
 }
 
-export const ERROR_CLASSES = [
-  'prod',
-  'non-experimental',
-  'all',
-  'stable',
-  'experimental',
-  'external',
-  'deprecated',
-] as const;
+export const ERROR_CLASSES = ['prod', 'non-experimental', 'all'] as const;
 
 export type ErrorClass = (typeof ERROR_CLASSES)[number];
 
 export const ERROR_CLASSES_TO_STABILITIES: Record<ErrorClass, Stability[]> = {
-  stable: [Stability.Stable],
-  experimental: [Stability.Experimental],
-  external: [Stability.External],
-  deprecated: [Stability.Deprecated],
   prod: [Stability.Stable, Stability.Deprecated],
+  'non-experimental': [
+    Stability.Stable,
+    Stability.Deprecated,
+    Stability.External,
+  ],
   all: [
     Stability.Stable,
     Stability.Experimental,
     Stability.External,
     Stability.Deprecated,
   ],
-  'non-experimental': [
-    Stability.Stable,
-    Stability.Deprecated,
-    Stability.External,
-  ],
 };
 
 export function treatAsError(
-  errorClasses: ErrorClass[],
+  errorClass: ErrorClass,
   deprecatedExperimentalErrors = false,
 ): Set<Stability> {
   const shouldError = new Set<Stability>();
 
-  for (const error of errorClasses) {
-    for (const stability of ERROR_CLASSES_TO_STABILITIES[error]) {
-      shouldError.add(stability);
-    }
+  for (const stability of ERROR_CLASSES_TO_STABILITIES[errorClass]) {
+    shouldError.add(stability);
   }
 
   if (deprecatedExperimentalErrors) {
