@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1682527561886,
+  "lastUpdate": 1683184052520,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15421,6 +15421,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1115519.7884657858,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46965.5901518 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "78971045+vinayak-kukreja@users.noreply.github.com",
+            "name": "Vinayak Kukreja",
+            "username": "vinayak-kukreja"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cc6d29495f5db095dcb0d7efef38950174523b31",
+          "message": "chore: silence node end of life warning in tests (#4077)\n\nCurrently tests are failing with end of life warning messages. This PR is adding env variable for tests to silence these errors.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-04T06:07:04Z",
+          "tree_id": "c5cf4895a1d192cb20d6665678c92fa369d5460a",
+          "url": "https://github.com/aws/jsii/commit/cc6d29495f5db095dcb0d7efef38950174523b31"
+        },
+        "date": 1683184047198,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 82022.87272495001,
+            "unit": "milliseconds",
+            "range": 2923624.332886112,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 82022.87272495001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60693.48710750006,
+            "unit": "milliseconds",
+            "range": 80294.1749661407,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60693.48710750006 milliseconds over 20 runs"
           }
         ]
       }
