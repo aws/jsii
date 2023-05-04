@@ -576,6 +576,7 @@ class JavaGenerator extends Generator {
     'void',
     'volatile',
     'while',
+    '_',
   ];
 
   /**
