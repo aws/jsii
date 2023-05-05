@@ -2760,6 +2760,47 @@ public enum EnumFromScopedModule {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/FunctionWithUnderscoreArgument.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib;
+
+/**
+ * (deprecated) For Java, test that an identifier that is just a _ is handled.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.FunctionWithUnderscoreArgument")
+public class FunctionWithUnderscoreArgument extends software.amazon.jsii.JsiiObject {
+
+    protected FunctionWithUnderscoreArgument(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected FunctionWithUnderscoreArgument(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public FunctionWithUnderscoreArgument() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * @param _ This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public @org.jetbrains.annotations.NotNull java.lang.String foo(final @org.jetbrains.annotations.NotNull java.lang.String _Value) {
+        return software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/IDoublable.java 1`] = `
 package software.amazon.jsii.tests.calculator.lib;
 

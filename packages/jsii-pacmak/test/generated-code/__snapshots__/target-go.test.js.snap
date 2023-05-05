@@ -1119,6 +1119,69 @@ const (
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/FunctionWithUnderscoreArgument.go 1`] = `
+// A simple calcuator library built on JSII.
+package scopejsiicalclib
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// For Java, test that an identifier that is just a _ is handled.
+// Deprecated.
+type FunctionWithUnderscoreArgument interface {
+	// Deprecated.
+	Foo(_arg *string) *string
+}
+
+// The jsii proxy struct for FunctionWithUnderscoreArgument
+type jsiiProxy_FunctionWithUnderscoreArgument struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func NewFunctionWithUnderscoreArgument() FunctionWithUnderscoreArgument {
+	_init_.Initialize()
+
+	j := jsiiProxy_FunctionWithUnderscoreArgument{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func NewFunctionWithUnderscoreArgument_Override(f FunctionWithUnderscoreArgument) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+		nil, // no parameters
+		f,
+	)
+}
+
+func (f *jsiiProxy_FunctionWithUnderscoreArgument) Foo(_arg *string) *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		f,
+		"foo",
+		[]interface{}{_arg},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/IDoublable.go 1`] = `
 // A simple calcuator library built on JSII.
 package scopejsiicalclib
@@ -2408,6 +2471,65 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 +}
 +
 +func validateNewBaseFor2647Parameters(very scopejsiicalcbaseofbase.Very) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument.go.diff 1`] = `
+--- go/scopejsiicalclib/FunctionWithUnderscoreArgument.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/FunctionWithUnderscoreArgument.go	--runtime-type-checking
+@@ -43,10 +43,13 @@
+ 		f,
+ 	)
+ }
+ 
+ func (f *jsiiProxy_FunctionWithUnderscoreArgument) Foo(_arg *string) *string {
++	if err := f.validateFooParameters(_arg); err != nil {
++		panic(err)
++	}
+ 	var returns *string
+ 
+ 	_jsii_.Invoke(
+ 		f,
+ 		"foo",
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go.diff 1`] = `
+--- go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go	--runtime-type-checking
+@@ -0,0 +1,17 @@
++//go:build !no_runtime_type_checking
++
++// A simple calcuator library built on JSII.
++package scopejsiicalclib
++
++import (
++	"fmt"
++)
++
++func (f *jsiiProxy_FunctionWithUnderscoreArgument) validateFooParameters(_arg *string) error {
++	if _arg == nil {
++		return fmt.Errorf("parameter _arg is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go.diff 1`] = `
+--- go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,11 @@
++//go:build no_runtime_type_checking
++
++// A simple calcuator library built on JSII.
++package scopejsiicalclib
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (f *jsiiProxy_FunctionWithUnderscoreArgument) validateFooParameters(_arg *string) error {
 +	return nil
 +}
 +

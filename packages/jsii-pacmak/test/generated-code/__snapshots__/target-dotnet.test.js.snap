@@ -1363,6 +1363,65 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/FunctionWithUnderscoreArgument.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <summary>(deprecated) For Java, test that an identifier that is just a _ is handled.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.FunctionWithUnderscoreArgument), fullyQualifiedName: "@scope/jsii-calc-lib.FunctionWithUnderscoreArgument")]
+    [System.Obsolete()]
+    public class FunctionWithUnderscoreArgument : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public FunctionWithUnderscoreArgument(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected FunctionWithUnderscoreArgument(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected FunctionWithUnderscoreArgument(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "foo", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [System.Obsolete()]
+        public virtual string Foo(string _)
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{_})!;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/IDiamondLeft.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
