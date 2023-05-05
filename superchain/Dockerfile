@@ -289,13 +289,13 @@ RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d
   && echo "------------------------------------ PATENTS ------------------------------------" >> /NOTICE                \
   && cat ${GOROOT}/PATENTS >> /NOTICE                                                                                   \
   && echo "################################################################################" >> /NOTICE                 \
-  && echo "java-1.8.0-amazon-corretto-jdk:" >> /NOTICE                                                                  \
+  && echo "java-20-amazon-corretto-jdk:" >> /NOTICE                                                                     \
   && echo "" >> /NOTICE                                                                                                 \
   && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
-  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE >> /NOTICE                                                     \
+  && cat /usr/lib/jvm/java-20-amazon-corretto/LICENSE >> /NOTICE                                                        \
   && echo "" >> /NOTICE                                                                                                 \
   && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
-  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README >> /NOTICE                                          \
+  && cat /usr/lib/jvm/java-20-amazon-corretto/ADDITIONAL_LICENSE_INFO >> /NOTICE                                        \
   && echo "################################################################################" >> /NOTICE                 \
   && echo "maven:" >> /NOTICE                                                                                           \
   && echo "" >> /NOTICE                                                                                                 \
