@@ -244,9 +244,6 @@ COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.
 COPY --chown=superchain:superchain superchain/ssh_config /home/superchain/.ssh/config
 RUN chmod 600 /home/superchain/.ssh/config
 
-# Add the source used to build this Docker image (to facilitate re-builds, forensics)
-COPY superchain /docker-source
-
 # Create the attributions document
 RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
   && RUSTUP_VERSION=$(rustup --version 2>/dev/null | cut -d' ' -f2)                                                     \
@@ -346,6 +343,10 @@ RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d
   ;fi                                                                                                                   \
   ;done
 
+# Add the source used to build this Docker image (to facilitate re-builds, forensics)
+# Keep this at the end for max caching.
+COPY superchain /docker-source
+
 CMD ["/bin/bash"]
 
 ########################################################################################################################
@@ -356,6 +357,8 @@ FROM scratch as superchain
 ENV LANG="C.UTF-8"                                                                                                      \
   LC_ALL="C.UTF-8"                                                                                                      \
   CHARSET="UTF-8"                                                                                                       \
+  \
+  JAVA_HOME="/usr/lib/jvm/java-20-amazon-corretto"                                                                      \
   \
   DOTNET_CLI_TELEMETRY_OPTOUT="true"                                                                                    \
   DOTNET_RUNNING_IN_CONTAINER="true"                                                                                    \
