@@ -48,6 +48,15 @@ The previous image tags have been discontinued:
 - `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
 - `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
 
+## Building
+
+This docker image must be built from the package root with the Dockerfile set to
+`superchain/Dockerfile`:
+
+```
+jsii$ docker build . -f superchain/Dockerfile
+```
+
 ## NodeJS and NPM
 
 We build multiple versions of this image, for different versions of Node. They are available as:
@@ -60,7 +69,7 @@ If you are building this image from source, you can control the Node version wit
 `NODE_MAJOR_VERSION` build argument:
 
 ```
-docker build [...] --build-arg NODE_MAJOR_VERSION=14 .
+jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16 . -f superchain/Dockerfile
 ```
 
 ## Included Tools & Utilities

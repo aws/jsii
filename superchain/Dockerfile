@@ -157,13 +157,13 @@ RUN apt-get update                                                              
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
-# Install JDK8 (Amazon Corretto 8)
+# Install JDK20 (Amazon Corretto 20)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
 RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                                                               \
   && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \
   && apt-get update                                                                                                     \
   && mkdir -p /usr/share/man/man1                                                                                       \
-  && apt-get -y install java-1.8.0-amazon-corretto-jdk                                                                  \
+  && apt-get -y install java-1.20.0-amazon-corretto-jdk                                                                 \
   && rm -rf /usr/share/man/man1                                                                                         \
   && rm -rf /var/lib/apt/lists/*
 
