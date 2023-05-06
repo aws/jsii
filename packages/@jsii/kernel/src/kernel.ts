@@ -447,7 +447,52 @@ export class Kernel {
 
     let result;
     try {
-      result = await promise;
+      let settled = false;
+      /**
+       * Poll for new callback requests until the promise is resolved. This is
+       * to allow any promises necessary for the promise to be able to settle.
+       * We use setImmediate so the next poll happens on the next run loop tick,
+       * after other microtasks might have been paused on a pending callback.
+       */
+      // eslint-disable-next-line no-inner-declarations
+      function pollForCallbacks(kernel: Kernel) {
+        // Promise has settled already, not going any further...
+        if (settled) {
+          return;
+        }
+
+        for (const [cbid, cb] of kernel.cbs.entries()) {
+          kernel.waiting.set(cbid, cb);
+          kernel.cbs.delete(cbid);
+          try {
+            cb.succeed(
+              kernel.callbackHandler({
+                cbid,
+                sync: false,
+                cookie: cb.override.cookie,
+                invoke: {
+                  objref: cb.objref,
+                  method: cb.override.method,
+                  args: cb.args,
+                },
+              }),
+            );
+          } catch (err) {
+            cb.fail(err);
+          } finally {
+            kernel.waiting.delete(cbid);
+          }
+        }
+        if (!settled) {
+          setImmediate(pollForCallbacks, kernel);
+        }
+      }
+      pollForCallbacks(this);
+
+      result = await promise.finally(() => {
+        settled = true;
+      });
+
       this._debug('promise result:', result);
     } catch (e: any) {
       this._debug('promise error:', e);
@@ -475,14 +520,16 @@ export class Kernel {
     };
   }
 
+  /** @deprecated the flow should be handled directly by "end" */
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
     this._debug('callbacks');
     const ret = Array.from(this.cbs.entries()).map(([cbid, cb]) => {
       this.waiting.set(cbid, cb); // move to waiting
       this.cbs.delete(cbid); // remove from created
       const callback: api.Callback = {
-        cbid,
         cookie: cb.override.cookie,
+        cbid,
+        sync: false,
         invoke: {
           objref: cb.objref,
           method: cb.override.method,
@@ -758,6 +805,7 @@ export class Kernel {
         const result = this.callbackHandler({
           cookie: override.cookie,
           cbid: this._makecbid(),
+          sync: true,
           get: { objref, property: propertyName },
         });
         this._debug('callback returned', result);
@@ -774,6 +822,7 @@ export class Kernel {
         this.callbackHandler({
           cookie: override.cookie,
           cbid: this._makecbid(),
+          sync: true,
           set: {
             objref,
             property: propertyName,
@@ -910,6 +959,7 @@ export class Kernel {
           const result = this.callbackHandler({
             cookie: override.cookie,
             cbid: this._makecbid(),
+            sync: true,
             invoke: {
               objref,
               method: methodName,

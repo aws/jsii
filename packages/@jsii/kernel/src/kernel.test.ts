@@ -2212,6 +2212,36 @@ defineTest('invokeBinScript() accepts arguments', (sandbox) => {
   });
 });
 
+// defineTest('ImplementationFromAsyncContext compliance', async (sandbox) => {
+//   const producer = sandbox.create({
+//     fqn: 'Object',
+//     overrides: [{ method: 'produce', cookie: 'produce1234' }],
+//     interfaces: ['jsii-calc.IPromiseProducer'],
+//   });
+
+//   const obj = sandbox.create({
+//     fqn: 'jsii-calc.ImplementationFromAsyncContext',
+//     args: [producer],
+//   });
+
+//   const promise1 = sandbox.begin({
+//     objref: obj,
+//     method: 'doAsyncWork',
+//   });
+
+//   const callbacks1 = sandbox.callbacks();
+//   expect(callbacks1.callbacks.length).toBe(1);
+//   expect(callbacks1.callbacks[0].cookie).toBe('produce1234');
+
+//   sandbox.complete({
+//     cbid: callbacks1.callbacks[0].cbid,
+//     result: 'test-string',
+//   });
+
+//   const result = (await sandbox.end(promise1)).result;
+//   expect(result).toBe('test-string');
+// });
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = {};

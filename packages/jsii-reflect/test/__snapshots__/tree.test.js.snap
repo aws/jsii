@@ -1637,6 +1637,14 @@ exports[`showAll 1`] = `
  │   │   └─┬ value property
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ class ImplementationFromAsyncContext
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(producer) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ producer
+ │   │   │     └── type: jsii-calc.IPromiseProducer
+ │   │   └─┬ doAsyncWork() method
+ │   │     └── returns: Promise<string>
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
@@ -3284,6 +3292,11 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface IPromiseProducer
+ │   │ └─┬ members
+ │   │   └─┬ produce() method
+ │   │     ├── abstract
+ │   │     └── returns: Promise<string>
  │   ├─┬ interface IPublicInterface
  │   │ └─┬ members
  │   │   └─┬ bye() method
@@ -4102,6 +4115,7 @@ exports[`types 1`] = `
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
+ │   ├── class ImplementationFromAsyncContext
  │   ├── class ImplementsInterfaceWithInternal
  │   ├── class ImplementsInterfaceWithInternalSubclass
  │   ├── class ImplementsPrivateInterface
@@ -4229,6 +4243,7 @@ exports[`types 1`] = `
  │   ├── interface IObjectWithProperty
  │   ├── interface IOptionalMethod
  │   ├── interface IPrivatelyImplemented
+ │   ├── interface IPromiseProducer
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator

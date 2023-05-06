@@ -2676,6 +2676,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 IJsii487External2.go
        ┣━ 📄 IJsii496.go
        ┣━ 📄 Implementation.go
+       ┣━ 📄 ImplementationFromAsyncContext.go
        ┣━ 📄 ImplementInternalInterface.go
        ┣━ 📄 ImplementsInterfaceWithInternal.go
        ┣━ 📄 ImplementsInterfaceWithInternalSubclass.go
@@ -2698,6 +2699,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 IObjectWithProperty.go
        ┣━ 📄 IOptionalMethod.go
        ┣━ 📄 IPrivatelyImplemented.go
+       ┣━ 📄 IPromiseProducer.go
        ┣━ 📄 IPublicInterface.go
        ┣━ 📄 IPublicInterface2.go
        ┣━ 📄 IRandomNumberGenerator.go
@@ -4641,9 +4643,9 @@ import (
 //
 // Example:
 //   calculator := calc.NewCalculator()
-//   calculator.Add(jsii.Number(5))
-//   calculator.Mul(jsii.Number(3))
-//   fmt.Println(calculator.expression.Value)
+//   calculator.add(jsii.Number(5))
+//   calculator.mul(jsii.Number(3))
+//   fmt.Println(calculator.expression.value)
 //
 type Calculator interface {
 	composition.CompositeOperation
@@ -7205,9 +7207,7 @@ import (
 //   x := 12 + 44
 //   s1 := "string"
 //   s2 := "string \\nwith new newlines" // see https://github.com/aws/jsii/issues/2569
-//   s3 := \`string
-//               with
-//               new lines\`
+//   s3 := "string\\n            with\\n            new lines"
 //
 type DocumentedClass interface {
 	// Greet the indicated person.
@@ -10040,6 +10040,42 @@ func (j *jsiiProxy_IPrivatelyImplemented) Success() *bool {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/IPromiseProducer.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+// Async Context operations Validates features work when run from within an async context.
+// See: https://github.com/aws/jsii/issues/3917
+//
+type IPromiseProducer interface {
+	Produce() *string
+}
+
+// The jsii proxy for IPromiseProducer
+type jsiiProxy_IPromiseProducer struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IPromiseProducer) Produce() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"produce",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/IPublicInterface.go 1`] = `
 // A simple calcuator built on JSII.
 package jsiicalc
@@ -10453,6 +10489,64 @@ func NewImplementation_Override(i Implementation) {
 		nil, // no parameters
 		i,
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/ImplementationFromAsyncContext.go 1`] = `
+// A simple calcuator built on JSII.
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type ImplementationFromAsyncContext interface {
+	DoAsyncWork() *string
+}
+
+// The jsii proxy struct for ImplementationFromAsyncContext
+type jsiiProxy_ImplementationFromAsyncContext struct {
+	_ byte // padding
+}
+
+func NewImplementationFromAsyncContext(producer IPromiseProducer) ImplementationFromAsyncContext {
+	_init_.Initialize()
+
+	j := jsiiProxy_ImplementationFromAsyncContext{}
+
+	_jsii_.Create(
+		"jsii-calc.ImplementationFromAsyncContext",
+		[]interface{}{producer},
+		&j,
+	)
+
+	return &j
+}
+
+func NewImplementationFromAsyncContext_Override(i ImplementationFromAsyncContext, producer IPromiseProducer) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ImplementationFromAsyncContext",
+		[]interface{}{producer},
+		i,
+	)
+}
+
+func (i *jsiiProxy_ImplementationFromAsyncContext) DoAsyncWork() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"doAsyncWork",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
 }
 
 
@@ -14956,7 +15050,7 @@ calculator := calc.NewCalculator()
 Then call some operations:
 
 \`\`\`go
-calculator.Add(jsii.Number(10))
+calculator.add(jsii.Number(10))
 \`\`\`
 
 ## Code Samples
@@ -20591,6 +20685,16 @@ func init() {
 		},
 	)
 	_jsii_.RegisterInterface(
+		"jsii-calc.IPromiseProducer",
+		reflect.TypeOf((*IPromiseProducer)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "produce", GoMethod: "Produce"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IPromiseProducer{}
+		},
+	)
+	_jsii_.RegisterInterface(
 		"jsii-calc.IPublicInterface",
 		reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -20690,6 +20794,16 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_Implementation{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.ImplementationFromAsyncContext",
+		reflect.TypeOf((*ImplementationFromAsyncContext)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "doAsyncWork", GoMethod: "DoAsyncWork"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ImplementationFromAsyncContext{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -25079,6 +25193,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 IInterfaceWithPropertiesExtension__checks.go
        ┣━ 🆕 IInterfaceWithPropertiesExtension__no_checks.go
        ┣━ 📄 IInterfaceWithPropertiesExtension.go.diff
+       ┣━ 🆕 ImplementationFromAsyncContext__checks.go
+       ┣━ 🆕 ImplementationFromAsyncContext__no_checks.go
+       ┣━ 📄 ImplementationFromAsyncContext.go.diff
        ┣━ 🆕 ImplementInternalInterface__checks.go
        ┣━ 🆕 ImplementInternalInterface__no_checks.go
        ┣━ 📄 ImplementInternalInterface.go.diff
@@ -28939,7 +29056,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/D
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/DocumentedClass.go.diff 1`] = `
 --- go/jsiicalc/DocumentedClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/DocumentedClass.go	--runtime-type-checking
-@@ -62,10 +62,13 @@
+@@ -60,10 +60,13 @@
  		d,
  	)
  }
@@ -30405,6 +30522,65 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/I
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func (j *jsiiProxy_ImplementInternalInterface) validateSetPropParameters(val *string) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ImplementationFromAsyncContext.go.diff 1`] = `
+--- go/jsiicalc/ImplementationFromAsyncContext.go	--no-runtime-type-checking
++++ go/jsiicalc/ImplementationFromAsyncContext.go	--runtime-type-checking
+@@ -16,10 +16,13 @@
+ }
+ 
+ func NewImplementationFromAsyncContext(producer IPromiseProducer) ImplementationFromAsyncContext {
+ 	_init_.Initialize()
+ 
++	if err := validateNewImplementationFromAsyncContextParameters(producer); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_ImplementationFromAsyncContext{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.ImplementationFromAsyncContext",
+ 		[]interface{}{producer},
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ImplementationFromAsyncContext__checks.go.diff 1`] = `
+--- go/jsiicalc/ImplementationFromAsyncContext__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/ImplementationFromAsyncContext__checks.go	--runtime-type-checking
+@@ -0,0 +1,17 @@
++//go:build !no_runtime_type_checking
++
++// A simple calcuator built on JSII.
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateNewImplementationFromAsyncContextParameters(producer IPromiseProducer) error {
++	if producer == nil {
++		return fmt.Errorf("parameter producer is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ImplementationFromAsyncContext__no_checks.go.diff 1`] = `
+--- go/jsiicalc/ImplementationFromAsyncContext__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/ImplementationFromAsyncContext__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,11 @@
++//go:build no_runtime_type_checking
++
++// A simple calcuator built on JSII.
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateNewImplementationFromAsyncContextParameters(producer IPromiseProducer) error {
 +	return nil
 +}
 +

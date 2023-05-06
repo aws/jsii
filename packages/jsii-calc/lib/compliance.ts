@@ -3141,3 +3141,28 @@ export class PromiseNothing {
     return PromiseNothing.promiseIt();
   }
 }
+
+/**
+ * Async Context operations
+ * Validates features work when run from within an async context
+ *
+ * @see https://github.com/aws/jsii/issues/3917
+ */
+export interface IPromiseProducer {
+  produce(): Promise<string>;
+}
+
+export class ImplementationFromAsyncContext {
+  public constructor(private readonly producer: IPromiseProducer) {}
+
+  public async doAsyncWork(): Promise<string> {
+    await this.sleep(200);
+    return this.producer.produce();
+  }
+
+  private async sleep(ms: number) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+}
