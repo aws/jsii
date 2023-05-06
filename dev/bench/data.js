@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683184052520,
+  "lastUpdate": 1683351030885,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15459,6 +15459,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 80294.1749661407,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60693.48710750006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e708e6b6db895e5feb18e8ebd19b2f5d335fa7b6",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.1.6 to ~=9.1.8 in /gh-pages (#4075)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.1.8</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5417\">#5417</a>: Theme breaks when <code>palette</code> is not defined (9.1.7 regression)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.1.8 (2023-04-24)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5417\">#5417</a>: Theme breaks when palette is not defined (9.1.7 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.7+insiders-4.32.6 (2023-04-22)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5336\">#5336</a>: Interplay of blog plugin with git-revision-date-localized</li>\n</ul>\n<p>mkdocs-material-9.1.7 (2023-04-22)</p>\n<ul>\n<li>Updated Persian (Farsi) and Turkish translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5401\">#5401</a>: Added missing flag to disable built-in tags plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5206\">#5206</a>: Ensure defaults are set for primary and accent colors</li>\n<li>Fixed unnecessary inclusion of palette CSS when unused</li>\n</ul>\n<p>mkdocs-material-9.1.6+insiders-4.32.5 (2023-04-07)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5322\">#5322</a>: Navigation tabs hoist nested page icons</li>\n</ul>\n<p>mkdocs-material-9.1.6 (2023-04-07)</p>\n<ul>\n<li>Updated Persian (Farsi) translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5300\">#5300</a>: Boxes in Mermaid sequence diagrams not color-abiding</li>\n</ul>\n<p>mkdocs-material-9.1.5 (2023-03-31)</p>\n<ul>\n<li>Updated Lithuanian and Japanese translations</li>\n<li>Updated Mermaid.js to version 9.4.3</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5290\">#5290</a>: Footer previous/next labels cut-off for short page titles</li>\n</ul>\n<p>mkdocs-material-9.1.4+insiders-4.32.4 (2023-03-24)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5241\">#5241</a>: Built-in typeset plugin jams navigation for anchors in headings</li>\n</ul>\n<p>mkdocs-material-9.1.4 (2023-03-24)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5239\">#5239</a>: Instant loading breaks anchors in details (9.1.1 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5211\">#5211</a>: Anchor following not working for Chinese (9.1.2 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.3 (2023-03-14)</p>\n<ul>\n<li>Added Kurdish (Soranî) translations</li>\n<li>Updated Norwegian (Bokmål), Portuguese and Romanian translations</li>\n<li>Improved compatibility with mkdocs-jupyter plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5198\">#5198</a>: Built-in search plugin not filtering script and style tags</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5176\">#5176</a>: Back-to-top + instant loading not working (9.1.1 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.2+insiders-4.32.3 (2023-03-09)</p>\n<ul>\n<li>Fixed Docker image release workflow (9.1.0 regression)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2ac2cbc3ae2358767d1311797f9a185540f83271\"><code>2ac2cbc</code></a> Prepare 9.1.8 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f0d506c4461d5f3ed41b65ffe051dd2b018dac0d\"><code>f0d506c</code></a> Fixed theme breaking when no palette is defined</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0028518f1a062a66d0b42ad5b74093cca936b3b7\"><code>0028518</code></a> Prepare 9.1.7 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6398f529d60e4c0e3b1b97a2b62ba1fd56c4bcc3\"><code>6398f52</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6f13021a3824a63c7b7b9f0136c945753f10d738\"><code>6f13021</code></a> Fixed unnecessary inclusion of palette.css</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6fe1d556071416122af362064c78873babcfe9cf\"><code>6fe1d55</code></a> Always set default primary and accent colors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/207fd4029f3870c73b9a86c78bb89aaca8b83cf9\"><code>207fd40</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5389\">#5389</a> from robingenz/patch-1</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ba90cb1ccda74118bcf694c28e32fb1570ec8ea1\"><code>ba90cb1</code></a> Added missing enabled setting for tags plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c0cdb3ca1f7ce1cf85d021f39733c8ea14244c9a\"><code>c0cdb3c</code></a> Updated Turkish translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ab94f5f648d8b781461c77a901458e142d8d4277\"><code>ab94f5f</code></a> Updated Persian (Farsi) translations</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.1.6...9.1.8\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-06T04:22:19Z",
+          "tree_id": "875488ec650911b6bff2e2b542115afa7b853219",
+          "url": "https://github.com/aws/jsii/commit/e708e6b6db895e5feb18e8ebd19b2f5d335fa7b6"
+        },
+        "date": 1683351026878,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 88325.15658525002,
+            "unit": "milliseconds",
+            "range": 3226084.6375641925,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 88325.15658525002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 66198.36087615002,
+            "unit": "milliseconds",
+            "range": 193369.2968579616,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 66198.36087615002 milliseconds over 20 runs"
           }
         ]
       }
