@@ -207,7 +207,6 @@ export abstract class Package {
       const initFile = join(this.directory, MAIN_FILE);
       code.openFile(initFile);
       this.emitHeader(code);
-      code.line();
       importGoModules(code, [GO_REFLECT, JSII_RT_MODULE]);
       code.line();
       code.openBlock('func init()');

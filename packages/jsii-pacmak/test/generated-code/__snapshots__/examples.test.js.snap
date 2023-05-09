@@ -528,7 +528,6 @@ exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/main.go 1`] = `
 // testpkg
 package testpkg
 
-
 import (
 	"reflect"
 
@@ -2112,7 +2111,6 @@ func Initialize() {
 exports[`nested-types.ts: <outDir>/go/testpkg/main.go 1`] = `
 // testpkg
 package testpkg
-
 
 import (
 	"reflect"

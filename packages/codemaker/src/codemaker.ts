@@ -197,7 +197,7 @@ export class CodeMaker {
   }
 
   /**
-   * Gets currently opened file path
+   * Gets currently opened file path.
    * @returns Currently opened file path.
    */
   public getCurrentFilePath(): string | undefined {
