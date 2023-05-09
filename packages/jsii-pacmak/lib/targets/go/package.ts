@@ -37,6 +37,7 @@ import { VersionFile } from './version-file';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.18';
+const MAIN_FILE = 'main.go';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -203,9 +204,9 @@ export abstract class Package {
     if (this.types.length > 0) {
       const { code } = context;
 
-      const initFile = join(this.directory, `main.go`);
+      const initFile = join(this.directory, MAIN_FILE);
       code.openFile(initFile);
-      code.line(`package ${this.packageName}`);
+      this.emitHeader(code);
       code.line();
       importGoModules(code, [GO_REFLECT, JSII_RT_MODULE]);
       code.line();
@@ -470,7 +471,12 @@ export class RootPackage extends Package {
   }
 
   protected emitHeader(code: CodeMaker) {
-    if (this.assembly.description !== '') {
+    const currentFilePath = code.getCurrentFilePath();
+    if (
+      this.assembly.description !== '' &&
+      currentFilePath !== undefined &&
+      currentFilePath.includes(MAIN_FILE)
+    ) {
       code.line(`// ${this.assembly.description}`);
     }
     code.line(`package ${this.packageName}`);
