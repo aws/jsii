@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683351030885,
+  "lastUpdate": 1683644633581,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15497,6 +15497,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 193369.2968579616,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 66198.36087615002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "78971045+vinayak-kukreja@users.noreply.github.com",
+            "name": "Vinayak Kukreja",
+            "username": "vinayak-kukreja"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4fd596a467cdb422ebea3fdf01d068bc360b3757",
+          "message": "fix(pacmak): go docs overview displays repeating description (#4081)\n\nOur `go docs` have been broken since jsii `v1.65.0`. This was due to moving to emitting one file per type and headers being added to all those files: [Impacting PR](https://github.com/aws/jsii/pull/3698/files#diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263)\n\nThe first occurrence was in [docs for cdk v2.39.0](https://pkg.go.dev/github.com/aws/aws-cdk-go/awscdk/v2@v2.39.0) and is still present in the [latest version](https://pkg.go.dev/github.com/aws/aws-cdk-go/awscdk/v2).\n\nThe header being added is `Version 2 of the AWS Cloud Development Kit library` to multiple files. It's determining this value from the [package.json](https://github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json#L4) file of `aws-cdk-lib`. I see adding this is most relevant for [maven](https://github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts#L46-L52), hence removing it from `go` since I do not believe it's bringing much value to our documentation. Let me know if you feel otherwise :) \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-09T14:06:59Z",
+          "tree_id": "28730e57985bdc4920d40446ead070baae16b1e5",
+          "url": "https://github.com/aws/jsii/commit/4fd596a467cdb422ebea3fdf01d068bc360b3757"
+        },
+        "date": 1683644628791,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 74584.37695864998,
+            "unit": "milliseconds",
+            "range": 558201.6128042992,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 74584.37695864998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52921.52904950001,
+            "unit": "milliseconds",
+            "range": 91203.7318320485,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52921.52904950001 milliseconds over 20 runs"
           }
         ]
       }
