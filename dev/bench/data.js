@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683666864854,
+  "lastUpdate": 1683719819062,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15573,6 +15573,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 85359.74328963686,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50778.504693549985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "95689ea840a99f38f8449aab2bc452cf489e3e3f",
+          "message": "feat(jsii-diff): allow external stability to be treated as error (#4076)\n\nIn certain situations one might want to treat changes to `external` APIs as errors.\nThis could be to check the external APIs for any breaking changes and have an opportunity to selectively reject, heal or soften an upstream change.\n\nThis change introduces a new cli option `--error-on` which can be one of three classes:\n\n| `--error-on`       | Stabilities that cause an ERROR                    |\n| ------------------ | -------------------------------------------------- |\n| `prod` (default)   | `stable`, `deprecated`                             |\n| `non-experimental` | `stable`, `deprecated`, `external`                 |\n| `all`              | `stable`, `deprecated`, `experimental`, `external` |\n\n**Fixes `deprecated` APIs not being treated as `stable`.**\nIn jsii, deprecations are treated as a stability.\nHowever for the purpose of jsii-diff they should be treated as stable.\nOtherwise one could do `stable -> deprecated, make breaking change, deprecated -> stable`, which should not be allowed. \nWe also can't prohibit the transition from deprecated back to stable, as it's perfectly okay to un-deprecate an API.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-10T11:04:30Z",
+          "tree_id": "d26ba36032f2d5ed9418af69435d5ec3444bf528",
+          "url": "https://github.com/aws/jsii/commit/95689ea840a99f38f8449aab2bc452cf489e3e3f"
+        },
+        "date": 1683719815588,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71691.7719446,
+            "unit": "milliseconds",
+            "range": 600960.8339486571,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71691.7719446 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51926.328772299996,
+            "unit": "milliseconds",
+            "range": 147677.96742058732,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51926.328772299996 milliseconds over 20 runs"
           }
         ]
       }
