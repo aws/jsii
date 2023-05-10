@@ -9,8 +9,11 @@ import * as yargs from 'yargs';
 import { compareAssemblies } from '../lib';
 import {
   classifyDiagnostics,
+  treatAsError,
   formatDiagnostic,
   hasErrors,
+  ErrorClass,
+  ERROR_CLASSES,
 } from '../lib/diagnostics';
 import {
   DownloadFailure,
@@ -42,6 +45,13 @@ async function main(): Promise<number> {
       type: 'boolean',
       default: false,
       desc: 'Error on experimental API changes',
+      deprecate: 'Use `--error-on` instead',
+    })
+    .option('error-on', {
+      type: 'string',
+      default: 'prod',
+      choices: ERROR_CLASSES,
+      desc: 'Which type of API changes should be treated as an error',
     })
     .option('ignore-file', {
       alias: 'i',
@@ -119,7 +129,7 @@ async function main(): Promise<number> {
   if (mismatches.count > 0) {
     const diags = classifyDiagnostics(
       mismatches,
-      argv['experimental-errors'],
+      treatAsError(argv['error-on'] as ErrorClass, argv['experimental-errors']),
       await loadFilter(argv['ignore-file']),
     );
 
@@ -127,7 +137,7 @@ async function main(): Promise<number> {
       `Original assembly: ${original.name}@${original.version}\n`,
     );
     process.stderr.write(
-      `Updated assembly:  ${updated.name}@${updated.version}\n`,
+      `Updated assembly: ${updated.name}@${updated.version}\n`,
     );
     process.stderr.write('API elements with incompatible changes:\n');
     for (const diag of diags) {
