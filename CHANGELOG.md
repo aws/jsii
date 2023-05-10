@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.81.0](https://github.com/aws/jsii/compare/v1.80.0...v1.81.0) (2023-05-10)
+
+
+### Features
+
+* **jsii-pacmak:** parsing arguments in non-strict mode ([#4068](https://github.com/aws/jsii/issues/4068)) ([3d49d6f](https://github.com/aws/jsii/commit/3d49d6fd2dc64db45aa3f1164bb976c8cfe75175)), closes [#3465](https://github.com/aws/jsii/issues/3465)
+
+
+### Bug Fixes
+
+* **pacmak:** go docs overview displays repeating description ([#4081](https://github.com/aws/jsii/issues/4081)) ([4fd596a](https://github.com/aws/jsii/commit/4fd596a467cdb422ebea3fdf01d068bc360b3757)), closes [/github.com/aws/jsii/pull/3698/files#diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263](https://github.com/aws//github.com/aws/jsii/pull/3698/files/issues/diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263) [/github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json#L4](https://github.com/aws//github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json/issues/L4) [/github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts#L46-L52](https://github.com/aws//github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts/issues/L46-L52)
+* **rosetta:** flakey trim-cache test ([#4043](https://github.com/aws/jsii/issues/4043)) ([f70c0f7](https://github.com/aws/jsii/commit/f70c0f77069c8beb30010395cfd5817ac013feba))
+
 ## [1.80.0](https://github.com/aws/jsii/compare/v1.79.0...v1.80.0) (2023-04-04)
 
 
