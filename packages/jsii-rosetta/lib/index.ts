@@ -11,3 +11,5 @@ export * from './rosetta-translator';
 export * from './snippet';
 export * from './markdown';
 export * from './strict';
+
+import './upgrade-prompt';

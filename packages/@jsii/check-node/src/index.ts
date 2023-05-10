@@ -21,14 +21,18 @@ export function checkNode(envPrefix = 'JSII'): void {
     'Should you encounter odd runtime issues, please try using one of the supported release before filing a bug report.';
 
   if (nodeRelease?.endOfLife) {
+    const silenceVariable = `${envPrefix}_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION`;
+    const acknowledgeNodeEol =
+      'Node14 is now end of life (EOL) as of April 30, 2023. Support of EOL runtimes are only guaranteed for 30 days after EOL. By silencing this warning you acknowledge that you are using an EOL version of Node and will upgrade to a supported version as soon as possible.';
     const qualifier = nodeRelease.endOfLifeDate
       ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
       : '';
-    veryVisibleMessage(
-      bgRed.white.bold,
-      `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,
-      `Please upgrade to a supported node version as soon as possible.`,
-    );
+    if (!(process.env[silenceVariable] === acknowledgeNodeEol))
+      veryVisibleMessage(
+        bgRed.white.bold,
+        `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,
+        `Please upgrade to a supported node version as soon as possible.`,
+      );
   } else if (knownBroken) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_KNOWN_BROKEN_NODE_VERSION`;
     if (!process.env[silenceVariable])

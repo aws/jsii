@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "glob": "^9.3.2"
+    "glob": "^10.2.1"
   },
   "scripts": {
     "build": "yarn --silent tsc --build && npm run lint",
