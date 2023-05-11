@@ -18,4 +18,7 @@ if (process.env.JSII_SUPPRESS_UPGRADE_PROMPT == null) {
       '#######################################################################################################',
     ].join('\n'),
   );
+
+  // Suppress any further upgrade prompts (e.g: the one from jsii, which is a dependency of jsii-rosetta)...
+  process.env.JSII_SUPPRESS_UPGRADE_PROMPT = '1';
 }
