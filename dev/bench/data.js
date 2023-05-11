@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683811424043,
+  "lastUpdate": 1683821660157,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15839,6 +15839,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 232050.5937514648,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46334.026952500004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d4af25f8e5c9925c53c9cbfda32d6db1df1c476b",
+          "message": "chore(deps-dev): Bump mypy from 1.2.0 to 1.3.0 in /packages/jsii-pacmak/test/generated-code (#4093)\n\nBumps [mypy](https://github.com/python/mypy) from 1.2.0 to 1.3.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/9df39ab1801369cb49467fa52080df9c42377384\"><code>9df39ab</code></a> set version to 1.3.0</li>\n<li><a href=\"https://github.com/python/mypy/commit/c1464a9ea61fe9c350b61c1989d98bbc33d74982\"><code>c1464a9</code></a> Revert &quot;Fix disappearing errors when re-running dmypy check (<a href=\"https://redirect.github.com/python/mypy/issues/14835\">#14835</a>)&quot; (<a href=\"https://redirect.github.com/python/mypy/issues/15179\">#15179</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/d887e9c0d090694b66b5fa20ac249b3d749a8518\"><code>d887e9c</code></a> Fix performance in union subtyping (<a href=\"https://redirect.github.com/python/mypy/issues/15104\">#15104</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/320b883ada83375f1e6929b4703b741d3c4813ce\"><code>320b883</code></a> Typeshed cherry-pick: stdlib/xml: fix return types for toxml/toprettyxml meth...</li>\n<li><a href=\"https://github.com/python/mypy/commit/6a68049e903dba7bbcff5a530b63731535f8d5f7\"><code>6a68049</code></a> Fix sys.platform when cross-compiling with emscripten (<a href=\"https://redirect.github.com/python/mypy/issues/14888\">#14888</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/3d9661c91d5dfaf3ae0d3ca5624867cdf449da77\"><code>3d9661c</code></a> Fix bounded self types in override incompatibility checking (<a href=\"https://redirect.github.com/python/mypy/issues/15045\">#15045</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/0799a8ab0dc8deed8d2e0ec34b1aab2fe39ebd96\"><code>0799a8a</code></a> [mypyc] Fix unions of bools and ints (<a href=\"https://redirect.github.com/python/mypy/issues/15066\">#15066</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/4276308be01ea498d946a79554b4a10b1cf13ccb\"><code>4276308</code></a> (🎁) update black to 23.3.0 (<a href=\"https://redirect.github.com/python/mypy/issues/15059\">#15059</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/14493660eadf35553a3cecb746704b58a401c68d\"><code>1449366</code></a> Allow objects matching <code>SupportsKeysAndGetItem</code> to be unpacked (<a href=\"https://redirect.github.com/python/mypy/issues/14990\">#14990</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/69c774e6d6fa92aea8f32cd0e045e8a34a0f7215\"><code>69c774e</code></a> Sync typeshed (<a href=\"https://redirect.github.com/python/mypy/issues/15055\">#15055</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/v1.2.0...v1.3.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.2.0&new-version=1.3.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-11T15:27:58Z",
+          "tree_id": "31dd2a1e9a4394f9dba5a7387d37d2a56abe67c3",
+          "url": "https://github.com/aws/jsii/commit/d4af25f8e5c9925c53c9cbfda32d6db1df1c476b"
+        },
+        "date": 1683821656804,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60388.95663220001,
+            "unit": "milliseconds",
+            "range": 3739247.810447427,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60388.95663220001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46066.512875399996,
+            "unit": "milliseconds",
+            "range": 86944.6046439168,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46066.512875399996 milliseconds over 20 runs"
           }
         ]
       }
