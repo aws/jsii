@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683833467346,
+  "lastUpdate": 1683837588891,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15953,6 +15953,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 166855.1074508003,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73620.25513880001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6e497a907be7d97d6390903fd7ab2c8b163a7448",
+          "message": "chore(deps): Bump github.com/Masterminds/semver/v3 from 3.2.0 to 3.2.1 in /packages/@jsii/go-runtime/jsii-runtime-go (#4053)\n\nBumps [github.com/Masterminds/semver/v3](https://github.com/Masterminds/semver) from 3.2.0 to 3.2.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/Masterminds/semver/releases\">github.com/Masterminds/semver/v3's releases</a>.</em></p>\n<blockquote>\n<h2>v3.2.1</h2>\n<h3>Changed</h3>\n<ul>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/198\">#198</a>: Improved testing around pre-release names</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/200\">#200</a>: Improved code scanning with addition of CodeQL</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/201\">#201</a>: Testing now includes Go 1.20. Go 1.17 has been dropped</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/202\">#202</a>: Migrated Fuzz testing to Go built-in Fuzzing. CI runs daily</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/203\">#203</a>: Docs updated for security details</li>\n</ul>\n<h3>Fixed</h3>\n<ul>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/199\">#199</a>: Fixed issue with range transformations</li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/Masterminds/semver/compare/v3.2.0...v3.2.1\">https://github.com/Masterminds/semver/compare/v3.2.0...v3.2.1</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/Masterminds/semver/blob/master/CHANGELOG.md\">github.com/Masterminds/semver/v3's changelog</a>.</em></p>\n<blockquote>\n<h2>3.2.1 (2023-04-10)</h2>\n<h3>Changed</h3>\n<ul>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/198\">#198</a>: Improved testing around pre-release names</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/200\">#200</a>: Improved code scanning with addition of CodeQL</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/201\">#201</a>: Testing now includes Go 1.20. Go 1.17 has been dropped</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/202\">#202</a>: Migrated Fuzz testing to Go built-in Fuzzing. CI runs daily</li>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/203\">#203</a>: Docs updated for security details</li>\n</ul>\n<h3>Fixed</h3>\n<ul>\n<li><a href=\"https://redirect.github.com/Masterminds/semver/issues/199\">#199</a>: Fixed issue with range transformations</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/Masterminds/semver/commit/e06051f8fcc4c8b4a4990c337b9862a2448722e5\"><code>e06051f</code></a> Merge pull request <a href=\"https://redirect.github.com/Masterminds/semver/issues/203\">#203</a> from mattfarina/update-readme-fuzz</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/36ea773e91f1694fd18f8579d4ea331b6808abf7\"><code>36ea773</code></a> Updating docs for security, fuzz, codeql, gosec</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/e683c4bc93bf35ff810cb0eab188e8e8e9f72fda\"><code>e683c4b</code></a> Merge pull request <a href=\"https://redirect.github.com/Masterminds/semver/issues/202\">#202</a> from mattfarina/move-fuzz</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/e485a0d5ffd5c94376b8b4a94a4cad3797c18009\"><code>e485a0d</code></a> Migrating Fuzz testing to Go built-in testing</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/4e0f582ff0c63c1f59c5e1cae1a21def0d05d923\"><code>4e0f582</code></a> Merge pull request <a href=\"https://redirect.github.com/Masterminds/semver/issues/201\">#201</a> from mattfarina/bump-go-1.20</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/0605d1d86a75a6473619b995afc80469919dbf03\"><code>0605d1d</code></a> Updating Go for 1.20</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/cc175775be019f549ae70c9c371bc6e2214af450\"><code>cc17577</code></a> Merge pull request <a href=\"https://redirect.github.com/Masterminds/semver/issues/200\">#200</a> from mattfarina/codeql</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/bf2d1900137bc4f5dfc2a3e222066e7725b6d1b0\"><code>bf2d190</code></a> Adding CodeQL scanning</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/2c5535be35664eef2e4a4e3253b4f4cb9bc8c22e\"><code>2c5535b</code></a> Merge pull request <a href=\"https://redirect.github.com/Masterminds/semver/issues/199\">#199</a> from mattfarina/bug-197</li>\n<li><a href=\"https://github.com/Masterminds/semver/commit/b1bb76193b9e8c97a10a4cb1d37d94a7b17e8482\"><code>b1bb761</code></a> Fix issue with - ranges being transformed to something imparsible</li>\n<li>Additional commits viewable in <a href=\"https://github.com/Masterminds/semver/compare/v3.2.0...v3.2.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/Masterminds/semver/v3&package-manager=go_modules&previous-version=3.2.0&new-version=3.2.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-11T19:24:30Z",
+          "tree_id": "f30bdb31265e048f73865542e5a8572c68165a8e",
+          "url": "https://github.com/aws/jsii/commit/6e497a907be7d97d6390903fd7ab2c8b163a7448"
+        },
+        "date": 1683837583659,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 103153.64292715007,
+            "unit": "milliseconds",
+            "range": 4340418.115917392,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 103153.64292715007 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 77196.63044244998,
+            "unit": "milliseconds",
+            "range": 202082.4479802361,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77196.63044244998 milliseconds over 20 runs"
           }
         ]
       }
