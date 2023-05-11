@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683807373345,
+  "lastUpdate": 1683811424043,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15801,6 +15801,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 64641.67423603401,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46634.22920749999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f555ec332c90314ecdb53d048507d21135f67826",
+          "message": "chore: suppress extraneous upgrade prompts (#4092)\n\n`jsii-pacmak` has a dependency on `jsii-rosetta`, which has a dependency on `jsii`. An upgrade prompt will be printed for `jsii` and then `jsii-rosetta`, despite customers have no way to influence the version that is installed as a transitive dependency from `jsii-pacmak`.\n\nThis adds suppressions such that:\n- `jsii-pacmak` suppresses the warning before loading `jsii-rosetta`\n- `jsii-rosetta` suppresses further warnings after having emitted its own, and now emits the warning first thing when it loads (instead of last before)\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-11T12:34:45Z",
+          "tree_id": "b36d26091601c4ad51a6427d3ae1a02b04fbd0e8",
+          "url": "https://github.com/aws/jsii/commit/f555ec332c90314ecdb53d048507d21135f67826"
+        },
+        "date": 1683811420320,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60263.22394994997,
+            "unit": "milliseconds",
+            "range": 1919138.7711247231,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60263.22394994997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46334.026952500004,
+            "unit": "milliseconds",
+            "range": 232050.5937514648,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46334.026952500004 milliseconds over 20 runs"
           }
         ]
       }
