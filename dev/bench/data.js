@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683753815736,
+  "lastUpdate": 1683804289107,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -15725,6 +15725,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 4225798.48672056,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54300.979611500006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ab8467ad62e3ee5a42b2d001620fafefee15283a",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.4.2 to ~=1.4.3 in /gh-pages (#4083)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.4.3</h2>\n<ul>\n<li>\n<p>Bugfix: for the <code>hooks</code> feature, modules no longer fail to load if using some advanced Python features like dataclasses (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3193\">#3193</a>)</p>\n</li>\n<li>\n<p>Bugfix: Don't create <code>None</code> sitemap entries if the page has no populated URL - affects sites that exclude some files from navigation (<a href=\"https://github.com/mkdocs/mkdocs/commit/07a297b3b4de4a1b49469b1497ee34039b9f38fa\"><code>07a297b</code></a>)</p>\n</li>\n<li>\n<p>&quot;readthedocs&quot; theme:</p>\n<ul>\n<li>Accessibility: add aria labels to Home logo (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3129\">#3129</a>) and search inputs (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3046\">#3046</a>)</li>\n<li>&quot;readthedocs&quot; theme now supports <code>hljs_style:</code> config, same as &quot;mkdocs&quot; theme (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3199\">#3199</a>)</li>\n</ul>\n</li>\n<li>\n<p>Translations:</p>\n<ul>\n<li>Built-in themes now also support Indonesian language (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3154\">#3154</a>)</li>\n<li>Fixed <code>zh_CN</code> translation (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3125\">#3125</a>)</li>\n<li><code>tr_TR</code> translation becomes just <code>tr</code> - usage should remain unaffected (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3195\">#3195</a>)</li>\n</ul>\n</li>\n</ul>\n<p>See <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.2...1.4.3\">commit log</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/3d1b0113c2e3785c59f263c1bff9a76382dc883e\"><code>3d1b011</code></a> Release 1.4.3 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3208\">#3208</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/4ac1484de3d668e2e9c4678603945cb6c3f268ad\"><code>4ac1484</code></a> Link to Best-of-MkDocs instead of Plugins wiki in docs (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3207\">#3207</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/ea1c6c468d6700c88875189421640634cc408e62\"><code>ea1c6c4</code></a> Highlight.js style declaration in readthedocs theme (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3199\">#3199</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/97440caf635579712de87f962520fd96b4d716f0\"><code>97440ca</code></a> Add search input field labels using aria-label (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3046\">#3046</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/f3f6631d2abddf1b8c3bbfd611a4d1842aede098\"><code>f3f6631</code></a> Fix accessibility issue with top-level breadcrumb in ReadTheDocs theme (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3129\">#3129</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/876995cdf36162b2d2253798dacc28e74d3d87ce\"><code>876995c</code></a> Generalize <code>tr_TR</code> translations to just <code>tr</code>, explain how to decide this (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3195\">#3195</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/052e023477f96ad8096b3cd5cc141a03cd7289fb\"><code>052e023</code></a> Revert functional part of previous commit - not all hosts have https</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/e6189fde03b05600edae813ef7c044920f66e207\"><code>e6189fd</code></a> update links and messages to https (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3192\">#3192</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/1f1bfad76336573ec3811ddba943ca0e9cc4cccf\"><code>1f1bfad</code></a> Add Indonesian translations of themes (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3154\">#3154</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/f5a9a7b38ada80595589b9537ab9bda6684a1424\"><code>f5a9a7b</code></a> Add hooks to <code>sys.modules</code> because some Python features rely on this (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3193\">#3193</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.2...1.4.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-11T10:09:21Z",
+          "tree_id": "3d70ec513aa2131893b6c26bdeb4f4a9520f3d41",
+          "url": "https://github.com/aws/jsii/commit/ab8467ad62e3ee5a42b2d001620fafefee15283a"
+        },
+        "date": 1683804284454,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 107032.99374700003,
+            "unit": "milliseconds",
+            "range": 6712164.865009164,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 107032.99374700003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 81172.82820119998,
+            "unit": "milliseconds",
+            "range": 10050377.66078683,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 81172.82820119998 milliseconds over 20 runs"
           }
         ]
       }
