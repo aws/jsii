@@ -1,3 +1,5 @@
+import './upgrade-prompt';
+
 export * from './translate';
 export { renderTree } from './o-tree';
 export { TargetLanguage } from './languages/target-language';
@@ -11,5 +13,3 @@ export * from './rosetta-translator';
 export * from './snippet';
 export * from './markdown';
 export * from './strict';
-
-import './upgrade-prompt';
