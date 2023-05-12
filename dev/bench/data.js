@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683912612320,
+  "lastUpdate": 1683917228572,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16105,6 +16105,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 66532.24248071355,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50141.59567200001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fc7ab7c57f4a94949794cc963bbf644ad491d246",
+          "message": "fix(jsii-pacmak): emit correct `@return` tag for JavaDocs (#4095)\n\nWe are currently emitting `@returns`, but:\n\n```\nerror: unknown tag: returns\n* @returns a newly built instance of {@link software.amazon.awscdk.services.codedeploy.EcsDeploymentConfig}.\n```\n\nIt should be `@return`.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-12T17:45:30Z",
+          "tree_id": "c61dd08f4a297c5d604e2379c207f9ae1f30e514",
+          "url": "https://github.com/aws/jsii/commit/fc7ab7c57f4a94949794cc963bbf644ad491d246"
+        },
+        "date": 1683917224095,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 83875.55947099999,
+            "unit": "milliseconds",
+            "range": 2753135.1649110885,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 83875.55947099999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 62179.09063264995,
+            "unit": "milliseconds",
+            "range": 186920.48565847316,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62179.09063264995 milliseconds over 20 runs"
           }
         ]
       }
