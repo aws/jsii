@@ -25625,25 +25625,25 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number _) {
+    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number _Value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean _) {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
+    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean _Value) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String _) {
-        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
+    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String _Value) {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
     }
 }
 
