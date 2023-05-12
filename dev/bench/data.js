@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683846518668,
+  "lastUpdate": 1683912612320,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16067,6 +16067,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1145844.9500125484,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 58781.75935665 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bb07f0b6a9b1b08d7f1eaa56c468bedb140f71ec",
+          "message": "chore(deps-dev): Bump pip from 23.0.1 to 23.1.2 in /packages/jsii-pacmak/test/generated-code (#4072)\n\nBumps [pip](https://github.com/pypa/pip) from 23.0.1 to 23.1.2.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.1.2 (2023-04-26)</h1>\n<h2>Vendored Libraries</h2>\n<ul>\n<li>Upgrade setuptools to 67.7.2</li>\n</ul>\n<h1>23.1.1 (2023-04-22)</h1>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Revert <code>[#11487](https://github.com/pypa/pip/issues/11487) &lt;https://github.com/pypa/pip/pull/11487&gt;</code><em>, as it causes issues with virtualenvs created by the Windows Store distribution of Python. (<code>[#11987](https://github.com/pypa/pip/issues/11987) &lt;https://github.com/pypa/pip/issues/11987&gt;</code></em>)</li>\n</ul>\n<h2>Vendored Libraries</h2>\n<ul>\n<li>Revert pkg_resources (via setuptools) back to 65.6.3</li>\n</ul>\n<h2>Improved Documentation</h2>\n<ul>\n<li>Update documentation to reflect the new behavior of using the cache of locally\nbuilt wheels in hash-checking mode. (<code>[#11967](https://github.com/pypa/pip/issues/11967) &lt;https://github.com/pypa/pip/issues/11967&gt;</code>_)</li>\n</ul>\n<h1>23.1 (2023-04-15)</h1>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>Remove support for the deprecated <code>--install-options</code>. (<code>[#11358](https://github.com/pypa/pip/issues/11358) &lt;https://github.com/pypa/pip/issues/11358&gt;</code>_)</li>\n<li><code>--no-binary</code> does not imply <code>setup.py install</code> anymore. Instead a wheel will be\nbuilt locally and installed. (<code>[#11451](https://github.com/pypa/pip/issues/11451) &lt;https://github.com/pypa/pip/issues/11451&gt;</code>_)</li>\n<li><code>--no-binary</code> does not disable the cache of locally built wheels anymore. It only\nmeans &quot;don't download wheels&quot;. (<code>[#11453](https://github.com/pypa/pip/issues/11453) &lt;https://github.com/pypa/pip/issues/11453&gt;</code>_)</li>\n<li>Deprecate <code>--build-option</code> and <code>--global-option</code>. Users are invited to switch to\n<code>--config-settings</code>. (<code>[#11859](https://github.com/pypa/pip/issues/11859) &lt;https://github.com/pypa/pip/issues/11859&gt;</code>_)</li>\n<li>Using <code>--config-settings</code> with projects that don't have a <code>pyproject.toml</code> now prints\na deprecation warning. In the future the presence of config settings will automatically\nenable the default build backend for legacy projects and pass the setttings to it. (<code>[#11915](https://github.com/pypa/pip/issues/11915) &lt;https://github.com/pypa/pip/issues/11915&gt;</code>_)</li>\n<li>Remove <code>setup.py install</code> fallback when building a wheel failed for projects without\n<code>pyproject.toml</code>. (<code>[#8368](https://github.com/pypa/pip/issues/8368) &lt;https://github.com/pypa/pip/issues/8368&gt;</code>_)</li>\n<li>When the <code>wheel</code> package is not installed, pip now uses the default build backend\ninstead of <code>setup.py install</code> and <code>setup.py develop</code> for project without\n<code>pyproject.toml</code>. (<code>[#8559](https://github.com/pypa/pip/issues/8559) &lt;https://github.com/pypa/pip/issues/8559&gt;</code>_)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/3fe7e54fceac7a03bcb88ce26cfd0937acfe5e40\"><code>3fe7e54</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/bc7621aaf827a992a455fe5c2c4ec59cfc26186e\"><code>bc7621a</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/11997\">#11997</a> from pfmoore/vendoring-setuptools</li>\n<li><a href=\"https://github.com/pypa/pip/commit/cbc92fd6dd7e0bae4ec81b87521b5c27b0601be5\"><code>cbc92fd</code></a> Upgrade setuptools to 67.7.2</li>\n<li><a href=\"https://github.com/pypa/pip/commit/4428130fbe44259562280f0601f034bb8c43bef2\"><code>4428130</code></a> Suppress pkg_resources deprecation warning</li>\n<li><a href=\"https://github.com/pypa/pip/commit/f1a7a6f942b869ae3428dbf55dfc1ca756c78d94\"><code>f1a7a6f</code></a> Upgrade setuptools to 67.6.1</li>\n<li><a href=\"https://github.com/pypa/pip/commit/51afe45cda2854d810d9714e3891e256b1509737\"><code>51afe45</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/11992\">#11992</a> from pfmoore/release/23.1.1</li>\n<li><a href=\"https://github.com/pypa/pip/commit/5cbf00c49e2a6974d794534d8041cf370218e98d\"><code>5cbf00c</code></a> Bump for development</li>\n<li><a href=\"https://github.com/pypa/pip/commit/ee40d71817df8346af3d96051a298db8f22e52f1\"><code>ee40d71</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/d5a779d96c0460f49da23abe8b4f557ce80b0a70\"><code>d5a779d</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/11987\">#11987</a> from pfmoore/revert_56e5fa3</li>\n<li><a href=\"https://github.com/pypa/pip/commit/b64e74de42d0a6e4f3a81a06b7fd33eea00b7160\"><code>b64e74d</code></a> Add a news file</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/pip/compare/23.0.1...23.1.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.0.1&new-version=23.1.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-12T16:40:22Z",
+          "tree_id": "83bd94b8fb393e388b8ef19f62d9464c61f7d6dc",
+          "url": "https://github.com/aws/jsii/commit/bb07f0b6a9b1b08d7f1eaa56c468bedb140f71ec"
+        },
+        "date": 1683912608748,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 67720.39301330004,
+            "unit": "milliseconds",
+            "range": 2323198.4622782664,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 67720.39301330004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50141.59567200001,
+            "unit": "milliseconds",
+            "range": 66532.24248071355,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50141.59567200001 milliseconds over 20 runs"
           }
         ]
       }
