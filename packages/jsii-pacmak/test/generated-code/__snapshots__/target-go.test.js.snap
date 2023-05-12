@@ -2595,6 +2595,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 DoNotOverridePrivates.go
        ┣━ 📄 DoNotRecognizeAnyAsOptional.go
        ┣━ 📄 DontComplainAboutVariadicAfterOptional.go
+       ┣━ 📄 DontUseMe.go
        ┣━ 📄 DoubleTrouble.go
        ┣━ 📄 DummyObj.go
        ┣━ 📄 DynamicPropertyBearer.go
@@ -2907,6 +2908,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 version
        ┣━ 📄 VirtualMethodPlayground.go
        ┣━ 📄 VoidCallback.go
+       ┣━ 📄 WeirdDocs.go
        ┗━ 📄 WithPrivatePropertyInConstructor.go
 `;
 
@@ -7256,6 +7258,21 @@ func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(o
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/DontUseMe.go 1`] = `
+package jsiicalc
+
+
+// > Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.
+type DontUseMe struct {
+	// > Don't set this parameter.
+	//
+	// A parameter that shouldn't be set, with the annotation in a weird place.
+	DontSetMe *string \`field:"optional" json:"dontSetMe" yaml:"dontSetMe"\`
 }
 
 
@@ -17824,6 +17841,76 @@ func (v *jsiiProxy_VoidCallback) OverrideMe() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/WeirdDocs.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// > Don't use this class.
+//
+// A class that shouldn't be used, with the annotation in a weird place.
+type WeirdDocs interface {
+	// > Don't read this property.
+	//
+	// A property that shouldn't be read, with the annotation in a weird place.
+	DontReadMe() *string
+	SetDontReadMe(val *string)
+}
+
+// The jsii proxy struct for WeirdDocs
+type jsiiProxy_WeirdDocs struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_WeirdDocs) DontReadMe() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"dontReadMe",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewWeirdDocs() WeirdDocs {
+	_init_.Initialize()
+
+	j := jsiiProxy_WeirdDocs{}
+
+	_jsii_.Create(
+		"jsii-calc.WeirdDocs",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewWeirdDocs_Override(w WeirdDocs) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.WeirdDocs",
+		nil, // no parameters
+		w,
+	)
+}
+
+func (j *jsiiProxy_WeirdDocs)SetDontReadMe(val *string) {
+	_jsii_.Set(
+		j,
+		"dontReadMe",
+		val,
+	)
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/WithPrivatePropertyInConstructor.go 1`] = `
 package jsiicalc
 
@@ -19778,6 +19865,10 @@ func init() {
 			return &jsiiProxy_DontComplainAboutVariadicAfterOptional{}
 		},
 	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.DontUseMe",
+		reflect.TypeOf((*DontUseMe)(nil)).Elem(),
+	)
 	_jsii_.RegisterClass(
 		"jsii-calc.DoubleTrouble",
 		reflect.TypeOf((*DoubleTrouble)(nil)).Elem(),
@@ -21531,6 +21622,16 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_VoidCallback{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.WeirdDocs",
+		reflect.TypeOf((*WeirdDocs)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "dontReadMe", GoGetter: "DontReadMe"},
+		},
+		func() interface{} {
+			return &jsiiProxy_WeirdDocs{}
 		},
 	)
 	_jsii_.RegisterClass(

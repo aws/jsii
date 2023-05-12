@@ -2737,7 +2737,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * (deprecated) Check that enums from \\@scoped packages can be references.
+ * (deprecated) Check that enums from &#64;scoped packages can be references.
  * <p>
  * See awslabs/jsii#138
  */
@@ -3757,6 +3757,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 DoNotOverridePrivates.java
           ┃                 ┣━ 📄 DoNotRecognizeAnyAsOptional.java
           ┃                 ┣━ 📄 DontComplainAboutVariadicAfterOptional.java
+          ┃                 ┣━ 📄 DontUseMe.java
           ┃                 ┣━ 📄 DoubleTrouble.java
           ┃                 ┣━ 📄 DummyObj.java
           ┃                 ┣━ 📄 DynamicPropertyBearer.java
@@ -4020,6 +4021,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 VariadicTypeUnion.java
           ┃                 ┣━ 📄 VirtualMethodPlayground.java
           ┃                 ┣━ 📄 VoidCallback.java
+          ┃                 ┣━ 📄 WeirdDocs.java
           ┃                 ┗━ 📄 WithPrivatePropertyInConstructor.java
           ┗━ 📁 resources
              ┗━ 📁 software
@@ -4714,9 +4716,9 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
     protected abstract @org.jetbrains.annotations.NotNull java.lang.String someMethod(final @org.jetbrains.annotations.NotNull java.lang.String str);
 
     /**
-     * Sets \`seed\` to \`this.property\`, then calls \`someMethod\` with \`this.property\` and returns the result.
+     * Sets <code>seed</code> to <code>this.property</code>, then calls <code>someMethod</code> with <code>this.property</code> and returns the result.
      * <p>
-     * @param seed a \`string\`. This parameter is required.
+     * @param seed a <code>string</code>. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.String workItAll(final @org.jetbrains.annotations.NotNull java.lang.String seed) {
@@ -5301,7 +5303,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.AmbiguousParameters> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          * @param scope This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -5318,7 +5320,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param scope This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -5328,7 +5330,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param props This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -5778,7 +5780,7 @@ public abstract class BurriedAnonymousObject extends software.amazon.jsii.JsiiOb
     /**
      * Implement this method and have it return it's parameter.
      * <p>
-     * @return \`value\`
+     * @return <code>value</code>
      * @param value the value that should be returned. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -5796,7 +5798,7 @@ public abstract class BurriedAnonymousObject extends software.amazon.jsii.JsiiOb
         /**
          * Implement this method and have it return it's parameter.
          * <p>
-         * @return \`value\`
+         * @return <code>value</code>
          * @param value the value that should be returned. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6009,7 +6011,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.Calculator> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create() {
@@ -6028,7 +6030,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
          * <p>
          * Default: 0
          * <p>
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param initialValue The initial value of the calculator. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6042,7 +6044,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
          * <p>
          * Default: none
          * <p>
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param maximumValue The maximum value the calculator can store. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6786,7 +6788,7 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.ClassWithContainerTypes> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          * @param array This parameter is required.
          * @param record This parameter is required.
          * @param obj This parameter is required.
@@ -6808,7 +6810,7 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param arrayProp This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6818,7 +6820,7 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param objProp This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -6828,7 +6830,7 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param recordProp This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -7969,7 +7971,9 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * 1.
+ * <ol>
+ * <li></li>
+ * </ol>
  * <p>
  * call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
  * 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
@@ -9692,6 +9696,148 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DontUseMe.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * <blockquote>
+ * <p>
+ * Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.
+ * <p>
+ * </blockquote>
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DontUseMe")
+@software.amazon.jsii.Jsii.Proxy(DontUseMe.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface DontUseMe extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     * <blockquote>
+     * <p>
+     * Don't set this parameter.
+     * <p>
+     * </blockquote>
+     * <p>
+     * A parameter that shouldn't be set, with the annotation in a weird place.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable java.lang.String getDontSetMe() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link DontUseMe}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link DontUseMe}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<DontUseMe> {
+        java.lang.String dontSetMe;
+
+        /**
+         * Sets the value of {@link DontUseMe#getDontSetMe}
+         * @param dontSetMe <blockquote>
+<p>
+Don't set this parameter.
+<p>
+</blockquote>
+         *                  A parameter that shouldn't be set, with the annotation in a weird place.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder dontSetMe(java.lang.String dontSetMe) {
+            this.dontSetMe = dontSetMe;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link DontUseMe}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public DontUseMe build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link DontUseMe}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DontUseMe {
+        private final java.lang.String dontSetMe;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.dontSetMe = software.amazon.jsii.Kernel.get(this, "dontSetMe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.dontSetMe = builder.dontSetMe;
+        }
+
+        @Override
+        public final java.lang.String getDontSetMe() {
+            return this.dontSetMe;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getDontSetMe() != null) {
+                data.set("dontSetMe", om.valueToTree(this.getDontSetMe()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DontUseMe"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            DontUseMe.Jsii$Proxy that = (DontUseMe.Jsii$Proxy) o;
+
+            return this.dontSetMe != null ? this.dontSetMe.equals(that.dontSetMe) : that.dontSetMe == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.dontSetMe != null ? this.dontSetMe.hashCode() : 0;
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DoubleTrouble.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -9947,7 +10093,7 @@ public class DynamicPropertyBearerChild extends software.amazon.jsii.tests.calcu
     }
 
     /**
-     * Sets \`this.dynamicProperty\` to the new value, and returns the old value.
+     * Sets <code>this.dynamicProperty</code> to the new value, and returns the old value.
      * <p>
      * @return the old value that was set.
      * @param newValue the new value to be set. This parameter is required.
@@ -9971,7 +10117,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).
+ * This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does <em>NOT</em> detect dates automatically in this way, so host libraries should not either).
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -9989,7 +10135,7 @@ public abstract class Entropy extends software.amazon.jsii.JsiiObject {
     /**
      * Creates a new instance of Entropy.
      * <p>
-     * @param clock your implementation of \`WallClock\`. This parameter is required.
+     * @param clock your implementation of <code>WallClock</code>. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected Entropy(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IWallClock clock) {
@@ -10000,7 +10146,7 @@ public abstract class Entropy extends software.amazon.jsii.JsiiObject {
     /**
      * Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
      * <p>
-     * @return the time from the \`WallClock\`.
+     * @return the time from the <code>WallClock</code>.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.String increase() {
@@ -10008,9 +10154,9 @@ public abstract class Entropy extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Implement this method such that it returns \`word\`.
+     * Implement this method such that it returns <code>word</code>.
      * <p>
-     * @return \`word\`.
+     * @return <code>word</code>.
      * @param word the value to return. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -10026,9 +10172,9 @@ public abstract class Entropy extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * Implement this method such that it returns \`word\`.
+         * Implement this method such that it returns <code>word</code>.
          * <p>
-         * @return \`word\`.
+         * @return <code>word</code>.
          * @param word the value to return. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -10103,7 +10249,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns \`true\` if \`key\` is defined in \`opts\`.
+     * Returns <code>true</code> if <code>key</code> is defined in <code>opts</code>.
      * <p>
      * Used to check that undefined/null hash values
      * are being erased when sending values from native code to JS.
@@ -16797,7 +16943,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.LevelOne> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create() {
@@ -16811,7 +16957,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param prop This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -17512,7 +17658,7 @@ package software.amazon.jsii.tests.calculator;
 public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * When provided, must be > 0.
+     * When provided, must be &gt; 0.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Number getNumberProp();
@@ -17533,7 +17679,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link NestedStruct#getNumberProp}
-         * @param numberProp When provided, must be > 0. This parameter is required.
+         * @param numberProp When provided, must be &gt; 0. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -18398,7 +18544,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.OptionalStructConsumer> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create() {
@@ -18411,7 +18557,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param field This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -18587,7 +18733,7 @@ public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.ParamShadowsBuiltins> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          * @param builtins should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}""). This parameter is required.
          * @param str should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}""). This parameter is required.
          */
@@ -18607,7 +18753,7 @@ public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param booleanProperty This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -18617,7 +18763,7 @@ public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param stringProperty This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -18627,7 +18773,7 @@ public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param structProperty This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -19587,9 +19733,9 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
+ * Helps ensure the JSII kernel &amp; runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
  * <p>
- * @return an instance of an un-exported class that extends \`ExportedBaseClass\`, declared as \`IPrivatelyImplemented\`.
+ * @return an instance of an un-exported class that extends <code>ExportedBaseClass</code>, declared as <code>IPrivatelyImplemented</code>.
  * @see <a href="https://github.com/aws/jsii/issues/320">https://github.com/aws/jsii/issues/320</a>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20208,7 +20354,9 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SingletonStringEnum")
 public enum SingletonStringEnum {
     /**
-     * 1337.
+     * <ol>
+     * <li></li>
+     * </ol>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     SINGLETON_STRING,
@@ -20622,7 +20770,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This is used to validate the ability to use \`this\` from within a static context.
+ * This is used to validate the ability to use <code>this</code> from within a static context.
  * <p>
  * https://github.com/awslabs/aws-cdk/issues/2304
  */
@@ -22127,7 +22275,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
 
     /**
      * @param id some identifier. This parameter is required.
-     * @param defaultBar the default value of \`bar\`.
+     * @param defaultBar the default value of <code>bar</code>.
      * @param props some props once can provide.
      * @param rest a variadic continuation. This parameter is required.
      */
@@ -22159,9 +22307,9 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          * @param id some identifier. This parameter is required.
-         * @param defaultBar the default value of \`bar\`.
+         * @param defaultBar the default value of <code>bar</code>.
          * @param rest a variadic continuation. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22169,7 +22317,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
             return new Builder(id, defaultBar, rest);
         }
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          * @param id some identifier. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22191,7 +22339,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         /**
          * Some number, like 42.
          * <p>
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param bar Some number, like 42. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22201,12 +22349,12 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
+         * An <code>id</code> field here is terrible API design, because the constructor of <code>SupportsNiceJavaBuilder</code> already has a parameter named <code>id</code>.
          * <p>
          * But here we are, doing it like we didn't care.
          * <p>
-         * @return {@code this}
-         * @param id An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`. This parameter is required.
+         * @return {&#64;code this}
+         * @param id An <code>id</code> field here is terrible API design, because the constructor of <code>SupportsNiceJavaBuilder</code> already has a parameter named <code>id</code>. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder id(final java.lang.String id) {
@@ -22257,7 +22405,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
     @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
-     * An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
+     * An <code>id</code> field here is terrible API design, because the constructor of <code>SupportsNiceJavaBuilder</code> already has a parameter named <code>id</code>.
      * <p>
      * But here we are, doing it like we didn't care.
      */
@@ -22294,7 +22442,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getId}
-         * @param id An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
+         * @param id An <code>id</code> field here is terrible API design, because the constructor of <code>SupportsNiceJavaBuilder</code> already has a parameter named <code>id</code>.
          *           But here we are, doing it like we didn't care.
          * @return {@code this}
          */
@@ -22401,7 +22549,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
+ * We can generate fancy builders in Java for classes which take a mix of positional &amp; struct parameters.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22454,7 +22602,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          * @param id some identifier of your choice. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22473,7 +22621,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         /**
          * Some number, like 42.
          * <p>
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param bar Some number, like 42. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22483,12 +22631,12 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         }
 
         /**
-         * An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
+         * An <code>id</code> field here is terrible API design, because the constructor of <code>SupportsNiceJavaBuilder</code> already has a parameter named <code>id</code>.
          * <p>
          * But here we are, doing it like we didn't care.
          * <p>
-         * @return {@code this}
-         * @param id An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`. This parameter is required.
+         * @return {&#64;code this}
+         * @param id An <code>id</code> field here is terrible API design, because the constructor of <code>SupportsNiceJavaBuilder</code> already has a parameter named <code>id</code>. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder id(final java.lang.String id) {
@@ -22719,7 +22867,7 @@ public class TestStructWithEnum extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns true if \`foo\` is \`StringEnum.A\`.
+     * Returns true if <code>foo</code> is <code>StringEnum.A</code>.
      * <p>
      * @param input This parameter is required.
      */
@@ -22729,7 +22877,7 @@ public class TestStructWithEnum extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns true if \`foo\` is \`StringEnum.B\` and \`bar\` is \`AllTypesEnum.THIS_IS_GREAT\`.
+     * Returns true if <code>foo</code> is <code>StringEnum.B</code> and <code>bar</code> is <code>AllTypesEnum.THIS_IS_GREAT</code>.
      * <p>
      * @param input This parameter is required.
      */
@@ -22739,7 +22887,7 @@ public class TestStructWithEnum extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns \`foo: StringEnum.A\`.
+     * Returns <code>foo: StringEnum.A</code>.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructWithEnum getStructWithFoo() {
@@ -22747,7 +22895,7 @@ public class TestStructWithEnum extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns \`foo: StringEnum.C\` and \`bar: AllTypesEnum.MY_ENUM_VALUE\`.
+     * Returns <code>foo: StringEnum.C</code> and <code>bar: AllTypesEnum.MY_ENUM_VALUE</code>.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructWithEnum getStructWithFooBar() {
@@ -23585,7 +23733,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param prefix a prefix that will be use for all values returned by \`#asArray\`. This parameter is required.
+     * @param prefix a prefix that will be use for all values returned by <code>#asArray</code>. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public VariadicMethod(final @org.jetbrains.annotations.NotNull java.lang.Number... prefix) {
@@ -23594,7 +23742,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param first the first element of the array to be returned (after the \`prefix\` provided at construction time). This parameter is required.
+     * @param first the first element of the array to be returned (after the <code>prefix</code> provided at construction time). This parameter is required.
      * @param others other elements to be included in the array. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -23786,6 +23934,70 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
         protected final void overrideMe() {
             software.amazon.jsii.Kernel.call(this, "overrideMe", software.amazon.jsii.NativeType.VOID);
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/WeirdDocs.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * <blockquote>
+ * <p>
+ * Don't use this class.
+ * <p>
+ * </blockquote>
+ * <p>
+ * A class that shouldn't be used, with the annotation in a weird place.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.WeirdDocs")
+public class WeirdDocs extends software.amazon.jsii.JsiiObject {
+
+    protected WeirdDocs(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected WeirdDocs(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public WeirdDocs() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * <blockquote>
+     * <p>
+     * Don't read this property.
+     * <p>
+     * </blockquote>
+     * <p>
+     * A property that shouldn't be read, with the annotation in a weird place.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.Nullable java.lang.String getDontReadMe() {
+        return software.amazon.jsii.Kernel.get(this, "dontReadMe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     * <blockquote>
+     * <p>
+     * Don't read this property.
+     * <p>
+     * </blockquote>
+     * <p>
+     * A property that shouldn't be read, with the annotation in a weird place.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void setDontReadMe(final @org.jetbrains.annotations.Nullable java.lang.String value) {
+        software.amazon.jsii.Kernel.set(this, "dontReadMe", value);
     }
 }
 
@@ -24021,7 +24233,7 @@ public abstract class Cdk16625 extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+     * Implement this functin to return <code>gen.next()</code>. It is extremely important that the <code>donotimport</code> submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
      * <p>
      * @param gen a VERY pseudo random number generator. This parameter is required.
      */
@@ -24038,7 +24250,7 @@ public abstract class Cdk16625 extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * Implement this functin to return \`gen.next()\`. It is extremely important that the \`donotimport\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
+         * Implement this functin to return <code>gen.next()</code>. It is extremely important that the <code>donotimport</code> submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
          * <p>
          * @param gen a VERY pseudo random number generator. This parameter is required.
          */
@@ -24133,7 +24345,7 @@ public class AcceptsPath extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create() {
@@ -24149,7 +24361,7 @@ public class AcceptsPath extends software.amazon.jsii.JsiiObject {
         /**
          * A path that doesn't exist.
          * <p>
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param sourcePath A path that doesn't exist. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -27381,7 +27593,7 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create() {
@@ -27395,7 +27607,7 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param self This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -27803,7 +28015,7 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.submodule.MyClass> {
         /**
-         * @return a new instance of {@link Builder}.
+         * @return a new instance of {&#64;link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create() {
@@ -27817,7 +28029,7 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
         }
 
         /**
-         * @return {@code this}
+         * @return {&#64;code this}
          * @param prop This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -28979,6 +29191,7 @@ jsii-calc.DoNotOverridePrivates=software.amazon.jsii.tests.calculator.DoNotOverr
 jsii-calc.DoNotRecognizeAnyAsOptional=software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional
 jsii-calc.DocumentedClass=software.amazon.jsii.tests.calculator.DocumentedClass
 jsii-calc.DontComplainAboutVariadicAfterOptional=software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional
+jsii-calc.DontUseMe=software.amazon.jsii.tests.calculator.DontUseMe
 jsii-calc.DoubleTrouble=software.amazon.jsii.tests.calculator.DoubleTrouble
 jsii-calc.DummyObj=software.amazon.jsii.tests.calculator.DummyObj
 jsii-calc.DynamicPropertyBearer=software.amazon.jsii.tests.calculator.DynamicPropertyBearer
@@ -29152,6 +29365,7 @@ jsii-calc.VariadicMethod=software.amazon.jsii.tests.calculator.VariadicMethod
 jsii-calc.VariadicTypeUnion=software.amazon.jsii.tests.calculator.VariadicTypeUnion
 jsii-calc.VirtualMethodPlayground=software.amazon.jsii.tests.calculator.VirtualMethodPlayground
 jsii-calc.VoidCallback=software.amazon.jsii.tests.calculator.VoidCallback
+jsii-calc.WeirdDocs=software.amazon.jsii.tests.calculator.WeirdDocs
 jsii-calc.WithPrivatePropertyInConstructor=software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor
 jsii-calc.anonymous.IOptionA=software.amazon.jsii.tests.calculator.anonymous.IOptionA
 jsii-calc.anonymous.IOptionB=software.amazon.jsii.tests.calculator.anonymous.IOptionB

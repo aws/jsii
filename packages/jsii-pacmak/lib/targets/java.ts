@@ -2710,9 +2710,9 @@ class JavaGenerator extends Generator {
     const paras = [];
 
     if (docs.summary) {
-      paras.push(renderSummary(docs));
+      paras.push(markDownToJavaDoc(renderSummary(docs)));
     } else if (defaultText) {
-      paras.push(defaultText);
+      paras.push(markDownToJavaDoc(defaultText));
     }
 
     if (docs.remarks) {
@@ -2751,7 +2751,7 @@ class JavaGenerator extends Generator {
     const tagLines = [];
 
     if (docs.returns) {
-      tagLines.push(`@return ${docs.returns}`);
+      tagLines.push(`@return ${markDownToJavaDoc(docs.returns)}`);
     }
     if (docs.see) {
       tagLines.push(
@@ -2759,7 +2759,7 @@ class JavaGenerator extends Generator {
       );
     }
     if (docs.deprecated) {
-      tagLines.push(`@deprecated ${docs.deprecated}`);
+      tagLines.push(`@deprecated ${markDownToJavaDoc(docs.deprecated)}`);
     }
 
     // Params
@@ -3462,7 +3462,7 @@ function paramJavadoc(
 ): string {
   const parts = ['@param', name];
   if (summary) {
-    parts.push(endWithPeriod(summary));
+    parts.push(markDownToJavaDoc(endWithPeriod(summary)));
   }
   if (!optional) {
     parts.push('This parameter is required.');
