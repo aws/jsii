@@ -280,10 +280,15 @@ async function runPacmak(
 
 export async function preparePythonVirtualEnv({
   install = [],
+  installOptions = [],
   venvDir = __dirname,
   systemSitePackages = true,
 }: {
   install?: readonly string[];
+  // some options like `--config-settings` should only be
+  // passed once. If they are passed multiple times
+  // then it registers as an array with multiple values
+  installOptions?: readonly string[];
   venvDir?: string;
   systemSitePackages?: boolean;
 } = {}) {
@@ -345,6 +350,7 @@ export async function preparePythonVirtualEnv({
         'pip',
         'install',
         '--no-input',
+        ...installOptions,
         // Additional install parameters
         ...install,
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
