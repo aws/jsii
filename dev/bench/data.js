@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683917228572,
+  "lastUpdate": 1683921482175,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16143,6 +16143,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 186920.48565847316,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62179.09063264995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f0a1dfce8edb06a1b71758b49886580e6ee271ff",
+          "message": "feat(superchain): switch to JDK 20 (#4082)\n\nSwitch to a more recent version of the JDK. `jsii-pacmak` will keep on targeting Java 1.8, so this doesn't affect compatibility of the generated class files.\n\nWhat this will gain us is access to a more recent, optimized `javadoc` tool, which completes a lot faster than the one from JDK 8.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-12T19:04:44Z",
+          "tree_id": "7bad0223ca13f2e0cd7da51ec6ab2d4cd84225a5",
+          "url": "https://github.com/aws/jsii/commit/f0a1dfce8edb06a1b71758b49886580e6ee271ff"
+        },
+        "date": 1683921478746,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70467.70131144996,
+            "unit": "milliseconds",
+            "range": 1265604.3640196517,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70467.70131144996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52366.89351615001,
+            "unit": "milliseconds",
+            "range": 503194.1566595724,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52366.89351615001 milliseconds over 20 runs"
           }
         ]
       }
