@@ -1,3 +1,5 @@
+import './suppress-jsii-upgrade-prompts';
+
 import { TypeSystem } from 'jsii-reflect';
 import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
 import { resolve } from 'path';

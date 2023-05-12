@@ -36,13 +36,57 @@ export function hasErrors(diags: Diagnostic[]) {
   return diags.some((diag) => diag.level === DiagLevel.Error);
 }
 
+export function onlyErrors(diags: Diagnostic[]) {
+  return diags.filter((diag) => diag.level === DiagLevel.Error);
+}
+
+export function onlyWarnings(diags: Diagnostic[]) {
+  return diags.filter((diag) => diag.level === DiagLevel.Warning);
+}
+
+export const ERROR_CLASSES = ['prod', 'non-experimental', 'all'] as const;
+
+export type ErrorClass = (typeof ERROR_CLASSES)[number];
+
+export const ERROR_CLASSES_TO_STABILITIES: Record<ErrorClass, Stability[]> = {
+  prod: [Stability.Stable, Stability.Deprecated],
+  'non-experimental': [
+    Stability.Stable,
+    Stability.Deprecated,
+    Stability.External,
+  ],
+  all: [
+    Stability.Stable,
+    Stability.Experimental,
+    Stability.External,
+    Stability.Deprecated,
+  ],
+};
+
+export function treatAsError(
+  errorClass: ErrorClass,
+  deprecatedExperimentalErrors = false,
+): Set<Stability> {
+  const shouldError = new Set<Stability>();
+
+  for (const stability of ERROR_CLASSES_TO_STABILITIES[errorClass]) {
+    shouldError.add(stability);
+  }
+
+  if (deprecatedExperimentalErrors) {
+    shouldError.add(Stability.Experimental);
+  }
+
+  return shouldError;
+}
+
 /**
  * Classify API mismatches into a set of warnings and errors
  */
 export function classifyDiagnostics(
   mismatches: Mismatches,
-  experimentalErrors: boolean,
-  skipFilter: Set<string>,
+  shouldError: Set<Stability>,
+  skipFilter: Set<string> = new Set(),
 ): Diagnostic[] {
   const ret = mismatches.mismatches.map((mis) => ({
     level: level(mis),
@@ -56,12 +100,7 @@ export function classifyDiagnostics(
     if (skipFilter.has(mis.violationKey)) {
       return DiagLevel.Skipped;
     }
-    if (
-      mis.stability === Stability.Stable ||
-      (mis.stability === Stability.Experimental && experimentalErrors)
-    ) {
-      return DiagLevel.Error;
-    }
-    return DiagLevel.Warning;
+
+    return shouldError.has(mis.stability) ? DiagLevel.Error : DiagLevel.Warning;
   }
 }
