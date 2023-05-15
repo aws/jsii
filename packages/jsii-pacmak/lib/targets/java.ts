@@ -1940,9 +1940,7 @@ class JavaGenerator extends Generator {
 
     this.code.line();
     this.code.line('/**');
-    this.code.line(
-      ` * Internal default implementation for {@link ${type.name}}.`,
-    );
+    this.code.line(` * Internal default implementation for \`${type.name}\`.`);
     this.code.line(' */');
     this.code.line(ANN_INTERNAL);
     this.code.openBlock(
@@ -2102,7 +2100,7 @@ class JavaGenerator extends Generator {
     this.code.line(
       ` * ${stabilityPrefixFor(
         cls.initializer,
-      )}A fluent builder for {@link ${builtType}}.`,
+      )}A fluent builder for \`${builtType}\`.`,
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
@@ -2115,7 +2113,7 @@ class JavaGenerator extends Generator {
       const dummyMethod: spec.Method = {
         docs: {
           stability: cls.initializer.docs?.stability ?? cls.docs?.stability,
-          returns: `a new instance of {@link ${BUILDER_CLASS_NAME}}.`,
+          returns: `a new instance of \`${BUILDER_CLASS_NAME}\`.`,
         },
         name: 'create',
         parameters: params.map((param) => param.param),
@@ -2190,7 +2188,7 @@ class JavaGenerator extends Generator {
         docs: {
           ...prop.spec.docs,
           stability: prop.spec.docs?.stability,
-          returns: '{@code this}',
+          returns: '`this`',
         },
         parameters: [
           {
@@ -2225,9 +2223,7 @@ class JavaGenerator extends Generator {
     // Final build method
     this.code.line();
     this.code.line('/**');
-    this.code.line(
-      ` * @returns a newly built instance of {@link ${builtType}}.`,
-    );
+    this.code.line(` * @returns a newly built instance of \`${builtType}\`.`);
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
     this.code.line('@Override');
@@ -2271,9 +2267,9 @@ class JavaGenerator extends Generator {
       this.code.line();
       this.code.line('/**');
       this.code.line(
-        ` * Sets the value of {@link ${parentType.name}#${getterFor(
+        ` * Sets the value of \`${parentType.name}#${getterFor(
           prop.fieldName,
-        )}}`,
+        )}\``,
       );
       const summary = prop.docs?.summary ?? 'the value to be set';
       this.code.line(
@@ -2292,7 +2288,7 @@ class JavaGenerator extends Generator {
           this.code.line(` * ${indent} ${line}`);
         }
       }
-      this.code.line(' * @return {@code this}');
+      this.code.line(' * @return `this`');
       if (prop.docs?.deprecated) {
         this.code.line(` * @deprecated ${prop.docs.deprecated}`);
       }
@@ -2334,7 +2330,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     this.code.line(
-      ` * @return a {@link ${BUILDER_CLASS_NAME}} of {@link ${classSpec.name}}`,
+      ` * @return a \`${BUILDER_CLASS_NAME}\` of \`${classSpec.name}\``,
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
@@ -2345,7 +2341,7 @@ class JavaGenerator extends Generator {
 
     // Start Builder
     this.code.line('/**');
-    this.code.line(` * A builder for {@link ${classSpec.name}}`);
+    this.code.line(` * A builder for \`${classSpec.name}\``);
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
     this.code.openBlock(
@@ -2363,7 +2359,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     this.code.line(' * Builds the configured instance.');
-    this.code.line(` * @return a new instance of {@link ${classSpec.name}}`);
+    this.code.line(` * @return a new instance of \`${classSpec.name}\``);
     this.code.line(
       ' * @throws NullPointerException if any required attribute was not provided',
     );
@@ -2413,7 +2409,7 @@ class JavaGenerator extends Generator {
     // Start implementation class
     this.code.line();
     this.code.line('/**');
-    this.code.line(` * An implementation for {@link ${ifc.name}}`);
+    this.code.line(` * An implementation for \`${ifc.name}\``);
     this.code.line(' */');
     this.emitStabilityAnnotations(ifc);
     this.code.line(ANN_INTERNAL);
@@ -2450,7 +2446,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     this.code.line(
-      ' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.',
+      ' * Constructor that initializes the object based on literal property values passed by the `Builder`.',
     );
     this.code.line(' */');
     if (props.some((prop) => prop.fieldJavaType !== prop.paramJavaType)) {

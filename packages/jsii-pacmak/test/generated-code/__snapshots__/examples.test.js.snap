@@ -791,13 +791,13 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
     @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
-     * @return a {@link Builder} of {@link Baz}
+     * @return a \`Builder\` of \`Baz\`
      */
     static Builder builder() {
         return new Builder();
     }
     /**
-     * A builder for {@link Baz}
+     * A builder for \`Baz\`
      */
     public static final class Builder implements software.amazon.jsii.Builder<Baz> {
         java.lang.Boolean baz;
@@ -805,9 +805,9 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         java.lang.String bar;
 
         /**
-         * Sets the value of {@link Baz#getBaz}
+         * Sets the value of \`Baz#getBaz\`
          * @param baz the value to be set. This parameter is required.
-         * @return {@code this}
+         * @return \`this\`
          */
         public Builder baz(java.lang.Boolean baz) {
             this.baz = baz;
@@ -815,9 +815,9 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         }
 
         /**
-         * Sets the value of {@link Baz#getFoo}
+         * Sets the value of \`Baz#getFoo\`
          * @param foo the value to be set. This parameter is required.
-         * @return {@code this}
+         * @return \`this\`
          */
         public Builder foo(java.lang.Number foo) {
             this.foo = foo;
@@ -825,9 +825,9 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         }
 
         /**
-         * Sets the value of {@link Baz#getBar}
+         * Sets the value of \`Baz#getBar\`
          * @param bar the value to be set.
-         * @return {@code this}
+         * @return \`this\`
          */
         public Builder bar(java.lang.String bar) {
             this.bar = bar;
@@ -836,7 +836,7 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
 
         /**
          * Builds the configured instance.
-         * @return a new instance of {@link Baz}
+         * @return a new instance of \`Baz\`
          * @throws NullPointerException if any required attribute was not provided
          */
         @Override
@@ -846,7 +846,7 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
     }
 
     /**
-     * An implementation for {@link Baz}
+     * An implementation for \`Baz\`
      */
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Baz {
@@ -866,7 +866,7 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         }
 
         /**
-         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         * Constructor that initializes the object based on literal property values passed by the \`Builder\`.
          */
         protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
@@ -969,21 +969,21 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
     @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
-     * @return a {@link Builder} of {@link Foo}
+     * @return a \`Builder\` of \`Foo\`
      */
     static Builder builder() {
         return new Builder();
     }
     /**
-     * A builder for {@link Foo}
+     * A builder for \`Foo\`
      */
     public static final class Builder implements software.amazon.jsii.Builder<Foo> {
         java.lang.Number foo;
 
         /**
-         * Sets the value of {@link Foo#getFoo}
+         * Sets the value of \`Foo#getFoo\`
          * @param foo the value to be set. This parameter is required.
-         * @return {@code this}
+         * @return \`this\`
          */
         public Builder foo(java.lang.Number foo) {
             this.foo = foo;
@@ -992,7 +992,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Builds the configured instance.
-         * @return a new instance of {@link Foo}
+         * @return a new instance of \`Foo\`
          * @throws NullPointerException if any required attribute was not provided
          */
         @Override
@@ -1002,7 +1002,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
-     * An implementation for {@link Foo}
+     * An implementation for \`Foo\`
      */
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
@@ -1018,7 +1018,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         * Constructor that initializes the object based on literal property values passed by the \`Builder\`.
          */
         protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
@@ -1083,22 +1083,22 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
-     * @return a {@link Builder} of {@link FooBar}
+     * @return a \`Builder\` of \`FooBar\`
      */
     static Builder builder() {
         return new Builder();
     }
     /**
-     * A builder for {@link FooBar}
+     * A builder for \`FooBar\`
      */
     public static final class Builder implements software.amazon.jsii.Builder<FooBar> {
         java.lang.Number foo;
         java.lang.String bar;
 
         /**
-         * Sets the value of {@link FooBar#getFoo}
+         * Sets the value of \`FooBar#getFoo\`
          * @param foo the value to be set. This parameter is required.
-         * @return {@code this}
+         * @return \`this\`
          */
         public Builder foo(java.lang.Number foo) {
             this.foo = foo;
@@ -1106,9 +1106,9 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of {@link FooBar#getBar}
+         * Sets the value of \`FooBar#getBar\`
          * @param bar the value to be set.
-         * @return {@code this}
+         * @return \`this\`
          */
         public Builder bar(java.lang.String bar) {
             this.bar = bar;
@@ -1117,7 +1117,7 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Builds the configured instance.
-         * @return a new instance of {@link FooBar}
+         * @return a new instance of \`FooBar\`
          * @throws NullPointerException if any required attribute was not provided
          */
         @Override
@@ -1127,7 +1127,7 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
-     * An implementation for {@link FooBar}
+     * An implementation for \`FooBar\`
      */
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements FooBar {
@@ -1145,7 +1145,7 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         * Constructor that initializes the object based on literal property values passed by the \`Builder\`.
          */
         protected Jsii$Proxy(final Builder builder) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
@@ -2425,21 +2425,21 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
         @org.jetbrains.annotations.NotNull java.lang.String getBar();
 
         /**
-         * @return a {@link Builder} of {@link Foo}
+         * @return a \`Builder\` of \`Foo\`
          */
         static Builder builder() {
             return new Builder();
         }
         /**
-         * A builder for {@link Foo}
+         * A builder for \`Foo\`
          */
         public static final class Builder implements software.amazon.jsii.Builder<Foo> {
             java.lang.String bar;
 
             /**
-             * Sets the value of {@link Foo#getBar}
+             * Sets the value of \`Foo#getBar\`
              * @param bar the value to be set. This parameter is required.
-             * @return {@code this}
+             * @return \`this\`
              */
             public Builder bar(java.lang.String bar) {
                 this.bar = bar;
@@ -2448,7 +2448,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
 
             /**
              * Builds the configured instance.
-             * @return a new instance of {@link Foo}
+             * @return a new instance of \`Foo\`
              * @throws NullPointerException if any required attribute was not provided
              */
             @Override
@@ -2458,7 +2458,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * An implementation for {@link Foo}
+         * An implementation for \`Foo\`
          */
         @software.amazon.jsii.Internal
         final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
@@ -2474,7 +2474,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
             }
 
             /**
-             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             * Constructor that initializes the object based on literal property values passed by the \`Builder\`.
              */
             protected Jsii$Proxy(final Builder builder) {
                 super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
@@ -2550,7 +2550,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * Internal default implementation for {@link IBar}.
+         * Internal default implementation for \`IBar\`.
          */
         @software.amazon.jsii.Internal
         interface Jsii$Default extends IBar {
