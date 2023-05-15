@@ -588,6 +588,11 @@ class JavaGenerator extends Generator {
       return propertyName;
     }
 
+    if (propertyName === '_') {
+      // Slightly different pattern for this one
+      return '__';
+    }
+
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
       return `${propertyName}Value`;
     }
@@ -601,6 +606,11 @@ class JavaGenerator extends Generator {
   private static safeJavaMethodName(methodName: string) {
     if (!methodName) {
       return methodName;
+    }
+
+    if (methodName === '_') {
+      // Different pattern for this one. Also this should never happen, who names a function '_' ??
+      return 'doIt';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {

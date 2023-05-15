@@ -2795,8 +2795,8 @@ public class FunctionWithUnderscoreArgument extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public @org.jetbrains.annotations.NotNull java.lang.String foo(final @org.jetbrains.annotations.NotNull java.lang.String _Value) {
-        return software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
+    public @org.jetbrains.annotations.NotNull java.lang.String foo(final @org.jetbrains.annotations.NotNull java.lang.String __) {
+        return software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 }
 
@@ -25627,25 +25627,25 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number _Value) {
+    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number __) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean _Value) {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
+    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean __) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String _Value) {
-        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_Value, "_Value is required") });
+    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String __) {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 }
 
