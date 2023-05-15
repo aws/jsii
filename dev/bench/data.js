@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1683921482175,
+  "lastUpdate": 1684177507806,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16181,6 +16181,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 503194.1566595724,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52366.89351615001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "30afa095e296d71d3700a2a56a36483a92c5457d",
+          "message": "fix(jsii-pacmak): disable `doclint` (#4103)\n\nOur generated javadocs have some problems (PRs are out to fix them). We need to disable `doclint` otherwise proper error messages and doc failures get lost between the linting errors.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-15T18:14:24Z",
+          "tree_id": "0b3c970c719df881bf122339b8ffba4c2598294f",
+          "url": "https://github.com/aws/jsii/commit/30afa095e296d71d3700a2a56a36483a92c5457d"
+        },
+        "date": 1684177504350,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69100.21207855007,
+            "unit": "milliseconds",
+            "range": 2861361.640419842,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69100.21207855007 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51653.8733162,
+            "unit": "milliseconds",
+            "range": 332641.2920884432,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51653.8733162 milliseconds over 20 runs"
           }
         ]
       }
