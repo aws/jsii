@@ -1019,6 +1019,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┃     ┣━ 📄 DiamondLeft.cs
        ┃        ┃     ┣━ 📄 DiamondRight.cs
        ┃        ┃     ┣━ 📄 EnumFromScopedModule.cs
+       ┃        ┃     ┣━ 📄 FunctionWithUnderscoreArgument.cs
        ┃        ┃     ┣━ 📄 IDiamondLeft.cs
        ┃        ┃     ┣━ 📄 IDiamondRight.cs
        ┃        ┃     ┣━ 📄 IDoublable.cs

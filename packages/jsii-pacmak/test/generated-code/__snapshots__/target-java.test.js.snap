@@ -1440,6 +1440,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 DiamondLeft.java
           ┃                    ┣━ 📄 DiamondRight.java
           ┃                    ┣━ 📄 EnumFromScopedModule.java
+          ┃                    ┣━ 📄 FunctionWithUnderscoreArgument.java
           ┃                    ┣━ 📄 IDoublable.java
           ┃                    ┣━ 📄 IFriendly.java
           ┃                    ┣━ 📄 IThreeLevelsInterface.java
@@ -3685,6 +3686,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 @scope/jsii-calc-lib.DiamondLeft=software.amazon.jsii.tests.calculator.lib.DiamondLeft
 @scope/jsii-calc-lib.DiamondRight=software.amazon.jsii.tests.calculator.lib.DiamondRight
 @scope/jsii-calc-lib.EnumFromScopedModule=software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule
+@scope/jsii-calc-lib.FunctionWithUnderscoreArgument=software.amazon.jsii.tests.calculator.lib.FunctionWithUnderscoreArgument
 @scope/jsii-calc-lib.IDoublable=software.amazon.jsii.tests.calculator.lib.IDoublable
 @scope/jsii-calc-lib.IFriendly=software.amazon.jsii.tests.calculator.lib.IFriendly
 @scope/jsii-calc-lib.IThreeLevelsInterface=software.amazon.jsii.tests.calculator.lib.IThreeLevelsInterface

@@ -979,6 +979,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 DiamondLeft.go
        ┣━ 📄 DiamondRight.go
        ┣━ 📄 EnumFromScopedModule.go
+       ┣━ 📄 FunctionWithUnderscoreArgument.go
        ┣━ 📄 go.mod
        ┣━ 📄 IDoublable.go
        ┣━ 📄 IFriendly.go
@@ -2277,6 +2278,16 @@ func init() {
 			"VALUE2": EnumFromScopedModule_VALUE2,
 		},
 	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+		reflect.TypeOf((*FunctionWithUnderscoreArgument)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_FunctionWithUnderscoreArgument{}
+		},
+	)
 	_jsii_.RegisterInterface(
 		"@scope/jsii-calc-lib.IDoublable",
 		reflect.TypeOf((*IDoublable)(nil)).Elem(),
@@ -2383,6 +2394,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1
        ┃  ┣━ 🆕 Reflector__checks.go
        ┃  ┣━ 🆕 Reflector__no_checks.go
        ┃  ┗━ 📄 Reflector.go.diff
+       ┣━ 🆕 FunctionWithUnderscoreArgument__checks.go
+       ┣━ 🆕 FunctionWithUnderscoreArgument__no_checks.go
+       ┣━ 📄 FunctionWithUnderscoreArgument.go.diff
        ┣━ 🆕 Number__checks.go
        ┣━ 🆕 Number__no_checks.go
        ┗━ 📄 Number.go.diff

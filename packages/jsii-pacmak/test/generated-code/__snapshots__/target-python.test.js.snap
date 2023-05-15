@@ -1583,6 +1583,31 @@ class EnumFromScopedModule(enum.Enum):
     '''
 
 
+class FunctionWithUnderscoreArgument(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+):
+    '''(deprecated) For Java, test that an identifier that is just a _ is handled.
+
+    :stability: deprecated
+    '''
+
+    def __init__(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="foo")
+    def foo(self, _: builtins.str) -> builtins.str:
+        '''
+        :param _: -
+
+        :stability: deprecated
+        '''
+        return typing.cast(builtins.str, jsii.invoke(self, "foo", [_]))
+
+
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
 class IDoublable(typing_extensions.Protocol):
     '''(deprecated) The general contract for a concrete number.
@@ -1980,6 +2005,7 @@ __all__ = [
     "DiamondLeft",
     "DiamondRight",
     "EnumFromScopedModule",
+    "FunctionWithUnderscoreArgument",
     "IDoublable",
     "IFriendly",
     "IThreeLevelsInterface",
@@ -2392,7 +2418,21 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if right is not None:
              self._values["right"] = right
-@@ -317,10 +331,15 @@
+@@ -191,10 +205,13 @@
+         '''
+         :param _: -
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__9f2d965a28491c2347ed53f3f21b6d1e134bd8c506672f5715c44023bddab720)
++            check_type(argname="argument _", value=_, expected_type=type_hints["_"])
+         return typing.cast(builtins.str, jsii.invoke(self, "foo", [_]))
+ 
+ 
+ @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
+ class IDoublable(typing_extensions.Protocol):
+@@ -342,10 +359,15 @@
          :param astring: (deprecated) A string value.
          :param first_optional: 
  
@@ -2408,7 +2448,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              "astring": astring,
          }
          if first_optional is not None:
-@@ -477,10 +496,15 @@
+@@ -502,10 +524,15 @@
          :param optional2: 
          :param optional3: 
  
@@ -2424,7 +2464,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["optional1"] = optional1
          if optional2 is not None:
              self._values["optional2"] = optional2
-@@ -540,10 +564,13 @@
+@@ -565,10 +592,13 @@
  
          :param value: The number.
  
@@ -2438,7 +2478,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -583,5 +610,57 @@
+@@ -609,5 +639,63 @@
  publication.publish()
  
  # Loading modules to ensure their types are registered with the jsii runtime library
@@ -2469,6 +2509,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
 +    *,
 +    hoisted_top: typing.Optional[builtins.str] = None,
 +    right: typing.Optional[builtins.bool] = None,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__9f2d965a28491c2347ed53f3f21b6d1e134bd8c506672f5715c44023bddab720(
++    _: builtins.str,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
