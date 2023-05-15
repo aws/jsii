@@ -1010,6 +1010,20 @@ exports[`showAll 1`] = `
  │   │   │ └── returns: jsii-calc.Implementation
  │   │   └─┬ provideAsInterface() method
  │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ class AnyPropertyAccess
+ │   │ └─┬ members
+ │   │   └─┬ static mutateProperties(obj,propA,propB,resultProp) method
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── type: any
+ │   │     │ ├─┬ propA
+ │   │     │ │ └── type: string
+ │   │     │ ├─┬ propB
+ │   │     │ │ └── type: string
+ │   │     │ └─┬ resultProp
+ │   │     │   └── type: string
+ │   │     └── returns: void
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4054,6 +4068,7 @@ exports[`types 1`] = `
  │   ├── class AllowedMethodNames
  │   ├── class AmbiguousParameters
  │   ├── class AnonymousImplementationProvider
+ │   ├── class AnyPropertyAccess
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BaseClass

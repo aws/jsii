@@ -833,6 +833,20 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: jsii-calc.Implementation
  │   │   └─┬ provideAsInterface() method (stable)
  │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ class AnyPropertyAccess (stable)
+ │   │ └─┬ members
+ │   │   └─┬ static mutateProperties(obj,propA,propB,resultProp) method (stable)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── type: any
+ │   │     │ ├─┬ propA
+ │   │     │ │ └── type: string
+ │   │     │ ├─┬ propB
+ │   │     │ │ └── type: string
+ │   │     │ └─┬ resultProp
+ │   │     │   └── type: string
+ │   │     └── returns: void
  │   ├─┬ class AsyncVirtualMethods (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3856,6 +3870,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class AmbiguousParameters
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └── interfaces: IAnonymousImplementationProvider
+ │   ├── class AnyPropertyAccess
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BaseClass
@@ -4612,6 +4627,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── provideAsClass() method
  │   │   └── provideAsInterface() method
+ │   ├─┬ class AnyPropertyAccess
+ │   │ └─┬ members
+ │   │   └── static mutateProperties(obj,propA,propB,resultProp) method
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -6069,6 +6087,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AllowedMethodNames
  │   ├── class AmbiguousParameters
  │   ├── class AnonymousImplementationProvider
+ │   ├── class AnyPropertyAccess
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BaseClass

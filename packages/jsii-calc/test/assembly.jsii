@@ -1538,6 +1538,72 @@
       "name": "AnonymousImplementationProvider",
       "symbolId": "lib/compliance:AnonymousImplementationProvider"
     },
+    "jsii-calc.AnyPropertyAccess": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.AnyPropertyAccess",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3145
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Sets obj[resultProp] to `${obj[propA]}+${obj[propB]}`."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3154
+          },
+          "name": "mutateProperties",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the receiver object."
+              },
+              "name": "obj",
+              "type": {
+                "primitive": "any"
+              }
+            },
+            {
+              "docs": {
+                "summary": "the first property to read."
+              },
+              "name": "propA",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "docs": {
+                "summary": "the second property to read."
+              },
+              "name": "propB",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "docs": {
+                "summary": "the property to write into."
+              },
+              "name": "resultProp",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "static": true
+        }
+      ],
+      "name": "AnyPropertyAccess",
+      "symbolId": "lib/compliance:AnyPropertyAccess"
+    },
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
       "docs": {
@@ -18843,5 +18909,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "EH7xszNdCh9PCFUZ8Foi7g2CPhdrKeZm8CQaUCNv4GQ="
+  "fingerprint": "kOCIHox3N0mzJsbC3zUF0dELGRsdq5jP57dDIOu3fDE="
 }

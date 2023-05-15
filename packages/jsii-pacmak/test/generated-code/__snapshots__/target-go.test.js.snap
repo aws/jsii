@@ -2527,6 +2527,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 main.go
        ┃  ┗━ 📄 UseOptions.go
        ┣━ 📄 AnonymousImplementationProvider.go
+       ┣━ 📄 AnyPropertyAccess.go
        ┣━ 📄 AsyncVirtualMethods.go
        ┣━ 📄 AugmentableClass.go
        ┣━ 📄 BaseClass.go
@@ -4022,6 +4023,36 @@ func (a *jsiiProxy_AnonymousImplementationProvider) ProvideAsInterface() IAnonym
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/AnyPropertyAccess.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type AnyPropertyAccess interface {
+}
+
+// The jsii proxy struct for AnyPropertyAccess
+type jsiiProxy_AnyPropertyAccess struct {
+	_ byte // padding
+}
+
+// Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.
+func AnyPropertyAccess_MutateProperties(obj interface{}, propA *string, propB *string, resultProp *string) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.AnyPropertyAccess",
+		"mutateProperties",
+		[]interface{}{obj, propA, propB, resultProp},
+	)
 }
 
 
@@ -19331,6 +19362,14 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.AnyPropertyAccess",
+		reflect.TypeOf((*AnyPropertyAccess)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_AnyPropertyAccess{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.AsyncVirtualMethods",
 		reflect.TypeOf((*AsyncVirtualMethods)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -24685,6 +24724,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┃  ┣━ 🆕 UseOptions__checks.go
        ┃  ┣━ 🆕 UseOptions__no_checks.go
        ┃  ┗━ 📄 UseOptions.go.diff
+       ┣━ 🆕 AnyPropertyAccess__checks.go
+       ┣━ 🆕 AnyPropertyAccess__no_checks.go
+       ┣━ 📄 AnyPropertyAccess.go.diff
        ┣━ 🆕 AsyncVirtualMethods__checks.go
        ┣━ 🆕 AsyncVirtualMethods__no_checks.go
        ┣━ 📄 AsyncVirtualMethods.go.diff
@@ -26104,6 +26146,75 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/A
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateNewAmbiguousParametersParameters(scope Bell, props *StructParameterType) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AnyPropertyAccess.go.diff 1`] = `
+--- go/jsiicalc/AnyPropertyAccess.go	--no-runtime-type-checking
++++ go/jsiicalc/AnyPropertyAccess.go	--runtime-type-checking
+@@ -15,10 +15,13 @@
+ 
+ // Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.
+ func AnyPropertyAccess_MutateProperties(obj interface{}, propA *string, propB *string, resultProp *string) {
+ 	_init_.Initialize()
+ 
++	if err := validateAnyPropertyAccess_MutatePropertiesParameters(obj, propA, propB, resultProp); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.AnyPropertyAccess",
+ 		"mutateProperties",
+ 		[]interface{}{obj, propA, propB, resultProp},
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AnyPropertyAccess__checks.go.diff 1`] = `
+--- go/jsiicalc/AnyPropertyAccess__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/AnyPropertyAccess__checks.go	--runtime-type-checking
+@@ -0,0 +1,28 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateAnyPropertyAccess_MutatePropertiesParameters(obj interface{}, propA *string, propB *string, resultProp *string) error {
++	if obj == nil {
++		return fmt.Errorf("parameter obj is required, but nil was provided")
++	}
++
++	if propA == nil {
++		return fmt.Errorf("parameter propA is required, but nil was provided")
++	}
++
++	if propB == nil {
++		return fmt.Errorf("parameter propB is required, but nil was provided")
++	}
++
++	if resultProp == nil {
++		return fmt.Errorf("parameter resultProp is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AnyPropertyAccess__no_checks.go.diff 1`] = `
+--- go/jsiicalc/AnyPropertyAccess__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/AnyPropertyAccess__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateAnyPropertyAccess_MutatePropertiesParameters(obj interface{}, propA *string, propB *string, resultProp *string) error {
 +	return nil
 +}
 +

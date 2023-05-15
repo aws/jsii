@@ -3141,3 +3141,24 @@ export class PromiseNothing {
     return PromiseNothing.promiseIt();
   }
 }
+
+export class AnyPropertyAccess {
+  /**
+   * Sets obj[resultProp] to `${obj[propA]}+${obj[propB]}`.
+   *
+   * @param obj the receiver object.
+   * @param propA the first property to read.
+   * @param propB the second property to read.
+   * @param resultProp the property to write into.
+   */
+  public static mutateProperties(
+    obj: any,
+    propA: string,
+    propB: string,
+    resultProp: string,
+  ) {
+    obj[resultProp] = `${obj[propA]}+${obj[propB]}`;
+  }
+
+  private constructor() {}
+}
