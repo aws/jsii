@@ -2566,6 +2566,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ methodWasCalled property (stable)
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ class WeirdDocs (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ dontReadMe property (stable)
+ │   │     └── type: Optional<string>
  │   ├─┬ class WithPrivatePropertyInConstructor (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(privateField) initializer (stable)
@@ -2687,6 +2692,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface DontUseMe (stable)
+ │   │ └─┬ members
+ │   │   └─┬ dontSetMe property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface DummyObj (stable)
  │   │ └─┬ members
  │   │   └─┬ example property (stable)
@@ -4010,6 +4021,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
+ │   ├── class WeirdDocs
  │   ├── class WithPrivatePropertyInConstructor
  │   ├── interface CalculatorProps
  │   ├─┬ interface ChildStruct982
@@ -4036,6 +4048,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └─┬ interfaces
  │   │   ├── DiamondInheritanceFirstMidLevelStruct
  │   │   └── DiamondInheritanceSecondMidLevelStruct
+ │   ├── interface DontUseMe
  │   ├── interface DummyObj
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
@@ -5361,6 +5374,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── callMe() method
  │   │   ├── overrideMe() method
  │   │   └── methodWasCalled property
+ │   ├─┬ class WeirdDocs
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── dontReadMe property
  │   ├─┬ class WithPrivatePropertyInConstructor
  │   │ └─┬ members
  │   │   ├── <initializer>(privateField) initializer
@@ -5406,6 +5423,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface DiamondInheritanceTopLevelStruct
  │   │ └─┬ members
  │   │   └── topLevelProperty property
+ │   ├─┬ interface DontUseMe
+ │   │ └─┬ members
+ │   │   └── dontSetMe property
  │   ├─┬ interface DummyObj
  │   │ └─┬ members
  │   │   └── example property
@@ -6195,6 +6215,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
+ │   ├── class WeirdDocs
  │   ├── class WithPrivatePropertyInConstructor
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
@@ -6207,6 +6228,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
  │   ├── interface DiamondInheritanceTopLevelStruct
+ │   ├── interface DontUseMe
  │   ├── interface DummyObj
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct

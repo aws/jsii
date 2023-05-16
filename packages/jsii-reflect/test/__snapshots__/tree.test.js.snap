@@ -2743,6 +2743,11 @@ exports[`showAll 1`] = `
  │   │   └─┬ methodWasCalled property
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ class WeirdDocs
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ dontReadMe property
+ │   │     └── type: Optional<string>
  │   ├─┬ class WithPrivatePropertyInConstructor
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(privateField) initializer
@@ -2864,6 +2869,12 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface DontUseMe
+ │   │ └─┬ members
+ │   │   └─┬ dontSetMe property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface DummyObj
  │   │ └─┬ members
  │   │   └─┬ example property
@@ -4180,6 +4191,7 @@ exports[`types 1`] = `
  │   ├── class VariadicTypeUnion
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
+ │   ├── class WeirdDocs
  │   ├── class WithPrivatePropertyInConstructor
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
@@ -4192,6 +4204,7 @@ exports[`types 1`] = `
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
  │   ├── interface DiamondInheritanceTopLevelStruct
+ │   ├── interface DontUseMe
  │   ├── interface DummyObj
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
