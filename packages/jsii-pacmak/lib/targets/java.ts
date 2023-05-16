@@ -1199,6 +1199,8 @@ class JavaGenerator extends Generator {
                           '-J-XX:+TieredCompilation',
                           '-J-XX:TieredStopAtLevel=1',
                         ],
+                        doclint: 'none',
+                        quiet: 'true',
                       },
                     },
                     {
@@ -2237,7 +2239,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     this.code.line(
-      ` * @returns a newly built instance of {@link ${builtType}}.`,
+      ` * @return a newly built instance of {@link ${builtType}}.`,
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);

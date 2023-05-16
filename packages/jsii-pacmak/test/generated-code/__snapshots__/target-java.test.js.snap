@@ -359,6 +359,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -1082,6 +1084,8 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -1794,6 +1798,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -4428,6 +4434,8 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -5381,7 +5389,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -6095,7 +6103,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -6881,7 +6889,7 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.ClassWithContainerTypes}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.ClassWithContainerTypes}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -16864,7 +16872,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.LevelOne}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.LevelOne}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -18464,7 +18472,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -18680,7 +18688,7 @@ public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.ParamShadowsBuiltins}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.ParamShadowsBuiltins}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -22258,7 +22266,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -22540,7 +22548,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -24202,7 +24210,7 @@ public class AcceptsPath extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -27448,7 +27456,7 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -27870,7 +27878,7 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.submodule.MyClass}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.submodule.MyClass}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override

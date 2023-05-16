@@ -196,6 +196,14 @@ export class CodeMaker {
     return caseutils.toSnakeCase(s, sep);
   }
 
+  /**
+   * Gets currently opened file path.
+   * @returns Currently opened file path.
+   */
+  public getCurrentFilePath(): string | undefined {
+    return this.currentFile?.filePath;
+  }
+
   private makeIndent(): string {
     const length = this.currentIndentLength;
     if (length <= 0) {
