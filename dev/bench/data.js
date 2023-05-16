@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684245094870,
+  "lastUpdate": 1684276866499,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16257,6 +16257,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 273469.18525612925,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60674.611251500006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fa921ecfb1dab52144e89cbbeeba0b334779cde9",
+          "message": "feat(go): register exported properties as callbacks (#4104)\n\nWhen passing arbitrary structs through an `interface{}` type, the JS value had no properties or methods, leading to it having an empty object JSON representation.\n\nIn order to improve the situation, discover exported properties of such structs, and register them as property callbacks, more closely matching the behavior of JS in the same configuration.\n\nThe callbacks use the same naming transformation as the standard JSON serialization mechanism in go: using the `json` tag if present with the same semantics as `encoding/json`, and fall back to the raw field name otherwise (with no case conversion applied).\n\nRelated: cdk8s-team/cdk8s#1326\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-16T21:26:56Z",
+          "tree_id": "d3a2b3ce673159df45cc77903df416da21f1623b",
+          "url": "https://github.com/aws/jsii/commit/fa921ecfb1dab52144e89cbbeeba0b334779cde9"
+        },
+        "date": 1684276861851,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 101515.00967744997,
+            "unit": "milliseconds",
+            "range": 3894431.3620200395,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 101515.00967744997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 76122.38052245,
+            "unit": "milliseconds",
+            "range": 317777.18399242865,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76122.38052245 milliseconds over 20 runs"
           }
         ]
       }
