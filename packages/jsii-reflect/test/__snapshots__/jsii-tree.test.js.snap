@@ -3557,6 +3557,14 @@ exports[`jsii-tree --all 1`] = `
      │     │ └─┬ obj
      │     │   └── type: @scope/jsii-calc-base.IBaseInterface
      │     └── returns: void
+     ├─┬ class FunctionWithUnderscoreArgument (deprecated)
+     │ └─┬ members
+     │   ├── <initializer>() initializer (deprecated)
+     │   └─┬ foo(_) method (deprecated)
+     │     ├─┬ parameters
+     │     │ └─┬ _
+     │     │   └── type: string
+     │     └── returns: string
      ├─┬ class Number (deprecated)
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -4174,6 +4182,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
+     ├── class FunctionWithUnderscoreArgument
      ├─┬ class Number
      │ ├── base: NumericValue
      │ └── interfaces: IDoublable
@@ -5809,6 +5818,10 @@ exports[`jsii-tree --members 1`] = `
      │ └─┬ members
      │   ├── <initializer>(very) initializer
      │   └── foo(obj) method
+     ├─┬ class FunctionWithUnderscoreArgument
+     │ └─┬ members
+     │   ├── <initializer>() initializer
+     │   └── foo(_) method
      ├─┬ class Number
      │ └─┬ members
      │   ├── <initializer>(value) initializer
@@ -6330,6 +6343,7 @@ exports[`jsii-tree --types 1`] = `
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
+     ├── class FunctionWithUnderscoreArgument
      ├── class Number
      ├── class NumericValue
      ├── class Operation

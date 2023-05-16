@@ -16,6 +16,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "@scope/jsii-calc-base.Base",
   "@scope/jsii-calc-base.StaticConsumer",
   "@scope/jsii-calc-lib.BaseFor2647",
+  "@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
   "@scope/jsii-calc-lib.Number",
   "@scope/jsii-calc-lib.NumericValue",
   "@scope/jsii-calc-lib.Operation",
