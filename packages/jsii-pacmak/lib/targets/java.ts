@@ -1188,6 +1188,8 @@ class JavaGenerator extends Generator {
                           '-J-XX:+TieredCompilation',
                           '-J-XX:TieredStopAtLevel=1',
                         ],
+                        doclint: 'none',
+                        quiet: 'true',
                       },
                     },
                     {
