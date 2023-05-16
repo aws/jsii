@@ -3720,6 +3720,14 @@ exports[`showAll 1`] = `
      │     │ └─┬ obj
      │     │   └── type: @scope/jsii-calc-base.IBaseInterface
      │     └── returns: void
+     ├─┬ class FunctionWithUnderscoreArgument
+     │ └─┬ members
+     │   ├── <initializer>() initializer
+     │   └─┬ foo(_) method
+     │     ├─┬ parameters
+     │     │ └─┬ _
+     │     │   └── type: string
+     │     └── returns: string
      ├─┬ class Number
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -4296,6 +4304,7 @@ exports[`types 1`] = `
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
+     ├── class FunctionWithUnderscoreArgument
      ├── class Number
      ├── class NumericValue
      ├── class Operation
