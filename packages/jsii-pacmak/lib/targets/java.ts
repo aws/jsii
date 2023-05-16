@@ -2710,7 +2710,7 @@ class JavaGenerator extends Generator {
     const paras = [];
 
     if (docs.summary) {
-      paras.push(myMarkDownToJavaDoc(renderSummary(docs)));
+      paras.push(stripNewLines(myMarkDownToJavaDoc(renderSummary(docs))));
     } else if (defaultText) {
       paras.push(myMarkDownToJavaDoc(defaultText));
     }

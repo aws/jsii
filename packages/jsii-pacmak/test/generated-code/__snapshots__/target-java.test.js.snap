@@ -7971,9 +7971,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * <ol>
- * <li></li>
- * </ol>
+ * <ol><li></li></ol>
  * <p>
  * call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
  * 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
@@ -9700,11 +9698,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * <blockquote>
- * <p>
- * Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.
- * <p>
- * </blockquote>
+ * <blockquote><p>Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.<p></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DontUseMe")
@@ -9713,11 +9707,7 @@ package software.amazon.jsii.tests.calculator;
 public interface DontUseMe extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * <blockquote>
-     * <p>
-     * Don't set this parameter.
-     * <p>
-     * </blockquote>
+     * <blockquote><p>Don't set this parameter.<p></blockquote>
      * <p>
      * A parameter that shouldn't be set, with the annotation in a weird place.
      */
@@ -20350,9 +20340,7 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SingletonStringEnum")
 public enum SingletonStringEnum {
     /**
-     * <ol>
-     * <li></li>
-     * </ol>
+     * <ol><li></li></ol>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     SINGLETON_STRING,
@@ -23939,11 +23927,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * <blockquote>
- * <p>
- * Don't use this class.
- * <p>
- * </blockquote>
+ * <blockquote><p>Don't use this class.<p></blockquote>
  * <p>
  * A class that shouldn't be used, with the annotation in a weird place.
  */
@@ -23969,11 +23953,7 @@ public class WeirdDocs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * <blockquote>
-     * <p>
-     * Don't read this property.
-     * <p>
-     * </blockquote>
+     * <blockquote><p>Don't read this property.<p></blockquote>
      * <p>
      * A property that shouldn't be read, with the annotation in a weird place.
      */
@@ -23983,11 +23963,7 @@ public class WeirdDocs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * <blockquote>
-     * <p>
-     * Don't read this property.
-     * <p>
-     * </blockquote>
+     * <blockquote><p>Don't read this property.<p></blockquote>
      * <p>
      * A property that shouldn't be read, with the annotation in a weird place.
      */
