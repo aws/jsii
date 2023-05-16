@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684177507806,
+  "lastUpdate": 1684245094870,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16219,6 +16219,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 332641.2920884432,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51653.8733162 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "eaaf3ee20ad64ba5d5ed4441aa12f27f024e7c85",
+          "message": "fix(pacmak): _ is not treated as a keyword in Java  (#4094)\n\nSince Java 9, `_` is considered a keyword. Although we are technically\nstill targeting Java 8 with our source, if we want our source to\nbe parseable by more modern tools or are considering raising the\nthreshold at some point, it would be good to have this in place already.\n\nThis might technically be considered breaking in case someone is\nusing `_` as an identifier in a public API, since in newer releases\nit will be renamed. But  given that most jsii library authors will be\ntargeting users that will be running on recent Java versions, and Java 9\nis ~6 years old, the chance of that happening in practice is vanishingly\nsmall.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-16T12:51:07Z",
+          "tree_id": "e7d19d6bc09c62647df49c8957ca69dc7c50f0d7",
+          "url": "https://github.com/aws/jsii/commit/eaaf3ee20ad64ba5d5ed4441aa12f27f024e7c85"
+        },
+        "date": 1684245090075,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 80707.9598837,
+            "unit": "milliseconds",
+            "range": 2620065.429928316,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 80707.9598837 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60674.611251500006,
+            "unit": "milliseconds",
+            "range": 273469.18525612925,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60674.611251500006 milliseconds over 20 runs"
           }
         ]
       }
