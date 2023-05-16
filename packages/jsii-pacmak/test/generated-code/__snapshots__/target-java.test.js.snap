@@ -3748,6 +3748,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 IOptionB.java
           ┃                 ┃  ┗━ 📄 UseOptions.java
           ┃                 ┣━ 📄 AnonymousImplementationProvider.java
+          ┃                 ┣━ 📄 AnyPropertyAccess.java
           ┃                 ┣━ 📄 AsyncVirtualMethods.java
           ┃                 ┣━ 📄 AugmentableClass.java
           ┃                 ┣━ 📄 BaseClass.java
@@ -5444,6 +5445,40 @@ public class AnonymousImplementationProvider extends software.amazon.jsii.JsiiOb
     @Override
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
         return software.amazon.jsii.Kernel.call(this, "provideAsInterface", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/AnyPropertyAccess.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AnyPropertyAccess")
+public class AnyPropertyAccess extends software.amazon.jsii.JsiiObject {
+
+    protected AnyPropertyAccess(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected AnyPropertyAccess(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.
+     * <p>
+     * @param obj the receiver object. This parameter is required.
+     * @param propA the first property to read. This parameter is required.
+     * @param propB the second property to read. This parameter is required.
+     * @param resultProp the property to write into. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void mutateProperties(final @org.jetbrains.annotations.NotNull java.lang.Object obj, final @org.jetbrains.annotations.NotNull java.lang.String propA, final @org.jetbrains.annotations.NotNull java.lang.String propB, final @org.jetbrains.annotations.NotNull java.lang.String resultProp) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.AnyPropertyAccess.class, "mutateProperties", software.amazon.jsii.NativeType.VOID, new Object[] { obj, java.util.Objects.requireNonNull(propA, "propA is required"), java.util.Objects.requireNonNull(propB, "propB is required"), java.util.Objects.requireNonNull(resultProp, "resultProp is required") });
     }
 }
 
@@ -28982,6 +29017,7 @@ jsii-calc.AllTypesEnum=software.amazon.jsii.tests.calculator.AllTypesEnum
 jsii-calc.AllowedMethodNames=software.amazon.jsii.tests.calculator.AllowedMethodNames
 jsii-calc.AmbiguousParameters=software.amazon.jsii.tests.calculator.AmbiguousParameters
 jsii-calc.AnonymousImplementationProvider=software.amazon.jsii.tests.calculator.AnonymousImplementationProvider
+jsii-calc.AnyPropertyAccess=software.amazon.jsii.tests.calculator.AnyPropertyAccess
 jsii-calc.AsyncVirtualMethods=software.amazon.jsii.tests.calculator.AsyncVirtualMethods
 jsii-calc.AugmentableClass=software.amazon.jsii.tests.calculator.AugmentableClass
 jsii-calc.BaseClass=software.amazon.jsii.tests.calculator.BaseClass

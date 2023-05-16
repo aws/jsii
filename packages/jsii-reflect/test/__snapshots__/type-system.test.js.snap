@@ -33,6 +33,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.AllowedMethodNames",
   "jsii-calc.AmbiguousParameters",
   "jsii-calc.AnonymousImplementationProvider",
+  "jsii-calc.AnyPropertyAccess",
   "jsii-calc.AsyncVirtualMethods",
   "jsii-calc.AugmentableClass",
   "jsii-calc.BaseClass",
