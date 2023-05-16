@@ -1111,7 +1111,6 @@ const (
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/FunctionWithUnderscoreArgument.go 1`] = `
-// A simple calcuator library built on JSII.
 package scopejsiicalclib
 
 import (
@@ -2474,7 +2473,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument.go.diff 1`] = `
 --- go/scopejsiicalclib/FunctionWithUnderscoreArgument.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/FunctionWithUnderscoreArgument.go	--runtime-type-checking
-@@ -43,10 +43,13 @@
+@@ -42,10 +42,13 @@
  		f,
  	)
  }
@@ -2493,10 +2492,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go.diff 1`] = `
 --- go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go	--runtime-type-checking
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,16 @@
 +//go:build !no_runtime_type_checking
 +
-+// A simple calcuator library built on JSII.
 +package scopejsiicalclib
 +
 +import (
@@ -2516,10 +2514,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go.diff 1`] = `
 --- go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go	--no-runtime-type-checking
 +++ go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,10 @@
 +//go:build no_runtime_type_checking
 +
-+// A simple calcuator library built on JSII.
 +package scopejsiicalclib
 +
 +// Building without runtime type checking enabled, so all the below just return nil
