@@ -165,6 +165,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.VariadicTypeUnion",
   "jsii-calc.VirtualMethodPlayground",
   "jsii-calc.VoidCallback",
+  "jsii-calc.WeirdDocs",
   "jsii-calc.WithPrivatePropertyInConstructor",
   "jsii-calc.anonymous.UseOptions",
   "jsii-calc.cdk16625.Cdk16625",
