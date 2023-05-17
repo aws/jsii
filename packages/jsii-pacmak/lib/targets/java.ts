@@ -1035,7 +1035,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of markDownToJavaDoc(
+      for (const line of myMarkDownToJavaDoc(
         this.convertSamplesInMarkdown(mod.readme.markdown, {
           api: 'moduleReadme',
           moduleFqn: mod.name,
@@ -1069,7 +1069,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of markDownToJavaDoc(
+      for (const line of myMarkDownToJavaDoc(
         this.convertSamplesInMarkdown(mod.readme.markdown, {
           api: 'moduleReadme',
           moduleFqn,
@@ -2294,7 +2294,7 @@ class JavaGenerator extends Generator {
       );
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
-        const remarks = markDownToJavaDoc(
+        const remarks = myMarkDownToJavaDoc(
           this.convertSamplesInMarkdown(prop.docs.remarks, {
             api: 'member',
             fqn: prop.definingType.fqn,
@@ -2723,14 +2723,14 @@ class JavaGenerator extends Generator {
     const paras = [];
 
     if (docs.summary) {
-      paras.push(renderSummary(docs));
+      paras.push(stripNewLines(myMarkDownToJavaDoc(renderSummary(docs))));
     } else if (defaultText) {
-      paras.push(defaultText);
+      paras.push(myMarkDownToJavaDoc(defaultText));
     }
 
     if (docs.remarks) {
       paras.push(
-        markDownToJavaDoc(
+        myMarkDownToJavaDoc(
           this.convertSamplesInMarkdown(docs.remarks, apiLoc),
         ).trimRight(),
       );
@@ -2757,14 +2757,14 @@ class JavaGenerator extends Generator {
       // Hence, we just resort to HTML-encoding everything (same as we do for code
       // examples that have been translated from MarkDown).
       paras.push(
-        markDownToJavaDoc(['```', convertedExample, '```'].join('\n')),
+        myMarkDownToJavaDoc(['```', convertedExample, '```'].join('\n')),
       );
     }
 
     const tagLines = [];
 
     if (docs.returns) {
-      tagLines.push(`@return ${docs.returns}`);
+      tagLines.push(`@return ${myMarkDownToJavaDoc(docs.returns)}`);
     }
     if (docs.see) {
       tagLines.push(
@@ -2772,7 +2772,7 @@ class JavaGenerator extends Generator {
       );
     }
     if (docs.deprecated) {
-      tagLines.push(`@deprecated ${docs.deprecated}`);
+      tagLines.push(`@deprecated ${myMarkDownToJavaDoc(docs.deprecated)}`);
     }
 
     // Params
@@ -3475,7 +3475,7 @@ function paramJavadoc(
 ): string {
   const parts = ['@param', name];
   if (summary) {
-    parts.push(endWithPeriod(summary));
+    parts.push(stripNewLines(myMarkDownToJavaDoc(endWithPeriod(summary))));
   }
   if (!optional) {
     parts.push('This parameter is required.');
@@ -3652,4 +3652,20 @@ function containsUnionType(
     (spec.isCollectionTypeReference(typeRef) &&
       containsUnionType(typeRef.collection.elementtype))
   );
+}
+
+function myMarkDownToJavaDoc(source: string) {
+  if (source.includes('{@link') || source.includes('{@code')) {
+    // Slightly dirty hack: if we are seeing this, it means the docstring was provided literally
+    // in this file. These strings are safe to not be escaped, and in fact escaping them will
+    // break them: they will turn into `{&#64;`, which breaks the JavaDoc markup.
+    //
+    // Since docstring do not (or at least should not) contain JavaDoc literals, this is safe.
+    return source;
+  }
+  return markDownToJavaDoc(source);
+}
+
+function stripNewLines(x: string) {
+  return x.replace(/\n/g, '');
 }

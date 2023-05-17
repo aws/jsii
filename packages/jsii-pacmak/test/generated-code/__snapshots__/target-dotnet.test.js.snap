@@ -3038,6 +3038,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 DoNotOverridePrivates.cs
        ┃           ┣━ 📄 DoNotRecognizeAnyAsOptional.cs
        ┃           ┣━ 📄 DontComplainAboutVariadicAfterOptional.cs
+       ┃           ┣━ 📄 DontUseMe.cs
        ┃           ┣━ 📄 DoubleTrouble.cs
        ┃           ┣━ 📄 DummyObj.cs
        ┃           ┣━ 📄 DynamicPropertyBearer.cs
@@ -3090,6 +3091,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IDiamondInheritanceFirstMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceSecondMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceTopLevelStruct.cs
+       ┃           ┣━ 📄 IDontUseMe.cs
        ┃           ┣━ 📄 IDummyObj.cs
        ┃           ┣━ 📄 IEraseUndefinedHashValuesOptions.cs
        ┃           ┣━ 📄 IExperimentalInterface.cs
@@ -3360,6 +3362,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 VariadicTypeUnion.cs
        ┃           ┣━ 📄 VirtualMethodPlayground.cs
        ┃           ┣━ 📄 VoidCallback.cs
+       ┃           ┣━ 📄 WeirdDocs.cs
        ┃           ┗━ 📄 WithPrivatePropertyInConstructor.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
@@ -7296,6 +7299,33 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DontUseMe.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>&gt; Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.</summary>
+    [JsiiByValue(fqn: "jsii-calc.DontUseMe")]
+    public class DontUseMe : Amazon.JSII.Tests.CalculatorNamespace.IDontUseMe
+    {
+        /// <summary>&gt; Don't set this parameter.</summary>
+        /// <remarks>
+        /// A parameter that shouldn't be set, with the annotation in a weird place.
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "dontSetMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        public string? DontSetMe
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DoubleTrouble.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -9435,6 +9465,55 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             public string SecondMidLevelProperty
             {
                 get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IDontUseMe.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>&gt; Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.</summary>
+    [JsiiInterface(nativeType: typeof(IDontUseMe), fullyQualifiedName: "jsii-calc.DontUseMe")]
+    public interface IDontUseMe
+    {
+        /// <summary>&gt; Don't set this parameter.</summary>
+        /// <remarks>
+        /// A parameter that shouldn't be set, with the annotation in a weird place.
+        /// </remarks>
+        [JsiiProperty(name: "dontSetMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        string? DontSetMe
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <summary>&gt; Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.</summary>
+        [JsiiTypeProxy(nativeType: typeof(IDontUseMe), fullyQualifiedName: "jsii-calc.DontUseMe")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDontUseMe
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>&gt; Don't set this parameter.</summary>
+            /// <remarks>
+            /// A parameter that shouldn't be set, with the annotation in a weird place.
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "dontSetMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            public string? DontSetMe
+            {
+                get => GetInstanceProperty<string?>();
             }
         }
     }
@@ -21261,6 +21340,60 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
             }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/WeirdDocs.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>&gt; Don't use this class.</summary>
+    /// <remarks>
+    /// A class that shouldn't be used, with the annotation in a weird place.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WeirdDocs), fullyQualifiedName: "jsii-calc.WeirdDocs")]
+    public class WeirdDocs : DeputyBase
+    {
+        public WeirdDocs(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected WeirdDocs(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected WeirdDocs(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>&gt; Don't read this property.</summary>
+        /// <remarks>
+        /// A property that shouldn't be read, with the annotation in a weird place.
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "dontReadMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        public virtual string? DontReadMe
+        {
+            get => GetInstanceProperty<string?>();
+            set => SetInstanceProperty(value);
         }
     }
 }
