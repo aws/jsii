@@ -46,7 +46,7 @@
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "semver": "^7.5.0",
+    "semver": "^7.5.1",
     "spdx-license-list": "^6.6.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
@@ -65,7 +65,7 @@
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "pyright": "^1.1.307"
+    "pyright": "^1.1.309"
   },
   "keywords": [
     "jsii",
