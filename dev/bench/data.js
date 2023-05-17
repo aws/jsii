@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684336820829,
+  "lastUpdate": 1684358044836,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16333,6 +16333,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 67776.50288344035,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49724.87959090001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6a2248dde982d2758976cc1b5d4c3e7676b0f204",
+          "message": "fix(jsii-pacmak): escape documentation in all positions (#4096)\n\nThe [AWS::Personalize::Solution.PerformAutoML](\nhttps://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-personalize-solution.html#cfn-personalize-solution-performautoml) property immediately starts with an admonition, which in our system gets translated to:\n\n```\n/**\n * > Admonition!\n *\n * Normal description of the property\n */\n```\n\nWe weren't expecting complex markup in the 'summary' section of the JavaDocs, so we weren't escaping it, and this was making javadoc sad:\n\n```\n/software/amazon/awscdk/services/personalize/CfnSolution.java:2211: error: bad use of '>'\n  * > We don't recommend enabling automated machine learning.\n```\n\nBe sure to properly do MarkDown -> HTML conversion everywhere.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-17T14:28:24Z",
+          "tree_id": "86a44ab55bbe8b8ec8128cb39b60323913ba6523",
+          "url": "https://github.com/aws/jsii/commit/6a2248dde982d2758976cc1b5d4c3e7676b0f204"
+        },
+        "date": 1684358040941,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69022.58541635002,
+            "unit": "milliseconds",
+            "range": 2886377.245482073,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69022.58541635002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51804.08443935001,
+            "unit": "milliseconds",
+            "range": 260311.04606203228,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51804.08443935001 milliseconds over 20 runs"
           }
         ]
       }
