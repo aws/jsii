@@ -2918,6 +2918,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 IOptionB.cs
        ┃           ┃  ┗━ 📄 UseOptions.cs
        ┃           ┣━ 📄 AnonymousImplementationProvider.cs
+       ┃           ┣━ 📄 AnyPropertyAccess.cs
        ┃           ┣━ 📄 AsyncVirtualMethods.cs
        ┃           ┣━ 📄 AugmentableClass.cs
        ┃           ┣━ 📄 BaseClass.cs
@@ -4177,6 +4178,45 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe ProvideAsInterface()
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AnyPropertyAccess.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AnyPropertyAccess), fullyQualifiedName: "jsii-calc.AnyPropertyAccess")]
+    public class AnyPropertyAccess : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AnyPropertyAccess(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AnyPropertyAccess(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.</summary>
+        /// <param name="obj">the receiver object.</param>
+        /// <param name="propA">the first property to read.</param>
+        /// <param name="propB">the second property to read.</param>
+        /// <param name="resultProp">the property to write into.</param>
+        [JsiiMethod(name: "mutateProperties", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the receiver object.\\"},\\"name\\":\\"obj\\",\\"type\\":{\\"primitive\\":\\"any\\"}},{\\"docs\\":{\\"summary\\":\\"the first property to read.\\"},\\"name\\":\\"propA\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"docs\\":{\\"summary\\":\\"the second property to read.\\"},\\"name\\":\\"propB\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"docs\\":{\\"summary\\":\\"the property to write into.\\"},\\"name\\":\\"resultProp\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public static void MutateProperties(object obj, string propA, string propB, string resultProp)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.AnyPropertyAccess), new System.Type[]{typeof(object), typeof(string), typeof(string), typeof(string)}, new object[]{obj, propA, propB, resultProp});
         }
     }
 }

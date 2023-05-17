@@ -576,6 +576,7 @@ class JavaGenerator extends Generator {
     'void',
     'volatile',
     'while',
+    '_',
   ];
 
   /**
@@ -585,6 +586,11 @@ class JavaGenerator extends Generator {
   private static safeJavaPropertyName(propertyName: string) {
     if (!propertyName) {
       return propertyName;
+    }
+
+    if (propertyName === '_') {
+      // Slightly different pattern for this one
+      return '__';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
@@ -600,6 +606,11 @@ class JavaGenerator extends Generator {
   private static safeJavaMethodName(methodName: string) {
     if (!methodName) {
       return methodName;
+    }
+
+    if (methodName === '_') {
+      // Different pattern for this one. Also this should never happen, who names a function '_' ??
+      return 'doIt';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
@@ -1188,6 +1199,8 @@ class JavaGenerator extends Generator {
                           '-J-XX:+TieredCompilation',
                           '-J-XX:TieredStopAtLevel=1',
                         ],
+                        doclint: 'none',
+                        quiet: 'true',
                       },
                     },
                     {
@@ -2226,7 +2239,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     this.code.line(
-      ` * @returns a newly built instance of {@link ${builtType}}.`,
+      ` * @return a newly built instance of {@link ${builtType}}.`,
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);

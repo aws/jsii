@@ -359,6 +359,8 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -1082,6 +1084,8 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -1793,6 +1797,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -3699,6 +3705,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 IOptionB.java
           ┃                 ┃  ┗━ 📄 UseOptions.java
           ┃                 ┣━ 📄 AnonymousImplementationProvider.java
+          ┃                 ┣━ 📄 AnyPropertyAccess.java
           ┃                 ┣━ 📄 AsyncVirtualMethods.java
           ┃                 ┣━ 📄 AugmentableClass.java
           ┃                 ┣━ 📄 BaseClass.java
@@ -4387,6 +4394,8 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -5340,7 +5349,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -5395,6 +5404,40 @@ public class AnonymousImplementationProvider extends software.amazon.jsii.JsiiOb
     @Override
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
         return software.amazon.jsii.Kernel.call(this, "provideAsInterface", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/AnyPropertyAccess.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AnyPropertyAccess")
+public class AnyPropertyAccess extends software.amazon.jsii.JsiiObject {
+
+    protected AnyPropertyAccess(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected AnyPropertyAccess(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * Sets obj[resultProp] to <code>\${obj[propA]}+\${obj[propB]}</code>.
+     * <p>
+     * @param obj the receiver object. This parameter is required.
+     * @param propA the first property to read. This parameter is required.
+     * @param propB the second property to read. This parameter is required.
+     * @param resultProp the property to write into. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void mutateProperties(final @org.jetbrains.annotations.NotNull java.lang.Object obj, final @org.jetbrains.annotations.NotNull java.lang.String propA, final @org.jetbrains.annotations.NotNull java.lang.String propB, final @org.jetbrains.annotations.NotNull java.lang.String resultProp) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.AnyPropertyAccess.class, "mutateProperties", software.amazon.jsii.NativeType.VOID, new Object[] { obj, java.util.Objects.requireNonNull(propA, "propA is required"), java.util.Objects.requireNonNull(propB, "propB is required"), java.util.Objects.requireNonNull(resultProp, "resultProp is required") });
     }
 }
 
@@ -6054,7 +6097,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -6840,7 +6883,7 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.ClassWithContainerTypes}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.ClassWithContainerTypes}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -16953,7 +16996,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.LevelOne}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.LevelOne}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -18553,7 +18596,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -18769,7 +18812,7 @@ public class ParamShadowsBuiltins extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.ParamShadowsBuiltins}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.ParamShadowsBuiltins}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -22347,7 +22390,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -22629,7 +22672,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -24343,7 +24386,7 @@ public class AcceptsPath extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.cdk22369.AcceptsPath}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -25768,25 +25811,25 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number _) {
+    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number __) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean _) {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
+    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean __) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String _) {
-        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_, "_ is required") });
+    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String __) {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
     }
 }
 
@@ -27589,7 +27632,7 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -28011,7 +28054,7 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
         }
 
         /**
-         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.submodule.MyClass}.
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.submodule.MyClass}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
@@ -29115,6 +29158,7 @@ jsii-calc.AllTypesEnum=software.amazon.jsii.tests.calculator.AllTypesEnum
 jsii-calc.AllowedMethodNames=software.amazon.jsii.tests.calculator.AllowedMethodNames
 jsii-calc.AmbiguousParameters=software.amazon.jsii.tests.calculator.AmbiguousParameters
 jsii-calc.AnonymousImplementationProvider=software.amazon.jsii.tests.calculator.AnonymousImplementationProvider
+jsii-calc.AnyPropertyAccess=software.amazon.jsii.tests.calculator.AnyPropertyAccess
 jsii-calc.AsyncVirtualMethods=software.amazon.jsii.tests.calculator.AsyncVirtualMethods
 jsii-calc.AugmentableClass=software.amazon.jsii.tests.calculator.AugmentableClass
 jsii-calc.BaseClass=software.amazon.jsii.tests.calculator.BaseClass

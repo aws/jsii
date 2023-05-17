@@ -1010,6 +1010,20 @@ exports[`showAll 1`] = `
  │   │   │ └── returns: jsii-calc.Implementation
  │   │   └─┬ provideAsInterface() method
  │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ class AnyPropertyAccess
+ │   │ └─┬ members
+ │   │   └─┬ static mutateProperties(obj,propA,propB,resultProp) method
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── type: any
+ │   │     │ ├─┬ propA
+ │   │     │ │ └── type: string
+ │   │     │ ├─┬ propB
+ │   │     │ │ └── type: string
+ │   │     │ └─┬ resultProp
+ │   │     │   └── type: string
+ │   │     └── returns: void
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3731,6 +3745,14 @@ exports[`showAll 1`] = `
      │     │ └─┬ obj
      │     │   └── type: @scope/jsii-calc-base.IBaseInterface
      │     └── returns: void
+     ├─┬ class FunctionWithUnderscoreArgument
+     │ └─┬ members
+     │   ├── <initializer>() initializer
+     │   └─┬ foo(_) method
+     │     ├─┬ parameters
+     │     │ └─┬ _
+     │     │   └── type: string
+     │     └── returns: string
      ├─┬ class Number
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -4065,6 +4087,7 @@ exports[`types 1`] = `
  │   ├── class AllowedMethodNames
  │   ├── class AmbiguousParameters
  │   ├── class AnonymousImplementationProvider
+ │   ├── class AnyPropertyAccess
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BaseClass
@@ -4309,6 +4332,7 @@ exports[`types 1`] = `
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
+     ├── class FunctionWithUnderscoreArgument
      ├── class Number
      ├── class NumericValue
      ├── class Operation

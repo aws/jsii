@@ -833,6 +833,20 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: jsii-calc.Implementation
  │   │   └─┬ provideAsInterface() method (stable)
  │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ class AnyPropertyAccess (stable)
+ │   │ └─┬ members
+ │   │   └─┬ static mutateProperties(obj,propA,propB,resultProp) method (stable)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── type: any
+ │   │     │ ├─┬ propA
+ │   │     │ │ └── type: string
+ │   │     │ ├─┬ propB
+ │   │     │ │ └── type: string
+ │   │     │ └─┬ resultProp
+ │   │     │   └── type: string
+ │   │     └── returns: void
  │   ├─┬ class AsyncVirtualMethods (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3554,6 +3568,14 @@ exports[`jsii-tree --all 1`] = `
      │     │ └─┬ obj
      │     │   └── type: @scope/jsii-calc-base.IBaseInterface
      │     └── returns: void
+     ├─┬ class FunctionWithUnderscoreArgument (deprecated)
+     │ └─┬ members
+     │   ├── <initializer>() initializer (deprecated)
+     │   └─┬ foo(_) method (deprecated)
+     │     ├─┬ parameters
+     │     │ └─┬ _
+     │     │   └── type: string
+     │     └── returns: string
      ├─┬ class Number (deprecated)
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -3867,6 +3889,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class AmbiguousParameters
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └── interfaces: IAnonymousImplementationProvider
+ │   ├── class AnyPropertyAccess
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BaseClass
@@ -4172,6 +4195,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
+     ├── class FunctionWithUnderscoreArgument
      ├─┬ class Number
      │ ├── base: NumericValue
      │ └── interfaces: IDoublable
@@ -4625,6 +4649,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── provideAsClass() method
  │   │   └── provideAsInterface() method
+ │   ├─┬ class AnyPropertyAccess
+ │   │ └─┬ members
+ │   │   └── static mutateProperties(obj,propA,propB,resultProp) method
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5811,6 +5838,10 @@ exports[`jsii-tree --members 1`] = `
      │ └─┬ members
      │   ├── <initializer>(very) initializer
      │   └── foo(obj) method
+     ├─┬ class FunctionWithUnderscoreArgument
+     │ └─┬ members
+     │   ├── <initializer>() initializer
+     │   └── foo(_) method
      ├─┬ class Number
      │ └─┬ members
      │   ├── <initializer>(value) initializer
@@ -6089,6 +6120,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AllowedMethodNames
  │   ├── class AmbiguousParameters
  │   ├── class AnonymousImplementationProvider
+ │   ├── class AnyPropertyAccess
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BaseClass
@@ -6333,6 +6365,7 @@ exports[`jsii-tree --types 1`] = `
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
+     ├── class FunctionWithUnderscoreArgument
      ├── class Number
      ├── class NumericValue
      ├── class Operation
