@@ -8,13 +8,13 @@
     "fs-extra": "^10.1.0",
     "jsii": "^0.0.0",
     "npm": "^8.19.4",
-    "tar": "^6.1.14",
+    "tar": "^6.1.15",
     "typescript": "~3.9.10",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "glob": "^10.2.3"
+    "glob": "^10.2.4"
   },
   "scripts": {
     "build": "yarn --silent tsc --build && npm run lint",

@@ -3,6 +3,7 @@ package kernel
 import (
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/aws/jsii-runtime-go/internal/api"
 )
@@ -78,9 +79,45 @@ func (g *getCallback) handle(cookie string) (retval reflect.Value, err error) {
 	client := GetClient()
 
 	receiver := reflect.ValueOf(client.GetObject(g.ObjRef))
-	method := receiver.MethodByName(cookie)
 
-	return client.invoke(method, nil)
+	if strings.HasPrefix(cookie, ".") {
+		// Ready to catch an error if the access panics...
+		defer func() {
+			if r := recover(); r != nil {
+				if err == nil {
+					var ok bool
+					if err, ok = r.(error); !ok {
+						err = fmt.Errorf("%v", r)
+					}
+				} else {
+					// This is not expected - so we panic!
+					panic(r)
+				}
+			}
+		}()
+
+		// Need to access the underlying struct...
+		receiver = receiver.Elem()
+		retval = receiver.FieldByName(cookie[1:])
+
+		if retval.IsZero() {
+			// Omit zero-values if a json tag instructs so...
+			field, _ := receiver.Type().FieldByName(cookie[1:])
+			if tag := field.Tag.Get("json"); tag != "" {
+				for _, attr := range strings.Split(tag, ",")[1:] {
+					if attr == "omitempty" {
+						retval = reflect.ValueOf(nil)
+						break
+					}
+				}
+			}
+		}
+
+		return
+	} else {
+		method := receiver.MethodByName(cookie)
+		return client.invoke(method, nil)
+	}
 }
 
 type setCallback struct {
@@ -93,9 +130,70 @@ func (s *setCallback) handle(cookie string) (retval reflect.Value, err error) {
 	client := GetClient()
 
 	receiver := reflect.ValueOf(client.GetObject(s.ObjRef))
-	method := receiver.MethodByName(fmt.Sprintf("Set%v", cookie))
+	if strings.HasPrefix(cookie, ".") {
+		// Ready to catch an error if the access panics...
+		defer func() {
+			if r := recover(); r != nil {
+				if err == nil {
+					var ok bool
+					if err, ok = r.(error); !ok {
+						err = fmt.Errorf("%v", r)
+					}
+				} else {
+					// This is not expected - so we panic!
+					panic(r)
+				}
+			}
+		}()
 
-	return client.invoke(method, []interface{}{s.Value})
+		// Need to access the underlying struct...
+		receiver = receiver.Elem()
+		field := receiver.FieldByName(cookie[1:])
+		meta, _ := receiver.Type().FieldByName(cookie[1:])
+
+		field.Set(convert(reflect.ValueOf(s.Value), meta.Type))
+		// Both retval & err are set to zero values here...
+		return
+	} else {
+		method := receiver.MethodByName(fmt.Sprintf("Set%v", cookie))
+		return client.invoke(method, []interface{}{s.Value})
+	}
+}
+
+func convert(value reflect.Value, typ reflect.Type) reflect.Value {
+retry:
+	vt := value.Type()
+
+	if vt.AssignableTo(typ) {
+		return value
+	}
+	if value.CanConvert(typ) {
+		return value.Convert(typ)
+	}
+
+	if typ.Kind() == reflect.Ptr {
+		switch value.Kind() {
+		case reflect.String:
+			str := value.String()
+			value = reflect.ValueOf(&str)
+		case reflect.Bool:
+			bool := value.Bool()
+			value = reflect.ValueOf(&bool)
+		case reflect.Int:
+			int := value.Int()
+			value = reflect.ValueOf(&int)
+		case reflect.Float64:
+			float := value.Float()
+			value = reflect.ValueOf(&float)
+		default:
+			iface := value.Interface()
+			value = reflect.ValueOf(&iface)
+		}
+		goto retry
+	}
+
+	// Unsure what to do... let default behavior happen...
+	return value
 }
 
 func (c *Client) invoke(method reflect.Value, args []interface{}) (retval reflect.Value, err error) {

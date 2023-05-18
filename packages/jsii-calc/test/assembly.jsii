@@ -1538,6 +1538,72 @@
       "name": "AnonymousImplementationProvider",
       "symbolId": "lib/compliance:AnonymousImplementationProvider"
     },
+    "jsii-calc.AnyPropertyAccess": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.AnyPropertyAccess",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3145
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Sets obj[resultProp] to `${obj[propA]}+${obj[propB]}`."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3154
+          },
+          "name": "mutateProperties",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the receiver object."
+              },
+              "name": "obj",
+              "type": {
+                "primitive": "any"
+              }
+            },
+            {
+              "docs": {
+                "summary": "the first property to read."
+              },
+              "name": "propA",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "docs": {
+                "summary": "the second property to read."
+              },
+              "name": "propB",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "docs": {
+                "summary": "the property to write into."
+              },
+              "name": "resultProp",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "static": true
+        }
+      ],
+      "name": "AnyPropertyAccess",
+      "symbolId": "lib/compliance:AnyPropertyAccess"
+    },
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
       "docs": {
@@ -5065,6 +5131,42 @@
       ],
       "name": "DontComplainAboutVariadicAfterOptional",
       "symbolId": "lib/compliance:DontComplainAboutVariadicAfterOptional"
+    },
+    "jsii-calc.DontUseMe": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable",
+        "summary": "> Don't use this interface An interface that shouldn't be used, with the annotation in a weird place."
+      },
+      "fqn": "jsii-calc.DontUseMe",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/documented.ts",
+        "line": 74
+      },
+      "name": "DontUseMe",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "remarks": "A parameter that shouldn't be set, with the annotation in a weird place.",
+            "stability": "stable",
+            "summary": "> Don't set this parameter."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/documented.ts",
+            "line": 80
+          },
+          "name": "dontSetMe",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/documented:DontUseMe"
     },
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
@@ -15944,6 +16046,45 @@
       ],
       "symbolId": "lib/compliance:VoidCallback"
     },
+    "jsii-calc.WeirdDocs": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "A class that shouldn't be used, with the annotation in a weird place.",
+        "stability": "stable",
+        "summary": "> Don't use this class."
+      },
+      "fqn": "jsii-calc.WeirdDocs",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/documented.ts",
+        "line": 88
+      },
+      "name": "WeirdDocs",
+      "properties": [
+        {
+          "docs": {
+            "remarks": "A property that shouldn't be read, with the annotation in a weird place.",
+            "stability": "stable",
+            "summary": "> Don't read this property."
+          },
+          "locationInModule": {
+            "filename": "lib/documented.ts",
+            "line": 94
+          },
+          "name": "dontReadMe",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/documented:WeirdDocs"
+    },
     "jsii-calc.WithPrivatePropertyInConstructor": {
       "assembly": "jsii-calc",
       "docs": {
@@ -18843,5 +18984,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "EH7xszNdCh9PCFUZ8Foi7g2CPhdrKeZm8CQaUCNv4GQ="
+  "fingerprint": "KCZMc5FKKLI0JLhaAjlqS227RmusMVNRWt2UbgA5iOM="
 }
