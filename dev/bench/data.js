@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684402544698,
+  "lastUpdate": 1684418010302,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16485,6 +16485,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 19198713.808176093,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 84990.8065713 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "39994932701c1be1523b1cbc547d25d98ebffe09",
+          "message": "chore(deps-dev): Update mkdocs-awesome-pages-plugin requirement from ~=2.9.0 to ~=2.9.1 in /gh-pages (#4100)\n\nUpdates the requirements on [mkdocs-awesome-pages-plugin](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/releases\">mkdocs-awesome-pages-plugin's releases</a>.</em></p>\n<blockquote>\n<h2>v2.9.1</h2>\n<h3>Bugfixes</h3>\n<ul>\n<li>Fix <code>order_by: title</code> in combination with custom section titles <a href=\"https://redirect.github.com/lukasgeiter/mkdocs-awesome-pages-plugin/issues/73\">#73</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/1b0566a2f5f0f5746e60229b872dadff75de3d0e\"><code>1b0566a</code></a> Bump version to 2.9.1</li>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/dedcb25fc36c2fe3aa7c06cb88f47afb743fd0d6\"><code>dedcb25</code></a> Fix handling of custom section titles</li>\n<li>See full diff in <a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/compare/v2.9.0...v2.9.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-18T12:56:22Z",
+          "tree_id": "92a95ff7ffada982ef031a9308d0f98fee9b1968",
+          "url": "https://github.com/aws/jsii/commit/39994932701c1be1523b1cbc547d25d98ebffe09"
+        },
+        "date": 1684418005872,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72484.75221484997,
+            "unit": "milliseconds",
+            "range": 29771725.424994744,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72484.75221484997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 57590.47896815,
+            "unit": "milliseconds",
+            "range": 978028.0728298599,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57590.47896815 milliseconds over 20 runs"
           }
         ]
       }
