@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684366126173,
+  "lastUpdate": 1684387016679,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16409,6 +16409,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 133402.44476640446,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61411.134964550016 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d8762c6fcfb8cc49e31bcc9969e794586c3b60f1",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.1.11 to ~=9.1.12 in /gh-pages (#4099)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.1.12</h2>\n<ul>\n<li>Updated Bengali (Bangla) translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5503\">#5503</a>: Docker image publish errors on uppercase characters</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5407\">#5407</a>: Auto-pause media when in hidden content tabs</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.1.12+insiders-4.34.0 (2023-05-14)</p>\n<ul>\n<li>Added support for new overflow mode to auto-fit text in social plugin</li>\n<li>Reduced subtle rendering bugs in (code) annotations due to subpixel rounding</li>\n<li>Improved print styles for (code) annotation lists</li>\n<li>Improved performance of social plugin, now 3x as fast</li>\n<li>Improved interop of typeset plugin with MkDocstrings</li>\n<li>Fixed logo location for variants of default template in social plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5446\">#5446</a>: Built-in typeset plugin picks up headings in code blocks</li>\n</ul>\n<p>mkdocs-material-9.1.12+insiders-4.33.2 (2023-05-12)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5508\">#5508</a>: Social plugin crashes trying to copy cards on Docker/Windows</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5507\">#5507</a>: Social plugin crashes on serve when layouts folder doesn't exist</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5505\">#5505</a>: Social plugin trying to resolve logo in wrong location</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5496\">#5496</a>: Annotations with nested lists incorrectly mounted</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5493\">#5493</a>: Social plugin crashes on Python 3.8</li>\n</ul>\n<p>mkdocs-material-9.1.12 (2023-05-12)</p>\n<ul>\n<li>Updated Bengali (Bangla) translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5503\">#5503</a>: Docker image publish errors on uppercase characters</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5407\">#5407</a>: Auto-pause media when in hidden content tabs</li>\n</ul>\n<p>mkdocs-material-9.1.11+insiders-4.33.1 (2023-05-09)</p>\n<ul>\n<li>Added support for SVG background images in social plugin</li>\n</ul>\n<p>mkdocs-material-9.1.11 (2023-05-08)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5487\">#5487</a>: Social plugin crashes without options (9.1.10 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.10+insiders-4.33.0 (2023-05-08)</p>\n<ul>\n<li>Added support for custom layouts for social plugin</li>\n<li>Added support for background images for social cards</li>\n</ul>\n<p>mkdocs-material-9.1.10 (2023-05-08)</p>\n<ul>\n<li>Added cards_layout_options setting for social cards</li>\n<li>Deprecated cards_color and cards_font setting for social cards</li>\n</ul>\n<p>mkdocs-material-9.1.9 (2023-05-02)</p>\n<ul>\n<li>Added Telugu, Kannada and Sanskrit translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5428\">#5428</a>: Fixed margins for light/dark mode images in figures</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5420\">#5420</a>: Social plugin crashing for some specific Google Fonts</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5160\">#5160</a>: Instant loading makes code annotations jump (9.1.1 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/4920\">#4920</a>: Social plugin not loading logo from custom icon set</li>\n<li>Fixed social plugin crashing when only code font is specified</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/14514a54c27a179d89a18da08128d6eccd684bfe\"><code>14514a5</code></a> Prepare 9.1.12 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/01136b2fb92212a13a432bd41bcc0275d2cb52b2\"><code>01136b2</code></a> Automatically pause media when content tabs are hidden</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3520926284701ffea02ca085ea8093fca686cf81\"><code>3520926</code></a> Updated Bengali (Bangal) translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/463616ed46c1405074dd991fe731fad042c53433\"><code>463616e</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5494\">#5494</a> from Almas-Ali/master</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/736276c3c8bbcff13f21be21c9ca400278e724b5\"><code>736276c</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/68387a11dce2cd87e1a2d7fab5d57c3bf71ba414\"><code>68387a1</code></a> Fixed import source of tags compare function in documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/09ce35d0fa588ecff6a08805a03d4652f4838650\"><code>09ce35d</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5504\">#5504</a> from joshooaj/issue-5503</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ec2b954f6cd7faef2989beae4d32f3714db387a6\"><code>ec2b954</code></a> fix: Handle upper case chars in repo name <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5503\">#5503</a></li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8d2c5b5db4857c63072dd161f420c95c3d0d3435\"><code>8d2c5b5</code></a> Revert &quot;Bumped required Python version to 3.8+&quot;</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/88515d26a1142a9f92f47af70008b1a7d6e9e818\"><code>88515d2</code></a> Bumped required Python version to 3.8+</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.1.11...9.1.12\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-18T04:24:43Z",
+          "tree_id": "398174e2afa9436428ac2fe27af3d193e389343e",
+          "url": "https://github.com/aws/jsii/commit/d8762c6fcfb8cc49e31bcc9969e794586c3b60f1"
+        },
+        "date": 1684387013233,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 66303.34498965002,
+            "unit": "milliseconds",
+            "range": 2307394.2711327923,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 66303.34498965002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 49266.359611449996,
+            "unit": "milliseconds",
+            "range": 35785.65369298524,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 49266.359611449996 milliseconds over 20 runs"
           }
         ]
       }
