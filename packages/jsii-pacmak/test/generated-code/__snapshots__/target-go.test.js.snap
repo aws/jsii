@@ -5079,8 +5079,12 @@ type CalculatorProps struct {
 	// The initial value of the calculator.
 	//
 	// NOTE: Any number works here, it's fine.
+	// Default: 0.
+	//
 	InitialValue *float64 \`field:"optional" json:"initialValue" yaml:"initialValue"\`
 	// The maximum value the calculator can store.
+	// Default: none.
+	//
 	MaximumValue *float64 \`field:"optional" json:"maximumValue" yaml:"maximumValue"\`
 }
 
@@ -8398,6 +8402,8 @@ package jsiicalc
 // These are some arguments you can pass to a method.
 type Greetee struct {
 	// The name of the greetee.
+	// Default: world.
+	//
 	Name *string \`field:"optional" json:"name" yaml:"name"\`
 }
 
@@ -12633,6 +12639,9 @@ type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
 	//
 	// Corresponds to container port mapping.
+	// Default: 80.
+	//
+
 	ContainerPort *float64 \`field:"optional" json:"containerPort" yaml:"containerPort"\`
 	// The number of cpu units used by the task.
 	//
@@ -12644,6 +12653,7 @@ type LoadBalancedFargateServiceProps struct {
 	// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
+	// Default: 256.
 	Cpu *string \`field:"optional" json:"cpu" yaml:"cpu"\`
 	// The amount (in MiB) of memory used by the task.
 	//
@@ -12661,10 +12671,16 @@ type LoadBalancedFargateServiceProps struct {
 	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
+	// Default: 512.
+	//
 	MemoryMiB *string \`field:"optional" json:"memoryMiB" yaml:"memoryMiB"\`
 	// Determines whether the Application Load Balancer will be internet-facing.
+	// Default: true.
+	//
 	PublicLoadBalancer *bool \`field:"optional" json:"publicLoadBalancer" yaml:"publicLoadBalancer"\`
 	// Determines whether your Fargate Service will be assigned a public IP address.
+	// Default: false.
+	//
 	PublicTasks *bool \`field:"optional" json:"publicTasks" yaml:"publicTasks"\`
 }
 
@@ -16230,6 +16246,8 @@ type StructWithEnum struct {
 	// An enum value.
 	Foo StringEnum \`field:"required" json:"foo" yaml:"foo"\`
 	// Optional enum value (of type integer).
+	// Default: AllTypesEnum.YOUR_ENUM_VALUE
+	//
 	Bar AllTypesEnum \`field:"optional" json:"bar" yaml:"bar"\`
 }
 
