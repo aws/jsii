@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684777168623,
+  "lastUpdate": 1684787954186,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16561,6 +16561,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 437771.6868136594,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46216.71342985001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5b8eee6f5f8bfe7950a523f0282d2a5794ae12ad",
+          "message": "chore(deps): Bump github.com/stretchr/testify from 1.8.2 to 1.8.3 in /packages/@jsii/go-runtime-test/project (#4108)\n\nBumps [github.com/stretchr/testify](https://github.com/stretchr/testify) from 1.8.2 to 1.8.3.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/stretchr/testify/commit/4c93d8f201cb46ed50de949ee65804f944b570f8\"><code>4c93d8f</code></a> EqualExportedValues: Handle nested pointer, slice and map fields (<a href=\"https://redirect.github.com/stretchr/testify/issues/1379\">#1379</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/4b2f4d2bcff3848b6a4e63d462da6ce3c21e9c78\"><code>4b2f4d2</code></a> add EventuallyWithT assertion (<a href=\"https://redirect.github.com/stretchr/testify/issues/1264\">#1264</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/b3106d772c7aa439743e1a3f4de81149e323cf70\"><code>b3106d7</code></a> allow testing for functional options (<a href=\"https://redirect.github.com/stretchr/testify/issues/1023\">#1023</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/437071b948cd89bdbaaf43a41f19fbe1a0945f6f\"><code>437071b</code></a> assert: fix error message formatting for NotContains (<a href=\"https://redirect.github.com/stretchr/testify/issues/1362\">#1362</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/c5fc9d6b6b21ea89be8480c0dc35e2977ab988f6\"><code>c5fc9d6</code></a> Compare public elements of struct (<a href=\"https://redirect.github.com/stretchr/testify/issues/1309\">#1309</a>)</li>\n<li>See full diff in <a href=\"https://github.com/stretchr/testify/compare/v1.8.2...v1.8.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/stretchr/testify&package-manager=go_modules&previous-version=1.8.2&new-version=1.8.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-22T19:46:42Z",
+          "tree_id": "0c670e9d73fb0e56a38580341a268943ef15a88a",
+          "url": "https://github.com/aws/jsii/commit/5b8eee6f5f8bfe7950a523f0282d2a5794ae12ad"
+        },
+        "date": 1684787950741,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69392.68733054996,
+            "unit": "milliseconds",
+            "range": 2213868.691092828,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69392.68733054996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51836.06779909999,
+            "unit": "milliseconds",
+            "range": 209674.6192921002,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51836.06779909999 milliseconds over 20 runs"
           }
         ]
       }
