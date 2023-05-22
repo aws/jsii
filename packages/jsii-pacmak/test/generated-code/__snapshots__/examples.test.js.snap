@@ -670,6 +670,8 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -2287,6 +2289,8 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>

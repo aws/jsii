@@ -973,6 +973,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 DiamondLeft.go
        ┣━ 📄 DiamondRight.go
        ┣━ 📄 EnumFromScopedModule.go
+       ┣━ 📄 FunctionWithUnderscoreArgument.go
        ┣━ 📄 go.mod
        ┣━ 📄 IDoublable.go
        ┣━ 📄 IFriendly.go
@@ -1105,6 +1106,68 @@ const (
 	// Deprecated.
 	EnumFromScopedModule_VALUE2 EnumFromScopedModule = "VALUE2"
 )
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/FunctionWithUnderscoreArgument.go 1`] = `
+package scopejsiicalclib
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// For Java, test that an identifier that is just a _ is handled.
+// Deprecated.
+type FunctionWithUnderscoreArgument interface {
+	// Deprecated.
+	Foo(_arg *string) *string
+}
+
+// The jsii proxy struct for FunctionWithUnderscoreArgument
+type jsiiProxy_FunctionWithUnderscoreArgument struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func NewFunctionWithUnderscoreArgument() FunctionWithUnderscoreArgument {
+	_init_.Initialize()
+
+	j := jsiiProxy_FunctionWithUnderscoreArgument{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func NewFunctionWithUnderscoreArgument_Override(f FunctionWithUnderscoreArgument) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+		nil, // no parameters
+		f,
+	)
+}
+
+func (f *jsiiProxy_FunctionWithUnderscoreArgument) Foo(_arg *string) *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		f,
+		"foo",
+		[]interface{}{_arg},
+		&returns,
+	)
+
+	return returns
+}
 
 
 `;
@@ -2197,6 +2260,16 @@ func init() {
 			"VALUE2": EnumFromScopedModule_VALUE2,
 		},
 	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+		reflect.TypeOf((*FunctionWithUnderscoreArgument)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+		},
+		func() interface{} {
+			return &jsiiProxy_FunctionWithUnderscoreArgument{}
+		},
+	)
 	_jsii_.RegisterInterface(
 		"@scope/jsii-calc-lib.IDoublable",
 		reflect.TypeOf((*IDoublable)(nil)).Elem(),
@@ -2303,6 +2376,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1
        ┃  ┣━ 🆕 Reflector__checks.go
        ┃  ┣━ 🆕 Reflector__no_checks.go
        ┃  ┗━ 📄 Reflector.go.diff
+       ┣━ 🆕 FunctionWithUnderscoreArgument__checks.go
+       ┣━ 🆕 FunctionWithUnderscoreArgument__no_checks.go
+       ┣━ 📄 FunctionWithUnderscoreArgument.go.diff
        ┣━ 🆕 Number__checks.go
        ┣━ 🆕 Number__no_checks.go
        ┗━ 📄 Number.go.diff
@@ -2389,6 +2465,63 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 +}
 +
 +func validateNewBaseFor2647Parameters(very scopejsiicalcbaseofbase.Very) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument.go.diff 1`] = `
+--- go/scopejsiicalclib/FunctionWithUnderscoreArgument.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/FunctionWithUnderscoreArgument.go	--runtime-type-checking
+@@ -42,10 +42,13 @@
+ 		f,
+ 	)
+ }
+ 
+ func (f *jsiiProxy_FunctionWithUnderscoreArgument) Foo(_arg *string) *string {
++	if err := f.validateFooParameters(_arg); err != nil {
++		panic(err)
++	}
+ 	var returns *string
+ 
+ 	_jsii_.Invoke(
+ 		f,
+ 		"foo",
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go.diff 1`] = `
+--- go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/FunctionWithUnderscoreArgument__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package scopejsiicalclib
++
++import (
++	"fmt"
++)
++
++func (f *jsiiProxy_FunctionWithUnderscoreArgument) validateFooParameters(_arg *string) error {
++	if _arg == nil {
++		return fmt.Errorf("parameter _arg is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go.diff 1`] = `
+--- go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/FunctionWithUnderscoreArgument__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package scopejsiicalclib
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (f *jsiiProxy_FunctionWithUnderscoreArgument) validateFooParameters(_arg *string) error {
 +	return nil
 +}
 +
@@ -2527,6 +2660,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 main.go
        ┃  ┗━ 📄 UseOptions.go
        ┣━ 📄 AnonymousImplementationProvider.go
+       ┣━ 📄 AnyPropertyAccess.go
        ┣━ 📄 AsyncVirtualMethods.go
        ┣━ 📄 AugmentableClass.go
        ┣━ 📄 BaseClass.go
@@ -2595,6 +2729,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 DoNotOverridePrivates.go
        ┣━ 📄 DoNotRecognizeAnyAsOptional.go
        ┣━ 📄 DontComplainAboutVariadicAfterOptional.go
+       ┣━ 📄 DontUseMe.go
        ┣━ 📄 DoubleTrouble.go
        ┣━ 📄 DummyObj.go
        ┣━ 📄 DynamicPropertyBearer.go
@@ -2907,6 +3042,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 version
        ┣━ 📄 VirtualMethodPlayground.go
        ┣━ 📄 VoidCallback.go
+       ┣━ 📄 WeirdDocs.go
        ┗━ 📄 WithPrivatePropertyInConstructor.go
 `;
 
@@ -4022,6 +4158,36 @@ func (a *jsiiProxy_AnonymousImplementationProvider) ProvideAsInterface() IAnonym
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/AnyPropertyAccess.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type AnyPropertyAccess interface {
+}
+
+// The jsii proxy struct for AnyPropertyAccess
+type jsiiProxy_AnyPropertyAccess struct {
+	_ byte // padding
+}
+
+// Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.
+func AnyPropertyAccess_MutateProperties(obj interface{}, propA *string, propB *string, resultProp *string) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.AnyPropertyAccess",
+		"mutateProperties",
+		[]interface{}{obj, propA, propB, resultProp},
+	)
 }
 
 
@@ -7256,6 +7422,21 @@ func (d *jsiiProxy_DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(o
 	)
 
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/DontUseMe.go 1`] = `
+package jsiicalc
+
+
+// > Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.
+type DontUseMe struct {
+	// > Don't set this parameter.
+	//
+	// A parameter that shouldn't be set, with the annotation in a weird place.
+	DontSetMe *string \`field:"optional" json:"dontSetMe" yaml:"dontSetMe"\`
 }
 
 
@@ -17824,6 +18005,76 @@ func (v *jsiiProxy_VoidCallback) OverrideMe() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/WeirdDocs.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// > Don't use this class.
+//
+// A class that shouldn't be used, with the annotation in a weird place.
+type WeirdDocs interface {
+	// > Don't read this property.
+	//
+	// A property that shouldn't be read, with the annotation in a weird place.
+	DontReadMe() *string
+	SetDontReadMe(val *string)
+}
+
+// The jsii proxy struct for WeirdDocs
+type jsiiProxy_WeirdDocs struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_WeirdDocs) DontReadMe() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"dontReadMe",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewWeirdDocs() WeirdDocs {
+	_init_.Initialize()
+
+	j := jsiiProxy_WeirdDocs{}
+
+	_jsii_.Create(
+		"jsii-calc.WeirdDocs",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewWeirdDocs_Override(w WeirdDocs) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.WeirdDocs",
+		nil, // no parameters
+		w,
+	)
+}
+
+func (j *jsiiProxy_WeirdDocs)SetDontReadMe(val *string) {
+	_jsii_.Set(
+		j,
+		"dontReadMe",
+		val,
+	)
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/WithPrivatePropertyInConstructor.go 1`] = `
 package jsiicalc
 
@@ -19331,6 +19582,14 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.AnyPropertyAccess",
+		reflect.TypeOf((*AnyPropertyAccess)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_AnyPropertyAccess{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.AsyncVirtualMethods",
 		reflect.TypeOf((*AsyncVirtualMethods)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -19777,6 +20036,10 @@ func init() {
 		func() interface{} {
 			return &jsiiProxy_DontComplainAboutVariadicAfterOptional{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.DontUseMe",
+		reflect.TypeOf((*DontUseMe)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.DoubleTrouble",
@@ -21531,6 +21794,16 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_VoidCallback{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.WeirdDocs",
+		reflect.TypeOf((*WeirdDocs)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "dontReadMe", GoGetter: "DontReadMe"},
+		},
+		func() interface{} {
+			return &jsiiProxy_WeirdDocs{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -24685,6 +24958,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┃  ┣━ 🆕 UseOptions__checks.go
        ┃  ┣━ 🆕 UseOptions__no_checks.go
        ┃  ┗━ 📄 UseOptions.go.diff
+       ┣━ 🆕 AnyPropertyAccess__checks.go
+       ┣━ 🆕 AnyPropertyAccess__no_checks.go
+       ┣━ 📄 AnyPropertyAccess.go.diff
        ┣━ 🆕 AsyncVirtualMethods__checks.go
        ┣━ 🆕 AsyncVirtualMethods__no_checks.go
        ┣━ 📄 AsyncVirtualMethods.go.diff
@@ -26104,6 +26380,75 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/A
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateNewAmbiguousParametersParameters(scope Bell, props *StructParameterType) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AnyPropertyAccess.go.diff 1`] = `
+--- go/jsiicalc/AnyPropertyAccess.go	--no-runtime-type-checking
++++ go/jsiicalc/AnyPropertyAccess.go	--runtime-type-checking
+@@ -15,10 +15,13 @@
+ 
+ // Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.
+ func AnyPropertyAccess_MutateProperties(obj interface{}, propA *string, propB *string, resultProp *string) {
+ 	_init_.Initialize()
+ 
++	if err := validateAnyPropertyAccess_MutatePropertiesParameters(obj, propA, propB, resultProp); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.AnyPropertyAccess",
+ 		"mutateProperties",
+ 		[]interface{}{obj, propA, propB, resultProp},
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AnyPropertyAccess__checks.go.diff 1`] = `
+--- go/jsiicalc/AnyPropertyAccess__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/AnyPropertyAccess__checks.go	--runtime-type-checking
+@@ -0,0 +1,28 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateAnyPropertyAccess_MutatePropertiesParameters(obj interface{}, propA *string, propB *string, resultProp *string) error {
++	if obj == nil {
++		return fmt.Errorf("parameter obj is required, but nil was provided")
++	}
++
++	if propA == nil {
++		return fmt.Errorf("parameter propA is required, but nil was provided")
++	}
++
++	if propB == nil {
++		return fmt.Errorf("parameter propB is required, but nil was provided")
++	}
++
++	if resultProp == nil {
++		return fmt.Errorf("parameter resultProp is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AnyPropertyAccess__no_checks.go.diff 1`] = `
+--- go/jsiicalc/AnyPropertyAccess__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/AnyPropertyAccess__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateAnyPropertyAccess_MutatePropertiesParameters(obj interface{}, propA *string, propB *string, resultProp *string) error {
 +	return nil
 +}
 +

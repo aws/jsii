@@ -157,13 +157,13 @@ RUN apt-get update                                                              
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
-# Install JDK8 (Amazon Corretto 8)
+# Install JDK20 (Amazon Corretto 20)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
 RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                                                               \
   && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \
   && apt-get update                                                                                                     \
   && mkdir -p /usr/share/man/man1                                                                                       \
-  && apt-get -y install java-1.8.0-amazon-corretto-jdk                                                                  \
+  && apt-get -y install java-20-amazon-corretto-jdk                                                                     \
   && rm -rf /usr/share/man/man1                                                                                         \
   && rm -rf /var/lib/apt/lists/*
 
@@ -244,9 +244,6 @@ COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.
 COPY --chown=superchain:superchain superchain/ssh_config /home/superchain/.ssh/config
 RUN chmod 600 /home/superchain/.ssh/config
 
-# Add the source used to build this Docker image (to facilitate re-builds, forensics)
-COPY superchain /docker-source
-
 # Create the attributions document
 RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
   && RUSTUP_VERSION=$(rustup --version 2>/dev/null | cut -d' ' -f2)                                                     \
@@ -289,13 +286,13 @@ RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d
   && echo "------------------------------------ PATENTS ------------------------------------" >> /NOTICE                \
   && cat ${GOROOT}/PATENTS >> /NOTICE                                                                                   \
   && echo "################################################################################" >> /NOTICE                 \
-  && echo "java-1.8.0-amazon-corretto-jdk:" >> /NOTICE                                                                  \
+  && echo "java-20-amazon-corretto-jdk:" >> /NOTICE                                                                     \
   && echo "" >> /NOTICE                                                                                                 \
   && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
-  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE >> /NOTICE                                                     \
+  && cat /usr/lib/jvm/java-20-amazon-corretto/LICENSE >> /NOTICE                                                        \
   && echo "" >> /NOTICE                                                                                                 \
   && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
-  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README >> /NOTICE                                          \
+  && cat /usr/lib/jvm/java-20-amazon-corretto/ADDITIONAL_LICENSE_INFO >> /NOTICE                                        \
   && echo "################################################################################" >> /NOTICE                 \
   && echo "maven:" >> /NOTICE                                                                                           \
   && echo "" >> /NOTICE                                                                                                 \
@@ -346,6 +343,10 @@ RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d
   ;fi                                                                                                                   \
   ;done
 
+# Add the source used to build this Docker image (to facilitate re-builds, forensics)
+# Keep this at the end for max caching.
+COPY superchain /docker-source
+
 CMD ["/bin/bash"]
 
 ########################################################################################################################
@@ -356,6 +357,8 @@ FROM scratch as superchain
 ENV LANG="C.UTF-8"                                                                                                      \
   LC_ALL="C.UTF-8"                                                                                                      \
   CHARSET="UTF-8"                                                                                                       \
+  \
+  JAVA_HOME="/usr/lib/jvm/java-20-amazon-corretto"                                                                      \
   \
   DOTNET_CLI_TELEMETRY_OPTOUT="true"                                                                                    \
   DOTNET_RUNNING_IN_CONTAINER="true"                                                                                    \
