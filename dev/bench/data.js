@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684787954186,
+  "lastUpdate": 1684790984121,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16599,6 +16599,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 209674.6192921002,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51836.06779909999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43080478+aws-cdk-automation@users.noreply.github.com",
+            "name": "AWS CDK Automation",
+            "username": "aws-cdk-automation"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2d2ddd782cf6307c7c459a25bc5a06796468c9e3",
+          "message": "chore(release): 1.82.0 (#4114)\n\nSee\r\n[CHANGELOG](https://github.com/aws/jsii/blob/bump/1.82.0/CHANGELOG.md)\r\n\r\n---------\r\n\r\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>\r\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>\r\nCo-authored-by: Rico Hermans <rix0rrr@gmail.com>\r\nCo-authored-by: AWS CDK Team <aws-cdk@amazon.com>",
+          "timestamp": "2023-05-22T16:37:30-04:00",
+          "tree_id": "8198963aa8d1a11e99903bb8533116962638f762",
+          "url": "https://github.com/aws/jsii/commit/2d2ddd782cf6307c7c459a25bc5a06796468c9e3"
+        },
+        "date": 1684790980260,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71818.59423555006,
+            "unit": "milliseconds",
+            "range": 1574862.443373797,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71818.59423555006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51829.669972849995,
+            "unit": "milliseconds",
+            "range": 125725.75709614294,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51829.669972849995 milliseconds over 20 runs"
           }
         ]
       }
