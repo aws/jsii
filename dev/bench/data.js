@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1684794724251,
+  "lastUpdate": 1684811848328,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16675,6 +16675,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 151907.82241996587,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52417.23864950001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "220cfa42049887ca241c0a655c0ba33458fcf295",
+          "message": "chore(deps): Bump github.com/stretchr/testify from 1.8.1 to 1.8.3 in /packages/@jsii/go-runtime/jsii-runtime-go (#4107)\n\nBumps [github.com/stretchr/testify](https://github.com/stretchr/testify) from 1.8.1 to 1.8.3.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/stretchr/testify/commit/4c93d8f201cb46ed50de949ee65804f944b570f8\"><code>4c93d8f</code></a> EqualExportedValues: Handle nested pointer, slice and map fields (<a href=\"https://redirect.github.com/stretchr/testify/issues/1379\">#1379</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/4b2f4d2bcff3848b6a4e63d462da6ce3c21e9c78\"><code>4b2f4d2</code></a> add EventuallyWithT assertion (<a href=\"https://redirect.github.com/stretchr/testify/issues/1264\">#1264</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/b3106d772c7aa439743e1a3f4de81149e323cf70\"><code>b3106d7</code></a> allow testing for functional options (<a href=\"https://redirect.github.com/stretchr/testify/issues/1023\">#1023</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/437071b948cd89bdbaaf43a41f19fbe1a0945f6f\"><code>437071b</code></a> assert: fix error message formatting for NotContains (<a href=\"https://redirect.github.com/stretchr/testify/issues/1362\">#1362</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/c5fc9d6b6b21ea89be8480c0dc35e2977ab988f6\"><code>c5fc9d6</code></a> Compare public elements of struct (<a href=\"https://redirect.github.com/stretchr/testify/issues/1309\">#1309</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/f36bfe3c337aa95c86f04c721acdbafb5ffb1611\"><code>f36bfe3</code></a> Fix Subset/NotSubset when map is missing keys from the subset (<a href=\"https://redirect.github.com/stretchr/testify/issues/1261\">#1261</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/0ab3ce1249292a7221058b9e370472bca8f04813\"><code>0ab3ce1</code></a> Fix <code>CallerInfo()</code> source file paths (<a href=\"https://redirect.github.com/stretchr/testify/issues/1288\">#1288</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/2b00d33aec28e4fded71d57517ed4ec9d54cb4e2\"><code>2b00d33</code></a> Fix Call.Unset() panic (issue <a href=\"https://redirect.github.com/stretchr/testify/issues/1236\">#1236</a>) (<a href=\"https://redirect.github.com/stretchr/testify/issues/1250\">#1250</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/9acc22213e5fbec050904b9886c6df042188cad5\"><code>9acc222</code></a> fix: fix bug for check unsafe.Pointer isNil (<a href=\"https://redirect.github.com/stretchr/testify/issues/1319\">#1319</a>)</li>\n<li><a href=\"https://github.com/stretchr/testify/commit/1333b5d3bda8cf5aedcf3e1aaa95cac28aaab892\"><code>1333b5d</code></a> Add sub-tests to Suite (<a href=\"https://redirect.github.com/stretchr/testify/issues/1246\">#1246</a>)</li>\n<li>See full diff in <a href=\"https://github.com/stretchr/testify/compare/v1.8.1...v1.8.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/stretchr/testify&package-manager=go_modules&previous-version=1.8.1&new-version=1.8.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-23T02:26:50Z",
+          "tree_id": "5432e68fd168ed878e2e20b91ca2d032054f080b",
+          "url": "https://github.com/aws/jsii/commit/220cfa42049887ca241c0a655c0ba33458fcf295"
+        },
+        "date": 1684811844989,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 67975.00364949994,
+            "unit": "milliseconds",
+            "range": 2727960.7424705527,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 67975.00364949994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50192.002534750005,
+            "unit": "milliseconds",
+            "range": 70661.3756041434,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50192.002534750005 milliseconds over 20 runs"
           }
         ]
       }
