@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.82.0](https://github.com/aws/jsii/compare/v1.81.0...v1.82.0) (2023-05-22)
+
+
+### Features
+
+* **go:** register exported properties as callbacks ([#4104](https://github.com/aws/jsii/issues/4104)) ([fa921ec](https://github.com/aws/jsii/commit/fa921ecfb1dab52144e89cbbeeba0b334779cde9)), closes [cdk8s-team/cdk8s#1326](https://github.com/cdk8s-team/cdk8s/issues/1326)
+* **superchain:** switch to JDK 20 ([#4082](https://github.com/aws/jsii/issues/4082)) ([f0a1dfc](https://github.com/aws/jsii/commit/f0a1dfce8edb06a1b71758b49886580e6ee271ff))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** disable `doclint` ([#4103](https://github.com/aws/jsii/issues/4103)) ([30afa09](https://github.com/aws/jsii/commit/30afa095e296d71d3700a2a56a36483a92c5457d))
+* **jsii-pacmak:** emit correct `[@return](https://github.com/return)` tag for JavaDocs ([#4095](https://github.com/aws/jsii/issues/4095)) ([fc7ab7c](https://github.com/aws/jsii/commit/fc7ab7c57f4a94949794cc963bbf644ad491d246))
+* **jsii-pacmak:** escape documentation in all positions ([#4096](https://github.com/aws/jsii/issues/4096)) ([6a2248d](https://github.com/aws/jsii/commit/6a2248dde982d2758976cc1b5d4c3e7676b0f204))
+* **pacmak:** _ is not treated as a keyword in Java  ([#4094](https://github.com/aws/jsii/issues/4094)) ([eaaf3ee](https://github.com/aws/jsii/commit/eaaf3ee20ad64ba5d5ed4441aa12f27f024e7c85))
+
+## [1.81.0](https://github.com/aws/jsii/compare/v1.80.0...v1.81.0) (2023-05-10)
+
+
+### Features
+
+* **jsii-diff:** allow external stability to be treated as error ([#4076](https://github.com/aws/jsii/issues/4076)) ([95689ea](https://github.com/aws/jsii/commit/95689ea840a99f38f8449aab2bc452cf489e3e3f))
+* **jsii-pacmak:** parsing arguments in non-strict mode ([#4068](https://github.com/aws/jsii/issues/4068)) ([3d49d6f](https://github.com/aws/jsii/commit/3d49d6fd2dc64db45aa3f1164bb976c8cfe75175)), closes [#3465](https://github.com/aws/jsii/issues/3465)
+
+
+### Bug Fixes
+
+* **pacmak:** go docs overview displays repeating description ([#4081](https://github.com/aws/jsii/issues/4081)) ([4fd596a](https://github.com/aws/jsii/commit/4fd596a467cdb422ebea3fdf01d068bc360b3757)), closes [/github.com/aws/jsii/pull/3698/files#diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263](https://github.com/aws//github.com/aws/jsii/pull/3698/files/issues/diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263) [/github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json#L4](https://github.com/aws//github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json/issues/L4) [/github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts#L46-L52](https://github.com/aws//github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts/issues/L46-L52)
+* **rosetta:** flakey trim-cache test ([#4043](https://github.com/aws/jsii/issues/4043)) ([f70c0f7](https://github.com/aws/jsii/commit/f70c0f77069c8beb30010395cfd5817ac013feba))
+
 ## [1.80.0](https://github.com/aws/jsii/compare/v1.79.0...v1.80.0) (2023-04-04)
 
 

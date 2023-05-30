@@ -127,6 +127,15 @@ export class BaseFor2647 {
   }
 }
 
+/**
+ * For Java, test that an identifier that is just a _ is handled
+ */
+export class FunctionWithUnderscoreArgument {
+  public foo(_: string) {
+    return _;
+  }
+}
+
 export * as submodule from './submodule';
 export * from './duplicate-inherited-prop';
 export * as deprecationRemoval from './deprecation-removal';

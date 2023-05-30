@@ -95,14 +95,14 @@
     "@scope/jsii-calc-lib.deprecationRemoval": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 132
+        "line": 141
       },
       "symbolId": "lib/deprecation-removal:"
     },
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 130
+        "line": 139
       },
       "readme": {
         "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
@@ -332,6 +332,51 @@
       ],
       "name": "EnumFromScopedModule",
       "symbolId": "lib/index:EnumFromScopedModule"
+    },
+    "@scope/jsii-calc-lib.FunctionWithUnderscoreArgument": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated",
+        "summary": "For Java, test that an identifier that is just a _ is handled."
+      },
+      "fqn": "@scope/jsii-calc-lib.FunctionWithUnderscoreArgument",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 133
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 134
+          },
+          "name": "foo",
+          "parameters": [
+            {
+              "name": "_",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "FunctionWithUnderscoreArgument",
+      "symbolId": "lib/index:FunctionWithUnderscoreArgument"
     },
     "@scope/jsii-calc-lib.IDoublable": {
       "assembly": "@scope/jsii-calc-lib",
@@ -1022,5 +1067,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XDMAZYhhgc09X8VS8hpn3ch21YxKDn+HB0w82IofsRM="
+  "fingerprint": "yrpQ+/ynmcWEtNZgCAeq2yp4JpEpln2V/fRhUc5uVUs="
 }

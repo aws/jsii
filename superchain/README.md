@@ -10,7 +10,7 @@ required in order to package [jsii] projects in all supported languages.
 
 SDK             | Version
 ----------------|-------------------------------------------
-`OpenJDK 8`     | Amazon Corretto `>= 8.242.08.1`
+`OpenJDK 20`    | Amazon Corretto `>= 20.0.0`
 `.NET SDK`      | `>= 6.0.14`
 `mono`          | `>= 6.8.0.105`
 `Javascript`    | see [NodeJS and NPM](#nodejs-and-npm)
@@ -48,6 +48,21 @@ The previous image tags have been discontinued:
 - `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
 - `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
 
+## Building
+
+This docker image must be built from the package root with the Dockerfile set to
+`superchain/Dockerfile`:
+
+```
+jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local
+```
+
+In case the tests fail, skip the tests and inspect the image manually:
+
+```
+jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local --target=superchain
+```
+
 ## NodeJS and NPM
 
 We build multiple versions of this image, for different versions of Node. They are available as:
@@ -60,7 +75,7 @@ If you are building this image from source, you can control the Node version wit
 `NODE_MAJOR_VERSION` build argument:
 
 ```
-docker build [...] --build-arg NODE_MAJOR_VERSION=14 .
+jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
 ```
 
 ## Included Tools & Utilities

@@ -382,7 +382,6 @@ namespace Example.Test.Demo.Internal.DependencyResolution
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Baz.go 1`] = `
-// testpkg
 package testpkg
 
 
@@ -396,7 +395,6 @@ type Baz struct {
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer.go 1`] = `
-// testpkg
 package testpkg
 
 import (
@@ -431,7 +429,6 @@ func Consumer_ConsumeBaz(baz *Baz) {
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer__checks.go 1`] = `
 //go:build !no_runtime_type_checking
 
-// testpkg
 package testpkg
 
 import (
@@ -457,7 +454,6 @@ func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer__no_checks.go 1`] = `
 //go:build no_runtime_type_checking
 
-// testpkg
 package testpkg
 
 // Building without runtime type checking enabled, so all the below just return nil
@@ -470,7 +466,6 @@ func validateConsumer_ConsumeBazParameters(baz *Baz) error {
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Foo.go 1`] = `
-// testpkg
 package testpkg
 
 
@@ -482,7 +477,6 @@ type Foo struct {
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/FooBar.go 1`] = `
-// testpkg
 package testpkg
 
 
@@ -531,6 +525,7 @@ func Initialize() {
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/main.go 1`] = `
+// testpkg
 package testpkg
 
 import (
@@ -675,6 +670,8 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
@@ -1856,7 +1853,6 @@ namespace Example.Test.Demo
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/Namespace1.go 1`] = `
-// testpkg
 package testpkg
 
 import (
@@ -1909,7 +1905,6 @@ func (n *jsiiProxy_Namespace1) Foo() {
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/Namespace1_Foo.go 1`] = `
-// testpkg
 package testpkg
 
 
@@ -1921,7 +1916,6 @@ type Namespace1_Foo struct {
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/Namespace1_IBar.go 1`] = `
-// testpkg
 package testpkg
 
 import (
@@ -1960,7 +1954,6 @@ func (j *jsiiProxy_Namespace1_IBar) Bar() *string {
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/Namespace2.go 1`] = `
-// testpkg
 package testpkg
 
 import (
@@ -2013,7 +2006,6 @@ func (n *jsiiProxy_Namespace2) Foo() {
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/Namespace2_Foo.go 1`] = `
-// testpkg
 package testpkg
 
 
@@ -2028,7 +2020,6 @@ const (
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/Namespace2_Foo_Final.go 1`] = `
-// testpkg
 package testpkg
 
 import (
@@ -2120,6 +2111,7 @@ func Initialize() {
 `;
 
 exports[`nested-types.ts: <outDir>/go/testpkg/main.go 1`] = `
+// testpkg
 package testpkg
 
 import (
@@ -2297,6 +2289,8 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
