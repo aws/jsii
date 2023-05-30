@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685450537558,
+  "lastUpdate": 1685469035678,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16827,6 +16827,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 233510.65010610834,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52411.358126700005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pahudnet@gmail.com",
+            "name": "Pahud Hsieh",
+            "username": "pahud"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0ebe1a9181d5a02b8db6ffb7613f9d8c584a25d1",
+          "message": "chore(Dockerfile): use AWS CLI v2 (#4079)\n\nThis PR uses AWS CLI v2 as default.\n\nCloses: #4078 \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-05-30T16:53:06Z",
+          "tree_id": "e870f18d431aa374e9d53ea35a8ce7fc6c442e48",
+          "url": "https://github.com/aws/jsii/commit/0ebe1a9181d5a02b8db6ffb7613f9d8c584a25d1"
+        },
+        "date": 1685469031236,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 77944.48697809997,
+            "unit": "milliseconds",
+            "range": 1582096.9390722201,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 77944.48697809997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 57288.78033435001,
+            "unit": "milliseconds",
+            "range": 103938.26079797812,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57288.78033435001 milliseconds over 20 runs"
           }
         ]
       }
