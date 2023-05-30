@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685469035678,
+  "lastUpdate": 1685475690935,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -16865,6 +16865,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 103938.26079797812,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 57288.78033435001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7ad13943920a6f1981de85150e1c4843e82cdd7e",
+          "message": "chore(deps): Bump github.com/stretchr/testify from 1.8.3 to 1.8.4 in /packages/@jsii/go-runtime-test/project (#4121)\n\nBumps [github.com/stretchr/testify](https://github.com/stretchr/testify) from 1.8.3 to 1.8.4.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/stretchr/testify/commit/f97607b89807936ac4ff96748d766cf4b9711f78\"><code>f97607b</code></a> Create GitHub release when new release tag is pushed (<a href=\"https://redirect.github.com/stretchr/testify/issues/1354\">#1354</a>)</li>\n<li>See full diff in <a href=\"https://github.com/stretchr/testify/compare/v1.8.3...v1.8.4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/stretchr/testify&package-manager=go_modules&previous-version=1.8.3&new-version=1.8.4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-05-30T18:54:03Z",
+          "tree_id": "fce016f07b43d00b97aa17054e49a5eb34ec0a36",
+          "url": "https://github.com/aws/jsii/commit/7ad13943920a6f1981de85150e1c4843e82cdd7e"
+        },
+        "date": 1685475687218,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62054.82860119997,
+            "unit": "milliseconds",
+            "range": 3533068.5620403634,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62054.82860119997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47318.92360515003,
+            "unit": "milliseconds",
+            "range": 82488.32729056198,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47318.92360515003 milliseconds over 20 runs"
           }
         ]
       }
