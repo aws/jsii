@@ -33,10 +33,10 @@ jobs:
         run: |-
           if [ "${{ github.event_name }}" = "push" ]; then
             echo '⏯ Triggered by "push" event'
-            echo "::set-output name=result::true"
+            echo "result=true" >> $GITHUB_OUTPUT
           elif [ "${{ github.base_ref }}" = "release" ]; then
             echo '⏯ Triggered by "pull_request" event against "release"'
-            echo "::set-output name=result::true"
+            echo "result=true" >> $GITHUB_OUTPUT
           else
             # Fetch the base and head refs from origin so we can safely diff 'em
             git fetch --depth=1 --quiet origin ${{ github.base_ref }}
@@ -44,14 +44,14 @@ jobs:
             changed=$(git diff --name-only origin/${{ github.base_ref }}..HEAD)
             if grep Dockerfile <<< "${changed}" ; then
               echo '⏯ Dockerfile changed'
-              echo "::set-output name=result::true"
+              echo "result=true" >> $GITHUB_OUTPUT
             else
               if grep '.github/workflows/docker-images.yml' <<< "${changed}" ; then
                 echo '⏯ docker-images workflow changed'
-                echo "::set-output name=result::true"
+                echo "result=true" >> $GITHUB_OUTPUT
               else
                 echo '⏭ Dockerfile not changed'
-                echo "::set-output name=result::false"
+                echo "result=false" >> $GITHUB_OUTPUT
               fi
             fi
           fi
@@ -65,10 +65,10 @@ jobs:
         run: |-
           if [[ "${{ secrets.AWS_ROLE_TO_ASSUME }}" != "" ]]; then
             echo "🔑 Federation into AWS is possible (AWS_ROLE_TO_ASSUME is available)"
-            echo "::set-output name=enabled::true"
+            echo "enabled=true" >> $GITHUB_OUTPUT
           else
             echo "❌ Federation into AWS is disabled (no AWS_ROLE_TO_ASSUME secret found)"
-            echo "::set-output name=enabled::false"
+            echo "enabled=false" >> $GITHUB_OUTPUT
           fi
 
       # Federate into the PR Validation AWS Account
@@ -136,7 +136,7 @@ jobs:
         id: build-time
         if: steps.should-run.outputs.result == 'true'
         run: |-
-          echo "::set-output name=value::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          echo "value=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
       - name: Build Image
         if: steps.should-run.outputs.result == 'true'
