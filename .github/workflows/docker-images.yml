@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['14', '16', '18']
+        node: ['14', '16', '18', '20']
     env:
       # Node version whose images will be aliased without the -nodeXX segment
-      DEFAULT_NODE_MAJOR_VERSION: 14
+      DEFAULT_NODE_MAJOR_VERSION: 16
     steps:
       - name: Check out
         uses: actions/checkout@v3

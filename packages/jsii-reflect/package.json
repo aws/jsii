@@ -17,7 +17,7 @@
     "directory": "packages/jsii-reflect"
   },
   "engines": {
-    "node": ">= 14.6.0"
+    "node": ">= 14.17.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
