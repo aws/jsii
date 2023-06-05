@@ -114,17 +114,6 @@ jobs:
             [worker.oci]
               max-parallelism = 1
 
-      # We only restore GH cache if we are not going to publish the result (i.e: PR validation)
-      - name: Set up layer cache
-        if: steps.should-run.outputs.result == 'true' && github.event_name != 'push'
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-${{ github.sha }}
-          restore-keys: |-
-            ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-
-            ${{ runner.os }}-buildx-
-
       # 1 pull per second from ECR Public
       - name: Jitter the start time to avoid ECR Public throttling
         id: sleep-start
@@ -145,8 +134,6 @@ jobs:
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
-            --cache-from type=local,src=/tmp/.buildx-cache                      \
-            --cache-to type=local,dest=/tmp/.buildx-cache-out                   \
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
@@ -161,8 +148,6 @@ jobs:
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
-            --cache-from type=local,src=/tmp/.buildx-cache                      \
-            --cache-to type=local,dest=/tmp/.buildx-cache                       \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
@@ -194,8 +179,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                                                \
               --platform linux/amd64,linux/arm64                                                                        \
               --target superchain                                                                                       \
-              --cache-from type=local,src=/tmp/.buildx-cache                                                            \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                                             \
               --push                                                                                                    \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
               --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
@@ -211,8 +194,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                                                \
               --platform linux/amd64,linux/arm64                                                                        \
               --target superchain                                                                                       \
-              --cache-from type=local,src=/tmp/.buildx-cache                                                            \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                                             \
               --push                                                                                                    \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
               --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
@@ -233,8 +214,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                            \
               --platform linux/amd64,linux/arm64                                                    \
               --target superchain                                                                   \
-              --cache-from type=local,src=/tmp/.buildx-cache                                        \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                         \
               --push                                                                                \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
               --build-arg COMMIT_ID='${{ github.sha }}'                                             \
@@ -250,8 +229,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                            \
               --platform linux/amd64,linux/arm64                                                    \
               --target superchain                                                                   \
-              --cache-from type=local,src=/tmp/.buildx-cache                                        \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                         \
               --push                                                                                \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
               --build-arg COMMIT_ID='${{ github.sha }}'                                             \
@@ -261,10 +238,3 @@ jobs:
               -f superchain/Dockerfile                                                              \
               .
           fi
-
-      # Replace the cache so it does not grow forever (should always be last!)
-      - name: Update layer cache
-        if: always() && steps.should-run.outputs.result == 'true'
-        run: |-
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-out /tmp/.buildx-cache
