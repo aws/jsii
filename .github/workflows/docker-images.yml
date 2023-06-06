@@ -18,6 +18,7 @@ jobs:
       id-token: write # Necessary for OIDC federation
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node: ['14', '16', '18', '20']
     env:
