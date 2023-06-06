@@ -457,6 +457,8 @@ jobs:
                                 ${{ runner.temp }}/release-package/js/*.tgz     \
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
         run: |-
           ./node_modules/.bin/jsii-pacmak ./node_modules/aws-cdk-lib
       # Upload artifact (we'll tar it up to save time)
