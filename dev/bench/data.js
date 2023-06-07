@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686137771192,
+  "lastUpdate": 1686146363837,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17093,6 +17093,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 84279.08259606824,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46977.47674015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "db3f3bc86d07c92807cc4262d1c5e2c5548ec610",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.6.0 to 17.6.1 in /packages/@jsii/dotnet-runtime-test/test (#4129)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.6.0 to 17.6.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.6.1</h2>\n<h3>Issues Fixed</h3>\n<p>This is a tiny patch to fixup few latest issues,</p>\n<ul>\n<li>\n<p>Fix no-suitable provider found by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4474\">microsoft/vstest#4474</a> which fixes <a href=\"https://redirect.github.com/microsoft/vstest/issues/4467\">#4467</a></p>\n<p>When .NET Portable or .NET Standard dlls are provided to the run, the run crashes with &quot;No suitable test runtime provider was found&quot;, which is a regression introduced in 17.6.0.\n<img src=\"https://user-images.githubusercontent.com/11354648/239257444-4199e185-4884-43c8-9f23-4f8181572191.png\" alt=\"\" /></p>\n</li>\n<li>\n<p>Fix hangdump running into crashdump by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4480\">microsoft/vstest#4480</a> which fixes <a href=\"https://redirect.github.com/microsoft/vstest/issues/4378\">#4378</a></p>\n<p>Running --blame-hang and --blame-crash at the same time, can result in --blame-hang cancelling --blame-crash, and killing the testhost in the process, resulting in no dumps being created. This fix waits for --blame-crash to finish dumping the process, and then it creates hang dump.</p>\n</li>\n<li>\n<p>Update Nuget.Frameworks by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4500\">microsoft/vstest#4500</a> which fixes <a href=\"https://redirect.github.com/microsoft/vstest/issues/4409\">#4409</a></p>\n</li>\n</ul>\n<h3>Internal updates:</h3>\n<ul>\n<li>Update dependencies from devdiv/DevDiv/vs-code-coverage by <a href=\"https://github.com/dotnet-maestro\"><code>@​dotnet-maestro</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4479\">microsoft/vstest#4479</a></li>\n<li>Disable internal build on new pipeline by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4476\">microsoft/vstest#4476</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/microsoft/vstest/compare/v17.6.0...v17.6.1\">https://github.com/microsoft/vstest/compare/v17.6.0...v17.6.1</a></p>\n<h3>Artifacts</h3>\n<ul>\n<li>TestPlatform vsix: <a href=\"https://vsdrop.corp.microsoft.com/file/v1/Products/DevDiv/microsoft/vstest/17.6/v17.6.1;/TestPlatform.vsix\">17.6.1</a></li>\n<li>Microsoft.TestPlatform.ObjectModel : <a href=\"https://www.nuget.org/packages/Microsoft.TestPlatform.ObjectModel/17.6.1\">17.6.1</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/blob/main/docs/releases.md\">Microsoft.NET.Test.Sdk's changelog</a>.</em></p>\n<blockquote>\n<h2>17.6.1 and newer</h2>\n<p>Please see release notes directly in the release page: <a href=\"https://github.com/microsoft/vstest/releases\">https://github.com/microsoft/vstest/releases</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/5121d9feaef6811adc92efb56e1cffc494c8dfb5\"><code>5121d9f</code></a> [rel/17.6] Update Nuget.Frameworks (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4500\">#4500</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/00967c5d2d42e9485fe1726376ded79491a4e973\"><code>00967c5</code></a> [rel/17.6] Fix hangdump running into crashdump (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4480\">#4480</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/90efc14193228735cd6849ed6641b6b5c6d9b5af\"><code>90efc14</code></a> Disable internal build on new pipeline (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4476\">#4476</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/0e34e21ef919eac5904a20b8862bc273350a0c46\"><code>0e34e21</code></a> Merge branch 'rel/17.6' of <a href=\"https://github.com/microsoft/vstest\">https://github.com/microsoft/vstest</a> into rel/17.6</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/1db7dc07ac94db3648e1aafed49d810e534f3650\"><code>1db7dc0</code></a> Bump to 17.6.1 in targets</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/7f3dc2208ea3cd7d3aebe91b48090b063d110a5a\"><code>7f3dc22</code></a> [rel/17.6] Update dependencies from devdiv/DevDiv/vs-code-coverage (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4479\">#4479</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/a6e34a16ee0ecb4bdf010614c85d6fcc2253867e\"><code>a6e34a1</code></a> Revert &quot;Bump Microsoft.VisualStudio.Telemetry to 16.6.13&quot;</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/6115490c4925f60b008465205efd936756f7bd27\"><code>6115490</code></a> Bump Microsoft.VisualStudio.Telemetry to 16.6.13</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/68649f267286d46d05f21cdca91ae5374ac1beaa\"><code>68649f2</code></a> Re-order sources to restore signed packages</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/0d079b412745daad3edbdc1d4a359084525fdf13\"><code>0d079b4</code></a> Update branding to 17.6.1</li>\n<li>Additional commits viewable in <a href=\"https://github.com/microsoft/vstest/compare/v17.6.0...v17.6.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.6.0&new-version=17.6.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-06-07T12:46:19Z",
+          "tree_id": "df96386cf07ea520a527f0ceb4cc37c12001e26a",
+          "url": "https://github.com/aws/jsii/commit/db3f3bc86d07c92807cc4262d1c5e2c5548ec610"
+        },
+        "date": 1686146358875,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 104393.01286365,
+            "unit": "milliseconds",
+            "range": 5741786.236567697,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 104393.01286365 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 77104.93454799999,
+            "unit": "milliseconds",
+            "range": 609639.1617872898,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77104.93454799999 milliseconds over 20 runs"
           }
         ]
       }
