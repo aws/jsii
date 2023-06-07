@@ -459,9 +459,10 @@ jobs:
       - name: Run jsii-pacmak on aws-cdk-lib
         env:
           NODE_OPTIONS: --max-old-space-size=8192
-          JAVA_TOOL_OPTIONS: -Xms1G -Xmx8G
+          JAVA_TOOL_OPTIONS: -Xms1G -Xmx6G
+        # We run with --no-parallel to avoid running out of memory...
         run: |-
-          ./node_modules/.bin/jsii-pacmak ./node_modules/aws-cdk-lib
+          ./node_modules/.bin/jsii-pacmak --no-parallel ./node_modules/aws-cdk-lib
       # Upload artifact (we'll tar it up to save time)
       - name: 'Upload Artifact: integtest_aws-cdk-lib'
         uses: actions/upload-artifact@v3
