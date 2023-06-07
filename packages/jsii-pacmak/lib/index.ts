@@ -325,16 +325,25 @@ async function buildTargetsForLanguage(
     throw new Error(`Unsupported target: '${targetLanguage}'`);
   }
 
-  return factory(modules, {
-    arguments: argv,
-    clean: clean,
-    codeOnly: codeOnly,
-    fingerprint: fingerprint,
-    force: force,
-    languageSubdirectory: perLanguageDirectory,
-    rosetta,
-    runtimeTypeChecking,
-  }).buildModules(task);
+  const startedAt = Date.now();
+  try {
+    return await factory(modules, {
+      arguments: argv,
+      clean: clean,
+      codeOnly: codeOnly,
+      fingerprint: fingerprint,
+      force: force,
+      languageSubdirectory: perLanguageDirectory,
+      rosetta,
+      runtimeTypeChecking,
+      reportProgress(message) {
+        task.output = message;
+      },
+    }).buildModules(task);
+  } finally {
+    const duration = Date.now() - startedAt;
+    task.title += ` (${duration} ms)`;
+  }
 }
 
 //#endregion

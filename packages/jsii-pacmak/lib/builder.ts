@@ -52,6 +52,12 @@ export interface BuildOptions {
    * type checking is not possible.
    */
   readonly runtimeTypeChecking: boolean;
+
+  /**
+   * A function to report progress to the user (e.g: via the command line
+   * interface).
+   */
+  readonly reportProgress: (message: string) => void;
 }
 
 /**
@@ -122,7 +128,9 @@ export class IndependentPackageBuilder implements TargetBuilder {
 
   private async generateModuleCode(module: JsiiModule, options: BuildOptions) {
     const outputDir = this.finalOutputDir(module, options);
-    logging.debug(`Generating ${this.targetName} code into ${outputDir}`);
+    options.reportProgress(
+      `Generating ${this.targetName} code into ${outputDir}`,
+    );
     await this.makeTarget(module, options).generateCode(
       outputDir,
       module.tarball,
@@ -134,12 +142,14 @@ export class IndependentPackageBuilder implements TargetBuilder {
     const outputDir = this.finalOutputDir(module, options);
 
     const src = await Scratch.make((tmpdir) => {
-      logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
+      options.reportProgress(
+        `Generating ${this.targetName} code into ${tmpdir}`,
+      );
       return target.generateCode(tmpdir, module.tarball);
     });
 
     try {
-      logging.debug(`Building ${src.directory} into ${outputDir}`);
+      options.reportProgress(`Building ${src.directory} into ${outputDir}`);
       return await target.build(src.directory, outputDir);
     } catch (err) {
       logging.warn(`Failed building ${this.targetName}`);

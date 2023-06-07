@@ -52,11 +52,12 @@ export class DotnetBuilder implements TargetBuilder {
     // Otherwise make a single tempdir to hold all sources, build them together and copy them back out
     const scratchDirs: Array<Scratch<any>> = [];
     try {
+      this.options.reportProgress(`Generating .NET aggregate source code`);
       const tempSourceDir = await this.generateAggregateSourceDir(this.modules);
       scratchDirs.push(tempSourceDir);
 
       // Build solution
-      logging.debug('Building .NET');
+      this.options.reportProgress('Building .NET');
       await shell(
         'dotnet',
         ['build', '--force', '--configuration', 'Release'],
