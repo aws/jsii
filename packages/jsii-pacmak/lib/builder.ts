@@ -1,4 +1,5 @@
 import { Rosetta } from 'jsii-rosetta';
+import { ListrDefaultRenderer, ListrTaskWrapper } from 'listr2';
 import * as path from 'path';
 
 import * as logging from './logging';
@@ -59,7 +60,9 @@ export interface BuildOptions {
  * Building can happen one target at a time, or multiple targets at a time.
  */
 export interface TargetBuilder {
-  buildModules(): Promise<void>;
+  buildModules(
+    task: ListrTaskWrapper<unknown, ListrDefaultRenderer>,
+  ): Promise<void>;
 }
 
 /**
@@ -80,7 +83,26 @@ export class IndependentPackageBuilder implements TargetBuilder {
     private readonly options: BuildOptions,
   ) {}
 
-  public async buildModules(): Promise<void> {
+  public async buildModules(
+    task: ListrTaskWrapper<unknown, ListrDefaultRenderer>,
+  ): Promise<void> {
+    await task
+      .newListr<BuildOptions>(
+        this.modules.flatMap((modules) =>
+          modules.map((module) => ({
+            title: module.name,
+            task: async (options, _task) => {
+              if (options.codeOnly) {
+                return this.generateModuleCode(module, options);
+              }
+              return this.buildModule(module, options);
+            },
+          })),
+        ),
+        { ctx: this.options },
+      )
+      .run();
+
     if (this.options.codeOnly) {
       await Promise.all(
         flatten(this.modules).map((module) =>
