@@ -458,11 +458,10 @@ jobs:
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         env:
-          NODE_OPTIONS: --max-old-space-size=4096
-          JAVA_TOOL_OPTIONS: -Xmx4G
+          NODE_OPTIONS: --max-old-space-size=6144
         # We run with --no-parallel to avoid running out of memory...
         run: |-
-          ./node_modules/.bin/jsii-pacmak --no-parallel --verbose ./node_modules/aws-cdk-lib
+          ./node_modules/.bin/jsii-pacmak --no-parallel ./node_modules/aws-cdk-lib
       # Upload artifact (we'll tar it up to save time)
       - name: 'Upload Artifact: integtest_aws-cdk-lib'
         uses: actions/upload-artifact@v3
