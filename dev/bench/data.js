@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686146363837,
+  "lastUpdate": 1686155010171,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17131,6 +17131,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 609639.1617872898,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77104.93454799999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e3834c32de4138387850901313fc5899315e4972",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.1.14 to ~=9.1.15 in /gh-pages (#4131)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.1.15</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5566\">#5566</a>: Indicate color scheme to operating system</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5565\">#5565</a>: Update <code>Dockerfile</code> to latest version of base image</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5554\">#5554</a>: Add additional version tags (<code>9</code>, <code>9.1</code>) to Docker image</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5536\">#5536</a>: Strip tags of ARIA labels in table of contents</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.1.15+insiders-4.35.3 (2023-06-01)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5579\">#5579</a>: Abbreviations in headlines filtered by typeset plugin</li>\n</ul>\n<p>mkdocs-material-9.1.15+insiders-4.35.2 (2023-05-29)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5555\">#5555</a>: Blog plugin crashes when computing readtime for emojis</li>\n</ul>\n<p>mkdocs-material-9.1.15 (2023-05-29)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5566\">#5566</a>: Indicate color scheme to operating system</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5565\">#5565</a>: Update Dockerfile to latest version of base image</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5554\">#5554</a>: Add additional version tags (9, 9.1) to Docker image</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5536\">#5536</a>: Strip tags of ARIA labels in table of contents</li>\n</ul>\n<p>mkdocs-material-9.1.14+insiders-4.35.1 (2023-05-20)</p>\n<ul>\n<li>Fixed internal handling of errors in social plugin</li>\n</ul>\n<p>mkdocs-material-9.1.14+insiders-4.35.0 (2023-05-20)</p>\n<ul>\n<li>Improve editing experience and stability of social plugin</li>\n<li>Added support for custom layout syntax validation in social plugin</li>\n<li>Added support for layer origin for easier placement in social plugin</li>\n<li>Added support for in- and exclusion patterns in social plugin</li>\n<li>Catch and print syntax errors in custom layouts</li>\n</ul>\n<p>mkdocs-material-9.1.14 (2023-05-20)</p>\n<ul>\n<li>Updated Armenian and Greek translations</li>\n</ul>\n<p>mkdocs-material-9.1.13+insiders-4.34.1 (2023-05-16)</p>\n<ul>\n<li>Disable social plugin debug mode by default on mkdocs build</li>\n<li>Added warning in social plugin debug mode when font style couldn't be found</li>\n<li>Set default concurrency of built-in multi-threaded plugins to CPUs - 1</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5521\">#5521</a>: Social plugin triggers race condition when downloading fonts</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5515\">#5515</a>: Social plugin crashes when concurrency is set to 1</li>\n</ul>\n<p>mkdocs-material-9.1.13 (2023-05-16)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5517\">#5517</a>: Social plugin crashes for some fonts (e.g. Open Sans)</li>\n</ul>\n<p>mkdocs-material-9.1.12+insiders-4.34.0 (2023-05-14)</p>\n<ul>\n<li>Added support for new overflow mode to auto-fit text in social plugin</li>\n<li>Reduced subtle rendering bugs in (code) annotations due to subpixel rounding</li>\n<li>Improved print styles for (code) annotation lists</li>\n<li>Improved performance of social plugin, now 3x as fast</li>\n<li>Improved interop of typeset plugin with MkDocstrings</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/06d1ba1337703bd6deed9b13b33516abc2e81b72\"><code>06d1ba1</code></a> Prepare 9.1.15 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3d706407d96fbc7d87b11f24da13d389e6879c36\"><code>3d70640</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0f1866b108d06eb18f9610f211439badb41cbca1\"><code>0f1866b</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/aa4befa429971e9e55af09c5021f9f9b2340a05d\"><code>aa4befa</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fe0c966a4da16861e3fbe9064afcae3cc3d7c6fa\"><code>fe0c966</code></a> Added color-scheme property to indicate color scheme to OS</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2fa92de28dd4f455f6206c958e79cbec1203bc98\"><code>2fa92de</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5565\">#5565</a> from yubiuser/update_docker</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7c19f464ad5b42bb2497785b3a12ecc0daa95206\"><code>7c19f46</code></a> Only user major.minor for python version</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f37702a8fbb62ee35e45f57a462d8be540856c44\"><code>f37702a</code></a> Added major.minor and major tags to Docker image</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e0b3022be64456442aa51a90c57a8530998d576e\"><code>e0b3022</code></a> Update Dockerfile to latest alpine</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f84725d4fcd8960090063d58f18fb01973b55370\"><code>f84725d</code></a> Added tutorial on building custom social cards</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.1.14...9.1.15\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-06-07T15:21:18Z",
+          "tree_id": "2006b509d292fc366ae838617ee590ff0a8db8d4",
+          "url": "https://github.com/aws/jsii/commit/e3834c32de4138387850901313fc5899315e4972"
+        },
+        "date": 1686155006255,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 84164.74986404998,
+            "unit": "milliseconds",
+            "range": 2784514.33066917,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 84164.74986404998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 62747.781733500015,
+            "unit": "milliseconds",
+            "range": 131073.7431905056,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62747.781733500015 milliseconds over 20 runs"
           }
         ]
       }
