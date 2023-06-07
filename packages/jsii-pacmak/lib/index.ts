@@ -388,7 +388,7 @@ async function mapParallelOrSerial<T, R>(
     readonly title?: (item: T) => string;
   },
 ): Promise<R[]> {
-  const listr = new Listr<R[]>([], { concurrent: parallel });
+  const listr = new Listr([], { concurrent: parallel, ctx: new Array<R>() });
 
   for (const item of collection) {
     listr.add({
