@@ -459,6 +459,7 @@ jobs:
       - name: Run jsii-pacmak on aws-cdk-lib
         env:
           NODE_OPTIONS: --max-old-space-size=8192
+          JAVA_TOOL_OPTIONS: -Xms1G -Xmx8G
         run: |-
           ./node_modules/.bin/jsii-pacmak ./node_modules/aws-cdk-lib
       # Upload artifact (we'll tar it up to save time)
