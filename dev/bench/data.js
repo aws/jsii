@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685699089676,
+  "lastUpdate": 1686132498700,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17017,6 +17017,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 36476.44634360676,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50562.86914245 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "24b2954845df3abba03c4df79a3a6eac7b26fbb0",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.9.2 to 0.9.3 in /packages/@jsii/go-runtime-test/project (#4128)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.9.2 to 0.9.3.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/golang/tools/releases\">golang.org/x/tools's releases</a>.</em></p>\n<blockquote>\n<h2>gopls/v0.9.3</h2>\n<p><em>Move fast and fix things...</em><code>golang/go#54395</code></p>\n<p>As always, thank you for filing issues!</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/0dda7d614e545bb93966bb1410269b3cd1e65e1d\"><code>0dda7d6</code></a> go/pointer: remove replace directive</li>\n<li><a href=\"https://github.com/golang/tools/commit/98f1b4dee82ca3ded542b3c37a62f58f0eb744b7\"><code>98f1b4d</code></a> gopls/internal/lsp/cache: check number of orphaned files after filtering</li>\n<li><a href=\"https://github.com/golang/tools/commit/a260315e300ac46cc74b461bb418e4a800ee55bf\"><code>a260315</code></a> go/pointer: create submodule</li>\n<li>See full diff in <a href=\"https://github.com/golang/tools/compare/v0.9.2...v0.9.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.9.2&new-version=0.9.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-06-07T09:07:57Z",
+          "tree_id": "7d5c4f03cf650de799f02b1a635907f443b0bb4d",
+          "url": "https://github.com/aws/jsii/commit/24b2954845df3abba03c4df79a3a6eac7b26fbb0"
+        },
+        "date": 1686132493821,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 82525.80140575,
+            "unit": "milliseconds",
+            "range": 2679470.0548973093,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 82525.80140575 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 61083.65745870002,
+            "unit": "milliseconds",
+            "range": 233729.63538340162,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61083.65745870002 milliseconds over 20 runs"
           }
         ]
       }
