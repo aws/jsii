@@ -82,7 +82,7 @@ jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
 
 Tool / Utility | Version
 ---------------|--------------------------------------------
-`aws`          | `>= 1.16.300`
+`aws`          | `>= 2.11.17`
 `bundler`      | `>= 1.17.3` and `>= 2.1.4`
 `docker`       | `>= 18.09.9-ce`
 `git`          | `>= 2.23.1`
