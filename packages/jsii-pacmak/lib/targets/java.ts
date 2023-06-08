@@ -1150,7 +1150,6 @@ class JavaGenerator extends Generator {
                       configuration: {
                         source: '1.8',
                         target: '1.8',
-                        release: '8',
                         fork: 'true',
                         maxmem: '4096m',
                       },

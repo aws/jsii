@@ -621,7 +621,6 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <release>8</release>
           <fork>true</fork>
           <maxmem>4096m</maxmem>
         </configuration>
@@ -2243,7 +2242,6 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <release>8</release>
           <fork>true</fork>
           <maxmem>4096m</maxmem>
         </configuration>

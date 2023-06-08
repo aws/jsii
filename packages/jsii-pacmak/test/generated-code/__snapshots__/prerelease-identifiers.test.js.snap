@@ -224,7 +224,6 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <release>8</release>
           <fork>true</fork>
           <maxmem>4096m</maxmem>
         </configuration>
@@ -740,7 +739,6 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <release>8</release>
           <fork>true</fork>
           <maxmem>4096m</maxmem>
         </configuration>
@@ -1244,7 +1242,6 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <release>8</release>
           <fork>true</fork>
           <maxmem>4096m</maxmem>
         </configuration>
@@ -1737,7 +1734,6 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <release>8</release>
           <fork>true</fork>
           <maxmem>4096m</maxmem>
         </configuration>

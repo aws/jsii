@@ -58,7 +58,6 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <release>8</release>
                 </configuration>
             </plugin>
 
