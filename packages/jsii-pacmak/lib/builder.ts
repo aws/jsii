@@ -1,4 +1,5 @@
 import { Rosetta } from 'jsii-rosetta';
+import { ListrDefaultRenderer, ListrTaskWrapper } from 'listr2';
 import * as path from 'path';
 
 import * as logging from './logging';
@@ -51,6 +52,12 @@ export interface BuildOptions {
    * type checking is not possible.
    */
   readonly runtimeTypeChecking: boolean;
+
+  /**
+   * A function to report progress to the user (e.g: via the command line
+   * interface).
+   */
+  readonly reportProgress: (message: string) => void;
 }
 
 /**
@@ -59,7 +66,9 @@ export interface BuildOptions {
  * Building can happen one target at a time, or multiple targets at a time.
  */
 export interface TargetBuilder {
-  buildModules(): Promise<void>;
+  buildModules(
+    task: ListrTaskWrapper<unknown, ListrDefaultRenderer>,
+  ): Promise<void>;
 }
 
 /**
@@ -80,7 +89,26 @@ export class IndependentPackageBuilder implements TargetBuilder {
     private readonly options: BuildOptions,
   ) {}
 
-  public async buildModules(): Promise<void> {
+  public async buildModules(
+    task: ListrTaskWrapper<unknown, ListrDefaultRenderer>,
+  ): Promise<void> {
+    await task
+      .newListr<BuildOptions>(
+        this.modules.flatMap((modules) =>
+          modules.map((module) => ({
+            title: module.name,
+            task: async (options, _task) => {
+              if (options.codeOnly) {
+                return this.generateModuleCode(module, options);
+              }
+              return this.buildModule(module, options);
+            },
+          })),
+        ),
+        { ctx: this.options },
+      )
+      .run();
+
     if (this.options.codeOnly) {
       await Promise.all(
         flatten(this.modules).map((module) =>
@@ -100,7 +128,9 @@ export class IndependentPackageBuilder implements TargetBuilder {
 
   private async generateModuleCode(module: JsiiModule, options: BuildOptions) {
     const outputDir = this.finalOutputDir(module, options);
-    logging.debug(`Generating ${this.targetName} code into ${outputDir}`);
+    options.reportProgress(
+      `Generating ${this.targetName} code into ${outputDir}`,
+    );
     await this.makeTarget(module, options).generateCode(
       outputDir,
       module.tarball,
@@ -112,12 +142,14 @@ export class IndependentPackageBuilder implements TargetBuilder {
     const outputDir = this.finalOutputDir(module, options);
 
     const src = await Scratch.make((tmpdir) => {
-      logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
+      options.reportProgress(
+        `Generating ${this.targetName} code into ${tmpdir}`,
+      );
       return target.generateCode(tmpdir, module.tarball);
     });
 
     try {
-      logging.debug(`Building ${src.directory} into ${outputDir}`);
+      options.reportProgress(`Building ${src.directory} into ${outputDir}`);
       return await target.build(src.directory, outputDir);
     } catch (err) {
       logging.warn(`Failed building ${this.targetName}`);

@@ -12,6 +12,7 @@ import {
   markDownToJavaDoc,
   ApiLocation,
 } from 'jsii-rosetta';
+import { ListrDefaultRenderer, ListrTaskWrapper } from 'listr2';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
 
@@ -59,7 +60,9 @@ export class JavaBuilder implements TargetBuilder {
     private readonly options: BuildOptions,
   ) {}
 
-  public async buildModules(): Promise<void> {
+  public async buildModules(
+    _task: ListrTaskWrapper<unknown, ListrDefaultRenderer>,
+  ): Promise<void> {
     if (this.modules.length === 0) {
       return;
     }
@@ -81,6 +84,7 @@ export class JavaBuilder implements TargetBuilder {
     // Otherwise make a single tempdir to hold all sources, build them together and copy them back out
     const scratchDirs: Array<Scratch<any>> = [];
     try {
+      this.options.reportProgress('Generating aggregate source directory...');
       const tempSourceDir = await this.generateAggregateSourceDir(
         this.modules,
         this.options,
@@ -91,11 +95,12 @@ export class JavaBuilder implements TargetBuilder {
       // will be used.
       const target = this.makeTarget(this.modules[0], this.options);
       const tempOutputDir = await Scratch.make(async (dir) => {
-        logging.debug(`Building Java code to ${dir}`);
+        this.options.reportProgress(`Building Java code to ${dir}`);
         await target.build(tempSourceDir.directory, dir);
       });
       scratchDirs.push(tempOutputDir);
 
+      this.options.reportProgress('Copying output artifacts...');
       await this.copyOutArtifacts(
         tempOutputDir.directory,
         tempSourceDir.object,
@@ -120,7 +125,7 @@ export class JavaBuilder implements TargetBuilder {
     where: string,
   ): Promise<void> {
     const target = this.makeTarget(module, options);
-    logging.debug(`Generating Java code into ${where}`);
+    this.options.reportProgress(`Generating Java code into ${where}`);
     await target.generateCode(where, module.tarball);
   }
 
@@ -129,7 +134,9 @@ export class JavaBuilder implements TargetBuilder {
     options: BuildOptions,
   ): Promise<Scratch<TemporaryJavaPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
-      logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
+      this.options.reportProgress(
+        `Generating aggregate Java source dir at ${tmpDir}`,
+      );
       const ret: TemporaryJavaPackage[] = [];
 
       const generatedModules = modules
@@ -193,7 +200,7 @@ export class JavaBuilder implements TargetBuilder {
       )
       .end({ pretty: true });
 
-    logging.debug(`Generated ${where}/pom.xml`);
+    this.options.reportProgress(`Generated ${where}/pom.xml`);
     await fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
   }
 
@@ -201,7 +208,7 @@ export class JavaBuilder implements TargetBuilder {
     artifactsRoot: string,
     packages: TemporaryJavaPackage[],
   ) {
-    logging.debug('Copying out Java artifacts');
+    this.options.reportProgress('Copying out Java artifacts');
     // The artifacts directory looks like this:
     //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
     //                                 /else/v1.2.3
@@ -323,7 +330,7 @@ export class JavaBuilder implements TargetBuilder {
       )
       .end({ pretty: true });
 
-    logging.debug(`Generated ${filePath}`);
+    this.options.reportProgress(`Generated ${filePath}`);
     await fs.writeFile(filePath, settings);
     return filePath;
   }

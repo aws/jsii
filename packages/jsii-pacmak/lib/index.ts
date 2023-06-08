@@ -2,6 +2,7 @@ import './suppress-jsii-upgrade-prompts';
 
 import { TypeSystem } from 'jsii-reflect';
 import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
+import { Listr, ListrDefaultRenderer, ListrTaskWrapper } from 'listr2';
 import { resolve } from 'path';
 import { cwd } from 'process';
 
@@ -109,42 +110,39 @@ export async function pacmak({
     const perLanguageDirectory = targetSets.length > 1 || forceSubdirectory;
 
     // We run all target sets in parallel for minimal wall clock time
-    await Promise.all(
-      mapParallelOrSerial(
-        targetSets,
-        async (targetSet) => {
-          logging.info(
-            `Packaging '${targetSet.targetType}' for ${describePackages(
-              targetSet,
-            )}`,
-          );
-          return timers
-            .recordAsync(targetSet.targetType, () =>
-              buildTargetsForLanguage(
-                targetSet.targetType,
-                targetSet.modulesSorted,
-                {
-                  argv,
-                  clean,
-                  codeOnly,
-                  fingerprint,
-                  force,
-                  perLanguageDirectory,
-                  rosetta,
-                  runtimeTypeChecking,
-                },
-              ),
-            )
-            .then(
-              () => logging.info(`${targetSet.targetType} finished`),
-              (err) => {
-                logging.warn(`${targetSet.targetType} failed`);
-                return Promise.reject(err);
+    await mapParallelOrSerial(
+      targetSets,
+      async (targetSet, task) => {
+        task.title = `Packaging '${
+          targetSet.targetType
+        }' for ${describePackages(targetSet)}`;
+        return timers
+          .recordAsync(targetSet.targetType, () =>
+            buildTargetsForLanguage(
+              targetSet.targetType,
+              targetSet.modulesSorted,
+              {
+                argv,
+                clean,
+                codeOnly,
+                fingerprint,
+                force,
+                perLanguageDirectory,
+                rosetta,
+                runtimeTypeChecking,
               },
-            );
-        },
-        { parallel },
-      ),
+              task,
+            ),
+          )
+          .then(
+            () => logging.info(`${targetSet.targetType} finished`),
+            (err) => {
+              logging.warn(`${targetSet.targetType} failed`);
+              return Promise.reject(err);
+            },
+          );
+      },
+      { parallel, title: (item) => `Packaging ${item.targetType}` },
     );
   } finally {
     if (clean) {
@@ -319,6 +317,7 @@ async function buildTargetsForLanguage(
     rosetta: Rosetta;
     runtimeTypeChecking: boolean;
   },
+  task: ListrTaskWrapper<unknown, ListrDefaultRenderer>,
 ): Promise<void> {
   // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
   const factory = ALL_BUILDERS[targetLanguage as TargetName];
@@ -326,16 +325,25 @@ async function buildTargetsForLanguage(
     throw new Error(`Unsupported target: '${targetLanguage}'`);
   }
 
-  return factory(modules, {
-    arguments: argv,
-    clean: clean,
-    codeOnly: codeOnly,
-    fingerprint: fingerprint,
-    force: force,
-    languageSubdirectory: perLanguageDirectory,
-    rosetta,
-    runtimeTypeChecking,
-  }).buildModules();
+  const startedAt = Date.now();
+  try {
+    return await factory(modules, {
+      arguments: argv,
+      clean: clean,
+      codeOnly: codeOnly,
+      fingerprint: fingerprint,
+      force: force,
+      languageSubdirectory: perLanguageDirectory,
+      rosetta,
+      runtimeTypeChecking,
+      reportProgress(message) {
+        task.output = message;
+      },
+    }).buildModules(task);
+  } finally {
+    const duration = Date.now() - startedAt;
+    task.title += ` (${duration} ms)`;
+  }
 }
 
 //#endregion
@@ -375,25 +383,30 @@ function sliceTargets(
 
 //#region Parallelization
 
-function mapParallelOrSerial<T, R>(
+async function mapParallelOrSerial<T, R>(
   collection: readonly T[],
-  mapper: (item: T) => Promise<R>,
-  { parallel }: { parallel: boolean },
-): Array<Promise<R>> {
-  const result = new Array<Promise<R>>();
+  mapper: (
+    item: T,
+    task: ListrTaskWrapper<any, ListrDefaultRenderer>,
+  ) => Promise<R>,
+  {
+    parallel,
+    title,
+  }: {
+    readonly parallel: boolean;
+    readonly title?: (item: T) => string;
+  },
+): Promise<R[]> {
+  const listr = new Listr<R[]>([], { concurrent: parallel });
+
   for (const item of collection) {
-    result.push(
-      result.length === 0 || parallel
-        ? // Running parallel, or first element
-          mapper(item)
-        : // Wait for the previous promise, then make the next one
-          result[result.length - 1].then(
-            () => mapper(item),
-            (error) => Promise.reject(error),
-          ),
-    );
+    listr.add({
+      title: title && title(item),
+      task: async (ctx, task) => ctx.push(await mapper(item, task)),
+    });
   }
-  return result;
+
+  return listr.run([]);
 }
 
 //#endregion
