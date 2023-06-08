@@ -628,7 +628,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -2249,7 +2249,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>

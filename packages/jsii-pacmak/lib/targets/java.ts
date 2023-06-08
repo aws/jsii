@@ -1157,7 +1157,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-jar-plugin',
-                      version: '4.0.0',
+                      version: '3.3.0',
                       configuration: {
                         archive: {
                           index: true,

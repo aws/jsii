@@ -317,7 +317,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -1044,7 +1044,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -1760,7 +1760,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -4401,7 +4401,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
