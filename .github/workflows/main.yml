@@ -365,6 +365,16 @@ jobs:
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
         shell: bash
+
+  test-ok:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: OK
+        # This is just a join target to simplify branch protection setup
+        run: echo OK
+
   benchmark:
     name: Run benchmark suite
     runs-on: ubuntu-latest
