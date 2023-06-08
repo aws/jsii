@@ -458,6 +458,7 @@ jobs:
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         env:
+          JAVA_TOOL_OPTIONS=-Xmx4g
           NODE_OPTIONS: --max-old-space-size=6144
         # We run with --no-parallel to avoid running out of memory...
         run: |-
