@@ -1146,13 +1146,19 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-compiler-plugin',
-                      version: '3.8.1',
-                      configuration: { source: '1.8', target: '1.8' },
+                      version: '3.11.0',
+                      configuration: {
+                        source: '1.8',
+                        target: '1.8',
+                        release: '8',
+                        fork: 'true',
+                        maxmem: '4096m',
+                      },
                     },
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-jar-plugin',
-                      version: '3.2.0',
+                      version: '4.0.0',
                       configuration: {
                         archive: {
                           index: true,
@@ -1166,7 +1172,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-source-plugin',
-                      version: '3.2.1',
+                      version: '3.3.0',
                       executions: {
                         execution: {
                           id: 'attach-sources',
@@ -1177,7 +1183,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-javadoc-plugin',
-                      version: '3.2.0',
+                      version: '3.5.0',
                       executions: {
                         execution: {
                           id: 'attach-javadocs',
@@ -1206,7 +1212,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-enforcer-plugin',
-                      version: '3.0.0-M3',
+                      version: '3.3.0',
                       executions: {
                         execution: {
                           id: 'enforce-maven',
@@ -1222,7 +1228,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.codehaus.mojo',
                       artifactId: 'versions-maven-plugin',
-                      version: '2.8.1',
+                      version: '2.16.0',
                       configuration: {
                         generateBackupPoms: false,
                       },
