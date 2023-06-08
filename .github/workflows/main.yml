@@ -438,7 +438,7 @@ jobs:
       - name: Set up Java 20
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
+          distribution: 'corretto'
           java-version: '20'
       - name: Set up Node 16
         uses: actions/setup-node@v3
@@ -458,7 +458,7 @@ jobs:
                                 ${{ runner.temp }}/release-package/private/*.tgz
       - name: Run jsii-pacmak on aws-cdk-lib
         env:
-          JAVA_TOOL_OPTIONS=-Xmx4g
+          JAVA_TOOL_OPTIONS: -Xmx4g
           NODE_OPTIONS: --max-old-space-size=6144
         # We run with --no-parallel to avoid running out of memory...
         run: |-
