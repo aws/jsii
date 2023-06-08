@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686228979953,
+  "lastUpdate": 1686241126974,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17283,6 +17283,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 447706.8273446979,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52796.240561900006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f880d503c2a51a4ea47145f6a3da43e74a52f0cb",
+          "message": "chore: test for Node 20, set default to node 16 (#4126)\n\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>",
+          "timestamp": "2023-06-08T17:31:37+02:00",
+          "tree_id": "1b96fdf86339a5d3103311aa2172443512b8c152",
+          "url": "https://github.com/aws/jsii/commit/f880d503c2a51a4ea47145f6a3da43e74a52f0cb"
+        },
+        "date": 1686241122651,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61077.41889499999,
+            "unit": "milliseconds",
+            "range": 2496686.965340127,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61077.41889499999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47017.72979149999,
+            "unit": "milliseconds",
+            "range": 70127.92026907534,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47017.72979149999 milliseconds over 20 runs"
           }
         ]
       }
