@@ -2439,9 +2439,16 @@ class JavaGenerator extends Generator {
       `final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${ifc.name}`,
     );
 
+    // Hold on to the objectref so we can pass it back later
+    this.code.line(
+      'private final software.amazon.jsii.JsiiObjectRef jsii$objRef;',
+    );
+
     // Immutable properties
     props.forEach((prop) =>
-      this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`),
+      this.code.line(
+        `private java.util.Optional<${prop.fieldJavaType}> ${prop.fieldName} = java.util.Optional.empty();`,
+      ),
     );
 
     // Start JSII reference constructor
@@ -2456,11 +2463,7 @@ class JavaGenerator extends Generator {
       `protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
     this.code.line('super(objRef);');
-    props.forEach((prop) =>
-      this.code.line(
-        `this.${prop.fieldName} = software.amazon.jsii.Kernel.get(this, "${prop.jsiiName}", ${prop.fieldNativeType});`,
-      ),
-    );
+    this.code.line('this.jsii$objRef = objRef;');
     this.code.closeBlock();
     // End JSII reference constructor
 
@@ -2479,6 +2482,7 @@ class JavaGenerator extends Generator {
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
+      'this.jsii$objRef = null;',
     );
     props.forEach((prop) => {
       const explicitCast =
@@ -2486,23 +2490,30 @@ class JavaGenerator extends Generator {
           ? `(${prop.fieldJavaType})`
           : '';
       this.code.line(
-        `this.${prop.fieldName} = ${explicitCast}${_validateIfNonOptional(
+        `this.${
+          prop.fieldName
+        } = java.util.Optional.of(${explicitCast}${_validateIfNonOptional(
           `builder.${prop.fieldName}`,
           prop,
-        )};`,
+        )});`,
       );
     });
     this.code.closeBlock();
     // End literal constructor
 
-    // Getters
+    // Getters (these are cached for performance, this is safe because structs are read-only)
     props.forEach((prop) => {
       this.code.line();
       this.code.line('@Override');
       this.code.openBlock(
         `public final ${prop.fieldJavaType} get${prop.propName}()`,
       );
-      this.code.line(`return this.${prop.fieldName};`);
+      this.code.openBlock(`if (!this.${prop.fieldName}.isPresent())`);
+      this.code.line(
+        `this.${prop.fieldName} = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "${prop.jsiiName}", ${prop.fieldNativeType}));`,
+      );
+      this.code.closeBlock();
+      this.code.line(`return this.${prop.fieldName}.get();`);
       this.code.closeBlock();
     });
 
@@ -2513,6 +2524,11 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       'public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()',
     );
+    this.code.openBlock(`if (this.jsii$objRef != null)`);
+    // If this proxy represents an existing immutable struct in Node by-reference, we can just return the reference to it
+    this.code.line('return this.jsii$objRef.toJson();');
+    this.code.closeBlock();
+
     this.code.line(
       'final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;',
     );
@@ -2569,11 +2585,6 @@ class JavaGenerator extends Generator {
   }
 
   private emitEqualsOverride(className: string, props: JavaProp[]) {
-    // A class without properties does not need to override equals()
-    if (props.length === 0) {
-      return;
-    }
-
     this.code.line();
     this.code.line('@Override');
     this.code.openBlock('public final boolean equals(final Object o)');
@@ -2590,23 +2601,17 @@ class JavaGenerator extends Generator {
     );
     this.code.line();
 
-    const initialProps = props.slice(0, props.length - 1);
-    const finalProp = props[props.length - 1];
+    props.forEach((prop) => {
+      const getter = `get${prop.propName}()`;
 
-    initialProps.forEach((prop) => {
       const predicate = prop.nullable
-        ? `this.${prop.fieldName} != null ? !this.${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null`
-        : `!${prop.fieldName}.equals(that.${prop.fieldName})`;
+        ? `this.${getter} != null ? !this.${getter}.equals(that.${getter}) : that.${getter} != null`
+        : `!this.${getter}.equals(that.${getter})`;
 
       this.code.line(`if (${predicate}) return false;`);
     });
 
-    // The final (returned predicate) is the inverse of the other ones
-    const finalPredicate = finalProp.nullable
-      ? `this.${finalProp.fieldName} != null ? this.${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : ` +
-        `that.${finalProp.fieldName} == null`
-      : `this.${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
-    this.code.line(`return ${finalPredicate};`);
+    this.code.line(`return true;`);
 
     this.code.closeBlock();
   }

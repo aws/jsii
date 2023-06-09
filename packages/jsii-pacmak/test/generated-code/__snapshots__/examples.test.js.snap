@@ -854,9 +854,10 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
      */
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Baz {
-        private final java.lang.Boolean baz;
-        private final java.lang.Number foo;
-        private final java.lang.String bar;
+        private final software.amazon.jsii.JsiiObjectRef jsii$objRef;
+        private java.util.Optional<java.lang.Boolean> baz = java.util.Optional.empty();
+        private java.util.Optional<java.lang.Number> foo = java.util.Optional.empty();
+        private java.util.Optional<java.lang.String> bar = java.util.Optional.empty();
 
         /**
          * Constructor that initializes the object based on values retrieved from the JsiiObject.
@@ -864,39 +865,49 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.baz = software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.jsii$objRef = objRef;
         }
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         protected Jsii$Proxy(final Builder builder) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.baz = java.util.Objects.requireNonNull(builder.baz, "baz is required");
-            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
-            this.bar = builder.bar;
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII); this.jsii$objRef = null;
+            this.baz = java.util.Optional.of(java.util.Objects.requireNonNull(builder.baz, "baz is required"));
+            this.foo = java.util.Optional.of(java.util.Objects.requireNonNull(builder.foo, "foo is required"));
+            this.bar = java.util.Optional.of(builder.bar);
         }
 
         @Override
         public final java.lang.Boolean getBaz() {
-            return this.baz;
+            if (!this.baz.isPresent()) {
+                this.baz = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class)));
+            }
+            return this.baz.get();
         }
 
         @Override
         public final java.lang.Number getFoo() {
-            return this.foo;
+            if (!this.foo.isPresent()) {
+                this.foo = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class)));
+            }
+            return this.foo.get();
         }
 
         @Override
         public final java.lang.String getBar() {
-            return this.bar;
+            if (!this.bar.isPresent()) {
+                this.bar = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
+            }
+            return this.bar.get();
         }
 
         @Override
         @software.amazon.jsii.Internal
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            if (this.jsii$objRef != null) {
+                return this.jsii$objRef.toJson();
+            }
             final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
             final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
 
@@ -923,9 +934,10 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
 
             Baz.Jsii$Proxy that = (Baz.Jsii$Proxy) o;
 
-            if (!baz.equals(that.baz)) return false;
-            if (!foo.equals(that.foo)) return false;
-            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
+            if (!this.getBaz().equals(that.getBaz())) return false;
+            if (!this.getFoo().equals(that.getFoo())) return false;
+            if (this.getBar() != null ? !this.getBar().equals(that.getBar()) : that.getBar() != null) return false;
+            return true;
         }
 
         @Override
@@ -1010,7 +1022,8 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
-        private final java.lang.Number foo;
+        private final software.amazon.jsii.JsiiObjectRef jsii$objRef;
+        private java.util.Optional<java.lang.Number> foo = java.util.Optional.empty();
 
         /**
          * Constructor that initializes the object based on values retrieved from the JsiiObject.
@@ -1018,25 +1031,31 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.jsii$objRef = objRef;
         }
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         protected Jsii$Proxy(final Builder builder) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII); this.jsii$objRef = null;
+            this.foo = java.util.Optional.of(java.util.Objects.requireNonNull(builder.foo, "foo is required"));
         }
 
         @Override
         public final java.lang.Number getFoo() {
-            return this.foo;
+            if (!this.foo.isPresent()) {
+                this.foo = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class)));
+            }
+            return this.foo.get();
         }
 
         @Override
         @software.amazon.jsii.Internal
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            if (this.jsii$objRef != null) {
+                return this.jsii$objRef.toJson();
+            }
             final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
             final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
 
@@ -1059,7 +1078,8 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
 
             Foo.Jsii$Proxy that = (Foo.Jsii$Proxy) o;
 
-            return this.foo.equals(that.foo);
+            if (!this.getFoo().equals(that.getFoo())) return false;
+            return true;
         }
 
         @Override
@@ -1135,8 +1155,9 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements FooBar {
-        private final java.lang.Number foo;
-        private final java.lang.String bar;
+        private final software.amazon.jsii.JsiiObjectRef jsii$objRef;
+        private java.util.Optional<java.lang.Number> foo = java.util.Optional.empty();
+        private java.util.Optional<java.lang.String> bar = java.util.Optional.empty();
 
         /**
          * Constructor that initializes the object based on values retrieved from the JsiiObject.
@@ -1144,32 +1165,40 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.jsii$objRef = objRef;
         }
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
         protected Jsii$Proxy(final Builder builder) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
-            this.bar = builder.bar;
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII); this.jsii$objRef = null;
+            this.foo = java.util.Optional.of(java.util.Objects.requireNonNull(builder.foo, "foo is required"));
+            this.bar = java.util.Optional.of(builder.bar);
         }
 
         @Override
         public final java.lang.Number getFoo() {
-            return this.foo;
+            if (!this.foo.isPresent()) {
+                this.foo = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class)));
+            }
+            return this.foo.get();
         }
 
         @Override
         public final java.lang.String getBar() {
-            return this.bar;
+            if (!this.bar.isPresent()) {
+                this.bar = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
+            }
+            return this.bar.get();
         }
 
         @Override
         @software.amazon.jsii.Internal
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            if (this.jsii$objRef != null) {
+                return this.jsii$objRef.toJson();
+            }
             final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
             final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
 
@@ -1195,8 +1224,9 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
 
             FooBar.Jsii$Proxy that = (FooBar.Jsii$Proxy) o;
 
-            if (!foo.equals(that.foo)) return false;
-            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
+            if (!this.getFoo().equals(that.getFoo())) return false;
+            if (this.getBar() != null ? !this.getBar().equals(that.getBar()) : that.getBar() != null) return false;
+            return true;
         }
 
         @Override
@@ -2470,7 +2500,8 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
          */
         @software.amazon.jsii.Internal
         final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
-            private final java.lang.String bar;
+            private final software.amazon.jsii.JsiiObjectRef jsii$objRef;
+            private java.util.Optional<java.lang.String> bar = java.util.Optional.empty();
 
             /**
              * Constructor that initializes the object based on values retrieved from the JsiiObject.
@@ -2478,25 +2509,31 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
              */
             protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
                 super(objRef);
-                this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+                this.jsii$objRef = objRef;
             }
 
             /**
              * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
              */
             protected Jsii$Proxy(final Builder builder) {
-                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-                this.bar = java.util.Objects.requireNonNull(builder.bar, "bar is required");
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII); this.jsii$objRef = null;
+                this.bar = java.util.Optional.of(java.util.Objects.requireNonNull(builder.bar, "bar is required"));
             }
 
             @Override
             public final java.lang.String getBar() {
-                return this.bar;
+                if (!this.bar.isPresent()) {
+                    this.bar = java.util.Optional.of(software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
+                }
+                return this.bar.get();
             }
 
             @Override
             @software.amazon.jsii.Internal
             public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                if (this.jsii$objRef != null) {
+                    return this.jsii$objRef.toJson();
+                }
                 final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                 final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
 
@@ -2519,7 +2556,8 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
 
                 Foo.Jsii$Proxy that = (Foo.Jsii$Proxy) o;
 
-                return this.bar.equals(that.bar);
+                if (!this.getBar().equals(that.getBar())) return false;
+                return true;
             }
 
             @Override
