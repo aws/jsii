@@ -103,7 +103,11 @@ export class KernelHost {
    *             doesn't allow any async operations during a sync callback, so this shouldn't
    *             happen, so we assert in this case to find bugs.
    */
-  private processRequest(req: Input, next: () => void, sync = false) {
+  private processRequest<T>(
+    req: Input,
+    next: () => T,
+    sync = false,
+  ): T | undefined {
     if ('callback' in req) {
       throw new JsiiFault(
         'Unexpected `callback` result. This request should have been processed by a callback handler',
