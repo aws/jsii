@@ -44,7 +44,9 @@ export class KernelHost {
     this.eventEmitter.once(event, listener);
   }
 
-  private callbackHandler(callback: api.Callback) {
+  private callbackHandler(
+    callback: api.Callback,
+  ): api.CompleteRequest['result'] {
     // write a "callback" response, which is a special response that tells
     // the client that there's synchonous callback it needs to invoke and
     // bring back the result via a "complete" request.
@@ -52,7 +54,7 @@ export class KernelHost {
 
     return completeCallback.call(this);
 
-    function completeCallback(this: KernelHost): void {
+    function completeCallback(this: KernelHost): api.CompleteRequest['result'] {
       const req = this.inout.read();
       if (!req || 'exit' in req) {
         throw new JsiiFault('Interrupted before callback returned');
