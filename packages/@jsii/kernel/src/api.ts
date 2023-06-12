@@ -133,7 +133,7 @@ export interface CreateRequest {
   /**
    * The FQNs of interfaces the instance implements, if any. Declaring
    * interfaces that the class denoted by `fqn` implements is not necessary.
-   * This means that memebers of interfaces found in this property should
+   * This means that members of interfaces found in this property should
    * declare members that are found in the `overrides` property.
    */
   readonly interfaces?: string[];
