@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686661101004,
+  "lastUpdate": 1686669051527,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17435,6 +17435,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 200688.75045429304,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52953.085576199985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "38d327c7f47b3af360c2829bae8b785c9be055b5",
+          "message": "feat(jsii): allow specifying a deprecation message regardless of stability (#4145)\n\nPreviously, `jsii` required the package's stability to be `deprecated` if there cas a `deprecated` message configured. This is however problematic when a `stable` package reaches End-of-Support and the maintainer wants to signal this in npmjs.com.\r\n\r\nInstead of failing, only log a warning to possibly raise awareness on an unintended configuration.\r\n\r\nAdditionally - emit the `Development Status :: 7 - Inactive` trove classifier on packages with a `deprecated` message, even if their stability is not `deprecated`.",
+          "timestamp": "2023-06-13T16:16:56+02:00",
+          "tree_id": "e6e8f055ff04e4d671eda146b5caac678f90fcd3",
+          "url": "https://github.com/aws/jsii/commit/38d327c7f47b3af360c2829bae8b785c9be055b5"
+        },
+        "date": 1686669047981,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71335.1864944,
+            "unit": "milliseconds",
+            "range": 1361935.814267418,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71335.1864944 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52017.81936015002,
+            "unit": "milliseconds",
+            "range": 194061.07069107477,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52017.81936015002 milliseconds over 20 runs"
           }
         ]
       }
