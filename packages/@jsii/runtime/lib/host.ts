@@ -48,7 +48,7 @@ export class KernelHost {
     callback: api.Callback,
   ): api.CompleteRequest['result'] {
     // write a "callback" response, which is a special response that tells
-    // the client that there's synchonous callback it needs to invoke and
+    // the client that there's synchronous callback it needs to invoke and
     // bring back the result via a "complete" request.
     this.inout.write({ callback });
 
