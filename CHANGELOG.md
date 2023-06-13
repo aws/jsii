@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.84.0](https://github.com/aws/jsii/compare/v1.83.0...v1.84.0) (2023-06-13)
+
+
+### Features
+
+* **jsii:** allow specifying a deprecation message regardless of stability ([#4145](https://github.com/aws/jsii/issues/4145)) ([38d327c](https://github.com/aws/jsii/commit/38d327c7f47b3af360c2829bae8b785c9be055b5))
+
 ## [1.83.0](https://github.com/aws/jsii/compare/v1.82.0...v1.83.0) (2023-06-07)
 
 ## [1.82.0](https://github.com/aws/jsii/compare/v1.81.0...v1.82.0) (2023-05-22)
