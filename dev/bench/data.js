@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686677682100,
+  "lastUpdate": 1686681816967,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17511,6 +17511,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 207853.94442312868,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60145.21043785 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "timothy.l.jones@gmail.com",
+            "name": "Timothy Jones",
+            "username": "TimothyJones"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "70c14622c84128ddf361061ec4205a8bc1084897",
+          "message": "chore(runtime): correct return types for completeCallback and processRequest (#4143)\n\nThe return type for `completeCallback` was incorrectly listed as `void`, which confused me for a bit. This PR corrects it.\n\nChanges here:\n\n* I've changed the return type of `completeCallback` to `api.CompleteRequest['result']` (was `void`) as this is correct. Technically, this resolves to `any` - but I thought `api.CompleteRequest['result']` was more explicit about what is actually happening.\n* I templated the callback argument to `processRequest` so that the return type is correct there, too.\n* I've given both `handleCallback` and explicit return types. This is personal preference - let me know if you'd prefer the functions left with implicit return types.\n\nAs an aside, I was surprised the old version compiled, but it turns out you're allowed to return an `any` from a function marked as returning `void`. Makes sense as you can assign `any` to anything, but it was a bit surprising.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-06-13T17:49:38Z",
+          "tree_id": "f58209d60ef2a35b59550467d9cdf6b51c4a9663",
+          "url": "https://github.com/aws/jsii/commit/70c14622c84128ddf361061ec4205a8bc1084897"
+        },
+        "date": 1686681813248,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69406.94667890004,
+            "unit": "milliseconds",
+            "range": 838376.3886831321,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69406.94667890004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51771.1941719,
+            "unit": "milliseconds",
+            "range": 686269.1987844403,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51771.1941719 milliseconds over 20 runs"
           }
         ]
       }
