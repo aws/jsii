@@ -2125,7 +2125,14 @@ class Package {
       scripts,
     };
 
-    switch (this.metadata.docs?.stability) {
+    // Packages w/ a deprecated message may have a non-deprecated stability (e.g: when EoL happens
+    // for a stable package). We pretend it's deprecated for the purpose of trove classifiers when
+    // this happens.
+    switch (
+      this.metadata.docs?.deprecated
+        ? spec.Stability.Deprecated
+        : this.metadata.docs?.stability
+    ) {
       case spec.Stability.Experimental:
         setupKwargs.classifiers.push('Development Status :: 4 - Beta');
         break;
