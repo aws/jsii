@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686669051527,
+  "lastUpdate": 1686677682100,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17473,6 +17473,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 194061.07069107477,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52017.81936015002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "timothy.l.jones@gmail.com",
+            "name": "Timothy Jones",
+            "username": "TimothyJones"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3ced1e5c2bcae982c414398a2e2b377731d52ce2",
+          "message": "chore(comments): correct spelling (#4142)\n\nThanks for this awesome library!\n\nWhile investigating https://github.com/aws/jsii/issues/4133 , I noticed a few typos in the comments. This PR corrects them.\n\nNo behaviour changes are introduced.\n\nTwo of the three comments are in exposed TS doc comments in `@jsii/kernel`. Let me know if you'd prefer a different commit type for those.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-06-13T16:36:15Z",
+          "tree_id": "6069c96e5e2bc8b12d5c216c951c7ce79de5a8cd",
+          "url": "https://github.com/aws/jsii/commit/3ced1e5c2bcae982c414398a2e2b377731d52ce2"
+        },
+        "date": 1686677676999,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 79733.07679915008,
+            "unit": "milliseconds",
+            "range": 2968241.3194040633,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 79733.07679915008 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 60145.21043785,
+            "unit": "milliseconds",
+            "range": 207853.94442312868,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60145.21043785 milliseconds over 20 runs"
           }
         ]
       }
