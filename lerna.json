@@ -1,5 +1,6 @@
 {
   "npmClient": "yarn",
+  "rejectCycles": true,
   "packages": [
     "packages/*",
     "packages/@jsii/*",

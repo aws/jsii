@@ -22,7 +22,6 @@
     "@types/workerpool": "^6.4.0",
     "@types/semver": "^7.5.0",
     "jsii-build-tools": "0.0.0",
-    "jsii-calc": "3.20.120",
     "memory-streams": "^0.1.3",
     "mock-fs": "^5.2.0"
   },
