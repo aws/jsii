@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686741383666,
+  "lastUpdate": 1686769463033,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17625,6 +17625,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 80934.96035829489,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50734.97566330002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9ee0321e70b08bfe3fca01d371bee364031320b3",
+          "message": "chore: upgrade lerna to 7.0.x and migrate config (#4148)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-06-14T17:51:18Z",
+          "tree_id": "02eb3d6c74e1d8d7f967a0bac325fe4ef7b39768",
+          "url": "https://github.com/aws/jsii/commit/9ee0321e70b08bfe3fca01d371bee364031320b3"
+        },
+        "date": 1686769457485,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95582.64455835,
+            "unit": "milliseconds",
+            "range": 11685689.333419826,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95582.64455835 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 71596.08043120001,
+            "unit": "milliseconds",
+            "range": 11331384.151021251,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71596.08043120001 milliseconds over 20 runs"
           }
         ]
       }
