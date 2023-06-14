@@ -18,7 +18,7 @@
     "directory": "packages/@jsii/python-runtime"
   },
   "engines": {
-    "node": ">= 14.6.0"
+    "node": ">= 14.17.0"
   },
   "main": "index.js",
   "scripts": {
@@ -42,6 +42,6 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-pacmak": "^0.0.0",
-    "pyright": "^1.1.311"
+    "pyright": "^1.1.313"
   }
 }
