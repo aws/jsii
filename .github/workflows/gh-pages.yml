@@ -2,6 +2,7 @@
 name: GitHub Pages
 
 on:
+  merge_group: {}
   pull_request:
     branches: [main]
   push:
