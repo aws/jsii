@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686823511506,
+  "lastUpdate": 1686828146009,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17701,6 +17701,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 72630.68670590487,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51124.792967600006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "466b3fd7d382dbf89c0a555425be93d46d7b78dc",
+          "message": "chore: simplify branch protection configuration (#4135)\n\n- Add a new \"Unit Tests\" join target that depends on the matrix test having succeeded\n- Enable merge_group triggers on validation workflows, in preparation for turning on merge queues\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-06-15T10:34:23Z",
+          "tree_id": "72ceafbc8ec23dad35fe878135f8581a74066d73",
+          "url": "https://github.com/aws/jsii/commit/466b3fd7d382dbf89c0a555425be93d46d7b78dc"
+        },
+        "date": 1686828141550,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60312.02545875001,
+            "unit": "milliseconds",
+            "range": 3734489.1834180444,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60312.02545875001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46004.680356499994,
+            "unit": "milliseconds",
+            "range": 65446.741046379786,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46004.680356499994 milliseconds over 20 runs"
           }
         ]
       }
