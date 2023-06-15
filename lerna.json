@@ -1,14 +1,17 @@
 {
-  "lerna": "3.13.1",
   "npmClient": "yarn",
-  "useWorkspaces": true,
+  "rejectCycles": true,
   "packages": [
-    "packages/*"
+    "packages/*",
+    "packages/@jsii/*",
+    "packages/@scope/*",
+    "tools/*"
   ],
   "command": {
     "bootstrap": {
       "rejectCycles": true
     }
   },
-  "version": "1.83.0"
+  "version": "1.84.0",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
