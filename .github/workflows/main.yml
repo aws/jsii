@@ -2,6 +2,7 @@
 name: Main
 
 on:
+  merge_group: {}
   pull_request:
     branches: [main, release]
   push:
