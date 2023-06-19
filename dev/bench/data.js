@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687169203222,
+  "lastUpdate": 1687175028669,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17815,6 +17815,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 57135.299728049526,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47025.151946050006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "14b5ed22fe87baf27be0f0ff61f6e423654baf39",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.9.3 to 0.10.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4150)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.9.3 to 0.10.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/golang/tools/releases\">golang.org/x/tools's releases</a>.</em></p>\n<blockquote>\n<h2>gopls/v0.10.0</h2>\n<p>This release contains initial support for standalone packages and package renaming. Please see below for more details.</p>\n<p>We are also changing our release policy to better align with semver.</p>\n<h2>Support changes</h2>\n<p>This version of gopls contains changes to our release policy, deprecates support for some older Go versions, and deprecates support for several experimental features.</p>\n<h3>New release policy</h3>\n<p>As described in <a href=\"https://redirect.github.com/golang/go/issues/55267\">golang/go#55267</a>, we are tightening our release policy to better follow semver, increase stability, and reduce release-related toil. Significant new features will only be introduced in <code>*.*.0</code> patch versions, and subsequent patch releases will consist only of bugfixes. For example, this version (v0.10.0) introduces several new features, described below. Subsequent v0.10.* releases will contain only bugfixes.</p>\n<h3>Final support for Go 1.13-1.15</h3>\n<p>Consistent with the above release policy and our stated <a href=\"https://github.com/golang/tools/tree/master/gopls#supported-go-versions-and-build-systems\">support window</a>, the <code>v0.10.*</code> minor version will be the final set of releases to support being used with Go 1.13-1.15. See <a href=\"https://redirect.github.com/golang/go/issues/52982\">golang/go#52982</a> for details.</p>\n<p>Gopls will pop up a warning if it resolves a version of the <code>go</code> command that is older than 1.16. Starting with gopls@v0.11.0, gopls will cease to function when used with a <code>go</code> command with a version older than 1.16.</p>\n<h3>Deprecated experimental features</h3>\n<p>The following experimental features are deprecated, and will be removed in gopls@v0.11.0:</p>\n<ul>\n<li><strong>experimentalWorkspaceModule</strong><code>golang/go#52897</code><code>go.work</code> files. See our <a href=\"https://github.com/golang/tools/blob/master/gopls/doc/workspace.md#go-workspaces-go-118\">documentation</a> for information on how to use <code>go.work</code> files to work on multiple modules.</li>\n<li><strong>experimentalWatchedFileDelay</strong><code>golang/go#55268</code><code>workspace/didChangeWatchedFiles</code> notifications.</li>\n<li><strong>experimentalUseInvalidMetadata</strong><code>golang/go#54180</code></li>\n</ul>\n<h2>New Features</h2>\n<h3>Support for &quot;standalone packages&quot;</h3>\n<p>Gopls now recognizes certain files as &quot;standalone main packages&quot;, meaning they should be interpreted as main packages consisting of a single file. To do this, gopls looks for packages named <code>main</code> containing a single build constraint that matches one of the tags configured by the new <a href=\"https://github.com/golang/tools/blob/master/gopls/doc/settings.md#standalonetags-string\"><code>standaloneTags</code></a> setting.</p>\n<p>This enables cross references and other features when working in a file such as the example below that contains a <code>//go:build ignore</code> build constraint.</p>\n<p><img src=\"https://user-images.githubusercontent.com/57144380/197039428-72d78300-cbea-4abe-a408-e171991094b8.png\" alt=\"image\" /></p>\n<h3>(preview) Support for package renaming</h3>\n<p><code>golang/go#41567</code><a href=\"https://redirect.github.com/golang/go/issues/56184\">golang/go#56184</a>.</p>\n<p>To rename a package, initiate a rename request on the package clause of a file in the package:\n<img src=\"https://user-images.githubusercontent.com/57144380/197041786-bf9e617c-9961-46ae-b21a-c240a18a3014.png\" alt=\"image\" /></p>\n<p>When this renaming is applied, gopls will adjust other package files accordingly, rename the package directory, and update import paths referencing the current package or any nested package in the renamed directory.\n<img src=\"https://user-images.githubusercontent.com/57144380/197042160-e034e38d-3cd3-4c62-b912-747d8dc2f4ff.png\" alt=\"image\" /></p>\n<h3>Method information in hover</h3>\n<p>Hovering over a type now shows a summary of its methods.</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/7261b3269227f2c7636f7d4316ed3dd5122d17ff\"><code>7261b32</code></a> gopls/internal/regtest: fix goimports on windows when using vendoring</li>\n<li><a href=\"https://github.com/golang/tools/commit/41e4e565498859435a2ad44a71cf6701a6afb585\"><code>41e4e56</code></a> gopls/internal/lsp/source/completion: ensuring completion completeness</li>\n<li><a href=\"https://github.com/golang/tools/commit/ac2946029ad3806349fa00546449da9f59320e89\"><code>ac29460</code></a> go/ssa: fix bug in writeSignature on external functions</li>\n<li><a href=\"https://github.com/golang/tools/commit/3b62e7e25641fc2dabe915a738906d0779724bf1\"><code>3b62e7e</code></a> go/ssa: use core type within (*builder).receiver</li>\n<li><a href=\"https://github.com/golang/tools/commit/f394d451f85a030254df453bf84a450b228c4250\"><code>f394d45</code></a> gopls/internal/lsp/cache: compute xrefs and methodsets asynchronously</li>\n<li><a href=\"https://github.com/golang/tools/commit/27dbf85279a5e6e906a8c1b5cc5b73e8229a8efa\"><code>27dbf85</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/c6c983054920f47ed9e5ba1b55a7a5934dd8bf53\"><code>c6c9830</code></a> go/types/objectpath: memoize scope lookup in objectpath.Encoder</li>\n<li><a href=\"https://github.com/golang/tools/commit/0245e1dfc6b09a30ad018bdcdadef4961067cfd4\"><code>0245e1d</code></a> gopls/internal/regtest/codelens: set GOWORK=off for go mod vendor</li>\n<li><a href=\"https://github.com/golang/tools/commit/85be8882c905a9b24abcec8363e48a14ad5cd4e2\"><code>85be888</code></a> go/analysis/passes/defers: add analyser for defer mistake</li>\n<li><a href=\"https://github.com/golang/tools/commit/c43232f868439dcfd25d98501dafa5e695cd1d35\"><code>c43232f</code></a> cmd/digraph: improve examples using go list, mod</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.9.3...v0.10.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.9.3&new-version=0.10.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-06-19T10:33:50Z",
+          "tree_id": "ebf53601e582328c4b97f5621b6bb6c55c3f2c89",
+          "url": "https://github.com/aws/jsii/commit/14b5ed22fe87baf27be0f0ff61f6e423654baf39"
+        },
+        "date": 1687175023650,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 97251.47961105002,
+            "unit": "milliseconds",
+            "range": 3498852.726292225,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 97251.47961105002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73889.67484759998,
+            "unit": "milliseconds",
+            "range": 564195.8805188495,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73889.67484759998 milliseconds over 20 runs"
           }
         ]
       }
