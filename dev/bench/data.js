@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687452301999,
+  "lastUpdate": 1687455548032,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17891,6 +17891,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 62938.263070244495,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54238.72372709999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ad2c4ba8cadfba98d5cbdf03c0d54b09dc49ed94",
+          "message": "chore(deps-dev): Bump mypy from 1.3.0 to 1.4.0 in /packages/jsii-pacmak/test/generated-code (#4154)\n\nBumps [mypy](https://github.com/python/mypy) from 1.3.0 to 1.4.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/be5f84b853d15bbbdd3185349fa8e285f7e19bf3\"><code>be5f84b</code></a> Remove +dev from version.</li>\n<li><a href=\"https://github.com/python/mypy/commit/d61383eef28aeef5aa4549e9fd53fb4acc0a4855\"><code>d61383e</code></a> Always allow returning Any from lambda (<a href=\"https://redirect.github.com/python/mypy/issues/15413\">#15413</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/fa05ab97eae4922e392f5adda1dc51e2ad4e7a0c\"><code>fa05ab9</code></a> Fix crash on follow_imports_for_stubs (<a href=\"https://redirect.github.com/python/mypy/issues/15407\">#15407</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/cec31d67669c6c5ac907d40466892341a3f49933\"><code>cec31d6</code></a> Fix stubtest crash in explicit init subclass (<a href=\"https://redirect.github.com/python/mypy/issues/15399\">#15399</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/7886503525819d36df2c440f8c4b03f9c66a38ae\"><code>7886503</code></a> Fix crash when indexing TypedDict with empty key (<a href=\"https://redirect.github.com/python/mypy/issues/15392\">#15392</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/5e6e488e76c1970aa0a13bee264ee85cf73e97b4\"><code>5e6e488</code></a> Fix crash on NamedTuple as attribute (<a href=\"https://redirect.github.com/python/mypy/issues/15404\">#15404</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/9caf0959b81db108fffed1423c926f83148ec293\"><code>9caf095</code></a> Correctly track loop depth for nested functions/classes (<a href=\"https://redirect.github.com/python/mypy/issues/15403\">#15403</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/a7f52db0e69db0bd7d97e548c9b69667a143a451\"><code>a7f52db</code></a> Fix crash on joins with recursive tuples (<a href=\"https://redirect.github.com/python/mypy/issues/15402\">#15402</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/3bf9fdc347ff1d27baead7660442d645a77cb2c6\"><code>3bf9fdc</code></a> Revert &quot;Add support for <code>attrs.fields</code> (<a href=\"https://redirect.github.com/python/mypy/issues/15021\">#15021</a>)&quot;</li>\n<li><a href=\"https://github.com/python/mypy/commit/2ab8849f6460fe586a1a1add3a006ce4edd3fb75\"><code>2ab8849</code></a> Update semantic analyzer for TypeVar defaults (PEP 696) (<a href=\"https://redirect.github.com/python/mypy/issues/14873\">#14873</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/v1.3.0...v1.4.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.3.0&new-version=1.4.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-06-22T16:46:07Z",
+          "tree_id": "ecff7b0a07b50fefabc20ba4d7c6a553363a43cc",
+          "url": "https://github.com/aws/jsii/commit/ad2c4ba8cadfba98d5cbdf03c0d54b09dc49ed94"
+        },
+        "date": 1687455544314,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 69345.14522555005,
+            "unit": "milliseconds",
+            "range": 319955.44433824497,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 69345.14522555005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 50560.41798589998,
+            "unit": "milliseconds",
+            "range": 96583.08151640503,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50560.41798589998 milliseconds over 20 runs"
           }
         ]
       }
