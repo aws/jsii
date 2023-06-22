@@ -11,11 +11,6 @@ on:
       - synchronize       # Run when a PR head branch is updated
 
 jobs:
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo "$GITHUB_CONTEXT"
   auto-approve:
     if: |
       contains(github.event.pull_request.labels.*.name, 'auto-approve') ||
