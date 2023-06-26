@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687455548032,
+  "lastUpdate": 1687780071427,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -17929,6 +17929,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 96583.08151640503,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 50560.41798589998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "26724cde5b7446264224b17c4e6e44291739534f",
+          "message": "chore: fix confusing comment about FD number 4 that does not exist (#4157)\n\nThis was leftover from a time when we tried using non-duplex streams, but since we are using a single duplex stream there's only 4 FDs (0 through 3), and not 5.\n\nThanks to @TimothyJones for finding it.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-06-26T10:32:02Z",
+          "tree_id": "bf7c19a77db744f0290463b993a6ccd45f152e90",
+          "url": "https://github.com/aws/jsii/commit/26724cde5b7446264224b17c4e6e44291739534f"
+        },
+        "date": 1687780065657,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 105156.00643265,
+            "unit": "milliseconds",
+            "range": 6394147.110461974,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 105156.00643265 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 78045.52089559997,
+            "unit": "milliseconds",
+            "range": 2924892.142656087,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 78045.52089559997 milliseconds over 20 runs"
           }
         ]
       }
