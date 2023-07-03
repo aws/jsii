@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688399378449,
+  "lastUpdate": 1688403788213,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18271,6 +18271,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 192855.62034202757,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52246.99682135001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "wafuwafugithub@gmail.com",
+            "name": "Hirotaka Tagawa / wafuwafu13",
+            "username": "wafuwafu13"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "28b192aa1a3ecdd3b3ce6ee49a5efd32db01e695",
+          "message": "fix(go-runtime): use fatih/color instead of ANSI Escape Code (#4109)\n\nANSI Escape Codes don't work in Windows so use [fatih/color](https://github.com/fatih/color) .\n\nDebug code(ANSI):\n\n```go\npackage main\n\n\nimport (\n\t\"fmt\"\n\t\"os\"\n)\n\nfunc main() {\n\tfmt.Fprintf(os.Stderr, \"\\u001b[31m\\u001b[1m\")\n        fmt.Fprintln(os.Stderr, \"###########################################################\")\n        fmt.Fprintf(os.Stderr, \"\\u001b[0m\")\n\tfmt.Fprintln(os.Stderr, \"###########################################################\")\n}\n```\n\nResult(Amazon Linux 2023):\n![スクリーンショット 2023-05-21 18 08 16](https://github.com/aws/jsii/assets/50798936/2318d7a3-8cb5-4cd6-8275-682b9b307563)\n\nResult(Windows_Server-2022):\n<img width=\"554\" alt=\"スクリーンショット 2023-05-21 18 08 08\" src=\"https://github.com/aws/jsii/assets/50798936/9d1615ac-825e-4039-b9c6-d65a69298d89\">\n\n\nDebug code(fatih/color):\n\n```go\npackage main\n\n\nimport (\n\t\"fmt\"\n\t\"os\"\n\n\t\"github.com/fatih/color\"\n\t\"github.com/mattn/go-isatty\"\n)\n\nfunc main() {\n\tfmt.Printf(\"res: %v\\n\", isatty.IsTerminal(os.Stderr.Fd()) || isatty.IsCygwinTerminal(os.Stderr.Fd()))\n\tcolor.Set(color.FgRed)\n        fmt.Fprintln(os.Stderr, \"###########################################################\")\n\tcolor.Unset()\n\tfmt.Fprintln(os.Stderr, \"###########################################################\")\n}\n```\n\nResult(Amazon Linux 2023):\n![スクリーンショット 2023-05-21 18 24 38](https://github.com/aws/jsii/assets/50798936/4c6b76b0-5ce5-48f7-810d-a640de8e0167)\n\nResult(Windows_Server-2022):\n<img width=\"484\" alt=\"スクリーンショット 2023-05-21 18 24 13\" src=\"https://github.com/aws/jsii/assets/50798936/182984c5-eedd-447e-88d7-33c46939ace8\">\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-03T16:14:20Z",
+          "tree_id": "e267f64c5f4b711dfcd7655647f06e86533dd4cb",
+          "url": "https://github.com/aws/jsii/commit/28b192aa1a3ecdd3b3ce6ee49a5efd32db01e695"
+        },
+        "date": 1688403784172,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62519.62073075003,
+            "unit": "milliseconds",
+            "range": 2124008.804271473,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62519.62073075003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47847.210203850016,
+            "unit": "milliseconds",
+            "range": 22045.036616013156,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47847.210203850016 milliseconds over 20 runs"
           }
         ]
       }
