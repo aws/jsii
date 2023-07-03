@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688385472542,
+  "lastUpdate": 1688390122489,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18157,6 +18157,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 303761.18316595734,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62158.58337269999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "08e9eb87555cf1efca6f456dff775fa27ebd5e49",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.6.2 to 17.6.3 in /packages/@jsii/dotnet-runtime-test/test (#4164)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.6.2 to 17.6.3.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.6.3</h2>\n<h3>Issues Fixed</h3>\n<ul>\n<li>[rel/17.6] Update version to 17.6.3 by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4555\">#4555</a></li>\n<li>[rel/17.6] Disable pre-start of testhosts by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4554\">#4554</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/microsoft/vstest/compare/v17.6.2...v17.6.3\">https://github.com/microsoft/vstest/compare/v17.6.2...v17.6.3</a></p>\n<h3>Artifacts</h3>\n<ul>\n<li>TestPlatform vsix: <a href=\"https://vsdrop.corp.microsoft.com/file/v1/Products/DevDiv/microsoft/vstest/17.6/20230627-01;/TestPlatform.vsix\">17.6.3</a></li>\n<li>Microsoft.TestPlatform.ObjectModel : <a href=\"https://www.nuget.org/packages/Microsoft.TestPlatform.ObjectModel/17.6.3\">17.6.3</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/e7ea853f64af5a4c240acaf9e54cdae3ae0eb7bb\"><code>e7ea853</code></a> [rel/17.6] Update version to 17.6.3 (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4555\">#4555</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/bda2d1e387c47db04a99ae2beee4261ba452e4c7\"><code>bda2d1e</code></a> [rel/17.6] Disable pre-start of testhosts (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4554\">#4554</a>)</li>\n<li>See full diff in <a href=\"https://github.com/microsoft/vstest/compare/v17.6.2...v17.6.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.6.2&new-version=17.6.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-07-03T12:22:24Z",
+          "tree_id": "c54b30554ed3f51cab8b8e210727efb967cf1d73",
+          "url": "https://github.com/aws/jsii/commit/08e9eb87555cf1efca6f456dff775fa27ebd5e49"
+        },
+        "date": 1688390118802,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71624.13114635002,
+            "unit": "milliseconds",
+            "range": 1785950.7502044614,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71624.13114635002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52326.33843805002,
+            "unit": "milliseconds",
+            "range": 327351.4693481958,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52326.33843805002 milliseconds over 20 runs"
           }
         ]
       }
