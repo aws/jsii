@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688395513351,
+  "lastUpdate": 1688399378449,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18233,6 +18233,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 166745.7992438191,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48065.33682550001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6b7eb02f3a822941185e8c74be71d677285c741e",
+          "message": "fix: export transliterateAssembly and fix bug with transliterate cli (backport) (#4166)\n\nBackport of https://github.com/aws/jsii-rosetta/pull/121\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-03T14:56:30Z",
+          "tree_id": "493bcf153c458bd806ccef3a7f51a343498df7ec",
+          "url": "https://github.com/aws/jsii/commit/6b7eb02f3a822941185e8c74be71d677285c741e"
+        },
+        "date": 1688399374621,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71231.59794399998,
+            "unit": "milliseconds",
+            "range": 2872096.5919268434,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71231.59794399998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52246.99682135001,
+            "unit": "milliseconds",
+            "range": 192855.62034202757,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52246.99682135001 milliseconds over 20 runs"
           }
         ]
       }
