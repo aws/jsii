@@ -2,6 +2,7 @@
 name: Docker Images
 
 on:
+  merge_group: {}
   pull_request:
     branches: [main, release]
   push:
@@ -18,11 +19,12 @@ jobs:
       id-token: write # Necessary for OIDC federation
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node: ['14', '16', '18']
+        node: ['14', '16', '18', '20']
     env:
       # Node version whose images will be aliased without the -nodeXX segment
-      DEFAULT_NODE_MAJOR_VERSION: 14
+      DEFAULT_NODE_MAJOR_VERSION: 16
     steps:
       - name: Check out
         uses: actions/checkout@v3
@@ -33,10 +35,10 @@ jobs:
         run: |-
           if [ "${{ github.event_name }}" = "push" ]; then
             echo '⏯ Triggered by "push" event'
-            echo "::set-output name=result::true"
+            echo "result=true" >> $GITHUB_OUTPUT
           elif [ "${{ github.base_ref }}" = "release" ]; then
             echo '⏯ Triggered by "pull_request" event against "release"'
-            echo "::set-output name=result::true"
+            echo "result=true" >> $GITHUB_OUTPUT
           else
             # Fetch the base and head refs from origin so we can safely diff 'em
             git fetch --depth=1 --quiet origin ${{ github.base_ref }}
@@ -44,14 +46,14 @@ jobs:
             changed=$(git diff --name-only origin/${{ github.base_ref }}..HEAD)
             if grep Dockerfile <<< "${changed}" ; then
               echo '⏯ Dockerfile changed'
-              echo "::set-output name=result::true"
+              echo "result=true" >> $GITHUB_OUTPUT
             else
               if grep '.github/workflows/docker-images.yml' <<< "${changed}" ; then
                 echo '⏯ docker-images workflow changed'
-                echo "::set-output name=result::true"
+                echo "result=true" >> $GITHUB_OUTPUT
               else
                 echo '⏭ Dockerfile not changed'
-                echo "::set-output name=result::false"
+                echo "result=false" >> $GITHUB_OUTPUT
               fi
             fi
           fi
@@ -65,10 +67,10 @@ jobs:
         run: |-
           if [[ "${{ secrets.AWS_ROLE_TO_ASSUME }}" != "" ]]; then
             echo "🔑 Federation into AWS is possible (AWS_ROLE_TO_ASSUME is available)"
-            echo "::set-output name=enabled::true"
+            echo "enabled=true" >> $GITHUB_OUTPUT
           else
             echo "❌ Federation into AWS is disabled (no AWS_ROLE_TO_ASSUME secret found)"
-            echo "::set-output name=enabled::false"
+            echo "enabled=false" >> $GITHUB_OUTPUT
           fi
 
       # Federate into the PR Validation AWS Account
@@ -114,17 +116,6 @@ jobs:
             [worker.oci]
               max-parallelism = 1
 
-      # We only restore GH cache if we are not going to publish the result (i.e: PR validation)
-      - name: Set up layer cache
-        if: steps.should-run.outputs.result == 'true' && github.event_name != 'push'
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-${{ github.sha }}
-          restore-keys: |-
-            ${{ runner.os }}-buildx-${{ hashFiles('superchain/*') }}-
-            ${{ runner.os }}-buildx-
-
       # 1 pull per second from ECR Public
       - name: Jitter the start time to avoid ECR Public throttling
         id: sleep-start
@@ -136,7 +127,7 @@ jobs:
         id: build-time
         if: steps.should-run.outputs.result == 'true'
         run: |-
-          echo "::set-output name=value::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          echo "value=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
       - name: Build Image
         if: steps.should-run.outputs.result == 'true'
@@ -145,8 +136,6 @@ jobs:
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
-            --cache-from type=local,src=/tmp/.buildx-cache                      \
-            --cache-to type=local,dest=/tmp/.buildx-cache-out                   \
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
@@ -161,8 +150,6 @@ jobs:
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
-            --cache-from type=local,src=/tmp/.buildx-cache                      \
-            --cache-to type=local,dest=/tmp/.buildx-cache                       \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
@@ -194,8 +181,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                                                \
               --platform linux/amd64,linux/arm64                                                                        \
               --target superchain                                                                                       \
-              --cache-from type=local,src=/tmp/.buildx-cache                                                            \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                                             \
               --push                                                                                                    \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
               --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
@@ -211,8 +196,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                                                \
               --platform linux/amd64,linux/arm64                                                                        \
               --target superchain                                                                                       \
-              --cache-from type=local,src=/tmp/.buildx-cache                                                            \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                                             \
               --push                                                                                                    \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
               --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
@@ -233,8 +216,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                            \
               --platform linux/amd64,linux/arm64                                                    \
               --target superchain                                                                   \
-              --cache-from type=local,src=/tmp/.buildx-cache                                        \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                         \
               --push                                                                                \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
               --build-arg COMMIT_ID='${{ github.sha }}'                                             \
@@ -250,8 +231,6 @@ jobs:
               --builder ${{ steps.buildx.outputs.name }}                                            \
               --platform linux/amd64,linux/arm64                                                    \
               --target superchain                                                                   \
-              --cache-from type=local,src=/tmp/.buildx-cache                                        \
-              --cache-to type=local,dest=/tmp/.buildx-cache                                         \
               --push                                                                                \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
               --build-arg COMMIT_ID='${{ github.sha }}'                                             \
@@ -261,10 +240,3 @@ jobs:
               -f superchain/Dockerfile                                                              \
               .
           fi
-
-      # Replace the cache so it does not grow forever (should always be last!)
-      - name: Update layer cache
-        if: always() && steps.should-run.outputs.result == 'true'
-        run: |-
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-out /tmp/.buildx-cache

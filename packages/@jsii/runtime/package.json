@@ -17,7 +17,7 @@
     "directory": "packages/@jsii/runtime"
   },
   "engines": {
-    "node": ">= 14.6.0"
+    "node": ">= 14.17.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -44,7 +44,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "source-map-loader": "^4.0.1",
-    "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1"
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
   }
 }

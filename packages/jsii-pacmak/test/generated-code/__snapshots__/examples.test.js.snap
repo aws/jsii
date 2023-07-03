@@ -617,16 +617,18 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -640,7 +642,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -653,7 +655,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -677,7 +679,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -697,7 +699,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>2.16.0</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -2236,16 +2238,18 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -2259,7 +2263,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -2272,7 +2276,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -2296,7 +2300,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -2316,7 +2320,7 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>2.16.0</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
