@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688367964531,
+  "lastUpdate": 1688375333233,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18005,6 +18005,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 51033.93449817437,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52605.10073210001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "23d129b6797719da4668a74080256e4e22955f06",
+          "message": "chore(deps): Bump semver from 7.5.1 to 7.5.2 (#4156)\n\nBumps [semver](https://github.com/npm/node-semver) from 7.5.1 to 7.5.2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/npm/node-semver/releases\">semver's releases</a>.</em></p>\n<blockquote>\n<h2>v7.5.2</h2>\n<h2><a href=\"https://github.com/npm/node-semver/compare/v7.5.1...v7.5.2\">7.5.2</a> (2023-06-15)</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-semver/commit/58c791f40ba8cf4be35a5ca6644353ecd6249edc\"><code>58c791f</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/566\">#566</a> diff when detecting major change from prerelease (<a href=\"https://redirect.github.com/npm/node-semver/issues/566\">#566</a>) (<a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/5c8efbcb3c6c125af10746d054faff13e8c33fbd\"><code>5c8efbc</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/565\">#565</a> preserve build in raw after inc (<a href=\"https://redirect.github.com/npm/node-semver/issues/565\">#565</a>) (<a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/717534ee353682f3bcf33e60a8af4292626d4441\"><code>717534e</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/564\">#564</a> better handling of whitespace (<a href=\"https://redirect.github.com/npm/node-semver/issues/564\">#564</a>) (<a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/npm/node-semver/blob/main/CHANGELOG.md\">semver's changelog</a>.</em></p>\n<blockquote>\n<h2><a href=\"https://github.com/npm/node-semver/compare/v7.5.1...v7.5.2\">7.5.2</a> (2023-06-15)</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-semver/commit/58c791f40ba8cf4be35a5ca6644353ecd6249edc\"><code>58c791f</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/566\">#566</a> diff when detecting major change from prerelease (<a href=\"https://redirect.github.com/npm/node-semver/issues/566\">#566</a>) (<a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/5c8efbcb3c6c125af10746d054faff13e8c33fbd\"><code>5c8efbc</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/565\">#565</a> preserve build in raw after inc (<a href=\"https://redirect.github.com/npm/node-semver/issues/565\">#565</a>) (<a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/717534ee353682f3bcf33e60a8af4292626d4441\"><code>717534e</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/564\">#564</a> better handling of whitespace (<a href=\"https://redirect.github.com/npm/node-semver/issues/564\">#564</a>) (<a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/npm/node-semver/commit/e7b78de06eb14a7fa2075cedf9f167040d8d31af\"><code>e7b78de</code></a> chore: release 7.5.2</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/58c791f40ba8cf4be35a5ca6644353ecd6249edc\"><code>58c791f</code></a> fix: diff when detecting major change from prerelease (<a href=\"https://redirect.github.com/npm/node-semver/issues/566\">#566</a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/5c8efbcb3c6c125af10746d054faff13e8c33fbd\"><code>5c8efbc</code></a> fix: preserve build in raw after inc (<a href=\"https://redirect.github.com/npm/node-semver/issues/565\">#565</a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/717534ee353682f3bcf33e60a8af4292626d4441\"><code>717534e</code></a> fix: better handling of whitespace (<a href=\"https://redirect.github.com/npm/node-semver/issues/564\">#564</a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/2f738e9a70d9b9468b7b69e9ed3e12418725c650\"><code>2f738e9</code></a> chore: bump <code>@​npmcli/template-oss</code> from 4.14.1 to 4.15.1 (<a href=\"https://redirect.github.com/npm/node-semver/issues/558\">#558</a>)</li>\n<li>See full diff in <a href=\"https://github.com/npm/node-semver/compare/v7.5.1...v7.5.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=semver&package-manager=npm_and_yarn&previous-version=7.5.1&new-version=7.5.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2023-07-03T07:58:39Z",
+          "tree_id": "e97d2c5f0034fa92042424464acce347a6bedf85",
+          "url": "https://github.com/aws/jsii/commit/23d129b6797719da4668a74080256e4e22955f06"
+        },
+        "date": 1688375328378,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95415.17406615,
+            "unit": "milliseconds",
+            "range": 3677870.2698474787,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95415.17406615 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 71740.17909109998,
+            "unit": "milliseconds",
+            "range": 858386.5760926169,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71740.17909109998 milliseconds over 20 runs"
           }
         ]
       }
