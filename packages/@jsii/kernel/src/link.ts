@@ -6,7 +6,7 @@ import { join } from 'path';
  * copy otherwise.
  *
  * @param existing    is the original file or directory to link.
- * @param destination is the nbew file or directory to create.
+ * @param destination is the new file or directory to create.
  */
 export function link(existing: string, destination: string): void {
   const stat = statSync(existing);

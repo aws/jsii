@@ -3,26 +3,7 @@ queue_rules:
   - name: default
     conditions:
       - status-success~=^jsii/superchain
-      # The baseline (Ubuntu + Min-supported SDKs and runtimes)
-      - status-success=Test (baseline)
-      # One test for each OS
-      - status-success=Test (macOS)
-      - status-success=Test (Windows)
-      # One test for each alternate nodejs version
-      - status-success=Test (Node 16)
-      - status-success=Test (Node 18)
-      - status-success=Test (Node 19)
-      # One test for each alternate .NET version
-      - status-success=Test (.NET 7.0)
-      # One test for each alternate go version
-      - status-success=Test (Go 1.19)
-      # One test for each alternate Java version
-      - status-success=Test (Java 11)
-      # One test for each alternate Python version
-      - status-success=Test (Python 3.8)
-      - status-success=Test (Python 3.9)
-      - status-success=Test (Python 3.10)
-      - status-success=Test (Python 3.11)
+      - status-success=Unit Tests
 
 pull_request_rules:
   - name: label core
@@ -53,26 +34,7 @@ pull_request_rules:
       - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
-      # The baseline (Ubuntu + Min-supported SDKs and runtimes)
-      - status-success=Test (baseline)
-      # One test for each OS
-      - status-success=Test (macOS)
-      - status-success=Test (Windows)
-      # One test for each alternate nodejs version
-      - status-success=Test (Node 16)
-      - status-success=Test (Node 18)
-      - status-success=Test (Node 19)
-      # One test for each alternate .NET version
-      - status-success=Test (.NET 7.0)
-      # One test for each alternate go version
-      - status-success=Test (Go 1.19)
-      # One test for each alternate Java version
-      - status-success=Test (Java 11)
-      # One test for each alternate Python version
-      - status-success=Test (Python 3.8)
-      - status-success=Test (Python 3.9)
-      - status-success=Test (Python 3.10)
-      - status-success=Test (Python 3.11)
+      - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -103,26 +65,7 @@ pull_request_rules:
       - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
-      # The baseline (Ubuntu + Min-supported SDKs and runtimes)
-      - status-success=Test (baseline)
-      # One test for each OS
-      - status-success=Test (macOS)
-      - status-success=Test (Windows)
-      # One test for each alternate nodejs version
-      - status-success=Test (Node 16)
-      - status-success=Test (Node 18)
-      - status-success=Test (Node 19)
-      # One test for each alternate .NET version
-      - status-success=Test (.NET 7.0)
-      # One test for each alternate go version
-      - status-success=Test (Go 1.19)
-      # One test for each alternate Java version
-      - status-success=Test (Java 11)
-      # One test for each alternate Python version
-      - status-success=Test (Python 3.8)
-      - status-success=Test (Python 3.9)
-      - status-success=Test (Python 3.10)
-      - status-success=Test (Python 3.11)
+      - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -153,26 +96,7 @@ pull_request_rules:
       - status-success=Validate PR Title
       # Docker image validation
       - status-success~=^jsii/superchain
-      # The baseline (Ubuntu + Min-supported SDKs and runtimes)
-      - status-success=Test (baseline)
-      # One test for each OS
-      - status-success=Test (macOS)
-      - status-success=Test (Windows)
-      # One test for each alternate nodejs version
-      - status-success=Test (Node 16)
-      - status-success=Test (Node 18)
-      - status-success=Test (Node 19)
-      # One test for each alternate .NET version
-      - status-success=Test (.NET 7.0)
-      # One test for each alternate go version
-      - status-success=Test (Go 1.19)
-      # One test for each alternate Java version
-      - status-success=Test (Java 11)
-      # One test for each alternate Python version
-      - status-success=Test (Python 3.8)
-      - status-success=Test (Python 3.9)
-      - status-success=Test (Python 3.10)
-      - status-success=Test (Python 3.11)
+      - status-success=Unit Tests
 
   - name: Clean branch up
     actions:
