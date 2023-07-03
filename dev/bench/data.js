@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688403788213,
+  "lastUpdate": 1688408596412,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18309,6 +18309,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 22045.036616013156,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47847.210203850016 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6c4309edf7cafc879795f612404c9dbd73157b79",
+          "message": "chore: fix pr labeler workflow does not trigger auto-approval (#4167)\n\nThe pr labeler workflow must run as the automation user and not the github-actions bot in order to trigger other workflows. This is an intentional limitation by GitHub.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-03T17:15:29Z",
+          "tree_id": "01c5f770d0d94568e42756d6681af2527e98f361",
+          "url": "https://github.com/aws/jsii/commit/6c4309edf7cafc879795f612404c9dbd73157b79"
+        },
+        "date": 1688408591209,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 93290.24159724991,
+            "unit": "milliseconds",
+            "range": 9079048.653209642,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 93290.24159724991 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 70573.77383185,
+            "unit": "milliseconds",
+            "range": 2400413.5488911103,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70573.77383185 milliseconds over 20 runs"
           }
         ]
       }
