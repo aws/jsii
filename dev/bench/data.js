@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688408596412,
+  "lastUpdate": 1688411070954,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18347,6 +18347,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2400413.5488911103,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 70573.77383185 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "44349620+peterwoodworth@users.noreply.github.com",
+            "name": "Peter Woodworth",
+            "username": "peterwoodworth"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4df19a354330d89227e9bdf1f16e9ef248cfbc77",
+          "message": "chore: update ancient issue time (#4116)\n\nIncreasing time it takes to automatically close inactive issues across our repositories\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-03T18:17:53Z",
+          "tree_id": "49088d17e0d812149cd802ba33c05bd73618a1e3",
+          "url": "https://github.com/aws/jsii/commit/4df19a354330d89227e9bdf1f16e9ef248cfbc77"
+        },
+        "date": 1688411067056,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60349.701977599994,
+            "unit": "milliseconds",
+            "range": 3568616.0925784633,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60349.701977599994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46734.49325805001,
+            "unit": "milliseconds",
+            "range": 42003.928696768926,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46734.49325805001 milliseconds over 20 runs"
           }
         ]
       }
