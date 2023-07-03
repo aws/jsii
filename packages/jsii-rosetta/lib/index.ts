@@ -12,4 +12,5 @@ export * from './rosetta-reader';
 export * from './rosetta-translator';
 export * from './snippet';
 export * from './markdown';
+export * from './commands/transliterate';
 export * from './strict';
