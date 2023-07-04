@@ -16,4 +16,7 @@ jobs:
     steps:
     - run: gh pr edit ${{ github.event.pull_request.number }} --add-label "auto-approve" -R ${{ github.repository }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # This workflow is intended to trigger the `auto-approve` workflow by adding a label to the PR
+        # In order for this to happen, it must run as the automation user and not the github-actions bot
+        # It is an intentional limitation by GitHub that the github-actions bot (identified by using `secrets.GITHUB_TOKEN`) cannot trigger other workflows
+        GITHUB_TOKEN: ${{ secrets.PROJEN_GITHUB_TOKEN }}
