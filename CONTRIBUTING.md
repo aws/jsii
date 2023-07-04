@@ -19,9 +19,8 @@ our own CI/CD: the ["superchain" image][superchain] from.
 The image can be built for local usage, too:
 
 ```console
-$ cd jsii # go to the root of the jsii repo
 $ IMAGE=superchain
-$ docker buildx build -t $IMAGE --target $IMAGE -f superchain/Dockerfile .
+$ docker build -t ${IMAGE} -f superchain/Dockerfile .
 ```
 
 In order to get an interactive shell within a Docker container using the
