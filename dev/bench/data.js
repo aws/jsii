@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688473430892,
+  "lastUpdate": 1688594430232,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18423,6 +18423,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 104605.44671462636,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52180.69004315001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "117320115+khushail@users.noreply.github.com",
+            "name": "Shailja Khurana",
+            "username": "khushail"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a6b937812d939a5faebbc2ff55d9c323fce51894",
+          "message": "chore(github-actions): added stale discussion workflow (#4163)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-05T21:11:30Z",
+          "tree_id": "45ad0ae8326e6f193d01b0d9b10f5f6e65839230",
+          "url": "https://github.com/aws/jsii/commit/a6b937812d939a5faebbc2ff55d9c323fce51894"
+        },
+        "date": 1688594426273,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62187.703285199954,
+            "unit": "milliseconds",
+            "range": 2048582.6374852187,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62187.703285199954 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47443.55239485,
+            "unit": "milliseconds",
+            "range": 45358.6756152277,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47443.55239485 milliseconds over 20 runs"
           }
         ]
       }
