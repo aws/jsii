@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/aws/jsii-runtime-go/internal/compiler"
+	"github.com/fatih/color"
 	"github.com/mattn/go-isatty"
 )
 
@@ -18,7 +19,7 @@ func init() {
 
 	if tty {
 		// Set terminal to bold red
-		fmt.Fprintf(os.Stderr, "\u001b[31m\u001b[1m")
+		color.Set(color.FgRed, color.Bold)
 	}
 
 	fmt.Fprintln(os.Stderr, "###########################################################")
@@ -32,6 +33,6 @@ func init() {
 
 	if tty {
 		// Reset terminal back to normal
-		fmt.Fprintf(os.Stderr, "\u001b[0m")
+		color.Unset()
 	}
 }

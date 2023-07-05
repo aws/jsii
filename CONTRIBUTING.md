@@ -20,7 +20,7 @@ The image can be built for local usage, too:
 
 ```console
 $ IMAGE=superchain
-$ docker build -t ${IMAGE} ./superchain
+$ docker build -t ${IMAGE} -f superchain/Dockerfile .
 ```
 
 In order to get an interactive shell within a Docker container using the
