@@ -395,6 +395,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#use-cases-limitations" class="md-nav__link">
+    Use-Cases &amp; Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#typescript-support" class="md-nav__link">
     TypeScript Support
   </a>
@@ -679,6 +686,20 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../user-guides/lib-author/hints/" class="md-nav__link">
+        Special TSDoc tags
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -687,17 +708,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
           Configuration
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5">
           <span class="md-nav__icon md-icon"></span>
           Configuration
         </label>
@@ -730,17 +751,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4_2" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4_2" id="__nav_2_2_4_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
           Configuration Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_4_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4_2">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5_2">
           <span class="md-nav__icon md-icon"></span>
           Configuration Reference
         </label>
@@ -811,20 +832,6 @@
           
         </ul>
       </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../user-guides/lib-author/hints/" class="md-nav__link">
-        Type system hints
-      </a>
     </li>
   
 
@@ -1284,6 +1291,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#use-cases-limitations" class="md-nav__link">
+    Use-Cases &amp; Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#typescript-support" class="md-nav__link">
     TypeScript Support
   </a>
@@ -1316,6 +1330,20 @@
 
 
 <h1 id="features">Features</h1>
+<h2 id="use-cases-limitations">Use-Cases &amp; Limitations</h2>
+<p>The <em>jsii</em> toolchain allows developers to author class libraries once in TypeScript, while allowing their customers to
+consume them in various <a href="#target-languages">other languages</a>. This is used for libraries such as the AWS CDK (
+<a href="https://npmjs.com/package/aws-cdk-lib"><code>aws-cdk-lib</code></a>), and is intended for use in similar contexts: client-side,
+design-time SDKs that do not require long-running processes and is not in the path to serve time-sensitive requests.</p>
+<p>Due to limitations of its <a href="../runtime-architecture/">runtime architecture</a>, <em>jsii libraries</em> for languages other than
+Javascript/TypeScript are best suited for inclusion in short-running processes, outside of performance-sensitive or
+memory-constrained contexts.</p>
+<p>While <code>async</code> APIs are supported by the <em>jsii</em> type system, support for these should be treated as highly experimental.
+In particular, support in the various <a href="#target-languages">target languages</a> varies greatly, and users may encounter a
+variety of bugs or surprising behaviors. The current JavaScript-based cross-language interoperability kernel is also
+known to block execution of background micro-tasks when it's waiting for commands from the host process.</p>
+<p>The runtime libraries used by <em>jsii libraries</em> are not currently designed for thread safety, and using <em>jsii libraries</em>
+in multi-thread contexts is unsupported at the moment.</p>
 <h2 id="typescript-support">TypeScript Support</h2>
 <p>The <code>jsii</code> compiler leverages the original <a href="https://www.typescriptlang.org">TypeScript</a> compiler API to compile <strong>TypeScript</strong> source files and produce
 <strong>JavaScript</strong> output and <em>TypeScript declaration files</em>, while also extracting the compiled module's API signatures in
@@ -1323,7 +1351,7 @@ a <em>jsii assembly file</em>.</p>
 <p>To determine the version of <strong>TypeScript</strong> that is in use by the installed release of <code>jsii</code>, simply look at the
 <code>jsii --version</code> output:</p>
 <div class="highlight"><pre><span></span><code><span class="gp"># </span>jsii<span class="w"> </span>--version
-<span class="go">1.15.0 (build 585166b), typescript 3.9.7</span>
+<span class="go">5.1.6 (build d8f400c), typescript 5.1.6</span>
 </code></pre></div>
 <p>You can then refer to the <a href="https://www.typescriptlang.org">TypeScript</a> documentation to determine which language features are available in that specific
 <a href="https://www.typescriptlang.org">TypeScript</a> release.</p>
@@ -1390,7 +1418,7 @@ more information, refer to the <a href="../../user-guides/lib-author/typescript-
   <small>
     
       Last update:
-      2023-07-03
+      2023-07-10
     
   </small>
 </div>

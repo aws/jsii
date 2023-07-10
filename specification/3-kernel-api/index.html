@@ -631,6 +631,20 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../user-guides/lib-author/hints/" class="md-nav__link">
+        Special TSDoc tags
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -639,17 +653,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
           Configuration
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5">
           <span class="md-nav__icon md-icon"></span>
           Configuration
         </label>
@@ -682,17 +696,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4_2" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4_2" id="__nav_2_2_4_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
           Configuration Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_4_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4_2">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5_2">
           <span class="md-nav__icon md-icon"></span>
           Configuration Reference
         </label>
@@ -763,20 +777,6 @@
           
         </ul>
       </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../user-guides/lib-author/hints/" class="md-nav__link">
-        Type system hints
-      </a>
     </li>
   
 
@@ -1923,10 +1923,18 @@ on the static type of some instance using the <code>invoke</code> call. All stat
 (<strong>TypeScript</strong> may in certain circumstances allow returning a value from a <code>void</code> method): the <em>host</em> app should ignore
 such values.</p>
 <h4 id="asynchronous-method-invocation">Asynchronous method invocation</h4>
+<div class="admonition bug">
+<p class="admonition-title">Largely un-tested</p>
+<p>Asynchronous operations are only partially supported in the various target languages, and is currently not widely
+used. As such, support is not as "battle-tested" as the rest of the jsii interoperability features, and customers
+may run into usability issues, unexpected bugs, or surprising behaviors when using async.</p>
+<p>In particular, outstanding <code>Promise</code>s may not be able to make progress as expected due to specific implementation
+details of the <code>@jsii/runtime</code> event loop, which can result in deadlock situations.</p>
+</div>
 <p>The <code>invoke</code> call can only be used to invoke <em>synchronous</em> methods. In order to invoke <em>asynchronous</em> methods, the
-<code>begin</code> and <code>end</code> calls must be used instead. Once the <em>host</em> app has entered an asynchronous workflow (after it makes
-the first <code>begin</code> call), and until it has completed all asynchronous operations (after all <code>begin</code> class are matched
-with an <code>end</code> call), no <em>synchronous</em> operation (including synchronous callbacks) may be initiated.</p>
+<code>begin</code> and <code>end</code> calls must be used instead. Once the <em>host</em> app has entered a synchronous workflow (after it makes
+an <code>invoke</code> call), and until it has completed that synchronous operation (after all callbacks have been handled and the
+<code>InvokeResponse</code> has been received), no <em>asynchronous</em> operation may be initiated by the host app.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">BeginRequest</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/** The object reference on which an asynchronous method is invoked */</span>
 <span class="w">  </span><span class="nx">objref</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectReference</span><span class="p">;</span>
@@ -2039,7 +2047,7 @@ instead:</p>
   <small>
     
       Last update:
-      2023-07-03
+      2023-07-10
     
   </small>
 </div>

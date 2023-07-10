@@ -13,17 +13,17 @@
         <link rel="canonical" href="https://aws.github.io/jsii/user-guides/lib-author/hints/">
       
       
-        <link rel="prev" href="../configuration/targets/python/">
+        <link rel="prev" href="../typescript-restrictions/">
       
       
-        <link rel="next" href="../toolchain/jsii/">
+        <link rel="next" href="../configuration/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
-        <title>Type system hints - The jsii reference</title>
+        <title>Special TSDoc tags - The jsii reference</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#type-system-hints" class="md-skip">
+        <a href="#special-tsdoc-tags" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Type system hints
+              Special TSDoc tags
             
           </span>
         </div>
@@ -630,6 +630,68 @@
               
   
   
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Special TSDoc tags
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Special TSDoc tags
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#forcing-an-interface-to-be-considered-a-struct" class="md-nav__link">
+    Forcing an interface to be considered a struct
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#excluding-a-declaration-from-multi-language-support" class="md-nav__link">
+    Excluding a declaration from multi-language support
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
   
     
     <li class="md-nav__item md-nav__item--nested">
@@ -639,17 +701,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
           Configuration
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5">
           <span class="md-nav__icon md-icon"></span>
           Configuration
         </label>
@@ -682,17 +744,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4_2" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4_2" id="__nav_2_2_4_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
           Configuration Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_4_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4_2">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5_2">
           <span class="md-nav__icon md-icon"></span>
           Configuration Reference
         </label>
@@ -763,61 +825,6 @@
           
         </ul>
       </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Type system hints
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Type system hints
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#forcing-an-interface-to-be-considered-a-struct" class="md-nav__link">
-    Forcing an interface to be considered a struct
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1283,6 +1290,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#excluding-a-declaration-from-multi-language-support" class="md-nav__link">
+    Excluding a declaration from multi-language support
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1301,7 +1315,7 @@
   
 
 
-<h1 id="type-system-hints">Type system hints</h1>
+<h1 id="special-tsdoc-tags">Special TSDoc tags</h1>
 <p>The <code>jsii</code> compiler interprets some documentation tags as hints that influence
 the type system represented in the <code>.jsii</code> assembly files.</p>
 <h2 id="forcing-an-interface-to-be-considered-a-struct">Forcing an interface to be considered a <em>struct</em></h2>
@@ -1310,8 +1324,8 @@ the type system represented in the <code>.jsii</code> assembly files.</p>
 another capital letter (which normally would make them be treated as
 <a href="../../../specification/2-type-system/#behavioral-interfaces"><em>behavioral interfaces</em></a>):</p>
 <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
-<span class="cm"> * @struct</span>
-<span class="cm"> */</span>
+<span class="hll"><span class="cm"> * @struct</span>
+</span><span class="cm"> */</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IPRange</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">cidr</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">:</span>
 <span class="p">}</span>
@@ -1321,13 +1335,32 @@ another capital letter (which normally would make them be treated as
 <p>The <code>@struct</code> hint can only be used on interface declarations. Attempting to
 use them on any other declaration will result in a compilation error.</p>
 </div>
+<h2 id="excluding-a-declaration-from-multi-language-support">Excluding a declaration from multi-language support</h2>
+<p>The <code>@jsii ignore</code> tag causes the documented declaration to be ignored by the
+<code>jsii</code> compiler. This has the effect of making the declaration invisible to
+languages other than <strong>TypeScript</strong> and <strong>Javascript</strong>. Developers using this
+tag should consider the implications on the usability of their library in other
+languages.</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Props</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * TypeScript/Javascript customers may pass additional properties with this</span>
+<span class="cm">   * struct, however this will not be possible in other languages, as jsii does</span>
+<span class="cm">   * not support index signatures.</span>
+<span class="cm">   *</span>
+<span class="hll"><span class="cm">   * @jsii ignore</span>
+</span><span class="cm">   */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">unknown</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-07-03
+      2023-07-10
     
   </small>
 </div>

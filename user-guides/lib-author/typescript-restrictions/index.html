@@ -16,7 +16,7 @@
         <link rel="prev" href="../quick-start/write-code/">
       
       
-        <link rel="next" href="../configuration/">
+        <link rel="next" href="../hints/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
@@ -720,8 +720,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameterized-types-aka-generics" class="md-nav__link">
-    Parameterized Types (aka: Generics)
+  <a href="#index-signatures" class="md-nav__link">
+    Index Signatures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typescript-mapped-types" class="md-nav__link">
+    TypeScript Mapped Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-aliases" class="md-nav__link">
+    Type Aliases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-reserved-words" class="md-nav__link">
+    Soft-Reserved Words
   </a>
   
 </li>
@@ -740,6 +761,20 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../hints/" class="md-nav__link">
+        Special TSDoc tags
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -748,17 +783,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
           Configuration
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5">
           <span class="md-nav__icon md-icon"></span>
           Configuration
         </label>
@@ -791,17 +826,17 @@
       
         
       
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_4_2" >
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_2_4_2" id="__nav_2_2_4_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
           Configuration Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_4_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_2_4_2">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2_5_2">
           <span class="md-nav__icon md-icon"></span>
           Configuration Reference
         </label>
@@ -872,20 +907,6 @@
           
         </ul>
       </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../hints/" class="md-nav__link">
-        Type system hints
-      </a>
     </li>
   
 
@@ -1413,8 +1434,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameterized-types-aka-generics" class="md-nav__link">
-    Parameterized Types (aka: Generics)
+  <a href="#index-signatures" class="md-nav__link">
+    Index Signatures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typescript-mapped-types" class="md-nav__link">
+    TypeScript Mapped Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-aliases" class="md-nav__link">
+    Type Aliases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-reserved-words" class="md-nav__link">
+    Soft-Reserved Words
   </a>
   
 </li>
@@ -1575,12 +1617,32 @@ end-of-life, this may change.</p>
 </span><span class="hll"><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">method</span><span class="p">(</span><span class="nx">param</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
 </span><span class="p">}</span>
 </code></pre></div>
-<h2 id="parameterized-types-aka-generics">Parameterized Types (aka: Generics)</h2>
-<p>Parameterized types are not consistently supported in all supported target languages. <strong>Go</strong> does not currently support
-generics, and the differences in generic semantics between <strong>TypeScript</strong>, <strong>C#</strong> and <strong>Java</strong> make it difficult to
-correctly represent such types in all those languages. As a consequence, <code>jsii</code> does not support declaring parameterized
-types.</p>
-<p>Only certain <em>built-in</em> parameterized types can be used in <code>jsii</code> modules:</p>
+<h2 id="index-signatures">Index Signatures</h2>
+<p><strong>TypeScript</strong> allows declaring <em>additional properties</em> through the use of index signatures. These are however not
+supported by the <em>jsii type system</em> and are rejected by the compiler.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Version <code>1.x</code> of the compiler <em>silently ignores</em> index signatures instead of reporting a compilation error. Users
+with offending APIs migrating from <code>jsii@1.x</code> to <code>jsii@5.0</code> or newer need to either remove those declarations, or
+explicitly ignore them using the <a href="../hints/#excluding-a-declaration-from-multi-language-support"><code>@jsii ignore</code> tag</a>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">WithIndexSignature</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="hll"><span class="w">  </span><span class="c1">// 💥 Index signatures are not supported</span>
+</span><span class="hll"><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">unknown</span><span class="p">;</span>
+</span><span class="p">}</span>
+</code></pre></div>
+<h2 id="typescript-mapped-types">TypeScript Mapped Types</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>These are also referred to as "Generics", "Parameterized Types", "Utility Types", ...</p>
+</div>
+<p>Parameterized types are not consistently supported in all supported target languages. <strong>Go</strong> support for generics is
+relatively limited (for good reasons) compared to TypeScript and most Object-Oriented languages, and the differences in
+generic semantics between <strong>TypeScript</strong>, <strong>C#</strong> and <strong>Java</strong> make it difficult to correctly represent such types in all
+those languages. As a consequence, <code>jsii</code> does not support declaring parameterized types.</p>
+<p>Certain <em>built-in</em> TypeScript types can however be used in <code>jsii</code> modules:</p>
 <ul>
 <li><code>Array&lt;T&gt;</code>, which is equivalent to <code>T[]</code></li>
 <li><code>Record&lt;string, T&gt;</code>, which is equivalent to <code>{ [key: string]: T }</code></li>
@@ -1598,7 +1660,30 @@ types.</p>
 <span class="w">  </span><span class="nx">makeFoos</span><span class="p">(</span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Array</span><span class="o">&lt;</span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h1 id="soft-reserved-words">Soft-Reserved Words</h1>
+<div class="admonition danger">
+<p class="admonition-title"><code class="highlight"><span class="nx">Pick</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Keys</span><span class="o">&gt;</span></code> and <code class="highlight"><span class="nx">Omit</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Keys</span><span class="o">&gt;</span></code></p>
+<p>Users are often tempted to use <code class="highlight"><span class="nx">Pick</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Keys</span><span class="o">&gt;</span></code> and <code class="highlight"><span class="nx">Omit</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Keys</span><span class="o">&gt;</span></code> when creating higher level abstractions
+of types exposed by their dependencies, and they want to expose all configuration options from the upstream
+implementation except for some specific properties which are determined fully by the new abstraction.</p>
+<p><code class="highlight"><span class="nx">Pick</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Keys</span><span class="o">&gt;</span></code> and <code class="highlight"><span class="nx">Omit</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Keys</span><span class="o">&gt;</span></code> are not supported as they would result in open-ended implementation
+requirements to exist in languages such as <strong>Java</strong> and <strong>C#</strong> where such things are not possible.</p>
+<p>Users with this particular use-case should investigate generating code in order to reproduce the upstream type
+without the filtered out fields. For example, this can be done with <a href="http://npmjs.com/package/projen"><code>projen</code></a>
+using <a href="https://github.com/mrgrain/jsii-struct-builder"><code>jsii-struct-builder</code></a>.</p>
+</div>
+<h2 id="type-aliases">Type Aliases</h2>
+<p>TypeScript supports type aliasing using the <code class="highlight"><span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span></code> syntax. While this is not considered a
+compilation error by the <code>jsii</code> compiler, those types are implicitly de-sugared by the compiler for all language targets
+except for <strong>TypeScript</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="hll"><span class="c1">// 👻 Only visible in TypeScript</span>
+</span><span class="hll"><span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">FooOrBar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Foo</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Bar</span><span class="p">;</span>
+</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Props</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">  </span><span class="c1">// ⚠️ Effectively `readonly fooOrBar: Foo | Bar;` in non-TypeScript</span>
+</span><span class="hll"><span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">fooOrBar</span><span class="o">:</span><span class="w"> </span><span class="kt">FooOrBar</span><span class="p">;</span>
+</span><span class="p">}</span>
+</code></pre></div>
+<h2 id="soft-reserved-words">Soft-Reserved Words</h2>
 <p>In order to guarantee a consistent developer experience across all supported languages, <code>jsii</code> emits warnings whenever
 a declaration is named after any target language's <em>reserved words</em>, as those will need renaming in target languages:</p>
 <table>
@@ -1893,7 +1978,7 @@ a declaration is named after any target language's <em>reserved words</em>, as t
   <small>
     
       Last update:
-      2023-07-03
+      2023-07-10
     
   </small>
 </div>
