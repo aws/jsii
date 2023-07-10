@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688594430232,
+  "lastUpdate": 1689006822744,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18461,6 +18461,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 45358.6756152277,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47443.55239485 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8f8b24539c56b41d771690b2ecd00ede8b9e051d",
+          "message": "chore(docs): documentation enhancements (#4174)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-10T15:22:54Z",
+          "tree_id": "9668533b75add8369ad17dc10950c1d279a2e87c",
+          "url": "https://github.com/aws/jsii/commit/8f8b24539c56b41d771690b2ecd00ede8b9e051d"
+        },
+        "date": 1689006817450,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95761.39121795,
+            "unit": "milliseconds",
+            "range": 3591625.397559208,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95761.39121795 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 71342.4675615,
+            "unit": "milliseconds",
+            "range": 873915.282765346,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71342.4675615 milliseconds over 20 runs"
           }
         ]
       }
