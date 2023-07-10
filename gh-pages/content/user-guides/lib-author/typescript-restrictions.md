@@ -219,7 +219,7 @@ export interface IAsyncFooMaker {
 
     Users with this particular use-case should investigate generating code in order to reproduce the upstream type
     without the filtered out fields. For example, this can be done with [`projen`](http://npmjs.com/package/projen)
-    using  [`jsii-struct-builder`](https://github.com/mrgrain/jsii-struct-builder).
+    using [`jsii-struct-builder`](https://github.com/mrgrain/jsii-struct-builder).
 
 ## Type Aliases
 
