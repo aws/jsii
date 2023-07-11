@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689081106603,
+  "lastUpdate": 1689085413527,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18613,6 +18613,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 129205.88361287226,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54060.290246549994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f0a29b70749722c3161aee485ec9eb9b6e1671e3",
+          "message": "chore(deps): Bump xunit.runner.visualstudio from 2.4.5 to 2.5.0 in /packages/@jsii/dotnet-runtime-test/test (#4171)\n\nBumps [xunit.runner.visualstudio](https://github.com/xunit/visualstudio.xunit) from 2.4.5 to 2.5.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/5ebf84cd7537a3810772a1af751ce32d9d3930dc\"><code>5ebf84c</code></a> v2.5.0</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/fd327b6da7a4fa9e86889cc529def80a281e03c5\"><code>fd327b6</code></a> Ensure both failed tests and errors cancel for stopOnFail</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/4e86b435fee8df445ec78b858777faba34625611\"><code>4e86b43</code></a> Latest dependencies</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/c29a7604e9c7bd6166006e55e4d93abc811bf404\"><code>c29a760</code></a> <a href=\"https://redirect.github.com/xunit/visualstudio.xunit/issues/110\">#110</a>: Visual Studio test explorer cannot filter skipped tests by message</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/5e961608fe30e9490d6c7a1a0e3a751c923ae4dd\"><code>5e96160</code></a> <a href=\"https://redirect.github.com/xunit/visualstudio.xunit/issues/189\">#189</a>: Support 'stopOnFail' configuration file setting</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/671542c4db6242900d44fe367da102d8b031cc6a\"><code>671542c</code></a> <a href=\"https://redirect.github.com/xunit/visualstudio.xunit/issues/331\">#331</a>: DisableAppDomain switch is not fully respected for Discovery</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/1aa409de388c9dabd6766b28abbdb78f4499b461\"><code>1aa409d</code></a> Add net472 build of test.harness which turns off app domains (for performance...</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/ff89c51f426085d115fbf20b3527182fbd56b7f1\"><code>ff89c51</code></a> Latest dependencies</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/f9d61b59b8fe43800f474c45ec37fc3efa2d60ab\"><code>f9d61b5</code></a> <a href=\"https://redirect.github.com/xunit/visualstudio.xunit/issues/317\">#317</a>: Slow performance on discovery / running due to discovering TestReporters</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/01ec27d6e9603182ea9c7aa23d03758e3c996947\"><code>01ec27d</code></a> Latest dependencies</li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/visualstudio.xunit/compare/v2.4.5...2.5.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit.runner.visualstudio&package-manager=nuget&previous-version=2.4.5&new-version=2.5.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-07-11T13:24:32Z",
+          "tree_id": "90fcf302d12898f65dd7cec7a8b2f0cadef5e8ec",
+          "url": "https://github.com/aws/jsii/commit/f0a29b70749722c3161aee485ec9eb9b6e1671e3"
+        },
+        "date": 1689085408403,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 81438.68798884997,
+            "unit": "milliseconds",
+            "range": 2132436.9775084993,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 81438.68798884997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 59895.107287599996,
+            "unit": "milliseconds",
+            "range": 241999.03065539006,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59895.107287599996 milliseconds over 20 runs"
           }
         ]
       }
