@@ -3,7 +3,12 @@
 name: pr-labeler
 on:
   pull_request:
-    types: [ opened ]
+    types:
+      - labeled           # Run when labels are updated
+      - opened            # Run when a PR is initially submitted
+      - ready_for_review  # Run when a Draft PR is upgraded PR
+      - reopened          # Run when a PR is re-opened
+      - synchronize       # Run when a PR head branch is updated
 
 jobs:
   auto-approve:
