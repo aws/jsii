@@ -14,7 +14,7 @@
     <PackageReference Update="NSubstitute" Version="5.0.0" />
     <PackageReference Update="xunit" Version="2.4.2" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.5" />
-    <PackageReference Update="XunitXml.TestLogger" Version="3.0.78" />
+    <PackageReference Update="XunitXml.TestLogger" Version="3.1.11" />
 
     <PackageReference Update="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
