@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689074259836,
+  "lastUpdate": 1689078932869,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18537,6 +18537,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 253634.5560130008,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77791.33159320001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "536ba3bbc23bd2086aa13ca3b55da5438b425fab",
+          "message": "chore(deps): Bump XunitXml.TestLogger from 3.0.78 to 3.1.11 in /packages/@jsii/dotnet-runtime-test/test (#4173)\n\nBumps [XunitXml.TestLogger](https://github.com/spekt/xunit.testlogger) from 3.0.78 to 3.1.11.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/spekt/xunit.testlogger/releases\">XunitXml.TestLogger's releases</a>.</em></p>\n<blockquote>\n<h2>v3.1.11</h2>\n<ul>\n<li>Update core testlogger to 3.1.130.</li>\n<li>Fix for illegal xml characters in various names. See <a href=\"https://redirect.github.com/spekt/testlogger/pull/37\">spekt/testlogger#37</a></li>\n<li>Use DisplayName for method names. See <a href=\"https://redirect.github.com/spekt/xunit.testlogger/pull/46\">spekt/xunit.testlogger#46</a></li>\n<li>Various infra fixes: move to net7.0, add github CI and remove appveyor.</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/spekt/xunit.testlogger/blob/master/CHANGELOG.md\">XunitXml.TestLogger's changelog</a>.</em></p>\n<blockquote>\n<h2>v3.1.11 - 2023/07/06</h2>\n<ul>\n<li>Update core testlogger to 3.1.130.</li>\n<li>Fix for illegal xml characters in various names. See <a href=\"https://redirect.github.com/spekt/testlogger/pull/37\">spekt/testlogger#37</a></li>\n<li>Use DisplayName for method names. See <a href=\"https://redirect.github.com/spekt/xunit.testlogger/pull/46\">spekt/xunit.testlogger#46</a></li>\n<li>Various infra fixes: move to net7.0, add github CI and remove appveyor.</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/e049c292ddecc40b7d126275d9447102106509d6\"><code>e049c29</code></a> chore: update dependencies for test frameworks and logger. (<a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/47\">#47</a>)</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/af4a7f888b9bc05605f98a2784f734d5b172c820\"><code>af4a7f8</code></a> Illegal xml char (<a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/46\">#46</a>)</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/32dfaa8fd629d46a6039e1649a871d98c7c55f7e\"><code>32dfaa8</code></a> fix: publish package</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/0637345c8e6a68bd0c29f770244bfa1fa87faabd\"><code>0637345</code></a> chore: remove duplicate package ref for acceptance test. (<a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/45\">#45</a>)</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/8890393a19380ad9d2f2471acb9194bedac49665\"><code>8890393</code></a> chore: add github ci.</li>\n<li>See full diff in <a href=\"https://github.com/spekt/xunit.testlogger/compare/v3.0.78...v3.1.11\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=XunitXml.TestLogger&package-manager=nuget&previous-version=3.0.78&new-version=3.1.11)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-07-11T11:17:36Z",
+          "tree_id": "39d5d0416aa81e115e279b9f8c8d2fa0497309b3",
+          "url": "https://github.com/aws/jsii/commit/536ba3bbc23bd2086aa13ca3b55da5438b425fab"
+        },
+        "date": 1689078927431,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 112438.50779604996,
+            "unit": "milliseconds",
+            "range": 13834798.165439898,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 112438.50779604996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 81055.0017638,
+            "unit": "milliseconds",
+            "range": 7308260.056934836,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 81055.0017638 milliseconds over 20 runs"
           }
         ]
       }
