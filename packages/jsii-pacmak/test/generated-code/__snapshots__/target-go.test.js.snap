@@ -12641,7 +12641,6 @@ type LoadBalancedFargateServiceProps struct {
 	// Corresponds to container port mapping.
 	// Default: 80.
 	//
-
 	ContainerPort *float64 \`field:"optional" json:"containerPort" yaml:"containerPort"\`
 	// The number of cpu units used by the task.
 	//
