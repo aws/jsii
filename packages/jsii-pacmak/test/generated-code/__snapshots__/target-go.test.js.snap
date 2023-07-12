@@ -12653,6 +12653,7 @@ type LoadBalancedFargateServiceProps struct {
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
 	// Default: 256.
+	//
 	Cpu *string \`field:"optional" json:"cpu" yaml:"cpu"\`
 	// The amount (in MiB) of memory used by the task.
 	//
