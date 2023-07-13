@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689244810206,
+  "lastUpdate": 1689249154227,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18689,6 +18689,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 233668.67983249956,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52717.48300610002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "epolon@amazon.com",
+            "name": "Eli Polonsky",
+            "username": "iliapolo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2b66bcff921568f22d80ce9e6824444b49b13ee3",
+          "message": "chore: use node 16 in upgrade workflows (#4177)\n\nOur dependencies are starting to [reject](https://github.com/aws/jsii/actions/runs/5532321392/jobs/10105940432) node 14.\n\n```console\nyarn install v1.22.19\n[1/4] Resolving packages...\n[2/4] Fetching packages...\nerror @typescript-eslint/eslint-plugin@[6](https://github.com/aws/jsii/actions/runs/5532321392/jobs/10105940432#step:8:7).0.0: The engine \"node\" is incompatible with this module. Expected version \"^16.0.0 || >=18.0.0\". Got \"14.21.3\"\n```\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-13T10:58:29Z",
+          "tree_id": "d2a3eca308f2106031816c1413358fe46e6dac19",
+          "url": "https://github.com/aws/jsii/commit/2b66bcff921568f22d80ce9e6824444b49b13ee3"
+        },
+        "date": 1689249149739,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 73931.12934154995,
+            "unit": "milliseconds",
+            "range": 263925.26886582037,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 73931.12934154995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53834.57900554999,
+            "unit": "milliseconds",
+            "range": 91370.11690661297,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53834.57900554999 milliseconds over 20 runs"
           }
         ]
       }
