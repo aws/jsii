@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689085413527,
+  "lastUpdate": 1689244810206,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18651,6 +18651,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 241999.03065539006,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 59895.107287599996 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f78ba7e0a212417bea9bbd1876a1126b1a029dd3",
+          "message": "chore(deps): Bump xunit from 2.4.2 to 2.5.0 in /packages/@jsii/dotnet-runtime-test/test (#4172)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.4.2 to 2.5.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/12ec6b87aea7ad0496aa053e11b84d4c928f90a8\"><code>12ec6b8</code></a> Bump up to v2.5.1-pre</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/92f31c4c3a4adf391a19e6c9b531f4195636f132\"><code>92f31c4</code></a> v2.5.0</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/188216b64a3bb9a141cb2851fce47264f29593bf\"><code>188216b</code></a> Ensure both failed tests and error cause error return codes (and cancel for s...</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/c97317920dcd10e88264adf6c81a303aca7bfc06\"><code>c973179</code></a> Latest analyzers</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/f93d52dbf743957131287690bef34a518c402eae\"><code>f93d52d</code></a> Propagate StopOnFail from config file =&gt; execution options</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/5e70f54cab281f0d19ababd6dea9832518137a4d\"><code>5e70f54</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2737\">#2737</a>: Restore XunitException constructor (breaking change) (v2)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/028866f82155319ffa583503245aa5ec438f7804\"><code>028866f</code></a> Add PackageDownload for Microsoft.NETFramework.ReferenceAssemblies.net452 to ...</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/aeba1bbfc354d24ce2ddb17e1d248bf5ddf7b4cc\"><code>aeba1bb</code></a> Remove UAP/UWP support</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/530802128e5acd624406f35869ab61d73d6c0514\"><code>5308021</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/1857\">#1857</a>: Add overload to Assert.Contains for ConcurrentDictionary (v2)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/5fbaa0a34994a5293589c47935bfbfe49b29357c\"><code>5fbaa0a</code></a> Incorrect type restriction on obsoleted Assert.ThrowsAny&lt;T&gt; for Func&lt;Task&gt; an...</li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/xunit/compare/2.4.2...2.5.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.4.2&new-version=2.5.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-07-13T09:42:46Z",
+          "tree_id": "34f2b45cd2f9958c2c6b3de38b6c14e1c491f066",
+          "url": "https://github.com/aws/jsii/commit/f78ba7e0a212417bea9bbd1876a1126b1a029dd3"
+        },
+        "date": 1689244806409,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 71733.92401034999,
+            "unit": "milliseconds",
+            "range": 476875.18056868325,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 71733.92401034999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52717.48300610002,
+            "unit": "milliseconds",
+            "range": 233668.67983249956,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52717.48300610002 milliseconds over 20 runs"
           }
         ]
       }
