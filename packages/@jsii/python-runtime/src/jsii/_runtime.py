@@ -79,6 +79,9 @@ class JSIIAssembly:
         return result.returncode
 
 
+M = TypeVar("M")
+
+
 class JSIIMeta(_ClassPropertyMeta, type):
     def __new__(
         cls: Type["JSIIMeta"],
@@ -108,7 +111,7 @@ class JSIIMeta(_ClassPropertyMeta, type):
 
         return cast("JSIIMeta", obj)
 
-    def __call__(cls: Type[Any], *args: Any, **kwargs) -> Any:
+    def __call__(cls: Type[M], *args: Any, **kwargs) -> M:
         inst = super().__call__(*args, **kwargs)
 
         # Register this instance with our reference map.
