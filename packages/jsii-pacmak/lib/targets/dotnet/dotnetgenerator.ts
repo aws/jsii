@@ -1077,7 +1077,7 @@ export class DotNetGenerator extends Generator {
     // Emit getters
     if (backingFieldName != null) {
       this.code.line(`get => ${backingFieldName};`);
-    } else if (datatype || prop.const || prop.abstract) {
+    } else if (datatype ?? prop.const ?? prop.abstract) {
       this.code.line('get;');
     } else {
       // If the property is non-optional, add a bang to silence compiler warning
