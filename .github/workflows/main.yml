@@ -47,10 +47,10 @@ jobs:
         with:
           cache: yarn
           node-version: '16'
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -130,10 +130,10 @@ jobs:
         with:
           cache: yarn
           node-version: '16'
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
