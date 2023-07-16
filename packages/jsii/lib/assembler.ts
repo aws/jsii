@@ -2460,7 +2460,8 @@ export class Assembler implements Emitter {
     if (parameter.variadic && spec.isCollectionTypeReference(parameter.type)) {
       // TypeScript types variadic parameters as an array, but JSII uses the item-type instead.
       parameter.type = parameter.type.collection.elementtype;
-    } else if (paramDeclaration.initializer ?? paramDeclaration.questionToken) {
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    } else if (paramDeclaration.initializer || paramDeclaration.questionToken) {
       // Optional parameters have an inherently null-able type.
       parameter.optional = true;
     }

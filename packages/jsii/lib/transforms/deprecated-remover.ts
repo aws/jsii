@@ -161,7 +161,7 @@ export class DeprecatedRemover {
 
       // Strip all `@deprecated` interfaces from the inheritance tree, replacing as needed
       if (
-        typeInfo.interfaces?.some((fqn) => strippedFqns.has(fqn)) ??
+        typeInfo.interfaces?.some((fqn) => strippedFqns.has(fqn)) ||
         additionalInterfaces.size > 0
       ) {
         const originalSet = new Set(typeInfo.interfaces ?? []);

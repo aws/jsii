@@ -222,7 +222,7 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get returnsRef(): boolean {
     if (
-      this.reference?.type?.type.isClassType() ??
+      this.reference?.type?.type.isClassType() ||
       this.reference?.type?.type.isInterfaceType()
     ) {
       return true;
