@@ -66,7 +66,7 @@ export class Benchmark<C> {
   #profile = false;
 
   public constructor(private readonly name: string) {}
-  #setup: () => C | Promise<C> = () => ({} as C);
+  #setup: () => C | Promise<C> = () => ({}) as C;
   #subject: (ctx: C) => void | Promise<void> = () => undefined;
   #beforeEach: (ctx: C) => void | Promise<void> = () => undefined;
   #afterEach: (ctx: C) => void | Promise<void> = () => undefined;
