@@ -59,7 +59,7 @@ afterAll(() => {
 
 function defineTest(
   name: string,
-  method: (sandbox: Kernel) => Promise<any> | any,
+  method: (sandbox: Kernel) => any,
   testFunc = test,
 ) {
   const recording = name.replace(/[^A-Za-z]/g, '_');
@@ -71,10 +71,7 @@ function defineTest(
   });
 }
 
-defineTest.skip = function (
-  name: string,
-  method: (sandbox: Kernel) => Promise<any> | any,
-) {
+defineTest.skip = function (name: string, method: (sandbox: Kernel) => any) {
   return defineTest(name, method, test.skip);
 };
 
