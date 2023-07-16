@@ -172,6 +172,7 @@ function dispatch<T>(
     return fns.enumType(apiElement);
   }
 
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   throw new Error(`Unrecognized violator: ${apiElement.toString()}`);
 }
 
