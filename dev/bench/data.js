@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689604412499,
+  "lastUpdate": 1689608777731,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18841,6 +18841,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 84015.09534120411,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52692.67757979998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b463966caa95427464a13a511d10685c7eab2429",
+          "message": "chore(deps-dev): Bump pip from 23.1.2 to 23.2 in /packages/jsii-pacmak/test/generated-code (#4183)\n\nBumps [pip](https://github.com/pypa/pip) from 23.1.2 to 23.2.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.2 (2023-07-15)</h1>\n<h2>Process</h2>\n<ul>\n<li>Deprecate support for eggs for Python 3.11 or later, when the new <code>importlib.metadata</code> backend is used to load distribution metadata. This only affects the egg <em>distribution format</em> (with the <code>.egg</code> extension); distributions using the <code>.egg-info</code> <em>metadata format</em> (but are not actually eggs) are not affected. For more information about eggs, see <code>relevant section in the setuptools documentation &lt;https://setuptools.pypa.io/en/stable/deprecated/python_eggs.html&gt;</code>__.</li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>Deprecate legacy version and version specifiers that don't conform to <code>PEP 440 &lt;https://peps.python.org/pep-0440/&gt;</code>_ (<code>[#12063](https://github.com/pypa/pip/issues/12063) &lt;https://github.com/pypa/pip/issues/12063&gt;</code>_)</li>\n<li><code>freeze</code> no longer excludes the <code>setuptools</code>, <code>distribute</code>, and <code>wheel</code>\nfrom the output when running on Python 3.12 or later, where they are not\nincluded in a virtual environment by default. Use <code>--exclude</code> if you wish to\nexclude any of these packages. (<code>[#4256](https://github.com/pypa/pip/issues/4256) &lt;https://github.com/pypa/pip/issues/4256&gt;</code>_)</li>\n</ul>\n<h2>Features</h2>\n<ul>\n<li>make rejection messages slightly different between 1 and 8, so the user can make the difference. (<code>[#12040](https://github.com/pypa/pip/issues/12040) &lt;https://github.com/pypa/pip/issues/12040&gt;</code>_)</li>\n</ul>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Fix <code>pip completion --zsh</code>. (<code>[#11417](https://github.com/pypa/pip/issues/11417) &lt;https://github.com/pypa/pip/issues/11417&gt;</code>_)</li>\n<li>Prevent downloading files twice when PEP 658 metadata is present (<code>[#11847](https://github.com/pypa/pip/issues/11847) &lt;https://github.com/pypa/pip/issues/11847&gt;</code>_)</li>\n<li>Add permission check before configuration (<code>[#11920](https://github.com/pypa/pip/issues/11920) &lt;https://github.com/pypa/pip/issues/11920&gt;</code>_)</li>\n<li>Fix deprecation warnings in Python 3.12 for usage of shutil.rmtree (<code>[#11957](https://github.com/pypa/pip/issues/11957) &lt;https://github.com/pypa/pip/issues/11957&gt;</code>_)</li>\n<li>Ignore invalid or unreadable <code>origin.json</code> files in the cache of locally built wheels. (<code>[#11985](https://github.com/pypa/pip/issues/11985) &lt;https://github.com/pypa/pip/issues/11985&gt;</code>_)</li>\n<li>Fix installation of packages with PEP658 metadata using non-canonicalized names (<code>[#12038](https://github.com/pypa/pip/issues/12038) &lt;https://github.com/pypa/pip/issues/12038&gt;</code>_)</li>\n<li>Correctly parse <code>dist-info-metadata</code> values from JSON-format index data. (<code>[#12042](https://github.com/pypa/pip/issues/12042) &lt;https://github.com/pypa/pip/issues/12042&gt;</code>_)</li>\n<li>Fail with an error if the <code>--python</code> option is specified after the subcommand name. (<code>[#12067](https://github.com/pypa/pip/issues/12067) &lt;https://github.com/pypa/pip/issues/12067&gt;</code>_)</li>\n<li>Fix slowness when using <code>importlib.metadata</code> (the default way for pip to read metadata in Python 3.11+) and there is a large overlap between already installed and to-be-installed packages. (<code>[#12079](https://github.com/pypa/pip/issues/12079) &lt;https://github.com/pypa/pip/issues/12079&gt;</code>_)</li>\n<li>Pass the <code>-r</code> flag to mercurial to be explicit that a revision is passed and protect\nagainst <code>hg</code> options injection as part of VCS URLs. Users that do not have control on\nVCS URLs passed to pip are advised to upgrade. (<code>[#12119](https://github.com/pypa/pip/issues/12119) &lt;https://github.com/pypa/pip/issues/12119&gt;</code>_)</li>\n</ul>\n<h2>Vendored Libraries</h2>\n<ul>\n<li>Upgrade certifi to 2023.5.7</li>\n<li>Upgrade platformdirs to 3.8.1</li>\n<li>Upgrade pygments to 2.15.1</li>\n<li>Upgrade pyparsing to 3.1.0</li>\n<li>Upgrade Requests to 2.31.0</li>\n<li>Upgrade rich to 13.4.2</li>\n<li>Upgrade setuptools to 68.0.0</li>\n<li>Updated typing_extensions to 4.6.0</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/a3c2c43c5309ff219674b1d73a6dbf491a727a5e\"><code>a3c2c43</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/ae23f967efedf33e3da148612657064b3b5a0695\"><code>ae23f96</code></a> Update AUTHORS.txt</li>\n<li><a href=\"https://github.com/pypa/pip/commit/324dd444956283661dce0dc282cbdaad0405d921\"><code>324dd44</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/11417\">#11417</a> from Freed-Wu/fix-zsh</li>\n<li><a href=\"https://github.com/pypa/pip/commit/e53cf3d32dd0a41ecc66205d7360c90e59030fd0\"><code>e53cf3d</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12137\">#12137</a> from groodt/groodt-fix-deprecation-warning</li>\n<li><a href=\"https://github.com/pypa/pip/commit/38a8fb1f601c782eef0988290f11aa2a4dfc3c69\"><code>38a8fb1</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12140\">#12140</a> from uranusjr/ensure-preparation-for-dist</li>\n<li><a href=\"https://github.com/pypa/pip/commit/0cabefbce800b6bde91f869e83dc48bd0ea4aa64\"><code>0cabefb</code></a> Ensure requirements are prepared before get_dist()</li>\n<li><a href=\"https://github.com/pypa/pip/commit/2c4947d51a002cd0ba4b01ec7682d86f297e6d37\"><code>2c4947d</code></a> Add news entry</li>\n<li><a href=\"https://github.com/pypa/pip/commit/41506d7bbf25009f0de06218744082ca4299f666\"><code>41506d7</code></a> Add news entry</li>\n<li><a href=\"https://github.com/pypa/pip/commit/9b47bc0fea396caf0cc6a89a404c039c6a44ac40\"><code>9b47bc0</code></a> Make black formatter happy</li>\n<li><a href=\"https://github.com/pypa/pip/commit/25f4e6eabf8fb8f10ea10e4bd9c542ed30cbba5e\"><code>25f4e6e</code></a> Fix deprecation warnings in Python 3.12 for usage of shutil.rmtree</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/pip/compare/23.1.2...23.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.1.2&new-version=23.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-07-17T14:55:15Z",
+          "tree_id": "92c37d306eefb865fea3cca3026dc36774b5261f",
+          "url": "https://github.com/aws/jsii/commit/b463966caa95427464a13a511d10685c7eab2429"
+        },
+        "date": 1689608773387,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63324.75274235006,
+            "unit": "milliseconds",
+            "range": 2546565.430867579,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63324.75274235006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47620.559318199994,
+            "unit": "milliseconds",
+            "range": 313091.608581822,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47620.559318199994 milliseconds over 20 runs"
           }
         ]
       }
