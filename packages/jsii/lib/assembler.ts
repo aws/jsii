@@ -753,9 +753,8 @@ export class Assembler implements Emitter {
             : fqn,
         };
       }
-      const symbolLocation = sym
-        .getDeclarations()?.[0]
-        ?.getSourceFile()?.fileName;
+      const symbolLocation = sym.getDeclarations()?.[0]?.getSourceFile()
+        ?.fileName;
       const pkgInfo = symbolLocation
         ? this.findPackageInfo(symbolLocation)
         : undefined;
@@ -2026,15 +2025,25 @@ export class Assembler implements Emitter {
           jsiiType.datatype = true;
         } else if (hints.struct) {
           this._diagnostics.push(
-            jsiiType.methods!.reduce((diag, mthod) => {
-              const node = bindings.getMethodRelatedNode(mthod);
-              return node
-                ? diag.addRelatedInformation(
-                    ts.getNameOfDeclaration(node) ?? node,
-                    `A method is declared here`,
-                  )
-                : diag;
-            }, JsiiDiagnostic.JSII_7001_ILLEGAL_HINT.create(_findHint(declaration, 'struct')!, 'struct', 'interfaces with only readonly properties').addRelatedInformation(ts.getNameOfDeclaration(declaration) ?? declaration, 'The annotated declartion is here')),
+            jsiiType.methods!.reduce(
+              (diag, mthod) => {
+                const node = bindings.getMethodRelatedNode(mthod);
+                return node
+                  ? diag.addRelatedInformation(
+                      ts.getNameOfDeclaration(node) ?? node,
+                      `A method is declared here`,
+                    )
+                  : diag;
+              },
+              JsiiDiagnostic.JSII_7001_ILLEGAL_HINT.create(
+                _findHint(declaration, 'struct')!,
+                'struct',
+                'interfaces with only readonly properties',
+              ).addRelatedInformation(
+                ts.getNameOfDeclaration(declaration) ?? declaration,
+                'The annotated declartion is here',
+              ),
+            ),
           );
         }
 
@@ -2451,6 +2460,7 @@ export class Assembler implements Emitter {
     if (parameter.variadic && spec.isCollectionTypeReference(parameter.type)) {
       // TypeScript types variadic parameters as an array, but JSII uses the item-type instead.
       parameter.type = parameter.type.collection.elementtype;
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     } else if (paramDeclaration.initializer || paramDeclaration.questionToken) {
       // Optional parameters have an inherently null-able type.
       parameter.optional = true;
@@ -2521,7 +2531,7 @@ export class Assembler implements Emitter {
       return { type: _mapType.call(this) };
     }
 
-    if (type.symbol.escapedName === 'Promise') {
+    if (type.symbol.escapedName.valueOf() === 'Promise') {
       const typeRef = type as ts.TypeReference;
       if (!typeRef.typeArguments || typeRef.typeArguments.length !== 1) {
         this._diagnostics.push(
@@ -2993,7 +3003,7 @@ function _isVoid(type: ts.Type): boolean {
 }
 
 function _isPromise(type: ts.Type): boolean {
-  return type.symbol?.escapedName === 'Promise';
+  return type.symbol?.escapedName.valueOf() === 'Promise';
 }
 
 function _sortMembers(type: spec.ClassType): spec.ClassType;

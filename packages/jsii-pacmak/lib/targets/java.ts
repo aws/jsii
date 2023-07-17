@@ -985,13 +985,16 @@ class JavaGenerator extends Generator {
     const inheritedOptionalProps = ifc.interfaces
       .map(allOptionalProps.bind(this))
       // Calculate how many direct parents brought a given optional property
-      .reduce((histogram, entry) => {
-        for (const [name, spec] of Object.entries(entry)) {
-          histogram[name] = histogram[name] ?? { spec, count: 0 };
-          histogram[name].count += 1;
-        }
-        return histogram;
-      }, {} as Record<string, { readonly spec: spec.Property; count: number }>);
+      .reduce(
+        (histogram, entry) => {
+          for (const [name, spec] of Object.entries(entry)) {
+            histogram[name] = histogram[name] ?? { spec, count: 0 };
+            histogram[name].count += 1;
+          }
+          return histogram;
+        },
+        {} as Record<string, { readonly spec: spec.Property; count: number }>,
+      );
 
     const localProps = new Set(ifc.properties?.map((prop) => prop.name) ?? []);
     for (const { spec, count } of Object.values(inheritedOptionalProps)) {
