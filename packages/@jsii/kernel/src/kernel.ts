@@ -43,7 +43,7 @@ export class Kernel {
   /**
    * Set to true for timing data to be emitted.
    */
-  public debugTimingEnabled = false;
+  public debugTimingEnabled = !!process.env.JSII_DEBUG_TIMING;
 
   readonly #assemblies = new Map<string, Assembly>();
   readonly #objects = new ObjectTable(this.#typeInfoForFqn.bind(this));
@@ -138,7 +138,7 @@ export class Kernel {
     }
 
     // read .jsii metadata from the root of the package
-    let assmSpec;
+    let assmSpec: spec.Assembly;
     try {
       assmSpec = this.#debugTime(
         () => loadAssemblyFromPath(packageDir),
@@ -150,13 +150,23 @@ export class Kernel {
       );
     }
 
+    // We do a `require.resolve` call, as otherwise, requiring with a directory will cause any `exports` from
+    // `package.json` to be ignored, preventing injection of a "lazy index" entry point.
+    const entryPoint = this.#require!.resolve(assmSpec.name, {
+      paths: [this.#installDir!],
+    });
     // load the module and capture its closure
     const closure = this.#debugTime(
-      () => this.#require!(packageDir),
-      `require(${packageDir})`,
+      () => this.#require!(entryPoint),
+      `require(${entryPoint})`,
     );
     const assm = new Assembly(assmSpec, closure);
-    this.#addAssembly(assm);
+    this.#debugTime(
+      () => this.#addAssembly(assm),
+      `registerAssembly({ name: ${assm.metadata.name}, types: ${
+        Object.keys(assm.metadata.types ?? {}).length
+      } })`,
+    );
 
     return {
       assembly: assmSpec.name,
