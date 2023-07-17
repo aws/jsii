@@ -222,6 +222,7 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get returnsRef(): boolean {
     if (
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       this.reference?.type?.type.isClassType() ||
       this.reference?.type?.type.isInterfaceType()
     ) {

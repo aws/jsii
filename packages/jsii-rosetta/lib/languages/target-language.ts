@@ -3,6 +3,7 @@ import * as assert from 'assert';
 export enum TargetLanguage {
   /** @internal an alias of PYTHON to make intent clear when language is irrelevant */
   VISUALIZE = 'python',
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   PYTHON = 'python',
   CSHARP = 'csharp',
   JAVA = 'java',
@@ -11,7 +12,7 @@ export enum TargetLanguage {
 
 const VALID_TARGET_LANGUAGES = new Set(Object.values(TargetLanguage));
 
-export function targetName(language: TargetLanguage.PYTHON | TargetLanguage.VISUALIZE): 'python';
+export function targetName(language: TargetLanguage.PYTHON): 'python';
 export function targetName(language: TargetLanguage.CSHARP): 'dotnet';
 export function targetName(language: TargetLanguage.JAVA): 'java';
 export function targetName(language: TargetLanguage.GO): 'go';
