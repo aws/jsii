@@ -1015,7 +1015,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┃     ┣━ 📄 BaseFor2647.cs
        ┃        ┃     ┣━ 📁 DeprecationRemoval
        ┃        ┃     ┃  ┣━ 📄 IInterface.cs
-       ┃        ┃     ┃  ┗━ 📄 InterfaceFactory.cs
+       ┃        ┃     ┃  ┣━ 📄 InterfaceFactory.cs
+       ┃        ┃     ┃  ┗━ 📄 VisibleBaseClass.cs
        ┃        ┃     ┣━ 📄 DiamondLeft.cs
        ┃        ┃     ┣━ 📄 DiamondRight.cs
        ┃        ┃     ┣━ 📄 EnumFromScopedModule.cs
@@ -1241,6 +1242,64 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval
         public static Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.IInterface Create()
         {
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.IInterface>(typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.InterfaceFactory), new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/DeprecationRemoval/VisibleBaseClass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.VisibleBaseClass), fullyQualifiedName: "@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass")]
+    [System.Obsolete()]
+    public class VisibleBaseClass : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public VisibleBaseClass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VisibleBaseClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VisibleBaseClass(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "propertyPresent", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        [System.Obsolete()]
+        public virtual bool PropertyPresent
+        {
+            get => GetInstanceProperty<bool>()!;
         }
     }
 }

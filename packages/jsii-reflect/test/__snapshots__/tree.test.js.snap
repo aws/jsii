@@ -3688,6 +3688,12 @@ exports[`showAll 1`] = `
    │ │   │   └─┬ static create() method
    │ │   │     ├── static
    │ │   │     └── returns: @scope/jsii-calc-lib.deprecationRemoval.IInterface
+   │ │   ├─┬ class VisibleBaseClass
+   │ │   │ └─┬ members
+   │ │   │   ├── <initializer>() initializer
+   │ │   │   └─┬ propertyPresent property
+   │ │   │     ├── immutable
+   │ │   │     └── type: boolean
    │ │   └─┬ interface IInterface
    │ │     └─┬ members
    │ │       └─┬ method() method
@@ -4321,6 +4327,7 @@ exports[`types 1`] = `
    │ ├─┬ deprecationRemoval
    │ │ └─┬ types
    │ │   ├── class InterfaceFactory
+   │ │   ├── class VisibleBaseClass
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types

@@ -21,12 +21,16 @@ const TYPE_STRING: OptionalValue = {
 };
 const TYPE_VOID = 'void';
 
+const isVisibleType: SerializerHost['isVisibleType'] = jest
+  .fn()
+  .mockName('host.isVisibleType');
 const lookupType: SerializerHost['lookupType'] = jest
   .fn()
   .mockName('host.lookupType');
 const host: SerializerHost = {
   debug: jest.fn().mockName('host.debug'),
   findSymbol: jest.fn().mockName('host.findSymbol'),
+  isVisibleType,
   lookupType,
   objects: new ObjectTable(lookupType),
 };
