@@ -86,7 +86,7 @@ export type ApiLocation =
   | {
       readonly api: 'parameter';
       readonly fqn: string;
-      readonly methodName: string | typeof INITIALIZER_METHOD_NAME;
+      readonly methodName: string;
       readonly parameterName: string;
     };
 

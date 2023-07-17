@@ -99,11 +99,9 @@ export class Compiler implements Emitter {
     );
 
     this.projectReferences =
-      options.projectReferences !== undefined
-        ? options.projectReferences
-        : options.projectInfo.projectReferences !== undefined
-        ? options.projectInfo.projectReferences
-        : false;
+      options.projectReferences ??
+      options.projectInfo.projectReferences ??
+      false;
   }
 
   /**
@@ -132,7 +130,7 @@ export class Compiler implements Emitter {
   public async watch(): Promise<never>;
   public async watch(
     opts?: NonBlockingWatchOptions,
-  ): Promise<ts.Watch<ts.BuilderProgram> | never> {
+  ): Promise<ts.Watch<ts.BuilderProgram>> {
     this._prepareForBuild();
 
     const pi = this.options.projectInfo;

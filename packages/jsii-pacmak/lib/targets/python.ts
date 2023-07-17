@@ -619,7 +619,7 @@ abstract class BaseMethod implements PythonBase {
             name: p.name,
             docs: p.docs,
             definingType: this.parent,
-          } as DocumentableArgument),
+          }) as DocumentableArgument,
       )
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
@@ -665,7 +665,7 @@ abstract class BaseMethod implements PythonBase {
               name: p.prop.name,
               docs: p.prop.docs,
               definingType: p.definingType,
-            } as DocumentableArgument),
+            }) as DocumentableArgument,
         ),
       );
     } else if (

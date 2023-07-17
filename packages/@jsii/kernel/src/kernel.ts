@@ -516,6 +516,7 @@ export class Kernel {
       const sandoxResult = this._toSandbox(
         result,
         cb.expectedReturnType ?? 'void',
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         `returned by callback ${cb.toString()}`,
       );
       this._debug('completed with result:', sandoxResult);

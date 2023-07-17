@@ -72,7 +72,10 @@ class GoEnumMember {
   private readonly docs: Docs;
   private readonly apiLocation: ApiLocation;
 
-  public constructor(private readonly parent: Enum, entry: EnumMember) {
+  public constructor(
+    private readonly parent: Enum,
+    entry: EnumMember,
+  ) {
     this.name = `${parent.name}_${entry.name}`;
     this.rawValue = entry.name;
     this.docs = entry.docs;

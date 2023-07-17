@@ -83,8 +83,7 @@ export class TypeSystemTree extends AsciiTree {
       options.types = true;
     }
 
-    const shouldUseColors =
-      options.colors === undefined ? true : options.colors;
+    const shouldUseColors = options.colors ?? true;
     withColors(shouldUseColors, () => {
       if (typesys.assemblies.length > 0) {
         const assemblies = new TitleNode('assemblies');
