@@ -1,5 +1,24 @@
 # Features
 
+## Use-Cases & Limitations
+
+The _jsii_ toolchain allows developers to author class libraries once in TypeScript, while allowing their customers to
+consume them in various [other languages](#target-languages). This is used for libraries such as the AWS CDK (
+[`aws-cdk-lib`](https://npmjs.com/package/aws-cdk-lib)), and is intended for use in similar contexts: client-side,
+design-time SDKs that do not require long-running processes and is not in the path to serve time-sensitive requests.
+
+Due to limitations of its [runtime architecture](./runtime-architecture.md), _jsii libraries_ for languages other than
+Javascript/TypeScript are best suited for inclusion in short-running processes, outside of performance-sensitive or
+memory-constrained contexts.
+
+While `async` APIs are supported by the _jsii_ type system, support for these should be treated as highly experimental.
+In particular, support in the various [target languages](#target-languages) varies greatly, and users may encounter a
+variety of bugs or surprising behaviors. The current JavaScript-based cross-language interoperability kernel is also
+known to block execution of background micro-tasks when it's waiting for commands from the host process.
+
+The runtime libraries used by _jsii libraries_ are not currently designed for thread safety, and using _jsii libraries_
+in multi-thread contexts is unsupported at the moment.
+
 ## TypeScript Support
 
 The `jsii` compiler leverages the original [TypeScript] compiler API to compile **TypeScript** source files and produce
@@ -11,7 +30,7 @@ To determine the version of **TypeScript** that is in use by the installed relea
 
 ```console
 # jsii --version
-1.15.0 (build 585166b), typescript 3.9.7
+5.1.6 (build d8f400c), typescript 5.1.6
 ```
 
 You can then refer to the [TypeScript] documentation to determine which language features are available in that specific

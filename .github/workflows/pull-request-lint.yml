@@ -1,5 +1,6 @@
 name: pull-request-lint
 on:
+  merge_group: {}
   pull_request_target:
     types:
       - labeled
