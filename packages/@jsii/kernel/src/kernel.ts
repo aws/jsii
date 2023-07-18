@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
@@ -151,7 +150,7 @@ export class Kernel {
     let assmSpec;
     try {
       assmSpec = this.#debugTime(
-        () => loadAssemblyFromPath(packageDir),
+        () => spec.loadAssemblyFromPath(packageDir),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
