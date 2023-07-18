@@ -50,6 +50,9 @@ export class Kernel {
   readonly #cbs = new Map<string, Callback>();
   readonly #waiting = new Map<string, Callback>();
   readonly #promises = new Map<string, AsyncInvocation>();
+
+  readonly #serializerHost: wire.SerializerHost;
+
   #nextid = 20000; // incrementing counter for objid, cbid, promiseid
   #syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
   #installDir?: string;
@@ -63,7 +66,14 @@ export class Kernel {
    *                        It's responsibility is to execute the callback and return it's
    *                        result (or throw an error).
    */
-  public constructor(public callbackHandler: (callback: api.Callback) => any) {}
+  public constructor(public callbackHandler: (callback: api.Callback) => any) {
+    this.#serializerHost = {
+      objects: this.#objects,
+      debug: this.#debug.bind(this),
+      findSymbol: this.#findSymbol.bind(this),
+      lookupType: this.#typeInfoForFqn.bind(this),
+    };
+  }
 
   public load(req: api.LoadRequest): api.LoadResponse {
     return this.#debugTime(
@@ -1165,12 +1175,7 @@ export class Kernel {
     context: string,
   ): any {
     return wire.process(
-      {
-        objects: this.#objects,
-        debug: this.#debug.bind(this),
-        findSymbol: this.#findSymbol.bind(this),
-        lookupType: this.#typeInfoForFqn.bind(this),
-      },
+      this.#serializerHost,
       'deserialize',
       v,
       expectedType,
@@ -1184,12 +1189,7 @@ export class Kernel {
     context: string,
   ): any {
     return wire.process(
-      {
-        objects: this.#objects,
-        debug: this.#debug.bind(this),
-        findSymbol: this.#findSymbol.bind(this),
-        lookupType: this.#typeInfoForFqn.bind(this),
-      },
+      this.#serializerHost,
       'serialize',
       v,
       targetType,
