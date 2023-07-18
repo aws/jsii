@@ -100,6 +100,13 @@ export class Docs {
   public get returns(): string {
     return this.docs.returns ?? '';
   }
+
+  /**
+   * Returns the default value
+   */
+  public get default(): string {
+    return this.docs.default ?? '';
+  }
 }
 
 const stabilityPrecedence = {
