@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689680689551,
+  "lastUpdate": 1689703867277,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19031,6 +19031,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 25624.54307685153,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46316.05249575 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0ef7acef765690f99075888d6c3e6f03d7cc2d59",
+          "message": "feat(python): deprecation message when using Python <= 3.7 (#4186)\n\nAs Python 3.7 has reached end-of-life on 2023-06-27, we will now be warning customers using it, and prompting them to upgrade to Python 3.8 or newer at their earliest convenience.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-18T16:58:26Z",
+          "tree_id": "99a0bb212ff80b25f6e98a1c58b723a71c9251b1",
+          "url": "https://github.com/aws/jsii/commit/0ef7acef765690f99075888d6c3e6f03d7cc2d59"
+        },
+        "date": 1689703862703,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 103497.41691170004,
+            "unit": "milliseconds",
+            "range": 7763905.847174084,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 103497.41691170004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 76070.06706024996,
+            "unit": "milliseconds",
+            "range": 8252511.979577174,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76070.06706024996 milliseconds over 20 runs"
           }
         ]
       }
