@@ -89,6 +89,71 @@ Each one of these scripts can be executed either from the root of the repo using
 `npx lerna run <script> --scope <package>` or from individual modules using
 `yarn <script>`.
 
+#### Reproducting Bugs (Test-Driven Solving)
+
+Troubleshooting bugs usually starts with adding a new test that demonstrates the
+faulty behavior, then modifying implementations until the test passes.
+
+The `jsii-calc` and `@scope/*` packages are used to test expected brhavior from
+the compiler (note that the [aws/jsii-compiler](github.com/aws/jsii-compiler)
+repository as a separate copy of these under the `fixtures` directory), as well
+as downstream tooling (`jsii-pacmak`, `jsii-rosetta`, etc...). Each language
+runtime has its own test suite, within which is a _compliance_ suite that tests
+the same behaviors in all languages, and which should contain tests related to
+behavior that isn't strictly specific to the given language.
+
+The `yarn test:update` script in each package runs all tests and updates
+snapshots when necessary. It is usually necessary to run this script at least in
+`jsii-pacmak` and `jsii-reflect` after changing code in the `jsii-calc` or
+`@scope/*` packages.
+
+#### Debugging runtime behavior
+
+Cross-language runtime behavior can be challenging to debug, as data is passed
+across process boundaries through Inter-Process Communication (IPC) channels.
+Further complicating things, the `@jsii/runtime` library packaged in the various
+language runtimes is bundled (by `webpack`), which can make the Javascript
+runtime code more complicated to follow.
+
+Setting various environment variables can help understanding what is happening
+better:
+
+- `JSII_DEBUG=1` turns on verbose debug logging, which will cause the program to
+  emit extensive IPC tracing information to `STDERR`. This information can help
+  identify where things start to behave in unexpected ways, but can be a little
+  difficult to digest... One may want to refer to the [kernel API][kernel-api]
+  documentation to make sense of those traces.
+
+- `JSII_DEBUG_TIMING=1` turns on specific timing information from the
+  `@jsii/kernel` high level API processing, which can be useful to narrow down
+  the possible causes for performance issues.
+
+- `JSII_RUNTIME` can be set to point to the `bin/jsii-runtime` script within the
+  `@jsii/runtime` package in order to use a local, non-`webpack`ed version of
+  the runtime program. This can be particularly helpful when trying to diagnose
+  a problem within a debugger session.
+
+- `NODE_OPTIONS` can be used to configure specific behaviors of the underlying
+  `node` runtime, such as specifying `--inspect-brk` to cause the node process
+  to wait for a debugger to attach before proceeding. This is useful to attach
+  Node dev tools to the runtime as it starts in order to use its debugger.
+
+The [Visual Studio Code](https://code.visualstudio.com) _JavaScript Debug
+Terminal_ feature can be particularly useful paired with appropriate
+`JSII_RUNTIME` setting to run arbitrary jsii programs, automatically attaching
+the VSCode debugger at startup. These terminals inject a specially crafted
+`NODE_OPTIONS` variable that allows the VSCode debugger to consistently attach
+to all `node` processes spawned within its context, including child processes
+(which can be problematic when running with `--inspect-brk`, as the default
+debugger interface's port can only be used by one process at a time).
+
+Finally, the `debugger` Javascript statement can be added anywhere in the
+runtime code or tested libraries in order to cause debuggers (if attached) to
+pause. This can be easier (and more reliable) to set up than traditional
+conditional break points.
+
+[kernel-api]: https://aws.github.io/jsii/specification/3-kernel-api/
+
 #### Linting & Formatting
 
 Eslint and Prettier are used to lint and format our typescript code. The `lint`
