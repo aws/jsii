@@ -3,7 +3,6 @@ import platform
 import subprocess
 from datetime import datetime
 import pytest
-import sys
 
 
 @pytest.fixture()
