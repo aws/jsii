@@ -57,7 +57,6 @@ class TestInvokeBinScript:
         assert result.returncode == 0
         assert result.stdout == b"Hello World!\n  arguments: arg1, arg2\n"
 
-
     @pytest.mark.skipif(
         platform.system() == "Windows",
         reason="jsii-pacmak does not generate windows scripts",
