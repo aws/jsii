@@ -4,6 +4,6 @@ nav:
   - index.md
   - quick-start
   - typescript-restrictions.md
-  - configuration
   - hints.md
+  - configuration
   - toolchain

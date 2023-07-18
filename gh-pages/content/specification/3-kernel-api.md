@@ -471,10 +471,18 @@ such values.
 
 #### Asynchronous method invocation
 
+!!! bug "Largely un-tested"
+    Asynchronous operations are only partially supported in the various target languages, and is currently not widely
+    used. As such, support is not as "battle-tested" as the rest of the jsii interoperability features, and customers
+    may run into usability issues, unexpected bugs, or surprising behaviors when using async.
+
+    In particular, outstanding `Promise`s may not be able to make progress as expected due to specific implementation
+    details of the `@jsii/runtime` event loop, which can result in deadlock situations.
+
 The `invoke` call can only be used to invoke _synchronous_ methods. In order to invoke _asynchronous_ methods, the
-`begin` and `end` calls must be used instead. Once the _host_ app has entered an asynchronous workflow (after it makes
-the first `begin` call), and until it has completed all asynchronous operations (after all `begin` class are matched
-with an `end` call), no _synchronous_ operation (including synchronous callbacks) may be initiated.
+`begin` and `end` calls must be used instead. Once the _host_ app has entered a synchronous workflow (after it makes
+an `invoke` call), and until it has completed that synchronous operation (after all callbacks have been handled and the
+`InvokeResponse` has been received), no _asynchronous_ operation may be initiated by the host app.
 
 ```ts
 interface BeginRequest {

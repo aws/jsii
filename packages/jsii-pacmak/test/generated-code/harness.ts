@@ -161,12 +161,15 @@ export function checkTree(
       entry,
       subtree: checkTree(path.join(file, entry), { root, excludes }),
     }))
-    .reduce((tree, { entry, subtree }) => {
-      if (subtree != null) {
-        tree[entry] = subtree;
-      }
-      return tree;
-    }, {} as { [name: string]: TreeStructure });
+    .reduce(
+      (tree, { entry, subtree }) => {
+        if (subtree != null) {
+          tree[entry] = subtree;
+        }
+        return tree;
+      },
+      {} as { [name: string]: TreeStructure },
+    );
 }
 
 export function diffTrees(
@@ -237,16 +240,19 @@ export function diffTrees(
         { root },
       ),
     }))
-    .reduce((tree, { entry, subtree }) => {
-      if (subtree != null) {
-        tree = tree ?? {};
-        if (typeof subtree === 'string' && subtree.startsWith(entry)) {
-          entry = subtree;
+    .reduce(
+      (tree, { entry, subtree }) => {
+        if (subtree != null) {
+          tree = tree ?? {};
+          if (typeof subtree === 'string' && subtree.startsWith(entry)) {
+            entry = subtree;
+          }
+          tree[entry] = subtree;
         }
-        tree[entry] = subtree;
-      }
-      return tree;
-    }, undefined as { [name: string]: TreeStructure } | undefined);
+        return tree;
+      },
+      undefined as { [name: string]: TreeStructure } | undefined,
+    );
 }
 
 function tryStat(at: string) {

@@ -14,7 +14,10 @@ export class Assembly extends ModuleLike {
   private _submoduleCache?: Map<string, Submodule>;
   private _dependencyCache?: Map<string, Dependency>;
 
-  public constructor(system: TypeSystem, public readonly spec: jsii.Assembly) {
+  public constructor(
+    system: TypeSystem,
+    public readonly spec: jsii.Assembly,
+  ) {
     super(system);
   }
 
