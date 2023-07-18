@@ -1077,6 +1077,7 @@ export class DotNetGenerator extends Generator {
     // Emit getters
     if (backingFieldName != null) {
       this.code.line(`get => ${backingFieldName};`);
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     } else if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {

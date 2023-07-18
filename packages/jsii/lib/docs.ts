@@ -74,7 +74,7 @@ export function parseSymbolDocumentation(
 export function getReferencedDocParams(sym: ts.Symbol): string[] {
   const ret = new Array<string>();
   for (const tag of sym.getJsDocTags()) {
-    if (tag.name === DocTag.PARAM) {
+    if (tag.name === DocTag.PARAM.valueOf()) {
       const parts = (tag.text ?? '').split(' ');
       ret.push(parts[0]);
     }
@@ -95,7 +95,7 @@ function parseDocParts(
   const tagNames = new Map<string, string | undefined>();
   for (const tag of tags) {
     // 'param' gets parsed as a tag and as a comment for a method
-    if (tag.name !== DocTag.PARAM) {
+    if (tag.name !== DocTag.PARAM.valueOf()) {
       tagNames.set(tag.name, tag.text);
     }
   }

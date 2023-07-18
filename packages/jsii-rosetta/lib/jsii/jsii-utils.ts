@@ -218,7 +218,7 @@ export function lookupJsiiSymbol(typeChecker: ts.TypeChecker, sym: ts.Symbol): J
             ) ?? sourceAssembly?.assembly.name,
           sourceAssembly: asm,
           symbolType: 'module',
-        } as JsiiSymbol),
+        }) as JsiiSymbol,
     );
   }
 
