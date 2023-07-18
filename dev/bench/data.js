@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689679985675,
+  "lastUpdate": 1689680689551,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18993,6 +18993,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 609478.1743478414,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52013.73455685001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "sirrus233@gmail.com",
+            "name": "Bradley Sherman",
+            "username": "sirrus233"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4ccbb579c8f26f55f8e391ddaf1fd562f1b78c38",
+          "message": "fix: type annotation for callable metaclass (#4179)\n\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>",
+          "timestamp": "2023-07-18T12:55:41+02:00",
+          "tree_id": "8f323153634b2c228dbddcae335117cb20ba7911",
+          "url": "https://github.com/aws/jsii/commit/4ccbb579c8f26f55f8e391ddaf1fd562f1b78c38"
+        },
+        "date": 1689680685130,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60657.85813564998,
+            "unit": "milliseconds",
+            "range": 3012986.2523435075,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60657.85813564998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46316.05249575,
+            "unit": "milliseconds",
+            "range": 25624.54307685153,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46316.05249575 milliseconds over 20 runs"
           }
         ]
       }
