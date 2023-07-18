@@ -42,7 +42,7 @@ export class Kernel {
   /**
    * Set to true for timing data to be emitted.
    */
-  public debugTimingEnabled = !!process.env.JSII_DEBUG_TIMING;
+  public debugTimingEnabled = false;
 
   readonly #assemblies = new Map<string, Assembly>();
   readonly #objects = new ObjectTable(this.#typeInfoForFqn.bind(this));
