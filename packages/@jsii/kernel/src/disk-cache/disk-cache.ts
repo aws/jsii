@@ -23,7 +23,7 @@ const PRUNE_AFTER_MILLISECONDS = process.env.JSII_RUNTIME_PACKAGE_CACHE_TTL
   : 30 * ONE_DAY_IN_MS;
 
 export class DiskCache {
-  private static readonly CACHE = new Map<string, DiskCache>();
+  static readonly #CACHE = new Map<string, DiskCache>();
 
   public static inDirectory(path: string): DiskCache {
     const didCreate = mkdirSync(path, { recursive: true }) != null;
@@ -36,10 +36,10 @@ export class DiskCache {
     }
 
     path = realpathSync(path);
-    if (!this.CACHE.has(path)) {
-      this.CACHE.set(path, new DiskCache(path));
+    if (!this.#CACHE.has(path)) {
+      this.#CACHE.set(path, new DiskCache(path));
     }
-    return this.CACHE.get(path)!;
+    return this.#CACHE.get(path)!;
   }
 
   readonly #root: string;
@@ -81,7 +81,7 @@ export class DiskCache {
 
   public pruneExpiredEntries() {
     const cutOff = new Date(Date.now() - PRUNE_AFTER_MILLISECONDS);
-    for (const entry of this.entries()) {
+    for (const entry of this.#entries()) {
       if (entry.atime < cutOff) {
         entry.lock((lockedEntry) => {
           // Check again in case it's been accessed which we waited for the lock...
@@ -111,7 +111,7 @@ export class DiskCache {
     }
   }
 
-  private *entries(): Generator<Entry, void, void> {
+  *#entries(): Generator<Entry, void, void> {
     yield* inDirectory(this.#root);
 
     function* inDirectory(dir: string): Generator<Entry, void, void> {
@@ -130,7 +130,7 @@ export class Entry {
 
   public get atime(): Date {
     try {
-      const stat = statSync(this.markerFile);
+      const stat = statSync(this.#markerFile);
       return stat.atime;
     } catch (err: any) {
       if (err.code !== 'ENOENT') {
@@ -144,17 +144,17 @@ export class Entry {
     return existsSync(this.path);
   }
 
-  private get lockFile(): string {
+  get #lockFile(): string {
     return `${this.path}.lock`;
   }
 
-  private get markerFile(): string {
+  get #markerFile(): string {
     return join(this.path, MARKER_FILE_NAME);
   }
 
   public lock<T>(cb: (entry: LockedEntry) => T): T {
     mkdirSync(dirname(this.path), { recursive: true });
-    lockSync(this.lockFile, { retries: 12, stale: 5_000 });
+    lockSync(this.#lockFile, { retries: 12, stale: 5_000 });
     let disposed = false;
     try {
       return cb({
@@ -186,18 +186,18 @@ export class Entry {
             );
           }
           if (this.pathExists) {
-            if (existsSync(this.markerFile)) {
+            if (existsSync(this.#markerFile)) {
               const now = new Date();
-              utimesSync(this.markerFile, now, now);
+              utimesSync(this.#markerFile, now, now);
             } else {
-              writeFileSync(this.markerFile, '');
+              writeFileSync(this.#markerFile, '');
             }
           }
         },
       });
     } finally {
       disposed = true;
-      unlockSync(this.lockFile);
+      unlockSync(this.#lockFile);
     }
   }
 
