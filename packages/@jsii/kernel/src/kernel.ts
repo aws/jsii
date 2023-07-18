@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
@@ -50,6 +49,9 @@ export class Kernel {
   readonly #cbs = new Map<string, Callback>();
   readonly #waiting = new Map<string, Callback>();
   readonly #promises = new Map<string, AsyncInvocation>();
+
+  readonly #serializerHost: wire.SerializerHost;
+
   #nextid = 20000; // incrementing counter for objid, cbid, promiseid
   #syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
   #installDir?: string;
@@ -63,7 +65,15 @@ export class Kernel {
    *                        It's responsibility is to execute the callback and return it's
    *                        result (or throw an error).
    */
-  public constructor(public callbackHandler: (callback: api.Callback) => any) {}
+  public constructor(public callbackHandler: (callback: api.Callback) => any) {
+    this.#serializerHost = {
+      objects: this.#objects,
+      debug: this.#debug.bind(this),
+      isVisibleType: this.#isVisibleType.bind(this),
+      findSymbol: this.#findSymbol.bind(this),
+      lookupType: this.#typeInfoForFqn.bind(this),
+    };
+  }
 
   public load(req: api.LoadRequest): api.LoadResponse {
     return this.#debugTime(
@@ -141,7 +151,7 @@ export class Kernel {
     let assmSpec: spec.Assembly;
     try {
       assmSpec = this.#debugTime(
-        () => loadAssemblyFromPath(packageDir),
+        () => spec.loadAssemblyFromPath(packageDir),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
@@ -523,6 +533,7 @@ export class Kernel {
       const sandoxResult = this.#toSandbox(
         result,
         cb.expectedReturnType ?? 'void',
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         `returned by callback ${cb.toString()}`,
       );
       this.#debug('completed with result:', sandoxResult);
@@ -635,8 +646,6 @@ export class Kernel {
     return path.join(this.#installDir, 'node_modules', pkgname);
   }
 
-  // prefixed with _ to allow calling this method internally without
-  // getting it recorded for testing.
   #create(req: api.CreateRequest): api.CreateResponse {
     this.#debug('create', req);
     const { fqn, interfaces, overrides } = req;
@@ -1206,13 +1215,7 @@ export class Kernel {
     context: string,
   ): any {
     return wire.process(
-      {
-        objects: this.#objects,
-        debug: this.#debug.bind(this),
-        findSymbol: this.#findSymbol.bind(this),
-        isVisibleType: this.#isVisibleType.bind(this),
-        lookupType: this.#typeInfoForFqn.bind(this),
-      },
+      this.#serializerHost,
       'deserialize',
       v,
       expectedType,
@@ -1226,13 +1229,7 @@ export class Kernel {
     context: string,
   ): any {
     return wire.process(
-      {
-        objects: this.#objects,
-        debug: this.#debug.bind(this),
-        findSymbol: this.#findSymbol.bind(this),
-        isVisibleType: this.#isVisibleType.bind(this),
-        lookupType: this.#typeInfoForFqn.bind(this),
-      },
+      this.#serializerHost,
       'serialize',
       v,
       targetType,

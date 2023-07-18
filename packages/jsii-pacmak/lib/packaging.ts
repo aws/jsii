@@ -64,7 +64,7 @@ export class JsiiModule {
         // problems if there are spaces or other special characters in the path.
         args.push(JSON.stringify(this.moduleDirectory));
 
-        if (logging.level >= logging.LEVEL_VERBOSE) {
+        if (logging.level.valueOf() >= logging.LEVEL_VERBOSE) {
           args.push('--loglevel=verbose');
         }
       } else {

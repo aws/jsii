@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.85.0](https://github.com/aws/jsii/compare/v1.84.0...v1.85.0) (2023-07-17)
+
+
+### Bug Fixes
+
+* export transliterateAssembly and fix bug with transliterate cli (backport) ([#4166](https://github.com/aws/jsii/issues/4166)) ([6b7eb02](https://github.com/aws/jsii/commit/6b7eb02f3a822941185e8c74be71d677285c741e))
+* **go-runtime:** use fatih/color instead of ANSI Escape Code ([#4109](https://github.com/aws/jsii/issues/4109)) ([28b192a](https://github.com/aws/jsii/commit/28b192aa1a3ecdd3b3ce6ee49a5efd32db01e695))
+
 ## [1.84.0](https://github.com/aws/jsii/compare/v1.83.0...v1.84.0) (2023-06-13)
 
 

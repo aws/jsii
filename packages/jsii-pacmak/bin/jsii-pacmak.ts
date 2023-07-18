@@ -168,7 +168,7 @@ import { VERSION_DESC } from '../lib/version';
     })
     .version(VERSION_DESC).argv;
 
-  configureLogging({ level: argv.verbose !== undefined ? argv.verbose : 0 });
+  configureLogging({ level: argv.verbose ?? 0 });
 
   // Default to 4 threads in case of concurrency, good enough for most situations
   debug('command line arguments:', argv);

@@ -15,7 +15,10 @@ export class AsciiTree {
    * @param text The node's text content
    * @param children Children of this node (can also be added via "add")
    */
-  public constructor(public readonly text?: string, ...children: AsciiTree[]) {
+  public constructor(
+    public readonly text?: string,
+    ...children: AsciiTree[]
+  ) {
     for (const child of children) {
       this.add(child);
     }
@@ -90,6 +93,7 @@ export class AsciiTree {
     let out = '';
     const printer: Printer = {
       write: (data: Uint8Array | string) => {
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         out += data;
         return true;
       },
