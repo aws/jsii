@@ -112,7 +112,10 @@ class JSIIMeta(_ClassPropertyMeta, type):
         return cast("JSIIMeta", obj)
 
     def __call__(cls: Type[M], *args: Any, **kwargs) -> M:
-        inst = super().__call__(*args, **kwargs)
+        # There is no way to constrain the metaclass of a `Type[M]` hint today, so we have to
+        # perform a `cast` trick here in order for MyPy to accept this code as valid... The implicit
+        # arguments to `super()` otherwise are `super(__class__, cls)`, which results in an error.
+        inst = super(JSIIMeta, cast(JSIIMeta, cls)).__call__(*args, **kwargs)
 
         # Register this instance with our reference map.
         _reference_map.register_reference(inst)
