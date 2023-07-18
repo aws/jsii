@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689612302497,
+  "lastUpdate": 1689679843536,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -18917,6 +18917,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 89807.36639704302,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47199.2938279 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jon.day@stablekernel.com",
+            "name": "Jon Day",
+            "username": "sudolibre"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "90855148990811ee90b1728b728a974e0b5a0b89",
+          "message": "fix(jsii-pacmak): handles 'default' doc component for go (#4115)\n\nCo-authored-by: Jon Day <jonathonday@stablekernel.com>\r\nCo-authored-by: Momo Kornher <mail@moritzkornher.de>\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2023-07-18T12:41:17+02:00",
+          "tree_id": "ee95108ef03b7ea16dee2cdeca880554c10be5fe",
+          "url": "https://github.com/aws/jsii/commit/90855148990811ee90b1728b728a974e0b5a0b89"
+        },
+        "date": 1689679838562,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61767.43504435001,
+            "unit": "milliseconds",
+            "range": 5713598.19453608,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61767.43504435001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48479.02819045,
+            "unit": "milliseconds",
+            "range": 1393897.2049001532,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48479.02819045 milliseconds over 20 runs"
           }
         ]
       }
