@@ -34,10 +34,10 @@ const host: SerializerHost = {
 describe(SerializationClass.Any, () => {
   const anySerializer = SERIALIZERS[SerializationClass.Any];
   class PrivateType {
-    private readonly randomValue = Math.random();
+    readonly #randomValue = Math.random();
 
     public random() {
-      return this.randomValue;
+      return this.#randomValue;
     }
   }
 

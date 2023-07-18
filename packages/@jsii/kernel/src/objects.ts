@@ -119,12 +119,13 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
  * type.
  */
 export class ObjectTable {
-  private readonly objects = new Map<string, RegisteredObject>();
-  private nextid = 10000;
+  readonly #resolveType: (fqn: string) => spec.Type;
+  readonly #objects = new Map<string, RegisteredObject>();
+  #nextid = 10000;
 
-  public constructor(
-    private readonly resolveType: (fqn: string) => spec.Type,
-  ) {}
+  public constructor(resolveType: (fqn: string) => spec.Type) {
+    this.#resolveType = resolveType;
+  }
 
   /**
    * Register the given object with the given type
@@ -157,19 +158,19 @@ export class ObjectTable {
           );
         }
 
-        this.objects.get(existingRef[api.TOKEN_REF])!.interfaces =
+        this.#objects.get(existingRef[api.TOKEN_REF])!.interfaces =
           (obj as any)[IFACES_SYMBOL] =
           existingRef[api.TOKEN_INTERFACES] =
           interfaces =
-            this.removeRedundant(Array.from(allIfaces), fqn);
+            this.#removeRedundant(Array.from(allIfaces), fqn);
       }
       return existingRef;
     }
 
-    interfaces = this.removeRedundant(interfaces, fqn);
+    interfaces = this.#removeRedundant(interfaces, fqn);
 
-    const objid = this.makeId(fqn);
-    this.objects.set(objid, { instance: obj, fqn, interfaces });
+    const objid = this.#makeId(fqn);
+    this.#objects.set(objid, { instance: obj, fqn, interfaces });
     tagObject(obj, objid, interfaces);
 
     return { [api.TOKEN_REF]: objid, [api.TOKEN_INTERFACES]: interfaces };
@@ -186,7 +187,7 @@ export class ObjectTable {
     }
 
     const objid = objref[api.TOKEN_REF];
-    const obj = this.objects.get(objid);
+    const obj = this.#objects.get(objid);
     if (!obj) {
       throw new JsiiFault(`Object ${objid} not found`);
     }
@@ -217,20 +218,20 @@ export class ObjectTable {
    * Delete the registration with the given objref
    */
   public deleteObject({ [api.TOKEN_REF]: objid }: api.ObjRef) {
-    if (!this.objects.delete(objid)) {
+    if (!this.#objects.delete(objid)) {
       throw new JsiiFault(`Object ${objid} not found`);
     }
   }
 
   public get count(): number {
-    return this.objects.size;
+    return this.#objects.size;
   }
 
-  private makeId(fqn: string) {
-    return `${fqn}@${this.nextid++}`;
+  #makeId(fqn: string) {
+    return `${fqn}@${this.#nextid++}`;
   }
 
-  private removeRedundant(
+  #removeRedundant(
     interfaces: string[] | undefined,
     fqn: string,
   ): string[] | undefined {
@@ -239,7 +240,7 @@ export class ObjectTable {
     }
 
     const result = new Set(interfaces);
-    const builtIn = new InterfaceCollection(this.resolveType);
+    const builtIn = new InterfaceCollection(this.#resolveType);
 
     if (fqn !== EMPTY_OBJECT_FQN) {
       builtIn.addFromClass(fqn);
@@ -261,14 +262,15 @@ export interface RegisteredObject {
 }
 
 class InterfaceCollection implements Iterable<string> {
-  private readonly interfaces = new Set<string>();
+  readonly #resolveType: (fqn: string) => spec.Type;
+  readonly #interfaces = new Set<string>();
 
-  public constructor(
-    private readonly resolveType: (fqn: string) => spec.Type,
-  ) {}
+  public constructor(resolveType: (fqn: string) => spec.Type) {
+    this.#resolveType = resolveType;
+  }
 
   public addFromClass(fqn: string): void {
-    const ti = this.resolveType(fqn);
+    const ti = this.#resolveType(fqn);
     if (!spec.isClassType(ti)) {
       throw new JsiiFault(
         `Expected a class, but received ${spec.describeTypeReference(ti)}`,
@@ -279,17 +281,17 @@ class InterfaceCollection implements Iterable<string> {
     }
     if (ti.interfaces) {
       for (const iface of ti.interfaces) {
-        if (this.interfaces.has(iface)) {
+        if (this.#interfaces.has(iface)) {
           continue;
         }
-        this.interfaces.add(iface);
+        this.#interfaces.add(iface);
         this.addFromInterface(iface);
       }
     }
   }
 
   public addFromInterface(fqn: string): void {
-    const ti = this.resolveType(fqn);
+    const ti = this.#resolveType(fqn);
     if (!spec.isInterfaceType(ti)) {
       throw new JsiiFault(
         `Expected an interface, but received ${spec.describeTypeReference(ti)}`,
@@ -299,15 +301,15 @@ class InterfaceCollection implements Iterable<string> {
       return;
     }
     for (const iface of ti.interfaces) {
-      if (this.interfaces.has(iface)) {
+      if (this.#interfaces.has(iface)) {
         continue;
       }
-      this.interfaces.add(iface);
+      this.#interfaces.add(iface);
       this.addFromInterface(iface);
     }
   }
 
   public [Symbol.iterator]() {
-    return this.interfaces[Symbol.iterator]();
+    return this.#interfaces[Symbol.iterator]();
   }
 }
