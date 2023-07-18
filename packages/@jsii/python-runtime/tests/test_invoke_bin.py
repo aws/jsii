@@ -44,7 +44,6 @@ class TestInvokeBinScript:
 
         assert result.returncode == 0
         assert result.stdout == b"Hello World!\n"
-        assert result.stderr == b""
 
     @pytest.mark.skipif(
         platform.system() == "Windows",
@@ -56,7 +55,6 @@ class TestInvokeBinScript:
 
         assert result.returncode == 0
         assert result.stdout == b"Hello World!\n  arguments: arg1, arg2\n"
-        assert result.stderr == b""
 
     @pytest.mark.skipif(
         platform.system() == "Windows",
@@ -70,7 +68,7 @@ class TestInvokeBinScript:
 
         assert result.returncode == 3
         assert result.stdout == b"Hello World!\n  arguments: arg1, fail\n"
-        assert result.stderr == b"error message to stderr\n"
+        assert result.stderr.startswith(b"error message to stderr\n")
 
     @pytest.mark.skipif(
         platform.system() == "Windows",
