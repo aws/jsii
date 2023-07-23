@@ -17,6 +17,9 @@ languages will be added in the future!
 
     [runtime architecture]: overview/runtime-architecture.md
 
+!!! info
+    `jsii` [stands for](https://github.com/aws/jsii/issues/3490) **J**ava**S**cript **I**nteroperability **I**nterface
+
 ## An example is worth a thousand words
 
 Consider the following **TypeScript** class:
