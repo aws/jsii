@@ -43,6 +43,10 @@ export class Kernel {
    * Set to true for timing data to be emitted.
    */
   public debugTimingEnabled = false;
+  /**
+   * Set to true to validate assemblies upon loading (slow).
+   */
+  public validateAssemblies = false;
 
   readonly #assemblies = new Map<string, Assembly>();
   readonly #objects = new ObjectTable(this.#typeInfoForFqn.bind(this));
@@ -151,7 +155,7 @@ export class Kernel {
     let assmSpec: spec.Assembly;
     try {
       assmSpec = this.#debugTime(
-        () => spec.loadAssemblyFromPath(packageDir),
+        () => spec.loadAssemblyFromPath(packageDir, this.validateAssemblies),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
