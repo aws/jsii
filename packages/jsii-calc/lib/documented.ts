@@ -38,6 +38,16 @@ export class DocumentedClass {
   public hola(): void {
     process.stdout.write('bonjour');
   }
+
+  /**
+   * Say Moin, which is German for "Good morning"
+   * *\/ (this comment is escaped because it contains a star slash)
+   *
+   * @experimental
+   */
+  public moin(): void {
+    process.stdout.write('servus');
+  }
 }
 
 /**
