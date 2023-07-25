@@ -790,7 +790,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/deprecation-removal.ts",
-        "line": 1
+        "line": 9
       },
       "methods": [
         {
@@ -800,7 +800,7 @@
           },
           "locationInModule": {
             "filename": "lib/deprecation-removal.ts",
-            "line": 2
+            "line": 10
           },
           "name": "method"
         }
@@ -818,7 +818,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/deprecation-removal.ts",
-        "line": 10
+        "line": 23
       },
       "methods": [
         {
@@ -827,7 +827,7 @@
           },
           "locationInModule": {
             "filename": "lib/deprecation-removal.ts",
-            "line": 11
+            "line": 24
           },
           "name": "create",
           "returns": {
@@ -841,6 +841,46 @@
       "name": "InterfaceFactory",
       "namespace": "deprecationRemoval",
       "symbolId": "lib/deprecation-removal:InterfaceFactory"
+    },
+    "@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        },
+        "locationInModule": {
+          "filename": "lib/deprecation-removal.ts",
+          "line": 4
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/deprecation-removal.ts",
+        "line": 1
+      },
+      "name": "VisibleBaseClass",
+      "namespace": "deprecationRemoval",
+      "properties": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/deprecation-removal.ts",
+            "line": 2
+          },
+          "name": "propertyPresent",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ],
+      "symbolId": "lib/deprecation-removal:VisibleBaseClass"
     },
     "@scope/jsii-calc-lib.submodule.IReflectable": {
       "assembly": "@scope/jsii-calc-lib",
@@ -1067,5 +1107,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "yrpQ+/ynmcWEtNZgCAeq2yp4JpEpln2V/fRhUc5uVUs="
+  "fingerprint": "o9wTL2Nj4gErRFWUIu9vurI1HEiTs0FLFa8hjfWpkHg="
 }

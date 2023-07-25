@@ -3511,6 +3511,12 @@ exports[`jsii-tree --all 1`] = `
    │ │   │   └─┬ static create() method (deprecated)
    │ │   │     ├── static
    │ │   │     └── returns: @scope/jsii-calc-lib.deprecationRemoval.IInterface
+   │ │   ├─┬ class VisibleBaseClass (deprecated)
+   │ │   │ └─┬ members
+   │ │   │   ├── <initializer>() initializer (deprecated)
+   │ │   │   └─┬ propertyPresent property (deprecated)
+   │ │   │     ├── immutable
+   │ │   │     └── type: boolean
    │ │   └─┬ interface IInterface (deprecated)
    │ │     └─┬ members
    │ │       └─┬ method() method (deprecated)
@@ -4184,6 +4190,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │ ├─┬ deprecationRemoval
    │ │ └─┬ types
    │ │   ├── class InterfaceFactory
+   │ │   ├── class VisibleBaseClass
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
@@ -5808,6 +5815,10 @@ exports[`jsii-tree --members 1`] = `
    │ │   ├─┬ class InterfaceFactory
    │ │   │ └─┬ members
    │ │   │   └── static create() method
+   │ │   ├─┬ class VisibleBaseClass
+   │ │   │ └─┬ members
+   │ │   │   ├── <initializer>() initializer
+   │ │   │   └── propertyPresent property
    │ │   └─┬ interface IInterface
    │ │     └─┬ members
    │ │       └── method() method
@@ -6354,6 +6365,7 @@ exports[`jsii-tree --types 1`] = `
    │ ├─┬ deprecationRemoval
    │ │ └─┬ types
    │ │   ├── class InterfaceFactory
+   │ │   ├── class VisibleBaseClass
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
