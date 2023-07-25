@@ -7384,6 +7384,9 @@ type DocumentedClass interface {
 	// Say ¡Hola!
 	// Experimental.
 	Hola()
+	// Say Moin, which is German for "Good morning" *\\/ (this comment is escaped because it contains a star slash).
+	// Experimental.
+	Moin()
 }
 
 // The jsii proxy struct for DocumentedClass
@@ -7432,6 +7435,14 @@ func (d *jsiiProxy_DocumentedClass) Hola() {
 	_jsii_.InvokeVoid(
 		d,
 		"hola",
+		nil, // no parameters
+	)
+}
+
+func (d *jsiiProxy_DocumentedClass) Moin() {
+	_jsii_.InvokeVoid(
+		d,
+		"moin",
 		nil, // no parameters
 	)
 }
@@ -20110,6 +20121,7 @@ func init() {
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "greet", GoMethod: "Greet"},
 			_jsii_.MemberMethod{JsiiMethod: "hola", GoMethod: "Hola"},
+			_jsii_.MemberMethod{JsiiMethod: "moin", GoMethod: "Moin"},
 		},
 		func() interface{} {
 			return &jsiiProxy_DocumentedClass{}
@@ -29071,7 +29083,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/D
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/DocumentedClass.go.diff 1`] = `
 --- go/jsiicalc/DocumentedClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/DocumentedClass.go	--runtime-type-checking
-@@ -61,10 +61,13 @@
+@@ -64,10 +64,13 @@
  		d,
  	)
  }

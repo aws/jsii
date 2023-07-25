@@ -9787,6 +9787,14 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     public void hola() {
         software.amazon.jsii.Kernel.call(this, "hola", software.amazon.jsii.NativeType.VOID);
     }
+
+    /**
+     * (experimental) Say Moin, which is German for "Good morning" *&#47; (this comment is escaped because it contains a star slash).
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public void moin() {
+        software.amazon.jsii.Kernel.call(this, "moin", software.amazon.jsii.NativeType.VOID);
+    }
 }
 
 `;

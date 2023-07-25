@@ -1482,7 +1482,9 @@ exports[`showAll 1`] = `
  │   │   │ │ └─┬ greetee
  │   │   │ │   └── type: Optional<jsii-calc.Greetee>
  │   │   │ └── returns: number
- │   │   └─┬ hola() method
+ │   │   ├─┬ hola() method
+ │   │   │ └── returns: void
+ │   │   └─┬ moin() method
  │   │     └── returns: void
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members

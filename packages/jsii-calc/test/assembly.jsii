@@ -5074,6 +5074,17 @@
             "line": 38
           },
           "name": "hola"
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "Say Moin, which is German for \"Good morning\" *\\/ (this comment is escaped because it contains a star slash)."
+          },
+          "locationInModule": {
+            "filename": "lib/documented.ts",
+            "line": 48
+          },
+          "name": "moin"
         }
       ],
       "name": "DocumentedClass",
@@ -5143,7 +5154,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 74
+        "line": 84
       },
       "name": "DontUseMe",
       "properties": [
@@ -5157,7 +5168,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 80
+            "line": 90
           },
           "name": "dontSetMe",
           "optional": true,
@@ -6217,7 +6228,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 46
+        "line": 56
       },
       "name": "Greetee",
       "properties": [
@@ -6231,7 +6242,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 52
+            "line": 62
           },
           "name": "name",
           "optional": true,
@@ -11140,7 +11151,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 61
+        "line": 71
       },
       "methods": [
         {
@@ -11150,7 +11161,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 65
+            "line": 75
           },
           "name": "doAThing"
         }
@@ -16062,7 +16073,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 88
+        "line": 98
       },
       "name": "WeirdDocs",
       "properties": [
@@ -16074,7 +16085,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 94
+            "line": 104
           },
           "name": "dontReadMe",
           "optional": true,
@@ -18984,5 +18995,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "P8PbBkSVSEXGN8+6wTvu1VFR499+MbQMrLXt+jdZgBo="
+  "fingerprint": "1znLDac1syH7Up70HRPGedZwlc6AY4p6CgCfyvVUXLQ="
 }

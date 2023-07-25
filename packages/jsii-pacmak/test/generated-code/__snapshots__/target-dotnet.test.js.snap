@@ -7309,6 +7309,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
+
+        /// <summary>(experimental) Say Moin, which is German for "Good morning" *\\/ (this comment is escaped because it contains a star slash).</summary>
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiMethod(name: "moin")]
+        public virtual void Moin()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
     }
 }
 
