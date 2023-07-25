@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689781061478,
+  "lastUpdate": 1690284734211,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19107,6 +19107,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 103362.83006541866,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62917.232384800016 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ef6e5b1ebbafe69252fc78883962b3731bbb04ef",
+          "message": "feat: faster, lazy-friendly runtime loading (#4181)\n\nInstead of eagerly loading each type from the assemblies in order to annotate the constructors with jsii fully qualified type names (FQNs), leverage the `jsii.rtti` data that is injected by the `jsii` compiler since release `1.19.0`.\n\nThis should make the jsii runtimes friendlier to large libraries that include lazy-loading provisions, such as the `aws-cdk-lib`.\n\n---\n\nIn addition to this, `JSII_RUNTIME_PACKAGE_CACHE` was flipped from opt-in to opt-out (set it to any value other than `enabled` to disable), and the `@jsii/runtime` entry point now sets `--preserve-symlinks` so that we can symbolically link packages from the cache instead of copying them around, which is significantly faster.\n\n---\n\nFinally, the jsii kernel had not opted out of the assembly validation feature, which is redundant in the majority of scenarios, and is quite time-consuming (~500ms for `aws-cdk-lib`)... So also opting out, but allowing users to opt-back-in via an environment variable.\n\n---\n\nExample on a \"simple\" repro via `aws-cdk-lib`:\n\nBefore:\n```\n[@jsii/kernel:timing] tar.extract(<redacted>/.venv-vanilla/lib/python3.11/site-packages/aws_cdk/_jsii/aws-cdk-lib@2.87.0.jsii.tgz) => <redacted>/jsii-kernel-Xxp43L/node_modules/aws-cdk-lib: 1.909s\n[@jsii/kernel:timing] loadAssemblyFromPath(<redacted>/jsii-kernel-Xxp43L/node_modules/aws-cdk-lib): 383.8ms\n[@jsii/kernel:timing] require(<redacted>/jsii-kernel-Xxp43L/node_modules/aws-cdk-lib): 630.081ms\n[@jsii/kernel:timing] registerAssembly({ name: aws-cdk-lib, types: 10957 }): 8.452ms\n[@jsii/kernel:timing] load({\n  \"name\": \"aws-cdk-lib\",\n  \"version\": \"2.87.0\",\n  \"tarball\": \"<redacted>/.venv-vanilla/lib/python3.11/site-packages/aws_cdk/_jsii/aws-cdk-lib@2.87.0.jsii.tgz\",\n  \"api\": \"load\"\n}): 2.933s\n```\n\nAfter:\n```\n[@jsii/kernel:timing] tar.extract(<redacted>/.venv-lazy/lib/python3.11/site-packages/aws_cdk/_jsii/aws-cdk-lib@2.87.0.jsii.tgz) => <redacted>/jsii-kernel-eAOMah/node_modules/aws-cdk-lib: 12.247ms\n[@jsii/kernel:timing] loadAssemblyFromPath(<redacted>/jsii-kernel-eAOMah/node_modules/aws-cdk-lib): 388.388ms\n[@jsii/kernel:timing] require(<redacted>/jsii-kernel-eAOMah/node_modules/aws-cdk-lib/lazy-index.js): 132.801ms\n[@jsii/kernel:timing] registerAssembly({ name: aws-cdk-lib, types: 10957 }): 0.009ms\n[@jsii/kernel:timing] load({\n  \"name\": \"aws-cdk-lib\",\n  \"version\": \"2.87.0\",\n  \"tarball\": \"<redacted>/.venv-lazy/lib/python3.11/site-packages/aws_cdk/_jsii/aws-cdk-lib@2.87.0.jsii.tgz\",\n  \"api\": \"load\"\n}): 537.449ms\n```\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-07-25T10:36:52Z",
+          "tree_id": "a7752c13c5f26f7bb8f6bc6464a41456bd352eff",
+          "url": "https://github.com/aws/jsii/commit/ef6e5b1ebbafe69252fc78883962b3731bbb04ef"
+        },
+        "date": 1690284729703,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 74057.02569264996,
+            "unit": "milliseconds",
+            "range": 798105.808339166,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 74057.02569264996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 54003.90094935002,
+            "unit": "milliseconds",
+            "range": 107110.30516287316,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54003.90094935002 milliseconds over 20 runs"
           }
         ]
       }
