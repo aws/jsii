@@ -18,7 +18,7 @@
 ########################################################################################################################
 # Prepare install images of "manual" binary distributions (runs on BUILD platform for speed)
 ########################################################################################################################
-FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:11 as bindist
+FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:bookworm as bindist
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -29,11 +29,11 @@ ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                 
   TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 
 # We require a couple of tools to be available in order to work here...
-RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/buster-backports.list       \
+RUN echo "deb http://deb.debian.org/debian bookworm-backports main" > /etc/apt/sources.list.d/buster-backports.list     \
   && apt-get update                                                                                                     \
   && apt-get install -y gpg tar zsh                                                                                     \
   # We need a "recent" (>= 7.71) version of curl for --retry-all-errors, so we get it from backports...
-  && apt-get install -y -t buster-backports curl
+  && apt-get install -y -t bookworm-backports curl
 
 # We'll be using zsh substitutions, so ensuring this is the shell we use
 SHELL ["/bin/zsh", "-c"]
@@ -83,7 +83,7 @@ RUN curl -fSsL "https://golang.org/dl/go${GO_VERSION}.linux-${TARGETPLATFORM#lin
 ########################################################################################################################
 # Set up the image
 ########################################################################################################################
-FROM public.ecr.aws/debian/debian:11-slim as staging
+FROM public.ecr.aws/debian/debian:bookworm-slim as staging
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -121,7 +121,7 @@ RUN apt-get update                                                              
   gnupg                                                                                                                 \
   gzip                                                                                                                  \
   libffi-dev                                                                                                            \
-  libicu67                                                                                                              \
+  libicu72                                                                                                              \
   libssl-dev                                                                                                            \
   openssl                                                                                                               \
   rsync                                                                                                                 \
@@ -152,8 +152,10 @@ ENV PATH=$PATH:${CARGO_HOME}/bin
 # Install Python 3
 RUN apt-get update                                                                                                      \
   && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
+  && python3 -m venv .venv                                                                                              \
+  && source .venv/bin/activate                                                                                          \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
-  && python3 -m pip install --no-input --upgrade black setuptools twine wheel                                    \
+  && python3 -m pip install --no-input --upgrade black setuptools twine wheel aws-sam-cli                               \
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
@@ -223,9 +225,6 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
   && apt-get -y install nodejs yarn                                                                                     \
   && rm -rf /var/lib/apt/lists/*
 
-# Install SAM CLI
-RUN pip install aws-sam-cli                                                                                             \
-  && sam --version
 
 # Install Amazon SSM agent (allows debugging of builds via `codebuild-breakpoint`, https://go.aws/3TVW7vL)
 RUN apt-get update                                                                                                      \
