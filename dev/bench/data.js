@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690387739133,
+  "lastUpdate": 1690391342903,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19183,6 +19183,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 285376.934643102,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63915.934094050004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "danielmschmidt92@gmail.com",
+            "name": "Daniel Schmidt",
+            "username": "DanielMSchmidt"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7fc79876889504c2eae5888baeb8525d82a4a491",
+          "message": "feat(jsii-pacmak): allow disabling go build conditionally (#4196)\n\nIn CDKTF this step causes our examples to take up to 24GB of Ram and ~5 minutes to have the bindings generated. We split our code into a lot of modules, so if a user just ran `go run ...` and only the parts needed would be compiled they can save a lot of time and resources.",
+          "timestamp": "2023-07-26T16:17:35Z",
+          "tree_id": "22dc8aa541120dc73ab0ea959063045c6ce98ddb",
+          "url": "https://github.com/aws/jsii/commit/7fc79876889504c2eae5888baeb8525d82a4a491"
+        },
+        "date": 1690391339122,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70397.74202570003,
+            "unit": "milliseconds",
+            "range": 1543050.9392566085,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70397.74202570003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52063.20888515003,
+            "unit": "milliseconds",
+            "range": 308865.90440258617,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52063.20888515003 milliseconds over 20 runs"
           }
         ]
       }
