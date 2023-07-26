@@ -7384,6 +7384,10 @@ type DocumentedClass interface {
 	// Say ¡Hola!
 	// Experimental.
 	Hola()
+	// Some comments have an escaped star backslash in them, ending the comment if left unescaped.
+	//
+	// For example: 'projects/*\\/global/networks/network-1'.
+	Moin()
 }
 
 // The jsii proxy struct for DocumentedClass
@@ -7432,6 +7436,14 @@ func (d *jsiiProxy_DocumentedClass) Hola() {
 	_jsii_.InvokeVoid(
 		d,
 		"hola",
+		nil, // no parameters
+	)
+}
+
+func (d *jsiiProxy_DocumentedClass) Moin() {
+	_jsii_.InvokeVoid(
+		d,
+		"moin",
 		nil, // no parameters
 	)
 }
@@ -20110,6 +20122,7 @@ func init() {
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "greet", GoMethod: "Greet"},
 			_jsii_.MemberMethod{JsiiMethod: "hola", GoMethod: "Hola"},
+			_jsii_.MemberMethod{JsiiMethod: "moin", GoMethod: "Moin"},
 		},
 		func() interface{} {
 			return &jsiiProxy_DocumentedClass{}
@@ -29071,7 +29084,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/D
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/DocumentedClass.go.diff 1`] = `
 --- go/jsiicalc/DocumentedClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/DocumentedClass.go	--runtime-type-checking
-@@ -61,10 +61,13 @@
+@@ -65,10 +65,13 @@
  		d,
  	)
  }

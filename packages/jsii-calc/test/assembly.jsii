@@ -5074,6 +5074,18 @@
             "line": 38
           },
           "name": "hola"
+        },
+        {
+          "docs": {
+            "remarks": "For example: 'projects/*\\/global/networks/network-1'.",
+            "stability": "stable",
+            "summary": "Some comments have an escaped star backslash in them, ending the comment if left unescaped."
+          },
+          "locationInModule": {
+            "filename": "lib/documented.ts",
+            "line": 46
+          },
+          "name": "moin"
         }
       ],
       "name": "DocumentedClass",
@@ -5143,7 +5155,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 74
+        "line": 82
       },
       "name": "DontUseMe",
       "properties": [
@@ -5157,7 +5169,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 80
+            "line": 88
           },
           "name": "dontSetMe",
           "optional": true,
@@ -6217,7 +6229,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 46
+        "line": 54
       },
       "name": "Greetee",
       "properties": [
@@ -6231,7 +6243,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 52
+            "line": 60
           },
           "name": "name",
           "optional": true,
@@ -11140,7 +11152,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 61
+        "line": 69
       },
       "methods": [
         {
@@ -11150,7 +11162,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 65
+            "line": 73
           },
           "name": "doAThing"
         }
@@ -16062,7 +16074,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 88
+        "line": 96
       },
       "name": "WeirdDocs",
       "properties": [
@@ -16074,7 +16086,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 94
+            "line": 102
           },
           "name": "dontReadMe",
           "optional": true,
@@ -18984,5 +18996,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "P8PbBkSVSEXGN8+6wTvu1VFR499+MbQMrLXt+jdZgBo="
+  "fingerprint": "qoT4xo5rhn5qx9EIbP7DMeSFV9/lr8qwScm8SvGRZE4="
 }
