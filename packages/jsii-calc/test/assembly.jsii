@@ -5077,13 +5077,13 @@
         },
         {
           "docs": {
-            "remarks": "For example: 'projects/*\\/global/networks/network-1'.\nCurrently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY'.\n\nDocs at Terraform Registry: {@link https://registry.terraform.io/providers/hashicorp/google/4.75.0/docs/resources/network_services_gateway#network NetworkServicesGateway#network}",
+            "remarks": "For example: 'projects/*\\/global/networks/network-1'.",
             "stability": "stable",
-            "summary": "The relative resource name identifying the VPC network that is using this configuration."
+            "summary": "Some comments have an escaped star backslash in them, ending the comment if left unescaped."
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 49
+            "line": 46
           },
           "name": "moin"
         }
@@ -5155,7 +5155,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 85
+        "line": 82
       },
       "name": "DontUseMe",
       "properties": [
@@ -5169,7 +5169,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 91
+            "line": 88
           },
           "name": "dontSetMe",
           "optional": true,
@@ -6229,7 +6229,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 57
+        "line": 54
       },
       "name": "Greetee",
       "properties": [
@@ -6243,7 +6243,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 63
+            "line": 60
           },
           "name": "name",
           "optional": true,
@@ -11152,7 +11152,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 72
+        "line": 69
       },
       "methods": [
         {
@@ -11162,7 +11162,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 76
+            "line": 73
           },
           "name": "doAThing"
         }
@@ -16074,7 +16074,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
-        "line": 99
+        "line": 96
       },
       "name": "WeirdDocs",
       "properties": [
@@ -16086,7 +16086,7 @@
           },
           "locationInModule": {
             "filename": "lib/documented.ts",
-            "line": 105
+            "line": 102
           },
           "name": "dontReadMe",
           "optional": true,
@@ -18996,5 +18996,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "x/t8QvSwKsWT5uRlWN9P+Au/6XXaEJfXFLQ4Zi+sroQ="
+  "fingerprint": "qoT4xo5rhn5qx9EIbP7DMeSFV9/lr8qwScm8SvGRZE4="
 }

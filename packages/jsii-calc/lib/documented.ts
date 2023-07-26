@@ -40,11 +40,8 @@ export class DocumentedClass {
   }
 
   /**
-  * The relative resource name identifying the VPC network that is using this configuration.
+  * Some comments have an escaped star backslash in them, ending the comment if left unescaped.
 For example: 'projects/*\/global/networks/network-1'.
-Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY'.
-  * 
-  * Docs at Terraform Registry: {@link https://registry.terraform.io/providers/hashicorp/google/4.75.0/docs/resources/network_services_gateway#network NetworkServicesGateway#network}
   */
   public moin(): void {
     process.stdout.write('servus');
