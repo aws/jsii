@@ -18,7 +18,7 @@
 ########################################################################################################################
 # Prepare install images of "manual" binary distributions (runs on BUILD platform for speed)
 ########################################################################################################################
-FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:10 as bindist
+FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:10-slim as bindist
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -111,7 +111,7 @@ ENV LANG="C.UTF-8"                                                              
 
 # Installing the system dependencies we need...
 RUN apt-get update                                                                                                      \
-  && apt-get -y install                                                                                                 \
+  && apt-get -y install --no-install-recommends                                                                         \
   apt-transport-https                                                                                                   \
   build-essential                                                                                                       \
   ca-certificates                                                                                                       \
@@ -137,7 +137,7 @@ RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                               
   && echo "deb https://download.mono-project.com/repo/debian stable-buster main"                                        \
   > /etc/apt/sources.list.d/mono-official-stable.list                                                                   \
   && apt-get update                                                                                                     \
-  && apt-get -y install mono-devel                                                                                      \
+  && apt-get -y install --no-install-recommends mono-devel                                                              \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Rust (required for https://pypi.org/project/cryptography/ in certain circumstances... like ARM64 arch)
@@ -150,10 +150,16 @@ RUN set -eo pipefail                                                            
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
 # Install Python 3
+ENV PYENV_ROOT="/opt/.pyenv"
+ENV PATH="$PYENV_ROOT/bin:$PATH"
 RUN apt-get update                                                                                                      \
-  && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
+  && apt-get -y install --no-install-recommends libbz2-dev liblzma-dev libreadline-dev libsqlite3-dev zlib1g-dev        \
+  && rm -rf /var/lib/apt/lists/*                                                                                        \
+  && curl -fSsL https://pyenv.run | bash                                                                                \
+  && pyenv doctor && eval "$(pyenv init -)"                                                                             \
+  && CONFIGURE_OPTS="--enable-optimizations" pyenv install 3.8 && pyenv global 3.8 && pyenv rehash                      \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
-  && python3 -m pip install --no-input --upgrade black setuptools twine wheel                                    \
+  && python3 -m pip install --no-input --upgrade black setuptools twine wheel                                           \
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
@@ -171,7 +177,7 @@ RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                       
   && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \
   && apt-get update                                                                                                     \
   && mkdir -p /usr/share/man/man1                                                                                       \
-  && apt-get -y install java-20-amazon-corretto-jdk                                                                     \
+  && apt-get -y install --no-install-recommends java-20-amazon-corretto-jdk                                             \
   && rm -rf /usr/share/man/man1                                                                                         \
   && rm -rf /var/lib/apt/lists/*
 
@@ -180,18 +186,18 @@ COPY superchain/gpg/docker.asc /tmp/docker.asc
 RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                                                                   \
   && echo "deb https://download.docker.com/linux/debian buster stable" > /etc/apt/sources.list.d/docker.list            \
   && apt-get update                                                                                                     \
-  && apt-get -y install docker-ce docker-ce-cli containerd.io                                                           \
+  && apt-get -y install --no-install-recommends docker-ce docker-ce-cli containerd.io                                   \
   && rm -rf /var/lib/apt/lists/*
 VOLUME /var/lib/docker
 
 # Install GitHub CLI
-ARG GITHUB_CLI_VERSION="1.13.1"
+ARG GITHUB_CLI_VERSION="2.32.1"
 RUN BASE="https://github.com/cli/cli/releases/download"                                                                 \
   && echo "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"                  \
   && curl -fSsL "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"            \
   -o /tmp/gh.deb                                                                                                        \
   && apt-get update                                                                                                     \
-  && apt-get -y install /tmp/gh.deb                                                                                     \
+  && apt-get -y install --no-install-recommends /tmp/gh.deb                                                             \
   && rm /tmp/gh.deb                                                                                                     \
   && rm -rf /var/lib/apt/lists/*
 
@@ -220,17 +226,17 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
   && apt-key add /tmp/yarn.asc && rm /tmp/yarn.asc                                                                      \
   && echo "deb https://dl.yarnpkg.com/debian stable main" > /etc/apt/sources.list.d/yarnpkg.list                        \
   && apt-get update                                                                                                     \
-  && apt-get -y install nodejs yarn                                                                                     \
+  && apt-get -y install --no-install-recommends nodejs yarn                                                             \
   && rm -rf /var/lib/apt/lists/*
 
 # Install SAM CLI
-RUN pip install aws-sam-cli                                                                                             \
+RUN eval "$(pyenv init -)" && pip install aws-sam-cli                                                                   \
   && sam --version
 
 # Install Amazon SSM agent (allows debugging of builds via `codebuild-breakpoint`, https://go.aws/3TVW7vL)
 RUN apt-get update                                                                                                      \
-  && apt-get -y install curl                                                                                            \
-  && curl -fSsL "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${TARGETPLATFORM#linux/}/amazon-ssm-agent.deb"      \
+  && apt-get -y install --no-install-recommends curl systemd                                                            \
+  && curl -fSsL "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${TARGETPLATFORM#linux/}/amazon-ssm-agent.deb"\
   -o /tmp/amazon-ssm-agent.deb                                                                                          \
   && dpkg -i /tmp/amazon-ssm-agent.deb                                                                                  \
   && systemctl enable amazon-ssm-agent                                                                                  \
@@ -380,8 +386,9 @@ ENV LANG="C.UTF-8"                                                              
   \
   GOROOT="/opt/golang/go"                                                                                               \
   RUSTUP_HOME="/usr/local/rustup"                                                                                       \
-  CARGO_HOME="/usr/local/cargo"
-ENV PATH="${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}"
+  CARGO_HOME="/usr/local/cargo"                                                                                         \
+  PYENV_ROOT="/opt/.pyenv"
+ENV PATH="${PYENV_ROOT}/shims:${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}:${PYENV_ROOT}/bin"
 
 COPY --from=staging / /
 VOLUME /var/lib/docker
