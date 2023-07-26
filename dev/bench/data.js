@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690284734211,
+  "lastUpdate": 1690387739133,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19145,6 +19145,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 107110.30516287316,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 54003.90094935002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "danielmschmidt92@gmail.com",
+            "name": "Daniel Schmidt",
+            "username": "DanielMSchmidt"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "906c24db65a0c4a581ba2727dc4ad7ca157a8995",
+          "message": "fix(jsii-pacmak): comment lines should not contain comment ending (#4193)\n\nWhen a comment contains `*/` (for any reason, in our case because the escaped version is unescaped within JSII) it should be escaped to not make the file invalid",
+          "timestamp": "2023-07-26T15:03:14Z",
+          "tree_id": "3bd09882cd501835da53145af938bd9cc533b5be",
+          "url": "https://github.com/aws/jsii/commit/906c24db65a0c4a581ba2727dc4ad7ca157a8995"
+        },
+        "date": 1690387733677,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 85482.67506789998,
+            "unit": "milliseconds",
+            "range": 3900662.984990455,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 85482.67506789998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 63915.934094050004,
+            "unit": "milliseconds",
+            "range": 285376.934643102,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63915.934094050004 milliseconds over 20 runs"
           }
         ]
       }
