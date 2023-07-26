@@ -8,6 +8,7 @@ updates:
     labels:
       - dependencies
       - language/dotnet
+      - auto-approve
 
   - package-ecosystem: nuget
     directory: '/packages/@jsii/dotnet-runtime-test/test'
@@ -16,6 +17,7 @@ updates:
     labels:
       - dependencies
       - language/dotnet
+      - auto-approve
 
   - package-ecosystem: pip
     directory: '/packages/@jsii/python-runtime'
@@ -24,6 +26,7 @@ updates:
     labels:
       - dependencies
       - language/python
+      - auto-approve
 
   - package-ecosystem: pip
     directory: '/gh-pages'
@@ -32,6 +35,7 @@ updates:
     labels:
       - dependencies
       - language/python
+      - auto-approve
 
   - package-ecosystem: pip
     directory: '/packages/jsii-pacmak/test/generated-code'
@@ -40,6 +44,7 @@ updates:
     labels:
       - dependencies
       - language/python
+      - auto-approve
 
   - package-ecosystem: pip
     directory: '/packages/jsii-pacmak/lib/targets/python'
@@ -48,6 +53,7 @@ updates:
     labels:
       - dependencies
       - language/python
+      - auto-approve
     ignore:
       - dependency-name: "setuptools"
 
@@ -58,6 +64,7 @@ updates:
     labels:
       - dependencies
       - language/go
+      - auto-approve
 
   - package-ecosystem: gomod
     directory: '/packages/@jsii/go-runtime-test/project'
@@ -66,6 +73,7 @@ updates:
     labels:
       - dependencies
       - language/go
+      - auto-approve
     ignore:
       - dependency-name: github.com/aws/jsii-runtime-go
       - dependency-name: github.com/aws/jsii-runtime-go/*
@@ -77,3 +85,4 @@ updates:
       interval: daily
     labels:
       - dependencies
+      - auto-approve

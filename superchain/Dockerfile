@@ -153,11 +153,19 @@ ENV PATH=$PATH:${CARGO_HOME}/bin
 RUN apt-get update                                                                                                      \
   && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
-  && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
+  && python3 -m pip install --no-input --upgrade black setuptools twine wheel                                    \
   && rm -rf $(pip cache dir)                                                                                            \
   && rm -rf /var/lib/apt/lists/*
 
-# Install JDK20 (Amazon Corretto 20)
+# Install AWS CLI v2
+ENV AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
+RUN curl "${AWS_CLI_V2_URL}" -o "/tmp/awscliv2.zip"                                                                     \
+  && unzip /tmp/awscliv2.zip -d /tmp/awscliv2                                                                           \
+  && /tmp/awscliv2/aws/install -b /usr/local/bin --update                                                               \
+  && rm -rf /tmp/awscliv2*
+
+
+# Install JDK8 (Amazon Corretto 8)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
 RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                                                               \
   && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \

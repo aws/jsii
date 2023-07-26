@@ -3,7 +3,10 @@ import { TranslatedSnippet } from './tablets/tablets';
 export type SnippetSelector = (snippets: TranslatedSnippet[]) => TranslatedSnippet;
 
 class SnippetScore {
-  public constructor(public readonly snippet: TranslatedSnippet, public readonly score: number) {}
+  public constructor(
+    public readonly snippet: TranslatedSnippet,
+    public readonly score: number,
+  ) {}
 }
 
 /**

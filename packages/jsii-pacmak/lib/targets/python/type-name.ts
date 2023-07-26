@@ -193,6 +193,7 @@ class Optional implements TypeName {
       ...context,
       ignoreOptional: true,
     });
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (context.ignoreOptional || this.#wrapped === Primitive.ANY) {
       return optionalType;
     }

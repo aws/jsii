@@ -6,15 +6,15 @@
     <PackageReference Update="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
 
-    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.5.0" />
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.6.0" />
     <PackageReference Update="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
     <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.3.2" />
 
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.6.3" />
     <PackageReference Update="NSubstitute" Version="5.0.0" />
-    <PackageReference Update="xunit" Version="2.4.2" />
-    <PackageReference Update="xunit.runner.visualstudio" Version="2.4.5" />
-    <PackageReference Update="XunitXml.TestLogger" Version="3.0.78" />
+    <PackageReference Update="xunit" Version="2.5.0" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="2.5.0" />
+    <PackageReference Update="XunitXml.TestLogger" Version="3.1.11" />
 
     <PackageReference Update="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

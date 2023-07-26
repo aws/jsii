@@ -2334,9 +2334,33 @@ class InterfaceFactory(
         return typing.cast(IInterface, jsii.sinvoke(cls, "create", []))
 
 
+class VisibleBaseClass(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass",
+):
+    '''
+    :stability: deprecated
+    '''
+
+    def __init__(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        jsii.create(self.__class__, self, [])
+
+    @builtins.property
+    @jsii.member(jsii_name="propertyPresent")
+    def property_present(self) -> builtins.bool:
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast(builtins.bool, jsii.get(self, "propertyPresent"))
+
+
 __all__ = [
     "IInterface",
     "InterfaceFactory",
+    "VisibleBaseClass",
 ]
 
 publication.publish()

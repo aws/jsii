@@ -141,7 +141,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -151,7 +151,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -165,7 +165,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -182,18 +182,18 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.1.2</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.1.2</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -214,7 +214,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.16.0</version>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>

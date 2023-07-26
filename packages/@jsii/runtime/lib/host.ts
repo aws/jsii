@@ -20,10 +20,12 @@ export class KernelHost {
       debug?: boolean;
       debugTiming?: boolean;
       noStack?: boolean;
+      validateAssemblies?: boolean;
     } = {},
   ) {
     this.kernel.traceEnabled = opts.debug ?? false;
     this.kernel.debugTimingEnabled = opts.debugTiming ?? false;
+    this.kernel.validateAssemblies = opts.validateAssemblies ?? false;
   }
 
   public run() {
@@ -44,15 +46,17 @@ export class KernelHost {
     this.eventEmitter.once(event, listener);
   }
 
-  private callbackHandler(callback: api.Callback) {
+  private callbackHandler(
+    callback: api.Callback,
+  ): api.CompleteRequest['result'] {
     // write a "callback" response, which is a special response that tells
-    // the client that there's synchonous callback it needs to invoke and
+    // the client that there's synchronous callback it needs to invoke and
     // bring back the result via a "complete" request.
     this.inout.write({ callback });
 
     return completeCallback.call(this);
 
-    function completeCallback(this: KernelHost): void {
+    function completeCallback(this: KernelHost): api.CompleteRequest['result'] {
       const req = this.inout.read();
       if (!req || 'exit' in req) {
         throw new JsiiFault('Interrupted before callback returned');
@@ -101,7 +105,11 @@ export class KernelHost {
    *             doesn't allow any async operations during a sync callback, so this shouldn't
    *             happen, so we assert in this case to find bugs.
    */
-  private processRequest(req: Input, next: () => void, sync = false) {
+  private processRequest<T>(
+    req: Input,
+    next: () => T,
+    sync = false,
+  ): T | undefined {
     if ('callback' in req) {
       throw new JsiiFault(
         'Unexpected `callback` result. This request should have been processed by a callback handler',

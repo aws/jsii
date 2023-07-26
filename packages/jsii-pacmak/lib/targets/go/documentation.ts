@@ -61,6 +61,11 @@ export class Documentation {
       this.emitComment();
     }
 
+    if (docs.default !== '') {
+      this.emitComment(`Default: ${docs.default}`);
+      this.emitComment();
+    }
+
     this.emitStability(docs);
   }
 
