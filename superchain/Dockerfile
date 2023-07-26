@@ -18,7 +18,7 @@
 ########################################################################################################################
 # Prepare install images of "manual" binary distributions (runs on BUILD platform for speed)
 ########################################################################################################################
-FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:10 as bindist
+FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:11 as bindist
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -83,7 +83,7 @@ RUN curl -fSsL "https://golang.org/dl/go${GO_VERSION}.linux-${TARGETPLATFORM#lin
 ########################################################################################################################
 # Set up the image
 ########################################################################################################################
-FROM public.ecr.aws/debian/debian:10-slim as staging
+FROM public.ecr.aws/debian/debian:11-slim as staging
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -121,7 +121,7 @@ RUN apt-get update                                                              
   gnupg                                                                                                                 \
   gzip                                                                                                                  \
   libffi-dev                                                                                                            \
-  libicu63                                                                                                              \
+  libicu67                                                                                                              \
   libssl-dev                                                                                                            \
   openssl                                                                                                               \
   rsync                                                                                                                 \
@@ -211,7 +211,7 @@ COPY --from=bindist /opt/golang/go ${GOROOT}
 # Install Node 14+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
-ARG NODE_MAJOR_VERSION="14"
+ARG NODE_MAJOR_VERSION="16"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
