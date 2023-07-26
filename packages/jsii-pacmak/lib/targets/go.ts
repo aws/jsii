@@ -54,7 +54,13 @@ export class Golang extends Target {
       );
       return Promise.reject(e);
     }
-    await go('build', ['-modfile', localGoMod.path, './...'], { cwd: pkgDir });
+
+    if (process.env.JSII_GO_DISABLE_BUILD !== '1') {
+      // This step is taken to ensure that the generated code is compilable
+      await go('build', ['-modfile', localGoMod.path, './...'], {
+        cwd: pkgDir,
+      });
+    }
 
     // delete local.go.mod and local.go.sum from the output directory so it doesn't get published
     const localGoSum = `${path.basename(localGoMod.path, '.mod')}.sum`;
