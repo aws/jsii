@@ -1305,7 +1305,9 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ │ └─┬ greetee
  │   │   │ │   └── type: Optional<jsii-calc.Greetee>
  │   │   │ └── returns: number
- │   │   └─┬ hola() method (experimental)
+ │   │   ├─┬ hola() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ moin() method (stable)
  │   │     └── returns: void
  │   ├─┬ class DontComplainAboutVariadicAfterOptional (stable)
  │   │ └─┬ members
@@ -4849,7 +4851,8 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   ├── greet(greetee) method
- │   │   └── hola() method
+ │   │   ├── hola() method
+ │   │   └── moin() method
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

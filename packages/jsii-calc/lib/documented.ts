@@ -38,6 +38,14 @@ export class DocumentedClass {
   public hola(): void {
     process.stdout.write('bonjour');
   }
+
+  /**
+  * Some comments have an escaped star backslash in them, ending the comment if left unescaped.
+For example: 'projects/*\/global/networks/network-1'.
+  */
+  public moin(): void {
+    process.stdout.write('servus');
+  }
 }
 
 /**
