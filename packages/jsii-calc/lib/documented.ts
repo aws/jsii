@@ -40,11 +40,12 @@ export class DocumentedClass {
   }
 
   /**
-   * Say Moin, which is German for "Good morning"
-   * *\/ (this comment is escaped because it contains a star slash)
-   *
-   * @experimental
-   */
+  * The relative resource name identifying the VPC network that is using this configuration.
+For example: 'projects/*\/global/networks/network-1'.
+Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY'.
+  * 
+  * Docs at Terraform Registry: {@link https://registry.terraform.io/providers/hashicorp/google/4.75.0/docs/resources/network_services_gateway#network NetworkServicesGateway#network}
+  */
   public moin(): void {
     process.stdout.write('servus');
   }

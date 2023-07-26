@@ -1307,7 +1307,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: number
  │   │   ├─┬ hola() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ moin() method (experimental)
+ │   │   └─┬ moin() method (stable)
  │   │     └── returns: void
  │   ├─┬ class DontComplainAboutVariadicAfterOptional (stable)
  │   │ └─┬ members
