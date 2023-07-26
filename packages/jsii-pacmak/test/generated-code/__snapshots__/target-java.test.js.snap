@@ -9787,6 +9787,16 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     public void hola() {
         software.amazon.jsii.Kernel.call(this, "hola", software.amazon.jsii.NativeType.VOID);
     }
+
+    /**
+     * Some comments have an escaped star backslash in them, ending the comment if left unescaped.
+     * <p>
+     * For example: 'projects/*&#47;global/networks/network-1'.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void moin() {
+        software.amazon.jsii.Kernel.call(this, "moin", software.amazon.jsii.NativeType.VOID);
+    }
 }
 
 `;
