@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
 import { promises as fs } from 'fs';
-import * as mockfs from 'mock-fs';
+import * as os from 'os';
 import * as path from 'path';
 
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
@@ -199,11 +199,11 @@ test('Fixture allows use of import statements', async () => {
 });
 
 test('Backwards compatibility with literate integ tests', async () => {
-  mockfs({
-    '/package/test/integ.example.lit.ts': '# Some literate source file',
-  });
-
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-rosetta-tests-'));
   try {
+    await fs.mkdir(path.join(directory, 'test'));
+    await fs.writeFile(path.join(directory, 'test', 'integ.example.lit.ts'), '# Some literate source file');
+
     const snippets = Array.from(
       await allTypeScriptSnippets([
         {
@@ -218,18 +218,16 @@ test('Backwards compatibility with literate integ tests', async () => {
               ].join('\n'),
             },
           }),
-          directory: '/package',
+          directory,
         },
       ]),
     );
 
     expect(snippets[0].visibleSource).toEqual('someExample();');
     expect(snippets[0].completeSource).toEqual('# Some literate source file');
-    expect(snippets[0]?.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY]).toEqual(
-      path.normalize('/package/test'),
-    );
+    expect(snippets[0]?.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY]).toEqual(path.join(directory, 'test'));
   } finally {
-    mockfs.restore();
+    await fs.rm(directory, { force: true, recursive: true });
   }
 });
 

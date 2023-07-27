@@ -313,6 +313,8 @@ class _NodeProcess:
         # TODO: Replace with proper error.
         assert (
             resp.hello == f"@jsii/runtime@{__jsii_runtime_version__}"
+            # Transparently allow development versions of the runtime to be used.
+            or resp.hello == f"@jsii/runtime@0.0.0"
         ), f"Invalid JSII Runtime Version: {resp.hello!r}"
 
     def send(
