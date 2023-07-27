@@ -1,5 +1,19 @@
-import { copyFileSync, linkSync, mkdirSync, readdirSync, statSync } from 'fs';
-import { join } from 'path';
+import {
+  copyFileSync,
+  linkSync,
+  mkdirSync,
+  readdirSync,
+  statSync,
+  symlinkSync,
+} from 'fs';
+import { dirname, join } from 'path';
+
+/**
+ * If `node` is started with `--preserve-symlinks`, the module loaded will
+ * preserve symbolic links instead of resolving them, making it possible to
+ * symbolically link packages in place instead of fully copying them.
+ */
+const PRESERVE_SYMLINKS = process.execArgv.includes('--preserve-symlinks');
 
 /**
  * Creates directories containing hard links if possible, and falls back on
@@ -9,6 +23,12 @@ import { join } from 'path';
  * @param destination is the new file or directory to create.
  */
 export function link(existing: string, destination: string): void {
+  if (PRESERVE_SYMLINKS) {
+    mkdirSync(dirname(destination), { recursive: true });
+    symlinkSync(existing, destination);
+    return;
+  }
+
   const stat = statSync(existing);
   if (!stat.isDirectory()) {
     try {

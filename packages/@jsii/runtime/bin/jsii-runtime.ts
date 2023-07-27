@@ -12,7 +12,13 @@ import { Duplex } from 'stream';
 // - FD#3 is the communication pipe to read & write jsii API messages
 const child = spawn(
   process.execPath,
-  [...process.execArgv, resolve(__dirname, '..', 'lib', 'program.js')],
+  [
+    ...process.execArgv,
+    // Instruct the module loader to NOT resolve symbolic links, so we don't
+    // have to copy modules around all the time (which is expensive to do).
+    '--preserve-symlinks',
+    resolve(__dirname, '..', 'lib', 'program.js'),
+  ],
   { stdio: ['ignore', 'pipe', 'pipe', 'pipe'] },
 );
 
