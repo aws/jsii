@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690453827363,
+  "lastUpdate": 1690458315002,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19335,6 +19335,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 29079.587324000597,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46816.59673569999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "69ddf332899e9977728536af3a9089e6e24d3446",
+          "message": "chore(deps-dev): Bump pip from 23.2 to 23.2.1 in /packages/jsii-pacmak/test/generated-code (#4192)\n\nBumps [pip](https://github.com/pypa/pip) from 23.2 to 23.2.1.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.2.1 (2023-07-22)</h1>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Disable PEP 658 metadata fetching with the legacy resolver. (<code>[#12156](https://github.com/pypa/pip/issues/12156) &lt;https://github.com/pypa/pip/issues/12156&gt;</code>_)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/4a79e65cb6aac84505ad92d272a29f0c3c1aedce\"><code>4a79e65</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/81a0711192c32126a7b11d6898677274cdbc40b5\"><code>81a0711</code></a> Update AUTHORS.txt</li>\n<li><a href=\"https://github.com/pypa/pip/commit/1d4674c38950fe01d138a57524799473a2341bb7\"><code>1d4674c</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12163\">#12163</a> from pfmoore/fix_12156</li>\n<li><a href=\"https://github.com/pypa/pip/commit/39aa7ed50e26d77a4a277fa525add44b6f7b3bcd\"><code>39aa7ed</code></a> Fix a direct creation of RequirementPreparer in the tests</li>\n<li><a href=\"https://github.com/pypa/pip/commit/c12139de9b51da9947d3b36b4f0e2e0c8f467663\"><code>c12139d</code></a> Disable PEP 658 for the legacy resolver</li>\n<li><a href=\"https://github.com/pypa/pip/commit/593b85f4abd30688648436bb9baca3b8f7b32b51\"><code>593b85f</code></a> Use strict optional checking in misc.py (<a href=\"https://redirect.github.com/pypa/pip/issues/11382\">#11382</a>)</li>\n<li><a href=\"https://github.com/pypa/pip/commit/b252ad819bc7b998508a7ed8789b60dceddfd603\"><code>b252ad8</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12148\">#12148</a> from mtreinish/patch-1</li>\n<li><a href=\"https://github.com/pypa/pip/commit/26814251c04f459dce8e9502aa42eebdb125ee20\"><code>2681425</code></a> Correct typo in 23.2 Changelog Bug Fixes</li>\n<li><a href=\"https://github.com/pypa/pip/commit/1d5b12063d8656a2d1c2eebaee83ed530b642e48\"><code>1d5b120</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12145\">#12145</a> from pfmoore/release/23.2</li>\n<li><a href=\"https://github.com/pypa/pip/commit/b6a2670599ded25ffcebc33b5c8b583ccef87f27\"><code>b6a2670</code></a> Bump for development</li>\n<li>See full diff in <a href=\"https://github.com/pypa/pip/compare/23.2...23.2.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.2&new-version=23.2.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-07-27T10:45:41Z",
+          "tree_id": "2ce89bc8ab95ff476c9f0eef8e2a9cef86642789",
+          "url": "https://github.com/aws/jsii/commit/69ddf332899e9977728536af3a9089e6e24d3446"
+        },
+        "date": 1690458309986,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 83662.43835629999,
+            "unit": "milliseconds",
+            "range": 3046366.3676566253,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 83662.43835629999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 61930.68188080002,
+            "unit": "milliseconds",
+            "range": 301216.47511918726,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61930.68188080002 milliseconds over 20 runs"
           }
         ]
       }
