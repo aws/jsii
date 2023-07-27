@@ -20,10 +20,10 @@ else
 fi
 
 # Now on to building the image
-docker build                                                                    \
+${DOCKER:-docker} build                                                         \
   --target superchain                                                           \
-  --build-arg BUILDPLATFORM=linux/amd64                                         \
-  --build-arg TARGETPLATFORM=linux/amd64                                        \
+  --build-arg BUILDPLATFORM=linux/$(uname -m)                                   \
+  --build-arg TARGETPLATFORM=linux/$(uname -m)                                  \
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
   --build-arg REGISTRY="docker.io/library"                                      \
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \

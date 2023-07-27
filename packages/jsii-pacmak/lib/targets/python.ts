@@ -639,9 +639,13 @@ abstract class BaseMethod implements PythonBase {
       const liftedProperties = this.getLiftedProperties(context.resolver);
 
       if (liftedProperties.length >= 1) {
+        // Anything before the 1st keyword argument is positional-only
+        if (pythonParams.length > 0) {
+          pythonParams.push('/'); // marks the end of positional-only arguments
+        }
         // All of these parameters are keyword only arguments, so we'll mark them
         // as such.
-        pythonParams.push('*');
+        pythonParams.push('*'); // marks the start of keyword-only arguments
 
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
@@ -2102,7 +2106,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '~=3.7',
+      python_requires: '~=3.8',
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
@@ -2115,7 +2119,6 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
@@ -2236,7 +2239,7 @@ class Package {
     code.line();
     code.line('[tool.pyright]');
     code.line('defineConstant = { DEBUG = true }');
-    code.line('pythonVersion = "3.7"');
+    code.line('pythonVersion = "3.8"');
     code.line('pythonPlatform = "All"');
     code.line('reportSelfClsParameterName = false');
     code.closeFile('pyproject.toml');
@@ -3144,6 +3147,8 @@ function emitParameterTypeChecks(
     const [name] = param.split(/\s*[:=#]\s*/, 1);
     if (name === '*') {
       return { kwargsMark: true };
+    } else if (name === '/') {
+      return { positionalOnlyEndMark: true };
     } else if (name.startsWith('*')) {
       return { name: name.slice(1), is_rest: true };
     }
@@ -3156,7 +3161,12 @@ function emitParameterTypeChecks(
   const typesVar = slugifyAsNeeded('type_hints', paramNames);
 
   let openedBlock = false;
-  for (const { is_rest, kwargsMark, name } of paramInfo) {
+  for (const {
+    is_rest,
+    kwargsMark,
+    positionalOnlyEndMark,
+    name,
+  } of paramInfo) {
     if (kwargsMark) {
       if (!context.runtimeTypeCheckKwargs) {
         // This is the keyword-args separator, we won't check keyword arguments here because the kwargs will be rolled
@@ -3164,6 +3174,10 @@ function emitParameterTypeChecks(
         break;
       }
       // Skip this (there is nothing to be checked as this is just a marker...)
+      continue;
+    }
+    if (positionalOnlyEndMark) {
+      // This is the end-of-positional-only-arguments separator, this is just a marker.
       continue;
     }
 
