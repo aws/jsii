@@ -13,6 +13,9 @@ expect.addSnapshotSerializer({
 const findSymbol: jest.MockedFn<SerializerHost['findSymbol']> = jest
   .fn()
   .mockName('SerializerHost.findSymbol');
+const isVisibleType: jest.MockedFn<SerializerHost['isVisibleType']> = jest
+  .fn()
+  .mockName('SerializerHost.isVisibleType');
 const lookupType: jest.MockedFn<SerializerHost['lookupType']> = jest
   .fn()
   .mockName('SerializerHost.lookupType');
@@ -21,6 +24,7 @@ const objects = new ObjectTable(lookupType);
 const host: SerializerHost = {
   debug: () => void undefined,
   findSymbol,
+  isVisibleType,
   lookupType,
   objects,
 };

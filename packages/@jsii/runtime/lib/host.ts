@@ -20,10 +20,12 @@ export class KernelHost {
       debug?: boolean;
       debugTiming?: boolean;
       noStack?: boolean;
+      validateAssemblies?: boolean;
     } = {},
   ) {
     this.kernel.traceEnabled = opts.debug ?? false;
     this.kernel.debugTimingEnabled = opts.debugTiming ?? false;
+    this.kernel.validateAssemblies = opts.validateAssemblies ?? false;
   }
 
   public run() {

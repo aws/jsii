@@ -43,6 +43,10 @@ export class Kernel {
    * Set to true for timing data to be emitted.
    */
   public debugTimingEnabled = false;
+  /**
+   * Set to true to validate assemblies upon loading (slow).
+   */
+  public validateAssemblies = false;
 
   readonly #assemblies = new Map<string, Assembly>();
   readonly #objects = new ObjectTable(this.#typeInfoForFqn.bind(this));
@@ -69,6 +73,7 @@ export class Kernel {
     this.#serializerHost = {
       objects: this.#objects,
       debug: this.#debug.bind(this),
+      isVisibleType: this.#isVisibleType.bind(this),
       findSymbol: this.#findSymbol.bind(this),
       lookupType: this.#typeInfoForFqn.bind(this),
     };
@@ -147,10 +152,10 @@ export class Kernel {
     }
 
     // read .jsii metadata from the root of the package
-    let assmSpec;
+    let assmSpec: spec.Assembly;
     try {
       assmSpec = this.#debugTime(
-        () => spec.loadAssemblyFromPath(packageDir),
+        () => spec.loadAssemblyFromPath(packageDir, this.validateAssemblies),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
@@ -159,10 +164,15 @@ export class Kernel {
       );
     }
 
+    // We do a `require.resolve` call, as otherwise, requiring with a directory will cause any `exports` from
+    // `package.json` to be ignored, preventing injection of a "lazy index" entry point.
+    const entryPoint = this.#require!.resolve(assmSpec.name, {
+      paths: [this.#installDir!],
+    });
     // load the module and capture its closure
     const closure = this.#debugTime(
-      () => this.#require!(packageDir),
-      `require(${packageDir})`,
+      () => this.#require!(entryPoint),
+      `require(${entryPoint})`,
     );
     const assm = new Assembly(assmSpec, closure);
     this.#debugTime(
@@ -333,7 +343,7 @@ export class Kernel {
       throw new JsiiFault(`${method} is an async method, use "begin" instead`);
     }
 
-    const fqn = jsiiTypeFqn(obj);
+    const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
     const ret = this.#ensureSync(
       `method '${objref[TOKEN_REF]}.${method}'`,
       () => {
@@ -420,7 +430,7 @@ export class Kernel {
       throw new JsiiFault(`Method ${method} is expected to be an async method`);
     }
 
-    const fqn = jsiiTypeFqn(obj);
+    const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
 
     const promise = fn.apply(
       obj,
@@ -567,6 +577,21 @@ export class Kernel {
 
   #addAssembly(assm: Assembly) {
     this.#assemblies.set(assm.metadata.name, assm);
+
+    // We can use jsii runtime type information from jsii 1.19.0 onwards... Note that a version of
+    // 0.0.0 means we are assessing against a development tree, which is newer...
+    const jsiiVersion = assm.metadata.jsiiVersion.split(' ', 1)[0];
+    const [jsiiMajor, jsiiMinor, _jsiiPatch, ..._rest] = jsiiVersion
+      .split('.')
+      .map((str) => parseInt(str, 10));
+    if (
+      jsiiVersion === '0.0.0' ||
+      jsiiMajor > 1 ||
+      (jsiiMajor === 1 && jsiiMinor >= 19)
+    ) {
+      this.#debug('Using compiler-woven runtime type information!');
+      return;
+    }
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
@@ -869,7 +894,7 @@ export class Kernel {
     methodInfo: spec.Method,
   ) {
     const methodName = override.method;
-    const fqn = jsiiTypeFqn(obj);
+    const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
     const methodContext = `${methodInfo.async ? 'async ' : ''}method${
       fqn ? `${fqn}#` : methodName
     }`;
@@ -1029,7 +1054,7 @@ export class Kernel {
     return curr;
   }
 
-  #typeInfoForFqn(fqn: string): spec.Type {
+  #typeInfoForFqn(fqn: spec.FQN): spec.Type {
     const components = fqn.split('.');
     const moduleName = components[0];
 
@@ -1045,6 +1070,26 @@ export class Kernel {
     }
 
     return fqnInfo;
+  }
+
+  /**
+   * Determines whether the provided FQN corresponds to a valid, exported type
+   * from any currently loaded assembly.
+   *
+   * @param fqn the tested FQN.
+   *
+   * @returns `true` IIF the FQN corresponds to a know exported type.
+   */
+  #isVisibleType(fqn: spec.FQN): boolean {
+    try {
+      /* ignored */ this.#typeInfoForFqn(fqn);
+      return true;
+    } catch (e) {
+      if (e instanceof JsiiFault) {
+        return false;
+      }
+      throw e;
+    }
   }
 
   #typeInfoForMethod(

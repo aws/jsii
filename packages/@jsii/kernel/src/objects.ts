@@ -16,15 +16,30 @@ const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
 /**
- * Symbol we use to tag constructors that are exported from a JSII module.
+ * Symbol we use to tag constructors that are exported from a jsii module.
  */
 const JSII_TYPE_FQN_SYMBOL = Symbol('$__jsii__fqn__$');
 
-interface ManagedConstructor {
-  readonly [JSII_TYPE_FQN_SYMBOL]: string;
-}
+/**
+ * Symbol under which jsii runtime type information is stored.
+ */
+const JSII_RTTI_SYMBOL = Symbol.for('jsii.rtti');
 
-type MaybeManagedConstructor = Partial<ManagedConstructor>;
+/**
+ * Exported constructors processed by the jsii compiler have runtime type
+ * information woven into them under the `[JSII_RTTI]` symbol property.
+ */
+interface MaybeManagedConstructor {
+  readonly [JSII_RTTI_SYMBOL]?: {
+    /** The fully qualified name of the jsii type. */
+    readonly fqn: spec.FQN;
+    /** The version of the assembly that declared this type. */
+    readonly version: string;
+  };
+
+  /** The resolved JSII type FQN for this type. This is set only after resolution */
+  readonly [JSII_TYPE_FQN_SYMBOL]?: spec.FQN;
+}
 
 /**
  * Get the JSII fqn for an object (if available)
@@ -32,9 +47,37 @@ type MaybeManagedConstructor = Partial<ManagedConstructor>;
  * This will return something if the object was constructed from a JSII-enabled
  * class/constructor, or if a literal object was annotated with type
  * information.
+ *
+ * @param obj the object for which a jsii FQN is requested.
+ * @param isVisibleType a function that determines if a type is visible.
  */
-export function jsiiTypeFqn(obj: any): string | undefined {
-  return (obj.constructor as MaybeManagedConstructor)[JSII_TYPE_FQN_SYMBOL];
+export function jsiiTypeFqn(
+  obj: any,
+  isVisibleType: (fqn: spec.FQN) => boolean,
+): spec.FQN | undefined {
+  const ctor = obj.constructor as MaybeManagedConstructor;
+
+  // We've already resolved for this type, return the cached value.
+  if (ctor[JSII_TYPE_FQN_SYMBOL] != null) {
+    return ctor[JSII_TYPE_FQN_SYMBOL];
+  }
+
+  let curr = ctor;
+  while (curr[JSII_RTTI_SYMBOL]?.fqn) {
+    if (isVisibleType(curr[JSII_RTTI_SYMBOL].fqn)) {
+      const fqn = curr[JSII_RTTI_SYMBOL].fqn;
+
+      tagJsiiConstructor(curr, fqn);
+      tagJsiiConstructor(ctor, fqn);
+
+      return fqn;
+    }
+
+    // Walk up the prototype chain...
+    curr = Object.getPrototypeOf(curr);
+  }
+
+  return undefined;
 }
 
 /**
@@ -94,10 +137,11 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
 /**
  * Set the JSII FQN for classes produced by a given constructor
  */
-export function tagJsiiConstructor(constructor: any, fqn: string) {
+export function tagJsiiConstructor(constructor: any, fqn: spec.FQN) {
   if (Object.prototype.hasOwnProperty.call(constructor, JSII_TYPE_FQN_SYMBOL)) {
-    return assert(
-      constructor[JSII_TYPE_FQN_SYMBOL] === fqn,
+    return assert.strictEqual(
+      constructor[JSII_TYPE_FQN_SYMBOL],
+      fqn,
       `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${constructor[JSII_TYPE_FQN_SYMBOL]}`,
     );
   }
@@ -119,11 +163,11 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
  * type.
  */
 export class ObjectTable {
-  readonly #resolveType: (fqn: string) => spec.Type;
+  readonly #resolveType: (fqn: spec.FQN) => spec.Type;
   readonly #objects = new Map<string, RegisteredObject>();
   #nextid = 10000;
 
-  public constructor(resolveType: (fqn: string) => spec.Type) {
+  public constructor(resolveType: (fqn: spec.FQN) => spec.Type) {
     this.#resolveType = resolveType;
   }
 
@@ -134,8 +178,8 @@ export class ObjectTable {
    */
   public registerObject(
     obj: unknown,
-    fqn: string,
-    interfaces?: string[],
+    fqn: spec.FQN,
+    interfaces?: spec.FQN[],
   ): api.ObjRef {
     if (fqn === undefined) {
       throw new JsiiFault('FQN cannot be undefined');
@@ -227,14 +271,14 @@ export class ObjectTable {
     return this.#objects.size;
   }
 
-  #makeId(fqn: string) {
+  #makeId(fqn: spec.FQN) {
     return `${fqn}@${this.#nextid++}`;
   }
 
   #removeRedundant(
-    interfaces: string[] | undefined,
-    fqn: string,
-  ): string[] | undefined {
+    interfaces: spec.FQN[] | undefined,
+    fqn: spec.FQN,
+  ): spec.FQN[] | undefined {
     if (!interfaces || interfaces.length === 0) {
       return undefined;
     }
@@ -257,19 +301,19 @@ export class ObjectTable {
 
 export interface RegisteredObject {
   instance: any;
-  fqn: string;
-  interfaces?: string[];
+  fqn: spec.FQN;
+  interfaces?: spec.FQN[];
 }
 
 class InterfaceCollection implements Iterable<string> {
-  readonly #resolveType: (fqn: string) => spec.Type;
-  readonly #interfaces = new Set<string>();
+  readonly #resolveType: (fqn: spec.FQN) => spec.Type;
+  readonly #interfaces = new Set<spec.FQN>();
 
-  public constructor(resolveType: (fqn: string) => spec.Type) {
+  public constructor(resolveType: (fqn: spec.FQN) => spec.Type) {
     this.#resolveType = resolveType;
   }
 
-  public addFromClass(fqn: string): void {
+  public addFromClass(fqn: spec.FQN): void {
     const ti = this.#resolveType(fqn);
     if (!spec.isClassType(ti)) {
       throw new JsiiFault(
@@ -290,7 +334,7 @@ class InterfaceCollection implements Iterable<string> {
     }
   }
 
-  public addFromInterface(fqn: string): void {
+  public addFromInterface(fqn: spec.FQN): void {
     const ti = this.#resolveType(fqn);
     if (!spec.isInterfaceType(ti)) {
       throw new JsiiFault(
