@@ -7309,6 +7309,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
+
+        /// <summary>Some comments have an escaped star backslash in them, ending the comment if left unescaped.</summary>
+        /// <remarks>
+        /// For example: 'projects/*/global/networks/network-1'.
+        /// </remarks>
+        [JsiiMethod(name: "moin")]
+        public virtual void Moin()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
     }
 }
 

@@ -2808,7 +2808,7 @@ class JavaGenerator extends Generator {
 
     this.code.line('/**');
     for (const line of lines) {
-      this.code.line(` * ${line}`);
+      this.code.line(` * ${escapeEndingComment(line)}`);
     }
     this.code.line(' */');
   }
@@ -3676,4 +3676,9 @@ function myMarkDownToJavaDoc(source: string) {
 
 function stripNewLines(x: string) {
   return x.replace(/\n/g, '');
+}
+
+// Replace */ with *\/ to avoid closing the comment block
+function escapeEndingComment(x: string) {
+  return x.replace(/\*\//g, '*\\/');
 }
