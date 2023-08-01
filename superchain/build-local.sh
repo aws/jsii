@@ -19,14 +19,20 @@ else
   COMMIT_ID=${COMMIT_ID}+local
 fi
 
+PLATFORM=$(uname -m)
+if [[ "${PLATFORM}" == "x86_64" ]]; then
+  PLATFORM="amd64"
+fi
+
 # Now on to building the image
-docker build                                                                    \
+${DOCKER:-docker} build                                                         \
   --target superchain                                                           \
-  --build-arg BUILDPLATFORM=linux/amd64                                         \
-  --build-arg TARGETPLATFORM=linux/amd64                                        \
+  --build-arg BUILDPLATFORM=linux/${PLATFORM}                                   \
+  --build-arg TARGETPLATFORM=linux/${PLATFORM}                                  \
+  --build-arg DEBIAN_VERSION=${DEBIAN_VERSION:-bookworm}                        \
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
   --build-arg REGISTRY="docker.io/library"                                      \
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \
-  -t "public.ecr.aws/jsii/superchain:local"                                     \
+  -t "public.ecr.aws/jsii/superchain:1-${DEBIAN_VERSION:-bookworm}-local"       \
   -f ${PWD}/Dockerfile                                                          \
   ..
