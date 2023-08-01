@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690458315002,
+  "lastUpdate": 1690915614387,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19373,6 +19373,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 301216.47511918726,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61930.68188080002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "53584728+TheRealAmazonKendra@users.noreply.github.com",
+            "name": "Kendra Neil",
+            "username": "TheRealAmazonKendra"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "665872938bf00a3d57f4a9ed6b8bca236519bb2a",
+          "message": "chore: multi-build super chain image with several Debian releases (#4195)\n\nThe Debian 10 image uses Python 3.7 which was causing failures elsewhere\r\ndue to required minimum python 3.8. Debian 10 is also ten months out of\r\nsecurity support so upgrading it seemed like the right decision here.\r\nThis change also updates Node to 16 due to Node 14 being EOL..\r\n\r\nThis is the same as another PR posted but upgrading to Debian 12\r\ninstead.\r\n\r\n---\r\n\r\nBy submitting this pull request, I confirm that my contribution is made\r\nunder the terms of the [Apache 2.0 license].\r\n\r\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0\r\n\r\n---------\r\n\r\nSigned-off-by: Kendra Neil <53584728+TheRealAmazonKendra@users.noreply.github.com>\r\nCo-authored-by: 🧑🏻‍💻 Romain Marcadier <rmuller@amazon.com>\r\nCo-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>\r\nCo-authored-by: Romain Marcadier <rmuller@amazon.fr>",
+          "timestamp": "2023-08-01T10:37:38-07:00",
+          "tree_id": "b59baf8a131dedc813b0ebbd31118252e033fd67",
+          "url": "https://github.com/aws/jsii/commit/665872938bf00a3d57f4a9ed6b8bca236519bb2a"
+        },
+        "date": 1690915609321,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 94901.82841939999,
+            "unit": "milliseconds",
+            "range": 7021785.2607938,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 94901.82841939999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 72153.73527214999,
+            "unit": "milliseconds",
+            "range": 3588936.2589176693,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 72153.73527214999 milliseconds over 20 runs"
           }
         ]
       }
