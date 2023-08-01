@@ -447,7 +447,7 @@ function main() {
  */
 function wrapHandler<A extends { verbose?: number }, R>(handler: (x: A) => Promise<R>) {
   return (argv: A) => {
-    logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
+    logging.configure({ level: argv.verbose ?? 0 });
     handler(argv).catch((e) => {
       logging.error(e.message);
       logging.error(e.stack);

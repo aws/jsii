@@ -90,7 +90,7 @@ export class GoClass extends GoType<ClassType> {
         ? (this.pkg.root.findType(this.type.base.fqn) as GoClass)
         : null;
     }
-    return this._extends == null ? undefined : this._extends;
+    return this._extends ?? undefined;
   }
 
   public get implements(): readonly GoInterface[] {

@@ -24,7 +24,8 @@ export interface ExtractResult {
 }
 
 let packageCacheEnabled =
-  process.env.JSII_RUNTIME_PACKAGE_CACHE?.toLocaleLowerCase() === 'enabled';
+  (process.env.JSII_RUNTIME_PACKAGE_CACHE?.toLocaleLowerCase() ?? 'enabled') ===
+  'enabled';
 
 /**
  * Extracts the content of a tarball, possibly caching it on disk.
@@ -41,7 +42,6 @@ export function extract(
   options: ExtractOptions,
   ...comments: readonly string[]
 ): ExtractResult {
-  mkdirSync(outDir, { recursive: true });
   try {
     return (packageCacheEnabled ? extractViaCache : extractToOutDir)(
       file,
@@ -100,6 +100,9 @@ function extractToOutDir(
   cwd: string,
   options: ExtractOptions = {},
 ): { cache?: undefined } {
+  // The output directory must already exist...
+  mkdirSync(cwd, { recursive: true });
+
   // !!!IMPORTANT!!!
   // Extract directly into the final target directory, as certain antivirus
   // software configurations on Windows will make a `renameSync` operation

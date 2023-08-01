@@ -19,7 +19,10 @@ export abstract class GoType<T extends Type = Type> {
   public readonly proxyName: string;
   protected readonly apiLocation: ApiLocation;
 
-  public constructor(public readonly pkg: Package, public readonly type: T) {
+  public constructor(
+    public readonly pkg: Package,
+    public readonly type: T,
+  ) {
     this.name = type.name;
 
     // Prefix with the nesting parent name(s), using an _ delimiter.

@@ -12,10 +12,13 @@ import { withTemporaryDirectory, TestJsiiModule, DUMMY_JSII_CONFIG } from '../te
 jest.setTimeout(60_000);
 
 // A targets configuration block with ALL targets enabled (although with phony configuration).
-const targets = Object.values(TargetLanguage).reduce((tgt, lang) => {
-  tgt[targetName(lang)] = { phony: true };
-  return tgt;
-}, {} as Record<string, any>);
+const targets = Object.values(TargetLanguage).reduce(
+  (tgt, lang) => {
+    tgt[targetName(lang)] = { phony: true };
+    return tgt;
+  },
+  {} as Record<string, any>,
+);
 
 test('single assembly, all languages', () =>
   withTemporaryDirectory(async (tmpDir) => {

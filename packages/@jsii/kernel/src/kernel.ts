@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import { loadAssemblyFromPath } from '@jsii/spec';
 import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
@@ -44,17 +43,24 @@ export class Kernel {
    * Set to true for timing data to be emitted.
    */
   public debugTimingEnabled = false;
+  /**
+   * Set to true to validate assemblies upon loading (slow).
+   */
+  public validateAssemblies = false;
 
-  private readonly assemblies = new Map<string, Assembly>();
-  private readonly objects = new ObjectTable(this._typeInfoForFqn.bind(this));
-  private readonly cbs = new Map<string, Callback>();
-  private readonly waiting = new Map<string, Callback>();
-  private readonly promises = new Map<string, AsyncInvocation>();
-  private nextid = 20000; // incrementing counter for objid, cbid, promiseid
-  private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
-  private installDir?: string;
+  readonly #assemblies = new Map<string, Assembly>();
+  readonly #objects = new ObjectTable(this.#typeInfoForFqn.bind(this));
+  readonly #cbs = new Map<string, Callback>();
+  readonly #waiting = new Map<string, Callback>();
+  readonly #promises = new Map<string, AsyncInvocation>();
+
+  readonly #serializerHost: wire.SerializerHost;
+
+  #nextid = 20000; // incrementing counter for objid, cbid, promiseid
+  #syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
+  #installDir?: string;
   /** The internal require function, used instead of the global "require" so that webpack does not transform it... */
-  private require?: typeof require;
+  #require?: typeof require;
 
   /**
    * Creates a jsii kernel object.
@@ -63,17 +69,25 @@ export class Kernel {
    *                        It's responsibility is to execute the callback and return it's
    *                        result (or throw an error).
    */
-  public constructor(public callbackHandler: (callback: api.Callback) => any) {}
+  public constructor(public callbackHandler: (callback: api.Callback) => any) {
+    this.#serializerHost = {
+      objects: this.#objects,
+      debug: this.#debug.bind(this),
+      isVisibleType: this.#isVisibleType.bind(this),
+      findSymbol: this.#findSymbol.bind(this),
+      lookupType: this.#typeInfoForFqn.bind(this),
+    };
+  }
 
   public load(req: api.LoadRequest): api.LoadResponse {
-    return this._debugTime(
-      () => this._load(req),
+    return this.#debugTime(
+      () => this.#load(req),
       `load(${JSON.stringify(req, null, 2)})`,
     );
   }
 
-  private _load(req: api.LoadRequest): api.LoadResponse {
-    this._debug('load', req);
+  #load(req: api.LoadRequest): api.LoadResponse {
+    this.#debug('load', req);
 
     if ('assembly' in req) {
       throw new JsiiFault(
@@ -85,7 +99,7 @@ export class Kernel {
     const pkgver = req.version;
 
     // check if we already have such a module
-    const packageDir = this._getPackageDir(pkgname);
+    const packageDir = this.#getPackageDir(pkgname);
     if (fs.pathExistsSync(packageDir)) {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
@@ -98,8 +112,8 @@ export class Kernel {
       }
 
       // same version, no-op
-      this._debug('look up already-loaded assembly', pkgname);
-      const assm = this.assemblies.get(pkgname)!;
+      this.#debug('look up already-loaded assembly', pkgname);
+      const assm = this.#assemblies.get(pkgname)!;
 
       return {
         assembly: assm.metadata.name,
@@ -111,7 +125,7 @@ export class Kernel {
     const originalUmask = process.umask(0o022);
     try {
       // untar the archive to its final location
-      const { cache } = this._debugTime(
+      const { cache } = this.#debugTime(
         () =>
           tar.extract(
             req.tarball,
@@ -128,7 +142,7 @@ export class Kernel {
       );
 
       if (cache != null) {
-        this._debug(
+        this.#debug(
           `Package cache enabled, extraction resulted in a cache ${cache}`,
         );
       }
@@ -138,10 +152,10 @@ export class Kernel {
     }
 
     // read .jsii metadata from the root of the package
-    let assmSpec;
+    let assmSpec: spec.Assembly;
     try {
-      assmSpec = this._debugTime(
-        () => loadAssemblyFromPath(packageDir),
+      assmSpec = this.#debugTime(
+        () => spec.loadAssemblyFromPath(packageDir, this.validateAssemblies),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
@@ -150,14 +164,19 @@ export class Kernel {
       );
     }
 
+    // We do a `require.resolve` call, as otherwise, requiring with a directory will cause any `exports` from
+    // `package.json` to be ignored, preventing injection of a "lazy index" entry point.
+    const entryPoint = this.#require!.resolve(assmSpec.name, {
+      paths: [this.#installDir!],
+    });
     // load the module and capture its closure
-    const closure = this._debugTime(
-      () => this.require!(packageDir),
-      `require(${packageDir})`,
+    const closure = this.#debugTime(
+      () => this.#require!(entryPoint),
+      `require(${entryPoint})`,
     );
     const assm = new Assembly(assmSpec, closure);
-    this._debugTime(
-      () => this._addAssembly(assm),
+    this.#debugTime(
+      () => this.#addAssembly(assm),
       `registerAssembly({ name: ${assm.metadata.name}, types: ${
         Object.keys(assm.metadata.types ?? {}).length
       } })`,
@@ -172,13 +191,13 @@ export class Kernel {
   public getBinScriptCommand(
     req: api.GetScriptCommandRequest,
   ): api.GetScriptCommandResponse {
-    return this._getBinScriptCommand(req);
+    return this.#getBinScriptCommand(req);
   }
 
   public invokeBinScript(
     req: api.InvokeScriptRequest,
   ): api.InvokeScriptResponse {
-    const { command, args, env } = this._getBinScriptCommand(req);
+    const { command, args, env } = this.#getBinScriptCommand(req);
 
     const result = cp.spawnSync(command, args, {
       encoding: 'utf-8',
@@ -195,14 +214,14 @@ export class Kernel {
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
-    return this._create(req);
+    return this.#create(req);
   }
 
   public del(req: api.DelRequest): api.DelResponse {
     const { objref } = req;
 
-    this._debug('del', objref);
-    this.objects.deleteObject(objref);
+    this.#debug('del', objref);
+    this.#objects.deleteObject(objref);
 
     return {};
   }
@@ -210,31 +229,31 @@ export class Kernel {
   public sget(req: api.StaticGetRequest): api.GetResponse {
     const { fqn, property } = req;
     const symbol = `${fqn}.${property}`;
-    this._debug('sget', symbol);
-    const ti = this._typeInfoForProperty(property, fqn);
+    this.#debug('sget', symbol);
+    const ti = this.#typeInfoForProperty(property, fqn);
 
     if (!ti.static) {
       throw new JsiiFault(`property ${symbol} is not static`);
     }
 
-    const prototype = this._findSymbol(fqn);
+    const prototype = this.#findSymbol(fqn);
 
-    const value = this._ensureSync(
+    const value = this.#ensureSync(
       `property ${property}`,
       () => prototype[property],
     );
 
-    this._debug('value:', value);
-    const ret = this._fromSandbox(value, ti, `of static property ${symbol}`);
-    this._debug('ret', ret);
+    this.#debug('value:', value);
+    const ret = this.#fromSandbox(value, ti, `of static property ${symbol}`);
+    this.#debug('ret', ret);
     return { value: ret };
   }
 
   public sset(req: api.StaticSetRequest): api.SetResponse {
     const { fqn, property, value } = req;
     const symbol = `${fqn}.${property}`;
-    this._debug('sset', symbol);
-    const ti = this._typeInfoForProperty(property, fqn);
+    this.#debug('sset', symbol);
+    const ti = this.#typeInfoForProperty(property, fqn);
 
     if (!ti.static) {
       throw new JsiiFault(`property ${symbol} is not static`);
@@ -244,12 +263,12 @@ export class Kernel {
       throw new JsiiFault(`static property ${symbol} is readonly`);
     }
 
-    const prototype = this._findSymbol(fqn);
+    const prototype = this.#findSymbol(fqn);
 
-    this._ensureSync(
+    this.#ensureSync(
       `property ${property}`,
       () =>
-        (prototype[property] = this._toSandbox(
+        (prototype[property] = this.#toSandbox(
           value,
           ti,
           `assigned to static property ${symbol}`,
@@ -261,35 +280,35 @@ export class Kernel {
 
   public get(req: api.GetRequest): api.GetResponse {
     const { objref, property } = req;
-    this._debug('get', objref, property);
-    const { instance, fqn, interfaces } = this.objects.findObject(objref);
-    const ti = this._typeInfoForProperty(property, fqn, interfaces);
+    this.#debug('get', objref, property);
+    const { instance, fqn, interfaces } = this.#objects.findObject(objref);
+    const ti = this.#typeInfoForProperty(property, fqn, interfaces);
 
     // if the property is overridden by the native code and "get" is called on the object, it
     // means that the native code is trying to access the "super" property. in order to enable
     // that, we actually keep a copy of the original property descriptor when we override,
     // so `findPropertyTarget` will return either the original property name ("property") or
     // the "super" property name (somehing like "$jsii$super$<property>$").
-    const propertyToGet = this._findPropertyTarget(instance, property);
+    const propertyToGet = this.#findPropertyTarget(instance, property);
 
     // make the actual "get", and block any async calls that might be performed
     // by jsii overrides.
-    const value = this._ensureSync(
+    const value = this.#ensureSync(
       `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
       () => instance[propertyToGet],
     );
-    this._debug('value:', value);
-    const ret = this._fromSandbox(value, ti, `of property ${fqn}.${property}`);
-    this._debug('ret:', ret);
+    this.#debug('value:', value);
+    const ret = this.#fromSandbox(value, ti, `of property ${fqn}.${property}`);
+    this.#debug('ret:', ret);
     return { value: ret };
   }
 
   public set(req: api.SetRequest): api.SetResponse {
     const { objref, property, value } = req;
-    this._debug('set', objref, property, value);
-    const { instance, fqn, interfaces } = this.objects.findObject(objref);
+    this.#debug('set', objref, property, value);
+    const { instance, fqn, interfaces } = this.#objects.findObject(objref);
 
-    const propInfo = this._typeInfoForProperty(req.property, fqn, interfaces);
+    const propInfo = this.#typeInfoForProperty(req.property, fqn, interfaces);
 
     if (propInfo.immutable) {
       throw new JsiiFault(
@@ -297,12 +316,12 @@ export class Kernel {
       );
     }
 
-    const propertyToSet = this._findPropertyTarget(instance, property);
+    const propertyToSet = this.#findPropertyTarget(instance, property);
 
-    this._ensureSync(
+    this.#ensureSync(
       `property '${objref[TOKEN_REF]}.${propertyToSet}'`,
       () =>
-        (instance[propertyToSet] = this._toSandbox(
+        (instance[propertyToSet] = this.#toSandbox(
           value,
           propInfo,
           `assigned to property ${fqn}.${property}`,
@@ -316,21 +335,21 @@ export class Kernel {
     const { objref, method } = req;
     const args = req.args ?? [];
 
-    this._debug('invoke', objref, method, args);
-    const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
+    this.#debug('invoke', objref, method, args);
+    const { ti, obj, fn } = this.#findInvokeTarget(objref, method, args);
 
     // verify this is not an async method
     if (ti.async) {
       throw new JsiiFault(`${method} is an async method, use "begin" instead`);
     }
 
-    const fqn = jsiiTypeFqn(obj);
-    const ret = this._ensureSync(
+    const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
+    const ret = this.#ensureSync(
       `method '${objref[TOKEN_REF]}.${method}'`,
       () => {
         return fn.apply(
           obj,
-          this._toSandboxValues(
+          this.#toSandboxValues(
             args,
             `method ${fqn ? `${fqn}#` : ''}${method}`,
             ti.parameters,
@@ -339,12 +358,12 @@ export class Kernel {
       },
     );
 
-    const result = this._fromSandbox(
+    const result = this.#fromSandbox(
       ret,
       ti.returns ?? 'void',
       `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
     );
-    this._debug('invoke result', result);
+    this.#debug('invoke result', result);
 
     return { result };
   }
@@ -353,9 +372,9 @@ export class Kernel {
     const { fqn, method } = req;
     const args = req.args ?? [];
 
-    this._debug('sinvoke', fqn, method, args);
+    this.#debug('sinvoke', fqn, method, args);
 
-    const ti = this._typeInfoForMethod(method, fqn);
+    const ti = this.#typeInfoForMethod(method, fqn);
 
     if (!ti.static) {
       throw new JsiiFault(`${fqn}.${method} is not a static method`);
@@ -366,13 +385,13 @@ export class Kernel {
       throw new JsiiFault(`${method} is an async method, use "begin" instead`);
     }
 
-    const prototype = this._findSymbol(fqn);
+    const prototype = this.#findSymbol(fqn);
     const fn = prototype[method] as (...params: any[]) => any;
 
-    const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
+    const ret = this.#ensureSync(`method '${fqn}.${method}'`, () => {
       return fn.apply(
         prototype,
-        this._toSandboxValues(
+        this.#toSandboxValues(
           args,
           `static method ${fqn}.${method}`,
           ti.parameters,
@@ -380,9 +399,9 @@ export class Kernel {
       );
     });
 
-    this._debug('method returned:', ret);
+    this.#debug('method returned:', ret);
     return {
-      result: this._fromSandbox(
+      result: this.#fromSandbox(
         ret,
         ti.returns ?? 'void',
         `returned by static method ${fqn}.${method}`,
@@ -394,26 +413,28 @@ export class Kernel {
     const { objref, method } = req;
     const args = req.args ?? [];
 
-    this._debug('begin', objref, method, args);
+    this.#debug('begin', objref, method, args);
 
-    if (this.syncInProgress) {
+    if (this.#syncInProgress) {
       throw new JsiiFault(
-        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.syncInProgress} is being processed`,
+        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${
+          req.method
+        }' while sync ${this.#syncInProgress} is being processed`,
       );
     }
 
-    const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
+    const { ti, obj, fn } = this.#findInvokeTarget(objref, method, args);
 
     // verify this is indeed an async method
     if (!ti.async) {
       throw new JsiiFault(`Method ${method} is expected to be an async method`);
     }
 
-    const fqn = jsiiTypeFqn(obj);
+    const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
 
     const promise = fn.apply(
       obj,
-      this._toSandboxValues(
+      this.#toSandboxValues(
         args,
         `async method ${fqn ? `${fqn}#` : ''}${method}`,
         ti.parameters,
@@ -425,8 +446,8 @@ export class Kernel {
     // [1]: https://stackoverflow.com/questions/40920179/should-i-refrain-from-handling-promise-rejection-asynchronously/40921505
     promise.catch((_) => undefined);
 
-    const prid = this._makeprid();
-    this.promises.set(prid, {
+    const prid = this.#makeprid();
+    this.#promises.set(prid, {
       promise,
       method: ti,
     });
@@ -437,9 +458,9 @@ export class Kernel {
   public async end(req: api.EndRequest): Promise<api.EndResponse> {
     const { promiseid } = req;
 
-    this._debug('end', promiseid);
+    this.#debug('end', promiseid);
 
-    const storedPromise = this.promises.get(promiseid);
+    const storedPromise = this.#promises.get(promiseid);
     if (storedPromise == null) {
       throw new JsiiFault(`Cannot find promise with ID: ${promiseid}`);
     }
@@ -448,9 +469,9 @@ export class Kernel {
     let result;
     try {
       result = await promise;
-      this._debug('promise result:', result);
+      this.#debug('promise result:', result);
     } catch (e: any) {
-      this._debug('promise error:', e);
+      this.#debug('promise error:', e);
       if (e.name === JsiiErrorType.JSII_FAULT) {
         if (e instanceof JsiiFault) {
           throw e;
@@ -467,7 +488,7 @@ export class Kernel {
     }
 
     return {
-      result: this._fromSandbox(
+      result: this.#fromSandbox(
         result,
         method.returns ?? 'void',
         `returned by async method ${method.name}`,
@@ -476,10 +497,10 @@ export class Kernel {
   }
 
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
-    this._debug('callbacks');
-    const ret = Array.from(this.cbs.entries()).map(([cbid, cb]) => {
-      this.waiting.set(cbid, cb); // move to waiting
-      this.cbs.delete(cbid); // remove from created
+    this.#debug('callbacks');
+    const ret = Array.from(this.#cbs.entries()).map(([cbid, cb]) => {
+      this.#waiting.set(cbid, cb); // move to waiting
+      this.#cbs.delete(cbid); // remove from created
       const callback: api.Callback = {
         cbid,
         cookie: cb.override.cookie,
@@ -498,31 +519,32 @@ export class Kernel {
   public complete(req: api.CompleteRequest): api.CompleteResponse {
     const { cbid, err, result, name } = req;
 
-    this._debug('complete', cbid, err, result);
+    this.#debug('complete', cbid, err, result);
 
-    const cb = this.waiting.get(cbid);
+    const cb = this.#waiting.get(cbid);
     if (!cb) {
       throw new JsiiFault(`Callback ${cbid} not found`);
     }
 
     if (err) {
-      this._debug('completed with error:', err);
+      this.#debug('completed with error:', err);
       cb.fail(
         name === JsiiErrorType.JSII_FAULT
           ? new JsiiFault(err)
           : new RuntimeError(err),
       );
     } else {
-      const sandoxResult = this._toSandbox(
+      const sandoxResult = this.#toSandbox(
         result,
         cb.expectedReturnType ?? 'void',
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         `returned by callback ${cb.toString()}`,
       );
-      this._debug('completed with result:', sandoxResult);
+      this.#debug('completed with result:', sandoxResult);
       cb.succeed(sandoxResult);
     }
 
-    this.waiting.delete(cbid);
+    this.#waiting.delete(cbid);
 
     return { cbid };
   }
@@ -534,9 +556,9 @@ export class Kernel {
   public naming(req: api.NamingRequest): api.NamingResponse {
     const assemblyName = req.assembly;
 
-    this._debug('naming', assemblyName);
+    this.#debug('naming', assemblyName);
 
-    const assembly = this._assemblyFor(assemblyName);
+    const assembly = this.#assemblyFor(assemblyName);
     const targets = assembly.metadata.targets;
     if (!targets) {
       throw new JsiiFault(
@@ -549,12 +571,27 @@ export class Kernel {
 
   public stats(_req?: api.StatsRequest): api.StatsResponse {
     return {
-      objectCount: this.objects.count,
+      objectCount: this.#objects.count,
     };
   }
 
-  private _addAssembly(assm: Assembly) {
-    this.assemblies.set(assm.metadata.name, assm);
+  #addAssembly(assm: Assembly) {
+    this.#assemblies.set(assm.metadata.name, assm);
+
+    // We can use jsii runtime type information from jsii 1.19.0 onwards... Note that a version of
+    // 0.0.0 means we are assessing against a development tree, which is newer...
+    const jsiiVersion = assm.metadata.jsiiVersion.split(' ', 1)[0];
+    const [jsiiMajor, jsiiMinor, _jsiiPatch, ..._rest] = jsiiVersion
+      .split('.')
+      .map((str) => parseInt(str, 10));
+    if (
+      jsiiVersion === '0.0.0' ||
+      jsiiMajor > 1 ||
+      (jsiiMajor === 1 && jsiiMinor >= 19)
+    ) {
+      this.#debug('Using compiler-woven runtime type information!');
+      return;
+    }
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
@@ -565,14 +602,14 @@ export class Kernel {
           continue; // interfaces don't really exist
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
-          const constructor = this._findSymbol(fqn);
+          const constructor = this.#findSymbol(fqn);
           tagJsiiConstructor(constructor, fqn);
       }
     }
   }
 
   // find the javascript constructor function for a jsii FQN.
-  private _findCtor(
+  #findCtor(
     fqn: string,
     args: any[],
   ): { ctor: any; parameters?: spec.Parameter[] } {
@@ -580,14 +617,14 @@ export class Kernel {
       return { ctor: Object };
     }
 
-    const typeinfo = this._typeInfoForFqn(fqn);
+    const typeinfo = this.#typeInfoForFqn(fqn);
 
     switch (typeinfo.kind) {
       case spec.TypeKind.Class:
         const classType = typeinfo as spec.ClassType;
-        this._validateMethodArguments(classType.initializer, args);
+        this.#validateMethodArguments(classType.initializer, args);
         return {
-          ctor: this._findSymbol(fqn),
+          ctor: this.#findSymbol(fqn),
           parameters: classType.initializer && classType.initializer.parameters,
         };
 
@@ -601,42 +638,40 @@ export class Kernel {
     }
   }
 
-  private _getPackageDir(pkgname: string): string {
-    if (!this.installDir) {
-      this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
-      this.require = createRequire(this.installDir);
-      fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
-      this._debug('creating jsii-kernel modules workdir:', this.installDir);
+  #getPackageDir(pkgname: string): string {
+    if (!this.#installDir) {
+      this.#installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
+      this.#require = createRequire(this.#installDir);
+      fs.mkdirpSync(path.join(this.#installDir, 'node_modules'));
+      this.#debug('creating jsii-kernel modules workdir:', this.#installDir);
 
-      onExit.removeSync(this.installDir);
+      onExit.removeSync(this.#installDir);
     }
-    return path.join(this.installDir, 'node_modules', pkgname);
+    return path.join(this.#installDir, 'node_modules', pkgname);
   }
 
-  // prefixed with _ to allow calling this method internally without
-  // getting it recorded for testing.
-  private _create(req: api.CreateRequest): api.CreateResponse {
-    this._debug('create', req);
+  #create(req: api.CreateRequest): api.CreateResponse {
+    this.#debug('create', req);
     const { fqn, interfaces, overrides } = req;
 
     const requestArgs = req.args ?? [];
 
-    const ctorResult = this._findCtor(fqn, requestArgs);
+    const ctorResult = this.#findCtor(fqn, requestArgs);
     const ctor = ctorResult.ctor;
     const obj = new ctor(
-      ...this._toSandboxValues(
+      ...this.#toSandboxValues(
         requestArgs,
         `new ${fqn}`,
         ctorResult.parameters,
       ),
     );
-    const objref = this.objects.registerObject(obj, fqn, req.interfaces ?? []);
+    const objref = this.#objects.registerObject(obj, fqn, req.interfaces ?? []);
 
     // overrides: for each one of the override method names, installs a
     // method on the newly created object which represents the remote "reverse proxy".
 
     if (overrides) {
-      this._debug('overrides', overrides);
+      this.#debug('overrides', overrides);
 
       const overrideTypeErrorMessage =
         'Override can either be "method" or "property"';
@@ -655,7 +690,7 @@ export class Kernel {
           }
           methods.add(override.method);
 
-          this._applyMethodOverride(obj, objref, fqn, interfaces, override);
+          this.#applyMethodOverride(obj, objref, fqn, interfaces, override);
         } else if (api.isPropertyOverride(override)) {
           if (api.isMethodOverride(override)) {
             throw new JsiiFault(overrideTypeErrorMessage);
@@ -667,7 +702,7 @@ export class Kernel {
           }
           properties.add(override.property);
 
-          this._applyPropertyOverride(obj, objref, fqn, interfaces, override);
+          this.#applyPropertyOverride(obj, objref, fqn, interfaces, override);
         } else {
           throw new JsiiFault(overrideTypeErrorMessage);
         }
@@ -677,11 +712,11 @@ export class Kernel {
     return objref;
   }
 
-  private _getSuperPropertyName(name: string) {
+  #getSuperPropertyName(name: string) {
     return `$jsii$super$${name}$`;
   }
 
-  private _applyPropertyOverride(
+  #applyPropertyOverride(
     obj: any,
     objref: api.ObjRef,
     typeFqn: string,
@@ -689,20 +724,20 @@ export class Kernel {
     override: api.PropertyOverride,
   ) {
     // error if we can find a method with this name
-    if (this._tryTypeInfoForMethod(override.property, typeFqn, interfaces)) {
+    if (this.#tryTypeInfoForMethod(override.property, typeFqn, interfaces)) {
       throw new JsiiFault(
         `Trying to override method '${override.property}' as a property`,
       );
     }
 
-    let propInfo = this._tryTypeInfoForProperty(
+    let propInfo = this.#tryTypeInfoForProperty(
       override.property,
       typeFqn,
       interfaces,
     );
     // if this is a private property (i.e. doesn't have `propInfo` the object has a key)
     if (!propInfo && override.property in obj) {
-      this._debug(`Skipping override of private property ${override.property}`);
+      this.#debug(`Skipping override of private property ${override.property}`);
       return;
     }
 
@@ -719,10 +754,10 @@ export class Kernel {
       };
     }
 
-    this._defineOverridenProperty(obj, objref, override, propInfo);
+    this.#defineOverridenProperty(obj, objref, override, propInfo);
   }
 
-  private _defineOverridenProperty(
+  #defineOverridenProperty(
     obj: any,
     objref: api.ObjRef,
     override: api.PropertyOverride,
@@ -730,7 +765,7 @@ export class Kernel {
   ) {
     const propertyName = override.property;
 
-    this._debug('apply override', propertyName);
+    this.#debug('apply override', propertyName);
 
     // save the old property under $jsii$super$<prop>$ so that property overrides
     // can still access it via `super.<prop>`.
@@ -743,7 +778,7 @@ export class Kernel {
 
     const prevEnumerable = prev.enumerable;
     prev.enumerable = false;
-    Object.defineProperty(obj, this._getSuperPropertyName(propertyName), prev);
+    Object.defineProperty(obj, this.#getSuperPropertyName(propertyName), prev);
 
     // we add callbacks for both 'get' and 'set', even if the property
     // is readonly. this is fine because if you try to set() a readonly
@@ -752,32 +787,32 @@ export class Kernel {
       enumerable: prevEnumerable,
       configurable: prev.configurable,
       get: () => {
-        this._debug('virtual get', objref, propertyName, {
+        this.#debug('virtual get', objref, propertyName, {
           cookie: override.cookie,
         });
         const result = this.callbackHandler({
           cookie: override.cookie,
-          cbid: this._makecbid(),
+          cbid: this.#makecbid(),
           get: { objref, property: propertyName },
         });
-        this._debug('callback returned', result);
-        return this._toSandbox(
+        this.#debug('callback returned', result);
+        return this.#toSandbox(
           result,
           propInfo,
           `returned by callback property ${propertyName}`,
         );
       },
       set: (value: any) => {
-        this._debug('virtual set', objref, propertyName, {
+        this.#debug('virtual set', objref, propertyName, {
           cookie: override.cookie,
         });
         this.callbackHandler({
           cookie: override.cookie,
-          cbid: this._makecbid(),
+          cbid: this.#makecbid(),
           set: {
             objref,
             property: propertyName,
-            value: this._fromSandbox(
+            value: this.#fromSandbox(
               value,
               propInfo,
               `assigned to callback property ${propertyName}`,
@@ -804,7 +839,7 @@ export class Kernel {
     }
   }
 
-  private _applyMethodOverride(
+  #applyMethodOverride(
     obj: any,
     objref: api.ObjRef,
     typeFqn: string,
@@ -812,13 +847,13 @@ export class Kernel {
     override: api.MethodOverride,
   ) {
     // error if we can find a property with this name
-    if (this._tryTypeInfoForProperty(override.method, typeFqn, interfaces)) {
+    if (this.#tryTypeInfoForProperty(override.method, typeFqn, interfaces)) {
       throw new JsiiFault(
         `Trying to override property '${override.method}' as a method`,
       );
     }
 
-    let methodInfo = this._tryTypeInfoForMethod(
+    let methodInfo = this.#tryTypeInfoForMethod(
       override.method,
       typeFqn,
       interfaces,
@@ -827,7 +862,7 @@ export class Kernel {
     // If this is a private method (doesn't have methodInfo, key resolves on the object), we
     // are going to skip the override.
     if (!methodInfo && obj[override.method]) {
-      this._debug(`Skipping override of private method ${override.method}`);
+      this.#debug(`Skipping override of private method ${override.method}`);
       return;
     }
 
@@ -849,17 +884,17 @@ export class Kernel {
       };
     }
 
-    this._defineOverridenMethod(obj, objref, override, methodInfo);
+    this.#defineOverridenMethod(obj, objref, override, methodInfo);
   }
 
-  private _defineOverridenMethod(
+  #defineOverridenMethod(
     obj: any,
     objref: api.ObjRef,
     override: api.MethodOverride,
     methodInfo: spec.Method,
   ) {
     const methodName = override.method;
-    const fqn = jsiiTypeFqn(obj);
+    const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
     const methodContext = `${methodInfo.async ? 'async ' : ''}method${
       fqn ? `${fqn}#` : methodName
     }`;
@@ -871,16 +906,16 @@ export class Kernel {
         configurable: false,
         writable: false,
         value: (...methodArgs: any[]) => {
-          this._debug('invoke async method override', override);
-          const args = this._toSandboxValues(
+          this.#debug('invoke async method override', override);
+          const args = this.#toSandboxValues(
             methodArgs,
             methodContext,
             methodInfo.parameters,
           );
           return new Promise<any>((succeed, fail) => {
-            const cbid = this._makecbid();
-            this._debug('adding callback to queue', cbid);
-            this.cbs.set(cbid, {
+            const cbid = this.#makecbid();
+            this.#debug('adding callback to queue', cbid);
+            this.#cbs.set(cbid, {
               objref,
               override,
               args,
@@ -898,7 +933,7 @@ export class Kernel {
         configurable: false,
         writable: false,
         value: (...methodArgs: any[]) => {
-          this._debug(
+          this.#debug(
             'invoke sync method override',
             override,
             'args',
@@ -909,19 +944,19 @@ export class Kernel {
           // other end has done its work.
           const result = this.callbackHandler({
             cookie: override.cookie,
-            cbid: this._makecbid(),
+            cbid: this.#makecbid(),
             invoke: {
               objref,
               method: methodName,
-              args: this._fromSandboxValues(
+              args: this.#fromSandboxValues(
                 methodArgs,
                 methodContext,
                 methodInfo.parameters,
               ),
             },
           });
-          this._debug('Result', result);
-          return this._toSandbox(
+          this.#debug('Result', result);
+          return this.#toSandbox(
             result,
             methodInfo.returns ?? 'void',
             `returned by callback method ${methodName}`,
@@ -931,14 +966,10 @@ export class Kernel {
     }
   }
 
-  private _findInvokeTarget(
-    objref: api.ObjRef,
-    methodName: string,
-    args: any[],
-  ) {
-    const { instance, fqn, interfaces } = this.objects.findObject(objref);
-    const ti = this._typeInfoForMethod(methodName, fqn, interfaces);
-    this._validateMethodArguments(ti, args);
+  #findInvokeTarget(objref: api.ObjRef, methodName: string, args: any[]) {
+    const { instance, fqn, interfaces } = this.#objects.findObject(objref);
+    const ti = this.#typeInfoForMethod(methodName, fqn, interfaces);
+    this.#validateMethodArguments(ti, args);
 
     // always first look up the method in the prototype. this practically bypasses
     // any methods overridden by derived classes (which are by definition native
@@ -957,10 +988,7 @@ export class Kernel {
     return { ti, obj: instance, fn };
   }
 
-  private _validateMethodArguments(
-    method: spec.Callable | undefined,
-    args: any[],
-  ) {
+  #validateMethodArguments(method: spec.Callable | undefined, args: any[]) {
     const params: spec.Parameter[] = method?.parameters ?? [];
 
     // error if args > params
@@ -999,17 +1027,17 @@ export class Kernel {
     }
   }
 
-  private _assemblyFor(assemblyName: string) {
-    const assembly = this.assemblies.get(assemblyName);
+  #assemblyFor(assemblyName: string) {
+    const assembly = this.#assemblies.get(assemblyName);
     if (!assembly) {
       throw new JsiiFault(`Could not find assembly: ${assemblyName}`);
     }
     return assembly;
   }
 
-  private _findSymbol(fqn: string) {
+  #findSymbol(fqn: string) {
     const [assemblyName, ...parts] = fqn.split('.');
-    const assembly = this._assemblyFor(assemblyName);
+    const assembly = this.#assemblyFor(assemblyName);
 
     let curr = assembly.closure;
     while (parts.length > 0) {
@@ -1026,11 +1054,11 @@ export class Kernel {
     return curr;
   }
 
-  private _typeInfoForFqn(fqn: string): spec.Type {
+  #typeInfoForFqn(fqn: spec.FQN): spec.Type {
     const components = fqn.split('.');
     const moduleName = components[0];
 
-    const assembly = this.assemblies.get(moduleName);
+    const assembly = this.#assemblies.get(moduleName);
     if (!assembly) {
       throw new JsiiFault(`Module '${moduleName}' not found`);
     }
@@ -1044,12 +1072,32 @@ export class Kernel {
     return fqnInfo;
   }
 
-  private _typeInfoForMethod(
+  /**
+   * Determines whether the provided FQN corresponds to a valid, exported type
+   * from any currently loaded assembly.
+   *
+   * @param fqn the tested FQN.
+   *
+   * @returns `true` IIF the FQN corresponds to a know exported type.
+   */
+  #isVisibleType(fqn: spec.FQN): boolean {
+    try {
+      /* ignored */ this.#typeInfoForFqn(fqn);
+      return true;
+    } catch (e) {
+      if (e instanceof JsiiFault) {
+        return false;
+      }
+      throw e;
+    }
+  }
+
+  #typeInfoForMethod(
     methodName: string,
     fqn: string,
     interfaces?: string[],
   ): spec.Method {
-    const ti = this._tryTypeInfoForMethod(methodName, fqn, interfaces);
+    const ti = this.#tryTypeInfoForMethod(methodName, fqn, interfaces);
     if (!ti) {
       const addendum =
         interfaces && interfaces.length > 0
@@ -1062,7 +1110,7 @@ export class Kernel {
     return ti;
   }
 
-  private _tryTypeInfoForMethod(
+  #tryTypeInfoForMethod(
     methodName: string,
     classFqn: string,
     interfaces: string[] = [],
@@ -1071,7 +1119,7 @@ export class Kernel {
       if (fqn === wire.EMPTY_OBJECT_FQN) {
         continue;
       }
-      const typeinfo = this._typeInfoForFqn(fqn);
+      const typeinfo = this.#typeInfoForFqn(fqn);
 
       const methods =
         (typeinfo as spec.ClassType | spec.InterfaceType).methods ?? [];
@@ -1092,7 +1140,7 @@ export class Kernel {
           continue;
         }
 
-        const found = this._tryTypeInfoForMethod(methodName, base);
+        const found = this.#tryTypeInfoForMethod(methodName, base);
         if (found) {
           return found;
         }
@@ -1102,7 +1150,7 @@ export class Kernel {
     return undefined;
   }
 
-  private _tryTypeInfoForProperty(
+  #tryTypeInfoForProperty(
     property: string,
     classFqn: string,
     interfaces: string[] = [],
@@ -1111,7 +1159,7 @@ export class Kernel {
       if (fqn === wire.EMPTY_OBJECT_FQN) {
         continue;
       }
-      const typeInfo = this._typeInfoForFqn(fqn);
+      const typeInfo = this.#typeInfoForFqn(fqn);
 
       let properties;
       let bases;
@@ -1138,7 +1186,7 @@ export class Kernel {
 
       // recurse to parent type (if exists)
       for (const baseFqn of bases) {
-        const ret = this._tryTypeInfoForProperty(property, baseFqn);
+        const ret = this.#tryTypeInfoForProperty(property, baseFqn);
         if (ret) {
           return ret;
         }
@@ -1148,12 +1196,12 @@ export class Kernel {
     return undefined;
   }
 
-  private _typeInfoForProperty(
+  #typeInfoForProperty(
     property: string,
     fqn: string,
     interfaces?: string[],
   ): spec.Property {
-    const typeInfo = this._tryTypeInfoForProperty(property, fqn, interfaces);
+    const typeInfo = this.#tryTypeInfoForProperty(property, fqn, interfaces);
     if (!typeInfo) {
       const addendum =
         interfaces && interfaces.length > 0
@@ -1165,18 +1213,13 @@ export class Kernel {
     }
     return typeInfo;
   }
-  private _toSandbox(
+  #toSandbox(
     v: any,
     expectedType: wire.OptionalValueOrVoid,
     context: string,
   ): any {
     return wire.process(
-      {
-        objects: this.objects,
-        debug: this._debug.bind(this),
-        findSymbol: this._findSymbol.bind(this),
-        lookupType: this._typeInfoForFqn.bind(this),
-      },
+      this.#serializerHost,
       'deserialize',
       v,
       expectedType,
@@ -1184,18 +1227,13 @@ export class Kernel {
     );
   }
 
-  private _fromSandbox(
+  #fromSandbox(
     v: any,
     targetType: wire.OptionalValueOrVoid,
     context: string,
   ): any {
     return wire.process(
-      {
-        objects: this.objects,
-        debug: this._debug.bind(this),
-        findSymbol: this._findSymbol.bind(this),
-        lookupType: this._typeInfoForFqn.bind(this),
-      },
+      this.#serializerHost,
       'serialize',
       v,
       targetType,
@@ -1203,33 +1241,33 @@ export class Kernel {
     );
   }
 
-  private _toSandboxValues(
+  #toSandboxValues(
     xs: readonly unknown[],
     methodContext: string,
     parameters: readonly spec.Parameter[] | undefined,
   ) {
-    return this._boxUnboxParameters(
+    return this.#boxUnboxParameters(
       xs,
       methodContext,
       parameters,
-      this._toSandbox.bind(this),
+      this.#toSandbox.bind(this),
     );
   }
 
-  private _fromSandboxValues(
+  #fromSandboxValues(
     xs: readonly unknown[],
     methodContext: string,
     parameters: readonly spec.Parameter[] | undefined,
   ) {
-    return this._boxUnboxParameters(
+    return this.#boxUnboxParameters(
       xs,
       methodContext,
       parameters,
-      this._fromSandbox.bind(this),
+      this.#fromSandbox.bind(this),
     );
   }
 
-  private _boxUnboxParameters(
+  #boxUnboxParameters(
     xs: readonly unknown[],
     methodContext: string,
     parameters: readonly spec.Parameter[] = [],
@@ -1261,13 +1299,13 @@ export class Kernel {
     );
   }
 
-  private _debug(...args: any[]) {
+  #debug(...args: any[]) {
     if (this.traceEnabled) {
       console.error('[@jsii/kernel]', ...args);
     }
   }
 
-  private _debugTime<T>(cb: () => T, label: string): T {
+  #debugTime<T>(cb: () => T, label: string): T {
     const fullLabel = `[@jsii/kernel:timing] ${label}`;
     if (this.debugTimingEnabled) {
       console.time(fullLabel);
@@ -1285,8 +1323,8 @@ export class Kernel {
    * Ensures that `fn` is called and defends against beginning to invoke
    * async methods until fn finishes (successfully or not).
    */
-  private _ensureSync<T>(desc: string, fn: () => T): T {
-    this.syncInProgress = desc;
+  #ensureSync<T>(desc: string, fn: () => T): T {
+    this.#syncInProgress = desc;
     try {
       return fn();
     } catch (e: any) {
@@ -1304,12 +1342,12 @@ export class Kernel {
       }
       throw new RuntimeError(e);
     } finally {
-      delete this.syncInProgress;
+      this.#syncInProgress = undefined;
     }
   }
 
-  private _findPropertyTarget(obj: any, property: string) {
-    const superProp = this._getSuperPropertyName(property);
+  #findPropertyTarget(obj: any, property: string) {
+    const superProp = this.#getSuperPropertyName(property);
     if (superProp in obj) {
       return superProp;
     }
@@ -1319,10 +1357,10 @@ export class Kernel {
   /**
    * Shared (non-public implementation) to as not to break API recording.
    */
-  private _getBinScriptCommand(
+  #getBinScriptCommand(
     req: api.GetScriptCommandRequest,
   ): api.GetScriptCommandResponse {
-    const packageDir = this._getPackageDir(req.assembly);
+    const packageDir = this.#getPackageDir(req.assembly);
     if (fs.pathExistsSync(packageDir)) {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
@@ -1352,12 +1390,12 @@ export class Kernel {
   // type information
   //
 
-  private _makecbid() {
-    return `jsii::callback::${this.nextid++}`;
+  #makecbid() {
+    return `jsii::callback::${this.#nextid++}`;
   }
 
-  private _makeprid() {
-    return `jsii::promise::${this.nextid++}`;
+  #makeprid() {
+    return `jsii::promise::${this.#nextid++}`;
   }
 }
 

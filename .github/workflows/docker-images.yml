@@ -21,6 +21,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        debian:
+          - 'buster'   # 10
+          - 'bullseye' # 11
+          - 'bookworm' # 12
         node: ['14', '16', '18', '20']
     env:
       # Node version whose images will be aliased without the -nodeXX segment
@@ -139,6 +143,7 @@ jobs:
             --pull                                                              \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
+            --build-arg DEBIAN_VERSION=${{ matrix.debian }}                     \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
             -f superchain/Dockerfile                                            \
             .
@@ -152,6 +157,7 @@ jobs:
             --target superchain                                                 \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
+            --build-arg DEBIAN_VERSION=${{ matrix.debian }}                     \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
             -f superchain/Dockerfile                                            \
             .
@@ -184,11 +190,12 @@ jobs:
               --push                                                                                                    \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
               --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
+              --build-arg DEBIAN_VERSION=${{ matrix.debian }}                                                           \
               --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                                         \
-              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-nightly"                                          \
-              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}-nightly"                   \
-              --tag "jsii/superchain:1-buster-slim-nightly"                                                             \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"                                      \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-${{ matrix.debian }}-slim-nightly"                            \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-${{ matrix.debian }}-slim-node${{ matrix.node }}-nightly"     \
+              --tag "jsii/superchain:1-${{ matrix.debian }}-slim-nightly"                                               \
+              --tag "jsii/superchain:1-${{ matrix.debian }}-slim-node${{ matrix.node }}-nightly"                        \
               -f superchain/Dockerfile                                                                                  \
               .
           else
@@ -199,9 +206,10 @@ jobs:
               --push                                                                                                    \
               --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
               --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
+              --build-arg DEBIAN_VERSION=${{ matrix.debian }}                                                           \
               --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                                         \
-              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}-nightly"                   \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}-nightly"                                      \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-${{ matrix.debian }}-slim-node${{ matrix.node }}-nightly"     \
+              --tag "jsii/superchain:1-${{ matrix.debian }}-slim-node${{ matrix.node }}-nightly"                        \
               -f superchain/Dockerfile                                                                                  \
               .
           fi
@@ -212,31 +220,43 @@ jobs:
         run: |-
           # If the current version is the default version, also tag this with the unqualified ':1-*' label
           if [[ "${{ matrix.node }}" == "$DEFAULT_NODE_MAJOR_VERSION" ]]; then
-            docker buildx build                                                                     \
-              --builder ${{ steps.buildx.outputs.name }}                                            \
-              --platform linux/amd64,linux/arm64                                                    \
-              --target superchain                                                                   \
-              --push                                                                                \
-              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
-              --build-arg COMMIT_ID='${{ github.sha }}'                                             \
-              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                     \
-              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim"                              \
-              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}"       \
-              --tag "jsii/superchain:1-buster-slim"                                                 \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"                          \
-              -f superchain/Dockerfile                                                              \
+            docker buildx build                                                                                         \
+              --builder ${{ steps.buildx.outputs.name }}                                                                \
+              --platform linux/amd64,linux/arm64                                                                        \
+              --target superchain                                                                                       \
+              --push                                                                                                    \
+              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
+              --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
+              --build-arg DEBIAN_VERSION=${{ matrix.debian }}                                                           \
+              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                                         \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-${{ matrix.debian }}-slim"                                    \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-${{ matrix.debian }}-slim-node${{ matrix.node }}"             \
+              --tag "jsii/superchain:1-${{ matrix.debian }}-slim"                                                       \
+              --tag "jsii/superchain:1-${{ matrix.debian }}-slim-node${{ matrix.node }}"                                \
+              -f superchain/Dockerfile                                                                                  \
               .
           else
-            docker buildx build                                                                     \
-              --builder ${{ steps.buildx.outputs.name }}                                            \
-              --platform linux/amd64,linux/arm64                                                    \
-              --target superchain                                                                   \
-              --push                                                                                \
-              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                   \
-              --build-arg COMMIT_ID='${{ github.sha }}'                                             \
-              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                     \
-              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-buster-slim-node${{ matrix.node }}"       \
-              --tag "jsii/superchain:1-buster-slim-node${{ matrix.node }}"                          \
-              -f superchain/Dockerfile                                                              \
+            docker buildx build                                                                                         \
+              --builder ${{ steps.buildx.outputs.name }}                                                                \
+              --platform linux/amd64,linux/arm64                                                                        \
+              --target superchain                                                                                       \
+              --push                                                                                                    \
+              --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}"                                       \
+              --build-arg COMMIT_ID='${{ github.sha }}'                                                                 \
+              --build-arg DEBIAN_VERSION=${{ matrix.debian }}                                                           \
+              --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                                                         \
+              --tag "${{ secrets.ECR_PUBLIC_REGISTRY }}:1-${{ matrix.debian }}-slim-node${{ matrix.node }}"             \
+              --tag "jsii/superchain:1-${{ matrix.debian }}-slim-node${{ matrix.node }}"                                \
+              -f superchain/Dockerfile                                                                                  \
               .
           fi
+
+  done:
+    name: 'Done'
+    runs-on: ['ubuntu-latest']
+    needs: ['superchain']
+    steps:
+      # This is just a join target to simplify branch protection settings...
+      - name: 'All done'
+        run: |-
+          echo "All done!"

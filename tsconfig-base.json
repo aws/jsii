@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",                    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
     "module": "commonjs",                  /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "moduleResolution": "Node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "lib": ["es2020", "es2021.WeakRef"],   /* Specify library files to be included in the compilation:  */
     "strict": true,                        /* Enable all strict type-checking options. */
     "strictPropertyInitialization": true,  /* Require all properties be initialized in the constructor. */

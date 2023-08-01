@@ -38,7 +38,7 @@ export function renderType(type: ts.Type): string {
     return type.symbol.name;
   }
   if (type.isLiteral()) {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-base-to-string
     return `${type.value}`;
   }
   return renderTypeFlags(type);
