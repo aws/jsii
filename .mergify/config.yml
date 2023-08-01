@@ -33,7 +33,7 @@ pull_request_rules:
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
       # Docker image validation
-      - status-success~=^Docker Images/jsii/superchain
+      - status-success~=^Done$
       - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (squash)
