@@ -166,8 +166,6 @@ ENV PATH=$PATH:${CARGO_HOME}/bin
 # Install Python 3
 RUN apt-get update                                                                                                      \
   && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
-  && python3 -m venv .venv                                                                                              \
-  && source .venv/bin/activate                                                                                          \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
   && python3 -m pip install --no-input --upgrade black setuptools twine wheel aws-sam-cli                               \
   && rm -rf $(pip cache dir)                                                                                            \
