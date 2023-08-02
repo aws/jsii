@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690994817761,
+  "lastUpdate": 1690996895907,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19677,6 +19677,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 57728.65379186832,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51205.80021869999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "distinct": true,
+          "id": "f95f88c861fb2336a88339a4cf45cb5671b79fe4",
+          "message": "fix(superchain): missing openssh-client",
+          "timestamp": "2023-08-02T17:38:17+02:00",
+          "tree_id": "439124f3ed052dcf0923e7df496c7e4c89345c0e",
+          "url": "https://github.com/aws/jsii/commit/f95f88c861fb2336a88339a4cf45cb5671b79fe4"
+        },
+        "date": 1690996889816,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 101688.24978229999,
+            "unit": "milliseconds",
+            "range": 14163233.31925354,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 101688.24978229999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 76173.17805894998,
+            "unit": "milliseconds",
+            "range": 2151367.423762019,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76173.17805894998 milliseconds over 20 runs"
           }
         ]
       }
