@@ -125,6 +125,7 @@ ENV LANG="C.UTF-8"                                                              
 RUN apt-get update                                                                                                      \
   && apt-get -y upgrade                                                                                                 \
   && apt-get -y install --no-install-recommends                                                                         \
+    acl                                                                                                                 \
     apt-transport-https                                                                                                 \
     build-essential                                                                                                     \
     ca-certificates                                                                                                     \
@@ -133,15 +134,24 @@ RUN apt-get update                                                              
     git                                                                                                                 \
     gnupg                                                                                                               \
     gzip                                                                                                                \
+    libbz2-dev                                                                                                          \
     libffi-dev                                                                                                          \
     libicu-dev                                                                                                          \
+    liblzma-dev                                                                                                         \
+    libncursesw5-dev                                                                                                    \
+    libreadline-dev                                                                                                     \
+    libsqlite3-dev                                                                                                      \
     libssl-dev                                                                                                          \
+    libxml2-dev                                                                                                         \
+    libxmlsec1-dev                                                                                                      \
     openssl                                                                                                             \
     rsync                                                                                                               \
     sudo                                                                                                                \
+    tk-dev                                                                                                              \
     unzip                                                                                                               \
+    xz-utils                                                                                                            \
     zip                                                                                                                 \
-    acl                                                                                                                 \
+    zlib1g-dev                                                                                                          \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
@@ -164,10 +174,12 @@ RUN set -eo pipefail                                                            
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
 # Install Python 3
-RUN apt-get update                                                                                                      \
-  && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
-  && python3 -m venv .venv                                                                                              \
-  && source .venv/bin/activate                                                                                          \
+ENV PYENV_ROOT="/opt/pyenv"
+RUN curl -fSsL "https://pyenv.run" | bash                                                                               \
+  && command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"                                                 \
+  && eval "$(pyenv init -)"                                                                                             \
+  && PYTHON_CONFIGURE_OPTS='--enable-optimizations --with-lto' pyenv install 3.8                                        \
+  && pyenv global 3.8                                                                                                   \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
   && python3 -m pip install --no-input --upgrade black setuptools twine wheel aws-sam-cli                               \
   && rm -rf $(pip cache dir)                                                                                            \
@@ -397,8 +409,10 @@ ENV LANG="C.UTF-8"                                                              
   \
   GOROOT="/opt/golang/go"                                                                                               \
   RUSTUP_HOME="/usr/local/rustup"                                                                                       \
-  CARGO_HOME="/usr/local/cargo"
-ENV PATH="${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}"
+  CARGO_HOME="/usr/local/cargo"                                                                                         \
+  \
+  PYENV_ROOT="/opt/pyenv"
+ENV PATH="${PYENV_ROOT}/shims:${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}:${PYENV_ROOT}/bin"
 
 COPY --from=staging / /
 VOLUME /var/lib/docker
