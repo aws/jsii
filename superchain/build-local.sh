@@ -24,8 +24,17 @@ if [[ "${PLATFORM}" == "x86_64" ]]; then
   PLATFORM="amd64"
 fi
 
+if command -v docker >/dev/null; then
+  DOCKER=docker
+elif command -v finch >/dev/null; then
+  DOCKER=finch
+else
+  echo "Could not find 'docker' or 'finch' in PATH, aborting..."
+  exit 1
+fi
+
 # Now on to building the image
-${DOCKER:-docker} build                                                         \
+${DOCKER} build                                                                 \
   --target superchain                                                           \
   --build-arg BUILDPLATFORM=linux/${PLATFORM}                                   \
   --build-arg TARGETPLATFORM=linux/${PLATFORM}                                  \
