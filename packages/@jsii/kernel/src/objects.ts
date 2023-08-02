@@ -16,30 +16,14 @@ const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
 /**
- * Symbol we use to tag constructors that are exported from a jsii module.
- */
-const JSII_TYPE_FQN_SYMBOL = Symbol('$__jsii__fqn__$');
-
-/**
  * Symbol under which jsii runtime type information is stored.
  */
 const JSII_RTTI_SYMBOL = Symbol.for('jsii.rtti');
 
 /**
- * Exported constructors processed by the jsii compiler have runtime type
- * information woven into them under the `[JSII_RTTI]` symbol property.
+ * Cache for resolved associations between constructors and FQNs.
  */
-interface MaybeManagedConstructor {
-  readonly [JSII_RTTI_SYMBOL]?: {
-    /** The fully qualified name of the jsii type. */
-    readonly fqn: spec.FQN;
-    /** The version of the assembly that declared this type. */
-    readonly version: string;
-  };
-
-  /** The resolved JSII type FQN for this type. This is set only after resolution */
-  readonly [JSII_TYPE_FQN_SYMBOL]?: spec.FQN;
-}
+const RESOLVED_TYPE_FQN = new WeakMap<object, spec.FQN>();
 
 /**
  * Get the JSII fqn for an object (if available)
@@ -55,11 +39,11 @@ export function jsiiTypeFqn(
   obj: any,
   isVisibleType: (fqn: spec.FQN) => boolean,
 ): spec.FQN | undefined {
-  const ctor = obj.constructor as MaybeManagedConstructor;
+  const ctor = obj.constructor;
 
   // We've already resolved for this type, return the cached value.
-  if (ctor[JSII_TYPE_FQN_SYMBOL] != null) {
-    return ctor[JSII_TYPE_FQN_SYMBOL];
+  if (RESOLVED_TYPE_FQN.has(ctor)) {
+    return RESOLVED_TYPE_FQN.get(ctor)!;
   }
 
   let curr = ctor;
@@ -138,22 +122,19 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
  * Set the JSII FQN for classes produced by a given constructor
  */
 export function tagJsiiConstructor(constructor: any, fqn: spec.FQN) {
-  if (Object.prototype.hasOwnProperty.call(constructor, JSII_TYPE_FQN_SYMBOL)) {
+  const existing = RESOLVED_TYPE_FQN.get(constructor);
+
+  if (existing != null) {
     return assert.strictEqual(
-      constructor[JSII_TYPE_FQN_SYMBOL],
+      existing,
       fqn,
-      `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${constructor[JSII_TYPE_FQN_SYMBOL]}`,
+      `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${existing}`,
     );
   }
 
   // Mark this constructor as exported from a jsii module, so we know we
   // should be considering it's FQN as a valid exported type.
-  Object.defineProperty(constructor, JSII_TYPE_FQN_SYMBOL, {
-    configurable: false,
-    enumerable: false,
-    writable: false,
-    value: fqn,
-  });
+  RESOLVED_TYPE_FQN.set(constructor, fqn);
 }
 
 /**

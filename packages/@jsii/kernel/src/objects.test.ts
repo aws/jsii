@@ -1,4 +1,4 @@
-import { ObjectTable } from './objects';
+import { ObjectTable, jsiiTypeFqn } from './objects';
 
 const mockResolve = jest.fn();
 
@@ -23,4 +23,21 @@ test('registered objects have clean JSON.Stringify', () => {
   subject.registerObject(obj, 'Object');
 
   expect(JSON.stringify(obj)).toEqual(expected);
+});
+
+test('FQN resolution is not broken by inheritance relationships', () => {
+  const rtti = Symbol.for('jsii.rtti');
+
+  class Parent {
+    public static readonly [rtti] = { fqn: 'phony.Parent' };
+  }
+  class Child extends Parent {
+    public static readonly [rtti] = { fqn: 'phony.Child' };
+  }
+
+  const parent = new Parent();
+  expect(jsiiTypeFqn(parent, () => true)).toBe(Parent[rtti].fqn);
+
+  const child = new Child();
+  expect(jsiiTypeFqn(child, () => true)).toBe(Child[rtti].fqn);
 });
