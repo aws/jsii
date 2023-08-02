@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.86.1](https://github.com/aws/jsii/compare/v1.86.0...v1.86.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* **kernel:** incorrectly scoped FQN resolutions ([#4204](https://github.com/aws/jsii/pull/4204)) ([ed667c7](https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889))
+
 ## [1.86.0](https://github.com/aws/jsii/compare/v1.85.0...v1.86.0) (2023-08-01)
 
 
