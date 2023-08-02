@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690937409454,
+  "lastUpdate": 1690988507027,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19487,6 +19487,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 136262.50825018165,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52330.77510625 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ed667c76be73c43f969a1b7acc0b4b93a7a00889",
+          "message": "fix(kernel): incorrectly scoped FQN resolutions (#4204)\n\nThe registration was done on the object's prototype, and the value from the constructor was always used, even if that was inherited, such that if a parent type had already been resolved previously, all child types would use the parent's FQN instead of their own.\r\n\r\nAddressed this by instead storing the associations in an external WeakMap, and added a test case to validate correct behavior.\r\n\r\nFixes aws/aws-cdk#26604\r\nFixes #4202\r\nFixes #4203",
+          "timestamp": "2023-08-02T16:07:20+02:00",
+          "tree_id": "c873b2c0ec8f180e93cb7d4e30794dfc09a0dd64",
+          "url": "https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889"
+        },
+        "date": 1690988502663,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 72212.08551104998,
+            "unit": "milliseconds",
+            "range": 431661.50405708776,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 72212.08551104998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52676.643207,
+            "unit": "milliseconds",
+            "range": 112102.88940291564,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52676.643207 milliseconds over 20 runs"
           }
         ]
       }
