@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690988672131,
+  "lastUpdate": 1690990899501,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19563,6 +19563,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 51014.017018608654,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53569.42384589999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "distinct": true,
+          "id": "07698d2a8eddd4d58eee7fb529521239f4cf4595",
+          "message": "fix: pip, black, setuptools, twine, wheel, and aws-sam-cli incorrectly installed in superchain (#4201)\n\nThe packages were installed in a virtual environment, which is not subsequently re-activated in the image's ENTRYPOINT. Instead, install the packages 'globally'",
+          "timestamp": "2023-08-02T16:52:42+02:00",
+          "tree_id": "131e010ac7772b384f46331ed4e7a78e9b436603",
+          "url": "https://github.com/aws/jsii/commit/07698d2a8eddd4d58eee7fb529521239f4cf4595"
+        },
+        "date": 1690990894579,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61672.37039090006,
+            "unit": "milliseconds",
+            "range": 2073359.0996058155,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61672.37039090006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47823.239677800004,
+            "unit": "milliseconds",
+            "range": 393590.1573230915,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47823.239677800004 milliseconds over 20 runs"
           }
         ]
       }
