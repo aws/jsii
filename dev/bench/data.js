@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690990899501,
+  "lastUpdate": 1690991679105,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19601,6 +19601,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 393590.1573230915,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47823.239677800004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "851415c44864c0fb0b4b2d5ee4535f0b33f89a48",
+          "message": "fix: pip, black, setuptools, twine, wheel, and aws-sam-cli incorrectly installed in superchain (#4201)\n\nThe packages were installed in a virtual environment, which is not subsequently re-activated in the image's ENTRYPOINT. Instead, install the packages 'globally'",
+          "timestamp": "2023-08-02T16:51:44+02:00",
+          "tree_id": "51bd4bea7edc497b3bf77e489b229b492eca6167",
+          "url": "https://github.com/aws/jsii/commit/851415c44864c0fb0b4b2d5ee4535f0b33f89a48"
+        },
+        "date": 1690991673736,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 84910.23929905002,
+            "unit": "milliseconds",
+            "range": 3638960.002370718,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 84910.23929905002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 62003.119280750005,
+            "unit": "milliseconds",
+            "range": 1835589.6949412592,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62003.119280750005 milliseconds over 20 runs"
           }
         ]
       }
