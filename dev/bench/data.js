@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690996895907,
+  "lastUpdate": 1691068508272,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19715,6 +19715,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2151367.423762019,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76173.17805894998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "rmuller@amazon.com",
+            "name": "🧑🏻‍💻 Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "distinct": true,
+          "id": "77f0f84e8f2a948c319da1e6d6f1eb25044638fa",
+          "message": "chore(superchain): upgrade Maven to 3.9.4\n\n3.9.3 was pulled from the distribution point.",
+          "timestamp": "2023-08-03T13:58:48+02:00",
+          "tree_id": "862c8a9bebc5f500a8e9c6b6c4af0fbfa4079417",
+          "url": "https://github.com/aws/jsii/commit/77f0f84e8f2a948c319da1e6d6f1eb25044638fa"
+        },
+        "date": 1691068501560,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 105010.66753315003,
+            "unit": "milliseconds",
+            "range": 11620070.109878423,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 105010.66753315003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 80126.4021205,
+            "unit": "milliseconds",
+            "range": 12586710.868366638,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 80126.4021205 milliseconds over 20 runs"
           }
         ]
       }
