@@ -1,7 +1,7 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
 import inspect
 
-from typing import Any, Iterable, Mapping, MutableMapping, Type
+from typing import Any, Iterable, List, Mapping, MutableMapping, Type
 from ._kernel.types import ObjRef
 
 
@@ -133,7 +133,7 @@ class _ReferenceMap:
     def resolve_id(self, id: str) -> Any:
         return self._refs[id]
 
-    def build_interface_proxies_for_ref(self, ref: ObjRef) -> Iterable[Any]:
+    def build_interface_proxies_for_ref(self, ref: ObjRef) -> List[Any]:
         ifaces = [_interfaces[fqn] for fqn in ref.interfaces or []]
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
 
