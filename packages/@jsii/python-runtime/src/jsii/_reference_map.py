@@ -2,7 +2,7 @@
 import inspect
 
 from typing import Any, Iterable, Mapping, MutableMapping, Type
-from ._kernel.types  import ObjRef
+from ._kernel.types import ObjRef
 
 
 _types = {}
@@ -151,8 +151,8 @@ class _ReferenceMap:
 class Opaque:
     def __init__(self, ref: ObjRef) -> None:
         # Set the __jsii_type__ property on the class if it's not there already
-        if getattr(self.__class__, '__jsii_type__', None) is None:
-            setattr(self.__class__, '__jsii_type__', "Object")
+        if getattr(self.__class__, "__jsii_type__", None) is None:
+            setattr(self.__class__, "__jsii_type__", "Object")
 
         # Track the jsii reference
         self.__jsii_ref__ = ref
