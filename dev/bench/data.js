@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691068508272,
+  "lastUpdate": 1691088985497,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19753,6 +19753,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 12586710.868366638,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 80126.4021205 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "057b267809a05135d6d22227318ae55100aad272",
+          "message": "fix(python): type object 'InterfaceDynamicProxy' has no attribute '__jsii_type__' (#4209)\n\nIn the odd case where an opaque reference is returned (FQN is `Object`) and no interfaces are registered, the `InterfaceDynamicProxy` instance created to represent the value in Python did not have any delegate, resulting it in not having any visible properties; including a `__jsii_type__` value on the `__class__`, or the `__jsii_ref__` property, both of which are required for the vlaue to be able to correctly make it back to JavaScript.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-03T18:07:42Z",
+          "tree_id": "130623f79f4ff792bce723a3694670fd0e02b4fe",
+          "url": "https://github.com/aws/jsii/commit/057b267809a05135d6d22227318ae55100aad272"
+        },
+        "date": 1691088980836,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63459.28376580002,
+            "unit": "milliseconds",
+            "range": 2198865.220554807,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63459.28376580002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48074.36149285,
+            "unit": "milliseconds",
+            "range": 56764.535461383944,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48074.36149285 milliseconds over 20 runs"
           }
         ]
       }
