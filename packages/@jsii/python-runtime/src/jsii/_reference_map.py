@@ -2,6 +2,7 @@
 import inspect
 
 from typing import Any, Iterable, Mapping, MutableMapping, Type
+from ._kernel.types  import ObjRef
 
 
 _types = {}
@@ -32,15 +33,15 @@ class _FakeReference:
 
 
 class _ReferenceMap:
-    def __init__(self, types):
+    def __init__(self, types: Mapping[str, Type]) -> None:
         # We are using a real dictionary here instead of a WeakValueDictionary because
         # the nature of the JSII is such that we can never free the memory of JSII
         # objects ever, because we have no idea how many references exist on the *other*
         # side.
-        self._refs = {}
+        self._refs: MutableMapping[str, Any] = {}
         self._types = types
 
-    def register(self, inst: Any):
+    def register(self, inst: Any) -> None:
         self._refs[inst.__jsii_ref__.ref] = inst
 
     def resolve(self, kernel, ref):
@@ -129,16 +130,32 @@ class _ReferenceMap:
         else:
             raise ValueError(f"Unknown type: {class_fqn}")
 
-    def resolve_id(self, id):
+    def resolve_id(self, id: str) -> Any:
         return self._refs[id]
 
-    def build_interface_proxies_for_ref(self, ref):
+    def build_interface_proxies_for_ref(self, ref: ObjRef) -> Iterable[Any]:
         ifaces = [_interfaces[fqn] for fqn in ref.interfaces or []]
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
+
+        # If there's no classes, use an Opaque reference to make sure the
+        # __jsii_ref__ property is visible through the InterfaceDynamicProxy.
+        if len(classes) == 0:
+            return [Opaque(ref)]
+
         insts = [klass.__new__(klass) for klass in classes]
         for inst in insts:
             inst.__jsii_ref__ = ref
         return insts
+
+
+class Opaque:
+    def __init__(self, ref: ObjRef) -> None:
+        # Set the __jsii_type__ property on the class if it's not there already
+        if getattr(self.__class__, '__jsii_type__', None) is None:
+            setattr(self.__class__, '__jsii_type__', "Object")
+
+        # Track the jsii reference
+        self.__jsii_ref__ = ref
 
 
 class InterfaceDynamicProxy(object):
