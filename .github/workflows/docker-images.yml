@@ -154,7 +154,7 @@ jobs:
           docker buildx build                                                   \
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
-            --target superchain                                                 \
+            --target test                                                       \
             --build-arg BUILD_TIMESTAMP="${{ steps.build-time.outputs.value }}" \
             --build-arg COMMIT_ID='${{ github.sha }}'                           \
             --build-arg DEBIAN_VERSION=${{ matrix.debian }}                     \
