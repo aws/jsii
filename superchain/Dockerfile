@@ -50,7 +50,7 @@ RUN echo "deb http://deb.debian.org/debian ${DEBIAN_VERSION}-backports main"    
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.9.3"
+ARG M2_VERSION="3.9.4"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
@@ -144,6 +144,7 @@ RUN apt-get update                                                              
     libssl-dev                                                                                                          \
     libxml2-dev                                                                                                         \
     libxmlsec1-dev                                                                                                      \
+    openssh-client                                                                                                      \
     openssl                                                                                                             \
     rsync                                                                                                               \
     sudo                                                                                                                \
