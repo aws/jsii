@@ -33,6 +33,11 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
 
+      # Reclaim disk space by clearing out cached Docker images...
+      - name: Remove cached Docker images
+        run: |-
+          docker image prune --all --force
+
       # Determine if we should run the validation or not
       - name: Should this run?
         id: should-run
