@@ -146,6 +146,7 @@ RUN apt-get update                                                              
     libxmlsec1-dev                                                                                                      \
     openssh-client                                                                                                      \
     openssl                                                                                                             \
+    python3-venv                                                                                                        \
     rsync                                                                                                               \
     sudo                                                                                                                \
     tk-dev                                                                                                              \
