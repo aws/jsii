@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691143402520,
+  "lastUpdate": 1691491728385,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19829,6 +19829,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 159718.67036420485,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53013.773902999994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fac6cbbeb5d9bcbbac8f9dff58001afb701a4065",
+          "message": "fix(kernel): fast module loading fails on Windows (EPERM) (#4212)\n\nIn https://github.com/aws/jsii/pull/4181, a faster method to load modules was introduced: symlinking instead of recursing through the directory tree, mostly affecting the load times of large modules.\n\nSince Windows Vista, non-Administrator users on Windows aren't allowed to create symlinks anymore, so this new loading method fails for users working in corporate Windows environments.\n\nCatch the error and fall back to the slower copying method if that happens.\n\nFixes #4208.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-08T09:47:22Z",
+          "tree_id": "5e74a668e90a556a73aed21bc422e91f0a9591e9",
+          "url": "https://github.com/aws/jsii/commit/fac6cbbeb5d9bcbbac8f9dff58001afb701a4065"
+        },
+        "date": 1691491723215,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 84989.65090225005,
+            "unit": "milliseconds",
+            "range": 4010582.8780731023,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 84989.65090225005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 63369.81936850001,
+            "unit": "milliseconds",
+            "range": 223520.44223369245,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63369.81936850001 milliseconds over 20 runs"
           }
         ]
       }
