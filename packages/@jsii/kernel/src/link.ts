@@ -6,6 +6,7 @@ import {
   statSync,
   symlinkSync,
 } from 'fs';
+import * as os from 'os';
 import { dirname, join } from 'path';
 
 /**
@@ -16,31 +17,50 @@ import { dirname, join } from 'path';
 const PRESERVE_SYMLINKS = process.execArgv.includes('--preserve-symlinks');
 
 /**
- * Creates directories containing hard links if possible, and falls back on
- * copy otherwise.
+ * Link existing to destination directory
  *
- * @param existing    is the original file or directory to link.
- * @param destination is the new file or directory to create.
+ * - If Node has been started with a module resolution strategy that does not
+ *   resolve symlinks (so peerDependencies can be found), use symlinking.
+ *   Symlinking may fail on Windows for non-Admin users.
+ * - If not symlinking the entire directory, crawl the directory tree and
+ *   hardlink all files (if possible), copying them if not.
+ *
+ * @param existingRoot    is the original file or directory to link.
+ * @param destinationRoot is the new file or directory to create.
  */
-export function link(existing: string, destination: string): void {
+export function link(existingRoot: string, destinationRoot: string): void {
+  mkdirSync(dirname(destinationRoot), { recursive: true });
+
   if (PRESERVE_SYMLINKS) {
-    mkdirSync(dirname(destination), { recursive: true });
-    symlinkSync(existing, destination);
-    return;
-  }
-
-  const stat = statSync(existing);
-  if (!stat.isDirectory()) {
     try {
-      linkSync(existing, destination);
-    } catch {
-      copyFileSync(existing, destination);
-    }
-    return;
-  }
+      symlinkSync(existingRoot, destinationRoot);
+      return;
+    } catch (e: any) {
+      // On Windows, non-Admin users aren't allowed to create symlinks. In that case, fall back to the copying workflow.
+      const winNoSymlink = e.code === 'EPERM' && os.platform() === 'win32';
 
-  mkdirSync(destination, { recursive: true });
-  for (const file of readdirSync(existing)) {
-    link(join(existing, file), join(destination, file));
+      if (!winNoSymlink) {
+        throw e;
+      }
+    }
+  }
+  // Fall back to the slow method
+  recurse(existingRoot, destinationRoot);
+
+  function recurse(existing: string, destination: string): void {
+    const stat = statSync(existing);
+    if (!stat.isDirectory()) {
+      try {
+        linkSync(existing, destination);
+      } catch {
+        copyFileSync(existing, destination);
+      }
+      return;
+    }
+
+    mkdirSync(destination, { recursive: true });
+    for (const file of readdirSync(existing)) {
+      recurse(join(existing, file), join(destination, file));
+    }
   }
 }

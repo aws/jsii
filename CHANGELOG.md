@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.86.1](https://github.com/aws/jsii/compare/v1.86.0...v1.86.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* **kernel:** incorrectly scoped FQN resolutions ([#4204](https://github.com/aws/jsii/pull/4204)) ([ed667c7](https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889))
+
+## [1.86.0](https://github.com/aws/jsii/compare/v1.85.0...v1.86.0) (2023-08-01)
+
+
+### Features
+
+* faster, lazy-friendly runtime loading ([#4181](https://github.com/aws/jsii/issues/4181)) ([ef6e5b1](https://github.com/aws/jsii/commit/ef6e5b1ebbafe69252fc78883962b3731bbb04ef))
+* **jsii-pacmak:** allow disabling go build conditionally ([#4196](https://github.com/aws/jsii/issues/4196)) ([7fc7987](https://github.com/aws/jsii/commit/7fc79876889504c2eae5888baeb8525d82a4a491))
+* **python:** deprecation message when using Python <= 3.7 ([#4186](https://github.com/aws/jsii/issues/4186)) ([0ef7ace](https://github.com/aws/jsii/commit/0ef7acef765690f99075888d6c3e6f03d7cc2d59))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** comment lines should not contain comment ending ([#4193](https://github.com/aws/jsii/issues/4193)) ([906c24d](https://github.com/aws/jsii/commit/906c24db65a0c4a581ba2727dc4ad7ca157a8995))
+* **jsii-pacmak:** handles 'default' doc component for go ([#4115](https://github.com/aws/jsii/issues/4115)) ([9085514](https://github.com/aws/jsii/commit/90855148990811ee90b1728b728a974e0b5a0b89))
+* type annotation for callable metaclass ([#4179](https://github.com/aws/jsii/issues/4179)) ([4ccbb57](https://github.com/aws/jsii/commit/4ccbb579c8f26f55f8e391ddaf1fd562f1b78c38))
+
 ## [1.85.0](https://github.com/aws/jsii/compare/v1.84.0...v1.85.0) (2023-07-17)
 
 
