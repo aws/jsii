@@ -205,7 +205,8 @@ export class Entry {
     mkdirSync(dirname(this.path), { recursive: true });
     lockSyncWithWait(this.#lockFile, {
       retries: 12,
-      stale: 5_000,
+      // Extracting the largest tarball takes ~5s
+      stale: 10_000,
     });
     let disposed = false;
     try {
