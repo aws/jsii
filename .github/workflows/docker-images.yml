@@ -23,9 +23,12 @@ jobs:
       matrix:
         debian:
           - 'buster'   # 10
-          - 'bullseye' # 11
-          - 'bookworm' # 12
-        node: ['14', '16', '18', '20']
+        node: ['16', '18', '20']
+        include:
+          - debian: 'bullseye' # 11
+            node: '20'
+          - debian: 'bookworm' #12
+            node: '20'
     env:
       # Node version whose images will be aliased without the -nodeXX segment
       DEFAULT_NODE_MAJOR_VERSION: 16
