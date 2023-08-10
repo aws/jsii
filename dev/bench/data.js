@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691595912001,
+  "lastUpdate": 1691664558165,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19905,6 +19905,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1015827.1022154192,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64604.78775869995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b739ef68d4d92d7af78b2a91b8581e9f3077df96",
+          "message": "fix(kernel): package cache fails under parallelism (#4215)\n\nThe package cache mechanism that was turned on by default in #4181 works in theory under parallelism, but not in practice.\n\nTypically the CDK CLI will prevent CDK apps from running in parallel, but Python testing frameworks like `tox` use subprocess parallelism to speed up test runs, leading to the jsii imports being executed at the same time.\n\nSince jsii is sync, the locking needs to be sync. The sync locking feature of the `lockfile` library doesn't have wait support (for good reason), and so when a lock is already acquired by another process it quickly burns through its 12 retries in a hot loop, and then exits with an error.\n\nTwo changes to address this:\n\n- (Ab)use `Atomics.wait()` to get a synchronous sleeping primitive; since `lockSync` doesn't support synchronous sleep, we build our own retry loop with synchronous sleep around `lockSync`.\n- Since the extracted directory is immutable: if the marker file in the extracted directory exists, we can treat it as evidence that the directory has been completely written and we can skip trying to vy for exclusive access to write it. This avoids all lock contention after the very first CDK app execution.\n\nFixes #4207.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-10T09:47:33Z",
+          "tree_id": "ced6c9d0de2fc729637de06b98c307ea130f3513",
+          "url": "https://github.com/aws/jsii/commit/b739ef68d4d92d7af78b2a91b8581e9f3077df96"
+        },
+        "date": 1691664552938,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 82758.50995639998,
+            "unit": "milliseconds",
+            "range": 2702362.2775754556,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 82758.50995639998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 62323.41953744999,
+            "unit": "milliseconds",
+            "range": 9664202.151642451,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62323.41953744999 milliseconds over 20 runs"
           }
         ]
       }
