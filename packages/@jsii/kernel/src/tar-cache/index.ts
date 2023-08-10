@@ -55,6 +55,9 @@ export function extract(
   }
 }
 
+/**
+ * Extract the tarball into a cached directory, symlink that directory into the target location
+ */
 function extractViaCache(
   file: string,
   outDir: string,
@@ -66,28 +69,12 @@ function extractViaCache(
   const dirCache = DiskCache.inDirectory(cacheRoot);
 
   const entry = dirCache.entryFor(file, ...comments);
-  const { path, cache } = entry.lock((lock) => {
-    let cache: 'hit' | 'miss' = 'hit';
-    if (!entry.pathExists) {
-      // !!!IMPORTANT!!!
-      // Extract directly into the final target directory, as certain antivirus
-      // software configurations on Windows will make a `renameSync` operation
-      // fail with EPERM until the files have been fully analyzed.
-      mkdirSync(entry.path, { recursive: true });
-      try {
-        untarInto({
-          ...options,
-          cwd: entry.path,
-          file,
-        });
-      } catch (error) {
-        rmSync(entry.path, { force: true, recursive: true });
-        throw error;
-      }
-      cache = 'miss';
-    }
-    lock.touch();
-    return { path: entry.path, cache };
+  const { path, cache } = entry.retrieve((path) => {
+    untarInto({
+      ...options,
+      cwd: path,
+      file,
+    });
   });
 
   link(path, outDir);
@@ -95,6 +82,9 @@ function extractViaCache(
   return { cache };
 }
 
+/**
+ * Extract directory into the target location
+ */
 function extractToOutDir(
   file: string,
   cwd: string,
