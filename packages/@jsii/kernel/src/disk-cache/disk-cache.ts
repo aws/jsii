@@ -10,7 +10,7 @@ import {
   utimesSync,
   writeFileSync,
 } from 'fs';
-import { lockSync, unlockSync } from 'lockfile';
+import { lockSync, Options, unlockSync } from 'lockfile';
 import { dirname, join } from 'path';
 
 import { digestFile } from './digest-file';
@@ -152,9 +152,62 @@ export class Entry {
     return join(this.path, MARKER_FILE_NAME);
   }
 
+  /**
+   * Whether the directory has been completely written
+   *
+   * The presence of the marker file is a signal that we can skip trying to lock the directory.
+   */
+  public get isComplete(): boolean {
+    return existsSync(this.#markerFile);
+  }
+
+  /**
+   * Retrieve an entry from the cache
+   *
+   * If the entry doesn't exist yet, use 'cb' to produce the file contents.
+   */
+  public retrieve(cb: (path: string) => void): {
+    path: string;
+    cache: 'hit' | 'miss';
+  } {
+    // If the marker file already exists, update its timestamp and immediately return.
+    // We don't even try to lock.
+    if (this.isComplete) {
+      this.#touchMarkerFile();
+      return { path: this.path, cache: 'hit' };
+    }
+
+    let cache: 'hit' | 'miss' = 'miss';
+    this.lock((lock) => {
+      // While we all fought to acquire the lock, someone else might have completed already.
+      if (this.isComplete) {
+        cache = 'hit';
+        return;
+      }
+
+      // !!!IMPORTANT!!!
+      // Extract directly into the final target directory, as certain antivirus
+      // software configurations on Windows will make a `renameSync` operation
+      // fail with EPERM until the files have been fully analyzed.
+      mkdirSync(this.path, { recursive: true });
+      try {
+        cb(this.path);
+      } catch (error) {
+        rmSync(this.path, { force: true, recursive: true });
+        throw error;
+      }
+      lock.markComplete();
+    });
+    return { path: this.path, cache };
+  }
+
   public lock<T>(cb: (entry: LockedEntry) => T): T {
     mkdirSync(dirname(this.path), { recursive: true });
-    lockSync(this.#lockFile, { retries: 12, stale: 5_000 });
+    lockSyncWithWait(this.#lockFile, {
+      retries: 12,
+      // Extracting the largest tarball takes ~5s
+      stale: 10_000,
+    });
     let disposed = false;
     try {
       return cb({
@@ -179,25 +232,35 @@ export class Entry {
           mkdirSync(dirname(join(this.path, name)), { recursive: true });
           writeFileSync(join(this.path, name), content);
         },
-        touch: () => {
+        markComplete: () => {
           if (disposed) {
             throw new Error(
               `Cannot touch ${this.path} once the lock block was returned!`,
             );
           }
-          if (this.pathExists) {
-            if (existsSync(this.#markerFile)) {
-              const now = new Date();
-              utimesSync(this.#markerFile, now, now);
-            } else {
-              writeFileSync(this.#markerFile, '');
-            }
-          }
+          this.#touchMarkerFile();
         },
       });
     } finally {
       disposed = true;
       unlockSync(this.#lockFile);
+    }
+  }
+
+  /**
+   * Update the timestamp on the marker file
+   */
+  #touchMarkerFile() {
+    if (this.pathExists) {
+      try {
+        const now = new Date();
+        utimesSync(this.#markerFile, now, now);
+      } catch (e: any) {
+        if (e.code !== 'ENOENT') {
+          throw e;
+        }
+        writeFileSync(this.#markerFile, '');
+      }
     }
   }
 
@@ -217,7 +280,12 @@ export interface LockedEntry {
   delete(): void;
   write(name: string, data: Buffer): void;
 
-  touch(): void;
+  /**
+   * Mark the entry has having been completed
+   *
+   * The modification time of this file is used for cleanup.
+   */
+  markComplete(): void;
 }
 
 function* directoriesUnder(
@@ -241,4 +309,46 @@ function* directoriesUnder(
       }
     }
   }
+}
+
+/**
+ * We must use 'lockSync', but that doesn't support waiting (because waiting is only supported for async APIs)
+ * so we have to build our own looping locker with waits
+ */
+function lockSyncWithWait(path: string, options: Options) {
+  let retries = options.retries ?? 0;
+  let sleep = 100;
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    try {
+      lockSync(path, {
+        retries: 0,
+        stale: options.stale,
+      });
+      return;
+    } catch (e: any) {
+      if (retries === 0) {
+        throw e;
+      }
+      retries--;
+
+      if (e.code === 'EEXIST') {
+        // Most common case, needs longest sleep. Randomize the herd.
+        sleepSync(Math.floor(Math.random() * sleep));
+        sleep *= 1.5;
+      } else {
+        sleepSync(5);
+      }
+    }
+  }
+}
+
+/**
+ * Abuse Atomics.wait() to come up with a sync sleep
+ *
+ * We must use a sync sleep because all of jsii is sync.
+ */
+function sleepSync(ms: number) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
