@@ -125,7 +125,6 @@ ENV LANG="C.UTF-8"                                                              
 RUN apt-get update                                                                                                      \
   && apt-get -y upgrade                                                                                                 \
   && apt-get -y install --no-install-recommends                                                                         \
-    acl                                                                                                                 \
     apt-transport-https                                                                                                 \
     build-essential                                                                                                     \
     ca-certificates                                                                                                     \
@@ -134,25 +133,15 @@ RUN apt-get update                                                              
     git                                                                                                                 \
     gnupg                                                                                                               \
     gzip                                                                                                                \
-    libbz2-dev                                                                                                          \
     libffi-dev                                                                                                          \
     libicu-dev                                                                                                          \
-    liblzma-dev                                                                                                         \
-    libncursesw5-dev                                                                                                    \
-    libreadline-dev                                                                                                     \
-    libsqlite3-dev                                                                                                      \
     libssl-dev                                                                                                          \
-    libxml2-dev                                                                                                         \
-    libxmlsec1-dev                                                                                                      \
-    openssh-client                                                                                                      \
     openssl                                                                                                             \
     rsync                                                                                                               \
     sudo                                                                                                                \
-    tk-dev                                                                                                              \
     unzip                                                                                                               \
-    xz-utils                                                                                                            \
     zip                                                                                                                 \
-    zlib1g-dev                                                                                                          \
+    acl                                                                                                                 \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
@@ -174,17 +163,22 @@ RUN set -eo pipefail                                                            
   && chmod -R a+rw ${CARGO_HOME}
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
-# Install Python 3
-ENV PYENV_ROOT="/opt/pyenv"
-RUN curl -fSsL "https://pyenv.run" | bash                                                                               \
-  && command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"                                                 \
-  && eval "$(pyenv init -)"                                                                                             \
-  && PYTHON_CONFIGURE_OPTS='--enable-optimizations --with-lto' pyenv install 3.8                                        \
-  && pyenv global 3.8                                                                                                   \
-  && python3 -m pip install --no-input --upgrade pip                                                                    \
-  && python3 -m pip install --no-input --upgrade black setuptools twine wheel aws-sam-cli                               \
-  && rm -rf $(pip cache dir)                                                                                            \
+# Install Python 3 and pipx
+# Starting in 'bookworm', 'pip install' needs special coercing (and 'apt-get install pipx' would be recommended)
+# but that flag is not recognized yet in older distros.
+RUN apt-get update                                                                                                      \
+  && apt-get -y install python3-dev python3-pip python3-venv                                                            \
+  && coercepip='--break-system-packages'                                                                                \
+  && if [[ ${DEBIAN_VERSION} == "buster" || ${DEBIAN_VERSION} == "bullseye" ]]; then coercepip=''; fi                   \
+  && python3 -m pip install ${coercepip} pipx                                                                           \
   && rm -rf /var/lib/apt/lists/*
+
+# Install Python tools globally using pipx (install globally)
+ENV PIPX_HOME=/opt/pipx
+ENV PIPX_BIN_DIR=/usr/local/bin
+RUN pipx install black \
+  && pipx install twine \
+  && pipx install aws-sam-cli
 
 # Install AWS CLI v2
 ENV AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
@@ -410,10 +404,8 @@ ENV LANG="C.UTF-8"                                                              
   \
   GOROOT="/opt/golang/go"                                                                                               \
   RUSTUP_HOME="/usr/local/rustup"                                                                                       \
-  CARGO_HOME="/usr/local/cargo"                                                                                         \
-  \
-  PYENV_ROOT="/opt/pyenv"
-ENV PATH="${PYENV_ROOT}/shims:${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}:${PYENV_ROOT}/bin"
+  CARGO_HOME="/usr/local/cargo"
+ENV PATH="${PATH}:${CARGO_HOME}/bin:${GOROOT}/bin:${M2}"
 
 COPY --from=staging / /
 VOLUME /var/lib/docker
