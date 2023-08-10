@@ -164,10 +164,13 @@ RUN set -eo pipefail                                                            
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
 # Install Python 3 and pipx
-# ('apt-get install pipx' only works starting from bookworm, so we need to be forceful with 'pip install')
+# Starting in 'bookworm', 'pip install' needs special coercing (and 'apt-get install pipx' would be recommended)
+# but that flag is not recognized yet in older distros.
 RUN apt-get update                                                                                                      \
   && apt-get -y install python3-dev python3-pip python3-venv                                                            \
-  && python3 -m pip install --break-system-packages pipx                                                                \
+  && coercepip='--break-system-packages'                                                                                \
+  && if [[ ${DEBIAN_VERSION} == "buster" || ${DEBIAN_VERSION} == "bullseye" ]]; then coercepip=''; fi                   \
+  && python3 -m pip install ${coercepip} pipx                                                                           \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Python tools globally using pipx (install globally)
