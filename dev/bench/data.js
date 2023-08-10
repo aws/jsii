@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691677611120,
+  "lastUpdate": 1691681912764,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20019,6 +20019,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 74824.41043986181,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47147.45659274999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f1f1473e7c469b337de61d270ee80c4932feef86",
+          "message": "chore: cut down on Docker Images built, drop Node 14 (#4216)\n\nOur Docker image building matrix was gigantic, which was causing long build times and build nodes to run out of disk space and memory.\n\nCut down on the flavors we build.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-10T14:49:42Z",
+          "tree_id": "6ed8e5254295ddc49848d347c8a3e10834669303",
+          "url": "https://github.com/aws/jsii/commit/f1f1473e7c469b337de61d270ee80c4932feef86"
+        },
+        "date": 1691681908596,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62089.64675624999,
+            "unit": "milliseconds",
+            "range": 2885251.391767617,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62089.64675624999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47540.1191275,
+            "unit": "milliseconds",
+            "range": 391719.8618251123,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47540.1191275 milliseconds over 20 runs"
           }
         ]
       }
