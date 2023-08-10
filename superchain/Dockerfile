@@ -136,6 +136,7 @@ RUN apt-get update                                                              
     libffi-dev                                                                                                          \
     libicu-dev                                                                                                          \
     libssl-dev                                                                                                          \
+    openssh-client                                                                                                      \
     openssl                                                                                                             \
     rsync                                                                                                               \
     sudo                                                                                                                \
