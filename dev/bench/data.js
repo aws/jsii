@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691690305840,
+  "lastUpdate": 1691696421923,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20133,6 +20133,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 322144.6716030742,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52835.756748249965 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8390ca1615769846f92c42ef35ac590b4673efbb",
+          "message": "fix(superchain): add openssh-client back (#4224)\n\nThis was erroneously deleted and is necessary because we want the `ssh-keyscan` command.\n\nAdded: https://github.com/aws/jsii/commit/f95f88c861fb2336a88339a4cf45cb5671b79fe4\nDeleted: https://github.com/aws/jsii/pull/4219/files \n\n```\n/codebuild/output/tmp/script.sh: ssh-keyscan: not found\n```\n\nAt least I think this is the solution because stack overflow tells me that `openssh-client` has `ssh-keyscan`: https://stackoverflow.com/questions/32665746/ssh-keyscan-not-found-in-dockerfile\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-10T18:49:28Z",
+          "tree_id": "21668f6a9d4538ad07861d43ac105f129951d8f4",
+          "url": "https://github.com/aws/jsii/commit/8390ca1615769846f92c42ef35ac590b4673efbb"
+        },
+        "date": 1691696417792,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 68746.97253504994,
+            "unit": "milliseconds",
+            "range": 1987331.5764773278,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 68746.97253504994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51312.88949429999,
+            "unit": "milliseconds",
+            "range": 112155.04728920959,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51312.88949429999 milliseconds over 20 runs"
           }
         ]
       }
