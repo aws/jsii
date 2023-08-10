@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691664558165,
+  "lastUpdate": 1691673904874,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -19943,6 +19943,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 9664202.151642451,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62323.41953744999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3bd94c9335d6a659ad33ed28178b504e275b0733",
+          "message": "chore(superchain): replace pyenv with pipx (#4219)\n\nIn #4201, we introduced a Python distribution built with `pyenv` in order to safely install some Python packages globally.\n\nHowever, using pyenv drives the build time of the images up from 30m to 3 hours.\n\nThis PR switches back to the distro Python and installs `pipx` to do global installs of Python packages. `pipx` will give each tool its own venv (similar to how `npm install -g` would work).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-10T12:32:58Z",
+          "tree_id": "3808da57b0599000234de4acddf22bab4c52b1cd",
+          "url": "https://github.com/aws/jsii/commit/3bd94c9335d6a659ad33ed28178b504e275b0733"
+        },
+        "date": 1691673900978,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70801.23973384999,
+            "unit": "milliseconds",
+            "range": 978778.6330864873,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70801.23973384999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51686.09056080001,
+            "unit": "milliseconds",
+            "range": 82328.0723275723,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51686.09056080001 milliseconds over 20 runs"
           }
         ]
       }
