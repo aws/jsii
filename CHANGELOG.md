@@ -2,12 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.87.0](https://github.com/aws/jsii/compare/v1.86.1...v1.87.0) (2023-08-11)
+
+
+### Bug Fixes
+
+* **kernel:** fast module loading fails on Windows (EPERM) ([#4212](https://github.com/aws/jsii/issues/4212)) ([fac6cbb](https://github.com/aws/jsii/commit/fac6cbbeb5d9bcbbac8f9dff58001afb701a4065)), closes [#4208](https://github.com/aws/jsii/issues/4208)
+* **kernel:** package cache fails under parallelism ([#4215](https://github.com/aws/jsii/issues/4215)) ([b739ef6](https://github.com/aws/jsii/commit/b739ef68d4d92d7af78b2a91b8581e9f3077df96)), closes [#4181](https://github.com/aws/jsii/issues/4181) [#4207](https://github.com/aws/jsii/issues/4207)
+* pip, black, setuptools, twine, wheel, and aws-sam-cli incorrectly installed in superchain ([#4201](https://github.com/aws/jsii/issues/4201)) ([851415c](https://github.com/aws/jsii/commit/851415c44864c0fb0b4b2d5ee4535f0b33f89a48))
+* **python:** type object 'InterfaceDynamicProxy' has no attribute '__jsii_type__' ([#4209](https://github.com/aws/jsii/issues/4209)) ([057b267](https://github.com/aws/jsii/commit/057b267809a05135d6d22227318ae55100aad272))
+* **superchain:** add openssh-client back ([#4224](https://github.com/aws/jsii/issues/4224)) ([8390ca1](https://github.com/aws/jsii/commit/8390ca1615769846f92c42ef35ac590b4673efbb))
+
 ## [1.86.1](https://github.com/aws/jsii/compare/v1.86.0...v1.86.1) (2023-08-02)
 
 
 ### Bug Fixes
 
-* **kernel:** incorrectly scoped FQN resolutions ([#4204](https://github.com/aws/jsii/pull/4204)) ([ed667c7](https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889))
+* **kernel:** incorrectly scoped FQN resolutions ([#4204](https://github.com/aws/jsii/issues/4204)) ([ed667c7](https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889)), closes [aws/aws-cdk#26604](https://github.com/aws/aws-cdk/issues/26604) [#4202](https://github.com/aws/jsii/issues/4202) [#4203](https://github.com/aws/jsii/issues/4203)
 
 ## [1.86.0](https://github.com/aws/jsii/compare/v1.85.0...v1.86.0) (2023-08-01)
 
