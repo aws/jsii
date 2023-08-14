@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692034697674,
+  "lastUpdate": 1692037518223,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20399,6 +20399,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1615383.6994726958,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71646.31820160002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c98811395337ff76b7b237a70b8a987867ed1cc1",
+          "message": "chore(deps): Update setuptools requirement from ~=67.3.2 to ~=68.0.0 in /packages/@jsii/python-runtime (#4232)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v68.0.0</h1>\n<h2>Breaking Changes</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Removed verification for existing <code>depends.txt</code> file (deprecated since v0.5a4).</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Remove autofixing of broken <code>.egg-info</code> directories containing the <code>-</code>\ncharacter in their base name (without suffix).\nThey should no longer be produced by sufficiently new versions of <code>setuptools</code>\n(warning introduced in 2005).</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Remove deprecated APIs in <code>easy_install</code>: <code>get_script_args</code>,\n<code>get_script_header</code> and <code>get_writer</code>.\nThe direct usage of <code>easy_install</code> has been deprecated since v58.3.0,\nand the warnings regarding these APIs predate that version.</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Removed <code>egg_info.get_pkg_info_revision</code> (deprecated since 2015).</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Removed <code>setuptools.dist._get_unpatched</code> (deprecated since 2016)</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Removed support for SVN in <code>setuptools.package_index</code> (deprecated since 2018).</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>: Removed support for invalid <code>pyproject.toml</code> files.\nDuring the implementation of PEP 621, it was identified that some users were\nproducing invalid files. As a transitional measure, the validation was relaxed\nfor a few use cases. The grace period, however, came to an end.</li>\n</ul>\n<h2>Changes</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3760\">#3760</a>: Added symlink support to launcher for installed executables -- by :user:<code>eugene-sevostianov-sc</code></li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3926\">#3926</a>: Updated vendored <code>packaging</code> version from 23.0 to 23.1 -- by :user:<code>MetRonnie</code></li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3950\">#3950</a>: Implemented workaround for old versions of <code>vswhere</code>, which miss the\n<code>-requiresAny</code> parameter, such as the ones distributed together with Visual Studio 2017 &lt; 15.6.</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3952\">#3952</a>: Changed <code>DistutilsMetaFinder</code> to skip <code>spec_for_pip</code> on Python &gt;= 3.12.</li>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3952\">#3952</a>: Removed <code>_distutils_hack.remove_shim</code> on Python &gt;= 3.12\n(since <code>distutils</code> was removed from the standard library,\n<code>DistutilsMetaFinder</code> cannot be disabled on Python &gt;= 3.12).</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3920\">#3920</a>: Add a link to deprecation warning in <code>pkg_resources</code> and improve\n<code>stacklevel</code> for better visibility.</li>\n</ul>\n<h1>v67.8.0</h1>\n<h2>Changes</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/3128\">#3128</a>: In deprecated easy_install, reload and merge the pth file before saving.</li>\n</ul>\n<h2>Misc</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/49fec9fafb0e23e0dde52d3c4c410d23a2de9b0d\"><code>49fec9f</code></a> Bump version: 67.8.0 → 68.0.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/26231f4d99aeb71137ccc5c1776bc180140889aa\"><code>26231f4</code></a> Implement workaround for missing -requiresAny (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3950\">#3950</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/66cbd980aacce308441462be728bf347c7f5ec2e\"><code>66cbd98</code></a> Remove some deprecated code (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3948\">#3948</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/718493c700e467cd2bf1a37db663e49c60dda4c6\"><code>718493c</code></a> Avoid _distutils_hack.remove_shim on Python &gt;= 3.12 (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3952\">#3952</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/2d7bf2bd565e27a8f23c26975d891abfc5a64041\"><code>2d7bf2b</code></a> Remove old py*compat modules (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3951\">#3951</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/8f7c8ff7ba87c0634a006e2ca11f8c636eb40a6b\"><code>8f7c8ff</code></a> Mention packaging on pkg_resources deprecation notes (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3949\">#3949</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/63a4f856071fac44ef276a60db3f79b05506d1c2\"><code>63a4f85</code></a> Show more info from pkg_resources deprecation (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3920\">#3920</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4a7c9c1dafd2866e530907678a91680175f0f1d1\"><code>4a7c9c1</code></a> Update pyproject.toml doc (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3957\">#3957</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/6ef81fef5e73cb07f1856fffd06299cf86ada302\"><code>6ef81fe</code></a> Leave an empty 'egg_info.warn_depends_obsolete' to avoid erros when updating ...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/92382deb2a957ff29840a28d4f527f00fc6c84a5\"><code>92382de</code></a> Re-enable SETUPTOOLS_ENFORCE_DEPRECATION</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v67.3.2...v68.0.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-14T17:29:55Z",
+          "tree_id": "bd2f389f19f6c5b50af33d5a8ddf152628423cd0",
+          "url": "https://github.com/aws/jsii/commit/c98811395337ff76b7b237a70b8a987867ed1cc1"
+        },
+        "date": 1692037514008,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70974.57622880006,
+            "unit": "milliseconds",
+            "range": 460879.267869932,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70974.57622880006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51531.764687300005,
+            "unit": "milliseconds",
+            "range": 125207.84473611352,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51531.764687300005 milliseconds over 20 runs"
           }
         ]
       }
