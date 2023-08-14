@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692025193804,
+  "lastUpdate": 1692029686268,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20323,6 +20323,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 205291.7943447657,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64531.70194395001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "96424e5456671b4664112779201abde31384768a",
+          "message": "chore(deps): Bump Microsoft.Extensions.Logging from 5.0.0 to 7.0.0 in /packages/@jsii/dotnet-runtime-test/test (#4229)\n\nBumps [Microsoft.Extensions.Logging](https://github.com/dotnet/runtime) from 5.0.0 to 7.0.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/runtime/releases\">Microsoft.Extensions.Logging's releases</a>.</em></p>\n<blockquote>\n<h2>.NET 7.0.0</h2>\n<p><a href=\"https://github.com/dotnet/core/tree/v7.0.0\">Release</a></p>\n<h2>.NET 7.0 RC 2</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-rc.2\">Release</a></p>\n<h2>.NET 7.0 RC 1</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-rc.1\">Release</a></p>\n<h2>.NET 7.0 Preview 7</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-preview.7\">Release</a></p>\n<h2>.NET 7.0 Preview 6</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-preview.6\">Release</a></p>\n<h2>.NET 7.0 Preview 5</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-preview.5\">Release</a></p>\n<h2>.NET 7.0 Preview 4</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-preview.4\">Release</a></p>\n<h2>.NET 7.0 Preview 3</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-preview.3\">Release</a></p>\n<h2>.NET 7.0 Preview 2</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v7.0.0-preview.2\">Release</a></p>\n<h2>.NET 6.0.21</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.21\">Release</a></p>\n<h2>.NET 6.0.20</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.20\">Release</a></p>\n<h2>.NET 6.0.16</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.16\">Release</a></p>\n<h2>.NET 6.0.15</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.15\">Release</a></p>\n<h2>.NET 6.0.12</h2>\n<p><a href=\"https://github.com/dotnet/core/tree/v6.0.12\">Release</a></p>\n<h2>.NET 6.0.11</h2>\n<p><a href=\"https://github.com/dotnet/core/tree/v6.0.11\">Release</a></p>\n<h2>.NET 6.0.9</h2>\n<p><a href=\"https://github.com/dotnet/core/tree/v6.0.9\">Release</a></p>\n<h2>.NET 6.0.8</h2>\n<p><a href=\"https://github.com/dotnet/core/tree/v6.0.8\">Release</a></p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/dotnet/runtime/commit/d099f075e45d2aa6007a22b71b45a08758559f80\"><code>d099f07</code></a> Merge in 'release/7.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/0cee4aaff9cde26bfb1c09b3266ff392e0ad2db3\"><code>0cee4aa</code></a> [release/7.0] Fix loading app-local ICU (<a href=\"https://redirect.github.com/dotnet/runtime/issues/77118\">#77118</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/bebb59597c8f98828b4cf2ae7724b277b15c47ee\"><code>bebb595</code></a> Merge in 'release/7.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/cd2d83798383716204eb580eb5c89ef5b73b8ec2\"><code>cd2d837</code></a> Port stackoverflow fix from Roslyn to SourceGenerator PolyFill (<a href=\"https://redirect.github.com/dotnet/runtime/issues/76954\">#76954</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/db342505c2693b679c89c4088307705db0a59a44\"><code>db34250</code></a> Merge in 'release/7.0' changes</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/f252bc67540841b3e8f6ad074678e939236866ec\"><code>f252bc6</code></a> Merged PR 26705: Empty to commit to diverge internal and public branches</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/075e74ed1356f2e5bb978ac541633ab46e34bf99\"><code>075e74e</code></a> [mono][s390x] Fix wrong implementation of OP_CHECK_THIS (<a href=\"https://redirect.github.com/dotnet/runtime/issues/76920\">#76920</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/aacc2437a2308230a7e8a81d54924e22224a3114\"><code>aacc243</code></a> Update macos-11 vmImage to macos-12 for XCode 14. (<a href=\"https://redirect.github.com/dotnet/runtime/issues/76973\">#76973</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/c7b59fc93a6dd413236ab591912750119448bcde\"><code>c7b59fc</code></a> [release/7.0] Reintroduce typo in ICorDebug public API names (<a href=\"https://redirect.github.com/dotnet/runtime/issues/76967\">#76967</a>)</li>\n<li><a href=\"https://github.com/dotnet/runtime/commit/156aa8a80c2fbdc2d75576d2c7c7aab54a85a39c\"><code>156aa8a</code></a> Merge in 'release/7.0' changes</li>\n<li>Additional commits viewable in <a href=\"https://github.com/dotnet/runtime/compare/v5.0.0...v7.0.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.Extensions.Logging&package-manager=nuget&previous-version=5.0.0&new-version=7.0.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-14T15:13:17Z",
+          "tree_id": "03d5481d8f66734b4d73bab5ba79d58c1224ccbf",
+          "url": "https://github.com/aws/jsii/commit/96424e5456671b4664112779201abde31384768a"
+        },
+        "date": 1692029681704,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 84364.85309030005,
+            "unit": "milliseconds",
+            "range": 3640370.8237945796,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 84364.85309030005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 62457.5825541,
+            "unit": "milliseconds",
+            "range": 436833.8878874864,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62457.5825541 milliseconds over 20 runs"
           }
         ]
       }
