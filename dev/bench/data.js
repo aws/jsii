@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692018672558,
+  "lastUpdate": 1692025193804,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20285,6 +20285,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 90062.51159218294,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62847.8819888 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a62a0c195f6adb9eddf8a08d82f18291586f039a",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.1.19 to ~=9.1.21 in /gh-pages (#4234)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.1.21</h2>\n<ul>\n<li>Fixed MkDocs 1.4 compat issue in social plugin (9.1.20 regression)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.1.21+insiders-4.39.0 (2023-08-01)</p>\n<ul>\n<li>Added support for hoisting theme media files when building projects</li>\n<li>Added support for sorting pages on tags index for tags plugin</li>\n<li>Added support for adding date of last update to blog posts</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5797\">#5797</a>: Parse error in typeset plugin (4.38.1 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.21+insiders-4.38.1 (2023-08-01)</p>\n<ul>\n<li>Improved nested serve mode for projects plugin</li>\n<li>Improved compat in privacy plugin with third-party plugins</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5790\">#5790</a>: Typeset plugin ignores data-toc-label attribute</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5778\">#5778</a>: Interplay of privacy plugin with git-revision-date-localized</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5773\">#5773</a>: Info plugin erroring when community edition is in beta</li>\n</ul>\n<p>mkdocs-material-9.1.21+insiders-4.38.0 (2023-07-29)</p>\n<ul>\n<li>Added projects plugin for building nested projects</li>\n<li>Updated privacy plugin to new MkDocs API</li>\n</ul>\n<p>mkdocs-material-9.1.21+insiders-4.37.1 (2023-07-28)</p>\n<ul>\n<li>Updated MkDocs to 1.5.1</li>\n<li>Fixed deprecation warning in social plugin due to MkDocs upgrade</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5772\">#5772</a>: Privacy plugin fails due to API change in MkDocs</li>\n</ul>\n<p>mkdocs-material-9.1.21 (2023-07-27)</p>\n<ul>\n<li>Fixed MkDocs 1.4 compat issue in social plugin (9.1.20 regression)</li>\n</ul>\n<p>mkdocs-material-9.1.20 (2023-07-27)</p>\n<ul>\n<li>Fixed deprecation warnings for social plugin</li>\n</ul>\n<p>mkdocs-material-9.1.19 (2023-07-18)</p>\n<ul>\n<li>Added support for MkDocs 1.5+</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5699\">#5699</a>: Improve error reporting in social plugin</li>\n</ul>\n<p>mkdocs-material-9.1.18+insiders-4.37.0 (2023-07-07)</p>\n<ul>\n<li>Added support for overriding social cards settings per page</li>\n<li>Added new social card default/only/image layout</li>\n<li>Improved resilience of optimize and social plugin</li>\n<li>Fixed rendering bugs for pruned navigation items</li>\n<li>Fixed jumping of content tabs anchor links when instant loading is enabled</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5676\">#5676</a>: Optimize plugin doesn't check for pngquant</li>\n</ul>\n<p>mkdocs-material-9.1.18 (2023-07-03)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/98a009b02a8c76cdf46ec4485260730ebb4a127c\"><code>98a009b</code></a> Prepare 9.1.21 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/feef806a2dcc9dd1e73ca262ce52d48f05c2cc16\"><code>feef806</code></a> Bumped MkDocs to 1.5.0 to mitigate error in social plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/39580db0ac6d7006498c8c253d8e54b0354d23e4\"><code>39580db</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/08ab76fd0596c68bdc6ea0c7f0c1f8124435b40b\"><code>08ab76f</code></a> Prepare 9.1.20 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/068472a6f7a78d7643aedff90884da1df3300082\"><code>068472a</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/772421d16dc636beb99740b2e682741ccda32249\"><code>772421d</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5759\">#5759</a> from kamilkrzyskow/social-patch2</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f548d799911fc63699d665c70f76f0c1479ed97b\"><code>f548d79</code></a> Updated social plugin to use <code>theme.custom_dir</code></li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3e8faa0fdba72454f0297d06c21bbde75baa10a2\"><code>3e8faa0</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b72adf300b0ff71a7c41f36c746faf688956c3ea\"><code>b72adf3</code></a> Updated documentation for custom cookies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ea9446e6cb181880eceef8e10fc8e75b76a703b7\"><code>ea9446e</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.1.19...9.1.21\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-14T13:57:48Z",
+          "tree_id": "533dfb28cb45f0df8bf4540b57599700558465fb",
+          "url": "https://github.com/aws/jsii/commit/a62a0c195f6adb9eddf8a08d82f18291586f039a"
+        },
+        "date": 1692025188604,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 86152.40612675001,
+            "unit": "milliseconds",
+            "range": 3195293.891468995,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 86152.40612675001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 64531.70194395001,
+            "unit": "milliseconds",
+            "range": 205291.7943447657,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64531.70194395001 milliseconds over 20 runs"
           }
         ]
       }
