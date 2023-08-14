@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692029686268,
+  "lastUpdate": 1692034697674,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20361,6 +20361,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 436833.8878874864,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 62457.5825541 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "58d35c9f07e208c58c9b0d80e3ee1ea41b6050ed",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.4.3 to ~=1.5.2 in /gh-pages (#4235)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.5.2</h2>\n<ul>\n<li>\n<p>Bugfix (regression in 1.5.0): Restore functionality of <code>--no-livereload</code>. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3320\">#3320</a>)</p>\n</li>\n<li>\n<p>Bugfix (regression in 1.5.0): The new page title detection would sometimes be unable to drop anchorlinks - fix that. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3325\">#3325</a>)</p>\n</li>\n<li>\n<p>Partly bring back pre-1.5 API: <code>extra_javascript</code> items will once again be mostly strings, and only sometimes <code>ExtraStringValue</code> (when the extra <code>script</code> functionality is used).</p>\n<p>Plugins should be free to append strings to <code>config.extra_javascript</code>, but when reading the values, they must still make sure to read it as <code>str(value)</code> in case it is an <code>ExtraScriptValue</code> item. For querying the attributes such as <code>.type</code> you need to check <code>isinstance</code> first. Static type checking will guide you in that. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3324\">#3324</a>)</p>\n</li>\n</ul>\n<p>See <a href=\"https://github.com/mkdocs/mkdocs/compare/1.5.1...1.5.2\">commit log</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/79f17b4b71c73460c304e3281f6ff209788a76bf\"><code>79f17b4</code></a> Release 1.5.2 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3330\">#3330</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/91e37aea5ee9e91142976bb99da1bcc3f199d0b9\"><code>91e37ae</code></a> Change extra_javascript items to usually be strings again (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3324\">#3324</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/4944c9fe354acfc39f3e782ed884c0194280136e\"><code>4944c9f</code></a> Drop obsolete readthedocs config, we switched to gh-pages (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3326\">#3326</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/63052bc1be0a06fee8578c7dc2b508f971589dca\"><code>63052bc</code></a> Correct detection of dropping anchorlink from page title (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3325\">#3325</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/fcb2da399f029bd569b708479a39a5f2c700b5a2\"><code>fcb2da3</code></a> Restore functionality of --no-livereload (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3320\">#3320</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/2865b0fcc4dd9b636963a8fd7e306725e1ac8ab2\"><code>2865b0f</code></a> Release 1.5.1 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3315\">#3315</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/ea549e6177bdf2842facd09d0a81afd5de326296\"><code>ea549e6</code></a> Make it possible to treat ExtraScriptValue as a path</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/86cde7b7beb18e8e8753d176b8c01f56cd479704\"><code>86cde7b</code></a> Catch ValueErrors thrown when attempting to remove a file twice (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3314\">#3314</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/0d9e3414e128b1fb1397c22ef60846f762b45a01\"><code>0d9e341</code></a> Release 1.5.0 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3296\">#3296</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/0f8ab6bd6fbbf6d22517e1e63e79f0c62e7803a5\"><code>0f8ab6b</code></a> Fix livereload shutdown sequence - crash on Windows</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.4.3...1.5.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-14T16:26:43Z",
+          "tree_id": "e4357a1f012fb36701a4f883bebfc2361e1366c8",
+          "url": "https://github.com/aws/jsii/commit/58d35c9f07e208c58c9b0d80e3ee1ea41b6050ed"
+        },
+        "date": 1692034692811,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 97056.24631765003,
+            "unit": "milliseconds",
+            "range": 5016815.616191289,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 97056.24631765003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 71646.31820160002,
+            "unit": "milliseconds",
+            "range": 1615383.6994726958,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 71646.31820160002 milliseconds over 20 runs"
           }
         ]
       }
