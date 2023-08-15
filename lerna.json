@@ -12,6 +12,6 @@
       "rejectCycles": true
     }
   },
-  "version": "1.86.1",
+  "version": "1.87.0",
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
