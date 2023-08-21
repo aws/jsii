@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692201552490,
+  "lastUpdate": 1692624833192,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20551,6 +20551,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 3899256.4983110838,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 63181.96123004998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1512c06f01575e270dfd9c41cb63a7613550ed87",
+          "message": "chore(deps-dev): Update mkdocs-awesome-pages-plugin requirement from ~=2.9.1 to ~=2.9.2 in /gh-pages (#4243)\n\nUpdates the requirements on [mkdocs-awesome-pages-plugin](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/releases\">mkdocs-awesome-pages-plugin's releases</a>.</em></p>\n<blockquote>\n<h2>v2.9.2</h2>\n<h3>Improvements</h3>\n<ul>\n<li>Support for <code>mkdocs-gen-files</code> <a href=\"https://redirect.github.com/lukasgeiter/mkdocs-awesome-pages-plugin/issues/78\">#78</a></li>\n</ul>\n<h3>Bugfixes</h3>\n<ul>\n<li>Fix <code>.pages</code> in sections under virtual section <a href=\"https://redirect.github.com/lukasgeiter/mkdocs-awesome-pages-plugin/issues/77\">#77</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/fb65c78bcf5b370efa2c35d6f546d9c2923eb1fd\"><code>fb65c78</code></a> Bump version to 2.9.2</li>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/e679f2c0aafab6d1d1aee563f0d94e7d767adb2d\"><code>e679f2c</code></a> Handle plugin generated content and config (<a href=\"https://redirect.github.com/lukasgeiter/mkdocs-awesome-pages-plugin/issues/79\">#79</a>)</li>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/572c230f3dc5a4b5fdac8a14a2c7402986844fc4\"><code>572c230</code></a> Remove pypy tests entirely</li>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/d75a476df021d9fa858d5c626472e19708c736ed\"><code>d75a476</code></a> Fix .pages in sections under virtual section</li>\n<li><a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/commit/95041677864e9590693335ffd068979fd6bb27bd\"><code>9504167</code></a> Remove pypy-3.7 from test matrix</li>\n<li>See full diff in <a href=\"https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/compare/v2.9.1...v2.9.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-21T12:44:47Z",
+          "tree_id": "872be333a47adaca8435b317fae61cd142e63798",
+          "url": "https://github.com/aws/jsii/commit/1512c06f01575e270dfd9c41cb63a7613550ed87"
+        },
+        "date": 1692624828907,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 64439.5769858,
+            "unit": "milliseconds",
+            "range": 3287526.6103542224,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 64439.5769858 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48566.75620375,
+            "unit": "milliseconds",
+            "range": 187276.86762896844,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48566.75620375 milliseconds over 20 runs"
           }
         ]
       }
