@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692630700728,
+  "lastUpdate": 1692633492810,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20627,6 +20627,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 184998.41537022142,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61344.250380800004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5914627486c23c82e4cc8370a9c12a1bef1b11e4",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.7.0 to 17.7.1 in /packages/@jsii/dotnet-runtime-test/test (#4244)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.7.0 to 17.7.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.7.1</h2>\n<h2>What's Changed</h2>\n<ul>\n<li>Take System dlls from testhost folder to fix running .NET Framework dlls on mono and under VS on Mac in <a href=\"https://redirect.github.com/microsoft/vstest/issues/4610\">#4610</a> by <a href=\"https://github.com/Evangelink\"><code>@​Evangelink</code></a></li>\n<li>Fix hangs in parallel execution and discovery in <a href=\"https://redirect.github.com/microsoft/vstest/issues/4629\">#4629</a> by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a></li>\n<li>Fix executable bitness for testhost.x86 in <a href=\"https://redirect.github.com/microsoft/vstest/issues/4654\">#4654</a> by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/microsoft/vstest/compare/v17.7.0...v17.7.1\">https://github.com/microsoft/vstest/compare/v17.7.0...v17.7.1</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/76fea143ffe5e3883dcd04e0923b4b8e1e158145\"><code>76fea14</code></a> Fix executable bitness for testhost.x86 (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4652\">#4652</a>) (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4654\">#4654</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/c59bb292a6a72ca9268439f50931dd5d1cc4ded2\"><code>c59bb29</code></a> RTM build fix (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4643\">#4643</a>)</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/52b57f08f0c7860f087f2a02ba9fc360c52f8644\"><code>52b57f0</code></a> Backport recent fixes (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4632\">#4632</a>)</li>\n<li>See full diff in <a href=\"https://github.com/microsoft/vstest/compare/v17.7.0...v17.7.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.7.0&new-version=17.7.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-21T15:07:47Z",
+          "tree_id": "a6f60182c021041ed6c70b2f0a72b0eea3dc22ab",
+          "url": "https://github.com/aws/jsii/commit/5914627486c23c82e4cc8370a9c12a1bef1b11e4"
+        },
+        "date": 1692633488492,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61194.65835309999,
+            "unit": "milliseconds",
+            "range": 2317914.427314844,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61194.65835309999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47307.76778180001,
+            "unit": "milliseconds",
+            "range": 367247.59928722534,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47307.76778180001 milliseconds over 20 runs"
           }
         ]
       }
