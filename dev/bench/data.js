@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692987350204,
+  "lastUpdate": 1692994516995,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20779,6 +20779,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 323495.5737371634,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 65957.46809819998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mike.wrighton@googlemail.com",
+            "name": "mikewrighton",
+            "username": "mikewrighton"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "64a67ef2dd58fb05e9fb97cb03a511eac64a9421",
+          "message": "chore: Add author mikewrighton to mergify config (#4246)\n\n---\r\n\r\nBy submitting this pull request, I confirm that my contribution is made\r\nunder the terms of the [Apache 2.0 license].\r\n\r\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0\r\n\r\nCo-authored-by: Kaizen Conroy <36202692+kaizencc@users.noreply.github.com>",
+          "timestamp": "2023-08-25T15:20:56-04:00",
+          "tree_id": "fe27f2f4e7f1a3efa1569435c8f4578b306dea76",
+          "url": "https://github.com/aws/jsii/commit/64a67ef2dd58fb05e9fb97cb03a511eac64a9421"
+        },
+        "date": 1692994513070,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70626.41209984999,
+            "unit": "milliseconds",
+            "range": 1303800.6600339948,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70626.41209984999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52979.983737799994,
+            "unit": "milliseconds",
+            "range": 437828.09316030506,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52979.983737799994 milliseconds over 20 runs"
           }
         ]
       }
