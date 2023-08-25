@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1692994516995,
+  "lastUpdate": 1693000201977,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20817,6 +20817,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 437828.09316030506,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52979.983737799994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "thomas.matecki@gmail.com",
+            "name": "Thomas Matecki",
+            "username": "thomasmatecki"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f1d7d24297511a5f01e7c05cf2019cd78d87159c",
+          "message": "chore: Update node support table for 16. EOL (#4240)\n\nSee: https://nodejs.org/en/blog/announcements/nodejs16-eol\n\n> We are moving the End-of-Life date of Node.js 16 by seven months to coincide with the end of support of OpenSSL 1.1.1 on September 11th, 2023.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-08-25T20:33:10Z",
+          "tree_id": "edfa43551e9ca24da769581dbfdebf347806d913",
+          "url": "https://github.com/aws/jsii/commit/f1d7d24297511a5f01e7c05cf2019cd78d87159c"
+        },
+        "date": 1693000196075,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 110282.81390144998,
+            "unit": "milliseconds",
+            "range": 4618899.767178679,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 110282.81390144998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 82006.07523499998,
+            "unit": "milliseconds",
+            "range": 600010.2477896966,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 82006.07523499998 milliseconds over 20 runs"
           }
         ]
       }
