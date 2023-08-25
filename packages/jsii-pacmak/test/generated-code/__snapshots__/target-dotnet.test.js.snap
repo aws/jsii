@@ -1015,10 +1015,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┃     ┣━ 📄 BaseFor2647.cs
        ┃        ┃     ┣━ 📁 DeprecationRemoval
        ┃        ┃     ┃  ┣━ 📄 IInterface.cs
-       ┃        ┃     ┃  ┗━ 📄 InterfaceFactory.cs
+       ┃        ┃     ┃  ┣━ 📄 InterfaceFactory.cs
+       ┃        ┃     ┃  ┗━ 📄 VisibleBaseClass.cs
        ┃        ┃     ┣━ 📄 DiamondLeft.cs
        ┃        ┃     ┣━ 📄 DiamondRight.cs
        ┃        ┃     ┣━ 📄 EnumFromScopedModule.cs
+       ┃        ┃     ┣━ 📄 FunctionWithUnderscoreArgument.cs
        ┃        ┃     ┣━ 📄 IDiamondLeft.cs
        ┃        ┃     ┣━ 📄 IDiamondRight.cs
        ┃        ┃     ┣━ 📄 IDoublable.cs
@@ -1246,6 +1248,64 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/DeprecationRemoval/VisibleBaseClass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.VisibleBaseClass), fullyQualifiedName: "@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass")]
+    [System.Obsolete()]
+    public class VisibleBaseClass : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public VisibleBaseClass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VisibleBaseClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected VisibleBaseClass(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "propertyPresent", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        [System.Obsolete()]
+        public virtual bool PropertyPresent
+        {
+            get => GetInstanceProperty<bool>()!;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/DiamondLeft.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -1358,6 +1418,65 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiEnumMember(name: "VALUE2")]
         [System.Obsolete()]
         VALUE2
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/FunctionWithUnderscoreArgument.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <summary>(deprecated) For Java, test that an identifier that is just a _ is handled.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.FunctionWithUnderscoreArgument), fullyQualifiedName: "@scope/jsii-calc-lib.FunctionWithUnderscoreArgument")]
+    [System.Obsolete()]
+    public class FunctionWithUnderscoreArgument : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public FunctionWithUnderscoreArgument(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected FunctionWithUnderscoreArgument(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected FunctionWithUnderscoreArgument(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "foo", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        [System.Obsolete()]
+        public virtual string Foo(string _)
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{_})!;
+        }
     }
 }
 
@@ -2918,6 +3037,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 IOptionB.cs
        ┃           ┃  ┗━ 📄 UseOptions.cs
        ┃           ┣━ 📄 AnonymousImplementationProvider.cs
+       ┃           ┣━ 📄 AnyPropertyAccess.cs
        ┃           ┣━ 📄 AsyncVirtualMethods.cs
        ┃           ┣━ 📄 AugmentableClass.cs
        ┃           ┣━ 📄 BaseClass.cs
@@ -2977,6 +3097,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 DoNotOverridePrivates.cs
        ┃           ┣━ 📄 DoNotRecognizeAnyAsOptional.cs
        ┃           ┣━ 📄 DontComplainAboutVariadicAfterOptional.cs
+       ┃           ┣━ 📄 DontUseMe.cs
        ┃           ┣━ 📄 DoubleTrouble.cs
        ┃           ┣━ 📄 DummyObj.cs
        ┃           ┣━ 📄 DynamicPropertyBearer.cs
@@ -3029,6 +3150,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IDiamondInheritanceFirstMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceSecondMidLevelStruct.cs
        ┃           ┣━ 📄 IDiamondInheritanceTopLevelStruct.cs
+       ┃           ┣━ 📄 IDontUseMe.cs
        ┃           ┣━ 📄 IDummyObj.cs
        ┃           ┣━ 📄 IEraseUndefinedHashValuesOptions.cs
        ┃           ┣━ 📄 IExperimentalInterface.cs
@@ -3299,6 +3421,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 VariadicTypeUnion.cs
        ┃           ┣━ 📄 VirtualMethodPlayground.cs
        ┃           ┣━ 📄 VoidCallback.cs
+       ┃           ┣━ 📄 WeirdDocs.cs
        ┃           ┗━ 📄 WithPrivatePropertyInConstructor.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
@@ -4174,6 +4297,45 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe ProvideAsInterface()
         {
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AnyPropertyAccess.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AnyPropertyAccess), fullyQualifiedName: "jsii-calc.AnyPropertyAccess")]
+    public class AnyPropertyAccess : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AnyPropertyAccess(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected AnyPropertyAccess(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Sets obj[resultProp] to \`\${obj[propA]}+\${obj[propB]}\`.</summary>
+        /// <param name="obj">the receiver object.</param>
+        /// <param name="propA">the first property to read.</param>
+        /// <param name="propB">the second property to read.</param>
+        /// <param name="resultProp">the property to write into.</param>
+        [JsiiMethod(name: "mutateProperties", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the receiver object.\\"},\\"name\\":\\"obj\\",\\"type\\":{\\"primitive\\":\\"any\\"}},{\\"docs\\":{\\"summary\\":\\"the first property to read.\\"},\\"name\\":\\"propA\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"docs\\":{\\"summary\\":\\"the second property to read.\\"},\\"name\\":\\"propB\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"docs\\":{\\"summary\\":\\"the property to write into.\\"},\\"name\\":\\"resultProp\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public static void MutateProperties(object obj, string propA, string propB, string resultProp)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.AnyPropertyAccess), new System.Type[]{typeof(object), typeof(string), typeof(string), typeof(string)}, new object[]{obj, propA, propB, resultProp});
         }
     }
 }
@@ -7147,6 +7309,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
+
+        /// <summary>Some comments have an escaped star backslash in them, ending the comment if left unescaped.</summary>
+        /// <remarks>
+        /// For example: 'projects/*/global/networks/network-1'.
+        /// </remarks>
+        [JsiiMethod(name: "moin")]
+        public virtual void Moin()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
     }
 }
 
@@ -7190,6 +7362,33 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual string OptionalAndVariadic(string? optional = null, params string[] things)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string), typeof(string[])}, new object?[]{optional, things})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DontUseMe.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>&gt; Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.</summary>
+    [JsiiByValue(fqn: "jsii-calc.DontUseMe")]
+    public class DontUseMe : Amazon.JSII.Tests.CalculatorNamespace.IDontUseMe
+    {
+        /// <summary>&gt; Don't set this parameter.</summary>
+        /// <remarks>
+        /// A parameter that shouldn't be set, with the annotation in a weird place.
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "dontSetMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        public string? DontSetMe
+        {
+            get;
+            set;
         }
     }
 }
@@ -9335,6 +9534,55 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             public string SecondMidLevelProperty
             {
                 get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IDontUseMe.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>&gt; Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.</summary>
+    [JsiiInterface(nativeType: typeof(IDontUseMe), fullyQualifiedName: "jsii-calc.DontUseMe")]
+    public interface IDontUseMe
+    {
+        /// <summary>&gt; Don't set this parameter.</summary>
+        /// <remarks>
+        /// A parameter that shouldn't be set, with the annotation in a weird place.
+        /// </remarks>
+        [JsiiProperty(name: "dontSetMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        string? DontSetMe
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <summary>&gt; Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.</summary>
+        [JsiiTypeProxy(nativeType: typeof(IDontUseMe), fullyQualifiedName: "jsii-calc.DontUseMe")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDontUseMe
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>&gt; Don't set this parameter.</summary>
+            /// <remarks>
+            /// A parameter that shouldn't be set, with the annotation in a weird place.
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "dontSetMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            public string? DontSetMe
+            {
+                get => GetInstanceProperty<string?>();
             }
         }
     }
@@ -21161,6 +21409,60 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
             }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/WeirdDocs.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>&gt; Don't use this class.</summary>
+    /// <remarks>
+    /// A class that shouldn't be used, with the annotation in a weird place.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WeirdDocs), fullyQualifiedName: "jsii-calc.WeirdDocs")]
+    public class WeirdDocs : DeputyBase
+    {
+        public WeirdDocs(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected WeirdDocs(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected WeirdDocs(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>&gt; Don't read this property.</summary>
+        /// <remarks>
+        /// A property that shouldn't be read, with the annotation in a weird place.
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "dontReadMe", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        public virtual string? DontReadMe
+        {
+            get => GetInstanceProperty<string?>();
+            set => SetInstanceProperty(value);
         }
     }
 }

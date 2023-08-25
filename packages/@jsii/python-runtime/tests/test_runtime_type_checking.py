@@ -1,9 +1,11 @@
 import pytest
 import re
+from typing import Optional
 
 from scope.jsii_calc_lib.custom_submodule_name import NestingClass
 from scope.jsii_calc_lib import Number
 import jsii_calc
+import jsii
 
 
 class TestRuntimeTypeChecking:
@@ -35,12 +37,19 @@ class TestRuntimeTypeChecking:
             ),
         ):
             orig_init = jsii_calc.Calculator.__init__
+
             # For toy, swap initial_value and maximum_values here
-            jsii_calc.Calculator.__init__ = (
-                lambda self, *, initial_value=None, maximum_value=None: orig_init(
+            def decorated(
+                self,
+                *,
+                initial_value: Optional[jsii.Number] = None,
+                maximum_value: Optional[jsii.Number] = None,
+            ):
+                orig_init(
                     self, initial_value=maximum_value, maximum_value=initial_value
                 )
-            )
+
+            jsii_calc.Calculator.__init__ = decorated
             try:
                 jsii_calc.Calculator(initial_value="nope")  # type:ignore
             finally:

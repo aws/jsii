@@ -374,7 +374,7 @@ test.each([
   {
     oldDecl: 'name: string',
     newDecl: 'name: string | number',
-    error: /string \| number is not assignable to string/,
+    error: /number \| string is not assignable to string/,
   },
   {
     oldDecl: 'name: string | number',
@@ -413,12 +413,12 @@ test.each([
   {
     oldDecl: 'name: string',
     newDecl: 'name: string | number',
-    error: /changed to string \| number \(formerly string\)/,
+    error: /changed to number \| string \(formerly string\)/,
   },
   {
     oldDecl: 'name: string | number',
     newDecl: 'name: string',
-    error: /changed to string \(formerly string \| number\)/,
+    error: /changed to string \(formerly number \| string\)/,
   },
 ])(
   'cannot change a mutable class property type: %p to %p',

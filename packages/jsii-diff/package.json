@@ -17,7 +17,7 @@
     "directory": "packages/jsii-diff"
   },
   "engines": {
-    "node": ">= 14.6.0"
+    "node": ">= 14.17.0"
   },
   "main": "lib/index.js",
   "bin": {
@@ -37,7 +37,7 @@
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
-    "log4js": "^6.8.0",
+    "log4js": "^6.9.1",
     "yargs": "^16.2.0"
   },
   "devDependencies": {

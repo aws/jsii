@@ -13,7 +13,7 @@ const runCommand = async () => {
 
     if (args.includes('delay')) {
       for (let i = 1; i <= 5; i++) {
-        console.log('sleeping 1s', i);
+        console.log(`sleeping 1s ${i}`);
         // eslint-disable-next-line no-await-in-loop
         await delay(1000);
       }

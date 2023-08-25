@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: yarn
-          node-version: 14
+          node-version: 16
 
       - name: Install Tools
         run: |-
@@ -31,8 +31,8 @@ jobs:
         id: monorepo-packages
         # These need to be ignored from the `ncu` runs!
         run: |-
-          echo -n "::set-output name=list::"
-          node -p "$(lerna ls --all --json 2>/dev/null).map(item => item.name).join(',')"
+          echo -n "list=" >> $GITHUB_OUTPUT
+          node -p "$(lerna ls --all --json 2>/dev/null).map(item => item.name).join(',')" >> $GITHUB_OUTPUT
 
       - name: Identify production dependencies
         id: production-dependencies
@@ -40,8 +40,8 @@ jobs:
         # We assume repository-root has no production dependencies (it shouldn't have any!)
         # We always consider @types/node to be a production dependency (it must relate to our minimum supported engine)
         run: |-
-          echo -n "::set-output name=list::"
-          node -p <<-EOF
+          echo -n "list=" >> $GITHUB_OUTPUT
+          node -p <<-EOF >> $GITHUB_OUTPUT
             const path = require('path');
 
             const prodDependencies = new Set(['@types/node']);
@@ -130,7 +130,7 @@ jobs:
         run: '[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp }}/upgrade.patch || echo "Empty patch. Skipping."'
 
       - name: Make Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           # Git commit details
           author: 'AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>'

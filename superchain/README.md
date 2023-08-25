@@ -1,16 +1,16 @@
 # Superchain
 
-A [`debian:10-slim`][debian]-based Docker image bundling all the SDKs and tools
+A [`debian`][debian]-based Docker image bundling all the SDKs and tools
 required in order to package [jsii] projects in all supported languages.
 
-[debian]: https://hub.docker.com/_/debian
+[debian]: https://gallery.ecr.aws/debian/debian
 [jsii]: https://github.com/aws/jsii
 
 ## Included Language SDKs
 
 SDK             | Version
 ----------------|-------------------------------------------
-`OpenJDK 8`     | Amazon Corretto `>= 8.242.08.1`
+`OpenJDK 20`    | Amazon Corretto `>= 20.0.0`
 `.NET SDK`      | `>= 6.0.14`
 `mono`          | `>= 6.8.0.105`
 `Javascript`    | see [NodeJS and NPM](#nodejs-and-npm)
@@ -23,17 +23,18 @@ SDK             | Version
 Maintained image tags are named using the following pattern:
 
 ```
-jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
+public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 ```
 
 - `<JSII-MAJOR>` is the major line of the jsii toolchain
   - The only supported value is `1`
-- `<BASE>` is the base image tag (e.g: `buster-slim`)
+- `<BASE>` is the base image tag (e.g: `buster-slim`, `bullseye-slim`, `bookworm-slim`)
   - The only supported value is `buster-slim`
 - `<NODE-MAJOR>` is the major version of node contained in the image
   - `14` corresponds to node 14.x, this is the default
   - `16` corresponds to node 16.x
   - `18` corresponds to node 18.x
+  - `20` corresponds to node 20.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
 
@@ -48,26 +49,42 @@ The previous image tags have been discontinued:
 - `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
 - `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
 
+## Building
+
+This docker image must be built from the package root with the Dockerfile set to
+`superchain/Dockerfile`:
+
+```
+jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local
+```
+
+In case the tests fail, skip the tests and inspect the image manually:
+
+```
+jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local --target=superchain
+```
+
 ## NodeJS and NPM
 
 We build multiple versions of this image, for different versions of Node. They are available as:
 
-* `jsii/superchain:1-buster-slim-node14(-nightly)`
-* `jsii/superchain:1-buster-slim-node16(-nightly)`
-* `jsii/superchain:1-buster-slim-node18(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node14(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node16(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node18(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-buster-slim-node20(-nightly)`
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
 
 ```
-docker build [...] --build-arg NODE_MAJOR_VERSION=14 .
+jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
 ```
 
 ## Included Tools & Utilities
 
 Tool / Utility | Version
 ---------------|--------------------------------------------
-`aws`          | `>= 1.16.300`
+`aws`          | `>= 2.11.17`
 `bundler`      | `>= 1.17.3` and `>= 2.1.4`
 `docker`       | `>= 18.09.9-ce`
 `git`          | `>= 2.23.1`

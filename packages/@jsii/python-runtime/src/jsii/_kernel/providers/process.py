@@ -254,11 +254,12 @@ class _NodeProcess:
         environ = os.environ.copy()
         environ["JSII_AGENT"] = f"Python/{platform.python_version()}"
 
+        jsii_node = environ.get("JSII_NODE", "node")
         jsii_runtime = environ.get("JSII_RUNTIME", self._jsii_runtime())
 
         self._process = subprocess.Popen(
             [
-                "node",
+                jsii_node,
                 "--max-old-space-size=4069",
                 jsii_runtime,
             ],
@@ -312,6 +313,8 @@ class _NodeProcess:
         # TODO: Replace with proper error.
         assert (
             resp.hello == f"@jsii/runtime@{__jsii_runtime_version__}"
+            # Transparently allow development versions of the runtime to be used.
+            or resp.hello == f"@jsii/runtime@0.0.0"
         ), f"Invalid JSII Runtime Version: {resp.hello!r}"
 
     def send(

@@ -14,11 +14,19 @@
 # more efficient, and allows us to run cross-architecture builds in the most efficient possible manner, by running the
 # "platform-independent" elements within the build platform, which does not require any kind of emulation.
 
+ARG DEBIAN_VERSION="bookworm"
+
+########################################################################################################################
+# NOTE: This uses public.ecr.aws/docker/library/debian instead of public.ecr.aws/debian/debian (which would be
+# preferred) due to an ECR Public issue currently blocking the use of the later.
+#
+# See: https://github.com/aws/containers-roadmap/issues/2023
+########################################################################################################################
 
 ########################################################################################################################
 # Prepare install images of "manual" binary distributions (runs on BUILD platform for speed)
 ########################################################################################################################
-FROM --platform=${BUILDPLATFORM} public.ecr.aws/debian/debian:10 as bindist
+FROM --platform=${BUILDPLATFORM} public.ecr.aws/docker/library/debian:${DEBIAN_VERSION}-slim as bindist
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -28,24 +36,27 @@ ARG TARGETPLATFORM
 ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                                                         \
   TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
 
+ARG DEBIAN_VERSION="bookworm"
+
 # We require a couple of tools to be available in order to work here...
-RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/buster-backports.list       \
+RUN echo "deb http://deb.debian.org/debian ${DEBIAN_VERSION}-backports main"                                            \
+    > "/etc/apt/sources.list.d/${DEBIAN_VERSION}-backports.list"                                                        \
   && apt-get update                                                                                                     \
   && apt-get install -y gpg tar zsh                                                                                     \
   # We need a "recent" (>= 7.71) version of curl for --retry-all-errors, so we get it from backports...
-  && apt-get install -y -t buster-backports curl
+  && apt-get install -y -t "${DEBIAN_VERSION}-backports" curl
 
 # We'll be using zsh substitutions, so ensuring this is the shell we use
 SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
-ARG M2_VERSION="3.8.7"
+ARG M2_VERSION="3.9.4"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
-  -o /tmp/apache-maven.tar.gz                                                                                           \
+    -o /tmp/apache-maven.tar.gz                                                                                         \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"                         \
-  -o /tmp/apache-maven.tar.gz.asc                                                                                       \
+    -o /tmp/apache-maven.tar.gz.asc                                                                                     \
   && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
   && curl -fSsL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                        \
   && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
@@ -57,19 +68,18 @@ ARG DOTNET_CHANNEL="6.0"
 ENV DOTNET_FEED="https://dotnetcli.blob.core.windows.net/dotnet"
 RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.version")                                  \
   && DOTNET_ASSET="dotnet-sdk-${DOTNET_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                     \
-  && curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_VERSION}/${DOTNET_ASSET}"                                                  \
-  -o /tmp/dotnet.tar.gz                                                                                                 \
+  && curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_VERSION}/${DOTNET_ASSET}" -o /tmp/dotnet.tar.gz                            \
   && mkdir -p /opt/microsoft/dotnet                                                                                     \
   && tar zxf /tmp/dotnet.tar.gz -C /opt/microsoft/dotnet
 
 # Prepare PowerShell LTS distribution
 ENV POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"
 RUN POWERSHELL_RELEASE=$(curl -X GET -fSsIL "https://aka.ms/powershell-release?tag=lts" -o /dev/null                    \
-  --retry 5 --retry-all-errors -w %{url_effective})                                         \
+    --retry 5 --retry-all-errors -w %{url_effective})                                                                   \
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
   && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}" --retry 5 --retry-all-errors          \
-  -o /tmp/powershell.tar.gz                                                                                     \
+    -o /tmp/powershell.tar.gz                                                                                           \
   && mkdir -p /opt/microsoft/powershell                                                                                 \
   && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell                                                        \
   && chmod +x /opt/microsoft/powershell/pwsh
@@ -83,7 +93,7 @@ RUN curl -fSsL "https://golang.org/dl/go${GO_VERSION}.linux-${TARGETPLATFORM#lin
 ########################################################################################################################
 # Set up the image
 ########################################################################################################################
-FROM public.ecr.aws/debian/debian:10-slim as staging
+FROM public.ecr.aws/docker/library/debian:${DEBIAN_VERSION}-slim as staging
 
 # Build & target platforms, they are provided by buildx and will look like "linux/amd64" or "linux/arm64"
 ARG BUILDPLATFORM
@@ -92,6 +102,8 @@ ARG TARGETPLATFORM
 # Setting defaults for backwards compatibility with "docker build" (see https://github.com/docker/buildx/issues/510)
 ENV BUILDPLATFORM=${BUILDPLATFORM:-linux/amd64}                                                                         \
   TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
+
+ARG DEBIAN_VERSION="bookworm"
 
 SHELL ["/bin/bash", "-c"]
 
@@ -111,31 +123,34 @@ ENV LANG="C.UTF-8"                                                              
 
 # Installing the system dependencies we need...
 RUN apt-get update                                                                                                      \
-  && apt-get -y install                                                                                                 \
-  apt-transport-https                                                                                                   \
-  build-essential                                                                                                       \
-  ca-certificates                                                                                                       \
-  curl                                                                                                                  \
-  dirmngr                                                                                                               \
-  git                                                                                                                   \
-  gnupg                                                                                                                 \
-  gzip                                                                                                                  \
-  libffi-dev                                                                                                            \
-  libicu63                                                                                                              \
-  libssl-dev                                                                                                            \
-  openssl                                                                                                               \
-  rsync                                                                                                                 \
-  sudo                                                                                                                  \
-  unzip                                                                                                                 \
-  zip                                                                                                                   \
-  acl                                                                                                                   \
+  && apt-get -y upgrade                                                                                                 \
+  && apt-get -y install --no-install-recommends                                                                         \
+    apt-transport-https                                                                                                 \
+    build-essential                                                                                                     \
+    ca-certificates                                                                                                     \
+    curl                                                                                                                \
+    dirmngr                                                                                                             \
+    git                                                                                                                 \
+    gnupg                                                                                                               \
+    gzip                                                                                                                \
+    libffi-dev                                                                                                          \
+    libicu-dev                                                                                                          \
+    libssl-dev                                                                                                          \
+    openssh-client                                                                                                      \
+    openssl                                                                                                             \
+    rsync                                                                                                               \
+    sudo                                                                                                                \
+    unzip                                                                                                               \
+    zip                                                                                                                 \
+    acl                                                                                                                 \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
 COPY superchain/gpg/mono.asc /tmp/mono.asc
 RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                                                                       \
+  # Mono only provides a Debian Buster (10) distribution point, but it works with subsequent debians, too...
   && echo "deb https://download.mono-project.com/repo/debian stable-buster main"                                        \
-  > /etc/apt/sources.list.d/mono-official-stable.list                                                                   \
+    > /etc/apt/sources.list.d/mono-official-stable.list                                                                 \
   && apt-get update                                                                                                     \
   && apt-get -y install mono-devel                                                                                      \
   && rm -rf /var/lib/apt/lists/*
@@ -149,13 +164,30 @@ RUN set -eo pipefail                                                            
   && chmod -R a+rw ${CARGO_HOME}
 ENV PATH=$PATH:${CARGO_HOME}/bin
 
-# Install Python 3
+# Install Python 3 and pipx
+# Starting in 'bookworm', 'pip install' needs special coercing (and 'apt-get install pipx' would be recommended)
+# but that flag is not recognized yet in older distros.
 RUN apt-get update                                                                                                      \
-  && apt-get -y install python3 python3-dev python3-pip python3-venv                                                    \
-  && python3 -m pip install --no-input --upgrade pip                                                                    \
-  && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
-  && rm -rf $(pip cache dir)                                                                                            \
+  && apt-get -y install python3-dev python3-pip python3-venv                                                            \
+  && coercepip='--break-system-packages'                                                                                \
+  && if [[ ${DEBIAN_VERSION} == "buster" || ${DEBIAN_VERSION} == "bullseye" ]]; then coercepip=''; fi                   \
+  && python3 -m pip install ${coercepip} pipx                                                                           \
   && rm -rf /var/lib/apt/lists/*
+
+# Install Python tools globally using pipx (install globally)
+ENV PIPX_HOME=/opt/pipx
+ENV PIPX_BIN_DIR=/usr/local/bin
+RUN pipx install black \
+  && pipx install twine \
+  && pipx install aws-sam-cli
+
+# Install AWS CLI v2
+ENV AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
+RUN curl "${AWS_CLI_V2_URL}" -o "/tmp/awscliv2.zip"                                                                     \
+  && unzip /tmp/awscliv2.zip -d /tmp/awscliv2                                                                           \
+  && /tmp/awscliv2/aws/install -b /usr/local/bin --update                                                               \
+  && rm -rf /tmp/awscliv2*
+
 
 # Install JDK8 (Amazon Corretto 8)
 COPY superchain/gpg/corretto.asc /tmp/corretto.asc
@@ -163,14 +195,14 @@ RUN apt-key add /tmp/corretto.asc && rm /tmp/corretto.asc                       
   && echo "deb https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/amazon-corretto.list                     \
   && apt-get update                                                                                                     \
   && mkdir -p /usr/share/man/man1                                                                                       \
-  && apt-get -y install java-1.8.0-amazon-corretto-jdk                                                                  \
+  && apt-get -y install java-20-amazon-corretto-jdk                                                                     \
   && rm -rf /usr/share/man/man1                                                                                         \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Docker
 COPY superchain/gpg/docker.asc /tmp/docker.asc
 RUN apt-key add /tmp/docker.asc && rm /tmp/docker.asc                                                                   \
-  && echo "deb https://download.docker.com/linux/debian buster stable" > /etc/apt/sources.list.d/docker.list            \
+  && echo "deb https://download.docker.com/linux/debian ${DEBIAN_VERSION} stable" > /etc/apt/sources.list.d/docker.list \
   && apt-get update                                                                                                     \
   && apt-get -y install docker-ce docker-ce-cli containerd.io                                                           \
   && rm -rf /var/lib/apt/lists/*
@@ -181,7 +213,7 @@ ARG GITHUB_CLI_VERSION="1.13.1"
 RUN BASE="https://github.com/cli/cli/releases/download"                                                                 \
   && echo "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"                  \
   && curl -fSsL "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"            \
-  -o /tmp/gh.deb                                                                                                        \
+    -o /tmp/gh.deb                                                                                                      \
   && apt-get update                                                                                                     \
   && apt-get -y install /tmp/gh.deb                                                                                     \
   && rm /tmp/gh.deb                                                                                                     \
@@ -203,27 +235,28 @@ COPY --from=bindist /opt/golang/go ${GOROOT}
 # Install Node 14+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
-ARG NODE_MAJOR_VERSION="14"
+ARG NODE_MAJOR_VERSION="16"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
-  && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x buster main"                                     \
-  > /etc/apt/sources.list.d/nodesource.list                                                                             \
+  && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x ${DEBIAN_VERSION} main"                          \
+    > /etc/apt/sources.list.d/nodesource.list                                                                           \
+  # Reduce priority of the "standard" nodejs package, so that the one from nodesource is always preferred...
+  && echo "Package: nodejs" > /etc/apt/preferences.d/nodejs                                                             \
+  && echo 'Pin: origin "deb.debian.org"' >> /etc/apt/preferences.d/nodejs                                               \
+  && echo "Pin-Priority: 50" >> /etc/apt/preferences.d/nodejs                                                           \
   && apt-key add /tmp/yarn.asc && rm /tmp/yarn.asc                                                                      \
   && echo "deb https://dl.yarnpkg.com/debian stable main" > /etc/apt/sources.list.d/yarnpkg.list                        \
   && apt-get update                                                                                                     \
   && apt-get -y install nodejs yarn                                                                                     \
   && rm -rf /var/lib/apt/lists/*
 
-# Install SAM CLI
-RUN pip install aws-sam-cli                                                                                             \
-  && sam --version
 
 # Install Amazon SSM agent (allows debugging of builds via `codebuild-breakpoint`, https://go.aws/3TVW7vL)
 RUN apt-get update                                                                                                      \
-  && apt-get -y install curl                                                                                            \
-  && curl -fSsL "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${TARGETPLATFORM#linux/}/amazon-ssm-agent.deb"      \
-  -o /tmp/amazon-ssm-agent.deb                                                                                          \
+  && apt-get -y install --no-install-recommends curl                                                                    \
+  && curl -fSsL "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${TARGETPLATFORM#linux/}/amazon-ssm-agent.deb"\
+    -o /tmp/amazon-ssm-agent.deb                                                                                        \
   && dpkg -i /tmp/amazon-ssm-agent.deb                                                                                  \
   && systemctl enable amazon-ssm-agent                                                                                  \
   && rm -rf /var/lib/apt/lists/*
@@ -244,13 +277,10 @@ COPY --chown=superchain:superchain superchain/m2-settings.xml /home/superchain/.
 COPY --chown=superchain:superchain superchain/ssh_config /home/superchain/.ssh/config
 RUN chmod 600 /home/superchain/.ssh/config
 
-# Add the source used to build this Docker image (to facilitate re-builds, forensics)
-COPY superchain /docker-source
-
 # Create the attributions document
 RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d' ' -f 1)/share/doc"                    \
   && RUSTUP_VERSION=$(rustup --version 2>/dev/null | cut -d' ' -f2)                                                     \
-  && echo "This jsii/superchain image includes the following third-party software/licensing:" > /NOTICE                 \
+  && echo "This public.ecr.aws/jsii/superchain image includes the following third-party software/licensing:" > /NOTICE  \
   && echo "" >> /NOTICE                                                                                                 \
   # Start with the packages that didn't come from "apt-get" or don't have a copyright file
   && echo "################################################################################" >> /NOTICE                 \
@@ -289,13 +319,13 @@ RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d
   && echo "------------------------------------ PATENTS ------------------------------------" >> /NOTICE                \
   && cat ${GOROOT}/PATENTS >> /NOTICE                                                                                   \
   && echo "################################################################################" >> /NOTICE                 \
-  && echo "java-1.8.0-amazon-corretto-jdk:" >> /NOTICE                                                                  \
+  && echo "java-20-amazon-corretto-jdk:" >> /NOTICE                                                                     \
   && echo "" >> /NOTICE                                                                                                 \
   && echo "------------------------------------ LICENSE ------------------------------------" >> /NOTICE                \
-  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/LICENSE >> /NOTICE                                                     \
+  && cat /usr/lib/jvm/java-20-amazon-corretto/LICENSE >> /NOTICE                                                        \
   && echo "" >> /NOTICE                                                                                                 \
   && echo "------------------------------------ THIRD-PARTY NOTICES ------------------------------------" >> /NOTICE    \
-  && cat /usr/lib/jvm/java-1.8.0-amazon-corretto/THIRD_PARTY_README >> /NOTICE                                          \
+  && cat /usr/lib/jvm/java-20-amazon-corretto/ADDITIONAL_LICENSE_INFO >> /NOTICE                                        \
   && echo "################################################################################" >> /NOTICE                 \
   && echo "maven:" >> /NOTICE                                                                                           \
   && echo "" >> /NOTICE                                                                                                 \
@@ -346,6 +376,10 @@ RUN RUST_DOCS="${RUSTUP_HOME}/toolchains/$(rustup show active-toolchain | cut -d
   ;fi                                                                                                                   \
   ;done
 
+# Add the source used to build this Docker image (to facilitate re-builds, forensics)
+# Keep this at the end for max caching.
+COPY superchain /docker-source
+
 CMD ["/bin/bash"]
 
 ########################################################################################################################
@@ -356,6 +390,8 @@ FROM scratch as superchain
 ENV LANG="C.UTF-8"                                                                                                      \
   LC_ALL="C.UTF-8"                                                                                                      \
   CHARSET="UTF-8"                                                                                                       \
+  \
+  JAVA_HOME="/usr/lib/jvm/java-20-amazon-corretto"                                                                      \
   \
   DOTNET_CLI_TELEMETRY_OPTOUT="true"                                                                                    \
   DOTNET_RUNNING_IN_CONTAINER="true"                                                                                    \

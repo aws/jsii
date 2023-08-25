@@ -1,3 +1,5 @@
+import './suppress-jsii-upgrade-prompts';
+
 import { TypeSystem } from 'jsii-reflect';
 import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
 import { resolve } from 'path';
@@ -74,7 +76,9 @@ export async function pacmak({
 
   await timers.recordAsync('npm pack', () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(modulesToPackageFlat.map((m) => m.npmPack()));
+    return Promise.all(
+      modulesToPackageFlat.map((m) => m.npmPack(argv['pack-command'])),
+    );
   });
 
   await timers.recordAsync('load jsii', () => {

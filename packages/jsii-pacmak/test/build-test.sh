@@ -81,3 +81,13 @@ done
 clean_dists
 echo "Testing ALL-AT-ONCE build."
 ${pacmak} ${OPTS} -v --no-parallel $packagedirs
+
+# Test custom pack command
+clean_dists
+echo "Testing yarn custom pack command."
+${pacmak} ${OPTS} -v --pack-command='yarn pack -f custom.tgz -s && echo custom.tgz' ${PWD}/../../@scope/jsii-calc-base-of-base
+
+# Test custom mvn settings command
+clean_dists
+echo "Testing custom mvn parameters."
+${pacmak} ${OPTS} -v --mvn-builder=singlethreaded --mvn-threads=4 $packagedirs

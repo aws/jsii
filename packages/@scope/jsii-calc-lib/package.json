@@ -21,7 +21,7 @@
     "directory": "packages/@scope/jsii-calc-lib"
   },
   "engines": {
-    "node": ">= 14.6.0"
+    "node": ">= 14.17.0"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",

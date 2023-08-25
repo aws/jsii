@@ -576,6 +576,7 @@ class JavaGenerator extends Generator {
     'void',
     'volatile',
     'while',
+    '_',
   ];
 
   /**
@@ -585,6 +586,11 @@ class JavaGenerator extends Generator {
   private static safeJavaPropertyName(propertyName: string) {
     if (!propertyName) {
       return propertyName;
+    }
+
+    if (propertyName === '_') {
+      // Slightly different pattern for this one
+      return '__';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
@@ -600,6 +606,11 @@ class JavaGenerator extends Generator {
   private static safeJavaMethodName(methodName: string) {
     if (!methodName) {
       return methodName;
+    }
+
+    if (methodName === '_') {
+      // Different pattern for this one. Also this should never happen, who names a function '_' ??
+      return 'doIt';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
@@ -974,13 +985,16 @@ class JavaGenerator extends Generator {
     const inheritedOptionalProps = ifc.interfaces
       .map(allOptionalProps.bind(this))
       // Calculate how many direct parents brought a given optional property
-      .reduce((histogram, entry) => {
-        for (const [name, spec] of Object.entries(entry)) {
-          histogram[name] = histogram[name] ?? { spec, count: 0 };
-          histogram[name].count += 1;
-        }
-        return histogram;
-      }, {} as Record<string, { readonly spec: spec.Property; count: number }>);
+      .reduce(
+        (histogram, entry) => {
+          for (const [name, spec] of Object.entries(entry)) {
+            histogram[name] = histogram[name] ?? { spec, count: 0 };
+            histogram[name].count += 1;
+          }
+          return histogram;
+        },
+        {} as Record<string, { readonly spec: spec.Property; count: number }>,
+      );
 
     const localProps = new Set(ifc.properties?.map((prop) => prop.name) ?? []);
     for (const { spec, count } of Object.values(inheritedOptionalProps)) {
@@ -1024,7 +1038,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of markDownToJavaDoc(
+      for (const line of myMarkDownToJavaDoc(
         this.convertSamplesInMarkdown(mod.readme.markdown, {
           api: 'moduleReadme',
           moduleFqn: mod.name,
@@ -1058,7 +1072,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of markDownToJavaDoc(
+      for (const line of myMarkDownToJavaDoc(
         this.convertSamplesInMarkdown(mod.readme.markdown, {
           api: 'moduleReadme',
           moduleFqn,
@@ -1135,13 +1149,18 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-compiler-plugin',
-                      version: '3.8.1',
-                      configuration: { source: '1.8', target: '1.8' },
+                      version: '3.11.0',
+                      configuration: {
+                        source: '1.8',
+                        target: '1.8',
+                        fork: 'true',
+                        maxmem: '4096m',
+                      },
                     },
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-jar-plugin',
-                      version: '3.2.0',
+                      version: '3.3.0',
                       configuration: {
                         archive: {
                           index: true,
@@ -1155,7 +1174,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-source-plugin',
-                      version: '3.2.1',
+                      version: '3.3.0',
                       executions: {
                         execution: {
                           id: 'attach-sources',
@@ -1166,7 +1185,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-javadoc-plugin',
-                      version: '3.2.0',
+                      version: '3.5.0',
                       executions: {
                         execution: {
                           id: 'attach-javadocs',
@@ -1188,12 +1207,14 @@ class JavaGenerator extends Generator {
                           '-J-XX:+TieredCompilation',
                           '-J-XX:TieredStopAtLevel=1',
                         ],
+                        doclint: 'none',
+                        quiet: 'true',
                       },
                     },
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-enforcer-plugin',
-                      version: '3.0.0-M3',
+                      version: '3.3.0',
                       executions: {
                         execution: {
                           id: 'enforce-maven',
@@ -1209,7 +1230,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.codehaus.mojo',
                       artifactId: 'versions-maven-plugin',
-                      version: '2.8.1',
+                      version: '2.16.0',
                       configuration: {
                         generateBackupPoms: false,
                       },
@@ -2226,7 +2247,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     this.code.line(
-      ` * @returns a newly built instance of {@link ${builtType}}.`,
+      ` * @return a newly built instance of {@link ${builtType}}.`,
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
@@ -2281,7 +2302,7 @@ class JavaGenerator extends Generator {
       );
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
-        const remarks = markDownToJavaDoc(
+        const remarks = myMarkDownToJavaDoc(
           this.convertSamplesInMarkdown(prop.docs.remarks, {
             api: 'member',
             fqn: prop.definingType.fqn,
@@ -2710,14 +2731,14 @@ class JavaGenerator extends Generator {
     const paras = [];
 
     if (docs.summary) {
-      paras.push(renderSummary(docs));
+      paras.push(stripNewLines(myMarkDownToJavaDoc(renderSummary(docs))));
     } else if (defaultText) {
-      paras.push(defaultText);
+      paras.push(myMarkDownToJavaDoc(defaultText));
     }
 
     if (docs.remarks) {
       paras.push(
-        markDownToJavaDoc(
+        myMarkDownToJavaDoc(
           this.convertSamplesInMarkdown(docs.remarks, apiLoc),
         ).trimRight(),
       );
@@ -2744,14 +2765,14 @@ class JavaGenerator extends Generator {
       // Hence, we just resort to HTML-encoding everything (same as we do for code
       // examples that have been translated from MarkDown).
       paras.push(
-        markDownToJavaDoc(['```', convertedExample, '```'].join('\n')),
+        myMarkDownToJavaDoc(['```', convertedExample, '```'].join('\n')),
       );
     }
 
     const tagLines = [];
 
     if (docs.returns) {
-      tagLines.push(`@return ${docs.returns}`);
+      tagLines.push(`@return ${myMarkDownToJavaDoc(docs.returns)}`);
     }
     if (docs.see) {
       tagLines.push(
@@ -2759,7 +2780,7 @@ class JavaGenerator extends Generator {
       );
     }
     if (docs.deprecated) {
-      tagLines.push(`@deprecated ${docs.deprecated}`);
+      tagLines.push(`@deprecated ${myMarkDownToJavaDoc(docs.deprecated)}`);
     }
 
     // Params
@@ -2787,7 +2808,7 @@ class JavaGenerator extends Generator {
 
     this.code.line('/**');
     for (const line of lines) {
-      this.code.line(` * ${line}`);
+      this.code.line(` * ${escapeEndingComment(line)}`);
     }
     this.code.line(' */');
   }
@@ -3462,7 +3483,7 @@ function paramJavadoc(
 ): string {
   const parts = ['@param', name];
   if (summary) {
-    parts.push(endWithPeriod(summary));
+    parts.push(stripNewLines(myMarkDownToJavaDoc(endWithPeriod(summary))));
   }
   if (!optional) {
     parts.push('This parameter is required.');
@@ -3639,4 +3660,25 @@ function containsUnionType(
     (spec.isCollectionTypeReference(typeRef) &&
       containsUnionType(typeRef.collection.elementtype))
   );
+}
+
+function myMarkDownToJavaDoc(source: string) {
+  if (source.includes('{@link') || source.includes('{@code')) {
+    // Slightly dirty hack: if we are seeing this, it means the docstring was provided literally
+    // in this file. These strings are safe to not be escaped, and in fact escaping them will
+    // break them: they will turn into `{&#64;`, which breaks the JavaDoc markup.
+    //
+    // Since docstring do not (or at least should not) contain JavaDoc literals, this is safe.
+    return source;
+  }
+  return markDownToJavaDoc(source);
+}
+
+function stripNewLines(x: string) {
+  return x.replace(/\n/g, '');
+}
+
+// Replace */ with *\/ to avoid closing the comment block
+function escapeEndingComment(x: string) {
+  return x.replace(/\*\//g, '*\\/');
 }

@@ -129,7 +129,7 @@ describe(loadAssemblyFromPath, () => {
     });
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrowError(
-      /Error: Invalid assembly redirect:\n \* redirect\/compression must be equal to one of the allowed values/m,
+      /Error: Invalid assembly redirect:\n \* redirect\/compression must be equal to constant/m,
     );
   });
 

@@ -38,6 +38,14 @@ export class DocumentedClass {
   public hola(): void {
     process.stdout.write('bonjour');
   }
+
+  /**
+  * Some comments have an escaped star backslash in them, ending the comment if left unescaped.
+For example: 'projects/*\/global/networks/network-1'.
+  */
+  public moin(): void {
+    process.stdout.write('servus');
+  }
 }
 
 /**
@@ -65,4 +73,31 @@ export class Old {
   public doAThing(): void {
     // Nothing to do
   }
+}
+
+/**
+ * > Don't use this interface
+ * An interface that shouldn't be used, with the annotation in a weird place.
+ */
+export interface DontUseMe {
+  /**
+   * > Don't set this parameter
+   *
+   * A parameter that shouldn't be set, with the annotation in a weird place.
+   */
+  readonly dontSetMe?: string;
+}
+
+/**
+ * > Don't use this class.
+ *
+ * A class that shouldn't be used, with the annotation in a weird place.
+ */
+export class WeirdDocs {
+  /**
+   * > Don't read this property
+   *
+   * A property that shouldn't be read, with the annotation in a weird place.
+   */
+  public dontReadMe?: string;
 }

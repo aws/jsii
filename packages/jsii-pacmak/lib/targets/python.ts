@@ -18,6 +18,7 @@ import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
+import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
   NamingContext,
@@ -618,7 +619,7 @@ abstract class BaseMethod implements PythonBase {
             name: p.name,
             docs: p.docs,
             definingType: this.parent,
-          } as DocumentableArgument),
+          }) as DocumentableArgument,
       )
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
@@ -664,7 +665,7 @@ abstract class BaseMethod implements PythonBase {
               name: p.prop.name,
               docs: p.prop.docs,
               definingType: p.definingType,
-            } as DocumentableArgument),
+            }) as DocumentableArgument,
         ),
       );
     } else if (
@@ -2080,12 +2081,6 @@ class Package {
     );
     code.closeFile('README.md');
 
-    // Strip " (build abcdef)" from the jsii version
-    const jsiiVersionSimple = toReleaseVersion(
-      this.metadata.jsiiVersion.replace(/ .*$/, ''),
-      TargetName.PYTHON,
-    );
-
     const setupKwargs = {
       name: this.name,
       version: this.version,
@@ -2109,7 +2104,7 @@ class Package {
       package_data: packageData,
       python_requires: '~=3.7',
       install_requires: [
-        `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
+        `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
         'typeguard~=2.13.3',
       ]
@@ -2130,7 +2125,14 @@ class Package {
       scripts,
     };
 
-    switch (this.metadata.docs?.stability) {
+    // Packages w/ a deprecated message may have a non-deprecated stability (e.g: when EoL happens
+    // for a stable package). We pretend it's deprecated for the purpose of trove classifiers when
+    // this happens.
+    switch (
+      this.metadata.docs?.deprecated
+        ? spec.Stability.Deprecated
+        : this.metadata.docs?.stability
+    ) {
       case spec.Stability.Experimental:
         setupKwargs.classifiers.push('Development Status :: 4 - Beta');
         break;

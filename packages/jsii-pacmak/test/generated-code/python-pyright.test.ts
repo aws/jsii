@@ -48,11 +48,13 @@ beforeAll(async () => {
     install: TEST_PACKAGES.flatMap(({ moduleName }) => [
       '-e',
       JSON.stringify(path.join(pythonSource, moduleName, TargetName.PYTHON)),
+    ]),
+    installOptions: [
       // setuptools >=64 requires this
       // https://github.com/pypa/setuptools/issues/3518
       '--config-settings',
       'editable_mode=strict',
-    ]),
+    ],
     venvDir: pythonSource,
     systemSitePackages: false, // Interferes with pyright resolutions...
   });

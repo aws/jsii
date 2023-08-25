@@ -84,7 +84,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com
     <EmbeddedResource Include="foo-1.2.3.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
     <PackageReference Include="Com.Acme.Bar" Version="[2.0.0-rc.42,3.0.0)" />
   </ItemGroup>
   <PropertyGroup>
@@ -220,16 +220,18 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -243,7 +245,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -256,7 +258,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -273,12 +275,14 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -298,7 +302,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>2.16.0</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -408,7 +412,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.41"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -453,7 +457,7 @@ kwargs = json.loads(
     "python_requires": "~=3.7",
     "install_requires": [
         "bar>=2.0.0.rc42, <3.0.0",
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],
@@ -595,7 +599,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/
     <EmbeddedResource Include="foo-1.2.3.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
     <PackageReference Include="Com.Acme.Bar" Version="[4.5.6-pre.1337,5.0.0)" />
   </ItemGroup>
   <PropertyGroup>
@@ -731,16 +735,18 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -754,7 +760,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -767,7 +773,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -784,12 +790,14 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -809,7 +817,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>2.16.0</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -919,7 +927,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.41"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -964,7 +972,7 @@ kwargs = json.loads(
     "python_requires": "~=3.7",
     "install_requires": [
         "bar>=4.5.6.dev1337, <5.0.0",
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],
@@ -1106,7 +1114,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] =
     <EmbeddedResource Include="foo-2.0.0-rc.42.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -1230,16 +1238,18 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -1253,7 +1263,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -1266,7 +1276,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -1283,12 +1293,14 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -1308,7 +1320,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>2.16.0</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -1410,7 +1422,7 @@ foo
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.41"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1454,7 +1466,7 @@ kwargs = json.loads(
     },
     "python_requires": "~=3.7",
     "install_requires": [
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],
@@ -1594,7 +1606,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`
     <EmbeddedResource Include="foo-4.5.6-pre.1337.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
   </ItemGroup>
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
@@ -1718,16 +1730,18 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <configuration>
           <archive>
             <index>true</index>
@@ -1741,7 +1755,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -1754,7 +1768,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -1771,12 +1785,14 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
           </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -1796,7 +1812,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>2.16.0</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -1898,7 +1914,7 @@ foo
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.38"]
+requires = ["setuptools~=67.3.2", "wheel~=0.41"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1942,7 +1958,7 @@ kwargs = json.loads(
     },
     "python_requires": "~=3.7",
     "install_requires": [
-        "jsii>=1337.42.1337, <1338.0.0",
+        "jsii<0.0.1",
         "publication>=0.0.3",
         "typeguard~=2.13.3"
     ],

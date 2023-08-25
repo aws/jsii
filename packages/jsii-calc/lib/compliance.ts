@@ -1597,12 +1597,14 @@ export class JsiiAgent {
 
 // To support module augmentation classes must support multiple declaration sites
 // (the tail of which must be interfaces)
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class AugmentableClass {
   public methodOne(): void {
     console.log('methodOne');
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface AugmentableClass {
   methodTwo(): void;
 }
@@ -2013,7 +2015,7 @@ export class SingletonString {
   private constructor() {}
 
   public isSingletonString(value: string): boolean {
-    return value === SingletonStringEnum.SINGLETON_STRING;
+    return value === SingletonStringEnum.SINGLETON_STRING.valueOf();
   }
 }
 /** A singleton string */
@@ -2029,7 +2031,7 @@ export enum SingletonStringEnum {
 export class SingletonInt {
   private constructor() {}
   public isSingletonInt(value: number): boolean {
-    return value === SingletonIntEnum.SINGLETON_INT;
+    return value === SingletonIntEnum.SINGLETON_INT.valueOf();
   }
 }
 /** A singleton integer. */
@@ -3140,4 +3142,25 @@ export class PromiseNothing {
   public async instancePromiseIt(): Promise<void> {
     return PromiseNothing.promiseIt();
   }
+}
+
+export class AnyPropertyAccess {
+  /**
+   * Sets obj[resultProp] to `${obj[propA]}+${obj[propB]}`.
+   *
+   * @param obj the receiver object.
+   * @param propA the first property to read.
+   * @param propB the second property to read.
+   * @param resultProp the property to write into.
+   */
+  public static mutateProperties(
+    obj: any,
+    propA: string,
+    propB: string,
+    resultProp: string,
+  ) {
+    obj[resultProp] = `${obj[propA]}+${obj[propB]}`;
+  }
+
+  private constructor() {}
 }

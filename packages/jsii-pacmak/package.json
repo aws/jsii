@@ -17,7 +17,7 @@
     "directory": "packages/jsii-pacmak"
   },
   "engines": {
-    "node": ">= 14.6.0"
+    "node": ">= 14.17.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -46,7 +46,7 @@
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "semver": "^7.3.8",
+    "semver": "^7.5.4",
     "spdx-license-list": "^6.6.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
@@ -57,15 +57,15 @@
     "@jsii/go-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/clone": "^2.1.1",
-    "@types/diff": "^5.0.2",
-    "@types/commonmark": "^0.27.5",
+    "@types/diff": "^5.0.3",
+    "@types/commonmark": "^0.27.6",
     "@types/fs-extra": "^9.0.13",
-    "@types/semver": "^7.3.13",
+    "@types/semver": "^7.5.0",
     "diff": "^5.1.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "pyright": "^1.1.296"
+    "pyright": "^1.1.324"
   },
   "keywords": [
     "jsii",

@@ -2,6 +2,130 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.88.0](https://github.com/aws/jsii/compare/v1.87.0...v1.88.0) (2023-08-24)
+
+## [1.87.0](https://github.com/aws/jsii/compare/v1.86.1...v1.87.0) (2023-08-11)
+
+
+### Bug Fixes
+
+* **kernel:** fast module loading fails on Windows (EPERM) ([#4212](https://github.com/aws/jsii/issues/4212)) ([fac6cbb](https://github.com/aws/jsii/commit/fac6cbbeb5d9bcbbac8f9dff58001afb701a4065)), closes [#4208](https://github.com/aws/jsii/issues/4208)
+* **kernel:** package cache fails under parallelism ([#4215](https://github.com/aws/jsii/issues/4215)) ([b739ef6](https://github.com/aws/jsii/commit/b739ef68d4d92d7af78b2a91b8581e9f3077df96)), closes [#4181](https://github.com/aws/jsii/issues/4181) [#4207](https://github.com/aws/jsii/issues/4207)
+* pip, black, setuptools, twine, wheel, and aws-sam-cli incorrectly installed in superchain ([#4201](https://github.com/aws/jsii/issues/4201)) ([851415c](https://github.com/aws/jsii/commit/851415c44864c0fb0b4b2d5ee4535f0b33f89a48))
+* **python:** type object 'InterfaceDynamicProxy' has no attribute '__jsii_type__' ([#4209](https://github.com/aws/jsii/issues/4209)) ([057b267](https://github.com/aws/jsii/commit/057b267809a05135d6d22227318ae55100aad272))
+* **superchain:** add openssh-client back ([#4224](https://github.com/aws/jsii/issues/4224)) ([8390ca1](https://github.com/aws/jsii/commit/8390ca1615769846f92c42ef35ac590b4673efbb))
+
+## [1.86.1](https://github.com/aws/jsii/compare/v1.86.0...v1.86.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* **kernel:** incorrectly scoped FQN resolutions ([#4204](https://github.com/aws/jsii/issues/4204)) ([ed667c7](https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889)), closes [aws/aws-cdk#26604](https://github.com/aws/aws-cdk/issues/26604) [#4202](https://github.com/aws/jsii/issues/4202) [#4203](https://github.com/aws/jsii/issues/4203)
+
+## [1.86.0](https://github.com/aws/jsii/compare/v1.85.0...v1.86.0) (2023-08-01)
+
+
+### Features
+
+* faster, lazy-friendly runtime loading ([#4181](https://github.com/aws/jsii/issues/4181)) ([ef6e5b1](https://github.com/aws/jsii/commit/ef6e5b1ebbafe69252fc78883962b3731bbb04ef))
+* **jsii-pacmak:** allow disabling go build conditionally ([#4196](https://github.com/aws/jsii/issues/4196)) ([7fc7987](https://github.com/aws/jsii/commit/7fc79876889504c2eae5888baeb8525d82a4a491))
+* **python:** deprecation message when using Python <= 3.7 ([#4186](https://github.com/aws/jsii/issues/4186)) ([0ef7ace](https://github.com/aws/jsii/commit/0ef7acef765690f99075888d6c3e6f03d7cc2d59))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** comment lines should not contain comment ending ([#4193](https://github.com/aws/jsii/issues/4193)) ([906c24d](https://github.com/aws/jsii/commit/906c24db65a0c4a581ba2727dc4ad7ca157a8995))
+* **jsii-pacmak:** handles 'default' doc component for go ([#4115](https://github.com/aws/jsii/issues/4115)) ([9085514](https://github.com/aws/jsii/commit/90855148990811ee90b1728b728a974e0b5a0b89))
+* type annotation for callable metaclass ([#4179](https://github.com/aws/jsii/issues/4179)) ([4ccbb57](https://github.com/aws/jsii/commit/4ccbb579c8f26f55f8e391ddaf1fd562f1b78c38))
+
+## [1.85.0](https://github.com/aws/jsii/compare/v1.84.0...v1.85.0) (2023-07-17)
+
+
+### Bug Fixes
+
+* export transliterateAssembly and fix bug with transliterate cli (backport) ([#4166](https://github.com/aws/jsii/issues/4166)) ([6b7eb02](https://github.com/aws/jsii/commit/6b7eb02f3a822941185e8c74be71d677285c741e))
+* **go-runtime:** use fatih/color instead of ANSI Escape Code ([#4109](https://github.com/aws/jsii/issues/4109)) ([28b192a](https://github.com/aws/jsii/commit/28b192aa1a3ecdd3b3ce6ee49a5efd32db01e695))
+
+## [1.84.0](https://github.com/aws/jsii/compare/v1.83.0...v1.84.0) (2023-06-13)
+
+
+### Features
+
+* **jsii:** allow specifying a deprecation message regardless of stability ([#4145](https://github.com/aws/jsii/issues/4145)) ([38d327c](https://github.com/aws/jsii/commit/38d327c7f47b3af360c2829bae8b785c9be055b5))
+
+## [1.83.0](https://github.com/aws/jsii/compare/v1.82.0...v1.83.0) (2023-06-07)
+
+## [1.82.0](https://github.com/aws/jsii/compare/v1.81.0...v1.82.0) (2023-05-22)
+
+
+### Features
+
+* **go:** register exported properties as callbacks ([#4104](https://github.com/aws/jsii/issues/4104)) ([fa921ec](https://github.com/aws/jsii/commit/fa921ecfb1dab52144e89cbbeeba0b334779cde9)), closes [cdk8s-team/cdk8s#1326](https://github.com/cdk8s-team/cdk8s/issues/1326)
+* **superchain:** switch to JDK 20 ([#4082](https://github.com/aws/jsii/issues/4082)) ([f0a1dfc](https://github.com/aws/jsii/commit/f0a1dfce8edb06a1b71758b49886580e6ee271ff))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** disable `doclint` ([#4103](https://github.com/aws/jsii/issues/4103)) ([30afa09](https://github.com/aws/jsii/commit/30afa095e296d71d3700a2a56a36483a92c5457d))
+* **jsii-pacmak:** emit correct `[@return](https://github.com/return)` tag for JavaDocs ([#4095](https://github.com/aws/jsii/issues/4095)) ([fc7ab7c](https://github.com/aws/jsii/commit/fc7ab7c57f4a94949794cc963bbf644ad491d246))
+* **jsii-pacmak:** escape documentation in all positions ([#4096](https://github.com/aws/jsii/issues/4096)) ([6a2248d](https://github.com/aws/jsii/commit/6a2248dde982d2758976cc1b5d4c3e7676b0f204))
+* **pacmak:** _ is not treated as a keyword in Java  ([#4094](https://github.com/aws/jsii/issues/4094)) ([eaaf3ee](https://github.com/aws/jsii/commit/eaaf3ee20ad64ba5d5ed4441aa12f27f024e7c85))
+
+## [1.81.0](https://github.com/aws/jsii/compare/v1.80.0...v1.81.0) (2023-05-10)
+
+
+### Features
+
+* **jsii-diff:** allow external stability to be treated as error ([#4076](https://github.com/aws/jsii/issues/4076)) ([95689ea](https://github.com/aws/jsii/commit/95689ea840a99f38f8449aab2bc452cf489e3e3f))
+* **jsii-pacmak:** parsing arguments in non-strict mode ([#4068](https://github.com/aws/jsii/issues/4068)) ([3d49d6f](https://github.com/aws/jsii/commit/3d49d6fd2dc64db45aa3f1164bb976c8cfe75175)), closes [#3465](https://github.com/aws/jsii/issues/3465)
+
+
+### Bug Fixes
+
+* **pacmak:** go docs overview displays repeating description ([#4081](https://github.com/aws/jsii/issues/4081)) ([4fd596a](https://github.com/aws/jsii/commit/4fd596a467cdb422ebea3fdf01d068bc360b3757)), closes [/github.com/aws/jsii/pull/3698/files#diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263](https://github.com/aws//github.com/aws/jsii/pull/3698/files/issues/diff-0a99c713a1282d6efe349c932d74dbfbdf1d926834c46ebfb5d65daeb27073f3R263) [/github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json#L4](https://github.com/aws//github.com/aws/aws-cdk/blob/main/packages/aws-cdk-lib/package.json/issues/L4) [/github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts#L46-L52](https://github.com/aws//github.com/aws/jsii/blob/main/packages/jsii-reflect/lib/assembly.ts/issues/L46-L52)
+* **rosetta:** flakey trim-cache test ([#4043](https://github.com/aws/jsii/issues/4043)) ([f70c0f7](https://github.com/aws/jsii/commit/f70c0f77069c8beb30010395cfd5817ac013feba))
+
+## [1.80.0](https://github.com/aws/jsii/compare/v1.79.0...v1.80.0) (2023-04-04)
+
+
+### Features
+
+* **rosetta:** handle tablets with a streaming JSON codec ([#4034](https://github.com/aws/jsii/issues/4034)) ([d2ecb6d](https://github.com/aws/jsii/commit/d2ecb6d2a6a460e309e4985dc001a6b749b3aac7)), closes [aws/jsii-rosetta#43](https://github.com/aws/jsii-rosetta/issues/43)
+
+
+### Bug Fixes
+
+* enable dereference when copying module to tmp dir ([#4030](https://github.com/aws/jsii/issues/4030)) ([e00102b](https://github.com/aws/jsii/commit/e00102bbd412be0edd5497948c63ae61c6717c5e))
+* **jsii:** incorrect symbol-id generated with typesVersions ([#4037](https://github.com/aws/jsii/issues/4037)) ([1f06ac9](https://github.com/aws/jsii/commit/1f06ac9d6937e823e4333300398260d50cce2978))
+
+## [1.79.0](https://github.com/aws/jsii/compare/v1.78.1...v1.79.0) (2023-03-23)
+
+
+### Features
+
+* add configurable pack command ([#4021](https://github.com/aws/jsii/issues/4021)) ([6b2fd18](https://github.com/aws/jsii/commit/6b2fd186bd77416a9b341c5544a101f50793076d))
+* enable Go generics for jsii Go CDK code ([#4009](https://github.com/aws/jsii/issues/4009)) ([f653b31](https://github.com/aws/jsii/commit/f653b3173760679562648710b08907bfe2c7c748))
+* **runtimes:** support JSII_NODE setting ([#4024](https://github.com/aws/jsii/issues/4024)) ([f8f2f13](https://github.com/aws/jsii/commit/f8f2f13780f805cd41cb9945ad8febce9aec5900)), closes [#4009](https://github.com/aws/jsii/issues/4009)
+
+## [1.78.1](https://github.com/aws/jsii/compare/v1.78.0...v1.78.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **pacmak:** runtime dependency should match pacmak release ([#4013](https://github.com/aws/jsii/issues/4013)) ([37c29f7](https://github.com/aws/jsii/commit/37c29f7c944b9abe9d7f26c313d729f7af6970a8))
+
+## [1.78.0](https://github.com/aws/jsii/compare/v1.77.0...v1.78.0) (2023-03-15)
+
+
+### Features
+
+* jsii-reflect now renders union candidates sorted ([#4005](https://github.com/aws/jsii/issues/4005)) ([1fd6cde](https://github.com/aws/jsii/commit/1fd6cde89794dd329049d13008f6f2453663f251))
+
+
+### Bug Fixes
+
+* **kernel:** json deserialization fails on `null` value ([#4000](https://github.com/aws/jsii/issues/4000)) ([884b0ff](https://github.com/aws/jsii/commit/884b0ffc9993bd3b8a0f9a8b40ecab116ff34872)), closes [aws/aws-cdk#14639](https://github.com/aws/aws-cdk/issues/14639)
+
 ## [1.77.0](https://github.com/aws/jsii/compare/v1.76.0...v1.77.0) (2023-03-06)
 
 

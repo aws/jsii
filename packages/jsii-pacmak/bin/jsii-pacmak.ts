@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import '@jsii/check-node/run';
+import '../lib/suppress-jsii-upgrade-prompts';
 
 import { UnknownSnippetMode } from 'jsii-rosetta';
 import * as yargs from 'yargs';
 
 import { pacmak, configureLogging, TargetName } from '../lib';
 import { debug } from '../lib/logging';
+import { DEFAULT_PACK_COMMAND } from '../lib/packaging';
 import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
@@ -153,15 +155,20 @@ import { VERSION_DESC } from '../lib/version';
       default: undefined,
       hidden: true,
     })
+    .option('pack-command', {
+      type: 'string',
+      desc: 'Configure a custom command to create package tarballs. Command must output the name of the tarball.',
+      default: DEFAULT_PACK_COMMAND,
+      hidden: true,
+    })
     .option('validate-assemblies', {
       type: 'boolean',
       desc: 'Whether jsii assemblies should be validated. This can be expensive and is skipped by default.',
       default: false,
     })
-    .version(VERSION_DESC)
-    .strict().argv;
+    .version(VERSION_DESC).argv;
 
-  configureLogging({ level: argv.verbose !== undefined ? argv.verbose : 0 });
+  configureLogging({ level: argv.verbose ?? 0 });
 
   // Default to 4 threads in case of concurrency, good enough for most situations
   debug('command line arguments:', argv);
