@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1693000201977,
+  "lastUpdate": 1693229733771,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20855,6 +20855,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 600010.2477896966,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 82006.07523499998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0f25e944faa389fbad81c37a67a1a0112c1e2461",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.1.21 to ~=9.2.5 in /gh-pages (#4252)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.2.5</h2>\n<ul>\n<li>Fixed error in dirty serve mode when using blog plugin</li>\n<li>Fixed page title not being consistent in blog plugin pagination</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5899\">#5899</a>: Blog plugin pagination breaks when disabling directory URLs</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ecdf33681a0f3be80b69747856c173bea4009ab3\"><code>ecdf336</code></a> Prepare 9.2.5 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/acd70cf04a5ff4ecd955ed46571ebceaf2ddad66\"><code>acd70cf</code></a> Fixed dirty rebuilds for blog plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/568a5c8e1e4fad38af220f811f42cd8ff18551e8\"><code>568a5c8</code></a> Fixed blog title not being consistent in pagination</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/da21786694e6cef70e617a4d9e8b59af65f24567\"><code>da21786</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fbb7a5e8942629b1acc09c7f296e5396f654a554\"><code>fbb7a5e</code></a> Blog plugin pagination breaks when disabling directory URLs</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f022873c69bb10b419dfbecab2cc0a2d6ac794b1\"><code>f022873</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/cafdc48a8a1c7d73683ce9f9cafc7966af2df63f\"><code>cafdc48</code></a> Prepare 9.2.4 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/db568b1e6b28e3402c3b52a62ea8eb9430be6474\"><code>db568b1</code></a> Added version to info plugin example name</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d26a949175f70c912e8a74e6639f6e56e01df419\"><code>d26a949</code></a> Updated premium sponsors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/9259251377fd8d6d28b1417ffc8bdbd78acb2213\"><code>9259251</code></a> Documentation</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.1.21...9.2.5\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-08-28T12:46:54Z",
+          "tree_id": "120460d28f4a666e5733639e8a575bb9a9145687",
+          "url": "https://github.com/aws/jsii/commit/0f25e944faa389fbad81c37a67a1a0112c1e2461"
+        },
+        "date": 1693229726253,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61467.46870059999,
+            "unit": "milliseconds",
+            "range": 4118257.3900776557,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61467.46870059999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46607.91071229996,
+            "unit": "milliseconds",
+            "range": 108055.24451242053,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46607.91071229996 milliseconds over 20 runs"
           }
         ]
       }
