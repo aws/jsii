@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1693837844801,
+  "lastUpdate": 1693841035851,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -20969,6 +20969,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 1392139.248979388,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 76487.10083774997 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "36274996bb5f93f8b420cfc900b77c72ea1c7b9d",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.7.1 to 17.7.2 in /packages/@jsii/dotnet-runtime-test/test (#4254)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.7.1 to 17.7.2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.7.2</h2>\n<h2>What's Changed</h2>\n<ul>\n<li>Fix cannot find System.Text.Json by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/4669\">microsoft/vstest#4669</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/microsoft/vstest/compare/v17.7.1...v17.7.2\">https://github.com/microsoft/vstest/compare/v17.7.1...v17.7.2</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/604e7beeb3abe7e351a7bb5e507bea66d76a5888\"><code>604e7be</code></a> [rel/17.7] Fix cannot find System.Text.Json (<a href=\"https://redirect.github.com/microsoft/vstest/issues/4669\">#4669</a>)</li>\n<li>See full diff in <a href=\"https://github.com/microsoft/vstest/compare/v17.7.1...v17.7.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.7.1&new-version=17.7.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-09-04T14:32:16Z",
+          "tree_id": "a6e89435d3add2abfb68dbddcf3bb8f71e0b8c50",
+          "url": "https://github.com/aws/jsii/commit/36274996bb5f93f8b420cfc900b77c72ea1c7b9d"
+        },
+        "date": 1693841031856,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70496.84446485004,
+            "unit": "milliseconds",
+            "range": 986797.5152379688,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70496.84446485004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51811.88783190002,
+            "unit": "milliseconds",
+            "range": 110813.84816955356,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51811.88783190002 milliseconds over 20 runs"
           }
         ]
       }
