@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1694019687874,
+  "lastUpdate": 1694439956862,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21159,6 +21159,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 690335.8137760791,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47963.67376035 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3856e28e2b65acb8855c314a3b22c5724508fd79",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.2.7 to ~=9.2.8 in /gh-pages (#4261)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.2.8</h2>\n<ul>\n<li>Updated Italian and Russian translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5952\">#5952</a>: Combining blog and tags plugin leads to wrong links</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5951\">#5951</a>: Blog plugin ignores post title in metadata</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5949\">#5949</a>: Blog plugin ignores post linked in nav</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.2.8+insiders-4.40.4 (2023-09-04)</p>\n<ul>\n<li>Fixed privacy plugin choking on boolean HTML5 attributes</li>\n<li>Fixed wrapping of inline code blocks in typeset table of contents</li>\n<li>Fixed blog plugin error when running under dirty reload</li>\n</ul>\n<p>mkdocs-material-9.2.8 (2023-09-04)</p>\n<ul>\n<li>Updated Italian and Russian translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5952\">#5952</a>: Combining blog and tags plugin leads to wrong links</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5951\">#5951</a>: Blog plugin ignores post title in metadata</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5949\">#5949</a>: Blog plugin ignores post linked in nav</li>\n</ul>\n<p>mkdocs-material-9-2.7+insiders-4.40.3 (2023-09-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5946\">#5946</a>: Docker image missing pngquant for optimize plugin</li>\n</ul>\n<p>mkdocs-material-9.2.7 (2023-09-02)</p>\n<ul>\n<li>Switched dependencies to compatible release clauses</li>\n<li>Removed readtime and lxml dependencies for blog plugin</li>\n<li>Reduced size of Docker image to improve CI build performance</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5945\">#5945</a>: Incorrect footer navigation for sibling pages of blog</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5939\">#5939</a>: Page jumps when changing color palette (Firefox 117)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5901\">#5901</a>: Announcement bar reappears when using instant loading</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5824\">#5824</a>: Allow to customize styles of sequence diagrams</li>\n</ul>\n<p>mkdocs-material-9-2.6+insiders-4.40.2 (2023-08-31)</p>\n<ul>\n<li>Added configurable error handling capabilities for social plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5922\">#5922</a>: Blog plugin shows no posts when building a standalone blog</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5914\">#5914</a>: Tags plugin tags_extra_files errors (4.39.3 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5904\">#5904</a>: Blog plugin sometimes excludes files (4.40.1 regression)</li>\n</ul>\n<p>mkdocs-material-9-2.6 (2023-08-31)</p>\n<ul>\n<li>Added Basque translations</li>\n<li>Added template for simple redirects</li>\n<li>Improved blog plugin interop by moving view generation to on_files</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5924\">#5924</a>: Social plugin still checks dependencies when disabled</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5916\">#5916</a>: Blog plugin crashes on Python 3.8 (9.2.0 regression)</li>\n</ul>\n<p>mkdocs-material-9-2.5+insiders-4.40.1 (2023-08-27)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5902\">#5902</a>: ResizeObserver polyfill not detected by privacy plugin</li>\n<li>Fixed empty category pages in blog plugin (4.40.0 regression)</li>\n</ul>\n<p>mkdocs-material-9-2.5 (2023-08-27)</p>\n<ul>\n<li>Fixed error in dirty serve mode when using blog plugin</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a1adebac8ef4ef7ec874718e53224de6d232c616\"><code>a1adeba</code></a> Updated changelogs</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/86d52b93cddfe1cb2ce7c6bef1100a55acd7e804\"><code>86d52b9</code></a> Prepare 9.2.8 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/26b57bb2d8717c61179539fb6168c2946ba52b19\"><code>26b57bb</code></a> Updated Russian translations (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5947\">#5947</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fc566cf0e2db557bf5678c1085c1802466a300a5\"><code>fc566cf</code></a> Fixed further regression in blog plugin navigation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5e42517a22386ab49f6efae79b916d066efbd4ba\"><code>5e42517</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3b593142898189b77472978f1cf3a15f73790b08\"><code>3b59314</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/682d1761e75f8f69b22abaffa8d577eccc470452\"><code>682d176</code></a> Fixed further regression in blog plugin navigation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/752aa5ce8836d803c13e986b5873a917b3f45d09\"><code>752aa5c</code></a> Updated translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c4d19cc854943aba54dd265f3dd06ab39eb2c1ce\"><code>c4d19cc</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/12f866ddf58cede902e0fa6e3544eb93d912cecc\"><code>12f866d</code></a> Updated dependencies</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.2.7...9.2.8\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-09-11T12:46:57Z",
+          "tree_id": "2a6a441eb8c86cb2fce531cd3426592b831c9941",
+          "url": "https://github.com/aws/jsii/commit/3856e28e2b65acb8855c314a3b22c5724508fd79"
+        },
+        "date": 1694439951470,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 81289.46980209995,
+            "unit": "milliseconds",
+            "range": 3207583.9560410567,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 81289.46980209995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 61228.25304204998,
+            "unit": "milliseconds",
+            "range": 82779.94672872667,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61228.25304204998 milliseconds over 20 runs"
           }
         ]
       }
