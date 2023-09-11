@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1694443915842,
+  "lastUpdate": 1694453016182,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21235,6 +21235,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 46288.23440550525,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46652.32515070001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "eltociear@gmail.com",
+            "name": "Ikko Eltociear Ashimine",
+            "username": "eltociear"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4b62fb2fb5767648aeca608d3cfc021ead67562d",
+          "message": "chore: fix typo in runtime-info.ts (#4260)\n\nfaciliate -> facilitate\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-09-11T16:29:27Z",
+          "tree_id": "d74cfe37432f222cee659c5efdf290b84aae2b1d",
+          "url": "https://github.com/aws/jsii/commit/4b62fb2fb5767648aeca608d3cfc021ead67562d"
+        },
+        "date": 1694453011702,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 73236.79544274995,
+            "unit": "milliseconds",
+            "range": 3690527.280545962,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 73236.79544274995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53611.26187419998,
+            "unit": "milliseconds",
+            "range": 155244.03890974174,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53611.26187419998 milliseconds over 20 runs"
           }
         ]
       }
