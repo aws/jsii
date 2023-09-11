@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1694439956862,
+  "lastUpdate": 1694443915842,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21197,6 +21197,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 82779.94672872667,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61228.25304204998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "09e393e7979509dd0c4ccc5e75f0e69a98c96461",
+          "message": "chore(deps): Bump NSubstitute from 5.0.0 to 5.1.0 in /packages/@jsii/dotnet-runtime-test/test (#4263)\n\nBumps NSubstitute from 5.0.0 to 5.1.0.\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=NSubstitute&package-manager=nuget&previous-version=5.0.0&new-version=5.1.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-09-11T14:05:05Z",
+          "tree_id": "eade5226d452bb9d8fcf53a2bf0a996009363de4",
+          "url": "https://github.com/aws/jsii/commit/09e393e7979509dd0c4ccc5e75f0e69a98c96461"
+        },
+        "date": 1694443911328,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 60736.41477725003,
+            "unit": "milliseconds",
+            "range": 2736401.9368404546,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 60736.41477725003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46652.32515070001,
+            "unit": "milliseconds",
+            "range": 46288.23440550525,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46652.32515070001 milliseconds over 20 runs"
           }
         ]
       }
