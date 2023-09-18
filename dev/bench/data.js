@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1695049656941,
+  "lastUpdate": 1695053661133,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21387,6 +21387,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 65894.17560579376,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53887.53288189999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f483cdee94d4d0db397dee5a5e0f65b6429f2e66",
+          "message": "chore(deps): Bump XunitXml.TestLogger from 3.1.11 to 3.1.17 in /packages/@jsii/dotnet-runtime-test/test (#4269)\n\nBumps [XunitXml.TestLogger](https://github.com/spekt/xunit.testlogger) from 3.1.11 to 3.1.17.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/spekt/xunit.testlogger/releases\">XunitXml.TestLogger's releases</a>.</em></p>\n<blockquote>\n<h2>v3.1.17</h2>\n<ul>\n<li>Fix for reporting nested test classes. See <a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/48\">#48</a> and <a href=\"https://redirect.github.com/spekt/testlogger/pull/41/\">spekt/testlogger#41</a>. Thanks <a href=\"https://github.com/pageyboy\"><code>@​pageyboy</code></a>.</li>\n<li>Update core testlogger to 3.1.138.</li>\n<li>Infra: fix build when repo is cloned in path with whitespace.</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/spekt/xunit.testlogger/blob/master/CHANGELOG.md\">XunitXml.TestLogger's changelog</a>.</em></p>\n<blockquote>\n<h2>v3.1.17 - 2023/09/17</h2>\n<ul>\n<li>Fix for reporting nested test classes. See <a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/48\">#48</a> and\n<a href=\"https://redirect.github.com/spekt/testlogger/pull/41/\">spekt/testlogger#41</a>. Thanks <a href=\"https://github.com/pageyboy\"><code>@​pageyboy</code></a>.</li>\n<li>Update core testlogger to 3.1.138.</li>\n<li>Infra: fix build when repo is cloned in path with whitespace.</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/0217749ac22c0ad451e3a5e14c4d626a6a35ff76\"><code>0217749</code></a> chore: prep for release v3.1.17</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/ee6ba37cd6fcad6b4b95915f6214c7760e6a4089\"><code>ee6ba37</code></a> fix: report nested test classes correctly. See <a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/48\">#48</a>. (<a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/50\">#50</a>)</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/a53ca13901f797212c62a19764fddc0c5b8e1a6d\"><code>a53ca13</code></a> fix: acceptance tests should build and run when repo path has whitespace (<a href=\"https://redirect.github.com/spekt/xunit.testlogger/issues/49\">#49</a>)</li>\n<li><a href=\"https://github.com/spekt/xunit.testlogger/commit/4a2cf7c845878e5ed29d6ec554ad29bcdb93d2e7\"><code>4a2cf7c</code></a> chore: update release notes for v3.1.11</li>\n<li>See full diff in <a href=\"https://github.com/spekt/xunit.testlogger/compare/v3.1.11...v3.1.17\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=XunitXml.TestLogger&package-manager=nuget&previous-version=3.1.11&new-version=3.1.17)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-09-18T15:23:45Z",
+          "tree_id": "aa3b99ea938766bab9ac0c6974ea6ced2e8a7c29",
+          "url": "https://github.com/aws/jsii/commit/f483cdee94d4d0db397dee5a5e0f65b6429f2e66"
+        },
+        "date": 1695053656114,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 64303.33703010002,
+            "unit": "milliseconds",
+            "range": 3279216.2362624663,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 64303.33703010002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48074.76294509999,
+            "unit": "milliseconds",
+            "range": 55027.16253149036,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48074.76294509999 milliseconds over 20 runs"
           }
         ]
       }
