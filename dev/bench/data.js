@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1695046022191,
+  "lastUpdate": 1695049656941,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21349,6 +21349,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 444407.67680889054,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 60010.6335034 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6a62f893d90bd2887ea4ce94c187912d064e8c6c",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.2.8 to ~=9.3.1 in /gh-pages (#4271)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.3.1</h2>\n<ul>\n<li>Fixed crash of group plugin when used together with hooks</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.3.1+insiders-4.41.0 (2023-09-11)</p>\n<ul>\n<li>Improved multi-instance support for optimize plugin</li>\n<li>Added inclusion and exclusion patterns for optimize plugin</li>\n<li>Added transparent keyword for color handling in social plugin</li>\n<li>Changed default quality of PNGs to 3 in optimize plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5979\">#5979</a>: meta file not detected in root of docs directory</li>\n</ul>\n<p>mkdocs-material-9.3.1 (2023-09-11)</p>\n<ul>\n<li>Fixed crash of group plugin when used together with hooks</li>\n</ul>\n<p>mkdocs-material-9.3.0 (2023-09-11)</p>\n<ul>\n<li>Improved configuration sharing between community and Insiders edition</li>\n<li>Added experimental built-in group plugin for enabling plugins conditionally</li>\n<li>Added new settings in tags plugin for enabling/disabling</li>\n<li>Dropped support for Python 3.7 (EOL)</li>\n</ul>\n<p>mkdocs-material-9.2.8+insiders-4.40.4 (2023-09-04)</p>\n<ul>\n<li>Fixed privacy plugin choking on boolean HTML5 attributes</li>\n<li>Fixed wrapping of inline code blocks in typeset table of contents</li>\n<li>Fixed blog plugin error when running under dirty reload</li>\n</ul>\n<p>mkdocs-material-9.2.8 (2023-09-04)</p>\n<ul>\n<li>Updated Italian and Russian translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5952\">#5952</a>: Combining blog and tags plugin leads to wrong links</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5951\">#5951</a>: Blog plugin ignores post title in metadata</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5949\">#5949</a>: Blog plugin ignores post linked in nav</li>\n</ul>\n<p>mkdocs-material-9-2.7+insiders-4.40.3 (2023-09-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5946\">#5946</a>: Docker image missing pngquant for optimize plugin</li>\n</ul>\n<p>mkdocs-material-9.2.7 (2023-09-02)</p>\n<ul>\n<li>Switched dependencies to compatible release clauses</li>\n<li>Removed readtime and lxml dependencies for blog plugin</li>\n<li>Reduced size of Docker image to improve CI build performance</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5945\">#5945</a>: Incorrect footer navigation for sibling pages of blog</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5939\">#5939</a>: Page jumps when changing color palette (Firefox 117)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5901\">#5901</a>: Announcement bar reappears when using instant loading</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5824\">#5824</a>: Allow to customize styles of sequence diagrams</li>\n</ul>\n<p>mkdocs-material-9-2.6+insiders-4.40.2 (2023-08-31)</p>\n<ul>\n<li>Added configurable error handling capabilities for social plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5922\">#5922</a>: Blog plugin shows no posts when building a standalone blog</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b545d809bc68c7bfa43af35825aa2867c1286523\"><code>b545d80</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/bfe19b16d1413746da5dd1bccd43927bd0209c3d\"><code>bfe19b1</code></a> Prepare 9.3.1 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/eb1c32327b046d2356ef78f52c6c0a7cd83f8d72\"><code>eb1c323</code></a> Fixed group plugin crashing when using hooks</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c9a73394119af26c974cce0afda8591d2bfe006b\"><code>c9a7339</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/085783c44ab29eea8303a01ce2a4444f3820f3eb\"><code>085783c</code></a> Updated changelogs</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3a352743e577a2f51c0dd9e418af15067acd62d8\"><code>3a35274</code></a> Prepare 9.3.0 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2e854644014a56e9ccbc6e2e417f4126bb3d0514\"><code>2e85464</code></a> Improved error message in group plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/4154a949569211194ff00fc893052b17e9b3d79f\"><code>4154a94</code></a> Added experimental group plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b36af187a8d4eecf9e55a836799752269313c2f0\"><code>b36af18</code></a> Adjusted meta file documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/391e30c6feff80dedca622fed6371a0b6a2133f8\"><code>391e30c</code></a> Updated premium sponsors</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.2.8...9.3.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-09-18T14:14:19Z",
+          "tree_id": "872a6204508195ac4300624856964a7a92758afb",
+          "url": "https://github.com/aws/jsii/commit/6a62f893d90bd2887ea4ce94c187912d064e8c6c"
+        },
+        "date": 1695049651712,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 73387.27860025005,
+            "unit": "milliseconds",
+            "range": 358301.5639230198,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 73387.27860025005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 53887.53288189999,
+            "unit": "milliseconds",
+            "range": 65894.17560579376,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53887.53288189999 milliseconds over 20 runs"
           }
         ]
       }
