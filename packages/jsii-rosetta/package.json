@@ -16,11 +16,11 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/commonmark": "^0.27.6",
+    "@types/commonmark": "^0.27.7",
     "@types/mock-fs": "^4.13.1",
     "@types/stream-json": "^1.7.3",
-    "@types/workerpool": "^6.4.1",
-    "@types/semver": "^7.5.0",
+    "@types/workerpool": "^6.4.2",
+    "@types/semver": "^7.5.2",
     "jsii-build-tools": "0.0.0",
     "memory-streams": "^0.1.3",
     "mock-fs": "^5.2.0"
@@ -31,7 +31,7 @@
     "commonmark": "^0.30.0",
     "typescript": "~3.9.10",
     "@xmldom/xmldom": "^0.8.10",
-    "workerpool": "^6.4.2",
+    "workerpool": "^6.5.0",
     "yargs": "^16.2.0",
     "stream-json": "^1.8.0",
     "semver": "^7.5.4",

@@ -27,7 +27,7 @@ jobs:
     steps:
       # Check out the code
       - name: Check out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Set up all of our standard runtimes
       - name: Set up .NET 6
         uses: actions/setup-dotnet@v3
@@ -110,7 +110,7 @@ jobs:
     steps:
       # Check out the code
       - name: Check out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Set up all of our standard runtimes
       - name: Set up .NET 6
         uses: actions/setup-dotnet@v3
