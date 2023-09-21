@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1695260928552,
+  "lastUpdate": 1695310215519,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21539,6 +21539,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2033955.0098092991,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 68506.60861989998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "00751212fcb54d161d112a9c7b0f44b5ff1c0087",
+          "message": "docs(jsii-diff): explain making properties optional (#4274)\n\nThis question comes up every other week. Let's make a single place to explain it.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-09-21T14:37:17Z",
+          "tree_id": "4c2c3026a43d921dbc703fe0a3efe09bfcd45736",
+          "url": "https://github.com/aws/jsii/commit/00751212fcb54d161d112a9c7b0f44b5ff1c0087"
+        },
+        "date": 1695310210692,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 63207.73494210003,
+            "unit": "milliseconds",
+            "range": 3195407.247619187,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 63207.73494210003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47962.94026335,
+            "unit": "milliseconds",
+            "range": 35537.077920293785,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47962.94026335 milliseconds over 20 runs"
           }
         ]
       }
