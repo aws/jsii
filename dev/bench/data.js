@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1695310215519,
+  "lastUpdate": 1695647966129,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21577,6 +21577,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 35537.077920293785,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47962.94026335 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0ac80d6195df8509402e64d54079edcb3986f7b6",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.5.2 to ~=1.5.3 in /gh-pages (#4277)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.5.3</h2>\n<ul>\n<li>\n<p>Fix <code>mkdocs serve</code> sometimes locking up all browser tabs when navigating quickly (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3390\">#3390</a>)</p>\n</li>\n<li>\n<p>Add many new supported languages for &quot;search&quot; plugin - update lunr-languages to 1.12.0 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3334\">#3334</a>)</p>\n</li>\n<li>\n<p>Bugfix (regression in 1.5.0): In &quot;readthedocs&quot; theme the styling of &quot;breadcrumb navigation&quot; was broken for nested pages (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3383\">#3383</a>)</p>\n</li>\n<li>\n<p>Built-in themes now also support Chinese (Traditional, Taiwan) language (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3370\">#3370</a>)</p>\n</li>\n<li>\n<p>Plugins can now set <code>File.page</code> to their own subclass of <code>Page</code>. There is also now a warning if <code>File.page</code> is set to anything other than a strict subclass of <code>Page</code>. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3367\">#3367</a>, <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3381\">#3381</a>)</p>\n<p>Note that just instantiating a <code>Page</code> <a href=\"https://github.com/mkdocs/mkdocs/blob/f94ab3f62d0416d484d81a0c695c8ca86ab3b975/mkdocs/structure/pages.py#L34\">sets the file automatically</a>, so care needs to be taken not to create an unneeded <code>Page</code>.</p>\n</li>\n</ul>\n<p>Other small improvements; see <a href=\"https://github.com/mkdocs/mkdocs/compare/1.5.2...1.5.3\">commit log</a>.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/00b648f0884244a139f034554b59a032113176f6\"><code>00b648f</code></a> Release 1.5.3 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3392\">#3392</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/63b50450fb1def237b9e87453628e7f1021c3f84\"><code>63b5045</code></a> Change PyPI deploy to rely on &quot;trusted publishers&quot; (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3400\">#3400</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/abb133fbb16197827676067fe68c0357c31fee72\"><code>abb133f</code></a> Fix new lint warnings</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/8c794268442fda465ac43c7da8b0e8a40dbe8cbd\"><code>8c79426</code></a> Abort livereload request before navigation (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3390\">#3390</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/f94ab3f62d0416d484d81a0c695c8ca86ab3b975\"><code>f94ab3f</code></a> Add zh_TW locale for built-in themes (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3370\">#3370</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/0d6fc286fa5140b47a514dcb1cb0cd8e43fbc92b\"><code>0d6fc28</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3383\">#3383</a> from mkdocs/breadcrumbs</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/4bd896c8f2653e88f7c88a184ff4570e7e802ba3\"><code>4bd896c</code></a> Fix linkified breadcrumb items in readthedocs theme</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/c070dd020203d87012ef278c31a6076af06b4c93\"><code>c070dd0</code></a> Fix broken styling of breadcrumbs in readthedocs theme</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/347c3a91dd3e82937ce2b4783c60abf2477ff844\"><code>347c3a9</code></a> Apply automatic fixes from ruff, show diff in CI</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/759e1e3baed64f97eeaf3ff9e0819378ad11a976\"><code>759e1e3</code></a> Keep the prior behavior of overwriting File.page (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3381\">#3381</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.5.2...1.5.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-09-25T12:25:15Z",
+          "tree_id": "7144093ebc2ce6c49588347ac38e6cb84a02dd51",
+          "url": "https://github.com/aws/jsii/commit/0ac80d6195df8509402e64d54079edcb3986f7b6"
+        },
+        "date": 1695647962147,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70679.01329264996,
+            "unit": "milliseconds",
+            "range": 1844148.1653267494,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70679.01329264996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 52335.70403759999,
+            "unit": "milliseconds",
+            "range": 187153.31132935645,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52335.70403759999 milliseconds over 20 runs"
           }
         ]
       }
