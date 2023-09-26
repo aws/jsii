@@ -276,6 +276,8 @@ export class TypeSystem {
   public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
     this.assemblies.forEach((a) => {
+      // Cache the class list for each assembly. We can't use @memoized for this method since new
+      // assemblies can be added between calls, via loadModule().
       if (!this._cachedClasses.has(a)) {
         this._cachedClasses.set(
           a,
