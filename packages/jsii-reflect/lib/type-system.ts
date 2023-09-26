@@ -20,6 +20,8 @@ export class TypeSystem {
 
   private readonly _assemblyLookup = new Map<string, Assembly>();
 
+  private readonly _cachedClasses = new Map<Assembly, readonly ClassType[]>();
+
   /**
    * All assemblies in this type system.
    */
@@ -274,7 +276,14 @@ export class TypeSystem {
   public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
     this.assemblies.forEach((a) => {
-      out.push(...collectTypes(a, (item) => item.classes));
+      if (!this._cachedClasses.has(a)) {
+        this._cachedClasses.set(
+          a,
+          collectTypes(a, (item) => item.classes),
+        );
+      }
+
+      out.push(...this._cachedClasses.get(a)!);
     });
     return out;
   }
