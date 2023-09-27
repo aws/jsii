@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1695830461513,
+  "lastUpdate": 1695848451742,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21691,6 +21691,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2420191.71705853,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 90941.22777204998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mike.wrighton@googlemail.com",
+            "name": "mikewrighton",
+            "username": "mikewrighton"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fd04ab7b82ee38df659cccba9c24fdc725a9a75a",
+          "message": "perf(jsii-reflect): Cache classes in TypeSystem. (#4279)\n\nThe `TypeSystem.get classes()` method calls `collectTypes` on every\r\ninvocation, and this is causing performance problems in `awslint`. This\r\nchange caches the class list for each loaded assembly, avoiding the\r\nduplicated work.\r\n\r\n---\r\n\r\nBy submitting this pull request, I confirm that my contribution is made\r\nunder the terms of the [Apache 2.0 license].\r\n\r\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-09-27T15:56:36-04:00",
+          "tree_id": "e4b5e2c17e710ef5cfdb1f05ddc07e0738fa82a8",
+          "url": "https://github.com/aws/jsii/commit/fd04ab7b82ee38df659cccba9c24fdc725a9a75a"
+        },
+        "date": 1695848446526,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 87014.52621810001,
+            "unit": "milliseconds",
+            "range": 2757356.161305936,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 87014.52621810001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 64148.68692699999,
+            "unit": "milliseconds",
+            "range": 165421.62850270706,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64148.68692699999 milliseconds over 20 runs"
           }
         ]
       }
