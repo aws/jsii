@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1695848451742,
+  "lastUpdate": 1696251257360,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21729,6 +21729,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 165421.62850270706,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64148.68692699999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c8bbea6ddee8f168ca383ad54ba121fa95fbd2cb",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.4.2 to ~=9.4.3 in /gh-pages (#4282)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.4.3</h2>\n<ul>\n<li>Added support for instant navigation progress indicator</li>\n<li>Improved spacing and alignment of tags</li>\n<li>Moved back-to-top button into separate partial</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6104\">#6104</a>: Indentation for some code blocks lost in search</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6094\">#6094</a>: Blog post metadata overlaps with footer on small screens</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6069\">#6069</a>: Blog plugin crashes for categories with non-ASCII names</li>\n</ul>\n<p><strong>Updated templates</strong> (<a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.4.2...9.4.3\">diff</a>)</p>\n<ul>\n<li><code>base.html</code></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.4.3 (2023-10-02)</p>\n<ul>\n<li>Added support for instant navigation progress indicator</li>\n<li>Improved spacing and alignment of tags</li>\n<li>Moved back-to-top button into separate partial</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6104\">#6104</a>: Indentation for some code blocks lost in search</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6094\">#6094</a>: Blog post metadata overlaps with footer on small screens</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6069\">#6069</a>: Blog plugin crashes for categories with non-ASCII names</li>\n</ul>\n<p>Updated templates</p>\n<ul>\n<li>base.html</li>\n</ul>\n<p>mkdocs-material-9.4.2 (2023-09-25)</p>\n<ul>\n<li>Updated Slovenian translations</li>\n<li>Added animation to sidebar navigation expansion and collapse</li>\n<li>Added support for auto-replacement of document head for instant navigation</li>\n<li>Improved compatibility of new emoji extension with Python &lt; 3.10</li>\n<li>Switched regex dependency to use minimal version</li>\n<li>Refactored alignment and spacing of sidebar navigation</li>\n<li>Fixed expansion button not focusable via keyboard in sidebar navigation</li>\n<li>Fixed viewport offset restoration on first load when using instant navigation</li>\n<li>Fixed accidental highlight of non-clickable elements in blog plugin sidebar</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6041\">#6041</a>: Blog plugin crashes when nav is defined and blog not included</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5972\">#5972</a>: Blog plugin ignores section index pages in paginated views</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5954\">#5954</a>: Repeated click on anchor ignored when using instant navigation</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5742\">#5742</a>: Keyboard navigation broken when using instant navigation</li>\n</ul>\n<p>Updated templates</p>\n<ul>\n<li>partials/nav-item.html</li>\n<li>blog-post.html</li>\n</ul>\n<p>mkdocs-material-9.4.1 (2023-09-22)</p>\n<ul>\n<li>Improved colors and contrast in dark mode</li>\n<li>Improved admonition borders to match font weight</li>\n<li>Switched content tabs to neutral color</li>\n</ul>\n<p>mkdocs-material-9.4.0 (2023-09-21)</p>\n<ul>\n<li>Added Belarusian translations</li>\n<li>Added version info to entrypoint of package</li>\n<li>Added emoji extension as a replacement for materialx</li>\n<li>Improved slate color scheme (dark mode) - now even darker</li>\n<li>Restructured project to improve development experience</li>\n<li>Updated MkDocs to 1.5.3</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/3890\">#3890</a>: Development mode crashes on Linux</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/9c06fbd5a6b76ccd9cc1f666dc13467f1f7de5e8\"><code>9c06fbd</code></a> Prepare 9.4.3 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8299f1d3a0443ace1848463737c7d5c07a282b83\"><code>8299f1d</code></a> Fixed search plugin removing indentation for some code blocks</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/9ac03cf806cd04a7530415ea4ed0af9288900004\"><code>9ac03cf</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7956a82f0eb363e0ed89d14a659795228aac3b67\"><code>7956a82</code></a> Moved back-to-top button to partial</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f8fd537b97f899d232ebfe2a6237869acea79124\"><code>f8fd537</code></a> Added support for instant navigation progress indicator</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/015685f421503cfd7af102f6a37f798c635e7489\"><code>015685f</code></a> Fixed blog post metadata overlap on mobile/tablet</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/bc9cdb5774eac8ab912f96964c5cf88dd17eabf1\"><code>bc9cdb5</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/4743c1bab6a440d260cd721f8e6cf9b9cb84914e\"><code>4743c1b</code></a> Fixed occasional flashes when using instant loading</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1be39328acdd889ef6623f267e687a45e4782a93\"><code>1be3932</code></a> Fixed encoding problem when using blog plugin (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6103\">#6103</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/cef79862a28d3144b2c2c6736889ac8c205c6c65\"><code>cef7986</code></a> Added distribution files</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.4.2...9.4.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-10-02T12:04:45Z",
+          "tree_id": "d3cd4ae3b02f056735db0ad64b9ec235102fb9d9",
+          "url": "https://github.com/aws/jsii/commit/c8bbea6ddee8f168ca383ad54ba121fa95fbd2cb"
+        },
+        "date": 1696251252493,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 64394.63464405005,
+            "unit": "milliseconds",
+            "range": 3059853.005163257,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 64394.63464405005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 48001.559100300015,
+            "unit": "milliseconds",
+            "range": 22666.430758697024,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48001.559100300015 milliseconds over 20 runs"
           }
         ]
       }
