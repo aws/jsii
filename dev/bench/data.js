@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1696640706939,
+  "lastUpdate": 1696859288400,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -21957,6 +21957,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 42992.85599431798,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47380.97141209999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9d2c04e843ae43717866ea3285522c97f2019ab5",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.4.3 to ~=9.4.4 in /gh-pages (#4290)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.4.4</h2>\n<ul>\n<li>Added support for overriding text to be copied for code blocks</li>\n<li>Fixed broken layout in some browsers at breakpoints when using zoom</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6132\">#6132</a>: Incomplete search highlighting for code blocks in titles</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.4.4+insiders-4.42.1 (2023-10-05)</p>\n<ul>\n<li>Fixed spacing of related links in blog posts on small screens</li>\n</ul>\n<p>mkdocs-material-9.4.4 (2023-10-05)</p>\n<ul>\n<li>Added support for overriding text to be copied for code blocks</li>\n<li>Fixed broken layout in some browsers at breakpoints when using zoom</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6132\">#6132</a>: Incomplete search highlighting for code blocks in titles</li>\n</ul>\n<p>mkdocs-material-9.4.3 (2023-10-02)</p>\n<ul>\n<li>Added support for instant navigation progress indicator</li>\n<li>Improved spacing and alignment of tags</li>\n<li>Moved back-to-top button into separate partial</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6104\">#6104</a>: Indentation for some code blocks lost in search</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6094\">#6094</a>: Blog post metadata overlaps with footer on small screens</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6069\">#6069</a>: Blog plugin crashes for categories with non-ASCII names</li>\n</ul>\n<p>Updated templates</p>\n<ul>\n<li>base.html</li>\n</ul>\n<p>mkdocs-material-9.4.2 (2023-09-25)</p>\n<ul>\n<li>Updated Slovenian translations</li>\n<li>Added animation to sidebar navigation expansion and collapse</li>\n<li>Added support for auto-replacement of document head for instant navigation</li>\n<li>Improved compatibility of new emoji extension with Python &lt; 3.10</li>\n<li>Switched regex dependency to use minimal version</li>\n<li>Refactored alignment and spacing of sidebar navigation</li>\n<li>Fixed expansion button not focusable via keyboard in sidebar navigation</li>\n<li>Fixed viewport offset restoration on first load when using instant navigation</li>\n<li>Fixed accidental highlight of non-clickable elements in blog plugin sidebar</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6041\">#6041</a>: Blog plugin crashes when nav is defined and blog not included</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5972\">#5972</a>: Blog plugin ignores section index pages in paginated views</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5954\">#5954</a>: Repeated click on anchor ignored when using instant navigation</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5742\">#5742</a>: Keyboard navigation broken when using instant navigation</li>\n</ul>\n<p>Updated templates</p>\n<ul>\n<li>partials/nav-item.html</li>\n<li>blog-post.html</li>\n</ul>\n<p>mkdocs-material-9.4.1 (2023-09-22)</p>\n<ul>\n<li>Improved colors and contrast in dark mode</li>\n<li>Improved admonition borders to match font weight</li>\n<li>Switched content tabs to neutral color</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fc62b3542142a6e43193083810f22500a0607acb\"><code>fc62b35</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/59d21ffe6f837c5214e7230e4dada9d39b576ca6\"><code>59d21ff</code></a> Prepare 9.4.4 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a9da0b632cdc04d0c68edce948313c0f7bd5a8fd\"><code>a9da0b6</code></a> Added support for specifying copied text for code blocks</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/48ff39a5ccb505e1b9f1cb223a6ea16601efc192\"><code>48ff39a</code></a> Added support for specifying copied text for code blocks</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/57e598b96e8a976eec0559de99ab700bf2d6c38e\"><code>57e598b</code></a> Fixed incomplete search highlighting for code blocks in titles</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/790a446dd75bb7af9b925238686972cb1e64ef01\"><code>790a446</code></a> Improved launch configuration</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fbc36321b636b29807827f8d0f4282073ff1f829\"><code>fbc3632</code></a> Updated distribution files</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/34aad073823097b473e79a479f1600679faf224a\"><code>34aad07</code></a> Fixed debug launch configurations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/dcf5a80ef7ac927d21e2a708bb39263c4889e728\"><code>dcf5a80</code></a> Updated VS Code debug configurations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/699097679313b6e1d8dc508ed9a147bc46ba9df9\"><code>6990976</code></a> Updated theme setup documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6125\">#6125</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.4.3...9.4.4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-10-09T12:44:55Z",
+          "tree_id": "020ee4f6ccea026f746d42a584cba34811ce78f0",
+          "url": "https://github.com/aws/jsii/commit/9d2c04e843ae43717866ea3285522c97f2019ab5"
+        },
+        "date": 1696859282813,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 88947.78257719995,
+            "unit": "milliseconds",
+            "range": 6055744.782127714,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 88947.78257719995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 66001.20476525,
+            "unit": "milliseconds",
+            "range": 908571.2330547577,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 66001.20476525 milliseconds over 20 runs"
           }
         ]
       }
