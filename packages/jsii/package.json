@@ -51,9 +51,9 @@
   },
   "devDependencies": {
     "@types/clone": "^2.1.2",
-    "@types/deep-equal": "^1.0.1",
+    "@types/deep-equal": "^1.0.2",
     "@types/fs-extra": "^9.0.13",
-    "@types/semver": "^7.5.1",
+    "@types/semver": "^7.5.3",
     "clone": "^2.1.2",
     "jsii-build-tools": "^0.0.0"
   },
