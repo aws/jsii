@@ -3,7 +3,7 @@
     | Release   | Status                       | End-of-Life  |
     | --------- | ---------------------------- | ------------ |
     | `^14.6.0` | :white_check_mark: Supported | `2023-04-30` |
-    | `^16.3.0` | :white_check_mark: Supported | `2024-04-30` |
+    | `^16.3.0` | :white_check_mark: Supported | `2024-09-11` |
     | `^18.0.0` | :white_check_mark: Supported | `2025-04-30` |
 
     ??? question "Status Definitions"

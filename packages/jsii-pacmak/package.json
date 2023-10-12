@@ -47,7 +47,7 @@
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
     "semver": "^7.5.4",
-    "spdx-license-list": "^6.6.0",
+    "spdx-license-list": "^6.7.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
   },
@@ -56,16 +56,16 @@
     "@jsii/java-runtime": "^0.0.0",
     "@jsii/go-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
-    "@types/clone": "^2.1.1",
-    "@types/diff": "^5.0.3",
-    "@types/commonmark": "^0.27.6",
+    "@types/clone": "^2.1.2",
+    "@types/diff": "^5.0.5",
+    "@types/commonmark": "^0.27.7",
     "@types/fs-extra": "^9.0.13",
-    "@types/semver": "^7.5.0",
+    "@types/semver": "^7.5.3",
     "diff": "^5.1.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "pyright": "^1.1.323"
+    "pyright": "^1.1.330"
   },
   "keywords": [
     "jsii",
