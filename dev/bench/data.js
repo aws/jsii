@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1697469705402,
+  "lastUpdate": 1697473783912,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22109,6 +22109,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 298685.95075990504,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 53513.702223049986 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f0085658a1fa716f771f37f338c9478e0112d51f",
+          "message": "chore(deps): Bump xunit from 2.5.1 to 2.5.2 in /packages/@jsii/dotnet-runtime-test/test (#4294)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.5.1 to 2.5.2.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/32931855e213ccb74d75a899af76f40388b2131b\"><code>3293185</code></a> v2.5.2</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/4d9d4fcc5d5f0e09445026674f62415993a3fe73\"><code>4d9d4fc</code></a> Roll back singleton NullMessageSink and NullSourceInformationProvider</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/45078f3a86e04e495dbbe3e434a8dddc1ce42a8d\"><code>45078f3</code></a> Pick up latest analyzers</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/8ae0d067bb8f427f38c5524b4f3c47f99e844f77\"><code>8ae0d06</code></a> Remove VisualStudioSourceInformationProvider and DiaSession-related classes</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/4a35ce7722aa3ac01a1e04fc3757c448d454aaa5\"><code>4a35ce7</code></a> Missing comparer pass-through on DictionaryExtensions</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/9ab4ecef596b9677bcc53bdb3b5e1117b0a83bf4\"><code>9ab4ece</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2755\">#2755</a>: Tests for another embedded collection regression (v2)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/e499f14da33189d3c197b5f4abf3a6f769e0a80e\"><code>e499f14</code></a> Bump up to v2.5.2-pre</li>\n<li>See full diff in <a href=\"https://github.com/xunit/xunit/compare/2.5.1...2.5.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.5.1&new-version=2.5.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-10-16T15:25:18Z",
+          "tree_id": "c60bc15b536e37ce255a8e05ae00ac4bc9cb1cdb",
+          "url": "https://github.com/aws/jsii/commit/f0085658a1fa716f771f37f338c9478e0112d51f"
+        },
+        "date": 1697473778406,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 86023.10653789999,
+            "unit": "milliseconds",
+            "range": 3827933.0295534558,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 86023.10653789999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 64669.1952185,
+            "unit": "milliseconds",
+            "range": 266923.8871482926,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64669.1952185 milliseconds over 20 runs"
           }
         ]
       }
