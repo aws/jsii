@@ -36,6 +36,6 @@
   "devDependencies": {
     "fs-extra": "^10.1.0",
     "jsii-build-tools": "^0.0.0",
-    "typescript-json-schema": "^0.61.0"
+    "typescript-json-schema": "^0.62.0"
   }
 }
