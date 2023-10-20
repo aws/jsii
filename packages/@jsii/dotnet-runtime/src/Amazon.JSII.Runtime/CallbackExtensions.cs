@@ -65,7 +65,7 @@ namespace Amazon.JSII.Runtime
                 return null;
             }
 
-            throw new ArgumentException("Callback does not specificy a method, getter, or setter to invoke");
+            throw new ArgumentException("Callback does not specificity a method, getter, or setter to invoke");
         }
 
         private static CallbackResult? InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
