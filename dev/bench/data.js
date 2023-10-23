@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1697644343400,
+  "lastUpdate": 1698101602846,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22223,6 +22223,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 79149.7967065578,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47074.91997914999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "092a6df12aefdf52afae632ee2b379a4ba582878",
+          "message": "chore(deps): Bump docker/setup-qemu-action from 2 to 3 (#4264)\n\nBumps [docker/setup-qemu-action](https://github.com/docker/setup-qemu-action) from 2 to 3.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/docker/setup-qemu-action/releases\">docker/setup-qemu-action's releases</a>.</em></p>\n<blockquote>\n<h2>v3.0.0</h2>\n<ul>\n<li>Node 20 as default runtime (requires <a href=\"https://github.com/actions/runner/releases/tag/v2.308.0\">Actions Runner v2.308.0</a> or later) by <a href=\"https://github.com/crazy-max\"><code>@​crazy-max</code></a> in <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/102\">docker/setup-qemu-action#102</a></li>\n<li>Bump <code>@​actions/core</code> from 1.10.0 to 1.10.1 in <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/103\">docker/setup-qemu-action#103</a></li>\n<li>Bump semver from 6.3.0 to 6.3.1 in <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/89\">docker/setup-qemu-action#89</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/docker/setup-qemu-action/compare/v2.2.0...v3.0.0\">https://github.com/docker/setup-qemu-action/compare/v2.2.0...v3.0.0</a></p>\n<h2>v2.2.0</h2>\n<ul>\n<li>Trim off spaces in <code>platforms</code> input by <a href=\"https://github.com/Chocobo1\"><code>@​Chocobo1</code></a> in <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/64\">docker/setup-qemu-action#64</a></li>\n<li>Switch to actions-toolkit implementation by <a href=\"https://github.com/crazy-max\"><code>@​crazy-max</code></a> in <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/70\">docker/setup-qemu-action#70</a> <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/80\">docker/setup-qemu-action#80</a> <a href=\"https://redirect.github.com/docker/setup-qemu-action/pull/83\">docker/setup-qemu-action#83</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/docker/setup-qemu-action/compare/v2.1.0...v2.2.0\">https://github.com/docker/setup-qemu-action/compare/v2.1.0...v2.2.0</a></p>\n<h2>v2.1.0</h2>\n<ul>\n<li>Use context for inputs by <a href=\"https://github.com/crazy-max\"><code>@​crazy-max</code></a> (<a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/62\">#62</a>)</li>\n<li>Use built-in <code>getExecOutput</code> by <a href=\"https://github.com/crazy-max\"><code>@​crazy-max</code></a> (<a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/61\">#61</a>)</li>\n<li>Remove workaround for <code>setOutput</code> by <a href=\"https://github.com/crazy-max\"><code>@​crazy-max</code></a> (<a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/63\">#63</a>)</li>\n<li>Bump <code>@​actions/core</code> from 1.6.0 to 1.10.0 (<a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/54\">#54</a> <a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/58\">#58</a> <a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/59\">#59</a>)</li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/docker/setup-qemu-action/compare/v2.0.0...v2.1.0\">https://github.com/docker/setup-qemu-action/compare/v2.0.0...v2.1.0</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/68827325e0b33c7199eb31dd4e31fbe9023e06e3\"><code>6882732</code></a> Merge pull request <a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/103\">#103</a> from docker/dependabot/npm_and_yarn/actions/core-1.10.1</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/183f4af5043c24c5dcd58e6e9868b7df0a201a17\"><code>183f4af</code></a> chore: update generated content</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/f17493529ee8f8b9fd58ed31aa1e9816c8345eb8\"><code>f174935</code></a> build(deps): bump <code>@​actions/core</code> from 1.10.0 to 1.10.1</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/2e423eb50075d10a6af463e39e267d4057cc07bb\"><code>2e423eb</code></a> Merge pull request <a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/89\">#89</a> from docker/dependabot/npm_and_yarn/semver-6.3.1</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/ecc406afa7d79acce0ed8a04bb5eb086136fd000\"><code>ecc406a</code></a> Bump semver from 6.3.0 to 6.3.1</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/12dec5e201ab2f6dbea47c28f4a138590189069a\"><code>12dec5e</code></a> Merge pull request <a href=\"https://redirect.github.com/docker/setup-qemu-action/issues/102\">#102</a> from crazy-max/update-node20</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/c29b31213096fed2f8b8b36e66385d52653bf332\"><code>c29b312</code></a> chore: node 20 as default runtime</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/34ae628c8f4fb0d5c8921b9a0ffa9dcf66120c07\"><code>34ae628</code></a> chore: update generated content</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/1f3d2e1ac09548bbfb7d44b1809ac66e3d551ea4\"><code>1f3d2e1</code></a> chore: fix author in package.json</li>\n<li><a href=\"https://github.com/docker/setup-qemu-action/commit/277dbe8c9c1990b42dc38cb1f35a593889a31a62\"><code>277dbe8</code></a> vendor: bump <code>@​docker/actions-toolkit</code> from 0.3.0 to 0.12.0</li>\n<li>Additional commits viewable in <a href=\"https://github.com/docker/setup-qemu-action/compare/v2...v3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=docker/setup-qemu-action&package-manager=github_actions&previous-version=2&new-version=3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-10-23T22:03:29Z",
+          "tree_id": "05848f893270706737865c469ea37ebe811fa134",
+          "url": "https://github.com/aws/jsii/commit/092a6df12aefdf52afae632ee2b379a4ba582878"
+        },
+        "date": 1698101598033,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61967.7527084,
+            "unit": "milliseconds",
+            "range": 3486986.8291310905,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61967.7527084 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 47252.308947900005,
+            "unit": "milliseconds",
+            "range": 177570.64614871808,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47252.308947900005 milliseconds over 20 runs"
           }
         ]
       }
