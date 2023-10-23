@@ -126,6 +126,10 @@ abstract members yet.
 for subclassing, but treating them as such would limit the evolvability of
 libraries too much.
 
+## Help! jsii-diff is marking my changes as breaking
+
+See [BREAKING_CHANGES.md](./BREAKING_CHANGES.md) for more information.
+
 ## License
 
 __jsii-diff__ is distributed under the
