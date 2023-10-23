@@ -95,7 +95,7 @@ export class RuntimeTypeInfoInjector {
     };
   }
 
-  /** Used instead of direct access to the map to faciliate testing. */
+  /** Used instead of direct access to the map to facilitate testing. */
   protected getClassFqn(clazz: ts.ClassDeclaration): string | undefined {
     return this.fqnsByClass.get(clazz);
   }
