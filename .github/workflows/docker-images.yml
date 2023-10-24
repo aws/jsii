@@ -115,7 +115,7 @@ jobs:
       - name: Set up docker buildx
         id: buildx
         if: steps.should-run.outputs.result == 'true'
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
         with:
           # Disable parallelism because IO contention makes it too slow on GitHub
           # workers...
