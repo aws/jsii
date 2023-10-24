@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1698152755026,
+  "lastUpdate": 1698180073346,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22413,6 +22413,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 87628.15556640062,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46832.99454245001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "37929162+mergify[bot]@users.noreply.github.com",
+            "name": "mergify[bot]",
+            "username": "mergify[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1b1f239a2ac0f6fa9f59651b80c5204747988ec9",
+          "message": "chore(release): 1.91.0 (#4308)\n\nSee [CHANGELOG](https://github.com/aws/jsii/blob/bump/1.91.0/CHANGELOG.md)",
+          "timestamp": "2023-10-24T19:33:36Z",
+          "tree_id": "ec431333dd4c199cccdc4c65acf11e5dd13a8c4b",
+          "url": "https://github.com/aws/jsii/commit/1b1f239a2ac0f6fa9f59651b80c5204747988ec9"
+        },
+        "date": 1698180067487,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 95252.45515729996,
+            "unit": "milliseconds",
+            "range": 4998830.795262327,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 95252.45515729996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 69647.04890504999,
+            "unit": "milliseconds",
+            "range": 3862937.090630201,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 69647.04890504999 milliseconds over 20 runs"
           }
         ]
       }
