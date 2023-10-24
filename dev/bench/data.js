@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1698109620473,
+  "lastUpdate": 1698113283572,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22337,6 +22337,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 12083908.04278033,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 52006.39143785003 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b038c790569d44f6b0adfca0abb1ebbdf3aebc6d",
+          "message": "chore(deps): Bump aws-actions/amazon-ecr-login from 1 to 2 (#4284)\n\nBumps [aws-actions/amazon-ecr-login](https://github.com/aws-actions/amazon-ecr-login) from 1 to 2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/aws-actions/amazon-ecr-login/releases\">aws-actions/amazon-ecr-login's releases</a>.</em></p>\n<blockquote>\n<h2>v2</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v2.0.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.7.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.6.2</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.6.1</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.6.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.5.3</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.5.2</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.5.1</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.5.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.4.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.3.3</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.3.2</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.3.1</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.3.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.2.2</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v1.2.1</h2>\n<p>See the <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/HEAD/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/aws-actions/amazon-ecr-login/blob/main/CHANGELOG.md\">aws-actions/amazon-ecr-login's changelog</a>.</em></p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/062b18b96a7aff071d4dc91bc00c4c1a7945b076\"><code>062b18b</code></a> chore(release): 2.0.1</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/9238dd443b7a5941caf19ffbe68be34d4dbd61df\"><code>9238dd4</code></a> Merge pull request <a href=\"https://redirect.github.com/aws-actions/amazon-ecr-login/issues/532\">#532</a> from aws-actions/node_upgrade</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/e618bbed74fb70e8a21180f3e49ddbb50645a0d6\"><code>e618bbe</code></a> chore: upgrade to node20</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/33f92af657bba1882ab79d8621debd2f6769a0c9\"><code>33f92af</code></a> chore(release): 2.0.0</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/5de13da83418783472ddf188510c9db28f808d1a\"><code>5de13da</code></a> Merge pull request <a href=\"https://redirect.github.com/aws-actions/amazon-ecr-login/issues/530\">#530</a> from aws-actions/dist2</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/d6ae50c722dda1ecadc3bc55e1d39deb67b0894a\"><code>d6ae50c</code></a> chore: update dist</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/537f0fb4314c0f68606fbe9e04fd004c5b055bb9\"><code>537f0fb</code></a> Merge pull request <a href=\"https://redirect.github.com/aws-actions/amazon-ecr-login/issues/529\">#529</a> from aws-actions/dist</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/8ccdcdca26bbb4cfe113941f720e86b2a1948c17\"><code>8ccdcdc</code></a> chore: update dist</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/d71acafb877819c463f4efa25c0be407a9913780\"><code>d71acaf</code></a> feat: release v2 (<a href=\"https://redirect.github.com/aws-actions/amazon-ecr-login/issues/520\">#520</a>)</li>\n<li><a href=\"https://github.com/aws-actions/amazon-ecr-login/commit/3542211ff6de2447550a2f5ffdae6cf5abb3029c\"><code>3542211</code></a> chore: Bump <code>@​aws-sdk/client-ecr-public</code> from 3.414.0 to 3.418.0 (<a href=\"https://redirect.github.com/aws-actions/amazon-ecr-login/issues/525\">#525</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/aws-actions/amazon-ecr-login/compare/v1...v2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=aws-actions/amazon-ecr-login&package-manager=github_actions&previous-version=1&new-version=2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-10-24T01:19:59Z",
+          "tree_id": "7297321e0de3c65cc1d772fec3b3bcdb5e4c8290",
+          "url": "https://github.com/aws/jsii/commit/b038c790569d44f6b0adfca0abb1ebbdf3aebc6d"
+        },
+        "date": 1698113278951,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 61412.68051140002,
+            "unit": "milliseconds",
+            "range": 2827128.0235719434,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 61412.68051140002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46891.3356563,
+            "unit": "milliseconds",
+            "range": 79770.95408771135,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46891.3356563 milliseconds over 20 runs"
           }
         ]
       }
