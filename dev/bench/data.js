@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1698101602846,
+  "lastUpdate": 1698106431794,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22261,6 +22261,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 177570.64614871808,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47252.308947900005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c75c0e9e09f71d45e6faea1088395c3f458c8f86",
+          "message": "chore(deps): Bump aws-actions/configure-aws-credentials from 3 to 4 (#4266)\n\nBumps [aws-actions/configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials) from 3 to 4.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/aws-actions/configure-aws-credentials/releases\">aws-actions/configure-aws-credentials's releases</a>.</em></p>\n<blockquote>\n<h2>v4</h2>\n<p>This tag tracks the latest v4.x.x release</p>\n<h2>v4.0.0</h2>\n<p>See the <a href=\"https://github.com/aws-actions/configure-aws-credentials/blob/v4.0.0/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v3.0.2</h2>\n<p>See the <a href=\"https://github.com/aws-actions/configure-aws-credentials/blob/v3.0.2/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n<h2>v3.0.1</h2>\n<p>See the <a href=\"https://github.com/aws-actions/configure-aws-credentials/blob/v3.0.1/CHANGELOG.md\">changelog</a> for details about the changes included in this release.</p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/aws-actions/configure-aws-credentials/blob/main/CHANGELOG.md\">aws-actions/configure-aws-credentials's changelog</a>.</em></p>\n<blockquote>\n<h2><a href=\"https://github.com/aws-actions/configure-aws-credentials/compare/v3.0.0...v3.0.1\">3.0.1</a> (2023-08-24)</h2>\n<h3>Features</h3>\n<ul>\n<li>Can configure <code>special-characters-workaround</code> to keep retrying credentials if the returned\ncredentials have special characters (Fixes <a href=\"https://redirect.github.com/aws-actions/configure-aws-credentials/issues/599\">#599</a>)</li>\n</ul>\n<h3>Bug Fixes</h3>\n<ul>\n<li>Fixes <a href=\"https://redirect.github.com/aws-actions/configure-aws-credentials/issues/792\">#792</a>: Action fails when intending to use existing credentials</li>\n<li>Minor typo fix from <a href=\"https://github.com/ubaid-ansari21\"><code>@​ubaid-ansari21</code></a></li>\n</ul>\n<h3>Changes to existing functionality</h3>\n<ul>\n<li>Special characters are now allowed in returned credential variables unless you configure the\n<code>special-characters-workaround</code> option</li>\n</ul>\n<h2><a href=\"https://github.com/aws-actions/configure-aws-credentials/compare/v2.2.0...v3.0.0\">3.0.0</a> (2023-08-21)</h2>\n<h3>Features</h3>\n<ul>\n<li>Can configure <code>max-retries</code> and <code>disable-retry</code> to modify retry functionality when the assume role call fails</li>\n<li>Set returned credentials as step outputs with <code>output-credentials</code></li>\n<li>Clear AWS related environment variables at the start of the action with <code>unset-current-credentials</code></li>\n<li>Unique role identifier is now printed in the workflow logs</li>\n</ul>\n<h3>Bug Fixes</h3>\n<ul>\n<li>Can't use credentials if they contain a special character</li>\n<li>Retry functionality added when generating the JWT fails</li>\n<li>Can now use <code>webIdentityTokenFile</code> option</li>\n<li>Branch name validation too strict</li>\n<li>JS SDK v2 deprecation warning in workflow logs</li>\n</ul>\n<h3>Changes to existing functionality</h3>\n<ul>\n<li>Default session duration is now 1 hour in all cases (from 6 hours in some cases)</li>\n<li>Account ID will not be masked by default in logs</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/aws-actions/configure-aws-credentials/commit/8c3f20df09ac63af7b3ae3d7c91f105f857d8497\"><code>8c3f20d</code></a> chore: release v4 (<a href=\"https://redirect.github.com/aws-actions/configure-aws-credentials/issues/840\">#840</a>)</li>\n<li>See full diff in <a href=\"https://github.com/aws-actions/configure-aws-credentials/compare/v3...v4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=aws-actions/configure-aws-credentials&package-manager=github_actions&previous-version=3&new-version=4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nYou can trigger a rebase of this PR by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>\n\n> **Note**\n> Automatic rebases have been disabled on this pull request as it has been open for over 30 days.",
+          "timestamp": "2023-10-23T23:19:03Z",
+          "tree_id": "2c208e7fdd81f935fd7932f92a501eb0c6a8d4e7",
+          "url": "https://github.com/aws/jsii/commit/c75c0e9e09f71d45e6faea1088395c3f458c8f86"
+        },
+        "date": 1698106427381,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 70462.95406324998,
+            "unit": "milliseconds",
+            "range": 1161724.53482641,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 70462.95406324998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 51655.70457905,
+            "unit": "milliseconds",
+            "range": 56320.03143488192,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 51655.70457905 milliseconds over 20 runs"
           }
         ]
       }
