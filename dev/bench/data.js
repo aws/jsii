@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1698671165465,
+  "lastUpdate": 1698862507992,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22527,6 +22527,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 132759.12319622183,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 48302.02265999999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fc27de934bff81d6b3fe5a92501db48de81fbf26",
+          "message": "chore: fix pages build (#4313)\n\nFixes the following error in the pages build workflow ([example](https://github.com/aws/jsii/actions/runs/6720427611)):\n\n```\nINFO    -  DeprecationWarning: 'materialx.emoji.twemoji' is deprecated.\nMaterial emoji logic has been officially moved into mkdocs-material\nversion 9.4. Please use Material's 'material.extensions.emoji.twemoji'\nas mkdocs_material_extensions is deprecated and will no longer be\nsupported moving forward. This is the last release.\n```\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-01T17:02:18Z",
+          "tree_id": "a3243d98e49bf125cf7df073caf5ac5a5753fa2b",
+          "url": "https://github.com/aws/jsii/commit/fc27de934bff81d6b3fe5a92501db48de81fbf26"
+        },
+        "date": 1698862502401,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 103315.01274700003,
+            "unit": "milliseconds",
+            "range": 3747862.436512144,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 103315.01274700003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 77683.00044635,
+            "unit": "milliseconds",
+            "range": 615820.198533886,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 77683.00044635 milliseconds over 20 runs"
           }
         ]
       }
