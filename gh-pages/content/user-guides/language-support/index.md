@@ -69,7 +69,7 @@ in significant re-engineering effort:
   - How are dependencies modeled? If [semantic versioning] is not the norm, what is the strategy to correctly represent
     semantic version ranges?
 - What are the toolchain and platform requirements?
-  - For example, **Java** requires an OpenJDK 8 distribution and `maven`, **Python** requires `python` 3.7 or above,
+  - For example, **Java** requires an OpenJDK 8 distribution and `maven`, **Python** requires `python` 3.8 or above,
     etc...
 
 ## Code Generation
