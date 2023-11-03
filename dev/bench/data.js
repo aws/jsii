@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1698964601205,
+  "lastUpdate": 1698969638530,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22603,6 +22603,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 71581.2200988113,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39119.752469600004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "43035978+corymhall@users.noreply.github.com",
+            "name": "Cory Hall",
+            "username": "corymhall"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "087ff241bc852b49d91c79883e5faeaf5bb92f42",
+          "message": "chore: switch to python 3.8 (#4239)\n\nPython 3.7 has been end-of-life since 2023-06-27, and an\nincreasing amount of our dependencies are dropping support for it as a\nconsequence.\n\nWe introduced a warning to users that are still using Python 3.7 with\nrelease v1.86.0 around August 1, 2023.\n\nWe are now effectively dropping support for Python 3.7.\n\nRelated: https://github.com/aws/jsii/commit/0ef7acef765690f99075888d6c3e6f03d7cc2d59\n\nBREAKING CHANGE: jsii-pacmak and the libraries it generates for Python\ntargets now require a minimum Python version of 3.8, instead of 3.7\npreviously. We recommend users upgrade to the latest supported Python\nrelease (Python 3.11).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-02T21:56:23Z",
+          "tree_id": "05bdf01893348dc65f725091d9bec11f9f6f30c7",
+          "url": "https://github.com/aws/jsii/commit/087ff241bc852b49d91c79883e5faeaf5bb92f42"
+        },
+        "date": 1698969634770,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51554.04354000003,
+            "unit": "milliseconds",
+            "range": 495665.16578698735,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51554.04354000003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39248.094371700005,
+            "unit": "milliseconds",
+            "range": 72996.66928888261,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39248.094371700005 milliseconds over 20 runs"
           }
         ]
       }
