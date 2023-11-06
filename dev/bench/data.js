@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699250762767,
+  "lastUpdate": 1699277303573,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -22983,6 +22983,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 2380128.355682746,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 56023.79107215001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "265ff62ea42d661078f29e6614444e906eb969c0",
+          "message": "chore(deps): Bump xunit from 2.5.2 to 2.6.1 in /packages/@jsii/dotnet-runtime-test/test (#4315)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.5.2 to 2.6.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/9f1684f5f74196d952f0085d7bde21aa20df6229\"><code>9f1684f</code></a> v2.6.1</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/5d9ef4b8ef82e3e3a8581a259f8a02fb01fd7391\"><code>5d9ef4b</code></a> Remove unnecessary XUNIT_VALUETASK definition</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/0266bac5ed8b31ada11b6034c9fe013142090033\"><code>0266bac</code></a> Latest assertions</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/fb3c3cf30445dc5a7aa7fdca6fe8118dc407b960\"><code>fb3c3cf</code></a> Remove all ValueTask support from assertions</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/801790c5accbaa51b06fde9397b92a47d4ae8f41\"><code>801790c</code></a> Reconcile AcceptanceTestAssembly and friends with v3</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/f244cc89bf086ce8a3b3f628f70da14e2420a4a4\"><code>f244cc8</code></a> More shared assertion tests that shouldn't return ValueTask</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/262dd72145a7a62143926892beab0af1f9832e9e\"><code>262dd72</code></a> Shared assertion tests cannot return ValueTask</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/36bbf773ea60b1fa1622063c160cfb4b0707dcd8\"><code>36bbf77</code></a> Bump up to v2.6.1-pre</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/6a07b9530d643f938287db600feb46082e894188\"><code>6a07b95</code></a> v2.6.0</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/5a7297e8dcbc7998dc85708af8fb3756888ccd14\"><code>5a7297e</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2806\">#2806</a>: Performance improvements in Assert.Equal (v2)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/xunit/compare/2.5.2...2.6.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.5.2&new-version=2.6.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-06T12:27:23Z",
+          "tree_id": "509c135f77453209665e0e5e6a3b9cea0effd95d",
+          "url": "https://github.com/aws/jsii/commit/265ff62ea42d661078f29e6614444e906eb969c0"
+        },
+        "date": 1699277297961,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 83529.53007495006,
+            "unit": "milliseconds",
+            "range": 797647.6343748647,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 83529.53007495006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 61204.39974439998,
+            "unit": "milliseconds",
+            "range": 32449.917986604396,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61204.39974439998 milliseconds over 20 runs"
           }
         ]
       }
