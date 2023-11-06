@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699277303573,
+  "lastUpdate": 1699280926535,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23021,6 +23021,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 32449.917986604396,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 61204.39974439998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3fa30c38a0494c8b1d1f97c3855969d1ec3cc77f",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.4.7 to ~=9.4.8 in /gh-pages (#4316)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.4.8</h2>\n<ul>\n<li>Fixed invalid local address replacement when using instant loading</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6275\">#6275</a>: Crash after navigation caused 404 when using instant loading</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.4.8+insiders-4.43.0 (2023-11-05)</p>\n<ul>\n<li>Added support for GitLab committers (document contributors)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6264\">#6264</a>: Fixed compatibility with Python &lt; 3.10</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6254\">#6254</a>: Meta plugin not applying meta files to blog posts</li>\n</ul>\n<p>mkdocs-material-9.4.8 (2023-11-05)</p>\n<ul>\n<li>Fixed invalid local address replacement when using instant loading</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6275\">#6275</a>: Crash after navigation caused 404 when using instant loading</li>\n</ul>\n<p>mkdocs-material-9.4.7+insiders-4.42.3 (2023-10-27)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6251\">#6251</a>: Cards in grids cut off on very small screens</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6241\">#6241</a>: Using social plugin + static-i18n plugin errors</li>\n</ul>\n<p>mkdocs-material-9.4.7 (2023-10-27)</p>\n<ul>\n<li>Added Azerbaijani translations</li>\n</ul>\n<p>mkdocs-material-9.4.6+insiders-4.42.2 (2023-10-14)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6186\">#6186</a>: Privacy plugin ignores hash fragments on images</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6180\">#6180</a>: Projects plugin crashing when adding or removing files</li>\n</ul>\n<p>mkdocs-material-9.4.6 (2023-10-14)</p>\n<ul>\n<li>Updated Danish and Norwegian (Nynorsk) translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6169\">#6169</a>: Blog post metadata layout overflows on small screens</li>\n</ul>\n<p>mkdocs-material-9.4.5 (2023-10-10)</p>\n<ul>\n<li>Fixed sidebar auto-positioning (9.4.2 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6166\">#6166</a>: Improve group plugin compatibility with Python &lt; 3.10</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6157\">#6157</a>: Hiding tags does not work (9.4.3 regression)</li>\n</ul>\n<p>mkdocs-material-9.4.4+insiders-4.42.1 (2023-10-05)</p>\n<ul>\n<li>Fixed spacing of related links in blog posts on small screens</li>\n</ul>\n<p>mkdocs-material-9.4.4 (2023-10-05)</p>\n<ul>\n<li>Added support for overriding text to be copied for code blocks</li>\n<li>Fixed broken layout in some browsers at breakpoints when using zoom</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6132\">#6132</a>: Incomplete search highlighting for code blocks in titles</li>\n</ul>\n<p>mkdocs-material-9.4.3 (2023-10-02)</p>\n<ul>\n<li>Added support for instant navigation progress indicator</li>\n<li>Improved spacing and alignment of tags</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c0755bf2471a3476d9592de99384abe476c4a645\"><code>c0755bf</code></a> Prepare 9.4.8 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/fabc9bd6b8c50001b2e2a3d9b8ee9b1fd53c5cfe\"><code>fabc9bd</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/87d69a95b8284d60233d94563953ecf7b1dfc7ec\"><code>87d69a9</code></a> Fixed invalid local address when using instant loading</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/9a7a185f9d1d7cc4b47609846deeea26c04bd3b2\"><code>9a7a185</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6267\">#6267</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7353c7d7cf862dec278d115bd4dbd892952d4111\"><code>7353c7d</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6277\">#6277</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ca5f5174a312fbf80e1e1ad275d84dbebdabf4cd\"><code>ca5f517</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/494cae1e36664a5d106c1371b05e74f90703b919\"><code>494cae1</code></a> Fixed crash after navigation caused 404 when using instant loading</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1698708b2329980453da332a2aafa39b0f654653\"><code>1698708</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6260\">#6260</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/551d98e6de12e80e6da734bb3ff2dbc85d4adf5b\"><code>551d98e</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6222\">#6222</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/dfa5f0313893ff7fc254a8d74421735d5f1d3eb1\"><code>dfa5f03</code></a> Bump actions/setup-node from 3 to 4 (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6259\">#6259</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.4.7...9.4.8\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-06T13:45:35Z",
+          "tree_id": "4fffa4ba8e1e7b81214f71a105b92eb48cdcce02",
+          "url": "https://github.com/aws/jsii/commit/3fa30c38a0494c8b1d1f97c3855969d1ec3cc77f"
+        },
+        "date": 1699280921668,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52126.332530249994,
+            "unit": "milliseconds",
+            "range": 1541887.1370512303,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52126.332530249994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39481.48514534999,
+            "unit": "milliseconds",
+            "range": 206115.54550386377,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39481.48514534999 milliseconds over 20 runs"
           }
         ]
       }
