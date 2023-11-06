@@ -19,7 +19,7 @@ to produce releasable artifacts.
 | .NET              | .NET ≥ 6.0                   |
 | Go                | Go ≥ 1.18                    |
 | Java              | JDK ≥ 8 *and* Maven ≥ 3.6    |
-| Python            | Python ≥ 3.8                 |
+| Python            | Python ≥ 3.7                 |
 
 
 ## :octicons-desktop-download-24: Download Locations
