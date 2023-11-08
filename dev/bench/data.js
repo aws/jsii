@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699290235637,
+  "lastUpdate": 1699454281095,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23097,6 +23097,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 138202.36446610634,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41230.36849829997 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c87da436671d677d1fee276d0932ea7edd431f78",
+          "message": "feat(jsii-reflect): TypeSystem can be locked to improve reflection performance (#4318)\n\nMemoizes additional calls that rely on the typesystem to retrieve type instances.\nThese calls can (theoretically) change when the typesystem is changed.\nTherefore we cannot assume it's okay to always memoize the first call.\n\nTo workaround this limitation, we introduce a new mechanism to manually `lock` the typesystem once all assemblies are loaded.\nWe then can start memoizing the additional calls.\n\nFor example in `awslint` this reduces the runtime against `aws-cdk-lib` by ~20s.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-08T13:58:02Z",
+          "tree_id": "9759aa12778b9e3a10113904fda530546eecba99",
+          "url": "https://github.com/aws/jsii/commit/c87da436671d677d1fee276d0932ea7edd431f78"
+        },
+        "date": 1699454277764,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52538.264416899976,
+            "unit": "milliseconds",
+            "range": 577610.4540292829,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52538.264416899976 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 40247.689285099994,
+            "unit": "milliseconds",
+            "range": 249916.42124155382,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40247.689285099994 milliseconds over 20 runs"
           }
         ]
       }
