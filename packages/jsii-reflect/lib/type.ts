@@ -124,7 +124,7 @@ export abstract class Type implements Documentable, SourceLocatable {
       return this.getInterfaces(true).some((iface) => iface === base);
     }
     if (this.isClassType() && base.isClassType()) {
-      return this.getAncestors().some((clazz) => clazz === base);
+      return this.ancestors.some((clazz) => clazz === base);
     }
     return false;
   }
