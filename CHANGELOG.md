@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.91.0](https://github.com/aws/jsii/compare/v1.90.0...v1.91.0) (2023-10-24)
+
 ## [1.90.0](https://github.com/aws/jsii/compare/v1.89.0...v1.90.0) (2023-10-06)
 
 ## [1.89.0](https://github.com/aws/jsii/compare/v1.88.0...v1.89.0) (2023-09-20)

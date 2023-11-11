@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 
+import { memoizedWhenLocked } from './_memoized';
 import { Assembly } from './assembly';
 import { Initializer } from './initializer';
 import { InterfaceType } from './interface';
@@ -20,6 +21,7 @@ export class ClassType extends ReferenceType {
   /**
    * Base class (optional).
    */
+  @memoizedWhenLocked
   public get base(): ClassType | undefined {
     if (!this.spec.base) {
       return undefined;
@@ -60,12 +62,22 @@ export class ClassType extends ReferenceType {
 
   /**
    * Returns list of all base classes (first is the direct base and last is the top-most).
+   *
+   * @deprecated use ClassType.ancestors instead
    */
   public getAncestors() {
+    return this.ancestors;
+  }
+
+  /**
+   * Returns list of all base classes (first is the direct base and last is the top-most).
+   */
+  @memoizedWhenLocked
+  public get ancestors() {
     const out = new Array<ClassType>();
     if (this.base) {
       out.push(this.base);
-      out.push(...this.base.getAncestors());
+      out.push(...this.base.ancestors);
     }
     return out;
   }
