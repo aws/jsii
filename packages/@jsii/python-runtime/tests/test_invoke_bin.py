@@ -24,7 +24,9 @@ def silence_node_deprecation_warnings():
         environ[var] = "1"
 
     # silence this for the next decades
-    environ["JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION"] = "14,16,18,20,22,24,26,28,30,32,34"
+    environ[
+        "JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION"
+    ] = "14,16,18,20,22,24,26,28,30,32,34"
 
     # Execute the test
     yield
