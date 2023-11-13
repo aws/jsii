@@ -8,15 +8,15 @@ required in order to package [jsii] projects in all supported languages.
 
 ## Included Language SDKs
 
-SDK             | Version
-----------------|-------------------------------------------
-`OpenJDK 20`    | Amazon Corretto `>= 20.0.0`
-`.NET SDK`      | `>= 6.0.14`
-`mono`          | `>= 6.8.0.105`
-`Javascript`    | see [NodeJS and NPM](#nodejs-and-npm)
-`PowerShell`    | `pwsh >= 7.1.3`
-`Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
-`Go`            | `go >= 1.18`
+| SDK          | Version                                  |
+| ------------ | ---------------------------------------- |
+| `OpenJDK 20` | Amazon Corretto `>= 20.0.0`              |
+| `.NET SDK`   | `>= 6.0.14`                              |
+| `mono`       | `>= 6.8.0.105`                           |
+| `Javascript` | see [NodeJS and NPM](#nodejs-and-npm)    |
+| `PowerShell` | `pwsh >= 7.1.3`                          |
+| `Python 3`   | `python3 >= 3.7.4` with `pip3 >= 20.0.2` |
+| `Go`         | `go >= 1.18`                             |
 
 ## Image tags
 
@@ -31,9 +31,7 @@ public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 - `<BASE>` is the base image tag (e.g: `buster-slim`, `bullseye-slim`, `bookworm-slim`)
   - The only supported value is `buster-slim`
 - `<NODE-MAJOR>` is the major version of node contained in the image
-  - `14` corresponds to node 14.x, this is the default
-  - `16` corresponds to node 16.x
-  - `18` corresponds to node 18.x
+  - `18` corresponds to node 18.x, this is the default
   - `20` corresponds to node 20.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
@@ -42,12 +40,14 @@ The previous image tags have been discontinued:
 
 - `:latest` (users should migrate to `:1-buster-slim`)
 - `:nightly` (users should migrate to `:1-buster-slim-nightly`)
-- `:node10` (users should migrate to `:1-buster-slim-node14`)
-- `:node10-nightly` (users should migrate to `:1-buster-slim-node14-nightly`)
-- `:node12` (users shoudl migrate to `:1-buster-slim-node14`)
-- `:node12-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
-- `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
-- `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
+- `:node10` (users should migrate to `:1-buster-slim-node18`)
+- `:node10-nightly` (users should migrate to `:1-buster-slim-node18-nightly`)
+- `:node12` (users should migrate to `:1-buster-slim-node18`)
+- `:node12-nightly` (users shoudl migrate to `:1-buster-slim-node18-nightly`)
+- `:node14` (users should migrate to `:1-buster-slim-node18`)
+- `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node18-nightly`)
+- `:node16` (users should migrate to `:1-buster-slim-node18`)
+- `:node16-nightly` (users shoudl migrate to `:1-buster-slim-node18-nightly`)
 
 ## Building
 
@@ -82,20 +82,20 @@ jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
 
 ## Included Tools & Utilities
 
-Tool / Utility | Version
----------------|--------------------------------------------
-`aws`          | `>= 2.11.17`
-`bundler`      | `>= 1.17.3` and `>= 2.1.4`
-`docker`       | `>= 18.09.9-ce`
-`git`          | `>= 2.23.1`
-`make`         | `>= 3.82`
-`maven`        | `>= 3.6.3`
-`openssl`      | `>= 1.0.2k-fips`
-`rsync`        | `>= 3.1.2`
-`yarn`         | `>= 1.21.1`
-`zip` & `unzip`| `>= 6.0-19`
-`gh`           | `>= 1.9.2`
-`sam`          | `>= 1.37.0`
+| Tool / Utility  | Version                    |
+| --------------- | -------------------------- |
+| `aws`           | `>= 2.11.17`               |
+| `bundler`       | `>= 1.17.3` and `>= 2.1.4` |
+| `docker`        | `>= 18.09.9-ce`            |
+| `git`           | `>= 2.23.1`                |
+| `make`          | `>= 3.82`                  |
+| `maven`         | `>= 3.6.3`                 |
+| `openssl`       | `>= 1.0.2k-fips`           |
+| `rsync`         | `>= 3.1.2`                 |
+| `yarn`          | `>= 1.21.1`                |
+| `zip` & `unzip` | `>= 6.0-19`                |
+| `gh`            | `>= 1.9.2`                 |
+| `sam`           | `>= 1.37.0`                |
 
 ## License
 

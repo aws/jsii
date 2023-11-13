@@ -23,8 +23,10 @@ def silence_node_deprecation_warnings():
     for var in variables:
         environ[var] = "1"
 
-    nodeEolAcknowledgement = "Node14 is now end of life (EOL) as of April 30, 2023. Support of EOL runtimes are only guaranteed for 30 days after EOL. By silencing this warning you acknowledge that you are using an EOL version of Node and will upgrade to a supported version as soon as possible."
-    environ["JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION"] = nodeEolAcknowledgement
+    # silence this for the next decades
+    environ[
+        "JSII_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION"
+    ] = "14,16,18,20,22,24,26,28,30,32,34"
 
     # Execute the test
     yield
