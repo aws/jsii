@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699536220678,
+  "lastUpdate": 1699907561403,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23173,6 +23173,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 356184.33230261976,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 47345.497679950015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "87847254c8a39f6e99383bfa3a375ae6c8d9a8a5",
+          "message": "feat: make node 18 the default (#4325)\n\nRemoves testing and superchain releases for EOL Node 16\n\nDeprecation and EOL messages of node versions are automated, so no need to announce or wait.\nWe are well past the promised 30 days support after Node 16 went EOL.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-13T19:54:12Z",
+          "tree_id": "c81b428afc3beaff5fde4e131799f22a10234796",
+          "url": "https://github.com/aws/jsii/commit/87847254c8a39f6e99383bfa3a375ae6c8d9a8a5"
+        },
+        "date": 1699907558322,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50927.865121049996,
+            "unit": "milliseconds",
+            "range": 1055041.2417622171,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50927.865121049996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39047.51109045,
+            "unit": "milliseconds",
+            "range": 51404.80465700742,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39047.51109045 milliseconds over 20 runs"
           }
         ]
       }
