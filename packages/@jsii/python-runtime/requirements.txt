@@ -1,5 +1,5 @@
 black~=23.3
-mypy==1.4.1
+mypy==1.7.0
 pip~=23.3
 pytest~=7.4
 pytest-mypy~=0.10
