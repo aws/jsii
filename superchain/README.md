@@ -8,15 +8,15 @@ required in order to package [jsii] projects in all supported languages.
 
 ## Included Language SDKs
 
-| SDK          | Version                                  |
-| ------------ | ---------------------------------------- |
-| `OpenJDK 20` | Amazon Corretto `>= 20.0.0`              |
-| `.NET SDK`   | `>= 6.0.14`                              |
-| `mono`       | `>= 6.8.0.105`                           |
-| `Javascript` | see [NodeJS and NPM](#nodejs-and-npm)    |
-| `PowerShell` | `pwsh >= 7.1.3`                          |
-| `Python 3`   | `python3 >= 3.7.4` with `pip3 >= 20.0.2` |
-| `Go`         | `go >= 1.18`                             |
+| SDK          | Version                                |
+| ------------ | -------------------------------------- |
+| `OpenJDK 20` | Amazon Corretto `>= 20.0.0`            |
+| `.NET SDK`   | `>= 6.0.14`                            |
+| `mono`       | `>= 6.8.0.105`                         |
+| `Javascript` | see [NodeJS and NPM](#nodejs-and-npm)  |
+| `PowerShell` | `pwsh >= 7.1.3`                        |
+| `Python 3`   | `python3 >= 3.8` with `pip3 >= 20.0.2` |
+| `Go`         | `go >= 1.18`                           |
 
 ## Image tags
 
