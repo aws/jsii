@@ -23,10 +23,9 @@ jobs:
       matrix:
         debian:
           - 'buster' # 10
+          - 'bullseye' # 11
         node: ['18', '20']
         include:
-          - debian: 'bullseye' # 11
-            node: '20'
           - debian: 'bookworm' #12
             node: '20'
     env:

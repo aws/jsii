@@ -228,13 +228,14 @@ The [Python](./packages/jsii-pacmak/lib/targets/python.ts) target is a good
 example to work from.
 
 ## Releasing
+
 ### The `public.ecr.aws/jsii/superchain` Docker image
 
-Upon merging new changes to the `main` branch, the `public.ecr.aws/jsii/superchain:1-buster-slim-nightly`
+Upon merging new changes to the `main` branch, the `public.ecr.aws/jsii/superchain:1-bullseye-slim-nightly`
 image will be released after a last validation build.
 
 Upon making a new `jsii` release (when the GitHub release entry - and its
-corresponding git tag - is created), the `public.ecr.aws/jsii/superchain:1-buster-slim` image will
+corresponding git tag - is created), the `public.ecr.aws/jsii/superchain:1-bullseye-slim` image will
 be released after a last validation build.
 
 The latest release information (for both of the Docker image tags) can be seen
