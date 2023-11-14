@@ -135,6 +135,7 @@ async function updateNpmIgnore(
       'Exclude typescript source and config',
       '*.ts',
       'tsconfig.json',
+      '*.tsbuildinfo',
     );
     includePattern(
       'Include javascript files and typescript declarations',
