@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699975615088,
+  "lastUpdate": 1699979617419,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23553,6 +23553,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 32435.20948134033,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38996.87231070001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7197b4f21e7f6776fbbfe5bac7f03a308cd9f7c0",
+          "message": "feat(superchain): publish a bullseye image with node18 & python 3.9 (#4326)\n\nThis will become the new default for most use cases.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-14T14:48:08Z",
+          "tree_id": "a11fcf35e18ce210214b1a570ceff7ddfd4613cd",
+          "url": "https://github.com/aws/jsii/commit/7197b4f21e7f6776fbbfe5bac7f03a308cd9f7c0"
+        },
+        "date": 1699979614185,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51133.84979144998,
+            "unit": "milliseconds",
+            "range": 530922.9466461826,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51133.84979144998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38837.967043900004,
+            "unit": "milliseconds",
+            "range": 31919.097941998956,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38837.967043900004 milliseconds over 20 runs"
           }
         ]
       }
