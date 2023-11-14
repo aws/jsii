@@ -20,7 +20,8 @@ Occasionally, a dependency on a *non-jsii module* is useful. Since such dependen
 all the supported languages, they must be bundled with the *jsii module* that depends on them, by adding the library
 into the `bundleDependencies` array in `package.json`. 
 
-The API of the *jsii module* can not expose any type from bundled dependencies, since those types would not be available in other languages. Typescript files that include a non-jsii dependency (Eg. a lambda handler for a CDK Construct) must be excluded in the tsconfig.
+The API of the *jsii module* can not expose any type from bundled dependencies, since those types would not be available in other languages.
+TypeScript files that include a non-jsii dependency (e.g. a lambda handler for an AWS CDK Construct) cannot be exported from the `main`/`types` entry point.
 
 !!! info
     For more information on `package.json` file contents, refer to the [npm documentation][package-json].
