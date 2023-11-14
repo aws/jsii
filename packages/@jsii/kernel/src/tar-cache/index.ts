@@ -15,7 +15,7 @@ export interface ExtractResult {
    * When `'hit'`, the data was already present in cache and was returned from
    * cache.
    *
-   * When `'miss'`, the data was extracted into the caache and returned from
+   * When `'miss'`, the data was extracted into the cache and returned from
    * cache.
    *
    * When `undefined`, the cache is not enabled.
