@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 
+import { memoizedWhenLocked } from './_memoized';
 import { Assembly } from './assembly';
 import { Callable } from './callable';
 import { Documentable } from './docs';
@@ -42,6 +43,7 @@ export class Method
     return this.spec.name;
   }
 
+  @memoizedWhenLocked
   public get overrides(): Type | undefined {
     if (!this.spec.overrides) {
       return undefined;
