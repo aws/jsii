@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699963591017,
+  "lastUpdate": 1699967375740,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23439,6 +23439,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 173712.03039646306,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38913.205937200015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "RyoshiKayo@users.noreply.github.com",
+            "name": "Kayo",
+            "username": "RyoshiKayo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e3191e520d009e65befb7a9bfeaed6480eef763c",
+          "message": "docs(typescript-restrictions): clarify non-jsii deps (#3995)\n\nI spent about a day and a half trying to figure this out, so I thought I'd add a little clarification :)\n\ntl;dr: I'm making a CDK Construct package that also includes a custom lambda handler. That handler takes on a non-jsii dep but I couldn't figure out why JSII kept trying to compile that non-jsii dep until I read \n> The API of the *jsii module* can not expose any type from bundled dependencies, since those types would not be available in other languages.\n \nabout 20 times. \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-14T12:30:35Z",
+          "tree_id": "27730a0d7eb003d747efccacaae3825191d5f806",
+          "url": "https://github.com/aws/jsii/commit/e3191e520d009e65befb7a9bfeaed6480eef763c"
+        },
+        "date": 1699967372467,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51932.14405145003,
+            "unit": "milliseconds",
+            "range": 595136.1970691319,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51932.14405145003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39380.15851275,
+            "unit": "milliseconds",
+            "range": 53418.080863358955,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39380.15851275 milliseconds over 20 runs"
           }
         ]
       }
