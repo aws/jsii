@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699921950560,
+  "lastUpdate": 1699927682066,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23249,6 +23249,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 37832.192232059475,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46815.8157953 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "eltociear@gmail.com",
+            "name": "Ikko Eltociear Ashimine",
+            "username": "eltociear"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9450e62bc7d8b8169c62a9b2ada067cb4286d138",
+          "message": "chore: fix typo in CallbackExtensions.cs (#4301)\n\nspecificy -> specificity\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-14T01:28:37Z",
+          "tree_id": "aef33ee82a5fd79deac73f361f0cacf19c37a2ce",
+          "url": "https://github.com/aws/jsii/commit/9450e62bc7d8b8169c62a9b2ada067cb4286d138"
+        },
+        "date": 1699927678734,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52961.66144654999,
+            "unit": "milliseconds",
+            "range": 898024.3058185528,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52961.66144654999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39429.55720010002,
+            "unit": "milliseconds",
+            "range": 366408.5142649453,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39429.55720010002 milliseconds over 20 runs"
           }
         ]
       }
