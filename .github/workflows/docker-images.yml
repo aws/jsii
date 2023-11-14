@@ -22,8 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         debian:
-          - 'buster'   # 10
-        node: ['16', '18', '20']
+          - 'buster' # 10
+        node: ['18', '20']
         include:
           - debian: 'bullseye' # 11
             node: '20'
@@ -31,7 +31,7 @@ jobs:
             node: '20'
     env:
       # Node version whose images will be aliased without the -nodeXX segment
-      DEFAULT_NODE_MAJOR_VERSION: 16
+      DEFAULT_NODE_MAJOR_VERSION: 18
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -83,7 +83,7 @@ jobs:
       # Federate into the PR Validation AWS Account
       - name: Federate into AWS
         if: steps.should-run.outputs.result == 'true' && steps.federate_to_aws.outputs.enabled == 'true'
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
@@ -108,14 +108,14 @@ jobs:
         shell: bash
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
 
       - name: Set up docker buildx
         id: buildx
         if: steps.should-run.outputs.result == 'true'
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
         with:
           # Disable parallelism because IO contention makes it too slow on GitHub
           # workers...
@@ -168,14 +168,14 @@ jobs:
       # Re-authenticate to ECR Public, this time with image-push permissions
       - name: Federate with AWS role for ECR Public push
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && (github.ref == 'refs/heads/release' || github.ref == 'refs/heads/main')
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_FOR_ECR_PUBLIC_PUSH }}
           role-session-name: GHA_aws-jsii_docker-images-PUSH
       - name: Authenticate with ECR Public for Push
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && (github.ref == 'refs/heads/release' || github.ref == 'refs/heads/main')
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
         with:
           registry-type: public
 
