@@ -800,6 +800,19 @@
     Dependencies
   </a>
   
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#non-jsii-dependencies" class="md-nav__link">
+    non-jsii dependencies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1718,6 +1731,19 @@
     Dependencies
   </a>
   
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#non-jsii-dependencies" class="md-nav__link">
+    non-jsii dependencies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1840,10 +1866,12 @@ do not apply to any internal declarations such as <code class="highlight"><span 
 <p>A <em>jsii module</em> can declare dependencies on any other <em>jsii module</em> by adding entries in the <code>dependencies</code> key in the
 <code>package.json</code> file. Since most other platforms do not support multiple different versions of the same library to
 coexist in the same closure, it is recommended to also declare all such dependencies as <code>peerDependencies</code>.</p>
+<h3 id="non-jsii-dependencies">non-jsii dependencies</h3>
 <p>Occasionally, a dependency on a <em>non-jsii module</em> is useful. Since such dependencies do not have generated bindings in
 all the supported languages, they must be bundled with the <em>jsii module</em> that depends on them, by adding the library
-into the <code>bundleDependencies</code> array in <code>package.json</code>. The API of the <em>jsii module</em> can not expose any type from bundled
-dependencies, since those types would not be available in other languages.</p>
+into the <code>bundleDependencies</code> array in <code>package.json</code>. </p>
+<p>The API of the <em>jsii module</em> can not expose any type from bundled dependencies, since those types would not be available in other languages.
+TypeScript files that include a non-jsii dependency (e.g. a lambda handler for an AWS CDK Construct) cannot be exported from the <code>main</code>/<code>types</code> entry point.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>For more information on <code>package.json</code> file contents, refer to the <a href="https://docs.npmjs.com/cli/v6/configuring-npm/package-json">npm documentation</a>.</p>
@@ -2326,7 +2354,7 @@ a declaration is named after any target language's <em>reserved words</em>, as t
   <small>
     
       Last update:
-      2023-11-06
+      2023-11-14
     
   </small>
 </div>
