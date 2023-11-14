@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699993278900,
+  "lastUpdate": 1699995708105,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23629,6 +23629,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 230396.0899494881,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39355.59537055 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "416e2b504895800281a3598b3139b141330aa906",
+          "message": "feat: switch to python 3.8 (#4239) (#4327)\n\nPython 3.7 has been end-of-life since 2023-06-27, and an increasing amount of our dependencies are dropping support for it as a consequence.\n\nWe introduced a warning to users that are still using Python 3.7 with release v1.86.0 around August 1, 2023.\n\nWe are now effectively dropping support for Python 3.7.\n\nRelated: https://github.com/aws/jsii/commit/0ef7acef765690f99075888d6c3e6f03d7cc2d59\n\nRe-roll of #4239, which was reverted because the build & release pipeline failed. After some investigation this was because the job used a superchain image with python3.7. However after this change a minimum version of python 3.8 is required.\n\nBREAKING CHANGE: jsii-pacmak and the libraries it generates for Python targets now require a minimum Python version of 3.8, instead of 3.7 previously. We recommend users upgrade to the latest supported Python release (Python 3.11).\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-14T19:36:43Z",
+          "tree_id": "77dd743a293e4434ef1db93c31cdc08959239079",
+          "url": "https://github.com/aws/jsii/commit/416e2b504895800281a3598b3139b141330aa906"
+        },
+        "date": 1699995705184,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52629.02625879996,
+            "unit": "milliseconds",
+            "range": 485263.6679643012,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52629.02625879996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 40115.51363844999,
+            "unit": "milliseconds",
+            "range": 136091.67459604266,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40115.51363844999 milliseconds over 20 runs"
           }
         ]
       }
