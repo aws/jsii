@@ -16,7 +16,6 @@ The `python` target requires two configuration entries:
   - Additionally, the following `Programming Language ::` classifiers are already set (more could be added by the user
     if relevant):
     - `Programming Language :: Python :: 3 :: Only`
-    - `Programming Language :: Python :: 3.7`
     - `Programming Language :: Python :: 3.8`
     - `Programming Language :: Python :: 3.9`
     - `Programming Language :: Python :: 3.10`
