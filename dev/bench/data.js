@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699907561403,
+  "lastUpdate": 1699921950560,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23211,6 +23211,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 51404.80465700742,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39047.51109045 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a2ab31609d361ac5ceca6c928584ec59f2d705d3",
+          "message": "fix(kernel): invokeBinScript fails when using symlinked cache (#4324)\n\nInvoking bin scripts from jsii packages would fail if the symlinked cache was enabled and the invoked script depended on an other package. The reason for this was that scripts were only invoked with `--preserve-symlinks`, however for \"main scripts\" (like standalone binaries), we also need to call `--preserve-symlinks-main` on the node process.\n\nNote this cannot be tested in the kernel package itself, as it's not possible to invoke the test process with the correct options. \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-13T23:43:23Z",
+          "tree_id": "07aa6301cbd059ffd2107e050d6c8f739ce6a181",
+          "url": "https://github.com/aws/jsii/commit/a2ab31609d361ac5ceca6c928584ec59f2d705d3"
+        },
+        "date": 1699921946134,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 62068.02545489998,
+            "unit": "milliseconds",
+            "range": 2862410.490418965,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 62068.02545489998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 46815.8157953,
+            "unit": "milliseconds",
+            "range": 37832.192232059475,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 46815.8157953 milliseconds over 20 runs"
           }
         ]
       }
