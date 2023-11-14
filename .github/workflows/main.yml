@@ -42,11 +42,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '8'
-      - name: Set up Node 16
-        uses: actions/setup-node@v3
+      - name: Set up Node 18
+        uses: actions/setup-node@v4
         with:
           cache: yarn
-          node-version: '16'
+          node-version: '18'
       - name: Set up Python 3.7
         uses: actions/setup-python@v4
         with:
@@ -125,11 +125,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '8'
-      - name: Set up Node 16
-        uses: actions/setup-node@v3
+      - name: Set up Node 18
+        uses: actions/setup-node@v4
         with:
           cache: yarn
-          node-version: '16'
+          node-version: '18'
       - name: Set up Python 3.7
         uses: actions/setup-python@v4
         with:
@@ -195,10 +195,10 @@ jobs:
         dotnet: ['6.0.x']
         go: ['1.18']
         java: ['8']
-        node: ['16'] # EOL 2023-09-11
+        node: ['18'] # EOL 2025-04-30
         os: [ubuntu-latest]
         python: ['3.7']
-        # Add specific combinations to be tested against "node 14" (to restrict cardinality)
+        # Add specific combinations to be tested against (to restrict cardinality)
         include:
           # Test using Windows
           - title: 'Windows'
@@ -206,7 +206,7 @@ jobs:
             dotnet: '6.0.x'
             go: '1.18'
             java: '8'
-            node: '16'
+            node: '18'
             python: '3.7'
           # Test using macOS
           - title: 'macOS'
@@ -214,16 +214,9 @@ jobs:
             dotnet: '6.0.x'
             go: '1.18'
             java: '8'
-            node: '16'
+            node: '18'
             python: '3.7'
           # Test alternate Nodes
-          - title: 'Node 16'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.18'
-            node: '16' # EOL 2023-09-11
-            os: ubuntu-latest
-            python: '3.7'
           - title: 'Node 18'
             java: '8'
             dotnet: '6.0.x'
@@ -243,7 +236,7 @@ jobs:
             java: '8'
             dotnet: '7.0.x'
             go: '1.18'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Gos
@@ -251,7 +244,7 @@ jobs:
             java: '8'
             dotnet: '6.0.x'
             go: '1.19'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Javas
@@ -259,7 +252,7 @@ jobs:
             java: '11'
             dotnet: '6.0.x'
             go: '1.18'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
             python: '3.7'
           # Test alternate Pythons
@@ -268,28 +261,28 @@ jobs:
             dotnet: '6.0.x'
             go: '1.18'
             java: '8'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
           - title: 'Python 3.9'
             python: '3.9'
             dotnet: '6.0.x'
             go: '1.18'
             java: '8'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
           - title: 'Python 3.10'
             python: '3.10'
             dotnet: '6.0.x'
             go: '1.18'
             java: '8'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
           - title: 'Python 3.11'
             python: '3.11'
             dotnet: '6.0.x'
             go: '1.18'
             java: '8'
-            node: '16'
+            node: '18'
             os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
@@ -322,7 +315,7 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
       - name: Set up Node ${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
           node-version: ${{ matrix.node }}
@@ -397,7 +390,7 @@ jobs:
 
           rm built-tree.tgz
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
           node-version: '18'
@@ -452,7 +445,7 @@ jobs:
           distribution: 'corretto'
           java-version: '20'
       - name: Set up Node 20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Set up Python 3.11
@@ -479,4 +472,3 @@ jobs:
         with:
           name: integtest_aws-cdk-lib
           path: ./node_modules/aws-cdk-lib/dist/
-
