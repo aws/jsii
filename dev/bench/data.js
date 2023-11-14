@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699960890994,
+  "lastUpdate": 1699963591017,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23401,6 +23401,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 51351.15715006067,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38760.4634607 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "960305f67910c74863afdb8ada19781b0c60806e",
+          "message": "chore(deps-dev): Bump pip from 23.3 to 23.3.1 in /packages/jsii-pacmak/test/generated-code (#4306)\n\nBumps [pip](https://github.com/pypa/pip) from 23.3 to 23.3.1.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.3.1 (2023-10-21)</h1>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Handle a timezone indicator of Z when parsing dates in the self check. (<code>[#12338](https://github.com/pypa/pip/issues/12338) &lt;https://github.com/pypa/pip/issues/12338&gt;</code>_)</li>\n<li>Fix bug where installing the same package at the same time with multiple pip processes could fail. (<code>[#12361](https://github.com/pypa/pip/issues/12361) &lt;https://github.com/pypa/pip/issues/12361&gt;</code>_)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/5364f26f9631dc07ed1bdfc88e1bec1bead2bce3\"><code>5364f26</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/5e7cc16c3b4442055a4a9892e9231758b6714e28\"><code>5e7cc16</code></a> Fix parallel pip cache downloads causing crash (<a href=\"https://redirect.github.com/pypa/pip/issues/12364\">#12364</a>)</li>\n<li><a href=\"https://github.com/pypa/pip/commit/8a0f77c171d60344e6a3bf6e95ad5740c21575fd\"><code>8a0f77c</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12355\">#12355</a> from sbidoul/build-using-build</li>\n<li><a href=\"https://github.com/pypa/pip/commit/f3620cdb5be06cee223a3606a1525ee45372085b\"><code>f3620cd</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12363\">#12363</a> from pfmoore/safe_isoformat</li>\n<li><a href=\"https://github.com/pypa/pip/commit/fb06d12d5a32581ae531fc26143c14ac6c8ea8fe\"><code>fb06d12</code></a> Handle ISO formats with a trailing Z</li>\n<li><a href=\"https://github.com/pypa/pip/commit/9f213bf69ac32c60c84055261c862ff169389e43\"><code>9f213bf</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12356\">#12356</a> from sbidoul/clarify-changelog</li>\n<li><a href=\"https://github.com/pypa/pip/commit/a982c7bc3550afb27a3a792d84fe91bf7c3254ca\"><code>a982c7b</code></a> Add a few PEP links in the changelog</li>\n<li><a href=\"https://github.com/pypa/pip/commit/e1e227d7d6b5ae04ae3a2104bf8185622201f5f6\"><code>e1e227d</code></a> Clarify changelog</li>\n<li><a href=\"https://github.com/pypa/pip/commit/9b0abc8c40459dd16a9c1205e15f6d3363bf202e\"><code>9b0abc8</code></a> Build using <code>build</code></li>\n<li><a href=\"https://github.com/pypa/pip/commit/9d4be7802f45790bdb994f943c8d8731927cf25c\"><code>9d4be78</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12353\">#12353</a> from sbidoul/release/23.3</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/pip/compare/23.3...23.3.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.3&new-version=23.3.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-14T11:27:04Z",
+          "tree_id": "195e0011c07460d37680cf4f0cb4bf9fdf81f161",
+          "url": "https://github.com/aws/jsii/commit/960305f67910c74863afdb8ada19781b0c60806e"
+        },
+        "date": 1699963587243,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52574.90730364999,
+            "unit": "milliseconds",
+            "range": 1133614.9190836542,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52574.90730364999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38913.205937200015,
+            "unit": "milliseconds",
+            "range": 173712.03039646306,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38913.205937200015 milliseconds over 20 runs"
           }
         ]
       }
