@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699927682066,
+  "lastUpdate": 1699955799735,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23287,6 +23287,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 366408.5142649453,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39429.55720010002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89125578+NextThread@users.noreply.github.com",
+            "name": "Anurag Roy",
+            "username": "NextThread"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d55b8d57ce43dc9fd3d5132d7ba3ad0aa9ead3b9",
+          "message": "fix(pacmak): *.tsbuildinfo not in auto-generated .npmignore file (#4236)\n\n#3978 \nAdded *.tsbuildinfo to auto-generated .npmignore file",
+          "timestamp": "2023-11-14T08:56:36Z",
+          "tree_id": "a8c0fbeb75941513658db650e303b7c0202b0392",
+          "url": "https://github.com/aws/jsii/commit/d55b8d57ce43dc9fd3d5132d7ba3ad0aa9ead3b9"
+        },
+        "date": 1699955794116,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 87354.1370324,
+            "unit": "milliseconds",
+            "range": 3872448.6050395845,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 87354.1370324 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 64314.33665820003,
+            "unit": "milliseconds",
+            "range": 438131.54230961495,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 64314.33665820003 milliseconds over 20 runs"
           }
         ]
       }
