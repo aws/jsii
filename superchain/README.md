@@ -38,16 +38,10 @@ public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 
 The previous image tags have been discontinued:
 
-- `:latest` (users should migrate to `:1-buster-slim`)
-- `:nightly` (users should migrate to `:1-buster-slim-nightly`)
-- `:node10` (users should migrate to `:1-buster-slim-node18`)
-- `:node10-nightly` (users should migrate to `:1-buster-slim-node18-nightly`)
-- `:node12` (users should migrate to `:1-buster-slim-node18`)
-- `:node12-nightly` (users shoudl migrate to `:1-buster-slim-node18-nightly`)
-- `:node14` (users should migrate to `:1-buster-slim-node18`)
-- `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node18-nightly`)
-- `:node16` (users should migrate to `:1-buster-slim-node18`)
-- `:node16-nightly` (users shoudl migrate to `:1-buster-slim-node18-nightly`)
+- `:latest` (users should migrate to `:1-bullseye-slim`)
+- `:nightly` (users should migrate to `:1-bullseye-slim-nightly`)
+- `:nodeX` (users should migrate to an image using a supported node version)
+- `:nodeX-nightly` (users should migrate to a nightly image using a supported node version)
 
 ## Building
 
@@ -68,10 +62,8 @@ jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local --target=
 
 We build multiple versions of this image, for different versions of Node. They are available as:
 
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node14(-nightly)`
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node16(-nightly)`
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node18(-nightly)`
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node20(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-bullseye-slim-node18(-nightly)`
+* `public.ecr.aws/jsii/superchain:1-bullseye-slim-node20(-nightly)`
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
