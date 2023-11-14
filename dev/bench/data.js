@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699999792754,
+  "lastUpdate": 1700003797437,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23743,6 +23743,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 42481.1057424677,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39078.15208150001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "00538f500d031e3184989719332c1d30abaef26d",
+          "message": "chore(deps-dev): Bump mypy from 1.4.1 to 1.7.0 in /packages/jsii-pacmak/test/generated-code (#4329)\n\nBumps [mypy](https://github.com/python/mypy) from 1.4.1 to 1.7.0.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/python/mypy/blob/master/CHANGELOG.md\">mypy's changelog</a>.</em></p>\n<blockquote>\n<h1>Mypy Release Notes</h1>\n<h2>Next release</h2>\n<p>Stubgen will now include <code>__all__</code> in its output if it is in the input file (PR <a href=\"https://redirect.github.com/python/mypy/pull/16356\">16356</a>).</p>\n<h2>Mypy 1.7</h2>\n<p>We’ve just uploaded mypy 1.7 to the Python Package Index (<a href=\"https://pypi.org/project/mypy/\">PyPI</a>). Mypy is a static type checker for Python. This release includes new features, performance improvements and bug fixes. You can install it as follows:</p>\n<pre><code>python3 -m pip install -U mypy\n</code></pre>\n<p>You can read the full documentation for this release on <a href=\"http://mypy.readthedocs.io\">Read the Docs</a>.</p>\n<h4>Using TypedDict for <code>**kwargs</code> Typing</h4>\n<p>Mypy now has support for using <code>Unpack[...]</code> with a TypedDict type to annotate <code>**kwargs</code> arguments enabled by default. Example:</p>\n<pre lang=\"python\"><code># Or 'from typing_extensions import ...'\nfrom typing import TypedDict, Unpack\n<p>class Person(TypedDict):\nname: str\nage: int</p>\n<p>def foo(**kwargs: Unpack[Person]) -&gt; None:\n...</p>\n<p>foo(name=&quot;x&quot;, age=1)  # Ok\nfoo(name=1)  # Error\n</code></pre></p>\n<p>The definition of <code>foo</code> above is equivalent to the one below, with keyword-only arguments <code>name</code> and <code>age</code>:</p>\n<pre lang=\"python\"><code>def foo(*, name: str, age: int) -&gt; None:\n    ...\n</code></pre>\n<p>Refer to <a href=\"https://peps.python.org/pep-0692/\">PEP 692</a> for more information. Note that unlike in the current version of the PEP, mypy always treats signatures with <code>Unpack[SomeTypedDict]</code> as equivalent to their expanded forms with explicit keyword arguments, and there aren't special type checking rules for TypedDict arguments.</p>\n<p>This was contributed by Ivan Levkivskyi back in 2022 (PR <a href=\"https://redirect.github.com/python/mypy/pull/13471\">13471</a>).</p>\n<h4>TypeVarTuple Support Enabled (Experimental)</h4>\n<p>Mypy now has support for variadic generics (TypeVarTuple) enabled by default, as an experimental feature. Refer to <a href=\"https://peps.python.org/pep-0646/\">PEP 646</a> for the details.</p>\n<p>TypeVarTuple was implemented by Jared Hance and Ivan Levkivskyi over several mypy releases, with help from Jukka Lehtosalo.</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/f6b9972329d5d68f6defc92a10cc4c3bc339c27b\"><code>f6b9972</code></a> Remove +dev from version</li>\n<li><a href=\"https://github.com/python/mypy/commit/62bcae2d9bad12c5d3b5dda23dc031e1c7ddf136\"><code>62bcae2</code></a> Fix handling of tuple type context with unpacks (<a href=\"https://redirect.github.com/python/mypy/issues/16444\">#16444</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/c22294a80b000ea673e407994ac5111644944486\"><code>c22294a</code></a> Handle TypeVarTupleType when checking overload constraints (<a href=\"https://redirect.github.com/python/mypy/issues/16428\">#16428</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/8813968abb657113df5edfa207db46b0649c9dce\"><code>8813968</code></a> Fix type narrowing in lambda expressions (<a href=\"https://redirect.github.com/python/mypy/issues/16407\">#16407</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/681e54cfe1642adddc41c4ff11198b8bc955d5af\"><code>681e54c</code></a> Fix crash on unpack call special-casing (<a href=\"https://redirect.github.com/python/mypy/issues/16381\">#16381</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/f68f46351e30644aefd19900ba1634595adc1d09\"><code>f68f463</code></a> Fix file reloading in dmypy with --export-types (<a href=\"https://redirect.github.com/python/mypy/issues/16359\">#16359</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/5624f401b3786ebdbe167c27297ed778cce3faa5\"><code>5624f40</code></a> Fix daemon crash caused by deleted submodule (<a href=\"https://redirect.github.com/python/mypy/issues/16370\">#16370</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/ad0e183b0df7cc3dd94d9e1cd6f5710859beda96\"><code>ad0e183</code></a> Enable Unpack/TypeVarTuple support (<a href=\"https://redirect.github.com/python/mypy/issues/16354\">#16354</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/b064a5c183b53a84d895bb8e3c36a3a74e24be9c\"><code>b064a5c</code></a> Fix dmypy inspect on Windows (<a href=\"https://redirect.github.com/python/mypy/issues/16355\">#16355</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/4e30e896486b774cdecaef6d3521a585b8acf8bc\"><code>4e30e89</code></a> Fix dmypy inspect for namespace packages (<a href=\"https://redirect.github.com/python/mypy/issues/16357\">#16357</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/v1.4.1...v1.7.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.4.1&new-version=1.7.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-14T22:36:34Z",
+          "tree_id": "372514cf7d3ef63fb13910e952a5eae46e349059",
+          "url": "https://github.com/aws/jsii/commit/00538f500d031e3184989719332c1d30abaef26d"
+        },
+        "date": 1700003794641,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51678.672485749994,
+            "unit": "milliseconds",
+            "range": 298003.13161303545,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51678.672485749994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38848.942686400005,
+            "unit": "milliseconds",
+            "range": 109314.84634667328,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38848.942686400005 milliseconds over 20 runs"
           }
         ]
       }
