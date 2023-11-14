@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1699957359763,
+  "lastUpdate": 1699960890994,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23363,6 +23363,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 84066.91930096815,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41699.87806069998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c27196c667176650a0ab50f0d367aa54b9ab7075",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.14.0 to 0.15.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4319)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.14.0 to 0.15.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/golang/tools/releases\">golang.org/x/tools's releases</a>.</em></p>\n<blockquote>\n<h2>gopls/v0.14.1</h2>\n<p>This release contains just two changes:</p>\n<ul>\n<li>A workaround for a regression affecting some users of <code>GOPACKAGESDRIVER</code>: <a href=\"https://redirect.github.com/golang/go/issues/63751\">golang/go#63751</a>, for example those using gopls with an older version of <a href=\"https://bazel.build/\">Bazel</a>. When the <a href=\"https://pkg.go.dev/golang.org/x/tools/go/packages\"><code>go/packages</code></a> driver is missing compiler or architecture information, gopls now assumes a default value rather than failing to load package information.</li>\n<li>A fix for a minor bug in the <a href=\"https://github.com/golang/tools/releases/tag/gopls%2Fv0.14.0\">new</a> &quot;remove unused parameter&quot; refactoring: <a href=\"https://redirect.github.com/golang/go/issues/63755\">golang/go#63755</a>. Notably, this bug was discovered via an automated report from someone who had opted in to <a href=\"https://telemetry.go.dev/privacy\">Go telemetry</a>.</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/729e159c03f809dea9d75605900b19a66793d955\"><code>729e159</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/38ed81a6b5538535b3f83203cf3bf0c6289e2291\"><code>38ed81a</code></a> gopls/internal/regtest/marker: porting extract tests</li>\n<li><a href=\"https://github.com/golang/tools/commit/bbf8380961d57b5bb9347781a1718de28a09f6ae\"><code>bbf8380</code></a> gopls/internal/regtest/marker: use golden diffs for suggested fixes</li>\n<li><a href=\"https://github.com/golang/tools/commit/51df92b224f5bbb7d2cabb52c0c77410b2d590e7\"><code>51df92b</code></a> go/ssa: two minor cleanups</li>\n<li><a href=\"https://github.com/golang/tools/commit/e7fb31ad45aafe6733523da75a71131305a27ad9\"><code>e7fb31a</code></a> internal/cmd/deadcode: rename -format to -f</li>\n<li><a href=\"https://github.com/golang/tools/commit/c538b4e9949aa032ec14c82465b7d70fa34a97fd\"><code>c538b4e</code></a> internal/cmd/deadcode: add -whylive=function flag</li>\n<li><a href=\"https://github.com/golang/tools/commit/b753e58b842175872367e87e377c4669b5037a0c\"><code>b753e58</code></a> internal/lsp/helper: fix misspelled &quot;Code generated&quot; comment</li>\n<li><a href=\"https://github.com/golang/tools/commit/2638d6633698ef021f5b0802ae79c64eeddd8bf7\"><code>2638d66</code></a> internal/cmd/deadcode: omit package/func keywords in default output</li>\n<li><a href=\"https://github.com/golang/tools/commit/118c362a56589bbbb0a0950d2d5e8850d5366609\"><code>118c362</code></a> gopls/internal/lsp/source: fix signatureHelp with pointer receivers</li>\n<li><a href=\"https://github.com/golang/tools/commit/4124316da0c55abb58bd81da62d6424cc92f7e59\"><code>4124316</code></a> gopls/internal/lsp/cache: remove baseCtx from the View</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.14.0...v0.15.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.14.0&new-version=0.15.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-14T10:42:40Z",
+          "tree_id": "6c4dde21f341e3ff71826b9a581ab3aeaf2505bc",
+          "url": "https://github.com/aws/jsii/commit/c27196c667176650a0ab50f0d367aa54b9ab7075"
+        },
+        "date": 1699960887896,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50740.26346325001,
+            "unit": "milliseconds",
+            "range": 876036.1875313729,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50740.26346325001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38760.4634607,
+            "unit": "milliseconds",
+            "range": 51351.15715006067,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38760.4634607 milliseconds over 20 runs"
           }
         ]
       }
