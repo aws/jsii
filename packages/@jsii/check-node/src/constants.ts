@@ -35,9 +35,6 @@ export class NodeRelease {
       endOfLife: new Date('2022-04-30'),
       supportedRange: '^12.7.0',
     }),
-    new NodeRelease(19, { endOfLife: new Date('2023-06-01') }),
-
-    // Currently active releases (as of last edit to this file...)
     new NodeRelease(16, {
       endOfLife: new Date('2023-09-11'),
       supportedRange: '^16.3.0',
@@ -46,8 +43,12 @@ export class NodeRelease {
       endOfLife: new Date('2022-06-01'),
       supportedRange: '^17.3.0',
     }),
+    new NodeRelease(19, { endOfLife: new Date('2023-06-01') }),
+
+    // Currently active releases (as of last edit to this file...)
     new NodeRelease(18, { endOfLife: new Date('2025-04-30') }),
     new NodeRelease(20, { endOfLife: new Date('2026-04-30') }),
+    new NodeRelease(21, { endOfLife: new Date('2024-06-01') }),
 
     // Future (planned releases)
   ];
