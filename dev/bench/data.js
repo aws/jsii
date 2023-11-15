@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700007381556,
+  "lastUpdate": 1700012218910,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23819,6 +23819,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 65336.51822214409,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40286.24796085 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4e87342c72547b3d1f49c80a530687bf75774194",
+          "message": "chore(deps): Update setuptools requirement from ~=68.0.0 to ~=68.2.2 in /packages/@jsii/python-runtime (#4330)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v68.2.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Improve backwards compatibility with deprecated CLI practices. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4048\">#4048</a>)</li>\n</ul>\n<h1>v68.2.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Avoid using caching attributes in <code>Distribution.metadata</code> for requirements.\nThis is done for backwards compatibility with customizations that attempt to\nmodify <code>install_requires</code> or <code>extras_require</code> at a late point (still not\nrecommended). (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4043\">#4043</a>)</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4045\">#4045</a></li>\n</ul>\n<h1>v68.2.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Rework how <code>setuptools</code> internally handles <code>dependencies/install_requires</code>\nand <code>optional-dependencies/extras_require</code>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3903\">#3903</a>)</li>\n<li>Improve the generated <code>PKG-INFO</code> files, by adding <code>Requires-Dist</code> fields.\nPreviously, these fields would be omitted in favour of a non-standard\n<code>*.egg-info/requires.txt</code> file (which is still generated for the time being). (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3904\">#3904</a>)</li>\n<li>Improve atomicity when writing <code>PKG-INFO</code> files to avoid race\nconditions with <code>importlib.metadata</code>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3904\">#3904</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fix the name given to the <code>*-nspkg.pth</code> files in editable installs,\nensuring they are unique per distribution. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4041\">#4041</a>)</li>\n<li>Workaround some limitations on <code>pkg_resources</code>-style legacy namespaces in\nthe meta path finder for editable installations. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4041\">#4041</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/2255e6366c70b9813d115ae0a0bba329affbd0ac\"><code>2255e63</code></a> Bump version: 68.2.1 → 68.2.2</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/74cc26c644dff92314ea30eac9cd25b29bb635db\"><code>74cc26c</code></a> Improve backwards compatibility with deprecated CLI practices (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4048\">#4048</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e3d5edd172da496211d3fedbe44343a549b0f8a3\"><code>e3d5edd</code></a> Fix import statement on quickstart guide (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4049\">#4049</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/5f29762b9f4933d8b4dfbfd8a2d470d68c8adf1f\"><code>5f29762</code></a> fix import statement on quickstart guide</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/facbb757dbef0641fb12b550f07d1da2edd6ed6a\"><code>facbb75</code></a> Add news fragment</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/7b7971e6b08c2a9586e4699312371bb5ae19df9b\"><code>7b7971e</code></a> Set requirements attributes directly into dist when parsing pyproject.toml</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/566f2948d2fc452109da4e0cf20ac4e113e07809\"><code>566f294</code></a> Test command line parsing of '--version' interoperates with pyproject.toml</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/0120605db966af66207d996b82320ee676fabbf1\"><code>0120605</code></a> Bump version: 68.2.0 → 68.2.1</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/6e1bd6b2f38e51ec0f2f877480f672506839b578\"><code>6e1bd6b</code></a> Fix bumpversion state</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/d30aaa54b881662d4219a4990fc469aa27f6d169\"><code>d30aaa5</code></a> Update test deps (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4045\">#4045</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v68.0.0...v68.2.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-15T00:23:30Z",
+          "tree_id": "63bcd54a3bde33635cea24e7b08960b6f358814f",
+          "url": "https://github.com/aws/jsii/commit/4e87342c72547b3d1f49c80a530687bf75774194"
+        },
+        "date": 1700012213289,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 107478.43244910003,
+            "unit": "milliseconds",
+            "range": 7670518.011931002,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 107478.43244910003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 80473.3979705,
+            "unit": "milliseconds",
+            "range": 3666757.3328041523,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 80473.3979705 milliseconds over 20 runs"
           }
         ]
       }
