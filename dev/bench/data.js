@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700013097597,
+  "lastUpdate": 1700062531189,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -23895,6 +23895,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 23511.471339256346,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39316.11733885 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c0a41409568bc71b086fd1c56e2c5a08f708c3ad",
+          "message": "fix(superchain): installed setuptools is an unsupported version (#4333)\n\nRunning the jsii-pacmak build tests inside a `jsii/superchain:1-bullseye-slim-nightly` container would fail with \"invalid command 'bdist_wheel'\".\n\nThis was due to an outdated & unsupported (by jsii) version of `setuptools` being present in the image.\nIn https://github.com/aws/jsii/pull/4219 we inadvertently removed installing a newer version of `setuptools`.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-15T14:25:13Z",
+          "tree_id": "b4abeeb6a3e7ac834b7121844ebc3a863ac44f9b",
+          "url": "https://github.com/aws/jsii/commit/c0a41409568bc71b086fd1c56e2c5a08f708c3ad"
+        },
+        "date": 1700062524101,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 99818.20495200001,
+            "unit": "milliseconds",
+            "range": 12154938.9985686,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 99818.20495200001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 73715.86526085004,
+            "unit": "milliseconds",
+            "range": 4621070.521288728,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 73715.86526085004 milliseconds over 20 runs"
           }
         ]
       }
