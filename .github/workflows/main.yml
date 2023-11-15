@@ -47,10 +47,10 @@ jobs:
         with:
           cache: yarn
           node-version: '18'
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -130,10 +130,10 @@ jobs:
         with:
           cache: yarn
           node-version: '18'
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -197,7 +197,7 @@ jobs:
         java: ['8']
         node: ['18'] # EOL 2025-04-30
         os: [ubuntu-latest]
-        python: ['3.7']
+        python: ['3.8']
         # Add specific combinations to be tested against (to restrict cardinality)
         include:
           # Test using Windows
@@ -207,7 +207,7 @@ jobs:
             go: '1.18'
             java: '8'
             node: '18'
-            python: '3.7'
+            python: '3.8'
           # Test using macOS
           - title: 'macOS'
             os: macos-latest
@@ -215,7 +215,7 @@ jobs:
             go: '1.18'
             java: '8'
             node: '18'
-            python: '3.7'
+            python: '3.8'
           # Test alternate Nodes
           - title: 'Node 18'
             java: '8'
@@ -223,14 +223,14 @@ jobs:
             go: '1.18'
             node: '18' # EOL 2025-04-30
             os: ubuntu-latest
-            python: '3.7'
+            python: '3.8'
           - title: 'Node 20'
             java: '8'
             dotnet: '6.0.x'
             go: '1.18'
             node: '20' # EOL 2026-04-30
             os: ubuntu-latest
-            python: '3.7'
+            python: '3.8'
           # Test alternate .NETs
           - title: '.NET 7.0'
             java: '8'
@@ -238,7 +238,7 @@ jobs:
             go: '1.18'
             node: '18'
             os: ubuntu-latest
-            python: '3.7'
+            python: '3.8'
           # Test alternate Gos
           - title: 'Go 1.19'
             java: '8'
@@ -246,7 +246,7 @@ jobs:
             go: '1.19'
             node: '18'
             os: ubuntu-latest
-            python: '3.7'
+            python: '3.8'
           # Test alternate Javas
           - title: 'Java 11'
             java: '11'
@@ -254,7 +254,7 @@ jobs:
             go: '1.18'
             node: '18'
             os: ubuntu-latest
-            python: '3.7'
+            python: '3.8'
           # Test alternate Pythons
           - title: 'Python 3.8'
             python: '3.8'
