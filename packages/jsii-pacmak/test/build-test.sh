@@ -46,7 +46,9 @@ else
     # Hello Windows!
     . ${venv}/Scripts/activate
 fi
-${PYTHON} -m pip install --upgrade pip~=22.1 twine~=4.0
+
+# Note the venv is not used by the jsii-pacmak commands
+${PYTHON} -m pip install --upgrade pip>=23.3.1 setuptools>=68.2.2 wheel>=0.41.3 twine~=4.0
 
 # Provision a specific NuGet package cache
 NUGET_CACHE=${outdir}/.nuget/packages

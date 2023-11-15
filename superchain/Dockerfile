@@ -171,7 +171,7 @@ RUN apt-get update                                                              
   && apt-get -y install python3-dev python3-pip python3-venv                                                            \
   && coercepip='--break-system-packages'                                                                                \
   && if [[ ${DEBIAN_VERSION} == "buster" || ${DEBIAN_VERSION} == "bullseye" ]]; then coercepip=''; fi                   \
-  && python3 -m pip install ${coercepip} pipx                                                                           \
+  && python3 -m pip install ${coercepip} pipx "pip>=23.3.1" "setuptools>=68.2.2" "wheel>=0.41.3"                        \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Python tools globally using pipx (install globally)
