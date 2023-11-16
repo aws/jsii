@@ -40,7 +40,7 @@ ARG DEBIAN_VERSION="bookworm"
 
 # We require a couple of tools to be available in order to work here...
 RUN echo "deb http://deb.debian.org/debian ${DEBIAN_VERSION}-backports main"                                            \
-    > "/etc/apt/sources.list.d/${DEBIAN_VERSION}-backports.list"                                                        \
+  > "/etc/apt/sources.list.d/${DEBIAN_VERSION}-backports.list"                                                        \
   && apt-get update                                                                                                     \
   && apt-get install -y gpg tar zsh                                                                                     \
   # We need a "recent" (>= 7.71) version of curl for --retry-all-errors, so we get it from backports...
@@ -54,9 +54,9 @@ ARG M2_VERSION="3.9.4"
 ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
-    -o /tmp/apache-maven.tar.gz                                                                                         \
+  -o /tmp/apache-maven.tar.gz                                                                                         \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"                         \
-    -o /tmp/apache-maven.tar.gz.asc                                                                                     \
+  -o /tmp/apache-maven.tar.gz.asc                                                                                     \
   && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
   && curl -fSsL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                        \
   && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
@@ -75,11 +75,11 @@ RUN DOTNET_VERSION=$(curl -fSsL "${DOTNET_FEED}/Sdk/${DOTNET_CHANNEL}/latest.ver
 # Prepare PowerShell LTS distribution
 ENV POWERSHELL_RELEASES="https://github.com/PowerShell/PowerShell/releases"
 RUN POWERSHELL_RELEASE=$(curl -X GET -fSsIL "https://aka.ms/powershell-release?tag=lts" -o /dev/null                    \
-    --retry 5 --retry-all-errors -w %{url_effective})                                                                   \
+  --retry 5 --retry-all-errors -w %{url_effective})                                                                   \
   && POWERSHELL_VERSION=${POWERSHELL_RELEASE#${POWERSHELL_RELEASES}/tag/v}                                              \
   && ASSET="powershell-${POWERSHELL_VERSION}-linux-${${TARGETPLATFORM#linux/}/amd64/x64}.tar.gz"                        \
   && curl -fSsL "${POWERSHELL_RELEASES}/download/v${POWERSHELL_VERSION}/${ASSET}" --retry 5 --retry-all-errors          \
-    -o /tmp/powershell.tar.gz                                                                                           \
+  -o /tmp/powershell.tar.gz                                                                                           \
   && mkdir -p /opt/microsoft/powershell                                                                                 \
   && tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell                                                        \
   && chmod +x /opt/microsoft/powershell/pwsh
@@ -125,24 +125,24 @@ ENV LANG="C.UTF-8"                                                              
 RUN apt-get update                                                                                                      \
   && apt-get -y upgrade                                                                                                 \
   && apt-get -y install --no-install-recommends                                                                         \
-    apt-transport-https                                                                                                 \
-    build-essential                                                                                                     \
-    ca-certificates                                                                                                     \
-    curl                                                                                                                \
-    dirmngr                                                                                                             \
-    git                                                                                                                 \
-    gnupg                                                                                                               \
-    gzip                                                                                                                \
-    libffi-dev                                                                                                          \
-    libicu-dev                                                                                                          \
-    libssl-dev                                                                                                          \
-    openssh-client                                                                                                      \
-    openssl                                                                                                             \
-    rsync                                                                                                               \
-    sudo                                                                                                                \
-    unzip                                                                                                               \
-    zip                                                                                                                 \
-    acl                                                                                                                 \
+  apt-transport-https                                                                                                 \
+  build-essential                                                                                                     \
+  ca-certificates                                                                                                     \
+  curl                                                                                                                \
+  dirmngr                                                                                                             \
+  git                                                                                                                 \
+  gnupg                                                                                                               \
+  gzip                                                                                                                \
+  libffi-dev                                                                                                          \
+  libicu-dev                                                                                                          \
+  libssl-dev                                                                                                          \
+  openssh-client                                                                                                      \
+  openssl                                                                                                             \
+  rsync                                                                                                               \
+  sudo                                                                                                                \
+  unzip                                                                                                               \
+  zip                                                                                                                 \
+  acl                                                                                                                 \
   && rm -rf /var/lib/apt/lists/*
 
 # Install mono
@@ -150,7 +150,7 @@ COPY superchain/gpg/mono.asc /tmp/mono.asc
 RUN apt-key add /tmp/mono.asc && rm /tmp/mono.asc                                                                       \
   # Mono only provides a Debian Buster (10) distribution point, but it works with subsequent debians, too...
   && echo "deb https://download.mono-project.com/repo/debian stable-buster main"                                        \
-    > /etc/apt/sources.list.d/mono-official-stable.list                                                                 \
+  > /etc/apt/sources.list.d/mono-official-stable.list                                                                 \
   && apt-get update                                                                                                     \
   && apt-get -y install mono-devel                                                                                      \
   && rm -rf /var/lib/apt/lists/*
@@ -171,7 +171,7 @@ RUN apt-get update                                                              
   && apt-get -y install python3-dev python3-pip python3-venv                                                            \
   && coercepip='--break-system-packages'                                                                                \
   && if [[ ${DEBIAN_VERSION} == "buster" || ${DEBIAN_VERSION} == "bullseye" ]]; then coercepip=''; fi                   \
-  && python3 -m pip install ${coercepip} pipx                                                                           \
+  && python3 -m pip install ${coercepip} pipx "pip>=23.3.1" "setuptools>=68.0.0" "wheel>=0.41.3"                        \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Python tools globally using pipx (install globally)
@@ -213,7 +213,7 @@ ARG GITHUB_CLI_VERSION="1.13.1"
 RUN BASE="https://github.com/cli/cli/releases/download"                                                                 \
   && echo "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"                  \
   && curl -fSsL "${BASE}/v${GITHUB_CLI_VERSION}/gh_${GITHUB_CLI_VERSION}_linux_${TARGETPLATFORM#linux/}.deb"            \
-    -o /tmp/gh.deb                                                                                                      \
+  -o /tmp/gh.deb                                                                                                      \
   && apt-get update                                                                                                     \
   && apt-get -y install /tmp/gh.deb                                                                                     \
   && rm /tmp/gh.deb                                                                                                     \
@@ -232,15 +232,15 @@ COPY superchain/m2-settings.xml /root/.m2/settings.xml
 # Install Go
 COPY --from=bindist /opt/golang/go ${GOROOT}
 
-# Install Node 14+ (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
+# Install Node (configurable with '--build-arg NODE_MAJOR_VERSION=xxx') and yarn
 # (Put this as late as possible in the Dockerfile so we get to reuse the layer cache
 # for most of the multiple builds).
-ARG NODE_MAJOR_VERSION="16"
+ARG NODE_MAJOR_VERSION="18"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
   && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x ${DEBIAN_VERSION} main"                          \
-    > /etc/apt/sources.list.d/nodesource.list                                                                           \
+  > /etc/apt/sources.list.d/nodesource.list                                                                           \
   # Reduce priority of the "standard" nodejs package, so that the one from nodesource is always preferred...
   && echo "Package: nodejs" > /etc/apt/preferences.d/nodejs                                                             \
   && echo 'Pin: origin "deb.debian.org"' >> /etc/apt/preferences.d/nodejs                                               \
@@ -256,7 +256,7 @@ RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                   
 RUN apt-get update                                                                                                      \
   && apt-get -y install --no-install-recommends curl                                                                    \
   && curl -fSsL "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${TARGETPLATFORM#linux/}/amazon-ssm-agent.deb"\
-    -o /tmp/amazon-ssm-agent.deb                                                                                        \
+  -o /tmp/amazon-ssm-agent.deb                                                                                        \
   && dpkg -i /tmp/amazon-ssm-agent.deb                                                                                  \
   && systemctl enable amazon-ssm-agent                                                                                  \
   && rm -rf /var/lib/apt/lists/*

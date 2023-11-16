@@ -102,7 +102,7 @@ export class Code<
   #category?: ts.DiagnosticCategory;
 
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #formatter: T;
+  readonly #formatter: T;
 
   /**
    * Registers a new diagnostic code.
