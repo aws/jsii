@@ -26,22 +26,21 @@ Maintained image tags are named using the following pattern:
 public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 ```
 
-- `<JSII-MAJOR>` is the major line of the jsii toolchain
-  - The only supported value is `1`
-- `<BASE>` is the base image tag (e.g: `buster-slim`, `bullseye-slim`, `bookworm-slim`)
-  - The only supported value is `buster-slim`
+- `<JSII-MAJOR>` is the major line of the jsii toolchain (must be `1`)
+- `<BASE>` is the base image tag (must be `bullseye-slim`)
 - `<NODE-MAJOR>` is the major version of node contained in the image
   - `18` corresponds to node 18.x, this is the default
   - `20` corresponds to node 20.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
 
-The previous image tags have been discontinued:
+**The previous image tags have been discontinued and must NOT BE USED ANYMORE:**
 
 - `:latest` (users should migrate to `:1-bullseye-slim`)
 - `:nightly` (users should migrate to `:1-bullseye-slim-nightly`)
 - `:nodeX` (users should migrate to an image using a supported node version)
 - `:nodeX-nightly` (users should migrate to a nightly image using a supported node version)
+- `:1-buster-slim-*` (users should migrate to `:1-bullseye-slim`)
 
 ## Building
 
