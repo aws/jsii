@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700502643896,
+  "lastUpdate": 1700754816861,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24237,6 +24237,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 107830.10160143659,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39965.999985949995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b7c0f7f473005ccad5314712dd1bdc89a64178b4",
+          "message": "chore: update superchain README (#4346)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-23T15:14:10Z",
+          "tree_id": "6bcf2dd53e520a86931d8013366e6cd88ba0ca7c",
+          "url": "https://github.com/aws/jsii/commit/b7c0f7f473005ccad5314712dd1bdc89a64178b4"
+        },
+        "date": 1700754813910,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51497.97101995005,
+            "unit": "milliseconds",
+            "range": 1155985.3407823078,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51497.97101995005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39462.257145300006,
+            "unit": "milliseconds",
+            "range": 373892.11937697383,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39462.257145300006 milliseconds over 20 runs"
           }
         ]
       }
