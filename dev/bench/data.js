@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700754816861,
+  "lastUpdate": 1700851950480,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24275,6 +24275,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 373892.11937697383,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39462.257145300006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rmuller@amazon.fr",
+            "name": "Romain Marcadier",
+            "username": "RomainMuller"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2ecfb778130c1a2fdd6b4932216e144a0d079d5c",
+          "message": "feat(go): add jsii.Sprintf helper (#4345)\n\nIt's a fairly common practice to compose string values using `fmt.Sprintf`, however in order to use these with `jsii` they need to be stored into a variable so a pointer can be taken from them, or they need passed into the `jsii.String` function.\n\nThis new helper removes this constraint and provides a simple way to perform `jsii`-friendly string interpolation.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-24T18:12:54Z",
+          "tree_id": "807a72311fbf5aeeda9a15765457f77557c44dc2",
+          "url": "https://github.com/aws/jsii/commit/2ecfb778130c1a2fdd6b4932216e144a0d079d5c"
+        },
+        "date": 1700851946353,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52032.73766005001,
+            "unit": "milliseconds",
+            "range": 456973.062269213,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52032.73766005001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39486.85910915,
+            "unit": "milliseconds",
+            "range": 48432.58488657426,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39486.85910915 milliseconds over 20 runs"
           }
         ]
       }
