@@ -64,6 +64,10 @@ func TestString(t *testing.T) {
 	assert.Equal(t, "Hello", *String("Hello"))
 }
 
+func TestSprintf(t *testing.T) {
+	assert.Equal(t, "formatted: 42", *Sprintf("formatted: %d", 42))
+}
+
 func TestStrings(t *testing.T) {
 	assert.Equal(t, []*string{String("Hello"), String("World")}, *Strings("Hello", "World"))
 }
