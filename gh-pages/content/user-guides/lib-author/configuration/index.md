@@ -175,7 +175,7 @@ The specific configuration accepted for each supported language is presented in 
 
 ### `tsc`
 
-In order to the generated `javascript` can be properly loaded by the `jsii` runtimes, `jsii` generates a
+In order for the generated `JavaScript` to be properly loaded by the `jsii` runtimes, `jsii` generates a
 [`tsconfig.json`] file with fixed settings at the beginning of the compilation pass. Certain configuration options can
 however be set by the maintainers in order to better suit their development workflow or processes. Those configuration
 are set in the `jsii.tsc` section of the `package.json` file, but use the same name as [`tsconfig.json`]:
@@ -264,7 +264,7 @@ declarations from [`dependencies`][npm-deps] into the [`peerDependencies`][npm-p
 
 ### Dependencies that are not `jsii` modules
 
-The `jsii` runtimes in non-**javascript** languages do not use `npm install`, and as a consequence cannot rely on
+The `jsii` runtimes in non-**JavaScript** languages do not use `npm install`, and as a consequence cannot rely on
 `npm install` bringing in a package's dependencies. As a consequence, dependencies that are not themselves `jsii`
 modules, **must** also be referenced in the [`bundledDependencies`][npm-bundled] section, so that they are bundled
 within the NPM package.
