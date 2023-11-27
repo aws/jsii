@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701088734285,
+  "lastUpdate": 1701092815408,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24389,6 +24389,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 71402.16409851174,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38489.901788049996 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d305ab827db8ba41370bc19f361c553fbe263cff",
+          "message": "chore(deps): Update setuptools requirement from ~=68.2.2 to ~=69.0.2 in /packages/@jsii/python-runtime (#4353)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v69.0.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Added missing estimated date for removing <code>setuptools.dep_util</code> (deprecated in v69.0.0). (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4131\">#4131</a>)</li>\n</ul>\n<h1>v69.0.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fixed imports of <code>setuptools.dep_util.newer_group</code>.\nA deprecation warning is issued instead of a hard failure. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4126\">#4126</a>)</li>\n</ul>\n<h1>v69.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Include type information (<code>py.typed</code>, <code>*.pyi</code>) by default (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3136\">#3136</a>) -- by :user:<code>Danie-1</code>,\n<strong>EXPERIMENTAL</strong>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/3136\">#3136</a>)</li>\n<li>Exported <code>distutils.dep_util</code> and <code>setuptools.dep_util</code> through <code>setuptools.modified</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4069\">#4069</a>)</li>\n<li>Merged with pypa/distutils@7a04cbda0fc714.</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Replaced hardcoded numeric values with :obj:<code>dis.opmap</code>,\nfixing problem with 3.13.0a1. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4094\">#4094</a>)</li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>Configuring project <code>version</code> and <code>egg_info.tag_*</code> in such a way that\nresults in invalid version strings (according to :pep:<code>440</code>) is no longer permitted. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4066\">#4066</a>)</li>\n<li>Removed deprecated <code>egg_base</code> option from <code>dist_info</code>.\nNote that the <code>dist_info</code> command is considered internal to the way\n<code>setuptools</code> build backend works and not intended for\npublic usage. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4066\">#4066</a>)</li>\n<li>The parsing of the deprecated <code>metadata.license_file</code> and\n<code>metadata.requires</code> fields in <code>setup.cfg</code> is no longer supported.\nUsers are expected to move to <code>metadata.license_files</code> and</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4f6449f409322fa63408881860ed9097c2ab0af8\"><code>4f6449f</code></a> Bump version: 69.0.1 → 69.0.2</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/a4298d119a7ed45a752d576dce50e3c4d4db4a72\"><code>a4298d1</code></a> Add missing estimated date for removing setuptools.dep_util (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4132\">#4132</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/14957384f9e408b2569e5caba85fd2090a8944c9\"><code>1495738</code></a> Add news fragment</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/c836172e42822144ac4823e94fa1b0ed65c7ca54\"><code>c836172</code></a> Improve warning visibility with due date and reference url</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/d148d9e9b530a80c61f15ba64910f51e4fd0e574\"><code>d148d9e</code></a> Bump version: 69.0.0 → 69.0.1</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/28775f31b33a753b5b3b4a32a2097dc7204f03db\"><code>28775f3</code></a> Allow imports of setuptools.dep_util.newer_group with deprecation warning (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4\">#4</a>...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/7d90e9fa01dbcf05f1ab2f15627effcb70df930c\"><code>7d90e9f</code></a> Add newsfragment</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e1f8783a6956216a12f98e690e4b10486b093013\"><code>e1f8783</code></a> Allow imports of setuptools.dep_util.newer_group with deprecation warning</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/536d4a82059747873cab87654567a721489e1cd3\"><code>536d4a8</code></a> Bump version: 68.2.2 → 69.0.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b8992ad4737241752b58e6ca1748b0130820c838\"><code>b8992ad</code></a> Mark flaky test on  PyPy with <code>xfail</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4124\">#4124</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v68.2.2...v69.0.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-27T13:07:45Z",
+          "tree_id": "40fcb3decac9ef7e24ef97c6a5d78d7feee05187",
+          "url": "https://github.com/aws/jsii/commit/d305ab827db8ba41370bc19f361c553fbe263cff"
+        },
+        "date": 1701092811570,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51076.918860649996,
+            "unit": "milliseconds",
+            "range": 733454.2276477753,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51076.918860649996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39076.369267250004,
+            "unit": "milliseconds",
+            "range": 86663.04271043735,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39076.369267250004 milliseconds over 20 runs"
           }
         ]
       }
