@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701103109962,
+  "lastUpdate": 1701113462793,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24579,6 +24579,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 31666.136671622353,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39288.198691350015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7b8d70957982aae09e94b20b13ea90340faab95e",
+          "message": "chore: update DockerHub README daily (#4356)\n\nAdd a GitHub action to update the DockerHub README of the superchain image every day.\n\nNeeded to to refactor the steps a little bit to get the credentials out in a way the Action needs them.\n\n(Of course, no way to test this except in production :/ )\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-11-27T18:51:07Z",
+          "tree_id": "670a78e5807e7191ed6728921ca53fc1549e9dd8",
+          "url": "https://github.com/aws/jsii/commit/7b8d70957982aae09e94b20b13ea90340faab95e"
+        },
+        "date": 1701113458909,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53968.13664400003,
+            "unit": "milliseconds",
+            "range": 235210.26662922194,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53968.13664400003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39781.59120795,
+            "unit": "milliseconds",
+            "range": 400210.2099940094,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39781.59120795 milliseconds over 20 runs"
           }
         ]
       }
