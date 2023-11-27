@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701100394846,
+  "lastUpdate": 1701103109962,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24541,6 +24541,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 143384.6303983936,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39728.79857824998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ab5ee50da2b56c33f6f81654baa874ceccc9eb89",
+          "message": "chore(deps): Bump mypy from 1.7.0 to 1.7.1 in /packages/@jsii/python-runtime (#4352)\n\nBumps [mypy](https://github.com/python/mypy) from 1.7.0 to 1.7.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/6b3c41838d8e7a39242b6fd035535e2d76eabfc6\"><code>6b3c418</code></a> Update version to 1.7.1 (without +dev)</li>\n<li><a href=\"https://github.com/python/mypy/commit/c10e17348f2eacbbeae80eb6c10c661c0137d849\"><code>c10e173</code></a> [mypyc] Fix regression with nested functions (<a href=\"https://redirect.github.com/python/mypy/issues/16484\">#16484</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/e6399d10b0a1cdb104559482fad1b4dc0e2de6ac\"><code>e6399d1</code></a> Fix polymorphic application for callback protocols (<a href=\"https://redirect.github.com/python/mypy/issues/16514\">#16514</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/661adb756800ecc40fabbe62e9339efd253aff4e\"><code>661adb7</code></a> Fix crash on strict-equality with recursive types (<a href=\"https://redirect.github.com/python/mypy/issues/16483\">#16483</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/6c8e0cc47c014894ea41621a10f3d1b465322362\"><code>6c8e0cc</code></a> Ignore position if imprecise arguments are matched by name (<a href=\"https://redirect.github.com/python/mypy/issues/16471\">#16471</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/5c354c41c0fbb74418afcbd30ba822694be28d11\"><code>5c354c4</code></a> Fix missing meet case exposed by len narrowing (<a href=\"https://redirect.github.com/python/mypy/issues/16470\">#16470</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/88791cabe0521f77b699405154d90f3bb7c6b31b\"><code>88791ca</code></a> Exclude private attributes from override checks (<a href=\"https://redirect.github.com/python/mypy/issues/16464\">#16464</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/4b5b316beb570bba4c9b7797deb2e6d7df0552d0\"><code>4b5b316</code></a> Special-case unions in polymorphic inference (<a href=\"https://redirect.github.com/python/mypy/issues/16461\">#16461</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/f862d3ef540c38e7efd2fffd64fc732d6318dfb4\"><code>f862d3e</code></a> Fix crash on Callable self in <strong>call</strong> (<a href=\"https://redirect.github.com/python/mypy/issues/16453\">#16453</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/fe79a59e44299a3cc8025aa5084e08773c872a54\"><code>fe79a59</code></a> Bump version to 1.7.1+dev</li>\n<li>See full diff in <a href=\"https://github.com/python/mypy/compare/v1.7.0...v1.7.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.7.0&new-version=1.7.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-27T15:58:20Z",
+          "tree_id": "53e383ff496062b2003368f4eb042ed13f860a0f",
+          "url": "https://github.com/aws/jsii/commit/ab5ee50da2b56c33f6f81654baa874ceccc9eb89"
+        },
+        "date": 1701103106624,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51741.19314139999,
+            "unit": "milliseconds",
+            "range": 231640.16045006033,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51741.19314139999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39288.198691350015,
+            "unit": "milliseconds",
+            "range": 31666.136671622353,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39288.198691350015 milliseconds over 20 runs"
           }
         ]
       }
