@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701095316436,
+  "lastUpdate": 1701097927394,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24465,6 +24465,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 350666.71939571283,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39276.67411380001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9bf222fd8633243b11a4b4a8f74fe08bffcea9cc",
+          "message": "chore(deps): Bump Microsoft.CodeAnalysis.CSharp.Workspaces from 4.7.0 to 4.8.0 in /packages/@jsii/dotnet-runtime-test/test (#4350)\n\nBumps [Microsoft.CodeAnalysis.CSharp.Workspaces](https://github.com/dotnet/roslyn) from 4.7.0 to 4.8.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/roslyn/releases\">Microsoft.CodeAnalysis.CSharp.Workspaces's releases</a>.</em></p>\n<blockquote>\n<h2>.NET 6.0.1</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.1\">Release</a></p>\n<h2>.NET 5.0.4</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v5.0.4\">Release</a></p>\n<h2>.NET 5.0.2</h2>\n<p><a href=\"https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0.2/5.0.2.md\">Release Notes</a>\n<a href=\"https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0.2/5.0.2-install-instructions.md\">Install Instructions</a></p>\n<h1>Repos</h1>\n<ul>\n<li><a href=\"https://github.com/dotnet/core/releases/tag/v5.0.2\">Core</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/roslyn/blob/main/docs/Breaking%20API%20Changes.md\">Microsoft.CodeAnalysis.CSharp.Workspaces's changelog</a>.</em></p>\n<blockquote>\n<h1>Version 4.7.0</h1>\n<h3><code>SymbolDisplayFormat</code> includes parameter name when invoked on <code>IParameterSymbol</code></h3>\n<p>All <code>SymbolDisplayFormat</code>s (predefined and user-created) now include parameter names by default if used on a standalone <code>IParameterSymbol</code> for consistency with predefined formats (see the breaking change for version 4.5.0 above).</p>\n<h3>Changed <code>IncrementalStepRunReason</code> when a modified input produced a new output</h3>\n<p><code>IncrementalGeneratorRunStep.Outputs</code> previously contained <code>IncrementalStepRunReason.Modified</code> as <code>Reason</code>\nwhen the input to the step was modified in a way that produced a new output.\nNow the reason will be reported more accurately as <code>IncrementalStepRunReason.New</code>.</p>\n<h1>Version 4.8.0</h1>\n<h3>Changed <code>Assembly.Location</code> behavior in non-Windows</h3>\n<p>The value of <code>Assembly.Location</code> previously held the location on disk where an analyzer or source generator was loaded from. This could be either the original location or the shadow copy location. In 4.8 this will be <code>&quot;&quot;</code> in certain cases when running on non Windows platforms. This is due the compiler server loading assemblies using <code>AssemblyLoadContext.LoadFromStream</code> instead of loading from disk.</p>\n<p>This could already happen in other load scenarios but this change moves it into mainline build scenarios.</p>\n<h3>Deprecation warning for SyntaxNode serialization</h3>\n<p>The ability to serialize/deserialize a SyntaxNode to/from a Stream has been deprecated. The code for this still exists in Roslyn, but attempting to call the APIs to perform these functions will result in 'Obsolete' warnings being reported. A future version of Roslyn will remove this functionality entirely. This functionality could only work for a host that wrote out the nodes to a stream, and later read it back in within the same process instance. It could not be used to communicate across processes, or for persisting nodes to disk to be read in at a later time by a new host sessions. This functionality originally existed for the days when Roslyn was hosted in 32bit processes with limited address space. That is no longer a mainline supported scenario. Clients can get similar functionality by persisting the text of the node, and parsing it back out when needed.</p>\n<p>PR: <a href=\"https://redirect.github.com/dotnet/roslyn/pull/70365\">dotnet/roslyn#70365</a></p>\n<h1>Version 4.9.0</h1>\n<h3>Obsoletion and removal of SyntaxNode serialization.</h3>\n<p>Continuation of the deprecation that happened in 4.8.0 (see information above).  In 4.9.0 this functionality is now entirely removed, and will issue both an obsoletion error, and will throw at runtime if the APIs are used.</p>\n<p>PR: <a href=\"https://redirect.github.com/dotnet/roslyn/pull/70277\">dotnet/roslyn#70277</a></p>\n<h3>Changes in <code>Microsoft.CodeAnalysis.Emit.EmitBaseline.CreateInitialBaseline</code> method</h3>\n<p>A new required parameter <code>Compilation</code> has been added. Existing overloads without this parameter no longer work and throw <code>NotSupportedException</code>.</p>\n<h3>Changes in <code>Microsoft.CodeAnalysis.Emit.SemanticEdit</code> constructors</h3>\n<p>The value of <code>preserveLocalVariables</code> passed to the constructors is no longer used.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li>See full diff in <a href=\"https://github.com/dotnet/roslyn/commits\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.CodeAnalysis.CSharp.Workspaces&package-manager=nuget&previous-version=4.7.0&new-version=4.8.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-27T14:32:30Z",
+          "tree_id": "899941f4f4d461625e22efec09df970649a28601",
+          "url": "https://github.com/aws/jsii/commit/9bf222fd8633243b11a4b4a8f74fe08bffcea9cc"
+        },
+        "date": 1701097923849,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51050.39699884997,
+            "unit": "milliseconds",
+            "range": 798935.7516953058,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51050.39699884997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39019.59062765,
+            "unit": "milliseconds",
+            "range": 276710.23697105667,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39019.59062765 milliseconds over 20 runs"
           }
         ]
       }
