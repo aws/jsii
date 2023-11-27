@@ -229,7 +229,7 @@ jobs:
         with:
           username: ${{ steps.credentials.outputs.username }}
           password: ${{ steps.credentials.outputs.password }}
-          repository: peterevans/dockerhub-description
+          repository: jsii/superchain
           readme-filepath: ./superchain/README.md
 
       - name: Publish (latest)
