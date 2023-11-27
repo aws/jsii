@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701092815408,
+  "lastUpdate": 1701095316436,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24427,6 +24427,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 86663.04271043735,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39076.369267250004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ffee4ae3bdc3b5e643235a20297e25235314f97c",
+          "message": "chore(deps): Update wheel requirement from ~=0.41 to ~=0.42 in /packages/@jsii/python-runtime (#4351)\n\nUpdates the requirements on [wheel](https://github.com/pypa/wheel) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/releases\">wheel's releases</a>.</em></p>\n<blockquote>\n<h2>0.42.0</h2>\n<ul>\n<li>Allowed removing build tag with <code>wheel tags --build &quot;&quot;</code></li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing updated <code>WHEEL</code> fields after a blank line, causing other tools to ignore them</li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing <code>WHEEL</code> with CRLF line endings or a mix of CRLF and LF</li>\n<li>Fixed <code>wheel pack --build-number &quot;&quot;</code> not removing build tag from <code>WHEEL</code> (above changes by Benjamin Gilbert)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/blob/main/docs/news.rst\">wheel's changelog</a>.</em></p>\n<blockquote>\n<h1>Release Notes</h1>\n<p><strong>0.42.0 (2023-11-26)</strong></p>\n<ul>\n<li>Allowed removing build tag with <code>wheel tags --build &quot;&quot;</code></li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing updated <code>WHEEL</code> fields after a\nblank line, causing other tools to ignore them</li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing <code>WHEEL</code> with CRLF line endings or\na mix of CRLF and LF</li>\n<li>Fixed <code>wheel pack --build-number &quot;&quot;</code> not removing build tag from <code>WHEEL</code>\n(above changes by Benjamin Gilbert)</li>\n</ul>\n<p><strong>0.41.3 (2023-10-30)</strong></p>\n<ul>\n<li>Updated vendored <code>packaging</code> to 23.2</li>\n<li>Fixed ABI tag generation for CPython 3.13a1 on Windows (PR by Sam Gross)</li>\n</ul>\n<p><strong>0.41.2 (2023-08-22)</strong></p>\n<ul>\n<li>Fixed platform tag detection for GraalPy and 32-bit python running on an aarch64\nkernel (PR by Matthieu Darbois)</li>\n<li>Fixed <code>wheel tags</code> to not list directories in <code>RECORD</code> files\n(PR by Mike Taves)</li>\n<li>Fixed ABI tag generation for GraalPy (PR by Michael Simacek)</li>\n</ul>\n<p><strong>0.41.1 (2023-08-05)</strong></p>\n<ul>\n<li>Fixed naming of the <code>data_dir</code> directory in the presence of local version segment\ngiven via <code>egg_info.tag_build</code> (PR by Anderson Bravalheri)</li>\n<li>Fixed version specifiers in <code>Requires-Dist</code> being wrapped in parentheses</li>\n</ul>\n<p><strong>0.41.0 (2023-07-22)</strong></p>\n<ul>\n<li>Added full support of the build tag syntax to <code>wheel tags</code> (you can now set a build\ntag like <code>123mytag</code>)</li>\n<li>Fixed warning on Python 3.12 about <code>onerror</code> deprecation. (PR by Henry Schreiner)</li>\n<li>Support testing on Python 3.12 betas (PR by Ewout ter Hoeven)</li>\n</ul>\n<p><strong>0.40.0 (2023-03-14)</strong></p>\n<ul>\n<li>Added a <code>wheel tags</code> command to modify tags on an existing wheel\n(PR by Henry Schreiner)</li>\n<li>Updated vendored <code>packaging</code> to 23.0</li>\n<li><code>wheel unpack</code> now preserves the executable attribute of extracted files</li>\n<li>Fixed spaces in platform names not being converted to underscores (PR by David Tucker)</li>\n<li>Fixed <code>RECORD</code> files in generated wheels missing the regular file attribute</li>\n<li>Fixed <code>DeprecationWarning</code> about the use of the deprecated <code>pkg_resources</code> API\n(PR by Thomas Grainger)</li>\n<li>Wheel now uses flit-core as a build backend (PR by Henry Schreiner)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/wheel/commit/63a09bb3d92630c1d35f4fcc6f79250256aeeb5c\"><code>63a09bb</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/f4b8e488dfe3da3ced0bc36aa7dcf21631e7489d\"><code>f4b8e48</code></a> Several fixes to <code>WHEEL</code> metadata handling (<a href=\"https://redirect.github.com/pypa/wheel/issues/588\">#588</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/11e573283181493f7aec55146ab2862bccd4dc4d\"><code>11e5732</code></a> [pre-commit.ci] pre-commit autoupdate (<a href=\"https://redirect.github.com/pypa/wheel/issues/586\">#586</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/fe6bb8268d5f9e98ceec83c67d03b06c1c8862db\"><code>fe6bb82</code></a> [pre-commit.ci] pre-commit autoupdate (<a href=\"https://redirect.github.com/pypa/wheel/issues/584\">#584</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/b90a4bc408ce621818b3e92bb55955431a7fa22a\"><code>b90a4bc</code></a> [pre-commit.ci] pre-commit autoupdate (<a href=\"https://redirect.github.com/pypa/wheel/issues/581\">#581</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/56de2ebd4bffa706a60ee0f7785a33c62be737f3\"><code>56de2eb</code></a> Added a link to the GitHub repository to pyproject.toml (<a href=\"https://redirect.github.com/pypa/wheel/issues/563\">#563</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/a899f1c69ffddf564b904a5de974457c213dc36a\"><code>a899f1c</code></a> Fixed parameter for release-notes</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/254ba4658aa0bf1c5be536ccc02ed44e051468fd\"><code>254ba46</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/6f33736b6f252506df8e574deced5d5667d05bf6\"><code>6f33736</code></a> Updated actions and added GitHub release automation</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/83b77e591e6f593470f8daddf3bcfd6ca64e81bc\"><code>83b77e5</code></a> Replaced <code>black</code> with <code>ruff-format</code></li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/wheel/compare/0.41.0...0.42.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-27T13:49:11Z",
+          "tree_id": "2dfad9d04a1a4a1cc881d5d6c918476dd3f5aff7",
+          "url": "https://github.com/aws/jsii/commit/ffee4ae3bdc3b5e643235a20297e25235314f97c"
+        },
+        "date": 1701095313370,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51330.287001899975,
+            "unit": "milliseconds",
+            "range": 900874.895541712,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51330.287001899975 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39276.67411380001,
+            "unit": "milliseconds",
+            "range": 350666.71939571283,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39276.67411380001 milliseconds over 20 runs"
           }
         ]
       }
