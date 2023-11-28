@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701113462793,
+  "lastUpdate": 1701176759416,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24617,6 +24617,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 400210.2099940094,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39781.59120795 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "79a0f793e08043ae4d9111a39133b3880c98c21a",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.15.0 to 0.16.0 in /packages/@jsii/go-runtime-test/project (#4358)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.15.0 to 0.16.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/a9ef4cfeacd705b0e43cc2935571a80b6547d70c\"><code>a9ef4cf</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/d9b9452656b6061e51acbfb411087aaf7ca6d342\"><code>d9b9452</code></a> gopls/internal/lsp/cache: move quick-fix bundling logic to the cache pkg</li>\n<li><a href=\"https://github.com/golang/tools/commit/1733061d5fbd81eec28621bcc4d1e41158618669\"><code>1733061</code></a> go/analysis/passes/testinggoroutine: report by enclosing regions</li>\n<li><a href=\"https://github.com/golang/tools/commit/b19be0fa71558b3bd27dd4210d9eee35fd52db91\"><code>b19be0f</code></a> gopls/internal/cmd/help_test.go: document</li>\n<li><a href=\"https://github.com/golang/tools/commit/daa4aa59ed4efe3c28946c15b249fb8609074354\"><code>daa4aa5</code></a> gopls/internal/lsp/source: stubmethods: fix out-of-bounds index</li>\n<li><a href=\"https://github.com/golang/tools/commit/a586d0db8420774bb736981052730e51efca1dac\"><code>a586d0d</code></a> go/types/internal/play: show more types.Scope detail</li>\n<li><a href=\"https://github.com/golang/tools/commit/53ad329bd98f6eea2106d46f2c1655cbbdd28242\"><code>53ad329</code></a> gopls/internal/lsp/source: move edit logic into the protocol package</li>\n<li><a href=\"https://github.com/golang/tools/commit/3c677e3f7d23999e4a31018a5f6bfade055408b7\"><code>3c677e3</code></a> gopls/internal/lsp/cache: move SuggestedFixFromCommand into cache</li>\n<li><a href=\"https://github.com/golang/tools/commit/ab6af7d4bb284d8cae8d82939c658a178fa7ec9f\"><code>ab6af7d</code></a> gopls/internal/lsp/source: extract InDir to a new pathutil package</li>\n<li><a href=\"https://github.com/golang/tools/commit/e7d61d9d57a6c8718dbc18fee6d5ac92d2ebd8f8\"><code>e7d61d9</code></a> gopls/internal/lsp/cache: simplify named error values</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.15.0...v0.16.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.15.0&new-version=0.16.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-28T12:26:25Z",
+          "tree_id": "2817493972cb806bfe6701b2a9bbff0682b1c809",
+          "url": "https://github.com/aws/jsii/commit/79a0f793e08043ae4d9111a39133b3880c98c21a"
+        },
+        "date": 1701176756355,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52147.98431559995,
+            "unit": "milliseconds",
+            "range": 225122.4440189306,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52147.98431559995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39391.3137651,
+            "unit": "milliseconds",
+            "range": 90203.56026107469,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39391.3137651 milliseconds over 20 runs"
           }
         ]
       }
