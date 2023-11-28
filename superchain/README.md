@@ -82,11 +82,11 @@ public.ecr.aws/jsii/superchain:1-bullseye-slim-node20
 
 We will stop publishing images for Node versions that are EOL.
 
-| Debian                 | Node versions    |
-| -----------------------| -----------------|
-| `bookworm`             | `20`             |
-| `bullseye`             | `20`, `18`       |
-| `buster` (deprecated)  | `18`, `16`, `14` | 
+| Debian                      | Node versions    |
+| ----------------------------| -----------------|
+| `bookworm-slim`             | `20`             |
+| `bullseye-slim`             | `20`, `18`       |
+| `buster-slim` (deprecated)  | `18`, `16`, `14` | 
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
@@ -100,11 +100,11 @@ jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
 The image includes the most recent Python version available for the respecitve Debian distribution.
 A complete list can be viewed on the [Debian website](https://wiki.debian.org/Python#Supported_Python_Versions).
 
-| Debian                 | Python version |
-| -----------------------| ---------------|
-| `bookworm`             | `3.11`         |
-| `bullseye`             | `3.9`          |
-| `buster` (deprecated)  | `3.7`          |
+| Debian                      | Python version |
+| ----------------------------| ---------------|
+| `bookworm-slim`             | `3.11`         |
+| `bullseye-slim`             | `3.9`          |
+| `buster-slim` (deprecated)  | `3.7`          |
 
 
 ## Included Tools & Utilities
