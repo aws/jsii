@@ -22,12 +22,12 @@ jobs:
       fail-fast: false
       matrix:
         debian:
-          - 'buster' # 10
           - 'bullseye' # 11
+          - 'bookworm' # 12
         node: ['18', '20']
-        include:
-          - debian: 'bookworm' #12
-            node: '20'
+        exclude:
+          - debian: 'bookworm'
+            node: '18'
     env:
       # Node version whose images will be aliased without the -nodeXX segment
       DEFAULT_NODE_MAJOR_VERSION: 18
