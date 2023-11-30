@@ -22,12 +22,13 @@ jobs:
       fail-fast: false
       matrix:
         debian:
-          - 'buster' # 10
           - 'bullseye' # 11
+          - 'bookworm' # 12
         node: ['18', '20']
-        include:
-          - debian: 'bookworm' #12
-            node: '20'
+        exclude:
+          # We publish bullseye only with Node >= 20
+          - debian: 'bullseye'
+            node: '18'
     env:
       # Node version whose images will be aliased without the -nodeXX segment
       DEFAULT_NODE_MAJOR_VERSION: 18
@@ -95,14 +96,21 @@ jobs:
           aws ecr-public get-login-password --region=us-east-1                  \
           | docker login --username AWS --password-stdin public.ecr.aws
 
+      - name: Slice DockerHub credentials
+        id: credentials
+        run: |-
+          echo "username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }}')" >> "$GITHUB_OUTPUT"
+          echo "password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }}')" >> "$GITHUB_OUTPUT"
+          echo "::add-mask::$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }}')"
+
       # We only authenticate to Docker on the 'aws/jsii' repo, as forks will not have the secret
       - name: Login to Docker Hub
         if: steps.should-run.outputs.result == 'true' && github.repository == 'aws/jsii'
         # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
         run: |-
           docker login                                                          \
-            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }}')   \
-            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }}')
+            --username=${{ steps.credentials.outputs.username }}                \
+            --password=${{ steps.credentials.outputs.password }}
         # Ensure we run with bash, because that's the syntax we're using here...
         shell: bash
 
@@ -215,6 +223,15 @@ jobs:
               -f superchain/Dockerfile                                                                                  \
               .
           fi
+
+      - name: Update README (nightly)
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ steps.credentials.outputs.username }}
+          password: ${{ steps.credentials.outputs.password }}
+          repository: jsii/superchain
+          readme-filepath: ./superchain/README.md
 
       - name: Publish (latest)
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/release'
