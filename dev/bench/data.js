@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701194922268,
+  "lastUpdate": 1701348022454,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24693,6 +24693,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 121771.8093112257,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39433.362081500025 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a619d763ddf6c56c10f378ccdc6ed2a96197eb92",
+          "message": "chore(deps): Bump actions/setup-java from 3 to 4 (#4360)\n\nBumps [actions/setup-java](https://github.com/actions/setup-java) from 3 to 4.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/actions/setup-java/releases\">actions/setup-java's releases</a>.</em></p>\n<blockquote>\n<h2>v4.0.0</h2>\n<h2>What's Changed</h2>\n<p>In the scope of this release, the version of the Node.js runtime was updated to 20. The majority of dependencies were updated to the latest versions. From now on, the code for the setup-java will run on Node.js 20 instead of Node.js 16.</p>\n<h2>Breaking changes</h2>\n<ul>\n<li>Update Node.js runtime to version 20 by <a href=\"https://github.com/aparnajyothi-y\"><code>@​aparnajyothi-y</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/558\">actions/setup-java#558</a></li>\n</ul>\n<h2>Non-breaking changes</h2>\n<ul>\n<li>Adding support for microsoft openjdk 21.0.0 by <a href=\"https://github.com/ralfstuckert\"><code>@​ralfstuckert</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/546\">actions/setup-java#546</a></li>\n<li>Update <code>@​actions/cache</code> dependency and documentation by <a href=\"https://github.com/IvanZosimov\"><code>@​IvanZosimov</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/549\">actions/setup-java#549</a></li>\n<li>Implementation of the cache-dependency-path option to control caching dependency by <a href=\"https://github.com/itchyny\"><code>@​itchyny</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/499\">actions/setup-java#499</a></li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li><a href=\"https://github.com/ralfstuckert\"><code>@​ralfstuckert</code></a> made their first contribution in <a href=\"https://redirect.github.com/actions/setup-java/pull/546\">actions/setup-java#546</a></li>\n<li><a href=\"https://github.com/itchyny\"><code>@​itchyny</code></a> made their first contribution in <a href=\"https://redirect.github.com/actions/setup-java/pull/499\">actions/setup-java#499</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/actions/setup-java/compare/v3...v4.0.0\">https://github.com/actions/setup-java/compare/v3...v4.0.0</a></p>\n<h2>v3.13.0</h2>\n<h2>What's changed</h2>\n<p>In the scope of this release, support for Dragonwell JDK was added by <a href=\"https://github.com/Accelerator1996\"><code>@​Accelerator1996</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/532\">actions/setup-java#532</a></p>\n<pre lang=\"yaml\"><code>steps:\n - name: Checkout\n   uses: actions/checkout@v3\n - name: Setup-java\n   uses: actions/setup-java@v3\n   with:\n     distribution: 'dragonwell'\n     java-version: '17'\n</code></pre>\n<p>Several inaccuracies were also fixed:</p>\n<ul>\n<li>Fix XML namespaces wrongly using https by <a href=\"https://github.com/gnodet\"><code>@​gnodet</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/503\">actions/setup-java#503</a></li>\n<li>Fix typo and remove unintentional(?) word by <a href=\"https://github.com/CyberFlameGO\"><code>@​CyberFlameGO</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/518\">actions/setup-java#518</a></li>\n<li>Fix usage link within the README.md file by <a href=\"https://github.com/dassiorleando\"><code>@​dassiorleando</code></a> in <a href=\"https://redirect.github.com/actions/setup-java/pull/525\">actions/setup-java#525</a></li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li><a href=\"https://github.com/CyberFlameGO\"><code>@​CyberFlameGO</code></a> made their first contribution in <a href=\"https://redirect.github.com/actions/setup-java/pull/518\">actions/setup-java#518</a></li>\n<li><a href=\"https://github.com/dassiorleando\"><code>@​dassiorleando</code></a> made their first contribution in <a href=\"https://redirect.github.com/actions/setup-java/pull/525\">actions/setup-java#525</a></li>\n<li><a href=\"https://github.com/gnodet\"><code>@​gnodet</code></a> made their first contribution in <a href=\"https://redirect.github.com/actions/setup-java/pull/503\">actions/setup-java#503</a></li>\n<li><a href=\"https://github.com/Accelerator1996\"><code>@​Accelerator1996</code></a> made their first contribution in <a href=\"https://redirect.github.com/actions/setup-java/pull/532\">actions/setup-java#532</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/actions/setup-java/compare/v3...v3.13.0\">https://github.com/actions/setup-java/compare/v3...v3.13.0</a></p>\n<h2>v3.12.0</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/actions/setup-java/commit/387ac29b308b003ca37ba93a6cab5eb57c8f5f93\"><code>387ac29</code></a> Upgrade Node to v20 (<a href=\"https://redirect.github.com/actions/setup-java/issues/558\">#558</a>)</li>\n<li><a href=\"https://github.com/actions/setup-java/commit/9eda6b51cc4f6ee99be3dd5537b85e389e47bda9\"><code>9eda6b5</code></a> feat: implement cache-dependency-path option to control caching dependency (#...</li>\n<li><a href=\"https://github.com/actions/setup-java/commit/78078da0cd035d0d177cc2cb696e05d96fba7d11\"><code>78078da</code></a> Update <code>@​actions/cache</code> dependency and documentation (<a href=\"https://redirect.github.com/actions/setup-java/issues/549\">#549</a>)</li>\n<li><a href=\"https://github.com/actions/setup-java/commit/5caaba646e214abb5c4c808eb8fe13db519ab757\"><code>5caaba6</code></a> add support for microsoft openjdk 21.0.0 (<a href=\"https://redirect.github.com/actions/setup-java/issues/546\">#546</a>)</li>\n<li>See full diff in <a href=\"https://github.com/actions/setup-java/compare/v3...v4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=actions/setup-java&package-manager=github_actions&previous-version=3&new-version=4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-11-30T11:59:42Z",
+          "tree_id": "3d9f0d1fa024820cefd2f79101dff1acba0bd566",
+          "url": "https://github.com/aws/jsii/commit/a619d763ddf6c56c10f378ccdc6ed2a96197eb92"
+        },
+        "date": 1701348019413,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 54036.386910699985,
+            "unit": "milliseconds",
+            "range": 353951.202869851,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 54036.386910699985 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 40663.127540700014,
+            "unit": "milliseconds",
+            "range": 158637.41176061498,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40663.127540700014 milliseconds over 20 runs"
           }
         ]
       }
