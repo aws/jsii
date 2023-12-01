@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701368520936,
+  "lastUpdate": 1701427939914,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -24769,6 +24769,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 276560.1470763329,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40208.590750749994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "886e465e60a5b6208a862a20af087cbd924416a9",
+          "message": "fix(check-node): unstable node 21 is incorrectly listed as supported (#4362)\n\nAny downstream packages that use `NodeRelease.supported` to compute a list of active Node versions currently believe they should test again Node 21, which we don't actually want.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-12-01T10:10:35Z",
+          "tree_id": "447d581d764d7444cfa7b06220b100e39c7b0039",
+          "url": "https://github.com/aws/jsii/commit/886e465e60a5b6208a862a20af087cbd924416a9"
+        },
+        "date": 1701427935705,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53178.88935939998,
+            "unit": "milliseconds",
+            "range": 909704.7772852888,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53178.88935939998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 41181.15640700001,
+            "unit": "milliseconds",
+            "range": 415386.5353484309,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41181.15640700001 milliseconds over 20 runs"
           }
         ]
       }
