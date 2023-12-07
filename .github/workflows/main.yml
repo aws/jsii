@@ -48,7 +48,7 @@ jobs:
           cache: yarn
           node-version: '18'
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
           cache: pip
@@ -131,7 +131,7 @@ jobs:
           cache: yarn
           node-version: '18'
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
           cache: pip
@@ -320,7 +320,7 @@ jobs:
           cache: yarn
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: pip
@@ -449,7 +449,7 @@ jobs:
         with:
           node-version: '20'
       - name: Set up Python 3.11
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install python3-venv
