@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.93.0](https://github.com/aws/jsii/compare/v1.92.0...v1.93.0) (2023-12-08)
+
+
+### Features
+
+* deprecate `jsii/superchain:buster-slim-*` images ([#4359](https://github.com/aws/jsii/issues/4359)) ([b580244](https://github.com/aws/jsii/commit/b5802449f4b9292b3396353f1fa3fa768a779cd7))
+* **go:** add jsii.Sprintf helper ([#4345](https://github.com/aws/jsii/issues/4345)) ([2ecfb77](https://github.com/aws/jsii/commit/2ecfb778130c1a2fdd6b4932216e144a0d079d5c))
+
+
+### Bug Fixes
+
+* **check-node:** unstable node 21 is incorrectly listed as supported ([#4362](https://github.com/aws/jsii/issues/4362)) ([886e465](https://github.com/aws/jsii/commit/886e465e60a5b6208a862a20af087cbd924416a9))
+
 ## [1.92.0](https://github.com/aws/jsii/compare/v1.91.0...v1.92.0) (2023-11-16)
 
 
