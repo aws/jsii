@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702301090725,
+  "lastUpdate": 1702303502798,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25149,6 +25149,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 41393.69220651019,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38813.262726999994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a2b984cedf8606739b72d13cdf2cff487f99237e",
+          "message": "chore(deps): Bump xunit.runner.visualstudio from 2.5.4 to 2.5.5 in /packages/@jsii/dotnet-runtime-test/test (#4372)\n\nBumps [xunit.runner.visualstudio](https://github.com/xunit/visualstudio.xunit) from 2.5.4 to 2.5.5.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/28b46ff510a2846342ea1756a32c2a14d17b9938\"><code>28b46ff</code></a> v2.5.5</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/409be7a45f67ce0578c912340c3d5320c7246b62\"><code>409be7a</code></a> Add PackageId to solve VS issues (see <a href=\"https://redirect.github.com/dotnet/sdk/issues/22\">dotnet/sdk#22</a>...</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/56db5de6cece6ca1341664ceece0a1e186dceca8\"><code>56db5de</code></a> Latest dependencies (and use ExecutionSink instead of delegating sinks)</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/1f419e62a61cbbfbcf06b7dd4d0022dafe7299f5\"><code>1f419e6</code></a> Update README</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/f052a1dfa46cee7faf8d5af54bec69aaaececb41\"><code>f052a1d</code></a> Bump up to v2.5.5-pre</li>\n<li>See full diff in <a href=\"https://github.com/xunit/visualstudio.xunit/compare/2.5.4...2.5.5\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit.runner.visualstudio&package-manager=nuget&previous-version=2.5.4&new-version=2.5.5)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-12-11T13:25:49Z",
+          "tree_id": "377ee2a64231c2ac0971d2f6f7f8fc30693d5841",
+          "url": "https://github.com/aws/jsii/commit/a2b984cedf8606739b72d13cdf2cff487f99237e"
+        },
+        "date": 1702303499493,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51471.64756319999,
+            "unit": "milliseconds",
+            "range": 591205.9451741616,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51471.64756319999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39184.85309304999,
+            "unit": "milliseconds",
+            "range": 30276.63995843439,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39184.85309304999 milliseconds over 20 runs"
           }
         ]
       }
