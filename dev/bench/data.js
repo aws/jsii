@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702472540576,
+  "lastUpdate": 1702645138466,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25225,6 +25225,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 37241.222175187584,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38846.19903864999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bmoffatt@users.noreply.github.com",
+            "name": "Bryan Moffatt",
+            "username": "bmoffatt"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c6eb62a290b9a1897fe0aee6cb1a89581b0cd78b",
+          "message": "feat(go-runtime): include error message when wrapping a @jsii/kernel.Fault (#4275)\n\nI ran into this error message when developing a JSII compatible construct.\n\n```\npanic: JsiiError: @jsii/kernel.Fault\n```\n\nIncluding the de-serialized error message into the wrapped error helped me debug that I was missing the `.jsii` file in my distribution! (eg: I needed to add `\".jsii\"` to the `\"files\"` list in my construct's `package.json`)\n\n```\npanic: JsiiError: @jsii/kernel.Fault Error for package tarball /var/folders/<redacted>.tgz: Expected to find .jsii file in /var/folders/<redacted>/node_modules/<redacted>, but no such file found\n```\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2023-12-15T12:19:10Z",
+          "tree_id": "7a8fb84af944cb0b821113daca37673588df9659",
+          "url": "https://github.com/aws/jsii/commit/c6eb62a290b9a1897fe0aee6cb1a89581b0cd78b"
+        },
+        "date": 1702645135178,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51274.17017984998,
+            "unit": "milliseconds",
+            "range": 499484.2171364394,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51274.17017984998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39227.844969249985,
+            "unit": "milliseconds",
+            "range": 361520.42403210246,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39227.844969249985 milliseconds over 20 runs"
           }
         ]
       }
