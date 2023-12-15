@@ -243,12 +243,12 @@ scope.jsii-calc-base
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.41"]
+requires = ["setuptools~=67.3.2", "wheel~=0.42"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -289,7 +289,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.7",
+    "python_requires": "~=3.8",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -301,7 +301,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -798,12 +797,12 @@ scope.jsii-calc-base-of-base
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.41"]
+requires = ["setuptools~=67.3.2", "wheel~=0.42"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -844,7 +843,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.7",
+    "python_requires": "~=3.8",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -855,7 +854,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -1326,12 +1324,12 @@ scope.jsii-calc-lib
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.41"]
+requires = ["setuptools~=67.3.2", "wheel~=0.42"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -1374,7 +1372,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.7",
+    "python_requires": "~=3.8",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -1387,7 +1385,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -2987,12 +2984,12 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.41"]
+requires = ["setuptools~=67.3.2", "wheel~=0.42"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -3072,7 +3069,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.7",
+    "python_requires": "~=3.8",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -3085,7 +3082,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",

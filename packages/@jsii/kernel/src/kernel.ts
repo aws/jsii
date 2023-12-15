@@ -417,9 +417,7 @@ export class Kernel {
 
     if (this.#syncInProgress) {
       throw new JsiiFault(
-        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${
-          req.method
-        }' while sync ${this.#syncInProgress} is being processed`,
+        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.#syncInProgress} is being processed`,
       );
     }
 

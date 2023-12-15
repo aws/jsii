@@ -171,8 +171,8 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       ts.isPropertyAssignment(p)
         ? isExpressionOfFunctionType(context.typeChecker, p.initializer)
         : ts.isShorthandPropertyAssignment(p)
-        ? isExpressionOfFunctionType(context.typeChecker, p.name)
-        : false,
+          ? isExpressionOfFunctionType(context.typeChecker, p.name)
+          : false,
     );
 
     const inferredType = inferredTypeOfExpression(context.typeChecker, node);

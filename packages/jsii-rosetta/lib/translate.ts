@@ -43,7 +43,7 @@ export function translateTypeScript(
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #diagnostics: ts.Diagnostic[] = [];
+  readonly #diagnostics: ts.Diagnostic[] = [];
 
   public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
