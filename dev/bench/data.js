@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702645138466,
+  "lastUpdate": 1702664518331,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25263,6 +25263,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 361520.42403210246,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39227.844969249985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e7714410d0ca86b95c80055c123870045efb1089",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.16.0 to 0.16.1 in /packages/@jsii/go-runtime/jsii-runtime-go (#4373)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.16.0 to 0.16.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/2acb2e697b49f179be93652febb89d384f0f09c9\"><code>2acb2e6</code></a> gopls/internal/test/marker: minor clean up of marker test doc</li>\n<li><a href=\"https://github.com/golang/tools/commit/28b92af2866ab2bc225795ba13f5a1ae765ffec5\"><code>28b92af</code></a> internal/typeparams: eliminate remainining compatibility shims</li>\n<li><a href=\"https://github.com/golang/tools/commit/ee35f8ea92b83ca45ebd96714001e9312bfc96a0\"><code>ee35f8e</code></a> gopls/internal/lsp/source: hovering over broken packages is not an error</li>\n<li><a href=\"https://github.com/golang/tools/commit/67611a11a1be5466d372eba4e925d97290929ef4\"><code>67611a1</code></a> internal/typeparams: eliminate type aliases</li>\n<li><a href=\"https://github.com/golang/tools/commit/23c86e8ed69114240a9c50fbacdbbeadb4b63385\"><code>23c86e8</code></a> internal/typeparams: delete const Enabled=true and simplify</li>\n<li><a href=\"https://github.com/golang/tools/commit/e46688f41326d03a6df28607f1b4d170e31b16ad\"><code>e46688f</code></a> gopls/internal/analysis/fillstruct: don't panic with invalid fields</li>\n<li><a href=\"https://github.com/golang/tools/commit/8bd7553f7c595ecbf244343302e1bfe890f1f947\"><code>8bd7553</code></a> gopls/internal/util/goversion: warn about EOL for Go 1.18</li>\n<li><a href=\"https://github.com/golang/tools/commit/bc9cd159c589d9f78867aaeb5c70867c58e24e61\"><code>bc9cd15</code></a> gopls/internal/settings: remove MemoryMode option</li>\n<li><a href=\"https://github.com/golang/tools/commit/bbc30f1f81aa4a8e2b390bdcc5ebb019e90d658e\"><code>bbc30f1</code></a> gopls/protocol: Allow AnnotatedTextEdits</li>\n<li><a href=\"https://github.com/golang/tools/commit/f40889dc8bf08e65329aa3f302ba7af3024d712d\"><code>f40889d</code></a> gopls/internal/analysis/stubmethods: fix OOB panic in fromValueSpec</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.16.0...v0.16.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.16.0&new-version=0.16.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-12-15T17:42:08Z",
+          "tree_id": "f0c11019b87f02eb93870d47a5675ec76cd42f64",
+          "url": "https://github.com/aws/jsii/commit/e7714410d0ca86b95c80055c123870045efb1089"
+        },
+        "date": 1702664513700,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50850.27315329999,
+            "unit": "milliseconds",
+            "range": 1551973.9290249827,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50850.27315329999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38934.28785895002,
+            "unit": "milliseconds",
+            "range": 218527.5444049697,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38934.28785895002 milliseconds over 20 runs"
           }
         ]
       }
