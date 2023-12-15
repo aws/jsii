@@ -417,9 +417,7 @@ export class Kernel {
 
     if (this.#syncInProgress) {
       throw new JsiiFault(
-        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${
-          req.method
-        }' while sync ${this.#syncInProgress} is being processed`,
+        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.#syncInProgress} is being processed`,
       );
     }
 
@@ -1371,13 +1369,20 @@ export class Kernel {
         throw new JsiiFault(`Script with name ${req.script} was not defined.`);
       }
 
+      // Make sure the current NODE_OPTIONS are honored if we shell out to node
+      const nodeOptions = [...process.execArgv];
+
+      // When we are using the symlinked version of the cache, we need to preserve both symlink settings for binaries
+      if (nodeOptions.includes('--preserve-symlinks')) {
+        nodeOptions.push('--preserve-symlinks-main');
+      }
+
       return {
         command: path.join(packageDir, scriptPath),
         args: req.args ?? [],
         env: {
           ...process.env,
-          // Make sure the current NODE_OPTIONS are honored if we shell out to node
-          NODE_OPTIONS: process.execArgv.join(' '),
+          NODE_OPTIONS: nodeOptions.join(' '),
           // Make sure "this" node is ahead of $PATH just in case
           PATH: `${path.dirname(process.execPath)}:${process.env.PATH}`,
         },

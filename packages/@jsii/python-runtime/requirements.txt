@@ -1,10 +1,10 @@
-black~=23.3
-mypy==1.4.1
-pip~=23.2
+black~=23.11
+mypy==1.7.1
+pip~=23.3
 pytest~=7.4
 pytest-mypy~=0.10
-setuptools~=68.0.0
+setuptools~=69.0.2
 types-python-dateutil~=2.8
-wheel~=0.41
+wheel~=0.42
 
 -e .

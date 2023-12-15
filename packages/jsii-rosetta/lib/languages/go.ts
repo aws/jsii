@@ -524,10 +524,10 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
       ...(isClassStaticPropertyAccess
         ? ['()']
         : // If the parent's not a call-like expression, and it's an inferred static property access, we need to put call
-        // parentheses at the end, as static properties are accessed via synthetic readers.
-        expressionLooksLikeTypeReference && findUp(node, ts.isCallLikeExpression) == null
-        ? ['()']
-        : []),
+          // parentheses at the end, as static properties are accessed via synthetic readers.
+          expressionLooksLikeTypeReference && findUp(node, ts.isCallLikeExpression) == null
+          ? ['()']
+          : []),
     ]);
   }
 
@@ -741,11 +741,11 @@ export class GoVisitor extends DefaultVisitor<GoLanguageContext> {
           ucFirst(this.goName(base.name.text, renderer, renderer.typeChecker.getSymbolAtLocation(base.name))),
         ])
       : ts.isIdentifier(base)
-      ? `new${ucFirst(this.goName(base.text, renderer, renderer.typeChecker.getSymbolAtLocation(base)))}`
-      : (function () {
-          renderer.reportUnsupported(node, TargetLanguage.GO);
-          return renderer.convert(base);
-        })();
+        ? `new${ucFirst(this.goName(base.text, renderer, renderer.typeChecker.getSymbolAtLocation(base)))}`
+        : (function () {
+            renderer.reportUnsupported(node, TargetLanguage.GO);
+            return renderer.convert(base);
+          })();
 
     return new OTree(
       [

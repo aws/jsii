@@ -20,7 +20,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           cache: 'pip'
           cache-dependency-path: 'gh-pages/requirements-dev.txt'

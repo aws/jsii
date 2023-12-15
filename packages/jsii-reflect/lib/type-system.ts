@@ -20,11 +20,28 @@ export class TypeSystem {
 
   private readonly _assemblyLookup = new Map<string, Assembly>();
 
+  private readonly _cachedClasses = new Map<Assembly, readonly ClassType[]>();
+
+  private _locked = false;
+  public get isLocked(): boolean {
+    return this._locked;
+  }
+
   /**
    * All assemblies in this type system.
    */
   public get assemblies(): readonly Assembly[] {
     return Array.from(this._assemblyLookup.values());
+  }
+
+  /**
+   * Locks the TypeSystem from further changes
+   *
+   * Call this once all assemblies have been loaded.
+   * This allows the reflection to optimize and cache certain expensive calls.
+   */
+  public lock() {
+    this._locked = true;
   }
 
   /**
@@ -162,6 +179,10 @@ export class TypeSystem {
   }
 
   public addAssembly(asm: Assembly, options: { isRoot?: boolean } = {}) {
+    if (this.isLocked) {
+      throw new Error('The typesystem has been locked from further changes');
+    }
+
     if (asm.system !== this) {
       throw new Error('Assembly has been created for different typesystem');
     }
@@ -274,7 +295,16 @@ export class TypeSystem {
   public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
     this.assemblies.forEach((a) => {
-      out.push(...collectTypes(a, (item) => item.classes));
+      // Cache the class list for each assembly. We can't use @memoized for this method since new
+      // assemblies can be added between calls, via loadModule().
+      if (!this._cachedClasses.has(a)) {
+        this._cachedClasses.set(
+          a,
+          collectTypes(a, (item) => item.classes),
+        );
+      }
+
+      out.push(...this._cachedClasses.get(a)!);
     });
     return out;
   }

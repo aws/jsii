@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.93.0](https://github.com/aws/jsii/compare/v1.92.0...v1.93.0) (2023-12-08)
+
+
+### Features
+
+* deprecate `jsii/superchain:buster-slim-*` images ([#4359](https://github.com/aws/jsii/issues/4359)) ([b580244](https://github.com/aws/jsii/commit/b5802449f4b9292b3396353f1fa3fa768a779cd7))
+* **go:** add jsii.Sprintf helper ([#4345](https://github.com/aws/jsii/issues/4345)) ([2ecfb77](https://github.com/aws/jsii/commit/2ecfb778130c1a2fdd6b4932216e144a0d079d5c))
+
+
+### Bug Fixes
+
+* **check-node:** unstable node 21 is incorrectly listed as supported ([#4362](https://github.com/aws/jsii/issues/4362)) ([886e465](https://github.com/aws/jsii/commit/886e465e60a5b6208a862a20af087cbd924416a9))
+
+## [1.92.0](https://github.com/aws/jsii/compare/v1.91.0...v1.92.0) (2023-11-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* jsii-pacmak and the libraries it generates for Python targets now require a minimum Python version of 3.8, instead of 3.7 previously. We recommend users upgrade to the latest supported Python release (Python 3.11).
+* all libraries and tools now require a minimum version of Node.js 18, instead of 16 previously. We recommend users upgrade to the latest supported Node.js release (Node.js 20).
+
+### Features
+
+* **jsii-reflect:** TypeSystem can be locked to improve reflection performance ([#4318](https://github.com/aws/jsii/issues/4318)) ([c87da43](https://github.com/aws/jsii/commit/c87da436671d677d1fee276d0932ea7edd431f78))
+* make node 18 the default ([#4325](https://github.com/aws/jsii/issues/4325)) ([8784725](https://github.com/aws/jsii/commit/87847254c8a39f6e99383bfa3a375ae6c8d9a8a5))
+* **superchain:** publish a bullseye image with node18 & python 3.9 ([#4326](https://github.com/aws/jsii/issues/4326)) ([7197b4f](https://github.com/aws/jsii/commit/7197b4f21e7f6776fbbfe5bac7f03a308cd9f7c0))
+* switch to python 3.8 ([#4327](https://github.com/aws/jsii/issues/4327)) ([416e2b5](https://github.com/aws/jsii/commit/416e2b504895800281a3598b3139b141330aa906))
+
+
+### Bug Fixes
+
+* **kernel:** invokeBinScript fails when using symlinked cache ([#4324](https://github.com/aws/jsii/issues/4324)) ([a2ab316](https://github.com/aws/jsii/commit/a2ab31609d361ac5ceca6c928584ec59f2d705d3))
+* **pacmak:** *.tsbuildinfo not in auto-generated .npmignore file ([#4236](https://github.com/aws/jsii/issues/4236)) ([d55b8d5](https://github.com/aws/jsii/commit/d55b8d57ce43dc9fd3d5132d7ba3ad0aa9ead3b9)), closes [#3978](https://github.com/aws/jsii/issues/3978)
+* **superchain:** installed setuptools is an unsupported version ([#4333](https://github.com/aws/jsii/issues/4333)) ([c0a4140](https://github.com/aws/jsii/commit/c0a41409568bc71b086fd1c56e2c5a08f708c3ad))
+
+## [1.91.0](https://github.com/aws/jsii/compare/v1.90.0...v1.91.0) (2023-10-24)
+
+## [1.90.0](https://github.com/aws/jsii/compare/v1.89.0...v1.90.0) (2023-10-06)
+
 ## [1.89.0](https://github.com/aws/jsii/compare/v1.88.0...v1.89.0) (2023-09-20)
 
 ## [1.88.0](https://github.com/aws/jsii/compare/v1.87.0...v1.88.0) (2023-08-24)
