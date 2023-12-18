@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702664518331,
+  "lastUpdate": 1702902950758,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25301,6 +25301,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 218527.5444049697,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38934.28785895002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9286de83da3ed3ab200b826fb7862292f6a50cfb",
+          "message": "chore(deps-dev): Bump pip from 23.3.1 to 23.3.2 in /packages/jsii-pacmak/test/generated-code (#4378)\n\nBumps [pip](https://github.com/pypa/pip) from 23.3.1 to 23.3.2.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>23.3.2 (2023-12-17)</h1>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Fix a bug in extras handling for link requirements (<code>[#12372](https://github.com/pypa/pip/issues/12372) &lt;https://github.com/pypa/pip/issues/12372&gt;</code>_)</li>\n<li>Fix mercurial revision &quot;parse error&quot;: use <code>--rev={ref}</code> instead of <code>-r={ref}</code> (<code>[#12373](https://github.com/pypa/pip/issues/12373) &lt;https://github.com/pypa/pip/issues/12373&gt;</code>_)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/f9fea4096e7a5c0e6068b874e98f7d4d2a57b0d5\"><code>f9fea40</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/3891d417eaaaa10560b5f07ce830d84f18773211\"><code>3891d41</code></a> Fix news file name</li>\n<li><a href=\"https://github.com/pypa/pip/commit/fb1be0fe4936e498607c831211ecb04365e949d4\"><code>fb1be0f</code></a> Fix a few typing issues</li>\n<li><a href=\"https://github.com/pypa/pip/commit/b23341dce5fe9df8a6e90f56599e43bbe2e57d94\"><code>b23341d</code></a> Update AUTHORS.txt</li>\n<li><a href=\"https://github.com/pypa/pip/commit/4513b9cb05346dd45dfe8e4237f2f85df6a93004\"><code>4513b9c</code></a> added second test case</li>\n<li><a href=\"https://github.com/pypa/pip/commit/69b58102f522f0e10d2b3bd31e7b9ee074abd16d\"><code>69b5810</code></a> Fixed bug in extras handling for link requirements</li>\n<li><a href=\"https://github.com/pypa/pip/commit/7189400275d90953c902addb0a03520adb36bb28\"><code>7189400</code></a> Update news/370392cf-52cd-402c-b402-06d2ff398f89.bugfix.rst</li>\n<li><a href=\"https://github.com/pypa/pip/commit/3f9c9f919ed5ef845aaf0880e64b73b992b7aab8\"><code>3f9c9f9</code></a> fix mercurial revision parse error: use two hypen argument --rev= instead of -r=</li>\n<li>See full diff in <a href=\"https://github.com/pypa/pip/compare/23.3.1...23.3.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.3.1&new-version=23.3.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-12-18T11:55:21Z",
+          "tree_id": "7025516be871e36f8350159acb595293a2f923a0",
+          "url": "https://github.com/aws/jsii/commit/9286de83da3ed3ab200b826fb7862292f6a50cfb"
+        },
+        "date": 1702902947558,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51062.44585455004,
+            "unit": "milliseconds",
+            "range": 910689.9894965872,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51062.44585455004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38989.4805097,
+            "unit": "milliseconds",
+            "range": 24395.909100195753,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38989.4805097 milliseconds over 20 runs"
           }
         ]
       }
