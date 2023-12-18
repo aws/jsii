@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702908524505,
+  "lastUpdate": 1702912254734,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25377,6 +25377,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 60991.54179068069,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39862.8673454 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "dc4e9b71eb0e624d99ffa977a33f172084674c59",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.1 to ~=9.5.2 in /gh-pages (#4380)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.2</h2>\n<ul>\n<li>Fixed types for <code>slugify</code> settings in blog plugin config</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6469\">#6469</a>: Horizontal scrollbars on MathJax containers</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.2+insiders-4.47.1 (2023-12-11)</p>\n<ul>\n<li>Improved editing experience for projects plugin</li>\n<li>Improved resilience of optimize and social plugin</li>\n<li>Fixed race condition when writing manifest in optimize and social plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6475\">#6475</a>: Logo not taking precedence over icon in social card</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6399\">#6399</a>: Projects plugin doesn't pick up added/removed projects</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6306\">#6306</a>: Projects plugin cache not correctly updated</li>\n</ul>\n<p>mkdocs-material-9.5.2 (2023-12-11)</p>\n<ul>\n<li>Fixed types for <code>slugify</code> settings in blog plugin config</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6469\">#6469</a>: Horizontal scrollbars on MathJax containers</li>\n</ul>\n<p>mkdocs-material-9.5.1+insiders-4.47.0 (2023-12-08)</p>\n<ul>\n<li>Added support for staying on page when switching languages</li>\n<li>Added configurable logging capabilities to projects plugin</li>\n<li>Removed temporary warning on blog plugin authors file format change</li>\n<li>Fixed projects plugin logging messages twice on Linux systems</li>\n<li>Fixed projects plugin trying to hoist theme assets of divergent themes</li>\n<li>Fixed compatibility of optimize plugin and projects plugin</li>\n<li>Fixed compatibility of social plugin and projects plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6448\">#6448</a>: Code line selection broken for code blocks with custom ids</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6437\">#6437</a>: Projects plugin crashing for certain site URL configurations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6414\">#6414</a>: Projects plugin doesn't prefix messages coming from projects</li>\n</ul>\n<p>mkdocs-material-9.5.1 (2023-12-08)</p>\n<ul>\n<li>Updated Greek translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6464\">#6464</a>: Privacy plugin cannot be enabled</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6461\">#6461</a>: Sorting blog posts ignores time component in date</li>\n</ul>\n<p>mkdocs-material-9.5.0 (2023-12-07)</p>\n<p>Merged Insiders features of 'Goat's Horn' funding goal</p>\n<ul>\n<li>Added privacy plugin: automatic downloading of external assets</li>\n<li>Added support for card grids and grid layouts</li>\n<li>Added support for improved tooltips</li>\n<li>Added support for content tabs anchor links (deep linking)</li>\n<li>Added support for automatic dark/light mode</li>\n<li>Added support for document contributors</li>\n</ul>\n<p>mkdocs-material-9.4.14+insiders-4.46.0 (2023-11-26)</p>\n<ul>\n<li>Added support for author profiles in blog plugin</li>\n<li>Fixed custom index pages yielding two navigation items (4.45.0 regression)</li>\n</ul>\n<p>mkdocs-material-9.4.14 (2023-11-26)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2ca5cf0ea0627982f595c14cb8080447f9a9d24c\"><code>2ca5cf0</code></a> Prepare 9.5.2 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/52feaba4034960aadda79761d8a0d4085021df72\"><code>52feaba</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/649db514291140d372735183b9456072d22c65ac\"><code>649db51</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/738dd7dc3f626741d6b7c28a4383adbf7c7db41f\"><code>738dd7d</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6486\">#6486</a> from squidfunk/dependabot/github_actions/actions/set...</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ef00a474f5029774b5f9528e91c0a7c5f96a72f3\"><code>ef00a47</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6487\">#6487</a> from squidfunk/dependabot/github_actions/actions/dep...</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/cc03f10d63997b79f50f32174eeb522b58b77b29\"><code>cc03f10</code></a> Bump actions/deploy-pages from 2 to 3</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/85a3298713dda1288276d6bdb673b531e3d47c2c\"><code>85a3298</code></a> Bump actions/setup-python from 4 to 5</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/419898a337f047f8eee7d6cd37472355a915053e\"><code>419898a</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6477\">#6477</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/afd9d0af4c58adcd4c66fa50151475248430099f\"><code>afd9d0a</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/adad8238c64eafc8248005eebe6b6fcce4c8fac3\"><code>adad823</code></a> Fixed config types for blog plugin slugify functions</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.1...9.5.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2023-12-18T14:31:46Z",
+          "tree_id": "41c5ac513f761bdf9dc6b4b884a21c1df6a0b6b7",
+          "url": "https://github.com/aws/jsii/commit/dc4e9b71eb0e624d99ffa977a33f172084674c59"
+        },
+        "date": 1702912251298,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51494.58055649996,
+            "unit": "milliseconds",
+            "range": 945744.3932901912,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51494.58055649996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39023.87498954999,
+            "unit": "milliseconds",
+            "range": 24473.267076402815,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39023.87498954999 milliseconds over 20 runs"
           }
         ]
       }
