@@ -1372,11 +1372,6 @@ export class Kernel {
       // Make sure the current NODE_OPTIONS are honored if we shell out to node
       const nodeOptions = [...process.execArgv];
 
-      // When we are using the symlinked version of the cache, we need to preserve both symlink settings for binaries
-      if (nodeOptions.includes('--preserve-symlinks')) {
-        nodeOptions.push('--preserve-symlinks-main');
-      }
-
       return {
         command: path.join(packageDir, scriptPath),
         args: req.args ?? [],

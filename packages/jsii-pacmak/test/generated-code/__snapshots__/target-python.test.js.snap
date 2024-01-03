@@ -491,69 +491,6 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/src/scope/j
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 1`] = `
-<runtime-type-check-diff>
- ┗━ 📁 python
-    ┗━ 📁 src
-       ┗━ 📁 scope
-          ┗━ 📁 jsii_calc_base
-             ┗━ 📄 __init__.py.diff
-`;
-
-exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/python/src/scope/jsii_calc_base/__init__.py.diff 1`] = `
---- python/src/scope/jsii_calc_base/__init__.py	--no-runtime-type-checking
-+++ python/src/scope/jsii_calc_base/__init__.py	--runtime-type-checking
-@@ -50,10 +50,14 @@
-     ) -> None:
-         '''
-         :param foo: -
-         :param bar: -
-         '''
-+        if __debug__:
-+            type_hints = typing.get_type_hints(_typecheckingstub__e2d8a566db7d86eb1cb511cb869273dae39a21b3ad7041359aabb7bd283dcfef)
-+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-+            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-         self._values: typing.Dict[builtins.str, typing.Any] = {
-             "foo": foo,
-             "bar": bar,
-         }
- 
-@@ -117,10 +121,13 @@
-     @builtins.classmethod
-     def consume(cls, *args: typing.Any) -> None:
-         '''
-         :param args: -
-         '''
-+        if __debug__:
-+            type_hints = typing.get_type_hints(_typecheckingstub__66400f6ebe2f9a3fbb550342b894bebf4f5368890843f3917e2b903f62d48b38)
-+            check_type(argname="argument args", value=args, expected_type=typing.Tuple[type_hints["args"], ...]) # pyright: ignore [reportGeneralTypeIssues]
-         return typing.cast(None, jsii.sinvoke(cls, "consume", [*args]))
- 
- 
- __all__ = [
-     "Base",
-@@ -128,5 +135,19 @@
-     "IBaseInterface",
-     "StaticConsumer",
- ]
- 
- publication.publish()
-+
-+def _typecheckingstub__e2d8a566db7d86eb1cb511cb869273dae39a21b3ad7041359aabb7bd283dcfef(
-+    *,
-+    foo: _scope_jsii_calc_base_of_base_49fa37fe.Very,
-+    bar: builtins.str,
-+) -> None:
-+    """Type checking stubs"""
-+    pass
-+
-+def _typecheckingstub__66400f6ebe2f9a3fbb550342b894bebf4f5368890843f3917e2b903f62d48b38(
-+    *args: typing.Any,
-+) -> None:
-+    """Type checking stubs"""
-+    pass
-`;
-
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 python
@@ -11757,6 +11694,10 @@ exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/bin
 
 import jsii
 import sys
+import os
+
+if "JSII_RUNTIME_PACKAGE_CACHE" in os.environ:
+    os.environ["JSII_RUNTIME_PACKAGE_CACHE"] = "disabled"
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "jsii-calc", "3.20.120", "jsii_calc", "jsii-calc@3.20.120.jsii.tgz"
