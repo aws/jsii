@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703517559722,
+  "lastUpdate": 1704309339935,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25605,6 +25605,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 46877.48649950244,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39037.0617964 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "37d9dc7565a6a84c6274d5ebab9e72d0de993aa1",
+          "message": "fix(pacmak): invokeBinScript fails when using symlinked cache (#4389)\n\nThis was previously attempted to fix in https://github.com/aws/jsii/pull/4324 While the above fix resolves issues with dependencies, it causes failures when the binary is shelling out to other node processes. This is due to the intrusive and indiscriminate overloading of NODE_OPTIONS, which will forcibly apply to any child processes as well. While in theory adding the symlink flags should not be an issue, this seems to trigger a bug in node: https://github.com/nodejs/node/issues/41000\n\ntl;dr this all sucks very much and we are now just disabling the runtime cache for binaries.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-01-03T18:36:17Z",
+          "tree_id": "5829f4535c893cb1b6bf737e78bb1c1967392076",
+          "url": "https://github.com/aws/jsii/commit/37d9dc7565a6a84c6274d5ebab9e72d0de993aa1"
+        },
+        "date": 1704309336744,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51541.06667699996,
+            "unit": "milliseconds",
+            "range": 668666.0021582181,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51541.06667699996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39068.868309400015,
+            "unit": "milliseconds",
+            "range": 73946.18228758597,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39068.868309400015 milliseconds over 20 runs"
           }
         ]
       }
