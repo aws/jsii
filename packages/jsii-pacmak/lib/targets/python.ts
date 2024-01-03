@@ -1835,7 +1835,7 @@ class PythonModule implements PythonType {
           code.line('import sys');
           code.line('import os');
           code.line();
-          code.openBlock('if "JSII_RUNTIME_PACKAGE_CACHE" in os.environ');
+          code.openBlock('if "JSII_RUNTIME_PACKAGE_CACHE" not in os.environ');
           code.line('os.environ["JSII_RUNTIME_PACKAGE_CACHE"] = "disabled"');
           code.closeBlock();
           code.line();
