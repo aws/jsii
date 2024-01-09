@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704821595159,
+  "lastUpdate": 1704826307859,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25757,6 +25757,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 40688.95480575213,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39337.26993584999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "22875166+gmeligio@users.noreply.github.com",
+            "name": "Eligio Mariño",
+            "username": "gmeligio"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3c1b4b18055b53703e829b5cf96cf4e799f83cde",
+          "message": "fix(jsii-pacmak): show custom pack-command in timer label (#4392)\n\nCurrently 'npm pack' is shown in the logs regardless of the custom command.  Like in:\n```log\n[jsii-pacmak] [INFO] Packaged. npm pack (42.4s) | cleanup (3.8s) | load jsii (0.0s) | js (0.0s)\n```\n\nThis behaviour is confusing because it leaves doubt about which command was actually applied. This PR passes the value of the pack-command option to the timer label.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-01-09T18:09:38Z",
+          "tree_id": "9247f8effb36b6cb4798fbceeb22ac274c103c65",
+          "url": "https://github.com/aws/jsii/commit/3c1b4b18055b53703e829b5cf96cf4e799f83cde"
+        },
+        "date": 1704826304693,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52410.35306129999,
+            "unit": "milliseconds",
+            "range": 890733.7207371311,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52410.35306129999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39874.88140655,
+            "unit": "milliseconds",
+            "range": 70855.08780012873,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39874.88140655 milliseconds over 20 runs"
           }
         ]
       }
