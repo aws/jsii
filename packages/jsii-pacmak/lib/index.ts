@@ -77,9 +77,7 @@ export async function pacmak({
   const packCommand = argv['pack-command'];
   await timers.recordAsync(packCommand, () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(
-      modulesToPackageFlat.map((m) => m.npmPack(packCommand)),
-    );
+    return Promise.all(modulesToPackageFlat.map((m) => m.npmPack(packCommand)));
   });
 
   await timers.recordAsync('load jsii', () => {
