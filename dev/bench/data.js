@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704309339935,
+  "lastUpdate": 1704805223088,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25643,6 +25643,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 73946.18228758597,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39068.868309400015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5ed94fd16fe120400e3b75ed79eb96c95ceeda84",
+          "message": "chore(superchain): fix maven downloads failing due to outdated urls (#4394)\n\nThese are now downloaded from https://downloads.apache.org/\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-01-09T12:20:28Z",
+          "tree_id": "89fdaa2c9afd1c3d0d9517d7067631d2bde9673b",
+          "url": "https://github.com/aws/jsii/commit/5ed94fd16fe120400e3b75ed79eb96c95ceeda84"
+        },
+        "date": 1704805219909,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51978.29936435002,
+            "unit": "milliseconds",
+            "range": 328909.9792980931,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51978.29936435002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39952.39490999999,
+            "unit": "milliseconds",
+            "range": 286839.5687403158,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39952.39490999999 milliseconds over 20 runs"
           }
         ]
       }
