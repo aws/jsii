@@ -1,4 +1,5 @@
 # Runtime Architecture
+
 ## Generated Libraries
 
 When using `jsii-pacmak` to generate libraries in different programming
@@ -149,7 +150,7 @@ The initialization workflow can be described as:
     the child's `STDERR` stream, and forwards the decoded data to it's host
     process' `STDERR` and `STDOUT` as needed.
 4. The *runtime client library* automatically loads the **Javascript** modules
-    bundled within the *generated bindings* (and their depedencies, bundled in
+    bundled within the *generated bindings* (and their dependencies, bundled in
     other *generated bindings*) into the `node` process when needed.
 5. Calls into the *Generated bindings* are encoded into JSON requests and sent
     to the child `node` process, which will execute the corresponding
