@@ -11757,6 +11757,10 @@ exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/bin
 
 import jsii
 import sys
+import os
+
+if "JSII_RUNTIME_PACKAGE_CACHE" not in os.environ:
+    os.environ["JSII_RUNTIME_PACKAGE_CACHE"] = "disabled"
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "jsii-calc", "3.20.120", "jsii_calc", "jsii-calc@3.20.120.jsii.tgz"

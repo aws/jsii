@@ -35,12 +35,21 @@ def silence_node_deprecation_warnings():
         environ[var] = store[var]
 
 
+@pytest.fixture()
+def disable_jsii_runtime_package_cache():
+    """Disable the jsii runtime cache because it is problematic with InvokeBinScript."""
+
+    environ["JSII_RUNTIME_PACKAGE_CACHE"] = "disabled"
+
+
 class TestInvokeBinScript:
     @pytest.mark.skipif(
         platform.system() == "Windows",
         reason="jsii-pacmak does not generate windows scripts",
     )
-    def test_invoke_script(self, silence_node_deprecation_warnings) -> None:
+    def test_invoke_script(
+        self, silence_node_deprecation_warnings, disable_jsii_runtime_package_cache
+    ) -> None:
         script_path = f".env/bin/calc"
         result = subprocess.run([script_path], capture_output=True)
 
@@ -51,7 +60,9 @@ class TestInvokeBinScript:
         platform.system() == "Windows",
         reason="jsii-pacmak does not generate windows scripts",
     )
-    def test_invoke_script_with_args(self, silence_node_deprecation_warnings) -> None:
+    def test_invoke_script_with_args(
+        self, silence_node_deprecation_warnings, disable_jsii_runtime_package_cache
+    ) -> None:
         script_path = f".env/bin/calc"
         result = subprocess.run([script_path, "arg1", "arg2"], capture_output=True)
 
@@ -63,7 +74,7 @@ class TestInvokeBinScript:
         reason="jsii-pacmak does not generate windows scripts",
     )
     def test_invoke_script_with_failure(
-        self, silence_node_deprecation_warnings
+        self, silence_node_deprecation_warnings, disable_jsii_runtime_package_cache
     ) -> None:
         script_path = f".env/bin/calc"
         result = subprocess.run([script_path, "arg1", "fail"], capture_output=True)
@@ -77,7 +88,7 @@ class TestInvokeBinScript:
         reason="jsii-pacmak does not generate windows scripts",
     )
     def test_invoke_script_with_line_flush(
-        self, silence_node_deprecation_warnings
+        self, silence_node_deprecation_warnings, disable_jsii_runtime_package_cache
     ) -> None:
         """Make sure lines are flushed immediately as they are generated, rather than
         buffered to the end
