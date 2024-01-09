@@ -51,14 +51,14 @@ SHELL ["/bin/zsh", "-c"]
 
 # Prepare maven binary distribution
 ARG M2_VERSION="3.9.4"
-ENV M2_DISTRO="https://www.apache.org/dist/maven/maven-3"
+ENV M2_DISTRO="https://downloads.apache.org/maven/maven-3"
 RUN set -eo pipefail                                                                                                    \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz"                             \
   -o /tmp/apache-maven.tar.gz                                                                                         \
   && curl -fSsL "${M2_DISTRO}/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc"                         \
   -o /tmp/apache-maven.tar.gz.asc                                                                                     \
   && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
-  && curl -fSsL "https://www.apache.org/dist/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                        \
+  && curl -fSsL "https://downloads.apache.org/maven/KEYS" | gpg --homedir /tmp/gpg-maven --import                        \
   && gpg --homedir /tmp/gpg-maven --verify /tmp/apache-maven.tar.gz.asc /tmp/apache-maven.tar.gz                        \
   && mkdir -p /opt/apache/maven                                                                                         \
   && tar xzf /tmp/apache-maven.tar.gz -C /opt/apache/maven --strip-components=1

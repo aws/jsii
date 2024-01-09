@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.94.0](https://github.com/aws/jsii/compare/v1.93.0...v1.94.0) (2024-01-09)
+
+
+### Features
+
+* **go-runtime:** include error message when wrapping a @jsii/kernel.Fault ([#4275](https://github.com/aws/jsii/issues/4275)) ([c6eb62a](https://github.com/aws/jsii/commit/c6eb62a290b9a1897fe0aee6cb1a89581b0cd78b))
+
+
+### Bug Fixes
+
+* **pacmak:** invokeBinScript fails when using symlinked cache ([#4389](https://github.com/aws/jsii/issues/4389)) ([37d9dc7](https://github.com/aws/jsii/commit/37d9dc7565a6a84c6274d5ebab9e72d0de993aa1))
+
 ## [1.93.0](https://github.com/aws/jsii/compare/v1.92.0...v1.93.0) (2023-12-08)
 
 
