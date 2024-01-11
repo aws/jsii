@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704976410302,
+  "lastUpdate": 1704978815117,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25871,6 +25871,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 262571.71423177107,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39218.569682650006 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0dc115aa7ab3a8a038e6e8bc502d1fe89eb03c18",
+          "message": "chore(deps): Bump xunit from 2.6.1 to 2.6.5 in /packages/@jsii/dotnet-runtime/src (#4391)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.6.1 to 2.6.5.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/7f8276500af528de2a9011f9a32625046bdf5e4a\"><code>7f82765</code></a> v2.6.5</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/98f19ddd6d072b695bacec42854332871a3762d4\"><code>98f19dd</code></a> Updated tests (for analyzer exclusions)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/298b1b13d3bea59daeb33d15e3e3cad45a4dd744\"><code>298b1b1</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2854\">#2854</a>: Add constructors and AddRange for TheoryData&lt;T&gt;</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/36fe729c871ab563781f671e9ab1014515732a87\"><code>36fe729</code></a> Bump up to v2.6.5-pre</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/0f87ff772a29aa3d4ef7cb5b34a8aeeaab2c2a28\"><code>0f87ff7</code></a> v2.6.4</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/e466a7c13337a93c07da6b3480f6637c005ccdc9\"><code>e466a7c</code></a> Unit tests for <a href=\"https://redirect.github.com/xunit/xunit/issues/2850\">#2850</a> (v2)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/0cc026be3bc3a9f97dda99194b72e13f597e791b\"><code>0cc026b</code></a> Add KeyValuePair tests with collections and IEquatable objects in the key slot</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/c729d7fd799c7db658b2a0f7bb6c27a9ef252934\"><code>c729d7f</code></a> Add collection dictionary tests for IEquatable&lt;&gt; objects in the value slot</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/0eb76d2b780819865a3291d24d4eced6ed744002\"><code>0eb76d2</code></a> Attempt to fix race condition reported in <a href=\"https://github.com/visualstudio.xunit/issues/issues/396\">visualstudio.xunit/issues#396</a></li>\n<li><a href=\"https://github.com/xunit/xunit/commit/348c56ddd3e877e821e9a9f59918a1fbbab3ad45\"><code>348c56d</code></a> Bump up to v2.6.4-pre</li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/xunit/compare/2.6.1...2.6.5\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.6.1&new-version=2.6.5)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-01-11T12:33:59Z",
+          "tree_id": "5164d254d1cc78f111ad8b85357ba411889f2808",
+          "url": "https://github.com/aws/jsii/commit/0dc115aa7ab3a8a038e6e8bc502d1fe89eb03c18"
+        },
+        "date": 1704978811929,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51445.84273695001,
+            "unit": "milliseconds",
+            "range": 1331562.3732891607,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51445.84273695001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38563.52043529997,
+            "unit": "milliseconds",
+            "range": 16283.231748077194,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38563.52043529997 milliseconds over 20 runs"
           }
         ]
       }
