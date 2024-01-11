@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704968890636,
+  "lastUpdate": 1704976410302,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25833,6 +25833,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 223165.4215104514,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39565.235544799994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "peterchai2008@hotmail.co.uk",
+            "name": "Peter",
+            "username": "PeteXC"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "880fc2d35dace25136a2315c7baf77ddca124fff",
+          "message": "chore(docs): fix typo in go helper function Doc Comment (#4381)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-01-11T11:53:24Z",
+          "tree_id": "47872cfe21b1a0f0b64e60c36c96a3432f2e799f",
+          "url": "https://github.com/aws/jsii/commit/880fc2d35dace25136a2315c7baf77ddca124fff"
+        },
+        "date": 1704976407107,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52791.77090540002,
+            "unit": "milliseconds",
+            "range": 988832.2495588672,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52791.77090540002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39218.569682650006,
+            "unit": "milliseconds",
+            "range": 262571.71423177107,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39218.569682650006 milliseconds over 20 runs"
           }
         ]
       }
