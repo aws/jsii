@@ -54,7 +54,7 @@ func Numbers[T numberType](v ...T) *[]*float64 {
 // String returns a pointer to the provided string.
 func String(v string) *string { return Ptr(v) }
 
-// Sprintf returns a pointer to a fomratted string (semantics are the same as fmt.Sprintf).
+// Sprintf returns a pointer to a formatted string (semantics are the same as fmt.Sprintf).
 func Sprintf(format string, a ...interface{}) *string {
 	res := fmt.Sprintf(format, a...)
 	return &res
