@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705323819978,
+  "lastUpdate": 1705326145182,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -25985,6 +25985,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 274957.7508691507,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40042.750521149996 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f89345d6f1f9ff69152c9e9ef068ae5aceb055ad",
+          "message": "chore(deps): Bump xunit from 2.6.5 to 2.6.6 in /packages/@jsii/dotnet-runtime/src (#4402)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.6.5 to 2.6.6.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/f03fe098d1577f6dd65055d9f65686c4def2f98a\"><code>f03fe09</code></a> v2.6.6</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/280a0cbf6a4e1d11f4108fbe2b811abd4c9eab76\"><code>280a0cb</code></a> Update build to use .NET SDK 8 and C# 12 (<a href=\"https://redirect.github.com/xunit/xunit/issues/2863\">#2863</a>)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/fdf75ab641e91e3102f7f3791f6c3b4076ea0fe6\"><code>fdf75ab</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2334\">#2334</a>: Add assembly-level support for BeforeAfterTestAttribute (v2)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/ba06476db53b27a37e816b82bf2ba435929a9d29\"><code>ba06476</code></a> Add targetFramework for xunit.assert.nuspec</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/9db7d3053ed3ceb8ca8e679fc08d211026637db0\"><code>9db7d30</code></a> Test out additional target framework dependencies in .nuspec files</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/27e91e38a3cfd7a232ba48d900fc29d4ab1121ca\"><code>27e91e3</code></a> Bump up to 2.6.6-pre</li>\n<li>See full diff in <a href=\"https://github.com/xunit/xunit/compare/2.6.5...2.6.6\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.6.5&new-version=2.6.6)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-01-15T13:03:56Z",
+          "tree_id": "6caedee79aae3bcf620eeefca986eb0bcf3ec1b7",
+          "url": "https://github.com/aws/jsii/commit/f89345d6f1f9ff69152c9e9ef068ae5aceb055ad"
+        },
+        "date": 1705326140683,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 49995.027501549994,
+            "unit": "milliseconds",
+            "range": 1073383.8538275561,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 49995.027501549994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38640.70725624998,
+            "unit": "milliseconds",
+            "range": 36555.15984517035,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38640.70725624998 milliseconds over 20 runs"
           }
         ]
       }
