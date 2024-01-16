@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705326145182,
+  "lastUpdate": 1705405349514,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26023,6 +26023,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 36555.15984517035,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38640.70725624998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "93ec9d7cf2e8080cd8894b0441bb542c1d7671a1",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.16.1 to 0.17.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4399)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.16.1 to 0.17.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/0b1f1d4bc227cc2e610854f23e14696becb9e46c\"><code>0b1f1d4</code></a> gopls/internal/lsp/cache: (re-)ensure clean shutdown</li>\n<li><a href=\"https://github.com/golang/tools/commit/706525de51451bb409297f305f23ac473eb693ff\"><code>706525d</code></a> gopls/internal/lsp/source/completion: support postfix completion (iferr,</li>\n<li><a href=\"https://github.com/golang/tools/commit/581c0b357f883185d60780718e053e600005dac4\"><code>581c0b3</code></a> gopls/internal/lsp/source: add receiver name to stubbed methods</li>\n<li><a href=\"https://github.com/golang/tools/commit/c95fa0ff4c2370b6f4b78947fc45987c8d0d664a\"><code>c95fa0f</code></a> gopls/internal/test: skip marker tests on darwin builders if -short</li>\n<li><a href=\"https://github.com/golang/tools/commit/25a0e9d3e36e70c0dd9ab7302baa370bd20373b1\"><code>25a0e9d</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/c9c95f97fda18f56ab4c8c406e9f48a4cb3b3d7e\"><code>c9c95f9</code></a> internal/refactor/inline: improve a confusing error message</li>\n<li><a href=\"https://github.com/golang/tools/commit/ba8672b53f4b6840528df6fd534cb16f65278711\"><code>ba8672b</code></a> go/analysis/passes/unusedresult: add functions from slices package</li>\n<li><a href=\"https://github.com/golang/tools/commit/3e8a0a3b0845dc1af9def080412d0a11d11a10d6\"><code>3e8a0a3</code></a> gopls/internal/lsp/cache: address additional comments from CL 553095</li>\n<li><a href=\"https://github.com/golang/tools/commit/920d665b996049294bff24b972efc9f3d949a8ba\"><code>920d665</code></a> gopls/internal/cmd: factor three loops in fix subcommand</li>\n<li><a href=\"https://github.com/golang/tools/commit/782573673af31588817cb7e79a1baeca1570609c\"><code>7825736</code></a> gopls/internal/lsp/cache: simplify critical errors</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.16.1...v0.17.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.16.1&new-version=0.17.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-01-16T11:01:26Z",
+          "tree_id": "2c2aec3c588fc237a02f60a6ff54da6fb391565f",
+          "url": "https://github.com/aws/jsii/commit/93ec9d7cf2e8080cd8894b0441bb542c1d7671a1"
+        },
+        "date": 1705405345316,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53841.277817049995,
+            "unit": "milliseconds",
+            "range": 860759.8272549551,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53841.277817049995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 41355.67133795001,
+            "unit": "milliseconds",
+            "range": 116735.45359544044,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41355.67133795001 milliseconds over 20 runs"
           }
         ]
       }
