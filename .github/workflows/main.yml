@@ -55,7 +55,7 @@ jobs:
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |-
             ~/.m2/repository
@@ -138,7 +138,7 @@ jobs:
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |-
             ~/.m2/repository
@@ -328,7 +328,7 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |-
             ~/.m2/repository
