@@ -226,7 +226,7 @@ jobs:
 
       - name: Update README (nightly)
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: peter-evans/dockerhub-description@v3
+        uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ steps.credentials.outputs.username }}
           password: ${{ steps.credentials.outputs.password }}
