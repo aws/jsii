@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1706791317021,
+  "lastUpdate": 1707136817169,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26175,6 +26175,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 28081.099973401644,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39265.38597639999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2b7c7ac4e401d0586c9bbee28e3d013795620d0d",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.6 to ~=9.5.7 in /gh-pages (#4415)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.7</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6731\">#6731</a>: Small images in figures are not centered</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6719\">#6719</a>: Instant navigation breaks table of contents (9.5.5 regression)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.7 (2024-02-03)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6731\">#6731</a>: Small images in figures are not centered</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6719\">#6719</a>: Instant navigation breaks table of contents (9.5.5 regression)</li>\n</ul>\n<p>mkdocs-material-9.5.6+insiders-4.52.1 (2024-01-30)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6705\">#6705</a>: Navigation path not being hidden when specified</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6703\">#6703</a>: New tags plugin crashes on Windows (2nd attempt)</li>\n</ul>\n<p>mkdocs-material-9.5.6+insiders-4.52.0 (2024-01-28)</p>\n<ul>\n<li>Added support for instant previews</li>\n<li>Fixed footnote tooltips positioning edge cases</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6703\">#6703</a>: New tags plugin crashes on Windows</li>\n</ul>\n<p>mkdocs-material-9.5.6 (2024-01-28)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6700\">#6700</a>: Missing styles for Mermaid.js labels with Markdown</li>\n</ul>\n<p>mkdocs-material-9.5.5+insiders-4.51.0 (2024-01-24)</p>\n<ul>\n<li>Added support for footnote tooltips</li>\n</ul>\n<p>mkdocs-material-9.5.5 (2024-01-24)</p>\n<ul>\n<li>Updated Tagalog translations</li>\n<li>Updated Pillow to 10.2 to mitigate security vulnerabilities</li>\n<li>Improved resilience of instant navigation</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6687\">#6687</a>: Updated Mermaid.js to version 10.7.0 (latest)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6652\">#6652</a>: Keyboard events in custom elements captured</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6582\">#6582</a>: Instant navigation doesn't correctly handle alternate URLs</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6565\">#6565</a>: Instant navigation doesn't allow for onclick handlers</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6345\">#6345</a>: Instant navigation sometimes breaks browser back button</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6334\">#6334</a>: Instant navigation doesn't correctly position anchors (Safari)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6275\">#6275</a>: Instant navigation doesn't correctly resolve after 404</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6102\">#6102</a>: Instant navigation reloads page on same link navigation</li>\n</ul>\n<p>mkdocs-material-9.5.4+insiders-4.50.0 (2024-01-19)</p>\n<ul>\n<li>Added configurable logging capabilities to privacy plugin</li>\n</ul>\n<p>mkdocs-material-9.5.4 (2024-01-15)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6645\">#6645</a>: Local storage with invalid value can break site</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6635\">#6635</a>: Tags icons before default ignored if default is set</li>\n</ul>\n<p>mkdocs-material-9.5.3+insiders-4.49.2 (2024-01-09)</p>\n<ul>\n<li>Fixed missing attribute lists extension for tags plugin</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f4960e84787b1a0c6fc08725f2d6ac7d83d3837e\"><code>f4960e8</code></a> Prepare 9.5.7 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/88004be010804f96902489cdb37060167d7679c2\"><code>88004be</code></a> Fixed regression with table of contents in last release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/02bf848fd504b953acb1bdb8aad9531ac052c93a\"><code>02bf848</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5b9bcb108e4bb04e16c77edd7e4716944b959fe7\"><code>5b9bcb1</code></a> Fixed alignment of small images in figures</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/39507ace3e41f475aa0a7bb859349c63c28ab74d\"><code>39507ac</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6720\">#6720</a> from uschmidt83/patch-1</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/dcb23d9a20f310ca16563b085da08636144244c6\"><code>dcb23d9</code></a> Update publishing-your-site.md</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c99f0cb4c58f821b916b488d92902d2cbc5c223a\"><code>c99f0cb</code></a> Update GitHub Actions workflow</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5417afc00414c33f1ba5779481514a5d2651c19e\"><code>5417afc</code></a> Updated premium sponsors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/175f2f08e583031555b0eedecfa5a1bf9f2b3657\"><code>175f2f0</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8023ffef8694b14fcd1ecda5db94d765270d5d3e\"><code>8023ffe</code></a> Documentation</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.6...9.5.7\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-02-05T11:59:27Z",
+          "tree_id": "38e7edcfd5bc9b7caed4716e07f79c7d83096cc3",
+          "url": "https://github.com/aws/jsii/commit/2b7c7ac4e401d0586c9bbee28e3d013795620d0d"
+        },
+        "date": 1707136812868,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 54889.984231250055,
+            "unit": "milliseconds",
+            "range": 881797.6091648402,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 54889.984231250055 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 40576.62231704999,
+            "unit": "milliseconds",
+            "range": 272007.73162703926,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40576.62231704999 milliseconds over 20 runs"
           }
         ]
       }
