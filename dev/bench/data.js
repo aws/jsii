@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1707140440168,
+  "lastUpdate": 1707143068873,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26251,6 +26251,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 393507.3587466998,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39879.699681149985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "35516928cc837b2a2029b445911c2911754c1652",
+          "message": "chore(deps-dev): Bump pip from 23.3.2 to 24.0 in /packages/jsii-pacmak/test/generated-code (#4417)\n\nBumps [pip](https://github.com/pypa/pip) from 23.3.2 to 24.0.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>24.0 (2024-02-03)</h1>\n<h2>Features</h2>\n<ul>\n<li>Retry on HTTP status code 502 (<code>[#11843](https://github.com/pypa/pip/issues/11843) &lt;https://github.com/pypa/pip/issues/11843&gt;</code>_)</li>\n<li>Automatically use the setuptools PEP 517 build backend when <code>--config-settings</code> is\nused for projects without <code>pyproject.toml</code>. (<code>[#11915](https://github.com/pypa/pip/issues/11915) &lt;https://github.com/pypa/pip/issues/11915&gt;</code>_)</li>\n<li>Make pip freeze and pip uninstall of legacy editable installs of packages whose name\ncontains <code>_</code> compatible with <code>setuptools&gt;=69.0.3</code>. (<code>[#12477](https://github.com/pypa/pip/issues/12477) &lt;https://github.com/pypa/pip/issues/12477&gt;</code>_)</li>\n<li>Support per requirement <code>--config-settings</code> for editable installs. (<code>[#12480](https://github.com/pypa/pip/issues/12480) &lt;https://github.com/pypa/pip/issues/12480&gt;</code>_)</li>\n</ul>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Optimized usage of <code>--find-links=&lt;path-to-dir&gt;</code>, by only scanning the relevant directory once, only considering file names that are valid wheel or sdist names, and only considering files in the directory that are related to the install. (<code>[#12327](https://github.com/pypa/pip/issues/12327) &lt;https://github.com/pypa/pip/issues/12327&gt;</code>_)</li>\n<li>Removed <code>wheel</code> from the <code>[build-system].requires</code> list fallback\nthat is used when <code>pyproject.toml</code> is absent. (<code>[#12449](https://github.com/pypa/pip/issues/12449) &lt;https://github.com/pypa/pip/issues/12449&gt;</code>_)</li>\n</ul>\n<h2>Vendored Libraries</h2>\n<ul>\n<li>Upgrade distlib to 0.3.8</li>\n</ul>\n<h2>Improved Documentation</h2>\n<ul>\n<li>Fix explanation of how PIP_CONFIG_FILE works (<code>[#11815](https://github.com/pypa/pip/issues/11815) &lt;https://github.com/pypa/pip/issues/11815&gt;</code>_)</li>\n<li>Fix outdated pip install argument description in documentation. (<code>[#12417](https://github.com/pypa/pip/issues/12417) &lt;https://github.com/pypa/pip/issues/12417&gt;</code>_)</li>\n<li>Replace some links to PEPs with links to the canonical specifications on the :doc:<code>pypug:index</code> (<code>[#12434](https://github.com/pypa/pip/issues/12434) &lt;https://github.com/pypa/pip/issues/12434&gt;</code>_)</li>\n<li>Updated the <code>pyproject.toml</code> document to stop suggesting\nto depend on <code>wheel</code> as a build dependency directly. (<code>[#12449](https://github.com/pypa/pip/issues/12449) &lt;https://github.com/pypa/pip/issues/12449&gt;</code>_)</li>\n<li>Update supported interpreters in development docs (<code>[#12475](https://github.com/pypa/pip/issues/12475) &lt;https://github.com/pypa/pip/issues/12475&gt;</code>_)</li>\n</ul>\n<h2>Process</h2>\n<ul>\n<li>Most project metadata is now defined statically via pip's <code>pyproject.toml</code> file.</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/pip/commit/ef78c129b1a966dbbbdb8ebfffc43723e89110d1\"><code>ef78c12</code></a> Tweak NEWS.rst</li>\n<li><a href=\"https://github.com/pypa/pip/commit/6681c02710b81278adb874007286960108867768\"><code>6681c02</code></a> Bump for release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/ef56d47f90eb3881dba5134241de94d504576f1b\"><code>ef56d47</code></a> Update AUTHORS.txt</li>\n<li><a href=\"https://github.com/pypa/pip/commit/53e5f192bab27cad793e9dbfd9849717c1ed3617\"><code>53e5f19</code></a> Tweak news before release</li>\n<li><a href=\"https://github.com/pypa/pip/commit/456db06c0312b6ce971d7c7a97806be8868b79b7\"><code>456db06</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12507\">#12507</a> from jeanas/mailmap</li>\n<li><a href=\"https://github.com/pypa/pip/commit/0b93dfc7c319449a71c50233c4fb344f9c24a668\"><code>0b93dfc</code></a> Add mailmap entry for <a href=\"https://github.com/jeanas\"><code>@​jeanas</code></a></li>\n<li><a href=\"https://github.com/pypa/pip/commit/c0801efcb5251d5704d67dd77dc77b5499d900c5\"><code>c0801ef</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12500\">#12500</a> from bdraco/add_502</li>\n<li><a href=\"https://github.com/pypa/pip/commit/aa930c49983e11c89d00d959c5d412a3211c2cbf\"><code>aa930c4</code></a> Update src/pip/_internal/network/session.py</li>\n<li><a href=\"https://github.com/pypa/pip/commit/99a82b7e49a1657d18c8453c42f7eff971ce1cb5\"><code>99a82b7</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12494\">#12494</a> from sbidoul/pass-config-settings-to-editable-in-re...</li>\n<li><a href=\"https://github.com/pypa/pip/commit/ff30ba86c1d04ade84843b02d251f97f1a2c3c2c\"><code>ff30ba8</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/pip/issues/12501\">#12501</a> from VladimirFokow/fix-small-typo</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/pip/compare/23.3.2...24.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=23.3.2&new-version=24.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-02-05T13:45:02Z",
+          "tree_id": "1899b84b2b6b6d8af350f1999028eab94eab38d7",
+          "url": "https://github.com/aws/jsii/commit/35516928cc837b2a2029b445911c2911754c1652"
+        },
+        "date": 1707143065551,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51885.74254775001,
+            "unit": "milliseconds",
+            "range": 795147.2906942035,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51885.74254775001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39767.33344229999,
+            "unit": "milliseconds",
+            "range": 214055.5948785392,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39767.33344229999 milliseconds over 20 runs"
           }
         ]
       }
