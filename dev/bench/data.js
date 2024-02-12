@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1707143068873,
+  "lastUpdate": 1707741837223,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26289,6 +26289,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 214055.5948785392,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39767.33344229999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "41498e8a0003d3e7961d91af8334eafea0fd3f42",
+          "message": "chore(deps): Update setuptools requirement from ~=69.0.3 to ~=69.1.0 in /packages/@jsii/python-runtime (#4420)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v69.1.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Updated and removed obsolete Python &lt; 3.8 code and comments. -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4096\">#4096</a>)</li>\n<li>Updated <code>pkg_resources</code> to use stdlib <code>importlib.machinery</code> instead of <code>importlib_machinery</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4097\">#4097</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>In tests, rely on pytest-home for reusable fixture. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4072\">#4072</a>)</li>\n<li>Explicitely marked as <code>Protocol</code> and fixed missing <code>self</code> argument in interfaces <code>pkg_resources.IMetadataProvider</code> and <code>pkg_resources.IResourceProvider</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4144\">#4144</a>)</li>\n<li>Restored expectation that egg-link files would be named with dash separators for compatibility with pip prior to version 24. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4167\">#4167</a>)</li>\n</ul>\n<h2>Improved Documentation</h2>\n<ul>\n<li>Updated documentation referencing obsolete Python 3.7 code. -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4096\">#4096</a>)</li>\n<li>Changed <code>versionadded</code> for &quot;Type information included by default&quot; feature from <code>v68.3.0</code> to <code>v69.0.0</code> -- by :user:Avasam` (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4182\">#4182</a>)</li>\n<li>Described the auto-generated files -- by :user:<code>VladimirFokow</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4198\">#4198</a>)</li>\n<li>Updated &quot;Quickstart&quot; to describe the current status of <code>setup.cfg</code> and <code>pyproject.toml</code> -- by :user:<code>VladimirFokow</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4200\">#4200</a>)</li>\n</ul>\n<h1>v69.0.3</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Retain valid names with underscores in egg_info.</li>\n</ul>\n<h1>v69.0.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Added missing estimated date for removing <code>setuptools.dep_util</code> (deprecated in v69.0.0). (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4131\">#4131</a>)</li>\n</ul>\n<h1>v69.0.1</h1>\n<h2>Bugfixes</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/bc6b031574efae1be4e0940bc8f262755149e216\"><code>bc6b031</code></a> Bump version: 69.0.3 → 69.1.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/115d3812d2eb7437951a0c317cea7f2a6c5224db\"><code>115d381</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4215\">#4215</a> from pypa/bugfix/4167-egg-link-mangling</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ac20e42c2c12070089a8e0188c8d46b3ad403fdd\"><code>ac20e42</code></a> Add news fragment.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/0c804aa02a2c32dc1210b32e75d1a997274f06d4\"><code>0c804aa</code></a> Add a test capturing the desired expectation, marked as xfail for now.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/f61e452d4f47277d1215047d2aa3c779fb586c0e\"><code>f61e452</code></a> Document the incorrect behavior revealed by <a href=\"https://redirect.github.com/pypa/setuptools/issues/4167\">#4167</a>.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4aa55b84ba2d919ef7d7d409a533da4cf947e11f\"><code>4aa55b8</code></a> Rearrange escaping functions to describe them in the order they should be used.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/58af37ca8baf898695b16defc52c6b1e01ef2564\"><code>58af37c</code></a> Replace the incorrect phrase about 'unescaping' and instead clarify that the ...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/f291ee0b199e0ea2df28a3386474795a95e27954\"><code>f291ee0</code></a> Restore expectation that egg-link files will be named with dashes and not und...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/9cbe157c15980dcb326b1ecec3d9ffb5a2efb5ef\"><code>9cbe157</code></a> Restore exclusion of docs from the build. Closes <a href=\"https://redirect.github.com/pypa/setuptools/issues/4213\">#4213</a>.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/c0fd10e2be16774e7f7feb105573bb67e404a1fb\"><code>c0fd10e</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4212\">#4212</a> from pypa/refactor/compat-module</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v69.0.3...v69.1.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-02-12T12:04:33Z",
+          "tree_id": "abd6cc713634897d8b8e471eb57050ca34c8991c",
+          "url": "https://github.com/aws/jsii/commit/41498e8a0003d3e7961d91af8334eafea0fd3f42"
+        },
+        "date": 1707741832979,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51433.01911405003,
+            "unit": "milliseconds",
+            "range": 827715.2295261668,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51433.01911405003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39129.966889899995,
+            "unit": "milliseconds",
+            "range": 47976.067472853305,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39129.966889899995 milliseconds over 20 runs"
           }
         ]
       }
