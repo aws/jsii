@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1707741837223,
+  "lastUpdate": 1707745448194,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26327,6 +26327,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 47976.067472853305,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39129.966889899995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d07b8d38201c15d835d4401e0d5f37d566b8df71",
+          "message": "chore(deps-dev): Update twine requirement from ~=4.0.2 to ~=5.0.0 in /packages/jsii-pacmak/lib/targets/python (#4422)\n\nUpdates the requirements on [twine](https://github.com/pypa/twine) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/twine/blob/main/docs/changelog.rst\">twine's changelog</a>.</em></p>\n<blockquote>\n<h2>Twine 5.0.0 (2024-02-10)</h2>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Use <code>email.message</code> instead of <code>cgi</code> as <code>cgi</code> has been deprecated (<code>[#969](https://github.com/pypa/twine/issues/969) &lt;https://github.com/pypa/twine/issues/969&gt;</code>_)</li>\n</ul>\n<p>Misc\n^^^^</p>\n<ul>\n<li><code>[#931](https://github.com/pypa/twine/issues/931) &lt;https://github.com/pypa/twine/issues/931&gt;</code><em>, <code>[#991](https://github.com/pypa/twine/issues/991) &lt;https://github.com/pypa/twine/issues/991&gt;</code></em>, <code>[#1028](https://github.com/pypa/twine/issues/1028) &lt;https://github.com/pypa/twine/issues/1028&gt;</code><em>, <code>[#1040](https://github.com/pypa/twine/issues/1040) &lt;https://github.com/pypa/twine/issues/1040&gt;</code></em></li>\n</ul>\n<h2>Twine 4.0.2 (2022-11-30)</h2>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Remove deprecated function to fix <code>twine check</code> with pkginfo 1.9.0. (<code>[#941](https://github.com/pypa/twine/issues/941) &lt;https://github.com/pypa/twine/issues/941&gt;</code>_)</li>\n</ul>\n<h2>Twine 4.0.1 (2022-06-01)</h2>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Improve logging when keyring fails. (<code>[#890](https://github.com/pypa/twine/issues/890) &lt;https://github.com/pypa/twine/issues/890&gt;</code>_)</li>\n<li>Reconfigure root logger to show all log messages. (<code>[#896](https://github.com/pypa/twine/issues/896) &lt;https://github.com/pypa/twine/issues/896&gt;</code>_)</li>\n</ul>\n<h2>Twine 4.0.0 (2022-03-31)</h2>\n<p>Features\n^^^^^^^^</p>\n<ul>\n<li>Drop support for Python 3.6. (<code>[#869](https://github.com/pypa/twine/issues/869) &lt;https://github.com/pypa/twine/issues/869&gt;</code>_)</li>\n<li>Use Rich to add color to <code>upload</code> output. (<code>[#851](https://github.com/pypa/twine/issues/851) &lt;https://github.com/pypa/twine/issues/851&gt;</code>_)</li>\n<li>Use Rich to add color to <code>check</code> output. (<code>[#874](https://github.com/pypa/twine/issues/874) &lt;https://github.com/pypa/twine/issues/874&gt;</code>_)</li>\n<li>Use Rich instead of tqdm for upload progress bar. (<code>[#877](https://github.com/pypa/twine/issues/877) &lt;https://github.com/pypa/twine/issues/877&gt;</code>_)</li>\n</ul>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Remove Twine's dependencies from the <code>User-Agent</code> header when uploading. (<code>[#871](https://github.com/pypa/twine/issues/871) &lt;https://github.com/pypa/twine/issues/871&gt;</code>_)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/twine/commit/94f810c54c8bc9d418a9ed64890ca9fa4ec7b59f\"><code>94f810c</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1047\">#1047</a> from pypa/new-release</li>\n<li><a href=\"https://github.com/pypa/twine/commit/09d993ad4de12f3d11ddf25ff4b4db54714f1969\"><code>09d993a</code></a> Update linkcheck_ignore setting for docs</li>\n<li><a href=\"https://github.com/pypa/twine/commit/ab0ed199154f8ab341d88c313cf4c2e785d770ee\"><code>ab0ed19</code></a> Apply 2024 black format</li>\n<li><a href=\"https://github.com/pypa/twine/commit/407e6cc0c42eb0dcbc679cb2ffbffcc5dcbc150b\"><code>407e6cc</code></a> Build changelog for 5.0.0</li>\n<li><a href=\"https://github.com/pypa/twine/commit/6644b862bb4555ddcb375c794ec5161de4a248df\"><code>6644b86</code></a> Add missing changelog entries</li>\n<li><a href=\"https://github.com/pypa/twine/commit/fe1885f2bf896c1852dedea7733a582c5718bbbc\"><code>fe1885f</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1034\">#1034</a> from DimitriPapadopoulos/codespell</li>\n<li><a href=\"https://github.com/pypa/twine/commit/694bdcf84686c2821ca3168fbc75c2fa5c901188\"><code>694bdcf</code></a> Fix typos found by codespell</li>\n<li><a href=\"https://github.com/pypa/twine/commit/89ec78c6be4b4b1bb22514bcddef8f6014c1ba53\"><code>89ec78c</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1040\">#1040</a> from woodruffw-forks/ww/pypi-mandatory-api-tokens</li>\n<li><a href=\"https://github.com/pypa/twine/commit/b3b363aae8cf83bfbdf9228f5e80d9bdb4765053\"><code>b3b363a</code></a> tests: lintage</li>\n<li><a href=\"https://github.com/pypa/twine/commit/6e94d200e20f700fa2e905dd32afeb367d321b67\"><code>6e94d20</code></a> tests: more non-PyPI tests</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/twine/compare/4.0.2...5.0.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-02-12T13:04:51Z",
+          "tree_id": "66174fa9ad4b0d8b4e3149bd7107fb63bf556a35",
+          "url": "https://github.com/aws/jsii/commit/d07b8d38201c15d835d4401e0d5f37d566b8df71"
+        },
+        "date": 1707745444844,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51388.17881385,
+            "unit": "milliseconds",
+            "range": 776425.9177922214,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51388.17881385 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39501.73493715,
+            "unit": "milliseconds",
+            "range": 256502.4743309832,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39501.73493715 milliseconds over 20 runs"
           }
         ]
       }
