@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1707829972513,
+  "lastUpdate": 1707939477140,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26479,6 +26479,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 53355.66453142177,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39215.62179384999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "cgarvis@gmail.com",
+            "name": "Chris Garvis",
+            "username": "cgarvis"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9569ee163b02d44fc0a41288528837457a93ed4e",
+          "message": "chore: updated link to rfc (#4412)\n\nAfter the RFC PR was merged, the branch doesn't exist.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-02-14T18:58:47Z",
+          "tree_id": "8424cbabc2319e39163ee362bb88d8ab38f110c5",
+          "url": "https://github.com/aws/jsii/commit/9569ee163b02d44fc0a41288528837457a93ed4e"
+        },
+        "date": 1707939472862,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50879.72383185002,
+            "unit": "milliseconds",
+            "range": 825111.3931894917,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50879.72383185002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38796.44660000001,
+            "unit": "milliseconds",
+            "range": 70076.7987834318,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38796.44660000001 milliseconds over 20 runs"
           }
         ]
       }
