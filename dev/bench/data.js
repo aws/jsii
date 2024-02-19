@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1707942093069,
+  "lastUpdate": 1708340437485,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26555,6 +26555,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 128092.71481498063,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39661.174069550005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "1083460+kellertk@users.noreply.github.com",
+            "name": "Tom Keller",
+            "username": "kellertk"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7b3a9c50993fdfc0766204e11407b71fe41259d1",
+          "message": "chore: minor github workflow changes (#4407)\n\nBased on customer feedback, AWS SDKs are making minor changes to our GitHub workflows:\n\n* The close issue message is too mean and too full of emoji.\n* The stale issue timings are too tight, especially on holidays and weekends.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-02-19T10:21:07Z",
+          "tree_id": "4df16ca5d67427280cf53e65f3d9f2bea20f77df",
+          "url": "https://github.com/aws/jsii/commit/7b3a9c50993fdfc0766204e11407b71fe41259d1"
+        },
+        "date": 1708340434015,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51729.150981149985,
+            "unit": "milliseconds",
+            "range": 584615.7226551711,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51729.150981149985 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39232.18124265001,
+            "unit": "milliseconds",
+            "range": 50198.1605743321,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39232.18124265001 milliseconds over 20 runs"
           }
         ]
       }
