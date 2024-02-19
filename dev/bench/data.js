@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1708340437485,
+  "lastUpdate": 1708342922498,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26593,6 +26593,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 50198.1605743321,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39232.18124265001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "80541297+madeline-k@users.noreply.github.com",
+            "name": "Madeline Kusters",
+            "username": "madeline-k"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b75206f90df49ffb59935fbd70a531acdf6f6375",
+          "message": "chore: mergify config cleanup (#4428)\n\nRemove madeline-k and MrArnoldPalmer\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-02-19T11:02:50Z",
+          "tree_id": "1998c0ca72115c9d9d2c7a5d875a8d2a5418b7e4",
+          "url": "https://github.com/aws/jsii/commit/b75206f90df49ffb59935fbd70a531acdf6f6375"
+        },
+        "date": 1708342919189,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52179.82865454997,
+            "unit": "milliseconds",
+            "range": 348613.91793564905,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52179.82865454997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39515.04865125002,
+            "unit": "milliseconds",
+            "range": 131799.90993540653,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39515.04865125002 milliseconds over 20 runs"
           }
         ]
       }
