@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1708346867326,
+  "lastUpdate": 1708350555132,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26669,6 +26669,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 29493.150769758795,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38935.72433774999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d33f79cce2c28e4090d4c1d4c5d2ae8ca38a856d",
+          "message": "chore(deps): Bump xunit.runner.visualstudio from 2.5.6 to 2.5.7 in /packages/@jsii/dotnet-runtime/src (#4431)\n\nBumps [xunit.runner.visualstudio](https://github.com/xunit/visualstudio.xunit) from 2.5.6 to 2.5.7.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/8f2703126a90acedef4e9dbd7ae1bc6440c25e06\"><code>8f27031</code></a> v2.5.7</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/7226c5aa74013fa685e3bf4ce8c777f0c5ef9fb3\"><code>7226c5a</code></a> Updated build process</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/1f5a062c607db91c91b07011bef83d4a22990ebd\"><code>1f5a062</code></a> Report configuration warnings per <a href=\"https://redirect.github.com/xunit/xunit/issues/1655\">xunit/xunit#1655</a></li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/21484963d6605feb31b2c72c481a21a036621e48\"><code>2148496</code></a> Latest dependencies</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/41a6ecafa6e9df1815f7894cfdddd494f807abe3\"><code>41a6eca</code></a> Force file copy during package creation</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/8f772933ccee61f2b7f57caf2f98dd5cd0839e85\"><code>8f77293</code></a> Revert e266e72 and 3cb1ad2</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/374dbf87cb8fe348d8a39ccf5079c53b4ba130d3\"><code>374dbf8</code></a> <a href=\"https://redirect.github.com/xunit/visualstudio.xunit/issues/399\">#399</a>: Modified date of redistributed xunit.abstractions.dll is wrong</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/edf51bcd09049f369ab84abd99e6698b7f756aae\"><code>edf51bc</code></a> Update build to use .NET SDK 8 and C# 12</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/3cb1ad21eb3cda20218cafd48b696813a054efe5\"><code>3cb1ad2</code></a> Replace SkipUnchangedFiles with a Condition</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/e266e72fbd58b43a34636e481d5b1523104bc040\"><code>e266e72</code></a> Replace ItemGroup item with Copy task to see if that fixes <a href=\"https://redirect.github.com/xunit/xunit/issues/1651\">xunit/xunit#1651</a></li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/visualstudio.xunit/compare/2.5.6...2.5.7\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit.runner.visualstudio&package-manager=nuget&previous-version=2.5.6&new-version=2.5.7)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-02-19T13:09:49Z",
+          "tree_id": "a0c2f15425045358ee26b31183c7998d458ca045",
+          "url": "https://github.com/aws/jsii/commit/d33f79cce2c28e4090d4c1d4c5d2ae8ca38a856d"
+        },
+        "date": 1708350551758,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51516.29277729996,
+            "unit": "milliseconds",
+            "range": 1115590.0243709807,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51516.29277729996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39426.789970950005,
+            "unit": "milliseconds",
+            "range": 365059.96293418616,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39426.789970950005 milliseconds over 20 runs"
           }
         ]
       }
