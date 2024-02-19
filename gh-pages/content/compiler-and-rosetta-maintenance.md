@@ -8,7 +8,7 @@ built on). This change was designed in [RFC-374], and removes the need for devel
 to releases still compatible with TypeScript 3.9 without necessarily requiring their dependents to do the same at the
 same time. Upgrading your `jsii` and `jsii-rosetta` dependencies to `v5.0.x` is transparent to your users.
 
-[RFC-374]: https://github.com/aws/aws-cdk-rfcs/blob/rmuller/jsii-version-unlock/text/0374-jsii-ts-version.md
+[RFC-374]: https://github.com/aws/aws-cdk-rfcs/blob/main/text/0374-jsii-ts-version.md
 
 Starting with the `5.0.x` release of `jsii` and `jsii-rosetta`, we are using a new versioning strategy for these two
 tools. Going forward we will closely follow new TypeScript compiler releases with new `jsii` and `jsii-rosetta` releases, 
