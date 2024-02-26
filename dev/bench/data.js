@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1708953134807,
+  "lastUpdate": 1708957305897,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26821,6 +26821,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 110311.75662511354,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38845.0261657 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ac7ab0a0325b1a6abd5f715550e1f9e3bf0da2e6",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.10 to ~=9.5.11 in /gh-pages (#4433)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.11</h2>\n<ul>\n<li>Updated Finnish translation</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.11+insiders-4.53.0 (2024-02-24)</p>\n<ul>\n<li>Added support for automatic instant previews</li>\n<li>Added support for pinned blog posts</li>\n</ul>\n<p>mkdocs-material-9.5.11 (2024-02-19)</p>\n<ul>\n<li>Updated Finnish translation</li>\n</ul>\n<p>mkdocs-material-9.5.10+insiders-4.52.3 (2024-02-21)</p>\n<ul>\n<li>Fixed resolution of URLs in instant previews</li>\n<li>Fixed instant previews not mounting for same-page links</li>\n</ul>\n<p>mkdocs-material-9.5.10 (2024-02-19)</p>\n<ul>\n<li>Updated Bahasa Malaysia translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6783\">#6783</a>: Hide continue reading link for blog posts without separators</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6779\">#6779</a>: Incorrect positioning of integrated table of contents</li>\n</ul>\n<p>mkdocs-material-9.5.9 (2024-02-10)</p>\n<ul>\n<li>Fixed navigation pruning with tabs and sections enabled</li>\n</ul>\n<p>mkdocs-material-9.5.8+insiders-4.52.2 (2024-02-07)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6735\">#6735</a>: Instant previews misplaced when below tabs</li>\n</ul>\n<p>mkdocs-material-9.5.8 (2024-02-07)</p>\n<ul>\n<li>Added Tamil translations</li>\n<li>Updated Esperanto translations</li>\n<li>Fixed relative images not being resolved for instant navigation</li>\n</ul>\n<p>mkdocs-material-9.5.7 (2024-02-03)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6731\">#6731</a>: Small images in figures are not centered</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6719\">#6719</a>: Instant navigation breaks table of contents (9.5.5 regression)</li>\n</ul>\n<p>mkdocs-material-9.5.6+insiders-4.52.1 (2024-01-30)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6705\">#6705</a>: Navigation path not being hidden when specified</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6703\">#6703</a>: New tags plugin crashes on Windows (2nd attempt)</li>\n</ul>\n<p>mkdocs-material-9.5.6+insiders-4.52.0 (2024-01-28)</p>\n<ul>\n<li>Added support for instant previews</li>\n<li>Fixed footnote tooltips positioning edge cases</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6703\">#6703</a>: New tags plugin crashes on Windows</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/10a97aa72f413b960def3f431d4f83e0d2ded8e0\"><code>10a97aa</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/be21a6ff2d114b89940f6053742b28f0e8f99c83\"><code>be21a6f</code></a> Prepare 9.5.11 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f26cfaaa58ede5c09de9c6b633a113e2fdc74e68\"><code>f26cfaa</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/23f18866c342968f5819495596fcb24f5dcc8b85\"><code>23f1886</code></a> Removed manually added instant previews in light of new extension</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/59f4147e6026ca02d08de2935d9036947e1e4b68\"><code>59f4147</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a1f4084bb99f8fcce27c0c4bca2f4f4d387201bc\"><code>a1f4084</code></a> Updated distribution files</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b24e4949205c00e8dc8059b65163d7e477748c4e\"><code>b24e494</code></a> Updated Finnish translation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6801\">#6801</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/740552aa582a3482fad99ee622a82a3679d2aa96\"><code>740552a</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6803\">#6803</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b3e8f0900125935cca10d7b2799299b139f61d19\"><code>b3e8f09</code></a> Updated Premium sponsors</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c8eea6b4a76b48a89e84a6720a192856b140a9ed\"><code>c8eea6b</code></a> Merge branch 'master' of github.com:squidfunk/mkdocs-material</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.10...9.5.11\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-02-26T13:42:00Z",
+          "tree_id": "a620443018c933d9edd406bdc77b1afdb5bcfa4e",
+          "url": "https://github.com/aws/jsii/commit/ac7ab0a0325b1a6abd5f715550e1f9e3bf0da2e6"
+        },
+        "date": 1708957302477,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52658.237941150015,
+            "unit": "milliseconds",
+            "range": 1343564.1819271198,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52658.237941150015 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 40465.69991735,
+            "unit": "milliseconds",
+            "range": 691816.8680578957,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40465.69991735 milliseconds over 20 runs"
           }
         ]
       }
