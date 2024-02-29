@@ -149,6 +149,7 @@ jobs:
         if: steps.should-run.outputs.result == 'true'
         run: |-
           docker buildx build                                                   \
+            --quiet                                                             \
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
@@ -158,7 +159,7 @@ jobs:
             --build-arg DEBIAN_VERSION=${{ matrix.debian }}                     \
             --build-arg NODE_MAJOR_VERSION=${{ matrix.node }}                   \
             -f superchain/Dockerfile                                            \
-            . > /dev/null
+            .
 
       - name: Test Image
         if: steps.should-run.outputs.result == 'true'
