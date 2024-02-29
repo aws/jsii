@@ -43,7 +43,7 @@ export function translateTypeScript(
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  #diagnostics: ts.Diagnostic[] = [];
+  readonly #diagnostics: ts.Diagnostic[] = [];
 
   public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
@@ -163,7 +163,10 @@ export class SnippetTranslator {
   private readonly tryCompile: boolean;
   private readonly submoduleReferences: SubmoduleReferenceMap;
 
-  public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
+  public constructor(
+    snippet: TypeScriptSnippet,
+    private readonly options: SnippetTranslatorOptions = {},
+  ) {
     const compiler = options.compiler ?? new TypeScriptCompiler();
     const source = completeSource(snippet);
     const fakeCurrentDirectory =

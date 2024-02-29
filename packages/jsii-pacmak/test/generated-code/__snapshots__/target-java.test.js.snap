@@ -1462,7 +1462,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 BaseFor2647.java
           ┃                    ┣━ 📁 deprecation_removal
           ┃                    ┃  ┣━ 📄 IInterface.java
-          ┃                    ┃  ┗━ 📄 InterfaceFactory.java
+          ┃                    ┃  ┣━ 📄 InterfaceFactory.java
+          ┃                    ┃  ┗━ 📄 VisibleBaseClass.java
           ┃                    ┣━ 📄 DiamondLeft.java
           ┃                    ┣━ 📄 DiamondRight.java
           ┃                    ┣━ 📄 EnumFromScopedModule.java
@@ -3762,6 +3763,45 @@ public class InterfaceFactory extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/deprecation_removal/VisibleBaseClass.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib.deprecation_removal;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass")
+public class VisibleBaseClass extends software.amazon.jsii.JsiiObject {
+
+    protected VisibleBaseClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected VisibleBaseClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public VisibleBaseClass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getPropertyPresent() {
+        return software.amazon.jsii.Kernel.get(this, "propertyPresent", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/package-info.java 1`] = `
 /**
  *
@@ -3789,6 +3829,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 @scope/jsii-calc-lib.StructWithOnlyOptionals=software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals
 @scope/jsii-calc-lib.deprecationRemoval.IInterface=software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface
 @scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory=software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory
+@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass=software.amazon.jsii.tests.calculator.lib.deprecation_removal.VisibleBaseClass
 @scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable
 @scope/jsii-calc-lib.submodule.NestingClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass
 @scope/jsii-calc-lib.submodule.NestingClass.NestedClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass$NestedClass
@@ -9953,6 +9994,16 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void hola() {
         software.amazon.jsii.Kernel.call(this, "hola", software.amazon.jsii.NativeType.VOID);
+    }
+
+    /**
+     * Some comments have an escaped star backslash in them, ending the comment if left unescaped.
+     * <p>
+     * For example: 'projects/*&#47;global/networks/network-1'.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void moin() {
+        software.amazon.jsii.Kernel.call(this, "moin", software.amazon.jsii.NativeType.VOID);
     }
 }
 

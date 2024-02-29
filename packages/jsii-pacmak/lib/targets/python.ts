@@ -619,7 +619,7 @@ abstract class BaseMethod implements PythonBase {
             name: p.name,
             docs: p.docs,
             definingType: this.parent,
-          } as DocumentableArgument),
+          }) as DocumentableArgument,
       )
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
@@ -665,7 +665,7 @@ abstract class BaseMethod implements PythonBase {
               name: p.prop.name,
               docs: p.prop.docs,
               definingType: p.definingType,
-            } as DocumentableArgument),
+            }) as DocumentableArgument,
         ),
       );
     } else if (
@@ -1833,6 +1833,11 @@ class PythonModule implements PythonType {
           code.line();
           code.line('import jsii');
           code.line('import sys');
+          code.line('import os');
+          code.line();
+          code.openBlock('if "JSII_RUNTIME_PACKAGE_CACHE" not in os.environ');
+          code.line('os.environ["JSII_RUNTIME_PACKAGE_CACHE"] = "disabled"');
+          code.closeBlock();
           code.line();
           emitList(
             code,
@@ -2102,7 +2107,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '~=3.7',
+      python_requires: '~=3.8',
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
@@ -2115,7 +2120,6 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
@@ -2125,7 +2129,14 @@ class Package {
       scripts,
     };
 
-    switch (this.metadata.docs?.stability) {
+    // Packages w/ a deprecated message may have a non-deprecated stability (e.g: when EoL happens
+    // for a stable package). We pretend it's deprecated for the purpose of trove classifiers when
+    // this happens.
+    switch (
+      this.metadata.docs?.deprecated
+        ? spec.Stability.Deprecated
+        : this.metadata.docs?.stability
+    ) {
       case spec.Stability.Experimental:
         setupKwargs.classifiers.push('Development Status :: 4 - Beta');
         break;
@@ -2229,7 +2240,7 @@ class Package {
     code.line();
     code.line('[tool.pyright]');
     code.line('defineConstant = { DEBUG = true }');
-    code.line('pythonVersion = "3.7"');
+    code.line('pythonVersion = "3.8"');
     code.line('pythonPlatform = "All"');
     code.line('reportSelfClsParameterName = false');
     code.closeFile('pyproject.toml');

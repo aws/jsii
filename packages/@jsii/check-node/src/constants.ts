@@ -25,19 +25,16 @@ export class NodeRelease {
     ),
 
     // Past end-of-life releases
-    new NodeRelease(13, { endOfLife: new Date('2020-06-01') }),
-    new NodeRelease(14, {
-      endOfLife: new Date('2023-04-30'),
-      supportedRange: '^14.17.0',
-    }),
-    new NodeRelease(15, { endOfLife: new Date('2021-06-01') }),
     new NodeRelease(12, {
       endOfLife: new Date('2022-04-30'),
       supportedRange: '^12.7.0',
     }),
-    new NodeRelease(19, { endOfLife: new Date('2023-06-01') }),
-
-    // Currently active releases (as of last edit to this file...)
+    new NodeRelease(13, { endOfLife: new Date('2020-06-01'), untested: true }),
+    new NodeRelease(14, {
+      endOfLife: new Date('2023-04-30'),
+      supportedRange: '^14.17.0',
+    }),
+    new NodeRelease(15, { endOfLife: new Date('2021-06-01'), untested: true }),
     new NodeRelease(16, {
       endOfLife: new Date('2023-09-11'),
       supportedRange: '^16.3.0',
@@ -45,9 +42,14 @@ export class NodeRelease {
     new NodeRelease(17, {
       endOfLife: new Date('2022-06-01'),
       supportedRange: '^17.3.0',
+      untested: true,
     }),
+    new NodeRelease(19, { endOfLife: new Date('2023-06-01'), untested: true }),
+
+    // Currently active releases (as of last edit to this file...)
     new NodeRelease(18, { endOfLife: new Date('2025-04-30') }),
     new NodeRelease(20, { endOfLife: new Date('2026-04-30') }),
+    new NodeRelease(21, { endOfLife: new Date('2024-06-01'), untested: true }),
 
     // Future (planned releases)
   ];

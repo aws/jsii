@@ -74,8 +74,7 @@ class CreateRequest:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class CreateResponse(ObjRef):
-    ...
+class CreateResponse(ObjRef): ...
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -84,8 +83,7 @@ class DeleteRequest:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class DeleteResponse:
-    ...
+class DeleteResponse: ...
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -120,8 +118,7 @@ class SetRequest:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class SetResponse:
-    ...
+class SetResponse: ...
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -175,8 +172,7 @@ class Callback:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class CallbacksRequest:
-    ...
+class CallbacksRequest: ...
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -207,8 +203,7 @@ class NamingResponse:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class StatsRequest:
-    ...
+class StatsRequest: ...
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

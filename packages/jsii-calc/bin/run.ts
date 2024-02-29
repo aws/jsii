@@ -2,10 +2,15 @@
 
 /* eslint-disable no-console */
 
+import * as calcLib from '@scope/jsii-calc-lib';
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const runCommand = async () => {
   console.info('Hello World!');
+
+  // Make sure this binary depends on an external package to test dependencies with invokeBinScript
+  new calcLib.Number(1);
 
   const args = process.argv.slice(2);
   if (args.length > 0) {
@@ -13,7 +18,7 @@ const runCommand = async () => {
 
     if (args.includes('delay')) {
       for (let i = 1; i <= 5; i++) {
-        console.log('sleeping 1s', i);
+        console.log(`sleeping 1s ${i}`);
         // eslint-disable-next-line no-await-in-loop
         await delay(1000);
       }

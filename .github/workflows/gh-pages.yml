@@ -2,6 +2,7 @@
 name: GitHub Pages
 
 on:
+  merge_group: {}
   pull_request:
     branches: [main]
   push:
@@ -17,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           cache: 'pip'
           cache-dependency-path: 'gh-pages/requirements-dev.txt'
@@ -53,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}

@@ -31,21 +31,20 @@ setuptools.setup(
     },
     install_requires=[
         "attrs>=21.2,<24.0",
-        "cattrs>=1.8,<23.2",
+        "cattrs>=1.8,<23.3",
         "importlib_resources>=5.2.0",
         "publication>=0.0.3",  # This is used by all generated code.
         "typeguard~=2.13.3",  # This is used by all generated code.
         "python-dateutil",
-        "typing_extensions>=3.7,<5.0",
+        "typing_extensions>=3.8,<5.0",
     ],
-    python_requires="~=3.7",
+    python_requires="~=3.8",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",

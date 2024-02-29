@@ -288,7 +288,6 @@ function main() {
             describe: 'Assembly to transliterate',
           })
           .option('language', {
-            alias: 'l',
             type: 'string',
             array: true,
             default: [],
@@ -319,15 +318,17 @@ function main() {
         );
         const languages =
           args.language.length > 0
-            ? args.language.map((lang) => {
-                const target = Object.entries(TargetLanguage).find(([k]) => k === lang)?.[1];
-                if (target == null) {
-                  throw new Error(
-                    `Unknown target language: ${lang}. Expected one of ${Object.keys(TargetLanguage).join(', ')}`,
-                  );
-                }
-                return target;
-              })
+            ? args.language
+                .map((lang) => lang.toUpperCase())
+                .map((lang) => {
+                  const target = Object.entries(TargetLanguage).find(([k]) => k === lang)?.[1];
+                  if (target == null) {
+                    throw new Error(
+                      `Unknown target language: ${lang}. Expected one of ${Object.keys(TargetLanguage).join(', ')}`,
+                    );
+                  }
+                  return target;
+                })
             : Object.values(TargetLanguage);
         return transliterateAssembly(assemblies, languages, args);
       }),
@@ -446,7 +447,7 @@ function main() {
  */
 function wrapHandler<A extends { verbose?: number }, R>(handler: (x: A) => Promise<R>) {
   return (argv: A) => {
-    logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
+    logging.configure({ level: argv.verbose ?? 0 });
     handler(argv).catch((e) => {
       logging.error(e.message);
       logging.error(e.stack);

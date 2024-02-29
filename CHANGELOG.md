@@ -2,21 +2,111 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.83.0](https://github.com/aws/jsii/compare/v1.82.0...v1.83.0) (2023-06-07)
+## [1.94.0](https://github.com/aws/jsii/compare/v1.93.0...v1.94.0) (2024-01-09)
 
 
 ### Features
 
-* **go:** register exported properties as callbacks ([#4104](https://github.com/aws/jsii/issues/4104)) ([fa921ec](https://github.com/aws/jsii/commit/fa921ecfb1dab52144e89cbbeeba0b334779cde9)), closes [cdk8s-team/cdk8s#1326](https://github.com/cdk8s-team/cdk8s/issues/1326)
-* **superchain:** switch to JDK 20 ([#4082](https://github.com/aws/jsii/issues/4082)) ([f0a1dfc](https://github.com/aws/jsii/commit/f0a1dfce8edb06a1b71758b49886580e6ee271ff))
+* **go-runtime:** include error message when wrapping a @jsii/kernel.Fault ([#4275](https://github.com/aws/jsii/issues/4275)) ([c6eb62a](https://github.com/aws/jsii/commit/c6eb62a290b9a1897fe0aee6cb1a89581b0cd78b))
 
 
 ### Bug Fixes
 
-* **jsii-pacmak:** disable `doclint` ([#4103](https://github.com/aws/jsii/issues/4103)) ([30afa09](https://github.com/aws/jsii/commit/30afa095e296d71d3700a2a56a36483a92c5457d))
-* **jsii-pacmak:** emit correct `[@return](https://github.com/return)` tag for JavaDocs ([#4095](https://github.com/aws/jsii/issues/4095)) ([fc7ab7c](https://github.com/aws/jsii/commit/fc7ab7c57f4a94949794cc963bbf644ad491d246))
-* **jsii-pacmak:** escape documentation in all positions ([#4096](https://github.com/aws/jsii/issues/4096)) ([6a2248d](https://github.com/aws/jsii/commit/6a2248dde982d2758976cc1b5d4c3e7676b0f204))
-* **pacmak:** _ is not treated as a keyword in Java  ([#4094](https://github.com/aws/jsii/issues/4094)) ([eaaf3ee](https://github.com/aws/jsii/commit/eaaf3ee20ad64ba5d5ed4441aa12f27f024e7c85))
+* **pacmak:** invokeBinScript fails when using symlinked cache ([#4389](https://github.com/aws/jsii/issues/4389)) ([37d9dc7](https://github.com/aws/jsii/commit/37d9dc7565a6a84c6274d5ebab9e72d0de993aa1))
+
+## [1.93.0](https://github.com/aws/jsii/compare/v1.92.0...v1.93.0) (2023-12-08)
+
+
+### Features
+
+* deprecate `jsii/superchain:buster-slim-*` images ([#4359](https://github.com/aws/jsii/issues/4359)) ([b580244](https://github.com/aws/jsii/commit/b5802449f4b9292b3396353f1fa3fa768a779cd7))
+* **go:** add jsii.Sprintf helper ([#4345](https://github.com/aws/jsii/issues/4345)) ([2ecfb77](https://github.com/aws/jsii/commit/2ecfb778130c1a2fdd6b4932216e144a0d079d5c))
+
+
+### Bug Fixes
+
+* **check-node:** unstable node 21 is incorrectly listed as supported ([#4362](https://github.com/aws/jsii/issues/4362)) ([886e465](https://github.com/aws/jsii/commit/886e465e60a5b6208a862a20af087cbd924416a9))
+
+## [1.92.0](https://github.com/aws/jsii/compare/v1.91.0...v1.92.0) (2023-11-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* jsii-pacmak and the libraries it generates for Python targets now require a minimum Python version of 3.8, instead of 3.7 previously. We recommend users upgrade to the latest supported Python release (Python 3.11).
+* all libraries and tools now require a minimum version of Node.js 18, instead of 16 previously. We recommend users upgrade to the latest supported Node.js release (Node.js 20).
+
+### Features
+
+* **jsii-reflect:** TypeSystem can be locked to improve reflection performance ([#4318](https://github.com/aws/jsii/issues/4318)) ([c87da43](https://github.com/aws/jsii/commit/c87da436671d677d1fee276d0932ea7edd431f78))
+* make node 18 the default ([#4325](https://github.com/aws/jsii/issues/4325)) ([8784725](https://github.com/aws/jsii/commit/87847254c8a39f6e99383bfa3a375ae6c8d9a8a5))
+* **superchain:** publish a bullseye image with node18 & python 3.9 ([#4326](https://github.com/aws/jsii/issues/4326)) ([7197b4f](https://github.com/aws/jsii/commit/7197b4f21e7f6776fbbfe5bac7f03a308cd9f7c0))
+* switch to python 3.8 ([#4327](https://github.com/aws/jsii/issues/4327)) ([416e2b5](https://github.com/aws/jsii/commit/416e2b504895800281a3598b3139b141330aa906))
+
+
+### Bug Fixes
+
+* **kernel:** invokeBinScript fails when using symlinked cache ([#4324](https://github.com/aws/jsii/issues/4324)) ([a2ab316](https://github.com/aws/jsii/commit/a2ab31609d361ac5ceca6c928584ec59f2d705d3))
+* **pacmak:** *.tsbuildinfo not in auto-generated .npmignore file ([#4236](https://github.com/aws/jsii/issues/4236)) ([d55b8d5](https://github.com/aws/jsii/commit/d55b8d57ce43dc9fd3d5132d7ba3ad0aa9ead3b9)), closes [#3978](https://github.com/aws/jsii/issues/3978)
+* **superchain:** installed setuptools is an unsupported version ([#4333](https://github.com/aws/jsii/issues/4333)) ([c0a4140](https://github.com/aws/jsii/commit/c0a41409568bc71b086fd1c56e2c5a08f708c3ad))
+
+## [1.91.0](https://github.com/aws/jsii/compare/v1.90.0...v1.91.0) (2023-10-24)
+
+## [1.90.0](https://github.com/aws/jsii/compare/v1.89.0...v1.90.0) (2023-10-06)
+
+## [1.89.0](https://github.com/aws/jsii/compare/v1.88.0...v1.89.0) (2023-09-20)
+
+## [1.88.0](https://github.com/aws/jsii/compare/v1.87.0...v1.88.0) (2023-08-24)
+
+## [1.87.0](https://github.com/aws/jsii/compare/v1.86.1...v1.87.0) (2023-08-11)
+
+
+### Bug Fixes
+
+* **kernel:** fast module loading fails on Windows (EPERM) ([#4212](https://github.com/aws/jsii/issues/4212)) ([fac6cbb](https://github.com/aws/jsii/commit/fac6cbbeb5d9bcbbac8f9dff58001afb701a4065)), closes [#4208](https://github.com/aws/jsii/issues/4208)
+* **kernel:** package cache fails under parallelism ([#4215](https://github.com/aws/jsii/issues/4215)) ([b739ef6](https://github.com/aws/jsii/commit/b739ef68d4d92d7af78b2a91b8581e9f3077df96)), closes [#4181](https://github.com/aws/jsii/issues/4181) [#4207](https://github.com/aws/jsii/issues/4207)
+* pip, black, setuptools, twine, wheel, and aws-sam-cli incorrectly installed in superchain ([#4201](https://github.com/aws/jsii/issues/4201)) ([851415c](https://github.com/aws/jsii/commit/851415c44864c0fb0b4b2d5ee4535f0b33f89a48))
+* **python:** type object 'InterfaceDynamicProxy' has no attribute '__jsii_type__' ([#4209](https://github.com/aws/jsii/issues/4209)) ([057b267](https://github.com/aws/jsii/commit/057b267809a05135d6d22227318ae55100aad272))
+* **superchain:** add openssh-client back ([#4224](https://github.com/aws/jsii/issues/4224)) ([8390ca1](https://github.com/aws/jsii/commit/8390ca1615769846f92c42ef35ac590b4673efbb))
+
+## [1.86.1](https://github.com/aws/jsii/compare/v1.86.0...v1.86.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* **kernel:** incorrectly scoped FQN resolutions ([#4204](https://github.com/aws/jsii/issues/4204)) ([ed667c7](https://github.com/aws/jsii/commit/ed667c76be73c43f969a1b7acc0b4b93a7a00889)), closes [aws/aws-cdk#26604](https://github.com/aws/aws-cdk/issues/26604) [#4202](https://github.com/aws/jsii/issues/4202) [#4203](https://github.com/aws/jsii/issues/4203)
+
+## [1.86.0](https://github.com/aws/jsii/compare/v1.85.0...v1.86.0) (2023-08-01)
+
+
+### Features
+
+* faster, lazy-friendly runtime loading ([#4181](https://github.com/aws/jsii/issues/4181)) ([ef6e5b1](https://github.com/aws/jsii/commit/ef6e5b1ebbafe69252fc78883962b3731bbb04ef))
+* **jsii-pacmak:** allow disabling go build conditionally ([#4196](https://github.com/aws/jsii/issues/4196)) ([7fc7987](https://github.com/aws/jsii/commit/7fc79876889504c2eae5888baeb8525d82a4a491))
+* **python:** deprecation message when using Python <= 3.7 ([#4186](https://github.com/aws/jsii/issues/4186)) ([0ef7ace](https://github.com/aws/jsii/commit/0ef7acef765690f99075888d6c3e6f03d7cc2d59))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** comment lines should not contain comment ending ([#4193](https://github.com/aws/jsii/issues/4193)) ([906c24d](https://github.com/aws/jsii/commit/906c24db65a0c4a581ba2727dc4ad7ca157a8995))
+* **jsii-pacmak:** handles 'default' doc component for go ([#4115](https://github.com/aws/jsii/issues/4115)) ([9085514](https://github.com/aws/jsii/commit/90855148990811ee90b1728b728a974e0b5a0b89))
+* type annotation for callable metaclass ([#4179](https://github.com/aws/jsii/issues/4179)) ([4ccbb57](https://github.com/aws/jsii/commit/4ccbb579c8f26f55f8e391ddaf1fd562f1b78c38))
+
+## [1.85.0](https://github.com/aws/jsii/compare/v1.84.0...v1.85.0) (2023-07-17)
+
+
+### Bug Fixes
+
+* export transliterateAssembly and fix bug with transliterate cli (backport) ([#4166](https://github.com/aws/jsii/issues/4166)) ([6b7eb02](https://github.com/aws/jsii/commit/6b7eb02f3a822941185e8c74be71d677285c741e))
+* **go-runtime:** use fatih/color instead of ANSI Escape Code ([#4109](https://github.com/aws/jsii/issues/4109)) ([28b192a](https://github.com/aws/jsii/commit/28b192aa1a3ecdd3b3ce6ee49a5efd32db01e695))
+
+## [1.84.0](https://github.com/aws/jsii/compare/v1.83.0...v1.84.0) (2023-06-13)
+
+
+### Features
+
+* **jsii:** allow specifying a deprecation message regardless of stability ([#4145](https://github.com/aws/jsii/issues/4145)) ([38d327c](https://github.com/aws/jsii/commit/38d327c7f47b3af360c2829bae8b785c9be055b5))
+
+## [1.83.0](https://github.com/aws/jsii/compare/v1.82.0...v1.83.0) (2023-06-07)
 
 ## [1.82.0](https://github.com/aws/jsii/compare/v1.81.0...v1.82.0) (2023-05-22)
 

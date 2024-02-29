@@ -15,13 +15,13 @@ jobs:
     steps:
 
       - name: Check Out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: yarn
-          node-version: 14
+          node-version: 18
 
       - name: Install Tools
         run: |-
@@ -118,7 +118,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download patch
         uses: actions/download-artifact@v3
@@ -130,7 +130,7 @@ jobs:
         run: '[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp }}/upgrade.patch || echo "Empty patch. Skipping."'
 
       - name: Make Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           # Git commit details
           author: 'AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>'

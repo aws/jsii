@@ -14,10 +14,14 @@ A *jsii module* can declare dependencies on any other *jsii module* by adding en
 `package.json` file. Since most other platforms do not support multiple different versions of the same library to
 coexist in the same closure, it is recommended to also declare all such dependencies as `peerDependencies`.
 
+### non-jsii dependencies
+
 Occasionally, a dependency on a *non-jsii module* is useful. Since such dependencies do not have generated bindings in
 all the supported languages, they must be bundled with the *jsii module* that depends on them, by adding the library
-into the `bundleDependencies` array in `package.json`. The API of the *jsii module* can not expose any type from bundled
-dependencies, since those types would not be available in other languages.
+into the `bundleDependencies` array in `package.json`. 
+
+The API of the *jsii module* can not expose any type from bundled dependencies, since those types would not be available in other languages.
+TypeScript files that include a non-jsii dependency (e.g. a lambda handler for an AWS CDK Construct) cannot be exported from the `main`/`types` entry point.
 
 !!! info
     For more information on `package.json` file contents, refer to the [npm documentation][package-json].
@@ -160,14 +164,36 @@ export class Child extends Base {
 }
 ```
 
-## Parameterized Types (aka: Generics)
+## Index Signatures
 
-Parameterized types are not consistently supported in all supported target languages. **Go** does not currently support
-generics, and the differences in generic semantics between **TypeScript**, **C#** and **Java** make it difficult to
-correctly represent such types in all those languages. As a consequence, `jsii` does not support declaring parameterized
-types.
+**TypeScript** allows declaring _additional properties_ through the use of index signatures. These are however not
+supported by the _jsii type system_ and are rejected by the compiler.
 
-Only certain *built-in* parameterized types can be used in `jsii` modules:
+!!! info
+    Version `1.x` of the compiler _silently ignores_ index signatures instead of reporting a compilation error. Users
+    with offending APIs migrating from `jsii@1.x` to `jsii@5.0` or newer need to either remove those declarations, or
+    explicitly ignore them using the [`@jsii ignore` tag](./hints.md#excluding-a-declaration-from-multi-language-support).
+
+```ts hl_lines="4-5"
+export interface WithIndexSignature {
+  public readonly name: string;
+
+  // 💥 Index signatures are not supported
+  public [key: string]: unknown;
+}
+```
+
+## TypeScript Mapped Types
+
+!!! info
+    These are also referred to as "Generics", "Parameterized Types", "Utility Types", ...
+
+Parameterized types are not consistently supported in all supported target languages. **Go** support for generics is
+relatively limited (for good reasons) compared to TypeScript and most Object-Oriented languages, and the differences in
+generic semantics between **TypeScript**, **C#** and **Java** make it difficult to correctly represent such types in all
+those languages. As a consequence, `jsii` does not support declaring parameterized types.
+
+Certain *built-in* TypeScript types can however be used in `jsii` modules:
 
 - `Array<T>`, which is equivalent to `T[]`
 - `Record<string, T>`, which is equivalent to `{ [key: string]: T }`
@@ -187,7 +213,35 @@ export interface IAsyncFooMaker {
 }
 ```
 
-# Soft-Reserved Words
+!!! danger "`#!ts Pick<T, Keys>` and `#!ts Omit<T, Keys>`"
+    Users are often tempted to use `#!ts Pick<T, Keys>` and `#!ts Omit<T, Keys>` when creating higher level abstractions
+    of types exposed by their dependencies, and they want to expose all configuration options from the upstream
+    implementation except for some specific properties which are determined fully by the new abstraction.
+
+    `#!ts Pick<T, Keys>` and `#!ts Omit<T, Keys>` are not supported as they would result in open-ended implementation
+    requirements to exist in languages such as **Java** and **C#** where such things are not possible.
+
+    Users with this particular use-case should investigate generating code in order to reproduce the upstream type
+    without the filtered out fields. For example, this can be done with [`projen`](http://npmjs.com/package/projen)
+    using [`jsii-struct-builder`](https://github.com/mrgrain/jsii-struct-builder).
+
+## Type Aliases
+
+TypeScript supports type aliasing using the `#!ts export type Name = ...` syntax. While this is not considered a
+compilation error by the `jsii` compiler, those types are implicitly de-sugared by the compiler for all language targets
+except for **TypeScript**.
+
+```ts hl_lines="1-2 5-6"
+// 👻 Only visible in TypeScript
+export type FooOrBar = Foo | Bar;
+
+export interface Props {
+  // ⚠️ Effectively `readonly fooOrBar: Foo | Bar;` in non-TypeScript
+  readonly fooOrBar: FooOrBar;
+}
+```
+
+## Soft-Reserved Words
 
 In order to guarantee a consistent developer experience across all supported languages, `jsii` emits warnings whenever
 a declaration is named after any target language's *reserved words*, as those will need renaming in target languages:

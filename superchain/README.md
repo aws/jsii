@@ -1,22 +1,31 @@
 # Superchain
 
-A [`debian:10-slim`][debian]-based Docker image bundling all the SDKs and tools
+A [`debian`][debian]-based Docker image bundling all the SDKs and tools
 required in order to package [jsii] projects in all supported languages.
 
 [debian]: https://gallery.ecr.aws/debian/debian
 [jsii]: https://github.com/aws/jsii
 
+## Recommended image
+
+We recommend the following image for most users.
+See [Image tags](#image-tags) for further details.
+
+```
+public.ecr.aws/jsii/superchain:1-bullseye-slim
+```
+
 ## Included Language SDKs
 
-SDK             | Version
-----------------|-------------------------------------------
-`OpenJDK 20`    | Amazon Corretto `>= 20.0.0`
-`.NET SDK`      | `>= 6.0.14`
-`mono`          | `>= 6.8.0.105`
-`Javascript`    | see [NodeJS and NPM](#nodejs-and-npm)
-`PowerShell`    | `pwsh >= 7.1.3`
-`Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
-`Go`            | `go >= 1.18`
+| SDK          | Version                                  |
+| ------------ | ---------------------------------------- |
+| `OpenJDK 20` | Amazon Corretto `>= 20.0.2`              |
+| `.NET SDK`   | `>= 6.0.14`                              |
+| `mono`       | `>= 6.12.0.200`                          |
+| `Javascript` | see [NodeJS and NPM](#nodejs-and-npm)    |
+| `PowerShell` | `pwsh >= 7.2.16`                         |
+| `Python 3`   | see [Python'](#python)                   |
+| `Go`         | `go >= 1.18`                             |
 
 ## Image tags
 
@@ -26,27 +35,26 @@ Maintained image tags are named using the following pattern:
 public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
 ```
 
-- `<JSII-MAJOR>` is the major line of the jsii toolchain
-  - The only supported value is `1`
-- `<BASE>` is the base image tag (e.g: `buster-slim`)
-  - The only supported value is `buster-slim`
+- `<JSII-MAJOR>` is the major line of the jsii toolchain (must be `1`)
+- `<BASE>` is the base image tag, currently supported base images are
+  - `bookworm-slim`
+  - `bullseye-slim`
 - `<NODE-MAJOR>` is the major version of node contained in the image
-  - `14` corresponds to node 14.x, this is the default
-  - `16` corresponds to node 16.x
-  - `18` corresponds to node 18.x
+  - `18` corresponds to node 18.x, this is the default
+  - `20` corresponds to node 20.x
 - `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
   repository and should typically not be used for production workloads
 
-The previous image tags have been discontinued:
+**The following base image lines have been deprecated and are not updated anymore. Users are adviced to upgrade to :**
 
-- `:latest` (users should migrate to `:1-buster-slim`)
-- `:nightly` (users should migrate to `:1-buster-slim-nightly`)
-- `:node10` (users should migrate to `:1-buster-slim-node14`)
-- `:node10-nightly` (users should migrate to `:1-buster-slim-node14-nightly`)
-- `:node12` (users shoudl migrate to `:1-buster-slim-node14`)
-- `:node12-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
-- `:node14` (users shoudl migrate to `:1-buster-slim-node14`)
-- `:node14-nightly` (users shoudl migrate to `:1-buster-slim-node14-nightly`)
+- `:1-buster-slim-*`
+
+**The previous image tags have been discontinued and must NOT BE USED ANYMORE:**
+
+- `:latest` (users should migrate to `:1-bullseye-slim`)
+- `:nightly` (users should migrate to `:1-bullseye-slim-nightly`)
+- `:nodeX` (users should migrate to an image using a supported node version)
+- `:nodeX-nightly` (users should migrate to a nightly image using a supported node version)
 
 ## Building
 
@@ -65,11 +73,20 @@ jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local --target=
 
 ## NodeJS and NPM
 
-We build multiple versions of this image, for different versions of Node. They are available as:
+We build multiple versions of this image, for different versions of Node.
+You can use a specific Node version like this:
 
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node14(-nightly)`
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node16(-nightly)`
-* `public.ecr.aws/jsii/superchain:1-buster-slim-node18(-nightly)`
+```
+public.ecr.aws/jsii/superchain:1-bullseye-slim-node20
+```
+
+We will stop publishing images for Node versions that are EOL.
+
+| Debian                      | Node versions    |
+| ----------------------------| -----------------|
+| `bookworm-slim`             | `20`             |
+| `bullseye-slim`             | `20`, `18`       |
+| `buster-slim` (deprecated)  | `18`, `16`, `14` | 
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
@@ -78,22 +95,37 @@ If you are building this image from source, you can control the Node version wit
 jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
 ```
 
+## Python
+
+The image includes the most recent Python version available for the respecitve Debian distribution.
+A complete list can be viewed on the [Debian website](https://wiki.debian.org/Python#Supported_Python_Versions).
+
+| Debian                      | Python version |
+| ----------------------------| ---------------|
+| `bookworm-slim`             | `3.11`         |
+| `bullseye-slim`             | `3.9`          |
+| `buster-slim` (deprecated)  | `3.7`          |
+
+
 ## Included Tools & Utilities
 
-Tool / Utility | Version
----------------|--------------------------------------------
-`aws`          | `>= 2.11.17`
-`bundler`      | `>= 1.17.3` and `>= 2.1.4`
-`docker`       | `>= 18.09.9-ce`
-`git`          | `>= 2.23.1`
-`make`         | `>= 3.82`
-`maven`        | `>= 3.6.3`
-`openssl`      | `>= 1.0.2k-fips`
-`rsync`        | `>= 3.1.2`
-`yarn`         | `>= 1.21.1`
-`zip` & `unzip`| `>= 6.0-19`
-`gh`           | `>= 1.9.2`
-`sam`          | `>= 1.37.0`
+The following tools & utilities are available for your convinience.
+Versions are generally the latest available for the respective Debian distribution.
+
+| Tool / Utility  | Version                    |
+| --------------- | -------------------------- |
+| `aws`           | `>= 2.11.17`               |
+| `bundler`       | `>= 1.17.3` and `>= 2.1.4` |
+| `docker`        | `>= 24.0.7-ce`             |
+| `git`           | `>= 2.30.2`                |
+| `make`          | `>= 4.3`                   |
+| `maven`         | `>= 6.4.15`                |
+| `openssl`       | `>= 1.1.1w`                |
+| `rsync`         | `>= 3.2.3`                 |
+| `yarn`          | `>= 1.22.19`               |
+| `zip` & `unzip` | `>= 6.0-19`                |
+| `gh`            | `>= 1.13.1`                |
+| `sam`           | `>= 1.102.0`               |
 
 ## License
 

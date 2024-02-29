@@ -227,7 +227,7 @@ func (p *Process) readResponse(into interface{}) error {
 		json.Unmarshal(raw, &errResp)
 
 		if errResp.Name != nil && *errResp.Name == "@jsii/kernel.Fault" {
-			return fmt.Errorf("JsiiError: %s", *errResp.Name)
+			return fmt.Errorf("JsiiError: %s %s", *errResp.Name, errResp.Error)
 		}
 
 		return errors.New(errResp.Error)

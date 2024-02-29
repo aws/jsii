@@ -9,11 +9,16 @@ import { Duplex } from 'stream';
 // Spawn another node process, with the following file descriptor setup:
 // - No STDIN will be provided
 // - STDOUT and STDERR will be intercepted, contents wrapped & forward to STDERR
-// - FD#3 is the communication pipe to read jsii API messages
-// - FD#4 is the communication pipe to write jsii API responses
+// - FD#3 is the communication pipe to read & write jsii API messages
 const child = spawn(
   process.execPath,
-  [...process.execArgv, resolve(__dirname, '..', 'lib', 'program.js')],
+  [
+    ...process.execArgv,
+    // Instruct the module loader to NOT resolve symbolic links, so we don't
+    // have to copy modules around all the time (which is expensive to do).
+    '--preserve-symlinks',
+    resolve(__dirname, '..', 'lib', 'program.js'),
+  ],
   { stdio: ['ignore', 'pipe', 'pipe', 'pipe'] },
 );
 

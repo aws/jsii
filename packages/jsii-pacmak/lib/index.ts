@@ -74,11 +74,10 @@ export async function pacmak({
     await updateAllNpmIgnores(modulesToPackageFlat);
   }
 
-  await timers.recordAsync('npm pack', () => {
+  const packCommand = argv['pack-command'];
+  await timers.recordAsync(packCommand, () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(
-      modulesToPackageFlat.map((m) => m.npmPack(argv['pack-command'])),
-    );
+    return Promise.all(modulesToPackageFlat.map((m) => m.npmPack(packCommand)));
   });
 
   await timers.recordAsync('load jsii', () => {

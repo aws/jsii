@@ -969,7 +969,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📁 deprecationremoval
        ┃  ┣━ 📄 IInterface.go
        ┃  ┣━ 📄 InterfaceFactory.go
-       ┃  ┗━ 📄 main.go
+       ┃  ┣━ 📄 main.go
+       ┃  ┗━ 📄 VisibleBaseClass.go
        ┣━ 📄 DiamondLeft.go
        ┣━ 📄 DiamondRight.go
        ┣━ 📄 EnumFromScopedModule.go
@@ -2134,6 +2135,65 @@ func InterfaceFactory_Create() IInterface {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/VisibleBaseClass.go 1`] = `
+package deprecationremoval
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// Deprecated.
+type VisibleBaseClass interface {
+	// Deprecated.
+	PropertyPresent() *bool
+}
+
+// The jsii proxy struct for VisibleBaseClass
+type jsiiProxy_VisibleBaseClass struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_VisibleBaseClass) PropertyPresent() *bool {
+	var returns *bool
+	_jsii_.Get(
+		j,
+		"propertyPresent",
+		&returns,
+	)
+	return returns
+}
+
+
+// Deprecated.
+func NewVisibleBaseClass() VisibleBaseClass {
+	_init_.Initialize()
+
+	j := jsiiProxy_VisibleBaseClass{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func NewVisibleBaseClass_Override(v VisibleBaseClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass",
+		nil, // no parameters
+		v,
+	)
+}
+
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/main.go 1`] = `
 package deprecationremoval
 
@@ -2160,6 +2220,16 @@ func init() {
 		nil, // no members
 		func() interface{} {
 			return &jsiiProxy_InterfaceFactory{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass",
+		reflect.TypeOf((*VisibleBaseClass)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "propertyPresent", GoGetter: "PropertyPresent"},
+		},
+		func() interface{} {
+			return &jsiiProxy_VisibleBaseClass{}
 		},
 	)
 }
@@ -5079,8 +5149,12 @@ type CalculatorProps struct {
 	// The initial value of the calculator.
 	//
 	// NOTE: Any number works here, it's fine.
+	// Default: 0.
+	//
 	InitialValue *float64 \`field:"optional" json:"initialValue" yaml:"initialValue"\`
 	// The maximum value the calculator can store.
+	// Default: none.
+	//
 	MaximumValue *float64 \`field:"optional" json:"maximumValue" yaml:"maximumValue"\`
 }
 
@@ -7310,6 +7384,10 @@ type DocumentedClass interface {
 	// Say ¡Hola!
 	// Experimental.
 	Hola()
+	// Some comments have an escaped star backslash in them, ending the comment if left unescaped.
+	//
+	// For example: 'projects/*\\/global/networks/network-1'.
+	Moin()
 }
 
 // The jsii proxy struct for DocumentedClass
@@ -7358,6 +7436,14 @@ func (d *jsiiProxy_DocumentedClass) Hola() {
 	_jsii_.InvokeVoid(
 		d,
 		"hola",
+		nil, // no parameters
+	)
+}
+
+func (d *jsiiProxy_DocumentedClass) Moin() {
+	_jsii_.InvokeVoid(
+		d,
+		"moin",
 		nil, // no parameters
 	)
 }
@@ -8398,6 +8484,8 @@ package jsiicalc
 // These are some arguments you can pass to a method.
 type Greetee struct {
 	// The name of the greetee.
+	// Default: world.
+	//
 	Name *string \`field:"optional" json:"name" yaml:"name"\`
 }
 
@@ -12633,6 +12721,8 @@ type LoadBalancedFargateServiceProps struct {
 	// The container port of the application load balancer attached to your Fargate service.
 	//
 	// Corresponds to container port mapping.
+	// Default: 80.
+	//
 	ContainerPort *float64 \`field:"optional" json:"containerPort" yaml:"containerPort"\`
 	// The number of cpu units used by the task.
 	//
@@ -12644,6 +12734,8 @@ type LoadBalancedFargateServiceProps struct {
 	// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
+	// Default: 256.
+	//
 	Cpu *string \`field:"optional" json:"cpu" yaml:"cpu"\`
 	// The amount (in MiB) of memory used by the task.
 	//
@@ -12661,10 +12753,16 @@ type LoadBalancedFargateServiceProps struct {
 	// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
 	//
 	// This default is set in the underlying FargateTaskDefinition construct.
+	// Default: 512.
+	//
 	MemoryMiB *string \`field:"optional" json:"memoryMiB" yaml:"memoryMiB"\`
 	// Determines whether the Application Load Balancer will be internet-facing.
+	// Default: true.
+	//
 	PublicLoadBalancer *bool \`field:"optional" json:"publicLoadBalancer" yaml:"publicLoadBalancer"\`
 	// Determines whether your Fargate Service will be assigned a public IP address.
+	// Default: false.
+	//
 	PublicTasks *bool \`field:"optional" json:"publicTasks" yaml:"publicTasks"\`
 }
 
@@ -16230,6 +16328,8 @@ type StructWithEnum struct {
 	// An enum value.
 	Foo StringEnum \`field:"required" json:"foo" yaml:"foo"\`
 	// Optional enum value (of type integer).
+	// Default: AllTypesEnum.YOUR_ENUM_VALUE
+	//
 	Bar AllTypesEnum \`field:"optional" json:"bar" yaml:"bar"\`
 }
 
@@ -20022,6 +20122,7 @@ func init() {
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "greet", GoMethod: "Greet"},
 			_jsii_.MemberMethod{JsiiMethod: "hola", GoMethod: "Hola"},
+			_jsii_.MemberMethod{JsiiMethod: "moin", GoMethod: "Moin"},
 		},
 		func() interface{} {
 			return &jsiiProxy_DocumentedClass{}
@@ -28983,7 +29084,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/D
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/DocumentedClass.go.diff 1`] = `
 --- go/jsiicalc/DocumentedClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/DocumentedClass.go	--runtime-type-checking
-@@ -61,10 +61,13 @@
+@@ -65,10 +65,13 @@
  		d,
  	)
  }

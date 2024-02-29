@@ -161,6 +161,7 @@ export class DeprecatedRemover {
 
       // Strip all `@deprecated` interfaces from the inheritance tree, replacing as needed
       if (
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         typeInfo.interfaces?.some((fqn) => strippedFqns.has(fqn)) ||
         additionalInterfaces.size > 0
       ) {

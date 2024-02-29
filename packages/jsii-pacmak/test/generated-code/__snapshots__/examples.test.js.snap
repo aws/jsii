@@ -1250,12 +1250,12 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.40"]
+requires = ["setuptools~=67.3.2", "wheel~=0.42"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -1296,7 +1296,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.7",
+    "python_requires": "~=3.8",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -1307,7 +1307,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -2680,12 +2679,12 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=67.3.2", "wheel~=0.40"]
+requires = ["setuptools~=67.3.2", "wheel~=0.42"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -2726,7 +2725,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.7",
+    "python_requires": "~=3.8",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -2737,7 +2736,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",

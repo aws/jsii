@@ -16,15 +16,14 @@ const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
 /**
- * Symbol we use to tag constructors that are exported from a JSII module.
+ * Symbol under which jsii runtime type information is stored.
  */
-const JSII_TYPE_FQN_SYMBOL = Symbol('$__jsii__fqn__$');
+const JSII_RTTI_SYMBOL = Symbol.for('jsii.rtti');
 
-interface ManagedConstructor {
-  readonly [JSII_TYPE_FQN_SYMBOL]: string;
-}
-
-type MaybeManagedConstructor = Partial<ManagedConstructor>;
+/**
+ * Cache for resolved associations between constructors and FQNs.
+ */
+const RESOLVED_TYPE_FQN = new WeakMap<object, spec.FQN>();
 
 /**
  * Get the JSII fqn for an object (if available)
@@ -32,9 +31,37 @@ type MaybeManagedConstructor = Partial<ManagedConstructor>;
  * This will return something if the object was constructed from a JSII-enabled
  * class/constructor, or if a literal object was annotated with type
  * information.
+ *
+ * @param obj the object for which a jsii FQN is requested.
+ * @param isVisibleType a function that determines if a type is visible.
  */
-export function jsiiTypeFqn(obj: any): string | undefined {
-  return (obj.constructor as MaybeManagedConstructor)[JSII_TYPE_FQN_SYMBOL];
+export function jsiiTypeFqn(
+  obj: any,
+  isVisibleType: (fqn: spec.FQN) => boolean,
+): spec.FQN | undefined {
+  const ctor = obj.constructor;
+
+  // We've already resolved for this type, return the cached value.
+  if (RESOLVED_TYPE_FQN.has(ctor)) {
+    return RESOLVED_TYPE_FQN.get(ctor)!;
+  }
+
+  let curr = ctor;
+  while (curr[JSII_RTTI_SYMBOL]?.fqn) {
+    if (isVisibleType(curr[JSII_RTTI_SYMBOL].fqn)) {
+      const fqn = curr[JSII_RTTI_SYMBOL].fqn;
+
+      tagJsiiConstructor(curr, fqn);
+      tagJsiiConstructor(ctor, fqn);
+
+      return fqn;
+    }
+
+    // Walk up the prototype chain...
+    curr = Object.getPrototypeOf(curr);
+  }
+
+  return undefined;
 }
 
 /**
@@ -94,22 +121,20 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
 /**
  * Set the JSII FQN for classes produced by a given constructor
  */
-export function tagJsiiConstructor(constructor: any, fqn: string) {
-  if (Object.prototype.hasOwnProperty.call(constructor, JSII_TYPE_FQN_SYMBOL)) {
-    return assert(
-      constructor[JSII_TYPE_FQN_SYMBOL] === fqn,
-      `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${constructor[JSII_TYPE_FQN_SYMBOL]}`,
+export function tagJsiiConstructor(constructor: any, fqn: spec.FQN) {
+  const existing = RESOLVED_TYPE_FQN.get(constructor);
+
+  if (existing != null) {
+    return assert.strictEqual(
+      existing,
+      fqn,
+      `Unable to register ${constructor.name} as ${fqn}: it is already registerd with FQN ${existing}`,
     );
   }
 
   // Mark this constructor as exported from a jsii module, so we know we
   // should be considering it's FQN as a valid exported type.
-  Object.defineProperty(constructor, JSII_TYPE_FQN_SYMBOL, {
-    configurable: false,
-    enumerable: false,
-    writable: false,
-    value: fqn,
-  });
+  RESOLVED_TYPE_FQN.set(constructor, fqn);
 }
 
 /**
@@ -119,12 +144,13 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
  * type.
  */
 export class ObjectTable {
-  private readonly objects = new Map<string, RegisteredObject>();
-  private nextid = 10000;
+  readonly #resolveType: (fqn: spec.FQN) => spec.Type;
+  readonly #objects = new Map<string, RegisteredObject>();
+  #nextid = 10000;
 
-  public constructor(
-    private readonly resolveType: (fqn: string) => spec.Type,
-  ) {}
+  public constructor(resolveType: (fqn: spec.FQN) => spec.Type) {
+    this.#resolveType = resolveType;
+  }
 
   /**
    * Register the given object with the given type
@@ -133,8 +159,8 @@ export class ObjectTable {
    */
   public registerObject(
     obj: unknown,
-    fqn: string,
-    interfaces?: string[],
+    fqn: spec.FQN,
+    interfaces?: spec.FQN[],
   ): api.ObjRef {
     if (fqn === undefined) {
       throw new JsiiFault('FQN cannot be undefined');
@@ -157,19 +183,19 @@ export class ObjectTable {
           );
         }
 
-        this.objects.get(existingRef[api.TOKEN_REF])!.interfaces =
+        this.#objects.get(existingRef[api.TOKEN_REF])!.interfaces =
           (obj as any)[IFACES_SYMBOL] =
           existingRef[api.TOKEN_INTERFACES] =
           interfaces =
-            this.removeRedundant(Array.from(allIfaces), fqn);
+            this.#removeRedundant(Array.from(allIfaces), fqn);
       }
       return existingRef;
     }
 
-    interfaces = this.removeRedundant(interfaces, fqn);
+    interfaces = this.#removeRedundant(interfaces, fqn);
 
-    const objid = this.makeId(fqn);
-    this.objects.set(objid, { instance: obj, fqn, interfaces });
+    const objid = this.#makeId(fqn);
+    this.#objects.set(objid, { instance: obj, fqn, interfaces });
     tagObject(obj, objid, interfaces);
 
     return { [api.TOKEN_REF]: objid, [api.TOKEN_INTERFACES]: interfaces };
@@ -186,7 +212,7 @@ export class ObjectTable {
     }
 
     const objid = objref[api.TOKEN_REF];
-    const obj = this.objects.get(objid);
+    const obj = this.#objects.get(objid);
     if (!obj) {
       throw new JsiiFault(`Object ${objid} not found`);
     }
@@ -217,29 +243,29 @@ export class ObjectTable {
    * Delete the registration with the given objref
    */
   public deleteObject({ [api.TOKEN_REF]: objid }: api.ObjRef) {
-    if (!this.objects.delete(objid)) {
+    if (!this.#objects.delete(objid)) {
       throw new JsiiFault(`Object ${objid} not found`);
     }
   }
 
   public get count(): number {
-    return this.objects.size;
+    return this.#objects.size;
   }
 
-  private makeId(fqn: string) {
-    return `${fqn}@${this.nextid++}`;
+  #makeId(fqn: spec.FQN) {
+    return `${fqn}@${this.#nextid++}`;
   }
 
-  private removeRedundant(
-    interfaces: string[] | undefined,
-    fqn: string,
-  ): string[] | undefined {
+  #removeRedundant(
+    interfaces: spec.FQN[] | undefined,
+    fqn: spec.FQN,
+  ): spec.FQN[] | undefined {
     if (!interfaces || interfaces.length === 0) {
       return undefined;
     }
 
     const result = new Set(interfaces);
-    const builtIn = new InterfaceCollection(this.resolveType);
+    const builtIn = new InterfaceCollection(this.#resolveType);
 
     if (fqn !== EMPTY_OBJECT_FQN) {
       builtIn.addFromClass(fqn);
@@ -256,19 +282,20 @@ export class ObjectTable {
 
 export interface RegisteredObject {
   instance: any;
-  fqn: string;
-  interfaces?: string[];
+  fqn: spec.FQN;
+  interfaces?: spec.FQN[];
 }
 
 class InterfaceCollection implements Iterable<string> {
-  private readonly interfaces = new Set<string>();
+  readonly #resolveType: (fqn: spec.FQN) => spec.Type;
+  readonly #interfaces = new Set<spec.FQN>();
 
-  public constructor(
-    private readonly resolveType: (fqn: string) => spec.Type,
-  ) {}
+  public constructor(resolveType: (fqn: spec.FQN) => spec.Type) {
+    this.#resolveType = resolveType;
+  }
 
-  public addFromClass(fqn: string): void {
-    const ti = this.resolveType(fqn);
+  public addFromClass(fqn: spec.FQN): void {
+    const ti = this.#resolveType(fqn);
     if (!spec.isClassType(ti)) {
       throw new JsiiFault(
         `Expected a class, but received ${spec.describeTypeReference(ti)}`,
@@ -279,17 +306,17 @@ class InterfaceCollection implements Iterable<string> {
     }
     if (ti.interfaces) {
       for (const iface of ti.interfaces) {
-        if (this.interfaces.has(iface)) {
+        if (this.#interfaces.has(iface)) {
           continue;
         }
-        this.interfaces.add(iface);
+        this.#interfaces.add(iface);
         this.addFromInterface(iface);
       }
     }
   }
 
-  public addFromInterface(fqn: string): void {
-    const ti = this.resolveType(fqn);
+  public addFromInterface(fqn: spec.FQN): void {
+    const ti = this.#resolveType(fqn);
     if (!spec.isInterfaceType(ti)) {
       throw new JsiiFault(
         `Expected an interface, but received ${spec.describeTypeReference(ti)}`,
@@ -299,15 +326,15 @@ class InterfaceCollection implements Iterable<string> {
       return;
     }
     for (const iface of ti.interfaces) {
-      if (this.interfaces.has(iface)) {
+      if (this.#interfaces.has(iface)) {
         continue;
       }
-      this.interfaces.add(iface);
+      this.#interfaces.add(iface);
       this.addFromInterface(iface);
     }
   }
 
   public [Symbol.iterator]() {
-    return this.interfaces[Symbol.iterator]();
+    return this.#interfaces[Symbol.iterator]();
   }
 }
