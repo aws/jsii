@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1708961444762,
+  "lastUpdate": 1709219127817,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26897,6 +26897,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 157740.48561340888,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41418.72042584999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "256b806db9978a77bb092ffc1d348173090cadd6",
+          "message": "chore(deps): Bump ip from 2.0.0 to 2.0.1 (#4432)\n\nBumps [ip](https://github.com/indutny/node-ip) from 2.0.0 to 2.0.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/indutny/node-ip/commit/3b0994a74eca51df01f08c40d6a65ba0e1845d04\"><code>3b0994a</code></a> 2.0.1</li>\n<li><a href=\"https://github.com/indutny/node-ip/commit/32f468f1245574785ec080705737a579be1223aa\"><code>32f468f</code></a> lib: fixed CVE-2023-42282 and added unit test</li>\n<li>See full diff in <a href=\"https://github.com/indutny/node-ip/compare/v2.0.0...v2.0.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=ip&package-manager=npm_and_yarn&previous-version=2.0.0&new-version=2.0.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2024-02-29T14:26:14Z",
+          "tree_id": "258747fd5dd490c08a370068f9f68668057238ba",
+          "url": "https://github.com/aws/jsii/commit/256b806db9978a77bb092ffc1d348173090cadd6"
+        },
+        "date": 1709219124401,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51316.82891984998,
+            "unit": "milliseconds",
+            "range": 584956.5206425658,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51316.82891984998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39139.75936255,
+            "unit": "milliseconds",
+            "range": 168840.0162983624,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39139.75936255 milliseconds over 20 runs"
           }
         ]
       }
