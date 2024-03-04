@@ -6,7 +6,7 @@
     <PackageReference Update="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
 
-    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.8.0" />
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" />
     <PackageReference Update="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
     <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.3.2" />
 
