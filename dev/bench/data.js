@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1709219127817,
+  "lastUpdate": 1709549746817,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -26935,6 +26935,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 168840.0162983624,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39139.75936255 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5c0d9e4572a5a9ba6c41a37a4434402ec2d74b14",
+          "message": "fix(jsii-pacmak): different packages sharing a namespace fail in Bazel (#4437)\n\nIn Bazel, every package is extracted into a separate directory that are all put into the `$PYTHONPATH` individually. However when searching, Python will latch onto the directory that has an `__init__.py` in it and only import from that directory.\n\nExample:\n\n```\neco_package1/\n└── site-packages/\n    └── eco/\n        └── package1/\n              └── __init__.py\n\neco/\n└── site-packages/\n    └── eco/\n        └── __init__.py\n```\n\nIn this case, the following command will fail:\n\n```py\nimport eco.package1\n```\n\nBecause `eco/package1/__init__.py` is not in the same directory as `eco/__init__.py`.\n\nWe can fix this by generating a command into every `__init__.py` that uses `pkgutil` to extend the search path for a package; it will put all directories in `$PYTHONPATH` that contain the same package onto the search path for submodules. The command looks like this:\n\n```py\nfrom pkgutil import extend_path\n__path__ = extend_path(__path__, __name__)\n```\n\nResolves #3881, thanks to @psalvaggio-dl for providing a repro and doing the research for a fix.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-03-04T10:17:15Z",
+          "tree_id": "2f4afb36a33c050bfb98943bdbc81d1e5d9b97f6",
+          "url": "https://github.com/aws/jsii/commit/5c0d9e4572a5a9ba6c41a37a4434402ec2d74b14"
+        },
+        "date": 1709549742933,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 49989.983741650016,
+            "unit": "milliseconds",
+            "range": 654020.3497240259,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 49989.983741650016 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38146.88515515,
+            "unit": "milliseconds",
+            "range": 20642.12177933807,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38146.88515515 milliseconds over 20 runs"
           }
         ]
       }
