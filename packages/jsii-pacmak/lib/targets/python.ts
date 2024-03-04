@@ -1700,6 +1700,20 @@ class PythonModule implements PythonType {
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
+
+    // If multiple packages use the same namespace (in Python, a directory) it
+    // depends on how they are laid out on disk if deep imports of multiple packages
+    // will succeed. `pip` merges all packages into the same directory, and deep
+    // imports work automatically. `bazel` puts packages into different directories,
+    // and `import aws_cdk.subpackage` will fail if `aws_cdk/__init__.py` and
+    // `aws_cdk/subpackage/__init__.py` are not in the same directory.
+    //
+    // We can get around this by using `pkgutil` to extend the search path for the
+    // current module (`__path__`) with all packages found on `sys.path`.
+    code.line('from pkgutil import extend_path');
+    code.line('__path__ = extend_path(__path__, __name__)');
+    code.line();
+
     code.line('import abc');
     code.line('import builtins');
     code.line('import datetime');
