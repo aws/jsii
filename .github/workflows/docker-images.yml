@@ -145,6 +145,8 @@ jobs:
 
       - name: Show Available Disk Space
         run: df -h && du -h
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@v1.3.1
       - name: Build Image
         if: steps.should-run.outputs.result == 'true'
         run: |-
