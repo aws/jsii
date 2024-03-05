@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.95.0](https://github.com/aws/jsii/compare/v1.94.0...v1.95.0) (2024-02-14)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** show custom pack-command in timer label ([#4392](https://github.com/aws/jsii/issues/4392)) ([3c1b4b1](https://github.com/aws/jsii/commit/3c1b4b18055b53703e829b5cf96cf4e799f83cde))
+
 ## [1.94.0](https://github.com/aws/jsii/compare/v1.93.0...v1.94.0) (2024-01-09)
 
 

@@ -97,7 +97,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [InlineData(PrimitiveType.String, "a", "a", true)]
             [InlineData(PrimitiveType.String, "abc", "abc", true)]
             [InlineData(PrimitiveType.String, null, null, true)]
-            public void ConvertsPrimitiveValues(PrimitiveType primitive, object value, object expected, bool isOptional)
+            public void ConvertsPrimitiveValues(PrimitiveType primitive, object? value, object? expected, bool isOptional)
             {
                 var instance = new OptionalValue(new TypeReference(primitive: primitive), isOptional: isOptional);
 
