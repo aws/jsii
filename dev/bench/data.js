@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1709628195855,
+  "lastUpdate": 1709651002088,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27125,6 +27125,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 267133.567142794,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39234.11857889999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "epolon@amazon.com",
+            "name": "Eli Polonsky",
+            "username": "iliapolo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "74266841c4a1c5143d2175a79821c82fb0de664b",
+          "message": "revert(deps): Update pytest requirement from ~=8.1 to ~=8.0 in /packages/@jsii/python-runtime (#4446)\n\nReverts aws/jsii#4439\n\nApparently version 8.1.0 has been [yanked](https://pypi.org/project/pytest/8.1.0/) and is now causing builds to [fail](https://github.com/aws/jsii/actions/runs/8153733563/job/22285706848?pr=4443):\n\n```console\n@jsii/python-runtime: ERROR: No matching distribution found for pytest~=8.1\n```",
+          "timestamp": "2024-03-05T14:23:53Z",
+          "tree_id": "5b739f25a0ee98f0f4f06fcb7e58282b8c74dd3d",
+          "url": "https://github.com/aws/jsii/commit/74266841c4a1c5143d2175a79821c82fb0de664b"
+        },
+        "date": 1709650997805,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51490.56419309997,
+            "unit": "milliseconds",
+            "range": 1385355.0574203152,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51490.56419309997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39393.399107950005,
+            "unit": "milliseconds",
+            "range": 1551688.8719974745,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39393.399107950005 milliseconds over 20 runs"
           }
         ]
       }
