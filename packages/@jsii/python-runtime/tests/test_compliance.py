@@ -1178,8 +1178,7 @@ def test_pure_interfaces_can_be_used_transparently_when_transitively_implementin
 
     class IndirectlyImplementsStructReturningDelegate(
         ImplementsStructReturningDelegate
-    ):
-        ...
+    ): ...
 
     delegate = IndirectlyImplementsStructReturningDelegate()
     consumer = ConsumePureInterface(delegate)
