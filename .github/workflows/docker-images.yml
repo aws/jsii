@@ -143,10 +143,15 @@ jobs:
         run: |-
           echo "value=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
+      - name: Show Available Disk Space
+        run: df -h && du -h
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@v1.3.1
       - name: Build Image
         if: steps.should-run.outputs.result == 'true'
         run: |-
           docker buildx build                                                   \
+            --quiet                                                             \
             --builder ${{ steps.buildx.outputs.name }}                          \
             --platform linux/amd64,linux/arm64                                  \
             --target superchain                                                 \
