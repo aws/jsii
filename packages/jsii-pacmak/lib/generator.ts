@@ -168,7 +168,7 @@ export abstract class Generator implements IGenerator {
       );
     }
 
-    return `${name}@${this.assembly.version}.jsii.tgz`;
+    return `${name}-${this.assembly.version}.jsii.tgz`;
   }
 
   /**
