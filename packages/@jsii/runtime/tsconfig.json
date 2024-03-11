@@ -1,6 +1,10 @@
 {
   "extends": "../../../tsconfig-base",
   "compilerOptions": {
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
     "target": "ES2019", // Keep source-compatible with Node 12+
   },
   "include": [
