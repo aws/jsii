@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1709718096282,
+  "lastUpdate": 1710161921361,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27201,6 +27201,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 214757.5759313964,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40539.15985845002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "db5036fac2758065a54fc73b3f4df92d97c9c3fc",
+          "message": "chore(deps-dev): Bump mypy from 1.8.0 to 1.9.0 in /packages/jsii-pacmak/test/generated-code (#4451)\n\nBumps [mypy](https://github.com/python/mypy) from 1.8.0 to 1.9.0.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/python/mypy/blob/master/CHANGELOG.md\">mypy's changelog</a>.</em></p>\n<blockquote>\n<h1>Mypy Release Notes</h1>\n<h2>Mypy 1.9</h2>\n<p>We’ve just uploaded mypy 1.9 to the Python Package Index (<a href=\"https://pypi.org/project/mypy/\">PyPI</a>). Mypy is a static type checker for Python. This release includes new features, performance improvements and bug fixes. You can install it as follows:</p>\n<pre><code>python3 -m pip install -U mypy\n</code></pre>\n<p>You can read the full documentation for this release on <a href=\"http://mypy.readthedocs.io\">Read the Docs</a>.</p>\n<h4>Breaking Changes</h4>\n<p>Because the version of typeshed we use in mypy 1.9 doesn't support 3.7, neither does mypy 1.9. (Jared Hance, PR <a href=\"https://redirect.github.com/python/mypy/pull/16883\">16883</a>)</p>\n<p>We are planning to enable\n<a href=\"https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-local-partial-types\">local partial types</a> (enabled via the\n<code>--local-partial-types</code> flag) later this year by default. This change\nwas announced years ago, but now it's finally happening. This is a\nmajor backward-incompatible change, so we'll probably include it as\npart of the upcoming mypy 2.0 release. This makes daemon and\nnon-daemon mypy runs have the same behavior by default.</p>\n<p>Local partial types can also be enabled in the mypy config file:</p>\n<pre><code>local_partial_types = True\n</code></pre>\n<p>We are looking at providing a tool to make it easier to migrate\nprojects to use <code>--local-partial-types</code>, but it's not yet clear whether\nthis is practical. The migration usually involves adding some\nexplicit type annotations to module-level and class-level variables.</p>\n<h4>Basic Support for Type Parameter Defaults (PEP 696)</h4>\n<p>This release contains new experimental support for type parameter\ndefaults (<a href=\"https://peps.python.org/pep-0696\">PEP 696</a>). Please try it\nout! This feature was contributed by Marc Mueller.</p>\n<p>Since this feature will be officially introduced in the next Python\nfeature release (3.13), you will need to import <code>TypeVar</code>, <code>ParamSpec</code>\nor <code>TypeVarTuple</code> from <code>typing_extensions</code> to use defaults for now.</p>\n<p>This example adapted from the PEP defines a default for <code>BotT</code>:</p>\n<pre lang=\"python\"><code>from typing import Generic\nfrom typing_extensions import TypeVar\n<p>class Bot: ...</p>\n<p>BotT = TypeVar(&quot;BotT&quot;, bound=Bot, default=Bot)\n&lt;/tr&gt;&lt;/table&gt;\n</code></pre></p>\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/5ff46f8b3706d005fabab2227ec84476d605bfd4\"><code>5ff46f8</code></a> Remove +dev.</li>\n<li><a href=\"https://github.com/python/mypy/commit/155909ad1bde747d89fcd091621d7cd9b1e15818\"><code>155909a</code></a> [Release 1.9] Unsupport targetting 3.7. (<a href=\"https://redirect.github.com/python/mypy/issues/16883\">#16883</a>) (<a href=\"https://redirect.github.com/python/mypy/issues/16900\">#16900</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/6615cabe57c661114d0ed44784f67301619faadf\"><code>6615cab</code></a> [Release 1.9] Stubtest: ignore a new protocol dunder (<a href=\"https://redirect.github.com/python/mypy/issues/16895\">#16895</a>) (<a href=\"https://redirect.github.com/python/mypy/issues/16899\">#16899</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/b956e6a57c4dd36d670097a3eccf7dc092348fec\"><code>b956e6a</code></a> stubtest: Private parameters can be omitted (<a href=\"https://redirect.github.com/python/mypy/issues/16507\">#16507</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/ede0b200a10186a095378516d840389f8da4edd4\"><code>ede0b20</code></a> Bump ruff to 0.2.0 (<a href=\"https://redirect.github.com/python/mypy/issues/16870\">#16870</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/7bdd61f2d89ecd2cee4ebe6eb2375a72b29f0b10\"><code>7bdd61f</code></a> stubgen: Fix crash on star unpack of TypeVarTuple (<a href=\"https://redirect.github.com/python/mypy/issues/16869\">#16869</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/8c2ef9dde8aa803e04038427ad84f09664d9d93f\"><code>8c2ef9d</code></a> Update hashes in sync-typeshed.py following recent typeshed sync</li>\n<li><a href=\"https://github.com/python/mypy/commit/0dd4b6f7576be3d3857fecefb298decdf0711ac7\"><code>0dd4b6f</code></a> Revert use of <code>ParamSpec</code> for <code>functools.wraps</code></li>\n<li><a href=\"https://github.com/python/mypy/commit/dd12a2d810f2bbe7a8686674397043b18575480f\"><code>dd12a2d</code></a> Revert typeshed ctypes change</li>\n<li><a href=\"https://github.com/python/mypy/commit/d132999ba631b332d0684173897e5947591f4acc\"><code>d132999</code></a> Revert sum literal integer change (<a href=\"https://redirect.github.com/python/mypy/issues/13961\">#13961</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/v1.8.0...1.9.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.8.0&new-version=1.9.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-03-11T12:20:20Z",
+          "tree_id": "bceed92a9fc839c5801970cbae776662bf804c75",
+          "url": "https://github.com/aws/jsii/commit/db5036fac2758065a54fc73b3f4df92d97c9c3fc"
+        },
+        "date": 1710161917985,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50183.34942685,
+            "unit": "milliseconds",
+            "range": 503485.91363319836,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50183.34942685 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38251.9427502,
+            "unit": "milliseconds",
+            "range": 31169.687828065544,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38251.9427502 milliseconds over 20 runs"
           }
         ]
       }
