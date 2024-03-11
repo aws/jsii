@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1710168883794,
+  "lastUpdate": 1710173831400,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27315,6 +27315,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 33531.656487364344,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38685.71943024999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "55454e79e7f48c410b342ee0f7ce6d5a972b16a3",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.12 to ~=9.5.13 in /gh-pages (#4450)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.13</h2>\n<ul>\n<li>Updated Slovak translations</li>\n<li>Improved info plugin interop with projects plugin</li>\n<li>Improved info plugin inclusion/exclusion logic</li>\n<li>Fixed info plugin not gathering files recursively</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6750\">#6750</a>: Ensure info plugin packs up all necessary files</li>\n</ul>\n<p>Thanks to <a href=\"https://github.com/kamilkrzyskow\"><code>@​kamilkrzyskow</code></a> and <a href=\"https://github.com/scepka\"><code>@​scepka</code></a> for their contributions</p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.13+insiders-4.53.1 (2024-03-06)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6877\">#6877</a>: Projects plugin computes incorrect path to assets</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6869\">#6869</a>: Blog plugin should emit warning on invalid related link</li>\n</ul>\n<p>mkdocs-material-9.5.13 (2024-03-06)</p>\n<ul>\n<li>Updated Slovak translations</li>\n<li>Improved info plugin interop with projects plugin</li>\n<li>Improved info plugin inclusion/exclusion logic</li>\n<li>Fixed info plugin not gathering files recursively</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6750\">#6750</a>: Ensure info plugin packs up all necessary files</li>\n</ul>\n<p>mkdocs-material-9.5.12 (2024-02-29)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6846\">#6846</a>: Some meta tags removed on instant navigation (9.4.2 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6823\">#6823</a>: KaTex not rendering on instant navigation (9.5.5 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6821\">#6821</a>: Privacy plugin doesn't handle URLs with encoded characters</li>\n</ul>\n<p>mkdocs-material-9.5.11+insiders-4.53.0 (2024-02-24)</p>\n<ul>\n<li>Added support for automatic instant previews</li>\n<li>Added support for pinned blog posts</li>\n</ul>\n<p>mkdocs-material-9.5.11 (2024-02-19)</p>\n<ul>\n<li>Updated Finnish translation</li>\n</ul>\n<p>mkdocs-material-9.5.10+insiders-4.52.3 (2024-02-21)</p>\n<ul>\n<li>Fixed resolution of URLs in instant previews</li>\n<li>Fixed instant previews not mounting for same-page links</li>\n</ul>\n<p>mkdocs-material-9.5.10 (2024-02-19)</p>\n<ul>\n<li>Updated Bahasa Malaysia translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6783\">#6783</a>: Hide continue reading link for blog posts without separators</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6779\">#6779</a>: Incorrect positioning of integrated table of contents</li>\n</ul>\n<p>mkdocs-material-9.5.9 (2024-02-10)</p>\n<ul>\n<li>Fixed navigation pruning with tabs and sections enabled</li>\n</ul>\n<p>mkdocs-material-9.5.8+insiders-4.52.2 (2024-02-07)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6735\">#6735</a>: Instant previews misplaced when below tabs</li>\n</ul>\n<p>mkdocs-material-9.5.8 (2024-02-07)</p>\n<ul>\n<li>Added Tamil translations</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6ace04324704db8a810e19eaac7d7ae5cb02391b\"><code>6ace043</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/36e9cff9db983e6ca7f76e7431e036b6542b8629\"><code>36e9cff</code></a> Prepare 9.5.13 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c7de6ef260097fce6bde2412ddf1cafb4f3d6347\"><code>c7de6ef</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6873\">#6873</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/dc808ca90a8fde71c95708addb1b4773ae2acdce\"><code>dc808ca</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/63de27578a2d8094d2efa58f10ab89de89a000c4\"><code>63de275</code></a> Extended info plugin's validation message</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/4478522b527c4837dfcd6fb6c299d23444973ae4\"><code>4478522</code></a> Added validation of paths to the info plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/819e20979538c607760bd762d4ed8c9ca2d9d362\"><code>819e209</code></a> Added projects plugin handling in the info plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/79129d5cdeb599b5205d54ee3858f9050cf905d5\"><code>79129d5</code></a> Added exclusion logic for info plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/64a8b6a383a88ab34c1ce8e3dc81161d3ce95f97\"><code>64a8b6a</code></a> Changed info plugin to store more platform information</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/712bc1c13763759967e9d33e281c12cc1c9b0456\"><code>712bc1c</code></a> Fixed info plugin to gather all files recursively</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.12...9.5.13\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-03-11T15:38:03Z",
+          "tree_id": "c47cf940e543ef7306ce8e98d46cc9ed58fe671b",
+          "url": "https://github.com/aws/jsii/commit/55454e79e7f48c410b342ee0f7ce6d5a972b16a3"
+        },
+        "date": 1710173827987,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51545.532420649964,
+            "unit": "milliseconds",
+            "range": 988136.7241708385,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51545.532420649964 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39123.8778769,
+            "unit": "milliseconds",
+            "range": 312112.3444756552,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39123.8778769 milliseconds over 20 runs"
           }
         ]
       }
