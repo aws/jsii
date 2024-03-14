@@ -2125,7 +2125,7 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
-        'typeguard~=2.13.3',
+        'typeguard>=3.0.2',
       ]
         .concat(dependencies)
         .sort(),
