@@ -155,6 +155,21 @@ describe(toReleaseVersion, () => {
       js: '1.2.3-rc.9',
       python: '1.2.3.rc9',
     },
+    '1.2.3-rc.123.post.456.dev.789': {
+      dotnet: '1.2.3-rc.123.post.456.dev.789',
+      go: '1.2.3-rc.123.post.456.dev.789',
+      java: '1.2.3-rc.123.post.456.dev.789',
+      js: '1.2.3-rc.123.post.456.dev.789',
+      python: '1.2.3.rc123.post456.dev789',
+    },
+    '1.2.3-rc.alpha': {
+      dotnet: '1.2.3-rc.alpha',
+      go: '1.2.3-rc.alpha',
+      java: '1.2.3-rc.alpha',
+      js: '1.2.3-rc.alpha',
+      python:
+        /Unable to map prerelease identifier \(in: 1.2.3-rc.alpha\) components to python: \[ 'rc', 'alpha' \]/,
+    },
   };
 
   for (const [version, targets] of Object.entries(examples)) {
