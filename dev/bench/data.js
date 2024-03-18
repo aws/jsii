@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1710767426360,
+  "lastUpdate": 1710770565638,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27505,6 +27505,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 67065.0899792991,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38275.52764325 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "22e60307dd621665cb6db8cc468ecd4168c29c79",
+          "message": "chore(deps): Update wheel requirement from ~=0.42 to ~=0.43 in /packages/@jsii/python-runtime (#4460)\n\nUpdates the requirements on [wheel](https://github.com/pypa/wheel) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/releases\">wheel's releases</a>.</em></p>\n<blockquote>\n<h2>0.43.0</h2>\n<ul>\n<li>Dropped support for Python 3.7</li>\n<li>Updated vendored <code>packaging</code> to 24.0</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/blob/main/docs/news.rst\">wheel's changelog</a>.</em></p>\n<blockquote>\n<h1>Release Notes</h1>\n<p><strong>0.43.0 (2024-03-11)</strong></p>\n<ul>\n<li>Dropped support for Python 3.7</li>\n<li>Updated vendored <code>packaging</code> to 24.0</li>\n</ul>\n<p><strong>0.42.0 (2023-11-26)</strong></p>\n<ul>\n<li>Allowed removing build tag with <code>wheel tags --build &quot;&quot;</code></li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing updated <code>WHEEL</code> fields after a\nblank line, causing other tools to ignore them</li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing <code>WHEEL</code> with CRLF line endings or\na mix of CRLF and LF</li>\n<li>Fixed <code>wheel pack --build-number &quot;&quot;</code> not removing build tag from <code>WHEEL</code>\n(above changes by Benjamin Gilbert)</li>\n</ul>\n<p><strong>0.41.3 (2023-10-30)</strong></p>\n<ul>\n<li>Updated vendored <code>packaging</code> to 23.2</li>\n<li>Fixed ABI tag generation for CPython 3.13a1 on Windows (PR by Sam Gross)</li>\n</ul>\n<p><strong>0.41.2 (2023-08-22)</strong></p>\n<ul>\n<li>Fixed platform tag detection for GraalPy and 32-bit python running on an aarch64\nkernel (PR by Matthieu Darbois)</li>\n<li>Fixed <code>wheel tags</code> to not list directories in <code>RECORD</code> files\n(PR by Mike Taves)</li>\n<li>Fixed ABI tag generation for GraalPy (PR by Michael Simacek)</li>\n</ul>\n<p><strong>0.41.1 (2023-08-05)</strong></p>\n<ul>\n<li>Fixed naming of the <code>data_dir</code> directory in the presence of local version segment\ngiven via <code>egg_info.tag_build</code> (PR by Anderson Bravalheri)</li>\n<li>Fixed version specifiers in <code>Requires-Dist</code> being wrapped in parentheses</li>\n</ul>\n<p><strong>0.41.0 (2023-07-22)</strong></p>\n<ul>\n<li>Added full support of the build tag syntax to <code>wheel tags</code> (you can now set a build\ntag like <code>123mytag</code>)</li>\n<li>Fixed warning on Python 3.12 about <code>onerror</code> deprecation. (PR by Henry Schreiner)</li>\n<li>Support testing on Python 3.12 betas (PR by Ewout ter Hoeven)</li>\n</ul>\n<p><strong>0.40.0 (2023-03-14)</strong></p>\n<ul>\n<li>Added a <code>wheel tags</code> command to modify tags on an existing wheel\n(PR by Henry Schreiner)</li>\n<li>Updated vendored <code>packaging</code> to 23.0</li>\n<li><code>wheel unpack</code> now preserves the executable attribute of extracted files</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/wheel/commit/fa33dfd01fd665c1fd90097563b34bce4b5527ef\"><code>fa33dfd</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/b2c8272b0bc8b533130d8c30094645b3c1c95d9e\"><code>b2c8272</code></a> Removed PyPy + Windows from the test matrix for now</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/dedcc19f517c08899cbe730783cb900e0c6111c0\"><code>dedcc19</code></a> Worked around a bizarre PyPy+Windows issue with bdist_egg</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/fa480d651cab96045abddc8b1b5cf558743951a8\"><code>fa480d6</code></a> Added Codecov.io token to the test workflow</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/1280f0332d175104e3dcadf89efab5cc5881f41c\"><code>1280f03</code></a> Skip the test_platform_linux32 test on non-Linux platforms</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/0b4b259407e35b077c2eefec9ca67a5cc92a3b32\"><code>0b4b259</code></a> Removed failing test code</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/b91b377c451466b83562300ddb420c4ce992a8ce\"><code>b91b377</code></a> Fixed erroneous attribute access on the <code>capsys</code> fixture</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/819baa393b1ea4fb41ff5735505b0235515b2345\"><code>819baa3</code></a> Updated more GitHub actions and improved test workflow</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/92921a032a371f159b5697783f693b88ed5d7a2c\"><code>92921a0</code></a> Updated vendored <code>packaging</code> to 24.0</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/a9119c85898d6312416aabca175199cb9e175123\"><code>a9119c8</code></a> Updated GitHub actions to their latest versions</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/wheel/compare/0.42.0...0.43.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-03-18T13:23:37Z",
+          "tree_id": "97640f15b9fd42ed900bfbe8d9ad4a87dd236e88",
+          "url": "https://github.com/aws/jsii/commit/22e60307dd621665cb6db8cc468ecd4168c29c79"
+        },
+        "date": 1710770562120,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51200.381766000006,
+            "unit": "milliseconds",
+            "range": 397904.6727704517,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51200.381766000006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38723.86512984999,
+            "unit": "milliseconds",
+            "range": 31072.801108296884,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38723.86512984999 milliseconds over 20 runs"
           }
         ]
       }
