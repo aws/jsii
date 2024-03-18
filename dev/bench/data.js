@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1710770565638,
+  "lastUpdate": 1710773744720,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27543,6 +27543,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 31072.801108296884,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38723.86512984999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a025c65d56361e1ae84f035335bfbc58022f88a6",
+          "message": "chore(deps): Update setuptools requirement from ~=69.1.1 to ~=69.2.0 in /packages/@jsii/python-runtime (#4458)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v69.2.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Explicitly use <code>encoding=&quot;locale&quot;</code> for <code>.pth</code> files whenever possible,\nto  reduce <code>EncodingWarnings</code>.\nThis avoid errors with UTF-8 (see discussion in <a href=\"https://redirect.github.com/python/cpython/issues/77102\">python/cpython#77102</a>). (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4265\">#4265</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Clarify some <code>pkg_resources</code> methods return <code>bytes</code>, not <code>str</code>. Also return an empty <code>bytes</code> in <code>EmptyProvider._get</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4243\">#4243</a>)</li>\n<li>Return an empty <code>list</code> by default in <code>pkg_resources.ResourceManager.cleanup_resources</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4244\">#4244</a>)</li>\n<li>Made <code>pkg_resoursces.NullProvider</code>'s <code>has_metadata</code> and <code>metadata_isdir</code> methods return actual booleans like all other Providers. -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4254\">#4254</a>)</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4237\">#4237</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4238\">#4238</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4241\">#4241</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4260\">#4260</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4261\">#4261</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4263\">#4263</a></li>\n</ul>\n<h1>v69.1.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fix argument order of <code>--config-settings[&quot;--build-option&quot;]</code> arguments.\nThis was broken by <a href=\"https://redirect.github.com/pypa/setuptools/pull/4079\">pypa/setuptools#4079</a>`. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4217\">#4217</a>)</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4231\">#4231</a></li>\n</ul>\n<h1>v69.1.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Updated and removed obsolete Python &lt; 3.8 code and comments. -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4096\">#4096</a>)</li>\n<li>Updated <code>pkg_resources</code> to use stdlib <code>importlib.machinery</code> instead of <code>importlib_machinery</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4097\">#4097</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/6ee23bf0579c52e1cbe7c97fc20fd085ff2a25c7\"><code>6ee23bf</code></a> Bump version: 69.1.1 → 69.2.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/35df7d0d7ecae0c8d6820261f48941f9a4825877\"><code>35df7d0</code></a> Update upload-artefact action to v3 (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4274\">#4274</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/50f0459cbd195e548bdfecc08e567c54c76c7f44\"><code>50f0459</code></a> Update .github/workflows/ci-sage.yml</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/c9e6b2ae2770286aeab5f95063eccb2dc6deb05a\"><code>c9e6b2a</code></a> Update upload-artefact action to v4</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/9156fc0750c2f8927be32cc13835a89107475061\"><code>9156fc0</code></a> Update cygwin-install-action to v4 (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4269\">#4269</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e0cb8e8fb5e0561da909e22703d5c8a1ce4a0f1d\"><code>e0cb8e8</code></a> Update cygwin-install-action</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/0badbf58189229a2f8b56c61fc860f68f674bd2b\"><code>0badbf5</code></a> Update checkout action to v4 (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4272\">#4272</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/fe64b7001691b7f3da380a51ea8eb5a264624a2c\"><code>fe64b70</code></a> Update setup-python action to v5 (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4271\">#4271</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b40a70bee6934b50a84ba7cefbd828a99af76917\"><code>b40a70b</code></a> Merge branch 'main' into update-setup-python-action</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/c3dc91e8927047c189fa08b2f733cf4ed45039a1\"><code>c3dc91e</code></a> CI: Update cache action to v4 (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4275\">#4275</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v69.1.1...v69.2.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-03-18T14:15:44Z",
+          "tree_id": "41d33a39d7b136bbb0fb7147f1fd494934d9d36d",
+          "url": "https://github.com/aws/jsii/commit/a025c65d56361e1ae84f035335bfbc58022f88a6"
+        },
+        "date": 1710773741179,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52272.57150769995,
+            "unit": "milliseconds",
+            "range": 757634.5177006652,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52272.57150769995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39819.98760955003,
+            "unit": "milliseconds",
+            "range": 147063.47287046787,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39819.98760955003 milliseconds over 20 runs"
           }
         ]
       }
