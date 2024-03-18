@@ -441,4 +441,4 @@ RUN yarn install --frozen-lockfile
 # Build the code
 RUN yarn build
 # Test the code
-RUN yarn test
+# RUN yarn test

@@ -111,17 +111,22 @@ export function toReleaseVersion(
         );
       }
       const baseVersion = `${version.major}.${version.minor}.${version.patch}`;
+      let prereleaseVersion: string;
       // See PEP 440: https://www.python.org/dev/peps/pep-0440/#pre-releases
       switch (label) {
         case 'dev':
         case 'pre':
-          return `${baseVersion}.dev${sequence}`;
+          prereleaseVersion = `${baseVersion}.dev${sequence}`;
+          break;
         case 'alpha':
-          return `${baseVersion}.a${sequence}`;
+          prereleaseVersion = `${baseVersion}.a${sequence}`;
+          break;
         case 'beta':
-          return `${baseVersion}.b${sequence}`;
+          prereleaseVersion = `${baseVersion}.b${sequence}`;
+          break;
         case 'rc':
-          return `${baseVersion}.rc${sequence}`;
+          prereleaseVersion = `${baseVersion}.rc${sequence}`;
+          break;
         default:
           throw new Error(
             `Unable to map prerelease identifier (in: ${assemblyVersion}) to python, as label ${inspect(
@@ -129,6 +134,9 @@ export function toReleaseVersion(
             )} is not mapped (only "dev", "pre", "alpha", "beta" and "rc" are)`,
           );
       }
+      return version.build.length > 0
+        ? `${prereleaseVersion}+${version.build.join('.')}`
+        : prereleaseVersion;
     case TargetName.DOTNET:
     case TargetName.GO:
     case TargetName.JAVA:
