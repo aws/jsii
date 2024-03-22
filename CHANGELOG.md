@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.96.0](https://github.com/aws/jsii/compare/v1.95.0...v1.96.0) (2024-03-22)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** different packages sharing a namespace fail in Bazel ([#4437](https://github.com/aws/jsii/issues/4437)) ([5c0d9e4](https://github.com/aws/jsii/commit/5c0d9e4572a5a9ba6c41a37a4434402ec2d74b14)), closes [#3881](https://github.com/aws/jsii/issues/3881)
+
 ## [1.95.0](https://github.com/aws/jsii/compare/v1.94.0...v1.95.0) (2024-02-14)
 
 

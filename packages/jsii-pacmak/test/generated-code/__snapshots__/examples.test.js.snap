@@ -1298,6 +1298,9 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/src/example_test_demo/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
 import abc
 import builtins
 import datetime
@@ -1512,6 +1515,9 @@ def _typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0d
 `;
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/src/example_test_demo/_jsii/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
 import abc
 import builtins
 import datetime
@@ -2719,6 +2725,9 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`nested-types.ts: <outDir>/python/src/example_test_demo/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
 import abc
 import builtins
 import datetime
@@ -2843,6 +2852,9 @@ def _typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d47
 `;
 
 exports[`nested-types.ts: <outDir>/python/src/example_test_demo/_jsii/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
 import abc
 import builtins
 import datetime
