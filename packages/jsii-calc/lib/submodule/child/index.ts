@@ -31,8 +31,13 @@ export class OuterClass {
 export enum SomeEnum {
   SOME = 'SOME',
 }
+
+export interface AnotherStruct {
+  readonly stringProperty: string;
+}
 export interface SomeStruct {
   readonly prop: SomeEnum;
+  readonly nestedStruct?: AnotherStruct;
 }
 export class InnerClass {
   public static readonly staticProp: SomeStruct = { prop: SomeEnum.SOME };
