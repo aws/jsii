@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1711372524358,
+  "lastUpdate": 1711374957837,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27809,6 +27809,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 77396.67245379153,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39643.286931999995 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "576fd201c686a30270e4bdbd1c0d9fc3e3739101",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.14 to ~=9.5.15 in /gh-pages (#4467)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.15</h2>\n<ul>\n<li>Reverted fix for transparent iframes (9.5.14)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6929\">#6929</a>: Interference of social plugin and auto dark mode</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6938\">#6938</a>: Giscus shows dark background in light mode (9.5.14 regression)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.15+insiders-4.53.3 (2024-03-23)</p>\n<ul>\n<li>Added support for font variants in social plugin</li>\n<li>Improved resilience of font resolution in social plugin</li>\n<li>Fixed tag listing sometimes not being auto-populated</li>\n<li>Fixed tag listing scope not being correctly resolved</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6941\">#6941</a>: Meta plugin adding duplicate entries</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6928\">#6928</a>: Social plugin crashes for some fonts</li>\n</ul>\n<p>mkdocs-material-9.5.15 (2024-03-23)</p>\n<ul>\n<li>Reverted fix for transparent iframes (9.5.14)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6929\">#6929</a>: Interference of social plugin and auto dark mode</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6938\">#6938</a>: Giscus shows dark background in light mode (9.5.14 regression)</li>\n</ul>\n<p>mkdocs-material-9.5.14+insiders-4.53.2 (2024-03-18)</p>\n<ul>\n<li>Fixed abort on first non-matching configuration in preview extension</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6914\">#6914</a>: Meta files take precedence over front matter</li>\n</ul>\n<p>mkdocs-material-9.5.14 (2024-03-18)</p>\n<ul>\n<li>Added support for hiding versions from selector when using mike</li>\n<li>Added init system to improve signal handling in Docker image</li>\n<li>Fixed edge cases in exclusion logic of info plugin</li>\n<li>Fixed inability to reset pipeline in search plugin</li>\n<li>Fixed syntax error in Finnish translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6917\">#6917</a>: UTF-8 encoding problems in blog plugin on Windows</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6889\">#6889</a>: Transparent iframes get background color</li>\n</ul>\n<p>mkdocs-material-9.5.13+insiders-4.53.1 (2024-03-06)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6877\">#6877</a>: Projects plugin computes incorrect path to assets</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6869\">#6869</a>: Blog plugin should emit warning on invalid related link</li>\n</ul>\n<p>mkdocs-material-9.5.13 (2024-03-06)</p>\n<ul>\n<li>Updated Slovak translations</li>\n<li>Improved info plugin interop with projects plugin</li>\n<li>Improved info plugin inclusion/exclusion logic</li>\n<li>Fixed info plugin not gathering files recursively</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6750\">#6750</a>: Ensure info plugin packs up all necessary files</li>\n</ul>\n<p>mkdocs-material-9.5.12 (2024-02-29)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6846\">#6846</a>: Some meta tags removed on instant navigation (9.4.2 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6823\">#6823</a>: KaTex not rendering on instant navigation (9.5.5 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6821\">#6821</a>: Privacy plugin doesn't handle URLs with encoded characters</li>\n</ul>\n<p>mkdocs-material-9.5.11+insiders-4.53.0 (2024-02-24)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/99d15d158f52e1503a90848eeb9fcb1a28a68def\"><code>99d15d1</code></a> Prepare 9.5.15 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/92b3e1bbcd475868ec8b97fbd30409149571a711\"><code>92b3e1b</code></a> Reverted fix for borders on iframes</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1b2d48455d26ea51c4f0648cc67c37814f84d55a\"><code>1b2d484</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6951\">#6951</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/495c64e7193cceed338c00421efe781ab7fed668\"><code>495c64e</code></a> Restructured funding goals</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/8addc95d9dfd68b61557a61e17f691544ee6d139\"><code>8addc95</code></a> Added support for font variants in social plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/3f09228249a360454e9dc4a7c10bdae5f62062eb\"><code>3f09228</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6933\">#6933</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/66d450009db8255b3d485654c1436a2845a3ae78\"><code>66d4500</code></a> Fixed interference of social plugin and auto dark mode</li>\n<li>See full diff in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.14...9.5.15\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-03-25T13:16:36Z",
+          "tree_id": "39d33355ec8b9b88c49496f8d8580e602060f404",
+          "url": "https://github.com/aws/jsii/commit/576fd201c686a30270e4bdbd1c0d9fc3e3739101"
+        },
+        "date": 1711374953304,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51187.327174699974,
+            "unit": "milliseconds",
+            "range": 948470.0604560038,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51187.327174699974 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38964.8820356,
+            "unit": "milliseconds",
+            "range": 157119.35181654937,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38964.8820356 milliseconds over 20 runs"
           }
         ]
       }
