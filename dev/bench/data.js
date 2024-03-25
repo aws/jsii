@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1711367269755,
+  "lastUpdate": 1711372524358,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27771,6 +27771,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 590211.1518548147,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38572.89184529999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "icj217@gmail.com",
+            "name": "Craig Burdulis",
+            "username": "icj217"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c8483fb5c3b2efc75a123fd4816859758b8612dd",
+          "message": "fix(jsii-pacmak): fully support the Python Version Identification part of PEP440 (#4462)\n\n`jsii-pacmak`'s current version logic does not fully implement/adhere to PEP440 in two respects:\n* There is no support for \"[local version identifiers](https://packaging.python.org/en/latest/specifications/version-specifiers/#local-version-identifiers)\", which are basically the same as SemVer's build metadata (e.g. `1.2.3+foobar`), when used in conjunction with a pre-release label.\n* The current pre-release logic doesn't reflect the ability for python pre-releases to include [post-release](https://packaging.python.org/en/latest/specifications/version-specifiers/#post-releases) and [developmental release](https://packaging.python.org/en/latest/specifications/version-specifiers/#developmental-releases) labels in conjunction with the pre-release itself (e.g. `1.2.3.rc1.post2.dev3`)\n\nThis PR addresses these gaps so that the python release supports these features. I've kept support for the `pre` label as a synonym for `dev`,\n\nE.g. now `1.2.3-rc.1.dev.2.post.3+foobar` will now yield `1.2.3.rc1.post3.dev2+foobar` for python packages.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-03-25T12:35:29Z",
+          "tree_id": "6ff445ef65d645f2efad103948f2c8767280e723",
+          "url": "https://github.com/aws/jsii/commit/c8483fb5c3b2efc75a123fd4816859758b8612dd"
+        },
+        "date": 1711372520814,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52282.56930309998,
+            "unit": "milliseconds",
+            "range": 722277.6994153068,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52282.56930309998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39643.286931999995,
+            "unit": "milliseconds",
+            "range": 77396.67245379153,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39643.286931999995 milliseconds over 20 runs"
           }
         ]
       }
