@@ -127,6 +127,13 @@ describe(toReleaseVersion, () => {
       python:
         /Unable to map prerelease identifier \(in: 1\.2\.3-pre\) components to python: \[ 'pre' \]/,
     },
+    '1.2.3-dev.123.0+abc123.foo.bar': {
+      dotnet: '1.2.3-dev.123.0+abc123.foo.bar',
+      go: '1.2.3-dev.123.0+abc123.foo.bar',
+      java: '1.2.3-dev.123.0+abc123.foo.bar',
+      js: '1.2.3-dev.123.0+abc123.foo.bar',
+      python: '1.2.3.dev123+abc123.foo.bar',
+    },
     '1.2.3-alpha.1337': {
       dotnet: '1.2.3-alpha.1337',
       go: '1.2.3-alpha.1337',
@@ -147,6 +154,21 @@ describe(toReleaseVersion, () => {
       java: '1.2.3-rc.9',
       js: '1.2.3-rc.9',
       python: '1.2.3.rc9',
+    },
+    '1.2.3-rc.123.post.456.dev.789': {
+      dotnet: '1.2.3-rc.123.post.456.dev.789',
+      go: '1.2.3-rc.123.post.456.dev.789',
+      java: '1.2.3-rc.123.post.456.dev.789',
+      js: '1.2.3-rc.123.post.456.dev.789',
+      python: '1.2.3.rc123.post456.dev789',
+    },
+    '1.2.3-rc.alpha': {
+      dotnet: '1.2.3-rc.alpha',
+      go: '1.2.3-rc.alpha',
+      java: '1.2.3-rc.alpha',
+      js: '1.2.3-rc.alpha',
+      python:
+        /Unable to map prerelease identifier \(in: 1.2.3-rc.alpha\) components to python: \[ 'rc', 'alpha' \]/,
     },
   };
 
