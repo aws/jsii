@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1711137270971,
+  "lastUpdate": 1711363885005,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27695,6 +27695,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 25840.9107827294,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38166.898100349994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5defd3b2719ded56dda6f1b441500191c1999eaf",
+          "message": "chore(deps): Bump follow-redirects from 1.15.4 to 1.15.6 (#4456)\n\nBumps [follow-redirects](https://github.com/follow-redirects/follow-redirects) from 1.15.4 to 1.15.6.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/follow-redirects/follow-redirects/commit/35a517c5861d79dc8bff7db8626013d20b711b06\"><code>35a517c</code></a> Release version 1.15.6 of the npm package.</li>\n<li><a href=\"https://github.com/follow-redirects/follow-redirects/commit/c4f847f85176991f95ab9c88af63b1294de8649b\"><code>c4f847f</code></a> Drop Proxy-Authorization across hosts.</li>\n<li><a href=\"https://github.com/follow-redirects/follow-redirects/commit/8526b4a1b2ab3a2e4044299377df623a661caa76\"><code>8526b4a</code></a> Use GitHub for disclosure.</li>\n<li><a href=\"https://github.com/follow-redirects/follow-redirects/commit/b1677ce00110ee50dc5da576751d39b281fc4944\"><code>b1677ce</code></a> Release version 1.15.5 of the npm package.</li>\n<li><a href=\"https://github.com/follow-redirects/follow-redirects/commit/d8914f7982403ea096b39bd594a00ee9d3b7e224\"><code>d8914f7</code></a> Preserve fragment in responseUrl.</li>\n<li>See full diff in <a href=\"https://github.com/follow-redirects/follow-redirects/compare/v1.15.4...v1.15.6\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=follow-redirects&package-manager=npm_and_yarn&previous-version=1.15.4&new-version=1.15.6)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2024-03-25T10:12:02Z",
+          "tree_id": "f87a417a1a698d533e53f89ed0a84ce530810e98",
+          "url": "https://github.com/aws/jsii/commit/5defd3b2719ded56dda6f1b441500191c1999eaf"
+        },
+        "date": 1711363881431,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51354.186235400004,
+            "unit": "milliseconds",
+            "range": 485564.28334677656,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51354.186235400004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39148.81433549999,
+            "unit": "milliseconds",
+            "range": 49779.65778015738,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39148.81433549999 milliseconds over 20 runs"
           }
         ]
       }
