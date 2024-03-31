@@ -1024,6 +1024,7 @@ abstract class BaseProperty implements PythonBase {
 class Interface extends BasePythonClassType {
   public emit(code: CodeMaker, context: EmitContext) {
     context = nestedContext(context, this.fqn);
+    code.line('@typing.runtime_checkable');
     emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
 
     // First we do our normal class logic for emitting our members.
@@ -2125,7 +2126,7 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
-        'typeguard~=2.13.3',
+        'typeguard>=3.0.2',
       ]
         .concat(dependencies)
         .sort(),
@@ -3202,9 +3203,7 @@ function emitParameterTypeChecks(
       comment = ' # pyright: ignore [reportGeneralTypeIssues]';
     }
     code.line(
-      `check_type(argname=${JSON.stringify(
-        `argument ${name}`,
-      )}, value=${name}, expected_type=${expectedType})${comment}`,
+      `check_type(value=${name}, expected_type=${expectedType})${comment}`,
     );
   }
   if (openedBlock) {
