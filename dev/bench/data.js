@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1711374957837,
+  "lastUpdate": 1711978713419,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27847,6 +27847,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 157119.35181654937,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38964.8820356 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5c80f3dc923863cf85b579ac84e48d96d1dd6d06",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.15 to ~=9.5.16 in /gh-pages (#4471)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.16</h2>\n<ul>\n<li>Updated Russian translations</li>\n<li>Improved error handling and reporting in social plugin</li>\n<li>Improved error handling and reporting in privacy plugin</li>\n<li>Fixed blog plugin not allowing to use time in format strings</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6983\">#6983</a>: Social plugin crashes because of Google Fonts API change</li>\n</ul>\n<p>Thanks to <a href=\"https://github.com/kamilkrzyskow\"><code>@​kamilkrzyskow</code></a>, <a href=\"https://github.com/Guts\"><code>@​Guts</code></a>, <a href=\"https://github.com/szg-alex-payne\"><code>@​szg-alex-payne</code></a> and <a href=\"https://github.com/natakazakova\"><code>@​natakazakova</code></a> for their contributions</p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.16+insiders-4.53.4 (2024-03-31)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6973\">#6973</a>: Escaping issue in tags extra files deprecation helper</li>\n</ul>\n<p>mkdocs-material-9.5.16 (2024-03-31)</p>\n<ul>\n<li>Updated Russian translations</li>\n<li>Improved error handling and reporting in social plugin</li>\n<li>Improved error handling and reporting in privacy plugin</li>\n<li>Fixed blog plugin not allowing to use time in format strings</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6983\">#6983</a>: Social plugin crashes because of Google Fonts API change</li>\n</ul>\n<p>mkdocs-material-9.5.15+insiders-4.53.3 (2024-03-23)</p>\n<ul>\n<li>Added support for font variants in social plugin</li>\n<li>Improved resilience of font resolution in social plugin</li>\n<li>Fixed tag listing sometimes not being auto-populated</li>\n<li>Fixed tag listing scope not being correctly resolved</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6941\">#6941</a>: Meta plugin adding duplicate entries</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6928\">#6928</a>: Social plugin crashes for some fonts</li>\n</ul>\n<p>mkdocs-material-9.5.15 (2024-03-23)</p>\n<ul>\n<li>Reverted fix for transparent iframes (9.5.14)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6929\">#6929</a>: Interference of social plugin and auto dark mode</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6938\">#6938</a>: Giscus shows dark background in light mode (9.5.14 regression)</li>\n</ul>\n<p>mkdocs-material-9.5.14+insiders-4.53.2 (2024-03-18)</p>\n<ul>\n<li>Fixed abort on first non-matching configuration in preview extension</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6914\">#6914</a>: Meta files take precedence over front matter</li>\n</ul>\n<p>mkdocs-material-9.5.14 (2024-03-18)</p>\n<ul>\n<li>Added support for hiding versions from selector when using mike</li>\n<li>Added init system to improve signal handling in Docker image</li>\n<li>Fixed edge cases in exclusion logic of info plugin</li>\n<li>Fixed inability to reset pipeline in search plugin</li>\n<li>Fixed syntax error in Finnish translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6917\">#6917</a>: UTF-8 encoding problems in blog plugin on Windows</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6889\">#6889</a>: Transparent iframes get background color</li>\n</ul>\n<p>mkdocs-material-9.5.13+insiders-4.53.1 (2024-03-06)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6877\">#6877</a>: Projects plugin computes incorrect path to assets</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6869\">#6869</a>: Blog plugin should emit warning on invalid related link</li>\n</ul>\n<p>mkdocs-material-9.5.13 (2024-03-06)</p>\n<ul>\n<li>Updated Slovak translations</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/895652409795662dc809c6e020e082b2238fe0a3\"><code>8956524</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0db4e667da098cede42f78fb3325b3f95c50bbfa\"><code>0db4e66</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/29cf44b71ca0e579c693c79d8e74c820a42b5910\"><code>29cf44b</code></a> Improved resilience of privacy plugin</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6c9ba875bfd5d93007b48debd3b4041773dd5eef\"><code>6c9ba87</code></a> Prepare 9.5.16 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f2bfab91fee62419d4719387c8b9924166f96d5e\"><code>f2bfab9</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/9e40207bb6e1218948721de87591b38ce6c497cd\"><code>9e40207</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a2cb35d4c5da25a90cb746e6b06a0c5ee7096b4b\"><code>a2cb35d</code></a> Improved error handling on social plugin (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6818\">#6818</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/abfac1a93e4cfc13924c48837cfc45dc724551f6\"><code>abfac1a</code></a> Switched to Babel's <code>format_datetime</code> to allow for time in formatted dates (#...</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/01b2dd17e3e8d86b70ef8b9ae94096c47034ecc8\"><code>01b2dd1</code></a> Updated Russian translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/ad7233640f2c679b7f149def57c96e1ec12b9ad9\"><code>ad72336</code></a> Fixed social plugin Google Fonts integration</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.15...9.5.16\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-01T12:58:20Z",
+          "tree_id": "5fe84b3471a3cb09e5998f0db04596b2b140c741",
+          "url": "https://github.com/aws/jsii/commit/5c80f3dc923863cf85b579ac84e48d96d1dd6d06"
+        },
+        "date": 1711978708650,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52558.42912044997,
+            "unit": "milliseconds",
+            "range": 1111893.5277067882,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52558.42912044997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39578.6477213,
+            "unit": "milliseconds",
+            "range": 97053.15307527104,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39578.6477213 milliseconds over 20 runs"
           }
         ]
       }
