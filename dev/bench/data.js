@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1712322401809,
+  "lastUpdate": 1712579989298,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -27923,6 +27923,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 24682.802159297666,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38252.585320750004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4f8073a1b2df9bd04c4a5d1f79d4b0579fc565cc",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.16 to ~=9.5.17 in /gh-pages (#4474)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.17</h2>\n<ul>\n<li>Updated Serbian translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7003\">#7003</a>: Confusing keyboard interaction for palette toggle</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7001\">#7001</a>: Blog posts now show time by default (9.5.16 regression)</li>\n<li>Fixed edge case in backport of social plugin font loading logic</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.17+insiders-4.53.6 (2024-04-05)</p>\n<ul>\n<li>Ensure working directory is set for projects when using projects plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6970\">#6970</a>: Incorrect relative paths in git submodules with projects plugin</li>\n</ul>\n<p>mkdocs-material-9.5.17+insiders-4.53.5 (2024-04-02)</p>\n<ul>\n<li>Fixed social plugin crashing when no colors are specified in palettes</li>\n</ul>\n<p>mkdocs-material-9.5.17 (2024-04-02)</p>\n<ul>\n<li>Updated Serbian translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7003\">#7003</a>: Confusing keyboard interaction for palette toggle</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7001\">#7001</a>: Blog posts now show time by default (9.5.16 regression)</li>\n<li>Fixed edge case in backport of social plugin font loading logic</li>\n</ul>\n<p>mkdocs-material-9.5.16+insiders-4.53.4 (2024-03-31)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6973\">#6973</a>: Escaping issue in tags extra files deprecation helper</li>\n</ul>\n<p>mkdocs-material-9.5.16 (2024-03-31)</p>\n<ul>\n<li>Updated Russian translations</li>\n<li>Improved error handling and reporting in social plugin</li>\n<li>Improved error handling and reporting in privacy plugin</li>\n<li>Fixed blog plugin not allowing to use time in format strings</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6983\">#6983</a>: Social plugin crashes because of Google Fonts API change</li>\n</ul>\n<p>mkdocs-material-9.5.15+insiders-4.53.3 (2024-03-23)</p>\n<ul>\n<li>Added support for font variants in social plugin</li>\n<li>Improved resilience of font resolution in social plugin</li>\n<li>Fixed tag listing sometimes not being auto-populated</li>\n<li>Fixed tag listing scope not being correctly resolved</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6941\">#6941</a>: Meta plugin adding duplicate entries</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6928\">#6928</a>: Social plugin crashes for some fonts</li>\n</ul>\n<p>mkdocs-material-9.5.15 (2024-03-23)</p>\n<ul>\n<li>Reverted fix for transparent iframes (9.5.14)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6929\">#6929</a>: Interference of social plugin and auto dark mode</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6938\">#6938</a>: Giscus shows dark background in light mode (9.5.14 regression)</li>\n</ul>\n<p>mkdocs-material-9.5.14+insiders-4.53.2 (2024-03-18)</p>\n<ul>\n<li>Fixed abort on first non-matching configuration in preview extension</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6914\">#6914</a>: Meta files take precedence over front matter</li>\n</ul>\n<p>mkdocs-material-9.5.14 (2024-03-18)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/570161ab3f0f7928c6d528e9a9bfcce2bef71fa5\"><code>570161a</code></a> Prepare 9.5.17 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/78e93ac0af382bbbbb11d70ba91ed9b491455ffb\"><code>78e93ac</code></a> Improved keyboard interactions for palette toggle</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a3655e8307a12afc83a89432e3b4355fb805db4e\"><code>a3655e8</code></a> Updated Serbian translations</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1041766d81ccdd53200f206860d17e6a64d4e65b\"><code>1041766</code></a> Fixed time sneaking into default post format string</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e741f80fbea58155b63048931b0fdb0ce65c5732\"><code>e741f80</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7e13ae602f76635e9374ee645b146f41e85cb1d5\"><code>7e13ae6</code></a> Fix typos</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7d6d8d7a7c006642b3d6ccc8359e3ab291992b55\"><code>7d6d8d7</code></a> Updated slugify documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e71f00b4c9bc483d5ce60e91e5fd461305e389eb\"><code>e71f00b</code></a> Fixed backporting of social plugin font loading logic</li>\n<li>See full diff in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.16...9.5.17\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-08T12:01:04Z",
+          "tree_id": "42f3bfc8438b09eb77c1b50057a0036ba2ed7bad",
+          "url": "https://github.com/aws/jsii/commit/4f8073a1b2df9bd04c4a5d1f79d4b0579fc565cc"
+        },
+        "date": 1712579985697,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50907.2508165,
+            "unit": "milliseconds",
+            "range": 578557.0621347298,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50907.2508165 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38905.78916659999,
+            "unit": "milliseconds",
+            "range": 260790.9618144793,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38905.78916659999 milliseconds over 20 runs"
           }
         ]
       }
