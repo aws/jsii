@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.97.0](https://github.com/aws/jsii/compare/v1.96.0...v1.97.0) (2024-04-08)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** fully support the Python Version Identification part of PEP440 ([#4462](https://github.com/aws/jsii/issues/4462)) ([c8483fb](https://github.com/aws/jsii/commit/c8483fb5c3b2efc75a123fd4816859758b8612dd))
+
 ## [1.96.0](https://github.com/aws/jsii/compare/v1.95.0...v1.96.0) (2024-03-22)
 
 
