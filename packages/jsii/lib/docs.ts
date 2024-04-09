@@ -59,9 +59,9 @@ export function parseSymbolDocumentation(
   sym: ts.Symbol,
   typeChecker: ts.TypeChecker,
 ): DocsParsingResult {
-  const comment = ts
-    .displayPartsToString(sym.getDocumentationComment(typeChecker))
-    .trim();
+  const comment = replaceLinkTags(
+    ts.displayPartsToString(sym.getDocumentationComment(typeChecker)).trim(),
+  );
   const tags = reabsorbExampleTags(sym.getJsDocTags());
 
   // Right here we'll just guess that the first declaration site is the most important one.
@@ -314,4 +314,15 @@ function reabsorbExampleTags(tags: ts.JSDocTagInfo[]): ts.JSDocTagInfo[] {
   }
 
   return ret;
+}
+
+/**
+ * Replace {\@link foo} tags with `foo` to make them Markdown compatible
+ *
+ * Ideally, we'd replace them with something like `[foo](#foo)`,
+ * but that link is not always relative,
+ * and would require linking between documentation pages
+ */
+function replaceLinkTags(comment: string): string {
+  return comment.replace(/\{\s*@link\s+([^}\s]+)\s*\}/g, '`$1`');
 }

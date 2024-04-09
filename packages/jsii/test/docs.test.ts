@@ -370,3 +370,23 @@ test('@example can contain @ sign', () => {
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
   expect(classType.docs!.example).toBe("import * as x from '@banana';");
 });
+
+// ----------------------------------------------------------------------
+test('replace @link tags with inline code blocks', () => {
+  const assembly = compile(`
+    export interface IFoo { }
+
+    /**
+     * Hello this is the documentation for {@link Foo},
+     * which implements { @link    IFoo    }.
+     */
+    export class Foo implements IFoo {
+      public bar() { }
+    }
+  `);
+
+  expect(assembly.types!['testpkg.Foo'].docs).toEqual({
+    summary:
+      'Hello this is the documentation for `Foo`, which implements `IFoo`.',
+  });
+});
