@@ -105,7 +105,7 @@ function parseDocParts(
       if (tagNames.has(name)) {
         const ret = tagNames.get(name);
         tagNames.delete(name);
-        return ret ?? '';
+        return replaceLinkTags(ret ?? '');
       }
     }
     return undefined;

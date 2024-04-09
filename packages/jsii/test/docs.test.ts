@@ -379,14 +379,40 @@ test('replace @link tags with inline code blocks', () => {
     /**
      * Hello this is the documentation for {@link Foo},
      * which implements { @link    IFoo    }.
+     * 
+     * @deprecated - Use {@link Bar} instead.
      */
     export class Foo implements IFoo {
-      public bar() { }
+      /**
+       * Do the {@link Foo}
+       *
+       * @param arg First argument is best argument, {@link Bar} none
+       */
+      public bar(arg: string) { Array.isArray(arg); }
     }
+
+    export class Bar { }
   `);
 
-  expect(assembly.types!['testpkg.Foo'].docs).toEqual({
+  const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+  expect(classType.docs).toEqual({
     summary:
       'Hello this is the documentation for `Foo`, which implements `IFoo`.',
+    stability: 'deprecated',
+    deprecated: '- Use `Bar` instead.',
+  });
+
+  console.log(classType.methods);
+
+  expect(classType.methods![0]).toMatchObject({
+    docs: { summary: 'Do the `Foo`.' },
+    parameters: [
+      {
+        name: 'arg',
+        docs: {
+          summary: 'First argument is best argument, `Bar` none.',
+        },
+      },
+    ],
   });
 });
