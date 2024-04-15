@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1713189184500,
+  "lastUpdate": 1713193262527,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28151,6 +28151,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 72242.07892091763,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39566.8783828 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9fe1bd528ef835164a0cd1a1c3a995409db31873",
+          "message": "chore(deps): Update setuptools requirement from ~=69.2.0 to ~=69.5.1 in /packages/@jsii/python-runtime (#4482)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v69.5.1</h1>\n<p>No significant changes.</p>\n<h1>v69.4.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Merged bugfix for <a href=\"https://redirect.github.com/pypa/distutils/issues/246\">pypa/distutils#246</a> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/27489545\">#27489545</a>)</li>\n</ul>\n<h1>v69.5.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Refresh unpinned vendored dependencies. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4253\">#4253</a>)</li>\n<li>Updated vendored packaging to version 24.0. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4301\">#4301</a>)</li>\n</ul>\n<h1>v69.4.1</h1>\n<p>No significant changes.</p>\n<h1>v69.3.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Remove attempt to canonicalize the version. It's already canonical enough. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4302\">#4302</a>)</li>\n</ul>\n<h1>v69.4.0</h1>\n<h2>Features</h2>\n<ul>\n<li><code>pypa/distutils#213</code><a href=\"https://redirect.github.com/pypa/setuptools/issues/4298\">#4298</a>)</li>\n</ul>\n<p>v69.3.0</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ff58075cdf3459ecdf73486d2a83cecdd70c7e4a\"><code>ff58075</code></a> Bump version: 69.5.0 → 69.5.1</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/d46727f0f27667aa0d7030ad0998716d43ca7356\"><code>d46727f</code></a> Merge tag 'v69.4.2' into main.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/5de8e14572713629991f3097e3c3bc197a8d4890\"><code>5de8e14</code></a> Bump version: 69.4.1 → 69.4.2</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/f07b037161c9640e4518c5f71e78af49a478d5b2\"><code>f07b037</code></a> Add news fragment.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/608de82659a3069b5f9dfb38c4eafe9f57d567c0\"><code>608de82</code></a> Merge <a href=\"https://github.com/pypa/distutils\">https://github.com/pypa/distutils</a> into v69.4.1</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e5e3cc102a19eeb1e04f82b12d40550e31998df9\"><code>e5e3cc1</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/247\">#247</a> from pypa/hotfix/246-linker-args-list</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ef297f26182823d54acfe3719416aa2661706b29\"><code>ef297f2</code></a> Extend the retention of the compatibility.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/98eee7f74c93fb84226d18f370f883956e644619\"><code>98eee7f</code></a> Exclude compat package from coverage.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/d2581bf30b6cfaa64f8b570b368a6f4ed5a710ff\"><code>d2581bf</code></a> Add 'consolidate_linker_args' wrapper to protect the old behavior for now.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/a04913a51327c64f807e85119fd750485bbceb0a\"><code>a04913a</code></a> Add type declaration for runtime_library_dir_option, making explicit the diff...</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v69.2.0...v69.5.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-15T14:21:18Z",
+          "tree_id": "c00af2ba5f039a877db8bebb654d3697f2f62396",
+          "url": "https://github.com/aws/jsii/commit/9fe1bd528ef835164a0cd1a1c3a995409db31873"
+        },
+        "date": 1713193258926,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51873.39973240002,
+            "unit": "milliseconds",
+            "range": 322440.29864017805,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51873.39973240002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39347.710368700005,
+            "unit": "milliseconds",
+            "range": 65033.445353554285,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39347.710368700005 milliseconds over 20 runs"
           }
         ]
       }
