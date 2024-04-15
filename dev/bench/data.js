@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1713186368058,
+  "lastUpdate": 1713189184500,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28113,6 +28113,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 270508.51628066937,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39195.15291555 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cfbe97461bd0080087250b9cab95013297413584",
+          "message": "chore(deps): Bump xunit.runner.visualstudio from 2.5.7 to 2.5.8 in /packages/@jsii/dotnet-runtime/src (#4480)\n\nBumps [xunit.runner.visualstudio](https://github.com/xunit/visualstudio.xunit) from 2.5.7 to 2.5.8.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/bd6d97b49a0951ad18337f5db362b5fb96e1fb17\"><code>bd6d97b</code></a> v2.5.8</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/48cbb294b7b1d659d776731c2c3b70b18c145626\"><code>48cbb29</code></a> Add regex evaluation timeout (<a href=\"https://redirect.github.com/xunit/visualstudio.xunit/issues/404\">#404</a>)</li>\n<li><a href=\"https://github.com/xunit/visualstudio.xunit/commit/7f137fe9fd1b948d58d2170bdb4c2cc90f92cd48\"><code>7f137fe</code></a> Bump up to 2.5.8-pre</li>\n<li>See full diff in <a href=\"https://github.com/xunit/visualstudio.xunit/compare/2.5.7...2.5.8\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit.runner.visualstudio&package-manager=nuget&previous-version=2.5.7&new-version=2.5.8)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-15T13:13:34Z",
+          "tree_id": "fcd4470515077338210b25062f6543911393b7eb",
+          "url": "https://github.com/aws/jsii/commit/cfbe97461bd0080087250b9cab95013297413584"
+        },
+        "date": 1713189180903,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51693.912693099985,
+            "unit": "milliseconds",
+            "range": 820423.3246247403,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51693.912693099985 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39566.8783828,
+            "unit": "milliseconds",
+            "range": 72242.07892091763,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39566.8783828 milliseconds over 20 runs"
           }
         ]
       }
