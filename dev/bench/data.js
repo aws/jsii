@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1712622811556,
+  "lastUpdate": 1713186368058,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28075,6 +28075,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 177580.10467547117,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38740.6619683 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "225168f851d411de3ec4e9c4208bfdcdbd8a1087",
+          "message": "chore(deps): Update black requirement from ~=24.3 to ~=24.4 in /packages/@jsii/python-runtime (#4483)\n\nUpdates the requirements on [black](https://github.com/psf/black) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/psf/black/releases\">black's releases</a>.</em></p>\n<blockquote>\n<h2>24.4.0</h2>\n<h3>Stable style</h3>\n<ul>\n<li>Fix unwanted crashes caused by AST equivalency check (<a href=\"https://redirect.github.com/psf/black/issues/4290\">#4290</a>)</li>\n</ul>\n<h3>Preview style</h3>\n<ul>\n<li><code>if</code> guards in <code>case</code> blocks are now wrapped in parentheses when the line is too long.\n(<a href=\"https://redirect.github.com/psf/black/issues/4269\">#4269</a>)</li>\n<li>Stop moving multiline strings to a new line unless inside brackets (<a href=\"https://redirect.github.com/psf/black/issues/4289\">#4289</a>)</li>\n</ul>\n<h3>Integrations</h3>\n<ul>\n<li>Add a new option <code>use_pyproject</code> to the GitHub Action <code>psf/black</code>. This will read the\nBlack version from <code>pyproject.toml</code>. (<a href=\"https://redirect.github.com/psf/black/issues/4294\">#4294</a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/psf/black/blob/main/CHANGES.md\">black's changelog</a>.</em></p>\n<blockquote>\n<h2>24.4.0</h2>\n<h3>Stable style</h3>\n<ul>\n<li>Fix unwanted crashes caused by AST equivalency check (<a href=\"https://redirect.github.com/psf/black/issues/4290\">#4290</a>)</li>\n</ul>\n<h3>Preview style</h3>\n<ul>\n<li><code>if</code> guards in <code>case</code> blocks are now wrapped in parentheses when the line is too long.\n(<a href=\"https://redirect.github.com/psf/black/issues/4269\">#4269</a>)</li>\n<li>Stop moving multiline strings to a new line unless inside brackets (<a href=\"https://redirect.github.com/psf/black/issues/4289\">#4289</a>)</li>\n</ul>\n<h3>Integrations</h3>\n<ul>\n<li>Add a new option <code>use_pyproject</code> to the GitHub Action <code>psf/black</code>. This will read the\nBlack version from <code>pyproject.toml</code>. (<a href=\"https://redirect.github.com/psf/black/issues/4294\">#4294</a>)</li>\n</ul>\n<h2>24.3.0</h2>\n<h3>Highlights</h3>\n<p>This release is a milestone: it fixes Black's first CVE security vulnerability. If you\nrun Black on untrusted input, or if you habitually put thousands of leading tab\ncharacters in your docstrings, you are strongly encouraged to upgrade immediately to fix\n<a href=\"https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21503\">CVE-2024-21503</a>.</p>\n<p>This release also fixes a bug in Black's AST safety check that allowed Black to make\nincorrect changes to certain f-strings that are valid in Python 3.12 and higher.</p>\n<h3>Stable style</h3>\n<ul>\n<li>Don't move comments along with delimiters, which could cause crashes (<a href=\"https://redirect.github.com/psf/black/issues/4248\">#4248</a>)</li>\n<li>Strengthen AST safety check to catch more unsafe changes to strings. Previous versions\nof Black would incorrectly format the contents of certain unusual f-strings containing\nnested strings with the same quote type. Now, Black will crash on such strings until\nsupport for the new f-string syntax is implemented. (<a href=\"https://redirect.github.com/psf/black/issues/4270\">#4270</a>)</li>\n<li>Fix a bug where line-ranges exceeding the last code line would not work as expected\n(<a href=\"https://redirect.github.com/psf/black/issues/4273\">#4273</a>)</li>\n</ul>\n<h3>Performance</h3>\n<ul>\n<li>Fix catastrophic performance on docstrings that contain large numbers of leading tab\ncharacters. This fixes\n<a href=\"https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21503\">CVE-2024-21503</a>.\n(<a href=\"https://redirect.github.com/psf/black/issues/4278\">#4278</a>)</li>\n</ul>\n<h3>Documentation</h3>\n<ul>\n<li>Note what happens when <code>--check</code> is used with <code>--quiet</code> (<a href=\"https://redirect.github.com/psf/black/issues/4236\">#4236</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/psf/black/commit/8fe627072f15ff2e3d380887b92f7868efaf6d05\"><code>8fe6270</code></a> Prepare release 24.4.0 (<a href=\"https://redirect.github.com/psf/black/issues/4307\">#4307</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/6b25e7cdabe2cd0dc2ec9d0009668af085b1e732\"><code>6b25e7c</code></a> Bump peter-evans/find-comment from 3.0.0 to 3.1.0 (<a href=\"https://redirect.github.com/psf/black/issues/4304\">#4304</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/07fe1ca88abee9a0c88efb6b4213ea04d3fe2eae\"><code>07fe1ca</code></a> docs: remove repetitive word (<a href=\"https://redirect.github.com/psf/black/issues/4303\">#4303</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/3383f531bc25955eebb2644ba5b389413bd10219\"><code>3383f53</code></a> GitHub Action: Allow reading version from pyproject.toml (<a href=\"https://redirect.github.com/psf/black/issues/4294\">#4294</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/c8f1a5542c257491e1e093b1404481ece7f7e02c\"><code>c8f1a55</code></a> [pre-commit.ci] pre-commit autoupdate (<a href=\"https://redirect.github.com/psf/black/issues/4297\">#4297</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/836acad86371578527408a4c8f968cde1302e130\"><code>836acad</code></a> Improve AST safety check (<a href=\"https://redirect.github.com/psf/black/issues/4290\">#4290</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/13bd0925eb347926399a5bcb8b70853549f3da07\"><code>13bd092</code></a> fix: Stop moving multiline strings to a new line unless inside brackets (<a href=\"https://redirect.github.com/psf/black/issues/4289\">#4289</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/c9d2635b55d03cd125465cd6d7477e6c3cb8fba3\"><code>c9d2635</code></a> Remove mocking from tests (<a href=\"https://redirect.github.com/psf/black/issues/4287\">#4287</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/bf1195612c00b008ea67ea0472ae527956eb66fe\"><code>bf11956</code></a> Fix two logging calls in the test helper (<a href=\"https://redirect.github.com/psf/black/issues/4286\">#4286</a>)</li>\n<li><a href=\"https://github.com/psf/black/commit/97993f997fe01cf565924072e4915126cdb86ed2\"><code>97993f9</code></a> Bump pypa/cibuildwheel from 2.16.5 to 2.17.0 (<a href=\"https://redirect.github.com/psf/black/issues/4283\">#4283</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/psf/black/compare/24.3.0...24.4.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-15T12:27:08Z",
+          "tree_id": "0d824b916fed6cf77b653aefc8c51ff6c90c8200",
+          "url": "https://github.com/aws/jsii/commit/225168f851d411de3ec4e9c4208bfdcdbd8a1087"
+        },
+        "date": 1713186364239,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51101.81998494999,
+            "unit": "milliseconds",
+            "range": 592344.9533634285,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51101.81998494999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39195.15291555,
+            "unit": "milliseconds",
+            "range": 270508.51628066937,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39195.15291555 milliseconds over 20 runs"
           }
         ]
       }
