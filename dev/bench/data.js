@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1713790759652,
+  "lastUpdate": 1713793483978,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28265,6 +28265,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 150822.24330677767,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39220.56009125001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "466ed561a76183c157bef124312ffeb1b2a3b20e",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.5.3 to ~=1.6.0 in /gh-pages (#4484)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.6.0</h2>\n<h2>Local preview</h2>\n<ul>\n<li>\n<p><code>mkdocs serve</code> no longer locks up the browser when more than 5 tabs are open. This is achieved by closing the polling connection whenever a tab becomes inactive. Background tabs will no longer auto-reload either - that will instead happen as soon the tab is opened again. Context: <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3391\">#3391</a></p>\n</li>\n<li>\n<p>New flag <code>serve --open</code> to open the site in a browser.<br />\nAfter the first build is finished, this flag will cause the default OS Web browser to be opened at the home page of the local site.<br />\nContext: <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3500\">#3500</a></p>\n</li>\n</ul>\n<h3>Drafts</h3>\n<blockquote>\n<p>[!warning]\n<strong>Changed from version 1.5:</strong></p>\n<p><strong>The <code>exclude_docs</code> config was split up into two separate concepts.</strong></p>\n</blockquote>\n<p>The <code>exclude_docs</code> config no longer has any special behavior for <code>mkdocs serve</code> - it now always completely excludes the listed documents from the site.</p>\n<p>If you wish to use the &quot;drafts&quot; functionality like the <code>exclude_docs</code> key used to do in MkDocs 1.5, please switch to the <strong>new config key <code>draft_docs</code></strong>.</p>\n<p>See <a href=\"https://www.mkdocs.org/user-guide/configuration/#exclude_docs\">documentation</a>.</p>\n<p>Other changes:</p>\n<ul>\n<li>Reduce warning levels when a &quot;draft&quot; page has a link to a non-existent file. Context: <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3449\">#3449</a></li>\n</ul>\n<h2>Update to deduction of page titles</h2>\n<p>MkDocs 1.5 had a change in behavior in deducing the page titles from the first heading. Unfortunately this could cause unescaped HTML tags or entities to appear in edge cases.</p>\n<p>Now tags are always fully sanitized from the title. Though it still remains the case that <a href=\"https://www.mkdocs.org/dev-guide/api/#mkdocs.structure.files.pages.Page.title\"><code>Page.title</code></a> is expected to contain HTML entities and is passed directly to the themes.</p>\n<p>Images (notably, emojis in some extensions) get preserved in the title only through their <code>alt</code> attribute's value.</p>\n<p>Context: <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3564\">#3564</a>, <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3578\">#3578</a></p>\n<h2>Themes</h2>\n<ul>\n<li>Built-in themes now also support Polish language (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3613\">#3613</a>)</li>\n</ul>\n<h3>&quot;readthedocs&quot; theme</h3>\n<ul>\n<li>\n<p>Fix: &quot;readthedocs&quot; theme can now correctly handle deeply nested nav configurations (over 2 levels deep), without confusedly expanding all sections and jumping around vertically. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3464\">#3464</a>)</p>\n</li>\n<li>\n<p>Fix: &quot;readthedocs&quot; theme now shows a link to the repository (with a generic logo) even when isn't one of the 3 known hosters. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3435\">#3435</a>)</p>\n</li>\n<li>\n<p>&quot;readthedocs&quot; theme now also has translation for the word &quot;theme&quot; in the footer that mistakenly always remained in English. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3613\">#3613</a>, <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3625\">#3625</a>)</p>\n</li>\n</ul>\n<h3>&quot;mkdocs&quot; theme</h3>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/0998fec7eb32d269f02c6d87071d6163c251db30\"><code>0998fec</code></a> Release 1.6.0 (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3631\">#3631</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/bce85bf2a6ec4e2de83974ae442e7bdb4c775f7f\"><code>bce85bf</code></a> Fix for showing repository icon even when a file has no edit_uri (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3657\">#3657</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/0ac05daaa169f9646eb243e220103c739aad231c\"><code>0ac05da</code></a> Re-generate localization files (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3634\">#3634</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/6244500bbc5d87d2662833b6022ec411662bb450\"><code>6244500</code></a> Remove jQuery from <code>mkdocs</code> theme (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3649\">#3649</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/f85d429af6b6dc362ee4f121930eae5a80e1c564\"><code>f85d429</code></a> Prevent a flash of white color when dark mode is enabled (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3647\">#3647</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/e39cce220aa5f15ff2abf568319547451186792c\"><code>e39cce2</code></a> Fix style of modal close button (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3651\">#3651</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/652813da4bf405e25c4859315f6015acd287bf54\"><code>652813d</code></a> Prevent a crash if stdin is not defined (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3609\">#3609</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/59a295f5f9cbd07dcb52c70d53d16523f24e2919\"><code>59a295f</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3493\">#3493</a> from waylan/2248</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/6f5e7484ebdc2f5eb5a3c4cb60491306b3acbd25\"><code>6f5e748</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3625\">#3625</a> from mkdocs/themepo</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/1451fb3f2cbc70420982e5b1f3ea7c25ec409f01\"><code>1451fb3</code></a> Babel setuptools frontend is still used in the install hook</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.5.3...1.6.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-22T13:04:53Z",
+          "tree_id": "759e00b50b7c82ecdeaefba1a9e116a4d7343127",
+          "url": "https://github.com/aws/jsii/commit/466ed561a76183c157bef124312ffeb1b2a3b20e"
+        },
+        "date": 1713793480105,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52245.104415299975,
+            "unit": "milliseconds",
+            "range": 1237339.9671507566,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52245.104415299975 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39867.033313899985,
+            "unit": "milliseconds",
+            "range": 118831.72741257124,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39867.033313899985 milliseconds over 20 runs"
           }
         ]
       }
