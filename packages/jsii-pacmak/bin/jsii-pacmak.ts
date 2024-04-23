@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import '@jsii/check-node/run';
-import '../lib/suppress-jsii-upgrade-prompts';
 
 import { UnknownSnippetMode } from 'jsii-rosetta';
 import * as yargs from 'yargs';

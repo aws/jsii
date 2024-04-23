@@ -3,3 +3,12 @@ extends: ../../eslint-config.yaml
 
 ignorePatterns:
   - test/generated-code/examples/**
+
+rules:
+  'import/no-extraneous-dependencies':
+    - error
+    - devDependencies: # Only allow importing devDependencies from tests
+        - '**/test/**'
+        - '**/*.test.ts'
+      optionalDependencies: false # Disallow importing optional dependencies (those shouldn't be used here)
+      peerDependencies: true # jsii-pacmak has a peer dependency on jsii-rosetta

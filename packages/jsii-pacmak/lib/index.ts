@@ -1,7 +1,5 @@
-import './suppress-jsii-upgrade-prompts';
-
 import { TypeSystem } from 'jsii-reflect';
-import { Rosetta, UnknownSnippetMode } from 'jsii-rosetta';
+import { RosettaTabletReader, UnknownSnippetMode } from 'jsii-rosetta';
 import { resolve } from 'path';
 import { cwd } from 'process';
 
@@ -41,7 +39,7 @@ export async function pacmak({
   updateNpmIgnoreFiles = false,
   validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
-  const rosetta = new Rosetta({
+  const rosetta = new RosettaTabletReader({
     unknownSnippets: rosettaUnknownSnippets,
     prefixDisclaimer: true,
   });
@@ -315,7 +313,7 @@ async function buildTargetsForLanguage(
     fingerprint: boolean;
     force: boolean;
     perLanguageDirectory: boolean;
-    rosetta: Rosetta;
+    rosetta: RosettaTabletReader;
     runtimeTypeChecking: boolean;
   },
 ): Promise<void> {

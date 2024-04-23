@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as http from 'http';
 import * as https from 'https';
 import * as reflect from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { RosettaTabletReader } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { Generator, Legalese } from '../../generator';
@@ -23,7 +23,7 @@ import { ParameterValidator } from './runtime-type-checking';
 export class DotNetGenerator extends Generator {
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  private readonly rosetta: Rosetta;
+  private readonly rosetta: RosettaTabletReader;
 
   // Flags that tracks if we have already wrote the first member of the class
   private firstMemberWritten = false;
@@ -37,7 +37,7 @@ export class DotNetGenerator extends Generator {
   public constructor(
     private readonly assembliesCurrentlyBeingCompiled: string[],
     options: {
-      readonly rosetta: Rosetta;
+      readonly rosetta: RosettaTabletReader;
       readonly runtimeTypeChecking: boolean;
     },
   ) {
