@@ -427,7 +427,6 @@ jobs:
           auto-push: true
 
   pacmak-integration-test:
-    name: Integration test (jsii-pacmak)
     runs-on: ubuntu-latest
     needs: create-release-package
     strategy:
@@ -502,3 +501,12 @@ jobs:
         with:
           name: integtest_aws-cdk-lib
           path: ./node_modules/aws-cdk-lib/dist/
+
+  pacmak-integration-test-ok:
+    name: Integration test (jsii-pacmak)
+    runs-on: ubuntu-latest
+    needs: pacmak-integration-test
+    steps:
+      - name: OK
+        # This is just a join target to simplify branch protection setup
+        run: echo OK
