@@ -239,12 +239,12 @@ ARG NODE_MAJOR_VERSION="18"
 COPY superchain/gpg/nodesource.asc /tmp/nodesource.asc
 COPY superchain/gpg/yarn.asc /tmp/yarn.asc
 RUN apt-key add /tmp/nodesource.asc && rm /tmp/nodesource.asc                                                           \
-  && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x ${DEBIAN_VERSION} main"                          \
-  > /etc/apt/sources.list.d/nodesource.list                                                                           \
-  # Reduce priority of the "standard" nodejs package, so that the one from nodesource is always preferred...
+  && echo "deb https://deb.nodesource.com/node_${NODE_MAJOR_VERSION}.x nodistro main"                                   \
+  > /etc/apt/sources.list.d/nodesource.list                                                                             \
+  # Increase priority of the nodesource package
   && echo "Package: nodejs" > /etc/apt/preferences.d/nodejs                                                             \
-  && echo 'Pin: origin "deb.debian.org"' >> /etc/apt/preferences.d/nodejs                                               \
-  && echo "Pin-Priority: 50" >> /etc/apt/preferences.d/nodejs                                                           \
+  && echo 'Pin: origin deb.nodesource.com"' >> /etc/apt/preferences.d/nodejs                                            \
+  && echo "Pin-Priority: 600" >> /etc/apt/preferences.d/nodejs                                                          \ 
   && apt-key add /tmp/yarn.asc && rm /tmp/yarn.asc                                                                      \
   && echo "deb https://dl.yarnpkg.com/debian stable main" > /etc/apt/sources.list.d/yarnpkg.list                        \
   && apt-get update                                                                                                     \

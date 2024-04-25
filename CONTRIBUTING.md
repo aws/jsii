@@ -39,7 +39,7 @@ The following tools need to be installed to develop on JSII locally. We recommen
 using the docker image from the above section, but if you wish to, you can install
 in your development environment.
 
-- [Node `14.6.0`] or later
+- [Node `18.0.0`] or later
 - [Yarn `1.19.1`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
   + [`maven >= 3.0.5`](https://maven.apache.org)
@@ -52,7 +52,7 @@ in your development environment.
   + *Recommended:* [`twine`](https://pypi.org/project/twine/)
 - [Go] `1.18` or newer
 
-[Node `14.6.0`]: https://nodejs.org/download/release/v14.6.0/
+[Node `18.0.0`]: https://nodejs.org/download/release/latest-v18.x/
 [Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
 [Oracle's OpenJDK8]: http://openjdk.java.net/install/
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
