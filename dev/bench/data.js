@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1713872288651,
+  "lastUpdate": 1714040617774,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28341,6 +28341,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 365247.2982717839,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40017.01583425 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3fee431ca29bfb0a08bf913f752b3b93fb945b59",
+          "message": "chore: bump mkdocs-material (#4488)\n\nThe most recent Dependabot update updated `mkdocs` in such a way that our dependencies are now incompatible.\n\nBumping `mkdocs-material` as well seems to solve it.\n\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-04-25T09:44:23Z",
+          "tree_id": "e947cf40df6fe9f2fe8da0c061108329ead8fb08",
+          "url": "https://github.com/aws/jsii/commit/3fee431ca29bfb0a08bf913f752b3b93fb945b59"
+        },
+        "date": 1714040613853,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51729.99150114999,
+            "unit": "milliseconds",
+            "range": 185206.6952276508,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51729.99150114999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39110.001513450006,
+            "unit": "milliseconds",
+            "range": 118047.45431616782,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39110.001513450006 milliseconds over 20 runs"
           }
         ]
       }
