@@ -24,7 +24,7 @@ jobs:
         debian:
           - 'bullseye' # 11
           - 'bookworm' # 12
-        node: ['18', '20']
+        node: ['18', '20', '22']
         exclude:
           # We publish bullseye only with Node >= 20
           - debian: 'bullseye'
