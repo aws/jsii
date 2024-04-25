@@ -430,6 +430,15 @@ jobs:
     name: Integration test (jsii-pacmak)
     runs-on: ubuntu-latest
     needs: create-release-package
+    strategy:
+      fail-fast: false
+      matrix:
+        rosetta:
+          # this will be the 1.x-dev version build in this repo
+          - ./jsii-rosetta.tgz
+          - 5.2.x
+          - 5.3.x
+          - 5.4.x
     steps:
       # Check out the code
       - name: Download Artifact
@@ -463,19 +472,33 @@ jobs:
         run: sudo apt install -y python3-venv
       # Show time!
       - name: Prepare Work Tree
+        # 1) Move the locally build version of jsii-rosetta somewhere else
+        # 2) Remove @jsii/integ-test because it messed up version dependencies and is not needed
+        # 3) Install aws-cdk-lib, and all locally build packages minus jsii-rosetta & @jsii/integ-test,
+        #    and the specific version of jsii-rosetta
+        #    This ensures we are running jsii-pacmak with the correct peer-dependency
+        # 4) Print the jsii-rosetta version for confirmation
         run: |-
-          npm install --no-save aws-cdk-lib@2 constructs@10                     \
-                                ${{ runner.temp }}/release-package/js/*.tgz     \
-                                ${{ runner.temp }}/release-package/private/*.tgz
+          mv ${{ runner.temp }}/release-package/js/jsii-rosetta.tgz ./jsii-rosetta.tgz
+          rm ${{ runner.temp }}/release-package/private/@jsii-integ-test.tgz
+          npm install --no-save --omit=dev                             \
+                      aws-cdk-lib@2                                    \
+                      constructs@10                                    \
+                      ${{ runner.temp }}/release-package/js/*.tgz      \
+                      ${{ runner.temp }}/release-package/private/*.tgz \
+                      jsii-rosetta@${{ matrix.rosetta }}
+      - name: Display jsii-rosetta version
+        run: npx jsii-rosetta --version
       - name: Run jsii-pacmak on aws-cdk-lib
         env:
           NODE_OPTIONS: --max-old-space-size=6144
         # We run with --no-parallel to avoid running out of memory...
         run: |-
           ./node_modules/.bin/jsii-pacmak --no-parallel ./node_modules/aws-cdk-lib
-      # Upload artifact (we'll tar it up to save time)
+      # Upload artifact only on main and for latest rosetta
       - name: 'Upload Artifact: integtest_aws-cdk-lib'
-        uses: actions/upload-artifact@v3
+        if: github.ref == 'ref/head/main' && matrix.rosetta == '5.4.x'
+        uses: actions/upload-artifact@v4
         with:
           name: integtest_aws-cdk-lib
           path: ./node_modules/aws-cdk-lib/dist/
