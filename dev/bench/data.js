@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714055333889,
+  "lastUpdate": 1714060064254,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28417,6 +28417,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 96627.7911241919,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39015.47580989998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cba0a899910382b618160c6433b1cb5b3c711cdd",
+          "message": "chore(deps-dev): Bump mypy from 1.9.0 to 1.10.0 in /packages/jsii-pacmak/test/generated-code (#4490)\n\nBumps [mypy](https://github.com/python/mypy) from 1.9.0 to 1.10.0.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/python/mypy/blob/master/CHANGELOG.md\">mypy's changelog</a>.</em></p>\n<blockquote>\n<h1>Mypy Release Notes</h1>\n<h2>Next release</h2>\n<h2>Mypy 1.10</h2>\n<p>We’ve just uploaded mypy 1.10 to the Python Package Index (<a href=\"https://pypi.org/project/mypy/\">PyPI</a>). Mypy is a static type checker for Python. This release includes new features, performance improvements and bug fixes. You can install it as follows:</p>\n<pre><code>python3 -m pip install -U mypy\n</code></pre>\n<p>You can read the full documentation for this release on <a href=\"http://mypy.readthedocs.io\">Read the Docs</a>.</p>\n<h4>Support TypeIs (PEP 742)</h4>\n<p>Mypy now supports <code>TypeIs</code> (<a href=\"https://peps.python.org/pep-0742/\">PEP 742</a>), which allows\nfunctions to narrow the type of a value, similar to <code>isinstance()</code>. Unlike <code>TypeGuard</code>,\n<code>TypeIs</code> can narrow in both the <code>if</code> and <code>else</code> branches of an if statement:</p>\n<pre lang=\"python\"><code>from typing_extensions import TypeIs\n<p>def is_str(s: object) -&gt; TypeIs[str]:\nreturn isinstance(s, str)</p>\n<p>def f(o: str | int) -&gt; None:\nif is_str(o):\n# Type of o is 'str'\n...\nelse:\n# Type of o is 'int'\n...\n</code></pre></p>\n<p><code>TypeIs</code> will be added to the <code>typing</code> module in Python 3.13, but it\ncan be used on earlier Python versions by importing it from\n<code>typing_extensions</code>.</p>\n<p>This feature was contributed by Jelle Zijlstra (PR <a href=\"https://redirect.github.com/python/mypy/pull/16898\">16898</a>).</p>\n<h4>Support TypeVar Defaults (PEP 696)</h4>\n<p><a href=\"https://peps.python.org/pep-0696/\">PEP 696</a> adds support for type parameter defaults.\nExample:</p>\n<pre lang=\"python\"><code>from typing import Generic\nfrom typing_extensions import TypeVar\n<p>&lt;/tr&gt;&lt;/table&gt;\n</code></pre></p>\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/3faf0fc4798ec3ee6b1cd123965193dc0a753fb0\"><code>3faf0fc</code></a> Remove +dev for version for release 1.10</li>\n<li><a href=\"https://github.com/python/mypy/commit/a5998d20402515f0c0bf05c7fe1029e93aa9bfa8\"><code>a5998d2</code></a> Update CHANGELOG.md (<a href=\"https://redirect.github.com/python/mypy/issues/17159\">#17159</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/62ea5b01f0c0c99e7db93326cb8d219eecfb3cb6\"><code>62ea5b0</code></a> Various updates to changelog for 1.10 (<a href=\"https://redirect.github.com/python/mypy/issues/17158\">#17158</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/2f0864c4e55a74700d8ce2d97ab2d3ca2b288513\"><code>2f0864c</code></a> Update CHANGELOG.md with draft for release 1.10 (<a href=\"https://redirect.github.com/python/mypy/issues/17150\">#17150</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/e1443bbade91118794055449cc8b4b4f7fd08b7d\"><code>e1443bb</code></a> fix: incorrect returned type of access descriptors on unions of types (<a href=\"https://redirect.github.com/python/mypy/issues/16604\">#16604</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/5161ac2e5b73dc7597536eb4444219868317e5d9\"><code>5161ac2</code></a> Sync typeshed (<a href=\"https://redirect.github.com/python/mypy/issues/17124\">#17124</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/e2fc1f28935806ca04b18fab277217f583b51594\"><code>e2fc1f2</code></a> Fix crash when expanding invalid Unpack in a <code>Callable</code> alias (<a href=\"https://redirect.github.com/python/mypy/issues/17028\">#17028</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/3ff6e47c57a67e807e0b4579a816b4f66ab16824\"><code>3ff6e47</code></a> Docs: docstrings in checker.py, ast_helpers.py (<a href=\"https://redirect.github.com/python/mypy/issues/16908\">#16908</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/732d98ecb2a98e4eaea14aba1ed8ac9c1f5ccdb6\"><code>732d98e</code></a> Fix string formatting for string enums (<a href=\"https://redirect.github.com/python/mypy/issues/16555\">#16555</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/80190101f68b52e960c22572ed6cc814de078b9c\"><code>8019010</code></a> Narrow individual items when matching a tuple to a sequence pattern (<a href=\"https://redirect.github.com/python/mypy/issues/16905\">#16905</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/1.9.0...v1.10.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.9.0&new-version=1.10.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-25T15:07:22Z",
+          "tree_id": "8daaed12e1a462ba8a57d324cfd139b42eb31238",
+          "url": "https://github.com/aws/jsii/commit/cba0a899910382b618160c6433b1cb5b3c711cdd"
+        },
+        "date": 1714060060291,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53062.06242519999,
+            "unit": "milliseconds",
+            "range": 416200.01101943885,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53062.06242519999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39946.23474269999,
+            "unit": "milliseconds",
+            "range": 67106.85074847884,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39946.23474269999 milliseconds over 20 runs"
           }
         ]
       }
