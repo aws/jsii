@@ -1,4 +1,4 @@
-import { Rosetta } from 'jsii-rosetta';
+import { RosettaTabletReader } from 'jsii-rosetta';
 import * as path from 'path';
 
 import * as logging from './logging';
@@ -44,7 +44,7 @@ export interface BuildOptions {
   /**
    * The Rosetta instance to load examples from
    */
-  readonly rosetta: Rosetta;
+  readonly rosetta: RosettaTabletReader;
 
   /**
    * Whether to generate runtime type checking code in places where compile-time

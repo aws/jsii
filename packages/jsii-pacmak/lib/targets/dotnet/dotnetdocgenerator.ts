@@ -1,7 +1,7 @@
 import * as spec from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
 import {
-  Rosetta,
+  RosettaTabletReader,
   TargetLanguage,
   enforcesStrictMode,
   markDownToXmlDoc,
@@ -23,7 +23,7 @@ export class DotNetDocGenerator {
 
   public constructor(
     code: CodeMaker,
-    private readonly rosetta: Rosetta,
+    private readonly rosetta: RosettaTabletReader,
     private readonly assembly: spec.Assembly,
   ) {
     this.code = code;
@@ -106,7 +106,7 @@ export class DotNetDocGenerator {
   }
 
   /**
-   * Returns the lines that should go into the <remarks> section
+   * Returns the lines that should go into the <remarks> section {@link http://www.google.com|Google}
    */
   private renderRemarks(docs: spec.Docs, apiLocation: ApiLocation): string[] {
     const ret: string[] = [];

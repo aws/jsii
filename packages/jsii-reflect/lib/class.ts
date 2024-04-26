@@ -122,7 +122,7 @@ export class ClassType extends ReferenceType {
     return out;
   }
 
-  public isClassType() {
+  public isClassType(): this is ClassType {
     return true;
   }
 

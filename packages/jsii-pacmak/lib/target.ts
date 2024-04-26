@@ -1,7 +1,7 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { RosettaTabletReader } from 'jsii-rosetta';
 import * as path from 'path';
 import * as spdx from 'spdx-license-list/full';
 
@@ -16,7 +16,7 @@ export abstract class Target {
   protected readonly arguments: { [name: string]: any };
   protected readonly targetName: string;
   protected readonly assembly: reflect.Assembly;
-  protected readonly rosetta: Rosetta;
+  protected readonly rosetta: RosettaTabletReader;
   protected readonly runtimeTypeChecking: boolean;
 
   protected abstract readonly generator: IGenerator;
@@ -211,7 +211,7 @@ export interface TargetOptions {
   assembly: reflect.Assembly;
 
   /** The Rosetta instance */
-  rosetta: Rosetta;
+  rosetta: RosettaTabletReader;
 
   /** Whether to generate runtime type-checking code */
   runtimeTypeChecking: boolean;

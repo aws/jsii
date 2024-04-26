@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import { TypeSystem } from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { RosettaTabletReader } from 'jsii-rosetta';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -18,7 +18,7 @@ test('does not generate imports for unused types', async () => {
       require.resolve('./fixtures/dependent.jsii.json'),
     );
 
-    const rosetta = new Rosetta();
+    const rosetta = new RosettaTabletReader();
     const subject = new Golang({
       arguments: {},
       assembly,
