@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714060064254,
+  "lastUpdate": 1714122759845,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28455,6 +28455,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 67106.85074847884,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39946.23474269999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cdb47e4e148522ca17a28187b514673046a3f1a3",
+          "message": "fix(pacmak): jsii-pacmak uses incompatible version of jsii-rosetta (#4487)\n\nFixes #4098 \n\nPreviously jsii-pacmak depended on jsii-rosetta 1.x. This is problematic if a different version of the jsii compiler was used, because it introduced different versions of TypeScript into the project.\n\nWith this PR, the dependency is changed to a peer dependency. Thus allowing any compatible version jsii-rosetta to be used. \n\nBREAKING CHANGE: jsii-pacmak now has a peer dependency on jsii-rosetta. Please ensure a version of jsii-rosetta matching your version of jsii is available. Most package managers install peer dependencies automatically and no change is required. However users of yarn v1 or npm v3 to v6 must install jsii-rosetta manually.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-04-26T08:32:37Z",
+          "tree_id": "feaa7d7558bac69f4e562fe190b3ad536c9af6b3",
+          "url": "https://github.com/aws/jsii/commit/cdb47e4e148522ca17a28187b514673046a3f1a3"
+        },
+        "date": 1714122756188,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53151.69095900003,
+            "unit": "milliseconds",
+            "range": 462536.1212565248,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53151.69095900003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 40130.66350825,
+            "unit": "milliseconds",
+            "range": 77463.85062816176,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40130.66350825 milliseconds over 20 runs"
           }
         ]
       }
