@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714125609673,
+  "lastUpdate": 1714128298436,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28531,6 +28531,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 127605.65334927065,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38772.620402849985 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "459481f360e911ad6d8b5b5afbcce3b596299d85",
+          "message": "fix(reflect): additional type predicates for `isXyzType` methods (#4491)\n\nThis helps downstream consumers to not have to add type annotations themselves when using these methods.\n\nBefore:\n\n```ts\nfunction needsInterface(type: reflect.InterfaceType) {}\n\nif (type.isInterfaceType()) {\n  needsInterface(type as reflect.InterfaceType);\n}\n```\n\nAfter:\n\n```ts\nfunction needsInterface(type: reflect.InterfaceType) {}\n\nif (type.isInterfaceType()) {\n  needsInterface(type);\n}\n```\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-04-26T10:05:40Z",
+          "tree_id": "94cc0e86193fe6708299478db2d9fb70c9804332",
+          "url": "https://github.com/aws/jsii/commit/459481f360e911ad6d8b5b5afbcce3b596299d85"
+        },
+        "date": 1714128294516,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51284.803144649995,
+            "unit": "milliseconds",
+            "range": 1038862.2856268616,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51284.803144649995 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39617.133203450016,
+            "unit": "milliseconds",
+            "range": 645425.027709683,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39617.133203450016 milliseconds over 20 runs"
           }
         ]
       }
