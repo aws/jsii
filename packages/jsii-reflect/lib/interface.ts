@@ -72,11 +72,11 @@ export class InterfaceType extends ReferenceType {
     return Object.fromEntries(this._getMethods(inherited, this));
   }
 
-  public isDataType() {
+  public isDataType(): this is InterfaceType {
     return !!this.spec.datatype;
   }
 
-  public isInterfaceType() {
+  public isInterfaceType(): this is InterfaceType {
     return true;
   }
 
