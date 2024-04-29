@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714399021224,
+  "lastUpdate": 1714401518520,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28683,6 +28683,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 112208.72513791996,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39402.99167715 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4917ddf32ce150d8e6806f38f4565a1cf6086a2f",
+          "message": "chore(deps): Bump xunit from 2.7.1 to 2.8.0 in /packages/@jsii/dotnet-runtime/src (#4495)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.7.1 to 2.8.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/be260b39de3f9f93868b479d83ba46393a44c4f2\"><code>be260b3</code></a> v2.8.0</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/a8ceb66bd701ba6040474676a795ebdf0ab2a068\"><code>a8ceb66</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/783\">#783</a>: Add -useansicolor flag to console runner (v2)</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/7b0ff93592ac5fdc28eb59aef85224ff44b3632a\"><code>7b0ff93</code></a> Don't show /aggressive with unlimited threads</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/46cdf06273be4732f548669b1a23022016eeb0d8\"><code>46cdf06</code></a> Support parallel algorithm in MSBuild runner</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/b4aa876e14399dbdbab92b3486ec32b8f1d55268\"><code>b4aa876</code></a> Support multipler syntax in MSBuild runner</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/6790b481b2cdf5a0502e92e86336b42c9052851b\"><code>6790b48</code></a> Add aggressive display to TestFrameworkEnvironment reported by XunitTestAssem...</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/3dd7e9146ed0881c17b2fd791dd30c7b649faa40\"><code>3dd7e91</code></a> Update mocks to make CollectionBehaviorAttribute property values optional</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/4c82deae46743c3c54260747a626394f6f1514f8\"><code>4c82dea</code></a> Asking for default threads should set 0, not null</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/d73cdefc96ac2bca3f3ed9aa2e5948af266c24a8\"><code>d73cdef</code></a> Should not try to use a semaphore when we've been asked for unlimited threads</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/3722e542340412df626d76e0585bd2c6659fd5ea\"><code>3722e54</code></a> Enable multiplier style max threads support</li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/xunit/compare/2.7.1...2.8.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.7.1&new-version=2.8.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-04-29T13:58:25Z",
+          "tree_id": "14140c25c1939ccb92807e3d6e41e82c7a9eedb0",
+          "url": "https://github.com/aws/jsii/commit/4917ddf32ce150d8e6806f38f4565a1cf6086a2f"
+        },
+        "date": 1714401514758,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53171.09565520003,
+            "unit": "milliseconds",
+            "range": 409288.9662673882,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53171.09565520003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39940.829280450016,
+            "unit": "milliseconds",
+            "range": 158112.8257684663,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39940.829280450016 milliseconds over 20 runs"
           }
         ]
       }
