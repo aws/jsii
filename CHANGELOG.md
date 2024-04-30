@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.98.0](https://github.com/aws/jsii/compare/v1.97.0...v1.98.0) (2024-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pacmak:** jsii-pacmak now has a peer dependency on jsii-rosetta. Please ensure a version of jsii-rosetta matching your version of jsii is available. Most package managers install peer dependencies automatically and no change is required. However users of yarn v1 or npm v3 to v6 must install jsii-rosetta manually.
+
+### Features
+
+* node22 support ([#4489](https://github.com/aws/jsii/issues/4489)) ([699366d](https://github.com/aws/jsii/commit/699366db4df0179aaf1aec151d28e0cea6c2edba))
+
+
+### Bug Fixes
+
+* **pacmak:** jsii-pacmak uses incompatible version of jsii-rosetta ([#4487](https://github.com/aws/jsii/issues/4487)) ([cdb47e4](https://github.com/aws/jsii/commit/cdb47e4e148522ca17a28187b514673046a3f1a3)), closes [#4098](https://github.com/aws/jsii/issues/4098)
+* **reflect:** additional type predicates for `isXyzType` methods ([#4491](https://github.com/aws/jsii/issues/4491)) ([459481f](https://github.com/aws/jsii/commit/459481f360e911ad6d8b5b5afbcce3b596299d85))
+
 ## [1.97.0](https://github.com/aws/jsii/compare/v1.96.0...v1.97.0) (2024-04-08)
 
 

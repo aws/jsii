@@ -38,8 +38,13 @@ for (const file of process.argv.splice(2)) {
 }
 
 function processSection(section, file) {
-  for (const [ name, version ] of Object.entries(section)) {
-    if (version === marker || version === '^' + marker) {
+  for (const [name, version] of Object.entries(section)) {
+    if (
+      version === marker ||
+      version === '^' + marker ||
+      // dependencies on jsii-rosetta can include many compatible versions
+      (name == 'jsii-rosetta' && version.includes('^' + marker))
+    ) {
       section[name] = version.replace(marker, repoVersion);
     }
   }

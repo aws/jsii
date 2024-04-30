@@ -1,7 +1,7 @@
 import { CodeMaker } from 'codemaker';
 import * as fs from 'fs-extra';
 import { Assembly } from 'jsii-reflect';
-import { Rosetta } from 'jsii-rosetta';
+import { RosettaTabletReader } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { IGenerator, Legalese } from '../generator';
@@ -150,11 +150,11 @@ class GoGenerator implements IGenerator {
   });
   private readonly documenter: Documentation;
 
-  private readonly rosetta: Rosetta;
+  private readonly rosetta: RosettaTabletReader;
   private readonly runtimeTypeChecking: boolean;
 
   public constructor(options: {
-    readonly rosetta: Rosetta;
+    readonly rosetta: RosettaTabletReader;
     readonly runtimeTypeChecking: boolean;
   }) {
     this.rosetta = options.rosetta;

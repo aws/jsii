@@ -7,7 +7,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
   TargetLanguage,
-  Rosetta,
+  RosettaTabletReader,
   enforcesStrictMode,
   ApiLocation,
 } from 'jsii-rosetta';
@@ -2406,7 +2406,7 @@ class PythonGenerator extends Generator {
   private readonly types: Map<string, PythonType>;
 
   public constructor(
-    private readonly rosetta: Rosetta,
+    private readonly rosetta: RosettaTabletReader,
     options: GeneratorOptions,
   ) {
     super(options);

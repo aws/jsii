@@ -6,7 +6,7 @@ import { createHash } from 'crypto';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
-  Rosetta,
+  RosettaTabletReader,
   TargetLanguage,
   enforcesStrictMode,
   markDownToJavaDoc,
@@ -633,10 +633,10 @@ class JavaGenerator extends Generator {
     [name: string]: spec.AssemblyConfiguration;
   } = {};
 
-  private readonly rosetta: Rosetta;
+  private readonly rosetta: RosettaTabletReader;
 
   public constructor(options: {
-    readonly rosetta: Rosetta;
+    readonly rosetta: RosettaTabletReader;
     readonly runtimeTypeChecking: boolean;
   }) {
     super({ ...options, generateOverloadsForMethodWithOptionals: true });

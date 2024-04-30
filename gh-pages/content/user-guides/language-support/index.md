@@ -163,7 +163,7 @@ declared _Generally Available_. At this point, breaking changes are no longer po
 [`jsii-calc`]: ../../packages/jsii-calc
 [`jsii-config`]: ../../packages/jsii-config
 [`jsii-pacmak`]: ../../packages/jsii-pacmak
-[`jsii-rosetta`]: ../../packages/jsii-rosetta
+[`jsii-rosetta`]: https://github.com/aws/jsii-rosetta
 [standard compliance suite]: ../../specification/4-standard-compliance-suite.md
 [`public.ecr.aws/jsii/superchain`]: ../../superchain
 [`aws-delivlib`]: https://github.com/awslabs/aws-delivlib
