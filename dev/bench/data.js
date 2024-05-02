@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714512397113,
+  "lastUpdate": 1714645335426,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28835,6 +28835,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 96984.38758148841,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39273.2255385 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5f7783b35e304e96e6d55d5009362090f28d1a52",
+          "message": "chore(superchain): explicitly list supported images (#4500)\n\nThere are a lot of image tags in the jsii/superchain image repo. Only a few of which are actively supported.\n\nPreviously we attempted to explain the rules and list supported versions of the subcomponents, but that was complicated and missed a few cases.\n\nWith this change we are just listing them explicitly.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-05-02T09:43:21Z",
+          "tree_id": "a74e9e8cbe75cd14a4f9b5c15e5a8f42a52b20ac",
+          "url": "https://github.com/aws/jsii/commit/5f7783b35e304e96e6d55d5009362090f28d1a52"
+        },
+        "date": 1714645331085,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50788.66773110001,
+            "unit": "milliseconds",
+            "range": 1181802.0073806713,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50788.66773110001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38734.70363789999,
+            "unit": "milliseconds",
+            "range": 146085.68924804806,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38734.70363789999 milliseconds over 20 runs"
           }
         ]
       }
