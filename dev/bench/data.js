@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714645335426,
+  "lastUpdate": 1714991944829,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28873,6 +28873,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 146085.68924804806,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38734.70363789999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0add5a6e0ea9d2a2381c3f7be014a86149d83b5e",
+          "message": "chore(deps): Bump ejs from 3.1.9 to 3.1.10 (#4502)\n\nBumps [ejs](https://github.com/mde/ejs) from 3.1.9 to 3.1.10.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mde/ejs/releases\">ejs's releases</a>.</em></p>\n<blockquote>\n<h2>v3.1.10</h2>\n<p>Version 3.1.10</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mde/ejs/commit/d3f807dea9ce904e20a47a661f2310ce9134dc2a\"><code>d3f807d</code></a> Version 3.1.10</li>\n<li><a href=\"https://github.com/mde/ejs/commit/9ee26dde5d7015d9c0e2ff87314cabeac5247c02\"><code>9ee26dd</code></a> Mocha TDD</li>\n<li><a href=\"https://github.com/mde/ejs/commit/e469741dca7df2eb400199e1cdb74621e3f89aa5\"><code>e469741</code></a> Basic pollution protection</li>\n<li><a href=\"https://github.com/mde/ejs/commit/715e9507fa3e6122dc6430fe0f25a6e6ded300c1\"><code>715e950</code></a> Merge pull request <a href=\"https://redirect.github.com/mde/ejs/issues/756\">#756</a> from Jeffrey-mu/main</li>\n<li><a href=\"https://github.com/mde/ejs/commit/cabe3146ad964a1e98db7742abf435906ca79406\"><code>cabe314</code></a> Include advanced usage examples</li>\n<li><a href=\"https://github.com/mde/ejs/commit/29b076cdbbf3eb1b4323b33299ab6d79391b2c33\"><code>29b076c</code></a> Added header</li>\n<li><a href=\"https://github.com/mde/ejs/commit/11503c79af882e3635b513d57c7f1813792eb127\"><code>11503c7</code></a> Merge branch 'main' of github.com:mde/ejs into main</li>\n<li><a href=\"https://github.com/mde/ejs/commit/7690404e2fc1688756938e4d2fc19e0fac77d736\"><code>7690404</code></a> Added security banner to README</li>\n<li><a href=\"https://github.com/mde/ejs/commit/f47d7aedd51a983e4f73045f962b1209096b5800\"><code>f47d7ae</code></a> Update SECURITY.md</li>\n<li><a href=\"https://github.com/mde/ejs/commit/828cea1687e3db459ab09d2f405d2444c7580b90\"><code>828cea1</code></a> Update SECURITY.md</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mde/ejs/compare/v3.1.9...v3.1.10\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=ejs&package-manager=npm_and_yarn&previous-version=3.1.9&new-version=3.1.10)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2024-05-06T09:59:55Z",
+          "tree_id": "00f3318772db59d7c246c83fdd8078b88fdefb0f",
+          "url": "https://github.com/aws/jsii/commit/0add5a6e0ea9d2a2381c3f7be014a86149d83b5e"
+        },
+        "date": 1714991941051,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50793.282727750004,
+            "unit": "milliseconds",
+            "range": 840932.3639545506,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50793.282727750004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38798.30181895,
+            "unit": "milliseconds",
+            "range": 133419.25369689515,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38798.30181895 milliseconds over 20 runs"
           }
         ]
       }
