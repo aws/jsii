@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1714991944829,
+  "lastUpdate": 1714998973949,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28911,6 +28911,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 133419.25369689515,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38798.30181895 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2cde21d338a460796d1da5529aa2b2b5cee047de",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.20 to ~=9.5.21 in /gh-pages (#4503)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.21</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7133\">#7133</a>: Ensure latest version of Mermaid.js is used</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7125\">#7125</a>: Added warning for dotfiles in info plugin</li>\n</ul>\n<p>Thanks to <a href=\"https://github.com/kamilkrzyskow\"><code>@​kamilkrzyskow</code></a> for their contributions</p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.21 (2024-05-03)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7133\">#7133</a>: Ensure latest version of Mermaid.js is used</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7125\">#7125</a>: Added warning for dotfiles in info plugin</li>\n</ul>\n<p>mkdocs-material-9.5.20 (2024-04-29)</p>\n<ul>\n<li>Fixed deprecation warning in privacy plugin (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7119\">#7119</a>: Tags plugin emits deprecation warning (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7118\">#7118</a>: Social plugin crashes if fonts are disabled (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7085\">#7085</a>: Social plugin crashes on Windows when downloading fonts</li>\n</ul>\n<p>mkdocs-material-9.5.19+insiders-4.53.8 (2024-04-26)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7052\">#7052</a>: Preview extension automatically including all pages</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7051\">#7051</a>: Instant previews mounting on footnote references</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5165\">#5165</a>: Improved tooltips not mounting in sidebar for typeset plugin</li>\n</ul>\n<p>mkdocs-material-9.5.19+insiders-4.53.7 (2024-04-25)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7060\">#7060</a>: Incorrect resolution of translation when using static-i18n</li>\n</ul>\n<p>mkdocs-material-9.5.19 (2024-04-25)</p>\n<ul>\n<li>Updated MkDocs to 1.6 and limited version to &lt; 2</li>\n<li>Updated Docker image to latest Alpine Linux</li>\n<li>Removed setup.py, now that GitHub fully understands pyproject.toml</li>\n<li>Improved interop of social plugin with third-party MkDocs themes</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7099\">#7099</a>: Blog reading time not rendered correctly for Japanese</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7097\">#7097</a>: Improved resilience of tags plugin when no tags are given</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7090\">#7090</a>: Active tab indicator in nested content tabs rendering bug</li>\n</ul>\n<p>mkdocs-material-9.5.18 (2024-04-16)</p>\n<ul>\n<li>Refactored tooltips implementation to fix positioning issues</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7044\">#7044</a>: Rendering glitch when hovering contributor avatar in Chrome</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7043\">#7043</a>: Highlighted lines in code blocks cutoff on mobile</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6910\">#6910</a>: Incorrect position of tooltip for page status in sidebar</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6760\">#6760</a>: Incorrect position and overly long tooltip in tables</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6488\">#6488</a>: Incorrect position and cutoff tooltip in content tabs</li>\n</ul>\n<p>mkdocs-material-9.5.17+insiders-4.53.6 (2024-04-05)</p>\n<ul>\n<li>Ensure working directory is set for projects when using projects plugin</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6970\">#6970</a>: Incorrect relative paths in git submodules with projects plugin</li>\n</ul>\n<p>mkdocs-material-9.5.17+insiders-4.53.5 (2024-04-02)</p>\n<ul>\n<li>Fixed social plugin crashing when no colors are specified in palettes</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d1161b431f391c3be2bf3617b8c62c2477309ff6\"><code>d1161b4</code></a> Prepare 9.5.21 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/aef6175f04244870e7c356d00a48a19e0cde90db\"><code>aef6175</code></a> Added type selection to icon and emoji search</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b0c5fe6aeffabb270465604e50582e8cdea9889c\"><code>b0c5fe6</code></a> Updated JSON schema (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7150\">#7150</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0e0a678b7849db824a6a18b55a595e927a5c28cc\"><code>0e0a678</code></a> Merge pull request <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7142\">#7142</a> from kamilkrzyskow/info-dotfile-warning</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/75d87eaf7ea696cccf99b96c915412b16ea3f079\"><code>75d87ea</code></a> Widen Mermaid.js import to 10.x (current major version)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f724bb901a18bc0813ab38a716536d3bf7212435\"><code>f724bb9</code></a> Add warning for dotfiles in info plugin</li>\n<li>See full diff in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.20...9.5.21\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-05-06T11:57:08Z",
+          "tree_id": "766ebe2ddbb7de8f8b7431460edaa3d845d555a5",
+          "url": "https://github.com/aws/jsii/commit/2cde21d338a460796d1da5529aa2b2b5cee047de"
+        },
+        "date": 1714998969500,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52000.51855635001,
+            "unit": "milliseconds",
+            "range": 2751345.287863101,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52000.51855635001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38662.5004121,
+            "unit": "milliseconds",
+            "range": 206233.82122115593,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38662.5004121 milliseconds over 20 runs"
           }
         ]
       }
