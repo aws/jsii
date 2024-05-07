@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1715086225295,
+  "lastUpdate": 1715097625172,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -28987,6 +28987,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 174814.41717826758,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39586.52832745002 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "14196ede00e614f75625e0de79148a6818b97634",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.20.0 to 0.21.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4506)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.20.0 to 0.21.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/cc29c91ba3acb47c1793da56d919cc40def4ea41\"><code>cc29c91</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/397fef9629377c5179518414e4502009dc0918a2\"><code>397fef9</code></a> gopls/internal/protocol: add links to LSP spec</li>\n<li><a href=\"https://github.com/golang/tools/commit/e2a352c850a52c32b9bfdb78fbfb97882b7c1424\"><code>e2a352c</code></a> internal/refactor/inline: extensible API</li>\n<li><a href=\"https://github.com/golang/tools/commit/c16c816ac486df69471674bcaf6f1a8f76f2bdcf\"><code>c16c816</code></a> go/analysis/passes/stdversion: test *.go &lt; go.mod version</li>\n<li><a href=\"https://github.com/golang/tools/commit/629a7be6d0a4808cd8e7af805986652d81bb975f\"><code>629a7be</code></a> go/analysis/analysistest: stricter errors and GOWORK setting</li>\n<li><a href=\"https://github.com/golang/tools/commit/4db16973aa22c2c1a5a873261a68949f351efe2b\"><code>4db1697</code></a> go/packages/packagestest: fold modules_111.go into modules.go</li>\n<li><a href=\"https://github.com/golang/tools/commit/ccdef3cc2699ea2a30a2931a43a1774bd974000a\"><code>ccdef3c</code></a> gopls/internal/golang: fix nil panic in InlayHint</li>\n<li><a href=\"https://github.com/golang/tools/commit/74c9cfe4d22faa696baabeea02df6493b15e8c79\"><code>74c9cfe</code></a> go/analysis: add Pass.ReadFile</li>\n<li><a href=\"https://github.com/golang/tools/commit/5ef4fc9014e76bcc56324b24218c0216a7146306\"><code>5ef4fc9</code></a> gopls/internal/golang/completion: fix the isEmptyInterface predicate</li>\n<li><a href=\"https://github.com/golang/tools/commit/77f691badad098462fed0a46c9a3f5f3d178b633\"><code>77f691b</code></a> internal/gcimporter: use Alias.Rhs, not unsafe hack</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.20.0...v0.21.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.20.0&new-version=0.21.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-05-07T15:21:17Z",
+          "tree_id": "6f4346dcbe8fcb4e0f84024323adc56043994557",
+          "url": "https://github.com/aws/jsii/commit/14196ede00e614f75625e0de79148a6818b97634"
+        },
+        "date": 1715097621355,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51246.24016455002,
+            "unit": "milliseconds",
+            "range": 764173.2787441534,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51246.24016455002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38633.59126365,
+            "unit": "milliseconds",
+            "range": 35275.688671216885,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38633.59126365 milliseconds over 20 runs"
           }
         ]
       }
