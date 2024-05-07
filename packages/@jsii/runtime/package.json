@@ -27,7 +27,7 @@
   "scripts": {
     "build": "tsc --build && chmod +x bin/jsii-runtime && npx webpack-cli && npm run lint",
     "watch": "tsc --build -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",

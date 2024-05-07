@@ -21,7 +21,7 @@
     "watch": "yarn --silent tsc -w",
     "bench": "node bin/benchmark.js",
     "snapshot": "node scripts/snapshot-package.js",
-    "lint": "eslint . --ext .ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix"
   },
   "bin": {

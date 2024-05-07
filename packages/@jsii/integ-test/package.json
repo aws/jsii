@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "tsc --build && npm run lint",
-    "lint": "eslint . --ext .ts --ignore-pattern '*.d.ts' --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts --ignore-pattern '*.d.ts' --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test:integ": "jest",
     "package": "package-private"
