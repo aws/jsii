@@ -78,7 +78,7 @@ export class NameTree {
       if (!this._children[head]) {
         this._children[head] = new NameTree();
       }
-      this._children[head]!.register(fqn, rest);
+      this._children[head].register(fqn, rest);
     }
     return this;
   }
