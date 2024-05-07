@@ -7827,11 +7827,11 @@ pure-rand@^6.0.0:
   integrity sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==
 
 pyright@^1.1.332:
-  version "1.1.361"
-  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.361.tgz#03d64562b7250aee8f58f745eb39b6e9a7822f7c"
-  integrity sha512-cu4VrXoA7zYg2TdFgh/IkQhD+Jc3GaEK5P/Vatptd7h40hC6S/fZZya8eZMnLZ0n09PBks8VM9IVRK4+X5zG3w==
+  version "1.1.332"
+  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.332.tgz#7a41597dae750ffddc54426678950c229001a140"
+  integrity sha512-x3xuEhp6P+6UJfKF41o7f4Z9abh/LWXWF8CReSEsg/m/5IeMBtqCqPrxZnKswRjQlBlCD771QYkMatEVjeH2ZA==
   optionalDependencies:
-    fsevents "~2.3.3"
+    fsevents "~2.3.2"
 
 q@^1.5.1:
   version "1.5.1"
