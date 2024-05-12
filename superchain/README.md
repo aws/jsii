@@ -9,103 +9,99 @@ required in order to package [jsii] projects in all supported languages.
 ## Recommended image
 
 We recommend the following image for most users.
-See [Image tags](#image-tags) for further details.
+See [Image tags](#current-image-tags) for further details.
 
+```text
+public.ecr.aws/jsii/superchain:1-bookworm-slim
 ```
-public.ecr.aws/jsii/superchain:1-bullseye-slim
+
+### Current image tags
+
+The following image tags are actively maintained and updated regularly.
+
+```text
+public.ecr.aws/jsii/superchain:<image-tag>
 ```
+
+| Image tag                | Debian     | Node | Python |
+| ------------------------ | ---------- | ---- | ------ |
+| `1-bookworm-slim`        | `bookworm` | `18` | `3.11` |
+| `1-bookworm-slim-node18` | `bookworm` | `18` | `3.11` |
+| `1-bookworm-slim-node20` | `bookworm` | `20` | `3.11` |
+| `1-bookworm-slim-node22` | `bookworm` | `22` | `3.11` |
+| `1-bullseye-slim-node20` | `bookworm` | `20` | `3.9`  |
+| `1-bullseye-slim-node22` | `bookworm` | `22` | `3.9`  |
+
+Any other tags should be *considered* deprecated or in the case of `nightly` images *experimental*.
 
 ## Included Language SDKs
 
-| SDK          | Version                                  |
-| ------------ | ---------------------------------------- |
-| `OpenJDK 20` | Amazon Corretto `>= 20.0.2`              |
-| `.NET SDK`   | `>= 6.0.14`                              |
-| `mono`       | `>= 6.12.0.200`                          |
-| `Javascript` | see [NodeJS and NPM](#nodejs-and-npm)    |
-| `PowerShell` | `pwsh >= 7.2.16`                         |
-| `Python 3`   | see [Python'](#python)                   |
-| `Go`         | `go >= 1.18`                             |
-
-## Image tags
-
-Maintained image tags are named using the following pattern:
-
-```
-public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
-```
-
-- `<JSII-MAJOR>` is the major line of the jsii toolchain (must be `1`)
-- `<BASE>` is the base image tag, currently supported base images are
-  - `bookworm-slim`
-  - `bullseye-slim`
-- `<NODE-MAJOR>` is the major version of node contained in the image
-  - `18` corresponds to node 18.x, this is the default
-  - `20` corresponds to node 20.x
-- `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
-  repository and should typically not be used for production workloads
-
-**The following base image lines have been deprecated and are not updated anymore. Users are adviced to upgrade to :**
-
-- `:1-buster-slim-*`
-
-**The previous image tags have been discontinued and must NOT BE USED ANYMORE:**
-
-- `:latest` (users should migrate to `:1-bullseye-slim`)
-- `:nightly` (users should migrate to `:1-bullseye-slim-nightly`)
-- `:nodeX` (users should migrate to an image using a supported node version)
-- `:nodeX-nightly` (users should migrate to a nightly image using a supported node version)
+| SDK          | Version                                       |
+| ------------ | --------------------------------------------- |
+| `OpenJDK 20` | Amazon Corretto `>= 20.0.2`                   |
+| `.NET SDK`   | `>= 6.0.14`                                   |
+| `mono`       | `>= 6.12.0.200`                               |
+| `Javascript` | see [Current image tags](#current-image-tags) |
+| `PowerShell` | `pwsh >= 7.2.16`                              |
+| `Python 3`   | see [Current image tags](#current-image-tags) |
+| `Go`         | `go >= 1.18`                                  |
 
 ## Building
 
 This docker image must be built from the package root with the Dockerfile set to
 `superchain/Dockerfile`:
 
-```
-jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local
+```console
+docker build . -f superchain/Dockerfile -t jsii/superchain:local
 ```
 
 In case the tests fail, skip the tests and inspect the image manually:
 
-```
-jsii$ docker build . -f superchain/Dockerfile -t jsii/superchain:local --target=superchain
-```
-
-## NodeJS and NPM
-
-We build multiple versions of this image, for different versions of Node.
-You can use a specific Node version like this:
-
-```
-public.ecr.aws/jsii/superchain:1-bullseye-slim-node20
+```console
+docker build . -f superchain/Dockerfile -t jsii/superchain:local --target=superchain
 ```
 
-We will stop publishing images for Node versions that are EOL.
-
-| Debian                      | Node versions    |
-| ----------------------------| -----------------|
-| `bookworm-slim`             | `20`             |
-| `bullseye-slim`             | `20`, `18`       |
-| `buster-slim` (deprecated)  | `18`, `16`, `14` | 
+### NodeJS and NPM
 
 If you are building this image from source, you can control the Node version with the
 `NODE_MAJOR_VERSION` build argument:
 
-```
-jsii$ docker build [...] --build-arg NODE_MAJOR_VERSION=16
+```console
+docker build [...] --build-arg NODE_MAJOR_VERSION=22
 ```
 
-## Python
+### Image tags
 
-The image includes the most recent Python version available for the respecitve Debian distribution.
+Image tags are named using the following pattern:
+
+```text
+public.ecr.aws/jsii/superchain:<JSII-MAJOR>-<BASE>(-node<NODE-MAJOR>)(-nightly)
+```
+
+- `<JSII-MAJOR>` is the major line of the jsii toolchain (must be `1`)
+- `<BASE>` is the base image tag, currently supported base images are
+- `<NODE-MAJOR>` is the major version of Node.js contained in the image
+- `-nightly` images are released from the `HEAD` of the [`aws/jsii`][jsii]
+  repository and should typically not be used for production workloads
+
+## Support policy
+
+Generally only actively versions that are actively supported by upstream projects are maintained in superchain.
+
+### Debian
+
+We only publish images for Debian releases that receive updates from the [Debian security team]([debian-releases](https://wiki.debian.org/DebianReleases#Production_Releases)).
+All superchain images are based on the slim variant.
+
+### Node
+
+We publish images variants for Node versions that are Current or LTS.
+We include the npm version that ships with the version of Node.
+
+### Python
+
+The image includes the most recent Python version available for the respective Debian distribution.
 A complete list can be viewed on the [Debian website](https://wiki.debian.org/Python#Supported_Python_Versions).
-
-| Debian                      | Python version |
-| ----------------------------| ---------------|
-| `bookworm-slim`             | `3.11`         |
-| `bullseye-slim`             | `3.9`          |
-| `buster-slim` (deprecated)  | `3.7`          |
-
 
 ## Included Tools & Utilities
 

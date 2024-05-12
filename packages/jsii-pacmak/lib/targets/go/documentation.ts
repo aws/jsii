@@ -1,12 +1,12 @@
 import { Stability } from '@jsii/spec';
 import { CodeMaker } from 'codemaker';
 import { Docs } from 'jsii-reflect';
-import { ApiLocation, Rosetta, TargetLanguage } from 'jsii-rosetta';
+import { ApiLocation, RosettaTabletReader, TargetLanguage } from 'jsii-rosetta';
 
 export class Documentation {
   public constructor(
     private readonly code: CodeMaker,
-    private readonly rosetta: Rosetta,
+    private readonly rosetta: RosettaTabletReader,
   ) {}
 
   /**

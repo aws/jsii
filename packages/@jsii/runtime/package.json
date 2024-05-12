@@ -27,7 +27,7 @@
   "scripts": {
     "build": "tsc --build && chmod +x bin/jsii-runtime && npx webpack-cli && npm run lint",
     "watch": "tsc --build -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
@@ -43,8 +43,8 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "source-map-loader": "^4.0.1",
-    "webpack": "^5.89.0",
+    "source-map-loader": "^5.0.0",
+    "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
   }
 }

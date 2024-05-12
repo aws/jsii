@@ -2,9 +2,9 @@
 
     | Release   | Status                       | End-of-Life  |
     | --------- | ---------------------------- | ------------ |
-    | `^14.6.0` | :white_check_mark: Supported | `2023-04-30` |
-    | `^16.3.0` | :white_check_mark: Supported | `2024-09-11` |
     | `^18.0.0` | :white_check_mark: Supported | `2025-04-30` |
+    | `^20.0.0` | :white_check_mark: Supported | `2026-04-30` |
+    | `^22.0.0` | :white_check_mark: Supported | `2027-04-30` |
 
     ??? question "Status Definitions"
         - **:white_check_mark: Supported**: Long Term Support (LTS) releases  (those with an even major version) are

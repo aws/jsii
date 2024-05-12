@@ -753,8 +753,9 @@ export class Assembler implements Emitter {
             : fqn,
         };
       }
-      const symbolLocation = sym.getDeclarations()?.[0]?.getSourceFile()
-        ?.fileName;
+      const symbolLocation = sym
+        .getDeclarations()?.[0]
+        ?.getSourceFile()?.fileName;
       const pkgInfo = symbolLocation
         ? this.findPackageInfo(symbolLocation)
         : undefined;
