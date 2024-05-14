@@ -44,7 +44,7 @@ public final class JsiiRuntime {
     private JsiiClient client;
 
     /**
-     * The child procesds.
+     * The child process.
      */
     private Process childProcess;
 
