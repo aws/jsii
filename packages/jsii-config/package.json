@@ -8,6 +8,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --build && npm run lint",
+    "build+test": "tsc --build && yarn test",
     "watch": "tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "lint:fix": "yarn lint --fix",

@@ -17,8 +17,8 @@ optional in the standard [package.json schema] are required by `jsii`.
 For example, Maven Central requires packages to carry [sufficient metadata], such as _developer information_ and
 _license_, in order to be valid for publishing.
 
-| Field        | Required                        | Extensions                       |
-| ------------ |:-------------------------------:| -------------------------------- |
+| Field        |            Required             | Extensions                       |
+| ------------ | :-----------------------------: | -------------------------------- |
 | `author`     | :octicons-check-circle-fill-24: | `author.organization`            |
 | `license`    | :octicons-check-circle-fill-24: |                                  |
 | `main`       | :octicons-check-circle-fill-24: |                                  |
@@ -135,32 +135,20 @@ package maintainer, the generic interpretation for those on packages is:
 In order to configure the behavior of `jsii`, the `package.json` file must include a `jsii` section that can contain the
 following entries:
 
-| Field               | Type                    | Required                        | Default                              |
-| ------------------- | ----------------------- |:-------------------------------:| ------------------------------------ |
-| `excludeTypescript` | `#!ts string[]`         |                                 | _none_                               |
-| `metadata`          | `#!ts object`           |                                 | _none_                               |
-| `projectReferences` | `#!ts boolean`          |                                 | `#!ts true`                          |
-| `targets`           | `#!ts object`           | :octicons-check-circle-fill-24: |                                      |
-| `tsc`               | `#!ts object`           |                                 | `#!ts { outDir: '.', rootDir: '.' }` |
-| `versionFormat`     | `#!ts 'short' | 'full'` |                                 | `#!ts 'full'`                        |
+| Field               | Type                                           |            Required             | Default                              | Supported versions |
+| ------------------- | ---------------------------------------------- | :-----------------------------: | ------------------------------------ | ------------------ |
+| `excludeTypescript` | `#!ts string[]`                                |                                 | _none_                               | _all_              |
+| `metadata`          | `#!ts object`                                  |                                 | _none_                               | _all_              |
+| `projectReferences` | `#!ts boolean`                                 |                                 | `#!ts true`                          | _all_              |
+| `targets`           | `#!ts object`                                  | :octicons-check-circle-fill-24: |                                      | _all_              |
+| `tsc`               | `#!ts object`                                  |                                 | `#!ts { outDir: '.', rootDir: '.' }` | _all_              |
+| `tsconfig`          | `#!ts string`                                  |                                 | _none_                               | `>= 5.2`           |
+| `validateTsconfig`  | `#!ts 'strict'\|'generated'\|'minimal'\|'off'` |                                 | _none_                               | `>= 5.2`           |
+| `versionFormat`     | `#!ts 'short'\|'full'`                         |                                 | `#!ts 'full'`                        | _all_              |
 
-### `excludeTypescript`
+### Language targets
 
-By default, `jsii` will include _all_ `*.ts` files (except `.d.ts` files) in the `TypeScript` compiler input. This can
-be problematic for example when the package's build or test procedure generates `.ts` files that cannot be compiled with
-`jsii`'s compiler settings.
-
-The `excludeTypescript` configuration accepts a list of glob patterns. Files matching any of those patterns will be
-excluded from the `TypeScript` compiler input.
-
-### `metadata`
-
-The `metadata` section can be used to record additional metadata as key-value pairs that will be recorded as-is into the
-`.jsii` assembly file. That metadata can later be inspected using [`jsii-reflect`][jsii-reflect] utilities, for example.
-
-[jsii-reflect]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
-
-### `targets`
+#### `targets`
 
 The `targets` section is where `jsii` packages define which target languages they support. This provides the package
 generators with the additional information they require in order to name generated artifacts. Configuration is provided
@@ -173,7 +161,31 @@ The specific configuration accepted for each supported language is presented in 
 - [:octicons-book-24: Java Target](targets/java.md)
 - [:octicons-book-24: Python Target](targets/python.md)
 
-### `tsc`
+### Typescript configuration
+
+By default, `jsii` will generate a `tsconfig.json` for you, using best practice settings that are optimized for
+widespread support and backwards compatibility. Use the `excludeTypescript` and `tsc` settings to customize the
+configuration of a limited subset of typescript compiler options.
+
+In some situations it can be required to customize the typescript configuration even further. Use the `tsconfig`
+setting to provide the jsii compiler with custom typescript configuration file. Such a user-provider tsconfig must
+follow certain rules to be a valid config for use with jsii. These rules are enforced via the `validateTsconfig`
+setting. You may choose the level of validation to match your use case.
+
+!!! info
+    Using a user-provider tsconfig and configuration via `excludeTypescript` and `tsc` are mutually exclusive.
+    Specifically when using a user-provided tsconfig, any other configuration settings will be ignored.
+
+#### `excludeTypescript`
+
+By default, `jsii` will include _all_ `*.ts` files (except `.d.ts` files) in the `TypeScript` compiler input. This can
+be problematic for example when the package's build or test procedure generates `.ts` files that cannot be compiled with
+`jsii`'s compiler settings.
+
+The `excludeTypescript` configuration accepts a list of glob patterns. Files matching any of those patterns will be
+excluded from the `TypeScript` compiler input.
+
+#### `tsc`
 
 In order to the generated `javascript` can be properly loaded by the `jsii` runtimes, `jsii` generates a
 [`tsconfig.json`] file with fixed settings at the beginning of the compilation pass. Certain configuration options can
@@ -188,11 +200,11 @@ are set in the `jsii.tsc` section of the `package.json` file, but use the same n
 - `forceConsistentCasingInFileNames` - if `true`, will make the `TypeScript` compiler care about the casing of files
    specified in `import` statements. This is helpful if you're developing on a filesystem that is case-insensitive
    (Mac/Win), but building/deploying on a filesystem that is case-sensitive (Linux).
-- `declarationMap`, `inlineSourceMap`, `inlineSources`, and `sourceMap` allow confifuring the source map generation.
+- `declarationMap`, `inlineSourceMap`, `inlineSources`, and `sourceMap` allow configuring the source map generation.
   This option can be useful to finely control your local development experience (for example, by enabling
   `declarationMap`), or to optimize the emitted code size (by disabling source maps entirely).
-  + if any of these options is specified, the source map configuration will exactly match what is being provided here
-  + If none are specified, the default settings will be used: `#!ts { inlineSourceMap: true, inlineSources: true }`
+  - if any of these options is specified, the source map configuration will exactly match what is being provided here
+  - If none are specified, the default settings will be used: `#!ts { inlineSourceMap: true, inlineSources: true }`
 - `types` allows limiting which visible type libraries get loaded in the global scope by the typescript compiler. By
   default, all visible `@types/*` packages will be loaded, which can be undesirable (in particular in monorepos, where
   some type libraries are not compatible with the TypeScript compiler version that `jsii` uses). The value specified
@@ -204,7 +216,30 @@ Refer to the [TypeScript compiler options reference][ts-options] for more inform
 [`tsconfig.json`]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 [ts-options]: https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
-### `versionFormat`
+#### `tsconfig` _(available from jsii >= 5.2)_
+
+Provide this setting, to use a user-provided typescript configuration with `jsii`. Set to the name of the tsconfig
+file that should be used. Usually this will be `"tsconfig.json"`, but can be set to any filename.
+
+The provided tsconfig is subject to validation rules, see below for more details.
+
+#### `validateTsconfig` _(available from jsii >= 5.2)_
+
+A user-provider typescript config must follow certain rules to be a valid config for use with jsii. These rules are
+enforced by the `validateTsconfig` setting. You may choose the level of validation to suit your use case.
+
+--8<-- "partials/tsconfig-rulesets.md"
+
+### Metadata
+
+#### `metadata`
+
+The `metadata` section can be used to record additional metadata as key-value pairs that will be recorded as-is into the
+`.jsii` assembly file. That metadata can later be inspected using [`jsii-reflect`][jsii-reflect] utilities, for example.
+
+[jsii-reflect]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
+
+#### `versionFormat`
 
 Determines the format of the `jsii` toolchain version string that will be included in the `.jsii` assembly file's
 `jsiiVersion` attribute.

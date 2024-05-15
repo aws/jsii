@@ -59,6 +59,22 @@ reserved words in an identifier.
 
     [report bugs]: https://github.com/aws/jsii/issues/new/choose
 
+#### `--tsconfig`, `--validate-tsconfig` _(available from jsii >= 5.2)_
+
+By default, jsii will generate a `tsconfig.json` for you, using best practice
+settings that are optimized for widespread support and backwards compatibility.
+In some situations it can be useful to provide a custom typescript
+configuration file to compile the jsii project.
+
+Use the `--tsconfig` option to provide a path the config file, usually this
+will be `--tsconfig=tsconfig.json`.
+
+A user-provider typescript config must follow certain rules to be a valid
+config for use with jsii. These rules are enforced by the `--validate-tsconfig`
+option. You may choose the level of validation to suit your use case.
+
+--8<-- "partials/tsconfig-rulesets.md"
+
 #### `--strip-deprecated`
 
 The `--strip-deprecated` option modifies the compilation flow such that all
