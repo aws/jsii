@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1715705655214,
+  "lastUpdate": 1715782732052,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29177,6 +29177,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 20455.264127363276,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38345.368474200004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "212676c0d6a8a584047277ca6a2f843bb609c9cc",
+          "message": "chore(deps): Bump github.com/fatih/color from 1.16.0 to 1.17.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4513)\n\nBumps [github.com/fatih/color](https://github.com/fatih/color) from 1.16.0 to 1.17.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/fatih/color/releases\">github.com/fatih/color's releases</a>.</em></p>\n<blockquote>\n<h2>v1.17.0</h2>\n<h2>What's Changed</h2>\n<ul>\n<li>Fix multi-parameter println spacing by <a href=\"https://github.com/klauspost\"><code>@​klauspost</code></a> in <a href=\"https://redirect.github.com/fatih/color/pull/228\">fatih/color#228</a></li>\n<li>ci: update Go and Staticcheck versions by <a href=\"https://github.com/fatih\"><code>@​fatih</code></a> in <a href=\"https://redirect.github.com/fatih/color/pull/222\">fatih/color#222</a></li>\n<li>Bump golang.org/x/sys from 0.14.0 to 0.17.0 by <a href=\"https://github.com/dependabot\"><code>@​dependabot</code></a> in <a href=\"https://redirect.github.com/fatih/color/pull/221\">fatih/color#221</a></li>\n<li>Bump actions/setup-go from 4 to 5 by <a href=\"https://github.com/dependabot\"><code>@​dependabot</code></a> in <a href=\"https://redirect.github.com/fatih/color/pull/217\">fatih/color#217</a></li>\n<li>Bump golang.org/x/sys from 0.17.0 to 0.18.0 by <a href=\"https://github.com/dependabot\"><code>@​dependabot</code></a> in <a href=\"https://redirect.github.com/fatih/color/pull/224\">fatih/color#224</a></li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li><a href=\"https://github.com/klauspost\"><code>@​klauspost</code></a> made their first contribution in <a href=\"https://redirect.github.com/fatih/color/pull/228\">fatih/color#228</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/fatih/color/compare/v1.16.0...v1.17.0\">https://github.com/fatih/color/compare/v1.16.0...v1.17.0</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/fatih/color/commit/b6598b12a645b3159c1bce51b0e3fafc269510be\"><code>b6598b1</code></a> Merge pull request <a href=\"https://redirect.github.com/fatih/color/issues/228\">#228</a> from klauspost/fix-println-issue-218</li>\n<li><a href=\"https://github.com/fatih/color/commit/00b1811a3d97bdd8f097cc128ab91600400e4c81\"><code>00b1811</code></a> Fix multi-parameter println spacing</li>\n<li><a href=\"https://github.com/fatih/color/commit/04994a819d7d5aa7183dc53be4cfe79fe8b4394c\"><code>04994a8</code></a> Merge pull request <a href=\"https://redirect.github.com/fatih/color/issues/224\">#224</a> from fatih/dependabot/go_modules/golang.org/x/sys-0.18.0</li>\n<li><a href=\"https://github.com/fatih/color/commit/7526cad07e356c227632f38d0c8a787b42dd5487\"><code>7526cad</code></a> Merge branch 'main' into dependabot/go_modules/golang.org/x/sys-0.18.0</li>\n<li><a href=\"https://github.com/fatih/color/commit/8d058ca54cef8604970cccd2534773ebf90fa35b\"><code>8d058ca</code></a> Merge pull request <a href=\"https://redirect.github.com/fatih/color/issues/222\">#222</a> from fatih/ci-updates</li>\n<li><a href=\"https://github.com/fatih/color/commit/2ac809fb73860bc102e1369dc94860443c7d6514\"><code>2ac809f</code></a> Bump golang.org/x/sys from 0.17.0 to 0.18.0</li>\n<li><a href=\"https://github.com/fatih/color/commit/51a7bbf7dca7c369826997b8760aa8dcb026227a\"><code>51a7bbf</code></a> ci: update Go and Staticcheck versions</li>\n<li><a href=\"https://github.com/fatih/color/commit/799c49c6395ebde70c50f02c82cdf990e2ec31d2\"><code>799c49c</code></a> Merge pull request <a href=\"https://redirect.github.com/fatih/color/issues/217\">#217</a> from fatih/dependabot/github_actions/actions/setup-go-5</li>\n<li><a href=\"https://github.com/fatih/color/commit/f8e0ec9c97e622f589f2a9544186dc44859938ed\"><code>f8e0ec9</code></a> Merge branch 'main' into dependabot/github_actions/actions/setup-go-5</li>\n<li><a href=\"https://github.com/fatih/color/commit/298abd8b9e6944ceb5b62a6368f05e2726df0752\"><code>298abd8</code></a> Merge pull request <a href=\"https://redirect.github.com/fatih/color/issues/221\">#221</a> from fatih/dependabot/go_modules/golang.org/x/sys-0.17.0</li>\n<li>Additional commits viewable in <a href=\"https://github.com/fatih/color/compare/v1.16.0...v1.17.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=github.com/fatih/color&package-manager=go_modules&previous-version=1.16.0&new-version=1.17.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-05-15T13:39:45Z",
+          "tree_id": "b3b2170288ebf3ee6b2b47808389c83dbdc77f23",
+          "url": "https://github.com/aws/jsii/commit/212676c0d6a8a584047277ca6a2f843bb609c9cc"
+        },
+        "date": 1715782728344,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52003.621178900044,
+            "unit": "milliseconds",
+            "range": 2485102.827360538,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52003.621178900044 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37975.546773250004,
+            "unit": "milliseconds",
+            "range": 155517.99541008225,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37975.546773250004 milliseconds over 20 runs"
           }
         ]
       }
