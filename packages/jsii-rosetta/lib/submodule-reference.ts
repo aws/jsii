@@ -81,7 +81,7 @@ export class SubmoduleReference {
 
 /**
  * Determines what symbols are imported by the given TypeScript import
- * delcaration, in the context of the specified file, using the provided type
+ * declaration, in the context of the specified file, using the provided type
  * checker.
  *
  * @param decl        an import declaration.

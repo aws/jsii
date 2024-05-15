@@ -106,7 +106,7 @@ neg.downgrade-to-readonly.ts:8:24 - error JSII5010: "jsii.Implementation#propert
   neg.downgrade-to-readonly.ts:4:5
     4     property: string;
           ~~~~~~~~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -277,7 +277,7 @@ neg.implementation-changes-types.4.ts:9:21 - error JSII5004: "jsii.SomethingImpl
   neg.implementation-changes-types.4.ts:5:14
     5   something: Superclass;
                    ~~~~~~~~~~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -290,7 +290,7 @@ neg.implementation-changes-types.5.ts:14:21 - error JSII5004: "jsii.ISomethingEl
   neg.implementation-changes-types.5.ts:5:14
     5   something: Superclass;
                    ~~~~~~~~~~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -318,7 +318,7 @@ neg.implementing-property-changes-optionality.ts:7:20 - error JSII5009: "jsii.Im
   neg.implementing-property-changes-optionality.ts:3:11
     3   property?: string;
                 ~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -331,7 +331,7 @@ neg.implementing-property-changes-optionality.1.ts:7:20 - error JSII5009: "jsii.
   neg.implementing-property-changes-optionality.1.ts:3:27
     3   public abstract property?: string;
                                 ~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -344,7 +344,7 @@ neg.implementing-property-changes-optionality.2.ts:7:20 - error JSII5009: "jsii.
   neg.implementing-property-changes-optionality.2.ts:3:18
     3   public property?: string = undefined;
                        ~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -388,7 +388,7 @@ neg.inheritance-changes-types.4.ts:9:21 - error JSII5004: "jsii.SomethingSpecifi
   neg.inheritance-changes-types.4.ts:5:10
     5   public something = new Superclass();
                ~~~~~~~~~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -401,7 +401,7 @@ neg.inheritance-changes-types.5.ts:14:21 - error JSII5004: "jsii.SomethingElse#s
   neg.inheritance-changes-types.5.ts:5:21
     5   public something: Superclass = new Superclass();
                           ~~~~~~~~~~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -414,7 +414,7 @@ neg.inheritance-changes-types.from-base.ts:6:30 - error JSII5009: "jsii.HasRequi
   neg.inheritance-changes-types.from-base.ts:2:28
     2   readonly optionalProperty?: number;
                                  ~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 
 `;
 
@@ -650,7 +650,7 @@ neg.override-changes-visibility.ts:14:3 - error JSII5002: "jsii.ChildClass#prope
   neg.override-changes-visibility.ts:5:3
     5   protected readonly property?: string;
         ~~~~~~~~~
-    The implemented delcaration is here.
+    The implemented declaration is here.
 error JSII5002: "jsii.ChildClass#method" changes visibility to public when overriding jsii.BaseClass. Change it to protected
 
 `;
@@ -720,7 +720,7 @@ neg.static-member-mixing.1.ts:11:1 - error JSII5014: Instance member "funFunctio
 `;
 
 exports[`static-member-mixing.2 1`] = `
-neg.static-member-mixing.2.ts:1:1 - error JSII5013: Member "funFunction" of class "jsii.TheClass" has both a static and an instance delcaration
+neg.static-member-mixing.2.ts:1:1 - error JSII5013: Member "funFunction" of class "jsii.TheClass" has both a static and an instance declaration
 
   1 export class TheClass {
     ~~~~~~~~~~~~~~~~~~~~~~~

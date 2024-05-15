@@ -36,7 +36,7 @@ interface GoLanguageContext {
   isPtrAssignmentRValue: boolean;
 
   /**
-   * Whether the current element is a parameter delcaration name.
+   * Whether the current element is a parameter declaration name.
    */
   isParameterName: boolean;
 
@@ -46,7 +46,7 @@ interface GoLanguageContext {
   isStruct: boolean;
 
   /**
-   * Whether the context is within an interface delcaration.
+   * Whether the context is within an interface declaration.
    */
   isInterface: boolean;
 
