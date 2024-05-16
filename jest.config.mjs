@@ -64,7 +64,7 @@ export function overriddenConfig(overrides) {
       ]);
 
       // TypeScript appears to choke if we do the "as any" in the same
-      // expression as the key access, so we delcare surrogate varibales...
+      // expression as the key access, so we declare surrogate variables...
       for (const key of Array.from(allKeys).sort()) {
         const originalValue = original[key];
         const overrideValue = override[key];
