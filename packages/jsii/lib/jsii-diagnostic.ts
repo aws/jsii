@@ -575,7 +575,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public static readonly JSII_5013_STATIC_INSTANCE_CONFLICT = Code.error({
     code: 5013,
     formatter: (member: string, type: spec.ClassType) =>
-      `Member "${member}" of class "${type.fqn}" has both a static and an instance delcaration`,
+      `Member "${member}" of class "${type.fqn}" has both a static and an instance declaration`,
     name: 'language-compatibility/static-instance-conflict',
   });
 

@@ -523,7 +523,7 @@ function _defaultValidations(): ValidationFunction[] {
                 mod.kind === ts.SyntaxKind.PublicKeyword ||
                 mod.kind === ts.SyntaxKind.ProtectedKeyword,
             ) ?? declarationName(expectedNode),
-            'The implemented delcaration is here.',
+            'The implemented declaration is here.',
           ),
         );
       }
@@ -537,7 +537,7 @@ function _defaultValidations(): ValidationFunction[] {
             expected.type,
           ).maybeAddRelatedInformation(
             expectedNode?.type ?? declarationName(expectedNode),
-            'The implemented delcaration is here.',
+            'The implemented declaration is here.',
           ),
         );
       }
@@ -555,7 +555,7 @@ function _defaultValidations(): ValidationFunction[] {
             expectedNode?.modifiers?.find(
               (mod) => mod.kind === ts.SyntaxKind.ReadonlyKeyword,
             ) ?? declarationName(expectedNode),
-            'The implemented delcaration is here.',
+            'The implemented declaration is here.',
           ),
         );
       }
@@ -573,7 +573,7 @@ function _defaultValidations(): ValidationFunction[] {
             expectedNode?.questionToken ??
               expectedNode?.type ??
               declarationName(expectedNode),
-            'The implemented delcaration is here.',
+            'The implemented declaration is here.',
           ),
         );
       }
