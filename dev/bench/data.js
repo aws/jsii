@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1715782732052,
+  "lastUpdate": 1715857184633,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29215,6 +29215,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 155517.99541008225,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37975.546773250004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "harold@pwrdrvr.com",
+            "name": "Harold Hunt",
+            "username": "huntharo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8e5927f3f8e5237048154adaeb9cc279d52f81a6",
+          "message": "chore: fix typo in error message - `delcaration` (#4514)\n\nObserved the error below: `The implemented delcaration is here.`\n\n`delcaration` - I kept looking at this because it hurt my eyes until I finally realized it was a typo.\n\nAt the very least, this can be closed as won't fix so that at least there will be a record for the next person that searches for an issue or fix for it.\n\n## Observed Error Message\n\n```\n[2024-05-15T12:22:12.636] [ERROR] jsii/compiler - Type model errors prevented the JSII assembly from being created\nsrc/myconstruct.ts:191:31 - error JSII5004: \"cdkConstruct.MyConstruct#dynamoDBTable\" changes the property type to \"aws-cdk-lib.aws_dynamodb.Table\" when implementing cdkConstruct.IMyConstruct. Change it to \"aws-cdk-lib.aws_dynamodb.ITable\"\n\n191   public get dynamoDBTable(): dynamodb.Table | undefined {\n                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  src/myconstruct.ts:174:28\n    174   readonly dynamoDBTable?: dynamodb.ITable;\n                                   ~~~~~~~~~~~~~~~\n    The implemented delcaration is here.\n👾 Task \"build » compile\" failed when executing \"jsii --silence-warnings=reserved-word\" (cwd: packages/cdk)\n```\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-05-16T10:21:02Z",
+          "tree_id": "367c276642d2bef9a9e8fa4cf26bdcd25dfced9d",
+          "url": "https://github.com/aws/jsii/commit/8e5927f3f8e5237048154adaeb9cc279d52f81a6"
+        },
+        "date": 1715857180691,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50862.657773,
+            "unit": "milliseconds",
+            "range": 976057.2458230021,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50862.657773 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39109.88059485001,
+            "unit": "milliseconds",
+            "range": 157661.96912336163,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39109.88059485001 milliseconds over 20 runs"
           }
         ]
       }
