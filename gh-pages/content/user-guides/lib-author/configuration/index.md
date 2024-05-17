@@ -163,12 +163,12 @@ The specific configuration accepted for each supported language is presented in 
 
 ### Typescript configuration
 
-By default, `jsii` will generate a `tsconfig.json` for you, using best practice settings that are optimized for
-widespread support and backwards compatibility. Use the `excludeTypescript` and `tsc` settings to customize the
-configuration of a limited subset of typescript compiler options.
+By default, `jsii` generates a `tsconfig.json` for you, using best practice settings that are optimized for
+widespread support and backwards compatibility. Use the `excludeTypescript` and `tsc` settings to configure
+some supported typescript compiler options.
 
-In some situations it can be required to customize the typescript configuration even further. Use the `tsconfig`
-setting to provide the jsii compiler with custom typescript configuration file. Such a user-provider tsconfig must
+You may want to customize the typescript configuration even further. In this case, use the `tsconfig` setting
+to instruct the jsii compiler to use user-owned typescript configuration file. Such a user-provider tsconfig must
 follow certain rules to be a valid config for use with jsii. These rules are enforced via the `validateTsconfig`
 setting. You may choose the level of validation to match your use case.
 
@@ -218,12 +218,20 @@ Refer to the [TypeScript compiler options reference][ts-options] for more inform
 
 #### `tsconfig` _(available from jsii >= 5.2)_
 
+!!! warn
+    :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
+    through early adopters. Use at your own risk, and please any [report bugs].
+
 Provide this setting, to use a user-provided typescript configuration with `jsii`. Set to the name of the tsconfig
 file that should be used. Usually this will be `"tsconfig.json"`, but can be set to any filename.
 
 The provided tsconfig is subject to validation rules, see below for more details.
 
-#### `validateTsconfig` _(available from jsii >= 5.2)_
+#### :test_tube:  `validateTsconfig` _(available from jsii >= 5.2)_
+
+!!! warn
+    :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
+    through early adopters. Use at your own risk, and please any [report bugs].
 
 A user-provider typescript config must follow certain rules to be a valid config for use with jsii. These rules are
 enforced by the `validateTsconfig` setting. You may choose the level of validation to suit your use case.
@@ -305,3 +313,4 @@ modules, **must** also be referenced in the [`bundledDependencies`][npm-bundled]
 within the NPM package.
 
 [npm-bundled]: https://docs.npmjs.com/files/package.json#bundleddependencies
+[report bugs]: https://github.com/aws/jsii/issues/new/choose
