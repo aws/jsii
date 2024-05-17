@@ -224,8 +224,15 @@ Refer to the [TypeScript compiler options reference][ts-options] for more inform
 
 Provide this setting, to use a user-provided typescript configuration with `jsii`. Set to the name of the tsconfig
 file that should be used. Usually this will be `"tsconfig.json"`, but can be set to any filename.
-
 The provided tsconfig is subject to validation rules, see below for more details.
+
+```json
+{
+  "jsii": {
+    "tsconfig": "tsconfig.json"
+  }
+}
+```
 
 #### :test_tube:  `validateTsconfig` _(available from jsii >= 5.2)_
 
@@ -233,10 +240,20 @@ The provided tsconfig is subject to validation rules, see below for more details
     :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
     through early adopters. Use at your own risk, and please any [report bugs].
 
-A user-provider typescript config must follow certain rules to be a valid config for use with jsii. These rules are
-enforced by the `validateTsconfig` setting. You may choose the level of validation to suit your use case.
+A user-provider typescript config must follow certain rules to be a valid config for use with jsii.
+By default the tsconfig is validated against the `strict` rule set.
+If needed, you can change the level of enforcement with the `validateTsconfig` setting.
 
 --8<-- "partials/tsconfig-rulesets.md"
+
+```json
+{
+  "jsii": {
+    "tsconfig": "tsconfig.json",
+    "validateTsconfig": "generated" // ensure user tsconfig is similar to jsii-generated tsconfig
+  }
+}
+```
 
 ### Metadata
 
