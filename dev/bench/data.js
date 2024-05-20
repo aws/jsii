@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1716210874193,
+  "lastUpdate": 1716213700964,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29367,6 +29367,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 180804.11259318134,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38496.78751755001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f1bb4e6556cff77bf1528b7681c4f22048ca28cd",
+          "message": "chore: small fixes to docs for user-provided tsconfig (#4518)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-05-20T13:22:28Z",
+          "tree_id": "c4c3eda4806d02966bb3a5a5f56a086f56dd2888",
+          "url": "https://github.com/aws/jsii/commit/f1bb4e6556cff77bf1528b7681c4f22048ca28cd"
+        },
+        "date": 1716213695793,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51443.11981254997,
+            "unit": "milliseconds",
+            "range": 1845734.0095760026,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51443.11981254997 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38843.87671210001,
+            "unit": "milliseconds",
+            "range": 304118.6315098038,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38843.87671210001 milliseconds over 20 runs"
           }
         ]
       }
