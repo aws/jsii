@@ -135,16 +135,16 @@ package maintainer, the generic interpretation for those on packages is:
 In order to configure the behavior of `jsii`, the `package.json` file must include a `jsii` section that can contain the
 following entries:
 
-| Field               | Type                                           |            Required             | Default                              | Supported versions |
-| ------------------- | ---------------------------------------------- | :-----------------------------: | ------------------------------------ | ------------------ |
-| `excludeTypescript` | `#!ts string[]`                                |                                 | _none_                               | _all_              |
-| `metadata`          | `#!ts object`                                  |                                 | _none_                               | _all_              |
-| `projectReferences` | `#!ts boolean`                                 |                                 | `#!ts true`                          | _all_              |
-| `targets`           | `#!ts object`                                  | :octicons-check-circle-fill-24: |                                      | _all_              |
-| `tsc`               | `#!ts object`                                  |                                 | `#!ts { outDir: '.', rootDir: '.' }` | _all_              |
-| `tsconfig`          | `#!ts string`                                  |                                 | _none_                               | `>= 5.2`           |
-| `validateTsconfig`  | `#!ts 'strict'\|'generated'\|'minimal'\|'off'` |                                 | _none_                               | `>= 5.2`           |
-| `versionFormat`     | `#!ts 'short'\|'full'`                         |                                 | `#!ts 'full'`                        | _all_              |
+| Field               | Type                                              |            Required             | Default                              | Supported versions |
+| ------------------- | ------------------------------------------------- | :-----------------------------: | ------------------------------------ | ------------------ |
+| `excludeTypescript` | `#!ts string[]`                                   |                                 | _none_                               | _all_              |
+| `metadata`          | `#!ts object`                                     |                                 | _none_                               | _all_              |
+| `projectReferences` | `#!ts boolean`                                    |                                 | `#!ts true`                          | _all_              |
+| `targets`           | `#!ts object`                                     | :octicons-check-circle-fill-24: |                                      | _all_              |
+| `tsc`               | `#!ts object`                                     |                                 | `#!ts { outDir: '.', rootDir: '.' }` | _all_              |
+| `tsconfig`          | `#!ts string`                                     |                                 | _none_                               | `>= 5.2`           |
+| `validateTsconfig`  | `#!ts 'strict' | 'generated' | 'minimal' | 'off'` |                                 | _none_                               | `>= 5.2`           |
+| `versionFormat`     | `#!ts 'short' | 'full'`                           |                                 | `#!ts 'full'`                        | _all_              |
 
 ### Language targets
 
@@ -216,7 +216,9 @@ Refer to the [TypeScript compiler options reference][ts-options] for more inform
 [`tsconfig.json`]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 [ts-options]: https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
-#### `tsconfig` _(available from jsii >= 5.2)_
+#### `tsconfig`
+
+_Available from jsii >= 5.2_
 
 !!! warn
     :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
@@ -234,7 +236,9 @@ The provided tsconfig is subject to validation rules, see below for more details
 }
 ```
 
-#### :test_tube:  `validateTsconfig` _(available from jsii >= 5.2)_
+#### `validateTsconfig`
+
+_Available from jsii >= 5.2_
 
 !!! warn
     :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
