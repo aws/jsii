@@ -14,13 +14,12 @@ must be available. Current `node` runtime versions support status is as follows:
 When developing _jsii modules_, the SDK for each desired target language must be available for `jsii-pacmak` to be able
 to produce releasable artifacts.
 
-| Language/Platform | SDK Requirement              |
-| ----------------- | ---------------------------- |
-| .NET              | .NET ≥ 6.0                   |
-| Go                | Go ≥ 1.18                    |
-| Java              | JDK ≥ 8 *and* Maven ≥ 3.6    |
-| Python            | Python ≥ 3.8                 |
-
+| Language/Platform | SDK Requirement           |
+| ----------------- | ------------------------- |
+| .NET              | .NET ≥ 6.0                |
+| Go                | Go ≥ 1.18                 |
+| Java              | JDK ≥ 8 _and_ Maven ≥ 3.6 |
+| Python            | Python ≥ 3.8              |
 
 ## :octicons-desktop-download-24: Download Locations
 
@@ -28,13 +27,14 @@ This table provides typical download locations for the prerequisites mentioned i
 also be installed using traditional package managers (standard for the operating system and platform).
 
 | Tool            | Description                              | Location                |
-| --------------- | ---------------------------------------- | ------------------------|
+| --------------- | ---------------------------------------- | ----------------------- |
 | .NET            | Official Microsoft .NET SDK distribution | [Download][dl-dotnet]   |
 | Amazon Corretto | Amazon's free OpenJDK distribution       | [Download][dl-corretto] |
 | Go              | Official Go distribution                 | [Download][dl-go]       |
-| OpenJDK         | Oracle OpenJDK distribution              | [Download][dl-openjdk]  |
 | Maven           | Official Maven distribution              | [Download][dl-mvn]      |
-| Node            | Official NodeJS distribution             | [Download][dl-node]     |
+| Node            | Official Node.js distribution            | [Download][dl-node]     |
+| OpenJDK         | Oracle OpenJDK distribution              | [Download][dl-openjdk]  |
+| Python          | Official Python distribution             | [Download][dl-python]   |
 
 [dl-dotnet]: https://dotnet.microsoft.com/download
 [dl-go]: https://golang.org/dl/

@@ -84,6 +84,69 @@ describe('jsii-config', () => {
     });
   });
 
+  describe('user-provided tsconfig', () => {
+    const configAnswers = {
+      tsconfig: 'user-provided',
+      stability: 'experimental',
+      types: 'index.d.ts',
+      jsii: {
+        versionFormat: 'short',
+        tsconfig: 'tsconfig.dev.json',
+        validateTsconfig: 'generated',
+      },
+    };
+
+    beforeEach(() => {
+      promptMock
+        .mockResolvedValueOnce({
+          jsiiTargets: [],
+          ...configAnswers,
+        })
+        .mockResolvedValueOnce({
+          confirm: true,
+        });
+
+      readJsonMock.mockImplementation((_path, cb) => {
+        cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
+      });
+    });
+
+    it('prompts for tsc.outDir only when jsii-managed tsconfig is enabled', async () => {
+      await jsiiConfig('./package.json');
+      const enabled = { tsconfig: 'jsii-managed' };
+      const disabled = { tsconfig: 'user-provided' };
+      const questions = promptMock.mock.calls[0][0];
+      const subject = findQuestions(['jsii.tsc.outDir'], questions);
+
+      subject.forEach((question: any) => {
+        expect(question.when(enabled)).toBe(true);
+      });
+
+      subject.forEach((question: any) => {
+        expect(question.when(disabled)).toBe(false);
+      });
+    });
+
+    it('prompts for user-provided tsconfig settings only when user-provided tsconfig is enabled', async () => {
+      await jsiiConfig('./package.json');
+      const enabled = { tsconfig: 'user-provided' };
+      const disabled = { tsconfig: 'jsii-managed' };
+      const questions = promptMock.mock.calls[0][0];
+      const subject = findQuestions(
+        ['jsii.tsconfig', 'jsii.validateTsconfig'],
+        questions,
+      );
+
+      subject.forEach((question: any) => {
+        expect(question.when(enabled)).toBe(true);
+      });
+
+      subject.forEach((question: any) => {
+        expect(question.when(disabled)).toBe(false);
+      });
+    });
+  });
+
   describe('no existing jsii configuration', () => {
     const configAnswers = {
       stability: 'experimental',
@@ -128,16 +191,18 @@ describe('jsii-config', () => {
     it('prompts user for top level jsii config and language targets', async () => {
       await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
-      const [stability, types, outdir, versionFormat, targets] = findQuestions(
-        [
-          'stability',
-          'types',
-          'jsii.outdir',
-          'jsii.versionFormat',
-          'jsiiTargets',
-        ],
-        questions,
-      );
+      const [stability, types, tscOutDir, versionFormat, targets, tsconfig] =
+        findQuestions(
+          [
+            'stability',
+            'types',
+            'jsii.tsc.outDir',
+            'jsii.versionFormat',
+            'jsiiTargets',
+            'tsconfig',
+          ],
+          questions,
+        );
       expect(stability).toHaveProperty('type', 'list');
       expect(stability).toHaveProperty('choices', [
         'deprecated',
@@ -148,17 +213,26 @@ describe('jsii-config', () => {
       expect(stability).toHaveProperty('default', 'experimental');
 
       expect(types).toHaveProperty('type', 'input');
-      expect(types).not.toHaveProperty('default');
+      expect(types).toHaveProperty('default', 'index.d.ts');
 
-      expect(outdir).toHaveProperty('type', 'input');
-      expect(outdir).toHaveProperty('default', 'dist');
+      expect(tscOutDir).toHaveProperty('type', 'input');
+      expect(tscOutDir).toHaveProperty('default', 'dist');
 
       expect(versionFormat).toHaveProperty('type', 'list');
       expect(versionFormat.choices).toContain('full');
       expect(versionFormat.choices).toContain('short');
 
       expect(targets).toHaveProperty('type', 'checkbox');
-      expect(targets).toHaveProperty('choices', ['java', 'python', 'dotnet']);
+      expect(targets).toHaveProperty('choices', [
+        'java',
+        'python',
+        'dotnet',
+        'go',
+      ]);
+
+      expect(tsconfig).toHaveProperty('type', 'list');
+      expect(tsconfig.choices).toContain('jsii-managed');
+      expect(tsconfig.choices).toContain('user-provided');
     });
 
     it('prompts for java specific values when only target enabled', async () => {
@@ -243,7 +317,7 @@ describe('jsii-config', () => {
 
     [
       'types',
-      'jsii.outdir',
+      'jsii.tsc.outDir',
       'jsii.targets.java.package',
       'jsii.targets.java.maven.groupId',
       'jsii.targets.java.maven.artifactId',
@@ -282,7 +356,9 @@ describe('jsii-config', () => {
       stability: 'experimental',
       types: 'TYPES',
       jsii: {
-        outdir: 'OUTDIR',
+        tsc: {
+          outDir: 'OUTDIR',
+        },
         versionFormat: 'short',
         targets: {
           java: {
@@ -313,7 +389,9 @@ describe('jsii-config', () => {
       stability: 'stable',
       types: 'new_types.d.ts',
       jsii: {
-        outdir: 'dist',
+        tsc: {
+          outDir: 'dist',
+        },
         versionFormat: 'short',
       },
     };
@@ -342,7 +420,7 @@ describe('jsii-config', () => {
         jsiiTargets: ['java', 'dotnet', 'python'],
         stability: 'experimental',
         types: 'TYPES',
-        ['jsii.outdir']: 'OUTDIR',
+        ['jsii.tsc.outDir']: 'OUTDIR',
         ['jsii.versionFormat']: 'short',
         ['jsii.targets.java.package']: 'JAVA_PACKAGE',
         ['jsii.targets.java.maven.groupId']: 'JAVA_MAVEN_GROUPID',
@@ -383,7 +461,9 @@ describe('jsii-config', () => {
     const answers = {
       jsiiTargets: ['python'],
       jsii: {
-        outdir: 'OUTDIR',
+        tsc: {
+          outDir: 'OUTDIR',
+        },
         versionFormat: 'short',
         targets: {
           python: {
@@ -414,7 +494,7 @@ describe('jsii-config', () => {
       await jsiiConfig('./package.json');
       const defaultMap: { [key: string]: any } = {
         jsiiTargets: ['python'],
-        ['jsii.outdir']: 'OUTDIR',
+        ['jsii.tsc.outDir']: 'OUTDIR',
         ['jsii.versionFormat']: 'short',
         ['jsii.targets.python.distName']: 'PYTHON_DISTNAME',
         ['jsii.targets.python.module']: 'PYTHON_MODULE',

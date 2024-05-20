@@ -1,4 +1,4 @@
-import { QuestionCollection } from 'inquirer';
+import { QuestionCollection, Separator } from 'inquirer';
 
 import schema, { ConfigPromptsSchema, BasePackageJson } from './schema';
 import { getNestedValue, flattenKeys } from './util';
@@ -55,8 +55,28 @@ function buildQuestions(
     choices: Object.keys(schema.jsii.targets),
     default: Object.keys(currentTargets),
   };
+  const tsconfigPrompt: QuestionCollection = {
+    name: 'tsconfig',
+    message:
+      'Typescript config - should jsii generate a compatible tsconfig or do you want to manage it yourself',
+    type: 'list',
+    choices: [
+      'jsii-managed',
+      new Separator('tsconfig will be managed and generated for you by jsii'),
+      new Separator(),
+      'user-provided',
+      new Separator(
+        'bring your own user-provided tsconfig for advanced setups',
+      ),
+    ],
+    default: 'jsii-managed',
+  };
 
-  return [targetsPrompt, ...flattenNestedQuestions(schema, current)];
+  return [
+    targetsPrompt,
+    tsconfigPrompt,
+    ...flattenNestedQuestions(schema, current),
+  ];
 }
 
 export default (current: BasePackageJson) => buildQuestions(schema, current);

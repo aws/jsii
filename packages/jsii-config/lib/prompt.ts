@@ -29,7 +29,11 @@ export default async function getAnswers(
   const answers = (await inquirer.prompt(
     getQuestions(current),
   )) as PromptAnswers;
-  const { jsiiTargets: _, ...config } = removeEmptyValues(answers);
+  const {
+    jsiiTargets: _1,
+    tsconfig: _2,
+    ...config
+  } = removeEmptyValues(answers);
   const confirmInput = await inquirer.prompt({
     type: 'confirm',
     message: `Confirm Jsii Config\n${JSON.stringify(
