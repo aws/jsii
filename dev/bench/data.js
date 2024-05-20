@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1715951609098,
+  "lastUpdate": 1716198189906,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29291,6 +29291,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 93231.14527173848,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41292.591407850014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6e00874c9a70890b9291a4fa534eb497e7a186f9",
+          "message": "fix(jsii-config): update jsii-config and docs with latest settings (#4515)\n\nUpdates jsii-config and the website with the latest settings for user-provided TypeScript configs.\n\nThe update to jsii-config includes some other changes that have previously been missed, including support for go and fixing a the outdir configuration.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-05-20T09:03:40Z",
+          "tree_id": "156043f1641215825c041c3a3191612013bddd9e",
+          "url": "https://github.com/aws/jsii/commit/6e00874c9a70890b9291a4fa534eb497e7a186f9"
+        },
+        "date": 1716198185171,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51717.67176225001,
+            "unit": "milliseconds",
+            "range": 1546587.4687259665,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51717.67176225001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39513.19717965001,
+            "unit": "milliseconds",
+            "range": 109234.40089308047,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39513.19717965001 milliseconds over 20 runs"
           }
         ]
       }
