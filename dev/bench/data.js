@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1716814154127,
+  "lastUpdate": 1716817027957,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29443,6 +29443,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 34356.76750823048,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39047.55548885 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "76d630e0419ccfcc4e766128d9f0495bc06f508e",
+          "message": "chore(deps): Update setuptools requirement from ~=69.5.1 to ~=70.0.0 in /packages/@jsii/python-runtime (#4524)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v70.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Emit a warning when <code>[tools.setuptools]</code> is present in <code>pyproject.toml</code> and will be ignored. -- by :user:<code>SnoopJ</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4150\">#4150</a>)</li>\n<li>Improved <code>AttributeError</code> error message if <code>pkg_resources.EntryPoint.require</code> is called without extras or distribution\nGracefully &quot;do nothing&quot; when trying to activate a <code>pkg_resources.Distribution</code> with a <code>None</code> location, rather than raising a <code>TypeError</code>\n-- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4262\">#4262</a>)</li>\n<li>Typed the dynamically defined variables from <code>pkg_resources</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4267\">#4267</a>)</li>\n<li>Modernized and refactored VCS handling in package_index. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4332\">#4332</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>In install command, use super to call the superclass methods. Avoids race conditions when monkeypatching from _distutils_system_mod occurs late. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4136\">#4136</a>)</li>\n<li>Fix finder template for lenient editable installs of implicit nested namespaces\nconstructed by using <code>package_dir</code> to reorganise directory structure. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4278\">#4278</a>)</li>\n<li>Fix an error with <code>UnicodeDecodeError</code> handling in <code>pkg_resources</code> when trying to read files in UTF-8 with a fallback -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4348\">#4348</a>)</li>\n</ul>\n<h2>Improved Documentation</h2>\n<ul>\n<li>Uses RST substitution to put badges in 1 line. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4312\">#4312</a>)</li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>\n<p>Further adoption of UTF-8 in <code>setuptools</code>.\nThis change regards mostly files produced and consumed during the build process\n(e.g. metadata files, script wrappers, automatically updated config files, etc..)\nAlthough precautions were taken to minimize disruptions, some edge cases might\nbe subject to backwards incompatibility.</p>\n<p>Support for <code>&quot;locale&quot;</code> encoding is now <strong>deprecated</strong>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4309\">#4309</a>)</p>\n</li>\n<li>\n<p>Remove <code>setuptools.convert_path</code> after long deprecation period.\nThis function was never defined by <code>setuptools</code> itself, but rather a\nside-effect of an import for internal usage. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4322\">#4322</a>)</p>\n</li>\n<li>\n<p>Remove fallback for customisations of <code>distutils</code>' <code>build.sub_command</code> after long\ndeprecated period.\nUsers are advised to import <code>build</code> directly from <code>setuptools.command.build</code>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4322\">#4322</a>)</p>\n</li>\n<li>\n<p>Removed <code>typing_extensions</code> from vendored dependencies -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4324\">#4324</a>)</p>\n</li>\n<li>\n<p>Remove deprecated <code>setuptools.dep_util</code>.\nThe provided alternative is <code>setuptools.modified</code>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4360\">#4360</a>)</p>\n</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/5cbf12a9b63fd37985a4525617b46576b8ac3a7b\"><code>5cbf12a</code></a> Workaround for release error in v70</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/9c1bcc3417bd12668123f7e731e241d9e57bfc57\"><code>9c1bcc3</code></a> Bump version: 69.5.1 → 70.0.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4dc0c31644b458ac43ce6148f6a9dc729a7e78b5\"><code>4dc0c31</code></a> Remove deprecated <code>setuptools.dep_util</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4360\">#4360</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/6c1ef5748dbd70c8c5423e12680345766ee101d9\"><code>6c1ef57</code></a> Remove xfail now that test passes. Ref <a href=\"https://redirect.github.com/pypa/setuptools/issues/4371\">#4371</a>.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/d14fa0162c95450898c11534caf26a0f03553176\"><code>d14fa01</code></a> Add all site-packages dirs when creating simulated environment for test_edita...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/6b7f7a18afc90007544092c446dc0cd856d86b17\"><code>6b7f7a1</code></a> Prevent <code>bin</code> folders to be taken as extern packages when vendoring (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4370\">#4370</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/69141f69f8bf38da34cbea552d6fdaa9c8619c53\"><code>69141f6</code></a> Add doctest for vendorised bin folder</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/2a53cc1200ec4b14e08e84be3c042f8983dfb7d7\"><code>2a53cc1</code></a> Prevent 'bin' folders to be taken as extern packages</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/720862807dea012f3a0e7061880691025f736f11\"><code>7208628</code></a> Replace call to deprecated <code>validate_pyproject</code> command (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4363\">#4363</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/96d681aa405460f724c62c00ca125ae722ad810a\"><code>96d681a</code></a> Remove call to deprecated validate_pyproject command</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v69.5.1...v70.0.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-05-27T12:58:02Z",
+          "tree_id": "46d931ba5135ea973e53d7bca44d6555faaa1374",
+          "url": "https://github.com/aws/jsii/commit/76d630e0419ccfcc4e766128d9f0495bc06f508e"
+        },
+        "date": 1716817023995,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50596.02615680004,
+            "unit": "milliseconds",
+            "range": 1421715.7774059786,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50596.02615680004 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39441.7552614,
+            "unit": "milliseconds",
+            "range": 664940.0235751785,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39441.7552614 milliseconds over 20 runs"
           }
         ]
       }
