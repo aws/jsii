@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1716817027957,
+  "lastUpdate": 1716819406168,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29481,6 +29481,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 664940.0235751785,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39441.7552614 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b8ef4398bc9bc72e0fa38b693bcb126f3e183fa3",
+          "message": "chore(deps): Bump xunit from 2.8.0 to 2.8.1 in /packages/@jsii/dotnet-runtime/src (#4525)\n\nBumps [xunit](https://github.com/xunit/xunit) from 2.8.0 to 2.8.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/xunit/xunit/commit/ba2ae9bc859840c9b48cd668c2d2818b8f049457\"><code>ba2ae9b</code></a> v2.8.1</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/151b8d0d9fc63051ea224cd83f61d8b49e0fb3a0\"><code>151b8d0</code></a> Use 'dotnet format' instead of 'dotnet dotnet-format'</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/be6db6f41069c22068540511779a0ddefa05cc20\"><code>be6db6f</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2931\">#2931</a>: Tighten up types to prevent accidentically calling AddOrGet with a Con...</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/f466d81ad9f88486990c8100eaab4e28b0db94bf\"><code>f466d81</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2927\">#2927</a>: Misleading error message when class used in IClassFixture&lt;&gt; throws exc...</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/1911ea7708f7f939add4d124c7b7e76c7a3cd972\"><code>1911ea7</code></a> Missed unit test updates</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/f497d65ec5b3f7780d1f7034b2725d40da31daea\"><code>f497d65</code></a> Cannot use full assembly path as dictionary key for execution options lookup,...</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/c2f2d47ec00d1dfc408bacced12f96647a2f695f\"><code>c2f2d47</code></a> Add ability to provide live output messages from running tests</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/013093b7e2627c3a025a828d2cf253c3cadd29c4\"><code>013093b</code></a> Polyfill in StringSyntaxAttribute</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/e1e4c2e23648de2dc5ccf4a9b8c9608ca5f7bcee\"><code>e1e4c2e</code></a> <a href=\"https://redirect.github.com/xunit/xunit/issues/2719\">#2719</a>: Class with custom Fact with throwing Skip should fail appropriately</li>\n<li><a href=\"https://github.com/xunit/xunit/commit/8b0b13ca02e8bd737f1f2394b5f4e5c77a37cf5e\"><code>8b0b13c</code></a> Clarify naming</li>\n<li>Additional commits viewable in <a href=\"https://github.com/xunit/xunit/compare/2.8.0...2.8.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit&package-manager=nuget&previous-version=2.8.0&new-version=2.8.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-05-27T13:37:58Z",
+          "tree_id": "31f6bd0531dce75b08f5309d3fbb2819fb6e3fe3",
+          "url": "https://github.com/aws/jsii/commit/b8ef4398bc9bc72e0fa38b693bcb126f3e183fa3"
+        },
+        "date": 1716819402387,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50418.28449530002,
+            "unit": "milliseconds",
+            "range": 808683.0289687789,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50418.28449530002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38399.566748149984,
+            "unit": "milliseconds",
+            "range": 30056.977923773386,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38399.566748149984 milliseconds over 20 runs"
           }
         ]
       }
