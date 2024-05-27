@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1716213700964,
+  "lastUpdate": 1716814154127,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29405,6 +29405,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 304118.6315098038,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38843.87671210001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "baecb1786fe06c48f3db856325fd6b497f132c33",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.24 to ~=9.5.25 in /gh-pages (#4522)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.25</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7209\">#7209</a>: Tags plugin crashing on numeric tags</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.25+insiders-4.53.11 (2024-05-27)</p>\n<ul>\n<li>Fixed projects plugin crashing when serving before building subprojects</li>\n</ul>\n<p>mkdocs-material-9.5.25 (2024-05-27)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7209\">#7209</a>: Tags plugin crashing on numeric tags</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.10 (2024-05-20)</p>\n<ul>\n<li>Fixed projects plugin crashing in serve mode when disabled</li>\n<li>Fixed projects plugin crashing when building nested projects</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.9 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7191\">#7191</a>: Tags listings not rendering when toc_depth is changed</li>\n</ul>\n<p>mkdocs-material-9.5.24 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7187\">#7187</a>: Version selector title rendering issue</li>\n</ul>\n<p>mkdocs-material-9.5.23 (2024-05-15)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7183\">#7183</a>: Edge case in anchor navigation when using instant navigation</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6436\">#6436</a>: Version selector not showing version alias</li>\n</ul>\n<p>mkdocs-material-9.5.22 (2024-05-12)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7170\">#7170</a>: Copy button adds empty lines for line spans (9.5.18 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7160\">#7160</a>: Version switching doesn't stay on page (9.5.5 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5619\">#5619</a>: Links in Mermaid.js diagrams not discernible</li>\n</ul>\n<p>mkdocs-material-9.5.21 (2024-05-03)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7133\">#7133</a>: Ensure latest version of Mermaid.js is used</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7125\">#7125</a>: Added warning for dotfiles in info plugin</li>\n</ul>\n<p>mkdocs-material-9.5.20 (2024-04-29)</p>\n<ul>\n<li>Fixed deprecation warning in privacy plugin (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7119\">#7119</a>: Tags plugin emits deprecation warning (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7118\">#7118</a>: Social plugin crashes if fonts are disabled (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7085\">#7085</a>: Social plugin crashes on Windows when downloading fonts</li>\n</ul>\n<p>mkdocs-material-9.5.19+insiders-4.53.8 (2024-04-26)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7052\">#7052</a>: Preview extension automatically including all pages</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7051\">#7051</a>: Instant previews mounting on footnote references</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5165\">#5165</a>: Improved tooltips not mounting in sidebar for typeset plugin</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c8ee11ff2b5d71e65aafed187a868afd4eb7a3a2\"><code>c8ee11f</code></a> Prepare 9.5.25 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0ee1110643420e9a6c7357408c2e61d23457746a\"><code>0ee1110</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/09f817d1541bd20cd721dacf224547a44aebce2e\"><code>09f817d</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/86d3729a629079a249320b5ecec27b5eee88ab7a\"><code>86d3729</code></a> Created new and better Insiders documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7210\">#7210</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1b346eb57b2871eca8f5e78444cfc83d35ab2a2e\"><code>1b346eb</code></a> Fixed tags plugin crashing on numeric tags</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/05af8988c871e97a4dcd3209e22de4d7901d1e50\"><code>05af898</code></a> Added --force-reinstall to insiders upgrade instructions (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7203\">#7203</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/7368c7f759e6163f7cce9af15d0b0d7bfc7a1d52\"><code>7368c7f</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/e8478d921a8521b17f82e9d7f9540588e5b5ef40\"><code>e8478d9</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/d0be598532c4a559f26c09741d09d942fa3418e0\"><code>d0be598</code></a> Updated Insiders changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/721eefb076981600df21b47909618b644de34e3d\"><code>721eefb</code></a> Updated Insiders changelog</li>\n<li>See full diff in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.24...9.5.25\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-05-27T12:09:27Z",
+          "tree_id": "7b5866546b334d16d224934234ceb357e2bf0012",
+          "url": "https://github.com/aws/jsii/commit/baecb1786fe06c48f3db856325fd6b497f132c33"
+        },
+        "date": 1716814150305,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51252.13621199999,
+            "unit": "milliseconds",
+            "range": 611360.5638111919,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51252.13621199999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39047.55548885,
+            "unit": "milliseconds",
+            "range": 34356.76750823048,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39047.55548885 milliseconds over 20 runs"
           }
         ]
       }
