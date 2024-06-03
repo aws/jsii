@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.99.0](https://github.com/aws/jsii/compare/v1.98.0...v1.99.0) (2024-06-03)
+
+
+### Bug Fixes
+
+* **jsii-config:** update jsii-config and docs with latest settings ([#4515](https://github.com/aws/jsii/issues/4515)) ([6e00874](https://github.com/aws/jsii/commit/6e00874c9a70890b9291a4fa534eb497e7a186f9))
+
 ## [1.98.0](https://github.com/aws/jsii/compare/v1.97.0...v1.98.0) (2024-04-30)
 
 
