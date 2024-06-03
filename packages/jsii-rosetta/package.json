@@ -9,7 +9,7 @@
   "scripts": {
     "build": "yarn tsc --build && npm run lint",
     "watch": "yarn tsc --build -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=examples/* --ignore-pattern=test/translations/*",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=examples/* --ignore-pattern=test/translations/*",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
@@ -18,9 +18,9 @@
   "devDependencies": {
     "@types/commonmark": "^0.27.9",
     "@types/mock-fs": "^4.13.4",
-    "@types/stream-json": "^1.7.6",
-    "@types/workerpool": "^6.4.6",
-    "@types/semver": "^7.5.5",
+    "@types/stream-json": "^1.7.7",
+    "@types/workerpool": "^6.4.7",
+    "@types/semver": "^7.5.8",
     "jsii-build-tools": "0.0.0",
     "memory-streams": "^0.1.3",
     "mock-fs": "^5.2.0"
@@ -28,14 +28,14 @@
   "dependencies": {
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "0.0.0",
-    "commonmark": "^0.30.0",
+    "commonmark": "^0.31.0",
     "typescript": "~3.9.10",
     "@xmldom/xmldom": "^0.8.10",
     "workerpool": "^6.5.1",
     "yargs": "^16.2.0",
     "stream-json": "^1.8.0",
-    "semver": "^7.5.4",
-    "semver-intersect": "^1.4.0",
+    "semver": "^7.6.0",
+    "semver-intersect": "^1.5.0",
     "fast-glob": "^3.3.2",
     "jsii": "0.0.0"
   },

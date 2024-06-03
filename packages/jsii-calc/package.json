@@ -35,7 +35,7 @@
   "scripts": {
     "build": "jsii --project-references --silence-warnings reserved-word && npm run lint && jsii-rosetta --compile --verbose",
     "watch": "jsii --project-references -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "(ls test/test.*.js | xargs -n1 node) && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test",

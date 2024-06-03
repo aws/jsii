@@ -753,8 +753,9 @@ export class Assembler implements Emitter {
             : fqn,
         };
       }
-      const symbolLocation = sym.getDeclarations()?.[0]?.getSourceFile()
-        ?.fileName;
+      const symbolLocation = sym
+        .getDeclarations()?.[0]
+        ?.getSourceFile()?.fileName;
       const pkgInfo = symbolLocation
         ? this.findPackageInfo(symbolLocation)
         : undefined;
@@ -852,7 +853,7 @@ export class Assembler implements Emitter {
       }
       this._submoduleMap.set(symbol, ns);
 
-      // If the exported symbol has any declaration, and that delcaration is of
+      // If the exported symbol has any declaration, and that declaration is of
       // an entity that can have nested declarations of interest to jsii
       // (classes, interfaces, enums, modules), we need to also associate those
       // nested symbols to the submodule (or they won't be named correctly!)

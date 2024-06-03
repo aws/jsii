@@ -24,18 +24,18 @@
   "scripts": {
     "build": "tsc --build && bash build-tools/generate-json-schema.sh && npm run lint",
     "watch": "tsc --build -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
   },
   "dependencies": {
-    "ajv": "^8.12.0"
+    "ajv": "^8.13.0"
   },
   "devDependencies": {
     "fs-extra": "^10.1.0",
     "jsii-build-tools": "^0.0.0",
-    "typescript-json-schema": "^0.62.0"
+    "typescript-json-schema": "^0.63.0"
   }
 }

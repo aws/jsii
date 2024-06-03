@@ -325,7 +325,7 @@ Typescript allows grouping declarations together in _namespaces_, which are inte
 _Submodules_ names are the fully qualified name of the namespace from the package's root (if a package `foo` defines a
 namespace `ns1`, which itself contains `ns2`, the submodule for `ns2` will be named `foo.ns1.ns2`).
 
-_Submodules_ are delcared in the _jsii_ assembly under the `submodules` key. This is also where specific
+_Submodules_ are declared in the _jsii_ assembly under the `submodules` key. This is also where specific
 [configuration](#submodule-configuration) is registered, if different from the parent submodule or package.
 
 _Submodules_ are hierarchical, and their fully qualified name is representative of the relationship. For example the

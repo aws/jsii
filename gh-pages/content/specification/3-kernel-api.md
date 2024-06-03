@@ -246,7 +246,7 @@ Sometimes, the _host_ app will extend a _jsii_ class and implement new _jsii_ in
 original type. Such interfaces must be declared by providing their _jsii_ fully qualified name as an entry in the
 `interfaces` list.
 
-Providing interfaces in this list that are implicitly present from another delcaration (either because they are already
+Providing interfaces in this list that are implicitly present from another declaration (either because they are already
 implemented by the class denoted by the `fqn` field, or because another entry in the `interfaces` list extends it) is
 valid, but not necessary. The `@jsii/kernel` is responsible for correctly handling redundant declarations.
 
