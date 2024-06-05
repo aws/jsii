@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1717428881143,
+  "lastUpdate": 1717590876161,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29671,6 +29671,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 111046.85885828387,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40379.08647875001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e21e5663f894f94632a23b876c80a24e21db7685",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.21.0 to 0.22.0 in /packages/@jsii/go-runtime-test/project (#4536)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.21.0 to 0.22.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/bc6931db37c33e064504346d9259b3b6d20e13f6\"><code>bc6931d</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/1767b144a15d30b79c7744524828fe10bf07a862\"><code>1767b14</code></a> go/ssa: remove code with no effect</li>\n<li><a href=\"https://github.com/golang/tools/commit/208808308b705255ee693cdc55afe8b4ad37c425\"><code>2088083</code></a> internal/gocommand: add more debug info for hanging go commands</li>\n<li><a href=\"https://github.com/golang/tools/commit/f1a3b1281e9b5e25fc2f46e88e73023dbb4bbcf0\"><code>f1a3b12</code></a> internal/imports: FixImports should be cancellable</li>\n<li><a href=\"https://github.com/golang/tools/commit/4478db00aae5c5e487165f6e768681be5d63bac0\"><code>4478db0</code></a> go/analysis/passes/copylock: suppress error in ill-typed code</li>\n<li><a href=\"https://github.com/golang/tools/commit/018d3b2768ced9f36e90baeb2a542c813dfc28ef\"><code>018d3b2</code></a> gopls: warn about Go 1.19 and Go 1.20</li>\n<li><a href=\"https://github.com/golang/tools/commit/58cc8a4458597b256f404b4a4a84edc71cd0d00b\"><code>58cc8a4</code></a> gopls/internal/filecache: suppress gc in tests</li>\n<li><a href=\"https://github.com/golang/tools/commit/b6235391adb3b7f8bcfc4df81055e8f023de2688\"><code>b623539</code></a> gopls/internal/cache: suppress &quot;internal&quot; import check on Bazel</li>\n<li><a href=\"https://github.com/golang/tools/commit/1e9d12dd1f25735a6fcefd3665be4684ba23fc58\"><code>1e9d12d</code></a> go/packages: pass -overlay to all 'go list' invocations</li>\n<li><a href=\"https://github.com/golang/tools/commit/3c293ad67a98a86d273bf69c6a742f04a6a367a3\"><code>3c293ad</code></a> internal/cache: invalidate broken imports when package files change</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.21.0...v0.22.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.21.0&new-version=0.22.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-06-05T11:55:08Z",
+          "tree_id": "12503310d383c349f046b3ae054ae9d001c5d89e",
+          "url": "https://github.com/aws/jsii/commit/e21e5663f894f94632a23b876c80a24e21db7685"
+        },
+        "date": 1717590872216,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52317.2812014,
+            "unit": "milliseconds",
+            "range": 1001359.7461928288,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52317.2812014 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39527.25678365001,
+            "unit": "milliseconds",
+            "range": 406355.50416471716,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39527.25678365001 milliseconds over 20 runs"
           }
         ]
       }
