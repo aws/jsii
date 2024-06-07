@@ -44,6 +44,7 @@ const requirementsFile = path.resolve(
 // we use single-quotes for multi-line strings to allow examples within the
 // docstrings themselves to include double-quotes (see https://github.com/aws/jsii/issues/2569)
 const DOCSTRING_QUOTES = "'''";
+const RAW_DOCSTRING_QUOTES = `r${DOCSTRING_QUOTES}`;
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -1902,7 +1903,7 @@ class PythonModule implements PythonType {
    */
   private emitModuleDocumentation(code: CodeMaker) {
     if (this.moduleDocumentation) {
-      code.line(DOCSTRING_QUOTES);
+      code.line(RAW_DOCSTRING_QUOTES); // raw string
       code.line(this.moduleDocumentation);
       code.line(DOCSTRING_QUOTES);
     }

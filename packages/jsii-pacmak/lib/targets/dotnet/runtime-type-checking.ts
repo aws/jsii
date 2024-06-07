@@ -242,8 +242,8 @@ abstract class Validation {
             t.startsWith('"')
               ? t.slice(1, t.length - 1)
               : t.startsWith('$"')
-                ? t.slice(2, t.length - 1)
-                : `{${t}}`,
+              ? t.slice(2, t.length - 1)
+              : `{${t}}`,
           )
           .join(', ');
         if (allowNull) {
