@@ -1902,7 +1902,6 @@ class PythonModule implements PythonType {
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
-    console.log(this.moduleDocumentation);
     if (this.moduleDocumentation) {
       code.line(RAW_DOCSTRING_QUOTES); // raw string
       code.line(this.moduleDocumentation);
