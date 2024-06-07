@@ -1903,7 +1903,7 @@ class PythonModule implements PythonType {
    */
   private emitModuleDocumentation(code: CodeMaker) {
     if (this.moduleDocumentation) {
-      code.line(RAW_DOCSTRING_QUOTES); // raw string
+      code.line(RAW_DOCSTRING_QUOTES); // raw string so that python does not attempt to interpret invalid escapes that are valid in markdown
       code.line(this.moduleDocumentation);
       code.line(DOCSTRING_QUOTES);
     }
