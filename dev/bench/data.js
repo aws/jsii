@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1717734798874,
+  "lastUpdate": 1718022526060,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29747,6 +29747,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 54237.3510635515,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39234.20860539998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8f61747fe85e5312ff5f3879401f690069ccb6a9",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.25 to ~=9.5.26 in /gh-pages (#4540)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.26</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7232\">#7232</a>: Tab switches on scroll when linking tabs (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7230\">#7230</a>: Blog author avatar broken when referring to local file</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.26 (2024-06-06)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7232\">#7232</a>: Tab switches on scroll when linking tabs (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7230\">#7230</a>: Blog author avatar broken when referring to local file</li>\n</ul>\n<p>mkdocs-material-9.5.25+insiders-4.53.11 (2024-05-27)</p>\n<ul>\n<li>Fixed projects plugin crashing when serving before building subprojects</li>\n</ul>\n<p>mkdocs-material-9.5.25 (2024-05-27)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7209\">#7209</a>: Tags plugin crashing on numeric tags</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.10 (2024-05-20)</p>\n<ul>\n<li>Fixed projects plugin crashing in serve mode when disabled</li>\n<li>Fixed projects plugin crashing when building nested projects</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.9 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7191\">#7191</a>: Tags listings not rendering when toc_depth is changed</li>\n</ul>\n<p>mkdocs-material-9.5.24 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7187\">#7187</a>: Version selector title rendering issue</li>\n</ul>\n<p>mkdocs-material-9.5.23 (2024-05-15)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7183\">#7183</a>: Edge case in anchor navigation when using instant navigation</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6436\">#6436</a>: Version selector not showing version alias</li>\n</ul>\n<p>mkdocs-material-9.5.22 (2024-05-12)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7170\">#7170</a>: Copy button adds empty lines for line spans (9.5.18 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7160\">#7160</a>: Version switching doesn't stay on page (9.5.5 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/5619\">#5619</a>: Links in Mermaid.js diagrams not discernible</li>\n</ul>\n<p>mkdocs-material-9.5.21 (2024-05-03)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7133\">#7133</a>: Ensure latest version of Mermaid.js is used</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7125\">#7125</a>: Added warning for dotfiles in info plugin</li>\n</ul>\n<p>mkdocs-material-9.5.20 (2024-04-29)</p>\n<ul>\n<li>Fixed deprecation warning in privacy plugin (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7119\">#7119</a>: Tags plugin emits deprecation warning (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7118\">#7118</a>: Social plugin crashes if fonts are disabled (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7085\">#7085</a>: Social plugin crashes on Windows when downloading fonts</li>\n</ul>\n<p>mkdocs-material-9.5.19+insiders-4.53.8 (2024-04-26)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/f8871975babb2928ef5d797ddcc659ddf8aa19ff\"><code>f887197</code></a> Updated changelog</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0d5a08ca9de9f97cb2302490b8ef9d451dfd17f3\"><code>0d5a08c</code></a> Prepare 9.5.26 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/1cc45d50d077c8c27d58b71dcc11b941779ec9b2\"><code>1cc45d5</code></a> Fixed active tab stolen on scroll with linked content tabs</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b5b7e9d678aa82b453516d041691c5e6fa0074ab\"><code>b5b7e9d</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c182598acd7a4a19de6095d8cefc3efd321fb77a\"><code>c182598</code></a> Added distribution files</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/49ebb9bbfa3f2ff714bdae765aa89fa51f4fc0d9\"><code>49ebb9b</code></a> Improved accessibility of search partial (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7233\">#7233</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/5bd843be2322f074578576360e4bed857d4f509b\"><code>5bd843b</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0fc36a1f4c90f350be7c51f5600d7f33716faa7b\"><code>0fc36a1</code></a> Added support for local author avatars</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/2412a1b7bc0713730ec3d134b26fe503d9421c41\"><code>2412a1b</code></a> Documentation (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7221\">#7221</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6c3f846078dcad4ae534683a7f07aac0f3955994\"><code>6c3f846</code></a> Updated custom styles</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.25...9.5.26\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-06-10T11:48:52Z",
+          "tree_id": "9c749658dcff63b5d71190df68a44483b89faf67",
+          "url": "https://github.com/aws/jsii/commit/8f61747fe85e5312ff5f3879401f690069ccb6a9"
+        },
+        "date": 1718022521989,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 53689.50586744996,
+            "unit": "milliseconds",
+            "range": 3533165.914310458,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 53689.50586744996 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39527.72661175,
+            "unit": "milliseconds",
+            "range": 122629.3337729092,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39527.72661175 milliseconds over 20 runs"
           }
         ]
       }
