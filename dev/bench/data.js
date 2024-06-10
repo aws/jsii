@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1718022526060,
+  "lastUpdate": 1718036852893,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29785,6 +29785,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 122629.3337729092,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39527.72661175 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "36202692+kaizencc@users.noreply.github.com",
+            "name": "Kaizen Conroy",
+            "username": "kaizencc"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c5975d50e37044d25238d5a724a499ee6976d8ba",
+          "message": "fix(python): incorrect escaped characters cause warnings (#4538)\n\nFixes #4532. Succinctly, the issue is that the README is copied over into the `__init__.py` file as a python comment. And then python warns that things like `\\|` and `\\'`, which while not often, do organically and correctly show up in markdown syntax, are invalid escapes. Some people who have set their python config to error on warnings end up erroring on this. The solution is to mark the README string as a raw string `r'''` so python does not try to register the escapes.\n\nI'm not sure how to test this in code in this PR. I have done the following to make sure that this works:\n\nI copied the repro repo from #4532 [here](https://github.com/kaizencc/cdk_invalid_char/blob/main) and got it to show the warning locally. then, I updated the actual file manually from `'''` to `r'''` and got `pytest -W error` to give me a thumbs up. So that shows that changing `'''` to `r'''` does not expect the escaped characters to be valid.\n\nI tested my local jsii-pacmak by using it to package a module in `aws-cdk`, and unzipped the python package and confirmed that the `r'''` raw string indicator shows up for the README string in `__init__.py`, and nothing else.\n\nThese two combined confirms for me that this solution will work. Again I'm not sure of the best way to test that in jsii-pacmak.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-06-10T15:48:06Z",
+          "tree_id": "0a9ee09d17f146db233235b5d7afef1e10a36496",
+          "url": "https://github.com/aws/jsii/commit/c5975d50e37044d25238d5a724a499ee6976d8ba"
+        },
+        "date": 1718036848222,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51641.730470600014,
+            "unit": "milliseconds",
+            "range": 747020.717054789,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51641.730470600014 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39500.20649280001,
+            "unit": "milliseconds",
+            "range": 419636.7489467653,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39500.20649280001 milliseconds over 20 runs"
           }
         ]
       }
