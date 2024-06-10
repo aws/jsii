@@ -1,7 +1,7 @@
 # Python jsii runtime tests
 ## Development Iteration
 
-When iterating on the jsii runtime for Python, the develomer must run
+When iterating on the jsii runtime for Python, the developer must run
 `yarn build` before making a subsequent attempt at running `pytest` (e.g: via
 `yarn test`). This is because the tests run on the code installed in `.env` and
 this is updated only by `yarn build`.
