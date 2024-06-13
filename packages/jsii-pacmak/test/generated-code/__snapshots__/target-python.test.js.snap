@@ -2072,7 +2072,7 @@ publication.publish()
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz 1`] = `python/src/scope/jsii_calc_lib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py 1`] = `
-'''
+r'''
 # Submodule Readme
 
 This is a submodule readme.
@@ -3131,7 +3131,7 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/__init__.py 1`] = `
-'''
+r'''
 # jsii Calculator
 
 This library is used to demonstrate and test the features of JSII
@@ -12265,7 +12265,7 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/homonymous_forward_references/__init__.py 1`] = `
-'''
+r'''
 Verifies homonymous forward references don't trip the Python type checker
 
 This has been an issue when stub functions were introduced to create a reliable source for type checking
@@ -14019,7 +14019,7 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/__init__.py 1`] = `
-'''
+r'''
 # Read you, read me
 
 This is the readme of the \`jsii-calc.submodule\` module.
@@ -14416,7 +14416,7 @@ publication.publish()
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/isolated/__init__.py 1`] = `
-'''
+r'''
 # Read you, read me
 
 This is the readme of the \`jsii-calc.submodule.isolated\` module.
