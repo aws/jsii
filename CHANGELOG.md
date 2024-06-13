@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.100.0](https://github.com/aws/jsii/compare/v1.99.0...v1.100.0) (2024-06-13)
+
+
+### Bug Fixes
+
+* **python:** incorrect escaped characters cause warnings ([#4538](https://github.com/aws/jsii/issues/4538)) ([c5975d5](https://github.com/aws/jsii/commit/c5975d50e37044d25238d5a724a499ee6976d8ba)), closes [#4532](https://github.com/aws/jsii/issues/4532) [#4532](https://github.com/aws/jsii/issues/4532)
+
 ## [1.99.0](https://github.com/aws/jsii/compare/v1.98.0...v1.99.0) (2024-06-03)
 
 
