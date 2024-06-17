@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1718628426732,
+  "lastUpdate": 1718630944640,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -29937,6 +29937,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 307901.5528932877,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39344.09573585001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7f57cf8edea71e411c0ce333cc8fd00db5cd03c7",
+          "message": "chore(deps): Bump Microsoft.CodeAnalysis.CSharp.Workspaces from 4.9.2 to 4.10.0 in /packages/@jsii/dotnet-runtime/src (#4546)\n\nBumps [Microsoft.CodeAnalysis.CSharp.Workspaces](https://github.com/dotnet/roslyn) from 4.9.2 to 4.10.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/dotnet/roslyn/releases\">Microsoft.CodeAnalysis.CSharp.Workspaces's releases</a>.</em></p>\n<blockquote>\n<h2>.NET 6.0.1</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v6.0.1\">Release</a></p>\n<h2>.NET 5.0.4</h2>\n<p><a href=\"https://github.com/dotnet/core/releases/tag/v5.0.4\">Release</a></p>\n<h2>.NET 5.0.2</h2>\n<p><a href=\"https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0.2/5.0.2.md\">Release Notes</a>\n<a href=\"https://github.com/dotnet/core/blob/master/release-notes/5.0/5.0.2/5.0.2-install-instructions.md\">Install Instructions</a></p>\n<h1>Repos</h1>\n<ul>\n<li><a href=\"https://github.com/dotnet/core/releases/tag/v5.0.2\">Core</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li>See full diff in <a href=\"https://github.com/dotnet/roslyn/commits\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.CodeAnalysis.CSharp.Workspaces&package-manager=nuget&previous-version=4.9.2&new-version=4.10.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-06-17T12:48:00Z",
+          "tree_id": "3538efce3c966809e101a33d2b68426a8568e85f",
+          "url": "https://github.com/aws/jsii/commit/7f57cf8edea71e411c0ce333cc8fd00db5cd03c7"
+        },
+        "date": 1718630940661,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52847.34533109999,
+            "unit": "milliseconds",
+            "range": 612416.7079627314,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52847.34533109999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39980.40379869999,
+            "unit": "milliseconds",
+            "range": 71914.75556649137,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39980.40379869999 milliseconds over 20 runs"
           }
         ]
       }
