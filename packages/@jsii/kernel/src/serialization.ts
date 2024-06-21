@@ -1175,12 +1175,25 @@ export function process(
   type: OptionalValueOrVoid,
   context: string,
 ) {
-  const wireTypes = serializationType(type, host.lookupType);
+  const wireTypes = serializationType(type, host.lookupType).filter(
+    ({ serializationClass }) => {
+      if (
+        serde === 'serialize' &&
+        serializationClass === SerializationClass.Struct
+      ) {
+        return (value as any)?.constructor.name !== 'LazyAny';
+        // return !isByReferenceOnly(value);
+      }
+      return true;
+    },
+  );
+
   host.debug(serde, value, ...wireTypes);
 
   const errors = new Array<any>();
   for (const { serializationClass, typeRef } of wireTypes) {
     try {
+      // SERIALIZERS['Struct']['serialize'](actualValue, jsiiTypeDef)
       return SERIALIZERS[serializationClass][serde](value, typeRef, host);
     } catch (error: any) {
       error.context = `as ${
