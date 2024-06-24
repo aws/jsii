@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719236386497,
+  "lastUpdate": 1719244810322,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30089,6 +30089,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 340021.35453091696,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41895.55494624998 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "95d6fcfc2ec161ea2d0e8cb0d0bd5885b0b77531",
+          "message": "chore(deps): Bump tar from 6.1.11 to 6.2.1 (#4551)\n\nBumps [tar](https://github.com/isaacs/node-tar) from 6.1.11 to 6.2.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/isaacs/node-tar/releases\">tar's releases</a>.</em></p>\n<blockquote>\n<h2>v6.1.13</h2>\n<h2><a href=\"https://github.com/npm/node-tar/compare/v6.1.12...v6.1.13\">6.1.13</a> (2022-12-07)</h2>\n<h3>Dependencies</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-tar/commit/cc4e0ddfe523a0bce383846a67442c637a65d486\"><code>cc4e0dd</code></a> <a href=\"https://redirect.github.com/npm/node-tar/pull/343\">#343</a> bump minipass from 3.3.6 to 4.0.0</li>\n</ul>\n<h2>v6.1.12</h2>\n<h2><a href=\"https://github.com/npm/node-tar/compare/v6.1.11...v6.1.12\">6.1.12</a> (2022-10-31)</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-tar/commit/57493ee66ece50d62114e02914282fc37be3a91a\"><code>57493ee</code></a> <a href=\"https://redirect.github.com/npm/node-tar/pull/332\">#332</a> ensuring close event is emited after stream has ended (<a href=\"https://github.com/webark\"><code>@​webark</code></a>)</li>\n<li><a href=\"https://github.com/npm/node-tar/commit/b003c64f624332e24e19b30dc011069bb6708680\"><code>b003c64</code></a> <a href=\"https://redirect.github.com/npm/node-tar/pull/314\">#314</a> replace deprecated String.prototype.substr() (<a href=\"https://redirect.github.com/isaacs/node-tar/issues/314\">#314</a>) (<a href=\"https://github.com/CommanderRoot\"><code>@​CommanderRoot</code></a>, <a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n</ul>\n<h3>Documentation</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-tar/commit/f12992932f171ea248b27fad95e7d489a56d31ed\"><code>f129929</code></a> <a href=\"https://redirect.github.com/npm/node-tar/pull/313\">#313</a> remove dead link to benchmarks (<a href=\"https://redirect.github.com/isaacs/node-tar/issues/313\">#313</a>) (<a href=\"https://github.com/yetzt\"><code>@​yetzt</code></a>)</li>\n<li><a href=\"https://github.com/npm/node-tar/commit/c1faa9f44001dfb0bc7638b2850eb6058bd56a4a\"><code>c1faa9f</code></a> add examples/explanation of using tar.t (<a href=\"https://github.com/isaacs\"><code>@​isaacs</code></a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/isaacs/node-tar/blob/main/CHANGELOG.md\">tar's changelog</a>.</em></p>\n<blockquote>\n<h1>Changelog</h1>\n<h2>7.4</h2>\n<ul>\n<li>Deprecate <code>onentry</code> in favor of <code>onReadEntry</code> for clarity.</li>\n</ul>\n<h2>7.3</h2>\n<ul>\n<li>Add <code>onWriteEntry</code> option</li>\n</ul>\n<h2>7.2</h2>\n<ul>\n<li>DRY the command definitions into a single <code>makeCommand</code> method,\nand update the type signatures to more appropriately infer the\nreturn type from the options and arguments provided.</li>\n</ul>\n<h2>7.1</h2>\n<ul>\n<li>Update minipass to v7.1.0</li>\n<li>Update the type definitions of <code>write()</code> and <code>end()</code> methods on\n<code>Unpack</code> and <code>Parser</code> classes to be compatible with the\nNodeJS.WritableStream type in the latest versions of\n<code>@types/node</code>.</li>\n</ul>\n<h2>7.0</h2>\n<ul>\n<li>Rewrite in TypeScript, provide ESM and CommonJS hybrid\ninterface</li>\n<li>Add tree-shake friendly exports, like <code>import('tar/create')</code>\nand <code>import('tar/read-entry')</code> to get individual functions or\nclasses.</li>\n<li>Add <code>chmod</code> option that defaults to false, and deprecate\n<code>noChmod</code>. That is, reverse the default option regarding\nexplicitly setting file system modes to match tar entry\nsettings.</li>\n<li>Add <code>processUmask</code> option to avoid having to call\n<code>process.umask()</code> when <code>chmod: true</code> (or <code>noChmod: false</code>) is\nset.</li>\n</ul>\n<h2>6.2</h2>\n<ul>\n<li>Add support for brotli compression</li>\n<li>Add <code>maxDepth</code> option to prevent extraction into excessively\ndeep folders.</li>\n</ul>\n<h2>6.1</h2>\n<ul>\n<li>remove dead link to benchmarks (<a href=\"https://redirect.github.com/isaacs/node-tar/issues/313\">#313</a>) (<a href=\"https://github.com/yetzt\"><code>@​yetzt</code></a>)</li>\n<li>add examples/explanation of using tar.t (<a href=\"https://github.com/isaacs\"><code>@​isaacs</code></a>)</li>\n<li>ensure close event is emited after stream has ended (<a href=\"https://github.com/webark\"><code>@​webark</code></a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/bef7b1e4ffab822681fea2a9b22187192ed14717\"><code>bef7b1e</code></a> 6.2.1</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/fe8cd57da5686f8695415414bda49206a545f7f7\"><code>fe8cd57</code></a> prevent extraction in excessively deep subfolders</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/fe7ebfdcede1f8a2e65db12e19ecc4b3a9934648\"><code>fe7ebfd</code></a> remove security.md</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/5bc9d404e88c39870e0fbb55655a53de6fbf0a04\"><code>5bc9d40</code></a> 6.2.0</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/fe1ef5ec87156ddadcec8b70cdec201f26665681\"><code>fe1ef5e</code></a> changelog 6.2</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/e483220935d931cf6b09292aba62170e68f36205\"><code>e483220</code></a> get rid of npm lint stuff</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/689928a0ba7d9b9014d88a5fa35261f9ae4ef2f3\"><code>689928a</code></a> ci that works outside of npm org</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/db6f53928650a04b340ecdc01db2d49937e5d63c\"><code>db6f539</code></a> file inference improvements for .tbr and .tgz</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/336fa8f27c44bec70d46a6482096af24c668ee16\"><code>336fa8f</code></a> refactor: dry and other pr comments</li>\n<li><a href=\"https://github.com/isaacs/node-tar/commit/eeba22238736ed0832488efb3c515ada98073424\"><code>eeba222</code></a> chore: lint fixes</li>\n<li>Additional commits viewable in <a href=\"https://github.com/isaacs/node-tar/compare/v6.1.11...v6.2.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=tar&package-manager=npm_and_yarn&previous-version=6.1.11&new-version=6.2.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2024-06-24T15:21:21Z",
+          "tree_id": "082075d101c115f4b6365533ce838c4821d4ed37",
+          "url": "https://github.com/aws/jsii/commit/95d6fcfc2ec161ea2d0e8cb0d0bd5885b0b77531"
+        },
+        "date": 1719244806397,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50545.123880950014,
+            "unit": "milliseconds",
+            "range": 846798.4202796178,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50545.123880950014 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38611.18137920004,
+            "unit": "milliseconds",
+            "range": 96991.86920591393,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38611.18137920004 milliseconds over 20 runs"
           }
         ]
       }
