@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719233810631,
+  "lastUpdate": 1719236386497,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30051,6 +30051,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 191285.920886592,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38763.07392740001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "71a6c3b4d36d6207a4f169f359a3fde08d8b8a53",
+          "message": "chore(deps): Update setuptools requirement from ~=70.0.0 to ~=70.1.0 in /packages/@jsii/python-runtime (#4549)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v70.1.0</h1>\n<h2>Features</h2>\n<ul>\n<li>\n<p>Adopted the <code>bdist_wheel</code> command from the <code>wheel</code> project -- by :user:<code>agronholm</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/1386\">#1386</a>)</p>\n</li>\n<li>\n<p>Improve error message when <code>pkg_resources.ZipProvider</code> tries to extract resources with a missing Egg -- by :user:<code>Avasam</code></p>\n<p>Added variables and parameter type annotations to <code>pkg_resources</code> to be nearly on par with typeshed.* -- by :user:<code>Avasam</code>\n* Excluding <code>TypeVar</code> and <code>overload</code>. Return types are currently inferred. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4246\">#4246</a>)</p>\n</li>\n<li>\n<p>Migrated Setuptools' own config to pyproject.toml (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4310\">#4310</a>)</p>\n</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Prevent a <code>TypeError: 'NoneType' object is not callable</code> when <code>shutil_rmtree</code> is called without an <code>onexc</code> parameter on Python&lt;=3.11 -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4382\">#4382</a>)</li>\n<li>Replace use of mktemp with can_symlink from the stdlib test suite. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4403\">#4403</a>)</li>\n<li>Improvement for <code>attr:</code> directives in configuration to handle\nmore edge cases related to complex <code>package_dir</code>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4405\">#4405</a>)</li>\n<li>Fix accidental implicit string concatenation. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4411\">#4411</a>)</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4365\">#4365</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4422\">#4422</a></li>\n</ul>\n<h1>v70.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Emit a warning when <code>[tools.setuptools]</code> is present in <code>pyproject.toml</code> and will be ignored. -- by :user:<code>SnoopJ</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4150\">#4150</a>)</li>\n<li>Improved <code>AttributeError</code> error message if <code>pkg_resources.EntryPoint.require</code> is called without extras or distribution\nGracefully &quot;do nothing&quot; when trying to activate a <code>pkg_resources.Distribution</code> with a <code>None</code> location, rather than raising a <code>TypeError</code>\n-- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4262\">#4262</a>)</li>\n<li>Typed the dynamically defined variables from <code>pkg_resources</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4267\">#4267</a>)</li>\n<li>Modernized and refactored VCS handling in package_index. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4332\">#4332</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>In install command, use super to call the superclass methods. Avoids race conditions when monkeypatching from _distutils_system_mod occurs late. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4136\">#4136</a>)</li>\n<li>Fix finder template for lenient editable installs of implicit nested namespaces\nconstructed by using <code>package_dir</code> to reorganise directory structure. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4278\">#4278</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/3466f9f1e14c4b0ef87299fef414f73600d4a46f\"><code>3466f9f</code></a> Bump version: 70.0.0 → 70.1.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/8cc50d4d5ce4a725d0bc12e599c4dddebeea9028\"><code>8cc50d4</code></a> Attempt to avoid error with <code>_read_utf8_with_fallback</code> by moving code in `pkg...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/a4b15f3a07c914c1da9bda2cf458237c97d0e042\"><code>a4b15f3</code></a> Add comments on test</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/051e70d9b232c5c24b3a64a4fdac07e9a347c4fb\"><code>051e70d</code></a> Simplify integration test for zop interface</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/06fd687e048224fc2293be50ed30d7f1a04378f4\"><code>06fd687</code></a> Move integration test to pkg_resources</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/03edaaa41059cf580709ec714586a6f7762cd99d\"><code>03edaaa</code></a> Add newsfragment</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b95d168faa3fe25d7e9e947472094d23124428cf\"><code>b95d168</code></a> Move piece of code inside pkg_resources/<strong>init</strong>.py</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/be847e002eacf1431470f5d6592de5caddb521e5\"><code>be847e0</code></a> Add interop tests for pkg_resources and zope-interface</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/0f8c58dd03390b9f2a26be3211161386e7d626d6\"><code>0f8c58d</code></a> Fix undefined <code>log.warning</code> function in <code>bdist_wheel</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4427\">#4427</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/63a2eb3b8246be5a6b50a837b26175e0c8cb6cf8\"><code>63a2eb3</code></a> Fix undefined log function in bdist_wheel</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v70.0.0...v70.1.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-06-24T12:58:09Z",
+          "tree_id": "a497cb7f055ce2c082b9de933221210f4e4aab2b",
+          "url": "https://github.com/aws/jsii/commit/71a6c3b4d36d6207a4f169f359a3fde08d8b8a53"
+        },
+        "date": 1719236382216,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 55497.79683864999,
+            "unit": "milliseconds",
+            "range": 1413036.3601445241,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 55497.79683864999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 41895.55494624998,
+            "unit": "milliseconds",
+            "range": 340021.35453091696,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41895.55494624998 milliseconds over 20 runs"
           }
         ]
       }
