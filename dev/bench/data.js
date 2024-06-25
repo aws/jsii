@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719244810322,
+  "lastUpdate": 1719319791181,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30127,6 +30127,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 96991.86920591393,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38611.18137920004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a32eb911e55d0c508df0d13cbd6a48dbb43415e4",
+          "message": "chore(deps): Bump braces from 3.0.2 to 3.0.3 (#4544)\n\nBumps [braces](https://github.com/micromatch/braces) from 3.0.2 to 3.0.3.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/micromatch/braces/commit/74b2db2938fad48a2ea54a9c8bf27a37a62c350d\"><code>74b2db2</code></a> 3.0.3</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/88f1429a0f47e1dd3813de35211fc97ffda27f9e\"><code>88f1429</code></a> update eslint. lint, fix unit tests.</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/415d660c3002d1ab7e63dbf490c9851da80596ff\"><code>415d660</code></a> Snyk js braces 6838727 (<a href=\"https://redirect.github.com/micromatch/braces/issues/40\">#40</a>)</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/190510f79db1adf21d92798b0bb6fccc1f72c9d6\"><code>190510f</code></a> fix tests, skip 1 test in test/braces.expand</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/716eb9f12d820b145a831ad678618731927e8856\"><code>716eb9f</code></a> readme bump</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/a5851e57f45c3431a94d83fc565754bc10f5bbc3\"><code>a5851e5</code></a> Merge pull request <a href=\"https://redirect.github.com/micromatch/braces/issues/37\">#37</a> from coderaiser/fix/vulnerability</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/2092bd1fb108d2c59bd62e243b70ad98db961538\"><code>2092bd1</code></a> feature: braces: add maxSymbols (<a href=\"https://github.com/micromatch/braces/issues/\">https://github.com/micromatch/braces/issues/</a>...</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/9f5b4cf47329351bcb64287223ffb6ecc9a5e6d3\"><code>9f5b4cf</code></a> fix: vulnerability (<a href=\"https://security.snyk.io/vuln/SNYK-JS-BRACES-6838727\">https://security.snyk.io/vuln/SNYK-JS-BRACES-6838727</a>)</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/98414f9f1fabe021736e26836d8306d5de747e0d\"><code>98414f9</code></a> remove funding file</li>\n<li><a href=\"https://github.com/micromatch/braces/commit/665ab5d561c017a38ba7aafd92cc6655b91d8c14\"><code>665ab5d</code></a> update keepEscaping doc (<a href=\"https://redirect.github.com/micromatch/braces/issues/27\">#27</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/micromatch/braces/compare/3.0.2...3.0.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=braces&package-manager=npm_and_yarn&previous-version=3.0.2&new-version=3.0.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2024-06-25T12:11:11Z",
+          "tree_id": "9d5c88bb2498a49c5055c9745537e49e9b86ab99",
+          "url": "https://github.com/aws/jsii/commit/a32eb911e55d0c508df0d13cbd6a48dbb43415e4"
+        },
+        "date": 1719319787075,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50209.18530010003,
+            "unit": "milliseconds",
+            "range": 652180.7370055446,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50209.18530010003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38302.249327400015,
+            "unit": "milliseconds",
+            "range": 24277.329664244713,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38302.249327400015 milliseconds over 20 runs"
           }
         ]
       }
