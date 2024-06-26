@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.101.0](https://github.com/aws/jsii/compare/v1.100.0...v1.101.0) (2024-06-26)
+
+
+### Bug Fixes
+
+* **pacmak:** Twine 5.1.0 not found ([#4554](https://github.com/aws/jsii/issues/4554)) ([b4cc08c](https://github.com/aws/jsii/commit/b4cc08cbeadace4cb1b1539b8387e95763ed0a72))
+
 ## [1.100.0](https://github.com/aws/jsii/compare/v1.99.0...v1.100.0) (2024-06-13)
 
 
