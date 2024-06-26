@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719322257416,
+  "lastUpdate": 1719398480978,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30203,6 +30203,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 417291.89170376834,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38274.85321195001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b4cc08cbeadace4cb1b1539b8387e95763ed0a72",
+          "message": "fix(pacmak): Twine 5.1.0 not found (#4554)\n\nTwine 5.1.0 has been yanked (removed) due to the issue described in https://github.com/pypa/twine/issues/1125\n\nThis PR reverts the `requirements-dev.txt` file used by `jsii-pacmak` back to `twine~=5.0.0`.",
+          "timestamp": "2024-06-26T10:02:18Z",
+          "tree_id": "bbb4c70e8468be28aa73bcd6ee2263095b5f8d9a",
+          "url": "https://github.com/aws/jsii/commit/b4cc08cbeadace4cb1b1539b8387e95763ed0a72"
+        },
+        "date": 1719398477075,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51357.88655915006,
+            "unit": "milliseconds",
+            "range": 677426.618092124,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51357.88655915006 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39393.27762230001,
+            "unit": "milliseconds",
+            "range": 165709.14485515244,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39393.27762230001 milliseconds over 20 runs"
           }
         ]
       }
