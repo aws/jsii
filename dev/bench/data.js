@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719398480978,
+  "lastUpdate": 1719402821360,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30241,6 +30241,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 165709.14485515244,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39393.27762230001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7b91e7aadd6e00a48a7cf329ec0d12c27e68c357",
+          "message": "chore: upgrade lerna to fix CVE with tar dependency (#4555)\n\nSee https://github.com/advisories/GHSA-f5x3-32g6-xq36\nThe affected version of `tar` is only used in build tooling, i.e. no risk to published packages.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-06-26T11:13:40Z",
+          "tree_id": "0c14b83e38bb4f58ed396eb96d30973dcd13a8d3",
+          "url": "https://github.com/aws/jsii/commit/7b91e7aadd6e00a48a7cf329ec0d12c27e68c357"
+        },
+        "date": 1719402817443,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 52117.744904,
+            "unit": "milliseconds",
+            "range": 754399.7372798205,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 52117.744904 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39518.06351825,
+            "unit": "milliseconds",
+            "range": 50212.529575675195,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39518.06351825 milliseconds over 20 runs"
           }
         ]
       }
