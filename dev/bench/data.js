@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719402863911,
+  "lastUpdate": 1719405695722,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30317,6 +30317,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 49915.52541899937,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39364.404834950015 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7188e19c48468d872ef023c274e49e13b14285a8",
+          "message": "chore(deps-dev): Bump mypy from 1.10.0 to 1.10.1 in /packages/jsii-pacmak/test/generated-code (#4552)\n\nBumps [mypy](https://github.com/python/mypy) from 1.10.0 to 1.10.1.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/python/mypy/blob/master/CHANGELOG.md\">mypy's changelog</a>.</em></p>\n<blockquote>\n<h4>Mypy 1.10.1</h4>\n<ul>\n<li>Fix error reporting on cached run after uninstallation of third party library (Shantanu, PR <a href=\"https://redirect.github.com/python/mypy/pull/17420\">17420</a>)</li>\n</ul>\n<h4>Acknowledgements</h4>\n<p>Thanks to all mypy contributors who contributed to this release:</p>\n<ul>\n<li>Alex Waygood</li>\n<li>Ali Hamdan</li>\n<li>Edward Paget</li>\n<li>Evgeniy Slobodkin</li>\n<li>Hashem</li>\n<li>hesam</li>\n<li>Hugo van Kemenade</li>\n<li>Ihor</li>\n<li>James Braza</li>\n<li>Jelle Zijlstra</li>\n<li>jhance</li>\n<li>Jukka Lehtosalo</li>\n<li>Loïc Simon</li>\n<li>Marc Mueller</li>\n<li>Matthieu Devlin</li>\n<li>Michael R. Crusoe</li>\n<li>Nikita Sobolev</li>\n<li>Oskari Lehto</li>\n<li>Riccardo Di Maio</li>\n<li>Richard Si</li>\n<li>roberfi</li>\n<li>Roman Solomatin</li>\n<li>Sam Xifaras</li>\n<li>Shantanu</li>\n<li>Spencer Brown</li>\n<li>Srinivas Lade</li>\n<li>Tamir Duberstein</li>\n<li>youkaichao</li>\n</ul>\n<p>I’d also like to thank my employer, Dropbox, for supporting mypy development.</p>\n<h2>Mypy 1.9</h2>\n<p>We’ve just uploaded mypy 1.9 to the Python Package Index (<a href=\"https://pypi.org/project/mypy/\">PyPI</a>). Mypy is a static type checker for Python. This release includes new features, performance improvements and bug fixes. You can install it as follows:</p>\n<pre><code>python3 -m pip install -U mypy\n</code></pre>\n<p>You can read the full documentation for this release on <a href=\"http://mypy.readthedocs.io\">Read the Docs</a>.</p>\n<h4>Breaking Changes</h4>\n<p>Because the version of typeshed we use in mypy 1.9 doesn't support 3.7, neither does mypy 1.9. (Jared Hance, PR <a href=\"https://redirect.github.com/python/mypy/pull/16883\">16883</a>)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/c28b5257b528f65a028e7d0dbecbcd81c7997356\"><code>c28b525</code></a> [1.10 backport] Fix error reporting on cached run after uninstallation of thi...</li>\n<li>See full diff in <a href=\"https://github.com/python/mypy/compare/v1.10.0...v1.10.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.10.0&new-version=1.10.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-06-26T12:02:04Z",
+          "tree_id": "e1f1fe795187d29a1007ae9d1784e3a8d1a8eea3",
+          "url": "https://github.com/aws/jsii/commit/7188e19c48468d872ef023c274e49e13b14285a8"
+        },
+        "date": 1719405691743,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51934.41054830002,
+            "unit": "milliseconds",
+            "range": 572495.9833917443,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51934.41054830002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39271.377636099984,
+            "unit": "milliseconds",
+            "range": 61847.93426981557,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39271.377636099984 milliseconds over 20 runs"
           }
         ]
       }
