@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1719411647530,
+  "lastUpdate": 1719492421705,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30393,6 +30393,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 37562.84227141134,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39298.90175215 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d170ef17678c97d1ac3bffe346e91a94ea34af9e",
+          "message": "chore(deps-dev): Update twine requirement from ~=5.0.0 to ~=5.1.1 in /packages/jsii-pacmak/lib/targets/python (#4558)\n\nUpdates the requirements on [twine](https://github.com/pypa/twine) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/twine/blob/main/docs/changelog.rst\">twine's changelog</a>.</em></p>\n<blockquote>\n<h2>Twine 5.1.1 (2024-06-26)</h2>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>\n<p>Resolve DeprecationWarnings when extracting <code>twine</code> metadata. (<code>[#1115](https://github.com/pypa/twine/issues/1115) &lt;https://github.com/pypa/twine/issues/1115&gt;</code>_)</p>\n</li>\n<li>\n<p>Fix bug for Repository URLs with auth where the port was lost. When attempting\nto prevent printing authentication credentials in URLs provided with username\nand password, we did not properly handle the case where the URL also contains\na port (when reconstructing the URL). This is now handled and tested to\nensure no regressions. (<code>#fix-repo-urls-with-auth-and-port &lt;https://github.com/pypa/twine/issues/fix-repo-urls-with-auth-and-port&gt;</code>_)</p>\n</li>\n</ul>\n<h2>Twine 5.1.0 (2024-05-15)</h2>\n<p>Features\n^^^^^^^^</p>\n<ul>\n<li>Add the experimental <code>--attestations</code> flag. (<code>[#1095](https://github.com/pypa/twine/issues/1095) &lt;https://github.com/pypa/twine/issues/1095&gt;</code>_)</li>\n</ul>\n<h2>Twine 5.1.0 (2024-05-15)</h2>\n<p>Misc\n^^^^</p>\n<ul>\n<li><code>[#1104](https://github.com/pypa/twine/issues/1104) &lt;https://github.com/pypa/twine/issues/1104&gt;</code>_</li>\n</ul>\n<h2>Twine 5.0.0 (2024-02-10)</h2>\n<p>Bugfixes\n^^^^^^^^</p>\n<ul>\n<li>Use <code>email.message</code> instead of <code>cgi</code> as <code>cgi</code> has been deprecated (<code>[#969](https://github.com/pypa/twine/issues/969) &lt;https://github.com/pypa/twine/issues/969&gt;</code>_)</li>\n</ul>\n<p>Misc\n^^^^</p>\n<ul>\n<li><code>[#931](https://github.com/pypa/twine/issues/931) &lt;https://github.com/pypa/twine/issues/931&gt;</code><em>, <code>[#991](https://github.com/pypa/twine/issues/991) &lt;https://github.com/pypa/twine/issues/991&gt;</code></em>, <code>[#1028](https://github.com/pypa/twine/issues/1028) &lt;https://github.com/pypa/twine/issues/1028&gt;</code><em>, <code>[#1040](https://github.com/pypa/twine/issues/1040) &lt;https://github.com/pypa/twine/issues/1040&gt;</code></em></li>\n</ul>\n<h2>Twine 4.0.2 (2022-11-30)</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/twine/commit/e29791dcbcd4d39ffc5c4ce2e38e3884005bd368\"><code>e29791d</code></a> Prepare for v5.1.1 (<a href=\"https://redirect.github.com/pypa/twine/issues/1114\">#1114</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/f213ede904ec8553c82e75d6125efd1972fe8b00\"><code>f213ede</code></a> fix: Retrieve metadata correctly from importlib_metadata (<a href=\"https://redirect.github.com/pypa/twine/issues/1115\">#1115</a>)</li>\n<li><a href=\"https://github.com/pypa/twine/commit/6fbf880ee60915cf1666348c4bdd78a10415f2ac\"><code>6fbf880</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1112\">#1112</a> from pypa/bug/1111</li>\n<li><a href=\"https://github.com/pypa/twine/commit/3eb9121c6d6cdb0b0d2c0e55c89319cbceda038a\"><code>3eb9121</code></a> Remove extra line from changelog entry</li>\n<li><a href=\"https://github.com/pypa/twine/commit/0191f0c9d9cae285df4c700dece7efc7c7de1551\"><code>0191f0c</code></a> Preserve ports when munging repository URLs</li>\n<li><a href=\"https://github.com/pypa/twine/commit/c5887932a552c859376a53fb4dbe39f2ab17ba20\"><code>c588793</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1110\">#1110</a> from DimitriPapadopoulos/principle</li>\n<li><a href=\"https://github.com/pypa/twine/commit/1fdc197636fa1d354d5e4113121698e08824d3a0\"><code>1fdc197</code></a> Fix a couple typos</li>\n<li><a href=\"https://github.com/pypa/twine/commit/13b07b67fdc7b6de589640655045687953edab24\"><code>13b07b6</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1109\">#1109</a> from pypa/dependabot/github_actions/actions/checkout...</li>\n<li><a href=\"https://github.com/pypa/twine/commit/a3e837326aa9691c89ebefecb1449977d33f89e4\"><code>a3e8373</code></a> build(deps): bump actions/checkout from 4.1.5 to 4.1.6</li>\n<li><a href=\"https://github.com/pypa/twine/commit/e9f70cff51d5b355305680b8501bdb17c2de015e\"><code>e9f70cf</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/twine/issues/1108\">#1108</a> from pypa/fix-release-workflow</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/twine/compare/5.0.0...v5.1.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-06-27T12:08:15Z",
+          "tree_id": "30533c1df4682b08d8fcc5d68b36e40d4169ddc1",
+          "url": "https://github.com/aws/jsii/commit/d170ef17678c97d1ac3bffe346e91a94ea34af9e"
+        },
+        "date": 1719492417698,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51075.21931070002,
+            "unit": "milliseconds",
+            "range": 727990.8296077952,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51075.21931070002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38936.947952999995,
+            "unit": "milliseconds",
+            "range": 37686.4480380148,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38936.947952999995 milliseconds over 20 runs"
           }
         ]
       }
