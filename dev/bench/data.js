@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1720445890613,
+  "lastUpdate": 1720448187692,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30621,6 +30621,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 381802.5720091056,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 40066.8842856 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "784e9eb5156d309642959742f65b426ecd9aa36a",
+          "message": "chore(deps-dev): Bump pip from 24.1.1 to 24.1.2 in /packages/jsii-pacmak/test/generated-code (#4566)\n\nBumps [pip](https://github.com/pypa/pip) from 24.1.1 to 24.1.2.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/pip/blob/main/NEWS.rst\">pip's changelog</a>.</em></p>\n<blockquote>\n<h1>24.1.2 (2024-07-07)</h1>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Fix finding hardlink targets in tar files with an ignored top-level directory. (<code>[#12781](https://github.com/pypa/pip/issues/12781) &lt;https://github.com/pypa/pip/issues/12781&gt;</code>_)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li>See full diff in <a href=\"https://github.com/pypa/pip/commits\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=pip&package-manager=pip&previous-version=24.1.1&new-version=24.1.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-08T13:37:35Z",
+          "tree_id": "0d73f79ba35ccb6b2f64d88fa5198ed95acfe1fa",
+          "url": "https://github.com/aws/jsii/commit/784e9eb5156d309642959742f65b426ecd9aa36a"
+        },
+        "date": 1720448183319,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51710.322611749994,
+            "unit": "milliseconds",
+            "range": 404471.3883743535,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51710.322611749994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39094.2368792,
+            "unit": "milliseconds",
+            "range": 145008.10801934655,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39094.2368792 milliseconds over 20 runs"
           }
         ]
       }
