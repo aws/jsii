@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1720450611449,
+  "lastUpdate": 1721047658262,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30697,6 +30697,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 115858.02966966806,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39605.77839604997 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b681ab4958604df5206d0a84f7429acf93ba2de3",
+          "message": "chore(deps): Update setuptools requirement from ~=70.2.0 to ~=70.3.0 in /packages/@jsii/python-runtime (#4570)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v70.3.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Support for loading distutils from the standard library is now deprecated, including use of SETUPTOOLS_USE_DISTUTILS=stdlib and importing distutils before importing setuptools. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4137\">#4137</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li><code>pypa/distutils#268</code></li>\n</ul>\n<h1>v70.2.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Updated distutils including significant changes to support Cygwin and mingw compilers. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4444\">#4444</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fix distribution name normalisation (:pep:<code>625</code>) for valid versions that are\nnot canonical (e.g. <code>1.0-2</code>). (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4434\">#4434</a>)</li>\n</ul>\n<h1>v70.1.1</h1>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4429\">#4429</a></li>\n</ul>\n<h1>v70.1.0</h1>\n<h2>Features</h2>\n<ul>\n<li>\n<p>Adopted the <code>bdist_wheel</code> command from the <code>wheel</code> project -- by :user:<code>agronholm</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/1386\">#1386</a>)</p>\n</li>\n<li>\n<p>Improve error message when <code>pkg_resources.ZipProvider</code> tries to extract resources with a missing Egg -- by :user:<code>Avasam</code></p>\n<p>Added variables and parameter type annotations to <code>pkg_resources</code> to be nearly on par with typeshed.* -- by :user:<code>Avasam</code></p>\n</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/356e9a00c4f04c1c6cf76a4a5f97325d0ab4df46\"><code>356e9a0</code></a> Bump version: 70.2.0 → 70.3.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/822280ba9992bed7ca4bb314d24e6344478be379\"><code>822280b</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4463\">#4463</a> from pypa/bugfix/distutils-34f9518ef</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/c4e64c194285e73895a858fa226cd5225beebfed\"><code>c4e64c1</code></a> Add news fragment.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b01183c19952625d7461ab5c8cb0a07c39c98c9e\"><code>b01183c</code></a> Merge <a href=\"https://github.com/pypa/distutils\">https://github.com/pypa/distutils</a> into bugfix/distutils-34f9518ef</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e221581f8023b5c7b8d54a78ef80edadcac55d24\"><code>e221581</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/distutils/issues/267\">pypa/distutils#267</a> from msys2-contrib/customize_compiler_m...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/34f9518ef5b50d546893fc29386d4d11866dd9db\"><code>34f9518</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4410\">#4410</a> from pypa/debt/4137-deprecate-distutils-stdlib</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/bacd9c6f92ed1926644f5743d7139d16ee65801b\"><code>bacd9c6</code></a> sysconfig: skip customize_compiler() with MSVC Python again</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4a3406baf94b1ef8122364b417c9564344a52921\"><code>4a3406b</code></a> CI: also set CC/CXX when pip installing with mingw+clang</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e9f0be98ea4faaba4a7b2d07ba994a81fde8f42f\"><code>e9f0be9</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4453\">#4453</a> from pypa/drop-gitignore</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/70cda3d1e8bb8a9602256f235c9a023934dd6065\"><code>70cda3d</code></a> Use '.yml' for consistency.</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v70.2.0...v70.3.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-15T12:08:57Z",
+          "tree_id": "6b07375ea3c149316395ac781f26edfe2ad8882e",
+          "url": "https://github.com/aws/jsii/commit/b681ab4958604df5206d0a84f7429acf93ba2de3"
+        },
+        "date": 1721047654077,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 50673.10268909998,
+            "unit": "milliseconds",
+            "range": 367980.694450237,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 50673.10268909998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38637.34307640001,
+            "unit": "milliseconds",
+            "range": 136836.60282727022,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38637.34307640001 milliseconds over 20 runs"
           }
         ]
       }
