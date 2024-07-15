@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721053473761,
+  "lastUpdate": 1721055906841,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30811,6 +30811,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 265133.2849308121,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39672.047955149996 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4ee891d362c3db1d9556e0a299849551ec09081c",
+          "message": "chore(deps): Bump xunit.runner.visualstudio from 2.8.1 to 2.8.2 in /packages/@jsii/dotnet-runtime/src (#4571)\n\nBumps xunit.runner.visualstudio from 2.8.1 to 2.8.2.\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=xunit.runner.visualstudio&package-manager=nuget&previous-version=2.8.1&new-version=2.8.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-15T14:25:41Z",
+          "tree_id": "d99faf75f94eab231ea35ec5e64b2913f97476af",
+          "url": "https://github.com/aws/jsii/commit/4ee891d362c3db1d9556e0a299849551ec09081c"
+        },
+        "date": 1721055902528,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51696.11169989999,
+            "unit": "milliseconds",
+            "range": 2112340.8097489793,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51696.11169989999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39445.169261350005,
+            "unit": "milliseconds",
+            "range": 365122.18867547956,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39445.169261350005 milliseconds over 20 runs"
           }
         ]
       }
