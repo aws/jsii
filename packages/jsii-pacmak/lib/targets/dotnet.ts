@@ -18,7 +18,7 @@ import { toReleaseVersion } from './version-utils';
 
 import { TargetName } from '.';
 
-export const TARGET_FRAMEWORK = 'netcoreapp3.1';
+export const TARGET_FRAMEWORKS = 'netcoreapp3.1;net6.0';
 
 /**
  * Build .NET packages all together, by generating an aggregate solution file

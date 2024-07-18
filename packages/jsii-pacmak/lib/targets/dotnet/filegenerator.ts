@@ -6,7 +6,7 @@ import * as xmlbuilder from 'xmlbuilder';
 import { TargetName } from '..';
 import * as logging from '../../logging';
 import { VERSION } from '../../version';
-import { TARGET_FRAMEWORK } from '../dotnet';
+import { TARGET_FRAMEWORKS } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
 import { DotNetNameUtils } from './nameutils';
 
@@ -112,7 +112,7 @@ export class FileGenerator {
     propertyGroup.ele('IncludeSource', 'true');
     propertyGroup.ele('Nullable', 'enable');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
-    propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
+    propertyGroup.ele('TargetFrameworks', TARGET_FRAMEWORKS);
     // Transparently rolll forward across major SDK releases if needed
     propertyGroup.ele('RollForward', 'Major');
 
@@ -154,6 +154,8 @@ export class FileGenerator {
         '0109', // The member 'member' does not hide an inherited member. The new keyword is not required.
       ].join(','),
     );
+    warnings.comment('Quiet "Consider upgrading your TargetFramework to net6.0 or later" messages from "netcoreapp3.1" target framework')
+    warnings.ele('SuppressTfmSupportBuildWarnings').text('true')
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 
     // Sending the xml content to the codemaker to ensure the file is written
