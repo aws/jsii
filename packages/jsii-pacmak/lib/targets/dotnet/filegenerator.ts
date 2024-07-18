@@ -6,7 +6,7 @@ import * as xmlbuilder from 'xmlbuilder';
 import { TargetName } from '..';
 import * as logging from '../../logging';
 import { VERSION } from '../../version';
-import { TARGET_FRAMEWORKS } from '../dotnet';
+import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
 import { DotNetNameUtils } from './nameutils';
 
@@ -112,7 +112,7 @@ export class FileGenerator {
     propertyGroup.ele('IncludeSource', 'true');
     propertyGroup.ele('Nullable', 'enable');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
-    propertyGroup.ele('TargetFrameworks', TARGET_FRAMEWORKS);
+    propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
     // Transparently rolll forward across major SDK releases if needed
     propertyGroup.ele('RollForward', 'Major');
 
