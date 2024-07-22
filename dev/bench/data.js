@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721657684271,
+  "lastUpdate": 1721660095717,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30925,6 +30925,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 15546.161477184103,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38303.501774600016 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b7bf97a97a964caf7b7d76f4b66819824c24b1ca",
+          "message": "chore(deps): Update pytest requirement from ~=8.2 to ~=8.3 in /packages/@jsii/python-runtime (#4578)\n\nUpdates the requirements on [pytest](https://github.com/pytest-dev/pytest) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/pytest-dev/pytest/releases\">pytest's releases</a>.</em></p>\n<blockquote>\n<h2>8.3.1</h2>\n<h1>pytest 8.3.1 (2024-07-20)</h1>\n<p>The 8.3.0 release failed to include the change notes and docs for the release. This patch release remedies this. There are no other changes.</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/de98446075cc07c768387cf64ba497dd75c205de\"><code>de98446</code></a> Prepare release version 8.3.1</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/bd0a0424037825bc23b9bf299115e92c53a67a9c\"><code>bd0a042</code></a> Merge pull request <a href=\"https://redirect.github.com/pytest-dev/pytest/issues/12636\">#12636</a> from pytest-dev/update-release-notes</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/664325bc9fd90217f51fe7cc0e9fff2f29a41a15\"><code>664325b</code></a> doc/changelog: update 8.3.0 notes</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/19d225d0ab0f586a9a1fc878dff871495c12bd06\"><code>19d225d</code></a> Merge pull request <a href=\"https://redirect.github.com/pytest-dev/pytest/issues/12635\">#12635</a> from pytest-dev/release-8.3.0</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/bc3302850c52ec945eea1b2bbde7ec3b91fc3e44\"><code>bc33028</code></a> Prepare release version 8.3.0</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/a7d5a8eba9addd119432fa71880b51052a89812f\"><code>a7d5a8e</code></a> Merge pull request <a href=\"https://redirect.github.com/pytest-dev/pytest/issues/12557\">#12557</a> from x612skm/maintainence/11771-pypy-3.9-bump</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/ced7072bb4f7653ad2f1d0d33639d87e7bc5f358\"><code>ced7072</code></a> Add a change note for PR <a href=\"https://redirect.github.com/pytest-dev/pytest/issues/11771\">#11771</a></li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/d42b76daadb88d993ee74753766e22711a27395f\"><code>d42b76d</code></a> Adjust test_errors_in_xfail_skip_expressions for PyPy</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/9eee45a7479cf5fa23b79057708a994a3b8d0eee\"><code>9eee45a</code></a> Bump PyPy runtime to v3.9 @ GHA</li>\n<li><a href=\"https://github.com/pytest-dev/pytest/commit/d489247505a953885a156e61d4473497cbc167ea\"><code>d489247</code></a> Fix caching of parameterized fixtures (<a href=\"https://redirect.github.com/pytest-dev/pytest/issues/12600\">#12600</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pytest-dev/pytest/compare/8.2.0...8.3.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-22T14:15:53Z",
+          "tree_id": "de49b2bd3919db8ca3a5c3a750f62bf43d06628d",
+          "url": "https://github.com/aws/jsii/commit/b7bf97a97a964caf7b7d76f4b66819824c24b1ca"
+        },
+        "date": 1721660091098,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51328.228808649976,
+            "unit": "milliseconds",
+            "range": 354451.5009938513,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51328.228808649976 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38987.46764035,
+            "unit": "milliseconds",
+            "range": 65823.30869801358,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38987.46764035 milliseconds over 20 runs"
           }
         ]
       }
