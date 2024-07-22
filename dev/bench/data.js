@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721055906841,
+  "lastUpdate": 1721652880027,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30849,6 +30849,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 365122.18867547956,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39445.169261350005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9fd1d2ea39c8788682f3c63b7ba4b40011159fa4",
+          "message": "chore(deps-dev): Bump mypy from 1.10.1 to 1.11.0 in /packages/jsii-pacmak/test/generated-code (#4577)\n\nBumps [mypy](https://github.com/python/mypy) from 1.10.1 to 1.11.0.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/python/mypy/blob/master/CHANGELOG.md\">mypy's changelog</a>.</em></p>\n<blockquote>\n<h1>Mypy Release Notes</h1>\n<h2>Next release</h2>\n<h2>Mypy 1.11</h2>\n<p>We’ve just uploaded mypy 1.11 to the Python Package Index (<a href=\"https://pypi.org/project/mypy/\">PyPI</a>). Mypy is a static type checker for Python. This release includes new features, performance improvements and bug fixes. You can install it as follows:</p>\n<pre><code>python3 -m pip install -U mypy\n</code></pre>\n<p>You can read the full documentation for this release on <a href=\"http://mypy.readthedocs.io\">Read the Docs</a>.</p>\n<h4>Support Python 3.12 Syntax for Generics (PEP 695)</h4>\n<p>Mypy now supports the new type parameter syntax introduced in Python 3.12 (<a href=\"https://peps.python.org/pep-0695/\">PEP 695</a>).\nThis feature is still experimental and must be enabled with the <code>--enable-incomplete-feature=NewGenericSyntax</code> flag, or with <code>enable_incomplete_feature = NewGenericSyntax</code> in the mypy configuration file.\nWe plan to enable this by default in the next mypy feature release.</p>\n<p>This example demonstrates the new syntax:</p>\n<pre lang=\"python\"><code># Generic function\ndef f[T](https://github.com/python/mypy/blob/master/x: T) -&gt; T: ...\n<p>reveal_type(f(1))  # Revealed type is 'int'</p>\n<h1>Generic class</h1>\n<p>class C[T]:\ndef <strong>init</strong>(self, x: T) -&gt; None:\nself.x = x</p>\n<p>c = C('a')\nreveal_type(c.x)  # Revealed type is 'str'</p>\n<h1>Type alias</h1>\n<p>type A[T] = C[list[T]]\n</code></pre></p>\n<p>This feature was contributed by Jukka Lehtosalo.</p>\n<h4>Support for <code>functools.partial</code></h4>\n<p>Mypy now type checks uses of <code>functools.partial</code>. Previously mypy would accept arbitrary arguments.</p>\n<p>This example will now produce an error:</p>\n<pre lang=\"python\"><code>from functools import partial\n&lt;/tr&gt;&lt;/table&gt; \n</code></pre>\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/dbd5f5cdb62b4dcd1e498c3a91c204b812609fdf\"><code>dbd5f5c</code></a> Remove +dev from version for 1.11 release</li>\n<li><a href=\"https://github.com/python/mypy/commit/f0a8c6931485364d918f7b4920e5f2832a6be22f\"><code>f0a8c69</code></a> Update CHANGELOG for mypy 1.11 (<a href=\"https://redirect.github.com/python/mypy/issues/17540\">#17540</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/371f7801e9bff13803a228e6cc8dd4cee6c8e472\"><code>371f780</code></a> CHANGELOG.md update for 1.11 (<a href=\"https://redirect.github.com/python/mypy/issues/17539\">#17539</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/2563da0c721a89725bfd009da12dd6378554bfc6\"><code>2563da0</code></a> Fix daemon crash on invalid type in TypedDict (<a href=\"https://redirect.github.com/python/mypy/issues/17495\">#17495</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/d8c67c36d6ecf964dd283de3acffc59d80c8b1fd\"><code>d8c67c3</code></a> [release 1.11] Ignore some errors in typeshed (<a href=\"https://redirect.github.com/python/mypy/issues/17510\">#17510</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/294daffc12ad6f3b02e023bbfb97b6ded58964ff\"><code>294daff</code></a> Mention --enable-incomplete-feature=NewGenericSyntax (<a href=\"https://redirect.github.com/python/mypy/issues/17462\">#17462</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/5c33abf1c2cf6b765529bd70b41d5aa98da08e38\"><code>5c33abf</code></a> Further improvements to functools.partial handling (<a href=\"https://redirect.github.com/python/mypy/issues/17425\">#17425</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/c37d972f8abe0b2a46dbf7bab0898cd2afe6f69c\"><code>c37d972</code></a> Fix type comments crash inside generic definitions (<a href=\"https://redirect.github.com/python/mypy/issues/16849\">#16849</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/d39f0234a18762a9b261a28763c7bea706633ce7\"><code>d39f023</code></a> Add changelog entry for 1.10.1 (<a href=\"https://redirect.github.com/python/mypy/issues/17436\">#17436</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/6c1d8671ce6eaf2c955fa986cbad51d6e6726d5d\"><code>6c1d867</code></a> Fix ParamSpec inference against TypeVarTuple (<a href=\"https://redirect.github.com/python/mypy/issues/17431\">#17431</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/python/mypy/compare/v1.10.1...v1.11\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.10.1&new-version=1.11.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-22T12:13:27Z",
+          "tree_id": "6c14f60af92757317884de33282fb9312d235c75",
+          "url": "https://github.com/aws/jsii/commit/9fd1d2ea39c8788682f3c63b7ba4b40011159fa4"
+        },
+        "date": 1721652875219,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 55703.481653049974,
+            "unit": "milliseconds",
+            "range": 524874.4405879735,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 55703.481653049974 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 41723.597316600004,
+            "unit": "milliseconds",
+            "range": 278154.1837823123,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 41723.597316600004 milliseconds over 20 runs"
           }
         ]
       }
