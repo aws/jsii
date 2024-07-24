@@ -961,7 +961,7 @@ abstract class BaseProperty implements PythonBase {
       // PyRight and MyPY both special-case @property, but not custom implementations such as our @classproperty...
       // MyPY reports on the re-declaration, but PyRight reports on the initial declaration (duh!)
       this.isStatic && !this.immutable
-        ? 'pyright: ignore [reportGeneralTypeIssues]'
+        ? 'pyright: ignore [reportGeneralTypeIssues,reportRedeclaration]'
         : undefined,
     );
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
@@ -1011,8 +1011,11 @@ abstract class BaseProperty implements PythonBase {
             this.pythonName
           }`,
         );
+        // In case of a static setter, the 'cls' type is the class type but because we use a custom
+        // decorator to make the setter operate on classes instead of objects, pyright doesn't know about
+        // that and thinks the first argument is an instance instead of a class. Shut it up.
         code.line(
-          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
+          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value) # pyright: ignore[reportArgumentType]`,
         );
       } else {
         code.line('...');
