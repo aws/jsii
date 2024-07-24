@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721660095717,
+  "lastUpdate": 1721841366564,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -30963,6 +30963,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 65823.30869801358,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38987.46764035 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1101292bf4033923f3077aa41d87517bbcdcb914",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.22.0 to 0.23.0 in /packages/@jsii/go-runtime/jsii-runtime-go (#4564)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.22.0 to 0.23.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/33be3ef892534885002fcfa0ccf4506088a25d59\"><code>33be3ef</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/0e7ccc0478c322a6b32fb9f74ebfc42e4f965ee9\"><code>0e7ccc0</code></a> gopls/internal/golang: provide version info for stdlib in pkgdoc</li>\n<li><a href=\"https://github.com/golang/tools/commit/fcf54632603b8795667b76d7c373201e9536ed10\"><code>fcf5463</code></a> gopls/internal/server: add counters to inform v0.17.0</li>\n<li><a href=\"https://github.com/golang/tools/commit/70a59b2f224b125b843a948e205c0792dbff4f22\"><code>70a59b2</code></a> gopls/doc: respond to Hana's review of CL 583316</li>\n<li><a href=\"https://github.com/golang/tools/commit/799a47185df0a37a5e0a95faa9d4b3d693736c5e\"><code>799a471</code></a> gopls/doc: document all of gopls' features</li>\n<li><a href=\"https://github.com/golang/tools/commit/2e239ad1ba11fe5e5daa1763388fdd7584ae7c6d\"><code>2e239ad</code></a> gopls/internal/golang: provide version info for stdlib fields</li>\n<li><a href=\"https://github.com/golang/tools/commit/bc15dd8597ecd98beabdb4616a9341905ac3a6da\"><code>bc15dd8</code></a> gopls/internal/analysis/fillstruct: use package name (not path) in UI</li>\n<li><a href=\"https://github.com/golang/tools/commit/72edac2ff315a3d7ecf4ef98f13fda6e6af69478\"><code>72edac2</code></a> internal/typeparams: fix crash in interface hover with empty type set</li>\n<li><a href=\"https://github.com/golang/tools/commit/c0ae6bbd24adc34e4b2ba9ecd75922847f718b27\"><code>c0ae6bb</code></a> gopls/internal/golang: splitlines: s/parameter/arguments/ in CallExpr</li>\n<li><a href=\"https://github.com/golang/tools/commit/5cc2d0b12cd3eee183bbd2f3a901418f482d0579\"><code>5cc2d0b</code></a> gopls/internal/golang: splitlines: remove workaround for <a href=\"https://redirect.github.com/golang/go/issues/68202\">golang/go#68202</a></li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.22.0...v0.23.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.22.0&new-version=0.23.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-24T16:35:26Z",
+          "tree_id": "437ad7d7e2ea0556ebe81e7c403918f706dd9cf3",
+          "url": "https://github.com/aws/jsii/commit/1101292bf4033923f3077aa41d87517bbcdcb914"
+        },
+        "date": 1721841361844,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 51191.285414149985,
+            "unit": "milliseconds",
+            "range": 1526215.039292918,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 51191.285414149985 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39760.012023550014,
+            "unit": "milliseconds",
+            "range": 436686.2744833572,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39760.012023550014 milliseconds over 20 runs"
           }
         ]
       }
