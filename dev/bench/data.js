@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721907198684,
+  "lastUpdate": 1721917025028,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31039,6 +31039,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 40926.83405529087,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36992.27974330001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "03d09cbccf2ea77b9409930b46c02961c37af56b",
+          "message": "chore(deps): Update setuptools requirement from ~=70.3.0 to ~=71.1.0 in /packages/@jsii/python-runtime (#4579)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v71.1.0</h1>\n<h2>Features</h2>\n<ul>\n<li>\n<p>Added return types to typed public functions -- by :user:<code>Avasam</code></p>\n<p>Marked <code>pkg_resources</code> as <code>py.typed</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4409\">#4409</a>)</p>\n</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4492\">#4492</a></li>\n</ul>\n<h1>v71.0.4</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Removed lingering unused code around Distribution._patched_dist. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4489\">#4489</a>)</li>\n</ul>\n<h1>v71.0.3</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Reset the backports module when enabling vendored packages. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4476\">#4476</a>)</li>\n</ul>\n<h1>v71.0.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Include all vendored files in the sdist. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4480\">#4480</a>)</li>\n</ul>\n<h1>v71.0.1</h1>\n<h2>Bugfixes</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/08bd31115732ece3cca50bd93f338e1b90dead34\"><code>08bd311</code></a> Bump version: 71.0.4 → 71.1.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e3fd44a08b17a6d4426667094cdf1b067baec38b\"><code>e3fd44a</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4492\">#4492</a> from mgorny/core-deps-spec</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/022cedbf2c535e6fb81adc97afbfdc1e3e39cb8a\"><code>022cedb</code></a> Switch to uv for vendoring.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/3fca2492380dfe2820529829c5b9acb072c7fecb\"><code>3fca249</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4500\">#4500</a> from Avasam/Update-mypy-to-1.11</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e7575ae7b31c987916bf4724a979b91a8bfa3244\"><code>e7575ae</code></a> Update pyproject.toml</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b078d6e91bf5be6cea8994b6fc41b0dba808f341\"><code>b078d6e</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4409\">#4409</a> from Avasam/pkg_resources-explicit-public-return-ann...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/3aba4d4b2abd6b15760f1532871e2321acd2d658\"><code>3aba4d4</code></a> Update mypy to 1.11</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/deb0aa8a7ff369014e808fbf40c0e15582ff6dbf\"><code>deb0aa8</code></a> Merge branch 'main' of <a href=\"https://github.com/pypa/setuptools\">https://github.com/pypa/setuptools</a> into pkg_resources-...</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/48f95c0a1b8aa033d5a489eff8c4a6abc881b743\"><code>48f95c0</code></a> Bump version: 71.0.3 → 71.0.4</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/7d0178e13362843321d34329038144cfcdda5c71\"><code>7d0178e</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4493\">#4493</a> from pypa/debt/4489-patched-dist</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v70.3.0...v71.1.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-25T13:40:31Z",
+          "tree_id": "21e76fb22849b9bba26b4b325775d71c7d026a1d",
+          "url": "https://github.com/aws/jsii/commit/03d09cbccf2ea77b9409930b46c02961c37af56b"
+        },
+        "date": 1721917020158,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46639.028879249985,
+            "unit": "milliseconds",
+            "range": 1101001.2889107657,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46639.028879249985 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37864.571305199985,
+            "unit": "milliseconds",
+            "range": 230324.10872069234,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37864.571305199985 milliseconds over 20 runs"
           }
         ]
       }
