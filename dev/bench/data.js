@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721841366564,
+  "lastUpdate": 1721907198684,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31001,6 +31001,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 436686.2744833572,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39760.012023550014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "403cf2c3314410ed2691b6be405a469b8111f1d8",
+          "message": "chore: use node LTS version for workflows (#4582)\n\nUpdates are failing because new versions of `glob` require Node 20 or higher.\n\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-07-25T10:56:50Z",
+          "tree_id": "7a11808e7e46086997a6273d2b02e1afb5d8b0ca",
+          "url": "https://github.com/aws/jsii/commit/403cf2c3314410ed2691b6be405a469b8111f1d8"
+        },
+        "date": 1721907194411,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 45385.46206170002,
+            "unit": "milliseconds",
+            "range": 109114.13661081945,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 45385.46206170002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36992.27974330001,
+            "unit": "milliseconds",
+            "range": 40926.83405529087,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36992.27974330001 milliseconds over 20 runs"
           }
         ]
       }
