@@ -240,3 +240,22 @@ be released after a last validation build.
 
 The latest release information (for both of the Docker image tags) can be seen
 on [ECR Public Gallery](https://gallery.ecr.aws/jsii/superchain)
+
+## Support for new Node Major versions
+
+When a new major version of node is released, we need to update the `@jsii/check-node` package.
+This package is responsible for identifiying which node version is being used by the current process,
+whether or not it is supported and tested, and produces appropriate warnings in case it isnt.
+
+> Note that `jsii` will execute on every node version, so "adding support" here only means supressing or showing
+> warnings that inform the user on the level of support it has.
+
+### Steps
+
+1. Add a `new NodeRelease(...)` to [constants.ts](./packages/@jsii/check-node/src/constants.ts)
+2. If its an LTS version, add the new node version to our testing matrix in [main.yml](./.github/workflows/main.yml) and [docker-images.yml](./.github/workflows/docker-images.yml).
+
+### Useful Resources
+
+- [https://endoflife.date/nodejs](https://endoflife.date/nodejs)
+- [Adding support for node 22 PR](https://github.com/aws/jsii/pull/4489)
