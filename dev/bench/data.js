@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722256583569,
+  "lastUpdate": 1722258989542,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31115,6 +31115,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 64852.53232188241,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36910.636054250004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "38afdc1c34fd14438b1af024ce34db390d30e6a7",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.29 to ~=9.5.30 in /gh-pages (#4586)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.30</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7380\">#7380</a>: Navigation icons disappearing on hover in Safari</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7367\">#7367</a>: Blog readtime computation includes SVG text content</li>\n</ul>\n<p>Thanks go to <a href=\"https://github.com/sisp\"><code>@​sisp</code></a> for their contributions</p>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.30 (2024-07-23)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7380\">#7380</a>: Navigation icons disappearing on hover in Safari</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7367\">#7367</a>: Blog readtime computation includes SVG text content</li>\n</ul>\n<p>mkdocs-material-9.5.29 (2024-07-14)</p>\n<ul>\n<li>Updated Galician translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7362\">#7362</a>: Annotations in figure captions rendering incorrectly</li>\n</ul>\n<p>mkdocs-material-9.5.28 (2024-07-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7313\">#7313</a>: Improved tooltips mounted in sidebar when feature is disabled</li>\n</ul>\n<p>mkdocs-material-9.5.27 (2024-06-16)</p>\n<ul>\n<li>Updated Estonian translations</li>\n</ul>\n<p>mkdocs-material-9.5.26 (2024-06-06)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7232\">#7232</a>: Tab switches on scroll when linking tabs (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7230\">#7230</a>: Blog author avatar broken when referring to local file</li>\n</ul>\n<p>mkdocs-material-9.5.25+insiders-4.53.11 (2024-05-27)</p>\n<ul>\n<li>Fixed projects plugin crashing when serving before building subprojects</li>\n</ul>\n<p>mkdocs-material-9.5.25 (2024-05-27)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7209\">#7209</a>: Tags plugin crashing on numeric tags</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.10 (2024-05-20)</p>\n<ul>\n<li>Fixed projects plugin crashing in serve mode when disabled</li>\n<li>Fixed projects plugin crashing when building nested projects</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.9 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7191\">#7191</a>: Tags listings not rendering when toc_depth is changed</li>\n</ul>\n<p>mkdocs-material-9.5.24 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7187\">#7187</a>: Version selector title rendering issue</li>\n</ul>\n<p>mkdocs-material-9.5.23 (2024-05-15)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7183\">#7183</a>: Edge case in anchor navigation when using instant navigation</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/6436\">#6436</a>: Version selector not showing version alias</li>\n</ul>\n<p>mkdocs-material-9.5.22 (2024-05-12)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/557a3d5d260e90d67fde5c7e3445e62fda8150e2\"><code>557a3d5</code></a> Prepare 9.5.30 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a798a0d0d282231aee563ea8f3b7de14554723d7\"><code>a798a0d</code></a> Fixed link in comment</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/914bed290098dbac50e609657ec97776477375fe\"><code>914bed2</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/906e966d6dcf77cce0ac4410d60c789007e8fd5a\"><code>906e966</code></a> Fixed navigation icons disappearing on hover in Safari</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/6b13c560f5bf76889b1c603a5b83941892279c76\"><code>6b13c56</code></a> Fixed blog readtime calculation to ignore non-content text (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7370\">#7370</a>)</li>\n<li>See full diff in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.29...9.5.30\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-07-29T12:40:09Z",
+          "tree_id": "b72f8fe515cf716d0cd2bf29c5a061a0740911de",
+          "url": "https://github.com/aws/jsii/commit/38afdc1c34fd14438b1af024ce34db390d30e6a7"
+        },
+        "date": 1722258984776,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46146.46146155002,
+            "unit": "milliseconds",
+            "range": 359811.04720483004,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46146.46146155002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37516.71855194999,
+            "unit": "milliseconds",
+            "range": 269056.5727559159,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37516.71855194999 milliseconds over 20 runs"
           }
         ]
       }
