@@ -75,7 +75,9 @@ beforeAll(async () => {
 }, 300_000 /* ms -- this can be real slow 😒 */);
 
 afterAll(async () => {
-  await fs.rm(pythonSource, { force: true, recursive: true });
+  if (!process.env.NO_CLEAN) {
+    await fs.rm(pythonSource, { force: true, recursive: true });
+  }
   pythonSource = '';
 });
 
