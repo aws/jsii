@@ -3,7 +3,7 @@ mypy==1.11.0
 pip~=24.1
 pytest~=8.3
 pytest-mypy~=0.10
-setuptools~=71.1.0
+setuptools~=72.0.0
 types-python-dateutil~=2.9
 wheel~=0.43
 
