@@ -87,8 +87,10 @@ jobs:
             --filter=typescript
 
           # Upgrade all other dependencies (devDependencies) to the latest
+          # Exclude:
+          # - glob, because newer version don't support Node 18
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/inquirer,@types/node,typescript,@types/fs-extra,@types/yargs,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/inquirer,@types/node,typescript,@types/fs-extra,@types/yargs,glob,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
