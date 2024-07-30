@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722272858718,
+  "lastUpdate": 1722334231438,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31305,6 +31305,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 439489.6119703752,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37675.64274214999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rix0rrr@gmail.com",
+            "name": "Rico Hermans",
+            "username": "rix0rrr"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "215269603300632cb6562de6f7022f83047f2afa",
+          "message": "chore: bump setuptools to 70.x (#4583)\n\nNecessary because of a reported CVE.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-07-30T09:35:06Z",
+          "tree_id": "39b20a3087cece181325efdb70c696ac12bcce68",
+          "url": "https://github.com/aws/jsii/commit/215269603300632cb6562de6f7022f83047f2afa"
+        },
+        "date": 1722334226659,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 44768.529579899965,
+            "unit": "milliseconds",
+            "range": 108753.4128402726,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 44768.529579899965 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36666.746586799985,
+            "unit": "milliseconds",
+            "range": 30960.167831490602,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36666.746586799985 milliseconds over 20 runs"
           }
         ]
       }
