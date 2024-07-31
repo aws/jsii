@@ -28,7 +28,7 @@
   "dependencies": {
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "0.0.0",
-    "commonmark": "^0.31.0",
+    "commonmark": "^0.31.1",
     "typescript": "~3.9.10",
     "@xmldom/xmldom": "^0.8.10",
     "workerpool": "^6.5.1",
