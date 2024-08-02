@@ -42,11 +42,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '8'
-      - name: Set up Node 18
+      - name: Set up Node LTS
         uses: actions/setup-node@v4
         with:
           cache: yarn
-          node-version: '18'
+          node-version: 'lts/*'
       - name: Set up Python 3.8
         uses: actions/setup-python@v5
         with:
@@ -125,11 +125,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '8'
-      - name: Set up Node 18
+      - name: Set up Node LTS
         uses: actions/setup-node@v4
         with:
           cache: yarn
-          node-version: '18'
+          node-version: 'lts/*'
       - name: Set up Python 3.8
         uses: actions/setup-python@v5
         with:
@@ -400,7 +400,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: yarn
-          node-version: '18'
+          node-version: 'lts/*'
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Run Benchmark

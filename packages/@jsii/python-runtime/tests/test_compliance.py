@@ -937,10 +937,10 @@ def test_eraseUnsetDataValues():
 
 def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
     class PartiallyInitializedThisConsumerImpl(PartiallyInitializedThisConsumer):
-        def consume_partially_initialized_this(self, obj, dt, en):
+        def consume_partially_initialized_this(self, obj, dt, ev):
             assert obj is not None
             assert isinstance(dt, datetime)
-            assert en == AllTypesEnum.THIS_IS_GREAT
+            assert ev == AllTypesEnum.THIS_IS_GREAT
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()
@@ -1337,8 +1337,8 @@ def test_class_can_be_used_when_not_expressedly_loaded():
     """
 
     class Subject(Cdk16625):
-        def _unwrap(self, rng: IRandomNumberGenerator):
-            return rng.next()
+        def _unwrap(self, gen: IRandomNumberGenerator):
+            return gen.next()
 
     # This should NOT throw
     Subject().test()
