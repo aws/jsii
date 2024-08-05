@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722648938773,
+  "lastUpdate": 1722861933043,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31533,6 +31533,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 84136.96265909431,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37786.3987791 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7583cb09103c767ad3239f113cd48fe68699edbc",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.30 to ~=9.5.31 in /gh-pages (#4596)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.31</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7405\">#7405</a>: DockerHub missing images &gt; 9.5.27 due to change in Alpine/APK</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.31+insiders-4.53.12 (2024-08-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7410\">#7410</a>: Instant previews jump on content tabs with anchor links</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7408\">#7408</a>: Instant previews jump on content tabs</li>\n</ul>\n<p>mkdocs-material-9.5.31 (2024-08-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7405\">#7405</a>: DockerHub missing images &gt; 9.5.27 due to change in Alpine/APK</li>\n</ul>\n<p>mkdocs-material-9.5.30 (2024-07-23)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7380\">#7380</a>: Navigation icons disappearing on hover in Safari</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7367\">#7367</a>: Blog readtime computation includes SVG text content</li>\n</ul>\n<p>mkdocs-material-9.5.29 (2024-07-14)</p>\n<ul>\n<li>Updated Galician translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7362\">#7362</a>: Annotations in figure captions rendering incorrectly</li>\n</ul>\n<p>mkdocs-material-9.5.28 (2024-07-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7313\">#7313</a>: Improved tooltips mounted in sidebar when feature is disabled</li>\n</ul>\n<p>mkdocs-material-9.5.27 (2024-06-16)</p>\n<ul>\n<li>Updated Estonian translations</li>\n</ul>\n<p>mkdocs-material-9.5.26 (2024-06-06)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7232\">#7232</a>: Tab switches on scroll when linking tabs (9.5.19 regression)</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7230\">#7230</a>: Blog author avatar broken when referring to local file</li>\n</ul>\n<p>mkdocs-material-9.5.25+insiders-4.53.11 (2024-05-27)</p>\n<ul>\n<li>Fixed projects plugin crashing when serving before building subprojects</li>\n</ul>\n<p>mkdocs-material-9.5.25 (2024-05-27)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7209\">#7209</a>: Tags plugin crashing on numeric tags</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.10 (2024-05-20)</p>\n<ul>\n<li>Fixed projects plugin crashing in serve mode when disabled</li>\n<li>Fixed projects plugin crashing when building nested projects</li>\n</ul>\n<p>mkdocs-material-9.5.24+insiders-4.53.9 (2024-05-20)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7191\">#7191</a>: Tags listings not rendering when toc_depth is changed</li>\n</ul>\n<p>mkdocs-material-9.5.24 (2024-05-20)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/a5438a6dc23396023bbe9d73592fccd562ee4174\"><code>a5438a6</code></a> Prepare 9.5.31 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/0e2195d82111b4ef99feb5d024d078e5d096e420\"><code>0e2195d</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/32cf9ebcae04e8ebaad66137146b08fabb89c09d\"><code>32cf9eb</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/627eb88b3db88a6443d0972873756dd207fcb1dd\"><code>627eb88</code></a> Fixed Docker build on arm/v7</li>\n<li>See full diff in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.30...9.5.31\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-05T12:10:15Z",
+          "tree_id": "981c64460f9f813fafadd0694cc884aa09b74625",
+          "url": "https://github.com/aws/jsii/commit/7583cb09103c767ad3239f113cd48fe68699edbc"
+        },
+        "date": 1722861929046,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 44728.84342589999,
+            "unit": "milliseconds",
+            "range": 84669.37093933845,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 44728.84342589999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36529.59539449999,
+            "unit": "milliseconds",
+            "range": 16872.466474135384,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36529.59539449999 milliseconds over 20 runs"
           }
         ]
       }
