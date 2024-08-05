@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722861933043,
+  "lastUpdate": 1722864783859,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31571,6 +31571,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 16872.466474135384,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36529.59539449999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4c2139c7071ae037698f567676795996daf2b382",
+          "message": "chore(deps): Bump mypy from 1.11.0 to 1.11.1 in /packages/@jsii/python-runtime (#4598)\n\nBumps [mypy](https://github.com/python/mypy) from 1.11.0 to 1.11.1.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/python/mypy/commit/570b90a7a368f04c64f60af339d0ac1808c49c15\"><code>570b90a</code></a> Bump version to 1.11</li>\n<li><a href=\"https://github.com/python/mypy/commit/b3a102ef31f63a8a8ba32c8dbe160ddef3c43054\"><code>b3a102e</code></a> Fix <code>RawExpressionType.accept</code> crash with <code>--cache-fine-grained</code> (<a href=\"https://redirect.github.com/python/mypy/issues/17588\">#17588</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/aec04c74488d46a81a95ed3553b8e953a6ec59a7\"><code>aec04c7</code></a> Fix PEP 604 isinstance caching (<a href=\"https://redirect.github.com/python/mypy/issues/17563\">#17563</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/cb44e4d8f18b9bc874f1076b33eec7ad67de165c\"><code>cb44e4d</code></a> Fix <code>typing.TypeAliasType</code> being undefined on python &lt; 3.12 (<a href=\"https://redirect.github.com/python/mypy/issues/17558\">#17558</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/6cf9180e1411dab2ee91b57374f696d391eb24f4\"><code>6cf9180</code></a> Fix types.GenericAlias lookup crash (<a href=\"https://redirect.github.com/python/mypy/issues/17543\">#17543</a>)</li>\n<li><a href=\"https://github.com/python/mypy/commit/64c1ebf7cff51c13b1771174e3bb6bce9fe0d5dc\"><code>64c1ebf</code></a> Bump version to 1.11.1+dev</li>\n<li>See full diff in <a href=\"https://github.com/python/mypy/compare/v1.11...v1.11.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=mypy&package-manager=pip&previous-version=1.11.0&new-version=1.11.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-05T12:55:35Z",
+          "tree_id": "c1761706162191dc1784e161ade0ffc2b5b05dcc",
+          "url": "https://github.com/aws/jsii/commit/4c2139c7071ae037698f567676795996daf2b382"
+        },
+        "date": 1722864778256,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46760.02235649999,
+            "unit": "milliseconds",
+            "range": 259194.86560336204,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46760.02235649999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38293.817900650014,
+            "unit": "milliseconds",
+            "range": 418814.77135567786,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38293.817900650014 milliseconds over 20 runs"
           }
         ]
       }
