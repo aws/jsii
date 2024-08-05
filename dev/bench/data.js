@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722864783859,
+  "lastUpdate": 1722866974112,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31609,6 +31609,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 418814.77135567786,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38293.817900650014 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "05263b99d5a5ad7ce60101078ff81b42bdb3b107",
+          "message": "chore(deps): Update wheel requirement from ~=0.43 to ~=0.44 in /packages/@jsii/python-runtime (#4599)\n\nUpdates the requirements on [wheel](https://github.com/pypa/wheel) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/releases\">wheel's releases</a>.</em></p>\n<blockquote>\n<h2>0.44.0</h2>\n<ul>\n<li>Canonicalized requirements in METADATA file (PR by Wim Jeantine-Glenn)</li>\n<li>Deprecated the <code>bdist_wheel</code> module, as the code was migrated to <code>setuptools</code> itself</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/wheel/blob/main/docs/news.rst\">wheel's changelog</a>.</em></p>\n<blockquote>\n<h1>Release Notes</h1>\n<p><strong>0.44.0 (2024-08-04)</strong></p>\n<ul>\n<li>Canonicalized requirements in METADATA file (PR by Wim Jeantine-Glenn)</li>\n<li>Deprecated the <code>bdist_wheel</code> module, as the code was migrated to <code>setuptools</code>\nitself</li>\n</ul>\n<p><strong>0.43.0 (2024-03-11)</strong></p>\n<ul>\n<li>Dropped support for Python 3.7</li>\n<li>Updated vendored <code>packaging</code> to 24.0</li>\n</ul>\n<p><strong>0.42.0 (2023-11-26)</strong></p>\n<ul>\n<li>Allowed removing build tag with <code>wheel tags --build &quot;&quot;</code></li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing updated <code>WHEEL</code> fields after a\nblank line, causing other tools to ignore them</li>\n<li>Fixed <code>wheel pack</code> and <code>wheel tags</code> writing <code>WHEEL</code> with CRLF line endings or\na mix of CRLF and LF</li>\n<li>Fixed <code>wheel pack --build-number &quot;&quot;</code> not removing build tag from <code>WHEEL</code>\n(above changes by Benjamin Gilbert)</li>\n</ul>\n<p><strong>0.41.3 (2023-10-30)</strong></p>\n<ul>\n<li>Updated vendored <code>packaging</code> to 23.2</li>\n<li>Fixed ABI tag generation for CPython 3.13a1 on Windows (PR by Sam Gross)</li>\n</ul>\n<p><strong>0.41.2 (2023-08-22)</strong></p>\n<ul>\n<li>Fixed platform tag detection for GraalPy and 32-bit python running on an aarch64\nkernel (PR by Matthieu Darbois)</li>\n<li>Fixed <code>wheel tags</code> to not list directories in <code>RECORD</code> files\n(PR by Mike Taves)</li>\n<li>Fixed ABI tag generation for GraalPy (PR by Michael Simacek)</li>\n</ul>\n<p><strong>0.41.1 (2023-08-05)</strong></p>\n<ul>\n<li>Fixed naming of the <code>data_dir</code> directory in the presence of local version segment\ngiven via <code>egg_info.tag_build</code> (PR by Anderson Bravalheri)</li>\n<li>Fixed version specifiers in <code>Requires-Dist</code> being wrapped in parentheses</li>\n</ul>\n<p><strong>0.41.0 (2023-07-22)</strong></p>\n<ul>\n<li>Added full support of the build tag syntax to <code>wheel tags</code> (you can now set a build\ntag like <code>123mytag</code>)</li>\n<li>Fixed warning on Python 3.12 about <code>onerror</code> deprecation. (PR by Henry Schreiner)</li>\n<li>Support testing on Python 3.12 betas (PR by Ewout ter Hoeven)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/wheel/commit/7bb46d7727e6e89fe56b3c78297b3af2672bbbe2\"><code>7bb46d7</code></a> Created a new release</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/0add7d6c5fe6c03d7bec22d7d18f51d8a519862c\"><code>0add7d6</code></a> Deprecated bdist_wheel and updated the README (<a href=\"https://redirect.github.com/pypa/wheel/issues/631\">#631</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/46c2389891cb09c1c5373c5920991c9149585ee5\"><code>46c2389</code></a> chore: make sure local ruff runs don't touch vendored (<a href=\"https://redirect.github.com/pypa/wheel/issues/618\">#618</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/78b9ea9a14a4e9473b4409a27054e932ddde494e\"><code>78b9ea9</code></a> Updated Cirrus CI config to use FreeBSD 14</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/3d3916add41a452be1ff7ecb9af2b32fa5f5d39e\"><code>3d3916a</code></a> [pre-commit.ci] pre-commit autoupdate (<a href=\"https://redirect.github.com/pypa/wheel/issues/627\">#627</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/1e00742acc9fb33f6e71460c3844c2b66532af7f\"><code>1e00742</code></a> Revert &quot;Apply new ruff/pyupgrade rule UP032 (<a href=\"https://redirect.github.com/pypa/wheel/issues/617\">#617</a>)&quot;</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/16206e67f161135cf964eb069296dcee994e4db3\"><code>16206e6</code></a> Apply new ruff/pyupgrade rule UP032 (<a href=\"https://redirect.github.com/pypa/wheel/issues/617\">#617</a>)</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/0b7771e6bc46b8905d8b6c02d8f825bbf9623cdc\"><code>0b7771e</code></a> Updated pre-commit modules and applied ruff fixes</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/bd8ab856863226ad58b5a70597f990d16836cefa\"><code>bd8ab85</code></a> Extended the ruff rule list and applied fixes</li>\n<li><a href=\"https://github.com/pypa/wheel/commit/376373b9690e746c36e3984808759e9c32d5e014\"><code>376373b</code></a> Allow bdist_wheel working without ctypes (<a href=\"https://redirect.github.com/pypa/wheel/issues/613\">#613</a>)</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/wheel/compare/0.43.0...0.44.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-05T13:33:05Z",
+          "tree_id": "f2d78b1d0b4d61910c9f43a95777916ee3f22851",
+          "url": "https://github.com/aws/jsii/commit/05263b99d5a5ad7ce60101078ff81b42bdb3b107"
+        },
+        "date": 1722866970154,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46612.30941855001,
+            "unit": "milliseconds",
+            "range": 229239.52361046537,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46612.30941855001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37679.82848905,
+            "unit": "milliseconds",
+            "range": 71937.67613268974,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37679.82848905 milliseconds over 20 runs"
           }
         ]
       }
