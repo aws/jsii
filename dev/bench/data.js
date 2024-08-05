@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722869300889,
+  "lastUpdate": 1722871556477,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31685,6 +31685,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 403684.1027549589,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37965.13886895 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "07e6fe741d657335f4821f1c7b0d02fba4f0acc7",
+          "message": "chore(deps): Update attrs requirement from <24.0,>=21.2 to >=21.2,<25.0 in /packages/@jsii/python-runtime (#4600)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-05T14:50:29Z",
+          "tree_id": "1f0ddcc3623d617350e0c4e676104173bbb530ce",
+          "url": "https://github.com/aws/jsii/commit/07e6fe741d657335f4821f1c7b0d02fba4f0acc7"
+        },
+        "date": 1722871552484,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 44751.62351224998,
+            "unit": "milliseconds",
+            "range": 118410.55910298057,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 44751.62351224998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36595.42407895,
+            "unit": "milliseconds",
+            "range": 27342.66297167306,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36595.42407895 milliseconds over 20 runs"
           }
         ]
       }
