@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1722871556477,
+  "lastUpdate": 1723035179590,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31723,6 +31723,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 27342.66297167306,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36595.42407895 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ff32020ce7970800794c88ee88fdc044f4c008a4",
+          "message": "chore(deps): Bump golang.org/x/tools from 0.23.0 to 0.24.0 in /packages/@jsii/go-runtime-test/project (#4602)\n\nBumps [golang.org/x/tools](https://github.com/golang/tools) from 0.23.0 to 0.24.0.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/3057be8f634fdb03e1da1cad9fff3415299ad3ad\"><code>3057be8</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/4653e48eb85159eef93c4634029cd73b0430f1e0\"><code>4653e48</code></a> gopls/internal/analysis: add skipped analysis simplify on generated code</li>\n<li><a href=\"https://github.com/golang/tools/commit/f855a53930c65e6f12a11fba18f587a94ee13c55\"><code>f855a53</code></a> gopls/internal/telemetry/cmd/stacks: use authentication token</li>\n<li><a href=\"https://github.com/golang/tools/commit/3ffd605b1ee7615054ae2b283575f86fc14af7cf\"><code>3ffd605</code></a> gopls/doc/features: fix prominent typo</li>\n<li><a href=\"https://github.com/golang/tools/commit/a5df6ad55c875ec6f513fabb9f5161df0866f924\"><code>a5df6ad</code></a> go/analysis/passes/printf: report non-constant format, no args</li>\n<li><a href=\"https://github.com/golang/tools/commit/c03e5c28b0de2baba6bca5e509da618d0c3a4692\"><code>c03e5c2</code></a> go/packages: do not nullify Fset when NeedSyntax is set</li>\n<li><a href=\"https://github.com/golang/tools/commit/6a6fd991e914cbc2859fd968949132085277a6d0\"><code>6a6fd99</code></a> go/ssa: substitute type parameterized aliases</li>\n<li><a href=\"https://github.com/golang/tools/commit/f6a239054ffc17a8c69ba7ae95a2b0d0131bef2a\"><code>f6a2390</code></a> gopls/doc: delete commands.md</li>\n<li><a href=\"https://github.com/golang/tools/commit/2154cbf88df752a2011d2c01b43eb8c8af7373ee\"><code>2154cbf</code></a> gopls/internal/golang: add &quot;Browse gopls features&quot; code action</li>\n<li><a href=\"https://github.com/golang/tools/commit/ead76ab5e90b139287fe5f5dfffd8d3b314b3eb5\"><code>ead76ab</code></a> go/analysis: Add modules to Pass</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.23.0...v0.24.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=golang.org/x/tools&package-manager=go_modules&previous-version=0.23.0&new-version=0.24.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-07T12:16:23Z",
+          "tree_id": "a09b86192fff2f0fe3d4edf0a99864cb7782e3a8",
+          "url": "https://github.com/aws/jsii/commit/ff32020ce7970800794c88ee88fdc044f4c008a4"
+        },
+        "date": 1723035171086,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 44652.946779349986,
+            "unit": "milliseconds",
+            "range": 217989.91925125406,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 44652.946779349986 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36728.82671050001,
+            "unit": "milliseconds",
+            "range": 144551.62772445698,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36728.82671050001 milliseconds over 20 runs"
           }
         ]
       }
