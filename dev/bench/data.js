@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1723046280840,
+  "lastUpdate": 1723646954767,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31837,6 +31837,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 49886.1895199759,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38024.6568056 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e9a1861e684ae3308417446bd558c4e63d943017",
+          "message": "chore(deps): Bump axios from 1.7.3 to 1.7.4 (#4605)\n\nBumps [axios](https://github.com/axios/axios) from 1.7.3 to 1.7.4.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/axios/axios/releases\">axios's releases</a>.</em></p>\n<blockquote>\n<h2>Release v1.7.4</h2>\n<h2>Release notes:</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><strong>sec:</strong> CVE-2024-39338 (<a href=\"https://redirect.github.com/axios/axios/issues/6539\">#6539</a>) (<a href=\"https://redirect.github.com/axios/axios/issues/6543\">#6543</a>) (<a href=\"https://github.com/axios/axios/commit/6b6b605eaf73852fb2dae033f1e786155959de3a\">6b6b605</a>)</li>\n<li><strong>sec:</strong> disregard protocol-relative URL to remediate SSRF (<a href=\"https://redirect.github.com/axios/axios/issues/6539\">#6539</a>) (<a href=\"https://github.com/axios/axios/commit/07a661a2a6b9092c4aa640dcc7f724ec5e65bdda\">07a661a</a>)</li>\n</ul>\n<h3>Contributors to this release</h3>\n<ul>\n<li> <a href=\"https://github.com/levpachmanov\" title=\"+47/-11 ([#6543](https://github.com/axios/axios/issues/6543) )\">Lev Pachmanov</a></li>\n<li> <a href=\"https://github.com/hainenber\" title=\"+49/-4 ([#6539](https://github.com/axios/axios/issues/6539) )\">Đỗ Trọng Hải</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/axios/axios/blob/v1.x/CHANGELOG.md\">axios's changelog</a>.</em></p>\n<blockquote>\n<h2><a href=\"https://github.com/axios/axios/compare/v1.7.3...v1.7.4\">1.7.4</a> (2024-08-13)</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><strong>sec:</strong> CVE-2024-39338 (<a href=\"https://redirect.github.com/axios/axios/issues/6539\">#6539</a>) (<a href=\"https://redirect.github.com/axios/axios/issues/6543\">#6543</a>) (<a href=\"https://github.com/axios/axios/commit/6b6b605eaf73852fb2dae033f1e786155959de3a\">6b6b605</a>)</li>\n<li><strong>sec:</strong> disregard protocol-relative URL to remediate SSRF (<a href=\"https://redirect.github.com/axios/axios/issues/6539\">#6539</a>) (<a href=\"https://github.com/axios/axios/commit/07a661a2a6b9092c4aa640dcc7f724ec5e65bdda\">07a661a</a>)</li>\n</ul>\n<h3>Contributors to this release</h3>\n<ul>\n<li> <a href=\"https://github.com/levpachmanov\" title=\"+47/-11 ([#6543](https://github.com/axios/axios/issues/6543) )\">Lev Pachmanov</a></li>\n<li> <a href=\"https://github.com/hainenber\" title=\"+49/-4 ([#6539](https://github.com/axios/axios/issues/6539) )\">Đỗ Trọng Hải</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/axios/axios/commit/abd24a7367726616e60dfc04cb394b4be37cf597\"><code>abd24a7</code></a> chore(release): v1.7.4 (<a href=\"https://redirect.github.com/axios/axios/issues/6544\">#6544</a>)</li>\n<li><a href=\"https://github.com/axios/axios/commit/6b6b605eaf73852fb2dae033f1e786155959de3a\"><code>6b6b605</code></a> fix(sec): CVE-2024-39338 (<a href=\"https://redirect.github.com/axios/axios/issues/6539\">#6539</a>) (<a href=\"https://redirect.github.com/axios/axios/issues/6543\">#6543</a>)</li>\n<li><a href=\"https://github.com/axios/axios/commit/07a661a2a6b9092c4aa640dcc7f724ec5e65bdda\"><code>07a661a</code></a> fix(sec): disregard protocol-relative URL to remediate SSRF (<a href=\"https://redirect.github.com/axios/axios/issues/6539\">#6539</a>)</li>\n<li>See full diff in <a href=\"https://github.com/axios/axios/compare/v1.7.3...v1.7.4\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=axios&package-manager=npm_and_yarn&previous-version=1.7.3&new-version=1.7.4)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/aws/jsii/network/alerts).\n\n</details>",
+          "timestamp": "2024-08-14T14:12:41Z",
+          "tree_id": "16c30cab60a959b7447a1a438694890cecd5dfd7",
+          "url": "https://github.com/aws/jsii/commit/e9a1861e684ae3308417446bd558c4e63d943017"
+        },
+        "date": 1723646949126,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 45973.38525675001,
+            "unit": "milliseconds",
+            "range": 95575.10364018094,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 45973.38525675001 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37960.43454909999,
+            "unit": "milliseconds",
+            "range": 471497.6189303685,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37960.43454909999 milliseconds over 20 runs"
           }
         ]
       }
