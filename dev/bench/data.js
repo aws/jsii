@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1723649580821,
+  "lastUpdate": 1723733435831,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -31913,6 +31913,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 176286.6700225509,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37249.71529995001 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ce6016da5d3d630a8686e296c0c77280387a3174",
+          "message": "chore: fix incorrect debian codenames in superchain support table (#4607)\n\nAlso adds a numeric version number because codenames make it hard to know what versions are newer.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-08-15T14:14:13Z",
+          "tree_id": "54730bdb049f28494f0e82c058aecfe47db92813",
+          "url": "https://github.com/aws/jsii/commit/ce6016da5d3d630a8686e296c0c77280387a3174"
+        },
+        "date": 1723733431227,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 45810.52398045,
+            "unit": "milliseconds",
+            "range": 376537.19082697236,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 45810.52398045 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37225.24744719999,
+            "unit": "milliseconds",
+            "range": 61238.84436008412,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37225.24744719999 milliseconds over 20 runs"
           }
         ]
       }
