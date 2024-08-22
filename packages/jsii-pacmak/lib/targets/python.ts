@@ -3205,11 +3205,7 @@ function emitParameterTypeChecks(
       // Need to ignore reportGeneralTypeIssues because pyright incorrectly parses that as a type annotation 😒
       comment = ' # pyright: ignore [reportGeneralTypeIssues]';
     }
-    code.line(
-      `check_type(argname=${JSON.stringify(
-        `argument ${name}`,
-      )}, value=${name}, expected_type=${expectedType})${comment}`,
-    );
+    code.line(`check_type(value=${name}, expected_type=${expectedType})${comment}`);
   }
   if (openedBlock) {
     code.closeBlock();
