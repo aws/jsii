@@ -1348,7 +1348,7 @@ class Foo:
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+            check_type(value=foo, expected_type=type_hints["foo"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "foo": foo,
         }
@@ -1389,8 +1389,8 @@ class FooBar:
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+            check_type(value=foo, expected_type=type_hints["foo"])
+            check_type(value=bar, expected_type=type_hints["bar"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "foo": foo,
         }
@@ -1440,9 +1440,9 @@ class Baz(Foo, FooBar):
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-            check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
+            check_type(value=foo, expected_type=type_hints["foo"])
+            check_type(value=bar, expected_type=type_hints["bar"])
+            check_type(value=baz, expected_type=type_hints["baz"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "foo": foo,
             "baz": baz,
@@ -2763,7 +2763,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             '''
             if __debug__:
                 type_hints = typing.get_type_hints(_typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9)
-                check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+                check_type(value=bar, expected_type=type_hints["bar"])
             self._values: typing.Dict[builtins.str, typing.Any] = {
                 "bar": bar,
             }
