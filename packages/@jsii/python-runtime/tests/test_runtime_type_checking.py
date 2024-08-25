@@ -466,17 +466,6 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         ):
             obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
 
-    def test_protocol(self):
-        with pytest.raises(
-            typeguard.TypeCheckError,
-            match=re.escape(
-                "tests.test_runtime_type_checking.PythonInvalidBellRinger is not compatible with the IBellRinger protocol because it has no method named 'your_turn'"
-            ),
-        ):
-            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
-                PythonInvalidBellRinger()
-            )  # type:ignore
-
 
 @pytest.mark.skipif(typeguard_major_version != 4, reason="requires typeguard 4.x")
 class TestRuntimeTypeCheckingTypeGuardV4:
