@@ -1728,7 +1728,45 @@ class PythonModule implements PythonType {
     code.line('import publication');
     code.line('import typing_extensions');
     code.line();
-    code.line('from typeguard import check_type');
+
+    code.line('import typeguard');
+    code.line('from importlib.metadata import version');
+    code.line(
+      "TYPEGUARD_MAJOR_VERSION = int(version('typeguard').split('.')[0])",
+    );
+    code.line();
+
+    code.openBlock(
+      'def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any',
+    );
+    code.openBlock('if TYPEGUARD_MAJOR_VERSION <= 2');
+    code.line(
+      'return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore',
+    );
+    code.closeBlock();
+    code.openBlock('else');
+    code.openBlock(
+      'if isinstance(value, jsii._reference_map.InterfaceDynamicProxy)',
+    );
+    code.line('pass');
+    code.closeBlock();
+    code.openBlock('else');
+    code.openBlock('if TYPEGUARD_MAJOR_VERSION == 3');
+    code.line(
+      'typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS',
+    );
+    code.line(
+      'typeguard.check_type(value=value, expected_type=expected_type) # type:ignore',
+    );
+    code.closeBlock();
+    code.openBlock('else');
+    code.line(
+      'typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore',
+    );
+    code.closeBlock();
+    code.closeBlock();
+    code.closeBlock();
+    code.closeBlock();
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
@@ -3205,7 +3243,11 @@ function emitParameterTypeChecks(
       // Need to ignore reportGeneralTypeIssues because pyright incorrectly parses that as a type annotation 😒
       comment = ' # pyright: ignore [reportGeneralTypeIssues]';
     }
-    code.line(`check_type(value=${name}, expected_type=${expectedType})${comment}`);
+    code.line(
+      `check_type(argname=${JSON.stringify(
+        `argument ${name}`,
+      )}, value=${name}, expected_type=${expectedType})${comment}`,
+    );
   }
   if (openedBlock) {
     code.closeBlock();
