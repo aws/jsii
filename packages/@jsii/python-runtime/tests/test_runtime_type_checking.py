@@ -10,7 +10,7 @@ import typeguard
 
 from importlib.metadata import version
 
-typeguard_major_version = int(version('typeguard').split('.')[0])
+typeguard_major_version = int(version("typeguard").split(".")[0])
 
 
 @jsii.implements(jsii_calc.IBellRinger)
@@ -18,7 +18,8 @@ class PythonInvalidBellRinger:
     def your_invalid_turn(self, bell):
         bell.ring()
 
-@pytest.mark.skipif(typeguard_major_version != 2, reason='requires typeguard 2.x')
+
+@pytest.mark.skipif(typeguard_major_version != 2, reason="requires typeguard 2.x")
 class TestRuntimeTypeCheckingTypeGuardV2:
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
@@ -242,11 +243,11 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument value must be one of (int, float); got method instead"
             ),
         ):
-            obj.add(cast(Any, self.test_descriptive_error_when_passing_function))        
+            obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
 
-@pytest.mark.skipif(typeguard_major_version != 3, reason='requires typeguard 3.x')
+
+@pytest.mark.skipif(typeguard_major_version != 3, reason="requires typeguard 3.x")
 class TestRuntimeTypeCheckingTypeGuardV3:
-
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
     are indicative of the error. There are #type:ignore annotations scattered everywhere as these tests are obviously
@@ -296,9 +297,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
     def test_struct(self):
         with pytest.raises(
             typeguard.TypeCheckError,
-            match=re.escape(
-                "int is not an instance of jsii_calc.StringEnum"
-            ),
+            match=re.escape("int is not an instance of jsii_calc.StringEnum"),
         ):
             jsii_calc.StructWithEnum(foo=1337)  # type:ignore
 
@@ -336,9 +335,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         subject = jsii_calc.AllTypes()
         with pytest.raises(
             typeguard.TypeCheckError,
-            match=re.escape(
-                "int is not an instance of jsii_calc.AllTypesEnum"
-            ),
+            match=re.escape("int is not an instance of jsii_calc.AllTypesEnum"),
         ):
             subject.enum_property = 1337  # type:ignore
 
@@ -354,9 +351,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         subject = jsii_calc.AllTypes()
         with pytest.raises(
             typeguard.TypeCheckError,
-            match=re.escape(
-                "jsii_calc.StructWithEnum is not a mapping"
-            ),
+            match=re.escape("jsii_calc.StructWithEnum is not a mapping"),
         ):
             subject.map_property = jsii_calc.StructWithEnum(  # type:ignore
                 foo=jsii_calc.StringEnum.A
@@ -478,11 +473,13 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "tests.test_runtime_type_checking.PythonInvalidBellRinger is not compatible with the IBellRinger protocol because it has no method named 'your_turn'"
             ),
         ):
-            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(PythonInvalidBellRinger()) # type:ignore       
+            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
+                PythonInvalidBellRinger()
+            )  # type:ignore
 
-@pytest.mark.skipif(typeguard_major_version != 4, reason='requires typeguard 4.x')
+
+@pytest.mark.skipif(typeguard_major_version != 4, reason="requires typeguard 4.x")
 class TestRuntimeTypeCheckingTypeGuardV4:
-
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
     are indicative of the error. There are #type:ignore annotations scattered everywhere as these tests are obviously
@@ -532,9 +529,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
     def test_struct(self):
         with pytest.raises(
             typeguard.TypeCheckError,
-            match=re.escape(
-                "int is not an instance of jsii_calc.StringEnum"
-            ),
+            match=re.escape("int is not an instance of jsii_calc.StringEnum"),
         ):
             jsii_calc.StructWithEnum(foo=1337)  # type:ignore
 
@@ -572,9 +567,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         subject = jsii_calc.AllTypes()
         with pytest.raises(
             typeguard.TypeCheckError,
-            match=re.escape(
-                "int is not an instance of jsii_calc.AllTypesEnum"
-            ),
+            match=re.escape("int is not an instance of jsii_calc.AllTypesEnum"),
         ):
             subject.enum_property = 1337  # type:ignore
 
@@ -590,9 +583,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         subject = jsii_calc.AllTypes()
         with pytest.raises(
             typeguard.TypeCheckError,
-            match=re.escape(
-                "jsii_calc.StructWithEnum is not a mapping"
-            ),
+            match=re.escape("jsii_calc.StructWithEnum is not a mapping"),
         ):
             subject.map_property = jsii_calc.StructWithEnum(  # type:ignore
                 foo=jsii_calc.StringEnum.A
@@ -714,4 +705,6 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "tests.test_runtime_type_checking.PythonInvalidBellRinger is not compatible with the IBellRinger protocol because it has no method named 'your_turn'"
             ),
         ):
-            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(PythonInvalidBellRinger()) # type:ignore       
+            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
+                PythonInvalidBellRinger()
+            )  # type:ignore
