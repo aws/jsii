@@ -168,6 +168,9 @@ def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
     def deco(cls):
         cls.__jsii_type__ = getattr(cls, "__jsii_type__", None)
         cls.__jsii_ifaces__ = getattr(cls, "__jsii_ifaces__", []) + list(interfaces)
+        cls.__jsii_proxy_class__ = lambda : getattr(cls, "__jsii_proxy_class__", None)
+        # TODO explain
+        cls.__protocol_attrs__ = getattr(cls, "__jsii_ifaces__", [])
         return cls
 
     return deco

@@ -1745,11 +1745,10 @@ class PythonModule implements PythonType {
     );
     code.closeBlock();
     code.openBlock('else');
-    code.openBlock(
-      'if isinstance(value, jsii._reference_map.InterfaceDynamicProxy)',
+    code.line(
+      'if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]',
     );
-    code.line('pass');
-    code.closeBlock();
+    code.line('   pass');
     code.openBlock('else');
     code.openBlock('if TYPEGUARD_MAJOR_VERSION == 3');
     code.line(

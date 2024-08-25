@@ -28,7 +28,7 @@
     "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && npm run lint",
     "lint": "ts-node build-tools/venv.ts black .",
     "package": "package-python && package-private",
-    "test": "npm run test:gen && npm run test:run:typeguard-2 && npm run test:run:typeguard-4 && npm run test:types",
+    "test": "npm run test:gen && npm run test:run:typeguard-2 && npm run test:run:typeguard-3 && npm run test:run:typeguard-4 && npm run test:types",
     "test:gen": "npm run deps && ts-node build-tools/gen-calc.ts",
     "test:run:typeguard-2": "ts-node build-tools/venv.ts python -m pip install typeguard==2.13.3 && ts-node build-tools/venv.ts py.test -v --mypy",
     "test:run:typeguard-3": "ts-node build-tools/venv.ts python -m pip install typeguard==3.0.2 && ts-node build-tools/venv.ts py.test -v --mypy",

@@ -12,6 +12,12 @@ from importlib.metadata import version
 
 typeguard_major_version = int(version('typeguard').split('.')[0])
 
+
+@jsii.implements(jsii_calc.IBellRinger)
+class PythonInvalidBellRinger:
+    def your_invalid_turn(self, bell):
+        bell.ring()
+
 @pytest.mark.skipif(typeguard_major_version != 2, reason='requires typeguard 2.x')
 class TestRuntimeTypeCheckingTypeGuardV2:
     """
@@ -251,7 +257,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "str did not match any element in the union"
+                "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int\n  NoneType: is not an instance of NoneType"
             ),
         ):
             jsii_calc.Calculator(initial_value="nope")  # type:ignore
@@ -265,7 +271,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "str did not match any element in the union"
+                "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int\n  NoneType: is not an instance of NoneType"
             ),
         ):
             orig_init = jsii_calc.Calculator.__init__
@@ -301,7 +307,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "str did not match any element in the union"
+                "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int"
             ),
         ):
             subject.mul("Not a Number")  # type:ignore
@@ -311,7 +317,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "int did not match any element in the union"
+                "int did not match any element in the union:\n  str: is not an instance of str\n  NoneType: is not an instance of NoneType"
             ),
         ):
             subject.greet(name=1337)  # type:ignore
@@ -377,7 +383,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "jsii_calc.StringEnum did not match any element in the union"
+                "jsii_calc.StringEnum did not match any element in the union:\n  str: is not an instance of str\n  int: is not an instance of int\n  float: is neither float or int\n  scope.jsii_calc_lib.Number: is not an instance of scope.jsii_calc_lib.Number\n  jsii_calc.Multiply: is not an instance of jsii_calc.Multiply"
             ),
         ):
             subject.union_property = jsii_calc.StringEnum.B  # type:ignore
@@ -397,7 +403,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "item 0 of list did not match any element in the union"
+                "item 0 of list did not match any element in the union:\n  Mapping[str, Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a mapping\n  Sequence[Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a sequence"
             ),
         ):
             jsii_calc.ClassWithNestedUnion([1337.42])  # type:ignore
@@ -464,6 +470,15 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             ),
         ):
             obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
+
+    def test_protocol(self):
+        with pytest.raises(
+            typeguard.TypeCheckError,
+            match=re.escape(
+                "tests.test_runtime_type_checking.PythonInvalidBellRinger is not compatible with the IBellRinger protocol because it has no method named 'your_turn'"
+            ),
+        ):
+            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(PythonInvalidBellRinger()) # type:ignore       
 
 @pytest.mark.skipif(typeguard_major_version != 4, reason='requires typeguard 4.x')
 class TestRuntimeTypeCheckingTypeGuardV4:
@@ -478,7 +493,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "str did not match any element in the union"
+                "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int\n  NoneType: is not an instance of NoneType"
             ),
         ):
             jsii_calc.Calculator(initial_value="nope")  # type:ignore
@@ -492,7 +507,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "str did not match any element in the union"
+                "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int\n  NoneType: is not an instance of NoneType"
             ),
         ):
             orig_init = jsii_calc.Calculator.__init__
@@ -528,7 +543,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "str did not match any element in the union"
+                "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int"
             ),
         ):
             subject.mul("Not a Number")  # type:ignore
@@ -538,7 +553,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "int did not match any element in the union"
+                "int did not match any element in the union:\n  str: is not an instance of str\n  NoneType: is not an instance of NoneType"
             ),
         ):
             subject.greet(name=1337)  # type:ignore
@@ -604,7 +619,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "jsii_calc.StringEnum did not match any element in the union"
+                "jsii_calc.StringEnum did not match any element in the union:\n  str: is not an instance of str\n  int: is not an instance of int\n  float: is neither float or int\n  scope.jsii_calc_lib.Number: is not an instance of scope.jsii_calc_lib.Number\n  jsii_calc.Multiply: is not an instance of jsii_calc.Multiply"
             ),
         ):
             subject.union_property = jsii_calc.StringEnum.B  # type:ignore
@@ -624,7 +639,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
         with pytest.raises(
             typeguard.TypeCheckError,
             match=re.escape(
-                "item 0 of list did not match any element in the union"
+                "item 0 of list did not match any element in the union:\n  Mapping[str, Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a mapping\n  Sequence[Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a sequence"
             ),
         ):
             jsii_calc.ClassWithNestedUnion([1337.42])  # type:ignore
@@ -691,3 +706,12 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             ),
         ):
             obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
+
+    def test_protocol(self):
+        with pytest.raises(
+            typeguard.TypeCheckError,
+            match=re.escape(
+                "tests.test_runtime_type_checking.PythonInvalidBellRinger is not compatible with the IBellRinger protocol because it has no method named 'your_turn'"
+            ),
+        ):
+            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(PythonInvalidBellRinger()) # type:ignore       
