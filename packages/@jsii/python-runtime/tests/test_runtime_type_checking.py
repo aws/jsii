@@ -12,6 +12,7 @@ from importlib.metadata import version
 
 TYPEGUARD_MAJOR_VERSION = int(version("typeguard").split(".")[0])
 
+
 @jsii.implements(jsii_calc.IBellRinger)
 class PythonInvalidBellRinger:
     def your_invalid_turn(self, bell):
@@ -21,7 +22,7 @@ class PythonInvalidBellRinger:
 @pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 2, reason="requires typeguard 2.x")
 class TestRuntimeTypeCheckingTypeGuardV2:
 
-    CHECK_TYPE_ERROR = TypeError # type: ignore
+    CHECK_TYPE_ERROR = TypeError  # type: ignore
 
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
@@ -251,7 +252,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
 @pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 3, reason="requires typeguard 3.x")
 class TestRuntimeTypeCheckingTypeGuardV3:
 
-    CHECK_TYPE_ERROR = typeguard.TypeCheckError # type: ignore
+    CHECK_TYPE_ERROR = typeguard.TypeCheckError  # type: ignore
 
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
@@ -475,7 +476,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
 @pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 4, reason="requires typeguard 4.x")
 class TestRuntimeTypeCheckingTypeGuardV4:
 
-    CHECK_TYPE_ERROR = typeguard.TypeCheckError # type: ignore
+    CHECK_TYPE_ERROR = typeguard.TypeCheckError  # type: ignore
 
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
@@ -703,5 +704,5 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             ),
         ):
             jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
-                PythonInvalidBellRinger() # type:ignore
-            )  
+                PythonInvalidBellRinger()  # type:ignore
+            )
