@@ -15,7 +15,6 @@
 | [jsii-rosetta1] | `1.x`   | [Maintenance] | Transpile code snippets (in docs) from TypeScript to jsii languages   |
 | [jsii-rosetta]  | `5.x`   | GA            | Transpile code snippets (in docs) from TypeScript to jsii languages   |
 | [jsii-config]   | `1.x`   | Experimental  | Interactive tool for generating jsii configuration                    |
-| [jsii-release]  | `1.x`   | Community     | Publishes jsii modules to all supported package managers              |
 | [jsii-srcmak]   | `1.x`   | Community     | Generates relocatable source code in jsii languages from typescript   |
 | [jsii-docgen]   | *any*   | Community     | Generates markdown API documentation for jsii modules                 |
 
@@ -41,6 +40,5 @@
 [jsii-diff]: https://github.com/aws/jsii/tree/main/packages/jsii-diff
 [jsii-rosetta1]: https://github.com/aws/jsii/tree/main/packages/jsii-rosetta
 [jsii-rosetta]: https://github.com/aws/jsii-rosetta#readme
-[jsii-release]: https://github.com/eladb/jsii-release
-[jsii-srcmak]: https://github.com/eladb/jsii-srcmak
-[jsii-docgen]: https://github.com/eladb/jsii-docgen
+[jsii-srcmak]: https://github.com/cdklabs/jsii-srcmak
+[jsii-docgen]: https://github.com/cdklabs/jsii-docgen
