@@ -2513,6 +2513,277 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/js
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1`] = `
+<runtime-type-check-diff>
+ ┗━ 📁 python
+    ┗━ 📁 src
+       ┗━ 📁 scope
+          ┗━ 📁 jsii_calc_lib
+             ┣━ 📄 __init__.py.diff
+             ┗━ 📁 custom_submodule_name
+                ┗━ 📄 __init__.py.diff
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/__init__.py.diff 1`] = `
+--- python/src/scope/jsii_calc_lib/__init__.py	--no-runtime-type-checking
++++ python/src/scope/jsii_calc_lib/__init__.py	--runtime-type-checking
+@@ -52,19 +52,25 @@
+         '''
+         :param very: -
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__46512218b53da06690990919b41a88d6c2379b11ef0a3243cf6d60add5197ae2)
++            check_type(argname="argument very", value=very, expected_type=type_hints["very"])
+         jsii.create(self.__class__, self, [very])
+ 
+     @jsii.member(jsii_name="foo")
+     def foo(self, obj: _scope_jsii_calc_base_734f0262.IBaseInterface) -> None:
+         '''
+         :param obj: -
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__e721760a6f0cb2ba909986665323a1f1f880769c379ae1f2ad0dbadf80ee9016)
++            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
+         return typing.cast(None, jsii.invoke(self, "foo", [obj]))
+ 
+ 
+ @jsii.data_type(
+     jsii_type="@scope/jsii-calc-lib.DiamondLeft",
+@@ -82,10 +88,14 @@
+         :param hoisted_top: 
+         :param left: 
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__969bc4b33aa2d0684b20d440803d81dfda55aa9fa6398ac40f1afafc2114db5a)
++            check_type(argname="argument hoisted_top", value=hoisted_top, expected_type=type_hints["hoisted_top"])
++            check_type(argname="argument left", value=left, expected_type=type_hints["left"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {}
+         if hoisted_top is not None:
+             self._values["hoisted_top"] = hoisted_top
+         if left is not None:
+             self._values["left"] = left
+@@ -134,10 +144,14 @@
+         :param hoisted_top: 
+         :param right: 
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__31f7eac552107efa0a4275f6798b003fcc3b6e74e0a463ae709af8b660b91dc4)
++            check_type(argname="argument hoisted_top", value=hoisted_top, expected_type=type_hints["hoisted_top"])
++            check_type(argname="argument right", value=right, expected_type=type_hints["right"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {}
+         if hoisted_top is not None:
+             self._values["hoisted_top"] = hoisted_top
+         if right is not None:
+             self._values["right"] = right
+@@ -209,10 +223,13 @@
+         '''
+         :param _: -
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__9f2d965a28491c2347ed53f3f21b6d1e134bd8c506672f5715c44023bddab720)
++            check_type(argname="argument _", value=_, expected_type=type_hints["_"])
+         return typing.cast(builtins.str, jsii.invoke(self, "foo", [_]))
+ 
+ 
+ @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
+ class IDoublable(typing_extensions.Protocol):
+@@ -360,10 +377,15 @@
+         :param astring: (deprecated) A string value.
+         :param first_optional: 
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__de81edc65427ea9129fd035388008307a6cae942eefc63cb3d9fd8b42956da06)
++            check_type(argname="argument anumber", value=anumber, expected_type=type_hints["anumber"])
++            check_type(argname="argument astring", value=astring, expected_type=type_hints["astring"])
++            check_type(argname="argument first_optional", value=first_optional, expected_type=type_hints["first_optional"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "anumber": anumber,
+             "astring": astring,
+         }
+         if first_optional is not None:
+@@ -520,10 +542,15 @@
+         :param optional2: 
+         :param optional3: 
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__82b4e5e8f3b46996124a87aac13a874f61bf9660a45a062bafa08046c027da63)
++            check_type(argname="argument optional1", value=optional1, expected_type=type_hints["optional1"])
++            check_type(argname="argument optional2", value=optional2, expected_type=type_hints["optional2"])
++            check_type(argname="argument optional3", value=optional3, expected_type=type_hints["optional3"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {}
+         if optional1 is not None:
+             self._values["optional1"] = optional1
+         if optional2 is not None:
+             self._values["optional2"] = optional2
+@@ -583,10 +610,13 @@
+ 
+         :param value: The number.
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__adff4f4d0383c32ffdeb0bca92ae1ea2ebe0b2ea8d9bf5f5433287cc06e55e07)
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         jsii.create(self.__class__, self, [value])
+ 
+     @builtins.property
+     @jsii.member(jsii_name="doubleValue")
+     def double_value(self) -> jsii.Number:
+@@ -627,5 +657,63 @@
+ publication.publish()
+ 
+ # Loading modules to ensure their types are registered with the jsii runtime library
+ from . import custom_submodule_name
+ from . import deprecation_removal
++
++def _typecheckingstub__46512218b53da06690990919b41a88d6c2379b11ef0a3243cf6d60add5197ae2(
++    very: _scope_jsii_calc_base_of_base_49fa37fe.Very,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__e721760a6f0cb2ba909986665323a1f1f880769c379ae1f2ad0dbadf80ee9016(
++    obj: _scope_jsii_calc_base_734f0262.IBaseInterface,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__969bc4b33aa2d0684b20d440803d81dfda55aa9fa6398ac40f1afafc2114db5a(
++    *,
++    hoisted_top: typing.Optional[builtins.str] = None,
++    left: typing.Optional[jsii.Number] = None,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__31f7eac552107efa0a4275f6798b003fcc3b6e74e0a463ae709af8b660b91dc4(
++    *,
++    hoisted_top: typing.Optional[builtins.str] = None,
++    right: typing.Optional[builtins.bool] = None,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__9f2d965a28491c2347ed53f3f21b6d1e134bd8c506672f5715c44023bddab720(
++    _: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__de81edc65427ea9129fd035388008307a6cae942eefc63cb3d9fd8b42956da06(
++    *,
++    anumber: jsii.Number,
++    astring: builtins.str,
++    first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__82b4e5e8f3b46996124a87aac13a874f61bf9660a45a062bafa08046c027da63(
++    *,
++    optional1: typing.Optional[builtins.str] = None,
++    optional2: typing.Optional[jsii.Number] = None,
++    optional3: typing.Optional[builtins.bool] = None,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__adff4f4d0383c32ffdeb0bca92ae1ea2ebe0b2ea8d9bf5f5433287cc06e55e07(
++    value: jsii.Number,
++) -> None:
++    """Type checking stubs"""
++    pass
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py.diff 1`] = `
+--- python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py	--no-runtime-type-checking
++++ python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py	--runtime-type-checking
+@@ -115,10 +115,13 @@
+ 
+             :param name: 
+ 
+             :stability: deprecated
+             '''
++            if __debug__:
++                type_hints = typing.get_type_hints(_typecheckingstub__5c03ed6e0d395f6fa262d12c7831dd2893af2098bf580a0c602a20f92c1ad24b)
++                check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+             self._values: typing.Dict[builtins.str, typing.Any] = {
+                 "name": name,
+             }
+ 
+         @builtins.property
+@@ -153,10 +156,14 @@
+         :param key: 
+         :param value: 
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__301126f287c0bfbbd3cb015833c5e0b2ced77e73d25597215c917612b67c3331)
++            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "key": key,
+             "value": value,
+         }
+ 
+@@ -212,10 +219,13 @@
+         '''
+         :param reflectable: -
+ 
+         :stability: deprecated
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__bed3b5b08c611933987ef5d9dfc131289e09ebcd26286417337c3708ca054e9f)
++            check_type(argname="argument reflectable", value=reflectable, expected_type=type_hints["reflectable"])
+         return typing.cast(typing.Mapping[builtins.str, typing.Any], jsii.invoke(self, "asMap", [reflectable]))
+ 
+ 
+ __all__ = [
+     "IReflectable",
+@@ -223,5 +233,26 @@
+     "ReflectableEntry",
+     "Reflector",
+ ]
+ 
+ publication.publish()
++
++def _typecheckingstub__5c03ed6e0d395f6fa262d12c7831dd2893af2098bf580a0c602a20f92c1ad24b(
++    *,
++    name: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__301126f287c0bfbbd3cb015833c5e0b2ced77e73d25597215c917612b67c3331(
++    *,
++    key: builtins.str,
++    value: typing.Any,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__bed3b5b08c611933987ef5d9dfc131289e09ebcd26286417337c3708ca054e9f(
++    reflectable: IReflectable,
++) -> None:
++    """Type checking stubs"""
++    pass
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 python
