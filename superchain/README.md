@@ -23,14 +23,14 @@ The following image tags are actively maintained and updated regularly.
 public.ecr.aws/jsii/superchain:<image-tag>
 ```
 
-| Image tag                | Debian     | Node | Python |
-| ------------------------ | ---------- | ---- | ------ |
-| `1-bookworm-slim`        | `bookworm` | `18` | `3.11` |
-| `1-bookworm-slim-node18` | `bookworm` | `18` | `3.11` |
-| `1-bookworm-slim-node20` | `bookworm` | `20` | `3.11` |
-| `1-bookworm-slim-node22` | `bookworm` | `22` | `3.11` |
-| `1-bullseye-slim-node20` | `bookworm` | `20` | `3.9`  |
-| `1-bullseye-slim-node22` | `bookworm` | `22` | `3.9`  |
+| Image tag                | Debian          | Node | Python |
+| ------------------------ | --------------- | ---- | ------ |
+| `1-bookworm-slim`        | `12` `bookworm` | `18` | `3.11` |
+| `1-bookworm-slim-node18` | `12` `bookworm` | `18` | `3.11` |
+| `1-bookworm-slim-node20` | `12` `bookworm` | `20` | `3.11` |
+| `1-bookworm-slim-node22` | `12` `bookworm` | `22` | `3.11` |
+| `1-bullseye-slim-node20` | `11` `bullseye` | `20` | `3.9`  |
+| `1-bullseye-slim-node22` | `11` `bullseye` | `22` | `3.9`  |
 
 Any other tags should be *considered* deprecated or in the case of `nightly` images *experimental*.
 
