@@ -1,4 +1,5 @@
 # Contributing to jsii
+
 Thanks for your interest in contributing to AWS JSII! :heart:
 
 This document describes how to set up a development environment and submit your
@@ -6,7 +7,9 @@ contributions. Please read it carefully and let us know if it's not up-to date
 (or even better, submit a pull request with your corrections! :wink:).
 
 ## Pre-requisites
+
 ### Setup Docker image
+
 Due to the polyglot nature of `jsii`, the toolchain requirements are somewhat
 more complicated than for most projects. In order to locally develop `jsii`, you
 will need a number of tools.
@@ -19,22 +22,23 @@ our own CI/CD: the ["superchain" image][superchain] from.
 The image can be built for local usage, too:
 
 ```console
-$ IMAGE=superchain
-$ docker build -t ${IMAGE} -f superchain/Dockerfile .
+IMAGE=superchain
+docker build -t ${IMAGE} -f superchain/Dockerfile .
 ```
 
 In order to get an interactive shell within a Docker container using the
 *superchain* image you just built:
 
 ```console
-$ cd jsii # go to the root of the jsii repo
-$ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+cd jsii # go to the root of the jsii repo
+docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
 In the shell that pops up, the `npm run` commands in the following sections must
 be executed.
 
 ### Alternative: Manually install the toolchain
+
 The following tools need to be installed to develop on JSII locally. We recommend
 using the docker image from the above section, but if you wish to, you can install
 in your development environment.
@@ -42,14 +46,14 @@ in your development environment.
 - [Node `18.0.0`] or later
 - [Yarn `1.19.1`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
-  + [`maven >= 3.0.5`](https://maven.apache.org)
+  - [`maven >= 3.0.5`](https://maven.apache.org)
 - [.NET `6.0`] or later
-  + *Recommended:* [`mono >= 6`](https://www.mono-project.com)
+  - *Recommended:* [`mono >= 6`](https://www.mono-project.com)
 - [Python `3.8.10`] or later
-  + [`pip`](https://pip.pypa.io/en/stable/installing/)
-  + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
-  + [`wheel`](https://pypi.org/project/wheel/)
-  + *Recommended:* [`twine`](https://pypi.org/project/twine/)
+  - [`pip`](https://pip.pypa.io/en/stable/installing/)
+  - [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
+  - [`wheel`](https://pypi.org/project/wheel/)
+  - *Recommended:* [`twine`](https://pypi.org/project/twine/)
 - [Go] `1.18` or newer
 
 [Node `18.0.0`]: https://nodejs.org/download/release/latest-v18.x/
@@ -61,6 +65,7 @@ in your development environment.
 [Go]: https://go.dev/dl/
 
 ## Getting Started
+
 ### Bootstrapping
 
 The project is managed as a [monorepo] using [lerna].
@@ -98,7 +103,7 @@ The `jsii-calc` and `@scope/*` packages are used to test expected brhavior from
 the compiler (note that the [aws/jsii-compiler](github.com/aws/jsii-compiler)
 repository as a separate copy of these under the `fixtures` directory), as well
 as downstream tooling (`jsii-pacmak`, `jsii-rosetta`, etc...). Each language
-runtime has its own test suite, within which is a _compliance_ suite that tests
+runtime has its own test suite, within which is a *compliance* suite that tests
 the same behaviors in all languages, and which should contain tests related to
 behavior that isn't strictly specific to the given language.
 
@@ -138,8 +143,8 @@ better:
   to wait for a debugger to attach before proceeding. This is useful to attach
   Node dev tools to the runtime as it starts in order to use its debugger.
 
-The [Visual Studio Code](https://code.visualstudio.com) _JavaScript Debug
-Terminal_ feature can be particularly useful paired with appropriate
+The [Visual Studio Code](https://code.visualstudio.com) *JavaScript Debug
+Terminal* feature can be particularly useful paired with appropriate
 `JSII_RUNTIME` setting to run arbitrary jsii programs, automatically attaching
 the VSCode debugger at startup. These terminals inject a specially crafted
 `NODE_OPTIONS` variable that allows the VSCode debugger to consistently attach
@@ -205,10 +210,10 @@ The runtime client library should be implemented as a module under
 
 The jsii runtime client library usually includes the following components:
 
-- Child process manager: responsible to start/stop the **@jsii/runtime** child
+- Child process manager: responsible to start/stop the __@jsii/runtime__ child
   process.
 - Protocol layer: implements the STDIN/STDOUT protocol that interacts with the
-  **@jsii/runtime**.
+  __@jsii/runtime__.
 - Proxy layer: includes base classes and serialization utilities to implement
   the generated proxy classes.
 
@@ -244,8 +249,8 @@ on [ECR Public Gallery](https://gallery.ecr.aws/jsii/superchain)
 ## Support for new Node Major versions
 
 When a new major version of node is released, we need to update the `@jsii/check-node` package.
-This package is responsible for identifiying which node version is being used by the current process,
-whether or not it is supported and tested, and produces appropriate warnings in case it isnt.
+This package is responsible for identifying which node version is being used by the current process,
+whether or not it is supported and tested, and produces appropriate warnings in case it isn't.
 
 > Note that `jsii` will execute on every node version, so "adding support" here only means supressing or showing
 > warnings that inform the user on the level of support it has.
@@ -259,3 +264,15 @@ whether or not it is supported and tested, and produces appropriate warnings in 
 
 - [https://endoflife.date/nodejs](https://endoflife.date/nodejs)
 - [Adding support for node 22 PR](https://github.com/aws/jsii/pull/4489)
+
+## Support for new `jsii-rosetta` versions
+
+When a new minor version of `jsii-rosetta` (modern) is released, we need to update the `jsii-pacmak` package.
+`jsii-pacmak` uses `jsii-rosetta` to transpile examples in documentation.
+Because every package can use its own version of jsii, TypeScript and jsii-rosetta, it is declared as a peer dependency.
+To ensure compatibility, we also have integration tests.
+
+### Adding a new `jsii-rosetta` version
+
+1. Add the new version to the `jsii-rosetta` peer dependency in [package.json](./packages/jsii-pacmak/package.json)
+2. Add the new version to the `pacmak-integration-test` matrix in the main build workflow in [main.yml](.github/workflows/main.yml)

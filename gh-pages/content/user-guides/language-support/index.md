@@ -103,7 +103,7 @@ possible to publish artifacts even when tests in the suite are failing. As soon 
     contribute to this process by documenting a general architecture that should be implementable in any programming
     languages (and thus, abstracting away language specificities).
 
-## Building & Packaging
+## Building and Packaging
 
 The necessary toolchains should be added to he [`public.ecr.aws/jsii/superchain`] Docker image, so that the
 [`jsii-pacmak`] generation can be changed to support building ready to publish artifacts instead of just code.
@@ -114,10 +114,6 @@ PyPI, and **NuGet** packages were published with a pre-release version such as `
 
 Additionally, [`aws-delivlib`] needs to be augmented to support publishing artifacts to the language's package
 repository.
-
-!!! bug "Unimplemented"
-    The package publishing is being extracted from [`aws-delivlib`] into a standalone library, currently hosted at
-    [`eladb/jsii-release`](https://github.com/eladb/jsii-release).
 
 ## Documentation
 
