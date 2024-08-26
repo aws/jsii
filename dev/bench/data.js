@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1724673501749,
+  "lastUpdate": 1724677896991,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -32065,6 +32065,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 171421.0026663291,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37472.437035200004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2bb68f7f5936d92b70568af40aebeaba75fe4cb0",
+          "message": "chore(deps): Update setuptools requirement from ~=71.1.0 to ~=73.0.1 in /packages/@jsii/python-runtime (#4614)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v73.0.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Remove <code>abc.ABCMeta</code> metaclass from abstract classes. <code>pypa/setuptools#4503 &lt;https://github.com/pypa/setuptools/pull/4503&gt;</code>_ had an unintended consequence of causing potential <code>TypeError: metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4579\">#4579</a>)</li>\n</ul>\n<h1>v73.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Mark abstract base classes and methods with <code>abc.ABC</code> and <code>abc.abstractmethod</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4503\">#4503</a>)</li>\n<li>Changed the order of type checks in <code>setuptools.command.easy_install.CommandSpec.from_param</code> to support any <code>collections.abc.Iterable</code> of <code>str</code> param -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4505\">#4505</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Prevent an error in <code>bdist_wheel</code> if <code>compression</code> is set to a <code>str</code> (even if valid) after finalizing options but before running the command. -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4383\">#4383</a>)</li>\n<li>Raises an exception when <code>py_limited_api</code> is used in a build with\n<code>Py_GIL_DISABLED</code><code>python/cpython#111506</code><a href=\"https://redirect.github.com/pypa/setuptools/issues/4420\">#4420</a>)</li>\n<li><code>pypa/distutils#284</code></li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li><code>setuptools</code> is replacing the usages of :pypi:<code>ordered_set</code> with simple\ninstances of <code>dict[Hashable, None]</code>. This is done to remove the extra\ndependency and it is possible because since Python 3.7, <code>dict</code> maintain\ninsertion order. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4574\">#4574</a>)</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4534\">#4534</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4546\">#4546</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4554\">#4554</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4559\">#4559</a>, <a href=\"https://redirect.github.com/pypa/setuptools/issues/4565\">#4565</a></li>\n</ul>\n<h1>v72.2.0</h1>\n<h2>Features</h2>\n<ul>\n<li><code>pypa/distutils#272</code><a href=\"https://redirect.github.com/pypa/distutils/issues/237\">pypa/distutils#237</a><code>pypa/distuils#228</code><a href=\"https://redirect.github.com/pypa/setuptools/issues/4538\">#4538</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ebddeb36f72c9d758b5cc0e9f81f8a66aa837d96\"><code>ebddeb3</code></a> Bump version: 73.0.0 → 73.0.1</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/18963fb1851d24b89780cc10e213a2779be5f1eb\"><code>18963fb</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4580\">#4580</a> from Avasam/no-ABCMeta</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b7ee00da2cfa8208c47812fb657392e8b88f620c\"><code>b7ee00d</code></a> Remove ABCMeta metaclass, keep abstractmethods</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/477f713450ff57de126153f3034d032542916d03\"><code>477f713</code></a> Override distribution attribute type in all distutils-based commands (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4577\">#4577</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/429ac589e5f290282f91b420350b002a2c519699\"><code>429ac58</code></a> Override distribution attribute type in all distutils-based commands</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4147b093d0aea4f57757c699a0b25bbc3aab2580\"><code>4147b09</code></a> Bump version: 72.2.0 → 73.0.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/2ad8c10d8214340be812769359090c7950a39c35\"><code>2ad8c10</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4576\">#4576</a> from pypa/bugfix/distutils-284</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/8afe0c3e9c4c56f5d7343dc21f743e9cf83c594a\"><code>8afe0c3</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4574\">#4574</a> from abravalheri/ordered_set</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ad611bcaedfefef3480ac111c4f22e2ca8cc7a1c\"><code>ad611bc</code></a> Merge <a href=\"https://github.com/pypa/distutils\">https://github.com/pypa/distutils</a> into bugfix/distutils-284</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/30b7331b07fbc404959cb37ac311afdfb90813be\"><code>30b7331</code></a> Ensure a missing target is still indicated as 'sources are newer' even when t...</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v71.1.0...v73.0.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-26T12:35:35Z",
+          "tree_id": "ca2e3dd6fbe5a1aaec29d1685a2d28c5aba21f0e",
+          "url": "https://github.com/aws/jsii/commit/2bb68f7f5936d92b70568af40aebeaba75fe4cb0"
+        },
+        "date": 1724677892894,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 45450.06482824999,
+            "unit": "milliseconds",
+            "range": 45887.840363081654,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 45450.06482824999 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37082.88885685,
+            "unit": "milliseconds",
+            "range": 40675.94681805011,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37082.88885685 milliseconds over 20 runs"
           }
         ]
       }
