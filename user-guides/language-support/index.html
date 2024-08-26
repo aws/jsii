@@ -1385,9 +1385,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-packaging" class="md-nav__link">
+  <a href="#building-and-packaging" class="md-nav__link">
     <span class="md-ellipsis">
-      Building &amp; Packaging
+      Building and Packaging
     </span>
   </a>
   
@@ -1805,9 +1805,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-packaging" class="md-nav__link">
+  <a href="#building-and-packaging" class="md-nav__link">
     <span class="md-ellipsis">
-      Building &amp; Packaging
+      Building and Packaging
     </span>
   </a>
   
@@ -1949,7 +1949,7 @@ possible to publish artifacts even when tests in the suite are failing. As soon 
 contribute to this process by documenting a general architecture that should be implementable in any programming
 languages (and thus, abstracting away language specificities).</p>
 </div>
-<h2 id="building-packaging">Building &amp; Packaging</h2>
+<h2 id="building-and-packaging">Building and Packaging</h2>
 <p>The necessary toolchains should be added to he [<code>public.ecr.aws/jsii/superchain</code>] Docker image, so that the
 [<code>jsii-pacmak</code>] generation can be changed to support building ready to publish artifacts instead of just code.</p>
 <p>Before publishing any artifacts, ensure all packages (the <em>host library</em> as well as generated artifacts) are designated
@@ -1957,11 +1957,6 @@ as <em>experimental</em> (e.g: <strong>Python</strong> packages were annotated w
 PyPI, and <strong>NuGet</strong> packages were published with a pre-release version such as <code>1.2.3-pre</code>).</p>
 <p>Additionally, [<code>aws-delivlib</code>] needs to be augmented to support publishing artifacts to the language's package
 repository.</p>
-<div class="admonition bug">
-<p class="admonition-title">Unimplemented</p>
-<p>The package publishing is being extracted from [<code>aws-delivlib</code>] into a standalone library, currently hosted at
-<a href="https://github.com/eladb/jsii-release"><code>eladb/jsii-release</code></a>.</p>
-</div>
 <h2 id="documentation">Documentation</h2>
 <p>Before releasing the new language support to <em>Developer Preview</em>, basic documentation needs to be produced to explain
 how to configure a <em>jsii</em> project to support the new language, and any peculiarities in working with libraries generated
