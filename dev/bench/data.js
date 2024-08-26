@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1724699424121,
+  "lastUpdate": 1724704189010,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -32369,6 +32369,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 68383.42632209987,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38124.858739300005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mail@moritzkornher.de",
+            "name": "Momo Kornher",
+            "username": "mrgrain"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9ecea560bef8e0196c9a4874110c19e946f3b3ea",
+          "message": "fix(pacmak): support jsii-rosetta 5.5 (#4619)\n\nDeclare support in peerDependencies and add integration test.\n\nUpdated some docs while I'm at it.\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-08-26T19:53:00Z",
+          "tree_id": "356893d89c44548ba104baab29ee056985b1d29f",
+          "url": "https://github.com/aws/jsii/commit/9ecea560bef8e0196c9a4874110c19e946f3b3ea"
+        },
+        "date": 1724704184264,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46727.36310984998,
+            "unit": "milliseconds",
+            "range": 251458.93062279973,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46727.36310984998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37754.53496245001,
+            "unit": "milliseconds",
+            "range": 198124.1345961181,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37754.53496245001 milliseconds over 20 runs"
           }
         ]
       }
