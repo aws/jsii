@@ -1377,6 +1377,7 @@ async function tryDownloadResource(
           try {
             fs.mkdirpSync(path.join(into, 'resources'));
           } catch (err) {
+            // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             return ko(err);
           }
           try {
@@ -1402,6 +1403,7 @@ async function tryDownloadResource(
                   try {
                     offset += fs.writeSync(fd, buff, offset);
                   } catch (err) {
+                    // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                     return ko(err);
                   }
                 }
@@ -1411,10 +1413,12 @@ async function tryDownloadResource(
                   fs.closeSync(fd);
                   ok(filePath);
                 } catch (err) {
+                  // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                   ko(err);
                 }
               });
           } catch (err) {
+            // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             return ko(err);
           }
           break;

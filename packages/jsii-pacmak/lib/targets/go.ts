@@ -52,6 +52,7 @@ export class Golang extends Target {
       logging.info(
         `[${pkgDir}] Content of ${localGoMod.path} file:\n${localGoMod.content}`,
       );
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
       return Promise.reject(e);
     }
 
