@@ -1,6 +1,5 @@
 import { TypeSystem } from './type-system';
 
-/* eslint-disable @typescript-eslint/ban-types -- WeakMap<T, _> demands T extends object */
 const CACHE = new WeakMap<object, Map<string, unknown>>();
 
 function memoizedGet(original: () => any, propertyKey: string): () => any {

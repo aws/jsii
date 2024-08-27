@@ -155,7 +155,7 @@ export interface DelRequest {
   readonly objref: ObjRef;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface DelResponse {}
 
 export interface GetRequest {
@@ -184,7 +184,7 @@ export interface SetRequest {
   readonly value: any;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface SetResponse {}
 
 export interface StaticInvokeRequest {
@@ -221,7 +221,7 @@ export interface EndResponse {
   readonly result: any;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface CallbacksRequest {}
 
 export interface CallbacksResponse {
@@ -249,7 +249,7 @@ export interface NamingResponse {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface StatsRequest {}
 
 export interface StatsResponse {

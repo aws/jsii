@@ -121,6 +121,7 @@ export class IndependentPackageBuilder implements TargetBuilder {
       return await target.build(src.directory, outputDir);
     } catch (err) {
       logging.warn(`Failed building ${this.targetName}`);
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
       return await Promise.reject(err);
     } finally {
       if (options.clean) {

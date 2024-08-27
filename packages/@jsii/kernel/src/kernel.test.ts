@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
 import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';

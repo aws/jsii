@@ -86,7 +86,7 @@ export function symbolIdentifier(
   // If this is a member symbol, replace the final '.' with a '#'
   const typeSymbol = isMember
     ? (inFileName ?? '').replace(/\.([^.]+)$/, '#$1')
-    : inFileName ?? '';
+    : (inFileName ?? '');
 
   return `${relFile}:${typeSymbol}`;
 }

@@ -84,6 +84,7 @@ export class ProcessManager {
         process.stderr.write(
           `Process ${proc.pid} error: ${error.message} - ${error.stack}`,
         );
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
         ko();
       });
     });
