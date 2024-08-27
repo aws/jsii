@@ -1312,8 +1312,8 @@ import publication
 import typing_extensions
 
 import typeguard
-from importlib.metadata import version
-TYPEGUARD_MAJOR_VERSION = int(version('typeguard').split('.')[0])
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
 
 def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
     if TYPEGUARD_MAJOR_VERSION <= 2:
@@ -1544,8 +1544,8 @@ import publication
 import typing_extensions
 
 import typeguard
-from importlib.metadata import version
-TYPEGUARD_MAJOR_VERSION = int(version('typeguard').split('.')[0])
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
 
 def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
     if TYPEGUARD_MAJOR_VERSION <= 2:
@@ -2769,8 +2769,8 @@ import publication
 import typing_extensions
 
 import typeguard
-from importlib.metadata import version
-TYPEGUARD_MAJOR_VERSION = int(version('typeguard').split('.')[0])
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
 
 def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
     if TYPEGUARD_MAJOR_VERSION <= 2:
@@ -2911,8 +2911,8 @@ import publication
 import typing_extensions
 
 import typeguard
-from importlib.metadata import version
-TYPEGUARD_MAJOR_VERSION = int(version('typeguard').split('.')[0])
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
 
 def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
     if TYPEGUARD_MAJOR_VERSION <= 2:
