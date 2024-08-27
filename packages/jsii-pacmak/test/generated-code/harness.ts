@@ -288,7 +288,7 @@ export async function preparePythonVirtualEnv({
   install = [],
   installOptions = [],
   venvDir = __dirname,
-  systemSitePackages = false,
+  systemSitePackages = true,
 }: {
   install?: readonly string[];
   // some options like `--config-settings` should only be
@@ -378,7 +378,6 @@ async function runMypy(pythonRoot: string): Promise<void> {
   const { env, venvPython } = await preparePythonVirtualEnv();
 
   // Now run mypy on the Python code
-  console.log(`Running mypy with venv: ${venvPython}`);
   return expect(
     shell(
       venvPython,

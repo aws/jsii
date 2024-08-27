@@ -1730,9 +1730,9 @@ class PythonModule implements PythonType {
     code.line();
 
     code.line('import typeguard');
-    code.line('from importlib.metadata import version');
+    code.line('from importlib.metadata import version as _metadata_package_version');
     code.line(
-      "TYPEGUARD_MAJOR_VERSION = int(version('typeguard').split('.')[0])",
+      "TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])",
     );
     code.line();
 

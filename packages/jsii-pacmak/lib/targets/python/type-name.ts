@@ -443,10 +443,10 @@ function getPackageName(fqn: string, rootAssm: Assembly) {
   const config =
     assemblyName === rootAssm.name
       ? rootAssm
-      : (rootAssm.dependencyClosure?.[assemblyName] ??
+      : rootAssm.dependencyClosure?.[assemblyName] ??
         die(
           `Unable to find configuration for assembly "${assemblyName}" in dependency closure`,
-        ));
+        );
   const rootPkg =
     config.targets?.python?.module ??
     die(`No Python target was configured in assembly "${assemblyName}"`);
