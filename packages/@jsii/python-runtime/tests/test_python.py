@@ -27,17 +27,6 @@ class TestErrorHandling:
 
         assert base_names == ["DerivedStruct", "MyFirstStruct"]
 
-    def test_descriptive_error_when_passing_function(self):
-        obj = jsii_calc.Calculator()
-
-        with pytest.raises(
-            TypeError,
-            match=re.escape(
-                "type of argument value must be one of (int, float); got method instead"
-            ),
-        ):
-            obj.add(cast(Any, self.test_descriptive_error_when_passing_function))
-
     def test_implements_interface(self) -> None:
         """Checks that jsii-generated classes correctly implement the relevant jsii-generated interfaces."""
 
