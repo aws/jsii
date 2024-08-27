@@ -72,7 +72,7 @@ describe(retry, () => {
 
   test('behaves correctly if callback throws non-Error', async () => {
     // GIVEN
-    const alwaysFail = () => Promise.reject('Always');
+    const alwaysFail = () => Promise.reject(new Error('Always'));
 
     // WHEN
     const result = retry(

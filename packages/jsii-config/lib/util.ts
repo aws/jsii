@@ -9,7 +9,7 @@ export function getNestedValue(
 ): any {
   try {
     return keys.reduce((val: any, key: string) => val[key], current);
-  } catch (_err) {
+  } catch {
     return undefined;
   }
 }

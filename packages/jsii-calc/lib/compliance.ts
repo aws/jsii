@@ -126,15 +126,12 @@ export class AllTypes {
 
   // json
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   private jsonValue: object = {};
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   public get jsonProperty(): object {
     return this.jsonValue;
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   public set jsonProperty(value: object) {
     if (typeof value !== 'object') {
       throw new Error('not an object');

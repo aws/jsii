@@ -216,7 +216,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
-      ? findEnclosingClassDeclaration(node)?.name?.text ?? 'MyClass'
+      ? (findEnclosingClassDeclaration(node)?.name?.text ?? 'MyClass')
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
 
     const retType = determineReturnType(renderer.typeChecker, node);

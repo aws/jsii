@@ -51,6 +51,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
                   })
                   .catch((err: any) => {
                     logOutput({ error: err.message, name: err.name });
+                    // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                     fail(err);
                   });
               });

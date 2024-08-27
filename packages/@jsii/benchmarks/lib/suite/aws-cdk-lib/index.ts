@@ -59,6 +59,7 @@ export async function buildWithTsc({ workingDir }: Context): Promise<void> {
           .once('close', ko)
           .once('message', (result: { success: any } | { error: unknown }) => {
             if ('error' in result) {
+              // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
               ko(result.error);
             } else {
               ok(result.success);
@@ -79,6 +80,7 @@ export async function buildWithJsii({ workingDir }: Context): Promise<void> {
           .once('close', ko)
           .once('message', (result: { success: any } | { error: unknown }) => {
             if ('error' in result) {
+              // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
               ko(result.error);
             } else {
               ok(result.success);
