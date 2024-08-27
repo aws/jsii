@@ -72,11 +72,11 @@ function snapshotAwsCdk(tag: string, file: string) {
       // Some un-modeled dependencies that exist (will be overridden if modeled)
       '@types/aws-lambda': '^8.10.99',
       '@types/minimatch': '^3.0.5',
-      '@types/node': '^18',
+      '@types/node': '^14',
       '@types/punycode': '^2.1.0',
       '@types/semver': '^7.3.9',
       'aws-sdk': '^2.596.0',
-      'typescript-json-schema': '^0.65.1',
+      'typescript-json-schema': '0.64.0',
       // For good measure, the typescript compiler
       typescript: `~${ts.version}`,
     } as Record<string, string>,
