@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.103.0](https://github.com/aws/jsii/compare/v1.102.0...v1.103.0) (2024-08-27)
+
+
+### Features
+
+* **pacmak:** allow `typeguard==3.x` and `typeguard==4.x`  ([#4611](https://github.com/aws/jsii/issues/4611)) ([32ae5b0](https://github.com/aws/jsii/commit/32ae5b017e8c4a889ff64b68dc5809e856d98b34))
+
+
+### Bug Fixes
+
+* **pacmak:** support jsii-rosetta 5.5 ([#4619](https://github.com/aws/jsii/issues/4619)) ([9ecea56](https://github.com/aws/jsii/commit/9ecea560bef8e0196c9a4874110c19e946f3b3ea))
+
 ## [1.102.0](https://github.com/aws/jsii/compare/v1.101.0...v1.102.0) (2024-08-02)
 
 ## [1.101.0](https://github.com/aws/jsii/compare/v1.100.0...v1.101.0) (2024-06-26)
