@@ -1323,7 +1323,7 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
            pass
         else:
             if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
                 typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
             else:
                 typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
@@ -1555,7 +1555,7 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
            pass
         else:
             if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
                 typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
             else:
                 typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
@@ -2780,7 +2780,7 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
            pass
         else:
             if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
                 typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
             else:
                 typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
@@ -2922,7 +2922,7 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
            pass
         else:
             if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
                 typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
             else:
                 typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore

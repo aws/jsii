@@ -1752,7 +1752,7 @@ class PythonModule implements PythonType {
     code.openBlock('else');
     code.openBlock('if TYPEGUARD_MAJOR_VERSION == 3');
     code.line(
-      'typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS',
+      'typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore',
     );
     code.line(
       'typeguard.check_type(value=value, expected_type=expected_type) # type:ignore',
