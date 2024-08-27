@@ -136,6 +136,7 @@ export async function pacmak({
               () => logging.info(`${targetSet.targetType} finished`),
               (err) => {
                 logging.warn(`${targetSet.targetType} failed`);
+                // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
                 return Promise.reject(err);
               },
             );
@@ -386,6 +387,7 @@ function mapParallelOrSerial<T, R>(
         : // Wait for the previous promise, then make the next one
           result[result.length - 1].then(
             () => mapper(item),
+            // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             (error) => Promise.reject(error),
           ),
     );

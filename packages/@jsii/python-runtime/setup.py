@@ -30,11 +30,11 @@ setuptools.setup(
         "jsii._embedded.jsii": ["*.js", "*.js.map"],
     },
     install_requires=[
-        "attrs>=21.2,<24.0",
+        "attrs>=21.2,<25.0",
         "cattrs>=1.8,<23.3",
         "importlib_resources>=5.2.0",
         "publication>=0.0.3",  # This is used by all generated code.
-        "typeguard~=2.13.3",  # This is used by all generated code.
+        "typeguard>=2.13.3,<5.0.0",  # This is used by all generated code.
         "python-dateutil",
         "typing_extensions>=3.8,<5.0",
     ],

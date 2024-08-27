@@ -1728,7 +1728,44 @@ class PythonModule implements PythonType {
     code.line('import publication');
     code.line('import typing_extensions');
     code.line();
-    code.line('from typeguard import check_type');
+
+    code.line('import typeguard');
+    code.line('from importlib.metadata import version as _metadata_package_version');
+    code.line(
+      "TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])",
+    );
+    code.line();
+
+    code.openBlock(
+      'def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any',
+    );
+    code.openBlock('if TYPEGUARD_MAJOR_VERSION <= 2');
+    code.line(
+      'return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore',
+    );
+    code.closeBlock();
+    code.openBlock('else');
+    code.line(
+      'if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]',
+    );
+    code.line('   pass');
+    code.openBlock('else');
+    code.openBlock('if TYPEGUARD_MAJOR_VERSION == 3');
+    code.line(
+      'typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore',
+    );
+    code.line(
+      'typeguard.check_type(value=value, expected_type=expected_type) # type:ignore',
+    );
+    code.closeBlock();
+    code.openBlock('else');
+    code.line(
+      'typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore',
+    );
+    code.closeBlock();
+    code.closeBlock();
+    code.closeBlock();
+    code.closeBlock();
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
@@ -2129,7 +2166,7 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
-        'typeguard~=2.13.3',
+        'typeguard>=2.13.3,<5.0.0',
       ]
         .concat(dependencies)
         .sort(),

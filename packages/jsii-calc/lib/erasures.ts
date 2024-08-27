@@ -48,9 +48,9 @@ export interface IJSII417Derived extends IJSII417PrivateBase {
 // Interfaces should be copied from erased classes to public classes
 // https://github.com/aws/jsii/issues/487
 //
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface IJsii487External {}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface IJsii487External2 {}
 class Jsii487Internal implements IJsii487External {}
 export class Jsii487Derived
@@ -61,7 +61,7 @@ export class Jsii487Derived
 // Deduplicate interfaces that come from different declaration sites
 // https://github.com/aws/jsii/issues/496
 //
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface IJsii496 {}
 class Jsii496Base implements IJsii496 {}
 export class Jsii496Derived extends Jsii496Base implements IJsii496 {}

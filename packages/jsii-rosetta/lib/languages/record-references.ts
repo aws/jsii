@@ -8,7 +8,7 @@ import { SubmoduleReference } from '../submodule-reference';
 import { Spans } from '../typescript/visible-spans';
 import { DefaultVisitor } from './default';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface RecordReferencesContext {}
 
 type RecordReferencesRenderer = AstRenderer<RecordReferencesContext>;
