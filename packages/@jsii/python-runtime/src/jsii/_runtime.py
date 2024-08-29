@@ -168,7 +168,7 @@ def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
     def deco(cls):
         cls.__jsii_type__ = getattr(cls, "__jsii_type__", None)
         cls.__jsii_ifaces__ = getattr(cls, "__jsii_ifaces__", []) + list(interfaces)
-        cls.__jsii_proxy_class__ = getattr(cls, "__jsii_proxy_class__", lambda : None)
+        cls.__jsii_proxy_class__ = getattr(cls, "__jsii_proxy_class__", lambda: None)
 
         # https://github.com/agronholm/typeguard/issues/479
         cls.__protocol_attrs__ = getattr(cls, "__protocol_attrs__", [])

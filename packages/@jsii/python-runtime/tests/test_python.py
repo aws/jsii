@@ -27,11 +27,12 @@ class TestErrorHandling:
 
         assert base_names == ["DerivedStruct", "MyFirstStruct"]
 
+
 class TestImplementsInterface:
 
     def test_jsii_proxy_class_defaults_to_none(self) -> None:
         @jsii.implements(IBaz)
-        class MyBaz():
+        class MyBaz:
             pass
 
         klass = getattr(MyBaz, "__jsii_proxy_class__")()
@@ -39,12 +40,12 @@ class TestImplementsInterface:
 
     def test_jsii_proxy_class_preserves_user_defined_attribute(self) -> None:
 
-        class _MyBazProxy():
+        class _MyBazProxy:
             def baz_method(self) -> str:
                 return "_MyBazProxy"
-            
+
         @jsii.implements(IBaz)
-        class MyBaz():
+        class MyBaz:
 
             @staticmethod
             def __jsii_proxy_class__():
@@ -52,7 +53,7 @@ class TestImplementsInterface:
 
             def baz_method(self) -> str:
                 return "MyBaz"
-        
+
         klass = getattr(MyBaz, "__jsii_proxy_class__")()
         instance = klass()
         assert instance.baz_method() == "_MyBazProxy"
@@ -71,6 +72,7 @@ class TestImplementsInterface:
 
         baz = Baz()
         baz_interface_func(baz)
+
 
 def test_overrides_method_with_kwargs() -> None:
     class Overridden(OverrideMe):
