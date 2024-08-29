@@ -72,8 +72,9 @@ updates:
       - dependency-name: github.com/aws/jsii-runtime-go/*
       - dependency-name: github.com/aws/jsii/jsii-calc/go/*
     groups:
-      all-deps:
-        dependency-type: 'all'
+      go-deps:
+        patterns:
+          - '*'
 
   - package-ecosystem: github-actions
     directory: '/'
