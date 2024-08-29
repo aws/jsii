@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1724795704870,
+  "lastUpdate": 1724924404752,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -32635,6 +32635,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 33954.118424949746,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36542.5553393 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "epolon@amazon.com",
+            "name": "Eli Polonsky",
+            "username": "iliapolo"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "54fa1b24d332ac8ebbead12a8bd431811b2fa74f",
+          "message": "fix(python): user defined `__jsii_proxy_class` attributes are not preserved  (#4625)\n\nIn https://github.com/aws/jsii/pull/4611, we added the `_jsii_proxy_class__` attributes to the `@jsii.interface` implementations. This was required in order to comply with `typeguard` protocol checking. We didn't implement it correctly, accidentally overriding user defined proxy classes.\n\n## Note\n\nI have been wrecking my brain trying to understand if this bug has any runtime implications, and I couldn't find any.\n\n#### How so?\n\nAt runtime, from what I could gather, the `__jsii_proxy_class__` attribute is only used when we try to instantiate a subclass of an abstract class:\n\nhttps://github.com/aws/jsii/blob/dc77d6c7016bcb7531f6e374243410f969ea1fbf/packages/%40jsii/python-runtime/src/jsii/_reference_map.py#L65-L70\n\nHowever, for abstract classes, we assign an explicit value to `__jsii_proxy_class__`:\n\nhttps://github.com/aws/jsii/blob/dc77d6c7016bcb7531f6e374243410f969ea1fbf/packages/jsii-pacmak/lib/targets/python.ts#L1496-L1501\n\nLuckily, this happens **AFTER** the `@jsii.implements` decorator has finished, thus overriding the mistake in the decorator.\nPresumably, this would still be a problem for user defined abstract classes (since they don't have this assignment). However, reference resolving for user defined classes is done via native reference lookup:\n\nhttps://github.com/aws/jsii/blob/dc77d6c7016bcb7531f6e374243410f969ea1fbf/packages/%40jsii/python-runtime/src/jsii/_reference_map.py#L48-L54\n\nThis is also why I couldn't come up with a real life test case, and had to resort to an artificial one. \n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-08-29T09:04:13Z",
+          "tree_id": "20e6d5f2394de01baa2180fcdf09a1cbede5919b",
+          "url": "https://github.com/aws/jsii/commit/54fa1b24d332ac8ebbead12a8bd431811b2fa74f"
+        },
+        "date": 1724924400611,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 45239.104339900005,
+            "unit": "milliseconds",
+            "range": 66268.88107225156,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 45239.104339900005 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36867.98361165,
+            "unit": "milliseconds",
+            "range": 28276.301090466826,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36867.98361165 milliseconds over 20 runs"
           }
         ]
       }
