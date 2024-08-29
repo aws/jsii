@@ -1,8 +1,6 @@
 module github.com/aws/jsii/go-runtime-test
 
-go 1.21
-
-toolchain go1.22.6
+go 1.18
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -15,7 +13,7 @@ require (
 )
 
 require (
-	github.com/Masterminds/semver/v3 v3.3.0 // indirect
+	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2 v2.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.17.0 // indirect
