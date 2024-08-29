@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1724933284529,
+  "lastUpdate": 1724935599411,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -32787,6 +32787,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 410724.9424662569,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37731.30459564999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c0d17023cbcec9722fdd06bf0930fb0578313f9e",
+          "message": "chore(deps): Update setuptools requirement from ~=73.0.1 to ~=74.0.0 in /packages/@jsii/python-runtime (#4627)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v74.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Changed the type of error raised by <code>setuptools.command.easy_install.CommandSpec.from_param</code> on unsupported argument from <code>AttributeError</code> to <code>TypeError</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4548\">#4548</a>)</li>\n<li>Added detection of ARM64 variant of MSVC -- by :user:<code>saschanaz</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4553\">#4553</a>)</li>\n<li>Made <code>setuptools.package_index.Credential</code> a <code>typing.NamedTuple</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4585\">#4585</a>)</li>\n<li>Reraise error from <code>setuptools.command.easy_install.auto_chmod</code> instead of nonsensical <code>TypeError: 'Exception' object is not subscriptable</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4593\">#4593</a>)</li>\n<li>Fully typed all collection attributes in <code>pkg_resources</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4598\">#4598</a>)</li>\n<li>Automatically exclude <code>.tox|.nox|.venv</code> directories from <code>sdist</code>. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4603\">#4603</a>)</li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>Removed the monkeypatching of distutils._msvccompiler. Now all compiler logic is consolidated in distutils. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4600\">#4600</a>)</li>\n<li>Synced with pypa/distutils@58fe058e4, including consolidating Visual Studio 2017 support (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4600\">#4600</a>, <a href=\"https://redirect.github.com/pypa/distutils/issues/289\">pypa/distutils#289</a><code>pypa/distutils#287</code><a href=\"https://redirect.github.com/pypa/setuptools/issues/4606\">#4606</a>)</li>\n</ul>\n<h2>Misc</h2>\n<ul>\n<li><a href=\"https://redirect.github.com/pypa/setuptools/issues/4592\">#4592</a></li>\n</ul>\n<h1>v73.0.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Remove <code>abc.ABCMeta</code> metaclass from abstract classes. <code>pypa/setuptools#4503 &lt;https://github.com/pypa/setuptools/pull/4503&gt;</code>_ had an unintended consequence of causing potential <code>TypeError: metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4579\">#4579</a>)</li>\n</ul>\n<h1>v73.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Mark abstract base classes and methods with <code>abc.ABC</code> and <code>abc.abstractmethod</code> -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4503\">#4503</a>)</li>\n<li>Changed the order of type checks in <code>setuptools.command.easy_install.CommandSpec.from_param</code> to support any <code>collections.abc.Iterable</code> of <code>str</code> param -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4505\">#4505</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Prevent an error in <code>bdist_wheel</code> if <code>compression</code> is set to a <code>str</code> (even if valid) after finalizing options but before running the command. -- by :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4383\">#4383</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/98ad794354efecf4ed1f629d4e5f02feae00d2ae\"><code>98ad794</code></a> Bump version: 73.0.1 → 74.0.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/b4fb91796ba9f9473280a69a3c8213066e5bc107\"><code>b4fb917</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4600\">#4600</a> from pypa/debt/msvc-monkey</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/18a44d8f5660df9e23ee823a073b2d3238bc8293\"><code>18a44d8</code></a> Add news fragment.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/5f8215d9888cb555d2a206635f0f59421cc4afa9\"><code>5f8215d</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4548\">#4548</a> from Avasam/from_param-TypeError</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/6928048a3c52370363fa47e7c2b9496ff0de0f79\"><code>6928048</code></a> Merge branch 'main' into debt/msvc-monkey</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/11a6b596ed1453407061b3e57da04bd49c0adb91\"><code>11a6b59</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4606\">#4606</a> from pypa/distutils-58fe058e4</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/903604bb3a648a26ce268753f6f05ce049336e5c\"><code>903604b</code></a> Reraise sensible errors from auto_chmod (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4593\">#4593</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/8ec5b5aeef7a6cd80ca8c3291ad66acc3986069b\"><code>8ec5b5a</code></a> Add missing news fragment for PR 4603</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/e90dfd568eef9dde8aa69a8a0ec1a7e692c532c8\"><code>e90dfd5</code></a> Exclude top-level <code>.tox|.nox|.venv</code> from sdist (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4603\">#4603</a>)</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ef2957a952244e4dfd179d29e1eaaa2cd83a1e26\"><code>ef2957a</code></a> Reraise sensible errors from auto_chmod</li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v73.0.1...v74.0.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-08-29T12:09:05Z",
+          "tree_id": "8a7a56ebed1774b258e52944a2f6f372ccec6ea7",
+          "url": "https://github.com/aws/jsii/commit/c0d17023cbcec9722fdd06bf0930fb0578313f9e"
+        },
+        "date": 1724935594425,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 48114.615866449974,
+            "unit": "milliseconds",
+            "range": 800375.4204764055,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 48114.615866449974 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 39090.47455295,
+            "unit": "milliseconds",
+            "range": 121143.61321114069,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 39090.47455295 milliseconds over 20 runs"
           }
         ]
       }
