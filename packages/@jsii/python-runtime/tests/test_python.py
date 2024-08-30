@@ -27,6 +27,37 @@ class TestErrorHandling:
 
         assert base_names == ["DerivedStruct", "MyFirstStruct"]
 
+
+class TestImplementsInterface:
+
+    def test_jsii_proxy_class_defaults_to_none(self) -> None:
+        @jsii.implements(IBaz)
+        class MyBaz:
+            pass
+
+        klass = getattr(MyBaz, "__jsii_proxy_class__")()
+        assert klass == None
+
+    def test_jsii_proxy_class_preserves_user_defined_attribute(self) -> None:
+
+        class _MyBazProxy:
+            def baz_method(self) -> str:
+                return "_MyBazProxy"
+
+        @jsii.implements(IBaz)
+        class MyBaz:
+
+            @staticmethod
+            def __jsii_proxy_class__():
+                return _MyBazProxy
+
+            def baz_method(self) -> str:
+                return "MyBaz"
+
+        klass = getattr(MyBaz, "__jsii_proxy_class__")()
+        instance = klass()
+        assert instance.baz_method() == "_MyBazProxy"
+
     def test_implements_interface(self) -> None:
         """Checks that jsii-generated classes correctly implement the relevant jsii-generated interfaces."""
 
