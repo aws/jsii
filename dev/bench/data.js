@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1725024319106,
+  "lastUpdate": 1725028065250,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -32977,6 +32977,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 267541.41282981413,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37335.34085285 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "37929162+mergify[bot]@users.noreply.github.com",
+            "name": "mergify[bot]",
+            "username": "mergify[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bef2dea16952e63cdd9d6a91c6fe50ca6e886e93",
+          "message": "chore(release): 1.103.1 (#4630)\n\nSee [CHANGELOG](https://github.com/aws/jsii/blob/patch/v1.103.1/CHANGELOG.md)\n\n(Re-roll of #4628 which I messed up)\n\n---\n\nBy submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].\n\n[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0",
+          "timestamp": "2024-08-30T12:49:17Z",
+          "tree_id": "db59a299967686d3b2a1823d3b0370ba822280e6",
+          "url": "https://github.com/aws/jsii/commit/bef2dea16952e63cdd9d6a91c6fe50ca6e886e93"
+        },
+        "date": 1725028060983,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46277.14786485002,
+            "unit": "milliseconds",
+            "range": 2143826.217666122,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46277.14786485002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37887.65659729999,
+            "unit": "milliseconds",
+            "range": 289096.61563363095,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37887.65659729999 milliseconds over 20 runs"
           }
         ]
       }
