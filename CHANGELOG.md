@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.103.1](https://github.com/aws/jsii/compare/v1.103.0...v1.103.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **python:** user defined `__jsii_proxy_class` attributes are not preserved  ([#4625](https://github.com/aws/jsii/issues/4625)) ([d3ec911](https://github.com/aws/jsii/commit/d3ec911a5d531e088524d2479e1ee831da0bc2ff))
+
 ## [1.103.0](https://github.com/aws/jsii/compare/v1.102.0...v1.103.0) (2024-08-27)
 
 
