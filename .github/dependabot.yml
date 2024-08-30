@@ -55,19 +55,12 @@ updates:
       - language/python
       - auto-approve
     ignore:
-      - dependency-name: "setuptools"
+      - dependency-name: 'setuptools'
 
   - package-ecosystem: gomod
-    directory: '/packages/@jsii/go-runtime/jsii-runtime-go'
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-      - language/go
-      - auto-approve
-
-  - package-ecosystem: gomod
-    directory: '/packages/@jsii/go-runtime-test/project'
+    directories:
+      - '/packages/@jsii/go-runtime/jsii-runtime-go'
+      - '/packages/@jsii/go-runtime-test/project'
     schedule:
       interval: daily
     labels:
@@ -78,6 +71,10 @@ updates:
       - dependency-name: github.com/aws/jsii-runtime-go
       - dependency-name: github.com/aws/jsii-runtime-go/*
       - dependency-name: github.com/aws/jsii/jsii-calc/go/*
+    groups:
+      go-deps:
+        patterns:
+          - '*'
 
   - package-ecosystem: github-actions
     directory: '/'
