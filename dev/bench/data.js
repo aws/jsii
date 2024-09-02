@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1725040682103,
+  "lastUpdate": 1725281495523,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -33129,6 +33129,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 64116.59839031537,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37907.912781299994 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ffad168d641e87e1171adec96daf4576bd615c8d",
+          "message": "chore(deps-dev): Update mkdocs requirement from ~=1.6.0 to ~=1.6.1 in /gh-pages (#4632)\n\nUpdates the requirements on [mkdocs](https://github.com/mkdocs/mkdocs) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/mkdocs/mkdocs/releases\">mkdocs's releases</a>.</em></p>\n<blockquote>\n<h2>1.6.1</h2>\n<h1>Version 1.6.1 (Friday 30th August, 2024)</h1>\n<h3>Fixed</h3>\n<ul>\n<li>Fix build error when environment variable <code>SOURCE_DATE_EPOCH=0</code> is set. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3795\">#3795</a></li>\n<li>Fix build error when <code>mkdocs_theme.yml</code> config is empty. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3700\">#3700</a></li>\n<li>Support <code>python -W</code> and <code>PYTHONWARNINGS</code> instead of overriding the configuration. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3809\">#3809</a></li>\n<li>Support running with Docker under strict mode, by removing <code>0.0.0.0</code> dev server warning. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3784\">#3784</a></li>\n<li>Drop unnecessary <code>changefreq</code> from <code>sitemap.xml</code>. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3629\">#3629</a></li>\n<li>Fix JavaScript console error when closing menu dropdown. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3774\">#3774</a></li>\n<li>Fix JavaScript console error that occur on repeated clicks. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3730\">#3730</a></li>\n<li>Fix JavaScript console error that can occur on dropdown selections. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3694\">#3694</a></li>\n</ul>\n<h3>Added</h3>\n<ul>\n<li>Added translations for Dutch. <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3804\">#3804</a></li>\n<li>Added and updated translations for Chinese (Simplified). <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3684\">#3684</a></li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/bb7e8b62185b11d9f59bb7f50b13c15134f62f8a\"><code>bb7e8b6</code></a> Version 1.6.1. (<a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3819\">#3819</a>)</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/0b22a52cc86750beee45b61b7118480012cc804d\"><code>0b22a52</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3795\">#3795</a> from mkdocs/tomchristie-patch-1</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/695d8ed4a9b7d0a211aecfc81d087a0c7a739bb7\"><code>695d8ed</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3808\">#3808</a> from razorblack/master</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/347e79fe184c147339af3f99832fcde6cdcecd85\"><code>347e79f</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3817\">#3817</a> from gesslar/patch-1</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/200f6f98b05656d81c3db3a410d8eac064b3f4af\"><code>200f6f9</code></a> Update configuration.md</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/05a64b4b75470d5c4fc2328f209848b5d25108dd\"><code>05a64b4</code></a> Use utc timezones consistently</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/9204eb690f593d2fbe0f99f53df81a13eaa0dbea\"><code>9204eb6</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3809\">#3809</a> from pawamoy/warnings-control</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/a16d60fad057074059b44b8f2631852646567054\"><code>a16d60f</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3804\">#3804</a> from KenSentMe/master</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/e72c7d0cdc0d89d263d9d702b162936b1ac22476\"><code>e72c7d0</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3784\">#3784</a> from squidfunk/fix/docker-warning</li>\n<li><a href=\"https://github.com/mkdocs/mkdocs/commit/d7376252e23078f1fc25e11d471f84a978d9e1ae\"><code>d737625</code></a> Merge pull request <a href=\"https://redirect.github.com/mkdocs/mkdocs/issues/3774\">#3774</a> from squidfunk/fix/dropdown</li>\n<li>Additional commits viewable in <a href=\"https://github.com/mkdocs/mkdocs/compare/1.6.0...1.6.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-09-02T12:13:53Z",
+          "tree_id": "da01ed8bf4481135e629c9907492b55c1cfd9936",
+          "url": "https://github.com/aws/jsii/commit/ffad168d641e87e1171adec96daf4576bd615c8d"
+        },
+        "date": 1725281491190,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46298.93569754998,
+            "unit": "milliseconds",
+            "range": 757911.3784047535,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46298.93569754998 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37383.5653575,
+            "unit": "milliseconds",
+            "range": 51354.49610999042,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37383.5653575 milliseconds over 20 runs"
           }
         ]
       }
