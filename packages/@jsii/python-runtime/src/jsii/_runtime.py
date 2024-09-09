@@ -1,4 +1,5 @@
 import abc
+from functools import wraps
 import os
 import sys
 import subprocess
@@ -21,7 +22,6 @@ from . import _reference_map
 from ._compat import importlib_resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
-
 
 # Yea, a global here is kind of gross, however, there's not really a better way of
 # handling this. Fundamentally this is a global value, since we can only reasonably
@@ -163,6 +163,24 @@ def member(*, jsii_name: str) -> Callable[[F], F]:
 
     return deco
 
+
+def rename_kwargs(*, mapping: Mapping[str, str]) -> Callable[[T], T]:
+
+    def deco(fn):
+
+        @wraps(fn)
+        def wrapper(*args, **kwargs) -> Any:
+            renamed_kwargs = {}
+            for old_name, new_name in mapping.items():
+                if old_name in kwargs:
+                    renamed_kwargs[new_name] = kwargs.pop(old_name)
+            renamed_kwargs.update(kwargs)
+            return fn(*args, **renamed_kwargs)
+        
+        return wrapper
+
+    return deco # type: ignore
+    
 
 def implements(*interfaces: Type[Any]) -> Callable[[T], T]:
     def deco(cls):

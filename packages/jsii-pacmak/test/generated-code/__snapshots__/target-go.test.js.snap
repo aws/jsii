@@ -3534,6 +3534,64 @@ func (a *jsiiProxy_Add) TypeName() interface{} {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/Adder.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type Adder interface {
+	IAdder
+	Add(a1 *float64, b1 *float64) *float64
+}
+
+// The jsii proxy struct for Adder
+type jsiiProxy_Adder struct {
+	jsiiProxy_IAdder
+}
+
+func NewAdder() Adder {
+	_init_.Initialize()
+
+	j := jsiiProxy_Adder{}
+
+	_jsii_.Create(
+		"jsii-calc.Adder",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewAdder_Override(a Adder) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Adder",
+		nil, // no parameters
+		a,
+	)
+}
+
+func (a *jsiiProxy_Adder) Add(a1 *float64, b1 *float64) *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		a,
+		"add",
+		[]interface{}{a1, b1},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/AllTypes.go 1`] = `
 package jsiicalc
 
@@ -8542,6 +8600,38 @@ func (g *jsiiProxy_GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.I
 		g,
 		"betterGreeting",
 		[]interface{}{friendly},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/IAdder.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IAdder interface {
+	Add(a *float64, b *float64) *float64
+}
+
+// The jsii proxy for IAdder
+type jsiiProxy_IAdder struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IAdder) Add(a *float64, b *float64) *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		i,
+		"add",
+		[]interface{}{a, b},
 		&returns,
 	)
 
@@ -15140,6 +15230,63 @@ func (r *jsiiProxy_ReferenceEnumFromScopedPackage) SaveFoo(value scopejsiicalcli
 		"saveFoo",
 		[]interface{}{value},
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/RenamingCalculator.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type RenamingCalculator interface {
+	Add(a *float64, b *float64) *float64
+}
+
+// The jsii proxy struct for RenamingCalculator
+type jsiiProxy_RenamingCalculator struct {
+	_ byte // padding
+}
+
+func NewRenamingCalculator(adder IAdder) RenamingCalculator {
+	_init_.Initialize()
+
+	j := jsiiProxy_RenamingCalculator{}
+
+	_jsii_.Create(
+		"jsii-calc.RenamingCalculator",
+		[]interface{}{adder},
+		&j,
+	)
+
+	return &j
+}
+
+func NewRenamingCalculator_Override(r RenamingCalculator, adder IAdder) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.RenamingCalculator",
+		[]interface{}{adder},
+		r,
+	)
+}
+
+func (r *jsiiProxy_RenamingCalculator) Add(a *float64, b *float64) *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		r,
+		"add",
+		[]interface{}{a, b},
+		&returns,
+	)
+
+	return returns
 }
 
 
@@ -25623,6 +25770,67 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/A
 +
 `;
 
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/Adder.go.diff 1`] = `
+--- go/jsiicalc/Adder.go	--no-runtime-type-checking
++++ go/jsiicalc/Adder.go	--runtime-type-checking
+@@ -38,10 +38,13 @@
+ 		a,
+ 	)
+ }
+ 
+ func (a *jsiiProxy_Adder) Add(a1 *float64, b1 *float64) *float64 {
++	if err := a.validateAddParameters(a1, b1); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.Invoke(
+ 		a,
+ 		"add",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/Adder__checks.go.diff 1`] = `
+--- go/jsiicalc/Adder__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/Adder__checks.go	--runtime-type-checking
+@@ -0,0 +1,20 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func (a *jsiiProxy_Adder) validateAddParameters(a1 *float64, b1 *float64) error {
++	if a1 == nil {
++		return fmt.Errorf("parameter a1 is required, but nil was provided")
++	}
++
++	if b1 == nil {
++		return fmt.Errorf("parameter b1 is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/Adder__no_checks.go.diff 1`] = `
+--- go/jsiicalc/Adder__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/Adder__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (a *jsiiProxy_Adder) validateAddParameters(a1 *float64, b1 *float64) error {
++	return nil
++}
++
+`;
+
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/AllTypes.go.diff 1`] = `
 --- go/jsiicalc/AllTypes.go	--no-runtime-type-checking
 +++ go/jsiicalc/AllTypes.go	--runtime-type-checking
@@ -29860,6 +30068,67 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/G
 +
 `;
 
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/IAdder.go.diff 1`] = `
+--- go/jsiicalc/IAdder.go	--no-runtime-type-checking
++++ go/jsiicalc/IAdder.go	--runtime-type-checking
+@@ -12,10 +12,13 @@
+ type jsiiProxy_IAdder struct {
+ 	_ byte // padding
+ }
+ 
+ func (i *jsiiProxy_IAdder) Add(a *float64, b *float64) *float64 {
++	if err := i.validateAddParameters(a, b); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.Invoke(
+ 		i,
+ 		"add",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/IAdder__checks.go.diff 1`] = `
+--- go/jsiicalc/IAdder__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/IAdder__checks.go	--runtime-type-checking
+@@ -0,0 +1,20 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func (i *jsiiProxy_IAdder) validateAddParameters(a *float64, b *float64) error {
++	if a == nil {
++		return fmt.Errorf("parameter a is required, but nil was provided")
++	}
++
++	if b == nil {
++		return fmt.Errorf("parameter b is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/IAdder__no_checks.go.diff 1`] = `
+--- go/jsiicalc/IAdder__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/IAdder__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (i *jsiiProxy_IAdder) validateAddParameters(a *float64, b *float64) error {
++	return nil
++}
++
+`;
+
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/IAnotherPublicInterface.go.diff 1`] = `
 --- go/jsiicalc/IAnotherPublicInterface.go	--no-runtime-type-checking
 +++ go/jsiicalc/IAnotherPublicInterface.go	--runtime-type-checking
@@ -32017,6 +32286,93 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/R
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func (r *jsiiProxy_ReferenceEnumFromScopedPackage) validateSaveFooParameters(value scopejsiicalclib.EnumFromScopedModule) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/RenamingCalculator.go.diff 1`] = `
+--- go/jsiicalc/RenamingCalculator.go	--no-runtime-type-checking
++++ go/jsiicalc/RenamingCalculator.go	--runtime-type-checking
+@@ -15,10 +15,13 @@
+ }
+ 
+ func NewRenamingCalculator(adder IAdder) RenamingCalculator {
+ 	_init_.Initialize()
+ 
++	if err := validateNewRenamingCalculatorParameters(adder); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_RenamingCalculator{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.RenamingCalculator",
+ 		[]interface{}{adder},
+@@ -37,10 +40,13 @@
+ 		r,
+ 	)
+ }
+ 
+ func (r *jsiiProxy_RenamingCalculator) Add(a *float64, b *float64) *float64 {
++	if err := r.validateAddParameters(a, b); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.Invoke(
+ 		r,
+ 		"add",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/RenamingCalculator__checks.go.diff 1`] = `
+--- go/jsiicalc/RenamingCalculator__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/RenamingCalculator__checks.go	--runtime-type-checking
+@@ -0,0 +1,28 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func (r *jsiiProxy_RenamingCalculator) validateAddParameters(a *float64, b *float64) error {
++	if a == nil {
++		return fmt.Errorf("parameter a is required, but nil was provided")
++	}
++
++	if b == nil {
++		return fmt.Errorf("parameter b is required, but nil was provided")
++	}
++
++	return nil
++}
++
++func validateNewRenamingCalculatorParameters(adder IAdder) error {
++	if adder == nil {
++		return fmt.Errorf("parameter adder is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/RenamingCalculator__no_checks.go.diff 1`] = `
+--- go/jsiicalc/RenamingCalculator__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/RenamingCalculator__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,14 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (r *jsiiProxy_RenamingCalculator) validateAddParameters(a *float64, b *float64) error {
++	return nil
++}
++
++func validateNewRenamingCalculatorParameters(adder IAdder) error {
 +	return nil
 +}
 +

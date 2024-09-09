@@ -10,6 +10,7 @@ from ._runtime import (
     data_type,
     implements,
     interface,
+    rename_kwargs,
     member,
     kernel,
     proxy_for,

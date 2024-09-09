@@ -4926,6 +4926,45 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Adder.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Adder")
+public class Adder extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IAdder {
+
+    protected Adder(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Adder(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Adder() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * @param a1 This parameter is required.
+     * @param b1 This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.Number add(final @org.jetbrains.annotations.NotNull java.lang.Number a1, final @org.jetbrains.annotations.NotNull java.lang.Number b1) {
+        return software.amazon.jsii.Kernel.call(this, "add", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(a1, "a1 is required"), java.util.Objects.requireNonNull(b1, "b1 is required") });
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -11423,6 +11462,64 @@ public class GreetingAugmenter extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.String betterGreeting(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
         return software.amazon.jsii.Kernel.call(this, "betterGreeting", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(friendly, "friendly is required") });
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IAdder.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IAdder")
+@software.amazon.jsii.Jsii.Proxy(IAdder.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IAdder extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     * @param a This parameter is required.
+     * @param b This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.Number add(final @org.jetbrains.annotations.NotNull java.lang.Number a, final @org.jetbrains.annotations.NotNull java.lang.Number b);
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IAdder.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         * @param a This parameter is required.
+         * @param b This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Number add(final @org.jetbrains.annotations.NotNull java.lang.Number a, final @org.jetbrains.annotations.NotNull java.lang.Number b) {
+            return software.amazon.jsii.Kernel.call(this, "add", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(a, "a is required"), java.util.Objects.requireNonNull(b, "b is required") });
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IAdder}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IAdder {
+
+        /**
+         * @param a This parameter is required.
+         * @param b This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.Number add(final @org.jetbrains.annotations.NotNull java.lang.Number a, final @org.jetbrains.annotations.NotNull java.lang.Number b) {
+            return software.amazon.jsii.Kernel.call(this, "add", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(a, "a is required"), java.util.Objects.requireNonNull(b, "b is required") });
+        }
     }
 }
 
@@ -19855,6 +19952,45 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setFoo(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
         software.amazon.jsii.Kernel.set(this, "foo", value);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/RenamingCalculator.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.RenamingCalculator")
+public class RenamingCalculator extends software.amazon.jsii.JsiiObject {
+
+    protected RenamingCalculator(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected RenamingCalculator(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param adder This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public RenamingCalculator(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAdder adder) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(adder, "adder is required") });
+    }
+
+    /**
+     * @param a This parameter is required.
+     * @param b This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Number add(final @org.jetbrains.annotations.NotNull java.lang.Number a, final @org.jetbrains.annotations.NotNull java.lang.Number b) {
+        return software.amazon.jsii.Kernel.call(this, "add", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(a, "a is required"), java.util.Objects.requireNonNull(b, "b is required") });
     }
 }
 

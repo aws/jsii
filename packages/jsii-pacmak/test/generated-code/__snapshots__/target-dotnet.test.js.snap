@@ -3806,6 +3806,50 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Adder.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Adder), fullyQualifiedName: "jsii-calc.Adder")]
+    public class Adder : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IAdder
+    {
+        public Adder(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Adder(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Adder(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "add", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"a1\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"b1\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        public virtual double Add(double a1, double b1)
+        {
+            return InvokeInstanceMethod<double>(new System.Type[]{typeof(double), typeof(double)}, new object[]{a1, b1})!;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/AllTypes.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -8593,6 +8637,37 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.HomonymousForwardReferences
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public class NamespaceDoc
     {
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IAdder.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IAdder), fullyQualifiedName: "jsii-calc.IAdder")]
+    public interface IAdder
+    {
+        [JsiiMethod(name: "add", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"a\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"b\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        double Add(double a, double b);
+
+        [JsiiTypeProxy(nativeType: typeof(IAdder), fullyQualifiedName: "jsii-calc.IAdder")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IAdder
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "add", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"a\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"b\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+            public double Add(double a, double b)
+            {
+                return InvokeInstanceMethod<double>(new System.Type[]{typeof(double), typeof(double)}, new object[]{a, b})!;
+            }
+        }
     }
 }
 
@@ -18066,6 +18141,50 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule?>();
             set => SetInstanceProperty(value);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/RenamingCalculator.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.RenamingCalculator), fullyQualifiedName: "jsii-calc.RenamingCalculator", parametersJson: "[{\\"name\\":\\"adder\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IAdder\\"}}]")]
+    public class RenamingCalculator : DeputyBase
+    {
+        public RenamingCalculator(Amazon.JSII.Tests.CalculatorNamespace.IAdder adder): base(_MakeDeputyProps(adder))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.IAdder adder)
+        {
+            return new DeputyProps(new object?[]{adder});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected RenamingCalculator(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected RenamingCalculator(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "add", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"a\\",\\"type\\":{\\"primitive\\":\\"number\\"}},{\\"name\\":\\"b\\",\\"type\\":{\\"primitive\\":\\"number\\"}}]")]
+        public virtual double Add(double a, double b)
+        {
+            return InvokeInstanceMethod<double>(new System.Type[]{typeof(double), typeof(double)}, new object[]{a, b})!;
         }
     }
 }

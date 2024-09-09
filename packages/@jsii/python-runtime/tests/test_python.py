@@ -28,6 +28,25 @@ class TestErrorHandling:
         assert base_names == ["DerivedStruct", "MyFirstStruct"]
 
 
+class TestRenameKwargs:
+
+    def test_interface_implementation(self) -> None:
+        
+        adder = jsii_calc.Adder()
+
+        def add(adder: jsii_calc.IAdder, a: jsii.Number, b: jsii.Number) -> jsii.Number:
+            # this ensures we can invoke jsii_calc.Adder with argnames defined in the interface.
+            # will fail unless pacmak generates the class with argnames from the interface.
+            return adder.add(a=a, b=b)
+        
+        # this ensures jsii_calc.Adder passes typechecking against jsii_calc.IAdder.
+        # will fail unless pacmak generates the class with argnames from the interface.
+        assert add(adder, 1, 2) == 3
+
+        # this ensures we can invoke jsii_calc.Adder with argnames defined in the class.
+        # will fail unless we correctly apply @jsii.rename_kwargs.
+        assert adder.add(a_old=1, b_old=2) == 3
+
 class TestImplementsInterface:
 
     def test_jsii_proxy_class_defaults_to_none(self) -> None:
