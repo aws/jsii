@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1725885309902,
+  "lastUpdate": 1725889055610,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -33281,6 +33281,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 135802.16925981228,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37994.072558550004 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "37082de53576b9c807e83506af336458c6f2c6cb",
+          "message": "chore(deps): Bump Microsoft.NET.Test.Sdk from 17.11.0 to 17.11.1 in /packages/@jsii/dotnet-runtime/src (#4639)\n\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.11.0 to 17.11.1.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/microsoft/vstest/releases\">Microsoft.NET.Test.Sdk's releases</a>.</em></p>\n<blockquote>\n<h2>v17.11.1</h2>\n<h2>What's Changed</h2>\n<ul>\n<li>[rel/17.11] Forward error output from testhost as info by <a href=\"https://github.com/nohwnd\"><code>@​nohwnd</code></a> in <a href=\"https://redirect.github.com/microsoft/vstest/pull/5193\">microsoft/vstest#5193</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/microsoft/vstest/compare/v17.11.0...v17.11.1\">https://github.com/microsoft/vstest/compare/v17.11.0...v17.11.1</a></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/microsoft/vstest/commit/58dbd027217ac035a4e9114c9213b11dc0e988bd\"><code>58dbd02</code></a> Revert &quot;Do not publish to BAR when RTM version is built&quot;</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/aa6284866d5c93df1b41916207e3220f98e99e89\"><code>aa62848</code></a> Do not publish to BAR when RTM version is built</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/d824a2f5a3493c352acfc3ec7333142cda661651\"><code>d824a2f</code></a> Bump 17.11.1</li>\n<li><a href=\"https://github.com/microsoft/vstest/commit/ed4ac9273539dd5e29f251105fcdd5afc7b665e9\"><code>ed4ac92</code></a> Forward error output from testhost as info (<a href=\"https://redirect.github.com/microsoft/vstest/issues/5193\">#5193</a>)</li>\n<li>See full diff in <a href=\"https://github.com/microsoft/vstest/compare/v17.11.0...v17.11.1\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=Microsoft.NET.Test.Sdk&package-manager=nuget&previous-version=17.11.0&new-version=17.11.1)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-09-09T13:00:50Z",
+          "tree_id": "778762e032386bb9c9df3d8268dabfd3e89f71f4",
+          "url": "https://github.com/aws/jsii/commit/37082de53576b9c807e83506af336458c6f2c6cb"
+        },
+        "date": 1725889051039,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46104.21920390002,
+            "unit": "milliseconds",
+            "range": 772233.8427242747,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46104.21920390002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38997.87200024999,
+            "unit": "milliseconds",
+            "range": 289859.45994057733,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38997.87200024999 milliseconds over 20 runs"
           }
         ]
       }
