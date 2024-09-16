@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1725889055610,
+  "lastUpdate": 1726489814959,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -33319,6 +33319,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 289859.45994057733,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38997.87200024999 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "eff18de9b33a433201e7e83b9e29c72611cddd8e",
+          "message": "chore(deps): Bump the go-deps group across 2 directories with 1 update (#4642)\n\nBumps the go-deps group with 1 update in the /packages/@jsii/go-runtime-test/project directory: [golang.org/x/tools](https://github.com/golang/tools).\nBumps the go-deps group with 1 update in the /packages/@jsii/go-runtime/jsii-runtime-go directory: [golang.org/x/tools](https://github.com/golang/tools).\n\nUpdates `golang.org/x/tools` from 0.24.0 to 0.25.0\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/7398f36f576504906456476c2f6251b76feb664e\"><code>7398f36</code></a> all: fix some symbols error in comment</li>\n<li><a href=\"https://github.com/golang/tools/commit/f111c724269449a4561b2a8e8e5dd6ba35eb007e\"><code>f111c72</code></a> go/callgraph/rta: skip test on js platform</li>\n<li><a href=\"https://github.com/golang/tools/commit/9f9b7e39b519bd4bdbfdc4e13a61bd88821a0fad\"><code>9f9b7e3</code></a> gopls/internal/settings: add missing deep cloning in Options.Clone</li>\n<li><a href=\"https://github.com/golang/tools/commit/ce7eed4960a200ae3109931fbb37e558d900569b\"><code>ce7eed4</code></a> doc/generate: minor cleanup</li>\n<li><a href=\"https://github.com/golang/tools/commit/075ae7d2766fdbbf3dcfcb89e98c498fb2e81a65\"><code>075ae7d</code></a> go/callgraph/vta: add basic tests for range-over-func</li>\n<li><a href=\"https://github.com/golang/tools/commit/2c7aaab748dd8175526d8d56daca4a6b6ac7e883\"><code>2c7aaab</code></a> go/ssa: skip failing test</li>\n<li><a href=\"https://github.com/golang/tools/commit/1b5663fbc8ef1f0e2b80709d947ae3cd0e17f108\"><code>1b5663f</code></a> go/callgraph/vta: perform minor cleanups</li>\n<li><a href=\"https://github.com/golang/tools/commit/0a498831d1417437e7d97f4deb5511cc3d8ba57c\"><code>0a49883</code></a> gopls/go.mod: update the go directive to 1.23.1</li>\n<li><a href=\"https://github.com/golang/tools/commit/ad366a81ee607204edc20b407dd117f102f877c5\"><code>ad366a8</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/4fb36d15ccac8c59e805a07f9f23394b29a874ab\"><code>4fb36d1</code></a> go/callgraph/rta: add rta analysis test case for multiple go packages</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.24.0...v0.25.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\nUpdates `golang.org/x/tools` from 0.24.0 to 0.25.0\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/golang/tools/commit/7398f36f576504906456476c2f6251b76feb664e\"><code>7398f36</code></a> all: fix some symbols error in comment</li>\n<li><a href=\"https://github.com/golang/tools/commit/f111c724269449a4561b2a8e8e5dd6ba35eb007e\"><code>f111c72</code></a> go/callgraph/rta: skip test on js platform</li>\n<li><a href=\"https://github.com/golang/tools/commit/9f9b7e39b519bd4bdbfdc4e13a61bd88821a0fad\"><code>9f9b7e3</code></a> gopls/internal/settings: add missing deep cloning in Options.Clone</li>\n<li><a href=\"https://github.com/golang/tools/commit/ce7eed4960a200ae3109931fbb37e558d900569b\"><code>ce7eed4</code></a> doc/generate: minor cleanup</li>\n<li><a href=\"https://github.com/golang/tools/commit/075ae7d2766fdbbf3dcfcb89e98c498fb2e81a65\"><code>075ae7d</code></a> go/callgraph/vta: add basic tests for range-over-func</li>\n<li><a href=\"https://github.com/golang/tools/commit/2c7aaab748dd8175526d8d56daca4a6b6ac7e883\"><code>2c7aaab</code></a> go/ssa: skip failing test</li>\n<li><a href=\"https://github.com/golang/tools/commit/1b5663fbc8ef1f0e2b80709d947ae3cd0e17f108\"><code>1b5663f</code></a> go/callgraph/vta: perform minor cleanups</li>\n<li><a href=\"https://github.com/golang/tools/commit/0a498831d1417437e7d97f4deb5511cc3d8ba57c\"><code>0a49883</code></a> gopls/go.mod: update the go directive to 1.23.1</li>\n<li><a href=\"https://github.com/golang/tools/commit/ad366a81ee607204edc20b407dd117f102f877c5\"><code>ad366a8</code></a> go.mod: update golang.org/x dependencies</li>\n<li><a href=\"https://github.com/golang/tools/commit/4fb36d15ccac8c59e805a07f9f23394b29a874ab\"><code>4fb36d1</code></a> go/callgraph/rta: add rta analysis test case for multiple go packages</li>\n<li>Additional commits viewable in <a href=\"https://github.com/golang/tools/compare/v0.24.0...v0.25.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore <dependency name> major version` will close this group update PR and stop Dependabot creating any more for the specific dependency's major version (unless you unignore this specific dependency's major version or upgrade to it yourself)\n- `@dependabot ignore <dependency name> minor version` will close this group update PR and stop Dependabot creating any more for the specific dependency's minor version (unless you unignore this specific dependency's minor version or upgrade to it yourself)\n- `@dependabot ignore <dependency name>` will close this group update PR and stop Dependabot creating any more for the specific dependency (unless you unignore this specific dependency or upgrade to it yourself)\n- `@dependabot unignore <dependency name>` will remove all of the ignore conditions of the specified dependency\n- `@dependabot unignore <dependency name> <ignore condition>` will remove the ignore condition of the specified dependency and ignore conditions\n\n\n</details>",
+          "timestamp": "2024-09-16T11:54:51Z",
+          "tree_id": "c28949bb288fc76d586fff90975284f87079b78b",
+          "url": "https://github.com/aws/jsii/commit/eff18de9b33a433201e7e83b9e29c72611cddd8e"
+        },
+        "date": 1726489810587,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 45883.96302300002,
+            "unit": "milliseconds",
+            "range": 1755452.6728910978,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 45883.96302300002 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36307.440824950005,
+            "unit": "milliseconds",
+            "range": 23601.187571464536,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36307.440824950005 milliseconds over 20 runs"
           }
         ]
       }
