@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1726489814959,
+  "lastUpdate": 1727093875780,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -33357,6 +33357,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 23601.187571464536,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36307.440824950005 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b39c2f346db014a1840f4d109474c14f9b93a224",
+          "message": "chore(deps-dev): Update mkdocs-material requirement from ~=9.5.34 to ~=9.5.36 in /gh-pages (#4646)\n\nUpdates the requirements on [mkdocs-material](https://github.com/squidfunk/mkdocs-material) to permit the latest version.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/releases\">mkdocs-material's releases</a>.</em></p>\n<blockquote>\n<h2>mkdocs-material-9.5.36</h2>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7544\">#7544</a>: Social cards incorrectly rendering HTML entities</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7542\">#7542</a>: Improved support for setting custom list styles</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/squidfunk/mkdocs-material/blob/master/CHANGELOG\">mkdocs-material's changelog</a>.</em></p>\n<blockquote>\n<p>mkdocs-material-9.5.36 (2024-09-21)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7544\">#7544</a>: Social cards incorrectly rendering HTML entities</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7542\">#7542</a>: Improved support for setting custom list styles</li>\n</ul>\n<p>mkdocs-material-9.5.35 (2024-09-18)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7498\">#7498</a>: Search not showing for Vietnamese language</li>\n</ul>\n<p>mkdocs-material-9.5.34+insiders-4.53.13 (2024-09-14)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7520\">#7520</a>: Social plugin errors for generated files (MkDocs 1.6+)</li>\n</ul>\n<p>mkdocs-material-9.5.34 (2024-08-31)</p>\n<ul>\n<li>Updated Mermaid.js to version 11 (latest)</li>\n</ul>\n<p>mkdocs-material-9.5.33 (2024-08-23)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7453\">#7453</a>: Incorrect position of tooltip when sorting table</li>\n</ul>\n<p>mkdocs-material-9.5.32 (2024-08-19)</p>\n<ul>\n<li>Fixed RXSS vulnerability via deep link in search results</li>\n<li>Added support for fetching latest release from GitLab</li>\n</ul>\n<p>mkdocs-material-9.5.31+insiders-4.53.12 (2024-08-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7410\">#7410</a>: Instant previews jump on content tabs with anchor links</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7408\">#7408</a>: Instant previews jump on content tabs</li>\n</ul>\n<p>mkdocs-material-9.5.31 (2024-08-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7405\">#7405</a>: DockerHub missing images &gt; 9.5.27 due to change in Alpine/APK</li>\n</ul>\n<p>mkdocs-material-9.5.30 (2024-07-23)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7380\">#7380</a>: Navigation icons disappearing on hover in Safari</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7367\">#7367</a>: Blog readtime computation includes SVG text content</li>\n</ul>\n<p>mkdocs-material-9.5.29 (2024-07-14)</p>\n<ul>\n<li>Updated Galician translations</li>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7362\">#7362</a>: Annotations in figure captions rendering incorrectly</li>\n</ul>\n<p>mkdocs-material-9.5.28 (2024-07-02)</p>\n<ul>\n<li>Fixed <a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7313\">#7313</a>: Improved tooltips mounted in sidebar when feature is disabled</li>\n</ul>\n<p>mkdocs-material-9.5.27 (2024-06-16)</p>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/71b64f4f04b57f7c1f382cccf0bc026a3efc264c\"><code>71b64f4</code></a> Prepare 9.5.36 release</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/bbb76b8574f78457963128b3d26ed797b3f8d53d\"><code>bbb76b8</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/57765c48f98ea9dcd2ae8519e05117dfc027b246\"><code>57765c4</code></a> Updated dependencies</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/68b675854f635ef5c53ff1b000e2b76b65ef848f\"><code>68b6758</code></a> Added support for setting custom list styles</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/85d609183e5467389be13787f55490474e5be38b\"><code>85d6091</code></a> Added support for setting custom list styles</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/22ff8581740d3586de2856f02796942ea3362140\"><code>22ff858</code></a> Removed unused import</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/b655e078051dee3980f6c0a67a0eacfe4d534233\"><code>b655e07</code></a> Fixed HTML entities not escaped in social cards</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/67f17524d9235d83e68fcc3b0c7363458ba267d1\"><code>67f1752</code></a> Documentation</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/c6286de144b5682b74cd35167711da5ae2a15221\"><code>c6286de</code></a> Updated Insiders section (<a href=\"https://redirect.github.com/squidfunk/mkdocs-material/issues/7540\">#7540</a>)</li>\n<li><a href=\"https://github.com/squidfunk/mkdocs-material/commit/909b2a6af6692afe7bd8c0d6eaf83970981fe109\"><code>909b2a6</code></a> Updated links to versioning example</li>\n<li>Additional commits viewable in <a href=\"https://github.com/squidfunk/mkdocs-material/compare/9.5.34...9.5.36\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-09-23T11:42:36Z",
+          "tree_id": "12451cfbe53bcb34d47bdc3689c2a6aed570b0fa",
+          "url": "https://github.com/aws/jsii/commit/b39c2f346db014a1840f4d109474c14f9b93a224"
+        },
+        "date": 1727093871442,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 44729.018066549994,
+            "unit": "milliseconds",
+            "range": 126872.99996347392,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 44729.018066549994 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 36542.42941329999,
+            "unit": "milliseconds",
+            "range": 23026.40659527755,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 36542.42941329999 milliseconds over 20 runs"
           }
         ]
       }
