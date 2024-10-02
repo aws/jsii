@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1727702451709,
+  "lastUpdate": 1727898876547,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -33547,6 +33547,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 55233.22901868737,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37837.2111075 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "5363c466ae15b9c250799cad968e920872693514",
+          "message": "chore(deps): Update setuptools requirement from ~=74.1.2 to ~=75.0.0 in /packages/@jsii/python-runtime (#4643)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v75.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Declare also the dependencies used by distutils (adds jaraco.collections).</li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>Removed upload_docs command. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/2971\">#2971</a>)</li>\n<li><code>pypa/distutils#294</code><a href=\"https://redirect.github.com/pypa/setuptools/issues/4649\">#4649</a>)</li>\n</ul>\n<h1>v74.1.3</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fix cross-platform compilation using <code>distutils._msvccompiler.MSVCCompiler</code> -- by :user:<code>saschanaz</code> and :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4648\">#4648</a>)</li>\n</ul>\n<h1>v74.1.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fixed TypeError in sdist filelist processing by adding support for pathlib Paths for the build_base. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4615\">#4615</a>)</li>\n<li>Removed degraded and deprecated <code>test_integration</code> (easy_install) from the test suite. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4632\">#4632</a>)</li>\n</ul>\n<h1>v74.1.1</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fixed TypeError in <code>msvc.EnvironmentInfo.return_env</code> when no runtime redistributables are installed. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/1902\">#1902</a>)</li>\n</ul>\n<h1>v74.1.0</h1>\n<h2>Features</h2>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/5e27b2a6e324e70bd82a045aef8f75c84a3d3b28\"><code>5e27b2a</code></a> Bump version: 74.1.3 → 75.0.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/af9e245b57ef78fce03c7e28a0189388d8e4de18\"><code>af9e245</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4649\">#4649</a> from pypa/feature/distutils-7283751</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/f15861e3ae2fb8a74efc528fa25754c329090611\"><code>f15861e</code></a> Add news fragment.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ce01828b6894c4597609da54fd343ea1aabfec84\"><code>ce01828</code></a> Merge <a href=\"https://github.com/pypa/distutils\">https://github.com/pypa/distutils</a> into feature/distutils-7283751</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/378984e02edae91d5f49425da8436f8dd9152b8a\"><code>378984e</code></a> Remove news fragments, not useful here.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/ffdf0bd160ebf6acc1a0790ec1cb72d7da8968c4\"><code>ffdf0bd</code></a> Merge tag 'v74.1.3'</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/4c274911c59dd0161303d6cb991ec2a621ce1fb9\"><code>4c27491</code></a> Bump version: 74.1.2 → 74.1.3</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/a56a8f9cb798eec1c023242db15a7b3e27c72911\"><code>a56a8f9</code></a> Fix cross-platform compilation using <code>distutils._msvccompiler.MSVCCompiler</code>.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/72837514c2b67081401db556be9aaaa43debe44f\"><code>7283751</code></a> cygwinccompiler: Get the compilers from sysconfig</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/47353c5c699024429d353b7ae47af5406cac46c2\"><code>47353c5</code></a> Fix cross-platform compilation using <code>distutils._msvccompiler.MSVCCompiler</code></li>\n<li>Additional commits viewable in <a href=\"https://github.com/pypa/setuptools/compare/v74.1.2...v75.0.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-10-02T19:13:54Z",
+          "tree_id": "275f06a2e651ceb5b7ad471ab7c4191652a21be9",
+          "url": "https://github.com/aws/jsii/commit/5363c466ae15b9c250799cad968e920872693514"
+        },
+        "date": 1727898872022,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 46449.64371885003,
+            "unit": "milliseconds",
+            "range": 428035.07848323573,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 46449.64371885003 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 37846.7067391,
+            "unit": "milliseconds",
+            "range": 629652.7688294388,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37846.7067391 milliseconds over 20 runs"
           }
         ]
       }
