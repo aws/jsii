@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1727898876547,
+  "lastUpdate": 1728305430512,
   "repoUrl": "https://github.com/aws/jsii",
   "entries": {
     "jsii Benchmark": [
@@ -33585,6 +33585,44 @@ window.BENCHMARK_DATA = {
             "unit": "milliseconds",
             "range": 629652.7688294388,
             "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 37846.7067391 milliseconds over 20 runs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "8df57f08da109ed6ed1f49e667dec796dee464d7",
+          "message": "chore(deps): Update setuptools requirement from ~=75.0.0 to ~=75.1.0 in /packages/@jsii/python-runtime (#4655)\n\nUpdates the requirements on [setuptools](https://github.com/pypa/setuptools) to permit the latest version.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/pypa/setuptools/blob/main/NEWS.rst\">setuptools's changelog</a>.</em></p>\n<blockquote>\n<h1>v75.1.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Deprecated <code>bdist_wheel.universal</code> configuration. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4617\">#4617</a>)</li>\n</ul>\n<h2>Bugfixes</h2>\n<ul>\n<li>Removed reference to upload_docs module in entry points. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4650\">#4650</a>)</li>\n</ul>\n<h1>v75.0.0</h1>\n<h2>Features</h2>\n<ul>\n<li>Declare also the dependencies used by distutils (adds jaraco.collections).</li>\n</ul>\n<h2>Deprecations and Removals</h2>\n<ul>\n<li>Removed upload_docs command. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/2971\">#2971</a>)</li>\n<li><code>pypa/distutils#294</code><a href=\"https://redirect.github.com/pypa/setuptools/issues/4649\">#4649</a>)</li>\n</ul>\n<h1>v74.1.3</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fix cross-platform compilation using <code>distutils._msvccompiler.MSVCCompiler</code> -- by :user:<code>saschanaz</code> and :user:<code>Avasam</code> (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4648\">#4648</a>)</li>\n</ul>\n<h1>v74.1.2</h1>\n<h2>Bugfixes</h2>\n<ul>\n<li>Fixed TypeError in sdist filelist processing by adding support for pathlib Paths for the build_base. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4615\">#4615</a>)</li>\n<li>Removed degraded and deprecated <code>test_integration</code> (easy_install) from the test suite. (<a href=\"https://redirect.github.com/pypa/setuptools/issues/4632\">#4632</a>)</li>\n</ul>\n\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/pypa/setuptools/commit/3106af0512fe67464a8b5e7524c07fddf7717660\"><code>3106af0</code></a> Bump version: 75.0.0 → 75.1.0</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/37c3d27f0b1757b7273da4eda837890b8e5dd015\"><code>37c3d27</code></a> Removed reference to upload_docs module in entry points.</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/9fb53fd7bdb15b046d720cb979a308e93f0b57ea\"><code>9fb53fd</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4617\">#4617</a> from abravalheri/issue-4612</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/cd3ba7d7d68aa5503f782c3ccc3464f7cd878655\"><code>cd3ba7d</code></a> Merge pull request <a href=\"https://redirect.github.com/pypa/setuptools/issues/4644\">#4644</a> from DimitriPapadopoulos/codespell</li>\n<li><a href=\"https://github.com/pypa/setuptools/commit/8513d29bc8e291948164736b9ee4381d76628e32\"><code>8513d29</code></a> Fix a couple typos found by codespell</li>\n<li>See full diff in <a href=\"https://github.com/pypa/setuptools/compare/v75.0.0...v75.1.0\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n\n\n</details>",
+          "timestamp": "2024-10-07T12:13:45Z",
+          "tree_id": "bc81358d2086716c9d2228ac19bfc858600679e6",
+          "url": "https://github.com/aws/jsii/commit/8df57f08da109ed6ed1f49e667dec796dee464d7"
+        },
+        "date": 1728305425924,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0",
+            "value": 47603.2976922,
+            "unit": "milliseconds",
+            "range": 330054.4678916258,
+            "extra": "Compile aws-cdk-lib@v2.31.0 averaged 47603.2976922 milliseconds over 20 runs"
+          },
+          {
+            "name": "Compile aws-cdk-lib@v2.31.0 (tsc)",
+            "value": 38332.64093765001,
+            "unit": "milliseconds",
+            "range": 194877.75545502987,
+            "extra": "Compile aws-cdk-lib@v2.31.0 (tsc) averaged 38332.64093765001 milliseconds over 20 runs"
           }
         ]
       }
