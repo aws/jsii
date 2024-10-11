@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * Python constructs do not implement a compatible interface ([#4659](https://github.com/aws/jsii/issues/4659)) ([2749695](https://github.com/aws/jsii/commit/27496956bdb29939cde920971e08b036edb0d81a))
-* **python:** user defined `__jsii_proxy_class` attributes are not preserved  ([#4625](https://github.com/aws/jsii/issues/4625)) ([54fa1b2](https://github.com/aws/jsii/commit/54fa1b24d332ac8ebbead12a8bd431811b2fa74f)), closes [40jsii/python-runtime/src/jsii/_reference_map.py#L65-L70](https://github.com/40jsii/python-runtime/src/jsii/_reference_map.py/issues/L65-L70) [/github.com/aws/jsii/blob/dc77d6c7016bcb7531f6e374243410f969ea1fbf/packages/jsii-pacmak/lib/targets/python.ts#L1496-L1501](https://github.com/aws//github.com/aws/jsii/blob/dc77d6c7016bcb7531f6e374243410f969ea1fbf/packages/jsii-pacmak/lib/targets/python.ts/issues/L1496-L1501) [40jsii/python-runtime/src/jsii/_reference_map.py#L48-L54](https://github.com/40jsii/python-runtime/src/jsii/_reference_map.py/issues/L48-L54)
 
 ## [1.103.1](https://github.com/aws/jsii/compare/v1.103.0...v1.103.1) (2024-08-30)
 
