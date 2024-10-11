@@ -1730,7 +1730,9 @@ class PythonModule implements PythonType {
     code.line();
 
     code.line('import typeguard');
-    code.line('from importlib.metadata import version as _metadata_package_version');
+    code.line(
+      'from importlib.metadata import version as _metadata_package_version',
+    );
     code.line(
       "TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])",
     );
@@ -2166,7 +2168,8 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
-        'typeguard>=2.13.3,<5.0.0',
+        // 4.3.0 is incompatible with generated bindings, see https://github.com/aws/jsii/issues/4658
+        'typeguard>=2.13.3,<4.3.0',
       ]
         .concat(dependencies)
         .sort(),
