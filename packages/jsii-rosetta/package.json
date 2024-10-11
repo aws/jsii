@@ -30,7 +30,7 @@
     "@jsii/spec": "0.0.0",
     "commonmark": "^0.31.2",
     "typescript": "~3.9.10",
-    "@xmldom/xmldom": "^0.9.3",
+    "@xmldom/xmldom": "0.8.10",
     "workerpool": "^6.5.1",
     "yargs": "^16.2.0",
     "stream-json": "^1.8.0",
