@@ -31,10 +31,11 @@ setuptools.setup(
     },
     install_requires=[
         "attrs>=21.2,<25.0",
-        "cattrs>=1.8,<23.3",
+        "cattrs>=1.8,<24.2",
         "importlib_resources>=5.2.0",
         "publication>=0.0.3",  # This is used by all generated code.
-        "typeguard>=2.13.3,<5.0.0",  # This is used by all generated code.
+        # 4.3.0 is incompatible with generated bindings, see https://github.com/aws/jsii/issues/4658
+        "typeguard>=2.13.3,<4.3.0",  # This is used by all generated code.
         "python-dateutil",
         "typing_extensions>=3.8,<5.0",
     ],

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.104.0](https://github.com/aws/jsii/compare/v1.103.1...v1.104.0) (2024-10-11)
+
+
+### Bug Fixes
+
+* Python constructs do not implement a compatible interface ([#4659](https://github.com/aws/jsii/issues/4659)) ([2749695](https://github.com/aws/jsii/commit/27496956bdb29939cde920971e08b036edb0d81a))
+
 ## [1.103.1](https://github.com/aws/jsii/compare/v1.103.0...v1.103.1) (2024-08-30)
 
 
