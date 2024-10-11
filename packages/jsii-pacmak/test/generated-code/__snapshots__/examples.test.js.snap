@@ -1270,7 +1270,7 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "typeguard>=2.13.3,<5.0.0"
+        "typeguard>=2.13.3,<4.3.0"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -2727,7 +2727,7 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "typeguard>=2.13.3,<5.0.0"
+        "typeguard>=2.13.3,<4.3.0"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
