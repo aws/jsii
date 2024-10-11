@@ -2166,7 +2166,8 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
-        'typeguard>=2.13.3,<5.0.0',
+        // 4.3.0 is incompatible with generated bindings, see https://github.com/aws/jsii/issues/4658
+        'typeguard>=2.13.3,<4.3.0',
       ]
         .concat(dependencies)
         .sort(),
