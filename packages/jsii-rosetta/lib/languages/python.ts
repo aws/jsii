@@ -111,7 +111,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
    * Bump this when you change something in the implementation to invalidate
    * existing cached translations.
    */
-  public static readonly VERSION = '2';
+  public static readonly VERSION = '3';
 
   public readonly language = TargetLanguage.PYTHON;
   public readonly defaultContext = {};
@@ -818,7 +818,7 @@ function mangleIdentifier(originalIdentifier: string) {
     return originalIdentifier;
   }
   // Turn into snake-case
-  const cased = originalIdentifier.replace(/[^A-Z][A-Z]/g, (m) => `${m[0].slice(0, 1)}_${m.slice(1).toLowerCase()}`);
+  const cased = originalIdentifier.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);
   return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
