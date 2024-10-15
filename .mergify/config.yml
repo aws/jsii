@@ -4,6 +4,11 @@ queue_rules:
     conditions:
       - status-success~=^jsii/superchain
       - status-success=Unit Tests
+    commit_message_template: |-
+      {{ title }} (#{{ number }})
+
+      {{ body }}
+    merge_method: squash
 
 pull_request_rules:
   - name: label core
@@ -43,11 +48,6 @@ pull_request_rules:
         changes_requested: false
       queue:
         name: default
-        method: squash
-        commit_message_template: |-
-          {{ title }} (#{{ number }})
-
-          {{ body }}
       comment:
         message: Merging (with squash)...
     conditions:
@@ -74,11 +74,6 @@ pull_request_rules:
         changes_requested: false
       queue:
         name: default
-        method: merge
-        commit_message_template: |-
-          {{ title }} (#{{ number }})
-
-          {{ body }}
       comment:
         message: Merging (no-squash)...
     conditions:
