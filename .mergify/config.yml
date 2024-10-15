@@ -1,6 +1,6 @@
 # See https://doc.mergify.io
 queue_rules:
-  - name: default
+  - name: default-squash
     conditions:
       - status-success~=^jsii/superchain
       - status-success=Unit Tests
@@ -9,6 +9,16 @@ queue_rules:
 
       {{ body }}
     merge_method: squash
+
+  - name: default-merge
+    conditions:
+      - status-success~=^jsii/superchain
+      - status-success=Unit Tests
+    commit_message_template: |-
+      {{ title }} (#{{ number }})
+
+      {{ body }}
+    merge_method: merge
 
 pull_request_rules:
   - name: label core
@@ -47,7 +57,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
       queue:
-        name: default
+        name: default-squash
       comment:
         message: Merging (with squash)...
     conditions:
@@ -73,7 +83,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
       queue:
-        name: default
+        name: default-merge
       comment:
         message: Merging (no-squash)...
     conditions:
