@@ -9,7 +9,7 @@ const awsKmsKeyExamplekms = new aws.kms.KmsKey(this, 'examplekms', {
 });
 
 // Accesses two distinct points of the submodule hierarchy
-const myClass = new calc.submodule.MyClass({ prop: calc.submodule.child.SomeEnum.SOME });
+const myClass = new calc.submodule.MyClass({ prop: calc.submodule.child.SomeEnum.SOME, nestedStruct: { stringProperty: "hello" } });
 
 // Access via a renamed import
 ns.foo.Consumer.consume({ homonymous: { stringProperty: 'yes' } });

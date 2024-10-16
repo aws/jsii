@@ -13,6 +13,9 @@ awsKmsKeyExamplekms := kms.NewKmsKey(this, jsii.String("examplekms"), map[string
 // Accesses two distinct points of the submodule hierarchy
 myClass := submodule.NewMyClass(&SomeStruct{
 	Prop: child.SomeEnum_SOME,
+	NestedStruct: &AnotherStruct{
+		stringProperty: jsii.String("hello"),
+	},
 })
 
 // Access via a renamed import
