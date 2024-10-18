@@ -9,7 +9,7 @@ aws_kms_key_examplekms = aws.kms.KmsKey(self, "examplekms",
 )
 
 # Accesses two distinct points of the submodule hierarchy
-my_class = calc.submodule.MyClass(prop=calc.submodule.child.SomeEnum.SOME)
+my_class = calc.submodule.MyClass(prop=calc.submodule.child.SomeEnum.SOME, nested_struct=calc.submodule.child.AnotherStruct(string_property="hello"))
 
 # Access via a renamed import
 ns.foo.Consumer.consume(homonymous=ns.foo.Homonymous(string_property="yes"))
