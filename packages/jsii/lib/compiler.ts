@@ -135,6 +135,8 @@ export class Compiler implements Emitter {
 
     const pi = this.options.projectInfo;
     const projectRoot = pi.projectRoot;
+    const deleteme = 'deleteme';
+    LOG.debug(deleteme);
     const host = ts.createWatchCompilerHost(
       this.configPath,
       {
