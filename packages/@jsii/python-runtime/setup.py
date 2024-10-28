@@ -35,7 +35,7 @@ setuptools.setup(
         "importlib_resources>=5.2.0",
         "publication>=0.0.3",  # This is used by all generated code.
         # 4.3.0 is incompatible with generated bindings, see https://github.com/aws/jsii/issues/4658
-        "typeguard>=2.13.3,<4.3.0",  # This is used by all generated code.
+        "typeguard>=2.13.3,<4.5.0",  # This is used by all generated code.
         "python-dateutil",
         "typing_extensions>=3.8,<5.0",
     ],
