@@ -11,7 +11,7 @@
     <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.3.2" />
 
     <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Update="NSubstitute" Version="5.1.0" />
+    <PackageReference Update="NSubstitute" Version="5.3.0" />
     <PackageReference Update="xunit" Version="2.9.2" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageReference Update="XunitXml.TestLogger" Version="3.1.17" />
