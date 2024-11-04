@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -1833,7 +1833,7 @@
 timeline (the exact timeline may vary significantly depending on the specifics of the language being added).</p>
 <p>The estimated total duration for the process is 4 to 6 months.</p>
 <h2 id="planning">Planning</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
 <p>The first step is to study the <em>jsii</em> specification, as well as existing language implementations, in order to have the
 knowledge necessary to write a new language support proposal <a href="https://github.com/awslabs/aws-cdk-rfcs#readme">RFC</a>. The <a href="https://github.com/awslabs/aws-cdk-rfcs#readme">RFC</a> document produced will evolve and be
 polished as development of the new language support progresses, but the following elements must be present before any
@@ -1848,7 +1848,7 @@ implementation begins:</p>
 <li>Toolchain and platform requirements</li>
 </ul>
 <h2 id="code-generation-jsii-pacmak">Code Generation (<code>jsii-pacmak</code>)</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 4 to 6 weeks</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 4 to 6 weeks</p>
 <p>The necessary code must be added to [<code>jsii-pacmak</code>] in order to map the <em>jsii</em> assembly's declared types into the
 proposed language. While this code ought to leverage the new language's <em>host</em> runtime library, we begin with writing
 the code generator in order to ensure the appropriate developer experience is achieved in the new language before
@@ -1858,7 +1858,7 @@ writing the back-end components.</p>
 identifiers are used in <strong>TypeScript</strong> code that require slugification or escaping in the target language (and will
 hence cause a degraded developer experience).</p>
 <h2 id="runtime-library">Runtime Library</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 4 to 6 weeks</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 4 to 6 weeks</p>
 <p>Now that the appropriate developer experience has been identified, the <em>host</em> runtime library supporting the generated
 code can be written. This component must be written in the new language.</p>
 <div class="admonition bug">
@@ -1867,7 +1867,7 @@ code can be written. This component must be written in the new language.</p>
 behavior across all the runtimes, reducing the cost of maintaining many of those.</p>
 </div>
 <h2 id="building-packaging">Building &amp; Packaging</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 2 weeks</p>
 <p>Once code is generated and it has a <em>host</em> runtime library to rely on, [<code>jsii-pacmak</code>] needs to receive the additional
 logic required to compile and package the generated libraries as required, producing ready-to-publish artifacts.</p>
 <p>The necessary toolchain needs to be added to the [<code>public.ecr.aws/jsii/superchain</code>] <em>Docker</em> image, so that <code>jsii</code> customers can rely
@@ -1875,18 +1875,18 @@ on this to build artifacts for any of the supported languages.</p>
 <p>In addition to this, standardized <em>Amazon CodePipeline</em> actions need to be developed in order to support publishing to
 the relevant idiomatic package managers.</p>
 <h2 id="compliance-tests">Compliance Tests</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 6 weeks</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 6 weeks</p>
 <p>The full standard compliance suite must be implemented for the new language. Leveraging the new code generator, <em>host</em>
 runtime library and compilation logic, the tests demonstrate that the new library behaves consistently with all other
 language bindings.</p>
 <p>While it is possible to declare <em>developer preview</em> on a new language before all the tests pass, full compliance is a
 pre-requisite to declaring <em>general availability</em> of the new language.</p>
 <h2 id="documentation">Documentation</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 1 week</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Estimated Duration:</strong> 1 week</p>
 <p>The necessary documentation needs to be provided to support customers who want to onboard the new language. This also
 includes updating [<code>jsii-config</code>] with support for the new languages' configuration block.</p>
 <h2 id="developer-preview">Developer Preview</h2>
-<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/23f0.svg" title=":alarm_clock:" /> Recommended Duration:</strong> 4 to 8 weeks</p>
+<p><strong><img alt="⏰" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/23f0.svg" title=":alarm_clock:" /> Recommended Duration:</strong> 4 to 8 weeks</p>
 <p>It is possible to declare <em>Developer Preview</em> for a new language support as soon as the code generation and <em>host</em>
 runtime library are mature enough to be useful, and cover the majority of use-cases. While certain edge-cases may still
 be uncovered at the beginning of <em>Developer Preview</em>, a clear plan should exist that ensures a path exists to address
@@ -1929,7 +1929,7 @@ Available</em> languages, the new support can be considered for <em>General Avai
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-10-21
+    2024-11-04
   </span>
 
     
