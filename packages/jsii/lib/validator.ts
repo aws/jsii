@@ -492,6 +492,10 @@ function _defaultValidations(): ValidationFunction[] {
             ),
           );
         }
+        // Standardize to the root method's argument signature, because in
+        // Python and Ruby, positional parameters can also be referred to by
+        // name, which makes their names be a part of the function's signature.
+        actParam.name = expParam.name;
       }
     }
 
