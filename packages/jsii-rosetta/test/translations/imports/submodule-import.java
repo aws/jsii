@@ -11,7 +11,7 @@ Object awsKmsKeyExamplekms = KmsKey.Builder.create(this, "examplekms")
         .build();
 
 // Accesses two distinct points of the submodule hierarchy
-MyClass myClass = MyClass.Builder.create().prop(SomeEnum.SOME).build();
+MyClass myClass = MyClass.Builder.create().prop(SomeEnum.SOME).nestedStruct(new AnotherStruct().stringProperty("hello")).build();
 
 // Access via a renamed import
 Consumer.consume(ConsumerProps.builder().homonymous(Homonymous.builder().stringProperty("yes").build()).build());

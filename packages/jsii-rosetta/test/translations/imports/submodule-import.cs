@@ -9,7 +9,7 @@ var awsKmsKeyExamplekms = new Kms.KmsKey(this, "examplekms", new Struct {
 });
 
 // Accesses two distinct points of the submodule hierarchy
-var myClass = new Submodule.MyClass(new SomeStruct { Prop = Submodule.Child.SomeEnum.SOME });
+var myClass = new Submodule.MyClass(new SomeStruct { Prop = Submodule.Child.SomeEnum.SOME, NestedStruct = new Submodule.Child.AnotherStruct { StringProperty = "hello" } });
 
 // Access via a renamed import
 Foo.Consumer.Consume(new ConsumerProps { Homonymous = new Homonymous { StringProperty = "yes" } });
