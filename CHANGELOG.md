@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.105.0](https://github.com/aws/jsii/compare/v1.104.0...v1.105.0) (2024-11-14)
+
+
+### Features
+
+* **pacmak:** support jsii-rosetta 5.6 ([#4698](https://github.com/aws/jsii/issues/4698)) ([7464a59](https://github.com/aws/jsii/commit/7464a59303d16a4b4d32bdc2f3b247dfb0284496))
+
+
+### Bug Fixes
+
+* **rosetta:** python identifiers mishandle identifier translations with capital letters ([#4644](https://github.com/aws/jsii/issues/4644)) ([e573aab](https://github.com/aws/jsii/commit/e573aab4d6cdf6af148dde024129a386151403fe))
+
 ## [1.104.0](https://github.com/aws/jsii/compare/v1.103.1...v1.104.0) (2024-10-11)
 
 

@@ -218,3 +218,33 @@ test('declarations are translated correctly in all jsii languages', () => {
     assembly.cleanup();
   }
 });
+
+test('handling capital letters in identifiers', () => {
+  // Create an assembly in a temp directory
+  const assembly = TestJsiiModule.fromSource(
+    {
+      'index.ts': `
+      export interface InterfaceA {
+        readonly sizeInMBs: Number;
+      }
+      `,
+    },
+    {
+      name: 'my_assembly',
+      jsii: DUMMY_JSII_CONFIG,
+    },
+  );
+  try {
+    const ts = assembly.translateHere(
+      ["import * as masm from 'my_assembly';", 'declare let intA: masm.InterfaceA;', 'intA = { sizeInMBs: 3 };'].join('\n'),
+    );
+
+    expect(ts.get(TargetLanguage.PYTHON)?.source).toEqual(
+      ['import example_test_demo as masm', '# int_a: masm.InterfaceA', 'int_a = masm.InterfaceA(size_in_m_bs=3)'].join('\n'),
+    );
+    expect(ts.get(TargetLanguage.JAVA)?.source).toEqual(['import example.test.demo.*;', 'InterfaceA intA;', 'intA = InterfaceA.builder().sizeInMBs(3).build();'].join('\n'));
+    expect(ts.get(TargetLanguage.CSHARP)?.source).toEqual(['using Example.Test.Demo;', 'InterfaceA intA;', 'intA = new InterfaceA { SizeInMBs = 3 };'].join('\n'));
+  } finally {
+    assembly.cleanup();
+  }
+});

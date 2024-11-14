@@ -72,6 +72,7 @@ jobs:
         # We special-case eslint-plugin-import because 26 is the last version that works for us.
         # We special-case glob because newer version don't support Node 18
         # We special-case typescript-json-schema because newer versions require @types/node@18 which breaks packages that need to build with ts3.9
+        # We special-case @xmldom/xmldom because newer versions are not compatible with the code and jsii-rosetta 1.x is soon EOS
         run: |-
           # Upgrade devDependencies at repository root
           ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus
@@ -80,16 +81,16 @@ jobs:
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
-            --filter='@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'                            \
-            --reject='typescript,${{ steps.monorepo-packages.outputs.list }}'
+            --filter='@types/diff,@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'                            \
+            --reject='typescript,@xmldom/xmldom,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
           lerna exec --parallel ncu -- --upgrade --target=patch                                     \
-            --filter=typescript
+            --filter=typescript,@xmldom/xmldom
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/inquirer,@types/node,@types/fs-extra,@types/yargs,glob,typescript,typescript-json-schema,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,typescript-json-schema,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
