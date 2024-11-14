@@ -4831,16 +4831,15 @@ import (
 // const calculator = new calc.Calculator();
 // calculator.add(5);
 // calculator.mul(3);
-// console.log(calculator.expression.value);
+// // console.log(calculator.expression.value);
 // \`\`\`
 //
-// I will repeat this example again, but in an @example tag.
+// I will repeat this example again, but in an.
 //
 // Example:
 //   calculator := calc.NewCalculator()
 //   calculator.Add(jsii.Number(5))
 //   calculator.Mul(jsii.Number(3))
-//   fmt.Println(calculator.expression.Value)
 //
 type Calculator interface {
 	composition.CompositeOperation
@@ -24382,7 +24381,7 @@ import (
 )
 
 // Checks that classes can self-reference during initialization.
-// See: : https://github.com/aws/jsii/pull/1706
+// See: https://github.com/aws/jsii/pull/1706
 //
 type OuterClass interface {
 	InnerClass() InnerClass
@@ -26773,7 +26772,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/B
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/Calculator.go.diff 1`] = `
 --- go/jsiicalc/Calculator.go	--no-runtime-type-checking
 +++ go/jsiicalc/Calculator.go	--runtime-type-checking
-@@ -180,10 +180,13 @@
+@@ -179,10 +179,13 @@
  
  // Creates a Calculator object.
  func NewCalculator(props *CalculatorProps) Calculator {
@@ -26787,7 +26786,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  	_jsii_.Create(
  		"jsii-calc.Calculator",
  		[]interface{}{props},
-@@ -203,26 +206,35 @@
+@@ -202,26 +205,35 @@
  		c,
  	)
  }
@@ -26823,7 +26822,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"decorationPrefixes",
  		val,
  	)
-@@ -235,34 +247,46 @@
+@@ -234,34 +246,46 @@
  		val,
  	)
  }
@@ -26870,7 +26869,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"mul",
  		[]interface{}{value},
  	)
-@@ -275,10 +299,13 @@
+@@ -274,10 +298,13 @@
  		nil, // no parameters
  	)
  }
@@ -35455,15 +35454,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 +		return fmt.Errorf("parameter param is required, but nil was provided")
 +	}
 +	switch param.(type) {
++	case scopejsiicalclib.IFriendly:
++		// ok
 +	case IResolvable:
 +		// ok
 +	case Resolvable:
 +		// ok
-+	case scopejsiicalclib.IFriendly:
-+		// ok
 +	default:
 +		if !_jsii_.IsAnonymousProxy(param) {
-+			return fmt.Errorf("parameter param must be one of the allowed types: IResolvable, Resolvable, scopejsiicalclib.IFriendly; received %#v (a %T)", param, param)
++			return fmt.Errorf("parameter param must be one of the allowed types: scopejsiicalclib.IFriendly, IResolvable, Resolvable; received %#v (a %T)", param, param)
 +		}
 +	}
 +
