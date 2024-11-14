@@ -19,7 +19,7 @@ export enum Awesomeness {
 
 /**
  * Checks that classes can self-reference during initialization.
- * @see: https://github.com/aws/jsii/pull/1706
+ * @see https://github.com/aws/jsii/pull/1706
  */
 export class OuterClass {
   public readonly innerClass: InnerClass;
