@@ -2,6 +2,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 
 export function defaultCacheRoot(): string {
+  // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
   switch (process.platform) {
     case 'darwin':
       if (process.env.HOME)

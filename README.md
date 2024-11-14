@@ -21,17 +21,15 @@ usual), but also in **Python**, **Java**, **C#** (and other languages from the _
 Head over to our [documentation website](https://aws.github.io/jsii)!
 
 The jsii toolchain is spread out on multiple repositories:
-- [aws/jsii-compiler](https://github.com/aws/jsii-compiler) is where the `jsii` compiler is maintained (except releases
-  in the `1.x` line, which are maintained in this repository)
+- [aws/jsii-compiler](https://github.com/aws/jsii-compiler) is where the `jsii` compiler is maintained
 - [aws/jsii-rosetta](https://github.com/aws/jsii-rosetta) is where the `jsii-rosetta` sample code transliteration tool
-  is maintained (except releases in the `1.x` line, which are maintained in this repository)
+  is maintained
 - [aws/jsii](https://github.com/aws/jsii) is where the rest of the toolchain is maintained, including:
+  - The jsii runtime libraries for the supported jsii target languages
   - `@jsii/spec`, the package that defines the *`.jsii` assembly* specification
-  - `jsii-config`, an interactive tool to help configure your jsii package
   - `jsii-pacmak`, the bindings generator for jsii packages
   - `jsii-reflect`, a higher-level way to process *`.jsii` assemblies*
-  - The jsii runtime libraries for the supported jsii target languages
-  - `1.x` release lines of `jsii` and `jsii-rosetta`
+  - `jsii-config`, an interactive tool to help configure your jsii package
 
 # :book: Blog Posts
 

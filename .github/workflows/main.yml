@@ -376,56 +376,6 @@ jobs:
         # This is just a join target to simplify branch protection setup
         run: echo OK
 
-  benchmark:
-    name: Run benchmark suite
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    needs: build
-    steps:
-      # Check out the code
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: built-tree
-      - name: Extract Artifact
-        run: |-
-          echo "::group::Untar Archive"
-          tar zxvf built-tree.tgz
-          echo "::endgroup"
-
-          rm built-tree.tgz
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          cache: yarn
-          node-version: 'lts/*'
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-      - name: Run Benchmark
-        working-directory: packages/@jsii/benchmarks
-        run: yarn bench --output ${{ runner.temp }}/bench-output.json
-      - name: Compare Benchmark Results
-        if: github.event_name == 'pull_request'
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: jsii Benchmark Regression
-          tool: 'customSmallerIsBetter'
-          output-file-path: ${{ runner.temp }}/bench-output.json
-          comment-always: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          fail-on-alert: true
-      - name: Upload Benchmark Results
-        if: github.event_name == 'push'
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: jsii Benchmark
-          tool: 'customSmallerIsBetter'
-          output-file-path: ${{ runner.temp }}/bench-output.json
-          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
-          auto-push: true
-
   pacmak-integration-test:
     runs-on: ubuntu-latest
     needs: create-release-package
@@ -433,10 +383,6 @@ jobs:
       fail-fast: false
       matrix:
         rosetta:
-          # this will be the 1.x-dev version build in this repo
-          - ./jsii-rosetta.tgz
-          - 5.2.x
-          - 5.3.x
           - 5.4.x
           - 5.5.x
           - 5.6.x
