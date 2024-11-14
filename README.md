@@ -21,25 +21,25 @@ usual), but also in **Python**, **Java**, **C#** (and other languages from the _
 Head over to our [documentation website](https://aws.github.io/jsii)!
 
 The jsii toolchain is spread out on multiple repositories:
+
 - [aws/jsii-compiler](https://github.com/aws/jsii-compiler) is where the `jsii` compiler is maintained
 - [aws/jsii-rosetta](https://github.com/aws/jsii-rosetta) is where the `jsii-rosetta` sample code transliteration tool
   is maintained
 - [aws/jsii](https://github.com/aws/jsii) is where the rest of the toolchain is maintained, including:
   - The jsii runtime libraries for the supported jsii target languages
-  - `@jsii/spec`, the package that defines the *`.jsii` assembly* specification
+  - `@jsii/spec`, the package that defines the _`.jsii` assembly_ specification
   - `jsii-pacmak`, the bindings generator for jsii packages
-  - `jsii-reflect`, a higher-level way to process *`.jsii` assemblies*
+  - `jsii-reflect`, a higher-level way to process _`.jsii` assemblies_
   - `jsii-config`, an interactive tool to help configure your jsii package
 
-# :book: Blog Posts
+## :book: Blog Posts
 
 Here's a collection of blog posts (in chronological order) related to `jsii`:
 
 - **2020-01-11:** <a id="blog-mbonig" /> [How to Create CDK Constructs][mbonig-2020-01-11], by [Matthew Bonig][@mbonig]
 - **2020-05-27:** <a id="blog-floydpink" /> [Generate Python, Java, and .NET software libraries from a TypeScript
   source][floydpink-2020-05-27], by [Hari Pachuveetil][@floydpink]
-- **2020-12-23:** <a id="blog-romainmuller" /> [How the jsii open source framework meets developers where they are
-  ][romain-2020-12-23], by [Romain Marcadier][@RomainMuller]
+- **2020-12-23:** <a id="blog-romainmuller" /> [How the jsii open source framework meets developers where they are][romain-2020-12-23], by [Romain Marcadier][@RomainMuller]
 
 [mbonig-2020-01-11]: https://www.matthewbonig.com/2020/01/11/creating-constructs/
 [floydpink-2020-05-27]:
@@ -53,7 +53,7 @@ Here's a collection of blog posts (in chronological order) related to `jsii`:
 > :information_source: If you wrote blog posts about `jsii` and would like to have them referenced here, do not hesitate
 > to file a pull request to add the links here!
 
-# :gear: Contributing
+## :gear: Contributing
 
 See [CONTRIBUTING](./CONTRIBUTING.md).
 
