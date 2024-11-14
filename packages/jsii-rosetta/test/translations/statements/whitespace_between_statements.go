@@ -1,3 +1,0 @@
-statementOne()
-
-statementTwo()

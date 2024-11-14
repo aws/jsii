@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "composite": false,
-    "declaration": true
-  },
-  "extends": "../../../tsconfig-base",
-  "include": ["**/*.ts"],
-  "exclude": ["jest.config.ts"],
-}

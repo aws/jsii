@@ -1,9 +1,0 @@
----
-extends: ../../../eslint-config.yaml
-ignorePatterns:
-  - fixtures
-
-rules:
-  'import/no-extraneous-dependencies':
-    - error
-    - devDependencies: ['**/scripts/**']

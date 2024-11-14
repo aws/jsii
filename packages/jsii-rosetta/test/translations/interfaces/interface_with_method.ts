@@ -1,3 +1,0 @@
-interface IThing {
-  doAThing(): void;
-}

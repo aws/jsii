@@ -1,7 +1,0 @@
-// This is a fixture
-
-// This is a wrapper so that `import` statements are invalid if included in
-// the code example that'll be inlined at the `here` marker.
-(function () {
-  /// here
-})()
