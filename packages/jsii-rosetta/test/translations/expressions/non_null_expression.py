@@ -1,1 +1,0 @@
-x = some_object.some_attribute

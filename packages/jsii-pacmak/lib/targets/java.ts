@@ -146,7 +146,9 @@ export class JavaBuilder implements TargetBuilder {
           })),
         );
 
-      for await (const { module, relativeName } of generatedModules) {
+      for (const { module, relativeName } of await Promise.all(
+        generatedModules,
+      )) {
         ret.push({
           relativeSourceDir: relativeName,
           relativeArtifactsDir: moduleArtifactsSubdir(module),
@@ -259,7 +261,9 @@ export class JavaBuilder implements TargetBuilder {
         this.targetName,
       ),
     }));
-    for await (const { module, localBuildDirs } of resolvedModules) {
+    for (const { module, localBuildDirs } of await Promise.all(
+      resolvedModules,
+    )) {
       setExtend(allDepsOutputDirs, localBuildDirs);
 
       // Also include output directory where we're building to, in case we build multiple packages into

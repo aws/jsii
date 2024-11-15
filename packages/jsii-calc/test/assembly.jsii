@@ -146,7 +146,7 @@
     "stability": "stable"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.0.0",
+  "jsiiVersion": "5.6.0",
   "keywords": [
     "aws",
     "jsii",
@@ -2070,8 +2070,8 @@
       "assembly": "jsii-calc",
       "base": "jsii-calc.composition.CompositeOperation",
       "docs": {
-        "example": "const calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\nconsole.log(calculator.expression.value);",
-        "remarks": "Here's how you use it:\n\n```ts\nconst calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\nconsole.log(calculator.expression.value);\n```\n\nI will repeat this example again, but in an @example tag.",
+        "example": "const calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\n// console.log(calculator.expression.value);",
+        "remarks": "Here's how you use it:\n\n```ts\nconst calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\n// console.log(calculator.expression.value);\n```\n\nI will repeat this example again, but in an",
         "stability": "stable",
         "summary": "A calculator which maintains a current value and allows adding operations."
       },
@@ -18553,7 +18553,7 @@
     "jsii-calc.submodule.child.OuterClass": {
       "assembly": "jsii-calc",
       "docs": {
-        "see": ": https://github.com/aws/jsii/pull/1706",
+        "see": "https://github.com/aws/jsii/pull/1706",
         "stability": "stable",
         "summary": "Checks that classes can self-reference during initialization."
       },
@@ -18905,13 +18905,13 @@
                 "union": {
                   "types": [
                     {
+                      "fqn": "@scope/jsii-calc-lib.IFriendly"
+                    },
+                    {
                       "fqn": "jsii-calc.union.IResolvable"
                     },
                     {
                       "fqn": "jsii-calc.union.Resolvable"
-                    },
-                    {
-                      "fqn": "@scope/jsii-calc-lib.IFriendly"
                     }
                   ]
                 }
@@ -18996,5 +18996,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "Tbe6+6vLQiTm9ZceectYvoBnNrg2huqrrkYGs7T2K4Q="
+  "fingerprint": "IBXWPJXjzXcQygsQrgkTTCthomDag1ZWYMQ5Sz5X70E="
 }

@@ -1,3 +1,0 @@
-StatementOne();
-
-StatementTwo();

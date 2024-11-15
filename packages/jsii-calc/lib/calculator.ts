@@ -279,7 +279,7 @@ export interface CalculatorProps {
  * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * console.log(calculator.expression.value);
+ * // console.log(calculator.expression.value);
  * ```
  *
  * I will repeat this example again, but in an @example tag.
@@ -289,7 +289,7 @@ export interface CalculatorProps {
  * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * console.log(calculator.expression.value);
+ * // console.log(calculator.expression.value);
  */
 export class Calculator extends composition.CompositeOperation {
   /**

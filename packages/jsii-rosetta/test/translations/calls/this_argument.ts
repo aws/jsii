@@ -1,1 +1,0 @@
-callSomeFunction(this, 25);

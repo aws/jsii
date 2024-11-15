@@ -4799,16 +4799,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// var calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
-    /// Console.WriteLine(calculator.Expression.Value);
     /// ]]></code>
     ///
-    /// I will repeat this example again, but in an @example tag.
+    /// I will repeat this example again, but in an
     /// </remarks>
     /// <example>
     /// <code>var calculator = new Calculator();
     /// calculator.Add(5);
-    /// calculator.Mul(3);
-    /// Console.WriteLine(calculator.Expression.Value);</code>
+    /// calculator.Mul(3);</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Initialization properties.\\"},\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.CalculatorProps\\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
@@ -19570,7 +19568,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
     /// <summary>Checks that classes can self-reference during initialization.</summary>
     /// <remarks>
-    /// <strong>See</strong>: : https://github.com/aws/jsii/pull/1706
+    /// <strong>See</strong>: https://github.com/aws/jsii/pull/1706
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.OuterClass), fullyQualifiedName: "jsii-calc.submodule.child.OuterClass")]
     public class OuterClass : DeputyBase
@@ -20805,7 +20803,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Union
         {
         }
 
-        [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}}]")]
+        [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"}]}}}]")]
         public static void UnionType(object param)
         {
             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), new System.Type[]{typeof(object)}, new object[]{param});
@@ -21947,7 +21945,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs.diff 1`] = `
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--runtime-type-checking
-@@ -131,10 +131,26 @@
+@@ -129,10 +129,26 @@
          public virtual object? UnionProperty
          {
              get => GetInstanceProperty<object?>();
@@ -22432,24 +22430,24 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 @@ -22,9 +22,26 @@
          }
  
-         [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}}]")]
+         [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"}]}}}]")]
          public static void UnionType(object param)
          {
 +            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
 +            {
 +                switch (param)
 +                {
-+                    case Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable cast_ccaaac:
-+                        break;
 +                    case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_ccaaac:
++                        break;
++                    case Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable cast_ccaaac:
 +                        break;
 +                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_ccaaac:
 +                        // Not enough information to type-check...
 +                        break;
 +                    case null:
-+                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}; received null", nameof(param));
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable).FullName}; received null", nameof(param));
 +                    default:
-+                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}; received {param.GetType().FullName}", nameof(param));
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable).FullName}; received {param.GetType().FullName}", nameof(param));
 +                }
 +            }
              InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), new System.Type[]{typeof(object)}, new object[]{param});

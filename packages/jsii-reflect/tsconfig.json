@@ -1,14 +1,13 @@
 {
   "extends": "../../tsconfig-base",
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts"],
   "references": [
     { "path": "../@jsii/check-node" },
     { "path": "../@jsii/spec" },
-    { "path": "../jsii" },
-    { "path": "../oo-ascii-tree" },
+    { "path": "../oo-ascii-tree" }
   ]
 }

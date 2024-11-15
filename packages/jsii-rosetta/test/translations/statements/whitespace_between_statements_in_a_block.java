@@ -1,5 +1,0 @@
-if (condition) {
-    statementOne();
-
-    statementTwo();
-}

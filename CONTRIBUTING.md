@@ -99,7 +99,7 @@ Each one of these scripts can be executed either from the root of the repo using
 Troubleshooting bugs usually starts with adding a new test that demonstrates the
 faulty behavior, then modifying implementations until the test passes.
 
-The `jsii-calc` and `@scope/*` packages are used to test expected brhavior from
+The `jsii-calc` and `@scope/*` packages are used to test expected behavior from
 the compiler (note that the [aws/jsii-compiler](github.com/aws/jsii-compiler)
 repository as a separate copy of these under the `fixtures` directory), as well
 as downstream tooling (`jsii-pacmak`, `jsii-rosetta`, etc...). Each language
@@ -276,3 +276,4 @@ To ensure compatibility, we also have integration tests.
 
 1. Add the new version to the `jsii-rosetta` peer dependency in [package.json](./packages/jsii-pacmak/package.json)
 2. Add the new version to the `pacmak-integration-test` matrix in the main build workflow in [main.yml](.github/workflows/main.yml)
+3. Remove any versions for which support has ended (EOS) from both locations

@@ -2206,6 +2206,8 @@ class Package {
       case spec.Stability.Deprecated:
         setupKwargs.classifiers.push('Development Status :: 7 - Inactive');
         break;
+      case spec.Stability.External:
+      case undefined:
       default:
       // No 'Development Status' trove classifier for you!
     }

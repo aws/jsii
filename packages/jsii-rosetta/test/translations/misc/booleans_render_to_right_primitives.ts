@@ -1,1 +1,0 @@
-callFunction(true, false);

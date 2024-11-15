@@ -631,6 +631,7 @@ export class Kernel {
           `Cannot create an object with an FQN of an interface: ${fqn}`,
         );
 
+      case spec.TypeKind.Enum:
       default:
         throw new JsiiFault(`Unexpected FQN kind: ${fqn}`);
     }

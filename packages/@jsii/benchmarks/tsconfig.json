@@ -1,5 +1,0 @@
-{
-  "extends": "../../../tsconfig-base",
-  "include": ["**/*.ts"],
-  "exclude": ["fixtures"]
-}
