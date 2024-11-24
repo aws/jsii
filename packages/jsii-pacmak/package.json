@@ -68,7 +68,7 @@
     "pyright": "^1.1.389"
   },
   "peerDependencies": {
-    "jsii-rosetta": "~5.4.0 || ~5.5.0 || ~5.6.0"
+    "jsii-rosetta": "~5.6.0"
   },
   "keywords": [
     "jsii",
