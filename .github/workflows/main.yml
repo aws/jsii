@@ -368,13 +368,16 @@ jobs:
         shell: bash
 
   test-ok:
-    name: Unit Tests
     runs-on: ubuntu-latest
-    needs: test
+    needs:
+      - test
+    if: always()
     steps:
-      - name: OK
-        # This is just a join target to simplify branch protection setup
-        run: echo OK
+      - name: Build result
+        run: echo ${{ needs.test.result }}
+      - if: ${{ needs.test.result != 'success' }}
+        name: Set status based on matrix build
+        run: exit 1
 
   pacmak-integration-test:
     runs-on: ubuntu-latest
@@ -450,8 +453,12 @@ jobs:
   pacmak-integration-test-ok:
     name: Integration test (jsii-pacmak)
     runs-on: ubuntu-latest
-    needs: pacmak-integration-test
+    needs:
+      - pacmak-integration-test
+    if: always()
     steps:
-      - name: OK
-        # This is just a join target to simplify branch protection setup
-        run: echo OK
+      - name: Build result
+        run: echo ${{ needs.pacmak-integration-test.result }}
+      - if: ${{ needs.pacmak-integration-test.result != 'success' }}
+        name: Set status based on matrix build
+        run: exit 1
