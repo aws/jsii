@@ -161,7 +161,7 @@ declared _Generally Available_. At this point, breaking changes are no longer po
 [`jsii-pacmak`]: ../../packages/jsii-pacmak
 [`jsii-rosetta`]: https://github.com/aws/jsii-rosetta
 [standard compliance suite]: ../../specification/4-standard-compliance-suite.md
-[`public.ecr.aws/jsii/superchain`]: ../../superchain
+[`public.ecr.aws/jsii/superchain`]: https://github.com/aws/jsii-superchain
 [`aws-delivlib`]: https://github.com/awslabs/aws-delivlib
 [aws cdk]: https://github.com/aws/aws-cdk
 [semantic versioning]: https://semver.org

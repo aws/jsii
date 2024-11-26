@@ -2,7 +2,6 @@
 queue_rules:
   - name: default-squash
     conditions:
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
     commit_message_template: |-
       {{ title }} (#{{ number }})
@@ -12,7 +11,6 @@ queue_rules:
 
   - name: default-merge
     conditions:
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
     commit_message_template: |-
       {{ title }} (#{{ number }})
@@ -47,8 +45,6 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^Done$
       - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (squash)
@@ -73,8 +69,6 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
@@ -99,8 +93,6 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
 
   - name: Clean branch up
