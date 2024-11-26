@@ -45,8 +45,6 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^Done$
       - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (squash)
@@ -71,7 +69,6 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
       - status-success=Unit Tests
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
@@ -96,7 +93,6 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
       - status-success=Unit Tests
 
   - name: Clean branch up
