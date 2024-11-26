@@ -17,25 +17,9 @@ will need a number of tools.
 We have built a Docker image with all the required tools, which we are using for
 our own CI/CD: the ["superchain" image][superchain] from.
 
-[superchain]: https://github.com/aws/jsii/blob/main/superchain/Dockerfile
+[superchain]: https://github.com/aws/jsii-superchain
 
-The image can be built for local usage, too:
-
-```console
-IMAGE=superchain
-docker build -t ${IMAGE} -f superchain/Dockerfile .
-```
-
-In order to get an interactive shell within a Docker container using the
-*superchain* image you just built:
-
-```console
-cd jsii # go to the root of the jsii repo
-docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
-```
-
-In the shell that pops up, the `npm run` commands in the following sections must
-be executed.
+Please see the superchain repo for usage instructions.
 
 ### Alternative: Manually install the toolchain
 
