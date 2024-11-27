@@ -368,6 +368,7 @@ jobs:
         shell: bash
 
   test-ok:
+    name: Unit Tests
     runs-on: ubuntu-latest
     needs:
       - test
