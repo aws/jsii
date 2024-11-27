@@ -65,7 +65,7 @@ on this to build artifacts for any of the supported languages.
 In addition to this, standardized _Amazon CodePipeline_ actions need to be developed in order to support publishing to
 the relevant idiomatic package managers.
 
-[`public.ecr.aws/jsii/superchain`]: https://github.com/aws/jsii/tree/main/superchain
+[`public.ecr.aws/jsii/superchain`]: https://github.com/aws/jsii-superchain
 
 ## Compliance Tests
 

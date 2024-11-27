@@ -1,19 +1,12 @@
 {
-    "name": "Dev Container - aws/jsii",
-    "build": {
-        "dockerfile": "superchain/Dockerfile",
-        "context": ".",
-        "target": "superchain",
-        "args": {
-            "BUILD_TIMESTAMP": "unknown",
-            "COMMIT_ID": "HEAD",
-            "REGISTRY": "docker.io/library",
-        },
-    },
-    "containerUser": "superchain",
-    "remoteUser": "superchain",
-    "postCreateCommand": "yarn install && yarn build",
-    "extensions": [
-        "dbaeumer.vscode-eslint@2.1.5",
-    ],
+  "name": "Dev Container - aws/jsii",
+  "image": "public.ecr.aws/jsii/superchain:1-bookworm-slim",
+  "containerUser": "superchain",
+  "remoteUser": "superchain",
+  "postCreateCommand": "yarn install",
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "Orta.vscode-jest"]
+    }
+  }
 }
