@@ -258,6 +258,7 @@ To ensure compatibility, we also have integration tests.
 
 ### Adding a new `jsii-rosetta` version
 
-1. Add the new version to the `jsii-rosetta` peer dependency in [package.json](./packages/jsii-pacmak/package.json)
-2. Add the new version to the `pacmak-integration-test` matrix in the main build workflow in [main.yml](.github/workflows/main.yml)
-3. Remove any versions for which support has ended (EOS) from both locations
+1. Upgrade `jsii` & `jsii-rosetta` everywhere to the latest version by running `yarn upgrade:jsii` in the repo root.
+2. Update the minimal version of the `jsii-rosetta` peer dependency in [package.json](./packages/jsii-pacmak/package.json) to the latest version that is still supported.
+3. Add the new version to the `pacmak-integration-test` matrix in the main build workflow in [main.yml](.github/workflows/main.yml#L389)
+   Remove any versions for which support has ended (EOS) from the build matrix.
