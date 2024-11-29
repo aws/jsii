@@ -813,14 +813,6 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@jsii/check-node@1.104.0":
-  version "1.104.0"
-  resolved "https://registry.npmjs.org/@jsii/check-node/-/check-node-1.104.0.tgz"
-  integrity sha512-5rAn4y11APxq69DmTKtAACmDuOymcTiz29CE7s0AeWA5jzpxBRhkaj8xwixiSQtkoBFk+Vpoi2eNctCvwLdFaw==
-  dependencies:
-    chalk "^4.1.2"
-    semver "^7.6.3"
-
 "@jsii/check-node@1.105.0":
   version "1.105.0"
   resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.105.0.tgz#92ffea17d1497ddf9b104088d65a363bbf9d2b64"
@@ -829,7 +821,7 @@
     chalk "^4.1.2"
     semver "^7.6.3"
 
-"@jsii/spec@^1.104.0", "@jsii/spec@^1.105.0":
+"@jsii/spec@^1.105.0":
   version "1.105.0"
   resolved "https://registry.npmjs.org/@jsii/spec/-/spec-1.105.0.tgz"
   integrity sha512-pLy8JyPT9Vv5UTxtM4ZHm/iisWzU62m3/dn9TPW2oANI5TLiBpjLlJw/iF+KRjYAeQnFASUfXtWTXgbN4xp9Rw==
@@ -6025,7 +6017,7 @@ jsesc@^3.0.2:
   resolved "https://registry.npmjs.org/jsesc/-/jsesc-3.0.2.tgz"
   integrity sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==
 
-jsii-rosetta@^5.7.0:
+jsii-rosetta@^5.7.0, jsii-rosetta@~5.7.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.7.0.tgz#5ab61e79d84243022d0ef3de8343df97007d9ffc"
   integrity sha512-ryDIm4Peh+LO6TZZE0L+ziL82BFGSbJuUba7wg7m2pIVdqFv6mlqw3ki7B7kS5u0fP0A2/zzL8GU5AdGqum9Eg==
@@ -6041,25 +6033,6 @@ jsii-rosetta@^5.7.0:
     semver-intersect "^1.5.0"
     stream-json "^1.9.1"
     typescript "~5.7"
-    workerpool "^6.5.1"
-    yargs "^17.7.2"
-
-jsii-rosetta@~5.6.0:
-  version "5.6.0"
-  resolved "https://registry.npmjs.org/jsii-rosetta/-/jsii-rosetta-5.6.0.tgz"
-  integrity sha512-PSt2PFK1ssLcRAiGnK+k0On61Idh8uTCJcofC+vPr3dOgbVNbtIVI70z9Uw2bOwByrJ+ApHewubi7cWhybEcrA==
-  dependencies:
-    "@jsii/check-node" "1.104.0"
-    "@jsii/spec" "^1.104.0"
-    "@xmldom/xmldom" "^0.9.5"
-    chalk "^4"
-    commonmark "^0.31.2"
-    fast-glob "^3.3.2"
-    jsii "~5.6.0"
-    semver "^7.6.3"
-    semver-intersect "^1.5.0"
-    stream-json "^1.9.1"
-    typescript "~5.6"
     workerpool "^6.5.1"
     yargs "^17.7.2"
 
@@ -6079,24 +6052,6 @@ jsii@^5.7.0, jsii@~5.7.0:
     sort-json "^2.0.1"
     spdx-license-list "^6.9.0"
     typescript "~5.7"
-    yargs "^17.7.2"
-
-jsii@~5.6.0:
-  version "5.6.0"
-  resolved "https://registry.npmjs.org/jsii/-/jsii-5.6.0.tgz"
-  integrity sha512-XBXAF9a4UF2HE+LMSa+WDuYRNpmZlBxHrXaTVIFumo0oAuKb9eauPd4slwgQnCftyP5iyk8zX/Z2y4I3yQVcfA==
-  dependencies:
-    "@jsii/check-node" "1.104.0"
-    "@jsii/spec" "^1.104.0"
-    case "^1.6.3"
-    chalk "^4"
-    fast-deep-equal "^3.1.3"
-    log4js "^6.9.1"
-    semver "^7.6.3"
-    semver-intersect "^1.5.0"
-    sort-json "^2.0.1"
-    spdx-license-list "^6.9.0"
-    typescript "~5.6"
     yargs "^17.7.2"
 
 json-buffer@3.0.0:
@@ -9145,7 +9100,7 @@ typescript-json-schema@0.64.0:
     typescript "~5.1.0"
     yargs "^17.1.1"
 
-"typescript@>=3 < 6", typescript@~5.6:
+"typescript@>=3 < 6":
   version "5.6.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.6.3.tgz"
   integrity sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==

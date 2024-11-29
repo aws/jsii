@@ -258,9 +258,16 @@ To ensure compatibility, we also have integration tests.
 
 ### Adding a new `jsii` & `jsii-rosetta` version
 
-Run the following command. It takes care of all required changes.
+Run the following command. It takes care of the required changes.
 The script needs `jq` and `yq` installed to run.
 
 ```console
 yarn upgrade:jsii
+```
+
+Then you need to run the build and update snapshots locally:
+
+```console
+yarn build
+yarn test:update
 ```
