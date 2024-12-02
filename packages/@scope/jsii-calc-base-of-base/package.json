@@ -30,9 +30,9 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "jsii": "^5.6.0",
+    "jsii": "^5.7.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^5.6.0"
+    "jsii-rosetta": "^5.7.0"
   },
   "jsii": {
     "outdir": "dist",
