@@ -249,15 +249,25 @@ whether or not it is supported and tested, and produces appropriate warnings in 
 - [https://endoflife.date/nodejs](https://endoflife.date/nodejs)
 - [Adding support for node 22 PR](https://github.com/aws/jsii/pull/4489)
 
-## Support for new `jsii-rosetta` versions
+## Support for new `jsii` & `jsii-rosetta` versions
 
 When a new minor version of `jsii-rosetta` (modern) is released, we need to update the `jsii-pacmak` package.
 `jsii-pacmak` uses `jsii-rosetta` to transpile examples in documentation.
 Because every package can use its own version of jsii, TypeScript and jsii-rosetta, it is declared as a peer dependency.
 To ensure compatibility, we also have integration tests.
 
-### Adding a new `jsii-rosetta` version
+### Adding a new `jsii` & `jsii-rosetta` version
 
-1. Add the new version to the `jsii-rosetta` peer dependency in [package.json](./packages/jsii-pacmak/package.json)
-2. Add the new version to the `pacmak-integration-test` matrix in the main build workflow in [main.yml](.github/workflows/main.yml)
-3. Remove any versions for which support has ended (EOS) from both locations
+Run the following command. It takes care of the required changes.
+The script needs `jq` and `yq` installed to run.
+
+```console
+yarn upgrade:jsii
+```
+
+Then you need to run the build and update snapshots locally:
+
+```console
+yarn build
+yarn test:update
+```
