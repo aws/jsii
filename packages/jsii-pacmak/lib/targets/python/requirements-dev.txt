@@ -6,4 +6,4 @@
 setuptools~=70.0.0 # build-system
 wheel~=0.42        # build-system
 
-twine~=5.1.1
+twine~=6.0.1
