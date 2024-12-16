@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.106.0](https://github.com/aws/jsii/compare/v1.105.0...v1.106.0) (2024-12-16)
+
+
+### Features
+
+* **pacmak:** support jsii-rosetta 5.7 ([#4718](https://github.com/aws/jsii/issues/4718)) ([c4f52a7](https://github.com/aws/jsii/commit/c4f52a7fbde25e124b64afea4a1884c6f1f0ded2))
+
 ## [1.105.0](https://github.com/aws/jsii/compare/v1.104.0...v1.105.0) (2024-11-14)
 
 
