@@ -2,9 +2,9 @@
 
 This directory contains scripts and resources to create and validate the jsii compliance suite.
 
-### Compliance Suite
+## Compliance Suite
 
-The compliance suite is defined as a collection of abstract test cases, that each language binding must implement individualy.
+The compliance suite is defined as a collection of abstract test cases, that each language binding must implement individually.
 Language specific exclusions may be added to each test separately, or to the entire suite.
 
 > See [suite.ts](./suite.ts).

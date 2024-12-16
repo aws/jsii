@@ -1350,10 +1350,12 @@ async function tryDownloadResource(
 
   return new Promise((ok, ko) =>
     request(url, (res) => {
+      // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
       switch (res.statusCode) {
         case 200:
           let fileName = path.basename(url.pathname);
           // Ensure there is a content-appropriate extension on the result...
+          // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
           switch (res.headers['content-type']) {
             case 'image/gif':
               if (!fileName.endsWith('.gif')) {

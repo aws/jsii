@@ -1,6 +1,0 @@
-if (condition)
-{
-    StatementOne();
-
-    StatementTwo();
-}

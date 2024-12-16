@@ -1,4 +1,4 @@
-import * as calc from '.';
+import * as calc from 'jsii-calc';
 const calculator = new calc.Calculator();
 
 /// here

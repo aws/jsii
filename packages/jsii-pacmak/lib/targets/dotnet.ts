@@ -94,7 +94,7 @@ export class DotnetBuilder implements TargetBuilder {
         this.generateModuleCode(mod, tmpDir).then(() => mod),
       );
 
-      for await (const mod of generatedModules) {
+      for (const mod of await Promise.all(generatedModules)) {
         const loc = projectLocation(mod);
         csProjs.push(loc.projectFile);
         ret.push({
@@ -169,7 +169,9 @@ export class DotnetBuilder implements TargetBuilder {
         this.targetName,
       ),
     }));
-    for await (const { module, localBuildDirs } of resolvedModules) {
+    for (const { module, localBuildDirs } of await Promise.all(
+      resolvedModules,
+    )) {
       setExtend(allDepsOutputDirs, localBuildDirs);
 
       // Also include output directory where we're building to, in case we build multiple packages into

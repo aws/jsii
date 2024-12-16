@@ -3,8 +3,8 @@ import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as os from 'os';
 import * as path from 'path';
 
-import * as logging from '../lib/logging';
 import { Scratch, shell } from './util';
+import * as logging from '../lib/logging';
 
 export const DEFAULT_PACK_COMMAND = 'npm pack';
 

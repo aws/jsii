@@ -5958,10 +5958,9 @@ package software.amazon.jsii.tests.calculator;
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.getExpression().getValue());
  * </pre></blockquote>
  * <p>
- * I will repeat this example again, but in an &#64;example tag.
+ * I will repeat this example again, but in an
  * <p>
  * Example:
  * <p>
@@ -5969,7 +5968,6 @@ package software.amazon.jsii.tests.calculator;
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
- * System.out.println(calculator.getExpression().getValue());
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -28529,7 +28527,7 @@ package software.amazon.jsii.tests.calculator.submodule.child;
 /**
  * Checks that classes can self-reference during initialization.
  * <p>
- * @see <a href=": https://github.com/aws/jsii/pull/1706">: https://github.com/aws/jsii/pull/1706</a>
+ * @see <a href="https://github.com/aws/jsii/pull/1706">https://github.com/aws/jsii/pull/1706</a>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -30038,15 +30036,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      public static void unionType(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
 +        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
 +            if (
-+                 !(param instanceof software.amazon.jsii.tests.calculator.union.IResolvable)
++                 !(param instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
++                && !(param instanceof software.amazon.jsii.tests.calculator.union.IResolvable)
 +                && !(param instanceof software.amazon.jsii.tests.calculator.union.Resolvable)
-+                && !(param instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
 +                && !(param.getClass().equals(software.amazon.jsii.JsiiObject.class))
 +            ) {
 +                throw new IllegalArgumentException(
 +                    new java.lang.StringBuilder("Expected ")
 +                        .append("param")
-+                        .append(" to be one of: software.amazon.jsii.tests.calculator.union.IResolvable, software.amazon.jsii.tests.calculator.union.Resolvable, software.amazon.jsii.tests.calculator.lib.IFriendly; received ")
++                        .append(" to be one of: software.amazon.jsii.tests.calculator.lib.IFriendly, software.amazon.jsii.tests.calculator.union.IResolvable, software.amazon.jsii.tests.calculator.union.Resolvable; received ")
 +                        .append(param.getClass()).toString());
 +            }
 +        }

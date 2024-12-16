@@ -1,7 +1,0 @@
-.DS_Store
-*.js
-*.tsbuildinfo
-node_modules
-*.d.ts
-coverage
-*.d.ts.map

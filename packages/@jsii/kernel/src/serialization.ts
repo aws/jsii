@@ -1297,6 +1297,8 @@ function describeTypeOf(
     case 'function':
     case 'number':
     case 'string':
+    case 'bigint':
+    case 'symbol':
     default:
       return `a ${type}`;
   }

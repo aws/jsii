@@ -51,6 +51,7 @@ export function toPythonVersionRange(semverRange: string): string {
             comp.semver.raw?.replace(/-0$/, '') ?? '0.0.0',
             TargetName.PYTHON,
           );
+          // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
           switch (comp.operator) {
             case '':
               // With ^0.0.0, somehow we get a left entry with an empty operator and value, we'll fix this up

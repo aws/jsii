@@ -1,5 +1,6 @@
 import { Stability } from '@jsii/spec';
 
+import { compare } from './util';
 import {
   classifyDiagnostics,
   treatAsError,
@@ -8,7 +9,6 @@ import {
   onlyWarnings,
   ErrorClass,
 } from '../lib/diagnostics';
-import { compare } from './util';
 
 // ----------------------------------------------------------------------
 test('experimental stability violations lead to warnings', () => {

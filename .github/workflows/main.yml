@@ -1,23 +1,19 @@
 # Workflows pertaining to the main branch
 name: Main
-
 on:
   merge_group: {}
   pull_request:
     branches: [main, release]
   push:
     branches: [main, release]
-
 env:
   DOTNET_NOLOGO: true
   NODE_OPTIONS: --max-old-space-size=4096
-
 # This workflows currently has the following jobs:
 # - build                   : Builds the source tree as-is
 #   - test                  : Runs all unit tests against the build result
 # - create-release-package  : Prepares a release package with the "real" version
 #   - integ-test            : Runs integration tests against the release package
-
 jobs:
   build:
     name: Build
@@ -101,7 +97,6 @@ jobs:
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
         shell: bash
-
   create-release-package:
     name: Create Release Package
     permissions:
@@ -182,7 +177,6 @@ jobs:
         with:
           name: release-package
           path: ${{ github.workspace }}/dist/
-
   test:
     permissions:
       contents: none
@@ -291,9 +285,7 @@ jobs:
             java: '8'
             node: '18'
             os: ubuntu-latest
-
     runs-on: ${{ matrix.os }}
-
     steps:
       # Check out the code
       - name: Download Artifact
@@ -366,66 +358,18 @@ jobs:
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
         shell: bash
-
   test-ok:
     name: Unit Tests
     runs-on: ubuntu-latest
-    needs: test
+    needs:
+      - test
+    if: always()
     steps:
-      - name: OK
-        # This is just a join target to simplify branch protection setup
-        run: echo OK
-
-  benchmark:
-    name: Run benchmark suite
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    needs: build
-    steps:
-      # Check out the code
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: built-tree
-      - name: Extract Artifact
-        run: |-
-          echo "::group::Untar Archive"
-          tar zxvf built-tree.tgz
-          echo "::endgroup"
-
-          rm built-tree.tgz
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          cache: yarn
-          node-version: 'lts/*'
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-      - name: Run Benchmark
-        working-directory: packages/@jsii/benchmarks
-        run: yarn bench --output ${{ runner.temp }}/bench-output.json
-      - name: Compare Benchmark Results
-        if: github.event_name == 'pull_request'
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: jsii Benchmark Regression
-          tool: 'customSmallerIsBetter'
-          output-file-path: ${{ runner.temp }}/bench-output.json
-          comment-always: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          fail-on-alert: true
-      - name: Upload Benchmark Results
-        if: github.event_name == 'push'
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: jsii Benchmark
-          tool: 'customSmallerIsBetter'
-          output-file-path: ${{ runner.temp }}/bench-output.json
-          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
-          auto-push: true
-
+      - name: Build result
+        run: echo ${{ needs.test.result }}
+      - if: ${{ needs.test.result != 'success' }}
+        name: Set status based on matrix build
+        run: exit 1
   pacmak-integration-test:
     runs-on: ubuntu-latest
     needs: create-release-package
@@ -433,13 +377,11 @@ jobs:
       fail-fast: false
       matrix:
         rosetta:
-          # this will be the 1.x-dev version build in this repo
-          - ./jsii-rosetta.tgz
-          - 5.2.x
-          - 5.3.x
+          - latest
           - 5.4.x
           - 5.5.x
           - 5.6.x
+          - 5.7.x
     steps:
       # Check out the code
       - name: Download Artifact
@@ -473,15 +415,11 @@ jobs:
         run: sudo apt install -y python3-venv
       # Show time!
       - name: Prepare Work Tree
-        # 1) Move the locally build version of jsii-rosetta somewhere else
-        # 2) Remove @jsii/integ-test because it messed up version dependencies and is not needed
-        # 3) Install aws-cdk-lib, and all locally build packages minus jsii-rosetta & @jsii/integ-test,
-        #    and the specific version of jsii-rosetta
-        #    This ensures we are running jsii-pacmak with the correct peer-dependency
-        # 4) Print the jsii-rosetta version for confirmation
+        # 1) Install aws-cdk-lib,
+        #    all locally build packages,
+        #    the specific version of jsii-rosetta.
+        # 2) Print the jsii-rosetta version for confirmation
         run: |-
-          mv ${{ runner.temp }}/release-package/js/jsii-rosetta.tgz ./jsii-rosetta.tgz
-          rm ${{ runner.temp }}/release-package/private/@jsii-integ-test.tgz
           npm install --no-save --omit=dev                             \
                       aws-cdk-lib@2                                    \
                       constructs@10                                    \
@@ -498,17 +436,20 @@ jobs:
           ./node_modules/.bin/jsii-pacmak --no-parallel ./node_modules/aws-cdk-lib
       # Upload artifact only on main and for latest rosetta
       - name: 'Upload Artifact: integtest_aws-cdk-lib'
-        if: github.ref == 'ref/head/main' && matrix.rosetta == '5.4.x'
+        if: github.ref == 'ref/head/main' && matrix.rosetta == 'latest'
         uses: actions/upload-artifact@v4
         with:
           name: integtest_aws-cdk-lib
           path: ./node_modules/aws-cdk-lib/dist/
-
   pacmak-integration-test-ok:
     name: Integration test (jsii-pacmak)
     runs-on: ubuntu-latest
-    needs: pacmak-integration-test
+    needs:
+      - pacmak-integration-test
+    if: always()
     steps:
-      - name: OK
-        # This is just a join target to simplify branch protection setup
-        run: echo OK
+      - name: Build result
+        run: echo ${{ needs.pacmak-integration-test.result }}
+      - if: ${{ needs.pacmak-integration-test.result != 'success' }}
+        name: Set status based on matrix build
+        run: exit 1

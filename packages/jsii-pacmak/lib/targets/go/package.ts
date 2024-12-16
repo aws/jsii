@@ -8,7 +8,6 @@ import {
 import { join } from 'path';
 import * as semver from 'semver';
 
-import { VERSION } from '../../version';
 import {
   GO_REFLECT,
   ImportedModule,
@@ -34,6 +33,7 @@ import {
   tarballName,
 } from './util';
 import { VersionFile } from './version-file';
+import { VERSION } from '../../version';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.18';

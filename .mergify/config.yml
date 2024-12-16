@@ -2,8 +2,8 @@
 queue_rules:
   - name: default-squash
     conditions:
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
     commit_message_template: |-
       {{ title }} (#{{ number }})
 
@@ -12,8 +12,8 @@ queue_rules:
 
   - name: default-merge
     conditions:
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
     commit_message_template: |-
       {{ title }} (#{{ number }})
 
@@ -47,9 +47,8 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^Done$
       - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -73,9 +72,8 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -99,9 +97,8 @@ pull_request_rules:
       - '#review-requested=0'
       - '#changes-requested-reviews-by=0'
       - status-success=Validate PR Title
-      # Docker image validation
-      - status-success~=^jsii/superchain
       - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
 
   - name: Clean branch up
     actions:

@@ -4,8 +4,8 @@ import * as fs from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { pacmak } from '../../lib';
 import { checkTree, TREE } from './harness';
+import { pacmak } from '../../lib';
 
 for (const prerelease of ['4.5.6-pre.1337', '2.0.0-rc.42']) {
   test(`foo@1.2.3 depends on bar@^${prerelease}`, async () => {

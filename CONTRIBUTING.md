@@ -17,25 +17,9 @@ will need a number of tools.
 We have built a Docker image with all the required tools, which we are using for
 our own CI/CD: the ["superchain" image][superchain] from.
 
-[superchain]: https://github.com/aws/jsii/blob/main/superchain/Dockerfile
+[superchain]: https://github.com/aws/jsii-superchain
 
-The image can be built for local usage, too:
-
-```console
-IMAGE=superchain
-docker build -t ${IMAGE} -f superchain/Dockerfile .
-```
-
-In order to get an interactive shell within a Docker container using the
-*superchain* image you just built:
-
-```console
-cd jsii # go to the root of the jsii repo
-docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
-```
-
-In the shell that pops up, the `npm run` commands in the following sections must
-be executed.
+Please see the superchain repo for usage instructions.
 
 ### Alternative: Manually install the toolchain
 
@@ -99,7 +83,7 @@ Each one of these scripts can be executed either from the root of the repo using
 Troubleshooting bugs usually starts with adding a new test that demonstrates the
 faulty behavior, then modifying implementations until the test passes.
 
-The `jsii-calc` and `@scope/*` packages are used to test expected brhavior from
+The `jsii-calc` and `@scope/*` packages are used to test expected behavior from
 the compiler (note that the [aws/jsii-compiler](github.com/aws/jsii-compiler)
 repository as a separate copy of these under the `fixtures` directory), as well
 as downstream tooling (`jsii-pacmak`, `jsii-rosetta`, etc...). Each language
@@ -265,14 +249,25 @@ whether or not it is supported and tested, and produces appropriate warnings in 
 - [https://endoflife.date/nodejs](https://endoflife.date/nodejs)
 - [Adding support for node 22 PR](https://github.com/aws/jsii/pull/4489)
 
-## Support for new `jsii-rosetta` versions
+## Support for new `jsii` & `jsii-rosetta` versions
 
 When a new minor version of `jsii-rosetta` (modern) is released, we need to update the `jsii-pacmak` package.
 `jsii-pacmak` uses `jsii-rosetta` to transpile examples in documentation.
 Because every package can use its own version of jsii, TypeScript and jsii-rosetta, it is declared as a peer dependency.
 To ensure compatibility, we also have integration tests.
 
-### Adding a new `jsii-rosetta` version
+### Adding a new `jsii` & `jsii-rosetta` version
 
-1. Add the new version to the `jsii-rosetta` peer dependency in [package.json](./packages/jsii-pacmak/package.json)
-2. Add the new version to the `pacmak-integration-test` matrix in the main build workflow in [main.yml](.github/workflows/main.yml)
+Run the following command. It takes care of the required changes.
+The script needs `jq` and `yq` installed to run.
+
+```console
+yarn upgrade:jsii
+```
+
+Then you need to run the build and update snapshots locally:
+
+```console
+yarn build
+yarn test:update
+```

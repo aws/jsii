@@ -6,12 +6,12 @@ import { SpecialDependencies } from '../dependencies';
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { JSII_RT_ALIAS } from '../runtime';
+import { GoClass } from './class';
+import { GoInterface } from './interface';
 import {
   ParameterValidator,
   StructValidator,
 } from '../runtime/runtime-type-checking';
-import { GoClass } from './class';
-import { GoInterface } from './interface';
 
 export abstract class GoType<T extends Type = Type> {
   public readonly name: string;

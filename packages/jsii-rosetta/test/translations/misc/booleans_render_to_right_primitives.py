@@ -1,1 +1,0 @@
-call_function(True, False)

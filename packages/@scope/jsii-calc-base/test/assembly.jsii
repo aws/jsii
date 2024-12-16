@@ -39,7 +39,7 @@
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.0.0",
+  "jsiiVersion": "5.7.0",
   "license": "Apache-2.0",
   "metadata": {
     "jsii": {
@@ -207,5 +207,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "HiHbzAfeO1CAYQhgLFruW7OWwx9db1OpnC4Pl3Vlqak="
+  "fingerprint": "owD5dvNwZsCheQcXuO55DpsBC6WVKRk723nURQOT+Dk="
 }

@@ -2,9 +2,9 @@ import { promises as fs } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
+import { JSII_TEST_PACKAGES, preparePythonVirtualEnv } from './harness';
 import { pacmak, TargetName } from '../../lib';
 import { shell } from '../../lib/util';
-import { JSII_TEST_PACKAGES, preparePythonVirtualEnv } from './harness';
 
 jest.setTimeout(3_600_000);
 

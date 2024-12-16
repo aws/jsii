@@ -52,23 +52,23 @@
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
-    "@jsii/java-runtime": "^0.0.0",
     "@jsii/go-runtime": "^0.0.0",
+    "@jsii/java-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/clone": "^2.1.4",
-    "@types/diff": "^5.2.3",
     "@types/commonmark": "^0.27.9",
+    "@types/diff": "^5.2.3",
     "@types/fs-extra": "^9.0.13",
     "@types/semver": "^7.5.8",
     "diff": "^5.2.0",
-    "jsii": "^0.0.0",
+    "jsii": "^5.7.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-rosetta": "^0.0.0",
+    "jsii-rosetta": "~5.7.0",
     "pyright": "^1.1.389"
   },
   "peerDependencies": {
-    "jsii-rosetta": "^0.0.0 || ~5.2.0 || ~5.3.0 || ~5.4.0 || ~5.5.0 || ~5.6.0"
+    "jsii-rosetta": ">=5.4.0"
   },
   "keywords": [
     "jsii",

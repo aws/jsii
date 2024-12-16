@@ -1,1 +1,0 @@
-Object x = someObject.getSomeAttribute();
