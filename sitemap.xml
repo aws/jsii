@@ -2,126 +2,126 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://aws.github.io/jsii/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/compiler-and-rosetta-maintenance/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/decisions/_README/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/decisions/introduction/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/overview/features/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/overview/runtime-architecture/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/overview/toolchain/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/1-introduction/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/2-type-system/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/3-kernel-api/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/4-standard-compliance-suite/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/5-new-language-intake/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/6-compliance-report/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/language-support/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/language-support/assembly/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/language-support/callbacks/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/hints/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/typescript-restrictions/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/configuration/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/configuration/targets/dotnet/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/configuration/targets/go/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/configuration/targets/java/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/configuration/targets/python/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/quick-start/set-up/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/quick-start/write-code/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-author/toolchain/jsii/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-user/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-user/language-specific/go/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://aws.github.io/jsii/user-guides/lib-user/language-specific/python/</loc>
-         <lastmod>2024-12-05</lastmod>
+         <lastmod>2024-12-17</lastmod>
     </url>
 </urlset>
