@@ -82,7 +82,7 @@ jobs:
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
             --filter='@types/diff,@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'                            \
-            --reject='typescript,@xmldom/xmldom,${{ steps.monorepo-packages.outputs.list }}'
+            --reject='typescript,@xmldom/xmldom,jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
           lerna exec --parallel ncu -- --upgrade --target=patch                                     \
@@ -90,7 +90,7 @@ jobs:
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,typescript-json-schema,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,typescript-json-schema,${{ steps.production-dependencies.outputs.list }},jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
