@@ -8,20 +8,20 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export abstract class ModuleLike {
-  public declare abstract readonly fqn: string;
+  declare public abstract readonly fqn: string;
 
   /**
    * A map of target name to configuration, which is used when generating packages for
    * various languages.
    */
-  public declare abstract readonly targets?: jsii.AssemblyTargets;
-  public declare abstract readonly readme?: jsii.ReadMe;
+  declare public abstract readonly targets?: jsii.AssemblyTargets;
+  declare public abstract readonly readme?: jsii.ReadMe;
 
-  protected declare abstract readonly submoduleMap: ReadonlyMap<
+  declare protected abstract readonly submoduleMap: ReadonlyMap<
     string,
     Submodule
   >;
-  protected declare abstract readonly typeMap: ReadonlyMap<string, Type>;
+  declare protected abstract readonly typeMap: ReadonlyMap<string, Type>;
 
   /**
    * Cache for the results of `tryFindType`.
