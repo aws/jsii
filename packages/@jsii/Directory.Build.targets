@@ -2,8 +2,8 @@
   <ItemGroup>
     <!-- Central configuration of dependency versions for all DotNet packages -->
 
-    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-    <PackageReference Update="Microsoft.Extensions.Logging" Version="9.0.0" />
+    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+    <PackageReference Update="Microsoft.Extensions.Logging" Version="9.0.1" />
     <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
 
     <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.12.0" />
