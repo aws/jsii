@@ -21,8 +21,8 @@ const stdio = new SyncStdio({
   // We'll fall-back to `2` - its expected value - in this case; but this is not
   // supposed to be happening here (we don't use `worker_threads`).
   errorFD: (process.stderr as any).fd ?? 2,
-  readFD: 3,
-  writeFD: 3,
+  readFD: 0,
+  writeFD: 1,
 });
 
 const inout = new InputOutput(stdio);

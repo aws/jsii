@@ -640,7 +640,7 @@ export class Kernel {
   #getPackageDir(pkgname: string): string {
     if (!this.#installDir) {
       this.#installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
-      this.#require = createRequire(this.#installDir);
+      this.#require = createRequire(`${this.#installDir}/`);
       fs.mkdirpSync(path.join(this.#installDir, 'node_modules'));
       this.#debug('creating jsii-kernel modules workdir:', this.#installDir);
 

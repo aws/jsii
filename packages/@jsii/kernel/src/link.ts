@@ -14,7 +14,7 @@ import { dirname, join } from 'path';
  * preserve symbolic links instead of resolving them, making it possible to
  * symbolically link packages in place instead of fully copying them.
  */
-const PRESERVE_SYMLINKS = process.execArgv.includes('--preserve-symlinks');
+const PRESERVE_SYMLINKS = true;
 
 /**
  * Link existing to destination directory
