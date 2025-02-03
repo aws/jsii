@@ -301,7 +301,7 @@ export class Calculator extends composition.CompositeOperation {
 
     props = props ?? {};
 
-    const initialValue = props.initialValue ? props.initialValue : 0;
+    const initialValue = props.initialValue ?? 0;
     this.curr = new Number(initialValue);
     this.maxValue = props.maximumValue;
   }
