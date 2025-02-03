@@ -40,7 +40,7 @@ jobs:
             --site-dir ${{ runner.temp }}/site
         working-directory: gh-pages
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doc-site
           path: ${{ runner.temp }}/site/
@@ -59,7 +59,7 @@ jobs:
           ref: gh-pages
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: doc-site
           path: ${{ runner.temp }}/site
