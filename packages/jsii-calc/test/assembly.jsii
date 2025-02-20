@@ -146,7 +146,7 @@
     "stability": "stable"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "5.7.0",
+  "jsiiVersion": "5.7.4",
   "keywords": [
     "aws",
     "jsii",
@@ -18996,5 +18996,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "0tG7jS936WALug3+Z3mkb+Zts9YiQ1Nqy+xGmWhCzls="
+  "fingerprint": "6+i0EYrxA2uvQlBlt8jwOIPYG2wezuBbmkyh6MQkRZs="
 }

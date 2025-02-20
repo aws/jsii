@@ -30,7 +30,7 @@ setuptools.setup(
         "jsii._embedded.jsii": ["*.js", "*.js.map"],
     },
     install_requires=[
-        "attrs>=21.2,<25.0",
+        "attrs>=21.2,<26.0",
         "cattrs>=1.8,<24.2",
         "importlib_resources>=5.2.0",
         "publication>=0.0.3",  # This is used by all generated code.

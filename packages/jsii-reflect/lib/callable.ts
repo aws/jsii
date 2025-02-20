@@ -16,9 +16,9 @@ import { TypeSystem } from './type-system';
 export abstract class Callable
   implements Documentable, Overridable, TypeMember, SourceLocatable
 {
-  public declare abstract readonly kind: MemberKind;
-  public declare abstract readonly name: string;
-  public declare abstract readonly abstract: boolean;
+  declare public abstract readonly kind: MemberKind;
+  declare public abstract readonly name: string;
+  declare public abstract readonly abstract: boolean;
 
   public constructor(
     public readonly system: TypeSystem,
