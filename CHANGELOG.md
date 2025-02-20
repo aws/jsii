@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.107.0](https://github.com/aws/jsii/compare/v1.106.0...v1.107.0) (2025-02-20)
+
+
+### Bug Fixes
+
+* **java-runtime:** raise Jackson version bound to 2.19.0 ([#4771](https://github.com/aws/jsii/issues/4771)) ([0c38e35](https://github.com/aws/jsii/commit/0c38e3530df2b52605c4bd1a22f9614137ab6105))
+
 ## [1.106.0](https://github.com/aws/jsii/compare/v1.105.0...v1.106.0) (2024-12-16)
 
 
