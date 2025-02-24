@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.108.0](https://github.com/aws/jsii/compare/v1.107.0...v1.108.0) (2025-02-24)
+
+
+### Bug Fixes
+
+* Python publishing fails on some Python distributions ([#4776](https://github.com/aws/jsii/issues/4776)) ([65c7c10](https://github.com/aws/jsii/commit/65c7c10c9d4ec83578a44444b5c916560a16571d))
+
 ## [1.107.0](https://github.com/aws/jsii/compare/v1.106.0...v1.107.0) (2025-02-20)
 
 
