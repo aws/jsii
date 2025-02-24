@@ -7,3 +7,7 @@ setuptools~=70.0.0 # build-system
 wheel~=0.42        # build-system
 
 twine~=6.1.0
+
+# The dependency on packaging is necessary to work around an incompatibility between
+# what setuptools generates and what twine expects. <https://github.com/pypa/twine/issues/1216>
+packaging >= 24.2
