@@ -1225,7 +1225,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.8"
+pythonVersion = "3.9"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -1266,7 +1266,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.8",
+    "python_requires": "~=3.9",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -1277,7 +1277,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
@@ -2682,7 +2681,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.pyright]
 defineConstant = { DEBUG = true }
-pythonVersion = "3.8"
+pythonVersion = "3.9"
 pythonPlatform = "All"
 reportSelfClsParameterName = false
 
@@ -2723,7 +2722,7 @@ kwargs = json.loads(
             "py.typed"
         ]
     },
-    "python_requires": "~=3.8",
+    "python_requires": "~=3.9",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -2734,7 +2733,6 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
