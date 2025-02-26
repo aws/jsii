@@ -45,7 +45,7 @@
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
-    "semver": "^7.6.3",
+    "semver": "^7.7.1",
     "spdx-license-list": "^6.9.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
@@ -65,7 +65,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-rosetta": "~5.7.0",
-    "pyright": "^1.1.393"
+    "pyright": "^1.1.395"
   },
   "peerDependencies": {
     "jsii-rosetta": ">=5.4.0"
