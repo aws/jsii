@@ -19,7 +19,11 @@ our own CI/CD: the ["superchain" image][superchain] from.
 
 [superchain]: https://github.com/aws/jsii-superchain
 
-Please see the superchain repo for usage instructions.
+Once built locally, you can launch a shell from your root project directory in a self-removing container like so:  
+```bash
+# runs the built container, creates a volume mount to /project inside the container
+docker run --rm -it -v "$(pwd)":/project -w /project jsii/superchain:local
+```
 
 ### Alternative: Manually install the toolchain
 
