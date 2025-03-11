@@ -19,7 +19,11 @@ our own CI/CD: the ["superchain" image][superchain] from.
 
 [superchain]: https://github.com/aws/jsii-superchain
 
-Please see the superchain repo for usage instructions.
+Once built locally, you can launch a shell from your root project directory in a self-removing container like so:  
+```bash
+# runs the built container, creates a volume mount to /project inside the container
+docker run --rm -it -v "$(pwd)":/project -w /project jsii/superchain:local
+```
 
 ### Alternative: Manually install the toolchain
 
@@ -33,7 +37,7 @@ in your development environment.
   - [`maven >= 3.0.5`](https://maven.apache.org)
 - [.NET `6.0`] or later
   - *Recommended:* [`mono >= 6`](https://www.mono-project.com)
-- [Python `3.8.10`] or later
+- [Python `3.9.18`] or later
   - [`pip`](https://pip.pypa.io/en/stable/installing/)
   - [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   - [`wheel`](https://pypi.org/project/wheel/)
@@ -45,7 +49,7 @@ in your development environment.
 [Oracle's OpenJDK8]: http://openjdk.java.net/install/
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
 [.NET `6.0`]: https://www.microsoft.com/net/download
-[Python `3.8.10`]: https://www.python.org/downloads/release/python-3810/
+[Python `3.9.18`]: https://www.python.org/downloads/release/python-3918/
 [Go]: https://go.dev/dl/
 
 ## Getting Started

@@ -24,7 +24,7 @@ jobs:
         with:
           cache: 'pip'
           cache-dependency-path: 'gh-pages/requirements-dev.txt'
-          python-version: '3.8'
+          python-version: '3.9'
       - name: Install Dependencies
         run: |-
           python3 -m venv ${{ runner.temp }}/venv
