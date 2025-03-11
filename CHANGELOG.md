@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.109.0](https://github.com/aws/jsii/compare/v1.108.0...v1.109.0) (2025-03-11)
+
+
+### Features
+
+* switch to python 3.9 ([#4780](https://github.com/aws/jsii/issues/4780)) ([032a24e](https://github.com/aws/jsii/commit/032a24ee06726176ab1e83adf998eace0e1daf6c))
+
+
+### Bug Fixes
+
+* **dotnet-windows:** specify versions for dotnet packages to prevent errors in Windows ([#4782](https://github.com/aws/jsii/issues/4782)) ([20d1679](https://github.com/aws/jsii/commit/20d1679a44eb32a1878f0083a6c74a7bca6c9db5))
+
 ## [1.108.0](https://github.com/aws/jsii/compare/v1.107.0...v1.108.0) (2025-02-24)
 
 
