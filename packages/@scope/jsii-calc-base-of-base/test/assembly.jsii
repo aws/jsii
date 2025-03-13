@@ -9,7 +9,7 @@
   },
   "description": "An example transitive dependency for jsii-calc.",
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "5.7.6",
+  "jsiiVersion": "5.8.0",
   "license": "Apache-2.0",
   "metadata": {
     "jsii": {
@@ -166,5 +166,5 @@
     }
   },
   "version": "2.1.1",
-  "fingerprint": "DT2ow+045qLI08aYhB9Ca5qlQxDIfKyoCeMd3Itjbsk="
+  "fingerprint": "VfnjAv/kKNF0c7yssI920uEZbTr4OrRoFW0hcT57qns="
 }
