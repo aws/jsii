@@ -61,14 +61,14 @@
     "@types/fs-extra": "^9.0.13",
     "@types/semver": "^7.5.8",
     "diff": "^5.2.0",
-    "jsii": "^5.7.0",
+    "jsii": "^5.8.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-rosetta": "~5.7.0",
+    "jsii-rosetta": "~5.8.0",
     "pyright": "^1.1.395"
   },
   "peerDependencies": {
-    "jsii-rosetta": ">=5.4.0"
+    "jsii-rosetta": ">=5.5.0"
   },
   "keywords": [
     "jsii",

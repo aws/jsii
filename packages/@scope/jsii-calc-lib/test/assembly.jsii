@@ -71,7 +71,7 @@
     "stability": "deprecated"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "5.7.6",
+  "jsiiVersion": "5.8.0",
   "license": "Apache-2.0",
   "metadata": {
     "jsii": {
@@ -1107,5 +1107,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "+I8SK68kD/2vEhdmmd3WuO6G03etYpfIjEmQofD8pFk="
+  "fingerprint": "Cj0SprOiSFuu5uOdVNJtUfPpVZxEi7sfDe0BiGEM54M="
 }
