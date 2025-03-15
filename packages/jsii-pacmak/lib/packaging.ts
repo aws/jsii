@@ -79,14 +79,20 @@ export class JsiiModule {
       // Take only the last line of npm pack which should contain the
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.
-      const lines = out.trim().split(os.EOL);
+      const linesSplitByOs = out.trim().split(os.EOL);
+      const lastLineSplitByOs =
+        linesSplitByOs[linesSplitByOs.length - 1].trim();
+      // on Windows, sometimes `npm pack` might print output with
+      // unix line endings, so we have to split again.
+      // This is safe, because '\n' is never a valid character in a file name.
+      const lines = lastLineSplitByOs.split('\n');
       const lastLine = lines[lines.length - 1].trim();
 
       if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
         throw new Error(
           `${packCommand} did not produce tarball from ${
             this.moduleDirectory
-          } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
+          } into ${tmpdir} (output was ${JSON.stringify(linesSplitByOs)})`,
         );
       }
 
