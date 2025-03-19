@@ -3,7 +3,7 @@
 # be installed in the virtual environment used for building the distribution
 # package (wheel, sdist), but not declared as build-system dependencies.
 
-setuptools~=70.0.0 # build-system
+setuptools~=75.3.2 # build-system
 wheel~=0.42        # build-system
 
 twine~=6.1.0
