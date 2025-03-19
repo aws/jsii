@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.110.0](https://github.com/aws/jsii/compare/v1.109.0...v1.110.0) (2025-03-19)
+
+
+### Features
+
+* **pacmak:** support jsii-rosetta 5.8 ([#4792](https://github.com/aws/jsii/issues/4792)) ([ae7e6ff](https://github.com/aws/jsii/commit/ae7e6ffa31e56338a4f98221bbcf0fee0a0c9857))
+
+
+### Bug Fixes
+
+* python packages are incompatible with the binary distribution format specification ([#4790](https://github.com/aws/jsii/issues/4790)) ([0ba5e81](https://github.com/aws/jsii/commit/0ba5e81232960aa5a133a85f43e88b54359c51be))
+
 ## [1.109.0](https://github.com/aws/jsii/compare/v1.108.0...v1.109.0) (2025-03-11)
 
 
