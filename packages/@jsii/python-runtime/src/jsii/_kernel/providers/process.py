@@ -3,7 +3,7 @@ import base64
 import datetime
 import contextlib
 import enum
-import json
+import orjson
 import os
 import os.path
 import pathlib
@@ -13,6 +13,7 @@ import sys
 import tempfile
 import threading
 
+from pprint import pprint
 from typing import TYPE_CHECKING, Type, Union, Mapping, IO, Any, AnyStr, Optional
 
 import attr
@@ -126,17 +127,21 @@ def _unstructure_enum(member):
     return {"$jsii.enum": f"{member.__class__.__jsii_type__}/{member.value}"}
 
 
-def ohook(d):
-    if d.keys() == {"$jsii.byref"} or d.keys() == {"$jsii.byref", "$jsii.interfaces"}:
-        return ObjRef(ref=d["$jsii.byref"], interfaces=d.get("$jsii.interfaces"))
-    if d.keys() == {"$jsii.date"}:
-        return dateutil.parser.isoparse(d["$jsii.date"])
-    if d.keys() == {"$jsii.enum"}:
-        ref, member = d["$jsii.enum"].rsplit("/", 1)
-        return EnumRef(ref=ObjRef(ref=ref + "@"), member=member)
-    if d.keys() == {"$jsii.map"}:
-        return d["$jsii.map"]
-    return d
+def _convert_jsii_objects(obj):
+    if isinstance(obj, dict):
+        if obj.keys() == {"$jsii.byref"} or obj.keys() == {"$jsii.byref", "$jsii.interfaces"}:
+            return ObjRef(ref=obj["$jsii.byref"], interfaces=obj.get("$jsii.interfaces"))
+        if obj.keys() == {"$jsii.date"}:
+            return dateutil.parser.isoparse(obj["$jsii.date"])
+        if obj.keys() == {"$jsii.enum"}:
+            ref, member = obj["$jsii.enum"].rsplit("/", 1)
+            return EnumRef(ref=ObjRef(ref=ref + "@"), member=member)
+        if obj.keys() == {"$jsii.map"}:
+            return {k: _convert_jsii_objects(v) for k, v in obj["$jsii.map"].items()}
+        return {k: _convert_jsii_objects(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_convert_jsii_objects(item) for item in obj]
+    return obj
 
 
 def jdefault(obj):
@@ -248,7 +253,8 @@ class _NodeProcess:
 
     def _next_message(self) -> Mapping[Any, Any]:
         assert self._process.stdout is not None
-        return json.loads(self._process.stdout.readline(), object_hook=ohook)
+        data = orjson.loads(self._process.stdout.readline())
+        return _convert_jsii_objects(data)
 
     def start(self):
         environ = os.environ.copy()
@@ -321,7 +327,7 @@ class _NodeProcess:
         self, request: KernelRequest, response_type: Type[KernelResponse]
     ) -> KernelResponse:
         req_dict = self._serializer.unstructure(request)
-        data = json.dumps(req_dict, default=jdefault).encode("utf8")
+        data = orjson.dumps(req_dict, default=jdefault, option=orjson.OPT_PASSTHROUGH_DATETIME)
 
         # Send our data, ensure that it is framed with a trailing \n
         assert self._process.stdin is not None
@@ -415,7 +421,7 @@ def stderr_sink(reader: IO[AnyStr]) -> None:
         if line == b"":
             break
         try:
-            console = json.loads(line)
+            console = orjson.loads(line)
             if console.get("stderr") is not None:
                 sys.stderr.buffer.write(base64.b64decode(console["stderr"]))
             if console.get("stdout") is not None:

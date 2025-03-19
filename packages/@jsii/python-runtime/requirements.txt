@@ -6,5 +6,6 @@ pytest-mypy~=1.0
 setuptools~=80.3
 types-python-dateutil~=2.9
 wheel~=0.45
+orjson>=3.11,<4
 
 -e .

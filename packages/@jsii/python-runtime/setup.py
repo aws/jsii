@@ -38,6 +38,7 @@ setuptools.setup(
         "typeguard>=2.13.3,<4.5.0",  # This is used by all generated code.
         "python-dateutil",
         "typing_extensions>=3.8,<5.0",
+        "orjson>=3.11,<4",
     ],
     python_requires="~=3.9",
     classifiers=[
