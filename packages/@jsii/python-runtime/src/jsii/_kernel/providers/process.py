@@ -248,7 +248,8 @@ class _NodeProcess:
 
     def _next_message(self) -> Mapping[Any, Any]:
         assert self._process.stdout is not None
-        return orjson.loads(self._process.stdout.readline(), object_hook=ohook)
+        d = orjson.loads(self._process.stdout.readline())
+        return ohook(d)
 
     def start(self):
         environ = os.environ.copy()
