@@ -3,7 +3,7 @@ import base64
 import datetime
 import contextlib
 import enum
-import json
+import orjson
 import os
 import os.path
 import pathlib
@@ -248,7 +248,7 @@ class _NodeProcess:
 
     def _next_message(self) -> Mapping[Any, Any]:
         assert self._process.stdout is not None
-        return json.loads(self._process.stdout.readline(), object_hook=ohook)
+        return orjson.loads(self._process.stdout.readline(), object_hook=ohook)
 
     def start(self):
         environ = os.environ.copy()
@@ -321,7 +321,7 @@ class _NodeProcess:
         self, request: KernelRequest, response_type: Type[KernelResponse]
     ) -> KernelResponse:
         req_dict = self._serializer.unstructure(request)
-        data = json.dumps(req_dict, default=jdefault).encode("utf8")
+        data = orjson.dumps(req_dict, default=jdefault).encode("utf8")
 
         # Send our data, ensure that it is framed with a trailing \n
         assert self._process.stdin is not None
@@ -415,7 +415,7 @@ def stderr_sink(reader: IO[AnyStr]) -> None:
         if line == b"":
             break
         try:
-            console = json.loads(line)
+            console = orjson.loads(line)
             if console.get("stderr") is not None:
                 sys.stderr.buffer.write(base64.b64decode(console["stderr"]))
             if console.get("stdout") is not None:
