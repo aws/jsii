@@ -516,7 +516,10 @@ public final class JsiiRuntime {
                     this.buffer.write(read);
                 }
                 if (read == '\n' || this.eof) {
-                    processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                    // don't print an empty line if we're at the end of the file and the buffer is empty.
+                    if(!this.eof || buffer.size() > 0) {
+                        processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                    }
                     buffer.reset();
                 }
             }
