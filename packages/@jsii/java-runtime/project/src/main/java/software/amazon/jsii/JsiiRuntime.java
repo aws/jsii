@@ -529,6 +529,10 @@ public final class JsiiRuntime {
             try {
                 final JsonNode tree = objectMapper.readTree(line);
                 final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
+                if(consoleOutput == null) {
+                    // this means the line was empty, but the above objectMapper calls will return null
+                    throw new JsonProcessingException();
+                }
                 if (consoleOutput.stderr != null) {
                     System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
                 }
