@@ -516,7 +516,10 @@ public final class JsiiRuntime {
                     this.buffer.write(read);
                 }
                 if (read == '\n' || this.eof) {
-                    processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                    // don't print an empty line if we're at the end of the file and the buffer is empty.
+                    if(!this.eof || buffer.size() > 0) {
+                        processLine(new String(buffer.toByteArray(), StandardCharsets.UTF_8));
+                    }
                     buffer.reset();
                 }
             }
@@ -526,6 +529,10 @@ public final class JsiiRuntime {
             try {
                 final JsonNode tree = objectMapper.readTree(line);
                 final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
+                if(consoleOutput == null) {
+                    // this means the line was empty, but the above objectMapper calls will return null
+                    throw new JsonProcessingException();
+                }
                 if (consoleOutput.stderr != null) {
                     System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
                 }
