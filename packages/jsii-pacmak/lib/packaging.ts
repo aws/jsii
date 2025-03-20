@@ -90,7 +90,14 @@ export class JsiiModule {
         );
       }
 
-      return path.resolve(tmpdir, lastLine);
+      const tarballLocation = path.resolve(tmpdir, lastLine);
+
+      if (!fs.pathExistsSync(tarballLocation)) {
+        throw new Error(
+          `${packCommand} reported a tarball that doesn't exist. This can happen if '${packCommand}' is printing additional output from scripts (tarball output was: ${JSON.stringify(lines)}, and final path was ${tarballLocation})`,
+        );
+      }
+      return tarballLocation;
     });
   }
 
