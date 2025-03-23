@@ -530,8 +530,11 @@ public final class JsiiRuntime {
                 final JsonNode tree = objectMapper.readTree(line);
                 final ConsoleOutput consoleOutput = objectMapper.treeToValue(tree, ConsoleOutput.class);
                 if(consoleOutput == null) {
-                    // this means the line was empty, but the above objectMapper calls will return null
-                    throw new JsonProcessingException();
+                    // null means the line was empty, but the above objectMapper calls will return null
+                    // We would throw JsonProcessingException to avoid duplication, but the constructors
+                    // are protected, and the subclasses need too much information
+                    System.err.println(line);
+                    return;
                 }
                 if (consoleOutput.stderr != null) {
                     System.err.write(consoleOutput.stderr, 0, consoleOutput.stderr.length);
