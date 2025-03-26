@@ -1,9 +1,9 @@
-import json
+import orjson
 
 from ._compat import importlib_resources
 
 # Load our version number and other metadata.
-_meta = json.loads(
+_meta = orjson.loads(
     importlib_resources.files("jsii").joinpath("_metadata.json").read_text()
 )
 
