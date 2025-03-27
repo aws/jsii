@@ -9,6 +9,29 @@ import java.nio.file.Path;
 import java.util.Collections;
 
 public final class JsiiRuntimeTest {
+
+    @Test
+    public void errorSteamSinkDoesntCrash() {
+
+        ByteArrayOutputStream err = new ByteArrayOutputStream();
+        PrintStream originalErr = System.err;
+
+        // to capture writes to System.err, which happen when the error stream
+        // sink crashes. kind of a silly...but simple, and works.
+        System.setErr(new PrintStream(err));
+
+        try {
+            final JsiiRuntime runtime = new JsiiRuntime(null, null);
+            runtime.getClient().createObject("Object", Collections.emptyList(), Collections.emptyList(),
+                    Collections.emptyList());
+            runtime.terminate();
+            Assertions.assertFalse(err.toString().contains(
+                    "Unexpected error in background thread \"software.amazon.jsii.JsiiRuntime.ErrorStreamSink\""));
+        } finally {
+            System.setErr(originalErr);
+        }
+    }
+
     @Test
     public void withNoCustomization() {
         final JsiiRuntime runtime = new JsiiRuntime(null, null);
