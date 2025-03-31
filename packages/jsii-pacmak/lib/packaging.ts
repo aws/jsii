@@ -1,6 +1,5 @@
 import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
-import * as os from 'os';
 import * as path from 'path';
 
 import { Scratch, shell } from './util';
@@ -79,14 +78,17 @@ export class JsiiModule {
       // Take only the last line of npm pack which should contain the
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.
-      const lines = out.trim().split(os.EOL);
+      // Since we are interested in the text *after* the last newline, splitting on '\n' is correct
+      // both on Linux/Mac (EOL = '\n') and Windows (EOL = '\r\n'), and also for UNIX tools running
+      // on Windows (expected EOL = '\r\n', actual EOL = '\n').
+      const lines = out.trim().split('\n');
       const lastLine = lines[lines.length - 1].trim();
 
       if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
         throw new Error(
           `${packCommand} did not produce tarball from ${
             this.moduleDirectory
-          } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
+          } into ${tmpdir} (output was ${JSON.stringify(lines.map((l) => l.trimEnd()))})`,
         );
       }
 
