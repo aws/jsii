@@ -133,3 +133,8 @@ pull_request_rules:
           [Conventional Commits]: https://www.conventionalcommits.org
     conditions:
       - status-failure=Validate PR Title
+priority_rules:
+  - name: priority for queue `default-squash`
+    conditions:
+      - queue-name=default-squash
+    priority: 2250
