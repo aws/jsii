@@ -138,3 +138,7 @@ priority_rules:
     conditions:
       - queue-name=default-squash
     priority: 2250
+  - name: priority for queue `default-squash`
+    conditions:
+      - queue-name=default-squash
+    priority: 2250
