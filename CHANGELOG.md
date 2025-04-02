@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.111.0](https://github.com/aws/jsii/compare/v1.110.0...v1.111.0) (2025-04-02)
+
+
+### Bug Fixes
+
+* **java-runtime:** `ErrorStreamSink` crashes with `NullPointerException` ([#4803](https://github.com/aws/jsii/issues/4803)) ([b20be37](https://github.com/aws/jsii/commit/b20be373f55a972155242b7b3893b9e7b49b5006))
+* **pacmak:** Find the tarball location on windows even if prepack is run ([#4795](https://github.com/aws/jsii/issues/4795)) ([15f748d](https://github.com/aws/jsii/commit/15f748d9c0f8ccbae418f9e22378b7d4d4c5ed85))
+
 ## [1.110.0](https://github.com/aws/jsii/compare/v1.109.0...v1.110.0) (2025-03-19)
 
 
