@@ -721,9 +721,7 @@ export class Statics {
    * Jsdocs for static getter.
    */
   public static get instance(): Statics {
-    if (!this._instance) {
-      this._instance = new Statics('default');
-    }
+    this._instance ??= new Statics('default');
     return this._instance;
   }
 
