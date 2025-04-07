@@ -346,15 +346,13 @@ class SubmoduleBuilder {
   }
 
   public build(): Submodule {
-    if (!this._built) {
-      this._built = new Submodule(
-        this.system,
-        this.spec,
-        this.fullName,
-        mapValues(this.findSubmoduleBuilders(), (b) => b.build()),
-        this.types,
-      );
-    }
+    this._built ??= new Submodule(
+      this.system,
+      this.spec,
+      this.fullName,
+      mapValues(this.findSubmoduleBuilders(), (b) => b.build()),
+      this.types,
+    );
     return this._built;
   }
 
