@@ -25,7 +25,7 @@ function flattenNestedQuestions(
   return Object.entries(fields).reduce(
     (accum: QuestionCollection[], [name, question]: [string, any]) => {
       if (question.type && question.message) {
-        const currentValue = getCurrentValue(name, current) || question.default;
+        const currentValue = getCurrentValue(name, current) ?? question.default;
         return [
           ...accum,
           {
@@ -47,7 +47,7 @@ function buildQuestions(
   schema: ConfigPromptsSchema,
   current: BasePackageJson,
 ): QuestionCollection[] {
-  const currentTargets = getNestedValue(['jsii', 'targets'], current) || {};
+  const currentTargets = getNestedValue(['jsii', 'targets'], current) ?? {};
   const targetsPrompt: QuestionCollection = {
     name: 'jsiiTargets',
     message: 'Target Languages',
