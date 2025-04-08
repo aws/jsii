@@ -67,7 +67,11 @@ class StringWriter implements Printer {
     _encoding?: string | (() => void),
     cb?: () => void,
   ): boolean {
-    this.buffer = Buffer.concat([this.buffer, Buffer.from(chunk)]);
+    if (Buffer.isBuffer(chunk)) {
+      this.buffer = Buffer.concat([this.buffer, chunk]);
+    } else {
+      this.buffer = Buffer.concat([this.buffer, Buffer.from(chunk)]);
+    }
     if (cb != null) {
       cb();
     }
