@@ -152,7 +152,7 @@ export class TypeSystem {
       // Using || instead of ?? because npmjs.com will alter the package.json file and possibly put `false` in pkg.bundleDependencies.
       // This is actually non compliant to the package.json specification, but that's how it is...
       const bundled: string[] =
-        pkg.bundledDependencies || pkg.bundleDependencies || [];
+        pkg.bundledDependencies ?? pkg.bundleDependencies ?? [];
 
       for (const name of dependenciesOf(pkg)) {
         if (bundled.includes(name)) {

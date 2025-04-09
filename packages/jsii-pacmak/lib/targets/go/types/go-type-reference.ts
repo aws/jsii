@@ -121,9 +121,7 @@ export class GoTypeRef {
   }
 
   public get typeMap(): TypeMap {
-    if (!this._typeMap) {
-      this._typeMap = this.buildTypeMap(this);
-    }
+    this._typeMap ??= this.buildTypeMap(this);
     return this._typeMap;
   }
 
