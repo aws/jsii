@@ -7142,10 +7142,10 @@ pure-rand@^6.0.0:
   resolved "https://registry.yarnpkg.com/pure-rand/-/pure-rand-6.1.0.tgz#d173cf23258231976ccbdb05247c9787957604f2"
   integrity sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==
 
-pyright@^1.1.399:
-  version "1.1.399"
-  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.399.tgz#09edca8d3022bdcbb8ed2ec85574d81cbb568d29"
-  integrity sha512-roYApcOUEraOc2gTZX052/cw/AZ5rQGkdG/2DtU1/KyhfP+C5zHDlvOT24qRgPXDDkh76AvFwq5quZ1SMahq7w==
+pyright@^1.1.398:
+  version "1.1.398"
+  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.398.tgz#d26bdf711e5be1d7d2747b4fce4356ac64e610ff"
+  integrity sha512-KrqCYCw+p+mtoQ7kOiIKyEvfJxi4rMbJAvjSGjtScMaOHVqHVKYOFlchgiePj9AbjmkR/iNzWOodYJfXLjpHtQ==
   optionalDependencies:
     fsevents "~2.3.3"
 
