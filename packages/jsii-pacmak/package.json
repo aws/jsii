@@ -46,7 +46,7 @@
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
     "semver": "^7.7.1",
-    "spdx-license-list": "^6.9.0",
+    "spdx-license-list": "^6.10.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
   },
