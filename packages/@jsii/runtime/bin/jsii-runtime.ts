@@ -67,7 +67,8 @@ function makeHandler(
   tag: 'stdout' | 'stderr',
 ): (chunk: string | Buffer) => void {
   return (chunk) => {
-    const buffer = Buffer.from(chunk);
+    // Use the chunk directly if it's already a Buffer, otherwise create a Buffer from it
+    const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
     error(JSON.stringify({ [tag]: buffer.toString('base64') }));
   };
 }
