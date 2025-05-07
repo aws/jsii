@@ -20956,6 +20956,10 @@ public class StaticHelloChild extends software.amazon.jsii.tests.calculator.Stat
         super(initializationMode);
     }
 
+    static {
+        PROPERTY = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticHelloChild.class, "PROPERTY", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -20969,6 +20973,11 @@ public class StaticHelloChild extends software.amazon.jsii.tests.calculator.Stat
     public static @org.jetbrains.annotations.NotNull java.lang.Number getProperty() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticHelloChild.class, "property", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public final static java.lang.Number PROPERTY;
 }
 
 `;
@@ -20996,6 +21005,10 @@ public class StaticHelloParent extends software.amazon.jsii.JsiiObject {
         super(initializationMode);
     }
 
+    static {
+        PROPERTY = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticHelloParent.class, "PROPERTY", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -21017,6 +21030,11 @@ public class StaticHelloParent extends software.amazon.jsii.JsiiObject {
     public static @org.jetbrains.annotations.NotNull java.lang.Number getProperty() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticHelloParent.class, "property", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public final static java.lang.Number PROPERTY;
 }
 
 `;

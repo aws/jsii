@@ -2204,7 +2204,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ static method() method (stable)
  │   │   │ ├── static
  │   │   │ └── returns: void
- │   │   └─┬ static property property (stable)
+ │   │   ├─┬ static property property (stable)
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: number
+ │   │   └─┬ static PROPERTY property (stable)
+ │   │     ├── const
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: number
@@ -2214,7 +2219,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ static method() method (stable)
  │   │   │ ├── static
  │   │   │ └── returns: void
- │   │   └─┬ static property property (stable)
+ │   │   ├─┬ static property property (stable)
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: number
+ │   │   └─┬ static PROPERTY property (stable)
+ │   │     ├── const
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: number
@@ -5272,12 +5282,14 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class StaticHelloChild
  │   │ └─┬ members
  │   │   ├── static method() method
- │   │   └── static property property
+ │   │   ├── static property property
+ │   │   └── static PROPERTY property
  │   ├─┬ class StaticHelloParent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   ├── static method() method
- │   │   └── static property property
+ │   │   ├── static property property
+ │   │   └── static PROPERTY property
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├── <initializer>(value) initializer

@@ -15802,6 +15802,17 @@ func StaticHelloChild_Property() *float64 {
 	return returns
 }
 
+func StaticHelloChild_PROPERTY() *float64 {
+	_init_.Initialize()
+	var returns *float64
+	_jsii_.StaticGet(
+		"jsii-calc.StaticHelloChild",
+		"PROPERTY",
+		&returns,
+	)
+	return returns
+}
+
 
 `;
 
@@ -15866,6 +15877,17 @@ func StaticHelloParent_Property() *float64 {
 	_jsii_.StaticGet(
 		"jsii-calc.StaticHelloParent",
 		"property",
+		&returns,
+	)
+	return returns
+}
+
+func StaticHelloParent_PROPERTY() *float64 {
+	_init_.Initialize()
+	var returns *float64
+	_jsii_.StaticGet(
+		"jsii-calc.StaticHelloParent",
+		"PROPERTY",
 		&returns,
 	)
 	return returns
