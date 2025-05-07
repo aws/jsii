@@ -88,7 +88,6 @@ export class FileGenerator {
     propertyGroup.ele('PackageId', packageId);
     propertyGroup.ele('PackageLicenseExpression', assembly.license);
     propertyGroup.ele('PackageVersion', this.getDecoratedVersion(assembly));
-    propertyGroup.ele('FileVersion', this.getDecoratedVersion(assembly));
     if (dotnetInfo!.title != null) {
       propertyGroup.ele('Title', dotnetInfo!.title);
     }
