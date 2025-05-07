@@ -637,6 +637,7 @@ export class DotNetGenerator extends Generator {
       currentClass,
       member,
     );
+
     if (implementedInBase || proxyOrDataType) {
       // Override if the property is in a datatype or proxy class or declared in a parent class. If the member is
       // static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor declaration (as
@@ -716,6 +717,16 @@ export class DotNetGenerator extends Generator {
       }
     }
 
+    // Check the `overrides` directive directly from the jsii assembly
+    if (member.overrides) {
+      const overrideType = this.findType(member.overrides);
+      if (spec.isClassType(overrideType)) {
+        // Overrides a class, needs overrides keyword
+        return true;
+      }
+    }
+
+    // Look for something that's named the same
     const base = cls.base;
     if (base) {
       const baseType = this.findType(base) as spec.ClassType;
