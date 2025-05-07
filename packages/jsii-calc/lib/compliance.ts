@@ -2924,6 +2924,8 @@ export namespace LevelOne {
  * like.
  */
 export class StaticHelloParent {
+  public static readonly PROPERTY: number = 1337;
+
   public static get property(): number {
     return 1337;
   }
@@ -2933,6 +2935,8 @@ export class StaticHelloParent {
   }
 }
 export class StaticHelloChild extends StaticHelloParent {
+  public static readonly PROPERTY: number = 42;
+
   public static get property(): number {
     return 42;
   }

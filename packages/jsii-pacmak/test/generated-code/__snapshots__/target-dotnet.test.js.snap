@@ -18713,6 +18713,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloChild))!;
         }
+
+        [JsiiProperty(name: "PROPERTY", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public static new double PROPERTY
+        {
+            get;
+        }
+        = GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloChild))!;
     }
 }
 
@@ -18769,6 +18776,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent))!;
         }
+
+        [JsiiProperty(name: "PROPERTY", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public static double PROPERTY
+        {
+            get;
+        }
+        = GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticHelloParent))!;
     }
 }
 
