@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.112.0](https://github.com/aws/jsii/compare/v1.111.0...v1.112.0) (2025-05-07)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** CS0108 <static property> hides inherited  member ([#4826](https://github.com/aws/jsii/issues/4826)) ([93e422e](https://github.com/aws/jsii/commit/93e422eedad93763bbac7a8212be8949aa1b632e)), closes [#2373](https://github.com/aws/jsii/issues/2373)
+
 ## [1.111.0](https://github.com/aws/jsii/compare/v1.110.0...v1.111.0) (2025-04-02)
 
 
