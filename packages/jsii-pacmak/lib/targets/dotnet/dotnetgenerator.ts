@@ -575,40 +575,12 @@ export class DotNetGenerator extends Generator {
       ? this.typeresolver.toDotNetType(method.returns.type)
       : 'void';
     const staticKeyWord = method.static ? 'static ' : '';
-    let overrideKeyWord = '';
-    let virtualKeyWord = '';
 
-    let definedOnAncestor = false;
-    // In the case of the source being a class, we check if it is already defined on an ancestor
-    if (spec.isClassType(cls)) {
-      definedOnAncestor = this.isMemberDefinedOnAncestor(cls, method);
-    }
-    // The method is an override if it's defined on the ancestor, or if the parent is a class and we are generating a proxy or datatype class
-    let overrides =
-      definedOnAncestor || (spec.isClassType(cls) && emitForProxyOrDatatype);
-    // We also inspect the jsii model to see if it overrides a class member.
-    if (method.overrides) {
-      const overrideType = this.findType(method.overrides);
-      if (spec.isClassType(overrideType)) {
-        // Overrides a class, needs overrides keyword
-        overrides = true;
-      }
-    }
-    if (overrides) {
-      // Add the override key word if the method is emitted for a proxy or data type or is defined on an ancestor. If
-      // the member is static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor
-      // declaration (as C# does not inherit statics, they can be hidden but not overridden). The "new" keyword is
-      // optional in this context, but helps clarify intention.
-      overrideKeyWord = method.static ? 'new ' : 'override ';
-    } else if (
-      !method.static &&
-      (method.abstract || !definedOnAncestor) &&
-      !emitForProxyOrDatatype
-    ) {
-      // Add the virtual key word if the method is abstract or not defined on an ancestor and we are NOT generating a proxy or datatype class
-      // Methods should always be virtual when possible
-      virtualKeyWord = 'virtual ';
-    }
+    const { overrideKeyword, virtualKeyword } = this.memberKeywords(
+      cls,
+      method,
+      emitForProxyOrDatatype,
+    );
 
     const access = this.renderAccessLevel(method);
     const methodName = this.nameutils.convertMethodName(method.name);
@@ -629,11 +601,11 @@ export class DotNetGenerator extends Generator {
     );
 
     if (method.abstract) {
-      this.code.line(`${access} ${overrideKeyWord}abstract ${signature};`);
+      this.code.line(`${access} ${overrideKeyword}abstract ${signature};`);
       this.code.line();
     } else {
       this.code.openBlock(
-        `${access} ${staticKeyWord}${overrideKeyWord}${virtualKeyWord}${signature}`,
+        `${access} ${staticKeyWord}${overrideKeyword}${virtualKeyword}${signature}`,
       );
       this.emitUnionParameterValdation(
         (
@@ -650,6 +622,48 @@ export class DotNetGenerator extends Generator {
       );
       this.code.closeBlock();
     }
+  }
+
+  private memberKeywords(
+    currentClass: spec.Type,
+    member: spec.Property | spec.Method,
+    proxyOrDataType: boolean,
+  ): { overrideKeyword: string; virtualKeyword: string } {
+    if (!spec.isClassType(currentClass)) {
+      return { overrideKeyword: '', virtualKeyword: '' };
+    }
+
+    const implementedInBase = this.isMemberDefinedOnAncestor(
+      currentClass,
+      member,
+    );
+    if (implementedInBase || proxyOrDataType) {
+      // Override if the property is in a datatype or proxy class or declared in a parent class. If the member is
+      // static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor declaration (as
+      // C# does not inherit statics, they can be hidden but not overridden).The "new" keyword is optional in this
+      // context, but helps clarify intention.
+      return {
+        overrideKeyword: member.static ? 'new ' : 'override ',
+        virtualKeyword: '',
+      };
+    } else if (member.abstract) {
+      // Abstract members get decorated as such
+      return {
+        overrideKeyword: '',
+        virtualKeyword: 'abstract ',
+      };
+    } else if (!member.static && !implementedInBase) {
+      // Virtual if the prop is not static, and is not implemented in base member, this way we can later override it.
+      return {
+        overrideKeyword: '',
+        virtualKeyword: 'virtual ',
+      };
+    }
+
+    return {
+      overrideKeyword: '',
+      virtualKeyword: '',
+    };
   }
 
   /**
@@ -1046,32 +1060,12 @@ export class DotNetGenerator extends Generator {
     }
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop);
 
-    let isOverrideKeyWord = '';
-    let isVirtualKeyWord = '';
-    let isAbstractKeyword = '';
-
-    // If the prop parent is a class
-    if (spec.isClassType(cls)) {
-      const implementedInBase = this.isMemberDefinedOnAncestor(
-        cls as spec.ClassType,
-        prop,
-      );
-      if (implementedInBase || datatype || proxy) {
-        // Override if the property is in a datatype or proxy class or declared in a parent class. If the member is
-        // static, use the "new" keyword instead, to indicate we are intentionally hiding the ancestor declaration (as
-        // C# does not inherit statics, they can be hidden but not overridden).The "new" keyword is optional in this
-        // context, but helps clarify intention.
-        isOverrideKeyWord = prop.static ? 'new ' : 'override ';
-      } else if (prop.abstract) {
-        // Abstract members get decorated as such
-        isAbstractKeyword = 'abstract ';
-      } else if (!prop.static && !implementedInBase) {
-        // Virtual if the prop is not static, and is not implemented in base member, this way we can later override it.
-        isVirtualKeyWord = 'virtual ';
-      }
-    }
-
-    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${staticKeyWord}${isOverrideKeyWord}${propTypeFQN}${isOptional} ${propName}`;
+    const { virtualKeyword, overrideKeyword } = this.memberKeywords(
+      cls,
+      prop,
+      datatype || proxy,
+    );
+    const statement = `${access} ${virtualKeyword}${staticKeyWord}${overrideKeyword}${propTypeFQN}${isOptional} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
@@ -1146,7 +1140,7 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-   * Emits a constant property
+   * Emits a (static) constant property
    */
   private emitConstProperty(cls: spec.ClassType, prop: spec.Property): void {
     this.emitNewLineIfNecessary();
@@ -1163,8 +1157,15 @@ export class DotNetGenerator extends Generator {
     const propName = this.nameutils.convertPropertyName(prop.name);
     const staticKeyword = prop.static ? 'static ' : '';
 
+    const { overrideKeyword } = this.memberKeywords(
+      cls,
+      prop,
+      // Static properties are never on proxies or datatypes (because those come from TS interfaces)
+      false,
+    );
+
     this.code.openBlock(
-      `${access} ${staticKeyword}${propType}${isOptional} ${propName}`,
+      `${access} ${staticKeyword}${overrideKeyword}${propType}${isOptional} ${propName}`,
     );
     this.code.line('get;');
     this.code.closeBlock();
