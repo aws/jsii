@@ -740,18 +740,16 @@ export class Kernel {
       return;
     }
 
-    if (!propInfo) {
-      // We've overriding a property on an object we have NO type information on (probably
-      // because it's an anonymous object).
-      // Pretend it's 'prop: any';
-      //
-      // FIXME: We could do better type checking during the conversion if JSII clients
-      // would tell us the intended interface type.
-      propInfo = {
-        name: override.property,
-        type: spec.CANONICAL_ANY,
-      };
-    }
+    // We've overriding a property on an object we have NO type information on (probably
+    // because it's an anonymous object).
+    // Pretend it's 'prop: any';
+    //
+    // FIXME: We could do better type checking during the conversion if JSII clients
+    // would tell us the intended interface type.
+    propInfo ??= {
+      name: override.property,
+      type: spec.CANONICAL_ANY,
+    };
 
     this.#defineOverridenProperty(obj, objref, override, propInfo);
   }
@@ -865,23 +863,21 @@ export class Kernel {
       return;
     }
 
-    if (!methodInfo) {
-      // We've overriding a method on an object we have NO type information on (probably
-      // because it's an anonymous object).
-      // Pretend it's an (...args: any[]) => any
-      methodInfo = {
-        name: override.method,
-        returns: { type: spec.CANONICAL_ANY },
-        parameters: [
-          {
-            name: 'args',
-            type: spec.CANONICAL_ANY,
-            variadic: true,
-          },
-        ],
-        variadic: true,
-      };
-    }
+    // We've overriding a method on an object we have NO type information on (probably
+    // because it's an anonymous object).
+    // Pretend it's an (...args: any[]) => any
+    methodInfo ??= {
+      name: override.method,
+      returns: { type: spec.CANONICAL_ANY },
+      parameters: [
+        {
+          name: 'args',
+          type: spec.CANONICAL_ANY,
+          variadic: true,
+        },
+      ],
+      variadic: true,
+    };
 
     this.#defineOverridenMethod(obj, objref, override, methodInfo);
   }

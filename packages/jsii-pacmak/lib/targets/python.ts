@@ -2476,9 +2476,7 @@ class PythonGenerator extends Generator {
     if ((!docs || Object.keys(docs).length === 0) && !options.arguments) {
       return;
     }
-    if (!docs) {
-      docs = {};
-    }
+    docs ??= {};
 
     const lines = new Array<string>();
 

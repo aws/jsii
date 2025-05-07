@@ -23,7 +23,7 @@ async function main() {
   const expected = readFile(resolve(expectedPath), { encoding: 'utf-8' });
   const actual = readFile(resolve(actualPath), { encoding: 'utf-8' });
 
-  const patch = structuredPatch(actualPath, expectedPath, await actual, await expected);
+  const patch = structuredPatch(expectedPath, actualPath, await expected, await actual);
   if (patch.hunks.length === 0) {
     // All good, no difference!
     return 0;

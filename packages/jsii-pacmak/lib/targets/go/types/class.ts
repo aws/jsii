@@ -96,12 +96,10 @@ export class GoClass extends GoType<ClassType> {
   public get implements(): readonly GoInterface[] {
     // Cannot compute in constructor, as dependencies may not have finished
     // resolving just yet.
-    if (this._implements === undefined) {
-      this._implements = this.type.interfaces
-        .map((iface) => this.pkg.root.findType(iface.fqn) as GoInterface)
-        // Ensure consistent order, mostly cosmetic.
-        .sort((l, r) => l.fqn.localeCompare(r.fqn));
-    }
+    this._implements ??= this.type.interfaces
+      .map((iface) => this.pkg.root.findType(iface.fqn) as GoInterface)
+      // Ensure consistent order, mostly cosmetic.
+      .sort((l, r) => l.fqn.localeCompare(r.fqn));
     return this._implements;
   }
 

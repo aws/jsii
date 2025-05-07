@@ -2381,7 +2381,12 @@ exports[`showAll 1`] = `
  │   │   ├─┬ static method() method
  │   │   │ ├── static
  │   │   │ └── returns: void
- │   │   └─┬ static property property
+ │   │   ├─┬ static property property
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: number
+ │   │   └─┬ static PROPERTY property
+ │   │     ├── const
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: number
@@ -2391,7 +2396,12 @@ exports[`showAll 1`] = `
  │   │   ├─┬ static method() method
  │   │   │ ├── static
  │   │   │ └── returns: void
- │   │   └─┬ static property property
+ │   │   ├─┬ static property property
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: number
+ │   │   └─┬ static PROPERTY property
+ │   │     ├── const
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: number
