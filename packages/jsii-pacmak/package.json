@@ -45,7 +45,7 @@
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
-    "semver": "^7.7.1",
+    "semver": "^7.7.2",
     "spdx-license-list": "^6.10.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^16.2.0"
