@@ -814,6 +814,14 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@jsii/check-node@1.109.0":
+  version "1.109.0"
+  resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.109.0.tgz#d6d988f50f0d11591f6ac7476e6fa1ed9ff43c2e"
+  integrity sha512-KUdmXNeCpOgjwK3QtEnxwMjIbGsPG4YkSwYsU1dmYftOz8x/oTC/D4Bz9uS7f4ARBBVkCWJWtS01l8nQgAZ2jQ==
+  dependencies:
+    chalk "^4.1.2"
+    semver "^7.7.1"
+
 "@jsii/check-node@1.111.0":
   version "1.111.0"
   resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.111.0.tgz#dfd6dce4f9d7a97924e51f152a5e5058039d7b4d"
@@ -822,7 +830,7 @@
     chalk "^4.1.2"
     semver "^7.7.1"
 
-"@jsii/spec@^1.111.0":
+"@jsii/spec@^1.109.0", "@jsii/spec@^1.111.0":
   version "1.112.0"
   resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.112.0.tgz#9a70db6bbe3c78ede1095686a7cacda8b2d91f26"
   integrity sha512-O6peIhjjGkIQpbKUMHTNJHMuyqd6EXqWlxnBKpoBoUwDz18HXxt/SwUvnovYCELjgxOUMCdO5Y4/YjeABvatUw==
@@ -5890,6 +5898,24 @@ jsii-rosetta@^5.8.0, jsii-rosetta@~5.8.0:
     workerpool "^6.5.1"
     yargs "^17.7.2"
 
+jsii@5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.8.0.tgz#8dcd83017064ea1c39c516952aa9b33532d5570e"
+  integrity sha512-aFcGir8GAQu5ZNzuvqLxLSvMeSSFsHeh1enoXt7Vp23lvQ7eBvUXMfxmsJ8exq7SuIAVhmx0dWjrJyekOCmAFA==
+  dependencies:
+    "@jsii/check-node" "1.109.0"
+    "@jsii/spec" "^1.109.0"
+    case "^1.6.3"
+    chalk "^4"
+    fast-deep-equal "^3.1.3"
+    log4js "^6.9.1"
+    semver "^7.7.1"
+    semver-intersect "^1.5.0"
+    sort-json "^2.0.1"
+    spdx-license-list "^6.9.0"
+    typescript "~5.8"
+    yargs "^17.7.2"
+
 jsii@^5.8.0, jsii@~5.8.0:
   version "5.8.8"
   resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.8.8.tgz#72b03fe4a1a2461f4e00a3a2d7a64a9ff74d1af7"
@@ -8061,7 +8087,7 @@ spdx-license-ids@^3.0.0:
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.21.tgz#6d6e980c9df2b6fc905343a3b2d702a6239536c3"
   integrity sha512-Bvg/8F5XephndSK3JffaRqdT+gyhfqIPwDHpX80tJrF8QQRYMo8sNMeaZ2Dp5+jhwKnUmIOyFFQfHRkjJm5nXg==
 
-spdx-license-list@^6.10.0:
+spdx-license-list@^6.10.0, spdx-license-list@^6.9.0:
   version "6.10.0"
   resolved "https://registry.yarnpkg.com/spdx-license-list/-/spdx-license-list-6.10.0.tgz#738249443db42f5fd6780c7c40daecefed7a3adf"
   integrity sha512-wF3RhDFoqdu14d1Prv6c8aNU0FSRuSFJpNjWeygIZcNZEwPxp7I5/Hwo8j6lSkBKWAIkSQrKefrC5N0lvOP0Gw==
