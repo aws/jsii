@@ -65,7 +65,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-rosetta": "~5.8.0",
-    "pyright": "^1.1.400"
+    "pyright": "^1.1.401"
   },
   "peerDependencies": {
     "jsii-rosetta": ">=5.5.0"
