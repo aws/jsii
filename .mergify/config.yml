@@ -26,7 +26,7 @@ pull_request_rules:
       label:
         add: [contribution/core]
     conditions:
-      - author="@aws/aws-cdk-team"
+      - author=@aws/aws-cdk-team
       - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
