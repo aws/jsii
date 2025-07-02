@@ -4,7 +4,7 @@
 # package (wheel, sdist), but not declared as build-system dependencies.
 
 setuptools~=75.3.2 # build-system
-wheel~=0.42        # build-system
+build~=1.2.2.post1 # build-system
 
 twine~=6.1.0
 
