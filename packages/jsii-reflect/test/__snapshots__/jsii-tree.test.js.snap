@@ -3536,6 +3536,9 @@ exports[`jsii-tree --all 1`] = `
    │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class ClassWithNONPASCALCASEDName (deprecated)
+   │     │ └─┬ members
+   │     │   └── <initializer>() initializer (deprecated)
    │     ├─┬ class NestingClass (deprecated)
    │     │ └── members
    │     ├─┬ class NestedClass (deprecated)
@@ -3552,6 +3555,12 @@ exports[`jsii-tree --all 1`] = `
    │     │     │ └─┬ reflectable
    │     │     │   └── type: @scope/jsii-calc-lib.submodule.IReflectable
    │     │     └── returns: Map<string => any>
+   │     ├─┬ interface SomeType (deprecated)
+   │     │ └─┬ members
+   │     │   └─┬ name property (deprecated)
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ interface IReflectable (deprecated)
    │     │ └─┬ members
    │     │   └─┬ entries property (deprecated)
@@ -3594,6 +3603,18 @@ exports[`jsii-tree --all 1`] = `
      │     │ └─┬ _
      │     │   └── type: string
      │     └── returns: string
+     ├─┬ class NonPascalCaseTest (deprecated)
+     │ └─┬ members
+     │   ├─┬ <initializer>(props) initializer (deprecated)
+     │   │ └─┬ parameters
+     │   │   └─┬ props
+     │   │     └── type: @scope/jsii-calc-lib.NonPascalCaseTestProps
+     │   ├─┬ props property (deprecated)
+     │   │ ├── immutable
+     │   │ └── type: @scope/jsii-calc-lib.NonPascalCaseTestProps
+     │   └─┬ someType property (deprecated)
+     │     ├── immutable
+     │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
      ├─┬ class Number (deprecated)
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -3677,6 +3698,12 @@ exports[`jsii-tree --all 1`] = `
      │     ├── abstract
      │     ├── immutable
      │     └── type: Optional<Array<string>>
+     ├─┬ interface NonPascalCaseTestProps (deprecated)
+     │ └─┬ members
+     │   └─┬ someType property (deprecated)
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
      ├─┬ interface StructWithOnlyOptionals (deprecated)
      │ └─┬ members
      │   ├─┬ optional1 property (deprecated)
@@ -4206,15 +4233,18 @@ exports[`jsii-tree --inheritance 1`] = `
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class ClassWithNONPASCALCASEDName
    │     ├── class NestingClass
    │     ├── class NestedClass
    │     ├── class Reflector
+   │     ├── interface SomeType
    │     ├── interface IReflectable
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
      ├── class FunctionWithUnderscoreArgument
+     ├── class NonPascalCaseTest
      ├─┬ class Number
      │ ├── base: NumericValue
      │ └── interfaces: IDoublable
@@ -4230,6 +4260,7 @@ exports[`jsii-tree --inheritance 1`] = `
      │ └─┬ interfaces
      │   └── IBaseInterface
      ├── interface MyFirstStruct
+     ├── interface NonPascalCaseTestProps
      ├── interface StructWithOnlyOptionals
      └── enum EnumFromScopedModule
 "
@@ -5839,6 +5870,9 @@ exports[`jsii-tree --members 1`] = `
    │ │       └── method() method
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class ClassWithNONPASCALCASEDName
+   │     │ └─┬ members
+   │     │   └── <initializer>() initializer
    │     ├─┬ class NestingClass
    │     │ └── members
    │     ├─┬ class NestedClass
@@ -5849,6 +5883,9 @@ exports[`jsii-tree --members 1`] = `
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer
    │     │   └── asMap(reflectable) method
+   │     ├─┬ interface SomeType
+   │     │ └─┬ members
+   │     │   └── name property
    │     ├─┬ interface IReflectable
    │     │ └─┬ members
    │     │   └── entries property
@@ -5868,6 +5905,11 @@ exports[`jsii-tree --members 1`] = `
      │ └─┬ members
      │   ├── <initializer>() initializer
      │   └── foo(_) method
+     ├─┬ class NonPascalCaseTest
+     │ └─┬ members
+     │   ├── <initializer>(props) initializer
+     │   ├── props property
+     │   └── someType property
      ├─┬ class Number
      │ └─┬ members
      │   ├── <initializer>(value) initializer
@@ -5904,6 +5946,9 @@ exports[`jsii-tree --members 1`] = `
      │   ├── anumber property
      │   ├── astring property
      │   └── firstOptional property
+     ├─┬ interface NonPascalCaseTestProps
+     │ └─┬ members
+     │   └── someType property
      ├─┬ interface StructWithOnlyOptionals
      │ └─┬ members
      │   ├── optional1 property
@@ -6384,15 +6429,18 @@ exports[`jsii-tree --types 1`] = `
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class ClassWithNONPASCALCASEDName
    │     ├── class NestingClass
    │     ├── class NestedClass
    │     ├── class Reflector
+   │     ├── interface SomeType
    │     ├── interface IReflectable
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
      ├── class FunctionWithUnderscoreArgument
+     ├── class NonPascalCaseTest
      ├── class Number
      ├── class NumericValue
      ├── class Operation
@@ -6402,6 +6450,7 @@ exports[`jsii-tree --types 1`] = `
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface
      ├── interface MyFirstStruct
+     ├── interface NonPascalCaseTestProps
      ├── interface StructWithOnlyOptionals
      └── enum EnumFromScopedModule
 "

@@ -1026,17 +1026,21 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┃     ┣━ 📄 IDoublable.cs
        ┃        ┃     ┣━ 📄 IFriendly.cs
        ┃        ┃     ┣━ 📄 IMyFirstStruct.cs
+       ┃        ┃     ┣━ 📄 INonPascalCaseTestProps.cs
        ┃        ┃     ┣━ 📁 Internal
        ┃        ┃     ┃  ┗━ 📁 DependencyResolution
        ┃        ┃     ┃     ┗━ 📄 Anchor.cs
        ┃        ┃     ┣━ 📄 IStructWithOnlyOptionals.cs
        ┃        ┃     ┣━ 📄 IThreeLevelsInterface.cs
        ┃        ┃     ┣━ 📄 MyFirstStruct.cs
+       ┃        ┃     ┣━ 📄 NonPascalCaseTest.cs
+       ┃        ┃     ┣━ 📄 NonPascalCaseTestProps.cs
        ┃        ┃     ┣━ 📄 Number.cs
        ┃        ┃     ┣━ 📄 NumericValue.cs
        ┃        ┃     ┣━ 📄 Operation.cs
        ┃        ┃     ┗━ 📄 StructWithOnlyOptionals.cs
        ┃        ┗━ 📁 CustomSubmoduleName
+       ┃           ┣━ 📄 ClassWithNONPASCALCASEDName.cs
        ┃           ┣━ 📄 IReflectable.cs
        ┃           ┣━ 📄 IReflectableEntry.cs
        ┃           ┣━ 📄 NamespaceDoc.cs
@@ -1852,6 +1856,56 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/INonPascalCaseTestProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiInterface(nativeType: typeof(INonPascalCaseTestProps), fullyQualifiedName: "@scope/jsii-calc-lib.NonPascalCaseTestProps")]
+    [System.Obsolete()]
+    public interface INonPascalCaseTestProps
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "someType", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType\\"}")]
+        [System.Obsolete()]
+        Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType SomeType
+        {
+            get;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiTypeProxy(nativeType: typeof(INonPascalCaseTestProps), fullyQualifiedName: "@scope/jsii-calc-lib.NonPascalCaseTestProps")]
+        [System.Obsolete()]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.INonPascalCaseTestProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: "someType", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType\\"}")]
+            [System.Obsolete()]
+            public Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType SomeType
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType>()!;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/IStructWithOnlyOptionals.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -2092,6 +2146,104 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiProperty(name: "firstOptional", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"string\\"},\\"kind\\":\\"array\\"}}", isOptional: true)]
         [System.Obsolete()]
         public string[]? FirstOptional
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/NonPascalCaseTest.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NonPascalCaseTest), fullyQualifiedName: "@scope/jsii-calc-lib.NonPascalCaseTest", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"@scope/jsii-calc-lib.NonPascalCaseTestProps\\"}}]")]
+    [System.Obsolete()]
+    public class NonPascalCaseTest : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public NonPascalCaseTest(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.INonPascalCaseTestProps props): base(_MakeDeputyProps(props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.INonPascalCaseTestProps props)
+        {
+            return new DeputyProps(new object?[]{props});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected NonPascalCaseTest(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected NonPascalCaseTest(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "props", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-lib.NonPascalCaseTestProps\\"}")]
+        [System.Obsolete()]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.INonPascalCaseTestProps Props
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.INonPascalCaseTestProps>()!;
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "someType", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType\\"}")]
+        [System.Obsolete()]
+        public virtual Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType SomeType
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/NonPascalCaseTestProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    #pragma warning disable CS8618
+
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiByValue(fqn: "@scope/jsii-calc-lib.NonPascalCaseTestProps")]
+    public class NonPascalCaseTestProps : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.INonPascalCaseTestProps
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "someType", typeJson: "{\\"fqn\\":\\"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType\\"}")]
+        [System.Obsolete()]
+        public Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType SomeType
         {
             get;
             set;
@@ -2399,6 +2551,112 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CustomSubmoduleName/ClassWithNONPASCALCASEDName.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CustomSubmoduleName
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName")]
+    [System.Obsolete()]
+    public class ClassWithNONPASCALCASEDName : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public ClassWithNONPASCALCASEDName(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ClassWithNONPASCALCASEDName(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ClassWithNONPASCALCASEDName(DeputyProps props): base(props)
+        {
+        }
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiInterface(nativeType: typeof(ISomeType), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType")]
+        [System.Obsolete()]
+        public interface ISomeType
+        {
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            [System.Obsolete()]
+            string Name
+            {
+                get;
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiTypeProxy(nativeType: typeof(ISomeType), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType")]
+            [System.Obsolete()]
+            internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType
+            {
+                private _Proxy(ByRefValue reference): base(reference)
+                {
+                }
+
+                /// <remarks>
+                /// <strong>Stability</strong>: Deprecated
+                /// </remarks>
+                [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+                [System.Obsolete()]
+                public string Name
+                {
+                    get => GetInstanceProperty<string>()!;
+                }
+            }
+        }
+        #pragma warning disable CS8618
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiByValue(fqn: "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType")]
+        public class SomeType : Amazon.JSII.Tests.CustomSubmoduleName.ClassWithNONPASCALCASEDName.ISomeType
+        {
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            [System.Obsolete()]
+            public string Name
+            {
+                get;
+                set;
+            }
         }
     }
 }

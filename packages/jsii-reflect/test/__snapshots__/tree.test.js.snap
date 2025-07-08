@@ -3713,6 +3713,9 @@ exports[`showAll 1`] = `
    │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class ClassWithNONPASCALCASEDName
+   │     │ └─┬ members
+   │     │   └── <initializer>() initializer
    │     ├─┬ class NestingClass
    │     │ └── members
    │     ├─┬ class NestedClass
@@ -3729,6 +3732,12 @@ exports[`showAll 1`] = `
    │     │     │ └─┬ reflectable
    │     │     │   └── type: @scope/jsii-calc-lib.submodule.IReflectable
    │     │     └── returns: Map<string => any>
+   │     ├─┬ interface SomeType
+   │     │ └─┬ members
+   │     │   └─┬ name property
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ interface IReflectable
    │     │ └─┬ members
    │     │   └─┬ entries property
@@ -3771,6 +3780,18 @@ exports[`showAll 1`] = `
      │     │ └─┬ _
      │     │   └── type: string
      │     └── returns: string
+     ├─┬ class NonPascalCaseTest
+     │ └─┬ members
+     │   ├─┬ <initializer>(props) initializer
+     │   │ └─┬ parameters
+     │   │   └─┬ props
+     │   │     └── type: @scope/jsii-calc-lib.NonPascalCaseTestProps
+     │   ├─┬ props property
+     │   │ ├── immutable
+     │   │ └── type: @scope/jsii-calc-lib.NonPascalCaseTestProps
+     │   └─┬ someType property
+     │     ├── immutable
+     │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
      ├─┬ class Number
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -3854,6 +3875,12 @@ exports[`showAll 1`] = `
      │     ├── abstract
      │     ├── immutable
      │     └── type: Optional<Array<string>>
+     ├─┬ interface NonPascalCaseTestProps
+     │ └─┬ members
+     │   └─┬ someType property
+     │     ├── abstract
+     │     ├── immutable
+     │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
      ├─┬ interface StructWithOnlyOptionals
      │ └─┬ members
      │   ├─┬ optional1 property
@@ -4343,15 +4370,18 @@ exports[`types 1`] = `
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class ClassWithNONPASCALCASEDName
    │     ├── class NestingClass
    │     ├── class NestedClass
    │     ├── class Reflector
+   │     ├── interface SomeType
    │     ├── interface IReflectable
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class BaseFor2647
      ├── class FunctionWithUnderscoreArgument
+     ├── class NonPascalCaseTest
      ├── class Number
      ├── class NumericValue
      ├── class Operation
@@ -4361,6 +4391,7 @@ exports[`types 1`] = `
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface
      ├── interface MyFirstStruct
+     ├── interface NonPascalCaseTestProps
      ├── interface StructWithOnlyOptionals
      └── enum EnumFromScopedModule
 "

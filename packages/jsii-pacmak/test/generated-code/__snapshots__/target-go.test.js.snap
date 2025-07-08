@@ -958,6 +958,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
     ┗━ 📁 scopejsiicalclib
        ┣━ 📄 BaseFor2647.go
        ┣━ 📁 customsubmodulename
+       ┃  ┣━ 📄 ClassWithNONPASCALCASEDName_SomeType.go
+       ┃  ┣━ 📄 ClassWithNONPASCALCASEDName.go
        ┃  ┣━ 📄 IReflectable.go
        ┃  ┣━ 📄 main.go
        ┃  ┣━ 📄 NestingClass_NestedClass.go
@@ -987,6 +989,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 LICENSE
        ┣━ 📄 main.go
        ┣━ 📄 MyFirstStruct.go
+       ┣━ 📄 NonPascalCaseTest.go
+       ┣━ 📄 NonPascalCaseTestProps.go
        ┣━ 📄 NOTICE
        ┣━ 📄 Number.go
        ┣━ 📄 NumericValue.go
@@ -1512,6 +1516,95 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/NonPascalCaseTest.go 1`] = `
+package scopejsiicalclib
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
+)
+
+// Deprecated.
+type NonPascalCaseTest interface {
+	// Deprecated.
+	Props() *NonPascalCaseTestProps
+	// Deprecated.
+	SomeType() *customsubmodulename.ClassWithNONPASCALCASEDName_SomeType
+}
+
+// The jsii proxy struct for NonPascalCaseTest
+type jsiiProxy_NonPascalCaseTest struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_NonPascalCaseTest) Props() *NonPascalCaseTestProps {
+	var returns *NonPascalCaseTestProps
+	_jsii_.Get(
+		j,
+		"props",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_NonPascalCaseTest) SomeType() *customsubmodulename.ClassWithNONPASCALCASEDName_SomeType {
+	var returns *customsubmodulename.ClassWithNONPASCALCASEDName_SomeType
+	_jsii_.Get(
+		j,
+		"someType",
+		&returns,
+	)
+	return returns
+}
+
+
+// Deprecated.
+func NewNonPascalCaseTest(props *NonPascalCaseTestProps) NonPascalCaseTest {
+	_init_.Initialize()
+
+	j := jsiiProxy_NonPascalCaseTest{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.NonPascalCaseTest",
+		[]interface{}{props},
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func NewNonPascalCaseTest_Override(n NonPascalCaseTest, props *NonPascalCaseTestProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.NonPascalCaseTest",
+		[]interface{}{props},
+		n,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/NonPascalCaseTestProps.go 1`] = `
+package scopejsiicalclib
+
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/customsubmodulename"
+)
+
+// Deprecated.
+type NonPascalCaseTestProps struct {
+	// Deprecated.
+	SomeType *customsubmodulename.ClassWithNONPASCALCASEDName_SomeType \`field:"required" json:"someType" yaml:"someType"\`
+}
+
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/Number.go 1`] = `
 package scopejsiicalclib
 
@@ -1803,6 +1896,65 @@ type StructWithOnlyOptionals struct {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/ClassWithNONPASCALCASEDName.go 1`] = `
+package customsubmodulename
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// Deprecated.
+type ClassWithNONPASCALCASEDName interface {
+}
+
+// The jsii proxy struct for ClassWithNONPASCALCASEDName
+type jsiiProxy_ClassWithNONPASCALCASEDName struct {
+	_ byte // padding
+}
+
+// Deprecated.
+func NewClassWithNONPASCALCASEDName() ClassWithNONPASCALCASEDName {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithNONPASCALCASEDName{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated.
+func NewClassWithNONPASCALCASEDName_Override(c ClassWithNONPASCALCASEDName) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName",
+		nil, // no parameters
+		c,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/ClassWithNONPASCALCASEDName_SomeType.go 1`] = `
+package customsubmodulename
+
+
+// Deprecated.
+type ClassWithNONPASCALCASEDName_SomeType struct {
+	// Deprecated.
+	Name *string \`field:"required" json:"name" yaml:"name"\`
+}
+
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/customsubmodulename/IReflectable.go 1`] = `
 package customsubmodulename
 
@@ -2020,6 +2172,18 @@ import (
 )
 
 func init() {
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName",
+		reflect.TypeOf((*ClassWithNONPASCALCASEDName)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_ClassWithNONPASCALCASEDName{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType",
+		reflect.TypeOf((*ClassWithNONPASCALCASEDName_SomeType)(nil)).Elem(),
+	)
 	_jsii_.RegisterInterface(
 		"@scope/jsii-calc-lib.submodule.IReflectable",
 		reflect.TypeOf((*IReflectable)(nil)).Elem(),
@@ -2379,6 +2543,21 @@ func init() {
 		reflect.TypeOf((*MyFirstStruct)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.NonPascalCaseTest",
+		reflect.TypeOf((*NonPascalCaseTest)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "props", GoGetter: "Props"},
+			_jsii_.MemberProperty{JsiiProperty: "someType", GoGetter: "SomeType"},
+		},
+		func() interface{} {
+			return &jsiiProxy_NonPascalCaseTest{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@scope/jsii-calc-lib.NonPascalCaseTestProps",
+		reflect.TypeOf((*NonPascalCaseTestProps)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
 		"@scope/jsii-calc-lib.Number",
 		reflect.TypeOf((*Number)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -2449,6 +2628,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1
        ┣━ 🆕 FunctionWithUnderscoreArgument__checks.go
        ┣━ 🆕 FunctionWithUnderscoreArgument__no_checks.go
        ┣━ 📄 FunctionWithUnderscoreArgument.go.diff
+       ┣━ 🆕 NonPascalCaseTest__checks.go
+       ┣━ 🆕 NonPascalCaseTest__no_checks.go
+       ┣━ 📄 NonPascalCaseTest.go.diff
        ┣━ 🆕 Number__checks.go
        ┣━ 🆕 Number__no_checks.go
        ┗━ 📄 Number.go.diff
@@ -2592,6 +2774,68 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func (f *jsiiProxy_FunctionWithUnderscoreArgument) validateFooParameters(_arg *string) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/NonPascalCaseTest.go.diff 1`] = `
+--- go/scopejsiicalclib/NonPascalCaseTest.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/NonPascalCaseTest.go	--runtime-type-checking
+@@ -43,10 +43,13 @@
+ 
+ // Deprecated.
+ func NewNonPascalCaseTest(props *NonPascalCaseTestProps) NonPascalCaseTest {
+ 	_init_.Initialize()
+ 
++	if err := validateNewNonPascalCaseTestParameters(props); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_NonPascalCaseTest{}
+ 
+ 	_jsii_.Create(
+ 		"@scope/jsii-calc-lib.NonPascalCaseTest",
+ 		[]interface{}{props},
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/NonPascalCaseTest__checks.go.diff 1`] = `
+--- go/scopejsiicalclib/NonPascalCaseTest__checks.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/NonPascalCaseTest__checks.go	--runtime-type-checking
+@@ -0,0 +1,21 @@
++//go:build !no_runtime_type_checking
++
++package scopejsiicalclib
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func validateNewNonPascalCaseTestParameters(props *NonPascalCaseTestProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/go/scopejsiicalclib/NonPascalCaseTest__no_checks.go.diff 1`] = `
+--- go/scopejsiicalclib/NonPascalCaseTest__no_checks.go	--no-runtime-type-checking
++++ go/scopejsiicalclib/NonPascalCaseTest__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package scopejsiicalclib
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateNewNonPascalCaseTestParameters(props *NonPascalCaseTestProps) error {
 +	return nil
 +}
 +

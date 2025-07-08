@@ -1510,6 +1510,9 @@ from ._jsii import *
 
 import scope.jsii_calc_base as _scope_jsii_calc_base_734f0262
 import scope.jsii_calc_base_of_base as _scope_jsii_calc_base_of_base_49fa37fe
+from .custom_submodule_name import (
+    ClassWithNONPASCALCASEDName as _ClassWithNONPASCALCASEDName_2f42255f
+)
 
 
 class BaseFor2647(
@@ -1887,6 +1890,88 @@ class MyFirstStruct:
         )
 
 
+class NonPascalCaseTest(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.NonPascalCaseTest",
+):
+    '''
+    :stability: deprecated
+    '''
+
+    def __init__(
+        self,
+        *,
+        some_type: typing.Union[_ClassWithNONPASCALCASEDName_2f42255f.SomeType, typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''
+        :param some_type: 
+
+        :stability: deprecated
+        '''
+        props = NonPascalCaseTestProps(some_type=some_type)
+
+        jsii.create(self.__class__, self, [props])
+
+    @builtins.property
+    @jsii.member(jsii_name="props")
+    def props(self) -> "NonPascalCaseTestProps":
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast("NonPascalCaseTestProps", jsii.get(self, "props"))
+
+    @builtins.property
+    @jsii.member(jsii_name="someType")
+    def some_type(self) -> _ClassWithNONPASCALCASEDName_2f42255f.SomeType:
+        '''
+        :stability: deprecated
+        '''
+        return typing.cast(_ClassWithNONPASCALCASEDName_2f42255f.SomeType, jsii.get(self, "someType"))
+
+
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-lib.NonPascalCaseTestProps",
+    jsii_struct_bases=[],
+    name_mapping={"some_type": "someType"},
+)
+class NonPascalCaseTestProps:
+    def __init__(
+        self,
+        *,
+        some_type: typing.Union[_ClassWithNONPASCALCASEDName_2f42255f.SomeType, typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''
+        :param some_type: 
+
+        :stability: deprecated
+        '''
+        if isinstance(some_type, dict):
+            some_type = _ClassWithNONPASCALCASEDName_2f42255f.SomeType(**some_type)
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "some_type": some_type,
+        }
+
+    @builtins.property
+    def some_type(self) -> _ClassWithNONPASCALCASEDName_2f42255f.SomeType:
+        '''
+        :stability: deprecated
+        '''
+        result = self._values.get("some_type")
+        assert result is not None, "Required property 'some_type' is missing"
+        return typing.cast(_ClassWithNONPASCALCASEDName_2f42255f.SomeType, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "NonPascalCaseTestProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 class NumericValue(
     _scope_jsii_calc_base_734f0262.Base,
     metaclass=jsii.JSIIAbstractClass,
@@ -2094,6 +2179,8 @@ __all__ = [
     "IFriendly",
     "IThreeLevelsInterface",
     "MyFirstStruct",
+    "NonPascalCaseTest",
+    "NonPascalCaseTestProps",
     "Number",
     "NumericValue",
     "Operation",
@@ -2195,6 +2282,57 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
                 typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
+
+
+class ClassWithNONPASCALCASEDName(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName",
+):
+    '''
+    :stability: deprecated
+    '''
+
+    def __init__(self) -> None:
+        '''
+        :stability: deprecated
+        '''
+        jsii.create(self.__class__, self, [])
+
+    @jsii.data_type(
+        jsii_type="@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType",
+        jsii_struct_bases=[],
+        name_mapping={"name": "name"},
+    )
+    class SomeType:
+        def __init__(self, *, name: builtins.str) -> None:
+            '''
+            :param name: 
+
+            :stability: deprecated
+            '''
+            self._values: typing.Dict[builtins.str, typing.Any] = {
+                "name": name,
+            }
+
+        @builtins.property
+        def name(self) -> builtins.str:
+            '''
+            :stability: deprecated
+            '''
+            result = self._values.get("name")
+            assert result is not None, "Required property 'name' is missing"
+            return typing.cast(builtins.str, result)
+
+        def __eq__(self, rhs: typing.Any) -> builtins.bool:
+            return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+        def __ne__(self, rhs: typing.Any) -> builtins.bool:
+            return not (rhs == self)
+
+        def __repr__(self) -> str:
+            return "SomeType(%s)" % ", ".join(
+                k + "=" + repr(v) for k, v in self._values.items()
+            )
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.submodule.IReflectable")
@@ -2379,6 +2517,7 @@ class Reflector(
 
 
 __all__ = [
+    "ClassWithNONPASCALCASEDName",
     "IReflectable",
     "NestingClass",
     "ReflectableEntry",
@@ -2524,7 +2663,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_lib/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_lib/__init__.py	--runtime-type-checking
-@@ -52,19 +52,25 @@
+@@ -55,19 +55,25 @@
          '''
          :param very: -
  
@@ -2550,7 +2689,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  @jsii.data_type(
      jsii_type="@scope/jsii-calc-lib.DiamondLeft",
-@@ -82,10 +88,14 @@
+@@ -85,10 +91,14 @@
          :param hoisted_top: 
          :param left: 
  
@@ -2565,7 +2704,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if left is not None:
              self._values["left"] = left
-@@ -134,10 +144,14 @@
+@@ -137,10 +147,14 @@
          :param hoisted_top: 
          :param right: 
  
@@ -2580,7 +2719,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if right is not None:
              self._values["right"] = right
-@@ -209,10 +223,13 @@
+@@ -212,10 +226,13 @@
          '''
          :param _: -
  
@@ -2594,7 +2733,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
  class IDoublable(typing_extensions.Protocol):
-@@ -360,10 +377,15 @@
+@@ -363,10 +380,15 @@
          :param astring: (deprecated) A string value.
          :param first_optional: 
  
@@ -2610,7 +2749,21 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              "astring": astring,
          }
          if first_optional is not None:
-@@ -520,10 +542,15 @@
+@@ -467,10 +489,13 @@
+ 
+         :stability: deprecated
+         '''
+         if isinstance(some_type, dict):
+             some_type = _ClassWithNONPASCALCASEDName_2f42255f.SomeType(**some_type)
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__8081f9564a44bc1dad5e26bf48df5bc497694808ee03c8ccbd980ab61587aee6)
++            check_type(argname="argument some_type", value=some_type, expected_type=type_hints["some_type"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "some_type": some_type,
+         }
+ 
+     @builtins.property
+@@ -605,10 +630,15 @@
          :param optional2: 
          :param optional3: 
  
@@ -2626,7 +2779,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["optional1"] = optional1
          if optional2 is not None:
              self._values["optional2"] = optional2
-@@ -583,10 +610,13 @@
+@@ -668,10 +698,13 @@
  
          :param value: The number.
  
@@ -2640,7 +2793,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -627,5 +657,63 @@
+@@ -714,5 +747,70 @@
  publication.publish()
  
  # Loading modules to ensure their types are registered with the jsii runtime library
@@ -2690,6 +2843,13 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
 +    """Type checking stubs"""
 +    pass
 +
++def _typecheckingstub__8081f9564a44bc1dad5e26bf48df5bc497694808ee03c8ccbd980ab61587aee6(
++    *,
++    some_type: typing.Union[_ClassWithNONPASCALCASEDName_2f42255f.SomeType, typing.Dict[builtins.str, typing.Any]],
++) -> None:
++    """Type checking stubs"""
++    pass
++
 +def _typecheckingstub__82b4e5e8f3b46996124a87aac13a874f61bf9660a45a062bafa08046c027da63(
 +    *,
 +    optional1: typing.Optional[builtins.str] = None,
@@ -2709,7 +2869,21 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py	--runtime-type-checking
-@@ -115,10 +115,13 @@
+@@ -60,10 +60,13 @@
+             '''
+             :param name: 
+ 
+             :stability: deprecated
+             '''
++            if __debug__:
++                type_hints = typing.get_type_hints(_typecheckingstub__7073f0b0063a9ba1ceb949a9aefe7e3af5a1acbcf19b5013a8c15b7f3495c1ed)
++                check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+             self._values: typing.Dict[builtins.str, typing.Any] = {
+                 "name": name,
+             }
+ 
+         @builtins.property
+@@ -166,10 +169,13 @@
  
              :param name: 
  
@@ -2723,7 +2897,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              }
  
          @builtins.property
-@@ -153,10 +156,14 @@
+@@ -204,10 +210,14 @@
          :param key: 
          :param value: 
  
@@ -2738,7 +2912,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              "value": value,
          }
  
-@@ -212,10 +219,13 @@
+@@ -263,10 +273,13 @@
          '''
          :param reflectable: -
  
@@ -2751,13 +2925,20 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  
  __all__ = [
-     "IReflectable",
-@@ -223,5 +233,26 @@
+     "ClassWithNONPASCALCASEDName",
+@@ -275,5 +288,33 @@
      "ReflectableEntry",
      "Reflector",
  ]
  
  publication.publish()
++
++def _typecheckingstub__7073f0b0063a9ba1ceb949a9aefe7e3af5a1acbcf19b5013a8c15b7f3495c1ed(
++    *,
++    name: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
 +
 +def _typecheckingstub__5c03ed6e0d395f6fa262d12c7831dd2893af2098bf580a0c602a20f92c1ad24b(
 +    *,
