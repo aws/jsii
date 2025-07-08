@@ -19,6 +19,7 @@ exports[`defaults 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -78,6 +79,7 @@ exports[`inheritance 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -137,6 +139,7 @@ exports[`members 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -425,6 +428,26 @@ exports[`showAll 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: Optional<number>
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class NonPascalCaseTest
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.jsii4894.NonPascalCaseTestProps
+ │ │ │   │   ├─┬ props property
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: jsii-calc.jsii4894.NonPascalCaseTestProps
+ │ │ │   │   └─┬ someType property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
+ │ │ │   └─┬ interface NonPascalCaseTestProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ someType property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass
@@ -3780,18 +3803,6 @@ exports[`showAll 1`] = `
      │     │ └─┬ _
      │     │   └── type: string
      │     └── returns: string
-     ├─┬ class NonPascalCaseTest
-     │ └─┬ members
-     │   ├─┬ <initializer>(props) initializer
-     │   │ └─┬ parameters
-     │   │   └─┬ props
-     │   │     └── type: @scope/jsii-calc-lib.NonPascalCaseTestProps
-     │   ├─┬ props property
-     │   │ ├── immutable
-     │   │ └── type: @scope/jsii-calc-lib.NonPascalCaseTestProps
-     │   └─┬ someType property
-     │     ├── immutable
-     │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
      ├─┬ class Number
      │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
@@ -3875,12 +3886,6 @@ exports[`showAll 1`] = `
      │     ├── abstract
      │     ├── immutable
      │     └── type: Optional<Array<string>>
-     ├─┬ interface NonPascalCaseTestProps
-     │ └─┬ members
-     │   └─┬ someType property
-     │     ├── abstract
-     │     ├── immutable
-     │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
      ├─┬ interface StructWithOnlyOptionals
      │ └─┬ members
      │   ├─┬ optional1 property
@@ -3920,6 +3925,7 @@ exports[`signatures 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -4018,6 +4024,10 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
  │ │ │   └── interface ImplementMeOpts
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├── class NonPascalCaseTest
+ │ │ │   └── interface NonPascalCaseTestProps
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -4381,7 +4391,6 @@ exports[`types 1`] = `
    └─┬ types
      ├── class BaseFor2647
      ├── class FunctionWithUnderscoreArgument
-     ├── class NonPascalCaseTest
      ├── class Number
      ├── class NumericValue
      ├── class Operation
@@ -4391,7 +4400,6 @@ exports[`types 1`] = `
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface
      ├── interface MyFirstStruct
-     ├── interface NonPascalCaseTestProps
      ├── interface StructWithOnlyOptionals
      └── enum EnumFromScopedModule
 "

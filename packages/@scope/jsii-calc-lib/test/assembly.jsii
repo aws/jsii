@@ -95,14 +95,14 @@
     "@scope/jsii-calc-lib.deprecationRemoval": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 153
+        "line": 141
       },
       "symbolId": "lib/deprecation-removal:"
     },
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 151
+        "line": 139
       },
       "readme": {
         "markdown": "# Submodule Readme\n\nThis is a submodule readme.\n"
@@ -166,7 +166,7 @@
         },
         "locationInModule": {
           "filename": "lib/index.ts",
-          "line": 122
+          "line": 121
         },
         "parameters": [
           {
@@ -180,7 +180,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 121
+        "line": 120
       },
       "methods": [
         {
@@ -189,7 +189,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 126
+            "line": 125
           },
           "name": "foo",
           "parameters": [
@@ -314,7 +314,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 99
+        "line": 98
       },
       "members": [
         {
@@ -348,7 +348,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 134
+        "line": 133
       },
       "methods": [
         {
@@ -357,7 +357,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 135
+            "line": 134
           },
           "name": "foo",
           "parameters": [
@@ -388,7 +388,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 25
+        "line": 24
       },
       "name": "IDoublable",
       "properties": [
@@ -400,7 +400,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 26
+            "line": 25
           },
           "name": "doubleValue",
           "type": {
@@ -421,7 +421,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 60
+        "line": 59
       },
       "methods": [
         {
@@ -432,7 +432,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 64
+            "line": 63
           },
           "name": "hello",
           "returns": {
@@ -459,7 +459,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 110
+        "line": 109
       },
       "methods": [
         {
@@ -469,7 +469,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 111
+            "line": 110
           },
           "name": "baz"
         }
@@ -488,7 +488,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 70
+        "line": 69
       },
       "name": "MyFirstStruct",
       "properties": [
@@ -501,7 +501,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 79
+            "line": 78
           },
           "name": "anumber",
           "type": {
@@ -517,7 +517,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 74
+            "line": 73
           },
           "name": "astring",
           "type": {
@@ -532,7 +532,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 80
+            "line": 79
           },
           "name": "firstOptional",
           "optional": true,
@@ -547,99 +547,6 @@
         }
       ],
       "symbolId": "lib/index:MyFirstStruct"
-    },
-    "@scope/jsii-calc-lib.NonPascalCaseTest": {
-      "assembly": "@scope/jsii-calc-lib",
-      "docs": {
-        "stability": "deprecated"
-      },
-      "fqn": "@scope/jsii-calc-lib.NonPascalCaseTest",
-      "initializer": {
-        "docs": {
-          "stability": "deprecated"
-        },
-        "locationInModule": {
-          "filename": "lib/index.ts",
-          "line": 146
-        },
-        "parameters": [
-          {
-            "name": "props",
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.NonPascalCaseTestProps"
-            }
-          }
-        ]
-      },
-      "kind": "class",
-      "locationInModule": {
-        "filename": "lib/index.ts",
-        "line": 143
-      },
-      "name": "NonPascalCaseTest",
-      "properties": [
-        {
-          "docs": {
-            "stability": "deprecated"
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 146
-          },
-          "name": "props",
-          "type": {
-            "fqn": "@scope/jsii-calc-lib.NonPascalCaseTestProps"
-          }
-        },
-        {
-          "docs": {
-            "stability": "deprecated"
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 144
-          },
-          "name": "someType",
-          "type": {
-            "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType"
-          }
-        }
-      ],
-      "symbolId": "lib/index:NonPascalCaseTest"
-    },
-    "@scope/jsii-calc-lib.NonPascalCaseTestProps": {
-      "assembly": "@scope/jsii-calc-lib",
-      "datatype": true,
-      "docs": {
-        "stability": "deprecated"
-      },
-      "fqn": "@scope/jsii-calc-lib.NonPascalCaseTestProps",
-      "kind": "interface",
-      "locationInModule": {
-        "filename": "lib/index.ts",
-        "line": 140
-      },
-      "name": "NonPascalCaseTestProps",
-      "properties": [
-        {
-          "abstract": true,
-          "docs": {
-            "stability": "deprecated"
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 141
-          },
-          "name": "someType",
-          "type": {
-            "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType"
-          }
-        }
-      ],
-      "symbolId": "lib/index:NonPascalCaseTestProps"
     },
     "@scope/jsii-calc-lib.Number": {
       "assembly": "@scope/jsii-calc-lib",
@@ -656,7 +563,7 @@
         },
         "locationInModule": {
           "filename": "lib/index.ts",
-          "line": 37
+          "line": 36
         },
         "parameters": [
           {
@@ -676,7 +583,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 32
+        "line": 31
       },
       "name": "Number",
       "properties": [
@@ -688,7 +595,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 44
+            "line": 43
           },
           "name": "doubleValue",
           "overrides": "@scope/jsii-calc-lib.IDoublable",
@@ -704,7 +611,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 37
+            "line": 36
           },
           "name": "value",
           "overrides": "@scope/jsii-calc-lib.NumericValue",
@@ -728,7 +635,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 8
+        "line": 7
       },
       "methods": [
         {
@@ -738,7 +645,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 17
+            "line": 16
           },
           "name": "toString",
           "returns": {
@@ -759,7 +666,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 12
+            "line": 11
           },
           "name": "value",
           "type": {
@@ -782,7 +689,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 52
+        "line": 51
       },
       "methods": [
         {
@@ -793,7 +700,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 53
+            "line": 52
           },
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.NumericValue",
@@ -818,7 +725,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 86
+        "line": 85
       },
       "name": "StructWithOnlyOptionals",
       "properties": [
@@ -831,7 +738,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 90
+            "line": 89
           },
           "name": "optional1",
           "optional": true,
@@ -847,7 +754,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 91
+            "line": 90
           },
           "name": "optional2",
           "optional": true,
@@ -863,7 +770,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 92
+            "line": 91
           },
           "name": "optional3",
           "optional": true,
@@ -978,7 +885,8 @@
     "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
-        "stability": "deprecated"
+        "stability": "deprecated",
+        "summary": "Test for classes with shouting-cased names that serve as a namespace, consumed from a different assembly than the current one."
       },
       "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName",
       "initializer": {
@@ -989,7 +897,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 43
+        "line": 46
       },
       "name": "ClassWithNONPASCALCASEDName",
       "namespace": "submodule",
@@ -1005,7 +913,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 46
+        "line": 49
       },
       "name": "SomeType",
       "namespace": "submodule.ClassWithNONPASCALCASEDName",
@@ -1018,7 +926,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 47
+            "line": 50
           },
           "name": "name",
           "type": {
@@ -1253,5 +1161,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "aAMX+DmVV/BhYQkV3L/QlomNVI8YoXROD5v8d3m9NMw="
+  "fingerprint": "TAndxo+5jbCFrAyYaia3b3l0G499CXHxvgpoEsX8OxM="
 }
