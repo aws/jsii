@@ -56,7 +56,7 @@
     "@jsii/java-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/clone": "^2.1.4",
-    "@types/commonmark": "^0.27.9",
+    "@types/commonmark": "^0.27.10",
     "@types/diff": "^5.2.3",
     "@types/fs-extra": "^9.0.13",
     "@types/semver": "^7.7.0",
@@ -65,7 +65,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-rosetta": "~5.8.0",
-    "pyright": "^1.1.401"
+    "pyright": "^1.1.403"
   },
   "peerDependencies": {
     "jsii-rosetta": ">=5.5.0"
