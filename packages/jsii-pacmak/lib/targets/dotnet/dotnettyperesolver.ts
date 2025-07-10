@@ -36,6 +36,7 @@ export class DotNetTypeResolver {
    */
   public toNativeFqn(fqn: string): string {
     const type = this.findType(fqn);
+
     let typeName = '';
     switch (type.kind) {
       case spec.TypeKind.Interface:
@@ -59,6 +60,7 @@ export class DotNetTypeResolver {
         `The assembly ${mod} does not have a dotnet.namespace setting`,
       );
     }
+
     if (type.namespace) {
       // If the type is declared in an additional namespace.
       const namespaceFqn = `${this.assembly.name}.${type.namespace}`;
@@ -169,10 +171,14 @@ export class DotNetTypeResolver {
     for (let i = 0; i < segments.length; i++) {
       const submoduleName = `${assmName}.${segments.slice(0, i + 1).join('.')}`;
       const submodule = assm.submodules?.[submoduleName];
-      if (submodule && submodule.targets?.dotnet?.namespace) {
-        resolved = submodule.targets.dotnet.namespace;
+      if (submodule) {
+        // This is a submodule, either it has an explicit namespace or we do the name conversion here
+        resolved =
+          submodule.targets?.dotnet?.namespace ??
+          `${resolved}.${toPascalCase(segments[i])}`;
       } else {
-        resolved = `${resolved}.${toPascalCase(segments[i])}`;
+        // If it's not a submodule, it's a type and we need to convert the name the way we would convert names normally.
+        resolved = `${resolved}.${new DotNetNameUtils().convertTypeName(segments[i])}`;
       }
     }
     return resolved;
