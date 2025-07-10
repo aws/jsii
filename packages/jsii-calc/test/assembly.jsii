@@ -210,7 +210,7 @@
     "jsii-calc.anonymous": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 28
+        "line": 29
       },
       "symbolId": "lib/anonymous/index:"
     },
@@ -245,7 +245,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 30
+        "line": 31
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -272,6 +272,13 @@
         "line": 26
       },
       "symbolId": "lib/jsii3656/index:"
+    },
+    "jsii-calc.jsii4894": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 27
+      },
+      "symbolId": "lib/jsii4894:"
     },
     "jsii-calc.module2530": {
       "locationInModule": {
@@ -457,7 +464,7 @@
     "jsii-calc.union": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 29
+        "line": 30
       },
       "symbolId": "lib/union:"
     }
@@ -17030,6 +17037,101 @@
       "namespace": "jsii3656",
       "symbolId": "lib/jsii3656/index:OverrideMe"
     },
+    "jsii-calc.jsii4894.NonPascalCaseTest": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.jsii4894.NonPascalCaseTest",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/jsii4894.ts",
+          "line": 10
+        },
+        "parameters": [
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.jsii4894.NonPascalCaseTestProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/jsii4894.ts",
+        "line": 7
+      },
+      "name": "NonPascalCaseTest",
+      "namespace": "jsii4894",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/jsii4894.ts",
+            "line": 10
+          },
+          "name": "props",
+          "type": {
+            "fqn": "jsii-calc.jsii4894.NonPascalCaseTestProps"
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/jsii4894.ts",
+            "line": 8
+          },
+          "name": "someType",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType"
+          }
+        }
+      ],
+      "symbolId": "lib/jsii4894:NonPascalCaseTest"
+    },
+    "jsii-calc.jsii4894.NonPascalCaseTestProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.jsii4894.NonPascalCaseTestProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/jsii4894.ts",
+        "line": 3
+      },
+      "name": "NonPascalCaseTestProps",
+      "namespace": "jsii4894",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/jsii4894.ts",
+            "line": 4
+          },
+          "name": "someType",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType"
+          }
+        }
+      ],
+      "symbolId": "lib/jsii4894:NonPascalCaseTestProps"
+    },
     "jsii-calc.module2530.MyClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -19029,5 +19131,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "diRJGYXL5dj+evWTyBy8BeUweyFmmVEcYDFNewFM1VQ="
+  "fingerprint": "O9HJsUWsfrb1HrOQ1znKEfsWfa9DuDhrkIFb7nHuB2g="
 }
