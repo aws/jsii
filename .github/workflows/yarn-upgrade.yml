@@ -71,7 +71,6 @@ jobs:
         # We special-case @types/yargs because 17.0.13 is the last version that doesn't break
         # We special-case eslint-plugin-import because 26 is the last version that works for us.
         # We special-case glob because newer version don't support Node 18
-        # We special-case typescript-json-schema because newer versions require @types/node@18 which breaks packages that need to build with ts3.9
         # We special-case @xmldom/xmldom because newer versions are not compatible with the code and jsii-rosetta 1.x is soon EOS
         run: |-
           # Upgrade devDependencies at repository root
@@ -90,7 +89,7 @@ jobs:
 
           # Upgrade all other dependencies (devDependencies) to the latest
           lerna exec --parallel ncu -- --upgrade --target=latest                                    \
-            --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,typescript-json-schema,${{ steps.production-dependencies.outputs.list }},jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
+            --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,${{ steps.production-dependencies.outputs.list }},jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
