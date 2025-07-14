@@ -1,6 +1,6 @@
 module github.com/aws/jsii/go-runtime-test
 
-go 1.23.0
+go 1.23
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
