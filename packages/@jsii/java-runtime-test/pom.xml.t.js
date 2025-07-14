@@ -36,7 +36,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>[5.6.2,6)</version>
+            <version>[5.6.2,5.999)</version>
             <scope>test</scope>
         </dependency>
 

@@ -882,6 +882,60 @@
       ],
       "symbolId": "lib/deprecation-removal:VisibleBaseClass"
     },
+    "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated",
+        "summary": "Test for classes with shouting-cased names that serve as a namespace, consumed from a different assembly than the current one."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 46
+      },
+      "name": "ClassWithNONPASCALCASEDName",
+      "namespace": "submodule",
+      "symbolId": "lib/submodule/index:ClassWithNONPASCALCASEDName"
+    },
+    "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 49
+      },
+      "name": "SomeType",
+      "namespace": "submodule.ClassWithNONPASCALCASEDName",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 50
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/submodule/index:ClassWithNONPASCALCASEDName.SomeType"
+    },
     "@scope/jsii-calc-lib.submodule.IReflectable": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
@@ -891,7 +945,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 1
+        "line": 2
       },
       "name": "IReflectable",
       "namespace": "submodule",
@@ -904,7 +958,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 2
+            "line": 3
           },
           "name": "entries",
           "type": {
@@ -929,7 +983,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 22
+        "line": 23
       },
       "name": "NestingClass",
       "namespace": "submodule",
@@ -950,7 +1004,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 30
+        "line": 31
       },
       "name": "NestedClass",
       "namespace": "submodule.NestingClass",
@@ -962,7 +1016,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 31
+            "line": 32
           },
           "name": "property",
           "type": {
@@ -984,7 +1038,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 37
+        "line": 38
       },
       "name": "NestedStruct",
       "namespace": "submodule.NestingClass",
@@ -997,7 +1051,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 38
+            "line": 39
           },
           "name": "name",
           "type": {
@@ -1017,7 +1071,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 5
+        "line": 6
       },
       "name": "ReflectableEntry",
       "namespace": "submodule",
@@ -1030,7 +1084,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 6
+            "line": 7
           },
           "name": "key",
           "type": {
@@ -1045,7 +1099,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 7
+            "line": 8
           },
           "name": "value",
           "type": {
@@ -1069,7 +1123,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 10
+        "line": 11
       },
       "methods": [
         {
@@ -1078,7 +1132,7 @@
           },
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 11
+            "line": 12
           },
           "name": "asMap",
           "parameters": [
@@ -1107,5 +1161,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Cj0SprOiSFuu5uOdVNJtUfPpVZxEi7sfDe0BiGEM54M="
+  "fingerprint": "96UhBBs//vTawYDeg5dqr+eKokWgEG0LCb9P8eVfdF0="
 }
