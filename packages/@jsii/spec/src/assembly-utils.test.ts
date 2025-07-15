@@ -128,7 +128,7 @@ describe(loadAssemblyFromPath, () => {
       filename: '.jsii.7z',
     });
 
-    expect(() => loadAssemblyFromPath(tmpdir)).toThrowError(
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
       /Error: Invalid assembly redirect:\n \* redirect\/compression must be equal to constant/m,
     );
   });
@@ -138,7 +138,7 @@ describe(loadAssemblyFromPath, () => {
       schema: 'jsii/file-redirect',
     });
 
-    expect(() => loadAssemblyFromPath(tmpdir)).toThrowError(
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
       /Error: Invalid assembly redirect:\n \* redirect must have required property 'filename'/m,
     );
   });
