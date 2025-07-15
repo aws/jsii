@@ -95,5 +95,5 @@ test('generated code passes pyright', async () => {
         env: venv.env,
       },
     ),
-  ).resolves.not.toThrowError();
+  ).resolves.not.toThrow();
 });

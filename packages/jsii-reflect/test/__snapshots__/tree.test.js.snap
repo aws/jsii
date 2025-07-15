@@ -19,6 +19,7 @@ exports[`defaults 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -78,6 +79,7 @@ exports[`inheritance 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -137,6 +139,7 @@ exports[`members 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -425,6 +428,26 @@ exports[`showAll 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: Optional<number>
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class NonPascalCaseTest
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.jsii4894.NonPascalCaseTestProps
+ │ │ │   │   ├─┬ props property
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: jsii-calc.jsii4894.NonPascalCaseTestProps
+ │ │ │   │   └─┬ someType property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
+ │ │ │   └─┬ interface NonPascalCaseTestProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ someType property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass
@@ -3713,6 +3736,9 @@ exports[`showAll 1`] = `
    │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class ClassWithNONPASCALCASEDName
+   │     │ └─┬ members
+   │     │   └── <initializer>() initializer
    │     ├─┬ class NestingClass
    │     │ └── members
    │     ├─┬ class NestedClass
@@ -3729,6 +3755,12 @@ exports[`showAll 1`] = `
    │     │     │ └─┬ reflectable
    │     │     │   └── type: @scope/jsii-calc-lib.submodule.IReflectable
    │     │     └── returns: Map<string => any>
+   │     ├─┬ interface SomeType
+   │     │ └─┬ members
+   │     │   └─┬ name property
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ interface IReflectable
    │     │ └─┬ members
    │     │   └─┬ entries property
@@ -3893,6 +3925,7 @@ exports[`signatures 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -3991,6 +4024,10 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
  │ │ │   └── interface ImplementMeOpts
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├── class NonPascalCaseTest
+ │ │ │   └── interface NonPascalCaseTestProps
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -4343,9 +4380,11 @@ exports[`types 1`] = `
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class ClassWithNONPASCALCASEDName
    │     ├── class NestingClass
    │     ├── class NestedClass
    │     ├── class Reflector
+   │     ├── interface SomeType
    │     ├── interface IReflectable
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry

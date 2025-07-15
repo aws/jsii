@@ -281,7 +281,7 @@ async function runPacmak(
       runtimeTypeChecking,
       targets: [targetName],
     }),
-  ).resolves.not.toThrowError();
+  ).resolves.not.toThrow();
 }
 
 export async function preparePythonVirtualEnv({
@@ -330,7 +330,7 @@ export async function preparePythonVirtualEnv({
         : []),
       JSON.stringify(venvRoot),
     ]),
-  ).resolves.not.toThrowError();
+  ).resolves.not.toThrow();
 
   // First install dev dependencies
   await expect(
@@ -346,7 +346,7 @@ export async function preparePythonVirtualEnv({
       ],
       { env, retry: { maxAttempts: 5 } },
     ),
-  ).resolves.not.toThrowError();
+  ).resolves.not.toThrow();
 
   await expect(
     shell(
@@ -369,7 +369,7 @@ export async function preparePythonVirtualEnv({
       ],
       { env, retry: { maxAttempts: 5 } },
     ),
-  ).resolves.not.toThrowError();
+  ).resolves.not.toThrow();
 
   return { env, venvPython, venvRoot };
 }
@@ -406,7 +406,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
       ],
       { env },
     ),
-  ).resolves.not.toThrowError();
+  ).resolves.not.toThrow();
 }
 
 type TreeStructure =

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 export interface IReflectable {
   readonly entries: ReflectableEntry[];
 }
@@ -35,6 +36,17 @@ export namespace NestingClass {
    * This is a struct, nested within a class. Normal.
    */
   export interface NestedStruct {
+    readonly name: string;
+  }
+}
+
+/**
+ * Test for classes with shouting-cased names that serve as a namespace, consumed from a different assembly than the current one.
+ */
+export class ClassWithNONPASCALCASEDName {}
+
+export namespace ClassWithNONPASCALCASEDName {
+  export interface SomeType {
     readonly name: string;
   }
 }
