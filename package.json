@@ -33,7 +33,7 @@
     "jest-config": "^30.0.5",
     "jest-expect-message": "^1.1.3",
     "lerna": "^8.2.3",
-    "npm-check-updates": "^18.0.1",
+    "npm-check-updates": "^18.0.2",
     "prettier": "^3.6.2",
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
