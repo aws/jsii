@@ -56,7 +56,7 @@ export function checkNode(envPrefix = 'JSII'): void {
   } else if (nodeRelease?.deprecated) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_DEPRECATED_NODE_VERSION`;
     if (!process.env[silenceVariable]) {
-      const deadline = nodeRelease.endOfLifeDate!.toISOString().slice(0, 10);
+      const deadline = nodeRelease.endOfLifeDate.toISOString().slice(0, 10);
       veryVisibleMessage(
         bgYellowBright.black,
         `Node ${nodeRelease.majorVersion} is approaching end-of-life and will no longer be supported in new releases after ${deadline}.`,
