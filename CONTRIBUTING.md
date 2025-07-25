@@ -20,6 +20,7 @@ our own CI/CD: the ["superchain" image][superchain] from.
 [superchain]: https://github.com/aws/jsii-superchain
 
 Once built locally, you can launch a shell from your root project directory in a self-removing container like so:  
+
 ```bash
 # runs the built container, creates a volume mount to /project inside the container
 docker run --rm -it -v "$(pwd)":/project -w /project jsii/superchain:local
@@ -31,7 +32,7 @@ The following tools need to be installed to develop on JSII locally. We recommen
 using the docker image from the above section, but if you wish to, you can install
 in your development environment.
 
-- [Node `18.0.0`] or later
+- [Node `20.0.0`] or later
 - [Yarn `1.19.1`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
   - [`maven >= 3.0.5`](https://maven.apache.org)

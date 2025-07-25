@@ -10,10 +10,9 @@ const ONE_DAY_IN_MILLISECONDS = 86_400_000;
  */
 export class NodeRelease {
   /**
-   * How long before enf-of-life do we start warning customers? Expressed in
-   * milliseconds to make it easier to deal with JS dates.
+   * How long after end-of-life do we continue to support a node version.
    */
-  private static readonly DEPRECATION_WINDOW_MS = 30 * ONE_DAY_IN_MILLISECONDS;
+  private static readonly DEFAULT_EXTENDED_SUPPORT_MONTHS = 6;
 
   /**
    * All registered node releases.
@@ -21,7 +20,11 @@ export class NodeRelease {
   public static readonly ALL_RELEASES: readonly NodeRelease[] = [
     // Historical releases (not relevant at time of writing this as they're all EOL now...)
     ...([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const).map(
-      (majorVersion) => new NodeRelease(majorVersion, { endOfLife: true }),
+      (majorVersion) =>
+        new NodeRelease(majorVersion, {
+          endOfLife: new Date('2018-01-01'),
+          untested: true,
+        }),
     ),
 
     // Past end-of-life releases
@@ -46,11 +49,16 @@ export class NodeRelease {
     }),
     new NodeRelease(19, { endOfLife: new Date('2023-06-01'), untested: true }),
     new NodeRelease(21, { endOfLife: new Date('2024-06-01'), untested: true }),
+    new NodeRelease(23, { endOfLife: new Date('2025-06-01'), untested: true }),
 
     // Currently active releases (as of last edit to this file...)
-    new NodeRelease(18, { endOfLife: new Date('2025-04-30') }),
+    new NodeRelease(18, {
+      endOfLife: new Date('2025-04-30'),
+      endOfJsiiSupport: new Date('2025-11-30'),
+    }),
     new NodeRelease(20, { endOfLife: new Date('2026-04-30') }),
     new NodeRelease(22, { endOfLife: new Date('2027-04-30') }),
+    new NodeRelease(24, { endOfLife: new Date('2028-04-30') }),
 
     // Future (planned releases)
   ];
@@ -88,20 +96,32 @@ export class NodeRelease {
 
   /**
    * The date on which this release range starts to be considered end-of-life.
-   * May be `undefined` for "ancient" releases (before Node 12).
+   * Defaults to a pre-CDK date for "ancient" releases (before Node 12).
    */
-  public readonly endOfLifeDate: Date | undefined;
+  public readonly endOfLifeDate: Date;
 
   /**
-   * Determines whether this release is currently considered end-of-life.
+   * Determines whether this release has reached end of support for jsii.
+   * This is usually longer then endOfLife;
    */
-  public readonly endOfLife: boolean;
+  public readonly endOfJsiiSupportDate: Date;
 
   /**
    * Determines whether this release is within the deprecation window ahead of
    * it's end-of-life date.
    */
   public readonly deprecated: boolean;
+
+  /**
+   * Determines whether this release has reached end-of-life.
+   */
+  public readonly endOfLife: boolean;
+
+  /**
+   * Determines whether this major version line is currently "in support",
+   * meaning it is not end-of-life or within our extended support time frame.
+   */
+  public readonly supported: boolean;
 
   /**
    * If `true` denotes that this version of node has not been added to the test
@@ -119,51 +139,45 @@ export class NodeRelease {
    */
   public readonly supportedRange: Range;
 
-  /**
-   * Determines whether this major version line is currently "in support",
-   * meaning it is not end-of-life nor pending.
-   */
-  public readonly supported: boolean;
-
-  /** @internal visible for testing */
-  public constructor(
-    majorVersion: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11,
-    opts: { endOfLife: true },
-  );
   /** @internal visible for testing */
   public constructor(
     majorVersion: number,
     opts: {
       endOfLife: Date;
-      untested?: boolean;
-      supportedRange?: string;
-    },
-  );
-  /** @internal visible for testing */
-  public constructor(
-    majorVersion: number,
-    opts: {
-      endOfLife: Date | true;
+      endOfJsiiSupport?: Date;
       untested?: boolean;
       supportedRange?: string;
     },
   ) {
-    this.majorVersion = majorVersion;
-    this.endOfLifeDate = opts.endOfLife === true ? undefined : opts.endOfLife;
     this.untested = opts.untested ?? false;
+    this.majorVersion = majorVersion;
     this.supportedRange = new Range(
       opts.supportedRange ?? `^${majorVersion}.0.0`,
     );
 
+    this.endOfLifeDate = opts.endOfLife;
     this.endOfLife =
-      opts.endOfLife === true || opts.endOfLife.getTime() <= Date.now();
-    this.deprecated =
-      !this.endOfLife &&
-      opts.endOfLife !== true &&
-      opts.endOfLife.getTime() - NodeRelease.DEPRECATION_WINDOW_MS <=
-        Date.now();
+      opts.endOfLife.getTime() + ONE_DAY_IN_MILLISECONDS <= Date.now();
 
-    this.supported = !this.untested && !this.endOfLife;
+    // jsii EOS defaults to 6 months after EOL
+    this.endOfJsiiSupportDate =
+      opts.endOfJsiiSupport ??
+      new Date(
+        this.endOfLifeDate.getFullYear(),
+        this.endOfLifeDate.getMonth() +
+          NodeRelease.DEFAULT_EXTENDED_SUPPORT_MONTHS,
+        this.endOfLifeDate.getDate(),
+      );
+
+    const endOfJsiiSupport =
+      this.endOfJsiiSupportDate.getTime() + ONE_DAY_IN_MILLISECONDS <=
+      Date.now();
+
+    // We deprecate (warn) from EOL to jsii EOS
+    this.deprecated = this.endOfLife && !endOfJsiiSupport;
+
+    // All tested and not EOS versions are supported
+    this.supported = !this.untested && !endOfJsiiSupport;
   }
 
   public toString(): string {
