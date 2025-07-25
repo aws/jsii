@@ -412,7 +412,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "wheel~=0.42"]
+requires = ["setuptools~=75.3.2", "build~=1.2.2.post1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -943,7 +943,7 @@ foo
 
 exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "wheel~=0.42"]
+requires = ["setuptools~=75.3.2", "build~=1.2.2.post1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1454,7 +1454,7 @@ foo
 
 exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "wheel~=0.42"]
+requires = ["setuptools~=75.3.2", "build~=1.2.2.post1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1962,7 +1962,7 @@ foo
 
 exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "wheel~=0.42"]
+requires = ["setuptools~=75.3.2", "build~=1.2.2.post1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
