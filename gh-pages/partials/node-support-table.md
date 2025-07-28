@@ -5,6 +5,7 @@
     | `^18.0.0` | :white_check_mark: Supported | `2025-04-30` |
     | `^20.0.0` | :white_check_mark: Supported | `2026-04-30` |
     | `^22.0.0` | :white_check_mark: Supported | `2027-04-30` |
+    | `^24.0.0` | :white_check_mark: Supported | `2028-04-30` |
 
     ??? question "Status Definitions"
         - **:white_check_mark: Supported**: Long Term Support (LTS) releases  (those with an even major version) are
