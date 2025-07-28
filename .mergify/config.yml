@@ -1,4 +1,7 @@
 # See https://doc.mergify.io
+merge_queue:
+  # Ensure Mergify doesn't use speculative PRs to evaluate mergeability
+  max_parallel_checks: 1
 queue_rules:
   - name: default-squash
     conditions:
