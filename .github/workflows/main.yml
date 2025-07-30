@@ -232,6 +232,13 @@ jobs:
             node: '22' # EOL 2027-04-30
             os: ubuntu-latest
             python: '3.9'
+          - title: 'Node 24'
+            java: '8'
+            dotnet: '6.0.x'
+            go: '1.18'
+            node: '22' # EOL 2028-04-30
+            os: ubuntu-latest
+            python: '3.9'
           # Test alternate .NETs
           - title: '.NET 7.0'
             java: '8'
