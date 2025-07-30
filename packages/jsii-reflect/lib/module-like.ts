@@ -45,27 +45,21 @@ export abstract class ModuleLike {
    * All classes in this module/namespace (not submodules)
    */
   public get classes(): readonly ClassType[] {
-    return this.types
-      .filter((t) => t instanceof ClassType)
-      .map((t) => t as ClassType);
+    return this.types.filter((t) => t instanceof ClassType).map((t) => t);
   }
 
   /**
    * All interfaces in this module/namespace (not submodules)
    */
   public get interfaces(): readonly InterfaceType[] {
-    return this.types
-      .filter((t) => t instanceof InterfaceType)
-      .map((t) => t as InterfaceType);
+    return this.types.filter((t) => t instanceof InterfaceType).map((t) => t);
   }
 
   /**
    * All enums in this module/namespace (not submodules)
    */
   public get enums(): readonly EnumType[] {
-    return this.types
-      .filter((t) => t instanceof EnumType)
-      .map((t) => t as EnumType);
+    return this.types.filter((t) => t instanceof EnumType).map((t) => t);
   }
 
   public tryFindType(fqn: string): Type | undefined {

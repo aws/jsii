@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
@@ -16,6 +16,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📄 LICENSE
        ┣━ 📄 main.go
        ┣━ 📄 NOTICE
+       ┣━ 📄 README.md
        ┣━ 📄 StaticConsumer.go
        ┗━ 📄 version
 `;
@@ -322,6 +323,11 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/README.md 1`] = `
+# @scope/jsii-calc-base
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/jcb/StaticConsumer.go 1`] = `
 package jcb
 
@@ -506,6 +512,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┣━ 📄 LICENSE
        ┣━ 📄 main.go
        ┣━ 📄 NOTICE
+       ┣━ 📄 README.md
        ┣━ 📄 StaticConsumer.go
        ┣━ 📄 version
        ┣━ 📄 Very.go
@@ -747,6 +754,11 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejs
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/NOTICE 1`] = `
 jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/README.md 1`] = `
+# @scope/jsii-calc-base-of-base
 
 `;
 
@@ -993,6 +1005,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 Number.go
        ┣━ 📄 NumericValue.go
        ┣━ 📄 Operation.go
+       ┣━ 📄 README.md
        ┣━ 📄 StructWithOnlyOptionals.go
        ┗━ 📄 version
 `;
@@ -1783,6 +1796,11 @@ func (o *jsiiProxy_Operation) TypeName() interface{} {
 	return returns
 }
 
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/README.md 1`] = `
+# @scope/jsii-calc-lib
 
 `;
 

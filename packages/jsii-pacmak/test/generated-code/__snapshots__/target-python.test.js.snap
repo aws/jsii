@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
@@ -236,8 +236,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/README.md 1`] = `
-scope.jsii-calc-base
-====================
+# @scope/jsii-calc-base
 
 `;
 
@@ -321,6 +320,9 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/src/scope/jsii_calc_base/__init__.py 1`] = `
+r'''
+# @scope/jsii-calc-base
+'''
 from pkgutil import extend_path
 __path__ = extend_path(__path__, __name__)
 
@@ -538,7 +540,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 
 exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/python/src/scope/jsii_calc_base/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_base/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_base/__init__.py	--runtime-type-checking
-@@ -68,10 +68,14 @@
+@@ -71,10 +71,14 @@
      ) -> None:
          '''
          :param foo: -
@@ -553,7 +555,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
              "bar": bar,
          }
  
-@@ -135,10 +139,13 @@
+@@ -138,10 +142,13 @@
      @builtins.classmethod
      def consume(cls, *args: typing.Any) -> None:
          '''
@@ -567,7 +569,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
  
  __all__ = [
      "Base",
-@@ -146,5 +153,19 @@
+@@ -149,5 +156,19 @@
      "IBaseInterface",
      "StaticConsumer",
  ]
@@ -825,8 +827,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/README.md 1`] = `
-scope.jsii-calc-base-of-base
-============================
+# @scope/jsii-calc-base-of-base
 
 `;
 
@@ -909,6 +910,9 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/src/scope/jsii_calc_base_of_base/__init__.py 1`] = `
+r'''
+# @scope/jsii-calc-base-of-base
+'''
 from pkgutil import extend_path
 __path__ = extend_path(__path__, __name__)
 
@@ -1098,7 +1102,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/python/src/scope/jsii_calc_base_of_base/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_base_of_base/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_base_of_base/__init__.py	--runtime-type-checking
-@@ -57,10 +57,13 @@
+@@ -60,10 +60,13 @@
      @builtins.classmethod
      def consume(cls, *_args: typing.Any) -> None:
          '''
@@ -1112,7 +1116,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
  
  class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
      '''(experimental) Something here.
-@@ -87,10 +90,13 @@
+@@ -90,10 +93,13 @@
  class VeryBaseProps:
      def __init__(self, *, foo: Very) -> None:
          '''
@@ -1126,7 +1130,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
          }
  
      @builtins.property
-@@ -117,5 +123,18 @@
+@@ -120,5 +126,18 @@
      "Very",
      "VeryBaseProps",
  ]
@@ -1387,8 +1391,7 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/README.md 1`] = `
-scope.jsii-calc-lib
-===================
+# @scope/jsii-calc-lib
 
 `;
 
@@ -1476,6 +1479,9 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/__init__.py 1`] = `
+r'''
+# @scope/jsii-calc-lib
+'''
 from pkgutil import extend_path
 __path__ = extend_path(__path__, __name__)
 
@@ -2577,7 +2583,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_lib/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_lib/__init__.py	--runtime-type-checking
-@@ -52,19 +52,25 @@
+@@ -55,19 +55,25 @@
          '''
          :param very: -
  
@@ -2603,7 +2609,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  @jsii.data_type(
      jsii_type="@scope/jsii-calc-lib.DiamondLeft",
-@@ -82,10 +88,14 @@
+@@ -85,10 +91,14 @@
          :param hoisted_top: 
          :param left: 
  
@@ -2618,7 +2624,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if left is not None:
              self._values["left"] = left
-@@ -134,10 +144,14 @@
+@@ -137,10 +147,14 @@
          :param hoisted_top: 
          :param right: 
  
@@ -2633,7 +2639,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if right is not None:
              self._values["right"] = right
-@@ -209,10 +223,13 @@
+@@ -212,10 +226,13 @@
          '''
          :param _: -
  
@@ -2647,7 +2653,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
  class IDoublable(typing_extensions.Protocol):
-@@ -360,10 +377,15 @@
+@@ -363,10 +380,15 @@
          :param astring: (deprecated) A string value.
          :param first_optional: 
  
@@ -2663,7 +2669,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              "astring": astring,
          }
          if first_optional is not None:
-@@ -520,10 +542,15 @@
+@@ -523,10 +545,15 @@
          :param optional2: 
          :param optional3: 
  
@@ -2679,7 +2685,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["optional1"] = optional1
          if optional2 is not None:
              self._values["optional2"] = optional2
-@@ -583,10 +610,13 @@
+@@ -586,10 +613,13 @@
  
          :param value: The number.
  
@@ -2693,7 +2699,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -627,5 +657,63 @@
+@@ -630,5 +660,63 @@
  publication.publish()
  
  # Loading modules to ensure their types are registered with the jsii runtime library

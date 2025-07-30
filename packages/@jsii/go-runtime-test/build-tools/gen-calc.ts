@@ -9,9 +9,8 @@ const genRoot = join(__dirname, '..', 'jsii-calc');
 
 removeSync(genRoot);
 runCommand(
-  'npx',
+  'node_modules/.bin/jsii-pacmak',
   [
-    'jsii-pacmak',
     '-t',
     'go',
     '-v',
