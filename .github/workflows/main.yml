@@ -236,7 +236,7 @@ jobs:
             java: '8'
             dotnet: '6.0.x'
             go: '1.18'
-            node: '22' # EOL 2028-04-30
+            node: '24' # EOL 2028-04-30
             os: ubuntu-latest
             python: '3.9'
           # Test alternate .NETs
