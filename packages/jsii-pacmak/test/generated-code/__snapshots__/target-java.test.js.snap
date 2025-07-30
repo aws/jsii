@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
@@ -3878,6 +3878,7 @@ public class VisibleBaseClass extends software.amazon.jsii.JsiiObject {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/package-info.java 1`] = `
 /**
+ * <h1>&#64;scope/jsii-calc-lib</h1>
  *
  * Deprecated: Really just deprecated for shows...
  */

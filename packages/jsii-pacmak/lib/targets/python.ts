@@ -3205,7 +3205,7 @@ function emitParameterTypeChecks(
 
   const paramNames = paramInfo
     .filter((param) => param.name != null)
-    .map((param) => param.name!.split(/\s*:\s*/)[0]);
+    .map((param) => param.name.split(/\s*:\s*/)[0]);
   const typesVar = slugifyAsNeeded('type_hints', paramNames);
 
   let openedBlock = false;

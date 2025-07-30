@@ -25,7 +25,7 @@
     "jsii-runtime": "bin/jsii-runtime"
   },
   "scripts": {
-    "build": "tsc --build && chmod +x bin/jsii-runtime && npx webpack-cli && npm run lint",
+    "build": "tsc --build && chmod +x bin/jsii-runtime && npx webpack-cli && yarn lint",
     "watch": "tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
     "lint:fix": "yarn lint --fix",

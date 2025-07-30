@@ -27,7 +27,7 @@
     "build": "jsii --project-references && jsii-rosetta",
     "pacmak": "jsii-pacmak",
     "test": "diff-test test/assembly.jsii .jsii",
-    "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
+    "test:update": "yarn build && UPDATE_DIFF=1 yarn test"
   },
   "devDependencies": {
     "jsii": "5.8.0",
