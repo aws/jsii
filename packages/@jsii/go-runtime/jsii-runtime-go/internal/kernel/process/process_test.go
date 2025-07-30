@@ -141,9 +141,9 @@ func TestJSIINode(t *testing.T) {
 
 		if err := process.Request(TestRequest{"stats"}, &TestResponse{}); err == nil {
 			t.Errorf("expected an error, but no error received")
-		} else if !strings.Contains(err.Error(), "no such file or directory") && !strings.Contains(err.Error(), "file does not exist") {
-			// We have 2 options here because Windows returns a different error message, of course...
-			t.Errorf("expected 'no such file or directory' or 'file does not exist', got %v", err.Error())
+		} else if !strings.Contains(err.Error(), "no such file or directory") && !strings.Contains(err.Error(), "file does not exist") && !strings.Contains(err.Error(), "file not found") {
+			// We have 3 options here because Windows returns a different error message, of course...
+			t.Errorf("expected 'no such file or directory' or 'file does not exist' or 'file not found', got %v", err.Error())
 		}
 	})
 }
