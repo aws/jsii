@@ -20,20 +20,19 @@ export function checkNode(envPrefix = 'JSII'): void {
   const defaultCallToAction =
     'Should you encounter odd runtime issues, please try using one of the supported release before filing a bug report.';
 
-  if (nodeRelease?.endOfLife) {
+  if (nodeRelease?.supported === false) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_END_OF_LIFE_NODE_VERSION`;
     const silencedVersions = (process.env[silenceVariable] ?? '')
       .split(',')
       .map((v) => v.trim());
-    const qualifier = nodeRelease.endOfLifeDate
-      ? ` on ${nodeRelease.endOfLifeDate.toISOString().slice(0, 10)}`
-      : '';
-    if (!silencedVersions.includes(nodeRelease.majorVersion.toString()))
+    if (!silencedVersions.includes(nodeRelease.majorVersion.toString())) {
+      const eos = nodeRelease.endOfJsiiSupportDate.toISOString().slice(0, 10);
       veryVisibleMessage(
         bgRed.white.bold,
-        `Node ${nodeRelease.majorVersion} has reached end-of-life${qualifier} and is not supported.`,
+        `Node ${nodeRelease.majorVersion} is end-of-life and not supported anymore by this software since ${eos}.`,
         `Please upgrade to a supported node version as soon as possible.`,
       );
+    }
   } else if (knownBroken) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_KNOWN_BROKEN_NODE_VERSION`;
     if (!process.env[silenceVariable])
@@ -56,10 +55,12 @@ export function checkNode(envPrefix = 'JSII'): void {
   } else if (nodeRelease?.deprecated) {
     const silenceVariable = `${envPrefix}_SILENCE_WARNING_DEPRECATED_NODE_VERSION`;
     if (!process.env[silenceVariable]) {
-      const deadline = nodeRelease.endOfLifeDate!.toISOString().slice(0, 10);
+      const eol = nodeRelease.endOfLifeDate.toISOString().slice(0, 10);
+      const eos = nodeRelease.endOfJsiiSupportDate.toISOString().slice(0, 10);
+
       veryVisibleMessage(
         bgYellowBright.black,
-        `Node ${nodeRelease.majorVersion} is approaching end-of-life and will no longer be supported in new releases after ${deadline}.`,
+        `Node ${nodeRelease.majorVersion} has reached end-of-life on ${eol} and will no longer be supported in new releases after ${eos}.`,
         `Please upgrade to a supported node version as soon as possible.`,
         silenceVariable,
       );
@@ -79,7 +80,7 @@ export function checkNode(envPrefix = 'JSII'): void {
       `This software is currently running on node ${version}.`,
       'As of the current release of this software, supported node releases are:',
       ...NodeRelease.ALL_RELEASES.filter((release) => release.supported)
-        // We display those from longest remaining support to shortest (to incitate people to be ahead of future derepcations).
+        // We display those from longest remaining support to shortest (to indicate people to be ahead of future deprecations).
         .sort(
           (l, r) =>
             (r.endOfLifeDate?.getTime() ?? 0) -
