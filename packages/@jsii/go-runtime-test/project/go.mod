@@ -1,6 +1,8 @@
 module github.com/aws/jsii/go-runtime-test
 
-go 1.18
+go 1.23.0
+
+toolchain go1.24.5
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
