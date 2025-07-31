@@ -7,21 +7,20 @@
   "author": "Amazon Web Services",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc --build && npm run lint",
+    "build": "tsc --build && yarn lint",
     "build+test": "tsc --build && yarn test",
     "watch": "tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "package": "package-js",
-    "exec": "npm run build && node bin/jsii-config.js"
+    "exec": "yarn build && node bin/jsii-config.js"
   },
   "bin": {
     "jsii-config": "bin/jsii-config"
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.3",
-    "@types/yargs": "17.0.19",
     "jest-expect-message": "^1.1.3"
   },
   "dependencies": {

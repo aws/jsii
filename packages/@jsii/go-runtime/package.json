@@ -5,9 +5,9 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc --build && npm run gen:rt",
+    "build": "tsc --build && yarn gen:rt",
     "gen:rt": "node build-tools/gen.js",
-    "generate": "npm run gen:rt",
+    "generate": "yarn gen:rt",
     "package": "build-tools/package.sh && package-private",
     "doc": "cd jsii-runtime-go && go run golang.org/x/tools/cmd/godoc",
     "fmt": "cd jsii-runtime-go && go run golang.org/x/tools/cmd/goimports -w .",
