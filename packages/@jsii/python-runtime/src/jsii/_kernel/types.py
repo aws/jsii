@@ -1,5 +1,5 @@
 from typing import Any, Dict, Generic, List, Optional, Mapping, TypeVar, Union
-from typing_extensions import Protocol
+from typing_extensions import Protocol, Literal
 
 import attr
 
@@ -211,6 +211,19 @@ class StatsResponse:
     objectCount: int
 
 
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class EnvironmentChangeRequest:
+    api: Literal["env.notifyChange"]
+    key: str
+    type: Literal["set", "delete"]
+    value: Optional[str] = None
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class EnvironmentChangeResponse:
+    success: bool
+
+
 KernelRequest = Union[
     LoadRequest,
     CreateRequest,
@@ -222,6 +235,7 @@ KernelRequest = Union[
     InvokeScriptRequest,
     StaticInvokeRequest,
     StatsRequest,
+    EnvironmentChangeRequest,
 ]
 
 KernelResponse = Union[
@@ -234,5 +248,6 @@ KernelResponse = Union[
     InvokeScriptResponse,
     SetResponse,
     StatsResponse,
+    EnvironmentChangeResponse,
     Callback,
 ]

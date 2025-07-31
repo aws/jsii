@@ -77,6 +77,12 @@ export interface Callback {
   readonly invoke?: InvokeRequest;
   readonly get?: GetRequest;
   readonly set?: SetRequest;
+  readonly envChange?: {
+    readonly type: 'set' | 'delete';
+    readonly key: string;
+    readonly value?: string;
+    readonly oldValue?: string;
+  };
 }
 
 export interface HelloResponse {
@@ -256,6 +262,17 @@ export interface StatsResponse {
   readonly objectCount: number;
 }
 
+export interface EnvironmentChangeRequest {
+  readonly api: 'env.notifyChange';
+  readonly key: string;
+  readonly value?: string;
+  readonly type: 'set' | 'delete';
+}
+
+export interface EnvironmentChangeResponse {
+  readonly success: boolean;
+}
+
 export type KernelRequest =
   | LoadRequest
   | CreateRequest
@@ -268,7 +285,8 @@ export type KernelRequest =
   | CallbacksRequest
   | CompleteRequest
   | NamingRequest
-  | StatsRequest;
+  | StatsRequest
+  | EnvironmentChangeRequest;
 
 export type KernelResponse =
   | HelloResponse
@@ -283,7 +301,8 @@ export type KernelResponse =
   | CallbacksResponse
   | CompleteResponse
   | NamingResponse
-  | StatsResponse;
+  | StatsResponse
+  | EnvironmentChangeResponse;
 
 export interface OkayResponse {
   readonly ok: any;
