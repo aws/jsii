@@ -25,7 +25,7 @@
   "scripts": {
     "build": "bash ./generate.sh",
     "test": "node ./user.xml.t.js > ./project/user.xml && cd project && mvn -B test --settings=user.xml -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false",
-    "test:update": "UPDATE_DIFF=1 npm run test"
+    "test:update": "UPDATE_DIFF=1 yarn test"
   },
   "devDependencies": {
     "@jsii/java-runtime": "^0.0.0",

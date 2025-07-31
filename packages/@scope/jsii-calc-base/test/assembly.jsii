@@ -52,6 +52,9 @@
     }
   },
   "name": "@scope/jsii-calc-base",
+  "readme": {
+    "markdown": "# @scope/jsii-calc-base\n"
+  },
   "repository": {
     "directory": "packages/@scope/jsii-calc-base",
     "type": "git",
@@ -207,5 +210,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "IZHOxoRL/MXFfl41fiT4CKd440KPwMz5DAPJe7um6JU="
+  "fingerprint": "b+2upCMi5QzwvvQ7hQ/b0rZC5L5wUo8s/QH2sAlDjWE="
 }

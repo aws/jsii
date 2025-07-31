@@ -95,19 +95,11 @@ export default class Python extends Target {
     );
 
     // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell(python, ['setup.py', 'sdist', '--dist-dir', outDir], {
+    await shell(python, ['-m', 'build', '--outdir', outDir, sourceDir], {
       cwd: sourceDir,
       env,
+      retry: { maxAttempts: 5 },
     });
-    await shell(
-      python,
-      ['-m', 'pip', 'wheel', '--no-deps', '--wheel-dir', outDir, sourceDir],
-      {
-        cwd: sourceDir,
-        env,
-        retry: { maxAttempts: 5 },
-      },
-    );
     await shell(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
       cwd: sourceDir,
       env,
@@ -3213,7 +3205,7 @@ function emitParameterTypeChecks(
 
   const paramNames = paramInfo
     .filter((param) => param.name != null)
-    .map((param) => param.name!.split(/\s*:\s*/)[0]);
+    .map((param) => param.name.split(/\s*:\s*/)[0]);
   const typesVar = slugifyAsNeeded('type_hints', paramNames);
 
   let openedBlock = false;

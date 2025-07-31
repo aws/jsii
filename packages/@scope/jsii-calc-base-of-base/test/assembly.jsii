@@ -23,6 +23,9 @@
     "tscRootDir": "."
   },
   "name": "@scope/jsii-calc-base-of-base",
+  "readme": {
+    "markdown": "# @scope/jsii-calc-base-of-base\n"
+  },
   "repository": {
     "directory": "packages/@scope/jsii-calc-base-of-base",
     "type": "git",
@@ -166,5 +169,5 @@
     }
   },
   "version": "2.1.1",
-  "fingerprint": "VfnjAv/kKNF0c7yssI920uEZbTr4OrRoFW0hcT57qns="
+  "fingerprint": "V/8hSVOMC08S+++J/qHpdyl7coTRjY5QNqoSOqArr/0="
 }

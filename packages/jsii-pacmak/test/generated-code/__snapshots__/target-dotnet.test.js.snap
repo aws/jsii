@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
@@ -16,6 +16,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┃              ┣━ 📁 Internal
        ┃              ┃  ┗━ 📁 DependencyResolution
        ┃              ┃     ┗━ 📄 Anchor.cs
+       ┃              ┣━ 📄 NamespaceDoc.cs
        ┃              ┗━ 📄 StaticConsumer.cs
        ┣━ 📄 Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj
        ┣━ 📄 AssemblyInfo.cs
@@ -247,6 +248,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Internal.Dependenc
         {
             new Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Internal.DependencyResolution.Anchor();
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/Amazon/JSII/Tests/CalculatorNamespace/BaseNamespace/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
+{
+    /// <remarks>
+    /// <h1>@scope/jsii-calc-base</h1>
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
     }
 }
 
@@ -538,6 +555,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┃              ┃     ┗━ 📄 Anchor.cs
        ┃              ┣━ 📄 IVeryBaseInterface.cs
        ┃              ┣━ 📄 IVeryBaseProps.cs
+       ┃              ┣━ 📄 NamespaceDoc.cs
        ┃              ┣━ 📄 StaticConsumer.cs
        ┃              ┣━ 📄 Very.cs
        ┃              ┗━ 📄 VeryBaseProps.cs
@@ -665,6 +683,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Internal.Dep
         public Anchor()
         {
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/Amazon/JSII/Tests/CalculatorNamespace/BaseOfBaseNamespace/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
+{
+    /// <remarks>
+    /// <h1>@scope/jsii-calc-base-of-base</h1>
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
     }
 }
 
@@ -1032,6 +1066,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┃     ┣━ 📄 IStructWithOnlyOptionals.cs
        ┃        ┃     ┣━ 📄 IThreeLevelsInterface.cs
        ┃        ┃     ┣━ 📄 MyFirstStruct.cs
+       ┃        ┃     ┣━ 📄 NamespaceDoc.cs
        ┃        ┃     ┣━ 📄 Number.cs
        ┃        ┃     ┣━ 📄 NumericValue.cs
        ┃        ┃     ┣━ 📄 Operation.cs
@@ -2097,6 +2132,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get;
             set;
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/NamespaceDoc.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
+{
+    /// <remarks>
+    /// <h1>@scope/jsii-calc-lib</h1>
+    /// </remarks>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
+    {
     }
 }
 

@@ -25,7 +25,7 @@
     "jsii-tree": "bin/jsii-tree"
   },
   "scripts": {
-    "build": "tsc --build && chmod +x bin/jsii-tree && npm run lint",
+    "build": "tsc --build && chmod +x bin/jsii-tree && yarn lint",
     "watch": "tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",

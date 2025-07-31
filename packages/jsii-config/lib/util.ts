@@ -17,7 +17,7 @@ export function getNestedValue(
 /*
  * recursively remove keys from object whose value empty.
  */
-export function removeEmptyValues<T>(fields: T): T {
+export function removeEmptyValues<T extends object>(fields: T): T {
   return Object.entries(fields).reduce(
     (accum: any, [key, val]: [string, any]) => {
       if (typeof val === 'object') {

@@ -24,7 +24,7 @@
     "jsii-diff": "bin/jsii-diff"
   },
   "scripts": {
-    "build": "bash ./generate.sh && tsc --build && npm run lint",
+    "build": "bash ./generate.sh && tsc --build && yarn lint",
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",

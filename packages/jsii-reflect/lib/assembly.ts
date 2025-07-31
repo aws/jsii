@@ -181,9 +181,7 @@ export class Assembly extends ModuleLike {
    * All classes in the assembly and all of its submodules
    */
   public get allClasses(): readonly ClassType[] {
-    return this.allTypes
-      .filter((t) => t instanceof ClassType)
-      .map((t) => t as ClassType);
+    return this.allTypes.filter((t) => t instanceof ClassType).map((t) => t);
   }
 
   /**
@@ -192,16 +190,14 @@ export class Assembly extends ModuleLike {
   public get allInterfaces(): readonly InterfaceType[] {
     return this.allTypes
       .filter((t) => t instanceof InterfaceType)
-      .map((t) => t as InterfaceType);
+      .map((t) => t);
   }
 
   /**
    * All interfaces in the assembly and all of its submodules
    */
   public get allEnums(): readonly EnumType[] {
-    return this.allTypes
-      .filter((t) => t instanceof EnumType)
-      .map((t) => t as EnumType);
+    return this.allTypes.filter((t) => t instanceof EnumType).map((t) => t);
   }
 
   public findType(fqn: string) {

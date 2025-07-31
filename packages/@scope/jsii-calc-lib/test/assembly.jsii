@@ -85,6 +85,9 @@
     "tscRootDir": "lib"
   },
   "name": "@scope/jsii-calc-lib",
+  "readme": {
+    "markdown": "# @scope/jsii-calc-lib\n"
+  },
   "repository": {
     "directory": "packages/@scope/jsii-calc-lib",
     "type": "git",
@@ -1161,5 +1164,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "96UhBBs//vTawYDeg5dqr+eKokWgEG0LCb9P8eVfdF0="
+  "fingerprint": "QRU99iUfl+h0vGHsaEXYYY3B2J2WSbZJfZbwW8dz18Q="
 }

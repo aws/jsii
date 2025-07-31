@@ -26,14 +26,14 @@
   },
   "scripts": {
     "gen": "bash generate.sh",
-    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
+    "build": "yarn gen && tsc --build && chmod +x bin/jsii-pacmak && yarn lint",
     "watch": "tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "npm run test:unit && npm run test:build",
+    "test": "yarn test:unit && yarn test:build",
     "test:unit": "jest",
     "test:build": "bash test/build-test.sh",
-    "test:update": "jest -u && npm run test:build",
+    "test:update": "jest -u && yarn test:build",
     "package": "package-js"
   },
   "dependencies": {
