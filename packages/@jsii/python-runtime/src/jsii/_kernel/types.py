@@ -1,5 +1,5 @@
 from typing import Any, Dict, Generic, List, Optional, Mapping, TypeVar, Union
-from typing_extensions import Protocol
+from typing_extensions import Protocol, Literal
 
 import attr
 
@@ -213,9 +213,9 @@ class StatsResponse:
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class EnvironmentChangeRequest:
-    api: str
+    api: Literal["env.notifyChange"]
     key: str
-    type: str  # 'set' or 'delete'
+    type: Literal["set", "delete"]
     value: Optional[str] = None
 
 

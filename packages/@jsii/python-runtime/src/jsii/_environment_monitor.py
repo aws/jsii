@@ -1,6 +1,7 @@
 import os
 import threading
 from typing import Dict, Callable, Optional, Any
+from typing_extensions import Literal
 from types import MappingProxyType
 
 
@@ -9,12 +10,12 @@ class EnvironmentChangeEvent:
 
     def __init__(
         self,
-        type: str,
+        type: Literal["set", "delete"],
         key: str,
         value: Optional[str] = None,
         old_value: Optional[str] = None,
     ):
-        self.type = type  # 'set' or 'delete'
+        self.type = type
         self.key = key
         self.value = value
         self.old_value = old_value
