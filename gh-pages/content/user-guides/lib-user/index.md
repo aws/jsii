@@ -10,11 +10,11 @@ as follows:
 
 ## Specific Runtimes
 
-For specific languages, these are the runtimes that are supported by the `jsii` toolchain:
+For specific languages, these are the minimum runtime versions that are supported by the `jsii` toolchain:
 
 | Runtime | Version |
 |---------|---------|
-| .NET    | 6.0.x   |
+| .NET    | 6.0     |
 | Java    | 8       |
 | Go      | 1.23    |
 | Python  | 3.9     |
