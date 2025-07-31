@@ -29,7 +29,7 @@
     "build": "jsii --project-references --strip-deprecated=deprecated-to-strip.txt && jsii-rosetta",
     "pacmak": "jsii-pacmak",
     "test": "diff-test test/assembly.jsii .jsii",
-    "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
+    "test:update": "yarn build && UPDATE_DIFF=1 yarn test"
   },
   "dependencies": {
     "@scope/jsii-calc-base": "^0.0.0"
@@ -39,7 +39,7 @@
     "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
-    "jsii": "^5.8.0",
+    "jsii": "5.8.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^5.8.0"
   },

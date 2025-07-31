@@ -25,16 +25,16 @@
     "generate": "ts-node build-tools/gen.ts",
     "deps": "ts-node build-tools/deps.ts",
     "dist-clean": "rm -rf dist",
-    "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && npm run lint",
+    "build": "cp ../../../README.md . && rm -f jsii-*.whl && yarn generate && yarn deps && yarn lint",
     "lint": "ts-node build-tools/venv.ts black .",
     "package": "package-python && package-private",
-    "test": "npm run test:gen && npm run test:run:typeguard-2 && npm run test:run:typeguard-3 && npm run test:run:typeguard-4 && npm run test:types",
-    "test:gen": "npm run deps && ts-node build-tools/gen-calc.ts",
+    "test": "yarn test:gen && yarn test:run:typeguard-2 && yarn test:run:typeguard-3 && yarn test:run:typeguard-4 && yarn test:types",
+    "test:gen": "yarn deps && ts-node build-tools/gen-calc.ts",
     "test:run:typeguard-2": "ts-node build-tools/venv.ts python -m pip install typeguard==2.13.3 && ts-node build-tools/venv.ts py.test -v --mypy",
     "test:run:typeguard-3": "ts-node build-tools/venv.ts python -m pip install typeguard==3.0.2 && ts-node build-tools/venv.ts py.test -v --mypy",
     "test:run:typeguard-4": "ts-node build-tools/venv.ts python -m pip install typeguard==4.3.0 && ts-node build-tools/venv.ts py.test -v --mypy",
     "test:types": "pyright -p .",
-    "test:update": "UPDATE_DIFF=1 npm run test"
+    "test:update": "UPDATE_DIFF=1 yarn test"
   },
   "dependencies": {
     "@jsii/runtime": "^0.0.0"
@@ -44,6 +44,6 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-pacmak": "^0.0.0",
-    "pyright": "^1.1.400"
+    "pyright": "^1.1.403"
   }
 }

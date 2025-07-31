@@ -27,7 +27,7 @@
     "./run": "./lib/run.js"
   },
   "scripts": {
-    "build": "tsc --build && npm run lint",
+    "build": "tsc --build && yarn lint",
     "watch": "tsc --build -w",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "semver": "^7.7.1"
+    "semver": "^7.7.2"
   }
 }

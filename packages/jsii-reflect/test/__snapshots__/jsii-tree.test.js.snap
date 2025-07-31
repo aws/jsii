@@ -248,6 +248,26 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         ├── abstract
  │ │ │         ├── immutable
  │ │ │         └── type: Optional<number>
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class NonPascalCaseTest (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer (stable)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.jsii4894.NonPascalCaseTestProps
+ │ │ │   │   ├─┬ props property (stable)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: jsii-calc.jsii4894.NonPascalCaseTestProps
+ │ │ │   │   └─┬ someType property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
+ │ │ │   └─┬ interface NonPascalCaseTestProps (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ someType property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: @scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass (stable)
@@ -3536,6 +3556,9 @@ exports[`jsii-tree --all 1`] = `
    │ │         └── returns: void
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class ClassWithNONPASCALCASEDName (deprecated)
+   │     │ └─┬ members
+   │     │   └── <initializer>() initializer (deprecated)
    │     ├─┬ class NestingClass (deprecated)
    │     │ └── members
    │     ├─┬ class NestedClass (deprecated)
@@ -3552,6 +3575,12 @@ exports[`jsii-tree --all 1`] = `
    │     │     │ └─┬ reflectable
    │     │     │   └── type: @scope/jsii-calc-lib.submodule.IReflectable
    │     │     └── returns: Map<string => any>
+   │     ├─┬ interface SomeType (deprecated)
+   │     │ └─┬ members
+   │     │   └─┬ name property (deprecated)
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ interface IReflectable (deprecated)
    │     │ └─┬ members
    │     │   └─┬ entries property (deprecated)
@@ -3758,6 +3787,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
  │ │ │   └── interface ImplementMeOpts
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├── class NonPascalCaseTest
+ │ │ │   └── interface NonPascalCaseTestProps
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -4206,9 +4239,11 @@ exports[`jsii-tree --inheritance 1`] = `
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class ClassWithNONPASCALCASEDName
    │     ├── class NestingClass
    │     ├── class NestedClass
    │     ├── class Reflector
+   │     ├── interface SomeType
    │     ├── interface IReflectable
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
@@ -4364,6 +4399,16 @@ exports[`jsii-tree --members 1`] = `
  │ │ │     └─┬ members
  │ │ │       ├── name property
  │ │ │       └── count property
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class NonPascalCaseTest
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>(props) initializer
+ │ │ │   │   ├── props property
+ │ │ │   │   └── someType property
+ │ │ │   └─┬ interface NonPascalCaseTestProps
+ │ │ │     └─┬ members
+ │ │ │       └── someType property
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └─┬ class MyClass
@@ -5839,6 +5884,9 @@ exports[`jsii-tree --members 1`] = `
    │ │       └── method() method
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class ClassWithNONPASCALCASEDName
+   │     │ └─┬ members
+   │     │   └── <initializer>() initializer
    │     ├─┬ class NestingClass
    │     │ └── members
    │     ├─┬ class NestedClass
@@ -5849,6 +5897,9 @@ exports[`jsii-tree --members 1`] = `
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer
    │     │   └── asMap(reflectable) method
+   │     ├─┬ interface SomeType
+   │     │ └─┬ members
+   │     │   └── name property
    │     ├─┬ interface IReflectable
    │     │ └─┬ members
    │     │   └── entries property
@@ -5934,6 +5985,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647
@@ -6032,6 +6084,10 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
  │ │ │   └── interface ImplementMeOpts
+ │ │ ├─┬ jsii4894
+ │ │ │ └─┬ types
+ │ │ │   ├── class NonPascalCaseTest
+ │ │ │   └── interface NonPascalCaseTestProps
  │ │ ├─┬ module2530
  │ │ │ └─┬ types
  │ │ │   └── class MyClass
@@ -6384,9 +6440,11 @@ exports[`jsii-tree --types 1`] = `
    │ │   └── interface IInterface
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class ClassWithNONPASCALCASEDName
    │     ├── class NestingClass
    │     ├── class NestedClass
    │     ├── class Reflector
+   │     ├── interface SomeType
    │     ├── interface IReflectable
    │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
@@ -6426,6 +6484,7 @@ exports[`jsii-tree 1`] = `
  │   │   ├── bar
  │   │   └── foo
  │   ├── jsii3656
+ │   ├── jsii4894
  │   ├── module2530
  │   ├── module2617
  │   ├── module2647

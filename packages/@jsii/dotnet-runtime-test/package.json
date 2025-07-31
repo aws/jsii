@@ -25,9 +25,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "bash ./generate.sh",
-    "build": "npm run gen && tsc --build && bash ./build.sh",
+    "build": "yarn gen && tsc --build && bash ./build.sh",
     "test": "bash ./test.sh",
-    "test:update": "UPDATE_DIFF=1 npm run test"
+    "test:update": "UPDATE_DIFF=1 yarn test"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",

@@ -31,16 +31,16 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "bash ./generate.sh",
-    "build": "npm run gen && tsc --build && dotnet build --force -c Release src/Amazon.JSII.Runtime.sln",
+    "build": "yarn gen && tsc --build && dotnet build --force -c Release src/Amazon.JSII.Runtime.sln",
     "dist-clean": "rm -rf dist && dotnet clean -c Release src/Amazon.JSII.Runtime.sln",
     "test": "dotnet test -c Release src/Amazon.JSII.Runtime.sln",
-    "test:update": "UPDATE_DIFF=1 npm run test",
+    "test:update": "UPDATE_DIFF=1 yarn test",
     "package": "package-dotnet src/Amazon.JSII.Runtime.sln && package-private"
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
     "@types/semver": "^7.7.0",
     "jsii-build-tools": "^0.0.0",
-    "semver": "^7.7.1"
+    "semver": "^7.7.2"
   }
 }

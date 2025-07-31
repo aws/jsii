@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
@@ -1434,6 +1434,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃           ┗━ 📁 tests
           ┃              ┗━ 📁 calculator
           ┃                 ┣━ 📁 custom_submodule_name
+          ┃                 ┃  ┣━ 📄 ClassWithNONPASCALCASEDName.java
           ┃                 ┃  ┣━ 📄 IReflectable.java
           ┃                 ┃  ┣━ 📄 NestingClass.java
           ┃                 ┃  ┣━ 📄 package-info.java
@@ -1840,6 +1841,159 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
     </plugins>
   </build>
 </project>
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/custom_submodule_name/ClassWithNONPASCALCASEDName.java 1`] = `
+package software.amazon.jsii.tests.calculator.custom_submodule_name;
+
+/**
+ * (deprecated) Test for classes with shouting-cased names that serve as a namespace, consumed from a different assembly than the current one.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName")
+public class ClassWithNONPASCALCASEDName extends software.amazon.jsii.JsiiObject {
+
+    protected ClassWithNONPASCALCASEDName(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ClassWithNONPASCALCASEDName(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public ClassWithNONPASCALCASEDName() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+    /**
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType")
+    @software.amazon.jsii.Jsii.Proxy(SomeType.Jsii$Proxy.class)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static interface SomeType extends software.amazon.jsii.JsiiSerializable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @org.jetbrains.annotations.NotNull java.lang.String getName();
+
+        /**
+         * @return a {@link Builder} of {@link SomeType}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link SomeType}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public static final class Builder implements software.amazon.jsii.Builder<SomeType> {
+            java.lang.String name;
+
+            /**
+             * Sets the value of {@link SomeType#getName}
+             * @param name the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+            @Deprecated
+            public Builder name(java.lang.String name) {
+                this.name = name;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link SomeType}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+            @Deprecated
+            @Override
+            public SomeType build() {
+                return new Jsii$Proxy(this);
+            }
+        }
+
+        /**
+         * An implementation for {@link SomeType}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @software.amazon.jsii.Internal
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements SomeType {
+            private final java.lang.String name;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.name = software.amazon.jsii.Kernel.get(this, "name", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            protected Jsii$Proxy(final Builder builder) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.name = java.util.Objects.requireNonNull(builder.name, "name is required");
+            }
+
+            @Override
+            public final java.lang.String getName() {
+                return this.name;
+            }
+
+            @Override
+            @software.amazon.jsii.Internal
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("name", om.valueToTree(this.getName()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public final boolean equals(final Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                SomeType.Jsii$Proxy that = (SomeType.Jsii$Proxy) o;
+
+                return this.name.equals(that.name);
+            }
+
+            @Override
+            public final int hashCode() {
+                int result = this.name.hashCode();
+                return result;
+            }
+        }
+    }
+}
 
 `;
 
@@ -3724,6 +3878,7 @@ public class VisibleBaseClass extends software.amazon.jsii.JsiiObject {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/package-info.java 1`] = `
 /**
+ * <h1>&#64;scope/jsii-calc-lib</h1>
  *
  * Deprecated: Really just deprecated for shows...
  */
@@ -3750,6 +3905,8 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 @scope/jsii-calc-lib.deprecationRemoval.IInterface=software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface
 @scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory=software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory
 @scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass=software.amazon.jsii.tests.calculator.lib.deprecation_removal.VisibleBaseClass
+@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName=software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName
+@scope/jsii-calc-lib.submodule.ClassWithNONPASCALCASEDName.SomeType=software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName$SomeType
 @scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable
 @scope/jsii-calc-lib.submodule.NestingClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass
 @scope/jsii-calc-lib.submodule.NestingClass.NestedClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass$NestedClass
@@ -3948,6 +4105,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 JSII417Derived.java
           ┃                 ┣━ 📄 JSII417PublicBaseOfBase.java
           ┃                 ┣━ 📄 Jsii487Derived.java
+          ┃                 ┣━ 📁 jsii4894
+          ┃                 ┃  ┣━ 📄 NonPascalCaseTest.java
+          ┃                 ┃  ┗━ 📄 NonPascalCaseTestProps.java
           ┃                 ┣━ 📄 Jsii496Derived.java
           ┃                 ┣━ 📄 JsiiAgent.java
           ┃                 ┣━ 📄 JSObjectLiteralForInterface.java
@@ -25904,6 +26064,212 @@ public abstract class OverrideMe extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/jsii4894/NonPascalCaseTest.java 1`] = `
+package software.amazon.jsii.tests.calculator.jsii4894;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.jsii4894.NonPascalCaseTest")
+public class NonPascalCaseTest extends software.amazon.jsii.JsiiObject {
+
+    protected NonPascalCaseTest(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected NonPascalCaseTest(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param props This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public NonPascalCaseTest(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTestProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTestProps getProps() {
+        return software.amazon.jsii.Kernel.get(this, "props", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTestProps.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType getSomeType() {
+        return software.amazon.jsii.Kernel.get(this, "someType", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType.class));
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTest}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTest> {
+        /**
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private final software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTestProps.Builder props;
+
+        private Builder() {
+            this.props = new software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTestProps.Builder();
+        }
+
+        /**
+         * @return {@code this}
+         * @param someType This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder someType(final software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType someType) {
+            this.props.someType(someType);
+            return this;
+        }
+
+        /**
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTest}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTest build() {
+            return new software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTest(
+                this.props.build()
+            );
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/jsii4894/NonPascalCaseTestProps.java 1`] = `
+package software.amazon.jsii.tests.calculator.jsii4894;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.jsii4894.NonPascalCaseTestProps")
+@software.amazon.jsii.Jsii.Proxy(NonPascalCaseTestProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface NonPascalCaseTestProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType getSomeType();
+
+    /**
+     * @return a {@link Builder} of {@link NonPascalCaseTestProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link NonPascalCaseTestProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<NonPascalCaseTestProps> {
+        software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType someType;
+
+        /**
+         * Sets the value of {@link NonPascalCaseTestProps#getSomeType}
+         * @param someType the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder someType(software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType someType) {
+            this.someType = someType;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link NonPascalCaseTestProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public NonPascalCaseTestProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link NonPascalCaseTestProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements NonPascalCaseTestProps {
+        private final software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType someType;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.someType = software.amazon.jsii.Kernel.get(this, "someType", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.someType = java.util.Objects.requireNonNull(builder.someType, "someType is required");
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.custom_submodule_name.ClassWithNONPASCALCASEDName.SomeType getSomeType() {
+            return this.someType;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("someType", om.valueToTree(this.getSomeType()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.jsii4894.NonPascalCaseTestProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            NonPascalCaseTestProps.Jsii$Proxy that = (NonPascalCaseTestProps.Jsii$Proxy) o;
+
+            return this.someType.equals(that.someType);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.someType.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module2530/MyClass.java 1`] = `
 package software.amazon.jsii.tests.calculator.module2530;
 
@@ -29518,6 +29884,8 @@ jsii-calc.homonymousForwardReferences.foo.ConsumerProps=software.amazon.jsii.tes
 jsii-calc.homonymousForwardReferences.foo.Homonymous=software.amazon.jsii.tests.calculator.homonymous_forward_references.foo.Homonymous
 jsii-calc.jsii3656.ImplementMeOpts=software.amazon.jsii.tests.calculator.jsii3656.ImplementMeOpts
 jsii-calc.jsii3656.OverrideMe=software.amazon.jsii.tests.calculator.jsii3656.OverrideMe
+jsii-calc.jsii4894.NonPascalCaseTest=software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTest
+jsii-calc.jsii4894.NonPascalCaseTestProps=software.amazon.jsii.tests.calculator.jsii4894.NonPascalCaseTestProps
 jsii-calc.module2530.MyClass=software.amazon.jsii.tests.calculator.module2530.MyClass
 jsii-calc.module2617.OnlyStatics=software.amazon.jsii.tests.calculator.module2617.OnlyStatics
 jsii-calc.module2647.ExtendAndImplement=software.amazon.jsii.tests.calculator.module2647.ExtendAndImplement

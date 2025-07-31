@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.113.0](https://github.com/aws/jsii/compare/v1.112.0...v1.113.0) (2025-07-31)
+
+
+### Features
+
+* bump go version to `1.23` ([#4867](https://github.com/aws/jsii/issues/4867)) ([cdd0724](https://github.com/aws/jsii/commit/cdd07248dea6bc4d1d816342c5839ebd684b8414)), closes [/github.com/aws/jsii-superchain/blob/main/superchain/Dockerfile#L87](https://github.com/aws//github.com/aws/jsii-superchain/blob/main/superchain/Dockerfile/issues/L87)
+
+
+### Bug Fixes
+
+* **check-node:** align with CDK Node.js versions support policy ([#4865](https://github.com/aws/jsii/issues/4865)) ([90915fa](https://github.com/aws/jsii/commit/90915fa0ca8d95d1505a46920dafa6fd9c397c34))
+* **jsii-pacmak:** incorrect casing for class namespaces in other module ([#4852](https://github.com/aws/jsii/issues/4852)) ([79ade62](https://github.com/aws/jsii/commit/79ade6248a0ca89defc26b50b1c0fea3e087f321))
+* **mergify:** disable speculative checks to prevent race conditions ([#4869](https://github.com/aws/jsii/issues/4869)) ([e1e0ee3](https://github.com/aws/jsii/commit/e1e0ee3a8b2e034a4fe9cbdc0f3522300b717bac))
+* use pypa/build to create Python sdists and wheels ([#4850](https://github.com/aws/jsii/issues/4850)) ([49b5d3a](https://github.com/aws/jsii/commit/49b5d3a03f15c70c35754a8fa09aa511846457dc))
+
 ## [1.112.0](https://github.com/aws/jsii/compare/v1.111.0...v1.112.0) (2025-05-07)
 
 
