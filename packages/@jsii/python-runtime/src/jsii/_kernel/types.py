@@ -211,6 +211,19 @@ class StatsResponse:
     objectCount: int
 
 
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class EnvironmentChangeRequest:
+    api: str
+    key: str
+    type: str  # 'set' or 'delete'
+    value: Optional[str] = None
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class EnvironmentChangeResponse:
+    success: bool
+
+
 KernelRequest = Union[
     LoadRequest,
     CreateRequest,
@@ -222,6 +235,7 @@ KernelRequest = Union[
     InvokeScriptRequest,
     StaticInvokeRequest,
     StatsRequest,
+    EnvironmentChangeRequest,
 ]
 
 KernelResponse = Union[
@@ -234,5 +248,6 @@ KernelResponse = Union[
     InvokeScriptResponse,
     SetResponse,
     StatsResponse,
+    EnvironmentChangeResponse,
     Callback,
 ]
