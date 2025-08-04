@@ -38,11 +38,12 @@
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
     "log4js": "^6.9.1",
-    "yargs": "^16.2.0"
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
     "@types/tar-fs": "^2.0.4",
+    "@types/yargs": "^17.0.33",
     "jest-expect-message": "^1.1.3",
     "jsii": "^5.8.0",
     "jsii-build-tools": "^0.0.0"

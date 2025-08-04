@@ -39,11 +39,12 @@
     "chalk": "^4",
     "fs-extra": "^10.1.0",
     "oo-ascii-tree": "^0.0.0",
-    "yargs": "^16.2.0"
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
+    "@types/yargs": "^17.0.33",
     "jsii": "^5.8.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120"
