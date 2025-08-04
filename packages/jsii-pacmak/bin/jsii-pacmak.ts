@@ -195,7 +195,7 @@ import { VERSION_DESC } from '../lib/version';
     force: argv.force,
     forceSubdirectory: argv['force-subdirectory'],
     forceTarget: argv['force-target'],
-    inputDirectories: argv.PROJECTS,
+    inputDirectories: argv.PROJECTS as any, // type cast due to bug https://github.com/yargs/yargs/issues/2292
     outputDirectory: argv.outdir,
     parallel: argv.parallel,
     recurse: argv.recurse,
