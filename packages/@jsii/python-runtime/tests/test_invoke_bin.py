@@ -94,9 +94,7 @@ class TestInvokeBinScript:
         buffered to the end
         """
         script_path = f".env/bin/calc"
-        proc = subprocess.Popen(
-            [script_path, "arg1", "delay"], stdout=subprocess.PIPE, bufsize=1
-        )
+        proc = subprocess.Popen([script_path, "arg1", "delay"], stdout=subprocess.PIPE)
 
         timed_lines = []
         last_dt = None
