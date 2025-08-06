@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`diamond-struct-parameter.ts: <outDir>/ 1`] = `
 <root>
@@ -1220,7 +1220,7 @@ testpkg.FooBar=example.test.demo.FooBar
 
 exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "build~=1.2.2.post1"]
+requires = ["setuptools~=75.3.2", "build~=1.3.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -2676,7 +2676,7 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "build~=1.2.2.post1"]
+requires = ["setuptools~=75.3.2", "build~=1.3.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
