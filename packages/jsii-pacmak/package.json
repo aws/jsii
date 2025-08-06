@@ -62,14 +62,14 @@
     "@types/semver": "^7.7.0",
     "@types/yargs": "^17.0.33",
     "diff": "^5.2.0",
-    "jsii": "~5.8.0",
+    "jsii": "^5.9.1",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-rosetta": "~5.8.0",
+    "jsii-rosetta": "~5.9.1",
     "pyright": "^1.1.403"
   },
   "peerDependencies": {
-    "jsii-rosetta": ">=5.5.0"
+    "jsii-rosetta": ">=5.7.0"
   },
   "keywords": [
     "jsii",
