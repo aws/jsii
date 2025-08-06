@@ -189,7 +189,7 @@ jobs:
         dotnet: ['6.0.x']
         go: ['1.23']
         java: ['8']
-        node: ['18'] # EOL 2025-04-30
+        node: ['20'] # EOS 2026-10-30
         os: [ubuntu-latest]
         python: ['3.9']
         # Add specific combinations to be tested against (to restrict cardinality)
@@ -200,7 +200,7 @@ jobs:
             dotnet: '6.0.x'
             go: '1.23'
             java: '8'
-            node: '18'
+            node: '20'
             python: '3.9'
           # Test using macOS
           - title: 'macOS'
@@ -208,14 +208,14 @@ jobs:
             dotnet: '6.0.x'
             go: '1.23'
             java: '8'
-            node: '18'
+            node: '20'
             python: '3.9'
           # Test alternate Nodes
           - title: 'Node 18'
             java: '8'
             dotnet: '6.0.x'
             go: '1.23'
-            node: '18' # EOL 2025-04-30
+            node: '18' # EOS 2025-11-30
             os: ubuntu-latest
             python: '3.9'
           - title: 'Node 20'
@@ -244,7 +244,7 @@ jobs:
             java: '8'
             dotnet: '7.0.x'
             go: '1.23'
-            node: '18'
+            node: '20'
             os: ubuntu-latest
             python: '3.9'
           # Test alternate Gos
@@ -252,7 +252,7 @@ jobs:
             java: '8'
             dotnet: '6.0.x'
             go: '1.24'
-            node: '18'
+            node: '20'
             os: ubuntu-latest
             python: '3.9'
           # Test alternate Javas
@@ -260,7 +260,7 @@ jobs:
             java: '11'
             dotnet: '6.0.x'
             go: '1.23'
-            node: '18'
+            node: '20'
             os: ubuntu-latest
             python: '3.9'
           # Test alternate Pythons
@@ -269,21 +269,21 @@ jobs:
             dotnet: '6.0.x'
             go: '1.23'
             java: '8'
-            node: '18'
+            node: '20'
             os: ubuntu-latest
           - title: 'Python 3.10'
             python: '3.10'
             dotnet: '6.0.x'
             go: '1.23'
             java: '8'
-            node: '18'
+            node: '20'
             os: ubuntu-latest
           - title: 'Python 3.11'
             python: '3.11'
             dotnet: '6.0.x'
             go: '1.23'
             java: '8'
-            node: '18'
+            node: '20'
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -378,10 +378,9 @@ jobs:
       matrix:
         rosetta:
           - latest
-          - 5.5.x
-          - 5.6.x
           - 5.7.x
           - 5.8.x
+          - 5.9.x
     steps:
       # Check out the code
       - name: Download Artifact

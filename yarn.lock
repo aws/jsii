@@ -5225,25 +5225,6 @@ jsesc@^3.0.2:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-3.1.0.tgz#74d335a234f67ed19907fdadfac7ccf9d409825d"
   integrity sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==
 
-jsii-rosetta@^5.8.0:
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.0.tgz#1ab51b5c6778a688a3c879cdc8e2d1f4dea19ceb"
-  integrity sha512-Arul+tKpngwtd0dOoTlnG6mCzaZIX5C1VJi4ut7YSemV2Y0nLpDDPz30xZkN3ZZYQ0fh1+UIJTU9dGHYM5q/4g==
-  dependencies:
-    "@jsii/check-node" "1.113.0"
-    "@jsii/spec" "^1.113.0"
-    "@xmldom/xmldom" "^0.9.8"
-    chalk "^4"
-    commonmark "^0.31.2"
-    fast-glob "^3.3.3"
-    jsii "~5.9.0"
-    semver "^7.7.2"
-    semver-intersect "^1.5.0"
-    stream-json "^1.9.1"
-    typescript "~5.9"
-    workerpool "^6.5.1"
-    yargs "^17.7.2"
-
 jsii-rosetta@~5.8.0:
   version "5.8.14"
   resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.8.14.tgz#d629dc0d0b60161e8d3e26139785532d1d370a71"
@@ -5279,24 +5260,6 @@ jsii@5.8.0:
     sort-json "^2.0.1"
     spdx-license-list "^6.9.0"
     typescript "~5.8"
-    yargs "^17.7.2"
-
-jsii@^5.8.0, jsii@~5.9.0:
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.0.tgz#ae4d6b21e2b5f7db5c3f01fe1e384ff1a2191fd9"
-  integrity sha512-g4kDIZjK8e6urtrtzOMQ99Gpb6NMPjNY/fLDpeOlTqSKdcYds+C8jpYU7jFFbhgyQKN05HRY1HpqlKDOzXGr1g==
-  dependencies:
-    "@jsii/check-node" "1.113.0"
-    "@jsii/spec" "^1.113.0"
-    case "^1.6.3"
-    chalk "^4"
-    fast-deep-equal "^3.1.3"
-    log4js "^6.9.1"
-    semver "^7.7.2"
-    semver-intersect "^1.5.0"
-    sort-json "^2.0.1"
-    spdx-license-list "^6.10.0"
-    typescript "~5.9"
     yargs "^17.7.2"
 
 jsii@~5.8.0:
@@ -7905,7 +7868,7 @@ typescript@5.8.x, typescript@~5.8:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.8.3.tgz#92f8a3e5e3cf497356f4178c34cd65a7f5e8440e"
   integrity sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==
 
-"typescript@>=3 < 6", typescript@~5.9:
+"typescript@>=3 < 6":
   version "5.9.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.2.tgz#d93450cddec5154a2d5cabe3b8102b83316fb2a6"
   integrity sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==
