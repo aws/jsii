@@ -32,7 +32,7 @@
   "devDependencies": {
     "jsii": "5.8.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^5.8.0"
+    "jsii-rosetta": "~5.8.0"
   },
   "jsii": {
     "outdir": "dist",
