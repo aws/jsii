@@ -59,7 +59,7 @@ jobs:
           ref: gh-pages
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Download Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: doc-site
           path: ${{ runner.temp }}/site
