@@ -7,6 +7,10 @@ import * as path from 'path';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
+import {
+  EnvironmentMonitor,
+  EnvironmentChangeEvent,
+} from './environment-monitor';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
 import * as wire from './serialization';
@@ -55,6 +59,7 @@ export class Kernel {
   readonly #promises = new Map<string, AsyncInvocation>();
 
   readonly #serializerHost: wire.SerializerHost;
+  readonly #environmentMonitor: EnvironmentMonitor;
 
   #nextid = 20000; // incrementing counter for objid, cbid, promiseid
   #syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
@@ -77,6 +82,11 @@ export class Kernel {
       findSymbol: this.#findSymbol.bind(this),
       lookupType: this.#typeInfoForFqn.bind(this),
     };
+
+    // Set up automatic environment monitoring
+    this.#environmentMonitor = new EnvironmentMonitor(
+      this.#handleEnvironmentChange.bind(this),
+    );
   }
 
   public load(req: api.LoadRequest): api.LoadResponse {
@@ -571,6 +581,55 @@ export class Kernel {
     return {
       objectCount: this.#objects.count,
     };
+  }
+
+  /**
+   * Handle environment change notifications from Python runtime
+   */
+  public ['env.notifyChange'](
+    req: api.EnvironmentChangeRequest,
+  ): api.EnvironmentChangeResponse {
+    const { key, value, type } = req;
+
+    this.#debug('applying env change from Python:', req);
+
+    // Apply the change from Python to Node.js
+    this.#environmentMonitor.applyChange({
+      type: type,
+      key,
+      value,
+      oldValue: process.env[key],
+    });
+
+    return { success: true };
+  }
+
+  /**
+   * Handle environment change detected in Node.js process.env
+   */
+  #handleEnvironmentChange(event: EnvironmentChangeEvent): void {
+    this.#debug('env change detected:', event);
+
+    // Immediately send notification to Python (synchronous)
+    this.#sendEnvironmentChangeNotification(event);
+  }
+
+  /**
+   * Send environment change notification to Python runtime via callback
+   */
+  #sendEnvironmentChangeNotification(event: EnvironmentChangeEvent): void {
+    // Use the existing callback mechanism for immediate notification
+    if (this.callbackHandler) {
+      try {
+        this.callbackHandler({
+          cbid: this.#makecbid(),
+          cookie: 'env-sync',
+          envChange: event,
+        } as any);
+      } catch (error) {
+        this.#debug('Failed to send environment change notification:', error);
+      }
+    }
   }
 
   #addAssembly(assm: Assembly) {

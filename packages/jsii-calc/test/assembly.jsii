@@ -210,14 +210,14 @@
     "jsii-calc.anonymous": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 29
+        "line": 30
       },
       "symbolId": "lib/anonymous/index:"
     },
     "jsii-calc.cdk16625": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 24
+        "line": 25
       },
       "symbolId": "lib/cdk16625/index:"
     },
@@ -231,7 +231,7 @@
     "jsii-calc.cdk22369": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 25
+        "line": 26
       },
       "symbolId": "lib/cdk22369/index:"
     },
@@ -245,7 +245,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 31
+        "line": 32
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -269,42 +269,42 @@
     "jsii-calc.jsii3656": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 26
+        "line": 27
       },
       "symbolId": "lib/jsii3656/index:"
     },
     "jsii-calc.jsii4894": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 27
+        "line": 28
       },
       "symbolId": "lib/jsii4894:"
     },
     "jsii-calc.module2530": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 21
+        "line": 22
       },
       "symbolId": "lib/module2530/index:"
     },
     "jsii-calc.module2617": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 17
+        "line": 18
       },
       "symbolId": "lib/module2617/index:"
     },
     "jsii-calc.module2647": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 16
+        "line": 17
       },
       "symbolId": "lib/module2647/index:"
     },
     "jsii-calc.module2689": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 18
+        "line": 19
       },
       "symbolId": "lib/module2689/index:"
     },
@@ -339,7 +339,7 @@
     "jsii-calc.module2692": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 20
+        "line": 21
       },
       "symbolId": "lib/module2692/index:"
     },
@@ -360,21 +360,21 @@
     "jsii-calc.module2700": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 22
+        "line": 23
       },
       "symbolId": "lib/module2700/index:"
     },
     "jsii-calc.module2702": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 19
+        "line": 20
       },
       "symbolId": "lib/module2702/index:"
     },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 16
       },
       "symbolId": "lib/no-direct-types/index:"
     },
@@ -395,14 +395,14 @@
     "jsii-calc.onlystatic": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 14
+        "line": 15
       },
       "symbolId": "lib/only-static/index:"
     },
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 13
+        "line": 14
       },
       "readme": {
         "markdown": "Read you, read me\n=================\n\nThis is the readme of the `jsii-calc.submodule` module.\n"
@@ -464,7 +464,7 @@
     "jsii-calc.union": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 30
+        "line": 31
       },
       "symbolId": "lib/union:"
     }
@@ -5547,6 +5547,161 @@
       ],
       "name": "EnumDispenser",
       "symbolId": "lib/compliance:EnumDispenser"
+    },
+    "jsii-calc.EnvironmentUtils": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Utility class for testing environment variable synchronization."
+      },
+      "fqn": "jsii-calc.EnvironmentUtils",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/environment-utils.ts",
+        "line": 4
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Delete an environment variable from Node.js process.env."
+          },
+          "locationInModule": {
+            "filename": "lib/environment-utils.ts",
+            "line": 22
+          },
+          "name": "deleteEnvironmentVariable",
+          "parameters": [
+            {
+              "name": "key",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Get an environment variable from Node.js process.env."
+          },
+          "locationInModule": {
+            "filename": "lib/environment-utils.ts",
+            "line": 15
+          },
+          "name": "getEnvironmentVariable",
+          "parameters": [
+            {
+              "name": "key",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Check if an environment variable exists."
+          },
+          "locationInModule": {
+            "filename": "lib/environment-utils.ts",
+            "line": 61
+          },
+          "name": "hasEnvironmentVariable",
+          "parameters": [
+            {
+              "name": "key",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Get all environment variables as a plain object."
+          },
+          "locationInModule": {
+            "filename": "lib/environment-utils.ts",
+            "line": 47
+          },
+          "name": "listAllEnvironmentVariables",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "string"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Load environment variables from a simple key=value format Simulates dotenv functionality for testing."
+          },
+          "locationInModule": {
+            "filename": "lib/environment-utils.ts",
+            "line": 30
+          },
+          "name": "loadEnvironmentFromString",
+          "parameters": [
+            {
+              "name": "envString",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Set an environment variable in Node.js process.env."
+          },
+          "locationInModule": {
+            "filename": "lib/environment-utils.ts",
+            "line": 8
+          },
+          "name": "setEnvironmentVariable",
+          "parameters": [
+            {
+              "name": "key",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "value",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "EnvironmentUtils",
+      "symbolId": "lib/environment-utils:EnvironmentUtils"
     },
     "jsii-calc.EraseUndefinedHashValues": {
       "assembly": "jsii-calc",
@@ -19131,5 +19286,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "O9HJsUWsfrb1HrOQ1znKEfsWfa9DuDhrkIFb7nHuB2g="
+  "fingerprint": "4fuyP3WMlBh+QrvJqH0lwrQVsQksPxD2zcezz9q8jH8="
 }

@@ -23,6 +23,7 @@ import jsii._embedded.jsii
 
 from ...__meta__ import __jsii_runtime_version__
 from ..._compat import importlib_resources
+from ..._environment_monitor import PythonEnvironmentMonitor, EnvironmentChangeEvent
 from ..._utils import memoized_property
 from .base import BaseProvider
 from ..types import (
@@ -60,6 +61,8 @@ from ..types import (
     CompleteResponse,
     StatsRequest,
     StatsResponse,
+    EnvironmentChangeRequest,
+    EnvironmentChangeResponse,
     Callback,
     CompleteRequest,
     CompleteResponse,
@@ -217,6 +220,10 @@ class _NodeProcess:
             _with_api_key("stats", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
+            EnvironmentChangeRequest,
+            self._serializer.unstructure_attrs_asdict,
+        )
+        self._serializer.register_unstructure_hook(
             Override, self._serializer.unstructure_attrs_asdict
         )
         self._serializer.register_unstructure_hook(ObjRef, _unstructure_ref)
@@ -335,7 +342,17 @@ class _NodeProcess:
         if isinstance(resp, _OkayResponse):
             return self._serializer.structure(resp.ok, response_type)
         elif isinstance(resp, _CallbackResponse):
-            return resp.callback
+            callback = resp.callback
+
+            # Check if this is an environment change callback
+            if hasattr(callback, "cookie") and callback.cookie == "env-sync":
+                # Handle environment change callback
+                if hasattr(self, "_provider"):
+                    result = self._provider._handle_node_env_change(callback)
+                    if result is not None:
+                        return result
+
+            return callback
         else:
             if resp.name == ErrorType.JSII_FAULT.value:
                 raise JSIIError(resp.error) from JavaScriptError(resp.stack)
@@ -343,10 +360,19 @@ class _NodeProcess:
 
 
 class ProcessProvider(BaseProvider):
+    def __init__(self):
+        super().__init__()
+
+        # Set up automatic environment monitoring
+        self._env_monitor = PythonEnvironmentMonitor(self._handle_python_env_change)
+
     @memoized_property
     def _process(self) -> _NodeProcess:
         process = _NodeProcess()
         process.start()
+
+        # Set the process reference for environment sync
+        process._provider = self
 
         return process
 
@@ -407,6 +433,47 @@ class ProcessProvider(BaseProvider):
         if request is None:
             request = StatsRequest()
         return self._process.send(request, StatsResponse)
+
+    def _handle_python_env_change(self, event: EnvironmentChangeEvent):
+        """Handle environment change from Python side"""
+        try:
+            # Immediately send to Node.js (synchronous)
+            request = EnvironmentChangeRequest(
+                api="env.notifyChange",
+                key=event.key,
+                value=event.value,
+                type=event.type,
+            )
+            response = self._process.send(request, EnvironmentChangeResponse)
+
+            if not response.success:
+                # Debug logging would go here
+                pass
+
+        except Exception as e:
+            # Debug logging would go here
+            pass
+
+    def _handle_node_env_change(self, callback):
+        """Handle environment change callback from Node.js"""
+        if hasattr(callback, "envChange"):
+            env_change = callback.envChange
+
+            # Apply the change from Node.js to Python
+            event = EnvironmentChangeEvent(
+                type=env_change["type"],
+                key=env_change["key"],
+                value=env_change.get("value"),
+                old_value=env_change.get("oldValue"),
+            )
+
+            # Apply change to Python environment
+            self._env_monitor.apply_change(event)
+
+            # Return success to Node.js
+            return {"success": True}
+
+        return None
 
 
 def stderr_sink(reader: IO[AnyStr]) -> None:
