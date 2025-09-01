@@ -31,7 +31,7 @@ setuptools.setup(
     },
     install_requires=[
         "attrs>=21.2,<26.0",
-        "cattrs>=1.8,<25.2",
+        "cattrs>=1.8,<25.3",
         "importlib_resources>=5.2.0",
         "publication>=0.0.3",  # This is used by all generated code.
         # 4.3.0 is incompatible with generated bindings, see https://github.com/aws/jsii/issues/4658
