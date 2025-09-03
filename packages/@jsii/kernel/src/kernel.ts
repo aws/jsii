@@ -34,6 +34,7 @@ export class RuntimeError extends Error implements JsiiError {
     super(message);
   }
 }
+
 export class Kernel {
   /**
    * Set to true for verbose debugging.

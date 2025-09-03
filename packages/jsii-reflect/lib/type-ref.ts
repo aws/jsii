@@ -31,6 +31,11 @@ export class TypeReference {
       union.sort();
       return union.join(' | ');
     }
+    if (this.intersectionOfTypes) {
+      const inter = this.intersectionOfTypes.map((x) => x.toString());
+      inter.sort();
+      return inter.join(' & ');
+    }
 
     throw new Error('Invalid type reference');
   }
@@ -93,5 +98,15 @@ export class TypeReference {
     }
 
     return this.spec.union.types.map((t) => new TypeReference(this.system, t));
+  }
+
+  public get intersectionOfTypes(): TypeReference[] | undefined {
+    if (!jsii.isIntersectionTypeReference(this.spec)) {
+      return undefined;
+    }
+
+    return this.spec.intersection.types.map(
+      (t) => new TypeReference(this.system, t),
+    );
   }
 }

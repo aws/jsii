@@ -6,6 +6,7 @@ import { cwd } from 'process';
 import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
+import { assertSpecIsRosettaCompatible } from './rosetta-assembly';
 import { ALL_BUILDERS, TargetName } from './targets';
 import { Timers } from './timer';
 import { Toposorted } from './toposort';
@@ -84,6 +85,9 @@ export async function pacmak({
     return Promise.all(
       modulesToPackageFlat.map(async (m) => {
         await m.load(system, validateAssemblies);
+
+        assertSpecIsRosettaCompatible(m.assembly.spec);
+
         return rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
       }),
     );

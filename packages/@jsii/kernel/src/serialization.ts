@@ -941,6 +941,10 @@ export function serializationType(
     );
   }
 
+  if (spec.isIntersectionTypeReference(typeRef.type)) {
+    throw new Error(`Intersection types cannot be serialized`);
+  }
+
   // The next part of the conversion is lookup-dependent
   const type = lookup(typeRef.type.fqn);
 

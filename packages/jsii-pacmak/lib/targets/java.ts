@@ -30,6 +30,7 @@ import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
+import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 
 import { TargetName } from './index';
 
@@ -2920,7 +2921,7 @@ class JavaGenerator extends Generator {
       return [this.toJavaCollection(typeref, { forMarshalling, covariant })];
     } else if (spec.isNamedTypeReference(typeref)) {
       return [this.toNativeFqn(typeref.fqn)];
-    } else if (typeref.union) {
+    } else if (spec.isUnionTypeReference(typeref)) {
       const types = new Array<string>();
       for (const subtype of typeref.union.types) {
         for (const t of this.toJavaTypes(subtype, {
@@ -3369,6 +3370,7 @@ class JavaGenerator extends Generator {
   }
 
   private convertExample(example: string, api: ApiLocation): string {
+    assertSpecIsRosettaCompatible(this.assembly);
     const translated = this.rosetta.translateExample(
       api,
       example,
@@ -3379,6 +3381,7 @@ class JavaGenerator extends Generator {
   }
 
   private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
+    assertSpecIsRosettaCompatible(this.assembly);
     return this.rosetta.translateSnippetsInMarkdown(
       api,
       markdown,

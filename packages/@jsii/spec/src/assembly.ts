@@ -17,6 +17,16 @@ export interface Assembly
     ReadMeContainer {
   /**
    * The version of the spec schema
+   *
+   * NOTE: we cannot ever change this value anymore! If we do, new instances of
+   * assmblies that would have been backwards compatible with the old schema
+   * still cannot be loaded, because the schema versions don't match exactly (as
+   * validated by JSON Schema validators on loading).
+   *
+   * We *must* always emit this value as 'jsii/0.10.0'.
+   *
+   * Instead, see `usedFeatures` for a dynamic way to do feature validation
+   * without relying on a fixed schema version.
    */
   schema: SchemaVersion.LATEST;
 
@@ -154,6 +164,18 @@ export interface Assembly
    * @default none
    */
   bin?: { readonly [script: string]: string };
+
+  /**
+   * List of features used in this assembly
+   *
+   * If a modern jsii feature is used in the assembly, a descriptive string
+   * should be added here. This field will be used to selectively reject the
+   * loading of assemblies that requires features not currently supported by the
+   * jsii kernel, or downstream jsii tools.
+   *
+   * @default - Only original jsii features.
+   */
+  usedFeatures?: JsiiFeature[];
 }
 
 /**
@@ -545,7 +567,8 @@ export type TypeReference =
   | NamedTypeReference
   | PrimitiveTypeReference
   | CollectionTypeReference
-  | UnionTypeReference;
+  | UnionTypeReference
+  | IntersectionTypeReference;
 
 /**
  * The standard representation of the `any` type (includes optionality marker).
@@ -626,10 +649,34 @@ export interface UnionTypeReference {
     types: TypeReference[];
   };
 }
+
 export function isUnionTypeReference(
   ref: TypeReference | undefined,
 ): ref is UnionTypeReference {
   return !!(ref as UnionTypeReference)?.union;
+}
+
+/**
+ * Reference to an intersection type.
+ */
+export interface IntersectionTypeReference {
+  /**
+   * Indicates that this is an intersection type, which means it must satisfy all of the given types.
+   */
+  intersection: {
+    /**
+     * All the possible types (including the primary type).
+     *
+     * @minItems 2
+     */
+    types: TypeReference[];
+  };
+}
+
+export function isIntersectionTypeReference(
+  ref: TypeReference | undefined,
+): ref is IntersectionTypeReference {
+  return !!(ref as IntersectionTypeReference)?.intersection;
 }
 
 /**
@@ -1027,6 +1074,39 @@ export function describeTypeReference(type?: TypeReference): string {
 
   throw new Error('Unrecognized type reference');
 }
+
+/**
+ * Predefined constants for a set of jsii extension features
+ */
+export type JsiiFeature = 'intersection-types';
+
+/**
+ * For every feature, is it enforced by the type system?
+ *
+ * Effectively: if a jsii tools links against the most recent version of the
+ * spec, is the TypeScript type system going to ensure that they must have
+ * support for a given new feature, through exhaustiveness checking?
+ *
+ * (This map also forces completeness, so we are guaranteed to have a string
+ * value for every possible `JsiiFeature` type branch).
+ */
+const IS_FEATURE_TYPESYSTEM_ENFORCED: Record<JsiiFeature, boolean> = {
+  'intersection-types': true,
+};
+
+/**
+ * A list of all jsii extension features
+ */
+export const ALL_FEATURES = Object.keys(IS_FEATURE_TYPESYSTEM_ENFORCED);
+
+/**
+ * A list of all jsii extension features
+ */
+export const ALL_TYPESYSTEM_ENFORCED_FEATURES = Object.entries(
+  IS_FEATURE_TYPESYSTEM_ENFORCED,
+)
+  .filter(([_, v]) => v)
+  .map(([k, _]) => k);
 
 /**
  * Determines whether an entity is deprecated.
