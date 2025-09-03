@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@jsii/check-node": "0.0.0",
-    "@jsii/spec": "^0.0.0",
+    "@jsii/spec": "0.0.0",
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
     "log4js": "^6.9.1",

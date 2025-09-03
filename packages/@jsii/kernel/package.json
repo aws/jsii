@@ -31,7 +31,7 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/spec": "^0.0.0",
+    "@jsii/spec": "0.0.0",
     "fs-extra": "^10.1.0",
     "lockfile": "^1.0.4",
     "tar": "^6.2.1"

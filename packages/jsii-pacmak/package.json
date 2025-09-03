@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@jsii/check-node": "0.0.0",
-    "@jsii/spec": "^0.0.0",
+    "@jsii/spec": "0.0.0",
     "clone": "^2.1.2",
     "codemaker": "^0.0.0",
     "commonmark": "^0.31.2",
