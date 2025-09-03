@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as zlib from 'zlib';
 
 import {
+  ALL_TYPESYSTEM_ENFORCED_FEATURES,
   Assembly,
   SPEC_FILE_NAME,
   SPEC_FILE_NAME_COMPRESSED,
@@ -122,17 +123,33 @@ const failNoReadfileProvided = (filename: string) => {
  * @param assemblyBuffer buffer containing SPEC_FILE_NAME contents
  * @param readFile a callback to use for reading additional support files
  * @param validate whether or not to validate the assembly
+ * @param supportedFeatures the set of supported features (default: all features enforced by the type system)
  */
 export function loadAssemblyFromBuffer(
   assemblyBuffer: Buffer,
   readFile: (filename: string) => Buffer = failNoReadfileProvided,
   validate = true,
+  supportedFeatures: string[] = ALL_TYPESYSTEM_ENFORCED_FEATURES,
 ): Assembly {
   let contents = JSON.parse(assemblyBuffer.toString('utf-8'));
 
   // check if the file holds instructions to the actual assembly file
   while (isAssemblyRedirect(contents)) {
     contents = followRedirect(contents, readFile);
+  }
+
+  // Do feature checking *before* validating using JSONSchema, and do it always.
+  // - In case validation is enabled, feature checking will produce a
+  //   more useful error message.
+  // - In case validation is disabled, feature checking is cheap and will catch
+  //   common problems.
+  const unsupported = ((contents as Assembly).usedFeatures ?? []).filter(
+    (feat) => !supportedFeatures.includes(feat),
+  );
+  if (unsupported.length > 0) {
+    throw new Error(
+      `This jsii tool cannot load the given assembly; using unsupported feature(s): ${unsupported.join(', ')}`,
+    );
   }
 
   return validate ? validateAssembly(contents) : contents;
@@ -149,9 +166,10 @@ export function loadAssemblyFromBuffer(
 export function loadAssemblyFromPath(
   directory: string,
   validate = true,
+  supportedFeatures?: string[],
 ): Assembly {
   const assemblyFile = findAssemblyFile(directory);
-  return loadAssemblyFromFile(assemblyFile, validate);
+  return loadAssemblyFromFile(assemblyFile, validate, supportedFeatures);
 }
 
 /**
@@ -165,6 +183,7 @@ export function loadAssemblyFromPath(
 export function loadAssemblyFromFile(
   pathToFile: string,
   validate = true,
+  supportedFeatures?: string[],
 ): Assembly {
   const data = fs.readFileSync(pathToFile);
   try {
@@ -172,6 +191,7 @@ export function loadAssemblyFromFile(
       data,
       (filename) => fs.readFileSync(path.resolve(pathToFile, '..', filename)),
       validate,
+      supportedFeatures,
     );
   } catch (e: any) {
     throw new Error(`Error loading assembly from file ${pathToFile}:\n${e}`);
