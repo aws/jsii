@@ -1337,7 +1337,7 @@ defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
   });
 });
 
-defineTest(
+defineTest.skipIf(!!recordingOutput)(
   'loading an assembly with unsupported features fails',
   async (sandbox) => {
     const testAssembly: Assembly = {
