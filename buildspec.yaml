@@ -12,7 +12,7 @@ phases:
       - yarn dist-clean
 
       # Do a candidate version bump, guaranteed to be distinct from published versions
-      - npx standard-version --release-as patch --skip.commit
+      - npx standard-version --release-as patch --skip.commit --skip.changelog
 
       - /bin/bash ./scripts/align-version.sh
       - yarn build
