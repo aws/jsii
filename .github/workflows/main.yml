@@ -44,7 +44,7 @@ jobs:
           cache: yarn
           node-version: 'lts/*'
       - name: Set up Python 3.9
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
           cache: pip
@@ -126,7 +126,7 @@ jobs:
           cache: yarn
           node-version: 'lts/*'
       - name: Set up Python 3.9
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
           cache: pip
@@ -319,7 +319,7 @@ jobs:
           cache: yarn
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
           cache: pip
@@ -407,7 +407,7 @@ jobs:
         with:
           node-version: '20'
       - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Install python3-venv
