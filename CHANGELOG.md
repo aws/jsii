@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.114.0](https://github.com/aws/jsii/compare/v1.113.0...v1.114.0) (2025-09-04)
+
+
+### Features
+
+* jsii and jsii-rosetta v5.9 ([#4885](https://github.com/aws/jsii/issues/4885)) ([fd4385a](https://github.com/aws/jsii/commit/fd4385aa6d15fba2112c673b83511466687603d4))
+* prepare support for intersection types ([#4898](https://github.com/aws/jsii/issues/4898)) ([d75658e](https://github.com/aws/jsii/commit/d75658e146a17c26e9cc6294cef00322af683672))
+
 ## [1.113.0](https://github.com/aws/jsii/compare/v1.112.0...v1.113.0) (2025-07-31)
 
 
