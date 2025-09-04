@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
+import { Assembly, SchemaVersion } from '@jsii/spec';
 import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
@@ -1336,6 +1337,36 @@ defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
   });
 });
 
+defineTest.skipIf(!!recordingOutput)(
+  'loading an assembly with unsupported features fails',
+  async (sandbox) => {
+    const testAssembly: Assembly = {
+      author: {
+        name: 'Me',
+        roles: ['owner'],
+      },
+      description: 'Test',
+      fingerprint: 'asdf',
+      homepage: 'www.example.com',
+      jsiiVersion: '1.20.3',
+      license: 'MIT',
+      name: 'test',
+      repository: { type: 'other', url: 'www.example.com' },
+      schema: SchemaVersion.LATEST,
+      version: '1.2.3',
+      usedFeatures: ['will-never-be-used' as any],
+    };
+
+    await expect(async () =>
+      sandbox.load({
+        tarball: await makeJsiiTarball(testAssembly),
+        name: testAssembly.name,
+        version: testAssembly.version,
+      }),
+    ).rejects.toThrow(/will-never-be-used/);
+  },
+);
+
 defineTest(
   'fails if trying to load two different versions of the same module',
   async (sandbox) => {
@@ -2275,9 +2306,42 @@ async function preparePackage(module: string, useCache = true) {
   }
 
   const packageRoot = findPackageRoot(module);
-  await new Promise<void>((ok, ko) => {
-    const child = childProcess.spawn('npm', ['pack', packageRoot], {
-      cwd: staging,
+
+  await runNpm(['pack', packageRoot], staging);
+
+  const dir = path.join(staging, (await fs.readdir(staging))[0]);
+  cache.set(module, dir);
+  return dir;
+}
+
+async function makeJsiiTarball(assembly: Assembly) {
+  const staging = await fs.mkdtemp(
+    path.join(os.tmpdir(), 'jsii-kernel-tests-'),
+  );
+
+  // clean up only if we are not recording, so playback can refer to these
+  if (!recordingOutput) {
+    process.on('exit', () => fs.removeSync(staging)); // cleanup
+  }
+
+  await fs.writeJson(path.join(staging, 'package.json'), {
+    name: assembly.name,
+    version: assembly.version,
+  });
+
+  await fs.writeJson(path.join(staging, '.jsii'), assembly);
+
+  await runNpm(['pack'], staging);
+
+  const tarballs = (await fs.readdir(staging)).filter((x) => x.endsWith('gz'));
+
+  return path.join(staging, tarballs[0]);
+}
+
+async function runNpm(args: string[], cwd: string): Promise<string> {
+  return new Promise<string>((ok, ko) => {
+    const child = childProcess.spawn('npm', args, {
+      cwd,
       shell: true,
       stdio: ['ignore', 'pipe', 'ignore'],
     });
@@ -2285,7 +2349,7 @@ async function preparePackage(module: string, useCache = true) {
     child.stdout.on('data', (chunk) => stdout.push(Buffer.from(chunk)));
     child.once('close', (code, signal) => {
       if (code === 0) {
-        return ok();
+        return ok(Buffer.concat(stdout).toString());
       }
       if (code != null) {
         return ko(`'npm pack' exited with code ${code}`);
@@ -2293,9 +2357,6 @@ async function preparePackage(module: string, useCache = true) {
       return ko(`'npm pack' killed by signal ${signal}`);
     });
   });
-  const dir = path.join(staging, (await fs.readdir(staging))[0]);
-  cache.set(module, dir);
-  return dir;
 }
 
 function findPackageRoot(pkg: string) {

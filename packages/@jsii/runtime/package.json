@@ -36,7 +36,7 @@
   "dependencies": {
     "@jsii/kernel": "^0.0.0",
     "@jsii/check-node": "0.0.0",
-    "@jsii/spec": "^0.0.0"
+    "@jsii/spec": "0.0.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",

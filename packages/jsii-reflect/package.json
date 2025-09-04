@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@jsii/check-node": "0.0.0",
-    "@jsii/spec": "^0.0.0",
+    "@jsii/spec": "0.0.0",
     "chalk": "^4",
     "fs-extra": "^10.1.0",
     "oo-ascii-tree": "^0.0.0",
