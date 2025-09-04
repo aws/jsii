@@ -10,7 +10,10 @@ phases:
     commands:
       - yarn build && yarn test
       - yarn dist-clean
-      - /bin/bash ./scripts/bump.sh
+
+      # Do a candidate version bump, guaranteed to be distinct from published versions
+      - npx standard-version --release-as patch --skip.commit
+
       - /bin/bash ./scripts/align-version.sh
       - yarn build
   post_build:
