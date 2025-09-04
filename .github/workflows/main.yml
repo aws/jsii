@@ -30,7 +30,7 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.23
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - name: Set up Java 8
@@ -112,7 +112,7 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.23
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - name: Set up Java 8
@@ -305,7 +305,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
       - name: Set up Java ${{ matrix.java }}
@@ -394,7 +394,7 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: Set up Go 1.23
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - name: Set up Java 20
