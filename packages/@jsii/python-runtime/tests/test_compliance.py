@@ -884,11 +884,11 @@ def test_doNotOverridePrivates_property_by_name():
 def test_doNotOverridePrivates_property_getter():
     class TDoNotOverridePrivates(DoNotOverridePrivates):
         @property
-        def private_property(self):
+        def private_property(self) -> str:
             return "privateProperty-Override"
 
         @private_property.setter
-        def private_property(self):
+        def private_property(self, _: str):
             raise RuntimeError("Boom")
 
     obj = TDoNotOverridePrivates()

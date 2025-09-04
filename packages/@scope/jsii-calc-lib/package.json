@@ -39,9 +39,9 @@
     "@scope/jsii-calc-base-of-base": "^2.1.1"
   },
   "devDependencies": {
-    "jsii": "5.8.0",
+    "jsii": "5.9.1",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^5.8.0"
+    "jsii-rosetta": "^5.9.1"
   },
   "jsii": {
     "outdir": "dist",

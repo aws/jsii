@@ -29,6 +29,7 @@ import {
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
+import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 
 import { TargetName } from './index';
 
@@ -2589,6 +2590,7 @@ class PythonGenerator extends Generator {
   }
 
   public convertExample(example: string, apiLoc: ApiLocation): string {
+    assertSpecIsRosettaCompatible(this.assembly);
     const translated = this.rosetta.translateExample(
       apiLoc,
       example,
@@ -2599,6 +2601,7 @@ class PythonGenerator extends Generator {
   }
 
   public convertMarkdown(markdown: string, apiLoc: ApiLocation): string {
+    assertSpecIsRosettaCompatible(this.assembly);
     return this.rosetta.translateSnippetsInMarkdown(
       apiLoc,
       markdown,

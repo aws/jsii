@@ -3,6 +3,7 @@
 # updates all package.json files to the latest jsii
 # and jsii-rosetta versions
 # updates the jsii-pacmak peer dep to the latest supported version
+# updates the TypeScript version to the equivalent jsii version
 # updates the build matrix in the .github/workflows/main.yml file
 #------------------------------------------------------------------------
 set -euo pipefail
@@ -26,6 +27,11 @@ echo ""
 echo "Updating jsii-pacmak peerDependency to >=$oldest.0"
 echo ""
 npm --prefix packages/jsii-pacmak pkg set peerDependencies.jsii-rosetta=">=$oldest.0"
+
+# Update TypeScript version
+echo "Updating TypeScript version to latest"
+echo ""
+npm pkg set devDependencies.typescript=">=$latest.x"
 
 # GitHub Actions
 matrix=$(echo $supported | jq -rs '["latest"] + map(. + ".x") | @csv')

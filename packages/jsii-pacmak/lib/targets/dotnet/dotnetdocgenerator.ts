@@ -11,6 +11,7 @@ import * as xmlbuilder from 'xmlbuilder';
 
 import { renderSummary } from '../_utils';
 import { DotNetNameUtils } from './nameutils';
+import { assertSpecIsRosettaCompatible } from '../../rosetta-assembly';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -160,6 +161,7 @@ export class DotNetDocGenerator {
   }
 
   private convertExample(example: string, apiLocation: ApiLocation): string {
+    assertSpecIsRosettaCompatible(this.assembly);
     const translated = this.rosetta.translateExample(
       apiLocation,
       example,
@@ -170,6 +172,7 @@ export class DotNetDocGenerator {
   }
 
   private convertSamplesInMarkdown(markdown: string, api: ApiLocation): string {
+    assertSpecIsRosettaCompatible(this.assembly);
     return this.rosetta.translateSnippetsInMarkdown(
       api,
       markdown,

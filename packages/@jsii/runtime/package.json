@@ -36,7 +36,7 @@
   "dependencies": {
     "@jsii/kernel": "^0.0.0",
     "@jsii/check-node": "0.0.0",
-    "@jsii/spec": "^0.0.0"
+    "@jsii/spec": "0.0.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
@@ -44,7 +44,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "source-map-loader": "^5.0.0",
-    "webpack": "^5.100.2",
+    "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1"
   }
 }

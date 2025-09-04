@@ -134,7 +134,7 @@ export class DotNetTypeResolver {
       return this.toDotNetCollection(typeref);
     } else if (spec.isNamedTypeReference(typeref)) {
       return this.toNativeFqn(typeref.fqn);
-    } else if (typeref.union) {
+    } else if (spec.isUnionTypeReference(typeref)) {
       return 'object';
     }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
@@ -150,7 +150,7 @@ export class DotNetTypeResolver {
       return this.toDotNetCollectionName(typeref);
     } else if (spec.isNamedTypeReference(typeref)) {
       return `typeof(${this.toNativeFqn(typeref.fqn)}).FullName`;
-    } else if (typeref.union) {
+    } else if (spec.isUnionTypeReference(typeref)) {
       return '"object"';
     }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
