@@ -1,4 +1,8 @@
 /**
+ * NOTE: Next time we change anything there, be sure to address https://github.com/aws/jsii/issues/4911
+ */
+
+/**
  * Expected file name for jsii assembly or instructions to compressed assembly.
  */
 export const SPEC_FILE_NAME = '.jsii';
