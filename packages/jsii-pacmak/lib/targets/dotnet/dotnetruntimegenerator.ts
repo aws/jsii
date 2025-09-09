@@ -3,6 +3,7 @@ import { CodeMaker } from 'codemaker';
 
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { DotNetNameUtils } from './nameutils';
+import { isLiteralTypeReference } from '../type-literals';
 
 /**
  * Generates the Jsii attributes and calls for the jsii .NET runtime
@@ -177,12 +178,22 @@ export class DotNetRuntimeGenerator {
     const paramTypes = new Array<string>();
     const params = new Array<string>();
     if (method.parameters) {
-      for (const param of method.parameters) {
-        paramTypes.push(
-          `typeof(${this.typeresolver.toDotNetType(param.type)}${
-            param.variadic ? '[]' : ''
-          })`,
-        );
+      const { parameters } = this.typeresolver.renderGenericParameters(
+        method.parameters,
+      );
+
+      for (const param of parameters) {
+        if (isLiteralTypeReference(param.type)) {
+          // Generic type argument -- since we don't actually need this type anyway because we don't use it
+          // for method resolution, we can just use Object.
+          paramTypes.push('typeof(System.Object)');
+        } else {
+          paramTypes.push(
+            `typeof(${this.typeresolver.toDotNetType(param.type)}${
+              param.variadic ? '[]' : ''
+            })`,
+          );
+        }
         params.push(this.nameutils.convertParameterName(param.name));
       }
     }
