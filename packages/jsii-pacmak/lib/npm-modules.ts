@@ -8,7 +8,7 @@ import { findDependencyDirectory, isBuiltinModule } from './util';
 import * as logging from '../lib/logging';
 
 /**
- * Find all modules that need to be packagerd
+ * Find all modules that need to be packaged
  *
  * If the input list is empty, include the current directory.
  *
@@ -93,14 +93,12 @@ export async function findJsiiModules(
     // outdir is either by package.json/jsii.outdir (relative to package root) or via command line (relative to cwd)
     const outputDirectory =
       pkg.jsii.outdir && path.resolve(realPath, pkg.jsii.outdir);
-    const targets = [...Object.keys(pkg.jsii.targets), 'js']; // "js" is an implicit target.
 
     ret.push(
       new JsiiModule({
         name: pkg.name,
         moduleDirectory: realPath,
         defaultOutputDirectory: outputDirectory,
-        availableTargets: targets,
         dependencyNames,
       }),
     );

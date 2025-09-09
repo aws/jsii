@@ -19,11 +19,6 @@ export interface JsiiModuleOptions {
   moduleDirectory: string;
 
   /**
-   * Identifier of the targets to build
-   */
-  availableTargets: string[];
-
-  /**
    * Output directory where to package everything
    */
   defaultOutputDirectory: string;
@@ -37,7 +32,6 @@ export class JsiiModule {
   public readonly name: string;
   public readonly dependencyNames: string[];
   public readonly moduleDirectory: string;
-  public readonly availableTargets: string[];
   public outputDirectory: string;
 
   private _tarball?: Scratch<string>;
@@ -46,7 +40,6 @@ export class JsiiModule {
   public constructor(options: JsiiModuleOptions) {
     this.name = options.name;
     this.moduleDirectory = options.moduleDirectory;
-    this.availableTargets = options.availableTargets;
     this.outputDirectory = options.defaultOutputDirectory;
     this.dependencyNames = options.dependencyNames ?? [];
   }
@@ -114,6 +107,11 @@ export class JsiiModule {
       throw new Error('Assembly not available yet, call load() first');
     }
     return this._assembly;
+  }
+
+  public get availableTargets(): string[] {
+    // "js" is an implicit target
+    return [...Object.keys(this.assembly.targets ?? {}), 'js'];
   }
 
   public async cleanup() {
