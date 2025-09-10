@@ -17,7 +17,7 @@ import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
-import { subprocess } from '../util';
+import { shell, subprocess } from '../util';
 import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
@@ -101,7 +101,7 @@ export default class Python extends Target {
       env,
       retry: { maxAttempts: 5 },
     });
-    await subprocess(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
+    await shell(`${python} -m twine check ${path.join(outDir, '*')}`, {
       cwd: sourceDir,
       env,
     });

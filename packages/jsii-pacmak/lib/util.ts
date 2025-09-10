@@ -239,20 +239,20 @@ export async function shell(
  * `process.env` is used as the initial value of the `env` spawn option (values
  * provided in `options.env` can override those).
  *
- * @param cmd     the command to shell out to.
+ * @param binary     the command to shell out to.
  * @param args    the arguments to provide to `cmd`
  * @param options any options to pass to `spawn`
  */
 export async function subprocess(
-  cmd: string,
+  binary: string,
   args: string[],
   options?: ShellOptions,
 ): Promise<string> {
   return handleSubprocess(options, () => {
-    logging.debug(cmd, args.join(' '), JSON.stringify(options));
+    logging.debug(binary, args.join(' '), JSON.stringify(options ?? {}));
     return {
-      command: `${cmd} ${args.join(' ')}`.trim(),
-      child: spawn(cmd, args, {
+      command: `${binary} ${args.join(' ')}`.trim(),
+      child: spawn(binary, args, {
         ...options,
         env: { ...process.env, ...(options?.env ?? {}) },
         stdio: ['ignore', 'pipe', 'pipe'],
@@ -332,6 +332,7 @@ async function handleSubprocess(
         }),
     });
   }
+
   return spawn1();
 }
 

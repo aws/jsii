@@ -328,7 +328,7 @@ export async function preparePythonVirtualEnv({
             '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
           ]
         : []),
-      JSON.stringify(venvRoot),
+      venvRoot,
     ]),
   ).resolves.not.toThrow();
 
@@ -360,11 +360,9 @@ export async function preparePythonVirtualEnv({
         // Additional install parameters
         ...install,
         // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
-        JSON.stringify(
-          path.resolve(
-            require.resolve('@jsii/python-runtime/package.json'),
-            '..',
-          ),
+        path.resolve(
+          require.resolve('@jsii/python-runtime/package.json'),
+          '..',
         ),
       ],
       { env, retry: { maxAttempts: 5 } },
@@ -402,7 +400,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
         '--disable-error-code=name-defined',
         // Ignore subclassing types that did not resolve because we don't have dependencies
         '--allow-subclassing-any',
-        JSON.stringify(pythonRoot),
+        pythonRoot,
       ],
       { env },
     ),
