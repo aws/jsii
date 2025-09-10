@@ -247,11 +247,39 @@ jobs:
             node: '20'
             os: ubuntu-latest
             python: '3.9'
+          - title: '.NET 8.0'
+            java: '8'
+            dotnet: '7.0.x'
+            go: '1.23'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
+          - title: '.NET 9.0'
+            java: '8'
+            dotnet: '9.0.x'
+            go: '1.23'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
+          - title: '.NET 10.0'
+            java: '8'
+            dotnet: '10.0.x'
+            go: '1.23'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
           # Test alternate Gos
           - title: 'Go 1.24'
             java: '8'
             dotnet: '6.0.x'
             go: '1.24'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
+          - title: 'Go 1.25'
+            java: '8'
+            dotnet: '6.0.x'
+            go: '1.25'
             node: '20'
             os: ubuntu-latest
             python: '3.9'
@@ -280,6 +308,20 @@ jobs:
             os: ubuntu-latest
           - title: 'Python 3.11'
             python: '3.11'
+            dotnet: '6.0.x'
+            go: '1.23'
+            java: '8'
+            node: '20'
+            os: ubuntu-latest
+          - title: 'Python 3.12'
+            python: '3.12'
+            dotnet: '6.0.x'
+            go: '1.23'
+            java: '8'
+            node: '20'
+            os: ubuntu-latest
+          - title: 'Python 3.13'
+            python: '3.13'
             dotnet: '6.0.x'
             go: '1.23'
             java: '8'
@@ -326,6 +368,11 @@ jobs:
       - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - if: runner.os == 'Windows'
+        name: Windows performance improvements
+        run: |-
+          yarn config set cache-folder D:\a\_temp\yarn
+          echo "TEMP=D:\a\_temp" >> $env:GITHUB_ENV
       - name: Cache
         uses: actions/cache@v4
         with:

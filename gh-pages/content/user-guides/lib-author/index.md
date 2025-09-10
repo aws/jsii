@@ -17,7 +17,7 @@ to produce releasable artifacts.
 | Language/Platform | SDK Requirement           |
 | ----------------- | ------------------------- |
 | .NET              | .NET ≥ 6.0                |
-| Go                | Go ≥ 1.18                 |
+| Go                | Go ≥ 1.23                 |
 | Java              | JDK ≥ 8 _and_ Maven ≥ 3.6 |
 | Python            | Python ≥ 3.9              |
 

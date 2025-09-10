@@ -144,7 +144,7 @@ signature is compatible with the parent. This is however not supported as:
 
 !!! note
     **C# 9** introduces support for covariant return types, which would allow relaxing this restriction, however `jsii`
-    must build code targetting the `.NET Core 3.1` runtime, which only supports **C# 8**. Once `.NET Core 3.1` becimes
+    must build code targetting the `.NET Core 3.1` runtime, which only supports **C# 8**. Once `.NET Core 3.1` becomes
     end-of-life, this may change.
 
 ```ts hl_lines="6-7 9-10 12-13"
@@ -246,53 +246,53 @@ export interface Props {
 In order to guarantee a consistent developer experience across all supported languages, `jsii` emits warnings whenever
 a declaration is named after any target language's *reserved words*, as those will need renaming in target languages:
 
-**C#**         | **Java**       | **Python**   | **Go**
----------------|----------------|--------------|-------------
-`abstract`     | `abstract`     | `False`      | `break`
-`base`         | `assert`       | `None`       | `case`
-`bool`         | `boolean`      | `True`       | `chan`
-`byte`         | `byte`         | `and`        | `const`
-`char`         | `char`         | `assert`     | `continue`
-`checked`      | `double`       | `def`        | `default`
-`decimal`      | `final`        | `del`        | `defer`
-`delegate`     | `float`        | `elif`       | `else`
-`double`       | `goto`         | `except`     | `fallthrough`
-`event`        | `int`          | `from`       | `for`
-`explicit`     | `long`         | `global`     | `func`
-`extern`       | `native`       | `is`         | `go`
-`fixed`        | `short`        | `lambda`     | `goto`
-`float`        | `strictfp`     | `nonlocal`   | `if`
-`foreach`      | `synchronized` | `not`        | `import`
-`goto`         | `throws`       | `or`         | `interface`
-`implicit`     | `transient`    | `pass`       | `map`
-`int`          | `volatile`     | `raise`      | `package`
-`internal`     |                |              | `range`
-`is`           |                |              | `return`
-`lock`         |                |              | `select`
-`long`         |                |              | `struct`
-`namespace`    |                |              | `switch`
-`object`       |                |              | `type`
-`operator`     |                |              | `var`
-`out`          |                |              |
-`override`     |                |              |
-`params`       |                |              |
-`readonly`     |                |              |
-`ref`          |                |              |
-`sbyte`        |                |              |
-`sealed`       |                |              |
-`short`        |                |              |
-`sizeof`       |                |              |
-`stackalloc`   |                |              |
-`string`       |                |              |
-`struct`       |                |              |
-`uint`         |                |              |
-`ulong`        |                |              |
-`unchecked`    |                |              |
-`unsafe`       |                |              |
-`ushort`       |                |              |
-`using`        |                |              |
-`virtual`      |                |              |
-`volatile`     |                |              |
+| **C#**       | **Java**       | **Python** | **Go**        |
+| ------------ | -------------- | ---------- | ------------- |
+| `abstract`   | `abstract`     | `False`    | `break`       |
+| `base`       | `assert`       | `None`     | `case`        |
+| `bool`       | `boolean`      | `True`     | `chan`        |
+| `byte`       | `byte`         | `and`      | `const`       |
+| `char`       | `char`         | `assert`   | `continue`    |
+| `checked`    | `double`       | `def`      | `default`     |
+| `decimal`    | `final`        | `del`      | `defer`       |
+| `delegate`   | `float`        | `elif`     | `else`        |
+| `double`     | `goto`         | `except`   | `fallthrough` |
+| `event`      | `int`          | `from`     | `for`         |
+| `explicit`   | `long`         | `global`   | `func`        |
+| `extern`     | `native`       | `is`       | `go`          |
+| `fixed`      | `short`        | `lambda`   | `goto`        |
+| `float`      | `strictfp`     | `nonlocal` | `if`          |
+| `foreach`    | `synchronized` | `not`      | `import`      |
+| `goto`       | `throws`       | `or`       | `interface`   |
+| `implicit`   | `transient`    | `pass`     | `map`         |
+| `int`        | `volatile`     | `raise`    | `package`     |
+| `internal`   |                |            | `range`       |
+| `is`         |                |            | `return`      |
+| `lock`       |                |            | `select`      |
+| `long`       |                |            | `struct`      |
+| `namespace`  |                |            | `switch`      |
+| `object`     |                |            | `type`        |
+| `operator`   |                |            | `var`         |
+| `out`        |                |            |
+| `override`   |                |            |
+| `params`     |                |            |
+| `readonly`   |                |            |
+| `ref`        |                |            |
+| `sbyte`      |                |            |
+| `sealed`     |                |            |
+| `short`      |                |            |
+| `sizeof`     |                |            |
+| `stackalloc` |                |            |
+| `string`     |                |            |
+| `struct`     |                |            |
+| `uint`       |                |            |
+| `ulong`      |                |            |
+| `unchecked`  |                |            |
+| `unsafe`     |                |            |
+| `ushort`     |                |            |
+| `using`      |                |            |
+| `virtual`    |                |            |
+| `volatile`   |                |            |
 
 !!! info
     The list of reserved words is derived from [`jsii/lib/reserved-words.ts`][reserved-words.ts].

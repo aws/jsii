@@ -32,25 +32,24 @@ The following tools need to be installed to develop on JSII locally. We recommen
 using the docker image from the above section, but if you wish to, you can install
 in your development environment.
 
-- [Node `20.0.0`] or later
-- [Yarn `1.19.1`] or later
-- An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
+- [Node.js] `20.0.0` or later
+- [Yarn] `1.22.22` or later
+- An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK] v8, [Amazon Corretto] v8)
   - [`maven >= 3.0.5`](https://maven.apache.org)
-- [.NET `6.0`] or later
-  - *Recommended:* [`mono >= 6`](https://www.mono-project.com)
-- [Python `3.9.18`] or later
+- [.NET] `6.0` or later
+- [Python] `3.9.18` or later
   - [`pip`](https://pip.pypa.io/en/stable/installing/)
   - [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   - [`wheel`](https://pypi.org/project/wheel/)
   - *Recommended:* [`twine`](https://pypi.org/project/twine/)
-- [Go] `1.18` or newer
+- [Go] `1.23` or newer
 
-[Node `18.0.0`]: https://nodejs.org/download/release/latest-v18.x/
-[Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
-[Oracle's OpenJDK8]: http://openjdk.java.net/install/
-[Amazon Corretto 8]: https://aws.amazon.com/corretto/
-[.NET `6.0`]: https://www.microsoft.com/net/download
-[Python `3.9.18`]: https://www.python.org/downloads/release/python-3918/
+[Node.js]: https://nodejs.org/en/download
+[Yarn]: https://yarnpkg.com/en/docs/install
+[Oracle's OpenJDK]: http://openjdk.java.net/install/
+[Amazon Corretto]: https://aws.amazon.com/corretto/
+[.NET]: https://dotnet.microsoft.com/en-us/download/dotnet
+[Python]: https://www.python.org/downloads/
 [Go]: https://go.dev/dl/
 
 ## Getting Started
