@@ -49,22 +49,20 @@ export class JsiiModule {
    */
   public async npmPack(packCommand = DEFAULT_PACK_COMMAND) {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      const args = [];
-
       if (packCommand === DEFAULT_PACK_COMMAND) {
         // Quoting (JSON-stringifying) the module directory in order to avoid
         // problems if there are spaces or other special characters in the path.
-        args.push(JSON.stringify(this.moduleDirectory));
+        packCommand += ` ${JSON.stringify(this.moduleDirectory)}`;
 
         if (logging.level.valueOf() >= logging.LEVEL_VERBOSE) {
-          args.push('--loglevel=verbose');
+          packCommand += ' --loglevel=verbose';
         }
       } else {
         // Ensure module is copied to tmpdir to ensure parallel execution does not contend on generated tarballs
         await fs.copy(this.moduleDirectory, tmpdir, { dereference: true });
       }
 
-      const out = await shell(packCommand, args, {
+      const out = await shell(packCommand, {
         cwd: tmpdir,
       });
 

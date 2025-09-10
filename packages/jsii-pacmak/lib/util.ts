@@ -1,7 +1,8 @@
-import { spawn, SpawnOptions } from 'child_process';
+import { ChildProcessByStdio, spawn, SpawnOptions } from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
+import { Readable } from 'stream';
 
 import * as logging from './logging';
 
@@ -132,7 +133,7 @@ export interface RetryOptions {
    *                            there are attempts left)
    */
   onFailedAttempt?: (
-    error: unknown,
+    error: Error,
     attemptsLeft: number,
     backoffMilliseconds: number,
   ) => void;
@@ -207,29 +208,81 @@ export interface ShellOptions extends Omit<SpawnOptions, 'shell' | 'stdio'> {
 }
 
 /**
- * Spawns a child process with the provided command and arguments. The child
- * process is always spawned using `shell: true`, and the contents of
+ * Spawns a shell with the provided commandline.
+ *
+ * The child process is always spawned using `shell: true`, and the contents of
+ * `process.env` is used as the initial value of the `env` spawn option (values
+ * provided in `options.env` can override those).
+ */
+export async function shell(
+  commandLine: string,
+  options?: ShellOptions,
+): Promise<string> {
+  return handleSubprocess(options, () => {
+    logging.debug(commandLine, JSON.stringify(options));
+    return {
+      command: commandLine,
+      child: spawn(commandLine, {
+        ...options,
+        shell: true,
+        env: { ...process.env, ...(options?.env ?? {}) },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      }),
+    };
+  });
+}
+
+/**
+ * Spawns a subprocess with the provided command and arguments.
+ *
+ * The child process is always spawned using `shell: false`, and the contents of
  * `process.env` is used as the initial value of the `env` spawn option (values
  * provided in `options.env` can override those).
  *
- * @param cmd     the command to shell out to.
+ * To make this work on Windows, if the binary happens to resolve to a batch file
+ * we run it through cmd.exe.
+ *
+ * @param binary     the command to shell out to.
  * @param args    the arguments to provide to `cmd`
  * @param options any options to pass to `spawn`
  */
-export async function shell(
-  cmd: string,
+export async function subprocess(
+  binary: string,
   args: string[],
-  { retry: retryOptions, ...options }: ShellOptions = {},
+  options?: ShellOptions,
+): Promise<string> {
+  if (os.platform() === 'win32') {
+    const resolved = resolveBinaryWindows(binary);
+    // Anything that's not an executable, run it through cmd.exe
+    if (!resolved.toLocaleLowerCase().endsWith('.exe')) {
+      binary = process.env.COMSPEC ?? 'cmd.exe';
+      args = ['/d', '/c', resolved, ...args];
+    }
+  }
+
+  return handleSubprocess(options, () => {
+    logging.debug(binary, args.join(' '), JSON.stringify(options ?? {}));
+    return {
+      command: `${binary} ${args.join(' ')}`.trim(),
+      child: spawn(binary, args, {
+        ...options,
+        env: { ...process.env, ...(options?.env ?? {}) },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      }),
+    };
+  });
+}
+
+async function handleSubprocess(
+  { retry: retryOptions }: ShellOptions = {},
+  doSpawn: () => {
+    command: string;
+    child: ChildProcessByStdio<null, Readable, Readable>;
+  },
 ): Promise<string> {
   async function spawn1() {
-    logging.debug(cmd, args.join(' '), JSON.stringify(options));
     return new Promise<string>((ok, ko) => {
-      const child = spawn(cmd, args, {
-        ...options,
-        shell: true,
-        env: { ...process.env, ...(options.env ?? {}) },
-        stdio: ['ignore', 'pipe', 'pipe'],
-      });
+      const { command, child } = doSpawn();
       const stdout = new Array<Buffer>();
       const stderr = new Array<Buffer>();
       child.stdout.on('data', (chunk) => {
@@ -255,7 +308,6 @@ export async function shell(
         }
         const err = Buffer.concat(stderr).toString('utf-8');
         const reason = signal != null ? `signal ${signal}` : `status ${code}`;
-        const command = `${cmd} ${args.join(' ')}`;
         return ko(
           new Error(
             [
@@ -283,20 +335,44 @@ export async function shell(
       onFailedAttempt:
         retryOptions.onFailedAttempt ??
         ((error, attemptsLeft, backoffMs) => {
-          const message = (error as Error).message ?? error;
+          const message = error.message ?? error;
           const retryInfo =
             attemptsLeft > 0
               ? `Waiting ${backoffMs} ms before retrying (${attemptsLeft} attempts left)`
               : 'No attempts left';
-          logging.info(
-            `Command "${cmd} ${args.join(
-              ' ',
-            )}" failed with ${message}. ${retryInfo}.`,
-          );
+          logging.info(`${message}. ${retryInfo}.`);
         }),
     });
   }
+
   return spawn1();
+}
+
+/**
+ * Resolve a command to an executable on Windows
+ */
+function resolveBinaryWindows(command: string): string {
+  const extensions = (
+    process.env.PATHEXT ?? '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH'
+  ).split(';');
+
+  const dirs = [
+    process.cwd(),
+    ...(process.env.PATH?.split(path.delimiter) ?? []),
+  ];
+
+  for (const dir of dirs) {
+    for (const ext of ['', ...extensions]) {
+      const candidate = path.resolve(dir, `${command}${ext}`);
+      if (fs.pathExistsSync(candidate)) {
+        return candidate;
+      }
+    }
+  }
+
+  throw new Error(
+    `Unable to resolve command: ${command} in ${process.env.PATH}`,
+  );
 }
 
 /**

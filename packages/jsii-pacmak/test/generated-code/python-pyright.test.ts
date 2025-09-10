@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import { JSII_TEST_PACKAGES, preparePythonVirtualEnv } from './harness';
 import { pacmak, TargetName } from '../../lib';
-import { shell } from '../../lib/util';
+import { subprocess } from '../../lib/util';
 
 jest.setTimeout(3_600_000);
 
@@ -47,7 +47,7 @@ beforeAll(async () => {
   venv = await preparePythonVirtualEnv({
     install: TEST_PACKAGES.flatMap(({ moduleName }) => [
       '-e',
-      JSON.stringify(path.join(pythonSource, moduleName, TargetName.PYTHON)),
+      path.join(pythonSource, moduleName, TargetName.PYTHON),
     ]),
     installOptions: [
       // setuptools >=64 requires this
@@ -83,12 +83,12 @@ afterAll(async () => {
 
 test('generated code passes pyright', async () => {
   await expect(
-    shell(
+    subprocess(
       process.execPath,
       [
         ...process.execArgv,
-        JSON.stringify(require.resolve('pyright')),
-        `--project=${JSON.stringify(pythonSource)}`,
+        require.resolve('pyright'),
+        `--project=${pythonSource}`,
       ],
       {
         cwd: pythonSource,

@@ -12,7 +12,7 @@ import {
   TargetOptions,
   findLocalBuildDirs,
 } from '../target';
-import { shell, Scratch, setExtend, filterAsync } from '../util';
+import { subprocess, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
 import { toReleaseVersion } from './version-utils';
 
@@ -57,7 +57,7 @@ export class DotnetBuilder implements TargetBuilder {
 
       // Build solution
       logging.debug('Building .NET');
-      await shell(
+      await subprocess(
         'dotnet',
         ['build', '--force', '--configuration', 'Release'],
         {
@@ -104,8 +104,10 @@ export class DotnetBuilder implements TargetBuilder {
       }
 
       // Use 'dotnet' command line tool to build a solution file from these csprojs
-      await shell('dotnet', ['new', 'sln', '-n', 'JsiiBuild'], { cwd: tmpDir });
-      await shell('dotnet', ['sln', 'add', ...csProjs], { cwd: tmpDir });
+      await subprocess('dotnet', ['new', 'sln', '-n', 'JsiiBuild'], {
+        cwd: tmpDir,
+      });
+      await subprocess('dotnet', ['sln', 'add', ...csProjs], { cwd: tmpDir });
 
       await this.generateNuGetConfigForLocalDeps(tmpDir);
 
