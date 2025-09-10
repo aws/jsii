@@ -362,7 +362,7 @@ function resolveBinaryWindows(command: string): string {
   ];
 
   for (const dir of dirs) {
-    for (const ext of extensions) {
+    for (const ext of ['', ...extensions]) {
       const candidate = path.resolve(dir, `${command}${ext}`);
       if (fs.pathExistsSync(candidate)) {
         return candidate;
