@@ -368,6 +368,11 @@ jobs:
       - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - if: runner.os == 'Windows'
+        name: Windows performance improvements
+        run: |-
+          yarn config set cache-folder D:\a\_temp\yarn
+          echo "TEMP=D:\a\_temp" >> $env:GITHUB_ENV
       - name: Cache
         uses: actions/cache@v4
         with:
