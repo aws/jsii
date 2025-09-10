@@ -17,7 +17,7 @@ import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
-import { shell } from '../util';
+import { subprocess } from '../util';
 import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
@@ -71,7 +71,7 @@ export default class Python extends Target {
     // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
     // fail to copy the python binary if it's not invoked as python.exe). More on this particular
     // issue can be read here: https://bugs.python.org/issue43749
-    await shell(process.platform === 'win32' ? 'python' : 'python3', [
+    await subprocess(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
@@ -85,7 +85,7 @@ export default class Python extends Target {
     const python = path.join(venvBin, 'python');
 
     // Install the necessary things
-    await shell(
+    await subprocess(
       python,
       ['-m', 'pip', 'install', '--no-input', '-r', requirementsFile],
       {
@@ -96,12 +96,12 @@ export default class Python extends Target {
     );
 
     // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell(python, ['-m', 'build', '--outdir', outDir, sourceDir], {
+    await subprocess(python, ['-m', 'build', '--outdir', outDir, sourceDir], {
       cwd: sourceDir,
       env,
       retry: { maxAttempts: 5 },
     });
-    await shell(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
+    await subprocess(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
       cwd: sourceDir,
       env,
     });

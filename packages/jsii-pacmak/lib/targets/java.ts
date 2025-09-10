@@ -26,7 +26,7 @@ import {
   findLocalBuildDirs,
   TargetOptions,
 } from '../target';
-import { shell, Scratch, slugify, setExtend } from '../util';
+import { subprocess, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
@@ -443,7 +443,7 @@ export default class Java extends Target {
       mvnArguments.push(this.arguments[arg].toString());
     }
 
-    await shell(
+    await subprocess(
       'mvn',
       [
         // If we don't run in verbose mode, turn on quiet mode

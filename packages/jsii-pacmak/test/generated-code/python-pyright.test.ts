@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import { JSII_TEST_PACKAGES, preparePythonVirtualEnv } from './harness';
 import { pacmak, TargetName } from '../../lib';
-import { shell } from '../../lib/util';
+import { subprocess } from '../../lib/util';
 
 jest.setTimeout(3_600_000);
 
@@ -83,7 +83,7 @@ afterAll(async () => {
 
 test('generated code passes pyright', async () => {
   await expect(
-    shell(
+    subprocess(
       process.execPath,
       [
         ...process.execArgv,

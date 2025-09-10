@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as process from 'process';
 
 import { pacmak, TargetName } from '../../lib';
-import { shell } from '../../lib/util';
+import { subprocess } from '../../lib/util';
 
 export const JSII_TEST_PACKAGES: readonly string[] = [
   '@scope/jsii-calc-base-of-base',
@@ -320,7 +320,7 @@ export async function preparePythonVirtualEnv({
     // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
     // fail to copy the python binary if it's not invoked as python.exe). More on this particular
     // issue can be read here: https://bugs.python.org/issue43749
-    shell(process.platform === 'win32' ? 'python' : 'python3', [
+    subprocess(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       ...(systemSitePackages
@@ -334,7 +334,7 @@ export async function preparePythonVirtualEnv({
 
   // First install dev dependencies
   await expect(
-    shell(
+    subprocess(
       venvPython,
       [
         '-m',
@@ -349,7 +349,7 @@ export async function preparePythonVirtualEnv({
   ).resolves.not.toThrow();
 
   await expect(
-    shell(
+    subprocess(
       venvPython,
       [
         '-m',
@@ -379,7 +379,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
 
   // Now run mypy on the Python code
   return expect(
-    shell(
+    subprocess(
       venvPython,
       [
         '-m',

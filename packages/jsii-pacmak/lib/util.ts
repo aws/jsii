@@ -1,7 +1,8 @@
-import { spawn, SpawnOptions } from 'child_process';
+import { ChildProcessByStdio, spawn, SpawnOptions } from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
+import { Readable } from 'stream';
 
 import * as logging from './logging';
 
@@ -132,7 +133,7 @@ export interface RetryOptions {
    *                            there are attempts left)
    */
   onFailedAttempt?: (
-    error: unknown,
+    error: Error,
     attemptsLeft: number,
     backoffMilliseconds: number,
   ) => void;
@@ -207,8 +208,34 @@ export interface ShellOptions extends Omit<SpawnOptions, 'shell' | 'stdio'> {
 }
 
 /**
- * Spawns a child process with the provided command and arguments. The child
- * process is always spawned using `shell: true`, and the contents of
+ * Spawns a shell with the provided commandline.
+ *
+ * The child process is always spawned using `shell: true`, and the contents of
+ * `process.env` is used as the initial value of the `env` spawn option (values
+ * provided in `options.env` can override those).
+ */
+export async function shell(
+  commandLine: string,
+  options?: ShellOptions,
+): Promise<string> {
+  return handleSubprocess(options, () => {
+    logging.debug(commandLine, JSON.stringify(options));
+    return {
+      command: commandLine,
+      child: spawn(commandLine, {
+        ...options,
+        shell: true,
+        env: { ...process.env, ...(options?.env ?? {}) },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      }),
+    };
+  });
+}
+
+/**
+ * Spawns a subprocess with the provided command and arguments.
+ *
+ * The child process is always spawned using `shell: false`, and the contents of
  * `process.env` is used as the initial value of the `env` spawn option (values
  * provided in `options.env` can override those).
  *
@@ -216,20 +243,34 @@ export interface ShellOptions extends Omit<SpawnOptions, 'shell' | 'stdio'> {
  * @param args    the arguments to provide to `cmd`
  * @param options any options to pass to `spawn`
  */
-export async function shell(
+export async function subprocess(
   cmd: string,
   args: string[],
-  { retry: retryOptions, ...options }: ShellOptions = {},
+  options?: ShellOptions,
+): Promise<string> {
+  return handleSubprocess(options, () => {
+    logging.debug(cmd, args.join(' '), JSON.stringify(options));
+    return {
+      command: `${cmd} ${args.join(' ')}`.trim(),
+      child: spawn(cmd, args, {
+        ...options,
+        env: { ...process.env, ...(options?.env ?? {}) },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      }),
+    };
+  });
+}
+
+async function handleSubprocess(
+  { retry: retryOptions }: ShellOptions = {},
+  doSpawn: () => {
+    command: string;
+    child: ChildProcessByStdio<null, Readable, Readable>;
+  },
 ): Promise<string> {
   async function spawn1() {
-    logging.debug(cmd, args.join(' '), JSON.stringify(options));
     return new Promise<string>((ok, ko) => {
-      const child = spawn(cmd, args, {
-        ...options,
-        shell: true,
-        env: { ...process.env, ...(options.env ?? {}) },
-        stdio: ['ignore', 'pipe', 'pipe'],
-      });
+      const { command, child } = doSpawn();
       const stdout = new Array<Buffer>();
       const stderr = new Array<Buffer>();
       child.stdout.on('data', (chunk) => {
@@ -255,7 +296,6 @@ export async function shell(
         }
         const err = Buffer.concat(stderr).toString('utf-8');
         const reason = signal != null ? `signal ${signal}` : `status ${code}`;
-        const command = `${cmd} ${args.join(' ')}`;
         return ko(
           new Error(
             [
@@ -283,16 +323,12 @@ export async function shell(
       onFailedAttempt:
         retryOptions.onFailedAttempt ??
         ((error, attemptsLeft, backoffMs) => {
-          const message = (error as Error).message ?? error;
+          const message = error.message ?? error;
           const retryInfo =
             attemptsLeft > 0
               ? `Waiting ${backoffMs} ms before retrying (${attemptsLeft} attempts left)`
               : 'No attempts left';
-          logging.info(
-            `Command "${cmd} ${args.join(
-              ' ',
-            )}" failed with ${message}. ${retryInfo}.`,
-          );
+          logging.info(`${message}. ${retryInfo}.`);
         }),
     });
   }
