@@ -239,6 +239,9 @@ export async function shell(
  * `process.env` is used as the initial value of the `env` spawn option (values
  * provided in `options.env` can override those).
  *
+ * To make this work on Windows, if the binary happens to resolve to a batch file
+ * we run it through cmd.exe.
+ *
  * @param binary     the command to shell out to.
  * @param args    the arguments to provide to `cmd`
  * @param options any options to pass to `spawn`
@@ -248,6 +251,15 @@ export async function subprocess(
   args: string[],
   options?: ShellOptions,
 ): Promise<string> {
+  if (os.platform() === 'win32') {
+    const resolved = resolveBinaryWindows(binary);
+    // Anything that's not an executable, run it through cmd.exe
+    if (!resolved.toLocaleLowerCase().endsWith('.exe')) {
+      binary = process.env.COMSPEC ?? 'cmd.exe';
+      args = ['/d', '/c', resolved, ...args];
+    }
+  }
+
   return handleSubprocess(options, () => {
     logging.debug(binary, args.join(' '), JSON.stringify(options ?? {}));
     return {
@@ -334,6 +346,33 @@ async function handleSubprocess(
   }
 
   return spawn1();
+}
+
+/**
+ * Resolve a command to an executable on Windows
+ */
+function resolveBinaryWindows(command: string): string {
+  const extensions = (
+    process.env.PATHEXT ?? '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH'
+  ).split(';');
+
+  const dirs = [
+    process.cwd(),
+    ...(process.env.PATH?.split(path.delimiter) ?? []),
+  ];
+
+  for (const dir of dirs) {
+    for (const ext of extensions) {
+      const candidate = path.resolve(dir, `${command}${ext}`);
+      if (fs.pathExistsSync(candidate)) {
+        return candidate;
+      }
+    }
+  }
+
+  throw new Error(
+    `Unable to resolve command: ${command} in ${process.env.PATH}`,
+  );
 }
 
 /**
