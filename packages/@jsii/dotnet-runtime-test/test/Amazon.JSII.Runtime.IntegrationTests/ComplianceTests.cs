@@ -937,7 +937,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(JsiiAgentIsCorrect))]
         public void JsiiAgentIsCorrect()
         {
-            Assert.Equal("DotNet/" + Environment.Version + "/.NETCoreApp,Version=v3.1/1.0.0.0", JsiiAgent.Value);
+            Assert.Equal("DotNet/" + Environment.Version + "/.NETCoreApp,Version=v6.0/1.0.0.0", JsiiAgent.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
