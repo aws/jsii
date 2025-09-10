@@ -305,6 +305,7 @@ abstract class Validation {
         );
       case 'primitive':
       case 'void':
+      case 'intersection':
         return undefined;
     }
   }
