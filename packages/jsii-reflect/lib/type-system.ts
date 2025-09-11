@@ -1,4 +1,8 @@
-import { findAssemblyFile, loadAssemblyFromFile } from '@jsii/spec';
+import {
+  findAssemblyFile,
+  JsiiFeature,
+  loadAssemblyFromFile,
+} from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -11,6 +15,15 @@ import { ModuleLike } from './module-like';
 import { Property } from './property';
 import { Type } from './type';
 import { findDependencyDirectory, isBuiltinModule } from './util';
+
+/**
+ * The jsii features that supported (in principle) by jsii-reflect
+ *
+ * The features claimed by the user of jsii-reflect must be a subset of these.
+ */
+export const JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES: JsiiFeature[] = [
+  'intersection-types',
+];
 
 export class TypeSystem {
   /**
@@ -93,7 +106,7 @@ export class TypeSystem {
    */
   public async load(
     fileOrDirectory: string,
-    options: { validate?: boolean } = {},
+    options: { validate?: boolean; supportedFeatures?: JsiiFeature[] } = {},
   ) {
     if ((await fs.stat(fileOrDirectory)).isDirectory()) {
       return this.loadModule(fileOrDirectory, options);
@@ -103,7 +116,7 @@ export class TypeSystem {
 
   public async loadModule(
     dir: string,
-    options: { validate?: boolean } = {},
+    options: { validate?: boolean; supportedFeatures?: JsiiFeature[] } = {},
   ): Promise<Assembly> {
     const out = await _loadModule.call(this, dir, true);
     if (!out) {
@@ -128,7 +141,11 @@ export class TypeSystem {
       // Load the assembly, but don't recurse if we already have an assembly with the same name.
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
-      const asm = this.loadAssembly(findAssemblyFile(moduleDirectory), false);
+      const asm = this.loadAssembly(
+        findAssemblyFile(moduleDirectory),
+        false,
+        options.supportedFeatures,
+      );
       if (this.includesAssembly(asm.name)) {
         const existing = this.findAssembly(asm.name);
         if (existing.version !== asm.version) {
@@ -172,9 +189,17 @@ export class TypeSystem {
 
   public loadFile(
     file: string,
-    options: { isRoot?: boolean; validate?: boolean } = {},
+    options: {
+      isRoot?: boolean;
+      validate?: boolean;
+      supportedFeatures?: JsiiFeature[];
+    } = {},
   ) {
-    const assembly = this.loadAssembly(file, options.validate !== false);
+    const assembly = this.loadAssembly(
+      file,
+      options.validate !== false,
+      options.supportedFeatures,
+    );
     return this.addAssembly(assembly, options);
   }
 
@@ -336,8 +361,13 @@ export class TypeSystem {
    * @param file Assembly file to load
    * @param validate Whether to validate the assembly or just assume it matches the schema
    */
-  private loadAssembly(file: string, validate = true) {
-    const contents = loadAssemblyFromFile(file, validate);
+  private loadAssembly(
+    file: string,
+    validate = true,
+    supportedFeatures: JsiiFeature[] = [],
+  ) {
+    validateFeatureSubset(supportedFeatures);
+    const contents = loadAssemblyFromFile(file, validate, supportedFeatures);
     return new Assembly(this, contents);
   }
 
@@ -374,4 +404,18 @@ function flatMap<T, R>(
   return collection
     .map(mapper)
     .reduce((acc, elt) => acc.concat(elt), new Array<R>());
+}
+
+/**
+ * Check that all requested features are a subset of the features that jsii-reflect itself supports
+ */
+function validateFeatureSubset(fs?: JsiiFeature[]) {
+  const unsupported = (fs ?? []).filter(
+    (f) => !JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES.includes(f),
+  );
+  if (unsupported.length > 0) {
+    throw new Error(
+      `This version of jsii-reflect does not support the requested features: ${unsupported.join(',')}`,
+    );
+  }
 }
