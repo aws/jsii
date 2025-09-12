@@ -900,11 +900,17 @@ class JavaGenerator extends Generator {
       ? this.toDecoratedJavaType(method.returns)
       : 'void';
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
-    this.addJavaDocs(method, {
-      api: 'member',
-      fqn: ifc.fqn,
-      memberName: methodName,
-    });
+    this.addJavaDocs(
+      method,
+      {
+        api: 'member',
+        fqn: ifc.fqn,
+        memberName: methodName,
+      },
+      {
+        returnsUnion: method.returns?.type,
+      },
+    );
     this.emitStabilityAnnotations(method);
     this.code.line(
       `${returnType} ${methodName}(${this.renderMethodParameters(method)});`,
@@ -927,11 +933,17 @@ class JavaGenerator extends Generator {
 
     // for unions we only generate overloads for setters, not getters.
     this.code.line();
-    this.addJavaDocs(prop, {
-      api: 'member',
-      fqn: ifc.fqn,
-      memberName: prop.name,
-    });
+    this.addJavaDocs(
+      prop,
+      {
+        api: 'member',
+        fqn: ifc.fqn,
+        memberName: prop.name,
+      },
+      {
+        returnsUnion: prop.type,
+      },
+    );
     this.emitStabilityAnnotations(prop);
     if (prop.optional) {
       if (prop.overrides) {
@@ -952,6 +964,7 @@ class JavaGenerator extends Generator {
           api: 'member',
           fqn: ifc.fqn,
           memberName: prop.name,
+          // Setter doesn't need a union type hint because we're generating overloads
         });
         if (prop.optional) {
           if (prop.overrides) {
@@ -1394,11 +1407,17 @@ class JavaGenerator extends Generator {
     const access = this.renderAccessLevel(prop);
 
     this.code.line();
-    this.addJavaDocs(prop, {
-      api: 'member',
-      fqn: parentType.fqn,
-      memberName: prop.name,
-    });
+    this.addJavaDocs(
+      prop,
+      {
+        api: 'member',
+        fqn: parentType.fqn,
+        memberName: prop.name,
+      },
+      {
+        returnsUnion: prop.type,
+      },
+    );
     this.emitStabilityAnnotations(prop);
     this.code.line(`${access} final static ${propType} ${propName};`);
   }
@@ -1437,11 +1456,17 @@ class JavaGenerator extends Generator {
     // for unions we only generate overloads for setters, not getters.
     if (includeGetter) {
       this.code.line();
-      this.addJavaDocs(prop, {
-        api: 'member',
-        fqn: definingType.fqn,
-        memberName: prop.name,
-      });
+      this.addJavaDocs(
+        prop,
+        {
+          api: 'member',
+          fqn: definingType.fqn,
+          memberName: prop.name,
+        },
+        {
+          returnsUnion: prop.type,
+        },
+      );
       if (overrides && !prop.static) {
         this.code.line('@Override');
       }
@@ -1478,6 +1503,7 @@ class JavaGenerator extends Generator {
           api: 'member',
           fqn: cls.fqn,
           memberName: prop.name,
+          // No union type hint for setters
         });
         if (overrides && !prop.static) {
           this.code.line('@Override');
@@ -1591,11 +1617,17 @@ class JavaGenerator extends Generator {
       method,
     )})`;
     this.code.line();
-    this.addJavaDocs(method, {
-      api: 'member',
-      fqn: cls.fqn,
-      memberName: method.name,
-    });
+    this.addJavaDocs(
+      method,
+      {
+        api: 'member',
+        fqn: cls.fqn,
+        memberName: method.name,
+      },
+      {
+        returnsUnion: method.returns?.type,
+      },
+    );
     this.emitStabilityAnnotations(method);
     if (overrides && !method.static) {
       this.code.line('@Override');
@@ -2303,7 +2335,7 @@ class JavaGenerator extends Generator {
       );
       const summary = prop.docs?.summary ?? 'the value to be set';
       this.code.line(
-        ` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`,
+        ` * ${this.paramJavadoc(prop.fieldName, prop.nullable, summary)}`,
       );
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
@@ -2719,10 +2751,17 @@ class JavaGenerator extends Generator {
   private addJavaDocs(
     doc: spec.Documentable,
     apiLoc: ApiLocation,
-    defaultText?: string,
+    unionHint?: {
+      returnsUnion?: spec.TypeReference;
+    },
   ) {
+    const returnsUnion =
+      unionHint?.returnsUnion && containsUnionType(unionHint.returnsUnion)
+        ? this.renderTypeReference(unionHint.returnsUnion)
+        : undefined;
+
     if (
-      !defaultText &&
+      !returnsUnion &&
       Object.keys(doc.docs ?? {}).length === 0 &&
       !((doc as spec.Method).parameters ?? []).some(
         (p) => Object.keys(p.docs ?? {}).length !== 0,
@@ -2737,8 +2776,6 @@ class JavaGenerator extends Generator {
 
     if (docs.summary) {
       paras.push(stripNewLines(myMarkDownToJavaDoc(renderSummary(docs))));
-    } else if (defaultText) {
-      paras.push(myMarkDownToJavaDoc(defaultText));
     }
 
     if (docs.remarks) {
@@ -2747,6 +2784,10 @@ class JavaGenerator extends Generator {
           this.convertSamplesInMarkdown(docs.remarks, apiLoc),
         ).trimRight(),
       );
+    }
+
+    if (returnsUnion) {
+      paras.push(`Returns union: ${returnsUnion}`);
     }
 
     if (docs.default) {
@@ -2794,7 +2835,9 @@ class JavaGenerator extends Generator {
       if (method.parameters) {
         for (const param of method.parameters) {
           const summary = param.docs?.summary;
-          tagLines.push(paramJavadoc(param.name, param.optional, summary));
+          tagLines.push(
+            this.paramJavadoc(param.name, param.optional, summary, param.type),
+          );
         }
       }
     }
@@ -2816,6 +2859,28 @@ class JavaGenerator extends Generator {
       this.code.line(` * ${escapeEndingComment(line)}`);
     }
     this.code.line(' */');
+  }
+
+  private paramJavadoc(
+    name: string,
+    optional?: boolean,
+    summary?: string,
+    unionTypeHint?: spec.TypeReference,
+  ): string {
+    const parts = ['@param', name];
+    if (summary) {
+      parts.push(stripNewLines(myMarkDownToJavaDoc(endWithPeriod(summary))));
+    }
+
+    if (unionTypeHint && containsUnionType(unionTypeHint)) {
+      parts.push(`Takes union: ${this.renderTypeReference(unionTypeHint)}.`);
+    }
+
+    if (!optional) {
+      parts.push('This parameter is required.');
+    }
+
+    return parts.join(' ');
   }
 
   private getClassBase(cls: spec.ClassType) {
@@ -2990,6 +3055,30 @@ class JavaGenerator extends Generator {
       default:
         throw new Error(`Unknown primitive type: ${primitive as any}`);
     }
+  }
+
+  /**
+   * Render a type reference to something human readable for use in JavaDocs
+   */
+  private renderTypeReference(x: spec.TypeReference): string {
+    if (spec.isPrimitiveTypeReference(x)) {
+      return `{@link ${this.toJavaPrimitive(x.primitive)}}`;
+    }
+    if (spec.isNamedTypeReference(x)) {
+      return `{@link ${this.toNativeFqn(x.fqn)}}`;
+    }
+    if (spec.isCollectionTypeReference(x)) {
+      switch (x.collection.kind) {
+        case spec.CollectionKind.Array:
+          return `List<${this.renderTypeReference(x.collection.elementtype)}>`;
+        case spec.CollectionKind.Map:
+          return `Map<String, ${this.renderTypeReference(x.collection.elementtype)}>`;
+      }
+    }
+    if (spec.isUnionTypeReference(x)) {
+      return `either ${x.union.types.map((x) => this.renderTypeReference(x)).join(' or ')}`;
+    }
+    throw new Error(`Unknown type reference: ${JSON.stringify(x)}`);
   }
 
   private renderMethodCallArguments(method: spec.Callable) {
@@ -3481,22 +3570,6 @@ function isNullable(optionalValue: spec.OptionalValue | undefined): boolean {
     (spec.isPrimitiveTypeReference(optionalValue.type) &&
       optionalValue.type.primitive === spec.PrimitiveType.Any)
   );
-}
-
-function paramJavadoc(
-  name: string,
-  optional?: boolean,
-  summary?: string,
-): string {
-  const parts = ['@param', name];
-  if (summary) {
-    parts.push(stripNewLines(myMarkDownToJavaDoc(endWithPeriod(summary))));
-  }
-  if (!optional) {
-    parts.push('This parameter is required.');
-  }
-
-  return parts.join(' ');
 }
 
 function endWithPeriod(s: string): string {
