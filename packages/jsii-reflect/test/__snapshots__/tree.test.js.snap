@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`defaults 1`] = `
 "assemblies
@@ -14,6 +14,9 @@ exports[`defaults 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
+ │   ├─┬ covariance
+ │   │ └─┬ submodules
+ │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -74,6 +77,9 @@ exports[`inheritance 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
+ │   ├─┬ covariance
+ │   │ └─┬ submodules
+ │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -134,6 +140,9 @@ exports[`members 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
+ │   ├─┬ covariance
+ │   │ └─┬ submodules
+ │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -354,6 +363,52 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ covariance
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ classOverrides
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class ASuperclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     ├─┬ class BSubclass
+ │ │ │ │     │ ├── base: ASuperclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     ├─┬ class CSubSubclass
+ │ │ │ │     │ ├── base: BSubclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     ├─┬ class OriginalBase
+ │ │ │ │     │ ├── interfaces: IBase
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├─┬ createSomething() method
+ │ │ │ │     │   │ └── returns: jsii-calc.covariance.classOverrides.ASuperclass
+ │ │ │ │     │   └─┬ something property
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: jsii-calc.covariance.classOverrides.ASuperclass
+ │ │ │ │     ├─┬ class SomethingInTheMiddle
+ │ │ │ │     │ ├── base: OriginalBase
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   └─┬ addUnrelatedMember property
+ │ │ │ │     │     └── type: number
+ │ │ │ │     ├─┬ class TheEnd
+ │ │ │ │     │ ├── base: SomethingInTheMiddle
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├─┬ createSomething() method
+ │ │ │ │     │   │ └── returns: jsii-calc.covariance.classOverrides.CSubSubclass
+ │ │ │ │     │   └─┬ something property
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: jsii-calc.covariance.classOverrides.CSubSubclass
+ │ │ │ │     └─┬ interface IBase
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ something property
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: jsii-calc.covariance.classOverrides.ASuperclass
+ │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
@@ -3920,6 +3975,9 @@ exports[`signatures 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
+ │   ├─┬ covariance
+ │   │ └─┬ submodules
+ │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -4007,6 +4065,18 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ covariance
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ classOverrides
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── class ASuperclass
+ │ │ │ │     ├── class BSubclass
+ │ │ │ │     ├── class CSubSubclass
+ │ │ │ │     ├── class OriginalBase
+ │ │ │ │     ├── class SomethingInTheMiddle
+ │ │ │ │     ├── class TheEnd
+ │ │ │ │     └── interface IBase
+ │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
