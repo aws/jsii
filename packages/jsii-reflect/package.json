@@ -45,7 +45,7 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/yargs": "^17.0.33",
-    "jsii": "^5.9.6",
+    "jsii": "^5.9.10" ,
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120"
   }
