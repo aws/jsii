@@ -1,6 +1,6 @@
 module github.com/aws/jsii-runtime-go
 
-go 1.23.0
+go 1.24.0
 
 toolchain go1.24.5
 
@@ -10,17 +10,20 @@ require (
 	github.com/mattn/go-isatty v0.0.20
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616
-	golang.org/x/tools v0.36.0
+	golang.org/x/tools v0.37.0
+	golang.org/x/tools/cmd/godoc v0.1.0-deprecated
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/yuin/goldmark v1.4.13 // indirect
-	golang.org/x/mod v0.27.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
+	github.com/yuin/goldmark v1.7.13 // indirect
+	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/sync v0.17.0 // indirect
+	golang.org/x/sys v0.36.0 // indirect
+	golang.org/x/telemetry v0.0.0-20250908211612-aef8a434d053 // indirect
+	golang.org/x/tools/godoc v0.1.0-deprecated // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
