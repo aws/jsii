@@ -6,7 +6,10 @@ import * as yargs from 'yargs';
 
 import { TypeSystem, TypeSystemTree } from '../lib';
 
-const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
+const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
+  'intersection-types',
+  'class-covariant-overrides',
+];
 
 async function main() {
   const options = await yargs

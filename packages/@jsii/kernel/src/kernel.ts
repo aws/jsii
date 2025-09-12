@@ -14,6 +14,7 @@ import * as tar from './tar-cache';
 
 export const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'intersection-types',
+  'class-covariant-overrides',
 ];
 
 export const enum JsiiErrorType {
