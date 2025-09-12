@@ -756,6 +756,13 @@
   dependencies:
     ajv "^8.17.1"
 
+"@jsii/spec@^1.114.1":
+  version "1.114.1"
+  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.114.1.tgz#9c064d57f062d913bcfda25b5496bdf4c9c95c46"
+  integrity sha512-SdjVQaNqLkTUK+2R0/t/MnM/NBvv1vzqxO5sn1nnoFD5Wlih8TFOIjl+Q8npzYmOtN+et3D+BMVYrxmVfq4X0w==
+  dependencies:
+    ajv "^8.17.1"
+
 "@lerna/create@8.2.3":
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/@lerna/create/-/create-8.2.3.tgz#8e88fedb60eb699f2f5057e7344d9f980b7f9554"
@@ -5266,6 +5273,24 @@ jsii@^5.9.1, jsii@~5.9.1:
   dependencies:
     "@jsii/check-node" "1.113.0"
     "@jsii/spec" "^1.113.0"
+    case "^1.6.3"
+    chalk "^4"
+    fast-deep-equal "^3.1.3"
+    log4js "^6.9.1"
+    semver "^7.7.2"
+    semver-intersect "^1.5.0"
+    sort-json "^2.0.1"
+    spdx-license-list "^6.10.0"
+    typescript "~5.9"
+    yargs "^17.7.2"
+
+jsii@^5.9.5-dev.4:
+  version "5.9.5-dev.4"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.5-dev.4.tgz#e96b8ed403c7b2b9409556e0f5123117fdb0c173"
+  integrity sha512-2pgAz1X/r22BAZmhJXGiVPEMjzaksPn5UO1v5VgpjgM+rn6HQgFc2w52AWx0LVaAri06aa+eouN0+vf+qMKcoA==
+  dependencies:
+    "@jsii/check-node" "1.113.0"
+    "@jsii/spec" "^1.114.1"
     case "^1.6.3"
     chalk "^4"
     fast-deep-equal "^3.1.3"

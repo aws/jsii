@@ -52,7 +52,7 @@ export function isSuperType(
     );
   }
 
-  // New (B) is a union: every element of B can be assigned to A
+  // Every element of B can be assigned to A
   if (b.unionOfTypes !== undefined) {
     const analyses = b.unionOfTypes.map((bbb) =>
       isSuperType(a, bbb, updatedSystem),
@@ -65,7 +65,7 @@ export function isSuperType(
       ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
-  // Old (A) is a union: there should be an element of A which can accept all of B
+  // There should be an element of A which can accept all of B
   if (a.unionOfTypes !== undefined) {
     const analyses = a.unionOfTypes.map((aaa) =>
       isSuperType(aaa, b, updatedSystem),
@@ -79,26 +79,30 @@ export function isSuperType(
     );
   }
 
-  // Old(A) is an intersection: every element of A is assignable to B (cannot add restrictions but may remove some)
+  // intersection A ⊒ B <=> all of the elements of A ⊒ B
   if (a.intersectionOfTypes !== undefined) {
-    const analyses = a.intersectionOfTypes.map((aaa) => isAssignableTo(aaa, b));
+    const analyses = a.intersectionOfTypes.map((aaa) =>
+      isSuperType(aaa, b, updatedSystem),
+    );
     if (analyses.every((x) => x.success)) {
       return { success: true };
     }
     return failure(
-      `some of ${a.toString()} are not assignable to ${b.toString()}`,
+      `${b.toString()} is not assignable to all of ${a.toString()}`,
       ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
 
-  // New(B) is an intersection: A is assignable to every element of B
+  // A ⊒ intersection B <=> A ⊒ any of the elements of B
   if (b.intersectionOfTypes !== undefined) {
-    const analyses = b.intersectionOfTypes.map((bbb) => isAssignableTo(a, bbb));
-    if (analyses.every((x) => x.success)) {
+    const analyses = b.intersectionOfTypes.map((bbb) =>
+      isSuperType(a, bbb, updatedSystem),
+    );
+    if (analyses.some((x) => x.success)) {
       return { success: true };
     }
     return failure(
-      `${a.toString()} is not assignable to some of ${b.toString()}`,
+      `some of ${b.toString()} are not assignable to ${a.toString()}`,
       ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
@@ -120,16 +124,6 @@ export function isSuperType(
     return { success: true };
   } catch (e: any) {
     return failure(e.message);
-  }
-
-  /**
-   * An inversion of 'isSuperType' in a more readable form
-   */
-  function isAssignableTo(
-    rhs: reflect.TypeReference,
-    lhs: reflect.TypeReference,
-  ) {
-    return isSuperType(lhs, rhs, updatedSystem);
   }
 }
 
