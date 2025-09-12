@@ -5241,10 +5241,10 @@ jsii-rosetta@^5.9.1, jsii-rosetta@~5.9.1:
     workerpool "^6.5.1"
     yargs "^17.7.2"
 
-jsii@5.9.1:
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.1.tgz#0b90ab43d82dbf025bfdd4077b892cbbe7c8d3c2"
-  integrity sha512-0fosDxjcd2DTslZ2Thsx8t+kmXYPRTcgPNVYxj3qPV+OGocjIRV8jdBAw5HoGXN/h8eq2eiQKaCs6zSjtFI3RQ==
+jsii@5.9.5-dev.3:
+  version "5.9.5-dev.3"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.5-dev.3.tgz#590395b87c1542130d98cf1c9be91b05bf2fc91f"
+  integrity sha512-myjadaJBNXFjxnZ91pDZ237iPLABLt51ZiyMA/KszjY6nuBBjAehyHqv4Xh8BUbIgk4nhSLuJ/wnLtyU1a1kPA==
   dependencies:
     "@jsii/check-node" "1.113.0"
     "@jsii/spec" "^1.113.0"

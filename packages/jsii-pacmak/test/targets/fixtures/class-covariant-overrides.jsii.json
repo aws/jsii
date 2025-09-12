@@ -1,0 +1,78 @@
+{
+  "schema": "jsii/0.10.0",
+  "name": "covariant-example",
+  "version": "1.0.0",
+  "description": "Example assembly demonstrating covariant overrides",
+  "homepage": "https://example.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/example/covariant-example.git"
+  },
+  "author": {
+    "name": "Example Author",
+    "roles": ["author"]
+  },
+  "fingerprint": "example-fingerprint",
+  "jsiiVersion": "1.0.0",
+  "license": "Apache-2.0",
+  "targets": {
+    "dotnet": {
+      "namespace": "CovariantExample",
+      "packageId": "CovariantExample"
+    }
+  },
+  "usedFeatures": ["covariant-overrides"],
+  "types": {
+    "covariant-example.BaseResource": {
+      "kind": "class",
+      "fqn": "covariant-example.BaseResource",
+      "assembly": "covariant-example",
+      "name": "BaseResource",
+      "methods": [
+        {
+          "name": "getName",
+          "returns": {
+            "type": { "primitive": "string" }
+          }
+        }
+      ]
+    },
+    "covariant-example.DerivedResource": {
+      "kind": "class",
+      "fqn": "covariant-example.DerivedResource",
+      "assembly": "covariant-example",
+      "name": "DerivedResource",
+      "base": "covariant-example.BaseResource"
+    },
+    "covariant-example.ResourceProvider": {
+      "kind": "class",
+      "fqn": "covariant-example.ResourceProvider",
+      "assembly": "covariant-example",
+      "name": "ResourceProvider",
+      "methods": [
+        {
+          "name": "getResource",
+          "returns": {
+            "type": { "fqn": "covariant-example.BaseResource" }
+          }
+        }
+      ]
+    },
+    "covariant-example.SpecializedProvider": {
+      "kind": "class",
+      "fqn": "covariant-example.SpecializedProvider",
+      "assembly": "covariant-example",
+      "name": "SpecializedProvider",
+      "base": "covariant-example.ResourceProvider",
+      "methods": [
+        {
+          "name": "getResource",
+          "returns": {
+            "type": { "fqn": "covariant-example.DerivedResource" }
+          },
+          "overrides": "covariant-example.ResourceProvider"
+        }
+      ]
+    }
+  }
+}

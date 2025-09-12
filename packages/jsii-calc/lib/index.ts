@@ -1,5 +1,6 @@
 export * from './calculator';
 export * from './compliance';
+export * from './class-covariant-overrides';
 export * from './date';
 export * from './documented';
 export * from './duplicate-inherited-prop';
