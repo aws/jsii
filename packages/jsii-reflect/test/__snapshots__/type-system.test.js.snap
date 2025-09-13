@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`TypeSystem.assemblies lists all the loaded assemblies 1`] = `
 [
@@ -196,6 +196,9 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.nodirect.sub1.TypeFromSub1",
   "jsii-calc.nodirect.sub2.TypeFromSub2",
   "jsii-calc.onlystatic.OnlyStaticMethods",
+  "jsii-calc.pascalCaseName.SubSubclass",
+  "jsii-calc.pascalCaseName.Subclass",
+  "jsii-calc.pascalCaseName.Superclass",
   "jsii-calc.submodule.MyClass",
   "jsii-calc.submodule.child.InnerClass",
   "jsii-calc.submodule.child.OuterClass",
