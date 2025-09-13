@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`jsii-tree --all 1`] = `
 "assemblies
@@ -526,6 +526,19 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       └─┬ static staticMethod() method (stable)
  │ │ │         ├── static
  │ │ │         └── returns: string
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass (stable)
+ │ │ │   │ ├── base: Subclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer (stable)
+ │ │ │   ├─┬ class Subclass (stable)
+ │ │ │   │ ├── base: Superclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer (stable)
+ │ │ │   └─┬ class Superclass (stable)
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer (stable)
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3882,6 +3895,13 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass
+ │ │ │   │ └── base: Subclass
+ │ │ │   ├─┬ class Subclass
+ │ │ │   │ └── base: Superclass
+ │ │ │   └── class Superclass
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -4557,6 +4577,17 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ class OnlyStaticMethods
  │ │ │     └─┬ members
  │ │ │       └── static staticMethod() method
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   ├─┬ class Subclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   └─┬ class Superclass
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -6006,6 +6037,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -6153,6 +6185,11 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├── class SubSubclass
+ │ │ │   ├── class Subclass
+ │ │ │   └── class Superclass
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -6505,6 +6542,7 @@ exports[`jsii-tree 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references

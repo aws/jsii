@@ -4186,6 +4186,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 ParamShadowsScope.java
           ┃                 ┣━ 📄 ParentStruct982.java
           ┃                 ┣━ 📄 PartiallyInitializedThisConsumer.java
+          ┃                 ┣━ 📁 pascal_case_name
+          ┃                 ┃  ┣━ 📄 Subclass.java
+          ┃                 ┃  ┣━ 📄 SubSubclass.java
+          ┃                 ┃  ┗━ 📄 Superclass.java
           ┃                 ┣━ 📄 Polymorphism.java
           ┃                 ┣━ 📄 Power.java
           ┃                 ┣━ 📄 PromiseNothing.java
@@ -28026,6 +28030,100 @@ package software.amazon.jsii.tests.calculator;
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/pascal_case_name/SubSubclass.java 1`] = `
+package software.amazon.jsii.tests.calculator.pascal_case_name;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.pascalCaseName.SubSubclass")
+public class SubSubclass extends software.amazon.jsii.tests.calculator.pascal_case_name.Subclass {
+
+    protected SubSubclass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected SubSubclass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public SubSubclass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/pascal_case_name/Subclass.java 1`] = `
+package software.amazon.jsii.tests.calculator.pascal_case_name;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.pascalCaseName.Subclass")
+public class Subclass extends software.amazon.jsii.tests.calculator.pascal_case_name.Superclass {
+
+    protected Subclass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Subclass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Subclass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/pascal_case_name/Superclass.java 1`] = `
+package software.amazon.jsii.tests.calculator.pascal_case_name;
+
+/**
+ * This module ensures that language code is generated in correct topological order.
+ * <p>
+ * We deliberately name classes &amp; interfaces so that the ones that must come first in code,
+ * are last in alphabetical order.
+ * <p>
+ * Previously, the generated Python code would miss certain dependencies
+ * and effectively render classes alphabetically. Which then obviously fails.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.pascalCaseName.Superclass")
+public class Superclass extends software.amazon.jsii.JsiiObject {
+
+    protected Superclass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Superclass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Superclass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/python_self/ClassWithSelf.java 1`] = `
 package software.amazon.jsii.tests.calculator.python_self;
 
@@ -29933,6 +30031,9 @@ jsii-calc.module2702.Vpc=software.amazon.jsii.tests.calculator.module2702.Vpc
 jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
 jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2
 jsii-calc.onlystatic.OnlyStaticMethods=software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods
+jsii-calc.pascalCaseName.SubSubclass=software.amazon.jsii.tests.calculator.pascal_case_name.SubSubclass
+jsii-calc.pascalCaseName.Subclass=software.amazon.jsii.tests.calculator.pascal_case_name.Subclass
+jsii-calc.pascalCaseName.Superclass=software.amazon.jsii.tests.calculator.pascal_case_name.Superclass
 jsii-calc.submodule.Default=software.amazon.jsii.tests.calculator.submodule.Default
 jsii-calc.submodule.MyClass=software.amazon.jsii.tests.calculator.submodule.MyClass
 jsii-calc.submodule.back_references.MyClassReference=software.amazon.jsii.tests.calculator.submodule.back_references.MyClassReference

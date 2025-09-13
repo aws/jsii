@@ -399,6 +399,13 @@
       },
       "symbolId": "lib/only-static/index:"
     },
+    "jsii-calc.pascalCaseName": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 32
+      },
+      "symbolId": "lib/pascal-case-name/index:"
+    },
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -18347,6 +18354,70 @@
       "namespace": "onlystatic",
       "symbolId": "lib/only-static/index:OnlyStaticMethods"
     },
+    "jsii-calc.pascalCaseName.SubSubclass": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.pascalCaseName.Subclass",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.pascalCaseName.SubSubclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/pascal-case-name/index.ts",
+        "line": 13
+      },
+      "name": "SubSubclass",
+      "namespace": "pascalCaseName",
+      "symbolId": "lib/pascal-case-name/index:SubSubclass"
+    },
+    "jsii-calc.pascalCaseName.Subclass": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.pascalCaseName.Superclass",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.pascalCaseName.Subclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/pascal-case-name/index.ts",
+        "line": 12
+      },
+      "name": "Subclass",
+      "namespace": "pascalCaseName",
+      "symbolId": "lib/pascal-case-name/index:Subclass"
+    },
+    "jsii-calc.pascalCaseName.Superclass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "We deliberately name classes & interfaces so that the ones that must come first in code,\nare last in alphabetical order.\n\nPreviously, the generated Python code would miss certain dependencies\nand effectively render classes alphabetically. Which then obviously fails.",
+        "stability": "stable",
+        "summary": "This module ensures that language code is generated in correct topological order."
+      },
+      "fqn": "jsii-calc.pascalCaseName.Superclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/pascal-case-name/index.ts",
+        "line": 11
+      },
+      "name": "Superclass",
+      "namespace": "pascalCaseName",
+      "symbolId": "lib/pascal-case-name/index:Superclass"
+    },
     "jsii-calc.submodule.Default": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -19131,5 +19202,5 @@
     }
   },
   "version": "3.20.120",
-  "fingerprint": "Tt3JL7khUypE5masj9ZV7jLcwRzpJ44EvWbxtNaO51E="
+  "fingerprint": "jVJA8GBQfAQWIMVRVjHXZA1xAsJO5WhLdweO7ySlYbs="
 }

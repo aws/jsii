@@ -26,6 +26,7 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
+  toPythonFqn,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -2310,6 +2311,7 @@ type FindTypeCallback = (fqn: string) => spec.Type;
 
 class TypeResolver {
   private readonly types: Map<string, PythonType>;
+  private readonly assembly: spec.Assembly;
   private readonly boundTo?: string;
   private readonly boundRe!: RegExp;
   private readonly moduleName?: string;
@@ -2319,12 +2321,14 @@ class TypeResolver {
 
   public constructor(
     types: Map<string, PythonType>,
+    assembly: spec.Assembly,
     findModule: FindModuleCallback,
     findType: FindTypeCallback,
     boundTo?: string,
     moduleName?: string,
   ) {
     this.types = types;
+    this.assembly = assembly;
     this.findModule = findModule;
     this.findType = findType;
     this.moduleName = moduleName;
@@ -2346,6 +2350,7 @@ class TypeResolver {
   public bind(fqn: string, moduleName?: string): TypeResolver {
     return new TypeResolver(
       this.types,
+      this.assembly,
       this.findModule,
       this.findType,
       fqn,
@@ -2425,16 +2430,8 @@ class TypeResolver {
   }
 
   private toPythonFQN(fqn: string): string {
-    const [assemblyName, ...qualifiedIdentifiers] = fqn.split('.');
-    const fqnParts: string[] = [
-      this.findModule(assemblyName).targets!.python!.module,
-    ];
-
-    for (const part of qualifiedIdentifiers) {
-      fqnParts.push(toPythonIdentifier(part));
-    }
-
-    return fqnParts.join('.');
+    const { pythonFqn } = toPythonFqn(fqn, this.assembly);
+    return pythonFqn;
   }
 }
 
@@ -2653,6 +2650,7 @@ class PythonGenerator extends Generator {
   protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
     const resolver = new TypeResolver(
       this.types,
+      assm,
       (fqn: string) => this.findModule(fqn),
       (fqn: string) => this.findType(fqn),
     );
