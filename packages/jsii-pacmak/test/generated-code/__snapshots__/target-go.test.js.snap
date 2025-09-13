@@ -2869,6 +2869,16 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 ConsumerCanRingBell.go
        ┣━ 📄 ConsumersOfThisCrazyTypeSystem.go
        ┣━ 📄 ContainerProps.go
+       ┣━ 📁 covariance
+       ┃  ┗━ 📁 classoverrides
+       ┃     ┣━ 📄 ASuperclass.go
+       ┃     ┣━ 📄 BSubclass.go
+       ┃     ┣━ 📄 CSubSubclass.go
+       ┃     ┣━ 📄 IBase.go
+       ┃     ┣━ 📄 main.go
+       ┃     ┣━ 📄 OriginalBase.go
+       ┃     ┣━ 📄 SomethingInTheMiddle.go
+       ┃     ┗━ 📄 TheEnd.go
        ┣━ 📄 DataRenderer.go
        ┣━ 📄 Default.go
        ┣━ 📄 DefaultedConstructorArgument.go
@@ -19006,6 +19016,518 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/ASuperclass.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Base class in the inheritance hierarchy.
+type ASuperclass interface {
+}
+
+// The jsii proxy struct for ASuperclass
+type jsiiProxy_ASuperclass struct {
+	_ byte // padding
+}
+
+func NewASuperclass() ASuperclass {
+	_init_.Initialize()
+
+	j := jsiiProxy_ASuperclass{}
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.ASuperclass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewASuperclass_Override(a ASuperclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.ASuperclass",
+		nil, // no parameters
+		a,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/BSubclass.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Derived class that extends Superclass.
+type BSubclass interface {
+	ASuperclass
+}
+
+// The jsii proxy struct for BSubclass
+type jsiiProxy_BSubclass struct {
+	jsiiProxy_ASuperclass
+}
+
+func NewBSubclass() BSubclass {
+	_init_.Initialize()
+
+	j := jsiiProxy_BSubclass{}
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.BSubclass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewBSubclass_Override(b BSubclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.BSubclass",
+		nil, // no parameters
+		b,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/CSubSubclass.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Further derived class that extends Subclass.
+type CSubSubclass interface {
+	BSubclass
+}
+
+// The jsii proxy struct for CSubSubclass
+type jsiiProxy_CSubSubclass struct {
+	jsiiProxy_BSubclass
+}
+
+func NewCSubSubclass() CSubSubclass {
+	_init_.Initialize()
+
+	j := jsiiProxy_CSubSubclass{}
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.CSubSubclass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewCSubSubclass_Override(c CSubSubclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.CSubSubclass",
+		nil, // no parameters
+		c,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/IBase.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IBase interface {
+	Something() ASuperclass
+}
+
+// The jsii proxy for IBase
+type jsiiProxy_IBase struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_IBase) Something() ASuperclass {
+	var returns ASuperclass
+	_jsii_.Get(
+		j,
+		"something",
+		&returns,
+	)
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/OriginalBase.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Base class with methods and properties that will be overridden with covariant return types.
+type OriginalBase interface {
+	IBase
+	Something() ASuperclass
+	CreateSomething() ASuperclass
+}
+
+// The jsii proxy struct for OriginalBase
+type jsiiProxy_OriginalBase struct {
+	jsiiProxy_IBase
+}
+
+func (j *jsiiProxy_OriginalBase) Something() ASuperclass {
+	var returns ASuperclass
+	_jsii_.Get(
+		j,
+		"something",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewOriginalBase() OriginalBase {
+	_init_.Initialize()
+
+	j := jsiiProxy_OriginalBase{}
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.OriginalBase",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewOriginalBase_Override(o OriginalBase) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.OriginalBase",
+		nil, // no parameters
+		o,
+	)
+}
+
+func (o *jsiiProxy_OriginalBase) CreateSomething() ASuperclass {
+	var returns ASuperclass
+
+	_jsii_.Invoke(
+		o,
+		"createSomething",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Middle class in the inheritance chain - doesn't override anything.
+type SomethingInTheMiddle interface {
+	OriginalBase
+	AddUnrelatedMember() *float64
+	SetAddUnrelatedMember(val *float64)
+	Something() ASuperclass
+	CreateSomething() ASuperclass
+}
+
+// The jsii proxy struct for SomethingInTheMiddle
+type jsiiProxy_SomethingInTheMiddle struct {
+	jsiiProxy_OriginalBase
+}
+
+func (j *jsiiProxy_SomethingInTheMiddle) AddUnrelatedMember() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"addUnrelatedMember",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_SomethingInTheMiddle) Something() ASuperclass {
+	var returns ASuperclass
+	_jsii_.Get(
+		j,
+		"something",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewSomethingInTheMiddle() SomethingInTheMiddle {
+	_init_.Initialize()
+
+	j := jsiiProxy_SomethingInTheMiddle{}
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.SomethingInTheMiddle",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewSomethingInTheMiddle_Override(s SomethingInTheMiddle) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.SomethingInTheMiddle",
+		nil, // no parameters
+		s,
+	)
+}
+
+func (j *jsiiProxy_SomethingInTheMiddle)SetAddUnrelatedMember(val *float64) {
+	_jsii_.Set(
+		j,
+		"addUnrelatedMember",
+		val,
+	)
+}
+
+func (s *jsiiProxy_SomethingInTheMiddle) CreateSomething() ASuperclass {
+	var returns ASuperclass
+
+	_jsii_.Invoke(
+		s,
+		"createSomething",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/TheEnd.go 1`] = `
+package classoverrides
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Derived class that demonstrates covariant overrides.
+//
+// Both property and method overrides are covariant and will work in C# 9.0+
+// when the covariant-overrides feature is enabled.
+type TheEnd interface {
+	SomethingInTheMiddle
+	AddUnrelatedMember() *float64
+	SetAddUnrelatedMember(val *float64)
+	Something() CSubSubclass
+	CreateSomething() CSubSubclass
+}
+
+// The jsii proxy struct for TheEnd
+type jsiiProxy_TheEnd struct {
+	jsiiProxy_SomethingInTheMiddle
+}
+
+func (j *jsiiProxy_TheEnd) AddUnrelatedMember() *float64 {
+	var returns *float64
+	_jsii_.Get(
+		j,
+		"addUnrelatedMember",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_TheEnd) Something() CSubSubclass {
+	var returns CSubSubclass
+	_jsii_.Get(
+		j,
+		"something",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewTheEnd() TheEnd {
+	_init_.Initialize()
+
+	j := jsiiProxy_TheEnd{}
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.TheEnd",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewTheEnd_Override(t TheEnd) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.covariance.classOverrides.TheEnd",
+		nil, // no parameters
+		t,
+	)
+}
+
+func (j *jsiiProxy_TheEnd)SetAddUnrelatedMember(val *float64) {
+	_jsii_.Set(
+		j,
+		"addUnrelatedMember",
+		val,
+	)
+}
+
+func (t *jsiiProxy_TheEnd) CreateSomething() CSubSubclass {
+	var returns CSubSubclass
+
+	_jsii_.Invoke(
+		t,
+		"createSomething",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/covariance/classoverrides/main.go 1`] = `
+package classoverrides
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.covariance.classOverrides.ASuperclass",
+		reflect.TypeOf((*ASuperclass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_ASuperclass{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.covariance.classOverrides.BSubclass",
+		reflect.TypeOf((*BSubclass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			j := jsiiProxy_BSubclass{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_ASuperclass)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.covariance.classOverrides.CSubSubclass",
+		reflect.TypeOf((*CSubSubclass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			j := jsiiProxy_CSubSubclass{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_BSubclass)
+			return &j
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.covariance.classOverrides.IBase",
+		reflect.TypeOf((*IBase)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "something", GoGetter: "Something"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IBase{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.covariance.classOverrides.OriginalBase",
+		reflect.TypeOf((*OriginalBase)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "createSomething", GoMethod: "CreateSomething"},
+			_jsii_.MemberProperty{JsiiProperty: "something", GoGetter: "Something"},
+		},
+		func() interface{} {
+			j := jsiiProxy_OriginalBase{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IBase)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.covariance.classOverrides.SomethingInTheMiddle",
+		reflect.TypeOf((*SomethingInTheMiddle)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "addUnrelatedMember", GoGetter: "AddUnrelatedMember"},
+			_jsii_.MemberMethod{JsiiMethod: "createSomething", GoMethod: "CreateSomething"},
+			_jsii_.MemberProperty{JsiiProperty: "something", GoGetter: "Something"},
+		},
+		func() interface{} {
+			j := jsiiProxy_SomethingInTheMiddle{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_OriginalBase)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.covariance.classOverrides.TheEnd",
+		reflect.TypeOf((*TheEnd)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "addUnrelatedMember", GoGetter: "AddUnrelatedMember"},
+			_jsii_.MemberMethod{JsiiMethod: "createSomething", GoMethod: "CreateSomething"},
+			_jsii_.MemberProperty{JsiiProperty: "something", GoGetter: "Something"},
+		},
+		func() interface{} {
+			j := jsiiProxy_TheEnd{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_SomethingInTheMiddle)
+			return &j
+		},
+	)
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnoproperties/Base.go 1`] = `
 package derivedclasshasnoproperties
 
@@ -25362,6 +25884,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 ConsumersOfThisCrazyTypeSystem__checks.go
        ┣━ 🆕 ConsumersOfThisCrazyTypeSystem__no_checks.go
        ┣━ 📄 ConsumersOfThisCrazyTypeSystem.go.diff
+       ┣━ 📁 covariance
+       ┃  ┗━ 📁 classoverrides
+       ┃     ┣━ 🆕 SomethingInTheMiddle__checks.go
+       ┃     ┣━ 🆕 SomethingInTheMiddle__no_checks.go
+       ┃     ┣━ 📄 SomethingInTheMiddle.go.diff
+       ┃     ┣━ 🆕 TheEnd__checks.go
+       ┃     ┣━ 🆕 TheEnd__no_checks.go
+       ┃     ┗━ 📄 TheEnd.go.diff
        ┣━ 🆕 DataRenderer__checks.go
        ┣━ 🆕 DataRenderer__no_checks.go
        ┣━ 📄 DataRenderer.go.diff
@@ -34679,6 +35209,120 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 +}
 +
 +func (j *jsiiProxy_CompositeOperation) validateSetStringStyleParameters(val CompositeOperation_CompositionStringStyle) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle.go.diff 1`] = `
+--- go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle.go	--no-runtime-type-checking
++++ go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle.go	--runtime-type-checking
+@@ -63,10 +63,13 @@
+ 		s,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_SomethingInTheMiddle)SetAddUnrelatedMember(val *float64) {
++	if err := j.validateSetAddUnrelatedMemberParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"addUnrelatedMember",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle__checks.go.diff 1`] = `
+--- go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package classoverrides
++
++import (
++	"fmt"
++)
++
++func (j *jsiiProxy_SomethingInTheMiddle) validateSetAddUnrelatedMemberParameters(val *float64) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle__no_checks.go.diff 1`] = `
+--- go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariance/classoverrides/SomethingInTheMiddle__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package classoverrides
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (j *jsiiProxy_SomethingInTheMiddle) validateSetAddUnrelatedMemberParameters(val *float64) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariance/classoverrides/TheEnd.go.diff 1`] = `
+--- go/jsiicalc/covariance/classoverrides/TheEnd.go	--no-runtime-type-checking
++++ go/jsiicalc/covariance/classoverrides/TheEnd.go	--runtime-type-checking
+@@ -66,10 +66,13 @@
+ 		t,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_TheEnd)SetAddUnrelatedMember(val *float64) {
++	if err := j.validateSetAddUnrelatedMemberParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"addUnrelatedMember",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariance/classoverrides/TheEnd__checks.go.diff 1`] = `
+--- go/jsiicalc/covariance/classoverrides/TheEnd__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariance/classoverrides/TheEnd__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package classoverrides
++
++import (
++	"fmt"
++)
++
++func (j *jsiiProxy_TheEnd) validateSetAddUnrelatedMemberParameters(val *float64) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariance/classoverrides/TheEnd__no_checks.go.diff 1`] = `
+--- go/jsiicalc/covariance/classoverrides/TheEnd__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariance/classoverrides/TheEnd__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package classoverrides
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (j *jsiiProxy_TheEnd) validateSetAddUnrelatedMemberParameters(val *float64) error {
 +	return nil
 +}
 +

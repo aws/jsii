@@ -3235,6 +3235,15 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ConsumerCanRingBell.cs
        ┃           ┣━ 📄 ConsumersOfThisCrazyTypeSystem.cs
        ┃           ┣━ 📄 ContainerProps.cs
+       ┃           ┣━ 📁 Covariance
+       ┃           ┃  ┗━ 📁 ClassOverrides
+       ┃           ┃     ┣━ 📄 ASuperclass.cs
+       ┃           ┃     ┣━ 📄 BSubclass.cs
+       ┃           ┃     ┣━ 📄 CSubSubclass.cs
+       ┃           ┃     ┣━ 📄 IBase.cs
+       ┃           ┃     ┣━ 📄 OriginalBase.cs
+       ┃           ┃     ┣━ 📄 SomethingInTheMiddle.cs
+       ┃           ┃     ┗━ 📄 TheEnd.cs
        ┃           ┣━ 📄 DataRenderer.cs
        ┃           ┣━ 📄 Default.cs
        ┃           ┣━ 📄 DefaultedConstructorArgument.cs
@@ -6508,6 +6517,309 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/ASuperclass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    /// <summary>Base class in the inheritance hierarchy.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass), fullyQualifiedName: "jsii-calc.covariance.classOverrides.ASuperclass")]
+    public class ASuperclass : DeputyBase
+    {
+        public ASuperclass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ASuperclass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ASuperclass(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/BSubclass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    /// <summary>Derived class that extends Superclass.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.BSubclass), fullyQualifiedName: "jsii-calc.covariance.classOverrides.BSubclass")]
+    public class BSubclass : Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass
+    {
+        public BSubclass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected BSubclass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected BSubclass(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/CSubSubclass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    /// <summary>Further derived class that extends Subclass.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.CSubSubclass), fullyQualifiedName: "jsii-calc.covariance.classOverrides.CSubSubclass")]
+    public class CSubSubclass : Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.BSubclass
+    {
+        public CSubSubclass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected CSubSubclass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected CSubSubclass(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/IBase.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    [JsiiInterface(nativeType: typeof(IBase), fullyQualifiedName: "jsii-calc.covariance.classOverrides.IBase")]
+    public interface IBase
+    {
+        [JsiiProperty(name: "something", typeJson: "{\\"fqn\\":\\"jsii-calc.covariance.classOverrides.ASuperclass\\"}")]
+        Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass Something
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBase), fullyQualifiedName: "jsii-calc.covariance.classOverrides.IBase")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.IBase
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "something", typeJson: "{\\"fqn\\":\\"jsii-calc.covariance.classOverrides.ASuperclass\\"}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass Something
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/OriginalBase.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    /// <summary>Base class with methods and properties that will be overridden with covariant return types.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.OriginalBase), fullyQualifiedName: "jsii-calc.covariance.classOverrides.OriginalBase")]
+    public class OriginalBase : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.IBase
+    {
+        public OriginalBase(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OriginalBase(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected OriginalBase(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "createSomething", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.covariance.classOverrides.ASuperclass\\"}}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass CreateSomething()
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "something", typeJson: "{\\"fqn\\":\\"jsii-calc.covariance.classOverrides.ASuperclass\\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass Something
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.ASuperclass>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/SomethingInTheMiddle.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    /// <summary>Middle class in the inheritance chain - doesn't override anything.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.SomethingInTheMiddle), fullyQualifiedName: "jsii-calc.covariance.classOverrides.SomethingInTheMiddle")]
+    public class SomethingInTheMiddle : Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.OriginalBase
+    {
+        public SomethingInTheMiddle(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SomethingInTheMiddle(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SomethingInTheMiddle(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "addUnrelatedMember", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public virtual double AddUnrelatedMember
+        {
+            get => GetInstanceProperty<double>()!;
+            set => SetInstanceProperty(value);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Covariance/ClassOverrides/TheEnd.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides
+{
+    /// <summary>Derived class that demonstrates covariant overrides.</summary>
+    /// <remarks>
+    /// Both property and method overrides are covariant and will work in C# 9.0+
+    /// when the covariant-overrides feature is enabled.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.TheEnd), fullyQualifiedName: "jsii-calc.covariance.classOverrides.TheEnd")]
+    public class TheEnd : Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.SomethingInTheMiddle
+    {
+        public TheEnd(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TheEnd(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected TheEnd(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "createSomething", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.covariance.classOverrides.CSubSubclass\\"}}")]
+        public override Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.CSubSubclass CreateSomething()
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.CSubSubclass>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "something", typeJson: "{\\"fqn\\":\\"jsii-calc.covariance.classOverrides.CSubSubclass\\"}")]
+        public override Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.CSubSubclass Something
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Covariance.ClassOverrides.CSubSubclass>()!;
         }
     }
 }

@@ -2888,6 +2888,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 covariance
+          ┃  ┣━ 📄 __init__.py
+          ┃  ┗━ 📁 class_overrides
+          ┃     ┗━ 📄 __init__.py
           ┣━ 📁 derived_class_has_no_properties
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 homonymous_forward_references
@@ -3249,6 +3253,8 @@ kwargs = json.loads(
         "jsii_calc.cdk16625.donotimport",
         "jsii_calc.cdk22369",
         "jsii_calc.composition",
+        "jsii_calc.covariance",
+        "jsii_calc.covariance.class_overrides",
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.homonymous_forward_references",
         "jsii_calc.homonymous_forward_references.bar",
@@ -11927,6 +11933,7 @@ __all__ = [
     "cdk16625",
     "cdk22369",
     "composition",
+    "covariance",
     "derived_class_has_no_properties",
     "homonymous_forward_references",
     "interface_in_namespace_includes_classes",
@@ -11954,6 +11961,7 @@ from . import anonymous
 from . import cdk16625
 from . import cdk22369
 from . import composition
+from . import covariance
 from . import derived_class_has_no_properties
 from . import homonymous_forward_references
 from . import interface_in_namespace_includes_classes
@@ -12518,6 +12526,214 @@ typing.cast(typing.Any, CompositeOperation).__jsii_proxy_class__ = lambda : _Com
 
 __all__ = [
     "CompositeOperation",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/covariance/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+from .._jsii import *
+
+__all__ = [
+    "class_overrides",
+]
+
+publication.publish()
+
+# Loading modules to ensure their types are registered with the jsii runtime library
+from . import class_overrides
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/covariance/class_overrides/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+from ..._jsii import *
+
+
+class ASuperclass(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.covariance.classOverrides.ASuperclass",
+):
+    '''Base class in the inheritance hierarchy.'''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+
+class BSubclass(
+    ASuperclass,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.covariance.classOverrides.BSubclass",
+):
+    '''Derived class that extends Superclass.'''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+
+class CSubSubclass(
+    BSubclass,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.covariance.classOverrides.CSubSubclass",
+):
+    '''Further derived class that extends Subclass.'''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+
+@jsii.interface(jsii_type="jsii-calc.covariance.classOverrides.IBase")
+class IBase(typing_extensions.Protocol):
+    @builtins.property
+    @jsii.member(jsii_name="something")
+    def something(self) -> ASuperclass:
+        ...
+
+
+class _IBaseProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.covariance.classOverrides.IBase"
+
+    @builtins.property
+    @jsii.member(jsii_name="something")
+    def something(self) -> ASuperclass:
+        return typing.cast(ASuperclass, jsii.get(self, "something"))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, IBase).__jsii_proxy_class__ = lambda : _IBaseProxy
+
+
+@jsii.implements(IBase)
+class OriginalBase(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.covariance.classOverrides.OriginalBase",
+):
+    '''Base class with methods and properties that will be overridden with covariant return types.'''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="createSomething")
+    def create_something(self) -> ASuperclass:
+        return typing.cast(ASuperclass, jsii.invoke(self, "createSomething", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="something")
+    def something(self) -> ASuperclass:
+        return typing.cast(ASuperclass, jsii.get(self, "something"))
+
+
+class SomethingInTheMiddle(
+    OriginalBase,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.covariance.classOverrides.SomethingInTheMiddle",
+):
+    '''Middle class in the inheritance chain - doesn't override anything.'''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @builtins.property
+    @jsii.member(jsii_name="addUnrelatedMember")
+    def add_unrelated_member(self) -> jsii.Number:
+        return typing.cast(jsii.Number, jsii.get(self, "addUnrelatedMember"))
+
+    @add_unrelated_member.setter
+    def add_unrelated_member(self, value: jsii.Number) -> None:
+        jsii.set(self, "addUnrelatedMember", value) # pyright: ignore[reportArgumentType]
+
+
+class TheEnd(
+    SomethingInTheMiddle,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.covariance.classOverrides.TheEnd",
+):
+    '''Derived class that demonstrates covariant overrides.
+
+    Both property and method overrides are covariant and will work in C# 9.0+
+    when the covariant-overrides feature is enabled.
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="createSomething")
+    def create_something(self) -> CSubSubclass:
+        return typing.cast(CSubSubclass, jsii.invoke(self, "createSomething", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="something")
+    def something(self) -> CSubSubclass:
+        return typing.cast(CSubSubclass, jsii.get(self, "something"))
+
+
+__all__ = [
+    "ASuperclass",
+    "BSubclass",
+    "CSubSubclass",
+    "IBase",
+    "OriginalBase",
+    "SomethingInTheMiddle",
+    "TheEnd",
 ]
 
 publication.publish()
@@ -15704,6 +15920,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py.diff
+          ┣━ 📁 covariance
+          ┃  ┗━ 📁 class_overrides
+          ┃     ┗━ 📄 __init__.py.diff
           ┣━ 📁 derived_class_has_no_properties
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 homonymous_forward_references
@@ -18945,7 +19164,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8638,5 +9422,1544 @@
+@@ -8640,5 +9424,1544 @@
  from . import nodirect
  from . import onlystatic
  from . import python_self
@@ -20714,6 +20933,37 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +
 +def _typecheckingstub__9dbbc353e0ea03d68edfa3977eadeb5446b56a89ffb921cb8406ba9fca0805b0(
 +    value: CompositeOperation.CompositionStringStyle,
++) -> None:
++    """Type checking stubs"""
++    pass
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/covariance/class_overrides/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/covariance/class_overrides/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/covariance/class_overrides/__init__.py	--runtime-type-checking
+@@ -118,10 +118,13 @@
+     def add_unrelated_member(self) -> jsii.Number:
+         return typing.cast(jsii.Number, jsii.get(self, "addUnrelatedMember"))
+ 
+     @add_unrelated_member.setter
+     def add_unrelated_member(self, value: jsii.Number) -> None:
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__7933c7ceaa98aaf18ba7601d980945e60cbfa545ed1cfa0ef7dc2f74ea640505)
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         jsii.set(self, "addUnrelatedMember", value) # pyright: ignore[reportArgumentType]
+ 
+ 
+ class TheEnd(
+     SomethingInTheMiddle,
+@@ -156,5 +159,11 @@
+     "SomethingInTheMiddle",
+     "TheEnd",
+ ]
+ 
+ publication.publish()
++
++def _typecheckingstub__7933c7ceaa98aaf18ba7601d980945e60cbfa545ed1cfa0ef7dc2f74ea640505(
++    value: jsii.Number,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
