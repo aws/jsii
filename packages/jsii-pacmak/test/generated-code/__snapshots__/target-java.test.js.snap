@@ -5301,6 +5301,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: List<either {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.lib.NumericValue}>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getUnionArrayProperty() {
@@ -5315,6 +5316,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: Map<String, either {@link java.lang.String} or {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.lib.Number}>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> getUnionMapProperty() {
@@ -5329,6 +5331,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: either {@link java.lang.String} or {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.lib.Number} or {@link software.amazon.jsii.tests.calculator.Multiply}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Object getUnionProperty() {
@@ -6268,6 +6271,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
 
     /**
      * Example of a property that accepts a union of types.
+     * <p>
+     * Returns union: either {@link software.amazon.jsii.tests.calculator.Add} or {@link software.amazon.jsii.tests.calculator.Multiply} or {@link software.amazon.jsii.tests.calculator.Power}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.Nullable java.lang.Object getUnionProperty() {
@@ -6880,7 +6885,7 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
     }
 
     /**
-     * @param unionProperty This parameter is required.
+     * @param unionProperty Takes union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) {
@@ -6889,6 +6894,7 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
     }
 
     /**
+     * Returns union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> getUnionProperty() {
@@ -7305,7 +7311,7 @@ public class ClassWithNestedUnion extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param unionProperty This parameter is required.
+     * @param unionProperty Takes union: List<either Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}> or List<either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public ClassWithNestedUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> unionProperty) {
@@ -7314,6 +7320,7 @@ public class ClassWithNestedUnion extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: List<either Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}> or List<either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getUnionProperty() {
@@ -7421,6 +7428,7 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or List<either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.AbstractClass}>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.Nullable java.lang.Object getUnionProperty() {
@@ -7456,6 +7464,7 @@ package software.amazon.jsii.tests.calculator;
 public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     * Returns union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or List<either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.AbstractClass}>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Object getUnionProperty() {
@@ -21980,7 +21989,7 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param struct This parameter is required.
+     * @param struct Takes union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
@@ -21988,7 +21997,7 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param struct This parameter is required.
+     * @param struct Takes union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
@@ -21996,6 +22005,8 @@ public class StructUnionConsumer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}
+     * <p>
      * @param which This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -22018,6 +22029,7 @@ package software.amazon.jsii.tests.calculator;
 public interface StructWithCollectionOfUnionts extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     * Returns union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> getUnionProperty();
@@ -23265,6 +23277,8 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * A union to really stress test our serialization.
+     * <p>
+     * Returns union: either {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.SecondLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Object getSecondLevel();
@@ -23626,11 +23640,13 @@ package software.amazon.jsii.tests.calculator;
 public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     * Returns union: either {@link java.lang.String} or {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.AllTypes}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Object getBar();
 
     /**
+     * Returns union: either {@link java.lang.String} or {@link java.lang.Number}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Object getFoo() {
@@ -24077,7 +24093,7 @@ public class VariadicTypeUnion extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param union This parameter is required.
+     * @param union Takes union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public VariadicTypeUnion(final @org.jetbrains.annotations.NotNull java.lang.Object... union) {
@@ -24086,6 +24102,7 @@ public class VariadicTypeUnion extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: List<either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getUnion() {
@@ -24465,7 +24482,7 @@ public class UseOptions extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param option This parameter is required.
+     * @param option Takes union: either {@link software.amazon.jsii.tests.calculator.anonymous.IOptionA} or {@link software.amazon.jsii.tests.calculator.anonymous.IOptionB}. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
@@ -24481,6 +24498,8 @@ public class UseOptions extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns union: either {@link software.amazon.jsii.tests.calculator.anonymous.IOptionA} or {@link software.amazon.jsii.tests.calculator.anonymous.IOptionB}
+     * <p>
      * @param which This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -29540,7 +29559,7 @@ public class ConsumesUnion extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param param This parameter is required.
+     * @param param Takes union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.union.IResolvable} or {@link software.amazon.jsii.tests.calculator.union.Resolvable}. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static void unionType(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
@@ -29964,7 +29983,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/AllTypes.java	--runtime-type-checking
-@@ -220,10 +220,25 @@
+@@ -221,10 +221,25 @@
  
      /**
       */
@@ -29989,8 +30008,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      */
-@@ -234,10 +249,33 @@
+      * Returns union: Map<String, either {@link java.lang.String} or {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.lib.Number}>
+@@ -236,10 +251,33 @@
  
      /**
       */
@@ -30023,14 +30042,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      */
+      * Returns union: either {@link java.lang.String} or {@link java.lang.Number} or {@link software.amazon.jsii.tests.calculator.lib.Number} or {@link software.amazon.jsii.tests.calculator.Multiply}
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java	--runtime-type-checking
 @@ -19,10 +19,36 @@
-      * @param unionProperty This parameter is required.
+      * @param unionProperty Takes union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) {
@@ -30065,8 +30084,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      */
-@@ -33,8 +59,34 @@
+      * Returns union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>
+@@ -34,8 +60,34 @@
  
      /**
       */
@@ -30107,7 +30126,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java	--runtime-type-checking
 @@ -19,10 +19,68 @@
-      * @param unionProperty This parameter is required.
+      * @param unionProperty Takes union: List<either Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}> or List<either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public ClassWithNestedUnion(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> unionProperty) {
@@ -30174,8 +30193,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      */
-@@ -33,8 +91,66 @@
+      * Returns union: List<either Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}> or List<either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>
+@@ -34,8 +92,66 @@
  
      /**
       */
@@ -30247,7 +30266,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--runtime-type-checking
-@@ -48,8 +48,24 @@
+@@ -49,8 +49,24 @@
  
      /**
       */
@@ -30279,7 +30298,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/StructUnionConsumer.java	--runtime-type-checking
 @@ -18,18 +18,44 @@
      /**
-      * @param struct This parameter is required.
+      * @param struct Takes union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructA(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
@@ -30300,7 +30319,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      * @param struct This parameter is required.
+      * @param struct Takes union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static @org.jetbrains.annotations.NotNull java.lang.Boolean isStructB(final @org.jetbrains.annotations.NotNull java.lang.Object struct) {
@@ -30321,14 +30340,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      * @param which This parameter is required.
+      * Returns union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/VariadicTypeUnion.java	--runtime-type-checking
 @@ -19,10 +19,27 @@
-      * @param union This parameter is required.
+      * @param union Takes union: either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public VariadicTypeUnion(final @org.jetbrains.annotations.NotNull java.lang.Object... union) {
@@ -30354,8 +30373,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
-      */
-@@ -33,8 +50,24 @@
+      * Returns union: List<either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>
+@@ -34,8 +51,24 @@
  
      /**
       */
@@ -30387,7 +30406,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/anonymous/UseOptions.java	--runtime-type-checking
 @@ -18,10 +18,23 @@
      /**
-      * @param option This parameter is required.
+      * @param option Takes union: either {@link software.amazon.jsii.tests.calculator.anonymous.IOptionA} or {@link software.amazon.jsii.tests.calculator.anonymous.IOptionB}. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static @org.jetbrains.annotations.NotNull java.lang.String consume(final @org.jetbrains.annotations.NotNull java.lang.Object option) {
@@ -30416,7 +30435,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java	--runtime-type-checking
 @@ -18,8 +18,22 @@
      /**
-      * @param param This parameter is required.
+      * @param param Takes union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.union.IResolvable} or {@link software.amazon.jsii.tests.calculator.union.Resolvable}. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
      public static void unionType(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
