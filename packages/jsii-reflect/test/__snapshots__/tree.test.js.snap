@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`defaults 1`] = `
 "assemblies
@@ -40,6 +40,7 @@ exports[`defaults 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -100,6 +101,7 @@ exports[`inheritance 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -160,6 +162,7 @@ exports[`members 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -706,6 +709,19 @@ exports[`showAll 1`] = `
  │ │ │       └─┬ static staticMethod() method
  │ │ │         ├── static
  │ │ │         └── returns: string
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass
+ │ │ │   │ ├── base: Subclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   ├─┬ class Subclass
+ │ │ │   │ ├── base: Superclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   └─┬ class Superclass
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3946,6 +3962,7 @@ exports[`signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -4093,6 +4110,11 @@ exports[`types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├── class SubSubclass
+ │ │ │   ├── class Subclass
+ │ │ │   └── class Superclass
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
