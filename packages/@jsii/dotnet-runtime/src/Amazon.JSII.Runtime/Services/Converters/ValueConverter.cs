@@ -45,6 +45,11 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return TryConvertUnion(type, referenceMap, value, optionalValue.Type.Union, out result);
             }
 
+            if (optionalValue.Type.Intersection != null)
+            {
+                return TryConvertUnion(type, referenceMap, value, optionalValue.Type.Intersection, out result);
+            }
+
             throw new ArgumentException("Invalid type reference", nameof(optionalValue));
         }
 
@@ -97,7 +102,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 }
                 return anonResult;
             }
-            
+
             TypeReference reference = InferType(referenceMap, value);
             if (TryConvert(reference, type, referenceMap, value, out var result))
             {

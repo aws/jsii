@@ -454,7 +454,9 @@ namespace Amazon.JSII.Runtime.Deputy
             type = type ?? throw new ArgumentNullException(nameof(type));
             parameterTypes = parameterTypes ?? throw new ArgumentNullException(nameof(parameterTypes));
 
-            var methodInfo = type.GetMethod(methodName, bindingFlags, null, parameterTypes, Array.Empty<ParameterModifier>());
+            var methodInfo = type.GetMethod(methodName, bindingFlags);
+            // Don't need all this because we don't have overloading anyway.
+            // var methodInfo = type.GetMethod(methodName, bindingFlags, null, parameterTypes, Array.Empty<ParameterModifier>());
             if (methodInfo == null)
             {
                 throw new ArgumentException($"Method {methodName} does not exist", nameof(methodName));
