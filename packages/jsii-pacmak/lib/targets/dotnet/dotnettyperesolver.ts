@@ -274,6 +274,11 @@ export class DotNetTypeResolver {
 
   /**
    * Render generics for function parameters; updates parameters replacing generic types with type parameters
+   *
+   * FIXME: This is the wrong way around. It is better to have the renderer
+   * assign a unique name and return the fact that a type needs generics. That
+   * way it's trivially possible to represent "union-of-intersections", which
+   * otherwise will be hard. See the way it's done for Java.
    */
   public renderGenericParameters(inParameters: spec.Parameter[] | undefined): {
     parameters: spec.Parameter[];
