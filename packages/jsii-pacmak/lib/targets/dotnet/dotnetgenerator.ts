@@ -78,6 +78,7 @@ export class DotNetGenerator extends Generator {
       this.code,
       this.rosetta,
       this.assembly,
+      this.typeresolver,
     );
 
     this.emitAssemblyDocs();

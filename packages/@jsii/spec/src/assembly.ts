@@ -844,13 +844,23 @@ export interface Method extends Callable {
    */
   static?: boolean;
 }
+
 /**
- * Determines whether a Callable is a Method or not.
+ * Determines whether a Callable is a Method or not (if not, it's an initializer)
  *
  * @param callable the callable to be checked.
  */
 export function isMethod(callable: Callable): callable is Method {
   return !!(callable as Method).name;
+}
+
+/**
+ * Returns whether an API element looks like a property
+ */
+export function isProperty(
+  member: Type | Callable | Property,
+): member is Property {
+  return !!(member as Property).name && !!(member as Property).type;
 }
 
 /**

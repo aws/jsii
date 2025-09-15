@@ -31,6 +31,8 @@ import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
+import { containsUnionType } from '../type-utils';
+import { visitTypeReference } from '../type-visitor';
 
 import { TargetName } from './index';
 
@@ -3061,24 +3063,22 @@ class JavaGenerator extends Generator {
    * Render a type reference to something human readable for use in JavaDocs
    */
   private renderTypeReference(x: spec.TypeReference): string {
-    if (spec.isPrimitiveTypeReference(x)) {
-      return `{@link ${this.toJavaPrimitive(x.primitive)}}`;
-    }
-    if (spec.isNamedTypeReference(x)) {
-      return `{@link ${this.toNativeFqn(x.fqn)}}`;
-    }
-    if (spec.isCollectionTypeReference(x)) {
-      switch (x.collection.kind) {
-        case spec.CollectionKind.Array:
-          return `List<${this.renderTypeReference(x.collection.elementtype)}>`;
-        case spec.CollectionKind.Map:
-          return `Map<String, ${this.renderTypeReference(x.collection.elementtype)}>`;
-      }
-    }
-    if (spec.isUnionTypeReference(x)) {
-      return `either ${x.union.types.map((x) => this.renderTypeReference(x)).join(' or ')}`;
-    }
-    throw new Error(`Unknown type reference: ${JSON.stringify(x)}`);
+    return visitTypeReference<string>(x, {
+      primitive: (x) => `{@link ${this.toJavaPrimitive(x.primitive)}}`,
+      named: (x) => `{@link ${this.toNativeFqn(x.fqn)}}`,
+      collection: (x) => {
+        switch (x.collection.kind) {
+          case spec.CollectionKind.Array:
+            return `List<${this.renderTypeReference(x.collection.elementtype)}>`;
+          case spec.CollectionKind.Map:
+            return `Map<String, ${this.renderTypeReference(x.collection.elementtype)}>`;
+        }
+      },
+      union: (x) =>
+        `either ${x.union.types.map((x) => this.renderTypeReference(x)).join(' or ')}`,
+      intersection: (x) =>
+        `${x.intersection.types.map((x) => this.renderTypeReference(x)).join(' + ')}`,
+    });
   }
 
   private renderMethodCallArguments(method: spec.Callable) {
@@ -3730,16 +3730,6 @@ function splitNamespace(ns: string): [string, string] {
  */
 function escape(s: string) {
   return s.replace(/["\\<>&]/g, (c) => `&#${c.charCodeAt(0)};`);
-}
-
-function containsUnionType(
-  typeRef: spec.TypeReference,
-): typeRef is spec.UnionTypeReference | spec.CollectionTypeReference {
-  return (
-    spec.isUnionTypeReference(typeRef) ||
-    (spec.isCollectionTypeReference(typeRef) &&
-      containsUnionType(typeRef.collection.elementtype))
-  );
 }
 
 function myMarkDownToJavaDoc(source: string) {
