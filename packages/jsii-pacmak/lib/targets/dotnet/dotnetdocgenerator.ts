@@ -10,8 +10,11 @@ import {
 import * as xmlbuilder from 'xmlbuilder';
 
 import { renderSummary } from '../_utils';
+import { DotNetTypeResolver } from './dotnettyperesolver';
 import { DotNetNameUtils } from './nameutils';
 import { assertSpecIsRosettaCompatible } from '../../rosetta-assembly';
+import { containsUnionType } from '../../type-utils';
+import { visitTypeReference } from '../../type-visitor';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -26,6 +29,7 @@ export class DotNetDocGenerator {
     code: CodeMaker,
     private readonly rosetta: RosettaTabletReader,
     private readonly assembly: spec.Assembly,
+    private readonly resolver: DotNetTypeResolver,
   ) {
     this.code = code;
   }
@@ -48,38 +52,50 @@ export class DotNetDocGenerator {
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
-    if (objMethod.parameters) {
+    if (objMethod && objMethod.parameters) {
       objMethod.parameters.forEach((param) => {
         // Remove any slug `@` from the parameter name - it's not supposed to show up here.
         const paramName = this.nameutils
           .convertParameterName(param.name)
           .replace(/^@/, '');
-        this.emitXmlDoc('param', param.docs?.summary ?? '', {
-          attributes: { name: paramName },
-        });
+
+        const unionHint = containsUnionType(param.type)
+          ? `Type union: ${this.renderTypeForDocs(param.type)}`
+          : '';
+
+        this.emitXmlDoc(
+          'param',
+          combineSentences(param.docs?.summary, unionHint),
+          {
+            attributes: { name: paramName },
+          },
+        );
       });
     }
 
-    // At this pdocfx namespacedocd a valid instance of docs
-    if (!docs) {
-      return;
-    }
+    const returnUnionHint =
+      objMethod.returns && containsUnionType(objMethod.returns.type)
+        ? `Type union: ${this.renderTypeForDocs(objMethod.returns.type)}`
+        : '';
 
-    if (docs.returns) {
-      this.emitXmlDoc('returns', docs.returns);
+    if (docs?.returns || returnUnionHint) {
+      this.emitXmlDoc(
+        'returns',
+        combineSentences(docs?.returns, returnUnionHint),
+      );
     }
 
     // Remarks does not use emitXmlDoc() because the remarks can contain code blocks
     // which are fenced with <code> tags, which would be escaped to
     // &lt;code&gt; if we used the xml builder.
-    const remarks = this.renderRemarks(docs, apiLocation);
+    const remarks = this.renderRemarks(docs ?? {}, apiLocation);
     if (remarks.length > 0) {
       this.code.line('/// <remarks>');
       remarks.forEach((r) => this.code.line(`/// ${r}`.trimRight()));
       this.code.line('/// </remarks>');
     }
 
-    if (docs.example) {
+    if (docs?.example) {
       this.code.line('/// <example>');
       this.emitXmlDoc('code', this.convertExample(docs.example, apiLocation));
       this.code.line('/// </example>');
@@ -193,13 +209,38 @@ export class DotNetDocGenerator {
     for (const [name, value] of Object.entries(attributes)) {
       xml.att(name, value);
     }
-    const xmlstring = xml.end({ allowEmpty: true, pretty: false });
+    const xmlstring = xml
+      .end({ allowEmpty: true, pretty: false })
+      // Give some ways to add literal < > tags back in, because `renderTypeForDocs` needs to be able to emit XML tags
+      .replace(/@l@/g, '<')
+      .replace(/@r@/g, '>');
+
     const trimLeft = tag !== 'code';
     for (const line of xmlstring
       .split('\n')
       .map((x) => (trimLeft ? x.trim() : x.trimRight()))) {
       this.code.line(`/// ${line}`);
     }
+  }
+
+  private renderTypeForDocs(x: spec.TypeReference): string {
+    return visitTypeReference<string>(x, {
+      named: (ref) =>
+        `@l@see cref="${this.resolver.toNativeFqn(ref.fqn)}" /@r@`,
+      primitive: (ref) => this.resolver.toDotNetType(ref),
+      collection: (ref) => {
+        switch (ref.collection.kind) {
+          case spec.CollectionKind.Array:
+            return (`${this.renderTypeForDocs(ref.collection.elementtype)})[]`;
+          case spec.CollectionKind.Map:
+            return `Dictionary<string, ${this.renderTypeForDocs(ref.collection.elementtype)}>`;
+        }
+      },
+      union: (ref) =>
+        `either ${ref.union.types.map((x) => this.renderTypeForDocs(x)).join(' or ')}`,
+      intersection: (ref) =>
+        `${ref.intersection.types.map((x) => this.renderTypeForDocs(x)).join(' + ')}`,
+    });
   }
 }
 
@@ -213,4 +254,8 @@ function ucFirst(x: string) {
 function shouldMentionStability(s: spec.Stability) {
   // Don't render "stable" or "external", those are both stable by implication
   return s === spec.Stability.Deprecated || s === spec.Stability.Experimental;
+}
+
+function combineSentences(...xs: Array<string | undefined>): string {
+  return xs.filter((x) => x).join('. ');
 }

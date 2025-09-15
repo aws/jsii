@@ -844,8 +844,9 @@ export interface Method extends Callable {
    */
   static?: boolean;
 }
+
 /**
- * Determines whether a Callable is a Method or not.
+ * Determines whether a Callable is a Method or not (if not, it's an initializer)
  *
  * @param callable the callable to be checked.
  */
