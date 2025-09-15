@@ -16,6 +16,16 @@ import { assertSpecIsRosettaCompatible } from '../../rosetta-assembly';
 import { containsUnionType } from '../../type-utils';
 import { visitTypeReference } from '../../type-visitor';
 
+// Define some tokens that will be turned into literal < and > in XML comments.
+// This will be used by a function later on that needs to output literal tokens,
+// in a string where they would usually be escaped into &lt; and &gt;
+//
+// We use a random string in here so the actual token values cannot be predicted
+// in advance, so that an attacker can not use this knowledge to inject the tokens
+// literally into  doc comments, and perform an XSS attack that way.
+const L_ANGLE = `@l${Math.random()}@`;
+const R_ANGLE = `@r${Math.random()}@`;
+
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
  *
@@ -52,7 +62,7 @@ export class DotNetDocGenerator {
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
-    if (objMethod && objMethod.parameters) {
+    if (objMethod.parameters) {
       objMethod.parameters.forEach((param) => {
         // Remove any slug `@` from the parameter name - it's not supposed to show up here.
         const paramName = this.nameutils
@@ -85,13 +95,26 @@ export class DotNetDocGenerator {
       );
     }
 
+    const propUnionHint =
+      spec.isProperty(obj) && containsUnionType(obj.type)
+        ? `Type union: ${this.renderTypeForDocs(obj.type)}`
+        : '';
+
     // Remarks does not use emitXmlDoc() because the remarks can contain code blocks
     // which are fenced with <code> tags, which would be escaped to
     // &lt;code&gt; if we used the xml builder.
     const remarks = this.renderRemarks(docs ?? {}, apiLocation);
-    if (remarks.length > 0) {
+    if (remarks.length > 0 || propUnionHint) {
       this.code.line('/// <remarks>');
       remarks.forEach((r) => this.code.line(`/// ${r}`.trimRight()));
+
+      if (propUnionHint) {
+        // Very likely to contain < and > from `Dictionary<...>`, but we also want the literal angle brackets
+        // from `<see cref="...">`.
+        this.code.line(
+          `/// <para>${unescapeAngleMarkers(escapeAngleBrackets(propUnionHint))}</para>`,
+        );
+      }
       this.code.line('/// </remarks>');
     }
 
@@ -209,11 +232,11 @@ export class DotNetDocGenerator {
     for (const [name, value] of Object.entries(attributes)) {
       xml.att(name, value);
     }
-    const xmlstring = xml
-      .end({ allowEmpty: true, pretty: false })
-      // Give some ways to add literal < > tags back in, because `renderTypeForDocs` needs to be able to emit XML tags
-      .replace(/@l@/g, '<')
-      .replace(/@r@/g, '>');
+
+    // Unescape angle brackets that may have been injected by `renderTypeForDocs`
+    const xmlstring = unescapeAngleMarkers(
+      xml.end({ allowEmpty: true, pretty: false }),
+    );
 
     const trimLeft = tag !== 'code';
     for (const line of xmlstring
@@ -226,7 +249,7 @@ export class DotNetDocGenerator {
   private renderTypeForDocs(x: spec.TypeReference): string {
     return visitTypeReference<string>(x, {
       named: (ref) =>
-        `@l@see cref="${this.resolver.toNativeFqn(ref.fqn)}" /@r@`,
+        `${L_ANGLE}see cref="${this.resolver.toNativeFqn(ref.fqn)}" /${R_ANGLE}`,
       primitive: (ref) => this.resolver.toDotNetType(ref),
       collection: (ref) => {
         switch (ref.collection.kind) {
@@ -258,4 +281,17 @@ function shouldMentionStability(s: spec.Stability) {
 
 function combineSentences(...xs: Array<string | undefined>): string {
   return xs.filter((x) => x).join('. ');
+}
+
+function escapeAngleBrackets(x: string) {
+  return x.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Replace the special angle markers produced by renderTypeForDocs with literal angle brackets
+ */
+function unescapeAngleMarkers(x: string) {
+  return x
+    .replace(new RegExp(L_ANGLE, 'g'), '<')
+    .replace(new RegExp(R_ANGLE, 'g'), '>');
 }
