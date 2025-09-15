@@ -176,6 +176,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.composition.CompositeOperation",
   "jsii-calc.homonymousForwardReferences.bar.Consumer",
   "jsii-calc.homonymousForwardReferences.foo.Consumer",
+  "jsii-calc.intersection.ConsumesIntersection",
   "jsii-calc.jsii3656.OverrideMe",
   "jsii-calc.jsii4894.NonPascalCaseTest",
   "jsii-calc.module2530.MyClass",

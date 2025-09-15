@@ -2900,6 +2900,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 intersection
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 jsii3656
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 jsii4894
@@ -3257,6 +3259,7 @@ kwargs = json.loads(
         "jsii_calc.homonymous_forward_references.foo",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.intersection",
         "jsii_calc.jsii3656",
         "jsii_calc.jsii4894",
         "jsii_calc.module2530",
@@ -11934,6 +11937,7 @@ __all__ = [
     "homonymous_forward_references",
     "interface_in_namespace_includes_classes",
     "interface_in_namespace_only_interface",
+    "intersection",
     "jsii3656",
     "jsii4894",
     "module2530",
@@ -11962,6 +11966,7 @@ from . import derived_class_has_no_properties
 from . import homonymous_forward_references
 from . import interface_in_namespace_includes_classes
 from . import interface_in_namespace_only_interface
+from . import intersection
 from . import jsii3656
 from . import jsii4894
 from . import module2530
@@ -13076,6 +13081,138 @@ class Hello:
 
 __all__ = [
     "Hello",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/intersection/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+from .._jsii import *
+
+import scope.jsii_calc_lib as _scope_jsii_calc_lib_c61f082f
+
+
+class ConsumesIntersection(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.intersection.ConsumesIntersection",
+):
+    @jsii.member(jsii_name="acceptsIntersection")
+    @builtins.classmethod
+    def accepts_intersection(
+        cls,
+        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "ISomething"],
+    ) -> None:
+        '''
+        :param param: -
+        '''
+        return typing.cast(None, jsii.sinvoke(cls, "acceptsIntersection", [param]))
+
+    @jsii.member(jsii_name="acceptsPropWithIntersection")
+    @builtins.classmethod
+    def accepts_prop_with_intersection(
+        cls,
+        *,
+        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "ISomething"],
+    ) -> None:
+        '''
+        :param param: 
+        '''
+        props = IntersectionProps(param=param)
+
+        return typing.cast(None, jsii.sinvoke(cls, "acceptsPropWithIntersection", [props]))
+
+
+@jsii.interface(jsii_type="jsii-calc.intersection.ISomething")
+class ISomething(typing_extensions.Protocol):
+    @jsii.member(jsii_name="something")
+    def something(self) -> typing.Any:
+        ...
+
+
+class _ISomethingProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.intersection.ISomething"
+
+    @jsii.member(jsii_name="something")
+    def something(self) -> typing.Any:
+        return typing.cast(typing.Any, jsii.invoke(self, "something", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, ISomething).__jsii_proxy_class__ = lambda : _ISomethingProxy
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.intersection.IntersectionProps",
+    jsii_struct_bases=[],
+    name_mapping={"param": "param"},
+)
+class IntersectionProps:
+    def __init__(
+        self,
+        *,
+        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
+    ) -> None:
+        '''
+        :param param: 
+        '''
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "param": param,
+        }
+
+    @builtins.property
+    def param(
+        self,
+    ) -> typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething]:
+        result = self._values.get("param")
+        assert result is not None, "Required property 'param' is missing"
+        return typing.cast(typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "IntersectionProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "ConsumesIntersection",
+    "ISomething",
+    "IntersectionProps",
 ]
 
 publication.publish()
@@ -15798,6 +15935,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
           ┣━ 📁 interface_in_namespace_includes_classes
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 interface_in_namespace_only_interface
+          ┃  ┗━ 📄 __init__.py.diff
+          ┣━ 📁 intersection
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 jsii3656
           ┃  ┗━ 📄 __init__.py.diff
@@ -19029,7 +19168,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8640,5 +9424,1544 @@
+@@ -8642,5 +9426,1544 @@
  from . import onlystatic
  from . import pascal_case_name
  from . import python_self
@@ -21019,6 +21158,58 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +def _typecheckingstub__cc86cfd2ea53d0ae81d6d80ed07db33f3ca7b140e37166ba1d572a8ed2a78d2c(
 +    *,
 +    foo: jsii.Number,
++) -> None:
++    """Type checking stubs"""
++    pass
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
+@@ -44,10 +44,13 @@
+         param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "ISomething"],
+     ) -> None:
+         '''
+         :param param: -
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420)
++            check_type(argname="argument param", value=param, expected_type=type_hints["param"])
+         return typing.cast(None, jsii.sinvoke(cls, "acceptsIntersection", [param]))
+ 
+     @jsii.member(jsii_name="acceptsPropWithIntersection")
+     @builtins.classmethod
+     def accepts_prop_with_intersection(
+@@ -93,10 +96,13 @@
+         param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
+     ) -> None:
+         '''
+         :param param: 
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__c15dc791f3df60b50382a570589911c44374231249b9f320e007beea4de43c1b)
++            check_type(argname="argument param", value=param, expected_type=type_hints["param"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "param": param,
+         }
+ 
+     @builtins.property
+@@ -124,5 +130,18 @@
+     "ISomething",
+     "IntersectionProps",
+ ]
+ 
+ publication.publish()
++
++def _typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420(
++    param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__c15dc791f3df60b50382a570589911c44374231249b9f320e007beea4de43c1b(
++    *,
++    param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
 +) -> None:
 +    """Type checking stubs"""
 +    pass

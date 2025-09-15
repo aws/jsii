@@ -51,7 +51,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
@@ -588,7 +588,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
@@ -1108,7 +1108,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
@@ -3360,6 +3360,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📁 Internal
        ┃           ┃  ┗━ 📁 DependencyResolution
        ┃           ┃     ┗━ 📄 Anchor.cs
+       ┃           ┣━ 📁 Intersection
+       ┃           ┃  ┣━ 📄 ConsumesIntersection.cs
+       ┃           ┃  ┣━ 📄 IIntersectionProps.cs
+       ┃           ┃  ┣━ 📄 IntersectionProps.cs
+       ┃           ┃  ┗━ 📄 ISomething.cs
        ┃           ┣━ 📄 INullShouldBeTreatedAsUndefinedData.cs
        ┃           ┣━ 📄 IObjectWithProperty.cs
        ┃           ┣━ 📄 IOptionalMethod.cs
@@ -3485,6 +3490,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ParamShadowsScope.cs
        ┃           ┣━ 📄 ParentStruct982.cs
        ┃           ┣━ 📄 PartiallyInitializedThisConsumer.cs
+       ┃           ┣━ 📁 PascalCaseName
+       ┃           ┃  ┣━ 📄 Subclass.cs
+       ┃           ┃  ┣━ 📄 SubSubclass.cs
+       ┃           ┃  ┗━ 📄 Superclass.cs
        ┃           ┣━ 📄 Polymorphism.cs
        ┃           ┣━ 📄 Power.cs
        ┃           ┣━ 📄 PromiseNothing.cs
@@ -3620,7 +3629,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <IncludeSource>true</IncludeSource>
     <Nullable>enable</Nullable>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
@@ -5523,7 +5532,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollectionOfUnions), fullyQualifiedName: "jsii-calc.ClassWithCollectionOfUnions", parametersJson: "[{\\"name\\":\\"unionProperty\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}},\\"kind\\":\\"array\\"}}}]")]
     public class ClassWithCollectionOfUnions : DeputyBase
     {
-        /// <param name="unionProperty">Type union: Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;)[]</param>
+        /// <param name="unionProperty">Type union: (Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;)[]</param>
         public ClassWithCollectionOfUnions(System.Collections.Generic.IDictionary<string, object>[] unionProperty): base(_MakeDeputyProps(unionProperty))
         {
         }
@@ -5859,7 +5868,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithNestedUnion), fullyQualifiedName: "jsii-calc.ClassWithNestedUnion", parametersJson: "[{\\"name\\":\\"unionProperty\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}},{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"array\\"}}]}},\\"kind\\":\\"array\\"}}}]")]
     public class ClassWithNestedUnion : DeputyBase
     {
-        /// <param name="unionProperty">Type union: either Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt; or either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />)[])[]</param>
+        /// <param name="unionProperty">Type union: (either Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt; or (either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />)[])[]</param>
         public ClassWithNestedUnion(object[] unionProperty): base(_MakeDeputyProps(unionProperty))
         {
         }
@@ -13591,6 +13600,140 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Internal.DependencyResolution
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), fullyQualifiedName: "jsii-calc.intersection.ConsumesIntersection")]
+    public class ConsumesIntersection : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ConsumesIntersection(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ConsumesIntersection(DeputyProps props): base(props)
+        {
+        }
+
+        /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></param>
+        [JsiiMethod(name: "acceptsIntersection", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}}]")]
+        public static void AcceptsIntersection(object param)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(object)}, new object[]{param});
+        }
+
+        [JsiiMethod(name: "acceptsPropWithIntersection", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.intersection.IntersectionProps\\"}}]")]
+        public static void AcceptsPropWithIntersection(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps props)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps)}, new object[]{props});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IIntersectionProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
+{
+    [JsiiInterface(nativeType: typeof(IIntersectionProps), fullyQualifiedName: "jsii-calc.intersection.IntersectionProps")]
+    public interface IIntersectionProps
+    {
+        [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
+        object Param
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IIntersectionProps), fullyQualifiedName: "jsii-calc.intersection.IntersectionProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
+            public object Param
+            {
+                get => GetInstanceProperty<object>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ISomething.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
+{
+    [JsiiInterface(nativeType: typeof(ISomething), fullyQualifiedName: "jsii-calc.intersection.ISomething")]
+    public interface ISomething
+    {
+        [JsiiMethod(name: "something", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+        object Something();
+
+        [JsiiTypeProxy(nativeType: typeof(ISomething), fullyQualifiedName: "jsii-calc.intersection.ISomething")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "something", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+            public object Something()
+            {
+                return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.intersection.IntersectionProps")]
+    public class IntersectionProps : Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps
+    {
+        private object _param;
+
+        [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
+        public object Param
+        {
+            get => _param;
+            set
+            {
+                _param = value;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Isomorphism.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -17612,6 +17755,128 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.ConstructorPassesThisOut), typeof(System.DateTime), typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum)}, new object[]{obj, dt, ev})!;
             }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/PascalCaseName/SubSubclass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName.SubSubclass), fullyQualifiedName: "jsii-calc.pascalCaseName.SubSubclass")]
+    public class SubSubclass : Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName.Subclass
+    {
+        public SubSubclass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SubSubclass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SubSubclass(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/PascalCaseName/Subclass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName.Subclass), fullyQualifiedName: "jsii-calc.pascalCaseName.Subclass")]
+    public class Subclass : Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName.Superclass
+    {
+        public Subclass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Subclass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Subclass(DeputyProps props): base(props)
+        {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/PascalCaseName/Superclass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName
+{
+    /// <summary>This module ensures that language code is generated in correct topological order.</summary>
+    /// <remarks>
+    /// We deliberately name classes &amp; interfaces so that the ones that must come first in code,
+    /// are last in alphabetical order.
+    ///
+    /// Previously, the generated Python code would miss certain dependencies
+    /// and effectively render classes alphabetically. Which then obviously fails.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PascalCaseName.Superclass), fullyQualifiedName: "jsii-calc.pascalCaseName.Superclass")]
+    public class Superclass : DeputyBase
+    {
+        public Superclass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Superclass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Superclass(DeputyProps props): base(props)
+        {
         }
     }
 }
@@ -22043,6 +22308,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┣━ 📄 ClassWithNestedUnion.cs.diff
                    ┣━ 📄 ConfusingToJackson.cs.diff
                    ┣━ 📄 ConfusingToJacksonStruct.cs.diff
+                   ┣━ 📁 Intersection
+                   ┃  ┣━ 📄 ConsumesIntersection.cs.diff
+                   ┃  ┗━ 📄 IntersectionProps.cs.diff
                    ┣━ 📄 StructUnionConsumer.cs.diff
                    ┣━ 📄 StructWithCollectionOfUnionts.cs.diff
                    ┣━ 📄 TopLevelStruct.cs.diff
@@ -22563,6 +22831,72 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                    }
 +                }
                  _unionProperty = value;
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs	--runtime-type-checking
+@@ -23,10 +23,27 @@
+ 
+         /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></param>
+         [JsiiMethod(name: "acceptsIntersection", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}}]")]
+         public static void AcceptsIntersection(object param)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (param)
++                {
++                    case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_ccaaac:
++                        break;
++                    case Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething cast_ccaaac:
++                        break;
++                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_ccaaac:
++                        // Not enough information to type-check...
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received null", nameof(param));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received {param.GetType().FullName}", nameof(param));
++                }
++            }
+             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(object)}, new object[]{param});
+         }
+ 
+         [JsiiMethod(name: "acceptsPropWithIntersection", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.intersection.IntersectionProps\\"}}]")]
+         public static void AcceptsPropWithIntersection(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps props)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs	--runtime-type-checking
+@@ -15,10 +15,27 @@
+         public object Param
+         {
+             get => _param;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething cast_cd4240:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received null", nameof(value));
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
+                 _param = value;
              }
          }
      }

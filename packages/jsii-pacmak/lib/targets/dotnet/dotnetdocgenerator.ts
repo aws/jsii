@@ -231,7 +231,7 @@ export class DotNetDocGenerator {
       collection: (ref) => {
         switch (ref.collection.kind) {
           case spec.CollectionKind.Array:
-            return (`${this.renderTypeForDocs(ref.collection.elementtype)})[]`;
+            return `(${this.renderTypeForDocs(ref.collection.elementtype)})[]`;
           case spec.CollectionKind.Map:
             return `Dictionary<string, ${this.renderTypeForDocs(ref.collection.elementtype)}>`;
         }
