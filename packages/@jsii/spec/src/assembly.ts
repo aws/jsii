@@ -855,6 +855,15 @@ export function isMethod(callable: Callable): callable is Method {
 }
 
 /**
+ * Returns whether an API element looks like a property
+ */
+export function isProperty(
+  member: Type | Callable | Property,
+): member is Property {
+  return !!(member as Property).name && !!(member as Property).type;
+}
+
+/**
  * Represents a type definition (not a type reference).
  */
 export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
