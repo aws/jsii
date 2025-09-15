@@ -2938,8 +2938,6 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃     ┗━ 📄 __init__.py
           ┣━ 📁 onlystatic
           ┃  ┗━ 📄 __init__.py
-          ┣━ 📁 pascal_case_name
-          ┃  ┗━ 📄 __init__.py
           ┣━ 📄 py.typed
           ┣━ 📁 python_self
           ┃  ┗━ 📄 __init__.py
@@ -3276,7 +3274,6 @@ kwargs = json.loads(
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
         "jsii_calc.onlystatic",
-        "jsii_calc.pascal_case_name",
         "jsii_calc.python_self",
         "jsii_calc.submodule",
         "jsii_calc.submodule.back_references",
@@ -11945,7 +11942,6 @@ __all__ = [
     "module2702",
     "nodirect",
     "onlystatic",
-    "pascal_case_name",
     "python_self",
     "submodule",
     "union",
@@ -11973,7 +11969,6 @@ from . import module2700
 from . import module2702
 from . import nodirect
 from . import onlystatic
-from . import pascal_case_name
 from . import python_self
 from . import submodule
 from . import union
@@ -14673,85 +14668,6 @@ class OnlyStaticMethods(
 
 __all__ = [
     "OnlyStaticMethods",
-]
-
-publication.publish()
-
-`;
-
-exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/pascal_case_name/__init__.py 1`] = `
-from pkgutil import extend_path
-__path__ = extend_path(__path__, __name__)
-
-import abc
-import builtins
-import datetime
-import enum
-import typing
-
-import jsii
-import publication
-import typing_extensions
-
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
-
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
-
-from .._jsii import *
-
-
-class Superclass(
-    metaclass=jsii.JSIIMeta,
-    jsii_type="jsii-calc.pascalCaseName.Superclass",
-):
-    '''This module ensures that language code is generated in correct topological order.
-
-    We deliberately name classes & interfaces so that the ones that must come first in code,
-    are last in alphabetical order.
-
-    Previously, the generated Python code would miss certain dependencies
-    and effectively render classes alphabetically. Which then obviously fails.
-    '''
-
-    def __init__(self) -> None:
-        jsii.create(self.__class__, self, [])
-
-
-class Subclass(
-    Superclass,
-    metaclass=jsii.JSIIMeta,
-    jsii_type="jsii-calc.pascalCaseName.Subclass",
-):
-    def __init__(self) -> None:
-        jsii.create(self.__class__, self, [])
-
-
-class SubSubclass(
-    Subclass,
-    metaclass=jsii.JSIIMeta,
-    jsii_type="jsii-calc.pascalCaseName.SubSubclass",
-):
-    def __init__(self) -> None:
-        jsii.create(self.__class__, self, [])
-
-
-__all__ = [
-    "SubSubclass",
-    "Subclass",
-    "Superclass",
 ]
 
 publication.publish()
@@ -19029,9 +18945,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8640,5 +9424,1544 @@
+@@ -8638,5 +9422,1544 @@
+ from . import nodirect
  from . import onlystatic
- from . import pascal_case_name
  from . import python_self
  from . import submodule
  from . import union

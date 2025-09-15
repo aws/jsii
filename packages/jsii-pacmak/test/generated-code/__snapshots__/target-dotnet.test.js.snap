@@ -5523,7 +5523,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollectionOfUnions), fullyQualifiedName: "jsii-calc.ClassWithCollectionOfUnions", parametersJson: "[{\\"name\\":\\"unionProperty\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}},\\"kind\\":\\"array\\"}}}]")]
     public class ClassWithCollectionOfUnions : DeputyBase
     {
-        /// <param name="unionProperty">Type union: Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;)[]</param>
+        /// <param name="unionProperty">Type union: (Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;)[]</param>
         public ClassWithCollectionOfUnions(System.Collections.Generic.IDictionary<string, object>[] unionProperty): base(_MakeDeputyProps(unionProperty))
         {
         }
@@ -5859,7 +5859,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithNestedUnion), fullyQualifiedName: "jsii-calc.ClassWithNestedUnion", parametersJson: "[{\\"name\\":\\"unionProperty\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}},{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"array\\"}}]}},\\"kind\\":\\"array\\"}}}]")]
     public class ClassWithNestedUnion : DeputyBase
     {
-        /// <param name="unionProperty">Type union: either Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt; or either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />)[])[]</param>
+        /// <param name="unionProperty">Type union: (either Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt; or (either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />)[])[]</param>
         public ClassWithNestedUnion(object[] unionProperty): base(_MakeDeputyProps(unionProperty))
         {
         }
