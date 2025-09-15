@@ -1082,7 +1082,7 @@ export function describeTypeReference(type?: TypeReference): string {
 /**
  * Predefined constants for a set of jsii extension features
  */
-export type JsiiFeature = 'intersection-types';
+export type JsiiFeature = 'intersection-types' | 'class-covariant-overrides';
 
 /**
  * For every feature, is it enforced by the type system?
@@ -1096,6 +1096,7 @@ export type JsiiFeature = 'intersection-types';
  */
 const IS_FEATURE_TYPESYSTEM_ENFORCED: Record<JsiiFeature, boolean> = {
   'intersection-types': true,
+  'class-covariant-overrides': false,
 };
 
 /**
