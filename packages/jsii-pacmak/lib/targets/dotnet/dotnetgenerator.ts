@@ -250,10 +250,14 @@ export class DotNetGenerator extends Generator {
       ? this.typeresolver.toDotNetType(method.returns.type)
       : 'void';
     const nullable = method.returns?.optional ? '?' : '';
+
+    const { parameters, whereClause, typeParameters } =
+      this.typeresolver.renderGenericParameters(method.parameters);
+
     this.code.line(
       `${returnType}${nullable} ${this.nameutils.convertMethodName(
         method.name,
-      )}(${this.renderMethodParameters(method)});`,
+      )}${typeParameters}(${this.renderParametersString(parameters)})${whereClause};`,
     );
   }
 
@@ -290,7 +294,13 @@ export class DotNetGenerator extends Generator {
     });
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop);
 
-    const propType = this.typeresolver.toDotNetType(prop.type);
+    // Unfortunately we can only render this as one type. We'll take the first one.
+    let apparentType = prop.type;
+    if (spec.isIntersectionTypeReference(apparentType)) {
+      apparentType = apparentType.intersection.types[0];
+    }
+
+    const propType = this.typeresolver.toDotNetType(apparentType);
     const propName = this.nameutils.convertPropertyName(prop.name);
 
     if (prop.optional) {
@@ -366,6 +376,7 @@ export class DotNetGenerator extends Generator {
     // Compute the class parameters
     let parametersDefinition = '';
     let parametersBase = '';
+
     const initializer = cls.initializer;
     if (initializer) {
       this.dotnetDocGenerator.emitDocs(initializer, {
@@ -376,9 +387,16 @@ export class DotNetGenerator extends Generator {
         initializer,
       );
       if (initializer.parameters) {
-        parametersDefinition = this.renderParametersString(
-          initializer.parameters,
-        );
+        const { parameters, whereClause } =
+          this.typeresolver.renderGenericParameters(initializer.parameters);
+
+        if (whereClause) {
+          throw new Error(
+            'C# does not allow generic parameters to a constructor',
+          );
+        }
+
+        parametersDefinition = this.renderParametersString(parameters);
         for (const p of initializer.parameters) {
           parametersBase += `${this.nameutils.convertParameterName(p.name)}`;
           // If this is not the last parameter, append ,
@@ -587,9 +605,13 @@ export class DotNetGenerator extends Generator {
     const methodName = this.nameutils.convertMethodName(method.name);
 
     const isOptional = method.returns && method.returns.optional ? '?' : '';
-    const signature = `${returnType}${isOptional} ${methodName}(${this.renderMethodParameters(
-      method,
-    )})`;
+
+    const { parameters, whereClause, typeParameters } =
+      this.typeresolver.renderGenericParameters(method.parameters);
+
+    const signature = `${returnType}${isOptional} ${methodName}${typeParameters}(${this.renderParametersString(
+      parameters,
+    )})${whereClause}`;
 
     this.dotnetDocGenerator.emitDocs(method, {
       api: 'member',
@@ -763,13 +785,6 @@ export class DotNetGenerator extends Generator {
       return false;
     }
     return false;
-  }
-
-  /**
-   * Renders method parameters string
-   */
-  private renderMethodParameters(method: spec.Method): string {
-    return this.renderParametersString(method.parameters);
   }
 
   /**
@@ -1046,12 +1061,18 @@ export class DotNetGenerator extends Generator {
     const access = this.renderAccessLevel(prop);
     const staticKeyWord = prop.static ? 'static ' : '';
     const propName = this.nameutils.convertPropertyName(prop.name);
-    const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
+
+    // Unfortunately we can only render this as one type. We'll take the first one.
+    let apparentType = prop.type;
+    if (spec.isIntersectionTypeReference(apparentType)) {
+      apparentType = apparentType.intersection.types[0];
+    }
+    const propTypeFQN = this.typeresolver.toDotNetType(apparentType);
     const isOptional = prop.optional ? '?' : '';
 
     // We need to use a backing field so we can perform type checking if the property type is a union, and this is a struct.
     const backingFieldName =
-      spec.isInterfaceType(cls) && datatype && containsUnionType(prop.type)
+      spec.isInterfaceType(cls) && datatype && containsUnionType(apparentType)
         ? // We down-case the first letter, private fields are conventionally named with a _ prefix, and a camelCase name.
           `_${propName.replace(/[A-Z]/, (c) => c.toLowerCase())}`
         : undefined;
@@ -1116,7 +1137,7 @@ export class DotNetGenerator extends Generator {
       ),
       {
         name: 'value',
-        type: prop.type,
+        type: apparentType,
         optional: prop.optional,
       },
     );

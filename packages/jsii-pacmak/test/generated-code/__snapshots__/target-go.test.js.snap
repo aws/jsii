@@ -2971,6 +2971,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 InterfacesMaker.go
        ┣━ 📁 internal
        ┃  ┗━ 📄 types.go
+       ┣━ 📁 intersection
+       ┃  ┣━ 📄 ConsumesIntersection.go
+       ┃  ┣━ 📄 IntersectionProps.go
+       ┃  ┣━ 📄 ISomething.go
+       ┃  ┗━ 📄 main.go
        ┣━ 📄 IObjectWithProperty.go
        ┣━ 📄 IOptionalMethod.go
        ┣━ 📄 IPrivatelyImplemented.go
@@ -19516,6 +19521,124 @@ type Type__customsubmodulenameIReflectable = customsubmodulename.IReflectable
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/ConsumesIntersection.go 1`] = `
+package intersection
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type ConsumesIntersection interface {
+}
+
+// The jsii proxy struct for ConsumesIntersection
+type jsiiProxy_ConsumesIntersection struct {
+	_ byte // padding
+}
+
+func ConsumesIntersection_AcceptsIntersection(param interface{}) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.intersection.ConsumesIntersection",
+		"acceptsIntersection",
+		[]interface{}{param},
+	)
+}
+
+func ConsumesIntersection_AcceptsPropWithIntersection(props *IntersectionProps) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.intersection.ConsumesIntersection",
+		"acceptsPropWithIntersection",
+		[]interface{}{props},
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/ISomething.go 1`] = `
+package intersection
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type ISomething interface {
+	Something() interface{}
+}
+
+// The jsii proxy for ISomething
+type jsiiProxy_ISomething struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_ISomething) Something() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		i,
+		"something",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/IntersectionProps.go 1`] = `
+package intersection
+
+
+type IntersectionProps struct {
+	Param interface{} \`field:"required" json:"param" yaml:"param"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/main.go 1`] = `
+package intersection
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.intersection.ConsumesIntersection",
+		reflect.TypeOf((*ConsumesIntersection)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_ConsumesIntersection{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.intersection.ISomething",
+		reflect.TypeOf((*ISomething)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "something", GoMethod: "Something"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ISomething{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.intersection.IntersectionProps",
+		reflect.TypeOf((*IntersectionProps)(nil)).Elem(),
+	)
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] = `
 // Package jsii contains the functionaility needed for jsii packages to
 // initialize their dependencies and themselves. Users should never need to use this package
@@ -25641,6 +25764,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 InterfacesMaker__checks.go
        ┣━ 🆕 InterfacesMaker__no_checks.go
        ┣━ 📄 InterfacesMaker.go.diff
+       ┣━ 📁 intersection
+       ┃  ┣━ 🆕 ConsumesIntersection__checks.go
+       ┃  ┣━ 🆕 ConsumesIntersection__no_checks.go
+       ┃  ┗━ 📄 ConsumesIntersection.go.diff
        ┣━ 🆕 IObjectWithProperty__checks.go
        ┣━ 🆕 IObjectWithProperty__no_checks.go
        ┣━ 📄 IObjectWithProperty.go.diff
@@ -35102,6 +35229,105 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/h
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateConsumer_ConsumeParameters(props *ConsumerProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection.go.diff 1`] = `
+--- go/jsiicalc/intersection/ConsumesIntersection.go	--no-runtime-type-checking
++++ go/jsiicalc/intersection/ConsumesIntersection.go	--runtime-type-checking
+@@ -14,20 +14,26 @@
+ }
+ 
+ func ConsumesIntersection_AcceptsIntersection(param interface{}) {
+ 	_init_.Initialize()
+ 
++	if err := validateConsumesIntersection_AcceptsIntersectionParameters(param); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.intersection.ConsumesIntersection",
+ 		"acceptsIntersection",
+ 		[]interface{}{param},
+ 	)
+ }
+ 
+ func ConsumesIntersection_AcceptsPropWithIntersection(props *IntersectionProps) {
+ 	_init_.Initialize()
+ 
++	if err := validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.intersection.ConsumesIntersection",
+ 		"acceptsPropWithIntersection",
+ 		[]interface{}{props},
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__checks.go.diff 1`] = `
+--- go/jsiicalc/intersection/ConsumesIntersection__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/intersection/ConsumesIntersection__checks.go	--runtime-type-checking
+@@ -0,0 +1,41 @@
++//go:build !no_runtime_type_checking
++
++package intersection
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++
++	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
++)
++
++func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	switch param.(type) {
++	case scopejsiicalclib.IFriendly:
++		// ok
++	case ISomething:
++		// ok
++	default:
++		if !_jsii_.IsAnonymousProxy(param) {
++			return fmt.Errorf("parameter param must be one of the allowed types: scopejsiicalclib.IFriendly, ISomething; received %#v (a %T)", param, param)
++		}
++	}
++
++	return nil
++}
++
++func validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props *IntersectionProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__no_checks.go.diff 1`] = `
+--- go/jsiicalc/intersection/ConsumesIntersection__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/intersection/ConsumesIntersection__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,14 @@
++//go:build no_runtime_type_checking
++
++package intersection
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{}) error {
++	return nil
++}
++
++func validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props *IntersectionProps) error {
 +	return nil
 +}
 +

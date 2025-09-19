@@ -79,6 +79,34 @@ export function isSuperType(
     );
   }
 
+  // intersection A ⊒ B <=> all of the elements of A ⊒ B
+  if (a.intersectionOfTypes !== undefined) {
+    const analyses = a.intersectionOfTypes.map((aaa) =>
+      isSuperType(aaa, b, updatedSystem),
+    );
+    if (analyses.every((x) => x.success)) {
+      return { success: true };
+    }
+    return failure(
+      `${b.toString()} is not assignable to all of ${a.toString()}`,
+      ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
+    );
+  }
+
+  // A ⊒ intersection B <=> A ⊒ any of the elements of B
+  if (b.intersectionOfTypes !== undefined) {
+    const analyses = b.intersectionOfTypes.map((bbb) =>
+      isSuperType(a, bbb, updatedSystem),
+    );
+    if (analyses.some((x) => x.success)) {
+      return { success: true };
+    }
+    return failure(
+      `some of ${b.toString()} are not assignable to ${a.toString()}`,
+      ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
+    );
+  }
+
   // We have two named types, recursion might happen so protect against it.
   try {
     // For named types, we'll always do a nominal typing relationship.

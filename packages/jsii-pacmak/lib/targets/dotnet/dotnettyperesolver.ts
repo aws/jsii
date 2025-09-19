@@ -3,6 +3,10 @@ import { toPascalCase } from 'codemaker';
 
 import { DotNetDependency } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
+import {
+  literalTypeReference,
+  makeLiteralTypeReference,
+} from '../type-literals';
 
 type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
@@ -133,11 +137,11 @@ export class DotNetTypeResolver {
     } else if (spec.isCollectionTypeReference(typeref)) {
       return this.toDotNetCollection(typeref);
     } else if (spec.isNamedTypeReference(typeref)) {
-      return this.toNativeFqn(typeref.fqn);
+      return literalTypeReference(typeref) ?? this.toNativeFqn(typeref.fqn);
     } else if (spec.isUnionTypeReference(typeref)) {
       return 'object';
     }
-    throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
+    throw new Error(`Unresolvable type reference: ${JSON.stringify(typeref)}`);
   }
 
   /**
@@ -266,5 +270,53 @@ export class DotNetTypeResolver {
           `Unsupported collection kind: ${ref.collection.kind as any}`,
         );
     }
+  }
+
+  /**
+   * Render generics for function parameters; updates parameters replacing generic types with type parameters
+   *
+   * FIXME: This is the wrong way around. It is better to have the renderer
+   * assign a unique name and return the fact that a type needs generics. That
+   * way it's trivially possible to represent "union-of-intersections", which
+   * otherwise will be hard. See the way it's done for Java.
+   */
+  public renderGenericParameters(inParameters: spec.Parameter[] | undefined): {
+    parameters: spec.Parameter[];
+    typeParameters: string;
+    whereClause: string;
+  } {
+    const parameters = new Array<spec.Parameter>();
+    const typeParameters = new Array<string>();
+    const genericConstraints = new Array<string>();
+
+    for (const p of inParameters ?? []) {
+      if (spec.isIntersectionTypeReference(p.type)) {
+        const typeParameterName = `T${Object.keys(genericConstraints).length + 1}`;
+        parameters.push({
+          name: p.name,
+          docs: p.docs,
+          optional: p.optional,
+          variadic: p.variadic,
+          type: makeLiteralTypeReference(typeParameterName),
+        });
+
+        typeParameters.push(typeParameterName);
+        genericConstraints.push(
+          `where ${typeParameterName}: ${p.type.intersection.types
+            .map((t) => this.toDotNetType(t))
+            .join(', ')}`,
+        );
+      } else {
+        parameters.push(p);
+      }
+    }
+
+    return {
+      parameters,
+      typeParameters:
+        typeParameters.length > 0 ? `<${typeParameters.join(', ')}>` : '',
+      whereClause:
+        genericConstraints.length > 0 ? ` ${genericConstraints.join(' ')}` : '',
+    };
   }
 }

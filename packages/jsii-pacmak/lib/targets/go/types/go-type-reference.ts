@@ -39,6 +39,7 @@ type TypeMap =
   | { readonly type: 'array'; readonly value: GoTypeRef }
   | { readonly type: 'map'; readonly value: GoTypeRef }
   | { readonly type: 'union'; readonly value: readonly GoTypeRef[] }
+  | { readonly type: 'intersection'; readonly value: readonly GoTypeRef[] }
   | { readonly type: 'interface'; readonly value: GoTypeRef }
   | { readonly type: 'void' };
 
@@ -88,6 +89,11 @@ export class GoTypeRef {
       }
       if (!opaqueUnionType && ref.unionOfTypes) {
         return ref.unionOfTypes.some((item) =>
+          containsDate(item, opaqueUnionType),
+        );
+      }
+      if (!opaqueUnionType && ref.intersectionOfTypes) {
+        return ref.intersectionOfTypes.some((item) =>
           containsDate(item, opaqueUnionType),
         );
       }
@@ -144,6 +150,14 @@ export class GoTypeRef {
         break;
 
       case 'union':
+        if (!this.options.opaqueUnionTypes) {
+          for (const t of this.typeMap.value) {
+            ret.push(...t.dependencies);
+          }
+        }
+        break;
+
+      case 'intersection':
         if (!this.options.opaqueUnionTypes) {
           for (const t of this.typeMap.value) {
             ret.push(...t.dependencies);
@@ -212,6 +226,13 @@ export class GoTypeRef {
           (typeRef) => new GoTypeRef(this.root, typeRef, this.options),
         ),
       };
+    } else if (ref.reference.intersectionOfTypes) {
+      return {
+        type: 'intersection',
+        value: ref.reference.intersectionOfTypes.map(
+          (typeRef) => new GoTypeRef(this.root, typeRef, this.options),
+        ),
+      };
     } else if (ref.reference.void) {
       return { type: 'void' };
     }
@@ -248,6 +269,11 @@ export class GoTypeRef {
       if (baseName) {
         return `${prefix}${typeMap.value.namespace}.${baseName}`;
       }
+    } else if (typeMap.type === 'intersection') {
+      const components = typeMap.value.map((inner) =>
+        this.scopedTypeName(inner.typeMap, scope, false),
+      );
+      return `interface{ ${components.join(';')} }`;
     } else if (typeMap.type === 'union') {
       return 'interface{}';
     } else if (typeMap.type === 'void') {

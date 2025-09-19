@@ -12,7 +12,7 @@ export function expectNoError(
   for (const msg of mms.messages()) {
     console.error(`- ${msg}`);
   }
-  expect(mms.count).toBe(0);
+  expect(Array.from(mms.messages())).toEqual([]);
 }
 
 export function expectError(
