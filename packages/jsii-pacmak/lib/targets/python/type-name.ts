@@ -11,12 +11,16 @@ import {
   isUnionTypeReference,
   Type,
   isInterfaceType,
+  isIntersectionTypeReference,
 } from '@jsii/spec';
-import { toSnakeCase } from 'codemaker';
+import { CodeMaker, toSnakeCase } from 'codemaker';
 import { createHash } from 'crypto';
 
 import { die, toPythonIdentifier } from './util';
 
+/**
+ * Actually more of a TypeNameFactory than a TypeName
+ */
 export interface TypeName {
   pythonType(context: NamingContext): string;
   requiredImports(context: NamingContext): PythonImports;
@@ -43,6 +47,9 @@ export interface NamingContext {
 
   /** The submodule of the assembly in which the PythonType is expressed (could be the module root) */
   readonly submodule: string;
+
+  /** Holds the set of intersection types used in the current module */
+  readonly intersectionTypes: IntersectionTypesRegistry;
 
   /**
    * The declaration is made in the context of a type annotation (so it can be quoted)
@@ -107,6 +114,12 @@ export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
     result = new Union(type.union.types.map(toTypeName));
   } else if (isNamedTypeReference(type)) {
     result = new UserType(type.fqn);
+  } else if (isIntersectionTypeReference(type)) {
+    const types = type.intersection.types.map(toTypeName);
+    if (types.some((t) => !(t instanceof UserType))) {
+      throw new Error('Only user types are supported in intersections');
+    }
+    result = new Intersection(types as any);
   }
 
   return optional ? new Optional(result) : result;
@@ -268,6 +281,31 @@ class Union implements TypeName {
   public requiredImports(context: NamingContext) {
     return mergePythonImports(
       ...this.#options.map((o) => o.requiredImports(context)),
+    );
+  }
+}
+
+class Intersection implements TypeName {
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  readonly #types: readonly UserType[];
+
+  public constructor(types: readonly UserType[]) {
+    this.#types = types;
+  }
+
+  public pythonType(context: NamingContext) {
+    // We will be generating a special type to represent the intersection
+    const name = context.intersectionTypes.obtain(
+      this.#types.map((t) => t.pythonType(context)).map(stripQuotes),
+    );
+
+    // This will never be in scope already, so always render between quotes
+    return `'${name}'`;
+  }
+
+  public requiredImports(context: NamingContext) {
+    return mergePythonImports(
+      ...this.#types.map((o) => o.requiredImports(context)),
     );
   }
 }
@@ -497,4 +535,42 @@ function findParentSubmodule(type: Type, assm: Assembly): string {
     return findParentSubmodule(assm.types?.[namespaceFqn], assm);
   }
   return namespaceFqn;
+}
+
+/**
+ * Holds a set of intersection types used by the current set of modules
+ */
+export class IntersectionTypesRegistry {
+  private readonly types = new Map<string, string[]>();
+
+  /**
+   * Return a unique name for a protocol that extends the given types
+   */
+  public obtain(types: string[]): string {
+    const derivedName = `_${types.map(lastComponent).join('_')}`;
+    this.types.set(derivedName, types);
+    return derivedName;
+  }
+
+  public get typeNames() {
+    return Array.from(this.types.keys());
+  }
+
+  public flushHelperTypes(code: CodeMaker) {
+    for (const [name, types] of this.types.entries()) {
+      code.line('');
+      code.line(
+        `class ${name}(${types.join(', ')}, typing_extensions.Protocol):`,
+      );
+      code.line('    pass');
+    }
+  }
+}
+
+function lastComponent(x: string) {
+  return x.split('.').slice(-1)[0];
+}
+
+function stripQuotes(x: string) {
+  return x.replace(/^"|"$/g, '');
 }
