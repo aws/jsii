@@ -2,6 +2,10 @@ import * as spec from '@jsii/spec';
 import { JsiiFeature } from '@jsii/spec';
 import { RosettaTabletReader } from 'jsii-rosetta';
 
+const ROSETTA_SUPPORTED_ASSEMBLY_FEATURES: JsiiFeature[] = [
+  'intersection-types',
+];
+
 /**
  * Assert that the given spec is safe to give to Rosetta
  *
@@ -13,14 +17,16 @@ import { RosettaTabletReader } from 'jsii-rosetta';
  * and then assert it in the type system.
  *
  * The check should be cheap, this gets called quite a lot.
+ *
+ * (In actual fact, Rosetta doesn't do much with the Assembly, just crawl
+ * all API documentations, so basically most new features would be supported...
+ * but we technically should do *something* here anyway).
  */
 export function assertSpecIsRosettaCompatible(
   x: spec.Assembly,
 ): asserts x is Parameters<RosettaTabletReader['addAssembly']>[0] {
-  const rosettaSupportedFeatures: JsiiFeature[] = ['intersection-types'];
-
   const unsupported = (x.usedFeatures ?? []).filter(
-    (f) => !rosettaSupportedFeatures.includes(f),
+    (f) => !ROSETTA_SUPPORTED_ASSEMBLY_FEATURES.includes(f),
   );
   if (unsupported.length > 0) {
     throw new Error(

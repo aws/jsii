@@ -13705,6 +13705,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
     [JsiiInterface(nativeType: typeof(IIntersectionProps), fullyQualifiedName: "jsii-calc.intersection.IntersectionProps")]
     public interface IIntersectionProps
     {
+        /// <remarks>
+        /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></para>
+        /// </remarks>
         [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
         object Param
         {
@@ -13718,6 +13721,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
             {
             }
 
+            /// <remarks>
+            /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></para>
+            /// </remarks>
             [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
             public object Param
             {
@@ -13774,6 +13780,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
     {
         private object _param;
 
+        /// <remarks>
+        /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></para>
+        /// </remarks>
         [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
         public object Param
         {
@@ -22438,7 +22447,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
                  SetInstanceProperty(value);
              }
          }
-
+ 
          /// <remarks>
 @@ -157,10 +194,49 @@
          public virtual System.Collections.Generic.IDictionary<string, object> UnionMapProperty
@@ -22488,7 +22497,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
                  SetInstanceProperty(value);
              }
          }
-
+ 
          /// <remarks>
 @@ -170,10 +246,48 @@
          public virtual object UnionProperty
@@ -22537,7 +22546,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
                  SetInstanceProperty(value);
              }
          }
-
+ 
          [JsiiProperty(name: "unknownArrayProperty", typeJson: "{\\"collection\\":{\\"elementtype\\":{\\"primitive\\":\\"any\\"},\\"kind\\":\\"array\\"}}")]
 `;
 
@@ -22545,7 +22554,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Anonymous/UseOptions.cs	--runtime-type-checking
 @@ -23,10 +23,27 @@
-
+ 
          /// <param name="option">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Anonymous.IOptionB" /></param>
          [JsiiMethod(name: "consume", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"option\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.anonymous.IOptionA\\"},{\\"fqn\\":\\"jsii-calc.anonymous.IOptionB\\"}]}}}]")]
          public static string Consume(object option)
@@ -22569,7 +22578,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Anonymous.UseOptions), new System.Type[]{typeof(object)}, new object[]{option})!;
          }
-
+ 
          [JsiiMethod(name: "privideAsAny", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
          public static object PrivideAsAny(string which)
 `;
@@ -22611,7 +22620,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithCollectionOfUnions.cs	--runtime-type-checking
 @@ -13,10 +13,33 @@
          }
-
+ 
          [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
          private static DeputyProps _MakeDeputyProps(System.Collections.Generic.IDictionary<string, object>[] unionProperty)
          {
@@ -22640,7 +22649,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              return new DeputyProps(new object?[]{unionProperty});
          }
-
+ 
          /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
          /// <param name="reference">The Javascript-owned object reference</param>
 @@ -39,10 +62,33 @@
@@ -22684,7 +22693,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithNestedUnion.cs	--runtime-type-checking
 @@ -13,10 +13,61 @@
          }
-
+ 
          [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
          private static DeputyProps _MakeDeputyProps(object[] unionProperty)
          {
@@ -22741,7 +22750,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              return new DeputyProps(new object?[]{unionProperty});
          }
-
+ 
          /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
          /// <param name="reference">The Javascript-owned object reference</param>
 @@ -39,10 +90,61 @@
@@ -22912,7 +22921,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs	--runtime-type-checking
 @@ -23,10 +23,27 @@
-
+ 
          /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></param>
          [JsiiMethod(name: "acceptsIntersection", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}}]")]
          public static void AcceptsIntersection(object param)
@@ -22936,7 +22945,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(object)}, new object[]{param});
          }
-
+ 
          [JsiiMethod(name: "acceptsPropWithIntersection", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.intersection.IntersectionProps\\"}}]")]
          public static void AcceptsPropWithIntersection(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps props)
 `;
@@ -22944,7 +22953,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs.diff 1`] = `
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs	--runtime-type-checking
-@@ -15,10 +15,27 @@
+@@ -18,10 +18,27 @@
          public object Param
          {
              get => _param;
@@ -22978,7 +22987,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/StructUnionConsumer.cs	--runtime-type-checking
 @@ -23,17 +23,51 @@
-
+ 
          /// <param name="struct">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" /></param>
          [JsiiMethod(name: "isStructA", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
          public static bool IsStructA(object @struct)
@@ -23002,7 +23011,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
          }
-
+ 
          /// <param name="struct">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" /></param>
          [JsiiMethod(name: "isStructB", returnsJson: "{\\"type\\":{\\"primitive\\":\\"boolean\\"}}", parametersJson: "[{\\"name\\":\\"struct\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}]")]
          public static bool IsStructB(object @struct)
@@ -23026,7 +23035,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct})!;
          }
-
+ 
          /// <returns>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" /></returns>
          [JsiiMethod(name: "provideStruct", returnsJson: "{\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}}}", parametersJson: "[{\\"name\\":\\"which\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
 `;
@@ -23119,7 +23128,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
                  _secondLevel = value;
              }
          }
-
+ 
          /// <summary>You don't have to pass this.</summary>
 `;
 
@@ -23127,7 +23136,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs	--runtime-type-checking
 @@ -23,9 +23,26 @@
-
+ 
          /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable" /></param>
          [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"}]}}}]")]
          public static void UnionType(object param)
@@ -23203,7 +23212,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
                  _bar = value;
              }
          }
-
+ 
          private object? _foo;
 @@ -34,10 +70,44 @@
          public object? Foo
@@ -23257,7 +23266,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/VariadicTypeUnion.cs	--runtime-type-checking
 @@ -13,10 +13,30 @@
          }
-
+ 
          [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
          private static DeputyProps _MakeDeputyProps(params object[] union)
          {
@@ -23283,7 +23292,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +            }
              return new DeputyProps(new object?[]{union});
          }
-
+ 
          /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
          /// <param name="reference">The Javascript-owned object reference</param>
 @@ -39,10 +59,30 @@

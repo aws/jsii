@@ -1962,7 +1962,7 @@ class PythonModule implements PythonType {
     code.line('');
     code.line(`for cls in [${protocolNames.join(', ')}]:`);
     code.line(
-      `    cls.__protocol_attrs__ = cls.__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+      `    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
     );
   }
 
