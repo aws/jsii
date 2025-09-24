@@ -17,14 +17,14 @@ import { RosettaTabletReader } from 'jsii-rosetta';
 export function assertSpecIsRosettaCompatible(
   x: spec.Assembly,
 ): asserts x is Parameters<RosettaTabletReader['addAssembly']>[0] {
-  const rosettaSupportedFeatures: JsiiFeature[] = [];
+  const rosettaSupportedFeatures: JsiiFeature[] = ['intersection-types'];
 
   const unsupported = (x.usedFeatures ?? []).filter(
     (f) => !rosettaSupportedFeatures.includes(f),
   );
   if (unsupported.length > 0) {
     throw new Error(
-      `This assembly uses features Rosetta doesn't support yet: ${unsupported.join(', ')}`,
+      `This assembly uses features that jsii-pacmak doesn't think jsii-rosetta can handle yet: ${unsupported.join(', ')}`,
     );
   }
 }

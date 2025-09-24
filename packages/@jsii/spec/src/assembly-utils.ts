@@ -147,7 +147,7 @@ export function loadAssemblyFromBuffer(
   );
   if (unsupported.length > 0) {
     throw new Error(
-      `This jsii tool cannot load the given assembly; using unsupported feature(s): ${unsupported.join(', ')}`,
+      `This jsii tool cannot load the given assembly; using unsupported feature(s): ${unsupported.join(', ')} (supported features: ${supportedFeatures.join(', ')})`,
     );
   }
 
