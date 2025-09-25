@@ -119,7 +119,7 @@ export class TypeSystem {
 
   public async loadModule(
     dir: string,
-    options: { validate?: boolean; supportedFeatures?: JsiiFeature[] } = {},
+    options: { validate?: boolean } = {},
   ): Promise<Assembly> {
     const out = await _loadModule.call(this, dir, true);
     if (!out) {
