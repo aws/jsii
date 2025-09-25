@@ -25,6 +25,12 @@ func TestV(t *testing.T) {
 	assert.Equal(t, now, *Time(now))
 	// Times
 	assert.Equal(t, []*time.Time{Time(now)}, *Times(now))
+	// AnyStrings
+	assert.Equal(t, []interface{}{"Hello", "World"}, *AnyStrings("Hello", "World"))
+	// AnyNumbers
+	assert.Equal(t, []interface{}{float64(42), float64(1337)}, *AnyNumbers(42, 1337))
+	// AnySlice
+	assert.Equal(t, []interface{}{"hello", "world"}, *AnySlice(Strings("hello", "world")))
 }
 
 func TestBool(t *testing.T) {
@@ -80,4 +86,35 @@ func TestTime(t *testing.T) {
 func TestTimes(t *testing.T) {
 	now := time.Now()
 	assert.Equal(t, []*time.Time{Time(now)}, *Times(now))
+}
+
+func TestAnyStrings(t *testing.T) {
+	assert.Equal(t, []interface{}{"Hello", "World"}, *AnyStrings("Hello", "World"))
+}
+
+func TestAnyNumbers(t *testing.T) {
+	assert.Equal(t, []interface{}{float64(42), float64(1337)}, *AnyNumbers(42, 1337))
+}
+
+func TestAnySlice(t *testing.T) {
+	// Test with *[]*string
+	strings := []*string{String("hello"), String("world")}
+	result := AnySlice(&strings)
+	assert.Equal(t, []interface{}{"hello", "world"}, *result)
+
+	// Test with strings
+	result2 := AnySlice(Strings("hello", "world"))
+	assert.Equal(t, []interface{}{"hello", "world"}, *result2)
+	
+	// Test with *[]*float64
+	floats := []*float64{Number(1.5), Number(2.5)}
+	result3 := AnySlice(&floats)
+	assert.Equal(t, []interface{}{1.5, 2.5}, *result3)
+
+	// Test with Numbers
+	result4 := AnySlice(Numbers(1.5, 2.5))
+	assert.Equal(t, []interface{}{1.5, 2.5}, *result4)
+	
+	// Test with nil
+	assert.Nil(t, AnySlice((*[]*string)(nil)))
 }
