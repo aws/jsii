@@ -1,9 +1,12 @@
 import '@jsii/check-node/run';
 
+import * as spec from '@jsii/spec';
 import * as chalk from 'chalk';
 import * as yargs from 'yargs';
 
 import { TypeSystem, TypeSystemTree } from '../lib';
+
+const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
 
 async function main() {
   const options = await yargs
@@ -90,7 +93,10 @@ async function main() {
 
   await Promise.all(
     ((options.jsiiFile as string[]) ?? []).map((fileOrDirectory) =>
-      typesys.load(fileOrDirectory, { validate: options.validate }),
+      typesys.load(fileOrDirectory, {
+        validate: options.validate,
+        supportedFeatures: JSII_TREE_SUPPORTED_FEATURES,
+      }),
     ),
   );
 

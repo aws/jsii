@@ -251,10 +251,12 @@ async function loadFromFilesystem(name: string, options: LoadOptions) {
   if (stat.isDirectory()) {
     return ts.loadModule(name, {
       ...options,
+      supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
     });
   }
   return ts.loadFile(name, {
     ...options,
+    supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
   });
 }
 
