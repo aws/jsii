@@ -12,7 +12,9 @@ import * as onExit from './on-exit';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
-const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
+export const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
+  'intersection-types',
+];
 
 export const enum JsiiErrorType {
   JSII_FAULT = '@jsii/kernel.Fault',

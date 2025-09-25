@@ -1,4 +1,4 @@
-import { api } from '@jsii/kernel';
+import { api, ASSEMBLY_SUPPORTED_FEATURES } from '@jsii/kernel';
 import * as spec from '@jsii/spec';
 import { loadAssemblyFromPath } from '@jsii/spec';
 import * as child from 'child_process';
@@ -89,6 +89,9 @@ function loadRequest(library: string): api.LoadRequest {
   function loadAssembly(): spec.Assembly {
     return loadAssemblyFromPath(
       path.resolve(require.resolve(`${library}/package.json`), '..'),
+      true,
+      // Features that the kernel we are wrapping supports
+      ASSEMBLY_SUPPORTED_FEATURES,
     );
   }
 

@@ -13158,10 +13158,7 @@ class ConsumesIntersection(
 ):
     @jsii.member(jsii_name="acceptsIntersection")
     @builtins.classmethod
-    def accepts_intersection(
-        cls,
-        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "ISomething"],
-    ) -> None:
+    def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
         '''
         :param param: -
         '''
@@ -13169,11 +13166,7 @@ class ConsumesIntersection(
 
     @jsii.member(jsii_name="acceptsPropWithIntersection")
     @builtins.classmethod
-    def accepts_prop_with_intersection(
-        cls,
-        *,
-        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "ISomething"],
-    ) -> None:
+    def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
         '''
         :param param: 
         '''
@@ -13206,11 +13199,7 @@ typing.cast(typing.Any, ISomething).__jsii_proxy_class__ = lambda : _ISomethingP
     name_mapping={"param": "param"},
 )
 class IntersectionProps:
-    def __init__(
-        self,
-        *,
-        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
-    ) -> None:
+    def __init__(self, *, param: '_ISomething_IFriendly') -> None:
         '''
         :param param: 
         '''
@@ -13219,12 +13208,10 @@ class IntersectionProps:
         }
 
     @builtins.property
-    def param(
-        self,
-    ) -> typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething]:
+    def param(self) -> '_ISomething_IFriendly':
         result = self._values.get("param")
         assert result is not None, "Required property 'param' is missing"
-        return typing.cast(typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething], result)
+        return typing.cast('_ISomething_IFriendly', result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -13246,7 +13233,10 @@ __all__ = [
 
 publication.publish()
 
-for cls in [ISomething]:
+class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
+    pass
+
+for cls in [ISomething, _ISomething_IFriendly]:
     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
@@ -21218,9 +21208,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
-@@ -44,10 +44,13 @@
-         param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "ISomething"],
-     ) -> None:
+@@ -41,10 +41,13 @@
+     @builtins.classmethod
+     def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
          '''
          :param param: -
          '''
@@ -21231,10 +21221,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @jsii.member(jsii_name="acceptsPropWithIntersection")
      @builtins.classmethod
-     def accepts_prop_with_intersection(
-@@ -93,10 +96,13 @@
-         param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
-     ) -> None:
+     def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
+@@ -82,10 +85,13 @@
+ class IntersectionProps:
+     def __init__(self, *, param: '_ISomething_IFriendly') -> None:
          '''
          :param param: 
          '''
@@ -21246,26 +21236,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -125,7 +131,20 @@
+@@ -112,10 +118,23 @@
      "IntersectionProps",
  ]
  
  publication.publish()
  
 +def _typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420(
-+    param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
++    param: '_ISomething_IFriendly',
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
 +def _typecheckingstub__c15dc791f3df60b50382a570589911c44374231249b9f320e007beea4de43c1b(
 +    *,
-+    param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, ISomething],
++    param: '_ISomething_IFriendly',
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
- for cls in [ISomething]:
+ class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
+     pass
+ 
+ for cls in [ISomething, _ISomething_IFriendly]:
      typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 

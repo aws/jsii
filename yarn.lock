@@ -749,17 +749,25 @@
     chalk "^4.1.2"
     semver "^7.7.2"
 
+"@jsii/check-node@1.114.1":
+  version "1.114.1"
+  resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.114.1.tgz#9ff05988721cdee3d295b80a131e10e449e0571d"
+  integrity sha512-SE9H1xBo4D+y259zRWqbrUnWVzCzxZh8ek2G1u5P+wP1n86GcgU+vz8uhJfGagdWFwW1EMW6t4PkPvbYoQG0yw==
+  dependencies:
+    chalk "^4.1.2"
+    semver "^7.7.2"
+
+"@jsii/spec@1.114.1", "@jsii/spec@^1.114.1":
+  version "1.114.1"
+  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.114.1.tgz#9c064d57f062d913bcfda25b5496bdf4c9c95c46"
+  integrity sha512-SdjVQaNqLkTUK+2R0/t/MnM/NBvv1vzqxO5sn1nnoFD5Wlih8TFOIjl+Q8npzYmOtN+et3D+BMVYrxmVfq4X0w==
+  dependencies:
+    ajv "^8.17.1"
+
 "@jsii/spec@^1.113.0":
   version "1.113.0"
   resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.113.0.tgz#cc9960a69c285466088c370f8e47d07c5ae73fb4"
   integrity sha512-OAQNfJHzMmE42ySJpelOFFKCgnh6hxcKLnmgtaYEzsFW9UxH9gc945FFOXff52GbhUcigGElCqJ3MclrbgXoGw==
-  dependencies:
-    ajv "^8.17.1"
-
-"@jsii/spec@^1.114.1":
-  version "1.114.1"
-  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.114.1.tgz#9c064d57f062d913bcfda25b5496bdf4c9c95c46"
-  integrity sha512-SdjVQaNqLkTUK+2R0/t/MnM/NBvv1vzqxO5sn1nnoFD5Wlih8TFOIjl+Q8npzYmOtN+et3D+BMVYrxmVfq4X0w==
   dependencies:
     ajv "^8.17.1"
 
@@ -5229,13 +5237,13 @@ jsesc@^3.0.2:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-3.1.0.tgz#74d335a234f67ed19907fdadfac7ccf9d409825d"
   integrity sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==
 
-jsii-rosetta@^5.9.1, jsii-rosetta@~5.9.1:
-  version "5.9.3"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.3.tgz#b4a2cdec90e532cf9598b1189fdc4ef51dee4bd4"
-  integrity sha512-pAbN71TDhnIUNHDRDfdulOt5vbWeFrpDsNnfGUWVF926sJSSu4Elc2SIphtdFBM0lqvG6miBP/UpaAJTm/23cg==
+jsii-rosetta@^5.9.6, jsii-rosetta@~5.9.6:
+  version "5.9.6"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.6.tgz#d51d766589af10cf5967d7120ab40758a8811d46"
+  integrity sha512-oRf+Yjp5n/DjS2WsEWDCAw9wKyqXybPjXcpytXUNEFooXuF/Qpg2WcyPLPpjfdgq+c+ZVSdk50YdPbXrCa8Ejw==
   dependencies:
-    "@jsii/check-node" "1.113.0"
-    "@jsii/spec" "^1.113.0"
+    "@jsii/check-node" "1.114.1"
+    "@jsii/spec" "^1.114.1"
     "@xmldom/xmldom" "^0.9.8"
     chalk "^4"
     commonmark "^0.31.2"
@@ -5248,13 +5256,13 @@ jsii-rosetta@^5.9.1, jsii-rosetta@~5.9.1:
     workerpool "^6.5.1"
     yargs "^17.7.2"
 
-jsii@5.9.1:
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.1.tgz#0b90ab43d82dbf025bfdd4077b892cbbe7c8d3c2"
-  integrity sha512-0fosDxjcd2DTslZ2Thsx8t+kmXYPRTcgPNVYxj3qPV+OGocjIRV8jdBAw5HoGXN/h8eq2eiQKaCs6zSjtFI3RQ==
+jsii@5.9.6, jsii@^5.9.6:
+  version "5.9.6"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.6.tgz#8d908101262bc61e50d5353cb7ad13ba843a2448"
+  integrity sha512-OKy0/zkolKUXDZDv747g0f8AXiEmgRRWJ2lrWLDy7AAzDyQ9ZjRE/Fb4aeWbbstJXd5+F3yTf9ewhAcsQ1e8vw==
   dependencies:
-    "@jsii/check-node" "1.113.0"
-    "@jsii/spec" "^1.113.0"
+    "@jsii/check-node" "1.114.1"
+    "@jsii/spec" "1.114.1"
     case "^1.6.3"
     chalk "^4"
     fast-deep-equal "^3.1.3"
@@ -5266,31 +5274,13 @@ jsii@5.9.1:
     typescript "~5.9"
     yargs "^17.7.2"
 
-jsii@^5.9.1, jsii@~5.9.1:
+jsii@~5.9.1:
   version "5.9.3"
   resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.3.tgz#04b62f095ab45f357db2e619ce33b8456f84fd1a"
   integrity sha512-Qrbg0xKa7nnyXklSZ26x0Vp2TqmtRFmh/Zpod6ho1pZhLjzR3KTpcfvG0Nd809vxJ5b1suKj+m3DRbin14ReQw==
   dependencies:
     "@jsii/check-node" "1.113.0"
     "@jsii/spec" "^1.113.0"
-    case "^1.6.3"
-    chalk "^4"
-    fast-deep-equal "^3.1.3"
-    log4js "^6.9.1"
-    semver "^7.7.2"
-    semver-intersect "^1.5.0"
-    sort-json "^2.0.1"
-    spdx-license-list "^6.10.0"
-    typescript "~5.9"
-    yargs "^17.7.2"
-
-jsii@^5.9.5-dev.4:
-  version "5.9.5-dev.4"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.5-dev.4.tgz#e96b8ed403c7b2b9409556e0f5123117fdb0c173"
-  integrity sha512-2pgAz1X/r22BAZmhJXGiVPEMjzaksPn5UO1v5VgpjgM+rn6HQgFc2w52AWx0LVaAri06aa+eouN0+vf+qMKcoA==
-  dependencies:
-    "@jsii/check-node" "1.113.0"
-    "@jsii/spec" "^1.114.1"
     case "^1.6.3"
     chalk "^4"
     fast-deep-equal "^3.1.3"

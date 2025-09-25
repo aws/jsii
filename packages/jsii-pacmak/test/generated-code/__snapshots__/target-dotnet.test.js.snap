@@ -13678,11 +13678,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
         {
         }
 
-        /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></param>
-        [JsiiMethod(name: "acceptsIntersection", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}}]")]
-        public static void AcceptsIntersection(object param)
+        [JsiiMethod(name: "acceptsIntersection", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"intersection\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}}]")]
+        public static void AcceptsIntersection<T1>(T1 param) where T1: Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
         {
-            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(object)}, new object[]{param});
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(System.Object)}, new object[]{param});
         }
 
         [JsiiMethod(name: "acceptsPropWithIntersection", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.intersection.IntersectionProps\\"}}]")]
@@ -13705,11 +13704,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
     [JsiiInterface(nativeType: typeof(IIntersectionProps), fullyQualifiedName: "jsii-calc.intersection.IntersectionProps")]
     public interface IIntersectionProps
     {
-        /// <remarks>
-        /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></para>
-        /// </remarks>
-        [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
-        object Param
+        [JsiiProperty(name: "param", typeJson: "{\\"intersection\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}")]
+        Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething Param
         {
             get;
         }
@@ -13721,13 +13717,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
             {
             }
 
-            /// <remarks>
-            /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></para>
-            /// </remarks>
-            [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
-            public object Param
+            [JsiiProperty(name: "param", typeJson: "{\\"intersection\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething Param
             {
-                get => GetInstanceProperty<object>()!;
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething>()!;
             }
         }
     }
@@ -13778,19 +13771,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
     [JsiiByValue(fqn: "jsii-calc.intersection.IntersectionProps")]
     public class IntersectionProps : Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps
     {
-        private object _param;
-
-        /// <remarks>
-        /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></para>
-        /// </remarks>
-        [JsiiProperty(name: "param", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}")]
-        public object Param
+        [JsiiProperty(name: "param", typeJson: "{\\"intersection\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"},{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"}]}}")]
+        public Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething Param
         {
-            get => _param;
-            set
-            {
-                _param = value;
-            }
+            get;
+            set;
         }
     }
 }
@@ -22386,9 +22371,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┣━ 📄 ClassWithNestedUnion.cs.diff
                    ┣━ 📄 ConfusingToJackson.cs.diff
                    ┣━ 📄 ConfusingToJacksonStruct.cs.diff
-                   ┣━ 📁 Intersection
-                   ┃  ┣━ 📄 ConsumesIntersection.cs.diff
-                   ┃  ┗━ 📄 IntersectionProps.cs.diff
                    ┣━ 📄 StructUnionConsumer.cs.diff
                    ┣━ 📄 StructWithCollectionOfUnionts.cs.diff
                    ┣━ 📄 TopLevelStruct.cs.diff
@@ -22911,72 +22893,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                    }
 +                }
                  _unionProperty = value;
-             }
-         }
-     }
- }
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs	--no-runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/ConsumesIntersection.cs	--runtime-type-checking
-@@ -23,10 +23,27 @@
- 
-         /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething" /></param>
-         [JsiiMethod(name: "acceptsIntersection", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.intersection.ISomething\\"}]}}}]")]
-         public static void AcceptsIntersection(object param)
-         {
-+            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-+            {
-+                switch (param)
-+                {
-+                    case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_ccaaac:
-+                        break;
-+                    case Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething cast_ccaaac:
-+                        break;
-+                    case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_ccaaac:
-+                        // Not enough information to type-check...
-+                        break;
-+                    case null:
-+                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received null", nameof(param));
-+                    default:
-+                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received {param.GetType().FullName}", nameof(param));
-+                }
-+            }
-             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), new System.Type[]{typeof(object)}, new object[]{param});
-         }
- 
-         [JsiiMethod(name: "acceptsPropWithIntersection", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.intersection.IntersectionProps\\"}}]")]
-         public static void AcceptsPropWithIntersection(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps props)
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs.diff 1`] = `
---- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs	--no-runtime-type-checking
-+++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Intersection/IntersectionProps.cs	--runtime-type-checking
-@@ -18,10 +18,27 @@
-         public object Param
-         {
-             get => _param;
-             set
-             {
-+                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
-+                {
-+                    switch (value)
-+                    {
-+                        case Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly cast_cd4240:
-+                            break;
-+                        case Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething cast_cd4240:
-+                            break;
-+                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
-+                            // Not enough information to type-check...
-+                            break;
-+                        case null:
-+                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received null", nameof(value));
-+                        default:
-+                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ISomething).FullName}; received {value.GetType().FullName}", nameof(value));
-+                    }
-+                }
-                 _param = value;
              }
          }
      }

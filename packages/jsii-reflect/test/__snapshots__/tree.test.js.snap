@@ -415,7 +415,7 @@ exports[`showAll 1`] = `
  │ │ │   │   │ ├── static
  │ │ │   │   │ ├─┬ parameters
  │ │ │   │   │ │ └─┬ param
- │ │ │   │   │ │   └── type: @scope/jsii-calc-lib.IFriendly | jsii-calc.intersection.ISomething
+ │ │ │   │   │ │   └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
  │ │ │   │   │ └── returns: void
  │ │ │   │   └─┬ static acceptsPropWithIntersection(props) method
  │ │ │   │     ├── static
@@ -433,7 +433,7 @@ exports[`showAll 1`] = `
  │ │ │       └─┬ param property
  │ │ │         ├── abstract
  │ │ │         ├── immutable
- │ │ │         └── type: @scope/jsii-calc-lib.IFriendly | jsii-calc.intersection.ISomething
+ │ │ │         └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe

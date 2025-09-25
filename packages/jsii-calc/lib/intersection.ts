@@ -5,11 +5,11 @@ export interface ISomething {
 }
 
 export interface IntersectionProps {
-  readonly param: ISomething | IFriendly;
+  readonly param: ISomething & IFriendly;
 }
 
 export class ConsumesIntersection {
-  public static acceptsIntersection(param: ISomething | IFriendly) {
+  public static acceptsIntersection(param: ISomething & IFriendly) {
     void param;
   }
 

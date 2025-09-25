@@ -25895,10 +25895,10 @@ public class ConsumesIntersection extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param param Takes union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.intersection.ISomething}. This parameter is required.
+     * @param param This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static void acceptsIntersection(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
+    public static <T1 extends software.amazon.jsii.tests.calculator.intersection.ISomething & software.amazon.jsii.tests.calculator.lib.IFriendly> void acceptsIntersection(final @org.jetbrains.annotations.NotNull T1 param) {
         software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection.class, "acceptsIntersection", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
     }
 
@@ -25977,10 +25977,9 @@ package software.amazon.jsii.tests.calculator.intersection;
 public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Returns union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.intersection.ISomething}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    @org.jetbrains.annotations.NotNull java.lang.Object getParam();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.intersection.ISomething getParam();
 
     /**
      * @return a {@link Builder} of {@link IntersectionProps}
@@ -25994,7 +25993,7 @@ public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<IntersectionProps> {
-        java.lang.Object param;
+        software.amazon.jsii.tests.calculator.intersection.ISomething param;
 
         /**
          * Sets the value of {@link IntersectionProps#getParam}
@@ -26002,18 +26001,7 @@ public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public Builder param(software.amazon.jsii.tests.calculator.lib.IFriendly param) {
-            this.param = param;
-            return this;
-        }
-
-        /**
-         * Sets the value of {@link IntersectionProps#getParam}
-         * @param param the value to be set. This parameter is required.
-         * @return {@code this}
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public Builder param(software.amazon.jsii.tests.calculator.intersection.ISomething param) {
+        public <T1 extends software.amazon.jsii.tests.calculator.intersection.ISomething & software.amazon.jsii.tests.calculator.lib.IFriendly> Builder param(T1 param) {
             this.param = param;
             return this;
         }
@@ -26036,7 +26024,7 @@ public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @software.amazon.jsii.Internal
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements IntersectionProps {
-        private final java.lang.Object param;
+        private final software.amazon.jsii.tests.calculator.intersection.ISomething param;
 
         /**
          * Constructor that initializes the object based on values retrieved from the JsiiObject.
@@ -26044,7 +26032,7 @@ public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.param = software.amazon.jsii.Kernel.get(this, "param", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+            this.param = software.amazon.jsii.Kernel.get(this, "param", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.intersection.ISomething.class));
         }
 
         /**
@@ -26056,7 +26044,7 @@ public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable
         }
 
         @Override
-        public final java.lang.Object getParam() {
+        public final software.amazon.jsii.tests.calculator.intersection.ISomething getParam() {
             return this.param;
         }
 
@@ -30304,8 +30292,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                             ┣━ 📄 ClassWithCollectionOfUnions.java.diff
                             ┣━ 📄 ClassWithNestedUnion.java.diff
                             ┣━ 📄 ConfusingToJackson.java.diff
-                            ┣━ 📁 intersection
-                            ┃  ┗━ 📄 ConsumesIntersection.java.diff
                             ┣━ 📄 StructUnionConsumer.java.diff
                             ┣━ 📁 union
                             ┃  ┗━ 📄 ConsumesUnion.java.diff
@@ -30760,35 +30746,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
  
      /**
       * @param which This parameter is required.
-`;
-
-exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/intersection/ConsumesIntersection.java.diff 1`] = `
---- java/src/main/java/software/amazon/jsii/tests/calculator/intersection/ConsumesIntersection.java	--no-runtime-type-checking
-+++ java/src/main/java/software/amazon/jsii/tests/calculator/intersection/ConsumesIntersection.java	--runtime-type-checking
-@@ -18,10 +18,23 @@
-     /**
-      * @param param Takes union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.intersection.ISomething}. This parameter is required.
-      */
-     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-     public static void acceptsIntersection(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
-+        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
-+            if (
-+                 !(param instanceof software.amazon.jsii.tests.calculator.lib.IFriendly)
-+                && !(param instanceof software.amazon.jsii.tests.calculator.intersection.ISomething)
-+                && !(param.getClass().equals(software.amazon.jsii.JsiiObject.class))
-+            ) {
-+                throw new IllegalArgumentException(
-+                    new java.lang.StringBuilder("Expected ")
-+                        .append("param")
-+                        .append(" to be one of: software.amazon.jsii.tests.calculator.lib.IFriendly, software.amazon.jsii.tests.calculator.intersection.ISomething; received ")
-+                        .append(param.getClass()).toString());
-+            }
-+        }
-         software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection.class, "acceptsIntersection", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
-     }
- 
-     /**
-      * @param props This parameter is required.
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/union/ConsumesUnion.java.diff 1`] = `

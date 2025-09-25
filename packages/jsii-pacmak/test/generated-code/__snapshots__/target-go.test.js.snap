@@ -19537,7 +19537,7 @@ type jsiiProxy_ConsumesIntersection struct {
 	_ byte // padding
 }
 
-func ConsumesIntersection_AcceptsIntersection(param interface{}) {
+func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
 	_init_.Initialize()
 
 	_jsii_.StaticInvokeVoid(
@@ -19597,7 +19597,7 @@ package intersection
 
 
 type IntersectionProps struct {
-	Param interface{} \`field:"required" json:"param" yaml:"param"\`
+	Param interface{ ISomething;scopejsiicalclib.IFriendly } \`field:"required" json:"param" yaml:"param"\`
 }
 
 
@@ -35240,7 +35240,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 @@ -14,20 +14,26 @@
  }
  
- func ConsumesIntersection_AcceptsIntersection(param interface{}) {
+ func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
  	_init_.Initialize()
  
 +	if err := validateConsumesIntersection_AcceptsIntersectionParameters(param); err != nil {
@@ -35269,7 +35269,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__checks.go.diff 1`] = `
 --- go/jsiicalc/intersection/ConsumesIntersection__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/intersection/ConsumesIntersection__checks.go	--runtime-type-checking
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,31 @@
 +//go:build !no_runtime_type_checking
 +
 +package intersection
@@ -35282,19 +35282,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 +	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 +)
 +
-+func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{}) error {
++func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{ ISomething;scopejsiicalclib.IFriendly }) error {
 +	if param == nil {
 +		return fmt.Errorf("parameter param is required, but nil was provided")
-+	}
-+	switch param.(type) {
-+	case scopejsiicalclib.IFriendly:
-+		// ok
-+	case ISomething:
-+		// ok
-+	default:
-+		if !_jsii_.IsAnonymousProxy(param) {
-+			return fmt.Errorf("parameter param must be one of the allowed types: scopejsiicalclib.IFriendly, ISomething; received %#v (a %T)", param, param)
-+		}
 +	}
 +
 +	return nil
@@ -35323,7 +35313,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 +
 +// Building without runtime type checking enabled, so all the below just return nil
 +
-+func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{}) error {
++func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{ ISomething;scopejsiicalclib.IFriendly }) error {
 +	return nil
 +}
 +
