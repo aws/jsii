@@ -30,3 +30,4 @@ export * as anonymous from './anonymous';
 export * as union from './union';
 export * as homonymousForwardReferences from './homonymous';
 export * as pascalCaseName from './pascal-case-name';
+export * as covariantOverrides from './covariant-overrides';
