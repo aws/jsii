@@ -1,4 +1,3 @@
-import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as path from 'path';
@@ -7,8 +6,6 @@ import { Scratch, shell } from './util';
 import * as logging from '../lib/logging';
 
 export const DEFAULT_PACK_COMMAND = 'npm pack';
-
-const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
 
 export interface JsiiModuleOptions {
   /**
@@ -99,10 +96,7 @@ export class JsiiModule {
 
   public async load(system: TypeSystem, validate = true) {
     return system
-      .loadModule(this.moduleDirectory, {
-        validate,
-        supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
-      })
+      .loadModule(this.moduleDirectory, { validate })
       .then((assembly) => (this._assembly = assembly));
   }
 
