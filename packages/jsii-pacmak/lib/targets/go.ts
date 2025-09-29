@@ -7,7 +7,7 @@ import * as path from 'path';
 import { IGenerator, Legalese } from '../generator';
 import * as logging from '../logging';
 import { findLocalBuildDirs, Target, TargetOptions } from '../target';
-import { shell } from '../util';
+import { subprocess } from '../util';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
@@ -264,7 +264,7 @@ function tryFindLocalRuntime():
  */
 async function go(command: string, args: string[], options: { cwd: string }) {
   const { cwd } = options;
-  return shell('go', [command, ...args], {
+  return subprocess('go', [command, ...args], {
     cwd,
     env: {
       // disable the use of sumdb to reduce eventual consistency issues when new modules are published

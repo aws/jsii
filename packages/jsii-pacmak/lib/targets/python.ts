@@ -17,7 +17,7 @@ import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
-import { shell } from '../util';
+import { shell, subprocess, zip } from '../util';
 import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
@@ -26,6 +26,8 @@ import {
   PythonImports,
   mergePythonImports,
   toPackageName,
+  toPythonFqn,
+  IntersectionTypesRegistry,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -71,7 +73,7 @@ export default class Python extends Target {
     // shim, but using this actually results in a WinError with Python 3.7 and 3.8 where venv will
     // fail to copy the python binary if it's not invoked as python.exe). More on this particular
     // issue can be read here: https://bugs.python.org/issue43749
-    await shell(process.platform === 'win32' ? 'python' : 'python3', [
+    await subprocess(process.platform === 'win32' ? 'python' : 'python3', [
       '-m',
       'venv',
       '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
@@ -85,7 +87,7 @@ export default class Python extends Target {
     const python = path.join(venvBin, 'python');
 
     // Install the necessary things
-    await shell(
+    await subprocess(
       python,
       ['-m', 'pip', 'install', '--no-input', '-r', requirementsFile],
       {
@@ -96,12 +98,12 @@ export default class Python extends Target {
     );
 
     // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell(python, ['-m', 'build', '--outdir', outDir, sourceDir], {
+    await subprocess(python, ['-m', 'build', '--outdir', outDir, sourceDir], {
       cwd: sourceDir,
       env,
       retry: { maxAttempts: 5 },
     });
-    await shell(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
+    await shell(`${python} -m twine check ${path.join(outDir, '*')}`, {
       cwd: sourceDir,
       env,
     });
@@ -583,11 +585,13 @@ abstract class BaseMethod implements PythonBase {
       }
     }
 
+    const typeFacs = this.parameters.map(toTypeName);
+
     // We need to turn a list of JSII parameters, into Python style arguments with
     // gradual typing, so we'll have to iterate over the list of parameters, and
     // build the list, converting as we go.
     const pythonParams: string[] = [];
-    for (const param of this.parameters) {
+    for (const [param, typeFac] of zip(this.parameters, typeFacs)) {
       // We cannot (currently?) blindly use the names given to us by the JSII for
       // initializers, because our keyword lifting will allow two names to clash.
       // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
@@ -597,7 +601,7 @@ abstract class BaseMethod implements PythonBase {
         liftedPropNames,
       );
 
-      const paramType = toTypeName(param).pythonType({
+      const paramType = typeFac.pythonType({
         ...context,
         parameterType: true,
       });
@@ -1692,6 +1696,7 @@ class PythonModule implements PythonType {
     context = {
       ...context,
       submodule: this.fqn ?? context.submodule,
+      intersectionTypes: new IntersectionTypesRegistry(),
       resolver,
     };
 
@@ -1862,6 +1867,18 @@ class PythonModule implements PythonType {
         code.line(`from . import ${submodule}`);
       }
     }
+
+    context.typeCheckingHelper.flushStubs(code);
+    context.intersectionTypes.flushHelperTypes(code);
+
+    const interfaces = this.members
+      .filter((m) => m instanceof Interface)
+      .map((m) => m.pythonName);
+
+    this.emitProtocolStripper(code, [
+      ...interfaces,
+      ...context.intersectionTypes.typeNames,
+    ]);
   }
 
   /**
@@ -1918,6 +1935,35 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  /**
+   * Emit a helper that will strip magic jsii elements from all protocol classes
+   *
+   * This is necessary because we attach the `__jsii_proxy_class__` and
+   * `__jsii_type__` fields to Protocols/interfaces, which are then going to
+   * show up when someone calls `typing.get_protocol_members()`, and interfere
+   * with run-time type checking done by `typeguard`.
+   *
+   * `typing.get_protocol_members(x)` reads cached members from
+   * `x.__protocol_attrs__` (put there by the `Protocol` metaclass),  so what we
+   * do is remove our magic members from that cached set.
+   *
+   * This is extremely hacky, and in a hypothetical future rewrite we should
+   * store our metadata off-object (for example in a dict or `WeakKeyDictionary`),
+   * so that our magic members don't interfere with built-in Python functions.
+   * But for now we fiddle with the metadata to hide our magic members wherever
+   * necessary.
+   */
+  private emitProtocolStripper(code: CodeMaker, protocolNames: string[]) {
+    if (protocolNames.length === 0) {
+      return;
+    }
+    code.line('');
+    code.line(`for cls in [${protocolNames.join(', ')}]:`);
+    code.line(
+      `    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+    );
   }
 
   private isDirectChild(pyMod: PythonModule) {
@@ -2090,7 +2136,6 @@ class Package {
 
       code.openFile(filename);
       mod.emit(code, context);
-      context.typeCheckingHelper.flushStubs(code);
       code.closeFile(filename);
 
       scripts.push(...mod.emitBinScripts(code));
@@ -2310,6 +2355,7 @@ type FindTypeCallback = (fqn: string) => spec.Type;
 
 class TypeResolver {
   private readonly types: Map<string, PythonType>;
+  private readonly assembly: spec.Assembly;
   private readonly boundTo?: string;
   private readonly boundRe!: RegExp;
   private readonly moduleName?: string;
@@ -2319,12 +2365,14 @@ class TypeResolver {
 
   public constructor(
     types: Map<string, PythonType>,
+    assembly: spec.Assembly,
     findModule: FindModuleCallback,
     findType: FindTypeCallback,
     boundTo?: string,
     moduleName?: string,
   ) {
     this.types = types;
+    this.assembly = assembly;
     this.findModule = findModule;
     this.findType = findType;
     this.moduleName = moduleName;
@@ -2346,6 +2394,7 @@ class TypeResolver {
   public bind(fqn: string, moduleName?: string): TypeResolver {
     return new TypeResolver(
       this.types,
+      this.assembly,
       this.findModule,
       this.findType,
       fqn,
@@ -2425,16 +2474,8 @@ class TypeResolver {
   }
 
   private toPythonFQN(fqn: string): string {
-    const [assemblyName, ...qualifiedIdentifiers] = fqn.split('.');
-    const fqnParts: string[] = [
-      this.findModule(assemblyName).targets!.python!.module,
-    ];
-
-    for (const part of qualifiedIdentifiers) {
-      fqnParts.push(toPythonIdentifier(part));
-    }
-
-    return fqnParts.join('.');
+    const { pythonFqn } = toPythonFqn(fqn, this.assembly);
+    return pythonFqn;
   }
 }
 
@@ -2653,6 +2694,7 @@ class PythonGenerator extends Generator {
   protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
     const resolver = new TypeResolver(
       this.types,
+      assm,
       (fqn: string) => this.findModule(fqn),
       (fqn: string) => this.findType(fqn),
     );
@@ -2664,6 +2706,7 @@ class PythonGenerator extends Generator {
       submodule: assm.name,
       typeCheckingHelper: new TypeCheckingHelper(),
       typeResolver: (fqn) => resolver.dereference(fqn),
+      intersectionTypes: new IntersectionTypesRegistry(),
     });
   }
 

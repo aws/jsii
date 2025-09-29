@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`jsii-tree --all 1`] = `
 "assemblies
@@ -221,6 +221,33 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: string
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ConsumesIntersection (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ static acceptsIntersection(param) method (stable)
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ param
+ │ │ │   │   │ │   └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ static acceptsPropWithIntersection(props) method (stable)
+ │ │ │   │     ├── static
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ props
+ │ │ │   │     │   └── type: jsii-calc.intersection.IntersectionProps
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ interface ISomething (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ something() method (stable)
+ │ │ │   │     ├── abstract
+ │ │ │   │     └── returns: any
+ │ │ │   └─┬ interface IntersectionProps (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ param property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe (stable)
@@ -526,6 +553,19 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       └─┬ static staticMethod() method (stable)
  │ │ │         ├── static
  │ │ │         └── returns: string
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass (stable)
+ │ │ │   │ ├── base: Subclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer (stable)
+ │ │ │   ├─┬ class Subclass (stable)
+ │ │ │   │ ├── base: Superclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer (stable)
+ │ │ │   └─┬ class Superclass (stable)
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer (stable)
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3783,6 +3823,11 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │ │     ├── interface ConsumerProps
  │ │ │ │     └── interface Homonymous
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├── class ConsumesIntersection
+ │ │ │   ├── interface ISomething
+ │ │ │   └── interface IntersectionProps
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
@@ -3882,6 +3927,13 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass
+ │ │ │   │ └── base: Subclass
+ │ │ │   ├─┬ class Subclass
+ │ │ │   │ └── base: Superclass
+ │ │ │   └── class Superclass
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -4388,6 +4440,18 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ │       └─┬ members
  │ │ │ │         └── stringProperty property
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ConsumesIntersection
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── static acceptsIntersection(param) method
+ │ │ │   │   └── static acceptsPropWithIntersection(props) method
+ │ │ │   ├─┬ interface ISomething
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── something() method
+ │ │ │   └─┬ interface IntersectionProps
+ │ │ │     └─┬ members
+ │ │ │       └── param property
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe
@@ -4557,6 +4621,17 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ class OnlyStaticMethods
  │ │ │     └─┬ members
  │ │ │       └── static staticMethod() method
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   ├─┬ class Subclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   └─┬ class Superclass
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -5984,6 +6059,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -6006,6 +6082,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -6080,6 +6157,11 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ │     ├── interface ConsumerProps
  │ │ │ │     └── interface Homonymous
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├── class ConsumesIntersection
+ │ │ │   ├── interface ISomething
+ │ │ │   └── interface IntersectionProps
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
@@ -6153,6 +6235,11 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├── class SubSubclass
+ │ │ │   ├── class Subclass
+ │ │ │   └── class Superclass
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -6483,6 +6570,7 @@ exports[`jsii-tree 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -6505,6 +6593,7 @@ exports[`jsii-tree 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references

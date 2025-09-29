@@ -1,4 +1,8 @@
 /**
+ * NOTE: Next time we change anything there, be sure to address https://github.com/aws/jsii/issues/4911
+ */
+
+/**
  * Expected file name for jsii assembly or instructions to compressed assembly.
  */
 export const SPEC_FILE_NAME = '.jsii';
@@ -840,13 +844,23 @@ export interface Method extends Callable {
    */
   static?: boolean;
 }
+
 /**
- * Determines whether a Callable is a Method or not.
+ * Determines whether a Callable is a Method or not (if not, it's an initializer)
  *
  * @param callable the callable to be checked.
  */
 export function isMethod(callable: Callable): callable is Method {
   return !!(callable as Method).name;
+}
+
+/**
+ * Returns whether an API element looks like a property
+ */
+export function isProperty(
+  member: Type | Callable | Property,
+): member is Property {
+  return !!(member as Property).name && !!(member as Property).type;
 }
 
 /**
@@ -1078,35 +1092,7 @@ export function describeTypeReference(type?: TypeReference): string {
 /**
  * Predefined constants for a set of jsii extension features
  */
-export type JsiiFeature = 'intersection-types';
-
-/**
- * For every feature, is it enforced by the type system?
- *
- * Effectively: if a jsii tools links against the most recent version of the
- * spec, is the TypeScript type system going to ensure that they must have
- * support for a given new feature, through exhaustiveness checking?
- *
- * (This map also forces completeness, so we are guaranteed to have a string
- * value for every possible `JsiiFeature` type branch).
- */
-const IS_FEATURE_TYPESYSTEM_ENFORCED: Record<JsiiFeature, boolean> = {
-  'intersection-types': true,
-};
-
-/**
- * A list of all jsii extension features
- */
-export const ALL_FEATURES = Object.keys(IS_FEATURE_TYPESYSTEM_ENFORCED);
-
-/**
- * A list of all jsii extension features
- */
-export const ALL_TYPESYSTEM_ENFORCED_FEATURES = Object.entries(
-  IS_FEATURE_TYPESYSTEM_ENFORCED,
-)
-  .filter(([_, v]) => v)
-  .map(([k, _]) => k);
+export type JsiiFeature = 'intersection-types' | 'class-covariant-overrides';
 
 /**
  * Determines whether an entity is deprecated.

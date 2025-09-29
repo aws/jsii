@@ -24,6 +24,8 @@ import { VERSION } from '../lib/version';
 
 const LOG = log4js.getLogger('jsii-diff');
 
+const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
+
 async function main(): Promise<number> {
   const argv = await yargs
     .env('JSII_DIFF')
@@ -247,9 +249,15 @@ async function loadFromFilesystem(name: string, options: LoadOptions) {
 
   const ts = new reflect.TypeSystem();
   if (stat.isDirectory()) {
-    return ts.loadModule(name, options);
+    return ts.loadModule(name, {
+      ...options,
+      supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
+    });
   }
-  return ts.loadFile(name, options);
+  return ts.loadFile(name, {
+    ...options,
+    supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
+  });
 }
 
 main()

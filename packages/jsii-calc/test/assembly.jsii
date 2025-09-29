@@ -146,7 +146,7 @@
     "stability": "stable"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "5.9.1",
+  "jsiiVersion": "5.9.6",
   "keywords": [
     "aws",
     "jsii",
@@ -245,7 +245,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 31
+        "line": 32
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -265,6 +265,13 @@
         "line": 2
       },
       "symbolId": "lib/homonymous/foo:"
+    },
+    "jsii-calc.intersection": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 31
+      },
+      "symbolId": "lib/intersection:"
     },
     "jsii-calc.jsii3656": {
       "locationInModule": {
@@ -398,6 +405,13 @@
         "line": 14
       },
       "symbolId": "lib/only-static/index:"
+    },
+    "jsii-calc.pascalCaseName": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 33
+      },
+      "symbolId": "lib/pascal-case-name/index:"
     },
     "jsii-calc.submodule": {
       "locationInModule": {
@@ -16917,6 +16931,145 @@
       ],
       "symbolId": "lib/homonymous/foo:Homonymous"
     },
+    "jsii-calc.intersection.ConsumesIntersection": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.intersection.ConsumesIntersection",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/intersection.ts",
+        "line": 11
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 12
+          },
+          "name": "acceptsIntersection",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "intersection": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.intersection.ISomething"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.IFriendly"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 16
+          },
+          "name": "acceptsPropWithIntersection",
+          "parameters": [
+            {
+              "name": "props",
+              "type": {
+                "fqn": "jsii-calc.intersection.IntersectionProps"
+              }
+            }
+          ],
+          "static": true
+        }
+      ],
+      "name": "ConsumesIntersection",
+      "namespace": "intersection",
+      "symbolId": "lib/intersection:ConsumesIntersection"
+    },
+    "jsii-calc.intersection.ISomething": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.intersection.ISomething",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/intersection.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 4
+          },
+          "name": "something",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          }
+        }
+      ],
+      "name": "ISomething",
+      "namespace": "intersection",
+      "symbolId": "lib/intersection:ISomething"
+    },
+    "jsii-calc.intersection.IntersectionProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.intersection.IntersectionProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/intersection.ts",
+        "line": 7
+      },
+      "name": "IntersectionProps",
+      "namespace": "intersection",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 8
+          },
+          "name": "param",
+          "type": {
+            "intersection": {
+              "types": [
+                {
+                  "fqn": "jsii-calc.intersection.ISomething"
+                },
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/intersection:IntersectionProps"
+    },
     "jsii-calc.jsii3656.ImplementMeOpts": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -18347,6 +18500,70 @@
       "namespace": "onlystatic",
       "symbolId": "lib/only-static/index:OnlyStaticMethods"
     },
+    "jsii-calc.pascalCaseName.SubSubclass": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.pascalCaseName.Subclass",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.pascalCaseName.SubSubclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/pascal-case-name/index.ts",
+        "line": 13
+      },
+      "name": "SubSubclass",
+      "namespace": "pascalCaseName",
+      "symbolId": "lib/pascal-case-name/index:SubSubclass"
+    },
+    "jsii-calc.pascalCaseName.Subclass": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.pascalCaseName.Superclass",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.pascalCaseName.Subclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/pascal-case-name/index.ts",
+        "line": 12
+      },
+      "name": "Subclass",
+      "namespace": "pascalCaseName",
+      "symbolId": "lib/pascal-case-name/index:Subclass"
+    },
+    "jsii-calc.pascalCaseName.Superclass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "We deliberately name classes & interfaces so that the ones that must come first in code,\nare last in alphabetical order.\n\nPreviously, the generated Python code would miss certain dependencies\nand effectively render classes alphabetically. Which then obviously fails.",
+        "stability": "stable",
+        "summary": "This module ensures that language code is generated in correct topological order."
+      },
+      "fqn": "jsii-calc.pascalCaseName.Superclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/pascal-case-name/index.ts",
+        "line": 11
+      },
+      "name": "Superclass",
+      "namespace": "pascalCaseName",
+      "symbolId": "lib/pascal-case-name/index:Superclass"
+    },
     "jsii-calc.submodule.Default": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -19130,6 +19347,9 @@
       "symbolId": "lib/union:Resolvable"
     }
   },
+  "usedFeatures": [
+    "intersection-types"
+  ],
   "version": "3.20.120",
-  "fingerprint": "Tt3JL7khUypE5masj9ZV7jLcwRzpJ44EvWbxtNaO51E="
+  "fingerprint": "tO2XUx4QWDYtIzVyIejPr2qHHJX+/TG1lb6O2uWdS78="
 }

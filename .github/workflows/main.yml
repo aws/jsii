@@ -30,7 +30,7 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.23
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - name: Set up Java 8
@@ -39,12 +39,12 @@ jobs:
           distribution: 'zulu'
           java-version: '8'
       - name: Set up Node LTS
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           cache: yarn
           node-version: 'lts/*'
       - name: Set up Python 3.9
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
           cache: pip
@@ -112,7 +112,7 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Set up Go 1.23
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - name: Set up Java 8
@@ -121,12 +121,12 @@ jobs:
           distribution: 'zulu'
           java-version: '8'
       - name: Set up Node LTS
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           cache: yarn
           node-version: 'lts/*'
       - name: Set up Python 3.9
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
           cache: pip
@@ -247,11 +247,39 @@ jobs:
             node: '20'
             os: ubuntu-latest
             python: '3.9'
+          - title: '.NET 8.0'
+            java: '8'
+            dotnet: '7.0.x'
+            go: '1.23'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
+          - title: '.NET 9.0'
+            java: '8'
+            dotnet: '9.0.x'
+            go: '1.23'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
+          - title: '.NET 10.0'
+            java: '8'
+            dotnet: '10.0.x'
+            go: '1.23'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
           # Test alternate Gos
           - title: 'Go 1.24'
             java: '8'
             dotnet: '6.0.x'
             go: '1.24'
+            node: '20'
+            os: ubuntu-latest
+            python: '3.9'
+          - title: 'Go 1.25'
+            java: '8'
+            dotnet: '6.0.x'
+            go: '1.25'
             node: '20'
             os: ubuntu-latest
             python: '3.9'
@@ -285,6 +313,20 @@ jobs:
             java: '8'
             node: '20'
             os: ubuntu-latest
+          - title: 'Python 3.12'
+            python: '3.12'
+            dotnet: '6.0.x'
+            go: '1.23'
+            java: '8'
+            node: '20'
+            os: ubuntu-latest
+          - title: 'Python 3.13'
+            python: '3.13'
+            dotnet: '6.0.x'
+            go: '1.23'
+            java: '8'
+            node: '20'
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       # Check out the code
@@ -305,7 +347,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
       - name: Set up Java ${{ matrix.java }}
@@ -314,18 +356,23 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
       - name: Set up Node ${{ matrix.node }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           cache: yarn
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
           cache: pip
       - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - if: runner.os == 'Windows'
+        name: Windows performance improvements
+        run: |-
+          yarn config set cache-folder D:\a\_temp\yarn
+          echo "TEMP=D:\a\_temp" >> $env:GITHUB_ENV
       - name: Cache
         uses: actions/cache@v4
         with:
@@ -394,7 +441,7 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: Set up Go 1.23
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.23'
       - name: Set up Java 20
@@ -403,11 +450,11 @@ jobs:
           distribution: 'corretto'
           java-version: '20'
       - name: Set up Node 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
       - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Install python3-venv

@@ -1,4 +1,5 @@
 import { mkdirp, mkdtemp, remove, writeJson } from 'fs-extra';
+import { TypeSystem } from 'jsii-reflect';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -118,5 +119,35 @@ describe(findJsiiModules, () => {
       false,
     );
     expect(flatten(mods).map((m) => m.name)).toEqual(['packageA', 'packageB']);
+  });
+
+  test('JsiiModule gets its dependencies from .jsii, not package.json', async () => {
+    // GIVEN
+    await mkdirp(join(workDir, 'packageA'));
+    await writeJson(join(workDir, 'packageA', 'package.json'), {
+      name: 'packageA',
+      jsii: {
+        outdir: 'dist',
+
+        // Targets in package.json that are not in .jsii
+        targets: {
+          python: {},
+        },
+      },
+    });
+    await writeJson(join(workDir, 'packageA', '.jsii'), {
+      // No targets in .jsii file
+      targets: {},
+    });
+
+    const mods = await findJsiiModules([join(workDir, 'packageA')], false);
+    const modA = flatten(mods)[0];
+
+    // WHEN
+    const ts = new TypeSystem();
+    await modA.load(ts, false);
+
+    // THEN
+    expect(modA.availableTargets).toEqual(['js']);
   });
 });

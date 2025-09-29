@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`defaults 1`] = `
 "assemblies
@@ -18,6 +18,7 @@ exports[`defaults 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -40,6 +41,7 @@ exports[`defaults 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -78,6 +80,7 @@ exports[`inheritance 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -100,6 +103,7 @@ exports[`inheritance 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -138,6 +142,7 @@ exports[`members 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -160,6 +165,7 @@ exports[`members 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -401,6 +407,33 @@ exports[`showAll 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: string
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ConsumesIntersection
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ static acceptsIntersection(param) method
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ param
+ │ │ │   │   │ │   └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ static acceptsPropWithIntersection(props) method
+ │ │ │   │     ├── static
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ props
+ │ │ │   │     │   └── type: jsii-calc.intersection.IntersectionProps
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ interface ISomething
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ something() method
+ │ │ │   │     ├── abstract
+ │ │ │   │     └── returns: any
+ │ │ │   └─┬ interface IntersectionProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ param property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe
@@ -706,6 +739,19 @@ exports[`showAll 1`] = `
  │ │ │       └─┬ static staticMethod() method
  │ │ │         ├── static
  │ │ │         └── returns: string
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class SubSubclass
+ │ │ │   │ ├── base: Subclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   ├─┬ class Subclass
+ │ │ │   │ ├── base: Superclass
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>() initializer
+ │ │ │   └─┬ class Superclass
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references
@@ -3924,6 +3970,7 @@ exports[`signatures 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -3946,6 +3993,7 @@ exports[`signatures 1`] = `
  │   │   ├── sub1
  │   │   └── sub2
  │   ├── onlystatic
+ │   ├── pascalCaseName
  │   ├─┬ submodule
  │   │ └─┬ submodules
  │   │   ├── back_references
@@ -4020,6 +4068,11 @@ exports[`types 1`] = `
  │ │ │ │     ├── interface ConsumerProps
  │ │ │ │     └── interface Homonymous
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├── class ConsumesIntersection
+ │ │ │   ├── interface ISomething
+ │ │ │   └── interface IntersectionProps
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe
@@ -4093,6 +4146,11 @@ exports[`types 1`] = `
  │ │ ├─┬ onlystatic
  │ │ │ └─┬ types
  │ │ │   └── class OnlyStaticMethods
+ │ │ ├─┬ pascalCaseName
+ │ │ │ └─┬ types
+ │ │ │   ├── class SubSubclass
+ │ │ │   ├── class Subclass
+ │ │ │   └── class Superclass
  │ │ ├─┬ submodule
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ back_references

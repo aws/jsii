@@ -474,6 +474,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [IBaseInterface]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/src/scope/jsii_calc_base/_jsii/__init__.py 1`] = `
@@ -569,13 +572,12 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
  
  __all__ = [
      "Base",
-@@ -149,5 +156,19 @@
-     "IBaseInterface",
+@@ -150,7 +157,21 @@
      "StaticConsumer",
  ]
  
  publication.publish()
-+
+ 
 +def _typecheckingstub__e2d8a566db7d86eb1cb511cb869273dae39a21b3ad7041359aabb7bd283dcfef(
 +    *,
 +    foo: _scope_jsii_calc_base_of_base_49fa37fe.Very,
@@ -589,6 +591,9 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IBaseInterface]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
@@ -1035,6 +1040,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [IVeryBaseInterface]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/src/scope/jsii_calc_base_of_base/_jsii/__init__.py 1`] = `
@@ -1130,13 +1138,12 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
          }
  
      @builtins.property
-@@ -120,5 +126,18 @@
-     "Very",
+@@ -121,7 +127,20 @@
      "VeryBaseProps",
  ]
  
  publication.publish()
-+
+ 
 +def _typecheckingstub__740535cda6ecbc578919a2921dd1fa0b87c5dd735a2acd391963310cdf59f47c(
 +    *_args: typing.Any,
 +) -> None:
@@ -1149,6 +1156,9 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IVeryBaseInterface]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
@@ -2114,6 +2124,9 @@ publication.publish()
 from . import custom_submodule_name
 from . import deprecation_removal
 
+for cls in [IDoublable, IFriendly, IThreeLevelsInterface]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/_jsii/__init__.py 1`] = `
@@ -2446,6 +2459,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [IReflectable]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/src/scope/jsii_calc_lib/deprecation_removal/__init__.py 1`] = `
@@ -2561,6 +2577,9 @@ __all__ = [
 ]
 
 publication.publish()
+
+for cls in [IInterface]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
 
@@ -2699,13 +2718,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -630,5 +660,63 @@
- publication.publish()
+@@ -631,7 +661,65 @@
  
  # Loading modules to ensure their types are registered with the jsii runtime library
  from . import custom_submodule_name
  from . import deprecation_removal
-+
+ 
 +def _typecheckingstub__46512218b53da06690990919b41a88d6c2379b11ef0a3243cf6d60add5197ae2(
 +    very: _scope_jsii_calc_base_of_base_49fa37fe.Very,
 +) -> None:
@@ -2763,6 +2781,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IDoublable, IFriendly, IThreeLevelsInterface]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py.diff 1`] = `
@@ -2825,13 +2846,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  __all__ = [
      "ClassWithNONPASCALCASEDName",
-@@ -276,5 +289,33 @@
-     "ReflectableEntry",
+@@ -277,7 +290,35 @@
      "Reflector",
  ]
  
  publication.publish()
-+
+ 
 +def _typecheckingstub__7073f0b0063a9ba1ceb949a9aefe7e3af5a1acbcf19b5013a8c15b7f3495c1ed(
 +    *,
 +    name: builtins.str,
@@ -2859,6 +2879,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IReflectable]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
@@ -2900,6 +2923,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 interface_in_namespace_only_interface
           ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 intersection
+          ┃  ┗━ 📄 __init__.py
           ┣━ 📁 jsii3656
           ┃  ┗━ 📄 __init__.py
           ┣━ 📁 jsii4894
@@ -2937,6 +2962,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📁 sub2
           ┃     ┗━ 📄 __init__.py
           ┣━ 📁 onlystatic
+          ┃  ┗━ 📄 __init__.py
+          ┣━ 📁 pascal_case_name
           ┃  ┗━ 📄 __init__.py
           ┣━ 📄 py.typed
           ┣━ 📁 python_self
@@ -3255,6 +3282,7 @@ kwargs = json.loads(
         "jsii_calc.homonymous_forward_references.foo",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.intersection",
         "jsii_calc.jsii3656",
         "jsii_calc.jsii4894",
         "jsii_calc.module2530",
@@ -3274,6 +3302,7 @@ kwargs = json.loads(
         "jsii_calc.nodirect.sub1",
         "jsii_calc.nodirect.sub2",
         "jsii_calc.onlystatic",
+        "jsii_calc.pascal_case_name",
         "jsii_calc.python_self",
         "jsii_calc.submodule",
         "jsii_calc.submodule.back_references",
@@ -11931,6 +11960,7 @@ __all__ = [
     "homonymous_forward_references",
     "interface_in_namespace_includes_classes",
     "interface_in_namespace_only_interface",
+    "intersection",
     "jsii3656",
     "jsii4894",
     "module2530",
@@ -11942,6 +11972,7 @@ __all__ = [
     "module2702",
     "nodirect",
     "onlystatic",
+    "pascal_case_name",
     "python_self",
     "submodule",
     "union",
@@ -11958,6 +11989,7 @@ from . import derived_class_has_no_properties
 from . import homonymous_forward_references
 from . import interface_in_namespace_includes_classes
 from . import interface_in_namespace_only_interface
+from . import intersection
 from . import jsii3656
 from . import jsii4894
 from . import module2530
@@ -11969,9 +12001,13 @@ from . import module2700
 from . import module2702
 from . import nodirect
 from . import onlystatic
+from . import pascal_case_name
 from . import python_self
 from . import submodule
 from . import union
+
+for cls in [IAnonymousImplementationProvider, IAnonymouslyImplementMe, IAnotherPublicInterface, IBell, IBellRinger, IConcreteBellRinger, IDeprecatedInterface, IExperimentalInterface, IExtendsPrivateInterface, IExternalInterface, IFriendlier, IFriendlyRandomGenerator, IIndirectlyImplemented, IInterfaceImplementedByAbstractClass, IInterfaceThatShouldNotBeADataType, IInterfaceWithInternal, IInterfaceWithMethods, IInterfaceWithOptionalMethodArguments, IInterfaceWithProperties, IInterfaceWithPropertiesExtension, IJSII417Derived, IJSII417PublicBaseOfBase, IJavaReservedWordsInAnInterface, IJsii487External, IJsii487External2, IJsii496, IMutableObjectLiteral, INonInternalInterface, IObjectWithProperty, IOptionalMethod, IPrivatelyImplemented, IPublicInterface, IPublicInterface2, IRandomNumberGenerator, IReturnJsii976, IReturnsNumber, IStableInterface, IStructReturningDelegate, IWallClock]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
 
@@ -12145,6 +12181,9 @@ __all__ = [
 ]
 
 publication.publish()
+
+for cls in [IOptionA, IOptionB]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
 
@@ -13074,6 +13113,131 @@ __all__ = [
 ]
 
 publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/intersection/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+from .._jsii import *
+
+import scope.jsii_calc_lib as _scope_jsii_calc_lib_c61f082f
+
+
+class ConsumesIntersection(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.intersection.ConsumesIntersection",
+):
+    @jsii.member(jsii_name="acceptsIntersection")
+    @builtins.classmethod
+    def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
+        '''
+        :param param: -
+        '''
+        return typing.cast(None, jsii.sinvoke(cls, "acceptsIntersection", [param]))
+
+    @jsii.member(jsii_name="acceptsPropWithIntersection")
+    @builtins.classmethod
+    def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
+        '''
+        :param param: 
+        '''
+        props = IntersectionProps(param=param)
+
+        return typing.cast(None, jsii.sinvoke(cls, "acceptsPropWithIntersection", [props]))
+
+
+@jsii.interface(jsii_type="jsii-calc.intersection.ISomething")
+class ISomething(typing_extensions.Protocol):
+    @jsii.member(jsii_name="something")
+    def something(self) -> typing.Any:
+        ...
+
+
+class _ISomethingProxy:
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.intersection.ISomething"
+
+    @jsii.member(jsii_name="something")
+    def something(self) -> typing.Any:
+        return typing.cast(typing.Any, jsii.invoke(self, "something", []))
+
+# Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+typing.cast(typing.Any, ISomething).__jsii_proxy_class__ = lambda : _ISomethingProxy
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.intersection.IntersectionProps",
+    jsii_struct_bases=[],
+    name_mapping={"param": "param"},
+)
+class IntersectionProps:
+    def __init__(self, *, param: '_ISomething_IFriendly') -> None:
+        '''
+        :param param: 
+        '''
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "param": param,
+        }
+
+    @builtins.property
+    def param(self) -> '_ISomething_IFriendly':
+        result = self._values.get("param")
+        assert result is not None, "Required property 'param' is missing"
+        return typing.cast('_ISomething_IFriendly', result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "IntersectionProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "ConsumesIntersection",
+    "ISomething",
+    "IntersectionProps",
+]
+
+publication.publish()
+
+class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
+    pass
+
+for cls in [ISomething, _ISomething_IFriendly]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
 
@@ -14213,6 +14377,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [IFoo]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/module2702/__init__.py 1`] = `
@@ -14464,6 +14631,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [IBaz, IConstruct, IFoo, IResource, IVpc]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/nodirect/__init__.py 1`] = `
@@ -14674,6 +14844,85 @@ publication.publish()
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/pascal_case_name/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+from .._jsii import *
+
+
+class Superclass(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.pascalCaseName.Superclass",
+):
+    '''This module ensures that language code is generated in correct topological order.
+
+    We deliberately name classes & interfaces so that the ones that must come first in code,
+    are last in alphabetical order.
+
+    Previously, the generated Python code would miss certain dependencies
+    and effectively render classes alphabetically. Which then obviously fails.
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+
+class Subclass(
+    Superclass,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.pascalCaseName.Subclass",
+):
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+
+class SubSubclass(
+    Subclass,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.pascalCaseName.SubSubclass",
+):
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+
+__all__ = [
+    "SubSubclass",
+    "Subclass",
+    "Superclass",
+]
+
+publication.publish()
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/py.typed 1`] = `
 
 
@@ -14818,6 +15067,9 @@ __all__ = [
 ]
 
 publication.publish()
+
+for cls in [IInterfaceWithSelf]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
 
@@ -15472,6 +15724,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [INamespaced]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/param/__init__.py 1`] = `
@@ -15686,6 +15941,9 @@ __all__ = [
 
 publication.publish()
 
+for cls in [IResolvable]:
+    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
@@ -15714,6 +15972,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
           ┣━ 📁 interface_in_namespace_includes_classes
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 interface_in_namespace_only_interface
+          ┃  ┗━ 📄 __init__.py.diff
+          ┣━ 📁 intersection
           ┃  ┗━ 📄 __init__.py.diff
           ┣━ 📁 jsii3656
           ┃  ┗━ 📄 __init__.py.diff
@@ -18945,13 +19205,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8638,5 +9422,1544 @@
- from . import nodirect
- from . import onlystatic
+@@ -8643,7 +9427,1546 @@
+ from . import pascal_case_name
  from . import python_self
  from . import submodule
  from . import union
-+
+ 
 +def _typecheckingstub__8348af6419fc01178f78ba59cea59d0c7437626169866d772f4e957d09e6e13a(
 +    seed: builtins.str,
 +) -> None:
@@ -20490,12 +20749,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IAnonymousImplementationProvider, IAnonymouslyImplementMe, IAnotherPublicInterface, IBell, IBellRinger, IConcreteBellRinger, IDeprecatedInterface, IExperimentalInterface, IExtendsPrivateInterface, IExternalInterface, IFriendlier, IFriendlyRandomGenerator, IIndirectlyImplemented, IInterfaceImplementedByAbstractClass, IInterfaceThatShouldNotBeADataType, IInterfaceWithInternal, IInterfaceWithMethods, IInterfaceWithOptionalMethodArguments, IInterfaceWithProperties, IInterfaceWithPropertiesExtension, IJSII417Derived, IJSII417PublicBaseOfBase, IJavaReservedWordsInAnInterface, IJsii487External, IJsii487External2, IJsii496, IMutableObjectLiteral, INonInternalInterface, IObjectWithProperty, IOptionalMethod, IPrivatelyImplemented, IPublicInterface, IPublicInterface2, IRandomNumberGenerator, IReturnJsii976, IReturnsNumber, IStableInterface, IStructReturningDelegate, IWallClock]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/anonymous/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/anonymous/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/anonymous/__init__.py	--runtime-type-checking
-@@ -72,31 +72,58 @@
+@@ -72,26 +72,35 @@
      @builtins.classmethod
      def consume(cls, option: typing.Union[IOptionA, IOptionB]) -> builtins.str:
          '''
@@ -20531,12 +20793,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "IOptionA",
-     "IOptionB",
+@@ -99,7 +108,25 @@
      "UseOptions",
  ]
  
  publication.publish()
-+
+ 
 +def _typecheckingstub__132536bffc9129421b4ae0a6539d0bbfdc1c52c3de007c4546d2f2626ba8c31e(
 +    option: typing.Union[IOptionA, IOptionB],
 +) -> None:
@@ -20554,6 +20816,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IOptionA, IOptionB]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/cdk16625/__init__.py.diff 1`] = `
@@ -20938,6 +21203,63 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +) -> None:
 +    """Type checking stubs"""
 +    pass
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
+--- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
++++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
+@@ -41,10 +41,13 @@
+     @builtins.classmethod
+     def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
+         '''
+         :param param: -
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420)
++            check_type(argname="argument param", value=param, expected_type=type_hints["param"])
+         return typing.cast(None, jsii.sinvoke(cls, "acceptsIntersection", [param]))
+ 
+     @jsii.member(jsii_name="acceptsPropWithIntersection")
+     @builtins.classmethod
+     def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
+@@ -82,10 +85,13 @@
+ class IntersectionProps:
+     def __init__(self, *, param: '_ISomething_IFriendly') -> None:
+         '''
+         :param param: 
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__c15dc791f3df60b50382a570589911c44374231249b9f320e007beea4de43c1b)
++            check_type(argname="argument param", value=param, expected_type=type_hints["param"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "param": param,
+         }
+ 
+     @builtins.property
+@@ -112,10 +118,23 @@
+     "IntersectionProps",
+ ]
+ 
+ publication.publish()
+ 
++def _typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420(
++    param: '_ISomething_IFriendly',
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__c15dc791f3df60b50382a570589911c44374231249b9f320e007beea4de43c1b(
++    *,
++    param: '_ISomething_IFriendly',
++) -> None:
++    """Type checking stubs"""
++    pass
++
+ class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
+     pass
+ 
+ for cls in [ISomething, _ISomething_IFriendly]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/jsii3656/__init__.py.diff 1`] = `
@@ -21343,13 +21665,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -134,5 +146,30 @@
-     "IInterfaceWithSelf",
+@@ -135,7 +147,32 @@
      "StructWithSelf",
  ]
  
  publication.publish()
-+
+ 
 +def _typecheckingstub__5cc662603963e69f50f446fe7bf40b3f3ccf17842ed59562f45f4eb63848155b(
 +    self: builtins.str,
 +) -> None:
@@ -21374,6 +21695,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IInterfaceWithSelf]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/submodule/__init__.py.diff 1`] = `
@@ -21585,16 +21909,18 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.interface(jsii_type="jsii-calc.union.IResolvable")
  class IResolvable(typing_extensions.Protocol):
-@@ -76,5 +79,11 @@
-     "IResolvable",
+@@ -77,7 +80,13 @@
      "Resolvable",
  ]
  
  publication.publish()
-+
+ 
 +def _typecheckingstub__62dfa3c0a0a719fea295807df31fd40fd66b0e76cf44d9f742ffb421f8e4ca77(
 +    param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, IResolvable, Resolvable],
 +) -> None:
 +    """Type checking stubs"""
 +    pass
++
+ for cls in [IResolvable]:
+     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;

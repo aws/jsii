@@ -1,13 +1,16 @@
 import { Printer } from 'oo-ascii-tree';
 import { dirname } from 'path';
 
+import { TEST_FEATURES } from './features';
 import { TypeSystemTree } from '../lib/tree';
 import { TypeSystem } from '../lib/type-system';
 
 const typeSystem = new TypeSystem();
 
 beforeAll(() =>
-  typeSystem.loadModule(dirname(require.resolve('jsii-calc/package.json'))),
+  typeSystem.loadModule(dirname(require.resolve('jsii-calc/package.json')), {
+    supportedFeatures: TEST_FEATURES,
+  }),
 );
 
 test('defaults', () => {

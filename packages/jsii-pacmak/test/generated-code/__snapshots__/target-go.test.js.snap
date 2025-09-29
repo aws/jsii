@@ -2971,6 +2971,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 InterfacesMaker.go
        ┣━ 📁 internal
        ┃  ┗━ 📄 types.go
+       ┣━ 📁 intersection
+       ┃  ┣━ 📄 ConsumesIntersection.go
+       ┃  ┣━ 📄 IntersectionProps.go
+       ┃  ┣━ 📄 ISomething.go
+       ┃  ┗━ 📄 main.go
        ┣━ 📄 IObjectWithProperty.go
        ┣━ 📄 IOptionalMethod.go
        ┣━ 📄 IPrivatelyImplemented.go
@@ -3100,6 +3105,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 ParamShadowsScope.go
        ┣━ 📄 ParentStruct982.go
        ┣━ 📄 PartiallyInitializedThisConsumer.go
+       ┣━ 📁 pascalcasename
+       ┃  ┣━ 📄 main.go
+       ┃  ┣━ 📄 Subclass.go
+       ┃  ┣━ 📄 SubSubclass.go
+       ┃  ┗━ 📄 Superclass.go
        ┣━ 📄 Polymorphism.go
        ┣━ 📄 Power.go
        ┣━ 📄 PromiseNothing.go
@@ -19511,6 +19521,124 @@ type Type__customsubmodulenameIReflectable = customsubmodulename.IReflectable
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/ConsumesIntersection.go 1`] = `
+package intersection
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type ConsumesIntersection interface {
+}
+
+// The jsii proxy struct for ConsumesIntersection
+type jsiiProxy_ConsumesIntersection struct {
+	_ byte // padding
+}
+
+func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.intersection.ConsumesIntersection",
+		"acceptsIntersection",
+		[]interface{}{param},
+	)
+}
+
+func ConsumesIntersection_AcceptsPropWithIntersection(props *IntersectionProps) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.intersection.ConsumesIntersection",
+		"acceptsPropWithIntersection",
+		[]interface{}{props},
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/ISomething.go 1`] = `
+package intersection
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type ISomething interface {
+	Something() interface{}
+}
+
+// The jsii proxy for ISomething
+type jsiiProxy_ISomething struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_ISomething) Something() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		i,
+		"something",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/IntersectionProps.go 1`] = `
+package intersection
+
+
+type IntersectionProps struct {
+	Param interface{ ISomething;scopejsiicalclib.IFriendly } \`field:"required" json:"param" yaml:"param"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/main.go 1`] = `
+package intersection
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.intersection.ConsumesIntersection",
+		reflect.TypeOf((*ConsumesIntersection)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_ConsumesIntersection{}
+		},
+	)
+	_jsii_.RegisterInterface(
+		"jsii-calc.intersection.ISomething",
+		reflect.TypeOf((*ISomething)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "something", GoMethod: "Something"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ISomething{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.intersection.IntersectionProps",
+		reflect.TypeOf((*IntersectionProps)(nil)).Elem(),
+	)
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] = `
 // Package jsii contains the functionaility needed for jsii packages to
 // initialize their dependencies and themselves. Users should never need to use this package
@@ -24105,6 +24233,186 @@ func init() {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pascalcasename/SubSubclass.go 1`] = `
+package pascalcasename
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type SubSubclass interface {
+	Subclass
+}
+
+// The jsii proxy struct for SubSubclass
+type jsiiProxy_SubSubclass struct {
+	jsiiProxy_Subclass
+}
+
+func NewSubSubclass() SubSubclass {
+	_init_.Initialize()
+
+	j := jsiiProxy_SubSubclass{}
+
+	_jsii_.Create(
+		"jsii-calc.pascalCaseName.SubSubclass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewSubSubclass_Override(s SubSubclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.pascalCaseName.SubSubclass",
+		nil, // no parameters
+		s,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pascalcasename/Subclass.go 1`] = `
+package pascalcasename
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type Subclass interface {
+	Superclass
+}
+
+// The jsii proxy struct for Subclass
+type jsiiProxy_Subclass struct {
+	jsiiProxy_Superclass
+}
+
+func NewSubclass() Subclass {
+	_init_.Initialize()
+
+	j := jsiiProxy_Subclass{}
+
+	_jsii_.Create(
+		"jsii-calc.pascalCaseName.Subclass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewSubclass_Override(s Subclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.pascalCaseName.Subclass",
+		nil, // no parameters
+		s,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pascalcasename/Superclass.go 1`] = `
+package pascalcasename
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// This module ensures that language code is generated in correct topological order.
+//
+// We deliberately name classes & interfaces so that the ones that must come first in code,
+// are last in alphabetical order.
+//
+// Previously, the generated Python code would miss certain dependencies
+// and effectively render classes alphabetically. Which then obviously fails.
+type Superclass interface {
+}
+
+// The jsii proxy struct for Superclass
+type jsiiProxy_Superclass struct {
+	_ byte // padding
+}
+
+func NewSuperclass() Superclass {
+	_init_.Initialize()
+
+	j := jsiiProxy_Superclass{}
+
+	_jsii_.Create(
+		"jsii-calc.pascalCaseName.Superclass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewSuperclass_Override(s Superclass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.pascalCaseName.Superclass",
+		nil, // no parameters
+		s,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pascalcasename/main.go 1`] = `
+package pascalcasename
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.pascalCaseName.SubSubclass",
+		reflect.TypeOf((*SubSubclass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			j := jsiiProxy_SubSubclass{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_Subclass)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.pascalCaseName.Subclass",
+		reflect.TypeOf((*Subclass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			j := jsiiProxy_Subclass{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_Superclass)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.pascalCaseName.Superclass",
+		reflect.TypeOf((*Superclass)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_Superclass{}
+		},
+	)
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/ClassWithSelf.go 1`] = `
 package pythonself
 
@@ -25456,6 +25764,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 InterfacesMaker__checks.go
        ┣━ 🆕 InterfacesMaker__no_checks.go
        ┣━ 📄 InterfacesMaker.go.diff
+       ┣━ 📁 intersection
+       ┃  ┣━ 🆕 ConsumesIntersection__checks.go
+       ┃  ┣━ 🆕 ConsumesIntersection__no_checks.go
+       ┃  ┗━ 📄 ConsumesIntersection.go.diff
        ┣━ 🆕 IObjectWithProperty__checks.go
        ┣━ 🆕 IObjectWithProperty__no_checks.go
        ┣━ 📄 IObjectWithProperty.go.diff
@@ -34917,6 +35229,95 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/h
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateConsumer_ConsumeParameters(props *ConsumerProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection.go.diff 1`] = `
+--- go/jsiicalc/intersection/ConsumesIntersection.go	--no-runtime-type-checking
++++ go/jsiicalc/intersection/ConsumesIntersection.go	--runtime-type-checking
+@@ -14,20 +14,26 @@
+ }
+ 
+ func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
+ 	_init_.Initialize()
+ 
++	if err := validateConsumesIntersection_AcceptsIntersectionParameters(param); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.intersection.ConsumesIntersection",
+ 		"acceptsIntersection",
+ 		[]interface{}{param},
+ 	)
+ }
+ 
+ func ConsumesIntersection_AcceptsPropWithIntersection(props *IntersectionProps) {
+ 	_init_.Initialize()
+ 
++	if err := validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.intersection.ConsumesIntersection",
+ 		"acceptsPropWithIntersection",
+ 		[]interface{}{props},
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__checks.go.diff 1`] = `
+--- go/jsiicalc/intersection/ConsumesIntersection__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/intersection/ConsumesIntersection__checks.go	--runtime-type-checking
+@@ -0,0 +1,31 @@
++//go:build !no_runtime_type_checking
++
++package intersection
++
++import (
++	"fmt"
++
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++
++	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
++)
++
++func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{ ISomething;scopejsiicalclib.IFriendly }) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++
++	return nil
++}
++
++func validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props *IntersectionProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__no_checks.go.diff 1`] = `
+--- go/jsiicalc/intersection/ConsumesIntersection__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/intersection/ConsumesIntersection__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,14 @@
++//go:build no_runtime_type_checking
++
++package intersection
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateConsumesIntersection_AcceptsIntersectionParameters(param interface{ ISomething;scopejsiicalclib.IFriendly }) error {
++	return nil
++}
++
++func validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props *IntersectionProps) error {
 +	return nil
 +}
 +

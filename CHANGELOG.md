@@ -2,7 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.114.0](https://github.com/aws/jsii/compare/v1.113.0...v1.114.0) (2025-09-04)
+## [1.115.0](https://github.com/aws/jsii/compare/v1.114.1...v1.115.0) (2025-09-29)
+
+
+### Features
+
+* declare support for new feature `class-covariant-overrides` ([#4924](https://github.com/aws/jsii/issues/4924)) ([bac5377](https://github.com/aws/jsii/commit/bac5377728ca19cfb56f1b673b6f7fb05370f012))
+* **dotnet-runtime:** prepare for intersection types ([#4919](https://github.com/aws/jsii/issues/4919)) ([1c6d36d](https://github.com/aws/jsii/commit/1c6d36de757d2feb8e64985585b83b0d4f1cfd0b))
+* **dotnet:** update TargetFramework to net6.0 ([#4916](https://github.com/aws/jsii/issues/4916)) ([c0b11c7](https://github.com/aws/jsii/commit/c0b11c7323ac97405bc39302a101b206ef4787c2)), closes [#4574](https://github.com/aws/jsii/issues/4574)
+* **go-runtime:** add helper functions for the new interface type ([#4936](https://github.com/aws/jsii/issues/4936)) ([df85a80](https://github.com/aws/jsii/commit/df85a802b0a7150984c0e53e87c93fd174def2c3))
+* intersection types ([#4929](https://github.com/aws/jsii/issues/4929)) ([f82e0ac](https://github.com/aws/jsii/commit/f82e0aced6a3b05de0077539f4c35b0a2596eabd))
+* **jsii-pacmak:** document union types for C# ([#4928](https://github.com/aws/jsii/issues/4928)) ([c54d27c](https://github.com/aws/jsii/commit/c54d27c178de253616f438e9aa10ea36011d4464))
+* **jsii-pacmak:** document union types in JavaDoc ([#4922](https://github.com/aws/jsii/issues/4922)) ([5a1a8cd](https://github.com/aws/jsii/commit/5a1a8cd07c12cf6580911dac90901bb82b77a31e))
+
+
+### Bug Fixes
+
+* intersection types cannot be deserialized ([#4920](https://github.com/aws/jsii/issues/4920)) ([2c5d29c](https://github.com/aws/jsii/commit/2c5d29c2a030f08c58e2d2aba1a6326ce81bdd1c))
+* jsii-pacmak errors if new targets in package.json ([#4914](https://github.com/aws/jsii/issues/4914)) ([f890e12](https://github.com/aws/jsii/commit/f890e12d35c3c5c10a746710a9ab070a749d9113))
+* **jsii-pacmak:** remove deprecation warning DEP0190 ([#4915](https://github.com/aws/jsii/issues/4915)) ([389f888](https://github.com/aws/jsii/commit/389f88849a85190815bea5427865ab7ecf7d05cb))
+* **pacmak:** python classes are generated out of order ([#4927](https://github.com/aws/jsii/issues/4927)) ([4ee24e1](https://github.com/aws/jsii/commit/4ee24e16adb50d722a352bdab6118729b37e4418)), closes [#4426](https://github.com/aws/jsii/issues/4426)
+
+## [1.114.1](https://github.com/aws/jsii/compare/v1.113.0...v1.114.1) (2025-09-04)
 
 
 ### Features

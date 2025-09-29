@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as path from 'path';
@@ -6,6 +7,8 @@ import { Scratch, shell } from './util';
 import * as logging from '../lib/logging';
 
 export const DEFAULT_PACK_COMMAND = 'npm pack';
+
+const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
 
 export interface JsiiModuleOptions {
   /**
@@ -17,11 +20,6 @@ export interface JsiiModuleOptions {
    * The module directory
    */
   moduleDirectory: string;
-
-  /**
-   * Identifier of the targets to build
-   */
-  availableTargets: string[];
 
   /**
    * Output directory where to package everything
@@ -37,7 +35,6 @@ export class JsiiModule {
   public readonly name: string;
   public readonly dependencyNames: string[];
   public readonly moduleDirectory: string;
-  public readonly availableTargets: string[];
   public outputDirectory: string;
 
   private _tarball?: Scratch<string>;
@@ -46,7 +43,6 @@ export class JsiiModule {
   public constructor(options: JsiiModuleOptions) {
     this.name = options.name;
     this.moduleDirectory = options.moduleDirectory;
-    this.availableTargets = options.availableTargets;
     this.outputDirectory = options.defaultOutputDirectory;
     this.dependencyNames = options.dependencyNames ?? [];
   }
@@ -56,22 +52,20 @@ export class JsiiModule {
    */
   public async npmPack(packCommand = DEFAULT_PACK_COMMAND) {
     this._tarball = await Scratch.make(async (tmpdir) => {
-      const args = [];
-
       if (packCommand === DEFAULT_PACK_COMMAND) {
         // Quoting (JSON-stringifying) the module directory in order to avoid
         // problems if there are spaces or other special characters in the path.
-        args.push(JSON.stringify(this.moduleDirectory));
+        packCommand += ` ${JSON.stringify(this.moduleDirectory)}`;
 
         if (logging.level.valueOf() >= logging.LEVEL_VERBOSE) {
-          args.push('--loglevel=verbose');
+          packCommand += ' --loglevel=verbose';
         }
       } else {
         // Ensure module is copied to tmpdir to ensure parallel execution does not contend on generated tarballs
         await fs.copy(this.moduleDirectory, tmpdir, { dereference: true });
       }
 
-      const out = await shell(packCommand, args, {
+      const out = await shell(packCommand, {
         cwd: tmpdir,
       });
 
@@ -105,7 +99,10 @@ export class JsiiModule {
 
   public async load(system: TypeSystem, validate = true) {
     return system
-      .loadModule(this.moduleDirectory, { validate })
+      .loadModule(this.moduleDirectory, {
+        validate,
+        supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
+      })
       .then((assembly) => (this._assembly = assembly));
   }
 
@@ -114,6 +111,11 @@ export class JsiiModule {
       throw new Error('Assembly not available yet, call load() first');
     }
     return this._assembly;
+  }
+
+  public get availableTargets(): string[] {
+    // "js" is an implicit target
+    return [...Object.keys(this.assembly.targets ?? {}), 'js'];
   }
 
   public async cleanup() {

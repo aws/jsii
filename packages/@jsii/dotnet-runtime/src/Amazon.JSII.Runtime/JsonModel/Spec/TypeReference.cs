@@ -10,13 +10,15 @@ namespace Amazon.JSII.JsonModel.Spec
             string? fullyQualifiedName = null,
             PrimitiveType? primitive = null,
             CollectionTypeReference? collection = null,
-            UnionTypeReference? union = null
+            UnionTypeReference? union = null,
+            UnionTypeReference? intersection = null
         )
         {
             FullyQualifiedName = fullyQualifiedName;
             Primitive = primitive;
             Collection = collection;
             Union = union;
+            Intersection = intersection;
         }
 
         [JsonProperty("fqn", NullValueHandling = NullValueHandling.Ignore)]
@@ -30,5 +32,8 @@ namespace Amazon.JSII.JsonModel.Spec
 
         [JsonProperty("union", NullValueHandling = NullValueHandling.Ignore)]
         public UnionTypeReference? Union { get; }
+
+        [JsonProperty("intersection", NullValueHandling = NullValueHandling.Ignore)]
+        public UnionTypeReference? Intersection { get; }
     }
 }
