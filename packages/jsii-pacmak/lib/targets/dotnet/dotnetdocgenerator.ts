@@ -62,7 +62,7 @@ export class DotNetDocGenerator {
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
-    if (objMethod.parameters) {
+    if (objMethod && objMethod.parameters) {
       objMethod.parameters.forEach((param) => {
         // Remove any slug `@` from the parameter name - it's not supposed to show up here.
         const paramName = this.nameutils

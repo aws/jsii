@@ -18,6 +18,7 @@ exports[`defaults 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -79,6 +80,7 @@ exports[`inheritance 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -140,6 +142,7 @@ exports[`members 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -404,6 +407,33 @@ exports[`showAll 1`] = `
  │ │ │ │           ├── immutable
  │ │ │ │           └── type: string
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ConsumesIntersection
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ static acceptsIntersection(param) method
+ │ │ │   │   │ ├── static
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ param
+ │ │ │   │   │ │   └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
+ │ │ │   │   │ └── returns: void
+ │ │ │   │   └─┬ static acceptsPropWithIntersection(props) method
+ │ │ │   │     ├── static
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ props
+ │ │ │   │     │   └── type: jsii-calc.intersection.IntersectionProps
+ │ │ │   │     └── returns: void
+ │ │ │   ├─┬ interface ISomething
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ something() method
+ │ │ │   │     ├── abstract
+ │ │ │   │     └── returns: any
+ │ │ │   └─┬ interface IntersectionProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ param property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: @scope/jsii-calc-lib.IFriendly & jsii-calc.intersection.ISomething
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├─┬ class OverrideMe
@@ -3940,6 +3970,7 @@ exports[`signatures 1`] = `
  │   │ └─┬ submodules
  │   │   ├── bar
  │   │   └── foo
+ │   ├── intersection
  │   ├── jsii3656
  │   ├── jsii4894
  │   ├── module2530
@@ -4037,6 +4068,11 @@ exports[`types 1`] = `
  │ │ │ │     ├── interface ConsumerProps
  │ │ │ │     └── interface Homonymous
  │ │ │ └── types
+ │ │ ├─┬ intersection
+ │ │ │ └─┬ types
+ │ │ │   ├── class ConsumesIntersection
+ │ │ │   ├── interface ISomething
+ │ │ │   └── interface IntersectionProps
  │ │ ├─┬ jsii3656
  │ │ │ └─┬ types
  │ │ │   ├── class OverrideMe

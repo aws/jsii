@@ -146,7 +146,7 @@
     "stability": "stable"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "5.9.1",
+  "jsiiVersion": "5.9.6",
   "keywords": [
     "aws",
     "jsii",
@@ -245,7 +245,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 31
+        "line": 32
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -265,6 +265,13 @@
         "line": 2
       },
       "symbolId": "lib/homonymous/foo:"
+    },
+    "jsii-calc.intersection": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 31
+      },
+      "symbolId": "lib/intersection:"
     },
     "jsii-calc.jsii3656": {
       "locationInModule": {
@@ -402,7 +409,7 @@
     "jsii-calc.pascalCaseName": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 32
+        "line": 33
       },
       "symbolId": "lib/pascal-case-name/index:"
     },
@@ -16924,6 +16931,145 @@
       ],
       "symbolId": "lib/homonymous/foo:Homonymous"
     },
+    "jsii-calc.intersection.ConsumesIntersection": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.intersection.ConsumesIntersection",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/intersection.ts",
+        "line": 11
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 12
+          },
+          "name": "acceptsIntersection",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "intersection": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.intersection.ISomething"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.IFriendly"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 16
+          },
+          "name": "acceptsPropWithIntersection",
+          "parameters": [
+            {
+              "name": "props",
+              "type": {
+                "fqn": "jsii-calc.intersection.IntersectionProps"
+              }
+            }
+          ],
+          "static": true
+        }
+      ],
+      "name": "ConsumesIntersection",
+      "namespace": "intersection",
+      "symbolId": "lib/intersection:ConsumesIntersection"
+    },
+    "jsii-calc.intersection.ISomething": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.intersection.ISomething",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/intersection.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 4
+          },
+          "name": "something",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          }
+        }
+      ],
+      "name": "ISomething",
+      "namespace": "intersection",
+      "symbolId": "lib/intersection:ISomething"
+    },
+    "jsii-calc.intersection.IntersectionProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.intersection.IntersectionProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/intersection.ts",
+        "line": 7
+      },
+      "name": "IntersectionProps",
+      "namespace": "intersection",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/intersection.ts",
+            "line": 8
+          },
+          "name": "param",
+          "type": {
+            "intersection": {
+              "types": [
+                {
+                  "fqn": "jsii-calc.intersection.ISomething"
+                },
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/intersection:IntersectionProps"
+    },
     "jsii-calc.jsii3656.ImplementMeOpts": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -19201,6 +19347,9 @@
       "symbolId": "lib/union:Resolvable"
     }
   },
+  "usedFeatures": [
+    "intersection-types"
+  ],
   "version": "3.20.120",
-  "fingerprint": "jVJA8GBQfAQWIMVRVjHXZA1xAsJO5WhLdweO7ySlYbs="
+  "fingerprint": "tO2XUx4QWDYtIzVyIejPr2qHHJX+/TG1lb6O2uWdS78="
 }

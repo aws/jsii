@@ -12,6 +12,10 @@ import * as onExit from './on-exit';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
+export const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
+  'intersection-types',
+];
+
 export const enum JsiiErrorType {
   JSII_FAULT = '@jsii/kernel.Fault',
   RUNTIME_ERROR = '@jsii/kernel.RuntimeError',
@@ -156,7 +160,12 @@ export class Kernel {
     let assmSpec: spec.Assembly;
     try {
       assmSpec = this.#debugTime(
-        () => spec.loadAssemblyFromPath(packageDir, this.validateAssemblies),
+        () =>
+          spec.loadAssemblyFromPath(
+            packageDir,
+            this.validateAssemblies,
+            ASSEMBLY_SUPPORTED_FEATURES,
+          ),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {

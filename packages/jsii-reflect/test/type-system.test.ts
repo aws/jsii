@@ -3,13 +3,16 @@ import { Stability } from '@jsii/spec';
 import * as path from 'path';
 
 import { TypeSystem } from '../lib';
+import { TEST_FEATURES } from './features';
 import { typeSystemFromSource, assemblyFromSource } from './util';
 
 let typesys: TypeSystem;
 
 beforeAll(async () => {
   typesys = new TypeSystem();
-  await typesys.loadModule(resolveModuleDir('jsii-calc'));
+  await typesys.loadModule(resolveModuleDir('jsii-calc'), {
+    supportedFeatures: TEST_FEATURES,
+  });
 });
 
 test('TypeSystem.hasAssembly', () => {

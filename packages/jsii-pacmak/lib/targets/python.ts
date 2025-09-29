@@ -17,7 +17,7 @@ import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
-import { shell, subprocess } from '../util';
+import { shell, subprocess, zip } from '../util';
 import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
@@ -27,6 +27,7 @@ import {
   mergePythonImports,
   toPackageName,
   toPythonFqn,
+  IntersectionTypesRegistry,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -584,11 +585,13 @@ abstract class BaseMethod implements PythonBase {
       }
     }
 
+    const typeFacs = this.parameters.map(toTypeName);
+
     // We need to turn a list of JSII parameters, into Python style arguments with
     // gradual typing, so we'll have to iterate over the list of parameters, and
     // build the list, converting as we go.
     const pythonParams: string[] = [];
-    for (const param of this.parameters) {
+    for (const [param, typeFac] of zip(this.parameters, typeFacs)) {
       // We cannot (currently?) blindly use the names given to us by the JSII for
       // initializers, because our keyword lifting will allow two names to clash.
       // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
@@ -598,7 +601,7 @@ abstract class BaseMethod implements PythonBase {
         liftedPropNames,
       );
 
-      const paramType = toTypeName(param).pythonType({
+      const paramType = typeFac.pythonType({
         ...context,
         parameterType: true,
       });
@@ -1693,6 +1696,7 @@ class PythonModule implements PythonType {
     context = {
       ...context,
       submodule: this.fqn ?? context.submodule,
+      intersectionTypes: new IntersectionTypesRegistry(),
       resolver,
     };
 
@@ -1863,6 +1867,18 @@ class PythonModule implements PythonType {
         code.line(`from . import ${submodule}`);
       }
     }
+
+    context.typeCheckingHelper.flushStubs(code);
+    context.intersectionTypes.flushHelperTypes(code);
+
+    const interfaces = this.members
+      .filter((m) => m instanceof Interface)
+      .map((m) => m.pythonName);
+
+    this.emitProtocolStripper(code, [
+      ...interfaces,
+      ...context.intersectionTypes.typeNames,
+    ]);
   }
 
   /**
@@ -1919,6 +1935,35 @@ class PythonModule implements PythonType {
       }
     }
     return scripts;
+  }
+
+  /**
+   * Emit a helper that will strip magic jsii elements from all protocol classes
+   *
+   * This is necessary because we attach the `__jsii_proxy_class__` and
+   * `__jsii_type__` fields to Protocols/interfaces, which are then going to
+   * show up when someone calls `typing.get_protocol_members()`, and interfere
+   * with run-time type checking done by `typeguard`.
+   *
+   * `typing.get_protocol_members(x)` reads cached members from
+   * `x.__protocol_attrs__` (put there by the `Protocol` metaclass),  so what we
+   * do is remove our magic members from that cached set.
+   *
+   * This is extremely hacky, and in a hypothetical future rewrite we should
+   * store our metadata off-object (for example in a dict or `WeakKeyDictionary`),
+   * so that our magic members don't interfere with built-in Python functions.
+   * But for now we fiddle with the metadata to hide our magic members wherever
+   * necessary.
+   */
+  private emitProtocolStripper(code: CodeMaker, protocolNames: string[]) {
+    if (protocolNames.length === 0) {
+      return;
+    }
+    code.line('');
+    code.line(`for cls in [${protocolNames.join(', ')}]:`);
+    code.line(
+      `    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+    );
   }
 
   private isDirectChild(pyMod: PythonModule) {
@@ -2091,7 +2136,6 @@ class Package {
 
       code.openFile(filename);
       mod.emit(code, context);
-      context.typeCheckingHelper.flushStubs(code);
       code.closeFile(filename);
 
       scripts.push(...mod.emitBinScripts(code));
@@ -2662,6 +2706,7 @@ class PythonGenerator extends Generator {
       submodule: assm.name,
       typeCheckingHelper: new TypeCheckingHelper(),
       typeResolver: (fqn) => resolver.dereference(fqn),
+      intersectionTypes: new IntersectionTypesRegistry(),
     });
   }
 

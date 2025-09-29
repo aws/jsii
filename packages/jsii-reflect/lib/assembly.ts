@@ -130,6 +130,13 @@ export class Assembly extends ModuleLike {
     return Array.from(this._dependencies.values());
   }
 
+  /**
+   * Return the features used in this assembly
+   */
+  public get usedFeatures(): readonly jsii.JsiiFeature[] {
+    return this.spec.usedFeatures ?? [];
+  }
+
   public findDependency(name: string) {
     const dep = this._dependencies.get(name);
     if (!dep) {

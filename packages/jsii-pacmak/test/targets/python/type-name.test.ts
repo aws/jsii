@@ -13,6 +13,7 @@ import {
   toTypeName,
   NamingContext,
   PythonImports,
+  IntersectionTypesRegistry,
 } from '../../../lib/targets/python/type-name';
 
 const BORING_TYPE = 'BoringClass';
@@ -251,6 +252,7 @@ describe(toTypeName, () => {
       context: {
         typeAnnotation: true,
         parameterType: true,
+        intersectionTypes: new IntersectionTypesRegistry(),
       },
     },
   ];
@@ -266,6 +268,7 @@ describe(toTypeName, () => {
         const type = assembly.types?.[fqn];
         return type ?? ({ fqn } as any as Type);
       },
+      intersectionTypes: new IntersectionTypesRegistry(),
     };
     const contextWithEmittedType: NamingContext = {
       ...context,

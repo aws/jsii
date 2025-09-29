@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as zlib from 'zlib';
 
 import {
-  ALL_TYPESYSTEM_ENFORCED_FEATURES,
   Assembly,
   SPEC_FILE_NAME,
   SPEC_FILE_NAME_COMPRESSED,
@@ -123,13 +122,13 @@ const failNoReadfileProvided = (filename: string) => {
  * @param assemblyBuffer buffer containing SPEC_FILE_NAME contents
  * @param readFile a callback to use for reading additional support files
  * @param validate whether or not to validate the assembly
- * @param supportedFeatures the set of supported features (default: all features enforced by the type system)
+ * @param supportedFeatures the set of supported features (default: no new features since the first jsii release)
  */
 export function loadAssemblyFromBuffer(
   assemblyBuffer: Buffer,
   readFile: (filename: string) => Buffer = failNoReadfileProvided,
   validate = true,
-  supportedFeatures: string[] = ALL_TYPESYSTEM_ENFORCED_FEATURES,
+  supportedFeatures: string[] = [],
 ): Assembly {
   let contents = JSON.parse(assemblyBuffer.toString('utf-8'));
 
@@ -148,7 +147,7 @@ export function loadAssemblyFromBuffer(
   );
   if (unsupported.length > 0) {
     throw new Error(
-      `This jsii tool cannot load the given assembly; using unsupported feature(s): ${unsupported.join(', ')}`,
+      `This jsii tool cannot load the given assembly; using unsupported feature(s): ${unsupported.join(', ')} (supported features: ${supportedFeatures.join(', ')})`,
     );
   }
 

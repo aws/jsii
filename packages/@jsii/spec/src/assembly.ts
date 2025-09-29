@@ -1095,35 +1095,6 @@ export function describeTypeReference(type?: TypeReference): string {
 export type JsiiFeature = 'intersection-types' | 'class-covariant-overrides';
 
 /**
- * For every feature, is it enforced by the type system?
- *
- * Effectively: if a jsii tools links against the most recent version of the
- * spec, is the TypeScript type system going to ensure that they must have
- * support for a given new feature, through exhaustiveness checking?
- *
- * (This map also forces completeness, so we are guaranteed to have a string
- * value for every possible `JsiiFeature` type branch).
- */
-const IS_FEATURE_TYPESYSTEM_ENFORCED: Record<JsiiFeature, boolean> = {
-  'intersection-types': true,
-  'class-covariant-overrides': false,
-};
-
-/**
- * A list of all jsii extension features
- */
-export const ALL_FEATURES = Object.keys(IS_FEATURE_TYPESYSTEM_ENFORCED);
-
-/**
- * A list of all jsii extension features
- */
-export const ALL_TYPESYSTEM_ENFORCED_FEATURES = Object.entries(
-  IS_FEATURE_TYPESYSTEM_ENFORCED,
-)
-  .filter(([_, v]) => v)
-  .map(([k, _]) => k);
-
-/**
  * Determines whether an entity is deprecated.
  *
  * @param entity the entity to be checked.
