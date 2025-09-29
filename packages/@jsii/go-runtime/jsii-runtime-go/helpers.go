@@ -72,3 +72,35 @@ func Time(v time.Time) *time.Time { return Ptr(v) }
 func Times(v ...time.Time) *[]*time.Time {
 	return PtrSlice(v...)
 }
+
+// AnyStrings returns a pointer to a slice of any containing all the provided strings.
+func AnyStrings(v ...string) *[]interface{} {
+	slice := make([]interface{}, len(v))
+	for i := 0; i < len(v); i++ {
+		slice[i] = v[i]
+	}
+	return &slice
+}
+
+// AnyNumbers returns a pointer to a slice of any containing all the provided numbers.
+func AnyNumbers[T numberType](v ...T) *[]interface{} {
+	slice := make([]interface{}, len(v))
+	for i := 0; i < len(v); i++ {
+		slice[i] = float64(v[i])
+	}
+	return &slice
+}
+
+// AnySlice converts a pointer to a slice of pointers to a pointer to a slice of Any.
+func AnySlice[T any](v *[]*T) *[]interface{} {
+	if v == nil {
+		return nil
+	}
+	slice := make([]interface{}, len(*v))
+	for i, ptr := range *v {
+		if ptr != nil {
+			slice[i] = *ptr
+		}
+	}
+	return &slice
+}
