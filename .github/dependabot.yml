@@ -68,6 +68,7 @@ updates:
       - language/go
       - auto-approve
     ignore:
+      - dependency-name: "go" # don't upgrad the golang version
       - dependency-name: github.com/aws/jsii-runtime-go
       - dependency-name: github.com/aws/jsii-runtime-go/*
       - dependency-name: github.com/aws/jsii/jsii-calc/go/*
