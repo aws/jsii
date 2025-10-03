@@ -191,7 +191,7 @@ API.
 ### Type Intersections
 
 Type intersections are supported, with limitations. Type intersections indicate that values, specifically object
-instances, must implement two or more interfaces simulatenously. They are written as `TypeA & TypeB`. Type intersections
+instances, must implement two or more interfaces simultaneously. They are written as `TypeA & TypeB`. Type intersections
 are supported with the following limitations:
 
 - All branches of the type intersection must be (behavioral) interfaces, not _structs_.
