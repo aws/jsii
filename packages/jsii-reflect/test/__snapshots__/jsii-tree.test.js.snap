@@ -225,6 +225,10 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├─┬ class ConsumesIntersection (stable)
  │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer (stable)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.intersection.IntersectionProps
  │ │ │   │   ├─┬ static acceptsIntersection(param) method (stable)
  │ │ │   │   │ ├── static
  │ │ │   │   │ ├─┬ parameters
@@ -4444,6 +4448,7 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├─┬ class ConsumesIntersection
  │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>(props) initializer
  │ │ │   │   ├── static acceptsIntersection(param) method
  │ │ │   │   └── static acceptsPropWithIntersection(props) method
  │ │ │   ├─┬ interface ISomething

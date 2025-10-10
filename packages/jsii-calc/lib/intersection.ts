@@ -17,5 +17,7 @@ export class ConsumesIntersection {
     void props;
   }
 
-  private constructor() {}
+  public constructor(props: IntersectionProps) {
+    void props;
+  }
 }

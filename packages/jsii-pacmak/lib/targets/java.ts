@@ -2301,8 +2301,10 @@ class JavaGenerator extends Generator {
           memberName: prop.name,
         });
         this.emitStabilityAnnotations(prop.spec);
+        // FIXME: generix
+        const renderedType = displayType(javaType, 'covariant');
         this.code.openBlock(
-          `public ${BUILDER_CLASS_NAME} ${fieldName}(final ${displayType(javaType, 'covariant')} ${fieldName})`,
+          `public ${typeVarDeclarations([javaType])}${BUILDER_CLASS_NAME} ${fieldName}(final ${renderedType} ${fieldName})`,
         );
         this.code.line(
           `this.${structParamName}${
