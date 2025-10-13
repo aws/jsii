@@ -25895,6 +25895,15 @@ public class ConsumesIntersection extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * @param props This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ConsumesIntersection(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.intersection.IntersectionProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+
+    /**
      * @param param This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -25908,6 +25917,47 @@ public class ConsumesIntersection extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static void acceptsPropWithIntersection(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.intersection.IntersectionProps props) {
         software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection.class, "acceptsPropWithIntersection", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection> {
+        /**
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private final software.amazon.jsii.tests.calculator.intersection.IntersectionProps.Builder props;
+
+        private Builder() {
+            this.props = new software.amazon.jsii.tests.calculator.intersection.IntersectionProps.Builder();
+        }
+
+        /**
+         * @return {@code this}
+         * @param param This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public <T1 extends software.amazon.jsii.tests.calculator.intersection.ISomething & software.amazon.jsii.tests.calculator.lib.IFriendly> Builder param(final T1 param) {
+            this.props.param(param);
+            return this;
+        }
+
+        /**
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection build() {
+            return new software.amazon.jsii.tests.calculator.intersection.ConsumesIntersection(
+                this.props.build()
+            );
+        }
     }
 }
 

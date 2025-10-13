@@ -13661,9 +13661,19 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Intersection
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), fullyQualifiedName: "jsii-calc.intersection.ConsumesIntersection")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Intersection.ConsumesIntersection), fullyQualifiedName: "jsii-calc.intersection.ConsumesIntersection", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.intersection.IntersectionProps\\"}}]")]
     public class ConsumesIntersection : DeputyBase
     {
+        public ConsumesIntersection(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps props): base(_MakeDeputyProps(props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Intersection.IIntersectionProps props)
+        {
+            return new DeputyProps(new object?[]{props});
+        }
+
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]

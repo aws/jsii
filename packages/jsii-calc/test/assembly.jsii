@@ -16937,6 +16937,23 @@
         "stability": "stable"
       },
       "fqn": "jsii-calc.intersection.ConsumesIntersection",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/intersection.ts",
+          "line": 20
+        },
+        "parameters": [
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.intersection.IntersectionProps"
+            }
+          }
+        ]
+      },
       "kind": "class",
       "locationInModule": {
         "filename": "lib/intersection.ts",
@@ -19351,5 +19368,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "tO2XUx4QWDYtIzVyIejPr2qHHJX+/TG1lb6O2uWdS78="
+  "fingerprint": "GVwmWxAUwVMUeujfDgP0gEVA7pfU5wIz05Iyw8VL0RE="
 }
