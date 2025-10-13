@@ -12,6 +12,7 @@ queue_rules:
 
       {{ body }}
     merge_method: squash
+    batch_size: 1
 
   - name: default-merge
     conditions:
@@ -22,6 +23,7 @@ queue_rules:
 
       {{ body }}
     merge_method: merge
+    batch_size: 1
 
 pull_request_rules:
   - name: label core
