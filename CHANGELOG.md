@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.116.0](https://github.com/aws/jsii/compare/v1.115.0...v1.116.0) (2025-10-14)
+
+
+### Bug Fixes
+
+* type intersections don't work for Java class builders ([#4945](https://github.com/aws/jsii/issues/4945)) ([8f6ecd9](https://github.com/aws/jsii/commit/8f6ecd9c84635a487a1f1fcfe72ebfffe972ee9f))
+
 ## [1.115.0](https://github.com/aws/jsii/compare/v1.114.1...v1.115.0) (2025-09-29)
 
 

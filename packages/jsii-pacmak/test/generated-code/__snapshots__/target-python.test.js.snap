@@ -13156,6 +13156,14 @@ class ConsumesIntersection(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.intersection.ConsumesIntersection",
 ):
+    def __init__(self, *, param: '_ISomething_IFriendly') -> None:
+        '''
+        :param param: 
+        '''
+        props = IntersectionProps(param=param)
+
+        jsii.create(self.__class__, self, [props])
+
     @jsii.member(jsii_name="acceptsIntersection")
     @builtins.classmethod
     def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
@@ -21208,7 +21216,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
-@@ -41,10 +41,13 @@
+@@ -49,10 +49,13 @@
      @builtins.classmethod
      def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
          '''
@@ -21222,7 +21230,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="acceptsPropWithIntersection")
      @builtins.classmethod
      def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
-@@ -82,10 +85,13 @@
+@@ -90,10 +93,13 @@
  class IntersectionProps:
      def __init__(self, *, param: '_ISomething_IFriendly') -> None:
          '''
@@ -21236,7 +21244,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -112,10 +118,23 @@
+@@ -120,10 +126,23 @@
      "IntersectionProps",
  ]
  

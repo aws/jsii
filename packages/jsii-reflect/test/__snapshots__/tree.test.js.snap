@@ -411,6 +411,10 @@ exports[`showAll 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├─┬ class ConsumesIntersection
  │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.intersection.IntersectionProps
  │ │ │   │   ├─┬ static acceptsIntersection(param) method
  │ │ │   │   │ ├── static
  │ │ │   │   │ ├─┬ parameters

@@ -19537,6 +19537,30 @@ type jsiiProxy_ConsumesIntersection struct {
 	_ byte // padding
 }
 
+func NewConsumesIntersection(props *IntersectionProps) ConsumesIntersection {
+	_init_.Initialize()
+
+	j := jsiiProxy_ConsumesIntersection{}
+
+	_jsii_.Create(
+		"jsii-calc.intersection.ConsumesIntersection",
+		[]interface{}{props},
+		&j,
+	)
+
+	return &j
+}
+
+func NewConsumesIntersection_Override(c ConsumesIntersection, props *IntersectionProps) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.intersection.ConsumesIntersection",
+		[]interface{}{props},
+		c,
+	)
+}
+
 func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
 	_init_.Initialize()
 
@@ -35237,7 +35261,21 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/h
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection.go.diff 1`] = `
 --- go/jsiicalc/intersection/ConsumesIntersection.go	--no-runtime-type-checking
 +++ go/jsiicalc/intersection/ConsumesIntersection.go	--runtime-type-checking
-@@ -14,20 +14,26 @@
+@@ -14,10 +14,13 @@
+ }
+ 
+ func NewConsumesIntersection(props *IntersectionProps) ConsumesIntersection {
+ 	_init_.Initialize()
+ 
++	if err := validateNewConsumesIntersectionParameters(props); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_ConsumesIntersection{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.intersection.ConsumesIntersection",
+ 		[]interface{}{props},
+@@ -38,20 +41,26 @@
  }
  
  func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
@@ -35269,7 +35307,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__checks.go.diff 1`] = `
 --- go/jsiicalc/intersection/ConsumesIntersection__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/intersection/ConsumesIntersection__checks.go	--runtime-type-checking
-@@ -0,0 +1,31 @@
+@@ -0,0 +1,42 @@
 +//go:build !no_runtime_type_checking
 +
 +package intersection
@@ -35301,12 +35339,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 +	return nil
 +}
 +
++func validateNewConsumesIntersectionParameters(props *IntersectionProps) error {
++	if props == nil {
++		return fmt.Errorf("parameter props is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection__no_checks.go.diff 1`] = `
 --- go/jsiicalc/intersection/ConsumesIntersection__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/intersection/ConsumesIntersection__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,18 @@
 +//go:build no_runtime_type_checking
 +
 +package intersection
@@ -35318,6 +35367,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
 +}
 +
 +func validateConsumesIntersection_AcceptsPropWithIntersectionParameters(props *IntersectionProps) error {
++	return nil
++}
++
++func validateNewConsumesIntersectionParameters(props *IntersectionProps) error {
 +	return nil
 +}
 +

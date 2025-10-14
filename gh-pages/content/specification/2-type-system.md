@@ -44,7 +44,7 @@ array is produced each time it is passed through the process boundary.
 !!! info
     Items in the list may be passed by-reference (according to their type's specification), in which case mutating
     operations performed on those may be visible across the process boundary.
-    
+
 [Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays)
 
 ### Enum
@@ -109,7 +109,7 @@ boundary. As a consequence, they may not include any method.
 !!! question
     The by-value nature of `object` is problematic because **TypeScript** makes no guarantee with respects to the
     absence of methods on `object`, and properties may be dynamic.
-    
+
 [Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#object-types)
 
 ### Promises
@@ -187,6 +187,25 @@ In general however, _type unions_ are discouraged and should only be used when t
 API.
 
 [Find out more here](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types)
+
+### Type Intersections
+
+Type intersections are supported, with limitations. Type intersections indicate that values, specifically object
+instances, must implement two or more interfaces simultaneously. They are written as `TypeA & TypeB`. Type intersections
+are supported with the following limitations:
+
+- All branches of the type intersection must be (behavioral) interfaces, not _structs_.
+- Type intersections may only appear in input position. That means they may only appear as a function argument,
+  or a member of a struct that is exclusively used as a function argument. That excludes them appearing as function
+  return types, class or behavioral interface members, or as struct members that are the return types of functions.
+
+Type intersection support was added in:
+
+| Tool | Version |
+|------|---------|
+| `jsii` | `>= 5.9.6` |
+| `jsii-rosetta` | `>= 5.9.5` |
+| `jsii-pacmak`, `jsii-reflect`, `jsii-diff` | `>= 1.115.0` |
 
 ## Serialization Behavior
 
