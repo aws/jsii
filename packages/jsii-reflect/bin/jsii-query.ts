@@ -58,18 +58,18 @@ to the list of selected elements.
 
 QUERY is of the format:
 
-    <op><kind>[:<expression>]
+    [<op>]<kind>[:<expression>]
 
 Where:
 
-    <op>          The type of operation to apply
+    <op>          The type of operation to apply. Absent means '.'
              +    Adds new API elements matching the selector to the selection.
                   If this selects types, it also includes all type's members.
              -    Removes API elements from the current selection that match
                   the selector.
              .    Removes API elements from the current selection that do NOT
                   match the selector (i.e., retain only those that DO match
-                  the selector).
+                  the selector) (default)
     <kind>        Type of API element to select. One of 'type' or 'member',
                   or any of its more specific sub-types such as 'class',
                   'interface', 'struct', 'enum', 'property', 'method', etc.
@@ -81,6 +81,10 @@ Where:
                   parameters, static, variadic, type. The types are the
                   same types as offered by the jsii-reflect class model.
 
+If the first expression of the query has operator '+', then the query starts
+empty and the selector determines the initial set. Otherwise the query starts
+with all elements and the first expression is a filter on it.
+
 This file evaluates the expressions as JavaScript, so this tool is not safe
 against untrusted input!
 
@@ -89,9 +93,14 @@ Don't forget to mind your shell escaping rules when you write query expressions.
 EXAMPLES
 -------
 
-Select all methods with "grant" in their name:
+Select all enums:
+$ jsii-query --types node_modules/aws-cdk-lib enum
 
-$ jsii-query node_modules/aws-cdk-lib --members '.method:name.includes("grant")'
+Select all methods with "grant" in their name:
+$ jsii-query --members node_modules/aws-cdk-lib 'method:name.includes("grant")'
+
+Select all classes that have a grant method:
+$ jsii-query --types node_modules/aws-cdk-lib class 'method:name.includes("grant")'
 
 `).argv;
 

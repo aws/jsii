@@ -20,6 +20,12 @@ describe('parseExpression', () => {
       kind: 'type',
       invert: false,
     });
+
+    expect(parseExpression('type')).toMatchObject({
+      op: 'filter',
+      kind: 'type',
+      invert: false,
+    });
   });
 
   test('with expression', () => {

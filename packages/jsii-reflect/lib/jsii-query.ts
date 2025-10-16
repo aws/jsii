@@ -178,7 +178,14 @@ function selectApiElements(
   for (const expr of expressions) {
     if (expr.op === 'filter') {
       // Filter retains elements from the current set
-      selected = new Set(filterElements(universe, selected, expr));
+      // Filtering on types implicity filters members by that type
+      const retained = new Set(filterElements(universe, selected, expr));
+
+      selected = new Set(
+        Array.from(selected).filter(
+          (key) => retained.has(key) || retained.has(typeKey(key)),
+        ),
+      );
     } else {
       // Select adds elements (by filtering from the full set and adding to the current one)
       // Selecting implicitly also adds all elements underneath
@@ -338,11 +345,19 @@ const KIND_ALIASES = {
 };
 
 export function parseExpression(expr: string): QExpr {
-  if (!['-', '+', '.'].includes(expr[0])) {
-    throw new Error(`Invalid operator: ${expr} (must be +, - or .)`);
+  let op;
+  if (expr[0].match(/[a-z]/i)) {
+    op = '.';
+  } else {
+    op = expr[0];
+    expr = expr.slice(1);
   }
-  const operator = expr[0] as '-' | '+' | '.';
-  const [kind_, ...expressionParts] = expr.slice(1).split(':');
+
+  if (!['-', '+', '.'].includes(op)) {
+    throw new Error(`Invalid operator: ${op} (must be +, - or .)`);
+  }
+  const operator = op as '-' | '+' | '.';
+  const [kind_, ...expressionParts] = expr.split(':');
   const kind = (KIND_ALIASES[kind_ as keyof typeof KIND_ALIASES] ??
     kind_) as ApiKind;
 
