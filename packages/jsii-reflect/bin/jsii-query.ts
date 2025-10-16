@@ -84,6 +84,8 @@ Where:
 This file evaluates the expressions as JavaScript, so this tool is not safe
 against untrusted input!
 
+Don't forget to mind your shell escaping rules when you write query expressions.
+
 EXAMPLES
 -------
 
