@@ -394,6 +394,10 @@ export function renderElement(el: ApiElement) {
   return '???';
 }
 
+export function renderDocs(el: ApiElement) {
+  return el.docs.toString();
+}
+
 function renderParams(ps?: Parameter[]) {
   return (ps ?? [])
     .map((p) => {

@@ -3,7 +3,12 @@ import '@jsii/check-node/run';
 import * as chalk from 'chalk';
 import * as yargs from 'yargs';
 
-import { jsiiQuery, parseExpression, renderElement } from '../lib/jsii-query';
+import {
+  jsiiQuery,
+  parseExpression,
+  renderDocs,
+  renderElement,
+} from '../lib/jsii-query';
 
 async function main() {
   const argv = await yargs
@@ -31,6 +36,12 @@ async function main() {
       type: 'boolean',
       alias: 'm',
       desc: 'after selecting API elements, show all selected members, as well as members of selected types',
+      default: false,
+    })
+    .options('docs', {
+      type: 'boolean',
+      alias: 'd',
+      desc: 'show documentation for selected elements',
       default: false,
     })
     .option('closure', {
@@ -67,7 +78,8 @@ Where:
                   the member. Has access to a number of attributes like
                   kind, ancestors, abstract, base, datatype, docs, interfaces,
                   name, initializer, optional, overrides, protected, returns,
-                  parameters, static, variadic, type.
+                  parameters, static, variadic, type. The types are the
+                  same types as offered by the jsii-reflect class model.
 
 This file evaluates the expressions as JavaScript, so this tool is not safe
 against untrusted input!
@@ -100,6 +112,17 @@ $ jsii-query node_modules/aws-cdk-lib --members '.method:name.includes("grant")'
 
   for (const element of result) {
     console.log(renderElement(element));
+    if (options.docs) {
+      console.log(
+        chalk.gray(
+          renderDocs(element)
+            .split('\n')
+            .map((line) => `    ${line}`)
+            .join('\n'),
+        ),
+      );
+      console.log('');
+    }
   }
 
   process.exitCode = result.length > 0 ? 0 : 1;
