@@ -46,13 +46,6 @@ describe('Predicate', () => {
     expect(p.apply({ name: 'blob' })).toBeFalsy();
   });
 
-  test('inverted', () => {
-    const p = new Predicate('name.startsWith("ba")', true);
-
-    expect(p.apply({ name: 'banana' })).toBeFalsy();
-    expect(p.apply({ name: 'blob' })).toBeTruthy();
-  });
-
   test('empty', () => {
     const p = new Predicate();
 

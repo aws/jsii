@@ -49,7 +49,8 @@ async function main() {
       alias: 'c',
       default: false,
       desc: 'Load dependencies of package without assuming its a JSII package itself',
-    }).epilogue(`
+    })
+    .strict().epilogue(`
 REMARKS
 -------
 
@@ -90,6 +91,8 @@ against untrusted input!
 
 Don't forget to mind your shell escaping rules when you write query expressions.
 
+Don't forget to add -- to terminate option parsing if you write negative expressions.
+
 EXAMPLES
 -------
 
@@ -101,6 +104,8 @@ $ jsii-query --members node_modules/aws-cdk-lib 'method:name.includes("grant")'
 
 Select all classes that have a grant method:
 $ jsii-query --types node_modules/aws-cdk-lib class 'method:name.includes("grant")'
+OR:
+$ jsii-query --types -- node_modules/aws-cdk-lib -interface 'method:name.includes("grant")'
 
 `).argv;
 
@@ -111,7 +116,12 @@ $ jsii-query --types node_modules/aws-cdk-lib class 'method:name.includes("grant
     throw new Error('At least --types or --members must be specified');
   }
 
-  const expressions = options.QUERY.map(parseExpression);
+  // Yargs is annoying; if the user uses '--' to terminate the option list,
+  // it will not parse positionals into `QUERY` but into `_`
+
+  const expressions = [...options.QUERY, ...options._]
+    .map(String)
+    .map(parseExpression);
 
   const result = await jsiiQuery({
     fileName: options.FILE,

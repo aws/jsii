@@ -179,23 +179,26 @@ function selectApiElements(
     if (expr.op === 'filter') {
       // Filter retains elements from the current set
       // Filtering on types implicity filters members by that type
-      const retained = new Set(filterElements(universe, selected, expr));
+      const filteredFqns = new Set(
+        filterElements(universe, selected, expr.kind, expr.expression),
+      );
 
-      selected = new Set(
+      const filtered = new Set(
         Array.from(selected).filter(
-          (key) => retained.has(key) || retained.has(typeKey(key)),
+          (key) => filteredFqns.has(key) || filteredFqns.has(typeKey(key)),
         ),
       );
+
+      if (expr.remove) {
+        setRemove(selected, filtered);
+      } else {
+        selected = filtered;
+      }
     } else {
       // Select adds elements (by filtering from the full set and adding to the current one)
       // Selecting implicitly also adds all elements underneath
       const fromUniverse = Array.from(
-        filterElements(universe, allKeys, {
-          op: 'filter',
-          invert: false,
-          kind: expr.kind,
-          expression: expr.expression,
-        }),
+        filterElements(universe, allKeys, expr.kind, expr.expression),
       );
 
       const newElements = Array.from(allKeys).filter((uniKey) =>
@@ -212,16 +215,17 @@ function selectApiElements(
 function* filterElements(
   universe: ApiUniverse,
   elements: Set<string>,
-  expr: QFilter,
+  kind: ApiKind,
+  expression?: string,
 ): IterableIterator<string> {
-  const pred = new Predicate(expr.expression, expr.invert);
+  const pred = new Predicate(expression);
 
   for (const key of elements) {
     const el = universe.get(key);
     if (!el) {
       throw new Error(`Key not in universe: ${key}`);
     }
-    if (matches(el, expr.kind, pred)) {
+    if (matches(el, kind, pred)) {
       yield key;
     }
   }
@@ -230,14 +234,13 @@ function* filterElements(
 export class Predicate {
   private readonly fn: (...args: any[]) => boolean;
 
-  public constructor(expr?: string, invert?: boolean) {
+  public constructor(expr?: string) {
     if (!expr) {
-      this.fn = invert ? () => false : () => true;
+      this.fn = () => true;
     } else {
       const args = API_ELEMENT_ATTRIBUTES.join(',');
-      const neg = invert ? '!' : '';
 
-      const body = `return ${neg}Boolean(${expr});`;
+      const body = `return Boolean(${expr});`;
 
       try {
         this.fn = Function(args, body) as any;
@@ -324,7 +327,7 @@ interface QSelect {
  */
 interface QFilter {
   readonly op: 'filter';
-  readonly invert: boolean;
+  readonly remove: boolean;
   readonly kind: ApiKind;
   readonly expression?: string;
 }
@@ -369,7 +372,7 @@ export function parseExpression(expr: string): QExpr {
 
   return {
     op: operator === '+' ? 'select' : 'filter',
-    invert: operator === '-',
+    remove: operator === '-',
     kind,
     expression: expressionParts?.join(':'),
   };
@@ -430,6 +433,12 @@ function combine(...xs: string[]) {
 function setAdd<A>(a: Set<A>, b: Iterable<A>) {
   for (const x of b) {
     a.add(x);
+  }
+}
+
+function setRemove<A>(a: Set<A>, b: Iterable<A>) {
+  for (const x of b) {
+    a.delete(x);
   }
 }
 
