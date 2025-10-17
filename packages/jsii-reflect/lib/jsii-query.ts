@@ -27,6 +27,7 @@ import {
   Type,
   TypeSystem,
 } from '../lib';
+import { HierarchicalElement, HierarchicalSet } from './hierarchical-set';
 
 const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
 
@@ -59,19 +60,15 @@ export async function jsiiQuery(
 
   const selectedElements = selectApiElements(universe, options.expressions);
 
-  const finalList = expandSelectToParentsAndChildren(
-    universe,
-    selectedElements,
-    options,
-  );
+  expandSelectToParentsAndChildren(universe, selectedElements, options);
 
   // The keys are sortable, so sort them, then get the original API elements back
   // and return only those that were asked for.
 
   // Then retain only the kinds we asked for, and sort them
-  return Array.from(finalList)
+  return Array.from(selectedElements)
     .sort()
-    .map((key) => universe.get(key)!)
+    .map((key) => universe.get(stringFromKey(key))!)
     .filter(
       (x) =>
         (isType(x) && options.returnTypes) ||
@@ -83,40 +80,22 @@ export async function jsiiQuery(
 // - if we are asking for members, include all members that are a child of any of the selected types
 function expandSelectToParentsAndChildren(
   universe: ApiUniverse,
-  selected: Set<string>,
+  selected: HierarchicalSet,
   options: JsiiQueryOptions,
-): Set<string> {
-  const ret = new Set<string>(selected);
-  const membersForType = groupMembers(universe.keys());
-
+) {
   if (options.returnTypes) {
     // All type keys from either type keys or member keys
-    setAdd(ret, Array.from(selected).map(typeKey));
+    selected.add(Array.from(selected).map(typeKey));
   }
+
   if (options.returnMembers) {
+    const allElements = new HierarchicalSet(
+      Array.from(universe.keys()).map(keyFromString),
+    );
+
     // Add all member keys that are members of a selected type
-    for (const sel of selected) {
-      setAdd(ret, membersForType.get(sel) ?? []);
-    }
+    selected.add(new HierarchicalSet(allElements).intersect(selected));
   }
-
-  return ret;
-}
-
-function groupMembers(universeKeys: Iterable<string>): Map<string, string[]> {
-  const ret = new Map<string, string[]>();
-  for (const key of universeKeys) {
-    if (isTypeKey(key)) {
-      continue;
-    }
-
-    const tk = typeKey(key);
-    if (!ret.has(tk)) {
-      ret.set(tk, []);
-    }
-    ret.get(tk)!.push(key);
-  }
-  return ret;
 }
 
 function isType(x: ApiElement): x is Type {
@@ -136,9 +115,9 @@ function isMember(x: ApiElement): x is Callable | Property {
  *
  * Keys have the property that parent keys are a prefix of child keys, and that the keys are in sort order
  */
-function apiElementKey(x: ApiElement): string {
+function apiElementKey(x: ApiElement): HierarchicalElement {
   if (isType(x)) {
-    return `${x.fqn}#`;
+    return [`${x.fqn}`];
   }
   if (isMember(x)) {
     const sort =
@@ -148,82 +127,71 @@ function apiElementKey(x: ApiElement): string {
           ? '001'
           : '002';
 
-    return `${x.parentType.fqn}#${sort}${x.name}(`;
+    return [`${x.parentType.fqn}`, `${sort}${x.name}`];
   }
   throw new Error('huh');
+}
+
+function stringFromKey(x: HierarchicalElement) {
+  return x.map((s) => `${s}#`).join('');
+}
+
+function keyFromString(x: string): HierarchicalElement {
+  return x.split('#').slice(0, -1);
 }
 
 /**
  * Given a type or member key, return the type key
  */
-function typeKey(x: string): string {
-  return `${x.split('#')[0]}#`;
-}
-
-function isTypeKey(x: string) {
-  return typeKey(x) === x;
+function typeKey(x: HierarchicalElement): string[] {
+  return [x[0]];
 }
 
 function selectApiElements(
   universe: ApiUniverse,
   expressions: QExpr[],
-): Set<string> {
-  const allKeys = new Set(universe.keys());
+): HierarchicalSet {
+  const allKeys = new HierarchicalSet(
+    Array.from(universe.keys()).map(keyFromString),
+  );
 
-  let selected =
+  const currentSelection =
     expressions.length === 0 || expressions[0].op === 'filter'
-      ? new Set(universe.keys())
-      : new Set<string>();
+      ? new HierarchicalSet(allKeys)
+      : new HierarchicalSet();
 
   for (const expr of expressions) {
-    if (expr.op === 'filter') {
-      // Filter retains elements from the current set
-      // Filtering on types implicity filters members by that type
-      const filteredFqns = new Set(
-        filterElements(universe, selected, expr.kind, expr.expression),
-      );
+    const thisQuery = filterElements(
+      universe,
+      allKeys,
+      expr.kind,
+      expr.expression,
+    );
 
-      const filtered = new Set(
-        Array.from(selected).filter(
-          (key) => filteredFqns.has(key) || filteredFqns.has(typeKey(key)),
-        ),
-      );
-
-      if (expr.remove) {
-        setRemove(selected, filtered);
-      } else {
-        selected = filtered;
-      }
+    if (expr.op === 'filter' && expr.remove) {
+      currentSelection.remove(thisQuery);
+    } else if (expr.op === 'filter') {
+      currentSelection.intersect(new HierarchicalSet(thisQuery));
     } else {
-      // Select adds elements (by filtering from the full set and adding to the current one)
-      // Selecting implicitly also adds all elements underneath
-      const fromUniverse = Array.from(
-        filterElements(universe, allKeys, expr.kind, expr.expression),
-      );
-
-      const newElements = Array.from(allKeys).filter((uniKey) =>
-        fromUniverse.some((key) => uniKey.startsWith(key)),
-      );
-
-      setAdd(selected, newElements);
+      currentSelection.add(thisQuery);
     }
   }
 
-  return selected;
+  return currentSelection;
 }
 
 function* filterElements(
   universe: ApiUniverse,
-  elements: Set<string>,
+  elements: HierarchicalSet,
   kind: ApiKind,
   expression?: string,
-): IterableIterator<string> {
+): Iterable<HierarchicalElement> {
   const pred = new Predicate(expression);
 
   for (const key of elements) {
-    const el = universe.get(key);
+    const el = universe.get(stringFromKey(key));
     if (!el) {
-      throw new Error(`Key not in universe: ${key}`);
+      throw new Error(`Key not in universe: ${stringFromKey(key)}`);
     }
     if (matches(el, kind, pred)) {
       yield key;
@@ -307,7 +275,7 @@ function selectAll(typesys: TypeSystem): ApiUniverse {
       ...typesys.enums,
       ...typesys.methods,
       ...typesys.properties,
-    ].map((el) => [apiElementKey(el), el]),
+    ].map((el) => [stringFromKey(apiElementKey(el)), el]),
   );
 }
 
@@ -428,18 +396,6 @@ function renderParams(ps?: Parameter[]) {
 
 function combine(...xs: string[]) {
   return xs.filter((x) => x).join(' ');
-}
-
-function setAdd<A>(a: Set<A>, b: Iterable<A>) {
-  for (const x of b) {
-    a.add(x);
-  }
-}
-
-function setRemove<A>(a: Set<A>, b: Iterable<A>) {
-  for (const x of b) {
-    a.delete(x);
-  }
 }
 
 // A list of all valid API element kinds

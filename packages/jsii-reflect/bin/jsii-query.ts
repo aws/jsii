@@ -104,8 +104,12 @@ $ jsii-query --members node_modules/aws-cdk-lib 'method:name.includes("grant")'
 
 Select all classes that have a grant method:
 $ jsii-query --types node_modules/aws-cdk-lib class 'method:name.includes("grant")'
-OR:
+    -or-
 $ jsii-query --types -- node_modules/aws-cdk-lib -interface 'method:name.includes("grant")'
+                    ^^^^ note this
+
+Select all classes that have methods that are named either 'foo' or 'bar':
+$ jsii-query --types node_modules/some-package '+method:name=="foo"' '+method:name=="bar"' .class
 
 `).argv;
 
