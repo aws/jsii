@@ -24,7 +24,10 @@ import { VERSION } from '../lib/version';
 
 const LOG = log4js.getLogger('jsii-diff');
 
-const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
+const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
+  'intersection-types',
+  'class-covariant-overrides',
+];
 
 async function main(): Promise<number> {
   const argv = await yargs
