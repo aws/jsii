@@ -28,7 +28,7 @@
     "gen": "bash generate.sh",
     "build": "yarn gen && tsc --build && chmod +x bin/jsii-pacmak && yarn lint",
     "watch": "tsc --build -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "yarn test:unit && yarn test:build",
     "test:unit": "jest",
