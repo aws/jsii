@@ -45,7 +45,7 @@
     "@types/tar-fs": "^2.0.4",
     "@types/yargs": "^17.0.33",
     "jest-expect-message": "^1.1.3",
-    "jsii": "^5.9.6",
+    "jsii": "^5.9.10" ,
     "jsii-build-tools": "^0.0.0"
   }
 }

@@ -8,7 +8,10 @@ import * as logging from '../lib/logging';
 
 export const DEFAULT_PACK_COMMAND = 'npm pack';
 
-const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
+const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
+  'intersection-types',
+  'class-covariant-overrides',
+];
 
 export interface JsiiModuleOptions {
   /**
