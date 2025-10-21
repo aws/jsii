@@ -10,7 +10,7 @@
     "build": "tsc --build && yarn lint",
     "build+test": "tsc --build && yarn test",
     "watch": "tsc --build -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "package": "package-js",
