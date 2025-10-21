@@ -27,7 +27,7 @@
   "scripts": {
     "build": "tsc --build && chmod +x bin/jsii-tree && yarn lint",
     "watch": "tsc --build -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
@@ -45,7 +45,7 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/yargs": "^17.0.33",
-    "jsii": "^5.9.6",
+    "jsii": "^5.9.10" ,
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120"
   }

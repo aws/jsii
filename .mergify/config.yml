@@ -4,7 +4,10 @@ merge_queue:
   max_parallel_checks: 1
 queue_rules:
   - name: default-squash
-    conditions:
+    queue_conditions:
+      - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
+    merge_conditions:
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     commit_message_template: |-
@@ -15,7 +18,10 @@ queue_rules:
     batch_size: 1
 
   - name: default-merge
-    conditions:
+    queue_conditions:
+      - status-success=Unit Tests
+      - status-success=Integration test (jsii-pacmak)
+    merge_conditions:
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     commit_message_template: |-

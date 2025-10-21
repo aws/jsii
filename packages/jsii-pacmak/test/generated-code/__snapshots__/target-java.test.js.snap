@@ -3990,6 +3990,15 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 ConsumerCanRingBell.java
           ┃                 ┣━ 📄 ConsumersOfThisCrazyTypeSystem.java
           ┃                 ┣━ 📄 ContainerProps.java
+          ┃                 ┣━ 📁 covariant_overrides
+          ┃                 ┃  ┗━ 📁 class_overrides
+          ┃                 ┃     ┣━ 📄 Base.java
+          ┃                 ┃     ┣━ 📄 Derived.java
+          ┃                 ┃     ┣━ 📄 IBase.java
+          ┃                 ┃     ┣━ 📄 Middle.java
+          ┃                 ┃     ┣━ 📄 Subclass.java
+          ┃                 ┃     ┣━ 📄 SubSubclass.java
+          ┃                 ┃     ┗━ 📄 Superclass.java
           ┃                 ┣━ 📄 DataRenderer.java
           ┃                 ┣━ 📄 Default.java
           ┃                 ┣━ 📄 DefaultedConstructorArgument.java
@@ -24966,6 +24975,301 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/Base.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ * Base class with methods and properties that will be overridden with covariant return types.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.Base")
+public class Base extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.IBase {
+
+    protected Base(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Base(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Base() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass createSomething() {
+        return software.amazon.jsii.Kernel.call(this, "createSomething", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass> getList() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.Kernel.get(this, "list", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class))));
+    }
+
+    /**
+     */
+    @Override
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass getSomething() {
+        return software.amazon.jsii.Kernel.get(this, "something", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/Derived.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ * Derived class that demonstrates covariant overrides.
+ * <p>
+ * Both property and method overrides are covariant and will work in C# 9.0+
+ * when the covariant-overrides feature is enabled.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.Derived")
+public class Derived extends software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Middle {
+
+    protected Derived(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Derived(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Derived() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.SubSubclass createSomething() {
+        return software.amazon.jsii.Kernel.call(this, "createSomething", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.SubSubclass.class));
+    }
+
+    /**
+     */
+    @Override
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass> getList() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.Kernel.get(this, "list", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class))));
+    }
+
+    /**
+     */
+    @Override
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.SubSubclass getSomething() {
+        return software.amazon.jsii.Kernel.get(this, "something", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.SubSubclass.class));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/IBase.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.IBase")
+@software.amazon.jsii.Jsii.Proxy(IBase.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IBase extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass getSomething();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.IBase.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass getSomething() {
+            return software.amazon.jsii.Kernel.get(this, "something", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IBase}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IBase {
+
+        /**
+         */
+        @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        default @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass getSomething() {
+            return software.amazon.jsii.Kernel.get(this, "something", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class));
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/Middle.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ * Middle class in the inheritance chain - doesn't override anything.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.Middle")
+public class Middle extends software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Base {
+
+    protected Middle(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Middle(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Middle() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Number getAddUnrelatedMember() {
+        return software.amazon.jsii.Kernel.get(this, "addUnrelatedMember", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void setAddUnrelatedMember(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
+        software.amazon.jsii.Kernel.set(this, "addUnrelatedMember", java.util.Objects.requireNonNull(value, "addUnrelatedMember is required"));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/SubSubclass.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ * Further derived class that extends Subclass.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.SubSubclass")
+public class SubSubclass extends software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Subclass {
+
+    protected SubSubclass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected SubSubclass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public SubSubclass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/Subclass.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ * Derived class that extends Superclass.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.Subclass")
+public class Subclass extends software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass {
+
+    protected Subclass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Subclass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Subclass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/covariant_overrides/class_overrides/Superclass.java 1`] = `
+package software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides;
+
+/**
+ * Base class in the inheritance hierarchy.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.covariantOverrides.classOverrides.Superclass")
+public class Superclass extends software.amazon.jsii.JsiiObject {
+
+    protected Superclass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Superclass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Superclass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/derived_class_has_no_properties/Base.java 1`] = `
 package software.amazon.jsii.tests.calculator.derived_class_has_no_properties;
 
@@ -30257,6 +30561,13 @@ jsii-calc.cdk22369.AcceptsPath=software.amazon.jsii.tests.calculator.cdk22369.Ac
 jsii-calc.cdk22369.AcceptsPathProps=software.amazon.jsii.tests.calculator.cdk22369.AcceptsPathProps
 jsii-calc.composition.CompositeOperation=software.amazon.jsii.tests.calculator.composition.CompositeOperation
 jsii-calc.composition.CompositeOperation.CompositionStringStyle=software.amazon.jsii.tests.calculator.composition.CompositeOperation$CompositionStringStyle
+jsii-calc.covariantOverrides.classOverrides.Base=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Base
+jsii-calc.covariantOverrides.classOverrides.Derived=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Derived
+jsii-calc.covariantOverrides.classOverrides.IBase=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.IBase
+jsii-calc.covariantOverrides.classOverrides.Middle=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Middle
+jsii-calc.covariantOverrides.classOverrides.SubSubclass=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.SubSubclass
+jsii-calc.covariantOverrides.classOverrides.Subclass=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Subclass
+jsii-calc.covariantOverrides.classOverrides.Superclass=software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass
 jsii-calc.homonymousForwardReferences.bar.Consumer=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Consumer
 jsii-calc.homonymousForwardReferences.bar.ConsumerProps=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.ConsumerProps
 jsii-calc.homonymousForwardReferences.bar.Homonymous=software.amazon.jsii.tests.calculator.homonymous_forward_references.bar.Homonymous
