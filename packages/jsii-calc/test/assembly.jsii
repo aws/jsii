@@ -146,7 +146,7 @@
     "stability": "stable"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "5.9.6",
+  "jsiiVersion": "5.9.10",
   "keywords": [
     "aws",
     "jsii",
@@ -241,6 +241,20 @@
         "line": 143
       },
       "symbolId": "lib/calculator:composition"
+    },
+    "jsii-calc.covariantOverrides": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 34
+      },
+      "symbolId": "lib/covariant-overrides/index:"
+    },
+    "jsii-calc.covariantOverrides.classOverrides": {
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/index.ts",
+        "line": 1
+      },
+      "symbolId": "lib/covariant-overrides/class-overrides:"
     },
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
@@ -16717,6 +16731,295 @@
       "namespace": "composition.CompositeOperation",
       "symbolId": "lib/calculator:composition.CompositeOperation.CompositionStringStyle"
     },
+    "jsii-calc.covariantOverrides.classOverrides.Base": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Base class with methods and properties that will be overridden with covariant return types."
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.Base",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "interfaces": [
+        "jsii-calc.covariantOverrides.classOverrides.IBase"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 22
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 26
+          },
+          "name": "createSomething",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.covariantOverrides.classOverrides.Superclass"
+            }
+          }
+        }
+      ],
+      "name": "Base",
+      "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 24
+          },
+          "name": "list",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.covariantOverrides.classOverrides.Superclass"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 23
+          },
+          "name": "something",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.IBase",
+          "type": {
+            "fqn": "jsii-calc.covariantOverrides.classOverrides.Superclass"
+          }
+        }
+      ],
+      "symbolId": "lib/covariant-overrides/class-overrides:Base"
+    },
+    "jsii-calc.covariantOverrides.classOverrides.Derived": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.covariantOverrides.classOverrides.Middle",
+      "docs": {
+        "remarks": "Both property and method overrides are covariant and will work in C# 9.0+\nwhen the covariant-overrides feature is enabled.",
+        "stability": "stable",
+        "summary": "Derived class that demonstrates covariant overrides."
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.Derived",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 42
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 48
+          },
+          "name": "createSomething",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Base",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.covariantOverrides.classOverrides.SubSubclass"
+            }
+          }
+        }
+      ],
+      "name": "Derived",
+      "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 45
+          },
+          "name": "list",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Base",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.covariantOverrides.classOverrides.Superclass"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 44
+          },
+          "name": "something",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Base",
+          "type": {
+            "fqn": "jsii-calc.covariantOverrides.classOverrides.SubSubclass"
+          }
+        }
+      ],
+      "symbolId": "lib/covariant-overrides/class-overrides:Derived"
+    },
+    "jsii-calc.covariantOverrides.classOverrides.IBase": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.IBase",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 17
+      },
+      "name": "IBase",
+      "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 18
+          },
+          "name": "something",
+          "type": {
+            "fqn": "jsii-calc.covariantOverrides.classOverrides.Superclass"
+          }
+        }
+      ],
+      "symbolId": "lib/covariant-overrides/class-overrides:IBase"
+    },
+    "jsii-calc.covariantOverrides.classOverrides.Middle": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.covariantOverrides.classOverrides.Base",
+      "docs": {
+        "stability": "stable",
+        "summary": "Middle class in the inheritance chain - doesn't override anything."
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.Middle",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 32
+      },
+      "name": "Middle",
+      "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 33
+          },
+          "name": "addUnrelatedMember",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ],
+      "symbolId": "lib/covariant-overrides/class-overrides:Middle"
+    },
+    "jsii-calc.covariantOverrides.classOverrides.SubSubclass": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.covariantOverrides.classOverrides.Subclass",
+      "docs": {
+        "stability": "stable",
+        "summary": "Further derived class that extends Subclass."
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.SubSubclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 15
+      },
+      "name": "SubSubclass",
+      "namespace": "covariantOverrides.classOverrides",
+      "symbolId": "lib/covariant-overrides/class-overrides:SubSubclass"
+    },
+    "jsii-calc.covariantOverrides.classOverrides.Subclass": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.covariantOverrides.classOverrides.Superclass",
+      "docs": {
+        "stability": "stable",
+        "summary": "Derived class that extends Superclass."
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.Subclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 12
+      },
+      "name": "Subclass",
+      "namespace": "covariantOverrides.classOverrides",
+      "symbolId": "lib/covariant-overrides/class-overrides:Subclass"
+    },
+    "jsii-calc.covariantOverrides.classOverrides.Superclass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Base class in the inheritance hierarchy."
+      },
+      "fqn": "jsii-calc.covariantOverrides.classOverrides.Superclass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/covariant-overrides/class-overrides.ts",
+        "line": 9
+      },
+      "name": "Superclass",
+      "namespace": "covariantOverrides.classOverrides",
+      "symbolId": "lib/covariant-overrides/class-overrides:Superclass"
+    },
     "jsii-calc.homonymousForwardReferences.bar.Consumer": {
       "assembly": "jsii-calc",
       "docs": {
@@ -19365,8 +19668,9 @@
     }
   },
   "usedFeatures": [
+    "class-covariant-overrides",
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "GVwmWxAUwVMUeujfDgP0gEVA7pfU5wIz05Iyw8VL0RE="
+  "fingerprint": "bgdsE4i6uPRf3d8FnIARS1FO4PilyDwzanABdH+SqIg="
 }

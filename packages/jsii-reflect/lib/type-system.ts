@@ -23,7 +23,14 @@ import { findDependencyDirectory, isBuiltinModule } from './util';
  */
 export const JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES: JsiiFeature[] = [
   'intersection-types',
+  'class-covariant-overrides',
 ];
+
+/**
+ * All supported features as a type
+ */
+export type JsiiReflectSupportedAssemblyFeatures =
+  (typeof JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES)[number];
 
 export class TypeSystem {
   /**
@@ -367,7 +374,7 @@ export class TypeSystem {
   private loadAssembly(
     file: string,
     validate = true,
-    supportedFeatures?: JsiiFeature[],
+    supportedFeatures?: JsiiReflectSupportedAssemblyFeatures[],
   ) {
     validateFeatureSubset(supportedFeatures);
     const contents = loadAssemblyFromFile(file, validate, supportedFeatures);

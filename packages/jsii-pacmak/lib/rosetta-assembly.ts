@@ -4,6 +4,7 @@ import { RosettaTabletReader } from 'jsii-rosetta';
 
 const ROSETTA_SUPPORTED_ASSEMBLY_FEATURES: JsiiFeature[] = [
   'intersection-types',
+  'class-covariant-overrides',
 ];
 
 /**
