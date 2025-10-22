@@ -26,6 +26,12 @@ export const JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES: JsiiFeature[] = [
   'class-covariant-overrides',
 ];
 
+/**
+ * All supported features as a type
+ */
+export type JsiiReflectSupportedAssemblyFeatures =
+  (typeof JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES)[number];
+
 export class TypeSystem {
   /**
    * The "root" assemblies (ones that loaded explicitly via a "load" call).
@@ -368,7 +374,7 @@ export class TypeSystem {
   private loadAssembly(
     file: string,
     validate = true,
-    supportedFeatures?: JsiiFeature[],
+    supportedFeatures?: JsiiReflectSupportedAssemblyFeatures[],
   ) {
     validateFeatureSubset(supportedFeatures);
     const contents = loadAssemblyFromFile(file, validate, supportedFeatures);
