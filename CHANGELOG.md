@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.117.0](https://github.com/aws/jsii/compare/v1.116.0...v1.117.0) (2025-10-22)
+
+
+### Features
+
+* support class covariant overrides in kernel, tools and docs ([#4925](https://github.com/aws/jsii/issues/4925)) ([cf4a0b6](https://github.com/aws/jsii/commit/cf4a0b6f2789705ea63df9f305a7ea721c84baf0))
+
+
+### Bug Fixes
+
+* **jsii-reflect:** statically guarantee JsiiFeature subset ([#4956](https://github.com/aws/jsii/issues/4956)) ([17bf498](https://github.com/aws/jsii/commit/17bf498bfb744ac080d2f7ee14a308d8cf81f174))
+
 ## [1.116.0](https://github.com/aws/jsii/compare/v1.115.0...v1.116.0) (2025-10-14)
 
 
