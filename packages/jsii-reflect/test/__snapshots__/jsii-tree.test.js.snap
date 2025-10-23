@@ -174,6 +174,58 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle (stable)
  │ │ │     ├── NORMAL (stable)
  │ │ │     └── DECORATED (stable)
+ │ │ ├─┬ covariantOverrides
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ classOverrides
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class Base (stable)
+ │ │ │ │     │ ├── interfaces: IBase
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer (stable)
+ │ │ │ │     │   ├─┬ createSomething() method (stable)
+ │ │ │ │     │   │ └── returns: jsii-calc.covariantOverrides.classOverrides.Superclass
+ │ │ │ │     │   ├─┬ list property (stable)
+ │ │ │ │     │   │ ├── immutable
+ │ │ │ │     │   │ └── type: Array<jsii-calc.covariantOverrides.classOverrides.Superclass>
+ │ │ │ │     │   └─┬ something property (stable)
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: jsii-calc.covariantOverrides.classOverrides.Superclass
+ │ │ │ │     ├─┬ class Derived (stable)
+ │ │ │ │     │ ├── base: Middle
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer (stable)
+ │ │ │ │     │   ├─┬ createSomething() method (stable)
+ │ │ │ │     │   │ └── returns: jsii-calc.covariantOverrides.classOverrides.SubSubclass
+ │ │ │ │     │   ├─┬ list property (stable)
+ │ │ │ │     │   │ ├── immutable
+ │ │ │ │     │   │ └── type: Array<jsii-calc.covariantOverrides.classOverrides.Superclass>
+ │ │ │ │     │   └─┬ something property (stable)
+ │ │ │ │     │     ├── immutable
+ │ │ │ │     │     └── type: jsii-calc.covariantOverrides.classOverrides.SubSubclass
+ │ │ │ │     ├─┬ class Middle (stable)
+ │ │ │ │     │ ├── base: Base
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer (stable)
+ │ │ │ │     │   └─┬ addUnrelatedMember property (stable)
+ │ │ │ │     │     └── type: number
+ │ │ │ │     ├─┬ class SubSubclass (stable)
+ │ │ │ │     │ ├── base: Subclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer (stable)
+ │ │ │ │     ├─┬ class Subclass (stable)
+ │ │ │ │     │ ├── base: Superclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer (stable)
+ │ │ │ │     ├─┬ class Superclass (stable)
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer (stable)
+ │ │ │ │     └─┬ interface IBase (stable)
+ │ │ │ │       └─┬ members
+ │ │ │ │         └─┬ something property (stable)
+ │ │ │ │           ├── abstract
+ │ │ │ │           ├── immutable
+ │ │ │ │           └── type: jsii-calc.covariantOverrides.classOverrides.Superclass
+ │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
@@ -3814,6 +3866,23 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   ├─┬ class CompositeOperation
  │ │ │   │ └── base: Operation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ covariantOverrides
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ classOverrides
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class Base
+ │ │ │ │     │ └── interfaces: IBase
+ │ │ │ │     ├─┬ class Derived
+ │ │ │ │     │ └── base: Middle
+ │ │ │ │     ├─┬ class Middle
+ │ │ │ │     │ └── base: Base
+ │ │ │ │     ├─┬ class SubSubclass
+ │ │ │ │     │ └── base: Subclass
+ │ │ │ │     ├─┬ class Subclass
+ │ │ │ │     │ └── base: Superclass
+ │ │ │ │     ├── class Superclass
+ │ │ │ │     └── interface IBase
+ │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
@@ -4419,6 +4488,39 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
+ │ │ ├─┬ covariantOverrides
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ classOverrides
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├─┬ class Base
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├── createSomething() method
+ │ │ │ │     │   ├── list property
+ │ │ │ │     │   └── something property
+ │ │ │ │     ├─┬ class Derived
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├── createSomething() method
+ │ │ │ │     │   ├── list property
+ │ │ │ │     │   └── something property
+ │ │ │ │     ├─┬ class Middle
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   └── addUnrelatedMember property
+ │ │ │ │     ├─┬ class SubSubclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     ├─┬ class Subclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     ├─┬ class Superclass
+ │ │ │ │     │ └─┬ members
+ │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     └─┬ interface IBase
+ │ │ │ │       └─┬ members
+ │ │ │ │         └── something property
+ │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
@@ -6060,6 +6162,9 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
+ │   ├─┬ covariantOverrides
+ │   │ └─┬ submodules
+ │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -6149,6 +6254,18 @@ exports[`jsii-tree --types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
+ │ │ ├─┬ covariantOverrides
+ │ │ │ ├─┬ submodules
+ │ │ │ │ └─┬ classOverrides
+ │ │ │ │   └─┬ types
+ │ │ │ │     ├── class Base
+ │ │ │ │     ├── class Derived
+ │ │ │ │     ├── class Middle
+ │ │ │ │     ├── class SubSubclass
+ │ │ │ │     ├── class Subclass
+ │ │ │ │     ├── class Superclass
+ │ │ │ │     └── interface IBase
+ │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
@@ -6571,6 +6688,9 @@ exports[`jsii-tree 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
+ │   ├─┬ covariantOverrides
+ │   │ └─┬ submodules
+ │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar

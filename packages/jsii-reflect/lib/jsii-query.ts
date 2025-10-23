@@ -29,7 +29,10 @@ import {
 } from '../lib';
 import { HierarchicalElement, HierarchicalSet } from './hierarchical-set';
 
-const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = ['intersection-types'];
+const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
+  'intersection-types',
+  'class-covariant-overrides',
+];
 
 export interface JsiiQueryOptions {
   readonly fileName: string;
