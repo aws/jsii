@@ -154,6 +154,6 @@ $ jsii-query --types node_modules/some-package '+method:name=="foo"' '+method:na
 }
 
 main().catch((e) => {
-  console.log(chalk.red(e));
+  console.log(e);
   process.exit(1);
 });

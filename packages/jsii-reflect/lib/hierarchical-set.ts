@@ -7,34 +7,39 @@ interface TrieNode {
 type Trie = Record<string, TrieNode>;
 
 export class HierarchicalSet {
-  private readonly root: TrieNode = {
+  private root: TrieNode = {
     exists: false,
     children: {},
   };
 
   public constructor(elements?: Iterable<HierarchicalElement>) {
     if (elements) {
-      this.add(elements);
+      this.addAll(elements);
     }
   }
 
-  public add(elements: Iterable<HierarchicalElement>): this {
+  public addAll(elements: Iterable<HierarchicalElement>): this {
     for (const element of elements) {
-      if (element.length === 0) {
-        throw new Error('Elements may not be empty');
-      }
-      let node = this.root;
-      for (const segment of element) {
-        if (!(segment in node.children)) {
-          node.children[segment] = {
-            exists: false,
-            children: {},
-          };
-        }
-        node = node.children[segment];
-      }
-      node.exists = true;
+      this.add(element);
     }
+    return this;
+  }
+
+  public add(element: HierarchicalElement): this {
+    if (element.length === 0) {
+      throw new Error('Elements may not be empty');
+    }
+    let node = this.root;
+    for (const segment of element) {
+      if (!(segment in node.children)) {
+        node.children[segment] = {
+          exists: false,
+          children: {},
+        };
+      }
+      node = node.children[segment];
+    }
+    node.exists = true;
     return this;
   }
 
@@ -42,15 +47,19 @@ export class HierarchicalSet {
    * Remove every element from LHS that doesn't have a prefix in RHS
    */
   public intersect(rhs: HierarchicalSet): this {
+    const retainSet = new HierarchicalSet();
+
     for (const el of Array.from(this)) {
       let found = false;
       for (let i = 0; i < el.length && !found; i++) {
         found = found || rhs.has(el.slice(0, i + 1));
       }
-      if (!found) {
-        this.remove([el]);
+      if (found) {
+        retainSet.add(el);
       }
     }
+
+    this.root = retainSet.root;
     return this;
   }
 
@@ -74,12 +83,26 @@ export class HierarchicalSet {
     HierarchicalElement,
     any
   > {
-    const stack: Array<{ trie: Trie; keys: string[]; index: number }> = [];
-    stack.push({
-      trie: this.root.children,
-      keys: Object.keys(this.root.children),
-      index: 0,
-    });
+    if (Object.keys(this.root.children).length === 0) {
+      return {
+        next() {
+          return { done: true } as any;
+        },
+      };
+    }
+
+    // A position in a trie
+    type Cursor = { trie: Trie; keys: string[]; index: number };
+    const stack: Cursor[] = [];
+    function cursorFrom(node: TrieNode): Cursor {
+      return {
+        trie: node.children,
+        keys: Object.keys(node.children),
+        index: 0,
+      };
+    }
+
+    stack.push(cursorFrom(this.root));
     let done = false;
     let cur: (typeof stack)[number] = stack[stack.length - 1];
 
@@ -88,12 +111,8 @@ export class HierarchicalSet {
      */
     function advance() {
       // If we can descend, let's
-      if (Object.keys(cur.trie[cur.keys[cur.index]].children).length > 0) {
-        stack.push({
-          trie: cur.trie[cur.keys[cur.index]].children,
-          index: 0,
-          keys: Object.keys(cur.trie[cur.keys[cur.index]].children),
-        });
+      if (!isEmpty(cur.trie[cur.keys[cur.index]])) {
+        stack.push(cursorFrom(cur.trie[cur.keys[cur.index]]));
         cur = stack[stack.length - 1];
         return;
       }
@@ -156,4 +175,8 @@ export class HierarchicalSet {
 
     return [parent, parts[0]];
   }
+}
+
+function isEmpty(node: TrieNode) {
+  return Object.keys(node.children).length === 0;
 }

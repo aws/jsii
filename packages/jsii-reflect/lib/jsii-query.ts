@@ -85,7 +85,7 @@ function expandSelectToParentsAndChildren(
 ) {
   if (options.returnTypes) {
     // All type keys from either type keys or member keys
-    selected.add(Array.from(selected).map(typeKey));
+    selected.addAll(Array.from(selected).map(typeKey));
   }
 
   if (options.returnMembers) {
@@ -94,7 +94,7 @@ function expandSelectToParentsAndChildren(
     );
 
     // Add all member keys that are members of a selected type
-    selected.add(new HierarchicalSet(allElements).intersect(selected));
+    selected.addAll(new HierarchicalSet(allElements).intersect(selected));
   }
 }
 
@@ -161,11 +161,8 @@ function selectApiElements(
       : new HierarchicalSet();
 
   for (const expr of expressions) {
-    const thisQuery = filterElements(
-      universe,
-      allKeys,
-      expr.kind,
-      expr.expression,
+    const thisQuery = Array.from(
+      filterElements(universe, allKeys, expr.kind, expr.expression),
     );
 
     if (expr.op === 'filter' && expr.remove) {
@@ -173,7 +170,7 @@ function selectApiElements(
     } else if (expr.op === 'filter') {
       currentSelection.intersect(new HierarchicalSet(thisQuery));
     } else {
-      currentSelection.add(thisQuery);
+      currentSelection.addAll(thisQuery);
     }
   }
 
@@ -389,7 +386,8 @@ function renderParams(ps?: Parameter[]) {
     .map((p) => {
       const opt = p.optional ? '?' : '';
       const varia = p.variadic ? '...' : '';
-      return `${varia}${p.name}${opt}: ${p.type.toString()}`;
+      const arr = p.variadic ? '[]' : '';
+      return `${varia}${p.name}${opt}: ${p.type.toString()}${arr}`;
     })
     .join(', ');
 }

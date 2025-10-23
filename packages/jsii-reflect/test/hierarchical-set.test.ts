@@ -1,5 +1,9 @@
 import { HierarchicalSet } from '../lib/hierarchical-set';
 
+test('empty set', () => {
+  expect(Array.from(new HierarchicalSet())).toEqual([]);
+});
+
 test('set iteration', () => {
   const hs = new HierarchicalSet([
     ['a'],
@@ -20,8 +24,8 @@ test('set iteration', () => {
 
 test('add prefix after child', () => {
   const hs = new HierarchicalSet();
-  hs.add([['a', 'b']]);
-  hs.add([['a']]);
+  hs.addAll([['a', 'b']]);
+  hs.addAll([['a']]);
 
   expect(Array.from(hs)).toEqual([['a'], ['a', 'b']]);
 });
@@ -57,6 +61,12 @@ describe('intersect', () => {
 
     x.intersect(new HierarchicalSet([['a']]));
 
+    expect(Array.from(x)).toEqual([['a', 'b']]);
+  });
+
+  test('parent and child only retains child', () => {
+    const x = new HierarchicalSet([['a'], ['a', 'b']]);
+    x.intersect(new HierarchicalSet([['a', 'b'], ['c']]));
     expect(Array.from(x)).toEqual([['a', 'b']]);
   });
 });

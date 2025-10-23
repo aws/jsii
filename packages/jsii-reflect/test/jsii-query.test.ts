@@ -1,4 +1,12 @@
-import { parseExpression, Predicate } from '../lib/jsii-query';
+import * as path from 'path';
+
+import {
+  jsiiQuery,
+  JsiiQueryOptions,
+  parseExpression,
+  Predicate,
+  renderElement,
+} from '../lib/jsii-query';
 
 describe('parseExpression', () => {
   test('+', () => {
@@ -11,20 +19,20 @@ describe('parseExpression', () => {
     expect(parseExpression('-type')).toMatchObject({
       op: 'filter',
       kind: 'type',
-      invert: true,
+      remove: true,
     });
   });
   test('.', () => {
     expect(parseExpression('.type')).toMatchObject({
       op: 'filter',
       kind: 'type',
-      invert: false,
+      remove: false,
     });
 
     expect(parseExpression('type')).toMatchObject({
       op: 'filter',
       kind: 'type',
-      invert: false,
+      remove: false,
     });
   });
 
@@ -32,7 +40,7 @@ describe('parseExpression', () => {
     expect(parseExpression('.property:name.startsWith("x")')).toMatchObject({
       op: 'filter',
       kind: 'property',
-      invert: false,
+      remove: false,
       expression: 'name.startsWith("x")',
     });
   });
@@ -53,3 +61,71 @@ describe('Predicate', () => {
     expect(p.apply({ name: 'blob' })).toBeTruthy();
   });
 });
+
+describe('filtering', () => {
+  test('empty filter returns everything', async () => {
+    const result = await query([], 'members');
+    expect(result.length).toBeGreaterThan(700);
+    expect(result).toContainEqual(
+      'readonly jsii-calc.ExportedBaseClass#success: boolean',
+    );
+  });
+
+  test('filter on method name', async () => {
+    const result = await query(
+      [parseExpression('method:name.includes("con")')],
+      'members',
+    );
+    expect(result).toContainEqual(
+      'static @scope/jsii-calc-base-of-base.StaticConsumer#consume(..._args: any[]): void',
+    );
+  });
+
+  test('filter on methods but expect types', async () => {
+    const result = await query(
+      [parseExpression('method:name.includes("con")')],
+      'types',
+    );
+    expect(result).toContainEqual(
+      'class @scope/jsii-calc-base-of-base.StaticConsumer',
+    );
+  });
+
+  test('filter on type but expect members', async () => {
+    const result = await query(
+      [parseExpression('class:name == "StaticConsumer"')],
+      'members',
+    );
+    expect(result).toContainEqual(
+      'static @scope/jsii-calc-base-of-base.StaticConsumer#consume(..._args: any[]): void',
+    );
+  });
+
+  test('filter on classes with a separate expression', async () => {
+    const result = await query(
+      [
+        parseExpression('method:name.includes("con")'),
+        parseExpression('class'),
+      ],
+      'members',
+    );
+    expect(result).toContainEqual(
+      'static @scope/jsii-calc-base-of-base.StaticConsumer#consume(..._args: any[]): void',
+    );
+  });
+});
+
+async function query(
+  exp: JsiiQueryOptions['expressions'],
+  what: 'members' | 'types' | 'all' = 'all',
+): Promise<string[]> {
+  const jsiiCalcDir = path.dirname(require.resolve('jsii-calc/package.json'));
+
+  const result = await jsiiQuery({
+    fileName: jsiiCalcDir,
+    expressions: exp,
+    returnMembers: what !== 'types',
+    returnTypes: what !== 'members',
+  });
+  return result.map(renderElement);
+}
