@@ -72,7 +72,7 @@ export class TypeSystem {
    */
   public async loadNpmDependencies(
     packageRoot: string,
-    options: { validate?: boolean } = {},
+    options: { validate?: boolean; supportedFeatures?: JsiiFeature[] } = {},
   ): Promise<void> {
     const pkg = await fs.readJson(path.resolve(packageRoot, 'package.json'));
 
