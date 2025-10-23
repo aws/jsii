@@ -18,7 +18,7 @@ coexist in the same closure, it is recommended to also declare all such dependen
 
 Occasionally, a dependency on a *non-jsii module* is useful. Since such dependencies do not have generated bindings in
 all the supported languages, they must be bundled with the *jsii module* that depends on them, by adding the library
-into the `bundleDependencies` array in `package.json`. 
+into the `bundleDependencies` array in `package.json`.
 
 The API of the *jsii module* can not expose any type from bundled dependencies, since those types would not be available in other languages.
 TypeScript files that include a non-jsii dependency (e.g. a lambda handler for an AWS CDK Construct) cannot be exported from the `main`/`types` entry point.
@@ -137,19 +137,26 @@ export class Subclass extends Base {
 ### Covariant Overrides & Parameter List Changes
 
 In **TypeScript**, overriding members can have a signature that differs from the overridden member as long as the new
-signature is compatible with the parent. This is however not supported as:
+signature is compatible with the parent. This is only partially supported in jsii as:
 
-- **Java** and **C#** do not support omitting parameters when overriding or implementing a member
-- **C#** does not support overriding or implementing a member using covariant parameter or return types
+- In **C#** when implementing interfaces, you cannot override members or change return types
+- **C#** only supports covariant overrides to `readonly` properties
+- Both **Java** and **C#** do not support omitting parameters when overriding or implementing a method
+- In **C#** you cannot override method parameters
 
-!!! note
-    **C# 9** introduces support for covariant return types, which would allow relaxing this restriction, however `jsii`
-    must build code targetting the `.NET Core 3.1` runtime, which only supports **C# 8**. Once `.NET Core 3.1` becomes
-    end-of-life, this may change.
+As a consequence, changes to member signatures are only allowed in very few cases.
+All overrides must be covariant to the parent type.
 
-```ts hl_lines="6-7 9-10 12-13"
+- Return type of (non-static) methods
+- `readonly` properties
+
+```ts hl_lines="10-11 13-14 16-17 19-20 22-23"
+export class SuperClass {}
+export class SubClass extends SuperClass {}
+
 export class Base {
-  public method(param: any): any { /* ... */ }
+  public readonly prop: SuperClass;
+  public method(param: SuperClass): SuperClass { /* ... */ }
 }
 
 export class Child extends Base {
@@ -157,20 +164,26 @@ export class Child extends Base {
   public method(): any { /* ... */ }
 
   // 💥 Parameter types do not match, even though they are covariant
-  public method(param: string): any { /* ... */ }
+  public method(param: SubClass): any { /* ... */ }
 
-  // 💥 Return type does not match, even though it is covariant
-  public method(param: any): string { /* ... */ }
+  // 💥 Property types do not match
+  public readonly prop: string;
+
+  // ✅ Return type is covariant
+  public method(param: SuperClass): SubClass { /* ... */ }
+
+  // ✅ Property is readonly and override type is covariant
+  public readonly prop: SubClass;
 }
 ```
 
 ## Index Signatures
 
-**TypeScript** allows declaring _additional properties_ through the use of index signatures. These are however not
-supported by the _jsii type system_ and are rejected by the compiler.
+**TypeScript** allows declaring *additional properties* through the use of index signatures. These are however not
+supported by the *jsii type system* and are rejected by the compiler.
 
 !!! info
-    Version `1.x` of the compiler _silently ignores_ index signatures instead of reporting a compilation error. Users
+    Version `1.x` of the compiler *silently ignores* index signatures instead of reporting a compilation error. Users
     with offending APIs migrating from `jsii@1.x` to `jsii@5.0` or newer need to either remove those declarations, or
     explicitly ignore them using the [`@jsii ignore` tag](./hints.md#excluding-a-declaration-from-multi-language-support).
 

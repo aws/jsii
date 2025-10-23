@@ -28,7 +28,7 @@
     "gen": "bash generate.sh",
     "build": "yarn gen && tsc --build && chmod +x bin/jsii-pacmak && yarn lint",
     "watch": "tsc --build -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "yarn test:unit && yarn test:build",
     "test:unit": "jest",
@@ -62,10 +62,10 @@
     "@types/semver": "^7.7.0",
     "@types/yargs": "^17.0.33",
     "diff": "^5.2.0",
-    "jsii": "^5.9.6",
+    "jsii": "^5.9.10" ,
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-rosetta": "~5.9.6",
+    "jsii-rosetta": "~5.9.10",
     "pyright": "^1.1.403"
   },
   "peerDependencies": {

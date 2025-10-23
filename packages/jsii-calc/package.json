@@ -35,7 +35,7 @@
   "scripts": {
     "build": "jsii --project-references --silence-warnings reserved-word && yarn lint && jsii-rosetta --compile --verbose",
     "watch": "jsii --project-references -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "(ls test/test.*.js | xargs -n1 node) && diff-test test/assembly.jsii .jsii",
     "test:update": "yarn build && UPDATE_DIFF=1 yarn test",
@@ -51,9 +51,9 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "jsii": "5.9.6",
+    "jsii": "5.9.10" ,
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^5.9.6"
+    "jsii-rosetta": "^5.9.10" 
   },
   "jsii": {
     "outdir": "dist",

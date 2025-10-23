@@ -749,18 +749,18 @@
     chalk "^4.1.2"
     semver "^7.7.2"
 
-"@jsii/check-node@1.114.1":
-  version "1.114.1"
-  resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.114.1.tgz#9ff05988721cdee3d295b80a131e10e449e0571d"
-  integrity sha512-SE9H1xBo4D+y259zRWqbrUnWVzCzxZh8ek2G1u5P+wP1n86GcgU+vz8uhJfGagdWFwW1EMW6t4PkPvbYoQG0yw==
+"@jsii/check-node@1.116.0", "@jsii/check-node@^1.116.0":
+  version "1.116.0"
+  resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.116.0.tgz#f4db6461511f60232aa02bfaf46bd607da49bbae"
+  integrity sha512-Avk6AKggZJcWpDLGH8lb5duyfGIVHCmmeglM3LfmQvKU/zumbRfeg4LvUXGqJflnRB7GAbzbx8iDNo8FMjIWjg==
   dependencies:
     chalk "^4.1.2"
     semver "^7.7.2"
 
-"@jsii/spec@1.114.1", "@jsii/spec@^1.114.1":
-  version "1.114.1"
-  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.114.1.tgz#9c064d57f062d913bcfda25b5496bdf4c9c95c46"
-  integrity sha512-SdjVQaNqLkTUK+2R0/t/MnM/NBvv1vzqxO5sn1nnoFD5Wlih8TFOIjl+Q8npzYmOtN+et3D+BMVYrxmVfq4X0w==
+"@jsii/spec@1.116.0", "@jsii/spec@^1.116.0":
+  version "1.116.0"
+  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.116.0.tgz#8da502da897f15b46ac969033cea5cbee4738f43"
+  integrity sha512-BqsOMsE7Md6EwaLammXeCOi20GlsA4lAawIrPN0jHeFjZnEqUsiWRXZw+9EG3lTImW9QLVN1cF9kbQ3t3vAXeQ==
   dependencies:
     ajv "^8.17.1"
 
@@ -5237,37 +5237,37 @@ jsesc@^3.0.2:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-3.1.0.tgz#74d335a234f67ed19907fdadfac7ccf9d409825d"
   integrity sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==
 
-jsii-rosetta@^5.9.6, jsii-rosetta@~5.9.6:
-  version "5.9.6"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.6.tgz#d51d766589af10cf5967d7120ab40758a8811d46"
-  integrity sha512-oRf+Yjp5n/DjS2WsEWDCAw9wKyqXybPjXcpytXUNEFooXuF/Qpg2WcyPLPpjfdgq+c+ZVSdk50YdPbXrCa8Ejw==
+jsii-rosetta@^5.9.10, jsii-rosetta@~5.9.10:
+  version "5.9.10"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.10.tgz#5a692caa867fce5e8b6214d162f6e5ab62c9c3d2"
+  integrity sha512-1hiCus0LxA2V7vaNGh5jTQ6Ji1WUX+wAoEawBon/ozTFLqBTUxgGXyYPbN2Njv0nh/wux3EEDLaPtbkuiHWmHg==
   dependencies:
-    "@jsii/check-node" "1.114.1"
-    "@jsii/spec" "^1.114.1"
+    "@jsii/check-node" "^1.116.0"
+    "@jsii/spec" "^1.116.0"
     "@xmldom/xmldom" "^0.9.8"
     chalk "^4"
     commonmark "^0.31.2"
     fast-glob "^3.3.3"
     jsii "~5.9.1"
-    semver "^7.7.2"
+    semver "^7.7.3"
     semver-intersect "^1.5.0"
     stream-json "^1.9.1"
     typescript "~5.9"
     workerpool "^6.5.1"
     yargs "^17.7.2"
 
-jsii@5.9.6, jsii@^5.9.6:
-  version "5.9.6"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.6.tgz#8d908101262bc61e50d5353cb7ad13ba843a2448"
-  integrity sha512-OKy0/zkolKUXDZDv747g0f8AXiEmgRRWJ2lrWLDy7AAzDyQ9ZjRE/Fb4aeWbbstJXd5+F3yTf9ewhAcsQ1e8vw==
+jsii@5.9.10, jsii@^5.9.10:
+  version "5.9.10"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-5.9.10.tgz#0324c973a9f259b14e78e7018be4cf02ba10a2a8"
+  integrity sha512-5CcN7hMRJArrVWL9RCYlTtKf6ZXO4Oi6NNxtuAyjAESF/uxy8i/maDdR72Ot1r8GlFq2bUFK0nimE3+ZP2UCHA==
   dependencies:
-    "@jsii/check-node" "1.114.1"
-    "@jsii/spec" "1.114.1"
+    "@jsii/check-node" "1.116.0"
+    "@jsii/spec" "1.116.0"
     case "^1.6.3"
     chalk "^4"
     fast-deep-equal "^3.1.3"
     log4js "^6.9.1"
-    semver "^7.7.2"
+    semver "^7.7.3"
     semver-intersect "^1.5.0"
     sort-json "^2.0.1"
     spdx-license-list "^6.10.0"
@@ -7053,6 +7053,11 @@ semver@^7.0.0, semver@^7.1.1, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7, semve
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.2.tgz#67d99fdcd35cec21e6f8b87a7fd515a33f982b58"
   integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
+
+semver@^7.7.3:
+  version "7.7.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
+  integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
 
 sentence-case@^2.1.1:
   version "2.1.1"

@@ -26,7 +26,7 @@
   "scripts": {
     "build": "bash ./generate.sh && tsc --build && yarn lint",
     "watch": "bash ./generate.sh && tsc --build -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
@@ -45,7 +45,7 @@
     "@types/tar-fs": "^2.0.4",
     "@types/yargs": "^17.0.33",
     "jest-expect-message": "^1.1.3",
-    "jsii": "^5.9.6",
+    "jsii": "^5.9.10" ,
     "jsii-build-tools": "^0.0.0"
   }
 }
