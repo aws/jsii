@@ -14,9 +14,6 @@ exports[`defaults 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
- │   ├─┬ covariantOverrides
- │   │ └─┬ submodules
- │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -79,9 +76,6 @@ exports[`inheritance 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
- │   ├─┬ covariantOverrides
- │   │ └─┬ submodules
- │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -144,9 +138,6 @@ exports[`members 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
- │   ├─┬ covariantOverrides
- │   │ └─┬ submodules
- │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -369,58 +360,6 @@ exports[`showAll 1`] = `
  │ │ │   └─┬ enum CompositionStringStyle
  │ │ │     ├── NORMAL
  │ │ │     └── DECORATED
- │ │ ├─┬ covariantOverrides
- │ │ │ ├─┬ submodules
- │ │ │ │ └─┬ classOverrides
- │ │ │ │   └─┬ types
- │ │ │ │     ├─┬ class Base
- │ │ │ │     │ ├── interfaces: IBase
- │ │ │ │     │ └─┬ members
- │ │ │ │     │   ├── <initializer>() initializer
- │ │ │ │     │   ├─┬ createSomething() method
- │ │ │ │     │   │ └── returns: jsii-calc.covariantOverrides.classOverrides.Superclass
- │ │ │ │     │   ├─┬ list property
- │ │ │ │     │   │ ├── immutable
- │ │ │ │     │   │ └── type: Array<jsii-calc.covariantOverrides.classOverrides.Superclass>
- │ │ │ │     │   └─┬ something property
- │ │ │ │     │     ├── immutable
- │ │ │ │     │     └── type: jsii-calc.covariantOverrides.classOverrides.Superclass
- │ │ │ │     ├─┬ class Derived
- │ │ │ │     │ ├── base: Middle
- │ │ │ │     │ └─┬ members
- │ │ │ │     │   ├── <initializer>() initializer
- │ │ │ │     │   ├─┬ createSomething() method
- │ │ │ │     │   │ └── returns: jsii-calc.covariantOverrides.classOverrides.SubSubclass
- │ │ │ │     │   ├─┬ list property
- │ │ │ │     │   │ ├── immutable
- │ │ │ │     │   │ └── type: Array<jsii-calc.covariantOverrides.classOverrides.Superclass>
- │ │ │ │     │   └─┬ something property
- │ │ │ │     │     ├── immutable
- │ │ │ │     │     └── type: jsii-calc.covariantOverrides.classOverrides.SubSubclass
- │ │ │ │     ├─┬ class Middle
- │ │ │ │     │ ├── base: Base
- │ │ │ │     │ └─┬ members
- │ │ │ │     │   ├── <initializer>() initializer
- │ │ │ │     │   └─┬ addUnrelatedMember property
- │ │ │ │     │     └── type: number
- │ │ │ │     ├─┬ class SubSubclass
- │ │ │ │     │ ├── base: Subclass
- │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
- │ │ │ │     ├─┬ class Subclass
- │ │ │ │     │ ├── base: Superclass
- │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
- │ │ │ │     ├─┬ class Superclass
- │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
- │ │ │ │     └─┬ interface IBase
- │ │ │ │       └─┬ members
- │ │ │ │         └─┬ something property
- │ │ │ │           ├── abstract
- │ │ │ │           ├── immutable
- │ │ │ │           └── type: jsii-calc.covariantOverrides.classOverrides.Superclass
- │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
@@ -4031,9 +3970,6 @@ exports[`signatures 1`] = `
  │   │   └── donotimport
  │   ├── cdk22369
  │   ├── composition
- │   ├─┬ covariantOverrides
- │   │ └─┬ submodules
- │   │   └── classOverrides
  │   ├─┬ homonymousForwardReferences
  │   │ └─┬ submodules
  │   │   ├── bar
@@ -4123,18 +4059,6 @@ exports[`types 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├── class CompositeOperation
  │ │ │   └── enum CompositionStringStyle
- │ │ ├─┬ covariantOverrides
- │ │ │ ├─┬ submodules
- │ │ │ │ └─┬ classOverrides
- │ │ │ │   └─┬ types
- │ │ │ │     ├── class Base
- │ │ │ │     ├── class Derived
- │ │ │ │     ├── class Middle
- │ │ │ │     ├── class SubSubclass
- │ │ │ │     ├── class Subclass
- │ │ │ │     ├── class Superclass
- │ │ │ │     └── interface IBase
- │ │ │ └── types
  │ │ ├─┬ homonymousForwardReferences
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ bar
