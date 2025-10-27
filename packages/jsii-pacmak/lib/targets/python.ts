@@ -1634,6 +1634,7 @@ class PythonModule implements PythonType {
   private readonly members = new Array<PythonBase>();
 
   private readonly modules = new Array<PythonModule>();
+  private readonly imported = new Set<string>();
 
   public constructor(
     public readonly pythonName: string,
@@ -1795,14 +1796,13 @@ class PythonModule implements PythonType {
         distanceFromRoot++;
       }
       code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
-
-      this.emitRequiredImports(code, context);
     }
 
     // Emit all of our members.
     for (const member of prepareMembers(this.members, resolver)) {
       code.line();
       code.line();
+      this.emitImports(code, member.requiredImports(context));
       member.emit(code, context);
     }
 
@@ -2010,9 +2010,24 @@ class PythonModule implements PythonType {
     }
   }
 
-  private emitRequiredImports(code: CodeMaker, context: EmitContext) {
-    const requiredImports = this.requiredImports(context);
-    const statements = Object.entries(requiredImports)
+  /**
+   * For a given list of imports, return the ones that have not been imported yet.
+   */
+  private missingImports(imports: PythonImports): PythonImports {
+    const result: Record<string, Set<string>> = {};
+    for (const [source, items] of Object.entries(imports)) {
+      const missing = Array.from(items).filter(
+        (item) => !this.imported.has(`${source}.${item}`),
+      );
+      if (missing.length > 0) {
+        result[source] = new Set(missing);
+      }
+    }
+    return result;
+  }
+
+  private emitImports(code: CodeMaker, imports: PythonImports) {
+    const statements = Object.entries(this.missingImports(imports))
       .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
       .reduce(
         (acc, elt) => [...acc, ...elt],
