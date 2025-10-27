@@ -49,7 +49,9 @@ const d = new Dog({ name: 'Fido' });
 console.log(d.name.toLowerCase());
 
 // Not valid anymore after the type of `d.name` has changed into `string | undefined`.
-// 'd.name' can be undefined, and we have to account for that with an `if`!
+// 'd.name' can be undefined, and calling `undefined.toLowerCase()` would throw an error.
+// The user will have to account for that with an `if`, which means changing their code,
+// which means a breaking change.
 ```
 
 ### Optional properties: how to solve
@@ -82,6 +84,30 @@ class Dog {
 This doesn't break any existing users: all their Dogs will have names, so they will not hit the exception path.
 
 For new users that fail to give their Dog a name, presumably they will be aware that their Dog doesn't have a name, so they can avoid trying to read it. If you want to give them a way to avoid the exception, add a `public get hasName(): boolean` field so they can test for the existence of the name before accessing it.
+
+### Optional properties: what about structs?
+
+In the above example, we said that `DogOptions#name` was an *input* and `Dog#name` was an *output*. Does that mean it's
+always okay to change struct (data interface) fields to optional? 
+
+Not necessarily! It depends on how the struct is used. If the struct is used as the return value of a method or the 
+type of a class proeprty somewhere, it is in *output position* and all of its fields are as well. So if you have the following
+class:
+
+```ts
+class Dog {
+  public readonly options: DogOptions; // DogOptions is an OUTPUT
+
+  constructor(options: DogOptions) {  // DogOptions is an INPUT
+    this.options = options;
+  }
+}
+```
+
+Then `DogOptions` is now both in input as well as output position, and you're not allowed to make anything optional anymore!
+
+(That's why using the same struct name to represent both input and output data is best avoided, because it limits
+evolvability).
 
 ## Changing types to superclass/subclass
 
