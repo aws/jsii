@@ -186,13 +186,14 @@ export abstract class GoMethod implements GoTypeMember {
   public readonly parameters: GoParameter[];
   protected readonly apiLocation: ApiLocation;
   #validator: ParameterValidator | undefined | null = null;
+  private _methodForSignature?: Callable;
 
   public constructor(
     public readonly parent: GoClass | GoInterface,
     public readonly method: Callable,
   ) {
     this.name = jsiiToPascalCase(method.name);
-    this.parameters = this.method.parameters.map(
+    this.parameters = this.methodForSignature.parameters.map(
       (param) => new GoParameter(parent, param),
     );
 
@@ -214,8 +215,9 @@ export abstract class GoMethod implements GoTypeMember {
   public abstract get specialDependencies(): SpecialDependencies;
 
   public get reference(): GoTypeRef | undefined {
-    if (Method.isMethod(this.method) && this.method.returns.type) {
-      return new GoTypeRef(this.parent.pkg.root, this.method.returns.type);
+    const sig = this.methodForSignature;
+    if (Method.isMethod(sig) && sig.returns.type) {
+      return new GoTypeRef(this.parent.pkg.root, sig.returns.type);
     }
     return undefined;
   }
@@ -234,7 +236,8 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedReference(this.parent.pkg) ?? this.method.toString()
+      this.reference?.scopedReference(this.parent.pkg) ??
+      this.methodForSignature.toString()
     );
   }
 
@@ -254,6 +257,45 @@ export abstract class GoMethod implements GoTypeMember {
     return this.parameters.length === 0
       ? ''
       : this.parameters.map((p) => p.toString()).join(', ');
+  }
+
+  /**
+   * Returns the first method we're overriding
+   *
+   * This is necessary because jsii allows classes to make the return type of
+   * methods in subclasses more specific (this is known as "covariant return
+   * types"), but Go doesn't support this feature.
+   *
+   * If we render the signature of the method itself, and it has changed its
+   * return type, Go will see that as two conflicting definitions of the same
+   * method.
+   *
+   * So instead, we will always render the type signature of the topmost method.
+   * That is either the same as the current method (in which case it doesn't make
+   * a difference), or it is a different signature, but then that's the one
+   * we need to render to prevent the method collission.
+   */
+  public get methodForSignature(): Callable {
+    // Cache for speed
+    if (this._methodForSignature) {
+      return this._methodForSignature;
+    }
+
+    // Not sure why `this.method :: Callable` and not `this.method :: Method`, but
+    // let's be safe.
+    if (!(this.method instanceof Method)) {
+      return this.method;
+    }
+
+    let ret = this.method;
+    while (true) {
+      const next = ret.overriddenMethod;
+      if (!next) {
+        this._methodForSignature = ret;
+        return ret;
+      }
+      ret = next;
+    }
   }
 }
 
