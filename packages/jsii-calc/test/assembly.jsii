@@ -16749,7 +16749,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/covariant-overrides/class-overrides.ts",
-        "line": 22
+        "line": 42
       },
       "methods": [
         {
@@ -16758,7 +16758,7 @@
           },
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 26
+            "line": 46
           },
           "name": "createSomething",
           "returns": {
@@ -16778,7 +16778,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 24
+            "line": 44
           },
           "name": "list",
           "type": {
@@ -16797,7 +16797,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 23
+            "line": 43
           },
           "name": "something",
           "overrides": "jsii-calc.covariantOverrides.classOverrides.IBase",
@@ -16825,7 +16825,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/covariant-overrides/class-overrides.ts",
-        "line": 42
+        "line": 62
       },
       "methods": [
         {
@@ -16834,7 +16834,7 @@
           },
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 48
+            "line": 68
           },
           "name": "createSomething",
           "overrides": "jsii-calc.covariantOverrides.classOverrides.Base",
@@ -16855,7 +16855,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 45
+            "line": 65
           },
           "name": "list",
           "overrides": "jsii-calc.covariantOverrides.classOverrides.Base",
@@ -16875,7 +16875,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 44
+            "line": 64
           },
           "name": "something",
           "overrides": "jsii-calc.covariantOverrides.classOverrides.Base",
@@ -16895,7 +16895,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/covariant-overrides/class-overrides.ts",
-        "line": 17
+        "line": 37
       },
       "name": "IBase",
       "namespace": "covariantOverrides.classOverrides",
@@ -16908,7 +16908,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 18
+            "line": 38
           },
           "name": "something",
           "type": {
@@ -16934,7 +16934,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/covariant-overrides/class-overrides.ts",
-        "line": 32
+        "line": 52
       },
       "name": "Middle",
       "namespace": "covariantOverrides.classOverrides",
@@ -16945,7 +16945,7 @@
           },
           "locationInModule": {
             "filename": "lib/covariant-overrides/class-overrides.ts",
-            "line": 33
+            "line": 53
           },
           "name": "addUnrelatedMember",
           "type": {
@@ -16971,10 +16971,58 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/covariant-overrides/class-overrides.ts",
-        "line": 15
+        "line": 25
       },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 32
+          },
+          "name": "sayHello",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Subclass",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
       "name": "SubSubclass",
       "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 31
+          },
+          "name": "name",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Subclass",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Ensures this class is different than its parent."
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 29
+          },
+          "name": "unique",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
       "symbolId": "lib/covariant-overrides/class-overrides:SubSubclass"
     },
     "jsii-calc.covariantOverrides.classOverrides.Subclass": {
@@ -16993,10 +17041,44 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/covariant-overrides/class-overrides.ts",
-        "line": 12
+        "line": 17
       },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 19
+          },
+          "name": "sayHello",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Superclass",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
       "name": "Subclass",
       "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 18
+          },
+          "name": "name",
+          "overrides": "jsii-calc.covariantOverrides.classOverrides.Superclass",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
       "symbolId": "lib/covariant-overrides/class-overrides:Subclass"
     },
     "jsii-calc.covariantOverrides.classOverrides.Superclass": {
@@ -17016,8 +17098,40 @@
         "filename": "lib/covariant-overrides/class-overrides.ts",
         "line": 9
       },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 11
+          },
+          "name": "sayHello",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
       "name": "Superclass",
       "namespace": "covariantOverrides.classOverrides",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/covariant-overrides/class-overrides.ts",
+            "line": 10
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
       "symbolId": "lib/covariant-overrides/class-overrides:Superclass"
     },
     "jsii-calc.homonymousForwardReferences.bar.Consumer": {
@@ -19672,5 +19786,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "bgdsE4i6uPRf3d8FnIARS1FO4PilyDwzanABdH+SqIg="
+  "fingerprint": "6Vy4e6a5fe6HlMnZVVfUxQ6kP2NgQEfEjwgiDHv/Ssw="
 }

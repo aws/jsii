@@ -79,4 +79,15 @@ export class Method
   public get static(): boolean {
     return !!this.spec.static;
   }
+
+  /**
+   * The Method that this method overrides, if any
+   */
+  public get overriddenMethod(): Method | undefined {
+    const o = this.overrides;
+    if (o && (o.isClassType() || o.isInterfaceType())) {
+      return o.ownMethods.find((m) => m.name === this.name);
+    }
+    return undefined;
+  }
 }

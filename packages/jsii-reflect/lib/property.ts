@@ -107,4 +107,15 @@ export class Property
   public get locationInRepository(): SourceLocation | undefined {
     return locationInRepository(this);
   }
+
+  /**
+   * The Property that this property overrides, if any
+   */
+  public get overriddenProperty(): Property | undefined {
+    const o = this.overrides;
+    if (o && (o.isClassType() || o.isInterfaceType())) {
+      return o.ownProperties.find((p) => p.name === this.name);
+    }
+    return undefined;
+  }
 }

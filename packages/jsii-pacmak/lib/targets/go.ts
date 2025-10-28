@@ -56,8 +56,13 @@ export class Golang extends Target {
       return Promise.reject(e);
     }
 
-    if (process.env.JSII_BUILD_GO) {
-      // This step is taken to ensure that the generated code is compilable
+    // This step is taken to ensure that the generated code is compilable
+    // Do it by default, because we didn't use to and that was masking a code generation
+    // problem.
+    const doBuild = !['false', '0', 'no'].includes(
+      process.env.JSII_BUILD_GO ?? '1',
+    );
+    if (doBuild) {
       await go('build', ['-modfile', localGoMod.path, './...'], {
         cwd: pkgDir,
       });

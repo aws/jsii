@@ -1,4 +1,4 @@
-import { Method, ClassType, Initializer } from 'jsii-reflect';
+import { Method, ClassType, Initializer, Docs } from 'jsii-reflect';
 
 import { jsiiToPascalCase } from '../../../naming-util';
 import * as comparators from '../comparators';
@@ -371,7 +371,26 @@ export class ClassMethod extends GoMethod {
   public emitDecl({ code, documenter }: EmitContext) {
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
     documenter.emit(this.method.docs, this.apiLocation);
+    // Document the actual return type
+    if (this.returnTypeForDocs !== this.returnType) {
+      documenter.emit(
+        new Docs(this.method.system, this.method, {
+          summary: `Returns \`${this.returnTypeForDocs}\`, use interface conversion if needed`,
+        }),
+        this.apiLocation,
+      );
+    }
     code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
+  }
+
+  private get returnTypeForDocs(): string {
+    if (Method.isMethod(this.method) && this.method.returns.type) {
+      return new GoTypeRef(
+        this.parent.pkg.root,
+        this.method.returns.type,
+      ).scopedReference(this.parent.pkg);
+    }
+    return this.method.toString();
   }
 
   public get instanceArg(): string {

@@ -406,14 +406,28 @@ exports[`showAll 1`] = `
  │ │ │ │     ├─┬ class SubSubclass
  │ │ │ │     │ ├── base: Subclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├─┬ sayHello() method
+ │ │ │ │     │   │ └── returns: string
+ │ │ │ │     │   ├─┬ name property
+ │ │ │ │     │   │ └── type: string
+ │ │ │ │     │   └─┬ unique property
+ │ │ │ │     │     └── type: string
  │ │ │ │     ├─┬ class Subclass
  │ │ │ │     │ ├── base: Superclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├─┬ sayHello() method
+ │ │ │ │     │   │ └── returns: string
+ │ │ │ │     │   └─┬ name property
+ │ │ │ │     │     └── type: string
  │ │ │ │     ├─┬ class Superclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├─┬ sayHello() method
+ │ │ │ │     │   │ └── returns: string
+ │ │ │ │     │   └─┬ name property
+ │ │ │ │     │     └── type: string
  │ │ │ │     └─┬ interface IBase
  │ │ │ │       └─┬ members
  │ │ │ │         └─┬ something property

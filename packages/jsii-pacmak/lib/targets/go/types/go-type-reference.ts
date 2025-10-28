@@ -158,10 +158,8 @@ export class GoTypeRef {
         break;
 
       case 'intersection':
-        if (!this.options.opaqueUnionTypes) {
-          for (const t of this.typeMap.value) {
-            ret.push(...t.dependencies);
-          }
+        for (const t of this.typeMap.value) {
+          ret.push(...t.dependencies);
         }
         break;
 
