@@ -211,14 +211,28 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ │     ├─┬ class SubSubclass (stable)
  │ │ │ │     │ ├── base: Subclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer (stable)
+ │ │ │ │     │   ├── <initializer>() initializer (stable)
+ │ │ │ │     │   ├─┬ sayHello() method (stable)
+ │ │ │ │     │   │ └── returns: string
+ │ │ │ │     │   ├─┬ name property (stable)
+ │ │ │ │     │   │ └── type: string
+ │ │ │ │     │   └─┬ unique property (stable)
+ │ │ │ │     │     └── type: string
  │ │ │ │     ├─┬ class Subclass (stable)
  │ │ │ │     │ ├── base: Superclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer (stable)
+ │ │ │ │     │   ├── <initializer>() initializer (stable)
+ │ │ │ │     │   ├─┬ sayHello() method (stable)
+ │ │ │ │     │   │ └── returns: string
+ │ │ │ │     │   └─┬ name property (stable)
+ │ │ │ │     │     └── type: string
  │ │ │ │     ├─┬ class Superclass (stable)
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer (stable)
+ │ │ │ │     │   ├── <initializer>() initializer (stable)
+ │ │ │ │     │   ├─┬ sayHello() method (stable)
+ │ │ │ │     │   │ └── returns: string
+ │ │ │ │     │   └─┬ name property (stable)
+ │ │ │ │     │     └── type: string
  │ │ │ │     └─┬ interface IBase (stable)
  │ │ │ │       └─┬ members
  │ │ │ │         └─┬ something property (stable)
@@ -4510,13 +4524,20 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ │     │   └── addUnrelatedMember property
  │ │ │ │     ├─┬ class SubSubclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├── sayHello() method
+ │ │ │ │     │   ├── name property
+ │ │ │ │     │   └── unique property
  │ │ │ │     ├─┬ class Subclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├── sayHello() method
+ │ │ │ │     │   └── name property
  │ │ │ │     ├─┬ class Superclass
  │ │ │ │     │ └─┬ members
- │ │ │ │     │   └── <initializer>() initializer
+ │ │ │ │     │   ├── <initializer>() initializer
+ │ │ │ │     │   ├── sayHello() method
+ │ │ │ │     │   └── name property
  │ │ │ │     └─┬ interface IBase
  │ │ │ │       └─┬ members
  │ │ │ │         └── something property
