@@ -12678,6 +12678,19 @@ class Superclass(
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
+    @jsii.member(jsii_name="sayHello")
+    def say_hello(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "sayHello", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="name")
+    def name(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "name"))
+
+    @name.setter
+    def name(self, value: builtins.str) -> None:
+        jsii.set(self, "name", value) # pyright: ignore[reportArgumentType]
+
 
 @jsii.implements(IBase)
 class Base(
@@ -12734,6 +12747,19 @@ class Subclass(
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
 
+    @jsii.member(jsii_name="sayHello")
+    def say_hello(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "sayHello", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="name")
+    def name(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "name"))
+
+    @name.setter
+    def name(self, value: builtins.str) -> None:
+        jsii.set(self, "name", value) # pyright: ignore[reportArgumentType]
+
 
 class Derived(
     Middle,
@@ -12773,6 +12799,29 @@ class SubSubclass(
 
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="sayHello")
+    def say_hello(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "sayHello", []))
+
+    @builtins.property
+    @jsii.member(jsii_name="name")
+    def name(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.get(self, "name"))
+
+    @name.setter
+    def name(self, value: builtins.str) -> None:
+        jsii.set(self, "name", value) # pyright: ignore[reportArgumentType]
+
+    @builtins.property
+    @jsii.member(jsii_name="unique")
+    def unique(self) -> builtins.str:
+        '''Ensures this class is different than its parent.'''
+        return typing.cast(builtins.str, jsii.get(self, "unique"))
+
+    @unique.setter
+    def unique(self, value: builtins.str) -> None:
+        jsii.set(self, "unique", value) # pyright: ignore[reportArgumentType]
 
 
 __all__ = [
@@ -21227,7 +21276,21 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/covariant_overrides/class_overrides/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/covariant_overrides/class_overrides/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/covariant_overrides/class_overrides/__init__.py	--runtime-type-checking
-@@ -101,10 +101,13 @@
+@@ -69,10 +69,13 @@
+     def name(self) -> builtins.str:
+         return typing.cast(builtins.str, jsii.get(self, "name"))
+ 
+     @name.setter
+     def name(self, value: builtins.str) -> None:
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__eeb0e2f6f15e62545344a73c109909bc39f12407f617cc17046a16d750ae9821)
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         jsii.set(self, "name", value) # pyright: ignore[reportArgumentType]
+ 
+ 
+ @jsii.implements(IBase)
+ class Base(
+@@ -114,10 +117,13 @@
      def add_unrelated_member(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.get(self, "addUnrelatedMember"))
  
@@ -21241,14 +21304,79 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Subclass(
      Superclass,
-@@ -167,7 +170,13 @@
+@@ -138,10 +144,13 @@
+     def name(self) -> builtins.str:
+         return typing.cast(builtins.str, jsii.get(self, "name"))
+ 
+     @name.setter
+     def name(self, value: builtins.str) -> None:
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__18d2a95a2ddcf18b20a0a35b0f711b8001853317f5def313f18ec3acf6385a8c)
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         jsii.set(self, "name", value) # pyright: ignore[reportArgumentType]
+ 
+ 
+ class Derived(
+     Middle,
+@@ -191,20 +200,26 @@
+     def name(self) -> builtins.str:
+         return typing.cast(builtins.str, jsii.get(self, "name"))
+ 
+     @name.setter
+     def name(self, value: builtins.str) -> None:
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__eef308cfe64fac2288066609c39fe09f5cb1de9aeb89d015b7e45c7a44428c91)
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         jsii.set(self, "name", value) # pyright: ignore[reportArgumentType]
+ 
+     @builtins.property
+     @jsii.member(jsii_name="unique")
+     def unique(self) -> builtins.str:
+         '''Ensures this class is different than its parent.'''
+         return typing.cast(builtins.str, jsii.get(self, "unique"))
+ 
+     @unique.setter
+     def unique(self, value: builtins.str) -> None:
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__b5604f917bc4b1fd9354007ab09f68bce80b3018ff4042fde2d310649dc3087d)
++            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+         jsii.set(self, "unique", value) # pyright: ignore[reportArgumentType]
+ 
+ 
+ __all__ = [
+     "Base",
+@@ -216,7 +231,37 @@
      "Superclass",
  ]
  
  publication.publish()
  
++def _typecheckingstub__eeb0e2f6f15e62545344a73c109909bc39f12407f617cc17046a16d750ae9821(
++    value: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
 +def _typecheckingstub__1051efd4d7b2a018070aed93762af17bf3bf03922b4b69078c2531f572efa32b(
 +    value: jsii.Number,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__18d2a95a2ddcf18b20a0a35b0f711b8001853317f5def313f18ec3acf6385a8c(
++    value: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__eef308cfe64fac2288066609c39fe09f5cb1de9aeb89d015b7e45c7a44428c91(
++    value: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__b5604f917bc4b1fd9354007ab09f68bce80b3018ff4042fde2d310649dc3087d(
++    value: builtins.str,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
