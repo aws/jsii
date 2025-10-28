@@ -20085,6 +20085,8 @@ package intersection
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 type ConsumesIntersection interface {
@@ -20177,6 +20179,9 @@ func (i *jsiiProxy_ISomething) Something() interface{} {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/IntersectionProps.go 1`] = `
 package intersection
 
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
 
 type IntersectionProps struct {
 	Param interface{ ISomething;scopejsiicalclib.IFriendly } \`field:"required" json:"param" yaml:"param"\`
@@ -35941,7 +35946,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/h
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection.go.diff 1`] = `
 --- go/jsiicalc/intersection/ConsumesIntersection.go	--no-runtime-type-checking
 +++ go/jsiicalc/intersection/ConsumesIntersection.go	--runtime-type-checking
-@@ -14,10 +14,13 @@
+@@ -16,10 +16,13 @@
  }
  
  func NewConsumesIntersection(props *IntersectionProps) ConsumesIntersection {
@@ -35955,7 +35960,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
  	_jsii_.Create(
  		"jsii-calc.intersection.ConsumesIntersection",
  		[]interface{}{props},
-@@ -38,20 +41,26 @@
+@@ -40,20 +43,26 @@
  }
  
  func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
