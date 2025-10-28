@@ -19126,7 +19126,7 @@ type Derived interface {
 	SetAddUnrelatedMember(val *float64)
 	List() *[]Superclass
 	Something() SubSubclass
-	CreateSomething() SubSubclass
+	CreateSomething() Superclass
 }
 
 // The jsii proxy struct for Derived
@@ -19197,8 +19197,8 @@ func (j *jsiiProxy_Derived)SetAddUnrelatedMember(val *float64) {
 	)
 }
 
-func (d *jsiiProxy_Derived) CreateSomething() SubSubclass {
-	var returns SubSubclass
+func (d *jsiiProxy_Derived) CreateSomething() Superclass {
+	var returns Superclass
 
 	_jsii_.Invoke(
 		d,
