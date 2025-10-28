@@ -6792,6 +6792,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.CovariantOverrides.ClassOverride
         protected SubSubclass(DeputyProps props): base(props)
         {
         }
+
+        [JsiiMethod(name: "sayHello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public override string SayHello()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public override string Name
+        {
+            get => GetInstanceProperty<string>()!;
+            set => SetInstanceProperty(value);
+        }
+
+        /// <summary>Ensures this class is different than its parent.</summary>
+        [JsiiProperty(name: "unique", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public virtual string Unique
+        {
+            get => GetInstanceProperty<string>()!;
+            set => SetInstanceProperty(value);
+        }
     }
 }
 
@@ -6831,6 +6852,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.CovariantOverrides.ClassOverride
         protected Subclass(DeputyProps props): base(props)
         {
         }
+
+        [JsiiMethod(name: "sayHello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public override string SayHello()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public override string Name
+        {
+            get => GetInstanceProperty<string>()!;
+            set => SetInstanceProperty(value);
+        }
     }
 }
 
@@ -6869,6 +6903,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.CovariantOverrides.ClassOverride
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Superclass(DeputyProps props): base(props)
         {
+        }
+
+        [JsiiMethod(name: "sayHello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string SayHello()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public virtual string Name
+        {
+            get => GetInstanceProperty<string>()!;
+            set => SetInstanceProperty(value);
         }
     }
 }

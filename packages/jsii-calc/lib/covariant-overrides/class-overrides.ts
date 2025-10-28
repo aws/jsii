@@ -6,13 +6,33 @@
  */
 
 /** Base class in the inheritance hierarchy */
-export class Superclass {}
+export class Superclass {
+  public name = 'Superclass';
+  public sayHello(): string {
+    return 'Hello Superclass';
+  }
+}
 
 /** Derived class that extends Superclass */
-export class Subclass extends Superclass {}
+export class Subclass extends Superclass {
+  public name = 'Subclass';
+  public sayHello(): string {
+    return 'Hello Subclass';
+  }
+}
 
 /** Further derived class that extends Subclass */
-export class SubSubclass extends Subclass {}
+export class SubSubclass extends Subclass {
+  /**
+   * Ensures this class is different than its parent.
+   */
+  public unique = 'yes';
+
+  public name = 'SubSubclass';
+  public sayHello(): string {
+    return 'Hello SubSubclass';
+  }
+}
 
 export interface IBase {
   readonly something: Superclass;

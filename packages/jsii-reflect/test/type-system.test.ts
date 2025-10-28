@@ -236,6 +236,9 @@ test('overridden member knows about both parent types', () => {
   expect(booMethod.parentType).toBe(subType);
   expect(booMethod.definingType).toBe(subType);
   expect(booMethod.overrides).toBe(superType);
+
+  const superBooMethod = superType.allMethods.find((m) => m.name === 'boo')!;
+  expect(booMethod.overriddenMethod).toEqual(superBooMethod);
 });
 
 describe('Stability', () => {

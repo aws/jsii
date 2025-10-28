@@ -1,5 +1,6 @@
 import {
   Callable,
+  Docs,
   MemberKind,
   Method,
   Parameter,
@@ -46,6 +47,7 @@ export class GoProperty implements GoTypeMember {
   public readonly immutable: boolean;
   protected readonly apiLocation: ApiLocation;
   #validator: ParameterValidator | undefined | null = null;
+  private _propertyForSignature?: Property;
 
   public constructor(
     public parent: GoType,
@@ -74,7 +76,7 @@ export class GoProperty implements GoTypeMember {
   }
 
   public get reference(): GoTypeRef {
-    return new GoTypeRef(this.parent.pkg.root, this.property.type);
+    return new GoTypeRef(this.parent.pkg.root, this.propertyForSignature.type);
   }
 
   public get specialDependencies(): SpecialDependencies {
@@ -94,7 +96,15 @@ export class GoProperty implements GoTypeMember {
   public get returnType(): string {
     return (
       this.reference?.scopedReference(this.parent.pkg) ??
-      this.property.type.toString()
+      this.propertyForSignature.type.toString()
+    );
+  }
+
+  private get returnTypeForDocs(): string {
+    return (
+      new GoTypeRef(this.parent.pkg.root, this.property.type).scopedReference(
+        this.parent.pkg,
+      ) ?? this.property.type.toString()
     );
   }
 
@@ -113,7 +123,9 @@ export class GoProperty implements GoTypeMember {
         ? `*${this.returnType}`
         : this.returnType;
 
-    const requiredOrOptional = this.property.optional ? 'optional' : 'required';
+    const requiredOrOptional = this.propertyForSignature.optional
+      ? 'optional'
+      : 'required';
 
     // Adds json and yaml tags for easy deserialization
     code.line(
@@ -124,6 +136,15 @@ export class GoProperty implements GoTypeMember {
 
   public emitGetterDecl({ code, documenter }: EmitContext) {
     documenter.emit(this.property.docs, this.apiLocation);
+    // Document the actual return type
+    if (this.returnTypeForDocs !== this.returnType) {
+      documenter.emit(
+        new Docs(this.property.system, this.property, {
+          summary: `Returns \`${this.returnTypeForDocs}\`, use interface conversion if needed`,
+        }),
+        this.apiLocation,
+      );
+    }
     code.line(`${this.name}() ${this.returnType}`);
   }
 
@@ -179,27 +200,63 @@ export class GoProperty implements GoTypeMember {
       code.line();
     }
   }
+
+  /**
+   * Returns the property we're overriding
+   *
+   * This is necessary because jsii allows classes to make the type of
+   * properties in subclasses more specific (this is known as "covariant return
+   * types"), but Go doesn't support this feature.
+   *
+   * If we render the signature of the property itself, and it has changed its
+   * return type, Go will see that as two conflicting definitions of the same
+   * accessor method.
+   *
+   * So instead, we will always render the type signature of the topmost method.
+   * That is either the same as the current method (in which case it doesn't make
+   * a difference), or it is a different signature, but then that's the one
+   * we need to render to prevent the method collission.
+   */
+  public get propertyForSignature(): Property {
+    // Cache for speed
+    if (this._propertyForSignature) {
+      return this._propertyForSignature;
+    }
+
+    let ret = this.property;
+    while (true) {
+      const next = ret.overriddenProperty;
+      if (!next) {
+        this._propertyForSignature = ret;
+        return ret;
+      }
+      ret = next;
+    }
+  }
 }
 
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
-  public readonly parameters: GoParameter[];
   protected readonly apiLocation: ApiLocation;
   #validator: ParameterValidator | undefined | null = null;
+  private _methodForSignature?: Callable;
 
   public constructor(
     public readonly parent: GoClass | GoInterface,
     public readonly method: Callable,
   ) {
     this.name = jsiiToPascalCase(method.name);
-    this.parameters = this.method.parameters.map(
-      (param) => new GoParameter(parent, param),
-    );
 
     this.apiLocation =
       method.kind === MemberKind.Initializer
         ? { api: 'initializer', fqn: parent.fqn }
         : { api: 'member', fqn: parent.fqn, memberName: method.name };
+  }
+
+  public get parameters(): GoParameter[] {
+    return this.methodForSignature.parameters.map(
+      (param) => new GoParameter(this.parent, param),
+    );
   }
 
   public get validator() {
@@ -214,8 +271,9 @@ export abstract class GoMethod implements GoTypeMember {
   public abstract get specialDependencies(): SpecialDependencies;
 
   public get reference(): GoTypeRef | undefined {
-    if (Method.isMethod(this.method) && this.method.returns.type) {
-      return new GoTypeRef(this.parent.pkg.root, this.method.returns.type);
+    const sig = this.methodForSignature;
+    if (Method.isMethod(sig) && sig.returns.type) {
+      return new GoTypeRef(this.parent.pkg.root, sig.returns.type);
     }
     return undefined;
   }
@@ -234,7 +292,8 @@ export abstract class GoMethod implements GoTypeMember {
 
   public get returnType(): string {
     return (
-      this.reference?.scopedReference(this.parent.pkg) ?? this.method.toString()
+      this.reference?.scopedReference(this.parent.pkg) ??
+      this.methodForSignature.toString()
     );
   }
 
@@ -254,6 +313,45 @@ export abstract class GoMethod implements GoTypeMember {
     return this.parameters.length === 0
       ? ''
       : this.parameters.map((p) => p.toString()).join(', ');
+  }
+
+  /**
+   * Returns the first method we're overriding
+   *
+   * This is necessary because jsii allows classes to make the return type of
+   * methods in subclasses more specific (this is known as "covariant return
+   * types"), but Go doesn't support this feature.
+   *
+   * If we render the signature of the method itself, and it has changed its
+   * return type, Go will see that as two conflicting definitions of the same
+   * method.
+   *
+   * So instead, we will always render the type signature of the topmost method.
+   * That is either the same as the current method (in which case it doesn't make
+   * a difference), or it is a different signature, but then that's the one
+   * we need to render to prevent the method collision.
+   */
+  public get methodForSignature(): Callable {
+    // Cache for speed
+    if (this._methodForSignature) {
+      return this._methodForSignature;
+    }
+
+    // Not sure why `this.method :: Callable` and not `this.method :: Method`, but
+    // let's be safe.
+    if (!(this.method instanceof Method)) {
+      return this.method;
+    }
+
+    let ret = this.method;
+    while (true) {
+      const next = ret.overriddenMethod;
+      if (!next) {
+        this._methodForSignature = ret;
+        return ret;
+      }
+      ret = next;
+    }
   }
 }
 
