@@ -46,6 +46,7 @@ export class GoProperty implements GoTypeMember {
   public readonly immutable: boolean;
   protected readonly apiLocation: ApiLocation;
   #validator: ParameterValidator | undefined | null = null;
+  private _propertyForSignature?: Property;
 
   public constructor(
     public parent: GoType,
@@ -74,7 +75,7 @@ export class GoProperty implements GoTypeMember {
   }
 
   public get reference(): GoTypeRef {
-    return new GoTypeRef(this.parent.pkg.root, this.property.type);
+    return new GoTypeRef(this.parent.pkg.root, this.propertyForSignature.type);
   }
 
   public get specialDependencies(): SpecialDependencies {
@@ -94,7 +95,7 @@ export class GoProperty implements GoTypeMember {
   public get returnType(): string {
     return (
       this.reference?.scopedReference(this.parent.pkg) ??
-      this.property.type.toString()
+      this.propertyForSignature.type.toString()
     );
   }
 
@@ -113,7 +114,9 @@ export class GoProperty implements GoTypeMember {
         ? `*${this.returnType}`
         : this.returnType;
 
-    const requiredOrOptional = this.property.optional ? 'optional' : 'required';
+    const requiredOrOptional = this.propertyForSignature.optional
+      ? 'optional'
+      : 'required';
 
     // Adds json and yaml tags for easy deserialization
     code.line(
@@ -179,11 +182,43 @@ export class GoProperty implements GoTypeMember {
       code.line();
     }
   }
+
+  /**
+   * Returns the property we're overriding
+   *
+   * This is necessary because jsii allows classes to make the type of
+   * properties in subclasses more specific (this is known as "covariant return
+   * types"), but Go doesn't support this feature.
+   *
+   * If we render the signature of the property itself, and it has changed its
+   * return type, Go will see that as two conflicting definitions of the same
+   * accessor method.
+   *
+   * So instead, we will always render the type signature of the topmost method.
+   * That is either the same as the current method (in which case it doesn't make
+   * a difference), or it is a different signature, but then that's the one
+   * we need to render to prevent the method collission.
+   */
+  public get propertyForSignature(): Property {
+    // Cache for speed
+    if (this._propertyForSignature) {
+      return this._propertyForSignature;
+    }
+
+    let ret = this.property;
+    while (true) {
+      const next = ret.overriddenProperty;
+      if (!next) {
+        this._propertyForSignature = ret;
+        return ret;
+      }
+      ret = next;
+    }
+  }
 }
 
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
-  public readonly parameters: GoParameter[];
   protected readonly apiLocation: ApiLocation;
   #validator: ParameterValidator | undefined | null = null;
   private _methodForSignature?: Callable;
@@ -193,14 +228,17 @@ export abstract class GoMethod implements GoTypeMember {
     public readonly method: Callable,
   ) {
     this.name = jsiiToPascalCase(method.name);
-    this.parameters = this.methodForSignature.parameters.map(
-      (param) => new GoParameter(parent, param),
-    );
 
     this.apiLocation =
       method.kind === MemberKind.Initializer
         ? { api: 'initializer', fqn: parent.fqn }
         : { api: 'member', fqn: parent.fqn, memberName: method.name };
+  }
+
+  public get parameters(): GoParameter[] {
+    return this.methodForSignature.parameters.map(
+      (param) => new GoParameter(this.parent, param),
+    );
   }
 
   public get validator() {

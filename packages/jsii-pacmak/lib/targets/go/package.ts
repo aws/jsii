@@ -441,6 +441,13 @@ export class RootPackage extends Package {
    * This allows resolving type references from other JSII modules
    */
   public findType(fqn: string): GoType | undefined {
+    // This may happen during initialization
+    if (this.typeCache === undefined) {
+      throw new Error(
+        'This method may not be called during RootPackage construction',
+      );
+    }
+
     if (!this.typeCache.has(fqn)) {
       this.typeCache.set(
         fqn,
