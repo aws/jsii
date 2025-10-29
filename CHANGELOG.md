@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.118.0](https://github.com/aws/jsii/compare/v1.117.0...v1.118.0) (2025-10-29)
+
+
+### Features
+
+* **jsii-reflect:** add a jsii-query tool ([#4952](https://github.com/aws/jsii/issues/4952)) ([f040d3e](https://github.com/aws/jsii/commit/f040d3e97735c7f66a2c230d37c7fba0cf72fe9d))
+
+
+### Bug Fixes
+
+* covariant method overrides break Go compilation ([#4967](https://github.com/aws/jsii/issues/4967)) ([2c39079](https://github.com/aws/jsii/commit/2c39079cb2eab7c2192f0d50aa9b280e5c96c826))
+* type intersections are missing dependencies in Go ([#4965](https://github.com/aws/jsii/issues/4965)) ([ee67cc9](https://github.com/aws/jsii/commit/ee67cc977387459f2ee212b0fabf6e082653c592))
+
 ## [1.117.0](https://github.com/aws/jsii/compare/v1.116.0...v1.117.0) (2025-10-22)
 
 

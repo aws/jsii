@@ -19125,8 +19125,10 @@ type Derived interface {
 	AddUnrelatedMember() *float64
 	SetAddUnrelatedMember(val *float64)
 	List() *[]Superclass
-	Something() SubSubclass
-	CreateSomething() SubSubclass
+	// Returns \`SubSubclass\`, use interface conversion if needed.
+	Something() Superclass
+	// Returns \`SubSubclass\`, use interface conversion if needed.
+	CreateSomething() Superclass
 }
 
 // The jsii proxy struct for Derived
@@ -19154,8 +19156,8 @@ func (j *jsiiProxy_Derived) List() *[]Superclass {
 	return returns
 }
 
-func (j *jsiiProxy_Derived) Something() SubSubclass {
-	var returns SubSubclass
+func (j *jsiiProxy_Derived) Something() Superclass {
+	var returns Superclass
 	_jsii_.Get(
 		j,
 		"something",
@@ -19197,8 +19199,8 @@ func (j *jsiiProxy_Derived)SetAddUnrelatedMember(val *float64) {
 	)
 }
 
-func (d *jsiiProxy_Derived) CreateSomething() SubSubclass {
-	var returns SubSubclass
+func (d *jsiiProxy_Derived) CreateSomething() Superclass {
+	var returns Superclass
 
 	_jsii_.Invoke(
 		d,
@@ -19355,12 +19357,39 @@ import (
 // Further derived class that extends Subclass.
 type SubSubclass interface {
 	Subclass
+	Name() *string
+	SetName(val *string)
+	// Ensures this class is different than its parent.
+	Unique() *string
+	SetUnique(val *string)
+	SayHello() *string
 }
 
 // The jsii proxy struct for SubSubclass
 type jsiiProxy_SubSubclass struct {
 	jsiiProxy_Subclass
 }
+
+func (j *jsiiProxy_SubSubclass) Name() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"name",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_SubSubclass) Unique() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"unique",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewSubSubclass() SubSubclass {
 	_init_.Initialize()
@@ -19386,6 +19415,35 @@ func NewSubSubclass_Override(s SubSubclass) {
 	)
 }
 
+func (j *jsiiProxy_SubSubclass)SetName(val *string) {
+	_jsii_.Set(
+		j,
+		"name",
+		val,
+	)
+}
+
+func (j *jsiiProxy_SubSubclass)SetUnique(val *string) {
+	_jsii_.Set(
+		j,
+		"unique",
+		val,
+	)
+}
+
+func (s *jsiiProxy_SubSubclass) SayHello() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"sayHello",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
 
 `;
 
@@ -19400,12 +19458,26 @@ import (
 // Derived class that extends Superclass.
 type Subclass interface {
 	Superclass
+	Name() *string
+	SetName(val *string)
+	SayHello() *string
 }
 
 // The jsii proxy struct for Subclass
 type jsiiProxy_Subclass struct {
 	jsiiProxy_Superclass
 }
+
+func (j *jsiiProxy_Subclass) Name() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"name",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewSubclass() Subclass {
 	_init_.Initialize()
@@ -19431,6 +19503,27 @@ func NewSubclass_Override(s Subclass) {
 	)
 }
 
+func (j *jsiiProxy_Subclass)SetName(val *string) {
+	_jsii_.Set(
+		j,
+		"name",
+		val,
+	)
+}
+
+func (s *jsiiProxy_Subclass) SayHello() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"sayHello",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
 
 `;
 
@@ -19444,12 +19537,26 @@ import (
 
 // Base class in the inheritance hierarchy.
 type Superclass interface {
+	Name() *string
+	SetName(val *string)
+	SayHello() *string
 }
 
 // The jsii proxy struct for Superclass
 type jsiiProxy_Superclass struct {
 	_ byte // padding
 }
+
+func (j *jsiiProxy_Superclass) Name() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"name",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewSuperclass() Superclass {
 	_init_.Initialize()
@@ -19473,6 +19580,27 @@ func NewSuperclass_Override(s Superclass) {
 		nil, // no parameters
 		s,
 	)
+}
+
+func (j *jsiiProxy_Superclass)SetName(val *string) {
+	_jsii_.Set(
+		j,
+		"name",
+		val,
+	)
+}
+
+func (s *jsiiProxy_Superclass) SayHello() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"sayHello",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
 }
 
 
@@ -19545,7 +19673,11 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.covariantOverrides.classOverrides.SubSubclass",
 		reflect.TypeOf((*SubSubclass)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "name", GoGetter: "Name"},
+			_jsii_.MemberMethod{JsiiMethod: "sayHello", GoMethod: "SayHello"},
+			_jsii_.MemberProperty{JsiiProperty: "unique", GoGetter: "Unique"},
+		},
 		func() interface{} {
 			j := jsiiProxy_SubSubclass{}
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_Subclass)
@@ -19555,7 +19687,10 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.covariantOverrides.classOverrides.Subclass",
 		reflect.TypeOf((*Subclass)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "name", GoGetter: "Name"},
+			_jsii_.MemberMethod{JsiiMethod: "sayHello", GoMethod: "SayHello"},
+		},
 		func() interface{} {
 			j := jsiiProxy_Subclass{}
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_Superclass)
@@ -19565,7 +19700,10 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.covariantOverrides.classOverrides.Superclass",
 		reflect.TypeOf((*Superclass)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "name", GoGetter: "Name"},
+			_jsii_.MemberMethod{JsiiMethod: "sayHello", GoMethod: "SayHello"},
+		},
 		func() interface{} {
 			return &jsiiProxy_Superclass{}
 		},
@@ -20085,6 +20223,8 @@ package intersection
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 type ConsumesIntersection interface {
@@ -20177,6 +20317,9 @@ func (i *jsiiProxy_ISomething) Something() interface{} {
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/intersection/IntersectionProps.go 1`] = `
 package intersection
 
+import (
+	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
+)
 
 type IntersectionProps struct {
 	Param interface{ ISomething;scopejsiicalclib.IFriendly } \`field:"required" json:"param" yaml:"param"\`
@@ -26259,7 +26402,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┃     ┣━ 📄 Derived.go.diff
        ┃     ┣━ 🆕 Middle__checks.go
        ┃     ┣━ 🆕 Middle__no_checks.go
-       ┃     ┗━ 📄 Middle.go.diff
+       ┃     ┣━ 📄 Middle.go.diff
+       ┃     ┣━ 🆕 Subclass__checks.go
+       ┃     ┣━ 🆕 Subclass__no_checks.go
+       ┃     ┣━ 📄 Subclass.go.diff
+       ┃     ┣━ 🆕 SubSubclass__checks.go
+       ┃     ┣━ 🆕 SubSubclass__no_checks.go
+       ┃     ┣━ 📄 SubSubclass.go.diff
+       ┃     ┣━ 🆕 Superclass__checks.go
+       ┃     ┣━ 🆕 Superclass__no_checks.go
+       ┃     ┗━ 📄 Superclass.go.diff
        ┣━ 🆕 DataRenderer__checks.go
        ┣━ 🆕 DataRenderer__no_checks.go
        ┣━ 📄 DataRenderer.go.diff
@@ -35589,7 +35741,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Derived.go.diff 1`] = `
 --- go/jsiicalc/covariantoverrides/classoverrides/Derived.go	--no-runtime-type-checking
 +++ go/jsiicalc/covariantoverrides/classoverrides/Derived.go	--runtime-type-checking
-@@ -77,10 +77,13 @@
+@@ -79,10 +79,13 @@
  		d,
  	)
  }
@@ -35695,6 +35847,200 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/c
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func (j *jsiiProxy_Middle) validateSetAddUnrelatedMemberParameters(val *float64) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/SubSubclass.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/SubSubclass.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/SubSubclass.go	--runtime-type-checking
+@@ -65,18 +65,24 @@
+ 		s,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_SubSubclass)SetName(val *string) {
++	if err := j.validateSetNameParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"name",
+ 		val,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_SubSubclass)SetUnique(val *string) {
++	if err := j.validateSetUniqueParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"unique",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/SubSubclass__checks.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/SubSubclass__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/SubSubclass__checks.go	--runtime-type-checking
+@@ -0,0 +1,24 @@
++//go:build !no_runtime_type_checking
++
++package classoverrides
++
++import (
++	"fmt"
++)
++
++func (j *jsiiProxy_SubSubclass) validateSetNameParameters(val *string) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
++func (j *jsiiProxy_SubSubclass) validateSetUniqueParameters(val *string) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/SubSubclass__no_checks.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/SubSubclass__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/SubSubclass__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,14 @@
++//go:build no_runtime_type_checking
++
++package classoverrides
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (j *jsiiProxy_SubSubclass) validateSetNameParameters(val *string) error {
++	return nil
++}
++
++func (j *jsiiProxy_SubSubclass) validateSetUniqueParameters(val *string) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Subclass.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/Subclass.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/Subclass.go	--runtime-type-checking
+@@ -52,10 +52,13 @@
+ 		s,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_Subclass)SetName(val *string) {
++	if err := j.validateSetNameParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"name",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Subclass__checks.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/Subclass__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/Subclass__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package classoverrides
++
++import (
++	"fmt"
++)
++
++func (j *jsiiProxy_Subclass) validateSetNameParameters(val *string) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Subclass__no_checks.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/Subclass__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/Subclass__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package classoverrides
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (j *jsiiProxy_Subclass) validateSetNameParameters(val *string) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Superclass.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/Superclass.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/Superclass.go	--runtime-type-checking
+@@ -51,10 +51,13 @@
+ 		s,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_Superclass)SetName(val *string) {
++	if err := j.validateSetNameParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"name",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Superclass__checks.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/Superclass__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/Superclass__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package classoverrides
++
++import (
++	"fmt"
++)
++
++func (j *jsiiProxy_Superclass) validateSetNameParameters(val *string) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/covariantoverrides/classoverrides/Superclass__no_checks.go.diff 1`] = `
+--- go/jsiicalc/covariantoverrides/classoverrides/Superclass__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/covariantoverrides/classoverrides/Superclass__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package classoverrides
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (j *jsiiProxy_Superclass) validateSetNameParameters(val *string) error {
 +	return nil
 +}
 +
@@ -35941,7 +36287,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/h
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/intersection/ConsumesIntersection.go.diff 1`] = `
 --- go/jsiicalc/intersection/ConsumesIntersection.go	--no-runtime-type-checking
 +++ go/jsiicalc/intersection/ConsumesIntersection.go	--runtime-type-checking
-@@ -14,10 +14,13 @@
+@@ -16,10 +16,13 @@
  }
  
  func NewConsumesIntersection(props *IntersectionProps) ConsumesIntersection {
@@ -35955,7 +36301,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/i
  	_jsii_.Create(
  		"jsii-calc.intersection.ConsumesIntersection",
  		[]interface{}{props},
-@@ -38,20 +41,26 @@
+@@ -40,20 +43,26 @@
  }
  
  func ConsumesIntersection_AcceptsIntersection(param interface{ ISomething;scopejsiicalclib.IFriendly }) {
