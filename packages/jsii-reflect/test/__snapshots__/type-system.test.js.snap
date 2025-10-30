@@ -200,6 +200,8 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.module2702.Construct",
   "jsii-calc.module2702.Resource",
   "jsii-calc.module2702.Vpc",
+  "jsii-calc.module4971_1.A",
+  "jsii-calc.module4971_2.B",
   "jsii-calc.nodirect.sub1.TypeFromSub1",
   "jsii-calc.nodirect.sub2.TypeFromSub2",
   "jsii-calc.onlystatic.OnlyStaticMethods",

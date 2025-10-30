@@ -3082,6 +3082,12 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 main.go
        ┃  ┣━ 📄 Resource.go
        ┃  ┗━ 📄 Vpc.go
+       ┣━ 📁 module49711
+       ┃  ┣━ 📄 A.go
+       ┃  ┗━ 📄 main.go
+       ┣━ 📁 module49712
+       ┃  ┣━ 📄 B.go
+       ┃  ┗━ 📄 main.go
        ┣━ 📄 Multiply.go
        ┣━ 📄 Negate.go
        ┣━ 📄 NestedClassInstance.go
@@ -24733,6 +24739,140 @@ func init() {
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_Resource)
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_IVpc)
 			return &j
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49711/A.go 1`] = `
+package module49711
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49712"
+)
+
+type A interface {
+}
+
+// The jsii proxy struct for A
+type jsiiProxy_A struct {
+	_ byte // padding
+}
+
+func NewA(b module49712.B) A {
+	_init_.Initialize()
+
+	j := jsiiProxy_A{}
+
+	_jsii_.Create(
+		"jsii-calc.module4971_1.A",
+		[]interface{}{b},
+		&j,
+	)
+
+	return &j
+}
+
+func NewA_Override(a A, b module49712.B) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.module4971_1.A",
+		[]interface{}{b},
+		a,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49711/main.go 1`] = `
+package module49711
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.module4971_1.A",
+		reflect.TypeOf((*A)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_A{}
+		},
+	)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49712/B.go 1`] = `
+package module49712
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49711"
+)
+
+type B interface {
+}
+
+// The jsii proxy struct for B
+type jsiiProxy_B struct {
+	_ byte // padding
+}
+
+func NewB(a module49711.A) B {
+	_init_.Initialize()
+
+	j := jsiiProxy_B{}
+
+	_jsii_.Create(
+		"jsii-calc.module4971_2.B",
+		[]interface{}{a},
+		&j,
+	)
+
+	return &j
+}
+
+func NewB_Override(b B, a module49711.A) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.module4971_2.B",
+		[]interface{}{a},
+		b,
+	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49712/main.go 1`] = `
+package module49712
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterClass(
+		"jsii-calc.module4971_2.B",
+		reflect.TypeOf((*B)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_B{}
 		},
 	)
 }

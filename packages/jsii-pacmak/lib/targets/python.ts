@@ -157,8 +157,7 @@ class TypeCheckingStub {
   readonly #hash: string;
 
   public constructor(fqn: string, args: readonly string[]) {
-    // Removing the quoted type names -- this will be emitted at the very end of the module.
-    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
