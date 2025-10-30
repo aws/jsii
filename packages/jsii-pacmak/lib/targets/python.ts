@@ -2046,6 +2046,12 @@ class PythonModule implements PythonType {
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
     const requiredImports = this.requiredImports(context);
 
+    if (
+      nonEmptyImports(requiredImports.runtimeImports) ||
+      nonEmptyImports(requiredImports.typeImports)
+    ) {
+      code.line();
+    }
     this.emitImports(code, requiredImports.runtimeImports);
     if (nonEmptyImports(requiredImports.typeImports)) {
       code.indent('if typing.TYPE_CHECKING:');
@@ -2063,9 +2069,6 @@ class PythonModule implements PythonType {
       )
       .sort(importComparator);
 
-    if (statements.length > 0) {
-      code.line();
-    }
     for (const statement of statements) {
       statement.emit(code);
     }

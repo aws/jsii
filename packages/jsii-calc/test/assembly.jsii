@@ -210,14 +210,14 @@
     "jsii-calc.anonymous": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 29
+        "line": 31
       },
       "symbolId": "lib/anonymous/index:"
     },
     "jsii-calc.cdk16625": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 24
+        "line": 26
       },
       "symbolId": "lib/cdk16625/index:"
     },
@@ -231,7 +231,7 @@
     "jsii-calc.cdk22369": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 25
+        "line": 27
       },
       "symbolId": "lib/cdk22369/index:"
     },
@@ -245,7 +245,7 @@
     "jsii-calc.covariantOverrides": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 34
+        "line": 36
       },
       "symbolId": "lib/covariant-overrides/index:"
     },
@@ -259,7 +259,7 @@
     "jsii-calc.homonymousForwardReferences": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 32
+        "line": 34
       },
       "readme": {
         "markdown": "Verifies homonymous forward references don't trip the Python type checker\n\nThis has been an issue when stub functions were introduced to create a reliable source for type checking\ninformation, which was reported in https://github.com/aws/jsii/issues/3818.\n"
@@ -283,21 +283,21 @@
     "jsii-calc.intersection": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 31
+        "line": 33
       },
       "symbolId": "lib/intersection:"
     },
     "jsii-calc.jsii3656": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 26
+        "line": 28
       },
       "symbolId": "lib/jsii3656/index:"
     },
     "jsii-calc.jsii4894": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 27
+        "line": 29
       },
       "symbolId": "lib/jsii4894:"
     },
@@ -392,6 +392,20 @@
       },
       "symbolId": "lib/module2702/index:"
     },
+    "jsii-calc.module4971_1": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 23
+      },
+      "symbolId": "lib/module4971_1/index:"
+    },
+    "jsii-calc.module4971_2": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 24
+      },
+      "symbolId": "lib/module4971_2/index:"
+    },
     "jsii-calc.nodirect": {
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -423,7 +437,7 @@
     "jsii-calc.pascalCaseName": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 33
+        "line": 35
       },
       "symbolId": "lib/pascal-case-name/index:"
     },
@@ -492,7 +506,7 @@
     "jsii-calc.union": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 30
+        "line": 32
       },
       "symbolId": "lib/union:"
     }
@@ -18826,6 +18840,72 @@
       "namespace": "module2702",
       "symbolId": "lib/module2702/index:Vpc"
     },
+    "jsii-calc.module4971_1.A": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module4971_1.A",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/module4971_1/index.ts",
+          "line": 4
+        },
+        "parameters": [
+          {
+            "name": "b",
+            "optional": true,
+            "type": {
+              "fqn": "jsii-calc.module4971_2.B"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module4971_1/index.ts",
+        "line": 3
+      },
+      "name": "A",
+      "namespace": "module4971_1",
+      "symbolId": "lib/module4971_1/index:A"
+    },
+    "jsii-calc.module4971_2.B": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module4971_2.B",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/module4971_2/index.ts",
+          "line": 4
+        },
+        "parameters": [
+          {
+            "name": "a",
+            "optional": true,
+            "type": {
+              "fqn": "jsii-calc.module4971_1.A"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/module4971_2/index.ts",
+        "line": 3
+      },
+      "name": "B",
+      "namespace": "module4971_2",
+      "symbolId": "lib/module4971_2/index:B"
+    },
     "jsii-calc.nodirect.sub1.TypeFromSub1": {
       "assembly": "jsii-calc",
       "docs": {
@@ -19786,5 +19866,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "6Vy4e6a5fe6HlMnZVVfUxQ6kP2NgQEfEjwgiDHv/Ssw="
+  "fingerprint": "Hbf+08mkPtXk57QaIj0MaOD50zSVoyffVMwYMBoALaI="
 }
