@@ -76,8 +76,6 @@ describe(toTypeName, () => {
     readonly input: TypeReference | undefined;
     /** The expected python name of the type */
     readonly pythonType: string;
-    /** If different from pythonType, the forward declaration to use for the type */
-    readonly forwardPythonType?: string;
     /** The optional version of the type's name (if not provided, typing.Optional[<pythonType>]) */
     readonly optionalPythonType?: string;
     /** The required imports for this python type (if not provided, none) */
@@ -174,7 +172,7 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Foreign)',
       input: { fqn: '@remote/classes.FancyClass' },
-      pythonType: `_remote_module_name_fb17b8fa.FancyClass`,
+      pythonType: `"_remote_module_name_fb17b8fa.FancyClass"`,
       requiredImports: {
         [`${REMOTE_MODULE} as _remote_module_name_fb17b8fa`]: new Set(['']),
       },
@@ -182,7 +180,7 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Foreign, Submodule)',
       input: { fqn: '@remote/classes.nested.SubmoduledType' },
-      pythonType: `_remote_module_name_submodule_fb17b8fa.SubmoduledType`,
+      pythonType: `"_remote_module_name_submodule_fb17b8fa.SubmoduledType"`,
       requiredImports: {
         [`${REMOTE_MODULE}.submodule as _remote_module_name_submodule_fb17b8fa`]:
           new Set(['']),
@@ -191,19 +189,17 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local)',
       input: { fqn: `${assembly.name}.BoringClass` },
-      pythonType: 'BoringClass',
-      forwardPythonType: '"BoringClass"',
+      pythonType: '"BoringClass"',
     },
     {
       name: 'User Type (Local, Nested)',
       input: { fqn: `${assembly.name}.${BORING_TYPE}.${NESTED_TYPE}` },
-      pythonType: 'BoringClass.NestedType',
-      forwardPythonType: '"BoringClass.NestedType"',
+      pythonType: '"BoringClass.NestedType"',
     },
     {
       name: 'User Type (Local, Submodule)',
       input: { fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}` },
-      pythonType: `_${SUBMODULE_TYPE}_72dbc9ef`,
+      pythonType: `"_${SUBMODULE_TYPE}_72dbc9ef"`,
       requiredImports: {
         '.submodule': new Set([
           `${SUBMODULE_TYPE} as _${SUBMODULE_TYPE}_72dbc9ef`,
@@ -215,7 +211,7 @@ describe(toTypeName, () => {
       input: {
         fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}`,
       },
-      pythonType: `_${SUBMODULE_TYPE}_72dbc9ef.${SUBMODULE_NESTED_TYPE}`,
+      pythonType: `"_${SUBMODULE_TYPE}_72dbc9ef.${SUBMODULE_NESTED_TYPE}"`,
       requiredImports: {
         '.submodule': new Set([
           `${SUBMODULE_TYPE} as _${SUBMODULE_TYPE}_72dbc9ef`,
@@ -235,7 +231,7 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local, Parent)',
       input: { fqn: `${assembly.name}.other.${OTHER_SUBMODULE_TYPE}` },
-      pythonType: `_${OTHER_SUBMODULE_TYPE}_78b5948e`,
+      pythonType: `"_${OTHER_SUBMODULE_TYPE}_78b5948e"`,
       requiredImports: {
         '..other': new Set([
           `${OTHER_SUBMODULE_TYPE} as _${OTHER_SUBMODULE_TYPE}_78b5948e`,
@@ -247,8 +243,7 @@ describe(toTypeName, () => {
     {
       name: 'Struct parameter type annotation',
       input: { fqn: `${assembly.name}.Struct` },
-      forwardPythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
-      pythonType: `typing.Union[Struct, typing.Dict[builtins.str, typing.Any]]`,
+      pythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
       context: {
         typeAnnotation: true,
         parameterType: true,
@@ -284,9 +279,7 @@ describe(toTypeName, () => {
       const typeName = toTypeName(example.input);
 
       test('typeName.pythonType(context)', () => {
-        expect(typeName.pythonType(context)).toBe(
-          example.forwardPythonType ?? example.pythonType,
-        );
+        expect(typeName.pythonType(context)).toBe(example.pythonType);
         expect(typeName.pythonType(contextWithEmittedType)).toBe(
           example.pythonType,
         );
@@ -310,9 +303,7 @@ describe(toTypeName, () => {
       test('typeName.pythonType(context)', () => {
         expect(typeName.pythonType(context)).toBe(
           example.optionalPythonType ??
-            `typing.Optional[${
-              example.forwardPythonType ?? example.pythonType
-            }]`,
+            `typing.Optional[${example.pythonType}]`,
         );
 
         expect(typeName.pythonType(contextWithEmittedType)).toBe(
