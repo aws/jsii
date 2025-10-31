@@ -599,6 +599,22 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       └─┬ vpcMethod() method (stable)
  │ │ │         ├── abstract
  │ │ │         └── returns: void
+ │ │ ├─┬ module4971_1
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class A (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ <initializer>(b) initializer (stable)
+ │ │ │         └─┬ parameters
+ │ │ │           └─┬ b
+ │ │ │             └── type: Optional<jsii-calc.module4971_2.B>
+ │ │ ├─┬ module4971_2
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class B (stable)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ <initializer>(a) initializer (stable)
+ │ │ │         └─┬ parameters
+ │ │ │           └─┬ a
+ │ │ │             └── type: Optional<jsii-calc.module4971_1.A>
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4002,6 +4018,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   └─┬ interface IVpc
  │ │ │     └─┬ interfaces
  │ │ │       └── IResource
+ │ │ ├─┬ module4971_1
+ │ │ │ └─┬ types
+ │ │ │   └── class A
+ │ │ ├─┬ module4971_2
+ │ │ │ └─┬ types
+ │ │ │   └── class B
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4729,6 +4751,16 @@ exports[`jsii-tree --members 1`] = `
  │ │ │   └─┬ interface IVpc
  │ │ │     └─┬ members
  │ │ │       └── vpcMethod() method
+ │ │ ├─┬ module4971_1
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class A
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>(b) initializer
+ │ │ ├─┬ module4971_2
+ │ │ │ └─┬ types
+ │ │ │   └─┬ class B
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>(a) initializer
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -6208,6 +6240,8 @@ exports[`jsii-tree --signatures 1`] = `
  │   │   └── submodule2
  │   ├── module2700
  │   ├── module2702
+ │   ├── module4971_1
+ │   ├── module4971_2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -6366,6 +6400,12 @@ exports[`jsii-tree --types 1`] = `
  │ │ │   ├── interface IFoo
  │ │ │   ├── interface IResource
  │ │ │   └── interface IVpc
+ │ │ ├─┬ module4971_1
+ │ │ │ └─┬ types
+ │ │ │   └── class A
+ │ │ ├─┬ module4971_2
+ │ │ │ └─┬ types
+ │ │ │   └── class B
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -6734,6 +6774,8 @@ exports[`jsii-tree 1`] = `
  │   │   └── submodule2
  │   ├── module2700
  │   ├── module2702
+ │   ├── module4971_1
+ │   ├── module4971_2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1

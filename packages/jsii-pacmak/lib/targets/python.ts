@@ -28,8 +28,11 @@ import {
   toPackageName,
   toPythonFqn,
   IntersectionTypesRegistry,
+  PhaseAwarePythonImports,
+  mergePhaseAwarePythonImports,
+  nonEmptyImports,
 } from './python/type-name';
-import { die, toPythonIdentifier } from './python/util';
+import { die, setDifference, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 
@@ -154,8 +157,7 @@ class TypeCheckingStub {
   readonly #hash: string;
 
   public constructor(fqn: string, args: readonly string[]) {
-    // Removing the quoted type names -- this will be emitted at the very end of the module.
-    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
@@ -229,16 +231,6 @@ function toPythonParameterName(
 
   return result;
 }
-
-const setDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  const result = new Set<T>();
-  for (const item of setA) {
-    if (!setB.has(item)) {
-      result.add(item);
-    }
-  }
-  return result;
-};
 
 /**
  * Prepare python members for emission.
@@ -346,13 +338,16 @@ const sortMembers = (
   return sorted;
 };
 
+/**
+ * Interface for any Python API elements (class, interface, property, method)
+ */
 interface PythonBase {
   readonly pythonName: string;
   readonly docs?: spec.Docs;
 
   emit(code: CodeMaker, context: EmitContext, opts?: any): void;
 
-  requiredImports(context: EmitContext): PythonImports;
+  requiredImports(context: EmitContext): PhaseAwarePythonImports;
 }
 
 interface PythonType extends PythonBase {
@@ -427,11 +422,18 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return dependencies;
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    const baseImports: PhaseAwarePythonImports = {
+      runtimeImports: mergePythonImports(
+        this.bases.map((base) => toTypeName(base).requiredImports(context)),
+      ),
+      typeImports: {},
+    };
+
+    return mergePhaseAwarePythonImports([
+      baseImports,
       ...this.members.map((mem) => mem.requiredImports(context)),
-    );
+    ]);
   }
 
   public addMember(member: PythonBase) {
@@ -537,14 +539,20 @@ abstract class BaseMethod implements PythonBase {
     };
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      toTypeName(this.returns).requiredImports(context),
-      ...this.parameters.map((param) =>
-        toTypeName(param).requiredImports(context),
-      ),
-      ...liftedProperties(this.liftedProp),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    const returnsImports = toTypeName(this.returns).requiredImports(context);
+    const parameterImports = this.parameters.map((param) =>
+      toTypeName(param).requiredImports(context),
     );
+
+    return {
+      typeImports: mergePythonImports([
+        returnsImports,
+        ...parameterImports,
+        ...liftedProperties(this.liftedProp),
+      ]),
+      runtimeImports: {},
+    };
 
     function* liftedProperties(
       struct: spec.InterfaceType | undefined,
@@ -603,7 +611,8 @@ abstract class BaseMethod implements PythonBase {
 
       const paramType = typeFac.pythonType({
         ...context,
-        parameterType: true,
+        isInputType: true,
+        typeAnnotation: true,
       });
       const paramDefault = param.optional ? ' = None' : '';
 
@@ -646,7 +655,7 @@ abstract class BaseMethod implements PythonBase {
           const paramName = toPythonParameterName(prop.prop.name);
           const paramType = toTypeName(prop.prop).pythonType({
             ...context,
-            parameterType: true,
+            isInputType: true,
             typeAnnotation: true,
           });
           const paramDefault = prop.prop.optional ? ' = None' : '';
@@ -677,7 +686,10 @@ abstract class BaseMethod implements PythonBase {
 
       const lastParameter = this.parameters.slice(-1)[0];
       const paramName = toPythonParameterName(lastParameter.name);
-      const paramType = toTypeName(lastParameter.type).pythonType(context);
+      const paramType = toTypeName(lastParameter.type).pythonType({
+        ...context,
+        typeAnnotation: true,
+      });
 
       pythonParams.push(`*${paramName}: ${paramType}`);
     }
@@ -775,10 +787,12 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType({
+    const typeName = toTypeName(lastParameter.type);
+    const typeNameStr = typeName.pythonType({
       ...context,
       typeAnnotation: false,
     });
+    const imports = typeName.requiredImports(context);
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specify to start with in our dictionary literal.
@@ -789,7 +803,8 @@ abstract class BaseMethod implements PythonBase {
       .map((p) => p.pythonName)
       .map((v) => `${v}=${v}`);
 
-    assignCallResult(code, argName, typeName, assignments);
+    emitLazyImports(code, imports);
+    assignCallResult(code, argName, typeNameStr, assignments);
     code.line();
   }
 
@@ -932,8 +947,11 @@ abstract class BaseProperty implements PythonBase {
     return { api: 'member', fqn: this.parent.fqn, memberName: this.jsName };
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return toTypeName(this.type).requiredImports(context);
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return {
+      typeImports: toTypeName(this.type).requiredImports(context),
+      runtimeImports: {},
+    };
   }
 
   public emit(
@@ -1140,10 +1158,10 @@ class Struct extends BasePythonClassType {
   }
 
   public requiredImports(context: EmitContext) {
-    return mergePythonImports(
+    return mergePhaseAwarePythonImports([
       super.requiredImports(context),
       ...this.allMembers.map((mem) => mem.requiredImports(context)),
-    );
+    ]);
   }
 
   protected getClassParams(context: EmitContext): string[] {
@@ -1187,15 +1205,21 @@ class Struct extends BasePythonClassType {
 
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
-      // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType({
+      const typeName = toTypeName(member.type.type);
+      const typeNameStr = typeName.pythonType({
         ...context,
         typeAnnotation: false,
       });
+      const imports = typeName.requiredImports(context);
+
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
-      code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
+      emitLazyImports(code, imports);
+      code.line(
+        `${member.pythonName} = ${typeNameStr}(**${member.pythonName})`,
+      );
       code.closeBlock();
     }
+
     if (kwargs.length > 0) {
       emitParameterTypeChecks(
         code,
@@ -1329,8 +1353,11 @@ class StructField implements PythonBase {
     return !!this.type.optional;
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return toTypeName(this.type).requiredImports(context);
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return {
+      typeImports: toTypeName(this.type).requiredImports(context),
+      runtimeImports: {},
+    };
   }
 
   public isStruct(generator: PythonGenerator): boolean {
@@ -1338,18 +1365,22 @@ class StructField implements PythonBase {
   }
 
   public constructorDecl(context: EmitContext) {
-    const opt = this.optional ? ' = None' : '';
-    return `${this.pythonName}: ${this.typeAnnotation({
+    const typeAnnotation = this.typeAnnotation({
       ...context,
-      parameterType: true,
-    })}${opt}`;
+      isInputType: true,
+    });
+    const opt = this.optional ? ' = None' : '';
+    return `${this.pythonName}: ${typeAnnotation}${opt}`;
   }
 
   /**
    * Return the Python type annotation for this type
    */
   public typeAnnotation(context: EmitContext) {
-    return toTypeName(this.type).pythonType(context);
+    return toTypeName(this.type).pythonType({
+      ...context,
+      typeAnnotation: true,
+    });
   }
 
   public emitDocString(code: CodeMaker) {
@@ -1424,13 +1455,20 @@ class Class extends BasePythonClassType implements ISortableType {
     return dependencies;
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      super.requiredImports(context), // Takes care of base & members
-      ...this.interfaces.map((base) =>
-        toTypeName(base).requiredImports(context),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    // Takes care of base & members
+    const parent = super.requiredImports(context);
+
+    const interfaceImports: PhaseAwarePythonImports = {
+      runtimeImports: mergePythonImports(
+        this.interfaces.map((base) =>
+          toTypeName(base).requiredImports(context),
+        ),
       ),
-    );
+      typeImports: {},
+    };
+
+    return mergePhaseAwarePythonImports([parent, interfaceImports]);
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
@@ -1566,7 +1604,7 @@ class Enum extends BasePythonClassType {
     return ['enum.Enum'];
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
     return super.requiredImports(context);
   }
 }
@@ -1598,8 +1636,11 @@ class EnumMember implements PythonBase {
     });
   }
 
-  public requiredImports(_context: EmitContext): PythonImports {
-    return {};
+  public requiredImports(_context: EmitContext): PhaseAwarePythonImports {
+    return {
+      runtimeImports: {},
+      typeImports: {},
+    };
   }
 }
 
@@ -1681,9 +1722,9 @@ class PythonModule implements PythonType {
     }
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      ...this.members.map((mem) => mem.requiredImports(context)),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return mergePhaseAwarePythonImports(
+      this.members.map((mem) => mem.requiredImports(context)),
     );
   }
 
@@ -2012,6 +2053,22 @@ class PythonModule implements PythonType {
 
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
     const requiredImports = this.requiredImports(context);
+
+    if (
+      nonEmptyImports(requiredImports.runtimeImports) ||
+      nonEmptyImports(requiredImports.typeImports)
+    ) {
+      code.line();
+    }
+    this.emitImports(code, requiredImports.runtimeImports);
+    if (nonEmptyImports(requiredImports.typeImports)) {
+      code.indent('if typing.TYPE_CHECKING:');
+      this.emitImports(code, requiredImports.typeImports);
+      code.unindent();
+    }
+  }
+
+  private emitImports(code: CodeMaker, requiredImports: PythonImports) {
     const statements = Object.entries(requiredImports)
       .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
       .reduce(
@@ -2020,9 +2077,6 @@ class PythonModule implements PythonType {
       )
       .sort(importComparator);
 
-    if (statements.length > 0) {
-      code.line();
-    }
     for (const statement of statements) {
       statement.emit(code);
     }
@@ -3152,6 +3206,21 @@ function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
     name = `${name}_`;
   }
   return name;
+}
+
+/**
+ * Emits Python lazy import statements for runtime use (not under TYPE_CHECKING).
+ * These imports are placed inside constructors / functions and only execute when needed,
+ * avoiding circular dependencies.
+ *
+ */
+function emitLazyImports(code: CodeMaker, imports: PythonImports) {
+  for (const [sourcePackage, items] of Object.entries(imports)) {
+    const itemList = Array.from(items).filter((i) => i !== '');
+    if (itemList.length > 0) {
+      code.line(`from ${sourcePackage} import ${itemList.join(', ')}`);
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -4169,6 +4169,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 IVpc.java
           ┃                 ┃  ┣━ 📄 Resource.java
           ┃                 ┃  ┗━ 📄 Vpc.java
+          ┃                 ┣━ 📁 module4971_1
+          ┃                 ┃  ┗━ 📄 A.java
+          ┃                 ┣━ 📁 module4971_2
+          ┃                 ┃  ┗━ 📄 B.java
           ┃                 ┣━ 📄 Multiply.java
           ┃                 ┣━ 📄 Negate.java
           ┃                 ┣━ 📄 NestedClassInstance.java
@@ -28550,6 +28554,82 @@ public class Vpc extends software.amazon.jsii.tests.calculator.module2702.Resour
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module4971_1/A.java 1`] = `
+package software.amazon.jsii.tests.calculator.module4971_1;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module4971_1.A")
+public class A extends software.amazon.jsii.JsiiObject {
+
+    protected A(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected A(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param b
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public A(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_2.B b) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { b });
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public A() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module4971_2/B.java 1`] = `
+package software.amazon.jsii.tests.calculator.module4971_2;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module4971_2.B")
+public class B extends software.amazon.jsii.JsiiObject {
+
+    protected B(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected B(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param a
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public B(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_1.A a) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { a });
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public B() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/nodirect/sub1/TypeFromSub1.java 1`] = `
 package software.amazon.jsii.tests.calculator.nodirect.sub1;
 
@@ -30691,6 +30771,8 @@ jsii-calc.module2702.IResource=software.amazon.jsii.tests.calculator.module2702.
 jsii-calc.module2702.IVpc=software.amazon.jsii.tests.calculator.module2702.IVpc
 jsii-calc.module2702.Resource=software.amazon.jsii.tests.calculator.module2702.Resource
 jsii-calc.module2702.Vpc=software.amazon.jsii.tests.calculator.module2702.Vpc
+jsii-calc.module4971_1.A=software.amazon.jsii.tests.calculator.module4971_1.A
+jsii-calc.module4971_2.B=software.amazon.jsii.tests.calculator.module4971_2.B
 jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
 jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2
 jsii-calc.onlystatic.OnlyStaticMethods=software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods
