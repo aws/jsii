@@ -603,30 +603,48 @@ exports[`jsii-tree --all 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├─┬ class A (stable)
  │ │ │   │ └─┬ members
- │ │ │   │   └─┬ <initializer>(props) initializer (stable)
- │ │ │   │     └─┬ parameters
- │ │ │   │       └─┬ props
- │ │ │   │         └── type: Optional<jsii-calc.module4971_1.AProps>
+ │ │ │   │   ├─┬ <initializer>(props) initializer (stable)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: Optional<jsii-calc.module4971_1.AProps>
+ │ │ │   │   └─┬ isA property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
+ │ │ │   ├─┬ interface ALike (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ isA property (stable)
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
  │ │ │   └─┬ interface AProps (stable)
  │ │ │     └─┬ members
  │ │ │       └─┬ b property (stable)
  │ │ │         ├── abstract
  │ │ │         ├── immutable
- │ │ │         └── type: Optional<jsii-calc.module4971_2.B>
+ │ │ │         └── type: Optional<jsii-calc.module4971_2.BLike | string>
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
  │ │ │   ├─┬ class B (stable)
  │ │ │   │ └─┬ members
- │ │ │   │   └─┬ <initializer>(props) initializer (stable)
- │ │ │   │     └─┬ parameters
- │ │ │   │       └─┬ props
- │ │ │   │         └── type: Optional<jsii-calc.module4971_2.BProps>
+ │ │ │   │   ├─┬ <initializer>(props) initializer (stable)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: Optional<jsii-calc.module4971_2.BProps>
+ │ │ │   │   └─┬ isB property (stable)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
+ │ │ │   ├─┬ interface BLike (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ isB property (stable)
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
  │ │ │   └─┬ interface BProps (stable)
  │ │ │     └─┬ members
  │ │ │       └─┬ a property (stable)
  │ │ │         ├── abstract
  │ │ │         ├── immutable
- │ │ │         └── type: Optional<jsii-calc.module4971_1.A>
+ │ │ │         └── type: Optional<jsii-calc.module4971_1.ALike | string>
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4033,10 +4051,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
  │ │ │   ├── class A
+ │ │ │   ├── interface ALike
  │ │ │   └── interface AProps
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
  │ │ │   ├── class B
+ │ │ │   ├── interface BLike
  │ │ │   └── interface BProps
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
@@ -4769,7 +4789,11 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├─┬ class A
  │ │ │   │ └─┬ members
- │ │ │   │   └── <initializer>(props) initializer
+ │ │ │   │   ├── <initializer>(props) initializer
+ │ │ │   │   └── isA property
+ │ │ │   ├─┬ interface ALike
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── isA property
  │ │ │   └─┬ interface AProps
  │ │ │     └─┬ members
  │ │ │       └── b property
@@ -4777,7 +4801,11 @@ exports[`jsii-tree --members 1`] = `
  │ │ │ └─┬ types
  │ │ │   ├─┬ class B
  │ │ │   │ └─┬ members
- │ │ │   │   └── <initializer>(props) initializer
+ │ │ │   │   ├── <initializer>(props) initializer
+ │ │ │   │   └── isB property
+ │ │ │   ├─┬ interface BLike
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── isB property
  │ │ │   └─┬ interface BProps
  │ │ │     └─┬ members
  │ │ │       └── a property
@@ -6423,10 +6451,12 @@ exports[`jsii-tree --types 1`] = `
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
  │ │ │   ├── class A
+ │ │ │   ├── interface ALike
  │ │ │   └── interface AProps
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
  │ │ │   ├── class B
+ │ │ │   ├── interface BLike
  │ │ │   └── interface BProps
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules

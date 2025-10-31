@@ -58,9 +58,6 @@ export interface NamingContext {
   /** The submodule of the assembly in which the PythonType is expressed (could be the module root) */
   readonly submodule: string;
 
-  /** Holds the set of intersection types used in the current module */
-  readonly intersectionTypes: IntersectionTypesRegistry;
-
   /**
    * The declaration is made in the context of a type annotation (so it can be quoted)
    *
@@ -340,7 +337,7 @@ class Union implements TypeName {
   }
 }
 
-class Intersection implements TypeName {
+export class Intersection implements TypeName {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   readonly #types: readonly UserType[];
 
@@ -348,16 +345,27 @@ class Intersection implements TypeName {
     this.#types = types;
   }
 
-  public pythonType(context: NamingContext) {
-    // We will be generating a special type to represent the intersection
-    const name = context.intersectionTypes.obtain(
-      this.#types.map((t) =>
-        t.pythonType({ ...context, typeAnnotation: false }),
-      ),
-    );
+  public get types(): readonly TypeName[] {
+    return this.#types;
+  }
 
+  public get fqns() {
+    return this.#types.map((t) => t.fqn);
+  }
+
+  public pythonType(context: NamingContext) {
     // This can only ever appear as a type annotation, so render between quotes
-    return `"${name}"`;
+    return `"${this.helperTypeName(context)}"`;
+  }
+
+  /**
+   * Need the context for the type resolver
+   */
+  public helperTypeName(context: NamingContext) {
+    const parts = this.#types.map((t) =>
+      t.pythonType({ ...context, typeAnnotation: false }),
+    );
+    return `_${parts.map(lastComponent).join('_')}`;
   }
 
   public requiredImports(context: NamingContext) {
@@ -369,10 +377,10 @@ class Intersection implements TypeName {
 
 class UserType implements TypeName {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  readonly #fqn: string;
+  public readonly fqn: string;
 
   public constructor(fqn: string) {
-    this.#fqn = fqn;
+    this.fqn = fqn;
   }
 
   public pythonType(context: NamingContext) {
@@ -397,12 +405,12 @@ class UserType implements TypeName {
     typeResolver,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
-      this.#fqn,
+      this.fqn,
       assembly,
     );
 
     // If this is a type annotation for a parameter, allow dicts to be passed where structs are expected.
-    const type = typeResolver(this.#fqn);
+    const type = typeResolver(this.fqn);
     const isStruct = isInterfaceType(type) && !!type.datatype;
     const quoteType = typeAnnotation
       ? (t: string) => `"${t}"`
@@ -453,7 +461,7 @@ class UserType implements TypeName {
 
       if (
         typeAnnotation &&
-        (!emittedTypes.has(this.#fqn) || nestingParent != null)
+        (!emittedTypes.has(this.fqn) || nestingParent != null)
       ) {
         // Possibly a forward reference, outputting the stringifierd python FQN
         return {

@@ -18852,7 +18852,7 @@
         },
         "locationInModule": {
           "filename": "lib/module4971_1/index.ts",
-          "line": 8
+          "line": 15
         },
         "parameters": [
           {
@@ -18867,25 +18867,41 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/module4971_1/index.ts",
-        "line": 7
+        "line": 12
       },
       "name": "A",
       "namespace": "module4971_1",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module4971_1/index.ts",
+            "line": 13
+          },
+          "name": "isA",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ],
       "symbolId": "lib/module4971_1/index:A"
     },
-    "jsii-calc.module4971_1.AProps": {
+    "jsii-calc.module4971_1.ALike": {
       "assembly": "jsii-calc",
       "datatype": true,
       "docs": {
         "stability": "stable"
       },
-      "fqn": "jsii-calc.module4971_1.AProps",
+      "fqn": "jsii-calc.module4971_1.ALike",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/module4971_1/index.ts",
         "line": 3
       },
-      "name": "AProps",
+      "name": "ALike",
       "namespace": "module4971_1",
       "properties": [
         {
@@ -18898,10 +18914,52 @@
             "filename": "lib/module4971_1/index.ts",
             "line": 4
           },
+          "name": "isA",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ],
+      "symbolId": "lib/module4971_1/index:ALike"
+    },
+    "jsii-calc.module4971_1.AProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module4971_1.AProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module4971_1/index.ts",
+        "line": 7
+      },
+      "name": "AProps",
+      "namespace": "module4971_1",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module4971_1/index.ts",
+            "line": 9
+          },
           "name": "b",
           "optional": true,
           "type": {
-            "fqn": "jsii-calc.module4971_2.B"
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "fqn": "jsii-calc.module4971_2.BLike"
+                }
+              ]
+            }
           }
         }
       ],
@@ -18919,7 +18977,7 @@
         },
         "locationInModule": {
           "filename": "lib/module4971_2/index.ts",
-          "line": 8
+          "line": 15
         },
         "parameters": [
           {
@@ -18934,25 +18992,41 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/module4971_2/index.ts",
-        "line": 7
+        "line": 12
       },
       "name": "B",
       "namespace": "module4971_2",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module4971_2/index.ts",
+            "line": 13
+          },
+          "name": "isB",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ],
       "symbolId": "lib/module4971_2/index:B"
     },
-    "jsii-calc.module4971_2.BProps": {
+    "jsii-calc.module4971_2.BLike": {
       "assembly": "jsii-calc",
       "datatype": true,
       "docs": {
         "stability": "stable"
       },
-      "fqn": "jsii-calc.module4971_2.BProps",
+      "fqn": "jsii-calc.module4971_2.BLike",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/module4971_2/index.ts",
         "line": 3
       },
-      "name": "BProps",
+      "name": "BLike",
       "namespace": "module4971_2",
       "properties": [
         {
@@ -18965,10 +19039,52 @@
             "filename": "lib/module4971_2/index.ts",
             "line": 4
           },
+          "name": "isB",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ],
+      "symbolId": "lib/module4971_2/index:BLike"
+    },
+    "jsii-calc.module4971_2.BProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.module4971_2.BProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/module4971_2/index.ts",
+        "line": 7
+      },
+      "name": "BProps",
+      "namespace": "module4971_2",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/module4971_2/index.ts",
+            "line": 9
+          },
           "name": "a",
           "optional": true,
           "type": {
-            "fqn": "jsii-calc.module4971_1.A"
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "fqn": "jsii-calc.module4971_1.ALike"
+                }
+              ]
+            }
           }
         }
       ],
@@ -19934,5 +20050,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "sgzBH6IFm+jzFbcR1B7vHwqw9qJn8boDv9s1uN40xbQ="
+  "fingerprint": "0cf4u5chQ0P1rbsM+PqYMLxPzAgnyl9L6xBEoCfCAMQ="
 }

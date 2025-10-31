@@ -3084,10 +3084,12 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┗━ 📄 Vpc.go
        ┣━ 📁 module49711
        ┃  ┣━ 📄 A.go
+       ┃  ┣━ 📄 ALike.go
        ┃  ┣━ 📄 AProps.go
        ┃  ┗━ 📄 main.go
        ┣━ 📁 module49712
        ┃  ┣━ 📄 B.go
+       ┃  ┣━ 📄 BLike.go
        ┃  ┣━ 📄 BProps.go
        ┃  ┗━ 📄 main.go
        ┣━ 📄 Multiply.go
@@ -24756,12 +24758,24 @@ import (
 )
 
 type A interface {
+	IsA() *bool
 }
 
 // The jsii proxy struct for A
 type jsiiProxy_A struct {
 	_ byte // padding
 }
+
+func (j *jsiiProxy_A) IsA() *bool {
+	var returns *bool
+	_jsii_.Get(
+		j,
+		"isA",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewA(props *AProps) A {
 	_init_.Initialize()
@@ -24790,15 +24804,23 @@ func NewA_Override(a A, props *AProps) {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49711/ALike.go 1`] = `
+package module49711
+
+
+type ALike struct {
+	IsA *bool \`field:"required" json:"isA" yaml:"isA"\`
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49711/AProps.go 1`] = `
 package module49711
 
-import (
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49712"
-)
 
 type AProps struct {
-	B module49712.B \`field:"optional" json:"b" yaml:"b"\`
+	B interface{} \`field:"optional" json:"b" yaml:"b"\`
 }
 
 
@@ -24817,10 +24839,16 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.module4971_1.A",
 		reflect.TypeOf((*A)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "isA", GoGetter: "IsA"},
+		},
 		func() interface{} {
 			return &jsiiProxy_A{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.module4971_1.ALike",
+		reflect.TypeOf((*ALike)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.module4971_1.AProps",
@@ -24839,12 +24867,24 @@ import (
 )
 
 type B interface {
+	IsB() *bool
 }
 
 // The jsii proxy struct for B
 type jsiiProxy_B struct {
 	_ byte // padding
 }
+
+func (j *jsiiProxy_B) IsB() *bool {
+	var returns *bool
+	_jsii_.Get(
+		j,
+		"isB",
+		&returns,
+	)
+	return returns
+}
+
 
 func NewB(props *BProps) B {
 	_init_.Initialize()
@@ -24873,15 +24913,23 @@ func NewB_Override(b B, props *BProps) {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49712/BLike.go 1`] = `
+package module49712
+
+
+type BLike struct {
+	IsB *bool \`field:"required" json:"isB" yaml:"isB"\`
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49712/BProps.go 1`] = `
 package module49712
 
-import (
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49711"
-)
 
 type BProps struct {
-	A module49711.A \`field:"optional" json:"a" yaml:"a"\`
+	A interface{} \`field:"optional" json:"a" yaml:"a"\`
 }
 
 
@@ -24900,10 +24948,16 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.module4971_2.B",
 		reflect.TypeOf((*B)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "isB", GoGetter: "IsB"},
+		},
 		func() interface{} {
 			return &jsiiProxy_B{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.module4971_2.BLike",
+		reflect.TypeOf((*BLike)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.module4971_2.BProps",
@@ -37019,8 +37073,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49711/A.go.diff 1`] = `
 --- go/jsiicalc/module49711/A.go	--no-runtime-type-checking
 +++ go/jsiicalc/module49711/A.go	--runtime-type-checking
-@@ -14,10 +14,13 @@
- }
+@@ -26,10 +26,13 @@
+ 
  
  func NewA(props *AProps) A {
  	_init_.Initialize()
@@ -37076,8 +37130,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49712/B.go.diff 1`] = `
 --- go/jsiicalc/module49712/B.go	--no-runtime-type-checking
 +++ go/jsiicalc/module49712/B.go	--runtime-type-checking
-@@ -14,10 +14,13 @@
- }
+@@ -26,10 +26,13 @@
+ 
  
  func NewB(props *BProps) B {
  	_init_.Initialize()

@@ -27,11 +27,11 @@ import {
   mergePythonImports,
   toPackageName,
   toPythonFqn,
-  IntersectionTypesRegistry,
   PhaseAwarePythonImports,
   mergePhaseAwarePythonImports,
   nonEmptyImports,
   TypeName,
+  Intersection,
 } from './python/type-name';
 import { die, setDifference, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
@@ -176,6 +176,53 @@ class TypeCheckingStub {
     code.line(`"""Type checking stubs"""`);
     code.line('pass');
     code.closeBlock();
+  }
+}
+
+class IntersectionTypeHelper implements PythonBase, ISortableType {
+  public readonly isExported = false;
+
+  public constructor(
+    public readonly pythonName: string,
+    private readonly types: readonly TypeName[],
+    private readonly fqns: readonly string[],
+  ) {}
+
+  public emit(code: CodeMaker, context: EmitContext): void {
+    const types = this.types.map((t) =>
+      t.pythonType({ ...context, typeAnnotation: false }),
+    );
+
+    code.line(
+      `class ${this.pythonName}(${types.join(', ')}, typing_extensions.Protocol):`,
+    );
+    code.line('    pass');
+  }
+
+  public visitTypes(visitor: TypeVisitor): void {
+    for (const type of this.types) {
+      visitor(type);
+    }
+  }
+
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return {
+      runtimeImports: mergePythonImports(
+        this.types.map((o) => o.requiredImports(context)),
+      ),
+      typeImports: {},
+    };
+  }
+
+  public dependsOn(resolver: TypeResolver): PythonType[] {
+    const ret: PythonType[] = [];
+    // Return all bases that are also types in this module
+    for (const fqn of this.fqns) {
+      if (resolver.isInModule(fqn)) {
+        ret.push(resolver.getType(fqn));
+      }
+    }
+    return ret;
   }
 }
 
@@ -343,6 +390,7 @@ const sortMembers = (
  * Interface for any Python API elements (class, interface, property, method)
  */
 interface PythonBase {
+  readonly isExported: boolean;
   readonly pythonName: string;
   readonly docs?: spec.Docs;
 
@@ -378,6 +426,8 @@ interface PythonTypeOpts {
 }
 
 abstract class BasePythonClassType implements PythonType, ISortableType {
+  public readonly isExported = true;
+
   protected bases: spec.TypeReference[];
   protected members: PythonBase[];
   protected readonly separateMembers: boolean = true;
@@ -517,6 +567,8 @@ interface BaseMethodEmitOpts {
 }
 
 abstract class BaseMethod implements PythonBase {
+  public readonly isExported = true;
+
   public readonly abstract: boolean;
 
   protected abstract readonly implicitParameter: string;
@@ -614,6 +666,11 @@ abstract class BaseMethod implements PythonBase {
     for (const [_, typeName] of this.liftedPropFields(resolver)) {
       visitor(typeName);
     }
+    /*
+    for (const prop of this.getLiftedProperties(resolver)) {
+      visitor(prop.typeName);
+    }
+    */
   }
 
   public emit(
@@ -938,6 +995,7 @@ abstract class BaseMethod implements PythonBase {
             prop,
             definingType: current,
             typeName: toTypeName(prop),
+            nonNullableTypeName: toTypeName(prop.type),
           });
           knownProps.add(prop.name);
         }
@@ -961,6 +1019,8 @@ interface BasePropertyEmitOpts {
 }
 
 abstract class BaseProperty implements PythonBase {
+  public readonly isExported = true;
+
   public readonly abstract: boolean;
   public readonly isStatic: boolean;
 
@@ -1259,7 +1319,7 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = member.typeName.pythonType({
+      const typeName = member.nonNullableTypeName.pythonType({
         ...context,
         typeAnnotation: false,
       });
@@ -1372,11 +1432,14 @@ class Struct extends BasePythonClassType {
 }
 
 class StructField implements PythonBase {
+  public readonly isExported = true;
+
   public readonly pythonName: string;
   public readonly jsiiName: string;
   public readonly docs?: spec.Docs;
   public readonly type: spec.OptionalValue;
   public readonly typeName: TypeName;
+  public readonly nonNullableTypeName: TypeName;
 
   public constructor(
     private readonly generator: PythonGenerator,
@@ -1388,6 +1451,7 @@ class StructField implements PythonBase {
     this.type = prop;
     this.docs = prop.docs;
     this.typeName = toTypeName(this.type);
+    this.nonNullableTypeName = toTypeName(this.type.type);
   }
 
   public get apiLocation(): ApiLocation {
@@ -1663,6 +1727,8 @@ class Enum extends BasePythonClassType {
 }
 
 class EnumMember implements PythonBase {
+  public readonly isExported = true;
+
   public constructor(
     private readonly generator: PythonGenerator,
     public readonly pythonName: string,
@@ -1719,6 +1785,8 @@ interface ModuleOpts {
  * Will be called for jsii submodules and namespaces.
  */
 class PythonModule implements PythonType {
+  public readonly isExported = true;
+
   /**
    * Converted to put on the module
    *
@@ -1732,6 +1800,7 @@ class PythonModule implements PythonType {
   private readonly members = new Array<PythonBase>();
 
   private readonly modules = new Array<PythonModule>();
+  private readonly intersectionTypeNames = new Set<string>();
 
   public constructor(
     public readonly pythonName: string,
@@ -1786,7 +1855,7 @@ class PythonModule implements PythonType {
   }
 
   public visitTypes(visitor: TypeVisitor, resolver: TypeResolver) {
-    for (const m of this.members) {
+    for (const m of Array.from(this.members)) {
       m.visitTypes(visitor, resolver);
     }
     // NOTE: no recursion on modules
@@ -1801,9 +1870,10 @@ class PythonModule implements PythonType {
     context = {
       ...context,
       submodule: this.fqn ?? context.submodule,
-      intersectionTypes: new IntersectionTypesRegistry(),
       resolver,
     };
+
+    this.preEmit(context);
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
@@ -1922,7 +1992,9 @@ class PythonModule implements PythonType {
     // with the `publication` module NOT having them in this list hides any submodules
     // we import as part of typechecking.
     const exportedMembers = [
-      ...this.members.map((m) => `"${m.pythonName}"`),
+      ...this.members
+        .filter((m) => m.isExported)
+        .map((m) => `"${m.pythonName}"`),
       ...this.modules
         .filter((m) => this.isDirectChild(m))
         .map((m) => `"${lastComponent(m.pythonName)}"`),
@@ -1974,7 +2046,6 @@ class PythonModule implements PythonType {
     }
 
     context.typeCheckingHelper.flushStubs(code);
-    context.intersectionTypes.flushHelperTypes(code);
 
     const interfaces = this.members
       .filter((m) => m instanceof Interface)
@@ -1982,8 +2053,32 @@ class PythonModule implements PythonType {
 
     this.emitProtocolStripper(code, [
       ...interfaces,
-      ...context.intersectionTypes.typeNames,
+      ...this.intersectionTypeNames,
     ]);
+  }
+
+  public preEmit(context: EmitContext) {
+    this.addIntersectionTypeHelpers(context);
+  }
+
+  /**
+   * Add all the intersection type helpers to the module
+   *
+   * We do it like this so that the type handling for these structures can just
+   * participate in the normal type handling.
+   */
+  private addIntersectionTypeHelpers(context: EmitContext) {
+    this.visitTypes((type) => {
+      if (type instanceof Intersection) {
+        const generatedName = type.helperTypeName(context);
+        if (!this.intersectionTypeNames.has(generatedName)) {
+          this.intersectionTypeNames.add(generatedName);
+          this.addMember(
+            new IntersectionTypeHelper(generatedName, type.types, type.fqns),
+          );
+        }
+      }
+    }, context.resolver);
   }
 
   /**
@@ -2574,11 +2669,12 @@ class TypeResolver {
     return this.findModule(assm).targets!.python!.module;
   }
 
-  public getType(typeRef: spec.NamedTypeReference): PythonType {
-    const type = this.types.get(typeRef.fqn);
+  public getType(typeRef: string | spec.NamedTypeReference): PythonType {
+    const fqn = typeof typeRef === 'string' ? typeRef : typeRef.fqn;
+    const type = this.types.get(fqn);
 
     if (type === undefined) {
-      throw new Error(`Could not locate type: "${typeRef.fqn}"`);
+      throw new Error(`Could not locate type: "${fqn}"`);
     }
 
     return type;
@@ -2824,7 +2920,6 @@ class PythonGenerator extends Generator {
       submodule: assm.name,
       typeCheckingHelper: new TypeCheckingHelper(),
       typeResolver: (fqn) => resolver.dereference(fqn),
-      intersectionTypes: new IntersectionTypesRegistry(),
     });
   }
 
@@ -3573,5 +3668,13 @@ function lastComponent(n: string) {
 }
 
 interface PythonPropertyDefinition extends PropertyDefinition {
+  /**
+   * A TypeName that takes the optionality of the argument into account
+   */
   readonly typeName: TypeName;
+
+  /**
+   * A TypeName that never has a potential `Optional[]` annotation.
+   */
+  readonly nonNullableTypeName: TypeName;
 }

@@ -13447,16 +13447,18 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
 
 from .._jsii import *
 
-if typing.TYPE_CHECKING:
-    import scope.jsii_calc_lib as _scope_jsii_calc_lib_c61f082f
+import scope.jsii_calc_lib as _scope_jsii_calc_lib_c61f082f
 
+
+class __ISomething_a89966d9_IFriendly("ISomething", "_scope_jsii_calc_lib_c61f082f.IFriendly", typing_extensions.Protocol):
+    pass
 
 
 class ConsumesIntersection(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.intersection.ConsumesIntersection",
 ):
-    def __init__(self, *, param: '_ISomething_IFriendly') -> None:
+    def __init__(self, *, param: "_ISomething_IFriendly") -> None:
         '''
         :param param: 
         '''
@@ -13466,7 +13468,7 @@ class ConsumesIntersection(
 
     @jsii.member(jsii_name="acceptsIntersection")
     @builtins.classmethod
-    def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
+    def accepts_intersection(cls, param: "_ISomething_IFriendly") -> None:
         '''
         :param param: -
         '''
@@ -13474,7 +13476,7 @@ class ConsumesIntersection(
 
     @jsii.member(jsii_name="acceptsPropWithIntersection")
     @builtins.classmethod
-    def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
+    def accepts_prop_with_intersection(cls, *, param: "_ISomething_IFriendly") -> None:
         '''
         :param param: 
         '''
@@ -13507,7 +13509,7 @@ typing.cast(typing.Any, ISomething).__jsii_proxy_class__ = lambda : _ISomethingP
     name_mapping={"param": "param"},
 )
 class IntersectionProps:
-    def __init__(self, *, param: '_ISomething_IFriendly') -> None:
+    def __init__(self, *, param: "_ISomething_IFriendly") -> None:
         '''
         :param param: 
         '''
@@ -13516,10 +13518,10 @@ class IntersectionProps:
         }
 
     @builtins.property
-    def param(self) -> '_ISomething_IFriendly':
+    def param(self) -> "_ISomething_IFriendly":
         result = self._values.get("param")
         assert result is not None, "Required property 'param' is missing"
-        return typing.cast('_ISomething_IFriendly', result)
+        return typing.cast("_ISomething_IFriendly", result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -13537,14 +13539,12 @@ __all__ = [
     "ConsumesIntersection",
     "ISomething",
     "IntersectionProps",
+    "__ISomething_a89966d9_IFriendly",
 ]
 
 publication.publish()
 
-class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
-    pass
-
-for cls in [ISomething, _ISomething_IFriendly]:
+for cls in [ISomething, __ISomething_a89966d9_IFriendly]:
     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
@@ -14990,18 +14990,59 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
 from .._jsii import *
 
 if typing.TYPE_CHECKING:
-    from ..module4971_2 import B as _B_228796ae
+    from ..module4971_2 import BLike as _BLike_ac9073ee
 
 
 
 class A(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_1.A"):
-    def __init__(self, *, b: typing.Optional["_B_228796ae"] = None) -> None:
+    def __init__(
+        self,
+        *,
+        b: typing.Optional[typing.Union[builtins.str, typing.Union["_BLike_ac9073ee", typing.Dict[builtins.str, typing.Any]]]] = None,
+    ) -> None:
         '''
         :param b: 
         '''
         props = AProps(b=b)
 
         jsii.create(self.__class__, self, [props])
+
+    @builtins.property
+    @jsii.member(jsii_name="isA")
+    def is_a(self) -> builtins.bool:
+        return typing.cast(builtins.bool, jsii.get(self, "isA"))
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module4971_1.ALike",
+    jsii_struct_bases=[],
+    name_mapping={"is_a": "isA"},
+)
+class ALike:
+    def __init__(self, *, is_a: builtins.bool) -> None:
+        '''
+        :param is_a: 
+        '''
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "is_a": is_a,
+        }
+
+    @builtins.property
+    def is_a(self) -> builtins.bool:
+        result = self._values.get("is_a")
+        assert result is not None, "Required property 'is_a' is missing"
+        return typing.cast(builtins.bool, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ALike(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -15010,7 +15051,11 @@ class A(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_1.A"):
     name_mapping={"b": "b"},
 )
 class AProps:
-    def __init__(self, *, b: typing.Optional["_B_228796ae"] = None) -> None:
+    def __init__(
+        self,
+        *,
+        b: typing.Optional[typing.Union[builtins.str, typing.Union["_BLike_ac9073ee", typing.Dict[builtins.str, typing.Any]]]] = None,
+    ) -> None:
         '''
         :param b: 
         '''
@@ -15019,9 +15064,9 @@ class AProps:
             self._values["b"] = b
 
     @builtins.property
-    def b(self) -> typing.Optional["_B_228796ae"]:
+    def b(self) -> typing.Optional[typing.Union[builtins.str, "_BLike_ac9073ee"]]:
         result = self._values.get("b")
-        return typing.cast(typing.Optional["_B_228796ae"], result)
+        return typing.cast(typing.Optional[typing.Union[builtins.str, "_BLike_ac9073ee"]], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -15037,6 +15082,7 @@ class AProps:
 
 __all__ = [
     "A",
+    "ALike",
     "AProps",
 ]
 
@@ -15078,18 +15124,59 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
 from .._jsii import *
 
 if typing.TYPE_CHECKING:
-    from ..module4971_1 import A as _A_1a9f7f54
+    from ..module4971_1 import ALike as _ALike_15c63def
 
 
 
 class B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_2.B"):
-    def __init__(self, *, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
+    def __init__(
+        self,
+        *,
+        a: typing.Optional[typing.Union[builtins.str, typing.Union["_ALike_15c63def", typing.Dict[builtins.str, typing.Any]]]] = None,
+    ) -> None:
         '''
         :param a: 
         '''
         props = BProps(a=a)
 
         jsii.create(self.__class__, self, [props])
+
+    @builtins.property
+    @jsii.member(jsii_name="isB")
+    def is_b(self) -> builtins.bool:
+        return typing.cast(builtins.bool, jsii.get(self, "isB"))
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module4971_2.BLike",
+    jsii_struct_bases=[],
+    name_mapping={"is_b": "isB"},
+)
+class BLike:
+    def __init__(self, *, is_b: builtins.bool) -> None:
+        '''
+        :param is_b: 
+        '''
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "is_b": is_b,
+        }
+
+    @builtins.property
+    def is_b(self) -> builtins.bool:
+        result = self._values.get("is_b")
+        assert result is not None, "Required property 'is_b' is missing"
+        return typing.cast(builtins.bool, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "BLike(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -15098,7 +15185,11 @@ class B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_2.B"):
     name_mapping={"a": "a"},
 )
 class BProps:
-    def __init__(self, *, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
+    def __init__(
+        self,
+        *,
+        a: typing.Optional[typing.Union[builtins.str, typing.Union["_ALike_15c63def", typing.Dict[builtins.str, typing.Any]]]] = None,
+    ) -> None:
         '''
         :param a: 
         '''
@@ -15107,9 +15198,9 @@ class BProps:
             self._values["a"] = a
 
     @builtins.property
-    def a(self) -> typing.Optional["_A_1a9f7f54"]:
+    def a(self) -> typing.Optional[typing.Union[builtins.str, "_ALike_15c63def"]]:
         result = self._values.get("a")
-        return typing.cast(typing.Optional["_A_1a9f7f54"], result)
+        return typing.cast(typing.Optional[typing.Union[builtins.str, "_ALike_15c63def"]], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -15125,6 +15216,7 @@ class BProps:
 
 __all__ = [
     "B",
+    "BLike",
     "BProps",
 ]
 
@@ -21835,9 +21927,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
-@@ -51,10 +51,13 @@
+@@ -53,10 +53,13 @@
      @builtins.classmethod
-     def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
+     def accepts_intersection(cls, param: "_ISomething_IFriendly") -> None:
          '''
          :param param: -
          '''
@@ -21848,10 +21940,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @jsii.member(jsii_name="acceptsPropWithIntersection")
      @builtins.classmethod
-     def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
-@@ -92,10 +95,13 @@
+     def accepts_prop_with_intersection(cls, *, param: "_ISomething_IFriendly") -> None:
+@@ -94,10 +97,13 @@
  class IntersectionProps:
-     def __init__(self, *, param: '_ISomething_IFriendly') -> None:
+     def __init__(self, *, param: "_ISomething_IFriendly") -> None:
          '''
          :param param: 
          '''
@@ -21863,29 +21955,26 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -122,10 +128,23 @@
-     "IntersectionProps",
+@@ -125,7 +131,20 @@
+     "__ISomething_a89966d9_IFriendly",
  ]
  
  publication.publish()
  
 +def _typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420(
-+    param: '_ISomething_IFriendly',
++    param: "_ISomething_IFriendly",
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
 +def _typecheckingstub__c15dc791f3df60b50382a570589911c44374231249b9f320e007beea4de43c1b(
 +    *,
-+    param: '_ISomething_IFriendly',
++    param: "_ISomething_IFriendly",
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
- class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
-     pass
- 
- for cls in [ISomething, _ISomething_IFriendly]:
+ for cls in [ISomething, __ISomething_a89966d9_IFriendly]:
      typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
@@ -22240,9 +22329,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module4971_1/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module4971_1/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module4971_1/__init__.py	--runtime-type-checking
-@@ -53,10 +53,13 @@
- class AProps:
-     def __init__(self, *, b: typing.Optional["_B_228796ae"] = None) -> None:
+@@ -62,10 +62,13 @@
+ class ALike:
+     def __init__(self, *, is_a: builtins.bool) -> None:
+         '''
+         :param is_a: 
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__efdb8e7592952c260348cd3f700d2802b74db87e31c0cb1b7a2d1ad68cecb883)
++            check_type(argname="argument is_a", value=is_a, expected_type=type_hints["is_a"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "is_a": is_a,
+         }
+ 
+     @builtins.property
+@@ -98,10 +101,13 @@
+         b: typing.Optional[typing.Union[builtins.str, typing.Union["_BLike_ac9073ee", typing.Dict[builtins.str, typing.Any]]]] = None,
+     ) -> None:
          '''
          :param b: 
          '''
@@ -22254,16 +22357,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["b"] = b
  
      @builtins.property
-@@ -80,5 +83,12 @@
-     "A",
+@@ -126,5 +132,19 @@
+     "ALike",
      "AProps",
  ]
  
  publication.publish()
 +
++def _typecheckingstub__efdb8e7592952c260348cd3f700d2802b74db87e31c0cb1b7a2d1ad68cecb883(
++    *,
++    is_a: builtins.bool,
++) -> None:
++    """Type checking stubs"""
++    pass
++
 +def _typecheckingstub__b7ff0a71772353d060b4dca5fe5848fb2abb2708edfd79229136cfcfe34277fe(
 +    *,
-+    b: typing.Optional["_B_228796ae"] = None,
++    b: typing.Optional[typing.Union[builtins.str, typing.Union["_BLike_ac9073ee", typing.Dict[builtins.str, typing.Any]]]] = None,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
@@ -22272,9 +22382,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module4971_2/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module4971_2/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module4971_2/__init__.py	--runtime-type-checking
-@@ -53,10 +53,13 @@
- class BProps:
-     def __init__(self, *, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
+@@ -62,10 +62,13 @@
+ class BLike:
+     def __init__(self, *, is_b: builtins.bool) -> None:
+         '''
+         :param is_b: 
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__b423eca6c0b6d54fb06a5b2a1b44da76c504bb85a813d55d9d8ce53fa4a603d4)
++            check_type(argname="argument is_b", value=is_b, expected_type=type_hints["is_b"])
+         self._values: typing.Dict[builtins.str, typing.Any] = {
+             "is_b": is_b,
+         }
+ 
+     @builtins.property
+@@ -98,10 +101,13 @@
+         a: typing.Optional[typing.Union[builtins.str, typing.Union["_ALike_15c63def", typing.Dict[builtins.str, typing.Any]]]] = None,
+     ) -> None:
          '''
          :param a: 
          '''
@@ -22286,16 +22410,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["a"] = a
  
      @builtins.property
-@@ -80,5 +83,12 @@
-     "B",
+@@ -126,5 +132,19 @@
+     "BLike",
      "BProps",
  ]
  
  publication.publish()
 +
++def _typecheckingstub__b423eca6c0b6d54fb06a5b2a1b44da76c504bb85a813d55d9d8ce53fa4a603d4(
++    *,
++    is_b: builtins.bool,
++) -> None:
++    """Type checking stubs"""
++    pass
++
 +def _typecheckingstub__b64db5b1de53b49ebb5ed0e190aeae3aca72e829d1be88b1d13943c9106cf4c0(
 +    *,
-+    a: typing.Optional["_A_1a9f7f54"] = None,
++    a: typing.Optional[typing.Union[builtins.str, typing.Union["_ALike_15c63def", typing.Dict[builtins.str, typing.Any]]]] = None,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
