@@ -611,7 +611,7 @@ abstract class BaseMethod implements PythonBase {
 
       const paramType = typeFac.pythonType({
         ...context,
-        parameterType: true,
+        isInputType: true,
         typeAnnotation: true,
       });
       const paramDefault = param.optional ? ' = None' : '';
@@ -655,7 +655,7 @@ abstract class BaseMethod implements PythonBase {
           const paramName = toPythonParameterName(prop.prop.name);
           const paramType = toTypeName(prop.prop).pythonType({
             ...context,
-            parameterType: true,
+            isInputType: true,
             typeAnnotation: true,
           });
           const paramDefault = prop.prop.optional ? ' = None' : '';
@@ -1358,7 +1358,7 @@ class StructField implements PythonBase {
   public constructorDecl(context: EmitContext) {
     const typeAnnotation = this.typeAnnotation({
       ...context,
-      parameterType: true,
+      isInputType: true,
     });
     const opt = this.optional ? ' = None' : '';
     return `${this.pythonName}: ${typeAnnotation}${opt}`;

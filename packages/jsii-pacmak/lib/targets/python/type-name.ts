@@ -94,11 +94,12 @@ export interface NamingContext {
   readonly emittedTypes: Set<string>;
 
   /**
-   * Whether the type is emitted for a parameter or not. This may change the
-   * exact type signature being emitted (e.g: Arrays are typing.Sequence[T] for
-   * parameters, and typing.List[T] otherwise).
+   * Whether the type is emitted for an input, false if it is an output.
+   * This may change the exact type signature being emitted (e.g: Arrays
+   * are typing.Sequence[T] for parameters, and typing.List[T]
+   * otherwise).
    */
-  readonly parameterType?: boolean;
+  readonly isInputType?: boolean;
 }
 
 export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
@@ -239,7 +240,7 @@ class List implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    const type = context.parameterType ? 'Sequence' : 'List';
+    const type = context.isInputType ? 'Sequence' : 'List';
     return `typing.${type}[${this.#element.pythonType(context)}]`;
   }
 
@@ -391,7 +392,7 @@ class UserType implements TypeName {
     submodule,
     surroundingTypeFqns,
     typeAnnotation = true,
-    parameterType,
+    isInputType,
     typeResolver,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
@@ -406,8 +407,9 @@ class UserType implements TypeName {
       ? (t: string) => `"${t}"`
       : (t: string) => t;
 
+    // For backwards compatibility, we accept a dict if the input is a struct
     const wrapType =
-      typeAnnotation && parameterType && isStruct
+      typeAnnotation && isInputType && isStruct
         ? (pyType: string) =>
             `typing.Union[${quoteType(pyType)}, typing.Dict[builtins.str, typing.Any]]`
         : (pyType: string) => quoteType(pyType);
