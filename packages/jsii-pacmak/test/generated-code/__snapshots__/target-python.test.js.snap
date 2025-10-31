@@ -15593,6 +15593,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         '''
         :param prop: 
         '''
+        from .child import SomeStruct as _SomeStruct_91627123
         props = _SomeStruct_91627123(prop=prop)
 
         jsii.create(self.__class__, self, [props])
@@ -15602,6 +15603,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         '''
         :param value: 
         '''
+        from .param import SpecialParameter as _SpecialParameter_5bbf34a2
         param = _SpecialParameter_5bbf34a2(value=value)
 
         return typing.cast(builtins.str, jsii.invoke(self, "methodWithSpecialParam", [param]))
@@ -16007,6 +16009,7 @@ class Kwargs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.isolated.Kw
         :param extra: 
         :param prop: 
         '''
+        from ..child import KwargsProps as _KwargsProps_c7855dcf
         props = _KwargsProps_c7855dcf(extra=extra, prop=prop)
 
         return typing.cast(builtins.bool, jsii.sinvoke(cls, "method", [props]))
@@ -22332,7 +22335,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -127,10 +130,13 @@
+@@ -129,10 +132,13 @@
      def all_types(self) -> typing.Optional["_AllTypes_b08307c5"]:
          return typing.cast(typing.Optional["_AllTypes_b08307c5"], jsii.get(self, "allTypes"))
  
@@ -22346,7 +22349,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "Default",
-@@ -150,5 +156,18 @@
+@@ -152,5 +158,18 @@
  from . import child
  from . import isolated
  from . import nested_submodule
