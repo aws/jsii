@@ -4170,9 +4170,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┣━ 📄 Resource.java
           ┃                 ┃  ┗━ 📄 Vpc.java
           ┃                 ┣━ 📁 module4971_1
-          ┃                 ┃  ┗━ 📄 A.java
+          ┃                 ┃  ┣━ 📄 A.java
+          ┃                 ┃  ┗━ 📄 AProps.java
           ┃                 ┣━ 📁 module4971_2
-          ┃                 ┃  ┗━ 📄 B.java
+          ┃                 ┃  ┣━ 📄 B.java
+          ┃                 ┃  ┗━ 📄 BProps.java
           ┃                 ┣━ 📄 Multiply.java
           ┃                 ┣━ 📄 Negate.java
           ┃                 ┣━ 📄 NestedClassInstance.java
@@ -28573,12 +28575,12 @@ public class A extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param b
+     * @param props
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public A(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_2.B b) {
+    public A(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_1.AProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { b });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
     }
 
     /**
@@ -28587,6 +28589,178 @@ public class A extends software.amazon.jsii.JsiiObject {
     public A() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.module4971_1.A}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.module4971_1.A> {
+        /**
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private software.amazon.jsii.tests.calculator.module4971_1.AProps.Builder props;
+
+        private Builder() {
+        }
+
+        /**
+         * @return {@code this}
+         * @param b This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder b(final software.amazon.jsii.tests.calculator.module4971_2.B b) {
+            this.props().b(b);
+            return this;
+        }
+
+        /**
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.module4971_1.A}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.module4971_1.A build() {
+            return new software.amazon.jsii.tests.calculator.module4971_1.A(
+                this.props != null ? this.props.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.module4971_1.AProps.Builder props() {
+            if (this.props == null) {
+                this.props = new software.amazon.jsii.tests.calculator.module4971_1.AProps.Builder();
+            }
+            return this.props;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module4971_1/AProps.java 1`] = `
+package software.amazon.jsii.tests.calculator.module4971_1;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module4971_1.AProps")
+@software.amazon.jsii.Jsii.Proxy(AProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface AProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_2.B getB() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link AProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link AProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<AProps> {
+        software.amazon.jsii.tests.calculator.module4971_2.B b;
+
+        /**
+         * Sets the value of {@link AProps#getB}
+         * @param b the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder b(software.amazon.jsii.tests.calculator.module4971_2.B b) {
+            this.b = b;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link AProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public AProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link AProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements AProps {
+        private final software.amazon.jsii.tests.calculator.module4971_2.B b;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.b = software.amazon.jsii.Kernel.get(this, "b", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.module4971_2.B.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.b = builder.b;
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.module4971_2.B getB() {
+            return this.b;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getB() != null) {
+                data.set("b", om.valueToTree(this.getB()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.module4971_1.AProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            AProps.Jsii$Proxy that = (AProps.Jsii$Proxy) o;
+
+            return this.b != null ? this.b.equals(that.b) : that.b == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.b != null ? this.b.hashCode() : 0;
+            return result;
+        }
     }
 }
 
@@ -28611,12 +28785,12 @@ public class B extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @param a
+     * @param props
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public B(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_1.A a) {
+    public B(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_2.BProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { a });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
     }
 
     /**
@@ -28625,6 +28799,178 @@ public class B extends software.amazon.jsii.JsiiObject {
     public B() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.module4971_2.B}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.module4971_2.B> {
+        /**
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private software.amazon.jsii.tests.calculator.module4971_2.BProps.Builder props;
+
+        private Builder() {
+        }
+
+        /**
+         * @return {@code this}
+         * @param a This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder a(final software.amazon.jsii.tests.calculator.module4971_1.A a) {
+            this.props().a(a);
+            return this;
+        }
+
+        /**
+         * @return a newly built instance of {@link software.amazon.jsii.tests.calculator.module4971_2.B}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.module4971_2.B build() {
+            return new software.amazon.jsii.tests.calculator.module4971_2.B(
+                this.props != null ? this.props.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.module4971_2.BProps.Builder props() {
+            if (this.props == null) {
+                this.props = new software.amazon.jsii.tests.calculator.module4971_2.BProps.Builder();
+            }
+            return this.props;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/module4971_2/BProps.java 1`] = `
+package software.amazon.jsii.tests.calculator.module4971_2;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.module4971_2.BProps")
+@software.amazon.jsii.Jsii.Proxy(BProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface BProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.module4971_1.A getA() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link BProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link BProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<BProps> {
+        software.amazon.jsii.tests.calculator.module4971_1.A a;
+
+        /**
+         * Sets the value of {@link BProps#getA}
+         * @param a the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder a(software.amazon.jsii.tests.calculator.module4971_1.A a) {
+            this.a = a;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link BProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public BProps build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link BProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements BProps {
+        private final software.amazon.jsii.tests.calculator.module4971_1.A a;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.a = software.amazon.jsii.Kernel.get(this, "a", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.module4971_1.A.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.a = builder.a;
+        }
+
+        @Override
+        public final software.amazon.jsii.tests.calculator.module4971_1.A getA() {
+            return this.a;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            if (this.getA() != null) {
+                data.set("a", om.valueToTree(this.getA()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.module4971_2.BProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            BProps.Jsii$Proxy that = (BProps.Jsii$Proxy) o;
+
+            return this.a != null ? this.a.equals(that.a) : that.a == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.a != null ? this.a.hashCode() : 0;
+            return result;
+        }
     }
 }
 
@@ -30772,7 +31118,9 @@ jsii-calc.module2702.IVpc=software.amazon.jsii.tests.calculator.module2702.IVpc
 jsii-calc.module2702.Resource=software.amazon.jsii.tests.calculator.module2702.Resource
 jsii-calc.module2702.Vpc=software.amazon.jsii.tests.calculator.module2702.Vpc
 jsii-calc.module4971_1.A=software.amazon.jsii.tests.calculator.module4971_1.A
+jsii-calc.module4971_1.AProps=software.amazon.jsii.tests.calculator.module4971_1.AProps
 jsii-calc.module4971_2.B=software.amazon.jsii.tests.calculator.module4971_2.B
+jsii-calc.module4971_2.BProps=software.amazon.jsii.tests.calculator.module4971_2.BProps
 jsii-calc.nodirect.sub1.TypeFromSub1=software.amazon.jsii.tests.calculator.nodirect.sub1.TypeFromSub1
 jsii-calc.nodirect.sub2.TypeFromSub2=software.amazon.jsii.tests.calculator.nodirect.sub2.TypeFromSub2
 jsii-calc.onlystatic.OnlyStaticMethods=software.amazon.jsii.tests.calculator.onlystatic.OnlyStaticMethods

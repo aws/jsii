@@ -601,20 +601,32 @@ exports[`jsii-tree --all 1`] = `
  │ │ │         └── returns: void
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
- │ │ │   └─┬ class A (stable)
+ │ │ │   ├─┬ class A (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer (stable)
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: Optional<jsii-calc.module4971_1.AProps>
+ │ │ │   └─┬ interface AProps (stable)
  │ │ │     └─┬ members
- │ │ │       └─┬ <initializer>(b) initializer (stable)
- │ │ │         └─┬ parameters
- │ │ │           └─┬ b
- │ │ │             └── type: Optional<jsii-calc.module4971_2.B>
+ │ │ │       └─┬ b property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<jsii-calc.module4971_2.B>
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
- │ │ │   └─┬ class B (stable)
+ │ │ │   ├─┬ class B (stable)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer (stable)
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: Optional<jsii-calc.module4971_2.BProps>
+ │ │ │   └─┬ interface BProps (stable)
  │ │ │     └─┬ members
- │ │ │       └─┬ <initializer>(a) initializer (stable)
- │ │ │         └─┬ parameters
- │ │ │           └─┬ a
- │ │ │             └── type: Optional<jsii-calc.module4971_1.A>
+ │ │ │       └─┬ a property (stable)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<jsii-calc.module4971_1.A>
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4020,10 +4032,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │       └── IResource
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
- │ │ │   └── class A
+ │ │ │   ├── class A
+ │ │ │   └── interface AProps
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
- │ │ │   └── class B
+ │ │ │   ├── class B
+ │ │ │   └── interface BProps
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4753,14 +4767,20 @@ exports[`jsii-tree --members 1`] = `
  │ │ │       └── vpcMethod() method
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
- │ │ │   └─┬ class A
+ │ │ │   ├─┬ class A
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>(props) initializer
+ │ │ │   └─┬ interface AProps
  │ │ │     └─┬ members
- │ │ │       └── <initializer>(b) initializer
+ │ │ │       └── b property
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
- │ │ │   └─┬ class B
+ │ │ │   ├─┬ class B
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── <initializer>(props) initializer
+ │ │ │   └─┬ interface BProps
  │ │ │     └─┬ members
- │ │ │       └── <initializer>(a) initializer
+ │ │ │       └── a property
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -6402,10 +6422,12 @@ exports[`jsii-tree --types 1`] = `
  │ │ │   └── interface IVpc
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
- │ │ │   └── class A
+ │ │ │   ├── class A
+ │ │ │   └── interface AProps
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
- │ │ │   └── class B
+ │ │ │   ├── class B
+ │ │ │   └── interface BProps
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1

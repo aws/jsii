@@ -14995,15 +14995,49 @@ if typing.TYPE_CHECKING:
 
 
 class A(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_1.A"):
-    def __init__(self, b: typing.Optional["_B_228796ae"] = None) -> None:
+    def __init__(self, *, b: typing.Optional["_B_228796ae"] = None) -> None:
         '''
-        :param b: -
+        :param b: 
         '''
-        jsii.create(self.__class__, self, [b])
+        props = AProps(b=b)
+
+        jsii.create(self.__class__, self, [props])
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module4971_1.AProps",
+    jsii_struct_bases=[],
+    name_mapping={"b": "b"},
+)
+class AProps:
+    def __init__(self, *, b: typing.Optional["_B_228796ae"] = None) -> None:
+        '''
+        :param b: 
+        '''
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if b is not None:
+            self._values["b"] = b
+
+    @builtins.property
+    def b(self) -> typing.Optional["_B_228796ae"]:
+        result = self._values.get("b")
+        return typing.cast(typing.Optional["_B_228796ae"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "AProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [
     "A",
+    "AProps",
 ]
 
 publication.publish()
@@ -15049,15 +15083,49 @@ if typing.TYPE_CHECKING:
 
 
 class B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_2.B"):
-    def __init__(self, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
+    def __init__(self, *, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
         '''
-        :param a: -
+        :param a: 
         '''
-        jsii.create(self.__class__, self, [a])
+        props = BProps(a=a)
+
+        jsii.create(self.__class__, self, [props])
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.module4971_2.BProps",
+    jsii_struct_bases=[],
+    name_mapping={"a": "a"},
+)
+class BProps:
+    def __init__(self, *, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
+        '''
+        :param a: 
+        '''
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if a is not None:
+            self._values["a"] = a
+
+    @builtins.property
+    def a(self) -> typing.Optional["_A_1a9f7f54"]:
+        result = self._values.get("a")
+        return typing.cast(typing.Optional["_A_1a9f7f54"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "BProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [
     "B",
+    "BProps",
 ]
 
 publication.publish()
@@ -22172,25 +22240,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module4971_1/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module4971_1/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module4971_1/__init__.py	--runtime-type-checking
-@@ -38,13 +38,22 @@
- class A(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_1.A"):
-     def __init__(self, b: typing.Optional["_B_228796ae"] = None) -> None:
+@@ -53,10 +53,13 @@
+ class AProps:
+     def __init__(self, *, b: typing.Optional["_B_228796ae"] = None) -> None:
          '''
-         :param b: -
+         :param b: 
          '''
 +        if __debug__:
-+            type_hints = typing.get_type_hints(_typecheckingstub__dc0baee16a64ac2d565b267afbafd87f8bb86db089023fabfc8e2e9f2787ea57)
++            type_hints = typing.get_type_hints(_typecheckingstub__b7ff0a71772353d060b4dca5fe5848fb2abb2708edfd79229136cfcfe34277fe)
 +            check_type(argname="argument b", value=b, expected_type=type_hints["b"])
-         jsii.create(self.__class__, self, [b])
+         self._values: typing.Dict[builtins.str, typing.Any] = {}
+         if b is not None:
+             self._values["b"] = b
  
- 
- __all__ = [
+     @builtins.property
+@@ -80,5 +83,12 @@
      "A",
+     "AProps",
  ]
  
  publication.publish()
 +
-+def _typecheckingstub__dc0baee16a64ac2d565b267afbafd87f8bb86db089023fabfc8e2e9f2787ea57(
++def _typecheckingstub__b7ff0a71772353d060b4dca5fe5848fb2abb2708edfd79229136cfcfe34277fe(
++    *,
 +    b: typing.Optional["_B_228796ae"] = None,
 +) -> None:
 +    """Type checking stubs"""
@@ -22200,25 +22272,29 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module4971_2/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module4971_2/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module4971_2/__init__.py	--runtime-type-checking
-@@ -38,13 +38,22 @@
- class B(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module4971_2.B"):
-     def __init__(self, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
+@@ -53,10 +53,13 @@
+ class BProps:
+     def __init__(self, *, a: typing.Optional["_A_1a9f7f54"] = None) -> None:
          '''
-         :param a: -
+         :param a: 
          '''
 +        if __debug__:
-+            type_hints = typing.get_type_hints(_typecheckingstub__1e2d09129ed260aa2591069d1349cf9d95eda26112cb5950f19bfc841fd1619e)
++            type_hints = typing.get_type_hints(_typecheckingstub__b64db5b1de53b49ebb5ed0e190aeae3aca72e829d1be88b1d13943c9106cf4c0)
 +            check_type(argname="argument a", value=a, expected_type=type_hints["a"])
-         jsii.create(self.__class__, self, [a])
+         self._values: typing.Dict[builtins.str, typing.Any] = {}
+         if a is not None:
+             self._values["a"] = a
  
- 
- __all__ = [
+     @builtins.property
+@@ -80,5 +83,12 @@
      "B",
+     "BProps",
  ]
  
  publication.publish()
 +
-+def _typecheckingstub__1e2d09129ed260aa2591069d1349cf9d95eda26112cb5950f19bfc841fd1619e(
++def _typecheckingstub__b64db5b1de53b49ebb5ed0e190aeae3aca72e829d1be88b1d13943c9106cf4c0(
++    *,
 +    a: typing.Optional["_A_1a9f7f54"] = None,
 +) -> None:
 +    """Type checking stubs"""

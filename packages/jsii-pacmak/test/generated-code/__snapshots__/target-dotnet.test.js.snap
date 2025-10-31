@@ -3470,9 +3470,13 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 Resource.cs
        ┃           ┃  ┗━ 📄 Vpc.cs
        ┃           ┣━ 📁 Module49711
-       ┃           ┃  ┗━ 📄 A.cs
+       ┃           ┃  ┣━ 📄 A.cs
+       ┃           ┃  ┣━ 📄 AProps.cs
+       ┃           ┃  ┗━ 📄 IAProps.cs
        ┃           ┣━ 📁 Module49712
-       ┃           ┃  ┗━ 📄 B.cs
+       ┃           ┃  ┣━ 📄 B.cs
+       ┃           ┃  ┣━ 📄 BProps.cs
+       ┃           ┃  ┗━ 📄 IBProps.cs
        ┃           ┣━ 📄 Multiply.cs
        ┃           ┣━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 Negate.cs
@@ -16962,17 +16966,17 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49711.A), fullyQualifiedName: "jsii-calc.module4971_1.A", parametersJson: "[{\\"name\\":\\"b\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.module4971_2.B\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49711.A), fullyQualifiedName: "jsii-calc.module4971_1.A", parametersJson: "[{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.module4971_1.AProps\\"}}]")]
     public class A : DeputyBase
     {
-        public A(Amazon.JSII.Tests.CalculatorNamespace.Module49712.B? b = null): base(_MakeDeputyProps(b))
+        public A(Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps? props = null): base(_MakeDeputyProps(props))
         {
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Module49712.B? b = null)
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps? props = null)
         {
-            return new DeputyProps(new object?[]{b});
+            return new DeputyProps(new object?[]{props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -16993,6 +16997,67 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/AProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    [JsiiByValue(fqn: "jsii-calc.module4971_1.AProps")]
+    public class AProps : Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps
+    {
+        [JsiiOptional]
+        [JsiiProperty(name: "b", typeJson: "{\\"fqn\\":\\"jsii-calc.module4971_2.B\\"}", isOptional: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.Module49712.B? B
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/IAProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    [JsiiInterface(nativeType: typeof(IAProps), fullyQualifiedName: "jsii-calc.module4971_1.AProps")]
+    public interface IAProps
+    {
+        [JsiiProperty(name: "b", typeJson: "{\\"fqn\\":\\"jsii-calc.module4971_2.B\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        Amazon.JSII.Tests.CalculatorNamespace.Module49712.B? B
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IAProps), fullyQualifiedName: "jsii-calc.module4971_1.AProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "b", typeJson: "{\\"fqn\\":\\"jsii-calc.module4971_2.B\\"}", isOptional: true)]
+            public Amazon.JSII.Tests.CalculatorNamespace.Module49712.B? B
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Module49712.B?>();
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/B.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -17000,17 +17065,17 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
 {
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49712.B), fullyQualifiedName: "jsii-calc.module4971_2.B", parametersJson: "[{\\"name\\":\\"a\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.module4971_1.A\\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49712.B), fullyQualifiedName: "jsii-calc.module4971_2.B", parametersJson: "[{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.module4971_2.BProps\\"}}]")]
     public class B : DeputyBase
     {
-        public B(Amazon.JSII.Tests.CalculatorNamespace.Module49711.A? a = null): base(_MakeDeputyProps(a))
+        public B(Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps? props = null): base(_MakeDeputyProps(props))
         {
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Module49711.A? a = null)
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps? props = null)
         {
-            return new DeputyProps(new object?[]{a});
+            return new DeputyProps(new object?[]{props});
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
@@ -17025,6 +17090,67 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected B(DeputyProps props): base(props)
         {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/BProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    [JsiiByValue(fqn: "jsii-calc.module4971_2.BProps")]
+    public class BProps : Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps
+    {
+        [JsiiOptional]
+        [JsiiProperty(name: "a", typeJson: "{\\"fqn\\":\\"jsii-calc.module4971_1.A\\"}", isOptional: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.Module49711.A? A
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/IBProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    [JsiiInterface(nativeType: typeof(IBProps), fullyQualifiedName: "jsii-calc.module4971_2.BProps")]
+    public interface IBProps
+    {
+        [JsiiProperty(name: "a", typeJson: "{\\"fqn\\":\\"jsii-calc.module4971_1.A\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        Amazon.JSII.Tests.CalculatorNamespace.Module49711.A? A
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBProps), fullyQualifiedName: "jsii-calc.module4971_2.BProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "a", typeJson: "{\\"fqn\\":\\"jsii-calc.module4971_1.A\\"}", isOptional: true)]
+            public Amazon.JSII.Tests.CalculatorNamespace.Module49711.A? A
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Module49711.A?>();
+            }
         }
     }
 }

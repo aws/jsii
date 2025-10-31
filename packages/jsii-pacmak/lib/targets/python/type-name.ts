@@ -351,11 +351,13 @@ class Intersection implements TypeName {
   public pythonType(context: NamingContext) {
     // We will be generating a special type to represent the intersection
     const name = context.intersectionTypes.obtain(
-      this.#types.map((t) => t.pythonType(context)).map(stripQuotes),
+      this.#types.map((t) =>
+        t.pythonType({ ...context, typeAnnotation: false }),
+      ),
     );
 
-    // This will never be in scope already, so always render between quotes
-    return `'${name}'`;
+    // This can only ever appear as a type annotation, so render between quotes
+    return `"${name}"`;
   }
 
   public requiredImports(context: NamingContext) {
@@ -628,8 +630,4 @@ export class IntersectionTypesRegistry {
 
 function lastComponent(x: string) {
   return x.split('.').slice(-1)[0];
-}
-
-function stripQuotes(x: string) {
-  return x.replace(/^"|"$/g, '');
 }

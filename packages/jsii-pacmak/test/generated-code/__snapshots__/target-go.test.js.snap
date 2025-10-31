@@ -3084,9 +3084,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┗━ 📄 Vpc.go
        ┣━ 📁 module49711
        ┃  ┣━ 📄 A.go
+       ┃  ┣━ 📄 AProps.go
        ┃  ┗━ 📄 main.go
        ┣━ 📁 module49712
        ┃  ┣━ 📄 B.go
+       ┃  ┣━ 📄 BProps.go
        ┃  ┗━ 📄 main.go
        ┣━ 📄 Multiply.go
        ┣━ 📄 Negate.go
@@ -24751,8 +24753,6 @@ package module49711
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
-
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49712"
 )
 
 type A interface {
@@ -24763,28 +24763,42 @@ type jsiiProxy_A struct {
 	_ byte // padding
 }
 
-func NewA(b module49712.B) A {
+func NewA(props *AProps) A {
 	_init_.Initialize()
 
 	j := jsiiProxy_A{}
 
 	_jsii_.Create(
 		"jsii-calc.module4971_1.A",
-		[]interface{}{b},
+		[]interface{}{props},
 		&j,
 	)
 
 	return &j
 }
 
-func NewA_Override(a A, b module49712.B) {
+func NewA_Override(a A, props *AProps) {
 	_init_.Initialize()
 
 	_jsii_.Create(
 		"jsii-calc.module4971_1.A",
-		[]interface{}{b},
+		[]interface{}{props},
 		a,
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49711/AProps.go 1`] = `
+package module49711
+
+import (
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49712"
+)
+
+type AProps struct {
+	B module49712.B \`field:"optional" json:"b" yaml:"b"\`
 }
 
 
@@ -24808,6 +24822,10 @@ func init() {
 			return &jsiiProxy_A{}
 		},
 	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.module4971_1.AProps",
+		reflect.TypeOf((*AProps)(nil)).Elem(),
+	)
 }
 
 `;
@@ -24818,8 +24836,6 @@ package module49712
 import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
-
-	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49711"
 )
 
 type B interface {
@@ -24830,28 +24846,42 @@ type jsiiProxy_B struct {
 	_ byte // padding
 }
 
-func NewB(a module49711.A) B {
+func NewB(props *BProps) B {
 	_init_.Initialize()
 
 	j := jsiiProxy_B{}
 
 	_jsii_.Create(
 		"jsii-calc.module4971_2.B",
-		[]interface{}{a},
+		[]interface{}{props},
 		&j,
 	)
 
 	return &j
 }
 
-func NewB_Override(b B, a module49711.A) {
+func NewB_Override(b B, props *BProps) {
 	_init_.Initialize()
 
 	_jsii_.Create(
 		"jsii-calc.module4971_2.B",
-		[]interface{}{a},
+		[]interface{}{props},
 		b,
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/module49712/BProps.go 1`] = `
+package module49712
+
+import (
+	"github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/module49711"
+)
+
+type BProps struct {
+	A module49711.A \`field:"optional" json:"a" yaml:"a"\`
 }
 
 
@@ -24874,6 +24904,10 @@ func init() {
 		func() interface{} {
 			return &jsiiProxy_B{}
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.module4971_2.BProps",
+		reflect.TypeOf((*BProps)(nil)).Elem(),
 	)
 }
 
@@ -26686,6 +26720,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┃     ┣━ 🆕 MyClass__checks.go
        ┃     ┣━ 🆕 MyClass__no_checks.go
        ┃     ┗━ 📄 MyClass.go.diff
+       ┣━ 📁 module49711
+       ┃  ┣━ 🆕 A__checks.go
+       ┃  ┣━ 🆕 A__no_checks.go
+       ┃  ┗━ 📄 A.go.diff
+       ┣━ 📁 module49712
+       ┃  ┣━ 🆕 B__checks.go
+       ┃  ┣━ 🆕 B__no_checks.go
+       ┃  ┗━ 📄 B.go.diff
        ┣━ 🆕 Multiply__checks.go
        ┣━ 🆕 Multiply__no_checks.go
        ┣━ 📄 Multiply.go.diff
@@ -36969,6 +37011,120 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +}
 +
 +func (m *jsiiProxy_MyClass) validateFooParameters(_values *[]scopejsiicalclib.Number) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49711/A.go.diff 1`] = `
+--- go/jsiicalc/module49711/A.go	--no-runtime-type-checking
++++ go/jsiicalc/module49711/A.go	--runtime-type-checking
+@@ -14,10 +14,13 @@
+ }
+ 
+ func NewA(props *AProps) A {
+ 	_init_.Initialize()
+ 
++	if err := validateNewAParameters(props); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_A{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.module4971_1.A",
+ 		[]interface{}{props},
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49711/A__checks.go.diff 1`] = `
+--- go/jsiicalc/module49711/A__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/module49711/A__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package module49711
++
++import (
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func validateNewAParameters(props *AProps) error {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49711/A__no_checks.go.diff 1`] = `
+--- go/jsiicalc/module49711/A__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/module49711/A__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package module49711
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateNewAParameters(props *AProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49712/B.go.diff 1`] = `
+--- go/jsiicalc/module49712/B.go	--no-runtime-type-checking
++++ go/jsiicalc/module49712/B.go	--runtime-type-checking
+@@ -14,10 +14,13 @@
+ }
+ 
+ func NewB(props *BProps) B {
+ 	_init_.Initialize()
+ 
++	if err := validateNewBParameters(props); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_B{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.module4971_2.B",
+ 		[]interface{}{props},
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49712/B__checks.go.diff 1`] = `
+--- go/jsiicalc/module49712/B__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/module49712/B__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package module49712
++
++import (
++	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
++)
++
++func validateNewBParameters(props *BProps) error {
++	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
++		return err
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module49712/B__no_checks.go.diff 1`] = `
+--- go/jsiicalc/module49712/B__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/module49712/B__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package module49712
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateNewBParameters(props *BProps) error {
 +	return nil
 +}
 +

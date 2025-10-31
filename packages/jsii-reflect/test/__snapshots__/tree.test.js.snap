@@ -802,20 +802,32 @@ exports[`showAll 1`] = `
  │ │ │         └── returns: void
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
- │ │ │   └─┬ class A
+ │ │ │   ├─┬ class A
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: Optional<jsii-calc.module4971_1.AProps>
+ │ │ │   └─┬ interface AProps
  │ │ │     └─┬ members
- │ │ │       └─┬ <initializer>(b) initializer
- │ │ │         └─┬ parameters
- │ │ │           └─┬ b
- │ │ │             └── type: Optional<jsii-calc.module4971_2.B>
+ │ │ │       └─┬ b property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<jsii-calc.module4971_2.B>
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
- │ │ │   └─┬ class B
+ │ │ │   ├─┬ class B
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ <initializer>(props) initializer
+ │ │ │   │     └─┬ parameters
+ │ │ │   │       └─┬ props
+ │ │ │   │         └── type: Optional<jsii-calc.module4971_2.BProps>
+ │ │ │   └─┬ interface BProps
  │ │ │     └─┬ members
- │ │ │       └─┬ <initializer>(a) initializer
- │ │ │         └─┬ parameters
- │ │ │           └─┬ a
- │ │ │             └── type: Optional<jsii-calc.module4971_1.A>
+ │ │ │       └─┬ a property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<jsii-calc.module4971_1.A>
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4254,10 +4266,12 @@ exports[`types 1`] = `
  │ │ │   └── interface IVpc
  │ │ ├─┬ module4971_1
  │ │ │ └─┬ types
- │ │ │   └── class A
+ │ │ │   ├── class A
+ │ │ │   └── interface AProps
  │ │ ├─┬ module4971_2
  │ │ │ └─┬ types
- │ │ │   └── class B
+ │ │ │   ├── class B
+ │ │ │   └── interface BProps
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
