@@ -418,11 +418,13 @@ class UserType implements TypeName {
       ? (t: string) => `"${t}"`
       : (t: string) => t;
 
-    // For backwards compatibility, we accept a dict if the input is a struct
+    // For backwards compatibility, we accept a dict if the input is a struct with camelCased keys.
+    // Using `typing.Dict` instead of `typing.Dict[str, typing.Any]` because of a bug in the Python
+    // standard library that only got fixed in 3.14 <https://github.com/python/cpython/issues/137226>
     const wrapType =
       typeAnnotation && isInputType && isStruct
         ? (pyType: string) =>
-            `typing.Union[${quoteType(pyType)}, typing.Dict[builtins.str, typing.Any]]`
+            `typing.Union[${quoteType(pyType)}, builtins.dict]`
         : (pyType: string) => quoteType(pyType);
 
     // Emit aliased imports for dependencies (this avoids name collisions)
