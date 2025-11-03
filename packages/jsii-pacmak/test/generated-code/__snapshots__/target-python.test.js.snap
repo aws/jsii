@@ -13450,10 +13450,6 @@ from .._jsii import *
 import scope.jsii_calc_lib as _scope_jsii_calc_lib_c61f082f
 
 
-class __ISomething_a89966d9_IFriendly("ISomething", "_scope_jsii_calc_lib_c61f082f.IFriendly", typing_extensions.Protocol):
-    pass
-
-
 class ConsumesIntersection(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.intersection.ConsumesIntersection",
@@ -13535,16 +13531,19 @@ class IntersectionProps:
         )
 
 
+class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
+    pass
+
+
 __all__ = [
     "ConsumesIntersection",
     "ISomething",
     "IntersectionProps",
-    "__ISomething_a89966d9_IFriendly",
 ]
 
 publication.publish()
 
-for cls in [ISomething, __ISomething_a89966d9_IFriendly]:
+for cls in [ISomething, _ISomething_IFriendly]:
     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
@@ -21927,7 +21926,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
-@@ -53,10 +53,13 @@
+@@ -49,10 +49,13 @@
      @builtins.classmethod
      def accepts_intersection(cls, param: "_ISomething_IFriendly") -> None:
          '''
@@ -21941,7 +21940,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="acceptsPropWithIntersection")
      @builtins.classmethod
      def accepts_prop_with_intersection(cls, *, param: "_ISomething_IFriendly") -> None:
-@@ -94,10 +97,13 @@
+@@ -90,10 +93,13 @@
  class IntersectionProps:
      def __init__(self, *, param: "_ISomething_IFriendly") -> None:
          '''
@@ -21955,8 +21954,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -125,7 +131,20 @@
-     "__ISomething_a89966d9_IFriendly",
+@@ -124,7 +130,20 @@
+     "IntersectionProps",
  ]
  
  publication.publish()
@@ -21974,7 +21973,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    """Type checking stubs"""
 +    pass
 +
- for cls in [ISomething, __ISomething_a89966d9_IFriendly]:
+ for cls in [ISomething, _ISomething_IFriendly]:
      typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
