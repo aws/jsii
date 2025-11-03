@@ -245,7 +245,7 @@ describe(toTypeName, () => {
       pythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
       context: {
         typeAnnotation: true,
-        parameterType: true,
+        isInputType: true,
       },
     },
   ];

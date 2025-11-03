@@ -712,7 +712,7 @@ abstract class BaseMethod implements PythonBase {
 
       const paramType = typeFac.pythonType({
         ...context,
-        parameterType: true,
+        isInputType: true,
         typeAnnotation: true,
       });
       const paramDefault = param.optional ? ' = None' : '';
@@ -756,7 +756,7 @@ abstract class BaseMethod implements PythonBase {
           const paramName = toPythonParameterName(prop.prop.name);
           const paramType = prop.typeName.pythonType({
             ...context,
-            parameterType: true,
+            isInputType: true,
             typeAnnotation: true,
           });
           const paramDefault = prop.prop.optional ? ' = None' : '';
@@ -888,10 +888,12 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType({
+    const typeName = toTypeName(lastParameter.type);
+    const typeNameStr = typeName.pythonType({
       ...context,
       typeAnnotation: false,
     });
+    const imports = typeName.requiredImports(context);
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specify to start with in our dictionary literal.
@@ -902,7 +904,8 @@ abstract class BaseMethod implements PythonBase {
       .map((p) => p.pythonName)
       .map((v) => `${v}=${v}`);
 
-    assignCallResult(code, argName, typeName, assignments);
+    emitLazyImports(code, imports);
+    assignCallResult(code, argName, typeNameStr, assignments);
     code.line();
   }
 
@@ -1319,14 +1322,20 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = member.nonNullableTypeName.pythonType({
+      const typeNameStr = member.nonNullableTypeName.pythonType({
         ...context,
         typeAnnotation: false,
       });
+      const imports = member.nonNullableTypeName.requiredImports(context);
+
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
-      code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
+      emitLazyImports(code, imports);
+      code.line(
+        `${member.pythonName} = ${typeNameStr}(**${member.pythonName})`,
+      );
       code.closeBlock();
     }
+
     if (kwargs.length > 0) {
       emitParameterTypeChecks(
         code,
@@ -1484,7 +1493,7 @@ class StructField implements PythonBase {
   public constructorDecl(context: EmitContext) {
     const typeAnnotation = this.typeAnnotation({
       ...context,
-      parameterType: true,
+      isInputType: true,
     });
     const opt = this.optional ? ' = None' : '';
     return `${this.pythonName}: ${typeAnnotation}${opt}`;
@@ -3365,6 +3374,22 @@ function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
     name = `${name}_`;
   }
   return name;
+}
+
+/**
+ * Emits Python lazy import statements for runtime use (not under TYPE_CHECKING).
+ * These imports are placed inside constructors / functions and only execute when needed,
+ * avoiding circular dependencies.
+ */
+function emitLazyImports(code: CodeMaker, imports: PythonImports) {
+  for (const [sourcePackage, items] of Object.entries(imports)) {
+    const itemList = Array.from(items).filter((i) => i !== '');
+    if (itemList.length > 0) {
+      code.line(`from ${sourcePackage} import ${itemList.join(', ')}`);
+    } else {
+      code.line(`import ${sourcePackage}`);
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
