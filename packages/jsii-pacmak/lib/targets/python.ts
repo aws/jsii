@@ -3212,13 +3212,14 @@ function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
  * Emits Python lazy import statements for runtime use (not under TYPE_CHECKING).
  * These imports are placed inside constructors / functions and only execute when needed,
  * avoiding circular dependencies.
- *
  */
 function emitLazyImports(code: CodeMaker, imports: PythonImports) {
   for (const [sourcePackage, items] of Object.entries(imports)) {
     const itemList = Array.from(items).filter((i) => i !== '');
     if (itemList.length > 0) {
       code.line(`from ${sourcePackage} import ${itemList.join(', ')}`);
+    } else {
+      code.line(`import ${sourcePackage}`);
     }
   }
 }
