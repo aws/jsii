@@ -79,4 +79,4 @@ interface TopoElement<T> {
  * We do declare the type `Toposorted<A>` here so that if we ever change
  * the type, we can find all usage sites quickly.
  */
-export type Toposorted<A> = readonly A[][];
+export type Toposorted<A> = A[][];

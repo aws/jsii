@@ -464,3 +464,9 @@ export function zip<A, B>(xs: A[], ys: B[]): Array<[A, B]> {
   }
   return ret;
 }
+
+export function setAdd<T>(setA: Set<T>, setB: Iterable<T>) {
+  for (const b of setB) {
+    setA.add(b);
+  }
+}
