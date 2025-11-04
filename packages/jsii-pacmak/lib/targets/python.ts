@@ -32,6 +32,7 @@ import {
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
+import { topologicalSort } from '../toposort';
 
 import { TargetName } from './index';
 
@@ -367,7 +368,7 @@ interface ISortableType {
   dependsOn(resolver: TypeResolver): PythonType[];
 }
 
-function isSortableType(arg: unknown): arg is ISortableType {
+function isSortableType<T>(arg: T): arg is T & ISortableType {
   return (arg as Partial<ISortableType>).dependsOn !== undefined;
 }
 
@@ -450,8 +451,10 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   public emit(code: CodeMaker, context: EmitContext) {
     context = nestedContext(context, this.fqn);
 
-    const classParams = this.getClassParams(context);
-    openSignature(code, 'class', this.pythonName, classParams);
+    this.sortBasesForMro();
+
+    const baseClasses = this.getClassParams(context);
+    openSignature(code, 'class', this.pythonName, baseClasses);
 
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
@@ -476,6 +479,95 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
     if (this.fqn != null) {
       context.emittedTypes.add(this.fqn);
+    }
+  }
+
+  /**
+   * Sort the this.bases array for proper Python MRO.
+   *
+   * If we don't do this, there is a chance that a superclass and subclass (or interface)
+   * have the parents in different order, which leads to an MRO violation.
+   *
+   * See: <https://docs.python.org/3/howto/mro.html>
+   *
+   * The bottom line is: child classes higher up in the hierarchy first.
+   * As an example, in the hierarchy:
+   *
+   * ```
+   *  ┌─────┐
+   *  │  A  │
+   *  └─────┘
+   *     ▲
+   *     ├─────┐
+   *     │  ┌─────┐
+   *     │  │  C  │
+   *     │  └─────┘
+   *     │     ▲
+   *     ├─────┘
+   *  ┌─────┐
+   *  │  B  │
+   *  └─────┘
+   * ```
+   *
+   * The order should be `class B(C, A)`, and not the other way around.
+   *
+   * This is yet another instance of topological sort.
+   */
+  protected sortBasesForMro() {
+    if (this.bases.length <= 1) {
+      return;
+    }
+
+    // Record original order
+    const originalOrder = new Map<spec.TypeReference, number>();
+    for (let i = 0; i < this.bases.length; i++) {
+      originalOrder.set(this.bases[i], i);
+    }
+
+    // Classify into sortable and non-sortable types
+    const sortableBases: spec.NamedTypeReference[] = [];
+    const nonSortableBases: spec.TypeReference[] = [];
+    for (const baseRef of this.bases) {
+      if (spec.isNamedTypeReference(baseRef)) {
+        sortableBases.push(baseRef);
+      } else {
+        nonSortableBases.push(baseRef);
+      }
+    }
+
+    // Toposort, in reverse (highest in the tree last)
+    const typeSystem = this.generator.reflectAssembly.system;
+    const sorted = topologicalSort(
+      sortableBases,
+      (t) => t.fqn,
+      (d) => typeBaseFqns(typeSystem.findFqn(d.fqn)),
+    );
+    sorted.reverse();
+
+    // Inside a trance, we keep original sort order in the source declarations.
+    for (const tranche of sorted) {
+      tranche.sort((a, b) => originalOrder.get(a)! - originalOrder.get(b)!);
+    }
+
+    // Replace original bases
+    this.bases.splice(
+      0,
+      this.bases.length,
+      ...sorted.flatMap((xs) => xs),
+      ...nonSortableBases,
+    );
+
+    function typeBaseFqns(x: reflect.Type): string[] {
+      if (x.isClassType()) {
+        return [
+          ...(x.base ? [x.base?.fqn] : []),
+          ...x.getInterfaces().map((i) => i.fqn),
+        ];
+      }
+      if (x.isInterfaceType()) {
+        return x.getInterfaces().map((i) => i.fqn);
+      }
+      return [];
     }
   }
 
@@ -1024,6 +1116,8 @@ abstract class BaseProperty implements PythonBase {
 
 class Interface extends BasePythonClassType {
   public emit(code: CodeMaker, context: EmitContext) {
+    this.sortBasesForMro();
+
     context = nestedContext(context, this.fqn);
     emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
 
@@ -1114,6 +1208,8 @@ class Struct extends BasePythonClassType {
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
+    this.sortBasesForMro();
+
     context = nestedContext(context, this.fqn);
     const baseInterfaces = this.getClassParams(context);
 
