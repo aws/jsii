@@ -124,9 +124,15 @@ async function main(): Promise<number> {
     );
   }
 
+  const allowedBreakingChanges = await loadFilter(argv['ignore-file']);
+  const fqnRemapping: Record<string, string> = extractFqnRemappings(
+    allowedBreakingChanges,
+  );
+
   LOG.info('Starting analysis');
   const mismatches = compareAssemblies(original, updated, {
     defaultExperimental: argv['default-stability'] === 'experimental',
+    fqnRemapping,
   });
 
   LOG.info(`Found ${mismatches.count} issues`);
@@ -135,7 +141,7 @@ async function main(): Promise<number> {
     const diags = classifyDiagnostics(
       mismatches,
       treatAsError(argv['error-on'] as ErrorClass, argv['experimental-errors']),
-      await loadFilter(argv['ignore-file']),
+      allowedBreakingChanges,
     );
 
     process.stderr.write(
@@ -153,6 +159,43 @@ async function main(): Promise<number> {
   }
 
   return 0;
+}
+
+/**
+ * Extract all lines that start with `move:` from the given string set
+ *
+ * Interpret them as `move:OLDFQN <sep> NEWFQN`, mapping moved FQNs.
+ *
+ * Separator can be any of `:`, comma or whitespace.
+ *
+ * Modifies the input set in-place.
+ */
+function extractFqnRemappings(
+  allowedBreakingChanges: Set<string>,
+): Record<string, string> {
+  const ret: Record<string, string> = {};
+
+  for (const line of Array.from(allowedBreakingChanges)) {
+    const prefix = 'move:';
+    if (!line.startsWith(prefix)) {
+      continue;
+    }
+
+    const parts = line
+      .slice(prefix.length)
+      .trim()
+      .split(/[:, \t]+/g);
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid moved FQN declaration: ${line}. Expected format is 'move:old:new'`,
+      );
+    }
+    const [oldFqn, newFqn] = parts;
+    ret[oldFqn] = newFqn;
+    allowedBreakingChanges.delete(line);
+  }
+
+  return ret;
 }
 
 // Allow both npm:<package> (legacy) and npm://<package> (looks better)
@@ -311,7 +354,7 @@ async function loadFilter(filterFilename?: string): Promise<Set<string>> {
       (await fs.readFile(filterFilename, { encoding: 'utf-8' }))
         .split('\n')
         .map((x) => x.trim())
-        .filter((x) => !x.startsWith('#')),
+        .filter((x) => x && !x.startsWith('#')),
     );
   } catch (e: any) {
     if (e.code !== 'ENOENT') {
