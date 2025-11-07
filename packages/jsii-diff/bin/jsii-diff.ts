@@ -69,11 +69,6 @@ async function main(): Promise<number> {
       default: false,
       desc: 'Show diagnostic suppression keys',
     })
-    .options('type-remapping', {
-      alias: 'M',
-      type: 'string',
-      desc: 'File containing a mapping from old to new FQNs (use only to confirm no additional mistakes in the face of type movements, which themselves are already breaking)',
-    })
     .option('validate', {
       alias: 'd',
       type: 'boolean',
@@ -129,10 +124,10 @@ async function main(): Promise<number> {
     );
   }
 
-  let fqnRemapping: Record<string, string> = {};
-  if (argv['type-remapping']) {
-    fqnRemapping = await loadFqnRemapping(argv['type-remapping']);
-  }
+  const allowedBreakingChanges = await loadFilter(argv['ignore-file']);
+  const fqnRemapping: Record<string, string> = extractFqnRemappings(
+    allowedBreakingChanges,
+  );
 
   LOG.info('Starting analysis');
   const mismatches = compareAssemblies(original, updated, {
@@ -146,7 +141,7 @@ async function main(): Promise<number> {
     const diags = classifyDiagnostics(
       mismatches,
       treatAsError(argv['error-on'] as ErrorClass, argv['experimental-errors']),
-      await loadFilter(argv['ignore-file']),
+      allowedBreakingChanges,
     );
 
     process.stderr.write(
@@ -166,27 +161,38 @@ async function main(): Promise<number> {
   return 0;
 }
 
-async function loadFqnRemapping(
-  fileName: string,
-): Promise<Record<string, string>> {
+/**
+ * Extract all lines that start with `move:` from the given string set
+ *
+ * Interpret them as `move:OLDFQN <sep> NEWFQN`, mapping moved FQNs.
+ *
+ * Separator can be any of `:`, comma or whitespace.
+ *
+ * Modifies the input set in-place.
+ */
+function extractFqnRemappings(
+  allowedBreakingChanges: Set<string>,
+): Record<string, string> {
   const ret: Record<string, string> = {};
 
-  const remappingFile = await fs.readFile(fileName, 'utf-8');
-  for (let line of remappingFile.split('\n')) {
-    line = line.trim();
-    if (!line || line.startsWith('#')) {
+  for (const line of Array.from(allowedBreakingChanges)) {
+    const prefix = 'move:';
+    if (!line.startsWith(prefix)) {
       continue;
     }
 
-    const parts = line.split(/[:, \t]+/g);
+    const parts = line
+      .slice(prefix.length)
+      .trim()
+      .split(/[:, \t]+/g);
     if (parts.length !== 2) {
       throw new Error(
-        `Invalid line in type-remapping file: ${line}. Expected format is 'old:new'`,
+        `Invalid moved FQN declaration: ${line}. Expected format is 'move:old:new'`,
       );
     }
     const [oldFqn, newFqn] = parts;
-
     ret[oldFqn] = newFqn;
+    allowedBreakingChanges.delete(line);
   }
 
   return ret;
@@ -348,7 +354,7 @@ async function loadFilter(filterFilename?: string): Promise<Set<string>> {
       (await fs.readFile(filterFilename, { encoding: 'utf-8' }))
         .split('\n')
         .map((x) => x.trim())
-        .filter((x) => !x.startsWith('#')),
+        .filter((x) => x && !x.startsWith('#')),
     );
   } catch (e: any) {
     if (e.code !== 'ENOENT') {
