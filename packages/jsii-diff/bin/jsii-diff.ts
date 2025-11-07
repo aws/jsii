@@ -69,6 +69,11 @@ async function main(): Promise<number> {
       default: false,
       desc: 'Show diagnostic suppression keys',
     })
+    .options('type-remapping', {
+      alias: 'M',
+      type: 'string',
+      desc: 'File containing a mapping from old to new FQNs (use only to confirm no additional mistakes in the face of type movements, which themselves are already breaking)',
+    })
     .option('validate', {
       alias: 'd',
       type: 'boolean',
@@ -124,9 +129,15 @@ async function main(): Promise<number> {
     );
   }
 
+  let fqnRemapping: Record<string, string> = {};
+  if (argv['type-remapping']) {
+    fqnRemapping = await loadFqnRemapping(argv['type-remapping']);
+  }
+
   LOG.info('Starting analysis');
   const mismatches = compareAssemblies(original, updated, {
     defaultExperimental: argv['default-stability'] === 'experimental',
+    fqnRemapping,
   });
 
   LOG.info(`Found ${mismatches.count} issues`);
@@ -153,6 +164,32 @@ async function main(): Promise<number> {
   }
 
   return 0;
+}
+
+async function loadFqnRemapping(
+  fileName: string,
+): Promise<Record<string, string>> {
+  const ret: Record<string, string> = {};
+
+  const remappingFile = await fs.readFile(fileName, 'utf-8');
+  for (let line of remappingFile.split('\n')) {
+    line = line.trim();
+    if (!line || line.startsWith('#')) {
+      continue;
+    }
+
+    const parts = line.split(/[:, \t]+/g);
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid line in type-remapping file: ${line}. Expected format is 'old:new'`,
+      );
+    }
+    const [oldFqn, newFqn] = parts;
+
+    ret[oldFqn] = newFqn;
+  }
+
+  return ret;
 }
 
 // Allow both npm:<package> (legacy) and npm://<package> (looks better)
