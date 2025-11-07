@@ -242,7 +242,7 @@ describe(toTypeName, () => {
     {
       name: 'Struct parameter type annotation',
       input: { fqn: `${assembly.name}.Struct` },
-      pythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
+      pythonType: `typing.Union["Struct", typing.Mapping[builtins.str, typing.Any]]`,
       context: {
         typeAnnotation: true,
         isInputType: true,

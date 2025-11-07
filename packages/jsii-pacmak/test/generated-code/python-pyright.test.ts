@@ -65,7 +65,7 @@ beforeAll(async () => {
     [
       '[tool.pyright]',
       'defineConstant = { DEBUG = true }',
-      'pythonVersion = "3.8"',
+      'pythonVersion = "3.9"', // Same version as in python.ts
       'pythonPlatform = "All"',
       'reportSelfClsParameterName = false',
       `venvPath = ${JSON.stringify(path.dirname(venv.venvRoot))}`,
