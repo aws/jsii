@@ -113,6 +113,16 @@ describe('filtering', () => {
       'static @scope/jsii-calc-base-of-base.StaticConsumer#consume(..._args: any[]): void',
     );
   });
+
+  test('fqn is available to filter on', async () => {
+    const result = await query([
+      parseExpression('class:fqn.includes("base.StaticConsumer")'),
+    ]);
+
+    expect(result).toContainEqual(
+      'static @scope/jsii-calc-base-of-base.StaticConsumer#consume(..._args: any[]): void',
+    );
+  });
 });
 
 async function query(
