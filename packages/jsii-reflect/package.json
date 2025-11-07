@@ -22,7 +22,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "jsii-tree": "bin/jsii-tree"
+    "jsii-tree": "bin/jsii-tree",
+    "jsii-query": "bin/jsii-query"
   },
   "scripts": {
     "build": "tsc --build && chmod +x bin/jsii-tree && yarn lint",
