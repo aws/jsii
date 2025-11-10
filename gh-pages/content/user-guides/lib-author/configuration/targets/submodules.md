@@ -83,6 +83,9 @@ in the directory:
     },
     "python": {
       "module": "my_jsii_library.fancy_submodule"
+    },
+    "go": {
+      "packageName": "fancy_submodule"
     }
   }
 }
