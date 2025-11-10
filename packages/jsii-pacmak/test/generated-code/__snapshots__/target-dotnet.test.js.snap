@@ -3469,6 +3469,18 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📄 IVpc.cs
        ┃           ┃  ┣━ 📄 Resource.cs
        ┃           ┃  ┗━ 📄 Vpc.cs
+       ┃           ┣━ 📁 Module49711
+       ┃           ┃  ┣━ 📄 A.cs
+       ┃           ┃  ┣━ 📄 ALike.cs
+       ┃           ┃  ┣━ 📄 AProps.cs
+       ┃           ┃  ┣━ 📄 IALike.cs
+       ┃           ┃  ┗━ 📄 IAProps.cs
+       ┃           ┣━ 📁 Module49712
+       ┃           ┃  ┣━ 📄 B.cs
+       ┃           ┃  ┣━ 📄 BLike.cs
+       ┃           ┃  ┣━ 📄 BProps.cs
+       ┃           ┃  ┣━ 📄 IBLike.cs
+       ┃           ┃  ┗━ 📄 IBProps.cs
        ┃           ┣━ 📄 Multiply.cs
        ┃           ┣━ 📄 NamespaceDoc.cs
        ┃           ┣━ 📄 Negate.cs
@@ -16951,6 +16963,358 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2702
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/A.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49711.A), fullyQualifiedName: "jsii-calc.module4971_1.A", parametersJson: "[{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.module4971_1.AProps\\"}}]")]
+    public class A : DeputyBase
+    {
+        public A(Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps? props = null): base(_MakeDeputyProps(props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps? props = null)
+        {
+            return new DeputyProps(new object?[]{props});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected A(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected A(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "isA", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        public virtual bool IsA
+        {
+            get => GetInstanceProperty<bool>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/ALike.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.module4971_1.ALike")]
+    public class ALike : Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike
+    {
+        [JsiiProperty(name: "isA", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        public bool IsA
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/AProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    [JsiiByValue(fqn: "jsii-calc.module4971_1.AProps")]
+    public class AProps : Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps
+    {
+        private object? _b;
+
+        /// <remarks>
+        /// <para>Type union: either string or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike" /></para>
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "b", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"fqn\\":\\"jsii-calc.module4971_2.BLike\\"}]}}", isOptional: true)]
+        public object? B
+        {
+            get => _b;
+            set
+            {
+                _b = value;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/IALike.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    [JsiiInterface(nativeType: typeof(IALike), fullyQualifiedName: "jsii-calc.module4971_1.ALike")]
+    public interface IALike
+    {
+        [JsiiProperty(name: "isA", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        bool IsA
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IALike), fullyQualifiedName: "jsii-calc.module4971_1.ALike")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "isA", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+            public bool IsA
+            {
+                get => GetInstanceProperty<bool>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/IAProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49711
+{
+    [JsiiInterface(nativeType: typeof(IAProps), fullyQualifiedName: "jsii-calc.module4971_1.AProps")]
+    public interface IAProps
+    {
+        /// <remarks>
+        /// <para>Type union: either string or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike" /></para>
+        /// </remarks>
+        [JsiiProperty(name: "b", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"fqn\\":\\"jsii-calc.module4971_2.BLike\\"}]}}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        object? B
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IAProps), fullyQualifiedName: "jsii-calc.module4971_1.AProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module49711.IAProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <remarks>
+            /// <para>Type union: either string or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike" /></para>
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "b", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"fqn\\":\\"jsii-calc.module4971_2.BLike\\"}]}}", isOptional: true)]
+            public object? B
+            {
+                get => GetInstanceProperty<object?>();
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/B.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49712.B), fullyQualifiedName: "jsii-calc.module4971_2.B", parametersJson: "[{\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.module4971_2.BProps\\"}}]")]
+    public class B : DeputyBase
+    {
+        public B(Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps? props = null): base(_MakeDeputyProps(props))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps? props = null)
+        {
+            return new DeputyProps(new object?[]{props});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected B(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected B(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "isB", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        public virtual bool IsB
+        {
+            get => GetInstanceProperty<bool>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/BLike.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.module4971_2.BLike")]
+    public class BLike : Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike
+    {
+        [JsiiProperty(name: "isB", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        public bool IsB
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/BProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    [JsiiByValue(fqn: "jsii-calc.module4971_2.BProps")]
+    public class BProps : Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps
+    {
+        private object? _a;
+
+        /// <remarks>
+        /// <para>Type union: either string or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike" /></para>
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "a", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"fqn\\":\\"jsii-calc.module4971_1.ALike\\"}]}}", isOptional: true)]
+        public object? A
+        {
+            get => _a;
+            set
+            {
+                _a = value;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/IBLike.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    [JsiiInterface(nativeType: typeof(IBLike), fullyQualifiedName: "jsii-calc.module4971_2.BLike")]
+    public interface IBLike
+    {
+        [JsiiProperty(name: "isB", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        bool IsB
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBLike), fullyQualifiedName: "jsii-calc.module4971_2.BLike")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "isB", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+            public bool IsB
+            {
+                get => GetInstanceProperty<bool>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/IBProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Module49712
+{
+    [JsiiInterface(nativeType: typeof(IBProps), fullyQualifiedName: "jsii-calc.module4971_2.BProps")]
+    public interface IBProps
+    {
+        /// <remarks>
+        /// <para>Type union: either string or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike" /></para>
+        /// </remarks>
+        [JsiiProperty(name: "a", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"fqn\\":\\"jsii-calc.module4971_1.ALike\\"}]}}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        object? A
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBProps), fullyQualifiedName: "jsii-calc.module4971_2.BProps")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBProps
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <remarks>
+            /// <para>Type union: either string or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike" /></para>
+            /// </remarks>
+            [JsiiOptional]
+            [JsiiProperty(name: "a", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"fqn\\":\\"jsii-calc.module4971_1.ALike\\"}]}}", isOptional: true)]
+            public object? A
+            {
+                get => GetInstanceProperty<object?>();
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Multiply.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -22752,6 +23116,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┣━ 📄 ClassWithNestedUnion.cs.diff
                    ┣━ 📄 ConfusingToJackson.cs.diff
                    ┣━ 📄 ConfusingToJacksonStruct.cs.diff
+                   ┣━ 📁 Module49711
+                   ┃  ┗━ 📄 AProps.cs.diff
+                   ┣━ 📁 Module49712
+                   ┃  ┗━ 📄 BProps.cs.diff
                    ┣━ 📄 StructUnionConsumer.cs.diff
                    ┣━ 📄 StructWithCollectionOfUnionts.cs.diff
                    ┣━ 📄 TopLevelStruct.cs.diff
@@ -23274,6 +23642,72 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                    }
 +                }
                  _unionProperty = value;
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/AProps.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/AProps.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49711/AProps.cs	--runtime-type-checking
+@@ -17,10 +17,27 @@
+         public object? B
+         {
+             get => _b;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case string cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike cast_cd4240:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49712.IBLike).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
+                 _b = value;
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/BProps.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/BProps.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Module49712/BProps.cs	--runtime-type-checking
+@@ -17,10 +17,27 @@
+         public object? A
+         {
+             get => _a;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case string cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike cast_cd4240:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Module49711.IALike).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
+                 _a = value;
              }
          }
      }

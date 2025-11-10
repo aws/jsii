@@ -16,7 +16,7 @@ import {
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import { createHash } from 'crypto';
 
-import { die, toPythonIdentifier } from './util';
+import { die, setDifference, toPythonIdentifier } from './util';
 
 /**
  * Actually more of a TypeNameFactory than a TypeName
@@ -24,6 +24,16 @@ import { die, toPythonIdentifier } from './util';
 export interface TypeName {
   pythonType(context: NamingContext): string;
   requiredImports(context: NamingContext): PythonImports;
+}
+
+/**
+ * Classify Python imports between type-checking imports and run-time imports
+ *
+ * (All members are required so we don't accidentally forget to classify)
+ */
+export interface PhaseAwarePythonImports {
+  readonly runtimeImports: PythonImports;
+  readonly typeImports: PythonImports;
 }
 
 export interface PythonImports {
@@ -47,9 +57,6 @@ export interface NamingContext {
 
   /** The submodule of the assembly in which the PythonType is expressed (could be the module root) */
   readonly submodule: string;
-
-  /** Holds the set of intersection types used in the current module */
-  readonly intersectionTypes: IntersectionTypesRegistry;
 
   /**
    * The declaration is made in the context of a type annotation (so it can be quoted)
@@ -84,11 +91,13 @@ export interface NamingContext {
   readonly emittedTypes: Set<string>;
 
   /**
-   * Whether the type is emitted for a parameter or not. This may change the
-   * exact type signature being emitted (e.g: Arrays are typing.Sequence[T] for
-   * parameters, and typing.List[T] otherwise).
+   * Whether the type is used for an input (true) or an output (false).
+   *
+   * This may change the exact type signature being emitted; we will sometimes
+   * emit weaker type signatures for inputs. E.g: Arrays are typing.Sequence[T]
+   * for inputs, typing.List[T] for outputs.
    */
-  readonly parameterType?: boolean;
+  readonly isInputType?: boolean;
 }
 
 export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
@@ -135,8 +144,11 @@ export function toPackageName(fqn: string, rootAssm: Assembly): string {
   return getPackageName(fqn, rootAssm).packageName;
 }
 
+/**
+ * Merge a set of Python imports
+ */
 export function mergePythonImports(
-  ...pythonImports: readonly PythonImports[]
+  pythonImports: readonly PythonImports[],
 ): PythonImports {
   const result: Record<string, Set<string>> = {};
   for (const bag of pythonImports) {
@@ -150,6 +162,48 @@ export function mergePythonImports(
     }
   }
   return result;
+}
+
+/**
+ * Return lhs with any elements from rhs removed
+ */
+export function excludeImports(
+  lhs: PythonImports,
+  rhs: PythonImports,
+): PythonImports {
+  return Object.fromEntries(
+    Object.entries(lhs).flatMap(([pkg, elements]) => {
+      const returnEls = setDifference(elements, new Set(rhs[pkg] ?? []));
+      if (returnEls.size > 0) {
+        return [[pkg, returnEls]];
+      }
+      return [];
+    }),
+  );
+}
+
+export function nonEmptyImports(imp: PythonImports) {
+  return Object.keys(imp).length > 0;
+}
+
+/**
+ * Merge the different phases of phase-aware imports separately
+ *
+ * Type imports that are subsumed by runtime imports will be removed.
+ */
+export function mergePhaseAwarePythonImports(
+  imports: readonly PhaseAwarePythonImports[],
+): PhaseAwarePythonImports {
+  const runtimeImports = mergePythonImports(
+    imports.map((p) => p.runtimeImports),
+  );
+  const typeImports = mergePythonImports(imports.map((p) => p.typeImports));
+
+  return {
+    runtimeImports,
+    // Anything that's imported as runtime doesn't need to be additionally imported for types
+    typeImports: excludeImports(typeImports, runtimeImports),
+  };
 }
 
 function isOptionalValue(
@@ -184,7 +238,7 @@ class List implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    const type = context.parameterType ? 'Sequence' : 'List';
+    const type = context.isInputType ? 'Sequence' : 'List';
     return `typing.${type}[${this.#element.pythonType(context)}]`;
   }
 
@@ -280,12 +334,12 @@ class Union implements TypeName {
 
   public requiredImports(context: NamingContext) {
     return mergePythonImports(
-      ...this.#options.map((o) => o.requiredImports(context)),
+      this.#options.map((o) => o.requiredImports(context)),
     );
   }
 }
 
-class Intersection implements TypeName {
+export class Intersection implements TypeName {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   readonly #types: readonly UserType[];
 
@@ -293,29 +347,42 @@ class Intersection implements TypeName {
     this.#types = types;
   }
 
-  public pythonType(context: NamingContext) {
-    // We will be generating a special type to represent the intersection
-    const name = context.intersectionTypes.obtain(
-      this.#types.map((t) => t.pythonType(context)).map(stripQuotes),
-    );
+  public get types(): readonly TypeName[] {
+    return this.#types;
+  }
 
-    // This will never be in scope already, so always render between quotes
-    return `'${name}'`;
+  public get fqns() {
+    return this.#types.map((t) => t.fqn);
+  }
+
+  public pythonType(context: NamingContext) {
+    // This can only ever appear as a type annotation, so render between quotes
+    return `"${this.helperTypeName(context)}"`;
+  }
+
+  /**
+   * Need the context for the type resolver
+   */
+  public helperTypeName(context: NamingContext) {
+    const parts = this.#types.map((t) =>
+      t.pythonType({ ...context, typeAnnotation: false }),
+    );
+    return `_${parts.map(lastComponent).join('_')}`;
   }
 
   public requiredImports(context: NamingContext) {
     return mergePythonImports(
-      ...this.#types.map((o) => o.requiredImports(context)),
+      this.#types.map((o) => o.requiredImports(context)),
     );
   }
 }
 
 class UserType implements TypeName {
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  readonly #fqn: string;
+  public readonly fqn: string;
 
   public constructor(fqn: string) {
-    this.#fqn = fqn;
+    this.fqn = fqn;
   }
 
   public pythonType(context: NamingContext) {
@@ -336,22 +403,30 @@ class UserType implements TypeName {
     submodule,
     surroundingTypeFqns,
     typeAnnotation = true,
-    parameterType,
+    isInputType,
     typeResolver,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
-      this.#fqn,
+      this.fqn,
       assembly,
     );
 
     // If this is a type annotation for a parameter, allow dicts to be passed where structs are expected.
-    const type = typeResolver(this.#fqn);
+    const type = typeResolver(this.fqn);
     const isStruct = isInterfaceType(type) && !!type.datatype;
+    const quoteType = typeAnnotation
+      ? (t: string) => `"${t}"`
+      : (t: string) => t;
+
+    // For backwards compatibility, we accept a dict if the input is a struct with camelCased keys.
+    // Using `typing.Mapping` instead of `typing.Dict` because of a bug in the
+    // Python standard library that only got fixed in 3.14
+    // <https://github.com/python/cpython/issues/137226>
     const wrapType =
-      typeAnnotation && parameterType && isStruct
+      typeAnnotation && isInputType && isStruct
         ? (pyType: string) =>
-            `typing.Union[${pyType}, typing.Dict[builtins.str, typing.Any]]`
-        : (pyType: string) => pyType;
+            `typing.Union[${quoteType(pyType)}, typing.Mapping[builtins.str, typing.Any]]`
+        : (pyType: string) => quoteType(pyType);
 
     // Emit aliased imports for dependencies (this avoids name collisions)
     if (assemblyName !== assembly.name) {
@@ -392,12 +467,12 @@ class UserType implements TypeName {
 
       if (
         typeAnnotation &&
-        (!emittedTypes.has(this.#fqn) || nestingParent != null)
+        (!emittedTypes.has(this.fqn) || nestingParent != null)
       ) {
         // Possibly a forward reference, outputting the stringifierd python FQN
         return {
           pythonType: wrapType(
-            JSON.stringify(pythonFqn.substring(submodulePythonName.length + 1)),
+            pythonFqn.substring(submodulePythonName.length + 1),
           ),
         };
       }
@@ -569,8 +644,4 @@ export class IntersectionTypesRegistry {
 
 function lastComponent(x: string) {
   return x.split('.').slice(-1)[0];
-}
-
-function stripQuotes(x: string) {
-  return x.replace(/^"|"$/g, '');
 }

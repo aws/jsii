@@ -27,9 +27,13 @@ import {
   mergePythonImports,
   toPackageName,
   toPythonFqn,
-  IntersectionTypesRegistry,
+  PhaseAwarePythonImports,
+  mergePhaseAwarePythonImports,
+  nonEmptyImports,
+  TypeName,
+  Intersection,
 } from './python/type-name';
-import { die, toPythonIdentifier } from './python/util';
+import { die, setDifference, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { topologicalSort } from '../toposort';
@@ -155,8 +159,7 @@ class TypeCheckingStub {
   readonly #hash: string;
 
   public constructor(fqn: string, args: readonly string[]) {
-    // Removing the quoted type names -- this will be emitted at the very end of the module.
-    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
@@ -174,6 +177,53 @@ class TypeCheckingStub {
     code.line(`"""Type checking stubs"""`);
     code.line('pass');
     code.closeBlock();
+  }
+}
+
+class IntersectionTypeHelper implements PythonBase, ISortableType {
+  public readonly isExported = false;
+
+  public constructor(
+    public readonly pythonName: string,
+    private readonly types: readonly TypeName[],
+    private readonly fqns: readonly string[],
+  ) {}
+
+  public emit(code: CodeMaker, context: EmitContext): void {
+    const types = this.types.map((t) =>
+      t.pythonType({ ...context, typeAnnotation: false }),
+    );
+
+    code.line(
+      `class ${this.pythonName}(${types.join(', ')}, typing_extensions.Protocol):`,
+    );
+    code.line('    pass');
+  }
+
+  public visitTypes(visitor: TypeVisitor): void {
+    for (const type of this.types) {
+      visitor(type);
+    }
+  }
+
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return {
+      runtimeImports: mergePythonImports(
+        this.types.map((o) => o.requiredImports(context)),
+      ),
+      typeImports: {},
+    };
+  }
+
+  public dependsOn(resolver: TypeResolver): PythonType[] {
+    const ret: PythonType[] = [];
+    // Return all bases that are also types in this module
+    for (const fqn of this.fqns) {
+      if (resolver.isInModule(fqn)) {
+        ret.push(resolver.getType(fqn));
+      }
+    }
+    return ret;
   }
 }
 
@@ -230,16 +280,6 @@ function toPythonParameterName(
 
   return result;
 }
-
-const setDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  const result = new Set<T>();
-  for (const item of setA) {
-    if (!setB.has(item)) {
-      result.add(item);
-    }
-  }
-  return result;
-};
 
 /**
  * Prepare python members for emission.
@@ -347,14 +387,24 @@ const sortMembers = (
   return sorted;
 };
 
+/**
+ * Interface for any Python API elements (class, interface, property, method)
+ */
 interface PythonBase {
+  readonly isExported: boolean;
   readonly pythonName: string;
   readonly docs?: spec.Docs;
 
   emit(code: CodeMaker, context: EmitContext, opts?: any): void;
 
-  requiredImports(context: EmitContext): PythonImports;
+  /**
+   * Visit every type reference on every API element
+   */
+  visitTypes(visitor: TypeVisitor, resolver: TypeResolver): void;
+  requiredImports(context: EmitContext): PhaseAwarePythonImports;
 }
+
+type TypeVisitor = (type: TypeName) => void;
 
 interface PythonType extends PythonBase {
   // The JSII FQN for this item, if this item doesn't exist as a JSII type, then it
@@ -377,9 +427,12 @@ interface PythonTypeOpts {
 }
 
 abstract class BasePythonClassType implements PythonType, ISortableType {
+  public readonly isExported = true;
+
   protected bases: spec.TypeReference[];
   protected members: PythonBase[];
   protected readonly separateMembers: boolean = true;
+  protected readonly baseTypenames: TypeName[];
 
   public constructor(
     protected readonly generator: PythonGenerator,
@@ -393,6 +446,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
     this.bases = bases;
     this.members = [];
+    this.baseTypenames = this.bases.map(toTypeName);
   }
 
   public dependsOn(resolver: TypeResolver): PythonType[] {
@@ -428,11 +482,18 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return dependencies;
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    const baseImports: PhaseAwarePythonImports = {
+      runtimeImports: mergePythonImports(
+        this.baseTypenames.map((base) => base.requiredImports(context)),
+      ),
+      typeImports: {},
+    };
+
+    return mergePhaseAwarePythonImports([
+      baseImports,
       ...this.members.map((mem) => mem.requiredImports(context)),
-    );
+    ]);
   }
 
   public addMember(member: PythonBase) {
@@ -446,6 +507,11 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
       );
     }
     return { api: 'type', fqn: this.fqn };
+  }
+
+  public visitTypes(visitor: TypeVisitor, resolver: TypeResolver) {
+    this.baseTypenames.forEach(visitor);
+    this.members.forEach((member) => member.visitTypes(visitor, resolver));
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
@@ -593,6 +659,8 @@ interface BaseMethodEmitOpts {
 }
 
 abstract class BaseMethod implements PythonBase {
+  public readonly isExported = true;
+
   public readonly abstract: boolean;
 
   protected abstract readonly implicitParameter: string;
@@ -604,6 +672,9 @@ abstract class BaseMethod implements PythonBase {
 
   private readonly liftedProp?: spec.InterfaceType;
   private readonly parent: spec.NamedTypeReference;
+
+  private readonly returnsTypeName: TypeName;
+  private readonly parametersTypeNames: TypeName[];
 
   public constructor(
     protected readonly generator: PythonGenerator,
@@ -619,6 +690,9 @@ abstract class BaseMethod implements PythonBase {
     this.abstract = !!opts.abstract;
     this.liftedProp = opts.liftedProp;
     this.parent = opts.parent;
+
+    this.returnsTypeName = toTypeName(this.returns);
+    this.parametersTypeNames = this.parameters.map(toTypeName);
   }
 
   public get apiLocation(): ApiLocation {
@@ -629,31 +703,66 @@ abstract class BaseMethod implements PythonBase {
     };
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      toTypeName(this.returns).requiredImports(context),
-      ...this.parameters.map((param) =>
-        toTypeName(param).requiredImports(context),
-      ),
-      ...liftedProperties(this.liftedProp),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    const returnsImports = this.returnsTypeName.requiredImports(context);
+    const parameterImports = this.parametersTypeNames.map((param) =>
+      param.requiredImports(context),
     );
+    const liftedParametersImports = Array.from(
+      this.liftedPropFields(context.resolver),
+    ).map(([_, typeName]) => typeName.requiredImports(context));
+
+    return {
+      typeImports: mergePythonImports([
+        returnsImports,
+        ...parameterImports,
+        ...liftedParametersImports,
+      ]),
+      runtimeImports: {},
+    };
+  }
+
+  /**
+   * Return all lifted property fields
+   *
+   * Lifted properties are properties from the final struct of a function, turned into keywords arguments.
+   *
+   * FIXME: Replace with this.getLiftedProperties()
+   */
+  private *liftedPropFields(
+    resolver: TypeResolver,
+  ): Iterable<[string, TypeName]> {
+    yield* liftedProperties(this.liftedProp);
 
     function* liftedProperties(
       struct: spec.InterfaceType | undefined,
-    ): IterableIterator<PythonImports> {
+    ): Iterable<[string, TypeName]> {
       if (struct == null) {
         return;
       }
       for (const prop of struct.properties ?? []) {
-        yield toTypeName(prop.type).requiredImports(context);
+        yield [prop.name, toTypeName(prop.type)];
       }
       for (const base of struct.interfaces ?? []) {
-        const iface = context.resolver.dereference(base) as spec.InterfaceType;
+        const iface = resolver.dereference(base) as spec.InterfaceType;
         for (const imports of liftedProperties(iface)) {
           yield imports;
         }
       }
     }
+  }
+
+  public visitTypes(visitor: TypeVisitor, resolver: TypeResolver) {
+    visitor(this.returnsTypeName);
+    this.parametersTypeNames.forEach(visitor, resolver);
+    for (const [_, typeName] of this.liftedPropFields(resolver)) {
+      visitor(typeName);
+    }
+    /*
+    for (const prop of this.getLiftedProperties(resolver)) {
+      visitor(prop.typeName);
+    }
+    */
   }
 
   public emit(
@@ -695,7 +804,8 @@ abstract class BaseMethod implements PythonBase {
 
       const paramType = typeFac.pythonType({
         ...context,
-        parameterType: true,
+        isInputType: true,
+        typeAnnotation: true,
       });
       const paramDefault = param.optional ? ' = None' : '';
 
@@ -736,9 +846,9 @@ abstract class BaseMethod implements PythonBase {
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
           const paramName = toPythonParameterName(prop.prop.name);
-          const paramType = toTypeName(prop.prop).pythonType({
+          const paramType = prop.typeName.pythonType({
             ...context,
-            parameterType: true,
+            isInputType: true,
             typeAnnotation: true,
           });
           const paramDefault = prop.prop.optional ? ' = None' : '';
@@ -769,7 +879,10 @@ abstract class BaseMethod implements PythonBase {
 
       const lastParameter = this.parameters.slice(-1)[0];
       const paramName = toPythonParameterName(lastParameter.name);
-      const paramType = toTypeName(lastParameter.type).pythonType(context);
+      const paramType = toTypeName(lastParameter.type).pythonType({
+        ...context,
+        typeAnnotation: true,
+      });
 
       pythonParams.push(`*${paramName}: ${paramType}`);
     }
@@ -867,10 +980,12 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType({
+    const typeName = toTypeName(lastParameter.type);
+    const typeNameStr = typeName.pythonType({
       ...context,
       typeAnnotation: false,
     });
+    const imports = typeName.requiredImports(context);
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specify to start with in our dictionary literal.
@@ -881,7 +996,8 @@ abstract class BaseMethod implements PythonBase {
       .map((p) => p.pythonName)
       .map((v) => `${v}=${v}`);
 
-    assignCallResult(code, argName, typeName, assignments);
+    emitLazyImports(code, imports);
+    assignCallResult(code, argName, typeNameStr, assignments);
     code.line();
   }
 
@@ -938,8 +1054,10 @@ abstract class BaseMethod implements PythonBase {
     );
   }
 
-  private getLiftedProperties(resolver: TypeResolver): PropertyDefinition[] {
-    const liftedProperties: PropertyDefinition[] = [];
+  private getLiftedProperties(
+    resolver: TypeResolver,
+  ): PythonPropertyDefinition[] {
+    const liftedProperties: PythonPropertyDefinition[] = [];
 
     const stack = [this.liftedProp];
     const knownIfaces = new Set<string>();
@@ -968,7 +1086,12 @@ abstract class BaseMethod implements PythonBase {
           if (knownProps.has(prop.name)) {
             continue;
           }
-          liftedProperties.push({ prop, definingType: current });
+          liftedProperties.push({
+            prop,
+            definingType: current,
+            typeName: toTypeName(prop),
+            nonNullableTypeName: toTypeName(prop.type),
+          });
           knownProps.add(prop.name);
         }
       }
@@ -991,6 +1114,8 @@ interface BasePropertyEmitOpts {
 }
 
 abstract class BaseProperty implements PythonBase {
+  public readonly isExported = true;
+
   public readonly abstract: boolean;
   public readonly isStatic: boolean;
 
@@ -1002,6 +1127,7 @@ abstract class BaseProperty implements PythonBase {
 
   private readonly immutable: boolean;
   private readonly parent: spec.NamedTypeReference;
+  private readonly typeName: TypeName;
 
   public constructor(
     private readonly generator: PythonGenerator,
@@ -1018,14 +1144,22 @@ abstract class BaseProperty implements PythonBase {
     this.immutable = immutable;
     this.isStatic = isStatic;
     this.parent = opts.parent;
+    this.typeName = toTypeName(type);
   }
 
   public get apiLocation(): ApiLocation {
     return { api: 'member', fqn: this.parent.fqn, memberName: this.jsName };
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return toTypeName(this.type).requiredImports(context);
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return {
+      typeImports: this.typeName.requiredImports(context),
+      runtimeImports: {},
+    };
+  }
+
+  public visitTypes(visitor: TypeVisitor) {
+    visitor(this.typeName);
   }
 
   public emit(
@@ -1236,15 +1370,15 @@ class Struct extends BasePythonClassType {
   }
 
   public requiredImports(context: EmitContext) {
-    return mergePythonImports(
+    return mergePhaseAwarePythonImports([
       super.requiredImports(context),
       ...this.allMembers.map((mem) => mem.requiredImports(context)),
-    );
+    ]);
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    return this.bases.map((b) =>
-      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    return this.baseTypenames.map((b) =>
+      b.pythonType({ ...context, typeAnnotation: false }),
     );
   }
 
@@ -1284,14 +1418,20 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType({
+      const typeNameStr = member.nonNullableTypeName.pythonType({
         ...context,
         typeAnnotation: false,
       });
+      const imports = member.nonNullableTypeName.requiredImports(context);
+
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
-      code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
+      emitLazyImports(code, imports);
+      code.line(
+        `${member.pythonName} = ${typeNameStr}(**${member.pythonName})`,
+      );
       code.closeBlock();
     }
+
     if (kwargs.length > 0) {
       emitParameterTypeChecks(
         code,
@@ -1397,10 +1537,14 @@ class Struct extends BasePythonClassType {
 }
 
 class StructField implements PythonBase {
+  public readonly isExported = true;
+
   public readonly pythonName: string;
   public readonly jsiiName: string;
   public readonly docs?: spec.Docs;
   public readonly type: spec.OptionalValue;
+  public readonly typeName: TypeName;
+  public readonly nonNullableTypeName: TypeName;
 
   public constructor(
     private readonly generator: PythonGenerator,
@@ -1411,6 +1555,8 @@ class StructField implements PythonBase {
     this.jsiiName = prop.name;
     this.type = prop;
     this.docs = prop.docs;
+    this.typeName = toTypeName(this.type);
+    this.nonNullableTypeName = toTypeName(this.type.type);
   }
 
   public get apiLocation(): ApiLocation {
@@ -1425,8 +1571,15 @@ class StructField implements PythonBase {
     return !!this.type.optional;
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return toTypeName(this.type).requiredImports(context);
+  public visitTypes(visitor: TypeVisitor) {
+    visitor(this.typeName);
+  }
+
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return {
+      typeImports: this.typeName.requiredImports(context),
+      runtimeImports: {},
+    };
   }
 
   public isStruct(generator: PythonGenerator): boolean {
@@ -1434,18 +1587,22 @@ class StructField implements PythonBase {
   }
 
   public constructorDecl(context: EmitContext) {
-    const opt = this.optional ? ' = None' : '';
-    return `${this.pythonName}: ${this.typeAnnotation({
+    const typeAnnotation = this.typeAnnotation({
       ...context,
-      parameterType: true,
-    })}${opt}`;
+      isInputType: true,
+    });
+    const opt = this.optional ? ' = None' : '';
+    return `${this.pythonName}: ${typeAnnotation}${opt}`;
   }
 
   /**
    * Return the Python type annotation for this type
    */
   public typeAnnotation(context: EmitContext) {
-    return toTypeName(this.type).pythonType(context);
+    return toTypeName(this.type).pythonType({
+      ...context,
+      typeAnnotation: true,
+    });
   }
 
   public emitDocString(code: CodeMaker) {
@@ -1520,13 +1677,20 @@ class Class extends BasePythonClassType implements ISortableType {
     return dependencies;
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      super.requiredImports(context), // Takes care of base & members
-      ...this.interfaces.map((base) =>
-        toTypeName(base).requiredImports(context),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    // Takes care of base & members
+    const parent = super.requiredImports(context);
+
+    const interfaceImports: PhaseAwarePythonImports = {
+      runtimeImports: mergePythonImports(
+        this.interfaces.map((base) =>
+          toTypeName(base).requiredImports(context),
+        ),
       ),
-    );
+      typeImports: {},
+    };
+
+    return mergePhaseAwarePythonImports([parent, interfaceImports]);
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
@@ -1662,12 +1826,14 @@ class Enum extends BasePythonClassType {
     return ['enum.Enum'];
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
     return super.requiredImports(context);
   }
 }
 
 class EnumMember implements PythonBase {
+  public readonly isExported = true;
+
   public constructor(
     private readonly generator: PythonGenerator,
     public readonly pythonName: string,
@@ -1694,8 +1860,15 @@ class EnumMember implements PythonBase {
     });
   }
 
-  public requiredImports(_context: EmitContext): PythonImports {
-    return {};
+  public visitTypes() {
+    // Empty
+  }
+
+  public requiredImports(_context: EmitContext): PhaseAwarePythonImports {
+    return {
+      runtimeImports: {},
+      typeImports: {},
+    };
   }
 }
 
@@ -1717,6 +1890,8 @@ interface ModuleOpts {
  * Will be called for jsii submodules and namespaces.
  */
 class PythonModule implements PythonType {
+  public readonly isExported = true;
+
   /**
    * Converted to put on the module
    *
@@ -1730,6 +1905,7 @@ class PythonModule implements PythonType {
   private readonly members = new Array<PythonBase>();
 
   private readonly modules = new Array<PythonModule>();
+  private readonly intersectionTypeNames = new Set<string>();
 
   public constructor(
     public readonly pythonName: string,
@@ -1777,10 +1953,17 @@ class PythonModule implements PythonType {
     }
   }
 
-  public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      ...this.members.map((mem) => mem.requiredImports(context)),
+  public requiredImports(context: EmitContext): PhaseAwarePythonImports {
+    return mergePhaseAwarePythonImports(
+      this.members.map((mem) => mem.requiredImports(context)),
     );
+  }
+
+  public visitTypes(visitor: TypeVisitor, resolver: TypeResolver) {
+    for (const m of Array.from(this.members)) {
+      m.visitTypes(visitor, resolver);
+    }
+    // NOTE: no recursion on modules
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
@@ -1792,9 +1975,10 @@ class PythonModule implements PythonType {
     context = {
       ...context,
       submodule: this.fqn ?? context.submodule,
-      intersectionTypes: new IntersectionTypesRegistry(),
       resolver,
     };
+
+    this.preEmit(context);
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
@@ -1913,7 +2097,9 @@ class PythonModule implements PythonType {
     // with the `publication` module NOT having them in this list hides any submodules
     // we import as part of typechecking.
     const exportedMembers = [
-      ...this.members.map((m) => `"${m.pythonName}"`),
+      ...this.members
+        .filter((m) => m.isExported)
+        .map((m) => `"${m.pythonName}"`),
       ...this.modules
         .filter((m) => this.isDirectChild(m))
         .map((m) => `"${lastComponent(m.pythonName)}"`),
@@ -1965,7 +2151,6 @@ class PythonModule implements PythonType {
     }
 
     context.typeCheckingHelper.flushStubs(code);
-    context.intersectionTypes.flushHelperTypes(code);
 
     const interfaces = this.members
       .filter((m) => m instanceof Interface)
@@ -1973,8 +2158,32 @@ class PythonModule implements PythonType {
 
     this.emitProtocolStripper(code, [
       ...interfaces,
-      ...context.intersectionTypes.typeNames,
+      ...this.intersectionTypeNames,
     ]);
+  }
+
+  public preEmit(context: EmitContext) {
+    this.addIntersectionTypeHelpers(context);
+  }
+
+  /**
+   * Add all the intersection type helpers to the module
+   *
+   * We do it like this so that the type handling for these structures can just
+   * participate in the normal type handling.
+   */
+  private addIntersectionTypeHelpers(context: EmitContext) {
+    this.visitTypes((type) => {
+      if (type instanceof Intersection) {
+        const generatedName = type.helperTypeName(context);
+        if (!this.intersectionTypeNames.has(generatedName)) {
+          this.intersectionTypeNames.add(generatedName);
+          this.addMember(
+            new IntersectionTypeHelper(generatedName, type.types, type.fqns),
+          );
+        }
+      }
+    }, context.resolver);
   }
 
   /**
@@ -2108,6 +2317,22 @@ class PythonModule implements PythonType {
 
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
     const requiredImports = this.requiredImports(context);
+
+    if (
+      nonEmptyImports(requiredImports.runtimeImports) ||
+      nonEmptyImports(requiredImports.typeImports)
+    ) {
+      code.line();
+    }
+    this.emitImports(code, requiredImports.runtimeImports);
+    if (nonEmptyImports(requiredImports.typeImports)) {
+      code.indent('if typing.TYPE_CHECKING:');
+      this.emitImports(code, requiredImports.typeImports);
+      code.unindent();
+    }
+  }
+
+  private emitImports(code: CodeMaker, requiredImports: PythonImports) {
     const statements = Object.entries(requiredImports)
       .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
       .reduce(
@@ -2116,9 +2341,6 @@ class PythonModule implements PythonType {
       )
       .sort(importComparator);
 
-    if (statements.length > 0) {
-      code.line();
-    }
     for (const statement of statements) {
       statement.emit(code);
     }
@@ -2552,11 +2774,12 @@ class TypeResolver {
     return this.findModule(assm).targets!.python!.module;
   }
 
-  public getType(typeRef: spec.NamedTypeReference): PythonType {
-    const type = this.types.get(typeRef.fqn);
+  public getType(typeRef: string | spec.NamedTypeReference): PythonType {
+    const fqn = typeof typeRef === 'string' ? typeRef : typeRef.fqn;
+    const type = this.types.get(fqn);
 
     if (type === undefined) {
-      throw new Error(`Could not locate type: "${typeRef.fqn}"`);
+      throw new Error(`Could not locate type: "${fqn}"`);
     }
 
     return type;
@@ -2802,7 +3025,6 @@ class PythonGenerator extends Generator {
       submodule: assm.name,
       typeCheckingHelper: new TypeCheckingHelper(),
       typeResolver: (fqn) => resolver.dereference(fqn),
-      intersectionTypes: new IntersectionTypesRegistry(),
     });
   }
 
@@ -3250,6 +3472,22 @@ function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
   return name;
 }
 
+/**
+ * Emits Python lazy import statements for runtime use (not under TYPE_CHECKING).
+ * These imports are placed inside constructors / functions and only execute when needed,
+ * avoiding circular dependencies.
+ */
+function emitLazyImports(code: CodeMaker, imports: PythonImports) {
+  for (const [sourcePackage, items] of Object.entries(imports)) {
+    const itemList = Array.from(items).filter((i) => i !== '');
+    if (itemList.length > 0) {
+      code.line(`from ${sourcePackage} import ${itemList.join(', ')}`);
+    } else {
+      code.line(`import ${sourcePackage}`);
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // BEHOLD: Helpers to output code that looks like what Black would format into...
 //
@@ -3548,4 +3786,16 @@ const isDeprecated = (x: PythonBase) => x.docs?.deprecated !== undefined;
 function lastComponent(n: string) {
   const parts = n.split('.');
   return parts[parts.length - 1];
+}
+
+interface PythonPropertyDefinition extends PropertyDefinition {
+  /**
+   * A TypeName that takes the optionality of the argument into account
+   */
+  readonly typeName: TypeName;
+
+  /**
+   * A TypeName that never has a potential `Optional[]` annotation.
+   */
+  readonly nonNullableTypeName: TypeName;
 }

@@ -19,7 +19,7 @@ class PythonInvalidBellRinger:
         bell.ring()
 
 
-@pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 2, reason="requires typeguard 2.x")
+# @pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 2, reason="requires typeguard 2.x")
 class TestRuntimeTypeCheckingTypeGuardV2:
 
     @property
