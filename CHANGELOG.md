@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.119.0](https://github.com/aws/jsii/compare/v1.118.0...v1.119.0) (2025-11-10)
+
+
+### Features
+
+* **jsii-diff:** remap old to new FQNs ([#4976](https://github.com/aws/jsii/issues/4976)) ([d7c083d](https://github.com/aws/jsii/commit/d7c083d9a958ddb6205ae0237d032c818668d471))
+* **jsii-reflect:** can jqii-query on `fqn` field ([#4975](https://github.com/aws/jsii/issues/4975)) ([86995e5](https://github.com/aws/jsii/commit/86995e544528d19f91631e7acff1d744a2383ae1))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** Python interfaces sometimes violate MRO ([#4973](https://github.com/aws/jsii/issues/4973)) ([cfb6580](https://github.com/aws/jsii/commit/cfb658077b8f3f7e464a50f5d17f5594a77e9029))
+* **jsii-reflect:** advertise `jsii-query` via `bin` entry of `package.json` ([#4974](https://github.com/aws/jsii/issues/4974)) ([b6c0a35](https://github.com/aws/jsii/commit/b6c0a3511705bc6e021ce23ea1d480552a7cdfaa))
+
 ## [1.118.0](https://github.com/aws/jsii/compare/v1.117.0...v1.118.0) (2025-10-29)
 
 
