@@ -232,22 +232,26 @@ function matches(el: ApiElement, kind: string, pred: Predicate): boolean {
     if (!['type', 'class'].includes(kind)) return false;
 
     context.kind = 'class';
+    context.fqn = el.fqn;
   }
   if (el instanceof InterfaceType) {
     const moreSpecificInterfaceType = el.datatype ? 'struct' : 'interface';
     if (!['type', moreSpecificInterfaceType].includes(kind)) return false;
 
     context.kind = moreSpecificInterfaceType;
+    context.fqn = el.fqn;
   }
   if (el instanceof EnumType) {
     if (!['type', 'enum'].includes(kind)) return false;
 
     context.kind = 'enum';
+    context.fqn = el.fqn;
   }
   if (el instanceof Property) {
     if (!['member', 'property'].includes(kind)) return false;
 
     context.kind = 'property';
+    context.fqn = `${el.parentType.fqn}#${el.name}`;
   }
   if (el instanceof Callable) {
     const moreSpecificCallable =
@@ -255,6 +259,7 @@ function matches(el: ApiElement, kind: string, pred: Predicate): boolean {
     if (!['member', moreSpecificCallable].includes(kind)) return false;
 
     context.kind = moreSpecificCallable;
+    context.fqn = `${el.parentType.fqn}#${el.name}`;
   }
 
   Object.assign(
@@ -430,6 +435,7 @@ type ApiElementAttribute =
 
 const API_ELEMENT_ATTRIBUTES: ApiElementAttribute[] = [
   'kind',
+  'fqn',
   // Types
   'ancestors',
   'abstract',

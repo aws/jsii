@@ -2,12 +2,7 @@ import * as reflect from 'jsii-reflect';
 import * as log4js from 'log4js';
 
 import { validateStabilities } from './stability';
-import {
-  Analysis,
-  FailedAnalysis,
-  isSuperType,
-  isNominalSuperType,
-} from './type-analysis';
+import { Analysis, FailedAnalysis, TypeAnalysis } from './type-analysis';
 import { IReport } from './types';
 
 const LOG = log4js.getLogger('jsii-diff');
@@ -26,9 +21,10 @@ const LOG = log4js.getLogger('jsii-diff');
 export function validateBaseTypeAssignability<T extends reflect.ReferenceType>(
   original: T,
   updated: T,
+  fqnRemapping: Record<string, string>,
   mismatches: IReport,
 ) {
-  const ana = assignableToAllBaseTypes(original, updated);
+  const ana = assignableToAllBaseTypes(original, updated, fqnRemapping);
   if (!ana.success) {
     mismatches.report({
       ruleKey: 'base-types',
@@ -175,9 +171,14 @@ export function validateNoNewAbstractMembers<T extends reflect.ReferenceType>(
 export function validateReturnTypeNotWeakened(
   original: reflect.Method,
   updated: reflect.Method,
+  fqnRemapping: Record<string, string>,
   mismatches: IReport,
 ) {
-  const retAna = isCompatibleReturnType(original.returns, updated.returns);
+  const retAna = isCompatibleReturnType(
+    original.returns,
+    updated.returns,
+    fqnRemapping,
+  );
   if (!retAna.success) {
     mismatches.report({
       ruleKey: 'change-return-type',
@@ -226,9 +227,10 @@ export function validateReturnTypeSame(
 export function validatePropertyTypeNotWeakened(
   original: reflect.Property,
   updated: reflect.Property,
+  fqnRemapping: Record<string, string>,
   mismatches: IReport,
 ) {
-  const ana = isCompatibleReturnType(original, updated);
+  const ana = isCompatibleReturnType(original, updated, fqnRemapping);
   if (!ana.success) {
     mismatches.report({
       ruleKey: 'changed-type',
@@ -280,9 +282,14 @@ export function validateParameterTypeWeakened(
   method: reflect.Method | reflect.Initializer,
   original: reflect.Parameter,
   updated: reflect.Parameter,
+  fqnRemapping: Record<string, string>,
   mismatches: IReport,
 ) {
-  const argAna = isCompatibleArgumentType(original.type, updated.type);
+  const argAna = isCompatibleArgumentType(
+    original.type,
+    updated.type,
+    fqnRemapping,
+  );
   if (!argAna.success) {
     mismatches.report({
       ruleKey: 'incompatible-argument',
@@ -405,14 +412,19 @@ export function validateNoNewRequiredParams<
 
 export function validateMethodCompatible<
   T extends reflect.Method | reflect.Initializer,
->(original: T, updated: T, mismatches: IReport) {
+>(
+  original: T,
+  updated: T,
+  fqnRemapping: Record<string, string>,
+  mismatches: IReport,
+) {
   validateStabilities(original, updated, mismatches);
 
   // Type guards on original are duplicated on updated to help tsc... They are required to be the same type by the declaration.
   if (reflect.isMethod(original) && reflect.isMethod(updated)) {
     validateStaticSame(original, updated, mismatches);
     validateAsyncSame(original, updated, mismatches);
-    validateReturnTypeNotWeakened(original, updated, mismatches);
+    validateReturnTypeNotWeakened(original, updated, fqnRemapping, mismatches);
   }
 
   validateNotMadeNonVariadic(original, updated, mismatches);
@@ -423,7 +435,13 @@ export function validateMethodCompatible<
     updated,
     mismatches,
     (oldParam, newParam) => {
-      validateParameterTypeWeakened(original, oldParam, newParam, mismatches);
+      validateParameterTypeWeakened(
+        original,
+        oldParam,
+        newParam,
+        fqnRemapping,
+        mismatches,
+      );
     },
   );
 
@@ -532,6 +550,7 @@ export function* memberPairs<
 function isCompatibleReturnType(
   original: reflect.OptionalValue,
   updated: reflect.OptionalValue,
+  fqnRemapping: Record<string, string>,
 ): Analysis {
   if (original.type.void) {
     return { success: true };
@@ -542,7 +561,10 @@ function isCompatibleReturnType(
   if (!original.optional && updated.optional) {
     return { success: false, reasons: ['output type is now optional'] };
   }
-  return isSuperType(original.type, updated.type, updated.system);
+  return new TypeAnalysis(updated.system, fqnRemapping).isSuperType(
+    original.type,
+    updated.type,
+  );
 }
 
 /**
@@ -553,9 +575,13 @@ function isCompatibleReturnType(
 function isCompatibleArgumentType(
   original: reflect.TypeReference,
   updated: reflect.TypeReference,
+  fqnRemapping: Record<string, string>,
 ): Analysis {
   // Input can never be void, so no need to check
-  return isSuperType(updated, original, updated.system);
+  return new TypeAnalysis(updated.system, fqnRemapping).isSuperType(
+    updated,
+    original,
+  );
 }
 
 /**
@@ -574,13 +600,13 @@ function isCompatibleArgumentType(
 function assignableToAllBaseTypes(
   original: reflect.ReferenceType,
   updated: reflect.ReferenceType,
+  fqnRemapping: Record<string, string>,
 ): Analysis {
   for (const B of baseTypes(original)) {
-    const result = isNominalSuperType(
-      B.reference,
-      updated.reference,
+    const result = new TypeAnalysis(
       updated.system,
-    );
+      fqnRemapping,
+    ).isNominalSuperType(B.reference, updated.reference);
     if (!result.success) {
       return result;
     }

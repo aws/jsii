@@ -126,6 +126,45 @@ abstract members yet.
 for subclassing, but treating them as such would limit the evolvability of
 libraries too much.
 
+## Accepting breaking changes
+
+Sometimes you want to move forward with a change, even if it would technically
+be a breaking change to your API. In order to do that, run `jsii-diff`
+with the flag `--keys`. It will then print an identifier for every violation
+between square brackets, for example:
+
+```
+$ jsii-diff <old> --keys
+IFACE pkg.MyStruct: formerly required property 'prop' is optional: returned from pkg.IConsumer.someMethod [weakened:pkg.MyStruct]
+```
+
+To accept a breaking finding, put the key (in this example `weakened:pkg.MyStruct`)
+into a text file, for example `allowed-breaking-changes.txt`, and pass it to
+`jsii-diff` as an ignore file:
+
+```
+$ jsii-diff <old> --keys --ignore-file allowed-breaking-changes.txt
+(no error)
+```
+
+### Moving/renaming API elements
+
+If you've moved API elements around between versions of your library, you can
+put a special ignore marker starting with `move:` into your `--ignore-file`.  To
+separate the old and new class names, you can use `:`, `,` or whitespace.
+
+For example:
+
+```
+move:package.OldClassName    package.NewClassName
+move:package.OldClassName:package.NewClassName
+move:package.OldClassName, package.NewClassName
+```
+
+Moving API elements is always breaking, but using this feature you can confirm
+that you at least didn't break anything in the API surface of the moved classes
+themselves.
+
 ## Help! jsii-diff is marking my changes as breaking
 
 See [BREAKING_CHANGES.md](./BREAKING_CHANGES.md) for more information.

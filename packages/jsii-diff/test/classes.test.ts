@@ -1,4 +1,4 @@
-import { expectError, expectNoError } from './util';
+import { compare, expectError, expectNoError } from './util';
 
 // ----------------------------------------------------------------------
 
@@ -766,3 +766,16 @@ test('will find mismatches in submodules', () =>
         'export class Foo { public static readonly PROP = 42; }',
     },
   ));
+
+// ----------------------------------------------------------------------
+
+test('allow remapping of FQNs', () => {
+  const original = `export class Foo1 { }`;
+  const updated = `export class Foo2 { }`;
+
+  // This should give no error because we remapped Foo1 to Foo2
+  const mms = compare(original, updated, {
+    fqnRemapping: { 'testpkg.Foo1': 'testpkg.Foo2' },
+  });
+  expect(Array.from(mms.messages())).toEqual([]);
+});

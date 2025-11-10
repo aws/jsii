@@ -3,7 +3,7 @@ import * as reflect from 'jsii-reflect';
 import * as log4js from 'log4js';
 
 import { validateStabilities } from './stability';
-import { isStructuralSuperType, Analysis } from './type-analysis';
+import { TypeAnalysis, Analysis } from './type-analysis';
 import {
   describeInterfaceType,
   describeType,
@@ -63,7 +63,8 @@ export class AssemblyComparison {
   public load(original: reflect.Assembly, updated: reflect.Assembly) {
     /* eslint-disable prettier/prettier */
     for (const [origClass, updatedClass] of this.typePairs(original.allClasses, updated)) {
-      this.types.set(origClass.fqn, new ComparableClassType(this, origClass, updatedClass));
+      const { fqn, displayFqn } = this.resolveFqn(origClass);
+      this.types.set(fqn, new ComparableClassType(this, origClass, updatedClass, displayFqn));
     }
 
     for (const [origIface, updatedIface] of this.typePairs(original.allInterfaces, updated)) {
@@ -78,13 +79,15 @@ export class AssemblyComparison {
         continue;
       }
 
-      this.types.set(origIface.fqn, origIface.datatype
-        ? new ComparableStructType(this, origIface, updatedIface)
-        : new ComparableInterfaceType(this, origIface, updatedIface));
+      const { fqn, displayFqn } = this.resolveFqn(origIface);
+      this.types.set(fqn, origIface.datatype
+        ? new ComparableStructType(this, origIface, updatedIface, displayFqn)
+        : new ComparableInterfaceType(this, origIface, updatedIface, displayFqn));
     }
 
     for (const [origEnum, updatedEnum] of this.typePairs(original.allEnums, updated)) {
-      this.types.set(origEnum.fqn, new ComparableEnumType(this, origEnum, updatedEnum));
+      const { fqn, displayFqn } = this.resolveFqn(origEnum);
+      this.types.set(fqn, new ComparableEnumType(this, origEnum, updatedEnum, displayFqn));
     }
     /* eslint-enable prettier/prettier */
   }
@@ -105,12 +108,27 @@ export class AssemblyComparison {
     const ret = new Array<ComparableType<any>>();
 
     for (const fqn of fqnsFrom(ref)) {
-      const t = this.types.get(fqn);
+      const t = this.types.get(this.resolveFqn(fqn).fqn);
       if (t) {
         ret.push(t);
       }
     }
     return ret;
+  }
+
+  /**
+   * Return the type's FQN, running it through the translation table if present.
+   */
+  private resolveFqn(x: string | reflect.Type): {
+    fqn: string;
+    displayFqn: string;
+  } {
+    const fqn = typeof x === 'string' ? x : x.fqn;
+    const finalFqn = this.options.fqnRemapping?.[fqn] ?? fqn;
+    if (fqn !== finalFqn) {
+      return { fqn: finalFqn, displayFqn: `${fqn} -> ${finalFqn}` };
+    }
+    return { fqn, displayFqn: fqn };
   }
 
   /**
@@ -128,9 +146,10 @@ export class AssemblyComparison {
     updatedAssembly: reflect.Assembly,
   ): IterableIterator<[T, T]> {
     for (const origType of xs) {
-      LOG.trace(origType.fqn);
+      const { fqn, displayFqn } = this.resolveFqn(origType);
+      LOG.trace(displayFqn);
 
-      const updatedType = updatedAssembly.tryFindType(origType.fqn);
+      const updatedType = updatedAssembly.tryFindType(fqn);
       if (!updatedType) {
         this.mismatches.report({
           ruleKey: 'removed',
@@ -171,7 +190,12 @@ export abstract class ComparableType<T> {
     protected readonly assemblyComparison: AssemblyComparison,
     protected readonly oldType: T,
     protected readonly newType: T,
+    protected readonly displayFqn: string,
   ) {}
+
+  public get fqnRemapping(): Record<string, string> {
+    return this.assemblyComparison.options.fqnRemapping ?? {};
+  }
 
   /**
    * Does this type occur in an input role?
@@ -276,10 +300,15 @@ export abstract class ComparableReferenceType<
    * Compare members of the reference types
    */
   public compare() {
-    LOG.debug(`Reference type ${this.oldType.fqn}`);
+    LOG.debug(`Reference type ${this.displayFqn}`);
 
     validateStabilities(this.oldType, this.newType, this.mismatches);
-    validateBaseTypeAssignability(this.oldType, this.newType, this.mismatches);
+    validateBaseTypeAssignability(
+      this.oldType,
+      this.newType,
+      this.fqnRemapping,
+      this.mismatches,
+    );
 
     validateSubclassableNotRemoved(this.oldType, this.newType, this.mismatches);
     if (this.subclassableType) {
@@ -332,7 +361,12 @@ export abstract class ComparableReferenceType<
         this.mismatches.withMotivation('type is @subclassable'),
       );
     } else {
-      validateReturnTypeNotWeakened(original, updated, this.mismatches);
+      validateReturnTypeNotWeakened(
+        original,
+        updated,
+        this.fqnRemapping,
+        this.mismatches,
+      );
     }
 
     this.validateCallable(original, updated);
@@ -366,6 +400,7 @@ export abstract class ComparableReferenceType<
             original,
             oldParam,
             newParam,
+            this.fqnRemapping,
             this.mismatches,
           );
         }
@@ -419,7 +454,12 @@ export abstract class ComparableReferenceType<
         this.mismatches.withMotivation('mutable property cannot change type'),
       );
     } else {
-      validatePropertyTypeNotWeakened(original, updated, this.mismatches);
+      validatePropertyTypeNotWeakened(
+        original,
+        updated,
+        this.fqnRemapping,
+        this.mismatches,
+      );
     }
   }
 
@@ -445,6 +485,7 @@ export class ComparableClassType extends ComparableReferenceType<reflect.ClassTy
       validateMethodCompatible(
         this.oldType.initializer,
         this.newType.initializer,
+        this.fqnRemapping,
         this.mismatches,
       );
     }
@@ -479,10 +520,15 @@ export class ComparableInterfaceType extends ComparableReferenceType<reflect.Int
  */
 export class ComparableStructType extends ComparableType<reflect.InterfaceType> {
   public compare() {
-    LOG.debug(`Struct type ${this.oldType.fqn}`);
+    LOG.debug(`Struct type ${this.displayFqn}`);
 
     validateStabilities(this.oldType, this.newType, this.mismatches);
-    validateBaseTypeAssignability(this.oldType, this.newType, this.mismatches);
+    validateBaseTypeAssignability(
+      this.oldType,
+      this.newType,
+      this.fqnRemapping,
+      this.mismatches,
+    );
     this.validateNoPropertiesRemoved();
 
     if (this.inputType) {
@@ -564,7 +610,10 @@ export class ComparableStructType extends ComparableType<reflect.InterfaceType> 
     b: reflect.InterfaceType,
   ): Analysis {
     try {
-      return isStructuralSuperType(a, b, this.newType.system);
+      return new TypeAnalysis(
+        this.newType.system,
+        this.fqnRemapping,
+      ).isStructuralSuperType(a, b);
     } catch (e: any) {
       // We might get an exception if the type is supposed to come from a different
       // assembly and the lookup fails.
@@ -581,7 +630,7 @@ export class ComparableEnumType extends ComparableType<reflect.EnumType> {
    * Perform comparisons on enum members
    */
   public compare() {
-    LOG.debug(`Enum type ${this.oldType.fqn}`);
+    LOG.debug(`Enum type ${this.displayFqn}`);
 
     validateStabilities(this.oldType, this.newType, this.mismatches);
 

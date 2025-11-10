@@ -8,6 +8,11 @@ export interface ComparisonOptions {
    * @default Treat as stable
    */
   defaultExperimental?: boolean;
+
+  /**
+   * Mapping old FQNs to new ones
+   */
+  fqnRemapping?: Record<string, string>;
 }
 
 export interface ComparisonContext extends ComparisonOptions {

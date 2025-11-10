@@ -2,7 +2,7 @@ import { MultipleSourceFiles, sourceToAssemblyHelper } from 'jsii';
 import * as reflect from 'jsii-reflect';
 
 import { compareAssemblies } from '../lib';
-import { Mismatches } from '../lib/types';
+import { ComparisonOptions, Mismatches } from '../lib/types';
 
 export function expectNoError(
   original: string | MultipleSourceFiles,
@@ -38,6 +38,7 @@ export function expectError(
 export function compare(
   original: string | MultipleSourceFiles,
   updated: string | MultipleSourceFiles,
+  options: ComparisonOptions = {},
 ): Mismatches {
   const ass1 = sourceToAssemblyHelper(original);
   const ts1 = new reflect.TypeSystem();
@@ -47,5 +48,5 @@ export function compare(
   const ts2 = new reflect.TypeSystem();
   const updatedAssembly = ts2.addAssembly(new reflect.Assembly(ts2, ass2));
 
-  return compareAssemblies(originalAssembly, updatedAssembly);
+  return compareAssemblies(originalAssembly, updatedAssembly, options);
 }
