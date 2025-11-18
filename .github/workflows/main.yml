@@ -211,13 +211,6 @@ jobs:
             node: '20'
             python: '3.9'
           # Test alternate Nodes
-          - title: 'Node 18'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.23'
-            node: '18' # EOS 2025-11-30
-            os: ubuntu-latest
-            python: '3.9'
           - title: 'Node 20'
             java: '8'
             dotnet: '6.0.x'
