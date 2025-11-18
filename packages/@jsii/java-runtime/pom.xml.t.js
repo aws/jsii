@@ -60,7 +60,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <hamcrest.version>[1.3,1.4-a0)</hamcrest.version>
-        <jackson.version>[2.11.3,2.19.0]</jackson.version>
+        <jackson.version>[2.11.3,2.99999.0]</jackson.version>
         <javax-annotations.version>[1.3.2,1.4.0)</javax-annotations.version>
         <jetbrains-annotations.version>[13.0.0,24.0-a0)</jetbrains-annotations.version>
         <junit.version>[5.8.0,5.10-a0)</junit.version>
