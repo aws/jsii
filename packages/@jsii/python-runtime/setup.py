@@ -12,7 +12,7 @@ with open("README.md", encoding="utf8") as fp:
 # 3.x and newer perform an additional runtime check on interfaces that our interfaces fail.
 # Stick to this old version. <https://github.com/aws/constructs/issues/2825>
 # Defined as a constant to hopefully prevent Dependabot from automatically updating this.
-TYPEGUARD_VERSION = '2.13.3'
+TYPEGUARD_VERSION = "2.13.3"
 
 setuptools.setup(
     name="jsii",

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`diamond-struct-parameter.ts: <outDir>/ 1`] = `
+exports[`nested-types.ts: <outDir>/ 1`] = `
 <root>
  ┣━ 📁 dotnet
  ┃  ┗━ 📁 Example.Test.Demo
@@ -60,1523 +60,7 @@ exports[`diamond-struct-parameter.ts: <outDir>/ 1`] = `
           ┗━ 📄 py.typed
 `;
 
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/AssemblyInfo.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-[assembly: JsiiAssembly("testpkg", "0.0.1", "testpkg-0.0.1.tgz")]
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.csproj 1`] = `
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <!-- Package Identification -->
-    <Description>testpkg</Description>
-    <PackageId>Example.Test.Demo</PackageId>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageVersion>0.0.1</PackageVersion>
-    <!-- Additional Metadata -->
-    <Authors>John Doe</Authors>
-    <Language>en-US</Language>
-    <ProjectUrl>https://github.com/aws/jsii.git</ProjectUrl>
-    <RepositoryUrl>https://github.com/aws/jsii.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <!-- Build Configuration -->
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>true</IncludeSource>
-    <Nullable>enable</Nullable>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>net6.0</TargetFramework>
-    <RollForward>Major</RollForward>
-  </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="testpkg-0.0.1.tgz" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
-  </ItemGroup>
-  <PropertyGroup>
-    <!-- Silence [Obsolete] warnings -->
-    <NoWarn>0612,0618</NoWarn>
-    <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
-  </PropertyGroup>
-</Project>
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Baz_.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    #pragma warning disable CS8618
-
-    [JsiiByValue(fqn: "testpkg.Baz")]
-    public class Baz_ : Example.Test.Demo.IBaz
-    {
-        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
-        public bool Baz
-        {
-            get;
-            set;
-        }
-
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-        public double Foo
-        {
-            get;
-            set;
-        }
-
-        [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-        public string? Bar
-        {
-            get;
-            set;
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Consumer.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    [JsiiClass(nativeType: typeof(Example.Test.Demo.Consumer), fullyQualifiedName: "testpkg.Consumer")]
-    public class Consumer : DeputyBase
-    {
-        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
-        /// <param name="reference">The Javascript-owned object reference</param>
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        protected Consumer(ByRefValue reference): base(reference)
-        {
-        }
-
-        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
-        /// <param name="props">The deputy props</param>
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        protected Consumer(DeputyProps props): base(props)
-        {
-        }
-
-        [JsiiMethod(name: "consumeBaz", parametersJson: "[{\\"name\\":\\"baz\\",\\"type\\":{\\"fqn\\":\\"testpkg.Baz\\"}}]")]
-        public static void ConsumeBaz(Example.Test.Demo.IBaz baz)
-        {
-            InvokeStaticVoidMethod(typeof(Example.Test.Demo.Consumer), new System.Type[]{typeof(Example.Test.Demo.IBaz)}, new object[]{baz});
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Foo_.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    #pragma warning disable CS8618
-
-    [JsiiByValue(fqn: "testpkg.Foo")]
-    public class Foo_ : Example.Test.Demo.IFoo
-    {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-        public double Foo
-        {
-            get;
-            set;
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/FooBar.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    #pragma warning disable CS8618
-
-    [JsiiByValue(fqn: "testpkg.FooBar")]
-    public class FooBar : Example.Test.Demo.IFooBar
-    {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-        public double Foo
-        {
-            get;
-            set;
-        }
-
-        [JsiiOptional]
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-        public string? Bar
-        {
-            get;
-            set;
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/IBaz.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    [JsiiInterface(nativeType: typeof(IBaz), fullyQualifiedName: "testpkg.Baz")]
-    public interface IBaz : Example.Test.Demo.IFoo, Example.Test.Demo.IFooBar
-    {
-        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
-        bool Baz
-        {
-            get;
-        }
-
-        [JsiiTypeProxy(nativeType: typeof(IBaz), fullyQualifiedName: "testpkg.Baz")]
-        new internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IBaz
-        {
-            private _Proxy(ByRefValue reference): base(reference)
-            {
-            }
-
-            [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
-            public bool Baz
-            {
-                get => GetInstanceProperty<bool>()!;
-            }
-
-            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-            public double Foo
-            {
-                get => GetInstanceProperty<double>()!;
-            }
-
-            [JsiiOptional]
-            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-            public string? Bar
-            {
-                get => GetInstanceProperty<string?>();
-            }
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/IFoo.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    [JsiiInterface(nativeType: typeof(IFoo), fullyQualifiedName: "testpkg.Foo")]
-    public interface IFoo
-    {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-        double Foo
-        {
-            get;
-        }
-
-        [JsiiTypeProxy(nativeType: typeof(IFoo), fullyQualifiedName: "testpkg.Foo")]
-        internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IFoo
-        {
-            private _Proxy(ByRefValue reference): base(reference)
-            {
-            }
-
-            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-            public double Foo
-            {
-                get => GetInstanceProperty<double>()!;
-            }
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/IFooBar.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo
-{
-    [JsiiInterface(nativeType: typeof(IFooBar), fullyQualifiedName: "testpkg.FooBar")]
-    public interface IFooBar
-    {
-        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-        double Foo
-        {
-            get;
-        }
-
-        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        string? Bar
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        [JsiiTypeProxy(nativeType: typeof(IFooBar), fullyQualifiedName: "testpkg.FooBar")]
-        internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IFooBar
-        {
-            private _Proxy(ByRefValue reference): base(reference)
-            {
-            }
-
-            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
-            public double Foo
-            {
-                get => GetInstanceProperty<double>()!;
-            }
-
-            [JsiiOptional]
-            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-            public string? Bar
-            {
-                get => GetInstanceProperty<string?>();
-            }
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Internal/DependencyResolution/Anchor.cs 1`] = `
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Example.Test.Demo.Internal.DependencyResolution
-{
-    public sealed class Anchor
-    {
-        public Anchor()
-        {
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Baz.go 1`] = `
-package testpkg
-
-
-type Baz struct {
-	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
-	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
-	Baz *bool \`field:"required" json:"baz" yaml:"baz"\`
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer.go 1`] = `
-package testpkg
-
-import (
-	_init_ "example.test/demo/testpkg/jsii"
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-type Consumer interface {
-}
-
-// The jsii proxy struct for Consumer
-type jsiiProxy_Consumer struct {
-	_ byte // padding
-}
-
-func Consumer_ConsumeBaz(baz *Baz) {
-	_init_.Initialize()
-
-	if err := validateConsumer_ConsumeBazParameters(baz); err != nil {
-		panic(err)
-	}
-	_jsii_.StaticInvokeVoid(
-		"testpkg.Consumer",
-		"consumeBaz",
-		[]interface{}{baz},
-	)
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer__checks.go 1`] = `
-//go:build !no_runtime_type_checking
-
-package testpkg
-
-import (
-	"fmt"
-
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-func validateConsumer_ConsumeBazParameters(baz *Baz) error {
-	if baz == nil {
-		return fmt.Errorf("parameter baz is required, but nil was provided")
-	}
-	if err := _jsii_.ValidateStruct(baz, func() string { return "parameter baz" }); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Consumer__no_checks.go 1`] = `
-//go:build no_runtime_type_checking
-
-package testpkg
-
-// Building without runtime type checking enabled, so all the below just return nil
-
-func validateConsumer_ConsumeBazParameters(baz *Baz) error {
-	return nil
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/Foo.go 1`] = `
-package testpkg
-
-
-type Foo struct {
-	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/FooBar.go 1`] = `
-package testpkg
-
-
-type FooBar struct {
-	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
-	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
-}
-
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/go.mod 1`] = `
-module example.test/demo/testpkg
-
-go 1.23
-
-require (
-	github.com/aws/jsii-runtime-go v0.0.0
-)
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/jsii/jsii.go 1`] = `
-// Package jsii contains the functionaility needed for jsii packages to
-// initialize their dependencies and themselves. Users should never need to use this package
-// directly. If you find you need to - please report a bug at
-// https://github.com/aws/jsii/issues/new/choose
-package jsii
-
-import (
-	_      "embed"
-
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-//go:embed testpkg-0.0.1.tgz
-var tarball []byte
-
-// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
-// The implementation is idempotent (and hence safe to be called over and over).
-func Initialize() {
-	// Load this library into the kernel
-	_jsii_.Load("testpkg", "0.0.1", tarball)
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/main.go 1`] = `
-// testpkg
-package testpkg
-
-import (
-	"reflect"
-
-	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
-)
-
-func init() {
-	_jsii_.RegisterStruct(
-		"testpkg.Baz",
-		reflect.TypeOf((*Baz)(nil)).Elem(),
-	)
-	_jsii_.RegisterClass(
-		"testpkg.Consumer",
-		reflect.TypeOf((*Consumer)(nil)).Elem(),
-		nil, // no members
-		func() interface{} {
-			return &jsiiProxy_Consumer{}
-		},
-	)
-	_jsii_.RegisterStruct(
-		"testpkg.Foo",
-		reflect.TypeOf((*Foo)(nil)).Elem(),
-	)
-	_jsii_.RegisterStruct(
-		"testpkg.FooBar",
-		reflect.TypeOf((*FooBar)(nil)).Elem(),
-	)
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <name>\${project.groupId}:\${project.artifactId}</name>
-  <description>testpkg</description>
-  <url>https://github.com/aws/jsii.git</url>
-  <licenses>
-    <license>
-      <name>Apache License 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-      <distribution>repo</distribution>
-      <comments>An OSI-approved license</comments>
-    </license>
-  </licenses>
-  <developers>
-    <developer>
-      <name>John Doe</name>
-      <roles>
-        <role>author</role>
-      </roles>
-    </developer>
-  </developers>
-  <scm>
-    <connection>scm:git:https://github.com/aws/jsii.git</connection>
-    <url>https://github.com/aws/jsii.git</url>
-  </scm>
-  <groupId>example.test</groupId>
-  <artifactId>demo</artifactId>
-  <version>0.0.1</version>
-  <packaging>jar</packaging>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>software.amazon.jsii</groupId>
-      <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0-SNAPSHOT]</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains</groupId>
-      <artifactId>annotations</artifactId>
-      <version>[16.0.3,20.0.0)</version>
-    </dependency>
-    <dependency>
-      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <fork>true</fork>
-          <maxmem>4096m</maxmem>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
-        <configuration>
-          <archive>
-            <index>true</index>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>3.3.0</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.5.0</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <failOnError>false</failOnError>
-          <show>protected</show>
-          <sourceFileExcludes>
-            <exclude>**/$Module.java</exclude>
-          </sourceFileExcludes>
-          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
-          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
-          <doclint>none</doclint>
-          <quiet>true</quiet>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.3.0</version>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>3.6</version>
-                </requireMavenVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>versions-maven-plugin</artifactId>
-        <version>2.16.0</version>
-        <configuration>
-          <generateBackupPoms>false</generateBackupPoms>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-</project>
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/src/main/java/example/test/demo/$Module.java 1`] = `
-package example.test.demo;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.UncheckedIOException;
-
-import java.nio.charset.StandardCharsets;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import software.amazon.jsii.JsiiModule;
-
-@software.amazon.jsii.Internal
-public final class $Module extends JsiiModule {
-    private static final Map<String, String> MODULE_TYPES = load();
-
-    private static Map<String, String> load() {
-        final Map<String, String> result = new HashMap<>();
-        final ClassLoader cl = $Module.class.getClassLoader();
-        try (final InputStream is = cl.getResourceAsStream("example/test/demo/$Module.txt");
-             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
-             final BufferedReader br = new BufferedReader(rd)) {
-            br.lines()
-              .filter(line -> !line.trim().isEmpty())
-              .forEach(line ->  {
-                final String[] parts = line.split("=", 2);
-                final String fqn = parts[0];
-                final String className = parts[1];
-                result.put(fqn, className);
-            });
-        }
-        catch (final IOException exception) {
-            throw new UncheckedIOException(exception);
-        }
-        return result;
-    }
-
-    private final Map<String, Class<?>> cache = new HashMap<>();
-
-    public $Module() {
-        super("testpkg", "0.0.1", $Module.class, "testpkg@0.0.1.jsii.tgz");
-    }
-
-    @Override
-    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
-        if (!MODULE_TYPES.containsKey(fqn)) {
-            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
-        }
-        String className = MODULE_TYPES.get(fqn);
-        if (!this.cache.containsKey(className)) {
-            this.cache.put(className, this.findClass(className));
-        }
-        return this.cache.get(className);
-    }
-
-    private Class<?> findClass(final String binaryName) {
-        try {
-            return Class.forName(binaryName);
-        }
-        catch (final ClassNotFoundException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/src/main/java/example/test/demo/Baz.java 1`] = `
-package example.test.demo;
-
-@javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Baz")
-@software.amazon.jsii.Jsii.Proxy(Baz.Jsii$Proxy.class)
-public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test.demo.Foo, example.test.demo.FooBar {
-
-    @org.jetbrains.annotations.NotNull java.lang.Boolean getBaz();
-
-    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
-
-    /**
-     * @return a {@link Builder} of {@link Baz}
-     */
-    static Builder builder() {
-        return new Builder();
-    }
-    /**
-     * A builder for {@link Baz}
-     */
-    public static final class Builder implements software.amazon.jsii.Builder<Baz> {
-        java.lang.Boolean baz;
-        java.lang.Number foo;
-        java.lang.String bar;
-
-        /**
-         * Sets the value of {@link Baz#getBaz}
-         * @param baz the value to be set. This parameter is required.
-         * @return {@code this}
-         */
-        public Builder baz(java.lang.Boolean baz) {
-            this.baz = baz;
-            return this;
-        }
-
-        /**
-         * Sets the value of {@link Baz#getFoo}
-         * @param foo the value to be set. This parameter is required.
-         * @return {@code this}
-         */
-        public Builder foo(java.lang.Number foo) {
-            this.foo = foo;
-            return this;
-        }
-
-        /**
-         * Sets the value of {@link Baz#getBar}
-         * @param bar the value to be set.
-         * @return {@code this}
-         */
-        public Builder bar(java.lang.String bar) {
-            this.bar = bar;
-            return this;
-        }
-
-        /**
-         * Builds the configured instance.
-         * @return a new instance of {@link Baz}
-         * @throws NullPointerException if any required attribute was not provided
-         */
-        @Override
-        public Baz build() {
-            return new Jsii$Proxy(this);
-        }
-    }
-
-    /**
-     * An implementation for {@link Baz}
-     */
-    @software.amazon.jsii.Internal
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Baz {
-        private final java.lang.Boolean baz;
-        private final java.lang.Number foo;
-        private final java.lang.String bar;
-
-        /**
-         * Constructor that initializes the object based on values retrieved from the JsiiObject.
-         * @param objRef Reference to the JSII managed object.
-         */
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
-            this.baz = software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
-         */
-        protected Jsii$Proxy(final Builder builder) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.baz = java.util.Objects.requireNonNull(builder.baz, "baz is required");
-            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
-            this.bar = builder.bar;
-        }
-
-        @Override
-        public final java.lang.Boolean getBaz() {
-            return this.baz;
-        }
-
-        @Override
-        public final java.lang.Number getFoo() {
-            return this.foo;
-        }
-
-        @Override
-        public final java.lang.String getBar() {
-            return this.bar;
-        }
-
-        @Override
-        @software.amazon.jsii.Internal
-        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-
-            data.set("baz", om.valueToTree(this.getBaz()));
-            data.set("foo", om.valueToTree(this.getFoo()));
-            if (this.getBar() != null) {
-                data.set("bar", om.valueToTree(this.getBar()));
-            }
-
-            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            struct.set("fqn", om.valueToTree("testpkg.Baz"));
-            struct.set("data", data);
-
-            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("$jsii.struct", struct);
-
-            return obj;
-        }
-
-        @Override
-        public final boolean equals(final Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Baz.Jsii$Proxy that = (Baz.Jsii$Proxy) o;
-
-            if (!baz.equals(that.baz)) return false;
-            if (!foo.equals(that.foo)) return false;
-            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
-        }
-
-        @Override
-        public final int hashCode() {
-            int result = this.baz.hashCode();
-            result = 31 * result + (this.foo.hashCode());
-            result = 31 * result + (this.bar != null ? this.bar.hashCode() : 0);
-            return result;
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/src/main/java/example/test/demo/Consumer.java 1`] = `
-package example.test.demo;
-
-@javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Consumer")
-public class Consumer extends software.amazon.jsii.JsiiObject {
-
-    protected Consumer(final software.amazon.jsii.JsiiObjectRef objRef) {
-        super(objRef);
-    }
-
-    protected Consumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
-        super(initializationMode);
-    }
-
-    public static void consumeBaz(final @org.jetbrains.annotations.NotNull example.test.demo.Baz baz) {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(example.test.demo.Consumer.class, "consumeBaz", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(baz, "baz is required") });
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/src/main/java/example/test/demo/Foo.java 1`] = `
-package example.test.demo;
-
-@javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Foo")
-@software.amazon.jsii.Jsii.Proxy(Foo.Jsii$Proxy.class)
-public interface Foo extends software.amazon.jsii.JsiiSerializable {
-
-    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
-
-    /**
-     * @return a {@link Builder} of {@link Foo}
-     */
-    static Builder builder() {
-        return new Builder();
-    }
-    /**
-     * A builder for {@link Foo}
-     */
-    public static final class Builder implements software.amazon.jsii.Builder<Foo> {
-        java.lang.Number foo;
-
-        /**
-         * Sets the value of {@link Foo#getFoo}
-         * @param foo the value to be set. This parameter is required.
-         * @return {@code this}
-         */
-        public Builder foo(java.lang.Number foo) {
-            this.foo = foo;
-            return this;
-        }
-
-        /**
-         * Builds the configured instance.
-         * @return a new instance of {@link Foo}
-         * @throws NullPointerException if any required attribute was not provided
-         */
-        @Override
-        public Foo build() {
-            return new Jsii$Proxy(this);
-        }
-    }
-
-    /**
-     * An implementation for {@link Foo}
-     */
-    @software.amazon.jsii.Internal
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
-        private final java.lang.Number foo;
-
-        /**
-         * Constructor that initializes the object based on values retrieved from the JsiiObject.
-         * @param objRef Reference to the JSII managed object.
-         */
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
-            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
-         */
-        protected Jsii$Proxy(final Builder builder) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
-        }
-
-        @Override
-        public final java.lang.Number getFoo() {
-            return this.foo;
-        }
-
-        @Override
-        @software.amazon.jsii.Internal
-        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-
-            data.set("foo", om.valueToTree(this.getFoo()));
-
-            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            struct.set("fqn", om.valueToTree("testpkg.Foo"));
-            struct.set("data", data);
-
-            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("$jsii.struct", struct);
-
-            return obj;
-        }
-
-        @Override
-        public final boolean equals(final Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Foo.Jsii$Proxy that = (Foo.Jsii$Proxy) o;
-
-            return this.foo.equals(that.foo);
-        }
-
-        @Override
-        public final int hashCode() {
-            int result = this.foo.hashCode();
-            return result;
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/src/main/java/example/test/demo/FooBar.java 1`] = `
-package example.test.demo;
-
-@javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.FooBar")
-@software.amazon.jsii.Jsii.Proxy(FooBar.Jsii$Proxy.class)
-public interface FooBar extends software.amazon.jsii.JsiiSerializable {
-
-    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
-
-    default @org.jetbrains.annotations.Nullable java.lang.String getBar() {
-        return null;
-    }
-
-    /**
-     * @return a {@link Builder} of {@link FooBar}
-     */
-    static Builder builder() {
-        return new Builder();
-    }
-    /**
-     * A builder for {@link FooBar}
-     */
-    public static final class Builder implements software.amazon.jsii.Builder<FooBar> {
-        java.lang.Number foo;
-        java.lang.String bar;
-
-        /**
-         * Sets the value of {@link FooBar#getFoo}
-         * @param foo the value to be set. This parameter is required.
-         * @return {@code this}
-         */
-        public Builder foo(java.lang.Number foo) {
-            this.foo = foo;
-            return this;
-        }
-
-        /**
-         * Sets the value of {@link FooBar#getBar}
-         * @param bar the value to be set.
-         * @return {@code this}
-         */
-        public Builder bar(java.lang.String bar) {
-            this.bar = bar;
-            return this;
-        }
-
-        /**
-         * Builds the configured instance.
-         * @return a new instance of {@link FooBar}
-         * @throws NullPointerException if any required attribute was not provided
-         */
-        @Override
-        public FooBar build() {
-            return new Jsii$Proxy(this);
-        }
-    }
-
-    /**
-     * An implementation for {@link FooBar}
-     */
-    @software.amazon.jsii.Internal
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements FooBar {
-        private final java.lang.Number foo;
-        private final java.lang.String bar;
-
-        /**
-         * Constructor that initializes the object based on values retrieved from the JsiiObject.
-         * @param objRef Reference to the JSII managed object.
-         */
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
-            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
-         */
-        protected Jsii$Proxy(final Builder builder) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
-            this.bar = builder.bar;
-        }
-
-        @Override
-        public final java.lang.Number getFoo() {
-            return this.foo;
-        }
-
-        @Override
-        public final java.lang.String getBar() {
-            return this.bar;
-        }
-
-        @Override
-        @software.amazon.jsii.Internal
-        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-
-            data.set("foo", om.valueToTree(this.getFoo()));
-            if (this.getBar() != null) {
-                data.set("bar", om.valueToTree(this.getBar()));
-            }
-
-            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            struct.set("fqn", om.valueToTree("testpkg.FooBar"));
-            struct.set("data", data);
-
-            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("$jsii.struct", struct);
-
-            return obj;
-        }
-
-        @Override
-        public final boolean equals(final Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            FooBar.Jsii$Proxy that = (FooBar.Jsii$Proxy) o;
-
-            if (!foo.equals(that.foo)) return false;
-            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
-        }
-
-        @Override
-        public final int hashCode() {
-            int result = this.foo.hashCode();
-            result = 31 * result + (this.bar != null ? this.bar.hashCode() : 0);
-            return result;
-        }
-    }
-}
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/java/src/main/resources/example/test/demo/$Module.txt 1`] = `
-testpkg.Baz=example.test.demo.Baz
-testpkg.Consumer=example.test.demo.Consumer
-testpkg.Foo=example.test.demo.Foo
-testpkg.FooBar=example.test.demo.FooBar
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/python/pyproject.toml 1`] = `
-[build-system]
-requires = ["setuptools~=75.3.2", "build~=1.3.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.pyright]
-defineConstant = { DEBUG = true }
-pythonVersion = "3.9"
-pythonPlatform = "All"
-reportSelfClsParameterName = false
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/python/setup.py 1`] = `
-import json
-import setuptools
-
-kwargs = json.loads(
-    """
-{
-    "name": "example-test.demo",
-    "version": "0.0.1",
-    "description": "testpkg",
-    "license": "Apache-2.0",
-    "url": "https://github.com/aws/jsii.git",
-    "long_description_content_type": "text/markdown",
-    "author": "John Doe",
-    "bdist_wheel": {
-        "universal": true
-    },
-    "project_urls": {
-        "Source": "https://github.com/aws/jsii.git"
-    },
-    "package_dir": {
-        "": "src"
-    },
-    "packages": [
-        "example_test_demo",
-        "example_test_demo._jsii"
-    ],
-    "package_data": {
-        "example_test_demo._jsii": [
-            "testpkg@0.0.1.jsii.tgz"
-        ],
-        "example_test_demo": [
-            "py.typed"
-        ]
-    },
-    "python_requires": "~=3.9",
-    "install_requires": [
-        "jsii<0.0.1",
-        "publication>=0.0.3",
-        "typeguard>=2.13.3,<4.3.0"
-    ],
-    "classifiers": [
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "Programming Language :: JavaScript",
-        "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Typing :: Typed",
-        "License :: OSI Approved"
-    ],
-    "scripts": []
-}
-"""
-)
-
-with open("README.md", encoding="utf8") as fp:
-    kwargs["long_description"] = fp.read()
-
-
-setuptools.setup(**kwargs)
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/python/src/example_test_demo/__init__.py 1`] = `
-from pkgutil import extend_path
-__path__ = extend_path(__path__, __name__)
-
-import abc
-import builtins
-import datetime
-import enum
-import typing
-
-import jsii
-import publication
-import typing_extensions
-
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
-
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
-
-from ._jsii import *
-
-
-class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
-    @jsii.member(jsii_name="consumeBaz")
-    @builtins.classmethod
-    def consume_baz(
-        cls,
-        *,
-        baz: builtins.bool,
-        foo: jsii.Number,
-        bar: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''
-        :param baz: -
-        :param foo: -
-        :param bar: -
-        '''
-        baz_ = Baz(baz=baz, foo=foo, bar=bar)
-
-        return typing.cast(None, jsii.sinvoke(cls, "consumeBaz", [baz_]))
-
-
-@jsii.data_type(
-    jsii_type="testpkg.Foo",
-    jsii_struct_bases=[],
-    name_mapping={"foo": "foo"},
-)
-class Foo:
-    def __init__(self, *, foo: jsii.Number) -> None:
-        '''
-        :param foo: -
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "foo": foo,
-        }
-
-    @builtins.property
-    def foo(self) -> jsii.Number:
-        result = self._values.get("foo")
-        assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(jsii.Number, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "Foo(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="testpkg.FooBar",
-    jsii_struct_bases=[],
-    name_mapping={"foo": "foo", "bar": "bar"},
-)
-class FooBar:
-    def __init__(
-        self,
-        *,
-        foo: jsii.Number,
-        bar: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''
-        :param foo: -
-        :param bar: -
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "foo": foo,
-        }
-        if bar is not None:
-            self._values["bar"] = bar
-
-    @builtins.property
-    def foo(self) -> jsii.Number:
-        result = self._values.get("foo")
-        assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(jsii.Number, result)
-
-    @builtins.property
-    def bar(self) -> typing.Optional[builtins.str]:
-        result = self._values.get("bar")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "FooBar(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="testpkg.Baz",
-    jsii_struct_bases=[Foo, FooBar],
-    name_mapping={"foo": "foo", "bar": "bar", "baz": "baz"},
-)
-class Baz(Foo, FooBar):
-    def __init__(
-        self,
-        *,
-        foo: jsii.Number,
-        bar: typing.Optional[builtins.str] = None,
-        baz: builtins.bool,
-    ) -> None:
-        '''
-        :param foo: -
-        :param bar: -
-        :param baz: -
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-            check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "foo": foo,
-            "baz": baz,
-        }
-        if bar is not None:
-            self._values["bar"] = bar
-
-    @builtins.property
-    def foo(self) -> jsii.Number:
-        result = self._values.get("foo")
-        assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(jsii.Number, result)
-
-    @builtins.property
-    def bar(self) -> typing.Optional[builtins.str]:
-        result = self._values.get("bar")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def baz(self) -> builtins.bool:
-        result = self._values.get("baz")
-        assert result is not None, "Required property 'baz' is missing"
-        return typing.cast(builtins.bool, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "Baz(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-__all__ = [
-    "Baz",
-    "Consumer",
-    "Foo",
-    "FooBar",
-]
-
-publication.publish()
-
-def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
-    *,
-    foo: jsii.Number,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4(
-    *,
-    foo: jsii.Number,
-    bar: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d(
-    *,
-    foo: jsii.Number,
-    bar: typing.Optional[builtins.str] = None,
-    baz: builtins.bool,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/python/src/example_test_demo/_jsii/__init__.py 1`] = `
-from pkgutil import extend_path
-__path__ = extend_path(__path__, __name__)
-
-import abc
-import builtins
-import datetime
-import enum
-import typing
-
-import jsii
-import publication
-import typing_extensions
-
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
-
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
-
-__jsii_assembly__ = jsii.JSIIAssembly.load(
-    "testpkg", "0.0.1", __name__[0:-6], "testpkg@0.0.1.jsii.tgz"
-)
-
-__all__ = [
-    "__jsii_assembly__",
-]
-
-publication.publish()
-
-`;
-
-exports[`diamond-struct-parameter.ts: <outDir>/python/src/example_test_demo/py.typed 1`] = `
-
-
-`;
-
-exports[`nested-types.ts: <outDir>/ 1`] = `
+exports[`nested-types.ts: <outDir>/ 2`] = `
 <root>
  ┣━ 📁 dotnet
  ┃  ┗━ 📁 Example.Test.Demo
@@ -1636,6 +120,13 @@ using Amazon.JSII.Runtime.Deputy;
 
 `;
 
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/AssemblyInfo.cs 2`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+[assembly: JsiiAssembly("testpkg", "0.0.1", "testpkg-0.0.1.tgz")]
+
+`;
+
 exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.csproj 1`] = `
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -1677,7 +168,321 @@ exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.cs
 
 `;
 
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.csproj 2`] = `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Package Identification -->
+    <Description>testpkg</Description>
+    <PackageId>Example.Test.Demo</PackageId>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageVersion>0.0.1</PackageVersion>
+    <!-- Additional Metadata -->
+    <Authors>John Doe</Authors>
+    <Language>en-US</Language>
+    <ProjectUrl>https://github.com/aws/jsii.git</ProjectUrl>
+    <RepositoryUrl>https://github.com/aws/jsii.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Build Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <Nullable>enable</Nullable>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>net6.0</TargetFramework>
+    <RollForward>Major</RollForward>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="testpkg-0.0.1.tgz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Silence [Obsolete] warnings -->
+    <NoWarn>0612,0618</NoWarn>
+    <!-- Treat warnings symptomatic of code generation bugs as errors -->
+    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+  </PropertyGroup>
+</Project>
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Baz_.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "testpkg.Baz")]
+    public class Baz_ : Example.Test.Demo.IBaz
+    {
+        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        public bool Baz
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public double Foo
+        {
+            get;
+            set;
+        }
+
+        [JsiiOptional]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        public string? Bar
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Consumer.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    [JsiiClass(nativeType: typeof(Example.Test.Demo.Consumer), fullyQualifiedName: "testpkg.Consumer")]
+    public class Consumer : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Consumer(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Consumer(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "consumeBaz", parametersJson: "[{\\"name\\":\\"baz\\",\\"type\\":{\\"fqn\\":\\"testpkg.Baz\\"}}]")]
+        public static void ConsumeBaz(Example.Test.Demo.IBaz baz)
+        {
+            InvokeStaticVoidMethod(typeof(Example.Test.Demo.Consumer), new System.Type[]{typeof(Example.Test.Demo.IBaz)}, new object[]{baz});
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Foo_.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "testpkg.Foo")]
+    public class Foo_ : Example.Test.Demo.IFoo
+    {
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public double Foo
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/FooBar.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "testpkg.FooBar")]
+    public class FooBar : Example.Test.Demo.IFooBar
+    {
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        public double Foo
+        {
+            get;
+            set;
+        }
+
+        [JsiiOptional]
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        public string? Bar
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/IBaz.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    [JsiiInterface(nativeType: typeof(IBaz), fullyQualifiedName: "testpkg.Baz")]
+    public interface IBaz : Example.Test.Demo.IFoo, Example.Test.Demo.IFooBar
+    {
+        [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+        bool Baz
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IBaz), fullyQualifiedName: "testpkg.Baz")]
+        new internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IBaz
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "baz", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+            public bool Baz
+            {
+                get => GetInstanceProperty<bool>()!;
+            }
+
+            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+            public double Foo
+            {
+                get => GetInstanceProperty<double>()!;
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            public string? Bar
+            {
+                get => GetInstanceProperty<string?>();
+            }
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/IFoo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    [JsiiInterface(nativeType: typeof(IFoo), fullyQualifiedName: "testpkg.Foo")]
+    public interface IFoo
+    {
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        double Foo
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IFoo), fullyQualifiedName: "testpkg.Foo")]
+        internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IFoo
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+            public double Foo
+            {
+                get => GetInstanceProperty<double>()!;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/IFooBar.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo
+{
+    [JsiiInterface(nativeType: typeof(IFooBar), fullyQualifiedName: "testpkg.FooBar")]
+    public interface IFooBar
+    {
+        [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+        double Foo
+        {
+            get;
+        }
+
+        [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
+        string? Bar
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IFooBar), fullyQualifiedName: "testpkg.FooBar")]
+        internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IFooBar
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "foo", typeJson: "{\\"primitive\\":\\"number\\"}")]
+            public double Foo
+            {
+                get => GetInstanceProperty<double>()!;
+            }
+
+            [JsiiOptional]
+            [JsiiProperty(name: "bar", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
+            public string? Bar
+            {
+                get => GetInstanceProperty<string?>();
+            }
+        }
+    }
+}
+
+`;
+
 exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Internal/DependencyResolution/Anchor.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Example.Test.Demo.Internal.DependencyResolution
+{
+    public sealed class Anchor
+    {
+        public Anchor()
+        {
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example/Test/Demo/Internal/DependencyResolution/Anchor.cs 2`] = `
 #pragma warning disable CS0672,CS0809,CS1591
 
 namespace Example.Test.Demo.Internal.DependencyResolution
@@ -1885,6 +690,113 @@ namespace Example.Test.Demo
         }
     }
 }
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Baz.go 1`] = `
+package testpkg
+
+
+type Baz struct {
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
+	Baz *bool \`field:"required" json:"baz" yaml:"baz"\`
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Consumer.go 1`] = `
+package testpkg
+
+import (
+	_init_ "example.test/demo/testpkg/jsii"
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type Consumer interface {
+}
+
+// The jsii proxy struct for Consumer
+type jsiiProxy_Consumer struct {
+	_ byte // padding
+}
+
+func Consumer_ConsumeBaz(baz *Baz) {
+	_init_.Initialize()
+
+	if err := validateConsumer_ConsumeBazParameters(baz); err != nil {
+		panic(err)
+	}
+	_jsii_.StaticInvokeVoid(
+		"testpkg.Consumer",
+		"consumeBaz",
+		[]interface{}{baz},
+	)
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Consumer__checks.go 1`] = `
+//go:build !no_runtime_type_checking
+
+package testpkg
+
+import (
+	"fmt"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
+	if baz == nil {
+		return fmt.Errorf("parameter baz is required, but nil was provided")
+	}
+	if err := _jsii_.ValidateStruct(baz, func() string { return "parameter baz" }); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Consumer__no_checks.go 1`] = `
+//go:build no_runtime_type_checking
+
+package testpkg
+
+// Building without runtime type checking enabled, so all the below just return nil
+
+func validateConsumer_ConsumeBazParameters(baz *Baz) error {
+	return nil
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/Foo.go 1`] = `
+package testpkg
+
+
+type Foo struct {
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+}
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/FooBar.go 1`] = `
+package testpkg
+
+
+type FooBar struct {
+	Foo *float64 \`field:"required" json:"foo" yaml:"foo"\`
+	Bar *string \`field:"optional" json:"bar" yaml:"bar"\`
+}
+
 
 `;
 
@@ -2121,6 +1033,17 @@ require (
 
 `;
 
+exports[`nested-types.ts: <outDir>/go/testpkg/go.mod 2`] = `
+module example.test/demo/testpkg
+
+go 1.23
+
+require (
+	github.com/aws/jsii-runtime-go v0.0.0
+)
+
+`;
+
 exports[`nested-types.ts: <outDir>/go/testpkg/jsii/jsii.go 1`] = `
 // Package jsii contains the functionaility needed for jsii packages to
 // initialize their dependencies and themselves. Users should never need to use this package
@@ -2146,7 +1069,67 @@ func Initialize() {
 
 `;
 
+exports[`nested-types.ts: <outDir>/go/testpkg/jsii/jsii.go 2`] = `
+// Package jsii contains the functionaility needed for jsii packages to
+// initialize their dependencies and themselves. Users should never need to use this package
+// directly. If you find you need to - please report a bug at
+// https://github.com/aws/jsii/issues/new/choose
+package jsii
+
+import (
+	_      "embed"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+//go:embed testpkg-0.0.1.tgz
+var tarball []byte
+
+// Initialize loads the necessary packages in the @jsii/kernel to support the enclosing module.
+// The implementation is idempotent (and hence safe to be called over and over).
+func Initialize() {
+	// Load this library into the kernel
+	_jsii_.Load("testpkg", "0.0.1", tarball)
+}
+
+`;
+
 exports[`nested-types.ts: <outDir>/go/testpkg/main.go 1`] = `
+// testpkg
+package testpkg
+
+import (
+	"reflect"
+
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+func init() {
+	_jsii_.RegisterStruct(
+		"testpkg.Baz",
+		reflect.TypeOf((*Baz)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"testpkg.Consumer",
+		reflect.TypeOf((*Consumer)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_Consumer{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"testpkg.Foo",
+		reflect.TypeOf((*Foo)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"testpkg.FooBar",
+		reflect.TypeOf((*FooBar)(nil)).Elem(),
+	)
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/go/testpkg/main.go 2`] = `
 // testpkg
 package testpkg
 
@@ -2365,6 +1348,157 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
 
 `;
 
+exports[`nested-types.ts: <outDir>/java/pom.xml 2`] = `
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>\${project.groupId}:\${project.artifactId}</name>
+  <description>testpkg</description>
+  <url>https://github.com/aws/jsii.git</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+      <comments>An OSI-approved license</comments>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>John Doe</name>
+      <roles>
+        <role>author</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/aws/jsii.git</connection>
+    <url>https://github.com/aws/jsii.git</url>
+  </scm>
+  <groupId>example.test</groupId>
+  <artifactId>demo</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
+      <artifactId>jsii-runtime</artifactId>
+      <version>[0.0.0-SNAPSHOT]</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>[16.0.3,20.0.0)</version>
+    </dependency>
+    <dependency>
+      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>[1.3.2,1.4.0)</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <fork>true</fork>
+          <maxmem>4096m</maxmem>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>false</failOnError>
+          <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+          <doclint>none</doclint>
+          <quiet>true</quiet>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.16.0</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+`;
+
 exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/$Module.java 1`] = `
 package example.test.demo;
 
@@ -2431,6 +1565,506 @@ public final class $Module extends JsiiModule {
         }
         catch (final ClassNotFoundException exception) {
             throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/$Module.java 2`] = `
+package example.test.demo;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import software.amazon.jsii.JsiiModule;
+
+@software.amazon.jsii.Internal
+public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("example/test/demo/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
+    public $Module() {
+        super("testpkg", "0.0.1", $Module.class, "testpkg@0.0.1.jsii.tgz");
+    }
+
+    @Override
+    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/Baz.java 1`] = `
+package example.test.demo;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Baz")
+@software.amazon.jsii.Jsii.Proxy(Baz.Jsii$Proxy.class)
+public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test.demo.Foo, example.test.demo.FooBar {
+
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBaz();
+
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
+
+    /**
+     * @return a {@link Builder} of {@link Baz}
+     */
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link Baz}
+     */
+    public static final class Builder implements software.amazon.jsii.Builder<Baz> {
+        java.lang.Boolean baz;
+        java.lang.Number foo;
+        java.lang.String bar;
+
+        /**
+         * Sets the value of {@link Baz#getBaz}
+         * @param baz the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        public Builder baz(java.lang.Boolean baz) {
+            this.baz = baz;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link Baz#getFoo}
+         * @param foo the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        public Builder foo(java.lang.Number foo) {
+            this.foo = foo;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link Baz#getBar}
+         * @param bar the value to be set.
+         * @return {@code this}
+         */
+        public Builder bar(java.lang.String bar) {
+            this.bar = bar;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link Baz}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @Override
+        public Baz build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link Baz}
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Baz {
+        private final java.lang.Boolean baz;
+        private final java.lang.Number foo;
+        private final java.lang.String bar;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.baz = software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.baz = java.util.Objects.requireNonNull(builder.baz, "baz is required");
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
+        }
+
+        @Override
+        public final java.lang.Boolean getBaz() {
+            return this.baz;
+        }
+
+        @Override
+        public final java.lang.Number getFoo() {
+            return this.foo;
+        }
+
+        @Override
+        public final java.lang.String getBar() {
+            return this.bar;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("baz", om.valueToTree(this.getBaz()));
+            data.set("foo", om.valueToTree(this.getFoo()));
+            if (this.getBar() != null) {
+                data.set("bar", om.valueToTree(this.getBar()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("testpkg.Baz"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Baz.Jsii$Proxy that = (Baz.Jsii$Proxy) o;
+
+            if (!baz.equals(that.baz)) return false;
+            if (!foo.equals(that.foo)) return false;
+            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.baz.hashCode();
+            result = 31 * result + (this.foo.hashCode());
+            result = 31 * result + (this.bar != null ? this.bar.hashCode() : 0);
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/Consumer.java 1`] = `
+package example.test.demo;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Consumer")
+public class Consumer extends software.amazon.jsii.JsiiObject {
+
+    protected Consumer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Consumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    public static void consumeBaz(final @org.jetbrains.annotations.NotNull example.test.demo.Baz baz) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(example.test.demo.Consumer.class, "consumeBaz", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(baz, "baz is required") });
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/Foo.java 1`] = `
+package example.test.demo;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.Foo")
+@software.amazon.jsii.Jsii.Proxy(Foo.Jsii$Proxy.class)
+public interface Foo extends software.amazon.jsii.JsiiSerializable {
+
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
+
+    /**
+     * @return a {@link Builder} of {@link Foo}
+     */
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link Foo}
+     */
+    public static final class Builder implements software.amazon.jsii.Builder<Foo> {
+        java.lang.Number foo;
+
+        /**
+         * Sets the value of {@link Foo#getFoo}
+         * @param foo the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        public Builder foo(java.lang.Number foo) {
+            this.foo = foo;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link Foo}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @Override
+        public Foo build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link Foo}
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Foo {
+        private final java.lang.Number foo;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+        }
+
+        @Override
+        public final java.lang.Number getFoo() {
+            return this.foo;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("foo", om.valueToTree(this.getFoo()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("testpkg.Foo"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Foo.Jsii$Proxy that = (Foo.Jsii$Proxy) o;
+
+            return this.foo.equals(that.foo);
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.foo.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/java/example/test/demo/FooBar.java 1`] = `
+package example.test.demo;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = example.test.demo.$Module.class, fqn = "testpkg.FooBar")
+@software.amazon.jsii.Jsii.Proxy(FooBar.Jsii$Proxy.class)
+public interface FooBar extends software.amazon.jsii.JsiiSerializable {
+
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
+
+    default @org.jetbrains.annotations.Nullable java.lang.String getBar() {
+        return null;
+    }
+
+    /**
+     * @return a {@link Builder} of {@link FooBar}
+     */
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link FooBar}
+     */
+    public static final class Builder implements software.amazon.jsii.Builder<FooBar> {
+        java.lang.Number foo;
+        java.lang.String bar;
+
+        /**
+         * Sets the value of {@link FooBar#getFoo}
+         * @param foo the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        public Builder foo(java.lang.Number foo) {
+            this.foo = foo;
+            return this;
+        }
+
+        /**
+         * Sets the value of {@link FooBar#getBar}
+         * @param bar the value to be set.
+         * @return {@code this}
+         */
+        public Builder bar(java.lang.String bar) {
+            this.bar = bar;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link FooBar}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @Override
+        public FooBar build() {
+            return new Jsii$Proxy(this);
+        }
+    }
+
+    /**
+     * An implementation for {@link FooBar}
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements FooBar {
+        private final java.lang.Number foo;
+        private final java.lang.String bar;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.foo = software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.bar = software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        protected Jsii$Proxy(final Builder builder) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.foo = java.util.Objects.requireNonNull(builder.foo, "foo is required");
+            this.bar = builder.bar;
+        }
+
+        @Override
+        public final java.lang.Number getFoo() {
+            return this.foo;
+        }
+
+        @Override
+        public final java.lang.String getBar() {
+            return this.bar;
+        }
+
+        @Override
+        @software.amazon.jsii.Internal
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("foo", om.valueToTree(this.getFoo()));
+            if (this.getBar() != null) {
+                data.set("bar", om.valueToTree(this.getBar()));
+            }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("testpkg.FooBar"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public final boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            FooBar.Jsii$Proxy that = (FooBar.Jsii$Proxy) o;
+
+            if (!foo.equals(that.foo)) return false;
+            return this.bar != null ? this.bar.equals(that.bar) : that.bar == null;
+        }
+
+        @Override
+        public final int hashCode() {
+            int result = this.foo.hashCode();
+            result = 31 * result + (this.bar != null ? this.bar.hashCode() : 0);
+            return result;
         }
     }
 }
@@ -2665,6 +2299,14 @@ public class Namespace2 extends software.amazon.jsii.JsiiObject {
 `;
 
 exports[`nested-types.ts: <outDir>/java/src/main/resources/example/test/demo/$Module.txt 1`] = `
+testpkg.Baz=example.test.demo.Baz
+testpkg.Consumer=example.test.demo.Consumer
+testpkg.Foo=example.test.demo.Foo
+testpkg.FooBar=example.test.demo.FooBar
+
+`;
+
+exports[`nested-types.ts: <outDir>/java/src/main/resources/example/test/demo/$Module.txt 2`] = `
 testpkg.Namespace1=example.test.demo.Namespace1
 testpkg.Namespace1.Foo=example.test.demo.Namespace1$Foo
 testpkg.Namespace1.IBar=example.test.demo.Namespace1$IBar
@@ -2675,6 +2317,19 @@ testpkg.Namespace2.Foo.Final=example.test.demo.Namespace2$Foo.Final
 `;
 
 exports[`nested-types.ts: <outDir>/python/pyproject.toml 1`] = `
+[build-system]
+requires = ["setuptools~=75.3.2", "build~=1.3.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pyright]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.9"
+pythonPlatform = "All"
+reportSelfClsParameterName = false
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/pyproject.toml 2`] = `
 [build-system]
 requires = ["setuptools~=75.3.2", "build~=1.3.0"]
 build-backend = "setuptools.build_meta"
@@ -2726,7 +2381,72 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "typeguard>=2.13.3,<4.3.0"
+        "typeguard==2.13.3"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Typing :: Typed",
+        "License :: OSI Approved"
+    ],
+    "scripts": []
+}
+"""
+)
+
+with open("README.md", encoding="utf8") as fp:
+    kwargs["long_description"] = fp.read()
+
+
+setuptools.setup(**kwargs)
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/setup.py 2`] = `
+import json
+import setuptools
+
+kwargs = json.loads(
+    """
+{
+    "name": "example-test.demo",
+    "version": "0.0.1",
+    "description": "testpkg",
+    "license": "Apache-2.0",
+    "url": "https://github.com/aws/jsii.git",
+    "long_description_content_type": "text/markdown",
+    "author": "John Doe",
+    "bdist_wheel": {
+        "universal": true
+    },
+    "project_urls": {
+        "Source": "https://github.com/aws/jsii.git"
+    },
+    "package_dir": {
+        "": "src"
+    },
+    "packages": [
+        "example_test_demo",
+        "example_test_demo._jsii"
+    ],
+    "package_data": {
+        "example_test_demo._jsii": [
+            "testpkg@0.0.1.jsii.tgz"
+        ],
+        "example_test_demo": [
+            "py.typed"
+        ]
+    },
+    "python_requires": "~=3.9",
+    "install_requires": [
+        "jsii<0.0.1",
+        "publication>=0.0.3",
+        "typeguard==2.13.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -2753,6 +2473,238 @@ setuptools.setup(**kwargs)
 `;
 
 exports[`nested-types.ts: <outDir>/python/src/example_test_demo/__init__.py 1`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+from ._jsii import *
+
+
+class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
+    @jsii.member(jsii_name="consumeBaz")
+    @builtins.classmethod
+    def consume_baz(
+        cls,
+        *,
+        baz: builtins.bool,
+        foo: jsii.Number,
+        bar: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param baz: -
+        :param foo: -
+        :param bar: -
+        '''
+        baz_ = Baz(baz=baz, foo=foo, bar=bar)
+
+        return typing.cast(None, jsii.sinvoke(cls, "consumeBaz", [baz_]))
+
+
+@jsii.data_type(
+    jsii_type="testpkg.Foo",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo"},
+)
+class Foo:
+    def __init__(self, *, foo: jsii.Number) -> None:
+        '''
+        :param foo: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5)
+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "foo": foo,
+        }
+
+    @builtins.property
+    def foo(self) -> jsii.Number:
+        result = self._values.get("foo")
+        assert result is not None, "Required property 'foo' is missing"
+        return typing.cast(jsii.Number, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Foo(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="testpkg.FooBar",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo", "bar": "bar"},
+)
+class FooBar:
+    def __init__(
+        self,
+        *,
+        foo: jsii.Number,
+        bar: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param foo: -
+        :param bar: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4)
+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "foo": foo,
+        }
+        if bar is not None:
+            self._values["bar"] = bar
+
+    @builtins.property
+    def foo(self) -> jsii.Number:
+        result = self._values.get("foo")
+        assert result is not None, "Required property 'foo' is missing"
+        return typing.cast(jsii.Number, result)
+
+    @builtins.property
+    def bar(self) -> typing.Optional[builtins.str]:
+        result = self._values.get("bar")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "FooBar(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="testpkg.Baz",
+    jsii_struct_bases=[Foo, FooBar],
+    name_mapping={"foo": "foo", "bar": "bar", "baz": "baz"},
+)
+class Baz(Foo, FooBar):
+    def __init__(
+        self,
+        *,
+        foo: jsii.Number,
+        bar: typing.Optional[builtins.str] = None,
+        baz: builtins.bool,
+    ) -> None:
+        '''
+        :param foo: -
+        :param bar: -
+        :param baz: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d)
+            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+            check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "foo": foo,
+            "baz": baz,
+        }
+        if bar is not None:
+            self._values["bar"] = bar
+
+    @builtins.property
+    def foo(self) -> jsii.Number:
+        result = self._values.get("foo")
+        assert result is not None, "Required property 'foo' is missing"
+        return typing.cast(jsii.Number, result)
+
+    @builtins.property
+    def bar(self) -> typing.Optional[builtins.str]:
+        result = self._values.get("bar")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def baz(self) -> builtins.bool:
+        result = self._values.get("baz")
+        assert result is not None, "Required property 'baz' is missing"
+        return typing.cast(builtins.bool, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "Baz(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "Baz",
+    "Consumer",
+    "Foo",
+    "FooBar",
+]
+
+publication.publish()
+
+def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
+    *,
+    foo: jsii.Number,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4(
+    *,
+    foo: jsii.Number,
+    bar: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d(
+    *,
+    foo: jsii.Number,
+    bar: typing.Optional[builtins.str] = None,
+    baz: builtins.bool,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/src/example_test_demo/__init__.py 2`] = `
 from pkgutil import extend_path
 __path__ = extend_path(__path__, __name__)
 
@@ -2937,7 +2889,55 @@ publication.publish()
 
 `;
 
+exports[`nested-types.ts: <outDir>/python/src/example_test_demo/_jsii/__init__.py 2`] = `
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import typeguard
+from importlib.metadata import version as _metadata_package_version
+TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+
+def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
+    if TYPEGUARD_MAJOR_VERSION <= 2:
+        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
+    else:
+        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
+           pass
+        else:
+            if TYPEGUARD_MAJOR_VERSION == 3:
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
+                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
+            else:
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "testpkg", "0.0.1", __name__[0:-6], "testpkg@0.0.1.jsii.tgz"
+)
+
+__all__ = [
+    "__jsii_assembly__",
+]
+
+publication.publish()
+
+`;
+
 exports[`nested-types.ts: <outDir>/python/src/example_test_demo/py.typed 1`] = `
+
+
+`;
+
+exports[`nested-types.ts: <outDir>/python/src/example_test_demo/py.typed 2`] = `
 
 
 `;
