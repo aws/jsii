@@ -46,3 +46,16 @@ export function toPythonIdentifier(name: string): string {
   }
   return name;
 }
+
+export function setDifference<T>(
+  setA: ReadonlySet<T>,
+  setB: ReadonlySet<T>,
+): Set<T> {
+  const result = new Set<T>();
+  for (const item of setA) {
+    if (!setB.has(item)) {
+      result.add(item);
+    }
+  }
+  return result;
+}

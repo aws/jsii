@@ -39,6 +39,8 @@ exports[`defaults 1`] = `
  │   │   └── submodule2
  │   ├── module2700
  │   ├── module2702
+ │   ├── module4971_1
+ │   ├── module4971_2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -104,6 +106,8 @@ exports[`inheritance 1`] = `
  │   │   └── submodule2
  │   ├── module2700
  │   ├── module2702
+ │   ├── module4971_1
+ │   ├── module4971_2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -169,6 +173,8 @@ exports[`members 1`] = `
  │   │   └── submodule2
  │   ├── module2700
  │   ├── module2702
+ │   ├── module4971_1
+ │   ├── module4971_2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -794,6 +800,52 @@ exports[`showAll 1`] = `
  │ │ │       └─┬ vpcMethod() method
  │ │ │         ├── abstract
  │ │ │         └── returns: void
+ │ │ ├─┬ module4971_1
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class A
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: Optional<jsii-calc.module4971_1.AProps>
+ │ │ │   │   └─┬ isA property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
+ │ │ │   ├─┬ interface ALike
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ isA property
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
+ │ │ │   └─┬ interface AProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ b property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<jsii-calc.module4971_2.BLike | string>
+ │ │ ├─┬ module4971_2
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class B
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: Optional<jsii-calc.module4971_2.BProps>
+ │ │ │   │   └─┬ isB property
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
+ │ │ │   ├─┬ interface BLike
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ isB property
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: boolean
+ │ │ │   └─┬ interface BProps
+ │ │ │     └─┬ members
+ │ │ │       └─┬ a property
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: Optional<jsii-calc.module4971_1.ALike | string>
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
@@ -4070,6 +4122,8 @@ exports[`signatures 1`] = `
  │   │   └── submodule2
  │   ├── module2700
  │   ├── module2702
+ │   ├── module4971_1
+ │   ├── module4971_2
  │   ├─┬ nodirect
  │   │ └─┬ submodules
  │   │   ├── sub1
@@ -4228,6 +4282,16 @@ exports[`types 1`] = `
  │ │ │   ├── interface IFoo
  │ │ │   ├── interface IResource
  │ │ │   └── interface IVpc
+ │ │ ├─┬ module4971_1
+ │ │ │ └─┬ types
+ │ │ │   ├── class A
+ │ │ │   ├── interface ALike
+ │ │ │   └── interface AProps
+ │ │ ├─┬ module4971_2
+ │ │ │ └─┬ types
+ │ │ │   ├── class B
+ │ │ │   ├── interface BLike
+ │ │ │   └── interface BProps
  │ │ ├─┬ nodirect
  │ │ │ ├─┬ submodules
  │ │ │ │ ├─┬ sub1
