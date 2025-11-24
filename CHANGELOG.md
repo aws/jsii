@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.120.0](https://github.com/aws/jsii/compare/v1.119.0...v1.120.0) (2025-11-24)
+
+
+### Bug Fixes
+
+* **java:** pre-release versions installed for jackson dependencies ([#4983](https://github.com/aws/jsii/issues/4983)) ([2b687d1](https://github.com/aws/jsii/commit/2b687d1f2cc1208658a4c3adb89e010e189b7b08))
+* Typeguard cannot check the protocol ([#4986](https://github.com/aws/jsii/issues/4986)) ([e9b53ec](https://github.com/aws/jsii/commit/e9b53ec7336ee235c909b8d03bf62629806d7864))
+
 ## [1.119.0](https://github.com/aws/jsii/compare/v1.118.0...v1.119.0) (2025-11-10)
 
 

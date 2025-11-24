@@ -2277,6 +2277,11 @@ class Package {
     );
     code.closeFile('README.md');
 
+    // 3.x and newer perform an additional runtime check on interfaces that our interfaces fail.
+    // Stick to this old version. <https://github.com/aws/constructs/issues/2825>
+    // Defined as a constant to hopefully prevent Dependabot from automatically updating this.
+    const typeguardVersion = '2.13.3';
+
     const setupKwargs = {
       name: this.name,
       version: this.version,
@@ -2302,8 +2307,7 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
-        // 4.3.0 is incompatible with generated bindings, see https://github.com/aws/jsii/issues/4658
-        'typeguard>=2.13.3,<4.3.0',
+        `typeguard==${typeguardVersion}`,
       ]
         .concat(dependencies)
         .sort(),
