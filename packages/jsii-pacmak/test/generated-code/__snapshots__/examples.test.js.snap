@@ -917,7 +917,7 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -1053,7 +1053,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -1189,7 +1189,7 @@ public interface FooBar extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -2547,7 +2547,7 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
             }
 
             @Override
-            public final boolean equals(final Object o) {
+            public final boolean equals(final java.lang.Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
 

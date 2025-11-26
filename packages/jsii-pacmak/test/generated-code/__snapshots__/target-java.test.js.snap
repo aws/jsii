@@ -633,7 +633,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -1385,7 +1385,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -1977,7 +1977,7 @@ public class ClassWithNONPASCALCASEDName extends software.amazon.jsii.JsiiObject
             }
 
             @Override
-            public final boolean equals(final Object o) {
+            public final boolean equals(final java.lang.Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
 
@@ -2213,7 +2213,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
             }
 
             @Override
-            public final boolean equals(final Object o) {
+            public final boolean equals(final java.lang.Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
 
@@ -2370,7 +2370,7 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -2714,7 +2714,7 @@ public interface DiamondLeft extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -2880,7 +2880,7 @@ public interface DiamondRight extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -3341,7 +3341,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -3728,7 +3728,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -6536,7 +6536,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -6680,7 +6680,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -7587,7 +7587,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -8083,7 +8083,7 @@ public interface ContainerProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -8556,7 +8556,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -8892,7 +8892,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -9114,7 +9114,7 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -9241,7 +9241,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -9383,7 +9383,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -9527,7 +9527,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -9718,7 +9718,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -10134,7 +10134,7 @@ public interface DontUseMe extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -10302,7 +10302,7 @@ public interface DummyObj extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -10732,7 +10732,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -10944,7 +10944,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -11128,7 +11128,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -11340,7 +11340,7 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -11556,7 +11556,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -15863,7 +15863,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -17121,7 +17121,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
             }
 
             @Override
-            public final boolean equals(final Object o) {
+            public final boolean equals(final java.lang.Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
 
@@ -17235,7 +17235,7 @@ public class LevelOne extends software.amazon.jsii.JsiiObject {
             }
 
             @Override
-            public final boolean equals(final Object o) {
+            public final boolean equals(final java.lang.Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
 
@@ -17398,7 +17398,7 @@ public interface LevelOneProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -17708,7 +17708,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -18064,7 +18064,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -18370,7 +18370,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -18785,7 +18785,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -19268,7 +19268,7 @@ public interface ParamShadowsBuiltinsProps extends software.amazon.jsii.JsiiSeri
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -19434,7 +19434,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -20221,7 +20221,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -20506,7 +20506,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -20805,7 +20805,7 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -21060,7 +21060,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -21574,7 +21574,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -21760,7 +21760,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -21918,7 +21918,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -22139,7 +22139,7 @@ public interface StructWithCollectionOfUnionts extends software.amazon.jsii.Jsii
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -22294,7 +22294,7 @@ public interface StructWithEnum extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -22507,7 +22507,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -22858,7 +22858,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -23449,7 +23449,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -23812,7 +23812,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -24817,7 +24817,7 @@ public interface AcceptsPathProps extends software.amazon.jsii.JsiiSerializable 
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -25558,7 +25558,7 @@ public interface ConsumerProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -25679,7 +25679,7 @@ public interface Homonymous extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -25829,7 +25829,7 @@ public interface ConsumerProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -25950,7 +25950,7 @@ public interface Homonymous extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -26125,7 +26125,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -26246,7 +26246,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -26506,7 +26506,7 @@ public interface IntersectionProps extends software.amazon.jsii.JsiiSerializable
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -26657,7 +26657,7 @@ public interface ImplementMeOpts extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -26927,7 +26927,7 @@ public interface NonPascalCaseTestProps extends software.amazon.jsii.JsiiSeriali
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -27342,7 +27342,7 @@ public interface MyStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -27465,7 +27465,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -27586,7 +27586,7 @@ public interface Bar extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -27749,7 +27749,7 @@ public interface Foo extends software.amazon.jsii.JsiiSerializable, software.ama
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -29057,7 +29057,7 @@ public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -29181,7 +29181,7 @@ public interface Default extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -29424,7 +29424,7 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -29654,7 +29654,7 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -29833,7 +29833,7 @@ public interface SomeStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -29954,7 +29954,7 @@ public interface Structure extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
@@ -30236,7 +30236,7 @@ public interface SpecialParameter extends software.amazon.jsii.JsiiSerializable 
         }
 
         @Override
-        public final boolean equals(final Object o) {
+        public final boolean equals(final java.lang.Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
