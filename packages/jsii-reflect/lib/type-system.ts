@@ -380,11 +380,14 @@ export class TypeSystem {
     const contents = loadAssemblyFromFile(file, validate, supportedFeatures);
 
     const pjFile = path.join(path.dirname(file), 'package.json');
-    let pjData: any;
+    let pjData: any = {};
     try {
       pjData = JSON.parse(fs.readFileSync(pjFile, 'utf-8'));
     } catch (e: any) {
-      throw new Error(`Error loading ${pjFile}: ${e}`);
+      // Opportunistically it's not a failure if we can't load this file.
+      if (e.code !== 'ENOENT') {
+        throw new Error(`Error loading ${pjFile}: ${e}`);
+      }
     }
 
     return new Assembly(this, contents, path.dirname(file), pjData);
