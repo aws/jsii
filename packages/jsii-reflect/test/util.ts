@@ -15,6 +15,12 @@ export function assemblyFromSource(
   cb?: (obj: PackageInfo) => void,
 ): Assembly {
   const ass = sourceToAssemblyHelper(source, cb);
+
+  let pjData: any = {};
+  if (typeof source === 'object' && 'package.json' in source) {
+    pjData = JSON.parse(source['package.json']);
+  }
+
   const ts = new TypeSystem();
-  return ts.addAssembly(new Assembly(ts, ass));
+  return ts.addAssembly(new Assembly(ts, ass, '/fake-dir', pjData));
 }

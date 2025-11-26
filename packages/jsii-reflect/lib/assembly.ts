@@ -17,8 +17,28 @@ export class Assembly extends ModuleLike {
   public constructor(
     system: TypeSystem,
     public readonly spec: jsii.Assembly,
+    private readonly _directory?: string,
+    private readonly _packageJson?: any,
   ) {
     super(system);
+  }
+
+  public get directory(): string {
+    if (!this._directory) {
+      throw new Error(
+        'A directory was not supplied when initializing this Assembly',
+      );
+    }
+    return this._directory;
+  }
+
+  public get packageJson(): any {
+    if (!this._packageJson) {
+      throw new Error(
+        'A package.json was not supplied when initializing this Assembly',
+      );
+    }
+    return this._packageJson;
   }
 
   public get fqn(): string {
