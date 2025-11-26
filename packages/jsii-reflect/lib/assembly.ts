@@ -331,7 +331,7 @@ export class Assembly extends ModuleLike {
     )) {
       ret.set(
         submoduleName,
-        new SubmoduleBuilder(system, submoduleSpec, submoduleName, ret),
+        new SubmoduleBuilder(this, system, submoduleSpec, submoduleName, ret),
       );
     }
     return ret;
@@ -352,6 +352,7 @@ class SubmoduleBuilder {
   private _built?: Submodule;
 
   public constructor(
+    private readonly parent: Assembly,
     private readonly system: TypeSystem,
     private readonly spec: jsii.Submodule,
     private readonly fullName: string,
@@ -375,6 +376,7 @@ class SubmoduleBuilder {
       this.fullName,
       mapValues(this.findSubmoduleBuilders(), (b) => b.build()),
       this.types,
+      this.parent,
     );
     return this._built;
   }
