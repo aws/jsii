@@ -384,7 +384,7 @@ export class TypeSystem {
     try {
       pjData = JSON.parse(fs.readFileSync(pjFile, 'utf-8'));
     } catch (e: any) {
-      // Opportunistically it's not a failure if we can't load this file.
+      // Opportunistically it's not a failure if the file doesn't exist
       if (e.code !== 'ENOENT') {
         throw new Error(`Error loading ${pjFile}: ${e}`);
       }
