@@ -15,6 +15,14 @@ beforeAll(async () => {
   });
 });
 
+test('jsii-calc assembly has package.json data attached', () => {
+  const asm = typesys.assemblies.find((a) => a.name === 'jsii-calc');
+  expect(asm?.packageJson).toMatchObject({
+    name: 'jsii-calc',
+    homepage: 'https://github.com/aws/jsii',
+  });
+});
+
 test('TypeSystem.hasAssembly', () => {
   expect(typesys.includesAssembly('@foo/bar')).toBeFalsy();
   expect(typesys.includesAssembly('jsii-calc')).toBeTruthy();

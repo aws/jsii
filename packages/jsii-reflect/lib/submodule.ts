@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 
+import { Assembly } from './assembly';
 import { ModuleLike } from './module-like';
 import { Type } from './type';
 import { TypeSystem } from './type-system';
@@ -10,16 +11,23 @@ export class Submodule extends ModuleLike {
    */
   public readonly name: string;
 
+  /**
+   * The parent assembly of the submodule.
+   */
+  public readonly parent: Assembly;
+
   public constructor(
     system: TypeSystem,
     public readonly spec: jsii.Submodule,
     public readonly fqn: string,
     protected readonly submoduleMap: ReadonlyMap<string, Submodule>,
     protected readonly typeMap: ReadonlyMap<string, Type>,
+    parent: Assembly,
   ) {
     super(system);
 
     this.name = fqn.split('.').pop()!;
+    this.parent = parent;
   }
 
   /**

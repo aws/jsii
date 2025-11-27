@@ -17,8 +17,28 @@ export class Assembly extends ModuleLike {
   public constructor(
     system: TypeSystem,
     public readonly spec: jsii.Assembly,
+    private readonly _directory?: string,
+    private readonly _packageJson?: any,
   ) {
     super(system);
+  }
+
+  public get directory(): string {
+    if (!this._directory) {
+      throw new Error(
+        'A directory was not supplied when initializing this Assembly',
+      );
+    }
+    return this._directory;
+  }
+
+  public get packageJson(): any {
+    if (!this._packageJson) {
+      throw new Error(
+        'A package.json was not supplied when initializing this Assembly',
+      );
+    }
+    return this._packageJson;
   }
 
   public get fqn(): string {
@@ -311,7 +331,7 @@ export class Assembly extends ModuleLike {
     )) {
       ret.set(
         submoduleName,
-        new SubmoduleBuilder(system, submoduleSpec, submoduleName, ret),
+        new SubmoduleBuilder(this, system, submoduleSpec, submoduleName, ret),
       );
     }
     return ret;
@@ -332,6 +352,7 @@ class SubmoduleBuilder {
   private _built?: Submodule;
 
   public constructor(
+    private readonly parent: Assembly,
     private readonly system: TypeSystem,
     private readonly spec: jsii.Submodule,
     private readonly fullName: string,
@@ -355,6 +376,7 @@ class SubmoduleBuilder {
       this.fullName,
       mapValues(this.findSubmoduleBuilders(), (b) => b.build()),
       this.types,
+      this.parent,
     );
     return this._built;
   }
