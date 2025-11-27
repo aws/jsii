@@ -1,7 +1,6 @@
 import {
   Assembly,
   CollectionKind,
-  NamedTypeReference,
   PrimitiveType,
   SchemaVersion,
   Type,
@@ -14,6 +13,7 @@ import {
   NamingContext,
   PythonImports,
   IntersectionTypesRegistry,
+  TypePosition,
 } from '../../../lib/targets/python/type-name';
 
 const BORING_TYPE = 'BoringClass';
@@ -86,6 +86,8 @@ describe(toTypeName, () => {
     readonly inSubmodule?: string;
     /** The nesting context in which to generate names (if not provided, none) */
     readonly inNestingContext?: readonly string[];
+    /** The position of this type (if not provided, 'type') */
+    readonly pos?: TypePosition;
     /** Additional context keys to register */
     readonly context?: Omit<
       NamingContext,
@@ -174,6 +176,7 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Foreign)',
       input: { fqn: '@remote/classes.FancyClass' },
+      pos: 'value',
       pythonType: `_remote_module_name_fb17b8fa.FancyClass`,
       requiredImports: {
         [`${REMOTE_MODULE} as _remote_module_name_fb17b8fa`]: new Set(['']),
@@ -182,7 +185,7 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Foreign, Submodule)',
       input: { fqn: '@remote/classes.nested.SubmoduledType' },
-      pythonType: `_remote_module_name_submodule_fb17b8fa.SubmoduledType`,
+      pythonType: `"_remote_module_name_submodule_fb17b8fa.SubmoduledType"`,
       requiredImports: {
         [`${REMOTE_MODULE}.submodule as _remote_module_name_submodule_fb17b8fa`]:
           new Set(['']),
@@ -191,19 +194,19 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local)',
       input: { fqn: `${assembly.name}.BoringClass` },
-      pythonType: 'BoringClass',
+      pythonType: '"BoringClass"',
       forwardPythonType: '"BoringClass"',
     },
     {
       name: 'User Type (Local, Nested)',
       input: { fqn: `${assembly.name}.${BORING_TYPE}.${NESTED_TYPE}` },
-      pythonType: 'BoringClass.NestedType',
+      pythonType: '"BoringClass.NestedType"',
       forwardPythonType: '"BoringClass.NestedType"',
     },
     {
       name: 'User Type (Local, Submodule)',
       input: { fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}` },
-      pythonType: `_${SUBMODULE_TYPE}_72dbc9ef`,
+      pythonType: `"_${SUBMODULE_TYPE}_72dbc9ef"`,
       requiredImports: {
         '.submodule': new Set([
           `${SUBMODULE_TYPE} as _${SUBMODULE_TYPE}_72dbc9ef`,
@@ -215,7 +218,7 @@ describe(toTypeName, () => {
       input: {
         fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}`,
       },
-      pythonType: `_${SUBMODULE_TYPE}_72dbc9ef.${SUBMODULE_NESTED_TYPE}`,
+      pythonType: `"_${SUBMODULE_TYPE}_72dbc9ef.${SUBMODULE_NESTED_TYPE}"`,
       requiredImports: {
         '.submodule': new Set([
           `${SUBMODULE_TYPE} as _${SUBMODULE_TYPE}_72dbc9ef`,
@@ -235,7 +238,7 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local, Parent)',
       input: { fqn: `${assembly.name}.other.${OTHER_SUBMODULE_TYPE}` },
-      pythonType: `_${OTHER_SUBMODULE_TYPE}_78b5948e`,
+      pythonType: `"_${OTHER_SUBMODULE_TYPE}_78b5948e"`,
       requiredImports: {
         '..other': new Set([
           `${OTHER_SUBMODULE_TYPE} as _${OTHER_SUBMODULE_TYPE}_78b5948e`,
@@ -248,9 +251,8 @@ describe(toTypeName, () => {
       name: 'Struct parameter type annotation',
       input: { fqn: `${assembly.name}.Struct` },
       forwardPythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
-      pythonType: `typing.Union[Struct, typing.Dict[builtins.str, typing.Any]]`,
+      pythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
       context: {
-        typeAnnotation: true,
         parameterType: true,
         intersectionTypes: new IntersectionTypesRegistry(),
       },
@@ -261,7 +263,6 @@ describe(toTypeName, () => {
     const context: NamingContext = {
       ...example.context,
       assembly,
-      emittedTypes: new Set(),
       surroundingTypeFqns: example.inNestingContext,
       submodule: example.inSubmodule ?? assembly.name,
       typeResolver: (fqn) => {
@@ -272,22 +273,17 @@ describe(toTypeName, () => {
     };
     const contextWithEmittedType: NamingContext = {
       ...context,
-      emittedTypes: new Set(
-        [
-          // Sneak through to get the type's FQN, but be null-safe, etc... then filter.
-          (example.input as NamedTypeReference | undefined)?.fqn as string,
-        ].filter((v) => !!v),
-      ),
     };
+    const pos = example.pos ?? 'type';
 
     describe(example.name, () => {
       const typeName = toTypeName(example.input);
 
       test('typeName.pythonType(context)', () => {
-        expect(typeName.pythonType(context)).toBe(
+        expect(typeName.pythonType(pos, context)).toBe(
           example.forwardPythonType ?? example.pythonType,
         );
-        expect(typeName.pythonType(contextWithEmittedType)).toBe(
+        expect(typeName.pythonType(pos, contextWithEmittedType)).toBe(
           example.pythonType,
         );
       });
@@ -308,14 +304,14 @@ describe(toTypeName, () => {
       const typeName = toTypeName({ type: example.input!, optional: true });
 
       test('typeName.pythonType(context)', () => {
-        expect(typeName.pythonType(context)).toBe(
+        expect(typeName.pythonType(pos, context)).toBe(
           example.optionalPythonType ??
             `typing.Optional[${
               example.forwardPythonType ?? example.pythonType
             }]`,
         );
 
-        expect(typeName.pythonType(contextWithEmittedType)).toBe(
+        expect(typeName.pythonType(pos, contextWithEmittedType)).toBe(
           example.optionalPythonType ??
             `typing.Optional[${example.pythonType}]`,
         );

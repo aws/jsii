@@ -4226,6 +4226,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 SingletonString.java
           ┃                 ┣━ 📄 SingletonStringEnum.java
           ┃                 ┣━ 📄 SmellyStruct.java
+          ┃                 ┣━ 📄 SomeContainingClass.java
           ┃                 ┣━ 📄 SomeTypeJsii976.java
           ┃                 ┣━ 📄 StableClass.java
           ┃                 ┣━ 📄 StableEnum.java
@@ -20826,6 +20827,298 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/SomeContainingClass.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Check that we can have 2 interfaces in a class namespace inherit from each other.
+ * <p>
+ * This gave trouble in Python.
+ * <p>
+ * Also purposely have the types in the wrong order in the source code to catch potential ordering mistakes.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SomeContainingClass")
+public class SomeContainingClass extends software.amazon.jsii.JsiiObject {
+
+    protected SomeContainingClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected SomeContainingClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public SomeContainingClass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String sayHello() {
+        return software.amazon.jsii.Kernel.call(this, "sayHello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+    /**
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SomeContainingClass.ChildStruct")
+    @software.amazon.jsii.Jsii.Proxy(ChildStruct.Jsii$Proxy.class)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static interface ChildStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.SomeContainingClass.ParentStruct {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @org.jetbrains.annotations.NotNull java.lang.String getField2();
+
+        /**
+         * @return a {@link Builder} of {@link ChildStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link ChildStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static final class Builder implements software.amazon.jsii.Builder<ChildStruct> {
+            java.lang.String field2;
+            java.lang.String field1;
+
+            /**
+             * Sets the value of {@link ChildStruct#getField2}
+             * @param field2 the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            public Builder field2(java.lang.String field2) {
+                this.field2 = field2;
+                return this;
+            }
+
+            /**
+             * Sets the value of {@link ChildStruct#getField1}
+             * @param field1 the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            public Builder field1(java.lang.String field1) {
+                this.field1 = field1;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link ChildStruct}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            @Override
+            public ChildStruct build() {
+                return new Jsii$Proxy(this);
+            }
+        }
+
+        /**
+         * An implementation for {@link ChildStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @software.amazon.jsii.Internal
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ChildStruct {
+            private final java.lang.String field2;
+            private final java.lang.String field1;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.field2 = software.amazon.jsii.Kernel.get(this, "field2", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+                this.field1 = software.amazon.jsii.Kernel.get(this, "field1", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            protected Jsii$Proxy(final Builder builder) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.field2 = java.util.Objects.requireNonNull(builder.field2, "field2 is required");
+                this.field1 = java.util.Objects.requireNonNull(builder.field1, "field1 is required");
+            }
+
+            @Override
+            public final java.lang.String getField2() {
+                return this.field2;
+            }
+
+            @Override
+            public final java.lang.String getField1() {
+                return this.field1;
+            }
+
+            @Override
+            @software.amazon.jsii.Internal
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("field2", om.valueToTree(this.getField2()));
+                data.set("field1", om.valueToTree(this.getField1()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("jsii-calc.SomeContainingClass.ChildStruct"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public final boolean equals(final java.lang.Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                ChildStruct.Jsii$Proxy that = (ChildStruct.Jsii$Proxy) o;
+
+                if (!field2.equals(that.field2)) return false;
+                return this.field1.equals(that.field1);
+            }
+
+            @Override
+            public final int hashCode() {
+                int result = this.field2.hashCode();
+                result = 31 * result + (this.field1.hashCode());
+                return result;
+            }
+        }
+    }
+    /**
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SomeContainingClass.ParentStruct")
+    @software.amazon.jsii.Jsii.Proxy(ParentStruct.Jsii$Proxy.class)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static interface ParentStruct extends software.amazon.jsii.JsiiSerializable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @org.jetbrains.annotations.NotNull java.lang.String getField1();
+
+        /**
+         * @return a {@link Builder} of {@link ParentStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link ParentStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static final class Builder implements software.amazon.jsii.Builder<ParentStruct> {
+            java.lang.String field1;
+
+            /**
+             * Sets the value of {@link ParentStruct#getField1}
+             * @param field1 the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            public Builder field1(java.lang.String field1) {
+                this.field1 = field1;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link ParentStruct}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            @Override
+            public ParentStruct build() {
+                return new Jsii$Proxy(this);
+            }
+        }
+
+        /**
+         * An implementation for {@link ParentStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @software.amazon.jsii.Internal
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ParentStruct {
+            private final java.lang.String field1;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.field1 = software.amazon.jsii.Kernel.get(this, "field1", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            protected Jsii$Proxy(final Builder builder) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.field1 = java.util.Objects.requireNonNull(builder.field1, "field1 is required");
+            }
+
+            @Override
+            public final java.lang.String getField1() {
+                return this.field1;
+            }
+
+            @Override
+            @software.amazon.jsii.Internal
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("field1", om.valueToTree(this.getField1()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("jsii-calc.SomeContainingClass.ParentStruct"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public final boolean equals(final java.lang.Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                ParentStruct.Jsii$Proxy that = (ParentStruct.Jsii$Proxy) o;
+
+                return this.field1.equals(that.field1);
+            }
+
+            @Override
+            public final int hashCode() {
+                int result = this.field1.hashCode();
+                return result;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/SomeTypeJsii976.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -30596,6 +30889,9 @@ jsii-calc.SingletonIntEnum=software.amazon.jsii.tests.calculator.SingletonIntEnu
 jsii-calc.SingletonString=software.amazon.jsii.tests.calculator.SingletonString
 jsii-calc.SingletonStringEnum=software.amazon.jsii.tests.calculator.SingletonStringEnum
 jsii-calc.SmellyStruct=software.amazon.jsii.tests.calculator.SmellyStruct
+jsii-calc.SomeContainingClass=software.amazon.jsii.tests.calculator.SomeContainingClass
+jsii-calc.SomeContainingClass.ChildStruct=software.amazon.jsii.tests.calculator.SomeContainingClass$ChildStruct
+jsii-calc.SomeContainingClass.ParentStruct=software.amazon.jsii.tests.calculator.SomeContainingClass$ParentStruct
 jsii-calc.SomeTypeJsii976=software.amazon.jsii.tests.calculator.SomeTypeJsii976
 jsii-calc.StableClass=software.amazon.jsii.tests.calculator.StableClass
 jsii-calc.StableEnum=software.amazon.jsii.tests.calculator.StableEnum

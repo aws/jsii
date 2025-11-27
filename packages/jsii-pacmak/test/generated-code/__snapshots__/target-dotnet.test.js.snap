@@ -3527,6 +3527,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 SingletonString.cs
        ┃           ┣━ 📄 SingletonStringEnum.cs
        ┃           ┣━ 📄 SmellyStruct.cs
+       ┃           ┣━ 📄 SomeContainingClass.cs
        ┃           ┣━ 📄 SomeTypeJsii976.cs
        ┃           ┣━ 📄 StableClass.cs
        ┃           ┣━ 📄 StableEnum.cs
@@ -19444,6 +19445,139 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/SomeContainingClass.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Check that we can have 2 interfaces in a class namespace inherit from each other.</summary>
+    /// <remarks>
+    /// This gave trouble in Python.
+    ///
+    /// Also purposely have the types in the wrong order in the source code to catch potential ordering mistakes.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SomeContainingClass), fullyQualifiedName: "jsii-calc.SomeContainingClass")]
+    public class SomeContainingClass : DeputyBase
+    {
+        public SomeContainingClass(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SomeContainingClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SomeContainingClass(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "sayHello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string SayHello()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+        [JsiiInterface(nativeType: typeof(IChildStruct), fullyQualifiedName: "jsii-calc.SomeContainingClass.ChildStruct")]
+        public interface IChildStruct : Amazon.JSII.Tests.CalculatorNamespace.SomeContainingClass.IParentStruct
+        {
+            [JsiiProperty(name: "field2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            string Field2
+            {
+                get;
+            }
+
+            [JsiiTypeProxy(nativeType: typeof(IChildStruct), fullyQualifiedName: "jsii-calc.SomeContainingClass.ChildStruct")]
+            new internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.SomeContainingClass.IChildStruct
+            {
+                private _Proxy(ByRefValue reference): base(reference)
+                {
+                }
+
+                [JsiiProperty(name: "field2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+                public string Field2
+                {
+                    get => GetInstanceProperty<string>()!;
+                }
+
+                [JsiiProperty(name: "field1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+                public string Field1
+                {
+                    get => GetInstanceProperty<string>()!;
+                }
+            }
+        }
+        #pragma warning disable CS8618
+
+        [JsiiByValue(fqn: "jsii-calc.SomeContainingClass.ChildStruct")]
+        public class ChildStruct : Amazon.JSII.Tests.CalculatorNamespace.SomeContainingClass.IChildStruct
+        {
+            [JsiiProperty(name: "field2", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Field2
+            {
+                get;
+                set;
+            }
+
+            [JsiiProperty(name: "field1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Field1
+            {
+                get;
+                set;
+            }
+        }
+        [JsiiInterface(nativeType: typeof(IParentStruct), fullyQualifiedName: "jsii-calc.SomeContainingClass.ParentStruct")]
+        public interface IParentStruct
+        {
+            [JsiiProperty(name: "field1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            string Field1
+            {
+                get;
+            }
+
+            [JsiiTypeProxy(nativeType: typeof(IParentStruct), fullyQualifiedName: "jsii-calc.SomeContainingClass.ParentStruct")]
+            internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.SomeContainingClass.IParentStruct
+            {
+                private _Proxy(ByRefValue reference): base(reference)
+                {
+                }
+
+                [JsiiProperty(name: "field1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+                public string Field1
+                {
+                    get => GetInstanceProperty<string>()!;
+                }
+            }
+        }
+        #pragma warning disable CS8618
+
+        [JsiiByValue(fqn: "jsii-calc.SomeContainingClass.ParentStruct")]
+        public class ParentStruct : Amazon.JSII.Tests.CalculatorNamespace.SomeContainingClass.IParentStruct
+        {
+            [JsiiProperty(name: "field1", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Field1
+            {
+                get;
+                set;
+            }
         }
     }
 }

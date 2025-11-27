@@ -476,10 +476,6 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     }
 
     code.closeBlock();
-
-    if (this.fqn != null) {
-      context.emittedTypes.add(this.fqn);
-    }
   }
 
   /**
@@ -663,7 +659,9 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
 
-    const returnType: string = toTypeName(this.returns).pythonType(context);
+    const returnType: string = toTypeName(this.returns).pythonType('type', {
+      ...context,
+    });
 
     // We cannot (currently?) blindly use the names given to us by the JSII for
     // initializers, because our keyword lifting will allow two names to clash.
@@ -693,7 +691,7 @@ abstract class BaseMethod implements PythonBase {
         liftedPropNames,
       );
 
-      const paramType = typeFac.pythonType({
+      const paramType = typeFac.pythonType('type', {
         ...context,
         parameterType: true,
       });
@@ -736,10 +734,9 @@ abstract class BaseMethod implements PythonBase {
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
           const paramName = toPythonParameterName(prop.prop.name);
-          const paramType = toTypeName(prop.prop).pythonType({
+          const paramType = toTypeName(prop.prop).pythonType('type', {
             ...context,
             parameterType: true,
-            typeAnnotation: true,
           });
           const paramDefault = prop.prop.optional ? ' = None' : '';
 
@@ -769,7 +766,10 @@ abstract class BaseMethod implements PythonBase {
 
       const lastParameter = this.parameters.slice(-1)[0];
       const paramName = toPythonParameterName(lastParameter.name);
-      const paramType = toTypeName(lastParameter.type).pythonType(context);
+      const paramType = toTypeName(lastParameter.type).pythonType(
+        'type',
+        context,
+      );
 
       pythonParams.push(`*${paramName}: ${paramType}`);
     }
@@ -867,10 +867,10 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType({
-      ...context,
-      typeAnnotation: false,
-    });
+    const typeName = toTypeName(lastParameter.type).pythonType(
+      'value',
+      context,
+    );
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specify to start with in our dictionary literal.
@@ -901,10 +901,7 @@ abstract class BaseMethod implements PythonBase {
       }
       if (this.isStatic) {
         jsiiMethodParams.push(
-          toTypeName(this.parent).pythonType({
-            ...context,
-            typeAnnotation: false,
-          }),
+          toTypeName(this.parent).pythonType('value', context),
         );
       } else {
         // Using the dynamic class of `self`.
@@ -1034,7 +1031,7 @@ abstract class BaseProperty implements PythonBase {
     opts?: BasePropertyEmitOpts,
   ) {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
-    const pythonType = toTypeName(this.type).pythonType(context);
+    const pythonType = toTypeName(this.type).pythonType('type', context);
 
     code.line(`@${this.decorator}`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
@@ -1131,10 +1128,7 @@ class Interface extends BasePythonClassType {
     const proxyBases: string[] = this.bases.map(
       (b) =>
         // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
-        `jsii.proxy_for(${toTypeName(b).pythonType({
-          ...context,
-          typeAnnotation: false,
-        })}) # type: ignore[misc]`,
+        `jsii.proxy_for(${toTypeName(b).pythonType('value', context)}) # type: ignore[misc]`,
     );
     openSignature(code, 'class', this.proxyClassName, proxyBases);
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
@@ -1162,15 +1156,11 @@ class Interface extends BasePythonClassType {
     code.line(
       `typing.cast(typing.Any, ${this.pythonName}).__jsii_proxy_class__ = lambda : ${this.proxyClassName}`,
     );
-
-    if (this.fqn != null) {
-      context.emittedTypes.add(this.fqn);
-    }
   }
 
   protected getClassParams(context: EmitContext): string[] {
     const params: string[] = this.bases.map((b) =>
-      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+      toTypeName(b).pythonType('decl', context),
     );
 
     params.push('typing_extensions.Protocol');
@@ -1229,10 +1219,6 @@ class Struct extends BasePythonClassType {
     this.emitMagicMethods(code);
 
     code.closeBlock();
-
-    if (this.fqn != null) {
-      context.emittedTypes.add(this.fqn);
-    }
   }
 
   public requiredImports(context: EmitContext) {
@@ -1243,9 +1229,7 @@ class Struct extends BasePythonClassType {
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    return this.bases.map((b) =>
-      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
-    );
+    return this.bases.map((b) => toTypeName(b).pythonType('decl', context));
   }
 
   /**
@@ -1284,10 +1268,10 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType({
-        ...context,
-        typeAnnotation: false,
-      });
+      const typeName = toTypeName(member.type.type).pythonType(
+        'value',
+        context,
+      );
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
@@ -1445,7 +1429,7 @@ class StructField implements PythonBase {
    * Return the Python type annotation for this type
    */
   public typeAnnotation(context: EmitContext) {
-    return toTypeName(this.type).pythonType(context);
+    return toTypeName(this.type).pythonType('type', context);
   }
 
   public emitDocString(code: CodeMaker) {
@@ -1533,7 +1517,7 @@ class Class extends BasePythonClassType implements ISortableType {
     // First we emit our implments decorator
     if (this.interfaces.length > 0) {
       const interfaces: string[] = this.interfaces.map((b) =>
-        toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+        toTypeName(b).pythonType('decl', context),
       );
       code.line(`@jsii.implements(${interfaces.join(', ')})`);
     }
@@ -1551,10 +1535,7 @@ class Class extends BasePythonClassType implements ISortableType {
       for (const base of this.abstractBases) {
         // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
         proxyBases.push(
-          `jsii.proxy_for(${toTypeName(base).pythonType({
-            ...context,
-            typeAnnotation: false,
-          })}) # type: ignore[misc]`,
+          `jsii.proxy_for(${toTypeName(base).pythonType('value', context)}) # type: ignore[misc]`,
         );
       }
 
@@ -1597,7 +1578,7 @@ class Class extends BasePythonClassType implements ISortableType {
 
   protected getClassParams(context: EmitContext): string[] {
     const params: string[] = this.bases.map((b) =>
-      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+      toTypeName(b).pythonType('decl', context),
     );
     const metaclass: string = this.abstract ? 'JSIIAbstractClass' : 'JSIIMeta';
 
@@ -2800,7 +2781,6 @@ class PythonGenerator extends Generator {
     );
     this.package.write(this.code, {
       assembly: assm,
-      emittedTypes: new Set(),
       resolver,
       runtimeTypeChecking: this.runtimeTypeChecking,
       submodule: assm.name,
