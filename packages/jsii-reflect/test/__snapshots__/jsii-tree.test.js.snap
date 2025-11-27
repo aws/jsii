@@ -2296,6 +2296,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: string
  │   │     └── returns: boolean
+ │   ├─┬ class SomeContainingClass (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ sayHello() method (stable)
+ │   │     └── returns: string
  │   ├─┬ class SomeTypeJsii976 (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3442,6 +3447,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface ChildStruct (stable)
+ │   │ ├─┬ interfaces
+ │   │ │ └── ParentStruct
+ │   │ └─┬ members
+ │   │   └─┬ field2 property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface ParentStruct (stable)
+ │   │ └─┬ members
+ │   │   └─┬ field1 property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface StableStruct (stable)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (stable)
@@ -4202,6 +4221,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeContainingClass
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
@@ -4335,6 +4355,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
+ │   ├─┬ interface ChildStruct
+ │   │ └─┬ interfaces
+ │   │   └── ParentStruct
+ │   ├── interface ParentStruct
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
@@ -5512,6 +5536,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class SingletonString
  │   │ └─┬ members
  │   │   └── isSingletonString(value) method
+ │   ├─┬ class SomeContainingClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── sayHello() method
  │   ├─┬ class SomeTypeJsii976
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5973,6 +6001,12 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── property property
  │   │   └── yetAnoterOne property
+ │   ├─┬ interface ChildStruct
+ │   │ └─┬ members
+ │   │   └── field2 property
+ │   ├─┬ interface ParentStruct
+ │   │ └─┬ members
+ │   │   └── field1 property
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -6532,6 +6566,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeContainingClass
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
@@ -6631,6 +6666,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
+ │   ├── interface ChildStruct
+ │   ├── interface ParentStruct
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB

@@ -3145,6 +3145,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 SingletonString.go
        ┣━ 📄 SingletonStringEnum.go
        ┣━ 📄 SmellyStruct.go
+       ┣━ 📄 SomeContainingClass_ChildStruct.go
+       ┣━ 📄 SomeContainingClass_ParentStruct.go
+       ┣━ 📄 SomeContainingClass.go
        ┣━ 📄 SomeTypeJsii976.go
        ┣━ 📄 StableClass.go
        ┣━ 📄 StableEnum.go
@@ -15641,6 +15644,91 @@ type SmellyStruct struct {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/SomeContainingClass.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Check that we can have 2 interfaces in a class namespace inherit from each other.
+//
+// This gave trouble in Python.
+//
+// Also purposely have the types in the wrong order in the source code to catch potential ordering mistakes.
+type SomeContainingClass interface {
+	SayHello() *string
+}
+
+// The jsii proxy struct for SomeContainingClass
+type jsiiProxy_SomeContainingClass struct {
+	_ byte // padding
+}
+
+func NewSomeContainingClass() SomeContainingClass {
+	_init_.Initialize()
+
+	j := jsiiProxy_SomeContainingClass{}
+
+	_jsii_.Create(
+		"jsii-calc.SomeContainingClass",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewSomeContainingClass_Override(s SomeContainingClass) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SomeContainingClass",
+		nil, // no parameters
+		s,
+	)
+}
+
+func (s *jsiiProxy_SomeContainingClass) SayHello() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"sayHello",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/SomeContainingClass_ChildStruct.go 1`] = `
+package jsiicalc
+
+
+type SomeContainingClass_ChildStruct struct {
+	Field1 *string \`field:"required" json:"field1" yaml:"field1"\`
+	Field2 *string \`field:"required" json:"field2" yaml:"field2"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/SomeContainingClass_ParentStruct.go 1`] = `
+package jsiicalc
+
+
+type SomeContainingClass_ParentStruct struct {
+	Field1 *string \`field:"required" json:"field1" yaml:"field1"\`
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/SomeTypeJsii976.go 1`] = `
 package jsiicalc
 
@@ -22605,6 +22693,24 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.SmellyStruct",
 		reflect.TypeOf((*SmellyStruct)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.SomeContainingClass",
+		reflect.TypeOf((*SomeContainingClass)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "sayHello", GoMethod: "SayHello"},
+		},
+		func() interface{} {
+			return &jsiiProxy_SomeContainingClass{}
+		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.SomeContainingClass.ChildStruct",
+		reflect.TypeOf((*SomeContainingClass_ChildStruct)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.SomeContainingClass.ParentStruct",
+		reflect.TypeOf((*SomeContainingClass_ParentStruct)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
 		"jsii-calc.SomeTypeJsii976",
