@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.121.0](https://github.com/aws/jsii/compare/v1.120.0...v1.121.0) (2025-12-09)
+
+
+### Features
+
+* **jsii-reflect:** add parent assembly reference to Submodule ([#4992](https://github.com/aws/jsii/issues/4992)) ([1232932](https://github.com/aws/jsii/commit/12329322dc0b13a22f1ae51ac24bdd9e49e5e85b))
+* **jsii-reflect:** track directory and package.json for Assembly ([#4991](https://github.com/aws/jsii/issues/4991)) ([3232edf](https://github.com/aws/jsii/commit/3232edf7ffbfa5f6d0c10d07dce2fd4ccba2734f))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** compilation fails if a type is named "Object" ([#4990](https://github.com/aws/jsii/issues/4990)) ([6a5fc58](https://github.com/aws/jsii/commit/6a5fc5816bbb5fca6fc8feae5ec2b479630ddfa3))
+* **jsii-pacmak:** inheritance between nested types fails ([#4993](https://github.com/aws/jsii/issues/4993)) ([d5009c5](https://github.com/aws/jsii/commit/d5009c5de737909c1890ed6d33af264699e2a1fd))
+
 ## [1.120.0](https://github.com/aws/jsii/compare/v1.119.0...v1.120.0) (2025-11-24)
 
 
