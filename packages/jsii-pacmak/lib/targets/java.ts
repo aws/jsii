@@ -2659,7 +2659,9 @@ class JavaGenerator extends Generator {
 
     this.code.line();
     this.code.line('@Override');
-    this.code.openBlock('public final boolean equals(final Object o)');
+    this.code.openBlock(
+      'public final boolean equals(final java.lang.Object o)',
+    );
     this.code.line('if (this == o) return true;');
 
     // This was already checked by `super.equals(o)`, so we skip it here...

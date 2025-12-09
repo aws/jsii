@@ -140,6 +140,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.SingleInstanceTwoTypes",
   "jsii-calc.SingletonInt",
   "jsii-calc.SingletonString",
+  "jsii-calc.SomeContainingClass",
   "jsii-calc.SomeTypeJsii976",
   "jsii-calc.StableClass",
   "jsii-calc.StaticContext",

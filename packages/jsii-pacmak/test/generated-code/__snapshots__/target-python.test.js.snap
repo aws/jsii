@@ -388,7 +388,7 @@ class BaseProps(_scope_jsii_calc_base_of_base_49fa37fe.VeryBaseProps):
     def __init__(
         self,
         *,
-        foo: _scope_jsii_calc_base_of_base_49fa37fe.Very,
+        foo: "_scope_jsii_calc_base_of_base_49fa37fe.Very",
         bar: builtins.str,
     ) -> None:
         '''
@@ -401,10 +401,10 @@ class BaseProps(_scope_jsii_calc_base_of_base_49fa37fe.VeryBaseProps):
         }
 
     @builtins.property
-    def foo(self) -> _scope_jsii_calc_base_of_base_49fa37fe.Very:
+    def foo(self) -> "_scope_jsii_calc_base_of_base_49fa37fe.Very":
         result = self._values.get("foo")
         assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(_scope_jsii_calc_base_of_base_49fa37fe.Very, result)
+        return typing.cast("_scope_jsii_calc_base_of_base_49fa37fe.Very", result)
 
     @builtins.property
     def bar(self) -> builtins.str:
@@ -1005,7 +1005,7 @@ class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Ver
     name_mapping={"foo": "foo"},
 )
 class VeryBaseProps:
-    def __init__(self, *, foo: Very) -> None:
+    def __init__(self, *, foo: "Very") -> None:
         '''
         :param foo: -
         '''
@@ -1014,10 +1014,10 @@ class VeryBaseProps:
         }
 
     @builtins.property
-    def foo(self) -> Very:
+    def foo(self) -> "Very":
         result = self._values.get("foo")
         assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(Very, result)
+        return typing.cast("Very", result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -1126,7 +1126,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
      '''(experimental) Something here.
 @@ -90,10 +93,13 @@
  class VeryBaseProps:
-     def __init__(self, *, foo: Very) -> None:
+     def __init__(self, *, foo: "Very") -> None:
          '''
          :param foo: -
          '''
@@ -1542,7 +1542,7 @@ class BaseFor2647(
     :stability: deprecated
     '''
 
-    def __init__(self, very: _scope_jsii_calc_base_of_base_49fa37fe.Very) -> None:
+    def __init__(self, very: "_scope_jsii_calc_base_of_base_49fa37fe.Very") -> None:
         '''
         :param very: -
 
@@ -1551,7 +1551,7 @@ class BaseFor2647(
         jsii.create(self.__class__, self, [very])
 
     @jsii.member(jsii_name="foo")
-    def foo(self, obj: _scope_jsii_calc_base_734f0262.IBaseInterface) -> None:
+    def foo(self, obj: "_scope_jsii_calc_base_734f0262.IBaseInterface") -> None:
         '''
         :param obj: -
 
@@ -2439,7 +2439,7 @@ class Reflector(
     @jsii.member(jsii_name="asMap")
     def as_map(
         self,
-        reflectable: IReflectable,
+        reflectable: "IReflectable",
     ) -> typing.Mapping[builtins.str, typing.Any]:
         '''
         :param reflectable: -
@@ -2540,11 +2540,11 @@ class InterfaceFactory(
 
     @jsii.member(jsii_name="create")
     @builtins.classmethod
-    def create(cls) -> IInterface:
+    def create(cls) -> "IInterface":
         '''
         :stability: deprecated
         '''
-        return typing.cast(IInterface, jsii.sinvoke(cls, "create", []))
+        return typing.cast("IInterface", jsii.sinvoke(cls, "create", []))
 
 
 class VisibleBaseClass(
@@ -2614,7 +2614,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
          jsii.create(self.__class__, self, [very])
  
      @jsii.member(jsii_name="foo")
-     def foo(self, obj: _scope_jsii_calc_base_734f0262.IBaseInterface) -> None:
+     def foo(self, obj: "_scope_jsii_calc_base_734f0262.IBaseInterface") -> None:
          '''
          :param obj: -
  
@@ -3471,8 +3471,8 @@ class AbstractClassReturner(
 
     @builtins.property
     @jsii.member(jsii_name="returnAbstractFromProperty")
-    def return_abstract_from_property(self) -> AbstractClassBase:
-        return typing.cast(AbstractClassBase, jsii.get(self, "returnAbstractFromProperty"))
+    def return_abstract_from_property(self) -> "AbstractClassBase":
+        return typing.cast("AbstractClassBase", jsii.get(self, "returnAbstractFromProperty"))
 
 
 class AbstractSuite(
@@ -3642,13 +3642,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @jsii.member(jsii_name="mapProperty")
     def map_property(
         self,
-    ) -> typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.Number]:
-        return typing.cast(typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.Number], jsii.get(self, "mapProperty"))
+    ) -> typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.Number"]:
+        return typing.cast(typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.Number"], jsii.get(self, "mapProperty"))
 
     @map_property.setter
     def map_property(
         self,
-        value: typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.Number],
+        value: typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.Number"],
     ) -> None:
         jsii.set(self, "mapProperty", value) # pyright: ignore[reportArgumentType]
 
@@ -3674,13 +3674,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @jsii.member(jsii_name="unionArrayProperty")
     def union_array_property(
         self,
-    ) -> typing.List[typing.Union[jsii.Number, _scope_jsii_calc_lib_c61f082f.NumericValue]]:
-        return typing.cast(typing.List[typing.Union[jsii.Number, _scope_jsii_calc_lib_c61f082f.NumericValue]], jsii.get(self, "unionArrayProperty"))
+    ) -> typing.List[typing.Union[jsii.Number, "_scope_jsii_calc_lib_c61f082f.NumericValue"]]:
+        return typing.cast(typing.List[typing.Union[jsii.Number, "_scope_jsii_calc_lib_c61f082f.NumericValue"]], jsii.get(self, "unionArrayProperty"))
 
     @union_array_property.setter
     def union_array_property(
         self,
-        value: typing.List[typing.Union[jsii.Number, _scope_jsii_calc_lib_c61f082f.NumericValue]],
+        value: typing.List[typing.Union[jsii.Number, "_scope_jsii_calc_lib_c61f082f.NumericValue"]],
     ) -> None:
         jsii.set(self, "unionArrayProperty", value) # pyright: ignore[reportArgumentType]
 
@@ -3688,13 +3688,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @jsii.member(jsii_name="unionMapProperty")
     def union_map_property(
         self,
-    ) -> typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number]]:
-        return typing.cast(typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number]], jsii.get(self, "unionMapProperty"))
+    ) -> typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number"]]:
+        return typing.cast(typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number"]], jsii.get(self, "unionMapProperty"))
 
     @union_map_property.setter
     def union_map_property(
         self,
-        value: typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number]],
+        value: typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number"]],
     ) -> None:
         jsii.set(self, "unionMapProperty", value) # pyright: ignore[reportArgumentType]
 
@@ -3702,13 +3702,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @jsii.member(jsii_name="unionProperty")
     def union_property(
         self,
-    ) -> typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number, "Multiply"]:
-        return typing.cast(typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number, "Multiply"], jsii.get(self, "unionProperty"))
+    ) -> typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number", "Multiply"]:
+        return typing.cast(typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number", "Multiply"], jsii.get(self, "unionProperty"))
 
     @union_property.setter
     def union_property(
         self,
-        value: typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number, "Multiply"],
+        value: typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number", "Multiply"],
     ) -> None:
         jsii.set(self, "unionProperty", value) # pyright: ignore[reportArgumentType]
 
@@ -3946,8 +3946,8 @@ class BinaryOperation(
 
     def __init__(
         self,
-        lhs: _scope_jsii_calc_lib_c61f082f.NumericValue,
-        rhs: _scope_jsii_calc_lib_c61f082f.NumericValue,
+        lhs: "_scope_jsii_calc_lib_c61f082f.NumericValue",
+        rhs: "_scope_jsii_calc_lib_c61f082f.NumericValue",
     ) -> None:
         '''Creates a BinaryOperation.
 
@@ -3963,15 +3963,15 @@ class BinaryOperation(
 
     @builtins.property
     @jsii.member(jsii_name="lhs")
-    def lhs(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def lhs(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''Left-hand side operand.'''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "lhs"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "lhs"))
 
     @builtins.property
     @jsii.member(jsii_name="rhs")
-    def rhs(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def rhs(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''Right-hand side operand.'''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "rhs"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "rhs"))
 
 
 class _BinaryOperationProxy(
@@ -4099,32 +4099,34 @@ class Calculator(
 
     @builtins.property
     @jsii.member(jsii_name="expression")
-    def expression(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def expression(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''Returns the expression.'''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "expression"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "expression"))
 
     @builtins.property
     @jsii.member(jsii_name="operationsLog")
-    def operations_log(self) -> typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue]:
+    def operations_log(
+        self,
+    ) -> typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"]:
         '''A log of all operations.'''
-        return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue], jsii.get(self, "operationsLog"))
+        return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"], jsii.get(self, "operationsLog"))
 
     @builtins.property
     @jsii.member(jsii_name="operationsMap")
     def operations_map(
         self,
-    ) -> typing.Mapping[builtins.str, typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue]]:
+    ) -> typing.Mapping[builtins.str, typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"]]:
         '''A map of per operation name of all operations performed.'''
-        return typing.cast(typing.Mapping[builtins.str, typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue]], jsii.get(self, "operationsMap"))
+        return typing.cast(typing.Mapping[builtins.str, typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"]], jsii.get(self, "operationsMap"))
 
     @builtins.property
     @jsii.member(jsii_name="curr")
-    def curr(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def curr(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The current value.'''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "curr"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "curr"))
 
     @curr.setter
-    def curr(self, value: _scope_jsii_calc_lib_c61f082f.NumericValue) -> None:
+    def curr(self, value: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
         jsii.set(self, "curr", value) # pyright: ignore[reportArgumentType]
 
     @builtins.property
@@ -4456,13 +4458,13 @@ class ConfusingToJackson(
     @jsii.member(jsii_name="unionProperty")
     def union_property(
         self,
-    ) -> typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.List[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]]:
-        return typing.cast(typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.List[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]], jsii.get(self, "unionProperty"))
+    ) -> typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]]:
+        return typing.cast(typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]], jsii.get(self, "unionProperty"))
 
     @union_property.setter
     def union_property(
         self,
-        value: typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.List[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]],
+        value: typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]],
     ) -> None:
         jsii.set(self, "unionProperty", value) # pyright: ignore[reportArgumentType]
 
@@ -4476,7 +4478,7 @@ class ConfusingToJacksonStruct:
     def __init__(
         self,
         *,
-        union_property: typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.Sequence[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]] = None,
+        union_property: typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.Sequence[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]] = None,
     ) -> None:
         '''
         :param union_property: 
@@ -4488,9 +4490,9 @@ class ConfusingToJacksonStruct:
     @builtins.property
     def union_property(
         self,
-    ) -> typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.List[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]]:
+    ) -> typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]]:
         result = self._values.get("union_property")
-        return typing.cast(typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.List[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]], result)
+        return typing.cast(typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -5017,7 +5019,7 @@ class DerivedStruct(_scope_jsii_calc_lib_c61f082f.MyFirstStruct):
         another_required: datetime.datetime,
         bool: builtins.bool,
         non_primitive: "DoubleTrouble",
-        another_optional: typing.Optional[typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.NumericValue]] = None,
+        another_optional: typing.Optional[typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.NumericValue"]] = None,
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> None:
@@ -5099,10 +5101,10 @@ class DerivedStruct(_scope_jsii_calc_lib_c61f082f.MyFirstStruct):
     @builtins.property
     def another_optional(
         self,
-    ) -> typing.Optional[typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.NumericValue]]:
+    ) -> typing.Optional[typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.NumericValue"]]:
         '''This is optional.'''
         result = self._values.get("another_optional")
-        return typing.cast(typing.Optional[typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.NumericValue]], result)
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.NumericValue"]], result)
 
     @builtins.property
     def optional_any(self) -> typing.Any:
@@ -5737,8 +5739,8 @@ typing.cast(typing.Any, Entropy).__jsii_proxy_class__ = lambda : _EntropyProxy
 class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"):
     @jsii.member(jsii_name="randomIntegerLikeEnum")
     @builtins.classmethod
-    def random_integer_like_enum(cls) -> AllTypesEnum:
-        return typing.cast(AllTypesEnum, jsii.sinvoke(cls, "randomIntegerLikeEnum", []))
+    def random_integer_like_enum(cls) -> "AllTypesEnum":
+        return typing.cast("AllTypesEnum", jsii.sinvoke(cls, "randomIntegerLikeEnum", []))
 
     @jsii.member(jsii_name="randomStringLikeEnum")
     @builtins.classmethod
@@ -6095,13 +6097,13 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         another_required: datetime.datetime,
         bool: builtins.bool,
         non_primitive: "DoubleTrouble",
-        another_optional: typing.Optional[typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.NumericValue]] = None,
+        another_optional: typing.Optional[typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.NumericValue"]] = None,
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
         anumber: jsii.Number,
         astring: builtins.str,
         first_optional: typing.Optional[typing.Sequence[builtins.str]] = None,
-    ) -> _scope_jsii_calc_lib_c61f082f.MyFirstStruct:
+    ) -> "_scope_jsii_calc_lib_c61f082f.MyFirstStruct":
         '''Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
         :param another_required: 
@@ -6126,7 +6128,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
             first_optional=first_optional,
         )
 
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.MyFirstStruct, jsii.invoke(self, "derivedToFirst", [derived]))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.MyFirstStruct", jsii.invoke(self, "derivedToFirst", [derived]))
 
     @jsii.member(jsii_name="readDerivedNonPrimitive")
     def read_derived_non_primitive(
@@ -6135,7 +6137,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         another_required: datetime.datetime,
         bool: builtins.bool,
         non_primitive: "DoubleTrouble",
-        another_optional: typing.Optional[typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.NumericValue]] = None,
+        another_optional: typing.Optional[typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.NumericValue"]] = None,
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.Sequence[builtins.str]] = None,
         anumber: jsii.Number,
@@ -6190,8 +6192,8 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 
     @builtins.property
     @jsii.member(jsii_name="structLiteral")
-    def struct_literal(self) -> _scope_jsii_calc_lib_c61f082f.StructWithOnlyOptionals:
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.StructWithOnlyOptionals, jsii.get(self, "structLiteral"))
+    def struct_literal(self) -> "_scope_jsii_calc_lib_c61f082f.StructWithOnlyOptionals":
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.StructWithOnlyOptionals", jsii.get(self, "structLiteral"))
 
 
 @jsii.data_type(
@@ -6240,7 +6242,7 @@ class GreetingAugmenter(
     @jsii.member(jsii_name="betterGreeting")
     def better_greeting(
         self,
-        friendly: _scope_jsii_calc_lib_c61f082f.IFriendly,
+        friendly: "_scope_jsii_calc_lib_c61f082f.IFriendly",
     ) -> builtins.str:
         '''
         :param friendly: -
@@ -6357,7 +6359,7 @@ class IBellRinger(typing_extensions.Protocol):
     '''Takes the object parameter as an interface.'''
 
     @jsii.member(jsii_name="yourTurn")
-    def your_turn(self, bell: IBell) -> None:
+    def your_turn(self, bell: "IBell") -> None:
         '''
         :param bell: -
         '''
@@ -6370,7 +6372,7 @@ class _IBellRingerProxy:
     __jsii_type__: typing.ClassVar[str] = "jsii-calc.IBellRinger"
 
     @jsii.member(jsii_name="yourTurn")
-    def your_turn(self, bell: IBell) -> None:
+    def your_turn(self, bell: "IBell") -> None:
         '''
         :param bell: -
         '''
@@ -7622,11 +7624,11 @@ typing.cast(typing.Any, IReturnJsii976).__jsii_proxy_class__ = lambda : _IReturn
 class IReturnsNumber(typing_extensions.Protocol):
     @builtins.property
     @jsii.member(jsii_name="numberProp")
-    def number_prop(self) -> _scope_jsii_calc_lib_c61f082f.Number:
+    def number_prop(self) -> "_scope_jsii_calc_lib_c61f082f.Number":
         ...
 
     @jsii.member(jsii_name="obtainNumber")
-    def obtain_number(self) -> _scope_jsii_calc_lib_c61f082f.IDoublable:
+    def obtain_number(self) -> "_scope_jsii_calc_lib_c61f082f.IDoublable":
         ...
 
 
@@ -7635,12 +7637,12 @@ class _IReturnsNumberProxy:
 
     @builtins.property
     @jsii.member(jsii_name="numberProp")
-    def number_prop(self) -> _scope_jsii_calc_lib_c61f082f.Number:
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.Number, jsii.get(self, "numberProp"))
+    def number_prop(self) -> "_scope_jsii_calc_lib_c61f082f.Number":
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.Number", jsii.get(self, "numberProp"))
 
     @jsii.member(jsii_name="obtainNumber")
-    def obtain_number(self) -> _scope_jsii_calc_lib_c61f082f.IDoublable:
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.IDoublable, jsii.invoke(self, "obtainNumber", []))
+    def obtain_number(self) -> "_scope_jsii_calc_lib_c61f082f.IDoublable":
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.IDoublable", jsii.invoke(self, "obtainNumber", []))
 
 # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
 typing.cast(typing.Any, IReturnsNumber).__jsii_proxy_class__ = lambda : _IReturnsNumberProxy
@@ -7803,7 +7805,7 @@ class ImplictBaseOfBase(_scope_jsii_calc_base_734f0262.BaseProps):
     def __init__(
         self,
         *,
-        foo: _scope_jsii_calc_base_of_base_49fa37fe.Very,
+        foo: "_scope_jsii_calc_base_of_base_49fa37fe.Very",
         bar: builtins.str,
         goo: datetime.datetime,
     ) -> None:
@@ -7819,10 +7821,10 @@ class ImplictBaseOfBase(_scope_jsii_calc_base_734f0262.BaseProps):
         }
 
     @builtins.property
-    def foo(self) -> _scope_jsii_calc_base_of_base_49fa37fe.Very:
+    def foo(self) -> "_scope_jsii_calc_base_of_base_49fa37fe.Very":
         result = self._values.get("foo")
         assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(_scope_jsii_calc_base_of_base_49fa37fe.Very, result)
+        return typing.cast("_scope_jsii_calc_base_of_base_49fa37fe.Very", result)
 
     @builtins.property
     def bar(self) -> builtins.str:
@@ -7859,8 +7861,8 @@ class InterfaceCollections(
 
     @jsii.member(jsii_name="listOfInterfaces")
     @builtins.classmethod
-    def list_of_interfaces(cls) -> typing.List[IBell]:
-        return typing.cast(typing.List[IBell], jsii.sinvoke(cls, "listOfInterfaces", []))
+    def list_of_interfaces(cls) -> typing.List["IBell"]:
+        return typing.cast(typing.List["IBell"], jsii.sinvoke(cls, "listOfInterfaces", []))
 
     @jsii.member(jsii_name="listOfStructs")
     @builtins.classmethod
@@ -7869,8 +7871,8 @@ class InterfaceCollections(
 
     @jsii.member(jsii_name="mapOfInterfaces")
     @builtins.classmethod
-    def map_of_interfaces(cls) -> typing.Mapping[builtins.str, IBell]:
-        return typing.cast(typing.Mapping[builtins.str, IBell], jsii.sinvoke(cls, "mapOfInterfaces", []))
+    def map_of_interfaces(cls) -> typing.Mapping[builtins.str, "IBell"]:
+        return typing.cast(typing.Mapping[builtins.str, "IBell"], jsii.sinvoke(cls, "mapOfInterfaces", []))
 
     @jsii.member(jsii_name="mapOfStructs")
     @builtins.classmethod
@@ -7886,11 +7888,11 @@ class InterfacesMaker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfacesMa
     def make_interfaces(
         cls,
         count: jsii.Number,
-    ) -> typing.List[_scope_jsii_calc_lib_c61f082f.IDoublable]:
+    ) -> typing.List["_scope_jsii_calc_lib_c61f082f.IDoublable"]:
         '''
         :param count: -
         '''
-        return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.IDoublable], jsii.sinvoke(cls, "makeInterfaces", [count]))
+        return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.IDoublable"], jsii.sinvoke(cls, "makeInterfaces", [count]))
 
 
 class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorphism"):
@@ -7964,8 +7966,8 @@ class JSObjectLiteralForInterface(
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="giveMeFriendly")
-    def give_me_friendly(self) -> _scope_jsii_calc_lib_c61f082f.IFriendly:
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.IFriendly, jsii.invoke(self, "giveMeFriendly", []))
+    def give_me_friendly(self) -> "_scope_jsii_calc_lib_c61f082f.IFriendly":
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.IFriendly", jsii.invoke(self, "giveMeFriendly", []))
 
     @jsii.member(jsii_name="giveMeFriendlyGenerator")
     def give_me_friendly_generator(self) -> "IFriendlyRandomGenerator":
@@ -8438,7 +8440,7 @@ class LevelOneProps:
     def __init__(
         self,
         *,
-        prop: typing.Union[LevelOne.PropProperty, typing.Dict[builtins.str, typing.Any]],
+        prop: typing.Union["LevelOne.PropProperty", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
         '''
         :param prop: 
@@ -8450,10 +8452,10 @@ class LevelOneProps:
         }
 
     @builtins.property
-    def prop(self) -> LevelOne.PropProperty:
+    def prop(self) -> "LevelOne.PropProperty":
         result = self._values.get("prop")
         assert result is not None, "Required property 'prop' is missing"
-        return typing.cast(LevelOne.PropProperty, result)
+        return typing.cast("LevelOne.PropProperty", result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -8618,8 +8620,8 @@ class Multiply(
 
     def __init__(
         self,
-        lhs: _scope_jsii_calc_lib_c61f082f.NumericValue,
-        rhs: _scope_jsii_calc_lib_c61f082f.NumericValue,
+        lhs: "_scope_jsii_calc_lib_c61f082f.NumericValue",
+        rhs: "_scope_jsii_calc_lib_c61f082f.NumericValue",
     ) -> None:
         '''Creates a BinaryOperation.
 
@@ -8663,8 +8665,8 @@ class NestedClassInstance(
     @builtins.classmethod
     def make_instance(
         cls,
-    ) -> _scope_jsii_calc_lib_custom_submodule_name_c61f082f.NestingClass.NestedClass:
-        return typing.cast(_scope_jsii_calc_lib_custom_submodule_name_c61f082f.NestingClass.NestedClass, jsii.sinvoke(cls, "makeInstance", []))
+    ) -> "_scope_jsii_calc_lib_custom_submodule_name_c61f082f.NestingClass.NestedClass":
+        return typing.cast("_scope_jsii_calc_lib_custom_submodule_name_c61f082f.NestingClass.NestedClass", jsii.sinvoke(cls, "makeInstance", []))
 
 
 @jsii.data_type(
@@ -8845,14 +8847,14 @@ class NullShouldBeTreatedAsUndefinedData:
 class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenerator"):
     '''This allows us to test that a reference can be stored for objects that implement interfaces.'''
 
-    def __init__(self, generator: IRandomNumberGenerator) -> None:
+    def __init__(self, generator: "IRandomNumberGenerator") -> None:
         '''
         :param generator: -
         '''
         jsii.create(self.__class__, self, [generator])
 
     @jsii.member(jsii_name="isSameGenerator")
-    def is_same_generator(self, gen: IRandomNumberGenerator) -> builtins.bool:
+    def is_same_generator(self, gen: "IRandomNumberGenerator") -> builtins.bool:
         '''
         :param gen: -
         '''
@@ -8864,11 +8866,11 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
 
     @builtins.property
     @jsii.member(jsii_name="generator")
-    def generator(self) -> IRandomNumberGenerator:
-        return typing.cast(IRandomNumberGenerator, jsii.get(self, "generator"))
+    def generator(self) -> "IRandomNumberGenerator":
+        return typing.cast("IRandomNumberGenerator", jsii.get(self, "generator"))
 
     @generator.setter
-    def generator(self, value: IRandomNumberGenerator) -> None:
+    def generator(self, value: "IRandomNumberGenerator") -> None:
         jsii.set(self, "generator", value) # pyright: ignore[reportArgumentType]
 
 
@@ -8884,7 +8886,7 @@ class ObjectRefsInCollections(
     @jsii.member(jsii_name="sumFromArray")
     def sum_from_array(
         self,
-        values: typing.Sequence[_scope_jsii_calc_lib_c61f082f.NumericValue],
+        values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.NumericValue"],
     ) -> jsii.Number:
         '''Returns the sum of all values.
 
@@ -8895,7 +8897,7 @@ class ObjectRefsInCollections(
     @jsii.member(jsii_name="sumFromMap")
     def sum_from_map(
         self,
-        values: typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.NumericValue],
+        values: typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.NumericValue"],
     ) -> jsii.Number:
         '''Returns the sum of all values in a map.
 
@@ -8910,8 +8912,8 @@ class ObjectWithPropertyProvider(
 ):
     @jsii.member(jsii_name="provide")
     @builtins.classmethod
-    def provide(cls) -> IObjectWithProperty:
-        return typing.cast(IObjectWithProperty, jsii.sinvoke(cls, "provide", []))
+    def provide(cls) -> "IObjectWithProperty":
+        return typing.cast("IObjectWithProperty", jsii.sinvoke(cls, "provide", []))
 
 
 class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
@@ -8941,7 +8943,7 @@ class OptionalArgumentInvoker(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.OptionalArgumentInvoker",
 ):
-    def __init__(self, delegate: IInterfaceWithOptionalMethodArguments) -> None:
+    def __init__(self, delegate: "IInterfaceWithOptionalMethodArguments") -> None:
         '''
         :param delegate: -
         '''
@@ -9089,7 +9091,7 @@ class OverrideReturnsObject(
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="test")
-    def test(self, obj: IReturnsNumber) -> jsii.Number:
+    def test(self, obj: "IReturnsNumber") -> jsii.Number:
         '''
         :param obj: -
         '''
@@ -9202,12 +9204,12 @@ class ParamShadowsScope(
     @jsii.member(jsii_name="useScope")
     def use_scope(
         self,
-        scope: _scope_jsii_calc_lib_c61f082f.Number,
-    ) -> _scope_jsii_calc_lib_c61f082f.Number:
+        scope: "_scope_jsii_calc_lib_c61f082f.Number",
+    ) -> "_scope_jsii_calc_lib_c61f082f.Number":
         '''
         :param scope: -
         '''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.Number, jsii.invoke(self, "useScope", [scope]))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.Number", jsii.invoke(self, "useScope", [scope]))
 
 
 @jsii.data_type(
@@ -9254,9 +9256,9 @@ class PartiallyInitializedThisConsumer(
     @abc.abstractmethod
     def consume_partially_initialized_this(
         self,
-        obj: ConstructorPassesThisOut,
+        obj: "ConstructorPassesThisOut",
         dt: datetime.datetime,
-        ev: AllTypesEnum,
+        ev: "AllTypesEnum",
     ) -> builtins.str:
         '''
         :param obj: -
@@ -9270,9 +9272,9 @@ class _PartiallyInitializedThisConsumerProxy(PartiallyInitializedThisConsumer):
     @jsii.member(jsii_name="consumePartiallyInitializedThis")
     def consume_partially_initialized_this(
         self,
-        obj: ConstructorPassesThisOut,
+        obj: "ConstructorPassesThisOut",
         dt: datetime.datetime,
-        ev: AllTypesEnum,
+        ev: "AllTypesEnum",
     ) -> builtins.str:
         '''
         :param obj: -
@@ -9292,7 +9294,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
     @jsii.member(jsii_name="sayHello")
     def say_hello(
         self,
-        friendly: _scope_jsii_calc_lib_c61f082f.IFriendly,
+        friendly: "_scope_jsii_calc_lib_c61f082f.IFriendly",
     ) -> builtins.str:
         '''
         :param friendly: -
@@ -9309,8 +9311,8 @@ class Power(
 
     def __init__(
         self,
-        base: _scope_jsii_calc_lib_c61f082f.NumericValue,
-        pow: _scope_jsii_calc_lib_c61f082f.NumericValue,
+        base: "_scope_jsii_calc_lib_c61f082f.NumericValue",
+        pow: "_scope_jsii_calc_lib_c61f082f.NumericValue",
     ) -> None:
         '''Creates a Power operation.
 
@@ -9321,24 +9323,24 @@ class Power(
 
     @builtins.property
     @jsii.member(jsii_name="base")
-    def base(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def base(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The base of the power.'''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "base"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "base"))
 
     @builtins.property
     @jsii.member(jsii_name="expression")
-    def expression(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def expression(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The expression that this operation consists of.
 
         Must be implemented by derived classes.
         '''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "expression"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "expression"))
 
     @builtins.property
     @jsii.member(jsii_name="pow")
-    def pow(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def pow(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The number of times to multiply.'''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "pow"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "pow"))
 
 
 class PromiseNothing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PromiseNothing"):
@@ -9532,13 +9534,13 @@ class ReferenceEnumFromScopedPackage(
     @jsii.member(jsii_name="loadFoo")
     def load_foo(
         self,
-    ) -> typing.Optional[_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule]:
-        return typing.cast(typing.Optional[_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule], jsii.invoke(self, "loadFoo", []))
+    ) -> typing.Optional["_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule"]:
+        return typing.cast(typing.Optional["_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule"], jsii.invoke(self, "loadFoo", []))
 
     @jsii.member(jsii_name="saveFoo")
     def save_foo(
         self,
-        value: _scope_jsii_calc_lib_c61f082f.EnumFromScopedModule,
+        value: "_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule",
     ) -> None:
         '''
         :param value: -
@@ -9549,13 +9551,13 @@ class ReferenceEnumFromScopedPackage(
     @jsii.member(jsii_name="foo")
     def foo(
         self,
-    ) -> typing.Optional[_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule]:
-        return typing.cast(typing.Optional[_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule], jsii.get(self, "foo"))
+    ) -> typing.Optional["_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule"]:
+        return typing.cast(typing.Optional["_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule"], jsii.get(self, "foo"))
 
     @foo.setter
     def foo(
         self,
-        value: typing.Optional[_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule],
+        value: typing.Optional["_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule"],
     ) -> None:
         jsii.set(self, "foo", value) # pyright: ignore[reportArgumentType]
 
@@ -9576,8 +9578,8 @@ class ReturnsPrivateImplementationOfInterface(
 
     @builtins.property
     @jsii.member(jsii_name="privateImplementation")
-    def private_implementation(self) -> IPrivatelyImplemented:
-        return typing.cast(IPrivatelyImplemented, jsii.get(self, "privateImplementation"))
+    def private_implementation(self) -> "IPrivatelyImplemented":
+        return typing.cast("IPrivatelyImplemented", jsii.get(self, "privateImplementation"))
 
 
 @jsii.data_type(
@@ -9590,7 +9592,7 @@ class RootStruct:
         self,
         *,
         string_prop: builtins.str,
-        nested_struct: typing.Optional[typing.Union[NestedStruct, typing.Dict[builtins.str, typing.Any]]] = None,
+        nested_struct: typing.Optional[typing.Union["NestedStruct", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 
@@ -9616,9 +9618,9 @@ class RootStruct:
         return typing.cast(builtins.str, result)
 
     @builtins.property
-    def nested_struct(self) -> typing.Optional[NestedStruct]:
+    def nested_struct(self) -> typing.Optional["NestedStruct"]:
         result = self._values.get("nested_struct")
-        return typing.cast(typing.Optional[NestedStruct], result)
+        return typing.cast(typing.Optional["NestedStruct"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -9642,7 +9644,7 @@ class RootStructValidator(
         cls,
         *,
         string_prop: builtins.str,
-        nested_struct: typing.Optional[typing.Union[NestedStruct, typing.Dict[builtins.str, typing.Any]]] = None,
+        nested_struct: typing.Optional[typing.Union["NestedStruct", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''
         :param string_prop: May not be empty.
@@ -9766,8 +9768,8 @@ class SingleInstanceTwoTypes(
         return typing.cast("InbetweenClass", jsii.invoke(self, "interface1", []))
 
     @jsii.member(jsii_name="interface2")
-    def interface2(self) -> IPublicInterface:
-        return typing.cast(IPublicInterface, jsii.invoke(self, "interface2", []))
+    def interface2(self) -> "IPublicInterface":
+        return typing.cast("IPublicInterface", jsii.invoke(self, "interface2", []))
 
 
 class SingletonInt(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonInt"):
@@ -9859,6 +9861,95 @@ class SmellyStruct:
         )
 
 
+class SomeContainingClass(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.SomeContainingClass",
+):
+    '''Check that we can have 2 interfaces in a class namespace inherit from each other.
+
+    This gave trouble in Python.
+
+    Also purposely have the types in the wrong order in the source code to catch potential ordering mistakes.
+    '''
+
+    def __init__(self) -> None:
+        jsii.create(self.__class__, self, [])
+
+    @jsii.member(jsii_name="sayHello")
+    def say_hello(self) -> builtins.str:
+        return typing.cast(builtins.str, jsii.invoke(self, "sayHello", []))
+
+    @jsii.data_type(
+        jsii_type="jsii-calc.SomeContainingClass.ParentStruct",
+        jsii_struct_bases=[],
+        name_mapping={"field1": "field1"},
+    )
+    class ParentStruct:
+        def __init__(self, *, field1: builtins.str) -> None:
+            '''
+            :param field1: 
+            '''
+            self._values: typing.Dict[builtins.str, typing.Any] = {
+                "field1": field1,
+            }
+
+        @builtins.property
+        def field1(self) -> builtins.str:
+            result = self._values.get("field1")
+            assert result is not None, "Required property 'field1' is missing"
+            return typing.cast(builtins.str, result)
+
+        def __eq__(self, rhs: typing.Any) -> builtins.bool:
+            return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+        def __ne__(self, rhs: typing.Any) -> builtins.bool:
+            return not (rhs == self)
+
+        def __repr__(self) -> str:
+            return "ParentStruct(%s)" % ", ".join(
+                k + "=" + repr(v) for k, v in self._values.items()
+            )
+
+    @jsii.data_type(
+        jsii_type="jsii-calc.SomeContainingClass.ChildStruct",
+        jsii_struct_bases=[ParentStruct],
+        name_mapping={"field1": "field1", "field2": "field2"},
+    )
+    class ChildStruct(ParentStruct):
+        def __init__(self, *, field1: builtins.str, field2: builtins.str) -> None:
+            '''
+            :param field1: 
+            :param field2: 
+            '''
+            self._values: typing.Dict[builtins.str, typing.Any] = {
+                "field1": field1,
+                "field2": field2,
+            }
+
+        @builtins.property
+        def field1(self) -> builtins.str:
+            result = self._values.get("field1")
+            assert result is not None, "Required property 'field1' is missing"
+            return typing.cast(builtins.str, result)
+
+        @builtins.property
+        def field2(self) -> builtins.str:
+            result = self._values.get("field2")
+            assert result is not None, "Required property 'field2' is missing"
+            return typing.cast(builtins.str, result)
+
+        def __eq__(self, rhs: typing.Any) -> builtins.bool:
+            return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+        def __ne__(self, rhs: typing.Any) -> builtins.bool:
+            return not (rhs == self)
+
+        def __repr__(self) -> str:
+            return "ChildStruct(%s)" % ", ".join(
+                k + "=" + repr(v) for k, v in self._values.items()
+            )
+
+
 class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii976"):
     def __init__(self) -> None:
         jsii.create(self.__class__, self, [])
@@ -9870,8 +9961,8 @@ class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii
 
     @jsii.member(jsii_name="returnReturn")
     @builtins.classmethod
-    def return_return(cls) -> IReturnJsii976:
-        return typing.cast(IReturnJsii976, jsii.sinvoke(cls, "returnReturn", []))
+    def return_return(cls) -> "IReturnJsii976":
+        return typing.cast("IReturnJsii976", jsii.sinvoke(cls, "returnReturn", []))
 
 
 class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
@@ -10160,7 +10251,7 @@ class StructB:
         *,
         required_string: builtins.str,
         optional_boolean: typing.Optional[builtins.bool] = None,
-        optional_struct_a: typing.Optional[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]]] = None,
+        optional_struct_a: typing.Optional[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
 
@@ -10190,9 +10281,9 @@ class StructB:
         return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
-    def optional_struct_a(self) -> typing.Optional[StructA]:
+    def optional_struct_a(self) -> typing.Optional["StructA"]:
         result = self._values.get("optional_struct_a")
-        return typing.cast(typing.Optional[StructA], result)
+        return typing.cast(typing.Optional["StructA"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -10280,7 +10371,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         _positional: jsii.Number,
         *,
         required: builtins.str,
-        second_level: typing.Union[jsii.Number, typing.Union[SecondLevelStruct, typing.Dict[builtins.str, typing.Any]]],
+        second_level: typing.Union[jsii.Number, typing.Union["SecondLevelStruct", typing.Dict[builtins.str, typing.Any]]],
         optional: typing.Optional[builtins.str] = None,
     ) -> "TopLevelStruct":
         '''
@@ -10304,7 +10395,7 @@ class StructUnionConsumer(
     @builtins.classmethod
     def is_struct_a(
         cls,
-        struct: typing.Union[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]], typing.Union[StructB, typing.Dict[builtins.str, typing.Any]]],
+        struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
     ) -> builtins.bool:
         '''
         :param struct: -
@@ -10315,7 +10406,7 @@ class StructUnionConsumer(
     @builtins.classmethod
     def is_struct_b(
         cls,
-        struct: typing.Union[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]], typing.Union[StructB, typing.Dict[builtins.str, typing.Any]]],
+        struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
     ) -> builtins.bool:
         '''
         :param struct: -
@@ -10324,11 +10415,11 @@ class StructUnionConsumer(
 
     @jsii.member(jsii_name="provideStruct")
     @builtins.classmethod
-    def provide_struct(cls, which: builtins.str) -> typing.Union[StructA, StructB]:
+    def provide_struct(cls, which: builtins.str) -> typing.Union["StructA", "StructB"]:
         '''
         :param which: -
         '''
-        return typing.cast(typing.Union[StructA, StructB], jsii.sinvoke(cls, "provideStruct", [which]))
+        return typing.cast(typing.Union["StructA", "StructB"], jsii.sinvoke(cls, "provideStruct", [which]))
 
 
 @jsii.data_type(
@@ -10340,7 +10431,7 @@ class StructWithCollectionOfUnionts:
     def __init__(
         self,
         *,
-        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]], typing.Union[StructB, typing.Dict[builtins.str, typing.Any]]]]],
+        union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]],
     ) -> None:
         '''
         :param union_property: 
@@ -10352,10 +10443,10 @@ class StructWithCollectionOfUnionts:
     @builtins.property
     def union_property(
         self,
-    ) -> typing.List[typing.Mapping[builtins.str, typing.Union[StructA, StructB]]]:
+    ) -> typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]]:
         result = self._values.get("union_property")
         assert result is not None, "Required property 'union_property' is missing"
-        return typing.cast(typing.List[typing.Mapping[builtins.str, typing.Union[StructA, StructB]]], result)
+        return typing.cast(typing.List[typing.Mapping[builtins.str, typing.Union["StructA", "StructB"]]], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -10378,8 +10469,8 @@ class StructWithEnum:
     def __init__(
         self,
         *,
-        foo: StringEnum,
-        bar: typing.Optional[AllTypesEnum] = None,
+        foo: "StringEnum",
+        bar: typing.Optional["AllTypesEnum"] = None,
     ) -> None:
         '''
         :param foo: An enum value.
@@ -10392,20 +10483,20 @@ class StructWithEnum:
             self._values["bar"] = bar
 
     @builtins.property
-    def foo(self) -> StringEnum:
+    def foo(self) -> "StringEnum":
         '''An enum value.'''
         result = self._values.get("foo")
         assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(StringEnum, result)
+        return typing.cast("StringEnum", result)
 
     @builtins.property
-    def bar(self) -> typing.Optional[AllTypesEnum]:
+    def bar(self) -> typing.Optional["AllTypesEnum"]:
         '''Optional enum value (of type integer).
 
         :default: AllTypesEnum.YOUR_ENUM_VALUE
         '''
         result = self._values.get("bar")
-        return typing.cast(typing.Optional[AllTypesEnum], result)
+        return typing.cast(typing.Optional["AllTypesEnum"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -10499,23 +10590,23 @@ class Sum(
 
     @builtins.property
     @jsii.member(jsii_name="expression")
-    def expression(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def expression(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The expression that this operation consists of.
 
         Must be implemented by derived classes.
         '''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "expression"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "expression"))
 
     @builtins.property
     @jsii.member(jsii_name="parts")
-    def parts(self) -> typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue]:
+    def parts(self) -> typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"]:
         '''The parts to sum.'''
-        return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue], jsii.get(self, "parts"))
+        return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"], jsii.get(self, "parts"))
 
     @parts.setter
     def parts(
         self,
-        value: typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue],
+        value: typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"],
     ) -> None:
         jsii.set(self, "parts", value) # pyright: ignore[reportArgumentType]
 
@@ -10730,8 +10821,8 @@ class TestStructWithEnum(
     def is_string_enum_a(
         self,
         *,
-        foo: StringEnum,
-        bar: typing.Optional[AllTypesEnum] = None,
+        foo: "StringEnum",
+        bar: typing.Optional["AllTypesEnum"] = None,
     ) -> builtins.bool:
         '''Returns true if \`\`foo\`\` is \`\`StringEnum.A\`\`.
 
@@ -10746,8 +10837,8 @@ class TestStructWithEnum(
     def is_string_enum_b(
         self,
         *,
-        foo: StringEnum,
-        bar: typing.Optional[AllTypesEnum] = None,
+        foo: "StringEnum",
+        bar: typing.Optional["AllTypesEnum"] = None,
     ) -> builtins.bool:
         '''Returns true if \`\`foo\`\` is \`\`StringEnum.B\`\` and \`\`bar\`\` is \`\`AllTypesEnum.THIS_IS_GREAT\`\`.
 
@@ -10760,15 +10851,15 @@ class TestStructWithEnum(
 
     @builtins.property
     @jsii.member(jsii_name="structWithFoo")
-    def struct_with_foo(self) -> StructWithEnum:
+    def struct_with_foo(self) -> "StructWithEnum":
         '''Returns \`\`foo: StringEnum.A\`\`.'''
-        return typing.cast(StructWithEnum, jsii.get(self, "structWithFoo"))
+        return typing.cast("StructWithEnum", jsii.get(self, "structWithFoo"))
 
     @builtins.property
     @jsii.member(jsii_name="structWithFooBar")
-    def struct_with_foo_bar(self) -> StructWithEnum:
+    def struct_with_foo_bar(self) -> "StructWithEnum":
         '''Returns \`\`foo: StringEnum.C\`\` and \`\`bar: AllTypesEnum.MY_ENUM_VALUE\`\`.'''
-        return typing.cast(StructWithEnum, jsii.get(self, "structWithFooBar"))
+        return typing.cast("StructWithEnum", jsii.get(self, "structWithFooBar"))
 
 
 class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
@@ -10794,7 +10885,7 @@ class TopLevelStruct:
         self,
         *,
         required: builtins.str,
-        second_level: typing.Union[jsii.Number, typing.Union[SecondLevelStruct, typing.Dict[builtins.str, typing.Any]]],
+        second_level: typing.Union[jsii.Number, typing.Union["SecondLevelStruct", typing.Dict[builtins.str, typing.Any]]],
         optional: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
@@ -10817,11 +10908,11 @@ class TopLevelStruct:
         return typing.cast(builtins.str, result)
 
     @builtins.property
-    def second_level(self) -> typing.Union[jsii.Number, SecondLevelStruct]:
+    def second_level(self) -> typing.Union[jsii.Number, "SecondLevelStruct"]:
         '''A union to really stress test our serialization.'''
         result = self._values.get("second_level")
         assert result is not None, "Required property 'second_level' is missing"
-        return typing.cast(typing.Union[jsii.Number, SecondLevelStruct], result)
+        return typing.cast(typing.Union[jsii.Number, "SecondLevelStruct"], result)
 
     @builtins.property
     def optional(self) -> typing.Optional[builtins.str]:
@@ -10892,7 +10983,7 @@ class UnaryOperation(
 ):
     '''An operation on a single operand.'''
 
-    def __init__(self, operand: _scope_jsii_calc_lib_c61f082f.NumericValue) -> None:
+    def __init__(self, operand: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
         '''
         :param operand: -
         '''
@@ -10900,8 +10991,8 @@ class UnaryOperation(
 
     @builtins.property
     @jsii.member(jsii_name="operand")
-    def operand(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "operand"))
+    def operand(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "operand"))
 
 
 class _UnaryOperationProxy(
@@ -10923,7 +11014,7 @@ class UnionProperties:
     def __init__(
         self,
         *,
-        bar: typing.Union[builtins.str, jsii.Number, AllTypes],
+        bar: typing.Union[builtins.str, jsii.Number, "AllTypes"],
         foo: typing.Optional[typing.Union[builtins.str, jsii.Number]] = None,
     ) -> None:
         '''
@@ -10937,10 +11028,10 @@ class UnionProperties:
             self._values["foo"] = foo
 
     @builtins.property
-    def bar(self) -> typing.Union[builtins.str, jsii.Number, AllTypes]:
+    def bar(self) -> typing.Union[builtins.str, jsii.Number, "AllTypes"]:
         result = self._values.get("bar")
         assert result is not None, "Required property 'bar' is missing"
-        return typing.cast(typing.Union[builtins.str, jsii.Number, AllTypes], result)
+        return typing.cast(typing.Union[builtins.str, jsii.Number, "AllTypes"], result)
 
     @builtins.property
     def foo(self) -> typing.Optional[typing.Union[builtins.str, jsii.Number]]:
@@ -10974,15 +11065,17 @@ class UpcasingReflectable(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="reflector")
-    def REFLECTOR(cls) -> _scope_jsii_calc_lib_custom_submodule_name_c61f082f.Reflector:
-        return typing.cast(_scope_jsii_calc_lib_custom_submodule_name_c61f082f.Reflector, jsii.sget(cls, "reflector"))
+    def REFLECTOR(
+        cls,
+    ) -> "_scope_jsii_calc_lib_custom_submodule_name_c61f082f.Reflector":
+        return typing.cast("_scope_jsii_calc_lib_custom_submodule_name_c61f082f.Reflector", jsii.sget(cls, "reflector"))
 
     @builtins.property
     @jsii.member(jsii_name="entries")
     def entries(
         self,
-    ) -> typing.List[_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ReflectableEntry]:
-        return typing.cast(typing.List[_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ReflectableEntry], jsii.get(self, "entries"))
+    ) -> typing.List["_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ReflectableEntry"]:
+        return typing.cast(typing.List["_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ReflectableEntry"], jsii.get(self, "entries"))
 
 
 class UseBundledDependency(
@@ -11004,15 +11097,15 @@ class UseCalcBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseCalcBase"):
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="hello")
-    def hello(self) -> _scope_jsii_calc_base_734f0262.Base:
-        return typing.cast(_scope_jsii_calc_base_734f0262.Base, jsii.invoke(self, "hello", []))
+    def hello(self) -> "_scope_jsii_calc_base_734f0262.Base":
+        return typing.cast("_scope_jsii_calc_base_734f0262.Base", jsii.invoke(self, "hello", []))
 
 
 class UsesInterfaceWithProperties(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.UsesInterfaceWithProperties",
 ):
-    def __init__(self, obj: IInterfaceWithProperties) -> None:
+    def __init__(self, obj: "IInterfaceWithProperties") -> None:
         '''
         :param obj: -
         '''
@@ -11025,7 +11118,7 @@ class UsesInterfaceWithProperties(
     @jsii.member(jsii_name="readStringAndNumber")
     def read_string_and_number(
         self,
-        ext: IInterfaceWithPropertiesExtension,
+        ext: "IInterfaceWithPropertiesExtension",
     ) -> builtins.str:
         '''
         :param ext: -
@@ -11041,8 +11134,8 @@ class UsesInterfaceWithProperties(
 
     @builtins.property
     @jsii.member(jsii_name="obj")
-    def obj(self) -> IInterfaceWithProperties:
-        return typing.cast(IInterfaceWithProperties, jsii.get(self, "obj"))
+    def obj(self) -> "IInterfaceWithProperties":
+        return typing.cast("IInterfaceWithProperties", jsii.get(self, "obj"))
 
 
 class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvoker"):
@@ -11084,7 +11177,7 @@ class VariadicTypeUnion(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.VariadicTypeUnion",
 ):
-    def __init__(self, *union: typing.Union[StructA, StructB]) -> None:
+    def __init__(self, *union: typing.Union["StructA", "StructB"]) -> None:
         '''
         :param union: -
         '''
@@ -11092,11 +11185,11 @@ class VariadicTypeUnion(
 
     @builtins.property
     @jsii.member(jsii_name="union")
-    def union(self) -> typing.List[typing.Union[StructA, StructB]]:
-        return typing.cast(typing.List[typing.Union[StructA, StructB]], jsii.get(self, "union"))
+    def union(self) -> typing.List[typing.Union["StructA", "StructB"]]:
+        return typing.cast(typing.List[typing.Union["StructA", "StructB"]], jsii.get(self, "union"))
 
     @union.setter
-    def union(self, value: typing.List[typing.Union[StructA, StructB]]) -> None:
+    def union(self, value: typing.List[typing.Union["StructA", "StructB"]]) -> None:
         jsii.set(self, "union", value) # pyright: ignore[reportArgumentType]
 
 
@@ -11273,8 +11366,8 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 
     def __init__(
         self,
-        lhs: _scope_jsii_calc_lib_c61f082f.NumericValue,
-        rhs: _scope_jsii_calc_lib_c61f082f.NumericValue,
+        lhs: "_scope_jsii_calc_lib_c61f082f.NumericValue",
+        rhs: "_scope_jsii_calc_lib_c61f082f.NumericValue",
     ) -> None:
         '''Creates a BinaryOperation.
 
@@ -11304,12 +11397,12 @@ class AnonymousImplementationProvider(
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="provideAsClass")
-    def provide_as_class(self) -> Implementation:
-        return typing.cast(Implementation, jsii.invoke(self, "provideAsClass", []))
+    def provide_as_class(self) -> "Implementation":
+        return typing.cast("Implementation", jsii.invoke(self, "provideAsClass", []))
 
     @jsii.member(jsii_name="provideAsInterface")
-    def provide_as_interface(self) -> IAnonymouslyImplementMe:
-        return typing.cast(IAnonymouslyImplementMe, jsii.invoke(self, "provideAsInterface", []))
+    def provide_as_interface(self) -> "IAnonymouslyImplementMe":
+        return typing.cast("IAnonymouslyImplementMe", jsii.invoke(self, "provideAsInterface", []))
 
 
 @jsii.implements(IBell)
@@ -11631,7 +11724,7 @@ class JSII417Derived(
 class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negate"):
     '''The negation operation ("-value").'''
 
-    def __init__(self, operand: _scope_jsii_calc_lib_c61f082f.NumericValue) -> None:
+    def __init__(self, operand: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
         '''
         :param operand: -
         '''
@@ -11694,7 +11787,7 @@ class SupportsNiceJavaBuilder(
         self,
         id: jsii.Number,
         default_bar: typing.Optional[jsii.Number] = None,
-        props: typing.Optional[typing.Union[SupportsNiceJavaBuilderProps, typing.Dict[builtins.str, typing.Any]]] = None,
+        props: typing.Optional[typing.Union["SupportsNiceJavaBuilderProps", typing.Dict[builtins.str, typing.Any]]] = None,
         *rest: builtins.str,
     ) -> None:
         '''
@@ -11917,6 +12010,7 @@ __all__ = [
     "SingletonString",
     "SingletonStringEnum",
     "SmellyStruct",
+    "SomeContainingClass",
     "SomeTypeJsii976",
     "StableClass",
     "StableEnum",
@@ -12159,7 +12253,7 @@ typing.cast(typing.Any, IOptionB).__jsii_proxy_class__ = lambda : _IOptionBProxy
 class UseOptions(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.anonymous.UseOptions"):
     @jsii.member(jsii_name="consume")
     @builtins.classmethod
-    def consume(cls, option: typing.Union[IOptionA, IOptionB]) -> builtins.str:
+    def consume(cls, option: typing.Union["IOptionA", "IOptionB"]) -> builtins.str:
         '''
         :param option: -
         '''
@@ -12175,11 +12269,11 @@ class UseOptions(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.anonymous.UseOpti
 
     @jsii.member(jsii_name="provide")
     @builtins.classmethod
-    def provide(cls, which: builtins.str) -> typing.Union[IOptionA, IOptionB]:
+    def provide(cls, which: builtins.str) -> typing.Union["IOptionA", "IOptionB"]:
         '''
         :param which: -
         '''
-        return typing.cast(typing.Union[IOptionA, IOptionB], jsii.sinvoke(cls, "provide", [which]))
+        return typing.cast(typing.Union["IOptionA", "IOptionB"], jsii.sinvoke(cls, "provide", [which]))
 
 
 __all__ = [
@@ -12245,7 +12339,7 @@ class Cdk16625(
 
     @jsii.member(jsii_name="unwrap")
     @abc.abstractmethod
-    def _unwrap(self, gen: _IRandomNumberGenerator_9643a8b9) -> jsii.Number:
+    def _unwrap(self, gen: "_IRandomNumberGenerator_9643a8b9") -> jsii.Number:
         '''Implement this functin to return \`\`gen.next()\`\`. It is extremely important that the \`\`donotimport\`\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
 
         :param gen: a VERY pseudo random number generator.
@@ -12255,7 +12349,7 @@ class Cdk16625(
 
 class _Cdk16625Proxy(Cdk16625):
     @jsii.member(jsii_name="unwrap")
-    def _unwrap(self, gen: _IRandomNumberGenerator_9643a8b9) -> jsii.Number:
+    def _unwrap(self, gen: "_IRandomNumberGenerator_9643a8b9") -> jsii.Number:
         '''Implement this functin to return \`\`gen.next()\`\`. It is extremely important that the \`\`donotimport\`\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
 
         :param gen: a VERY pseudo random number generator.
@@ -12491,7 +12585,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="expression")
     @abc.abstractmethod
-    def expression(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def expression(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The expression that this operation consists of.
 
         Must be implemented by derived classes.
@@ -12552,12 +12646,12 @@ class _CompositeOperationProxy(
 ):
     @builtins.property
     @jsii.member(jsii_name="expression")
-    def expression(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
+    def expression(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
         '''The expression that this operation consists of.
 
         Must be implemented by derived classes.
         '''
-        return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "expression"))
+        return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "expression"))
 
 # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
 typing.cast(typing.Any, CompositeOperation).__jsii_proxy_class__ = lambda : _CompositeOperationProxy
@@ -12703,18 +12797,18 @@ class Base(
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="createSomething")
-    def create_something(self) -> Superclass:
-        return typing.cast(Superclass, jsii.invoke(self, "createSomething", []))
+    def create_something(self) -> "Superclass":
+        return typing.cast("Superclass", jsii.invoke(self, "createSomething", []))
 
     @builtins.property
     @jsii.member(jsii_name="list")
-    def list(self) -> typing.List[Superclass]:
-        return typing.cast(typing.List[Superclass], jsii.get(self, "list"))
+    def list(self) -> typing.List["Superclass"]:
+        return typing.cast(typing.List["Superclass"], jsii.get(self, "list"))
 
     @builtins.property
     @jsii.member(jsii_name="something")
-    def something(self) -> Superclass:
-        return typing.cast(Superclass, jsii.get(self, "something"))
+    def something(self) -> "Superclass":
+        return typing.cast("Superclass", jsii.get(self, "something"))
 
 
 class Middle(
@@ -12781,8 +12875,8 @@ class Derived(
 
     @builtins.property
     @jsii.member(jsii_name="list")
-    def list(self) -> typing.List[Superclass]:
-        return typing.cast(typing.List[Superclass], jsii.get(self, "list"))
+    def list(self) -> typing.List["Superclass"]:
+        return typing.cast(typing.List["Superclass"], jsii.get(self, "list"))
 
     @builtins.property
     @jsii.member(jsii_name="something")
@@ -13708,7 +13802,7 @@ class NonPascalCaseTest(
     def __init__(
         self,
         *,
-        some_type: typing.Union[_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType, typing.Dict[builtins.str, typing.Any]],
+        some_type: typing.Union["_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
         '''
         :param some_type: 
@@ -13726,8 +13820,8 @@ class NonPascalCaseTest(
     @jsii.member(jsii_name="someType")
     def some_type(
         self,
-    ) -> _scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType:
-        return typing.cast(_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType, jsii.get(self, "someType"))
+    ) -> "_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType":
+        return typing.cast("_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType", jsii.get(self, "someType"))
 
 
 @jsii.data_type(
@@ -13739,7 +13833,7 @@ class NonPascalCaseTestProps:
     def __init__(
         self,
         *,
-        some_type: typing.Union[_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType, typing.Dict[builtins.str, typing.Any]],
+        some_type: typing.Union["_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
         '''
         :param some_type: 
@@ -13753,10 +13847,10 @@ class NonPascalCaseTestProps:
     @builtins.property
     def some_type(
         self,
-    ) -> _scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType:
+    ) -> "_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType":
         result = self._values.get("some_type")
         assert result is not None, "Required property 'some_type' is missing"
-        return typing.cast(_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType, result)
+        return typing.cast("_scope_jsii_calc_lib_custom_submodule_name_c61f082f.ClassWithNONPASCALCASEDName.SomeType", result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -13954,7 +14048,7 @@ class ExtendAndImplement(
     :see: https://github.com/aws/jsii/issues/2647
     '''
 
-    def __init__(self, very: _scope_jsii_calc_base_of_base_49fa37fe.Very) -> None:
+    def __init__(self, very: "_scope_jsii_calc_base_of_base_49fa37fe.Very") -> None:
         '''
         :param very: -
 
@@ -14077,7 +14171,7 @@ class MyClass(
     @jsii.member(jsii_name="bar")
     def bar(
         self,
-        _bar: typing.Mapping[builtins.str, typing.Union[_scope_jsii_calc_base_734f0262.BaseProps, typing.Dict[builtins.str, typing.Any]]],
+        _bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
     ) -> None:
         '''
         :param _bar: -
@@ -14087,7 +14181,7 @@ class MyClass(
     @jsii.member(jsii_name="foo")
     def foo(
         self,
-        _values: typing.Sequence[_scope_jsii_calc_lib_c61f082f.Number],
+        _values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
     ) -> None:
         '''
         :param _values: -
@@ -14148,13 +14242,13 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2689.props.MyC
     @jsii.member(jsii_name="bar")
     def bar(
         self,
-    ) -> typing.Mapping[builtins.str, _scope_jsii_calc_base_734f0262.BaseProps]:
-        return typing.cast(typing.Mapping[builtins.str, _scope_jsii_calc_base_734f0262.BaseProps], jsii.get(self, "bar"))
+    ) -> typing.Mapping[builtins.str, "_scope_jsii_calc_base_734f0262.BaseProps"]:
+        return typing.cast(typing.Mapping[builtins.str, "_scope_jsii_calc_base_734f0262.BaseProps"], jsii.get(self, "bar"))
 
     @builtins.property
     @jsii.member(jsii_name="foo")
-    def foo(self) -> typing.List[_scope_jsii_calc_lib_c61f082f.Number]:
-        return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.Number], jsii.get(self, "foo"))
+    def foo(self) -> typing.List["_scope_jsii_calc_lib_c61f082f.Number"]:
+        return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.Number"], jsii.get(self, "foo"))
 
 
 __all__ = [
@@ -14209,12 +14303,12 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2689.retval.My
     @jsii.member(jsii_name="bar")
     def bar(
         self,
-    ) -> typing.Mapping[builtins.str, _scope_jsii_calc_base_734f0262.BaseProps]:
-        return typing.cast(typing.Mapping[builtins.str, _scope_jsii_calc_base_734f0262.BaseProps], jsii.invoke(self, "bar", []))
+    ) -> typing.Mapping[builtins.str, "_scope_jsii_calc_base_734f0262.BaseProps"]:
+        return typing.cast(typing.Mapping[builtins.str, "_scope_jsii_calc_base_734f0262.BaseProps"], jsii.invoke(self, "bar", []))
 
     @jsii.member(jsii_name="foo")
-    def foo(self) -> typing.List[_scope_jsii_calc_lib_c61f082f.Number]:
-        return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.Number], jsii.invoke(self, "foo", []))
+    def foo(self) -> typing.List["_scope_jsii_calc_lib_c61f082f.Number"]:
+        return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.Number"], jsii.invoke(self, "foo", []))
 
 
 __all__ = [
@@ -14271,8 +14365,8 @@ class MyStruct:
     def __init__(
         self,
         *,
-        base_map: typing.Mapping[builtins.str, typing.Union[_scope_jsii_calc_base_734f0262.BaseProps, typing.Dict[builtins.str, typing.Any]]],
-        numbers: typing.Sequence[_scope_jsii_calc_lib_c61f082f.Number],
+        base_map: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
+        numbers: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
     ) -> None:
         '''
         :param base_map: 
@@ -14286,16 +14380,16 @@ class MyStruct:
     @builtins.property
     def base_map(
         self,
-    ) -> typing.Mapping[builtins.str, _scope_jsii_calc_base_734f0262.BaseProps]:
+    ) -> typing.Mapping[builtins.str, "_scope_jsii_calc_base_734f0262.BaseProps"]:
         result = self._values.get("base_map")
         assert result is not None, "Required property 'base_map' is missing"
-        return typing.cast(typing.Mapping[builtins.str, _scope_jsii_calc_base_734f0262.BaseProps], result)
+        return typing.cast(typing.Mapping[builtins.str, "_scope_jsii_calc_base_734f0262.BaseProps"], result)
 
     @builtins.property
-    def numbers(self) -> typing.List[_scope_jsii_calc_lib_c61f082f.Number]:
+    def numbers(self) -> typing.List["_scope_jsii_calc_lib_c61f082f.Number"]:
         result = self._values.get("numbers")
         assert result is not None, "Required property 'numbers' is missing"
-        return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.Number], result)
+        return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.Number"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -15445,7 +15539,7 @@ class Default:
 
 @jsii.implements(_INamespaced_e2f386ad)
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
-    def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
+    def __init__(self, *, prop: "_SomeEnum_b2e41d92") -> None:
         '''
         :param prop: 
         '''
@@ -15464,8 +15558,8 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
     @builtins.property
     @jsii.member(jsii_name="awesomeness")
-    def awesomeness(self) -> _Awesomeness_d37a24df:
-        return typing.cast(_Awesomeness_d37a24df, jsii.get(self, "awesomeness"))
+    def awesomeness(self) -> "_Awesomeness_d37a24df":
+        return typing.cast("_Awesomeness_d37a24df", jsii.get(self, "awesomeness"))
 
     @builtins.property
     @jsii.member(jsii_name="definedAt")
@@ -15474,21 +15568,21 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
     @builtins.property
     @jsii.member(jsii_name="goodness")
-    def goodness(self) -> _Goodness_2df26737:
-        return typing.cast(_Goodness_2df26737, jsii.get(self, "goodness"))
+    def goodness(self) -> "_Goodness_2df26737":
+        return typing.cast("_Goodness_2df26737", jsii.get(self, "goodness"))
 
     @builtins.property
     @jsii.member(jsii_name="props")
-    def props(self) -> _SomeStruct_91627123:
-        return typing.cast(_SomeStruct_91627123, jsii.get(self, "props"))
+    def props(self) -> "_SomeStruct_91627123":
+        return typing.cast("_SomeStruct_91627123", jsii.get(self, "props"))
 
     @builtins.property
     @jsii.member(jsii_name="allTypes")
-    def all_types(self) -> typing.Optional[_AllTypes_b08307c5]:
-        return typing.cast(typing.Optional[_AllTypes_b08307c5], jsii.get(self, "allTypes"))
+    def all_types(self) -> typing.Optional["_AllTypes_b08307c5"]:
+        return typing.cast(typing.Optional["_AllTypes_b08307c5"], jsii.get(self, "allTypes"))
 
     @all_types.setter
-    def all_types(self, value: typing.Optional[_AllTypes_b08307c5]) -> None:
+    def all_types(self, value: typing.Optional["_AllTypes_b08307c5"]) -> None:
         jsii.set(self, "allTypes", value) # pyright: ignore[reportArgumentType]
 
 
@@ -15557,7 +15651,7 @@ from .. import MyClass as _MyClass_a2fdc0b6
     name_mapping={"reference": "reference"},
 )
 class MyClassReference:
-    def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
+    def __init__(self, *, reference: "_MyClass_a2fdc0b6") -> None:
         '''
         :param reference: 
         '''
@@ -15566,10 +15660,10 @@ class MyClassReference:
         }
 
     @builtins.property
-    def reference(self) -> _MyClass_a2fdc0b6:
+    def reference(self) -> "_MyClass_a2fdc0b6":
         result = self._values.get("reference")
         assert result is not None, "Required property 'reference' is missing"
-        return typing.cast(_MyClass_a2fdc0b6, result)
+        return typing.cast("_MyClass_a2fdc0b6", result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -15668,8 +15762,8 @@ class OuterClass(
 
     @builtins.property
     @jsii.member(jsii_name="innerClass")
-    def inner_class(self) -> InnerClass:
-        return typing.cast(InnerClass, jsii.get(self, "innerClass"))
+    def inner_class(self) -> "InnerClass":
+        return typing.cast("InnerClass", jsii.get(self, "innerClass"))
 
 
 @jsii.enum(jsii_type="jsii-calc.submodule.child.SomeEnum")
@@ -15683,7 +15777,7 @@ class SomeEnum(enum.Enum):
     name_mapping={"prop": "prop"},
 )
 class SomeStruct:
-    def __init__(self, *, prop: SomeEnum) -> None:
+    def __init__(self, *, prop: "SomeEnum") -> None:
         '''
         :param prop: 
         '''
@@ -15692,10 +15786,10 @@ class SomeStruct:
         }
 
     @builtins.property
-    def prop(self) -> SomeEnum:
+    def prop(self) -> "SomeEnum":
         result = self._values.get("prop")
         assert result is not None, "Required property 'prop' is missing"
-        return typing.cast(SomeEnum, result)
+        return typing.cast("SomeEnum", result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -15750,7 +15844,7 @@ class KwargsProps(SomeStruct):
     def __init__(
         self,
         *,
-        prop: SomeEnum,
+        prop: "SomeEnum",
         extra: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
@@ -15764,10 +15858,10 @@ class KwargsProps(SomeStruct):
             self._values["extra"] = extra
 
     @builtins.property
-    def prop(self) -> SomeEnum:
+    def prop(self) -> "SomeEnum":
         result = self._values.get("prop")
         assert result is not None, "Required property 'prop' is missing"
-        return typing.cast(SomeEnum, result)
+        return typing.cast("SomeEnum", result)
 
     @builtins.property
     def extra(self) -> typing.Optional[builtins.str]:
@@ -15853,7 +15947,7 @@ class Kwargs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.isolated.Kw
         cls,
         *,
         extra: typing.Optional[builtins.str] = None,
-        prop: _SomeEnum_b2e41d92,
+        prop: "_SomeEnum_b2e41d92",
     ) -> builtins.bool:
         '''
         :param extra: 
@@ -15922,15 +16016,15 @@ class Namespaced(
     @builtins.property
     @jsii.member(jsii_name="goodness")
     @abc.abstractmethod
-    def goodness(self) -> _Goodness_2df26737:
+    def goodness(self) -> "_Goodness_2df26737":
         ...
 
 
 class _NamespacedProxy(Namespaced):
     @builtins.property
     @jsii.member(jsii_name="goodness")
-    def goodness(self) -> _Goodness_2df26737:
-        return typing.cast(_Goodness_2df26737, jsii.get(self, "goodness"))
+    def goodness(self) -> "_Goodness_2df26737":
+        return typing.cast("_Goodness_2df26737", jsii.get(self, "goodness"))
 
 # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
 typing.cast(typing.Any, Namespaced).__jsii_proxy_class__ = lambda : _NamespacedProxy
@@ -16133,8 +16227,8 @@ class ReturnsSpecialParameter(
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="returnsSpecialParam")
-    def returns_special_param(self) -> _SpecialParameter_5bbf34a2:
-        return typing.cast(_SpecialParameter_5bbf34a2, jsii.invoke(self, "returnsSpecialParam", []))
+    def returns_special_param(self) -> "_SpecialParameter_5bbf34a2":
+        return typing.cast("_SpecialParameter_5bbf34a2", jsii.invoke(self, "returnsSpecialParam", []))
 
 
 __all__ = [
@@ -16186,7 +16280,7 @@ class ConsumesUnion(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.union.Consumes
     @builtins.classmethod
     def union_type(
         cls,
-        param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "IResolvable", "Resolvable"],
+        param: typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "IResolvable", "Resolvable"],
     ) -> None:
         '''
         :param param: -
@@ -16469,7 +16563,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @map_property.setter
      def map_property(
          self,
-         value: typing.Mapping[builtins.str, _scope_jsii_calc_lib_c61f082f.Number],
+         value: typing.Mapping[builtins.str, "_scope_jsii_calc_lib_c61f082f.Number"],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__ce34799b1443789feb28cffe434f5bcbb9cb940065992aa75dbb30eb89cd78e6)
@@ -16507,7 +16601,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @union_array_property.setter
      def union_array_property(
          self,
-         value: typing.List[typing.Union[jsii.Number, _scope_jsii_calc_lib_c61f082f.NumericValue]],
+         value: typing.List[typing.Union[jsii.Number, "_scope_jsii_calc_lib_c61f082f.NumericValue"]],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__4a9e87035008a2c1b649b911c8cfc02f2723230d8ced957948b2948c76caf61a)
@@ -16521,7 +16615,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @union_map_property.setter
      def union_map_property(
          self,
-         value: typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number]],
+         value: typing.Mapping[builtins.str, typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number"]],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__62ebee42e1871545bc2e82cfb9c7fe43b5a607c8f662caff89dda0f0ed99a3df)
@@ -16535,7 +16629,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @union_property.setter
      def union_property(
          self,
-         value: typing.Union[builtins.str, jsii.Number, _scope_jsii_calc_lib_c61f082f.Number, "Multiply"],
+         value: typing.Union[builtins.str, jsii.Number, "_scope_jsii_calc_lib_c61f082f.Number", "Multiply"],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__c9be2756a18e8a40eb03cf55231201574f76abf02996a73d0d75fefd1393473d)
@@ -16761,12 +16855,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="readUnionValue")
      def read_union_value(self) -> jsii.Number:
          '''Returns teh value of the union property (if defined).'''
-@@ -756,20 +869,26 @@
+@@ -758,20 +871,26 @@
          '''The current value.'''
-         return typing.cast(_scope_jsii_calc_lib_c61f082f.NumericValue, jsii.get(self, "curr"))
+         return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "curr"))
  
      @curr.setter
-     def curr(self, value: _scope_jsii_calc_lib_c61f082f.NumericValue) -> None:
+     def curr(self, value: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__c74abb191c66f86aed2c139ec3e50b0442b6d3bdcd41beb06db17c9b3c5d93d0)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -16788,7 +16882,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -781,10 +900,13 @@
+@@ -783,10 +902,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -16802,7 +16896,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.CalculatorProps",
-@@ -801,10 +923,14 @@
+@@ -803,10 +925,14 @@
          '''Properties for Calculator.
  
          :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
@@ -16817,7 +16911,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["initial_value"] = initial_value
          if maximum_value is not None:
              self._values["maximum_value"] = maximum_value
-@@ -850,10 +976,13 @@
+@@ -852,10 +978,13 @@
          union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]],
      ) -> None:
          '''
@@ -16831,7 +16925,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -864,10 +993,13 @@
+@@ -866,10 +995,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -16845,7 +16939,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ClassWithCollections(
      metaclass=jsii.JSIIMeta,
-@@ -880,10 +1012,14 @@
+@@ -882,10 +1014,14 @@
      ) -> None:
          '''
          :param map: -
@@ -16860,7 +16954,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="createAList")
      @builtins.classmethod
      def create_a_list(cls) -> typing.List[builtins.str]:
-@@ -899,37 +1035,49 @@
+@@ -901,37 +1037,49 @@
      def static_array(cls) -> typing.List[builtins.str]:  # pyright: ignore [reportGeneralTypeIssues,reportRedeclaration]
          return typing.cast(typing.List[builtins.str], jsii.sget(cls, "staticArray"))
  
@@ -16910,7 +17004,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ClassWithContainerTypes(
      metaclass=jsii.JSIIMeta,
-@@ -951,10 +1099,15 @@
+@@ -953,10 +1101,15 @@
          :param obj: -
          :param array_prop: 
          :param obj_prop: 
@@ -16926,7 +17020,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          )
  
          jsii.create(self.__class__, self, [array, record, obj, props])
-@@ -1004,17 +1157,23 @@
+@@ -1006,17 +1159,23 @@
  ):
      def __init__(self, int: builtins.str) -> None:
          '''
@@ -16950,7 +17044,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="int")
      def int(self) -> builtins.str:
-@@ -1033,10 +1192,13 @@
+@@ -1035,10 +1194,13 @@
      def mutable_object(self) -> "IMutableObjectLiteral":
          return typing.cast("IMutableObjectLiteral", jsii.get(self, "mutableObject"))
  
@@ -16964,7 +17058,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ClassWithNestedUnion(
      metaclass=jsii.JSIIMeta,
-@@ -1047,10 +1209,13 @@
+@@ -1049,10 +1211,13 @@
          union_property: typing.Sequence[typing.Union[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]], typing.Sequence[typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]]],
      ) -> None:
          '''
@@ -16978,7 +17072,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -1061,10 +1226,13 @@
+@@ -1063,10 +1228,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -16992,11 +17086,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ConfusingToJackson(
      metaclass=jsii.JSIIMeta,
-@@ -1095,10 +1263,13 @@
+@@ -1097,10 +1265,13 @@
      @union_property.setter
      def union_property(
          self,
-         value: typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.List[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]],
+         value: typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__ec229cc92e04670f4dca9546759b3b39ee813eb1aa18057135bb155d08971e6a)
@@ -17006,8 +17100,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ConfusingToJacksonStruct",
-@@ -1112,10 +1283,13 @@
-         union_property: typing.Optional[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, typing.Sequence[typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "AbstractClass"]]]] = None,
+@@ -1114,10 +1285,13 @@
+         union_property: typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.Sequence[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]] = None,
      ) -> None:
          '''
          :param union_property: 
@@ -17020,7 +17114,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["union_property"] = union_property
  
      @builtins.property
-@@ -1143,10 +1317,13 @@
+@@ -1145,10 +1319,13 @@
  ):
      def __init__(self, consumer: "PartiallyInitializedThisConsumer") -> None:
          '''
@@ -17034,7 +17128,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
      def __init__(self) -> None:
-@@ -1194,10 +1371,13 @@
+@@ -1196,10 +1373,13 @@
  ):
      def __init__(self, delegate: "IStructReturningDelegate") -> None:
          '''
@@ -17048,7 +17142,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="workItBaby")
      def work_it_baby(self) -> "StructB":
          return typing.cast("StructB", jsii.invoke(self, "workItBaby", []))
-@@ -1226,10 +1406,13 @@
+@@ -1228,10 +1408,13 @@
  
          Returns whether the bell was rung.
  
@@ -17062,7 +17156,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticImplementedByPrivateClass")
      @builtins.classmethod
      def static_implemented_by_private_class(
-@@ -1240,10 +1423,13 @@
+@@ -1242,10 +1425,13 @@
  
          Return whether the bell was rung.
  
@@ -17076,7 +17170,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticImplementedByPublicClass")
      @builtins.classmethod
      def static_implemented_by_public_class(cls, ringer: "IBellRinger") -> builtins.bool:
-@@ -1251,10 +1437,13 @@
+@@ -1253,10 +1439,13 @@
  
          Return whether the bell was rung.
  
@@ -17090,7 +17184,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticWhenTypedAsClass")
      @builtins.classmethod
      def static_when_typed_as_class(cls, ringer: "IConcreteBellRinger") -> builtins.bool:
-@@ -1262,50 +1451,65 @@
+@@ -1264,50 +1453,65 @@
  
          Return whether the bell was rung.
  
@@ -17156,7 +17250,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ConsumersOfThisCrazyTypeSystem(
      metaclass=jsii.JSIIMeta,
-@@ -1320,20 +1524,26 @@
+@@ -1322,20 +1526,26 @@
          obj: "IAnotherPublicInterface",
      ) -> builtins.str:
          '''
@@ -17183,7 +17277,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ContainerProps",
-@@ -1355,10 +1565,15 @@
+@@ -1357,10 +1567,15 @@
          '''
          :param array_prop: 
          :param obj_prop: 
@@ -17199,7 +17293,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "obj_prop": obj_prop,
              "record_prop": record_prop,
          }
-@@ -1424,17 +1639,23 @@
+@@ -1426,17 +1641,23 @@
          data: typing.Mapping[builtins.str, typing.Any],
      ) -> builtins.str:
          '''
@@ -17223,7 +17317,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Default(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Default"):
      '''A class named "Default".
-@@ -1463,10 +1684,15 @@
+@@ -1465,10 +1686,15 @@
          '''
          :param arg1: -
          :param arg2: -
@@ -17239,7 +17333,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="arg1")
      def arg1(self) -> jsii.Number:
-@@ -1524,10 +1750,14 @@
+@@ -1526,10 +1752,14 @@
  
          :deprecated: this constructor is "just" okay
  
@@ -17254,7 +17348,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -1557,10 +1787,13 @@
+@@ -1559,10 +1789,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17268,7 +17362,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.DeprecatedEnum")
  class DeprecatedEnum(enum.Enum):
-@@ -1596,10 +1829,13 @@
+@@ -1598,10 +1831,13 @@
  
          :deprecated: it just wraps a string
  
@@ -17282,7 +17376,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -1664,10 +1900,21 @@
+@@ -1666,10 +1902,21 @@
          :param non_primitive: An example of a non primitive property.
          :param another_optional: This is optional.
          :param optional_any: 
@@ -17304,7 +17398,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "astring": astring,
              "another_required": another_required,
              "bool": bool,
-@@ -1788,10 +2035,16 @@
+@@ -1790,10 +2037,16 @@
          :param hoisted_top: 
          :param left: 
          :param right: 
@@ -17321,7 +17415,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["hoisted_top"] = hoisted_top
          if left is not None:
              self._values["left"] = left
-@@ -1849,10 +2102,13 @@
+@@ -1851,10 +2104,13 @@
  class DiamondInheritanceBaseLevelStruct:
      def __init__(self, *, base_level_property: builtins.str) -> None:
          '''
@@ -17335,7 +17429,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -1890,10 +2146,14 @@
+@@ -1892,10 +2148,14 @@
      ) -> None:
          '''
          :param base_level_property: 
@@ -17350,7 +17444,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "first_mid_level_property": first_mid_level_property,
          }
  
-@@ -1938,10 +2198,14 @@
+@@ -1940,10 +2200,14 @@
      ) -> None:
          '''
          :param base_level_property: 
@@ -17365,7 +17459,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "second_mid_level_property": second_mid_level_property,
          }
  
-@@ -1997,10 +2261,16 @@
+@@ -1999,10 +2263,16 @@
          :param base_level_property: 
          :param first_mid_level_property: 
          :param second_mid_level_property: 
@@ -17382,7 +17476,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "first_mid_level_property": first_mid_level_property,
              "second_mid_level_property": second_mid_level_property,
              "top_level_property": top_level_property,
-@@ -2080,10 +2350,13 @@
+@@ -2082,10 +2352,13 @@
      @jsii.member(jsii_name="changePrivatePropertyValue")
      def change_private_property_value(self, new_value: builtins.str) -> None:
          '''
@@ -17396,7 +17490,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="privateMethodValue")
      def private_method_value(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.invoke(self, "privateMethodValue", []))
-@@ -2112,10 +2385,15 @@
+@@ -2114,10 +2387,15 @@
          '''
          :param _required_any: -
          :param _optional_any: -
@@ -17412,7 +17506,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedClass"):
      '''Here's the first line of the TSDoc comment.
-@@ -2187,10 +2465,14 @@
+@@ -2189,10 +2467,14 @@
      ) -> builtins.str:
          '''
          :param optional: -
@@ -17427,7 +17521,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.DontUseMe",
-@@ -2203,10 +2485,13 @@
+@@ -2205,10 +2487,13 @@
  
     Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.
  
@@ -17441,7 +17535,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["dont_set_me"] = dont_set_me
  
      @builtins.property
-@@ -2240,10 +2525,13 @@
+@@ -2242,10 +2527,13 @@
  class DummyObj:
      def __init__(self, *, example: builtins.str) -> None:
          '''
@@ -17455,7 +17549,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -2272,28 +2560,37 @@
+@@ -2274,28 +2562,37 @@
  
      def __init__(self, value_store: builtins.str) -> None:
          '''
@@ -17493,7 +17587,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class DynamicPropertyBearerChild(
      DynamicPropertyBearer,
-@@ -2302,20 +2599,26 @@
+@@ -2304,20 +2601,26 @@
  ):
      def __init__(self, original_value: builtins.str) -> None:
          '''
@@ -17520,7 +17614,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="originalValue")
      def original_value(self) -> builtins.str:
-@@ -2328,10 +2631,13 @@
+@@ -2330,10 +2633,13 @@
      def __init__(self, clock: "IWallClock") -> None:
          '''Creates a new instance of Entropy.
  
@@ -17534,7 +17628,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="increase")
      def increase(self) -> builtins.str:
          '''Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
-@@ -2359,10 +2665,13 @@
+@@ -2361,10 +2667,13 @@
  
          :param word: the value to return.
  
@@ -17548,7 +17642,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, Entropy).__jsii_proxy_class__ = lambda : _EntropyProxy
  
-@@ -2399,10 +2708,14 @@
+@@ -2401,10 +2710,14 @@
          are being erased when sending values from native code to JS.
  
          :param opts: -
@@ -17563,7 +17657,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="prop1IsNull")
      @builtins.classmethod
      def prop1_is_null(cls) -> typing.Mapping[builtins.str, typing.Any]:
-@@ -2430,10 +2743,14 @@
+@@ -2432,10 +2745,14 @@
      ) -> None:
          '''
          :param option1: 
@@ -17578,7 +17672,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["option1"] = option1
          if option2 is not None:
              self._values["option2"] = option2
-@@ -2477,10 +2794,14 @@
+@@ -2479,10 +2796,14 @@
          :param readonly_string: -
          :param mutable_number: -
  
@@ -17593,7 +17687,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -2504,10 +2825,13 @@
+@@ -2506,10 +2827,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17607,7 +17701,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.ExperimentalEnum")
  class ExperimentalEnum(enum.Enum):
-@@ -2535,10 +2859,13 @@
+@@ -2537,10 +2861,13 @@
          '''
          :param readonly_property: 
  
@@ -17621,7 +17715,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -2568,10 +2895,13 @@
+@@ -2570,10 +2897,13 @@
  ):
      def __init__(self, success: builtins.bool) -> None:
          '''
@@ -17635,7 +17729,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="success")
      def success(self) -> builtins.bool:
-@@ -2587,10 +2917,14 @@
+@@ -2589,10 +2919,14 @@
      def __init__(self, *, boom: builtins.bool, prop: builtins.str) -> None:
          '''
          :param boom: 
@@ -17650,7 +17744,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "prop": prop,
          }
  
-@@ -2632,10 +2966,14 @@
+@@ -2634,10 +2968,14 @@
          :param readonly_string: -
          :param mutable_number: -
  
@@ -17665,7 +17759,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -2659,10 +2997,13 @@
+@@ -2661,10 +2999,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17679,7 +17773,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.ExternalEnum")
  class ExternalEnum(enum.Enum):
-@@ -2690,10 +3031,13 @@
+@@ -2692,10 +3033,13 @@
          '''
          :param readonly_property: 
  
@@ -17693,7 +17787,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -2836,10 +3180,13 @@
+@@ -2838,10 +3182,13 @@
      def __init__(self, *, name: typing.Optional[builtins.str] = None) -> None:
          '''These are some arguments you can pass to a method.
  
@@ -17707,8 +17801,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["name"] = name
  
      @builtins.property
-@@ -2876,10 +3223,13 @@
-         friendly: _scope_jsii_calc_lib_c61f082f.IFriendly,
+@@ -2878,10 +3225,13 @@
+         friendly: "_scope_jsii_calc_lib_c61f082f.IFriendly",
      ) -> builtins.str:
          '''
          :param friendly: -
@@ -17721,7 +17815,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.interface(jsii_type="jsii-calc.IAnonymousImplementationProvider")
  class IAnonymousImplementationProvider(typing_extensions.Protocol):
-@@ -2959,10 +3309,13 @@
+@@ -2961,10 +3311,13 @@
      def a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "a"))
  
@@ -17735,9 +17829,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IAnotherPublicInterface).__jsii_proxy_class__ = lambda : _IAnotherPublicInterfaceProxy
  
-@@ -3005,10 +3358,13 @@
+@@ -3007,10 +3360,13 @@
      @jsii.member(jsii_name="yourTurn")
-     def your_turn(self, bell: IBell) -> None:
+     def your_turn(self, bell: "IBell") -> None:
          '''
          :param bell: -
          '''
@@ -17749,7 +17843,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IBellRinger).__jsii_proxy_class__ = lambda : _IBellRingerProxy
  
-@@ -3033,10 +3389,13 @@
+@@ -3035,10 +3391,13 @@
      @jsii.member(jsii_name="yourTurn")
      def your_turn(self, bell: "Bell") -> None:
          '''
@@ -17763,7 +17857,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IConcreteBellRinger).__jsii_proxy_class__ = lambda : _IConcreteBellRingerProxy
  
-@@ -3092,10 +3451,13 @@
+@@ -3094,10 +3453,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17777,7 +17871,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -3150,10 +3512,13 @@
+@@ -3152,10 +3514,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17791,7 +17885,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -3195,10 +3560,13 @@
+@@ -3197,10 +3562,13 @@
      def private(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "private"))
  
@@ -17805,7 +17899,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IExtendsPrivateInterface).__jsii_proxy_class__ = lambda : _IExtendsPrivateInterfaceProxy
  
-@@ -3244,10 +3612,13 @@
+@@ -3246,10 +3614,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17819,7 +17913,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -3429,10 +3800,14 @@
+@@ -3431,10 +3802,14 @@
      ) -> None:
          '''
          :param arg1: -
@@ -17834,7 +17928,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithOptionalMethodArguments).__jsii_proxy_class__ = lambda : _IInterfaceWithOptionalMethodArgumentsProxy
  
-@@ -3467,10 +3842,13 @@
+@@ -3469,10 +3844,13 @@
      def read_write_string(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "readWriteString"))
  
@@ -17848,7 +17942,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithProperties).__jsii_proxy_class__ = lambda : _IInterfaceWithPropertiesProxy
  
-@@ -3500,10 +3878,13 @@
+@@ -3502,10 +3880,13 @@
      def foo(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.get(self, "foo"))
  
@@ -17862,7 +17956,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithPropertiesExtension).__jsii_proxy_class__ = lambda : _IInterfaceWithPropertiesExtensionProxy
  
-@@ -4023,10 +4404,13 @@
+@@ -4025,10 +4406,13 @@
      def value(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "value"))
  
@@ -17876,7 +17970,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IMutableObjectLiteral).__jsii_proxy_class__ = lambda : _IMutableObjectLiteralProxy
  
-@@ -4062,19 +4446,25 @@
+@@ -4064,19 +4448,25 @@
      def b(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "b"))
  
@@ -17902,7 +17996,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, INonInternalInterface).__jsii_proxy_class__ = lambda : _INonInternalInterfaceProxy
  
-@@ -4107,10 +4497,13 @@
+@@ -4109,10 +4499,13 @@
      def property(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "property"))
  
@@ -17916,7 +18010,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="wasSet")
      def was_set(self) -> builtins.bool:
          return typing.cast(builtins.bool, jsii.invoke(self, "wasSet", []))
-@@ -4303,10 +4696,13 @@
+@@ -4305,10 +4698,13 @@
      def mutable_property(self) -> typing.Optional[jsii.Number]:
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17930,7 +18024,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          return typing.cast(None, jsii.invoke(self, "method", []))
-@@ -4373,10 +4769,13 @@
+@@ -4375,10 +4771,13 @@
      def prop(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "prop"))
  
@@ -17944,7 +18038,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementation"):
      def __init__(self) -> None:
-@@ -4422,10 +4821,13 @@
+@@ -4424,10 +4823,13 @@
      def private(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "private"))
  
@@ -17958,7 +18052,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ImplictBaseOfBase",
-@@ -4443,10 +4845,15 @@
+@@ -4445,10 +4847,15 @@
          '''
          :param foo: -
          :param bar: -
@@ -17974,21 +18068,21 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "bar": bar,
              "goo": goo,
          }
-@@ -4521,10 +4928,13 @@
+@@ -4523,10 +4930,13 @@
          count: jsii.Number,
-     ) -> typing.List[_scope_jsii_calc_lib_c61f082f.IDoublable]:
+     ) -> typing.List["_scope_jsii_calc_lib_c61f082f.IDoublable"]:
          '''
          :param count: -
          '''
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__1d6e348a61ed27bfc8b7928365798b43e0130ca2b720c1105baca04fa093d194)
 +            check_type(argname="argument count", value=count, expected_type=type_hints["count"])
-         return typing.cast(typing.List[_scope_jsii_calc_lib_c61f082f.IDoublable], jsii.sinvoke(cls, "makeInterfaces", [count]))
+         return typing.cast(typing.List["_scope_jsii_calc_lib_c61f082f.IDoublable"], jsii.sinvoke(cls, "makeInterfaces", [count]))
  
  
  class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorphism"):
      '''Checks the "same instance" isomorphism is preserved within the constructor.
-@@ -4629,19 +5039,25 @@
+@@ -4631,19 +5041,25 @@
      def prop_a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "propA"))
  
@@ -18014,7 +18108,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class JavaReservedWords(
      metaclass=jsii.JSIIMeta,
-@@ -4863,10 +5279,13 @@
+@@ -4865,10 +5281,13 @@
      def while_(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "while"))
  
@@ -18028,7 +18122,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IJsii487External2, IJsii487External)
  class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derived"):
-@@ -4968,10 +5387,13 @@
+@@ -4970,10 +5389,13 @@
      @builtins.classmethod
      def stringify(cls, value: typing.Any = None) -> typing.Optional[builtins.str]:
          '''
@@ -18042,7 +18136,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
      '''Validates that nested classes get correct code generation for the occasional forward reference.'''
-@@ -5001,10 +5423,13 @@
+@@ -5003,10 +5425,13 @@
      class PropBooleanValue:
          def __init__(self, *, value: builtins.bool) -> None:
              '''
@@ -18056,7 +18150,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -5038,10 +5463,13 @@
+@@ -5040,10 +5465,13 @@
              '''
              :param prop: 
              '''
@@ -18070,7 +18164,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -5076,10 +5504,13 @@
+@@ -5078,10 +5506,13 @@
          '''
          :param prop: 
          '''
@@ -18084,7 +18178,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -5127,10 +5558,17 @@
+@@ -5129,10 +5560,17 @@
          :param cpu: The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments This default is set in the underlying FargateTaskDefinition construct. Default: 256
          :param memory_mib: The amount (in MiB) of memory used by the task. This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
          :param public_load_balancer: Determines whether the Application Load Balancer will be internet-facing. Default: true
@@ -18102,7 +18196,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["container_port"] = container_port
          if cpu is not None:
              self._values["cpu"] = cpu
-@@ -5257,10 +5695,14 @@
+@@ -5259,10 +5697,14 @@
          '''Creates a BinaryOperation.
  
          :param lhs: Left-hand side operand.
@@ -18117,7 +18211,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="farewell")
      def farewell(self) -> builtins.str:
          '''Say farewell.'''
-@@ -5308,10 +5750,13 @@
+@@ -5310,10 +5752,13 @@
  class NestedStruct:
      def __init__(self, *, number_prop: jsii.Number) -> None:
          '''
@@ -18131,7 +18225,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -5382,17 +5827,24 @@
+@@ -5384,17 +5829,24 @@
      def __init__(self, _param1: builtins.str, optional: typing.Any = None) -> None:
          '''
          :param _param1: -
@@ -18156,7 +18250,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="giveMeUndefinedInsideAnObject")
      def give_me_undefined_inside_an_object(
          self,
-@@ -5420,10 +5872,13 @@
+@@ -5422,10 +5874,13 @@
      def change_me_to_undefined(self) -> typing.Optional[builtins.str]:
          return typing.cast(typing.Optional[builtins.str], jsii.get(self, "changeMeToUndefined"))
  
@@ -18170,7 +18264,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.NullShouldBeTreatedAsUndefinedData",
-@@ -5442,10 +5897,14 @@
+@@ -5444,10 +5899,14 @@
      ) -> None:
          '''
          :param array_with_three_elements_and_undefined_as_second_argument: 
@@ -18185,9 +18279,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if this_should_be_undefined is not None:
              self._values["this_should_be_undefined"] = this_should_be_undefined
-@@ -5480,17 +5939,23 @@
+@@ -5482,17 +5941,23 @@
  
-     def __init__(self, generator: IRandomNumberGenerator) -> None:
+     def __init__(self, generator: "IRandomNumberGenerator") -> None:
          '''
          :param generator: -
          '''
@@ -18197,7 +18291,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          jsii.create(self.__class__, self, [generator])
  
      @jsii.member(jsii_name="isSameGenerator")
-     def is_same_generator(self, gen: IRandomNumberGenerator) -> builtins.bool:
+     def is_same_generator(self, gen: "IRandomNumberGenerator") -> builtins.bool:
          '''
          :param gen: -
          '''
@@ -18209,12 +18303,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="nextTimes100")
      def next_times100(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.invoke(self, "nextTimes100", []))
-@@ -5500,10 +5965,13 @@
-     def generator(self) -> IRandomNumberGenerator:
-         return typing.cast(IRandomNumberGenerator, jsii.get(self, "generator"))
+@@ -5502,10 +5967,13 @@
+     def generator(self) -> "IRandomNumberGenerator":
+         return typing.cast("IRandomNumberGenerator", jsii.get(self, "generator"))
  
      @generator.setter
-     def generator(self, value: IRandomNumberGenerator) -> None:
+     def generator(self, value: "IRandomNumberGenerator") -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__0f5a1cc548d3db6e156cec5671bc04b980132e529c77f3bb5aaa58427db35e7c)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -18223,7 +18317,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ObjectRefsInCollections(
      metaclass=jsii.JSIIMeta,
-@@ -5521,10 +5989,13 @@
+@@ -5523,10 +5991,13 @@
      ) -> jsii.Number:
          '''Returns the sum of all values.
  
@@ -18237,7 +18331,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="sumFromMap")
      def sum_from_map(
          self,
-@@ -5532,10 +6003,13 @@
+@@ -5534,10 +6005,13 @@
      ) -> jsii.Number:
          '''Returns the sum of all values in a map.
  
@@ -18251,9 +18345,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ObjectWithPropertyProvider(
      metaclass=jsii.JSIIMeta,
-@@ -5576,10 +6050,13 @@
+@@ -5578,10 +6052,13 @@
  ):
-     def __init__(self, delegate: IInterfaceWithOptionalMethodArguments) -> None:
+     def __init__(self, delegate: "IInterfaceWithOptionalMethodArguments") -> None:
          '''
          :param delegate: -
          '''
@@ -18265,7 +18359,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="invokeWithOptional")
      def invoke_with_optional(self) -> None:
          return typing.cast(None, jsii.invoke(self, "invokeWithOptional", []))
-@@ -5602,10 +6079,15 @@
+@@ -5604,10 +6081,15 @@
          '''
          :param arg1: -
          :param arg2: -
@@ -18281,7 +18375,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="arg1")
      def arg1(self) -> jsii.Number:
-@@ -5630,10 +6112,13 @@
+@@ -5632,10 +6114,13 @@
  class OptionalStruct:
      def __init__(self, *, field: typing.Optional[builtins.str] = None) -> None:
          '''
@@ -18295,7 +18389,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["field"] = field
  
      @builtins.property
-@@ -5709,10 +6194,13 @@
+@@ -5711,10 +6196,13 @@
      def _override_read_write(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "overrideReadWrite"))
  
@@ -18309,9 +18403,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class OverrideReturnsObject(
      metaclass=jsii.JSIIMeta,
-@@ -5724,10 +6212,13 @@
+@@ -5726,10 +6214,13 @@
      @jsii.member(jsii_name="test")
-     def test(self, obj: IReturnsNumber) -> jsii.Number:
+     def test(self, obj: "IReturnsNumber") -> jsii.Number:
          '''
          :param obj: -
          '''
@@ -18323,7 +18417,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ParamShadowsBuiltins(
      metaclass=jsii.JSIIMeta,
-@@ -5749,10 +6240,14 @@
+@@ -5751,10 +6242,14 @@
          :param str: should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}"").
          :param boolean_property: 
          :param string_property: 
@@ -18338,7 +18432,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              string_property=string_property,
              struct_property=struct_property,
          )
-@@ -5782,10 +6277,15 @@
+@@ -5784,10 +6279,15 @@
          :param string_property: 
          :param struct_property: 
          '''
@@ -18354,21 +18448,21 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "string_property": string_property,
              "struct_property": struct_property,
          }
-@@ -5838,10 +6338,13 @@
-         scope: _scope_jsii_calc_lib_c61f082f.Number,
-     ) -> _scope_jsii_calc_lib_c61f082f.Number:
+@@ -5840,10 +6340,13 @@
+         scope: "_scope_jsii_calc_lib_c61f082f.Number",
+     ) -> "_scope_jsii_calc_lib_c61f082f.Number":
          '''
          :param scope: -
          '''
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__ae63c91319764cabd02536ac5b03026eb3f4071497b2a04adf93ca02985507ae)
 +            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
-         return typing.cast(_scope_jsii_calc_lib_c61f082f.Number, jsii.invoke(self, "useScope", [scope]))
+         return typing.cast("_scope_jsii_calc_lib_c61f082f.Number", jsii.invoke(self, "useScope", [scope]))
  
  
  @jsii.data_type(
      jsii_type="jsii-calc.ParentStruct982",
-@@ -5852,10 +6355,13 @@
+@@ -5854,10 +6357,13 @@
      def __init__(self, *, foo: builtins.str) -> None:
          '''https://github.com/aws/jsii/issues/982.
  
@@ -18382,7 +18476,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -5910,10 +6416,15 @@
+@@ -5912,10 +6418,15 @@
          '''
          :param obj: -
          :param dt: -
@@ -18398,8 +18492,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, PartiallyInitializedThisConsumer).__jsii_proxy_class__ = lambda : _PartiallyInitializedThisConsumerProxy
  
-@@ -5928,10 +6439,13 @@
-         friendly: _scope_jsii_calc_lib_c61f082f.IFriendly,
+@@ -5930,10 +6441,13 @@
+         friendly: "_scope_jsii_calc_lib_c61f082f.IFriendly",
      ) -> builtins.str:
          '''
          :param friendly: -
@@ -18412,7 +18506,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Power(
      _CompositeOperation_1c4d123b,
-@@ -5948,10 +6462,14 @@
+@@ -5950,10 +6464,14 @@
          '''Creates a Power operation.
  
          :param base: The base of the power.
@@ -18426,9 +18520,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @builtins.property
      @jsii.member(jsii_name="base")
-     def base(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
-@@ -6174,10 +6692,13 @@
-         value: _scope_jsii_calc_lib_c61f082f.EnumFromScopedModule,
+     def base(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
+@@ -6176,10 +6694,13 @@
+         value: "_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule",
      ) -> None:
          '''
          :param value: -
@@ -18441,11 +18535,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="foo")
      def foo(
-@@ -6188,10 +6709,13 @@
+@@ -6190,10 +6711,13 @@
      @foo.setter
      def foo(
          self,
-         value: typing.Optional[_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule],
+         value: typing.Optional["_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule"],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__100c679fa10c1938fc087475a1e5fcdf7c2cbff383b1c02b1d09471cb4f23123)
@@ -18455,7 +18549,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ReturnsPrivateImplementationOfInterface(
      metaclass=jsii.JSIIMeta,
-@@ -6233,10 +6757,14 @@
+@@ -6235,10 +6759,14 @@
          :param string_prop: May not be empty.
          :param nested_struct: 
          '''
@@ -18470,7 +18564,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if nested_struct is not None:
              self._values["nested_struct"] = nested_struct
-@@ -6303,17 +6831,25 @@
+@@ -6305,17 +6833,25 @@
          '''
          :param arg1: -
          :param arg2: -
@@ -18496,7 +18590,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="methodWithOptionalArguments")
      def method_with_optional_arguments(
          self,
-@@ -6325,10 +6861,15 @@
+@@ -6327,10 +6863,15 @@
  
          :param arg1: -
          :param arg2: -
@@ -18512,7 +18606,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.SecondLevelStruct",
-@@ -6347,10 +6888,14 @@
+@@ -6349,10 +6890,14 @@
      ) -> None:
          '''
          :param deeper_required_prop: It's long and required.
@@ -18527,7 +18621,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if deeper_optional_prop is not None:
              self._values["deeper_optional_prop"] = deeper_optional_prop
-@@ -6412,10 +6957,13 @@
+@@ -6414,10 +6959,13 @@
      @jsii.member(jsii_name="isSingletonInt")
      def is_singleton_int(self, value: jsii.Number) -> builtins.bool:
          '''
@@ -18541,7 +18635,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.SingletonIntEnum")
  class SingletonIntEnum(enum.Enum):
-@@ -6434,10 +6982,13 @@
+@@ -6436,10 +6984,13 @@
      @jsii.member(jsii_name="isSingletonString")
      def is_singleton_string(self, value: builtins.str) -> builtins.bool:
          '''
@@ -18555,7 +18649,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.SingletonStringEnum")
  class SingletonStringEnum(enum.Enum):
-@@ -6461,10 +7012,14 @@
+@@ -6463,10 +7014,14 @@
      ) -> None:
          '''
          :param property: 
@@ -18570,7 +18664,36 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "yet_anoter_one": yet_anoter_one,
          }
  
-@@ -6515,10 +7070,14 @@
+@@ -6520,10 +7075,13 @@
+     class ParentStruct:
+         def __init__(self, *, field1: builtins.str) -> None:
+             '''
+             :param field1: 
+             '''
++            if __debug__:
++                type_hints = typing.get_type_hints(_typecheckingstub__fc7308b88a257882ff36698ae2addc6565d7c0986fc18d31fa3b531d0f1e0e80)
++                check_type(argname="argument field1", value=field1, expected_type=type_hints["field1"])
+             self._values: typing.Dict[builtins.str, typing.Any] = {
+                 "field1": field1,
+             }
+ 
+         @builtins.property
+@@ -6552,10 +7110,14 @@
+         def __init__(self, *, field1: builtins.str, field2: builtins.str) -> None:
+             '''
+             :param field1: 
+             :param field2: 
+             '''
++            if __debug__:
++                type_hints = typing.get_type_hints(_typecheckingstub__53ef72709089f8b082b5b1468b38f85fabbb62c51969f600a065ab63f749e32f)
++                check_type(argname="argument field1", value=field1, expected_type=type_hints["field1"])
++                check_type(argname="argument field2", value=field2, expected_type=type_hints["field2"])
+             self._values: typing.Dict[builtins.str, typing.Any] = {
+                 "field1": field1,
+                 "field2": field2,
+             }
+ 
+@@ -6606,10 +7168,14 @@
      ) -> None:
          '''
          :param readonly_string: -
@@ -18585,7 +18708,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          return typing.cast(None, jsii.invoke(self, "method", []))
-@@ -6533,10 +7092,13 @@
+@@ -6624,10 +7190,13 @@
      def mutable_property(self) -> typing.Optional[jsii.Number]:
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18599,7 +18722,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.StableEnum")
  class StableEnum(enum.Enum):
-@@ -6552,10 +7114,13 @@
+@@ -6643,10 +7212,13 @@
  class StableStruct:
      def __init__(self, *, readonly_property: builtins.str) -> None:
          '''
@@ -18613,7 +18736,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -6592,10 +7157,13 @@
+@@ -6683,10 +7255,13 @@
      def static_variable(cls) -> builtins.bool:  # pyright: ignore [reportGeneralTypeIssues,reportRedeclaration]
          return typing.cast(builtins.bool, jsii.sget(cls, "staticVariable"))
  
@@ -18627,7 +18750,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class StaticHelloParent(
      metaclass=jsii.JSIIMeta,
-@@ -6630,19 +7198,25 @@
+@@ -6721,19 +7296,25 @@
  class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
      def __init__(self, value: builtins.str) -> None:
          '''
@@ -18653,7 +18776,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="justMethod")
      def just_method(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.invoke(self, "justMethod", []))
-@@ -6679,19 +7253,25 @@
+@@ -6770,19 +7351,25 @@
          '''
          return typing.cast("Statics", jsii.sget(cls, "instance"))
  
@@ -18679,7 +18802,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="value")
      def value(self) -> builtins.str:
-@@ -6714,10 +7294,13 @@
+@@ -6805,10 +7392,13 @@
      def you_see_me(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "youSeeMe"))
  
@@ -18693,7 +18816,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.StructA",
-@@ -6740,10 +7323,15 @@
+@@ -6831,10 +7421,15 @@
  
          :param required_string: 
          :param optional_number: 
@@ -18709,7 +18832,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if optional_number is not None:
              self._values["optional_number"] = optional_number
-@@ -6801,10 +7389,15 @@
+@@ -6892,10 +7487,15 @@
          :param optional_boolean: 
          :param optional_struct_a: 
          '''
@@ -18725,7 +18848,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if optional_boolean is not None:
              self._values["optional_boolean"] = optional_boolean
-@@ -6856,10 +7449,14 @@
+@@ -6947,10 +7547,14 @@
          See: https://github.com/aws/aws-cdk/issues/4302
  
          :param scope: 
@@ -18740,7 +18863,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if props is not None:
              self._values["props"] = props
-@@ -6902,10 +7499,14 @@
+@@ -6993,10 +7597,14 @@
      ) -> jsii.Number:
          '''
          :param _positional: -
@@ -18755,7 +18878,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="roundTrip")
      @builtins.classmethod
      def round_trip(
-@@ -6920,10 +7521,13 @@
+@@ -7011,10 +7619,13 @@
          :param _positional: -
          :param required: This is a required field.
          :param second_level: A union to really stress test our serialization.
@@ -18769,8 +18892,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          )
  
          return typing.cast("TopLevelStruct", jsii.sinvoke(cls, "roundTrip", [_positional, input]))
-@@ -6940,10 +7544,13 @@
-         struct: typing.Union[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]], typing.Union[StructB, typing.Dict[builtins.str, typing.Any]]],
+@@ -7031,10 +7642,13 @@
+         struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
      ) -> builtins.bool:
          '''
          :param struct: -
@@ -18783,8 +18906,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="isStructB")
      @builtins.classmethod
      def is_struct_b(
-@@ -6951,18 +7558,24 @@
-         struct: typing.Union[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]], typing.Union[StructB, typing.Dict[builtins.str, typing.Any]]],
+@@ -7042,18 +7656,24 @@
+         struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
      ) -> builtins.bool:
          '''
          :param struct: -
@@ -18796,20 +18919,20 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @jsii.member(jsii_name="provideStruct")
      @builtins.classmethod
-     def provide_struct(cls, which: builtins.str) -> typing.Union[StructA, StructB]:
+     def provide_struct(cls, which: builtins.str) -> typing.Union["StructA", "StructB"]:
          '''
          :param which: -
          '''
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__e3e3d0b072ef214d95806fb0366dd1f4a92b97932f845c9364616c9348bce502)
 +            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
-         return typing.cast(typing.Union[StructA, StructB], jsii.sinvoke(cls, "provideStruct", [which]))
+         return typing.cast(typing.Union["StructA", "StructB"], jsii.sinvoke(cls, "provideStruct", [which]))
  
  
  @jsii.data_type(
      jsii_type="jsii-calc.StructWithCollectionOfUnionts",
-@@ -6976,10 +7589,13 @@
-         union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union[StructA, typing.Dict[builtins.str, typing.Any]], typing.Union[StructB, typing.Dict[builtins.str, typing.Any]]]]],
+@@ -7067,10 +7687,13 @@
+         union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]],
      ) -> None:
          '''
          :param union_property: 
@@ -18822,7 +18945,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -7016,10 +7632,14 @@
+@@ -7107,10 +7730,14 @@
      ) -> None:
          '''
          :param foo: An enum value.
@@ -18837,7 +18960,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if bar is not None:
              self._values["bar"] = bar
-@@ -7075,10 +7695,16 @@
+@@ -7166,10 +7793,16 @@
          :param default: 
          :param assert_: 
          :param result: 
@@ -18854,11 +18977,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if assert_ is not None:
              self._values["assert_"] = assert_
-@@ -7148,10 +7774,13 @@
+@@ -7239,10 +7872,13 @@
      @parts.setter
      def parts(
          self,
-         value: typing.List[_scope_jsii_calc_lib_c61f082f.NumericValue],
+         value: typing.List["_scope_jsii_calc_lib_c61f082f.NumericValue"],
      ) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__e2e14d04b1a68f16d9aef0965aa4ffbc51af3cbd2d201ac6e236d861b10c2fbf)
@@ -18868,7 +18991,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.SupportsNiceJavaBuilderProps",
-@@ -7167,10 +7796,14 @@
+@@ -7258,10 +7894,14 @@
      ) -> None:
          '''
          :param bar: Some number, like 42.
@@ -18883,7 +19006,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if id is not None:
              self._values["id"] = id
-@@ -7219,10 +7852,13 @@
+@@ -7310,10 +7950,13 @@
          '''
          :param id_: some identifier of your choice.
          :param bar: Some number, like 42.
@@ -18897,7 +19020,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          jsii.create(self.__class__, self, [id_, props])
  
      @builtins.property
-@@ -7260,17 +7896,23 @@
+@@ -7351,17 +7994,23 @@
      @jsii.member(jsii_name="modifyOtherProperty")
      def modify_other_property(self, value: builtins.str) -> None:
          '''
@@ -18921,7 +19044,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="readA")
      def read_a(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.invoke(self, "readA", []))
-@@ -7290,17 +7932,23 @@
+@@ -7381,17 +8030,23 @@
      @jsii.member(jsii_name="virtualMethod")
      def virtual_method(self, n: jsii.Number) -> jsii.Number:
          '''
@@ -18945,7 +19068,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="readonlyProperty")
      def readonly_property(self) -> builtins.str:
-@@ -7311,46 +7959,61 @@
+@@ -7402,46 +8057,61 @@
      def a(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.get(self, "a"))
  
@@ -19007,7 +19130,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class TestStructWithEnum(
      metaclass=jsii.JSIIMeta,
-@@ -7433,10 +8096,15 @@
+@@ -7524,10 +8194,15 @@
          '''
          :param required: This is a required field.
          :param second_level: A union to really stress test our serialization.
@@ -19023,9 +19146,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "second_level": second_level,
          }
          if optional is not None:
-@@ -7527,10 +8195,13 @@
+@@ -7618,10 +8293,13 @@
  
-     def __init__(self, operand: _scope_jsii_calc_lib_c61f082f.NumericValue) -> None:
+     def __init__(self, operand: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
          '''
          :param operand: -
          '''
@@ -19036,8 +19159,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @builtins.property
      @jsii.member(jsii_name="operand")
-     def operand(self) -> _scope_jsii_calc_lib_c61f082f.NumericValue:
-@@ -7561,10 +8232,14 @@
+     def operand(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
+@@ -7652,10 +8330,14 @@
      ) -> None:
          '''
          :param bar: 
@@ -19052,7 +19175,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if foo is not None:
              self._values["foo"] = foo
-@@ -7601,10 +8276,13 @@
+@@ -7692,10 +8374,13 @@
  
      def __init__(self, delegate: typing.Mapping[builtins.str, typing.Any]) -> None:
          '''
@@ -19065,10 +19188,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @jsii.python.classproperty
      @jsii.member(jsii_name="reflector")
-     def REFLECTOR(cls) -> _scope_jsii_calc_lib_custom_submodule_name_c61f082f.Reflector:
-@@ -7647,10 +8325,13 @@
+     def REFLECTOR(
+@@ -7740,10 +8425,13 @@
  ):
-     def __init__(self, obj: IInterfaceWithProperties) -> None:
+     def __init__(self, obj: "IInterfaceWithProperties") -> None:
          '''
          :param obj: -
          '''
@@ -19080,8 +19203,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="justRead")
      def just_read(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.invoke(self, "justRead", []))
-@@ -7661,17 +8342,23 @@
-         ext: IInterfaceWithPropertiesExtension,
+@@ -7754,17 +8442,23 @@
+         ext: "IInterfaceWithPropertiesExtension",
      ) -> builtins.str:
          '''
          :param ext: -
@@ -19103,8 +19226,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @builtins.property
      @jsii.member(jsii_name="obj")
-     def obj(self) -> IInterfaceWithProperties:
-@@ -7681,25 +8368,34 @@
+     def obj(self) -> "IInterfaceWithProperties":
+@@ -7774,25 +8468,34 @@
  class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvoker"):
      def __init__(self, method: "VariadicMethod") -> None:
          '''
@@ -19139,7 +19262,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="asArray")
      def as_array(
          self,
-@@ -7708,10 +8404,14 @@
+@@ -7801,10 +8504,14 @@
      ) -> typing.List[jsii.Number]:
          '''
          :param first: the first element of the array to be returned (after the \`\`prefix\`\` provided at construction time).
@@ -19154,9 +19277,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class VariadicTypeUnion(
      metaclass=jsii.JSIIMeta,
-@@ -7719,19 +8419,25 @@
+@@ -7812,19 +8519,25 @@
  ):
-     def __init__(self, *union: typing.Union[StructA, StructB]) -> None:
+     def __init__(self, *union: typing.Union["StructA", "StructB"]) -> None:
          '''
          :param union: -
          '''
@@ -19167,11 +19290,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @builtins.property
      @jsii.member(jsii_name="union")
-     def union(self) -> typing.List[typing.Union[StructA, StructB]]:
-         return typing.cast(typing.List[typing.Union[StructA, StructB]], jsii.get(self, "union"))
+     def union(self) -> typing.List[typing.Union["StructA", "StructB"]]:
+         return typing.cast(typing.List[typing.Union["StructA", "StructB"]], jsii.get(self, "union"))
  
      @union.setter
-     def union(self, value: typing.List[typing.Union[StructA, StructB]]) -> None:
+     def union(self, value: typing.List[typing.Union["StructA", "StructB"]]) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__01944feab2feb5a9fdf3d356f62de139685f520d3bb3a38ddc5c42d0b03963fe)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -19180,7 +19303,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class VirtualMethodPlayground(
      metaclass=jsii.JSIIMeta,
-@@ -7743,38 +8449,53 @@
+@@ -7836,38 +8549,53 @@
      @jsii.member(jsii_name="overrideMeAsync")
      def override_me_async(self, index: jsii.Number) -> jsii.Number:
          '''
@@ -19234,7 +19357,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class VoidCallback(
      metaclass=jsii.JSIIAbstractClass,
-@@ -7836,10 +8557,13 @@
+@@ -7929,10 +8657,13 @@
          '''
          return typing.cast(typing.Optional[builtins.str], jsii.get(self, "dontReadMe"))
  
@@ -19248,7 +19371,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class WithPrivatePropertyInConstructor(
      metaclass=jsii.JSIIMeta,
-@@ -7849,10 +8573,13 @@
+@@ -7942,10 +8673,13 @@
  
      def __init__(self, private_field: typing.Optional[builtins.str] = None) -> None:
          '''
@@ -19262,7 +19385,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="success")
      def success(self) -> builtins.bool:
-@@ -7893,10 +8620,13 @@
+@@ -7986,10 +8720,13 @@
      @jsii.member(jsii_name="abstractMethod")
      def abstract_method(self, name: builtins.str) -> builtins.str:
          '''
@@ -19276,7 +19399,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, AbstractClass).__jsii_proxy_class__ = lambda : _AbstractClassProxy
  
-@@ -7912,10 +8642,14 @@
+@@ -8005,10 +8742,14 @@
          '''Creates a BinaryOperation.
  
          :param lhs: Left-hand side operand.
@@ -19291,7 +19414,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="toString")
      def to_string(self) -> builtins.str:
          '''String representation of the value.'''
-@@ -7959,10 +8693,13 @@
+@@ -8052,10 +8793,13 @@
      def rung(self) -> builtins.bool:
          return typing.cast(builtins.bool, jsii.get(self, "rung"))
  
@@ -19305,7 +19428,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ChildStruct982",
-@@ -7973,10 +8710,14 @@
+@@ -8066,10 +8810,14 @@
      def __init__(self, *, foo: builtins.str, bar: jsii.Number) -> None:
          '''
          :param foo: 
@@ -19320,7 +19443,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "bar": bar,
          }
  
-@@ -8017,37 +8758,49 @@
+@@ -8110,37 +8858,49 @@
      def a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "a"))
  
@@ -19370,7 +19493,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(INonInternalInterface)
  class ClassThatImplementsThePrivateInterface(
-@@ -8062,37 +8815,49 @@
+@@ -8155,37 +8915,49 @@
      def a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "a"))
  
@@ -19420,7 +19543,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IInterfaceWithProperties)
  class ClassWithPrivateConstructorAndAutomaticProperties(
-@@ -8110,10 +8875,14 @@
+@@ -8203,10 +8975,14 @@
      ) -> "ClassWithPrivateConstructorAndAutomaticProperties":
          '''
          :param read_only_string: -
@@ -19435,7 +19558,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="readOnlyString")
      def read_only_string(self) -> builtins.str:
-@@ -8124,10 +8893,13 @@
+@@ -8217,10 +8993,13 @@
      def read_write_string(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "readWriteString"))
  
@@ -19449,7 +19572,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IIndirectlyImplemented)
  class FullCombo(BaseClass, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.FullCombo"):
-@@ -8242,10 +9014,13 @@
+@@ -8335,10 +9114,13 @@
  ):
      def __init__(self, property: builtins.str) -> None:
          '''
@@ -19463,9 +19586,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="bar")
      def bar(self) -> None:
          return typing.cast(None, jsii.invoke(self, "bar", []))
-@@ -8266,10 +9041,13 @@
+@@ -8359,10 +9141,13 @@
  
-     def __init__(self, operand: _scope_jsii_calc_lib_c61f082f.NumericValue) -> None:
+     def __init__(self, operand: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
          '''
          :param operand: -
          '''
@@ -19477,7 +19600,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="farewell")
      def farewell(self) -> builtins.str:
          '''Say farewell.'''
-@@ -8334,10 +9112,16 @@
+@@ -8427,10 +9212,16 @@
          :param id: some identifier.
          :param default_bar: the default value of \`\`bar\`\`.
          :param props: some props once can provide.
@@ -19494,7 +19617,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8645,7 +9429,1546 @@
+@@ -8739,7 +9530,1561 @@
  from . import pascal_case_name
  from . import python_self
  from . import submodule
@@ -20585,6 +20708,21 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    """Type checking stubs"""
 +    pass
 +
++def _typecheckingstub__fc7308b88a257882ff36698ae2addc6565d7c0986fc18d31fa3b531d0f1e0e80(
++    *,
++    field1: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__53ef72709089f8b082b5b1468b38f85fabbb62c51969f600a065ab63f749e32f(
++    *,
++    field1: builtins.str,
++    field2: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
 +def _typecheckingstub__8c577a76d55e32f4b62a2a005d0c321bf9d0784b2f6cea5f10e297f3f79fc4bb(
 +    readonly_string: builtins.str,
 +    mutable_number: typing.Optional[jsii.Number] = None,
@@ -21048,7 +21186,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +++ python/src/jsii_calc/anonymous/__init__.py	--runtime-type-checking
 @@ -72,26 +72,35 @@
      @builtins.classmethod
-     def consume(cls, option: typing.Union[IOptionA, IOptionB]) -> builtins.str:
+     def consume(cls, option: typing.Union["IOptionA", "IOptionB"]) -> builtins.str:
          '''
          :param option: -
          '''
@@ -21070,14 +21208,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @jsii.member(jsii_name="provide")
      @builtins.classmethod
-     def provide(cls, which: builtins.str) -> typing.Union[IOptionA, IOptionB]:
+     def provide(cls, which: builtins.str) -> typing.Union["IOptionA", "IOptionB"]:
          '''
          :param which: -
          '''
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__f841b966136dfd090628b12290eedd178724cc8f332e05aba2b3a035f07dae50)
 +            check_type(argname="argument which", value=which, expected_type=type_hints["which"])
-         return typing.cast(typing.Union[IOptionA, IOptionB], jsii.sinvoke(cls, "provide", [which]))
+         return typing.cast(typing.Union["IOptionA", "IOptionB"], jsii.sinvoke(cls, "provide", [which]))
  
  
  __all__ = [
@@ -21114,7 +21252,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 --- python/src/jsii_calc/cdk16625/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/cdk16625/__init__.py	--runtime-type-checking
 @@ -60,10 +60,13 @@
-     def _unwrap(self, gen: _IRandomNumberGenerator_9643a8b9) -> jsii.Number:
+     def _unwrap(self, gen: "_IRandomNumberGenerator_9643a8b9") -> jsii.Number:
          '''Implement this functin to return \`\`gen.next()\`\`. It is extremely important that the \`\`donotimport\`\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
  
          :param gen: a VERY pseudo random number generator.
@@ -21845,7 +21983,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 --- python/src/jsii_calc/module2689/methods/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2689/methods/__init__.py	--runtime-type-checking
 @@ -47,23 +47,41 @@
-         _bar: typing.Mapping[builtins.str, typing.Union[_scope_jsii_calc_base_734f0262.BaseProps, typing.Dict[builtins.str, typing.Any]]],
+         _bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
      ) -> None:
          '''
          :param _bar: -
@@ -21858,7 +21996,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="foo")
      def foo(
          self,
-         _values: typing.Sequence[_scope_jsii_calc_lib_c61f082f.Number],
+         _values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
      ) -> None:
          '''
          :param _values: -
@@ -22119,11 +22257,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @builtins.property
 @@ -125,10 +128,13 @@
-     def all_types(self) -> typing.Optional[_AllTypes_b08307c5]:
-         return typing.cast(typing.Optional[_AllTypes_b08307c5], jsii.get(self, "allTypes"))
+     def all_types(self) -> typing.Optional["_AllTypes_b08307c5"]:
+         return typing.cast(typing.Optional["_AllTypes_b08307c5"], jsii.get(self, "allTypes"))
  
      @all_types.setter
-     def all_types(self, value: typing.Optional[_AllTypes_b08307c5]) -> None:
+     def all_types(self, value: typing.Optional["_AllTypes_b08307c5"]) -> None:
 +        if __debug__:
 +            type_hints = typing.get_type_hints(_typecheckingstub__bfa98c91ee81ff3f0ca8bdba51d8e53f57e5260e9d6071534e9caa5ba2ffaed1)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
@@ -22158,7 +22296,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +++ python/src/jsii_calc/submodule/back_references/__init__.py	--runtime-type-checking
 @@ -41,10 +41,13 @@
  class MyClassReference:
-     def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
+     def __init__(self, *, reference: "_MyClass_a2fdc0b6") -> None:
          '''
          :param reference: 
          '''
@@ -22190,7 +22328,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +++ python/src/jsii_calc/submodule/child/__init__.py	--runtime-type-checking
 @@ -91,10 +91,13 @@
  class SomeStruct:
-     def __init__(self, *, prop: SomeEnum) -> None:
+     def __init__(self, *, prop: "SomeEnum") -> None:
          '''
          :param prop: 
          '''
@@ -22297,7 +22435,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 --- python/src/jsii_calc/union/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/union/__init__.py	--runtime-type-checking
 @@ -41,10 +41,13 @@
-         param: typing.Union[_scope_jsii_calc_lib_c61f082f.IFriendly, "IResolvable", "Resolvable"],
+         param: typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "IResolvable", "Resolvable"],
      ) -> None:
          '''
          :param param: -

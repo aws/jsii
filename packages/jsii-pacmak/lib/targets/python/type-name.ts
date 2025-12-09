@@ -19,10 +19,22 @@ import { createHash } from 'crypto';
 import { die, toPythonIdentifier } from './util';
 
 /**
+ * The position of a type
+ *
+ * Types are rendered differently depending on what position they're in:
+ *
+ * - `type`: a type annotation; these are not evaluated during execution.
+ * - `value`: a value in a function body; these are evaluated when the function is called.
+ * - `decl`: a value in a class declaration; these are evaluated when a class is being
+ *   instantiated, before it's done.
+ */
+export type TypePosition = 'type' | 'value' | 'decl';
+
+/**
  * Actually more of a TypeNameFactory than a TypeName
  */
 export interface TypeName {
-  pythonType(context: NamingContext): string;
+  pythonType(pos: TypePosition, context: NamingContext): string;
   requiredImports(context: NamingContext): PythonImports;
 }
 
@@ -52,18 +64,13 @@ export interface NamingContext {
   readonly intersectionTypes: IntersectionTypesRegistry;
 
   /**
-   * The declaration is made in the context of a type annotation (so it can be quoted)
-   *
-   * @default true
-   */
-  readonly typeAnnotation?: boolean;
-
-  /**
    * A an array representing the stack of declarations currently being
    * initialized. All of these names can only be referred to using a forward
    * reference (stringified type name) in the context of type signatures (but
    * they can be used safely from implementations so long as those are not *run*
    * as part of the declaration).
+   *
+   * Closest to the current type is at the end.
    *
    * @default []
    */
@@ -75,13 +82,6 @@ export interface NamingContext {
    * @internal
    */
   readonly ignoreOptional?: boolean;
-
-  /**
-   * The set of jsii type FQNs that have already been emitted so far. This is
-   * used to determine whether a given type reference is a forward declaration
-   * or not when emitting type signatures.
-   */
-  readonly emittedTypes: Set<string>;
 
   /**
    * Whether the type is emitted for a parameter or not. This may change the
@@ -166,8 +166,8 @@ class Dict implements TypeName {
     this.#element = element;
   }
 
-  public pythonType(context: NamingContext) {
-    return `typing.Mapping[builtins.str, ${this.#element.pythonType(context)}]`;
+  public pythonType(pos: TypePosition, context: NamingContext) {
+    return `typing.Mapping[builtins.str, ${this.#element.pythonType(pos, context)}]`;
   }
 
   public requiredImports(context: NamingContext) {
@@ -183,9 +183,9 @@ class List implements TypeName {
     this.#element = element;
   }
 
-  public pythonType(context: NamingContext) {
+  public pythonType(pos: TypePosition, context: NamingContext) {
     const type = context.parameterType ? 'Sequence' : 'List';
-    return `typing.${type}[${this.#element.pythonType(context)}]`;
+    return `typing.${type}[${this.#element.pythonType(pos, context)}]`;
   }
 
   public requiredImports(context: NamingContext) {
@@ -201,8 +201,8 @@ class Optional implements TypeName {
     this.#wrapped = wrapped;
   }
 
-  public pythonType(context: NamingContext) {
-    const optionalType = this.#wrapped.pythonType({
+  public pythonType(pos: TypePosition, context: NamingContext) {
+    const optionalType = this.#wrapped.pythonType(pos, {
       ...context,
       ignoreOptional: true,
     });
@@ -272,9 +272,9 @@ class Union implements TypeName {
     this.#options = options;
   }
 
-  public pythonType(context: NamingContext) {
+  public pythonType(pos: TypePosition, context: NamingContext) {
     return `typing.Union[${this.#options
-      .map((o) => o.pythonType(context))
+      .map((o) => o.pythonType(pos, context))
       .join(', ')}]`;
   }
 
@@ -293,10 +293,10 @@ class Intersection implements TypeName {
     this.#types = types;
   }
 
-  public pythonType(context: NamingContext) {
+  public pythonType(pos: TypePosition, context: NamingContext) {
     // We will be generating a special type to represent the intersection
     const name = context.intersectionTypes.obtain(
-      this.#types.map((t) => t.pythonType(context)).map(stripQuotes),
+      this.#types.map((t) => t.pythonType(pos, context)).map(stripQuotes),
     );
 
     // This will never be in scope already, so always render between quotes
@@ -318,41 +318,51 @@ class UserType implements TypeName {
     this.#fqn = fqn;
   }
 
-  public pythonType(context: NamingContext) {
-    return this.resolve(context).pythonType;
+  public pythonType(pos: TypePosition, context: NamingContext) {
+    return this.resolve(pos, context).pythonType;
   }
 
   public requiredImports(context: NamingContext) {
-    const requiredImport = this.resolve(context).requiredImport;
+    const requiredImport = this.resolve('value', context).requiredImport;
     if (requiredImport == null) {
       return {};
     }
     return { [requiredImport.sourcePackage]: new Set([requiredImport.item]) };
   }
 
-  private resolve({
-    assembly,
-    emittedTypes,
-    submodule,
-    surroundingTypeFqns,
-    typeAnnotation = true,
-    parameterType,
-    typeResolver,
-  }: NamingContext) {
+  private resolve(
+    pos: TypePosition,
+    {
+      assembly,
+      submodule,
+      surroundingTypeFqns,
+      parameterType,
+      typeResolver,
+    }: NamingContext,
+  ) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
       this.#fqn,
       assembly,
     );
 
-    // If this is a type annotation for a parameter, allow dicts to be passed where structs are expected.
+    // If this is a type annotation for a parameter, allow dicts to be passed
+    // where structs are expected for backwards compatibility with the very
+    // first versions of jsii (dicts need to be in jsii-casing).
     const type = typeResolver(this.#fqn);
     const isStruct = isInterfaceType(type) && !!type.datatype;
-    const wrapType =
-      typeAnnotation && parameterType && isStruct
-        ? (pyType: string) =>
-            `typing.Union[${pyType}, typing.Dict[builtins.str, typing.Any]]`
-        : (pyType: string) => pyType;
 
+    // Make a function that quotes the string based on whether we're using it as a type annotation or not.
+    // It's never wrong to quote type annotations, and it never fails and evaluates faster because it avoids
+    // object lookups at eval time.
+    const maybeQuote = (x: string) => (pos === 'type' ? `"${x}"` : x);
+    const wrapType =
+      pos === 'type' && parameterType && isStruct
+        ? (pyType: string) =>
+            `typing.Union[${maybeQuote(pyType)}, typing.Dict[builtins.str, typing.Any]]`
+        : maybeQuote;
+
+    /////////////////////////////////
+    // Type from other assembly
     // Emit aliased imports for dependencies (this avoids name collisions)
     if (assemblyName !== assembly.name) {
       const aliasSuffix = createHash('sha256')
@@ -380,33 +390,68 @@ class UserType implements TypeName {
       assembly,
     ).pythonFqn;
 
-    if (typeSubmodulePythonName === submodulePythonName) {
-      // Identify declarations that are not yet initialized and hence cannot be
-      // used as part of a type qualification. Since this is not a forward
-      // reference, the type was already emitted and its un-qualified name must
-      // be used instead of its locally qualified name.
+    //////////////////////////////////////////////
+    // Type from same assembly, other submodule
+    if (typeSubmodulePythonName !== submodulePythonName) {
+      const [toImport, ...nested] = pythonFqn
+        .substring(typeSubmodulePythonName.length + 1)
+        .split('.');
+      const aliasSuffix = createHash('sha256')
+        .update(typeSubmodulePythonName)
+        .update('.')
+        .update(toImport)
+        .digest('hex')
+        .substring(0, 8);
+      const alias = `_${toImport}_${aliasSuffix}`;
+
+      return {
+        pythonType: wrapType([alias, ...nested].join('.')),
+        requiredImport: {
+          sourcePackage: relativeImportPath(
+            submodulePythonName,
+            typeSubmodulePythonName,
+          ),
+          item: `${toImport} as ${alias}`,
+        },
+      };
+
+      // Have the 'else' here to minimize the diff.
+      // eslint-disable-next-line no-else-return
+    } else {
+      //////////////////////////////////////////////
+      // Type from same submodule
+      //
+      // Considerations:
+      // - We could be in the same nested class or in a different nested class here.
+      // - We could also be trying to reference types that will be below
+      //   ourselves in the source code order, which we will need to render as
+      //   type reference strings.
       const nestingParent = surroundingTypeFqns
         ?.map((fqn) => toPythonFqn(fqn, assembly).pythonFqn)
         ?.reverse()
         ?.find((parent) => pythonFqn.startsWith(`${parent}.`));
 
-      if (
-        typeAnnotation &&
-        (!emittedTypes.has(this.#fqn) || nestingParent != null)
-      ) {
-        // Possibly a forward reference, outputting the stringifierd python FQN
+      if (nestingParent && pos === 'decl') {
+        // In normal function bodies etc. we must use the fully-qualified name,
+        // but while executing the class declarations we must use the shorter name
+        // of the local variable we're defining.
+        //
+        // An example is most clear:
+        //
+        // ```py
+        // class A:
+        //     class B: pass
+        //     class C(B):                         # <-- note
+        //        def some_method(self, b: "A.B"): # <-- note
+        //           return A.B()                  # <-- note
+        // ```
+        //
+        // The FQN is separated by `.` and we would
+        // also use `.` to access subtypes in Python and have the same names, so we
+        // can just use a substring.
         return {
-          pythonType: wrapType(
-            JSON.stringify(pythonFqn.substring(submodulePythonName.length + 1)),
-          ),
+          pythonType: wrapType(pythonFqn.slice(nestingParent.length + 1)),
         };
-      }
-
-      if (!typeAnnotation && nestingParent) {
-        // This is not for a type annotation, so we should be at a point in time
-        // where the surrounding symbol has been defined entirely, so we can
-        // refer to it "normally" now.
-        return { pythonType: pythonFqn.slice(packageName.length + 1) };
       }
 
       // We'll just make a module-qualified reference at this point.
@@ -416,28 +461,6 @@ class UserType implements TypeName {
         ),
       };
     }
-
-    const [toImport, ...nested] = pythonFqn
-      .substring(typeSubmodulePythonName.length + 1)
-      .split('.');
-    const aliasSuffix = createHash('sha256')
-      .update(typeSubmodulePythonName)
-      .update('.')
-      .update(toImport)
-      .digest('hex')
-      .substring(0, 8);
-    const alias = `_${toImport}_${aliasSuffix}`;
-
-    return {
-      pythonType: wrapType([alias, ...nested].join('.')),
-      requiredImport: {
-        sourcePackage: relativeImportPath(
-          submodulePythonName,
-          typeSubmodulePythonName,
-        ),
-        item: `${toImport} as ${alias}`,
-      },
-    };
   }
 }
 

@@ -2491,6 +2491,11 @@ exports[`showAll 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: string
  │   │     └── returns: boolean
+ │   ├─┬ class SomeContainingClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ sayHello() method
+ │   │     └── returns: string
  │   ├─┬ class SomeTypeJsii976
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3637,6 +3642,20 @@ exports[`showAll 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface ChildStruct
+ │   │ ├─┬ interfaces
+ │   │ │ └── ParentStruct
+ │   │ └─┬ members
+ │   │   └─┬ field2 property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface ParentStruct
+ │   │ └─┬ members
+ │   │   └─┬ field1 property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property
@@ -4394,6 +4413,7 @@ exports[`types 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeContainingClass
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
@@ -4493,6 +4513,8 @@ exports[`types 1`] = `
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
+ │   ├── interface ChildStruct
+ │   ├── interface ParentStruct
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB

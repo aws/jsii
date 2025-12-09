@@ -378,7 +378,19 @@ export class TypeSystem {
   ) {
     validateFeatureSubset(supportedFeatures);
     const contents = loadAssemblyFromFile(file, validate, supportedFeatures);
-    return new Assembly(this, contents);
+
+    const pjFile = path.join(path.dirname(file), 'package.json');
+    let pjData: any = {};
+    try {
+      pjData = JSON.parse(fs.readFileSync(pjFile, 'utf-8'));
+    } catch (e: any) {
+      // Opportunistically it's not a failure if the file doesn't exist
+      if (e.code !== 'ENOENT') {
+        throw new Error(`Error loading ${pjFile}: ${e}`);
+      }
+    }
+
+    return new Assembly(this, contents, path.dirname(file), pjData);
   }
 
   private addRoot(asm: Assembly) {

@@ -69,7 +69,9 @@ export function verifyGeneratedCodeFor(
     done();
   });
   afterEach((done) => {
-    fs.removeSync(outDir);
+    if (!process.env.NO_CLEAN) {
+      fs.removeSync(outDir);
+    }
     outDir = undefined as any;
 
     done();
