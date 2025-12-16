@@ -91,11 +91,14 @@ export class JavaBuilder implements TargetBuilder {
       );
       scratchDirs.push(tempSourceDir);
 
+      await resolveMavenVersions(tempSourceDir.directory);
+
       // Need any old module object to make a target to be able to invoke build, though none of its settings
       // will be used.
       const target = this.makeTarget(this.modules[0], this.options);
       const tempOutputDir = await Scratch.make(async (dir) => {
         logging.debug(`Building Java code to ${dir}`);
+
         await target.build(tempSourceDir.directory, dir);
       });
       scratchDirs.push(tempOutputDir);
@@ -4008,4 +4011,33 @@ function removeIntersections(x: spec.TypeReference): spec.TypeReference {
     };
   }
   return x;
+}
+
+/**
+ * Run the maven 'versions:resolve-ranges' plugin
+ *
+ * Initially, we generate version ranges into the pom file based on the NPM
+ * version ranges.
+ *
+ * At build time, given a dependency version range, Maven will download metadata
+ * for all possible versions before every (uncached) build. This takes a long
+ * time, before finally resolving to the latest version anyway.
+ *
+ * Instead, we use the Maven 'versions' plugin to resolve our wide ranges to
+ * point versions. We want the "latest matching" version anyway, and if we don't
+ * the resolution now (which downloads the .poms of all possible versions) it
+ * will happen during every single build.
+ */
+async function resolveMavenVersions(directory: string) {
+  const versionsPluginVersion = '2.20.1';
+  await subprocess(
+    'mvn',
+    [
+      `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
+    ],
+    {
+      cwd: directory,
+      retry: { maxAttempts: 1 },
+    },
+  );
 }
