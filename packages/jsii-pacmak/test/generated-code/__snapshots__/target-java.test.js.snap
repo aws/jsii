@@ -682,11 +682,6 @@ public interface IBaseInterface extends software.amazon.jsii.JsiiSerializable, s
         }
 
         @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
-
-        @Override
         public final void bar() {
             software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.VOID);
         }
@@ -1223,11 +1218,6 @@ public interface IVeryBaseInterface extends software.amazon.jsii.JsiiSerializabl
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.baseofbase.IVeryBaseInterface.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -2030,15 +2020,6 @@ public interface IReflectable extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        public final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry> getEntries() {
-            return java.util.Collections.unmodifiableList(software.amazon.jsii.Kernel.get(this, "entries", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry.class))));
         }
     }
 
@@ -3004,15 +2985,6 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        public final @org.jetbrains.annotations.NotNull java.lang.Number getDoubleValue() {
-            return software.amazon.jsii.Kernel.get(this, "doubleValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
     }
 
     /**
@@ -3064,16 +3036,6 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.IFriendly.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         * (deprecated) Say hello!
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String hello() {
-            return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 
@@ -3129,22 +3091,8 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
-
-        @Override
         public final void bar() {
             software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        public final void baz() {
-            software.amazon.jsii.Kernel.call(this, "baz", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -3153,11 +3101,6 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IThreeLevelsInterface, software.amazon.jsii.tests.calculator.baseofbase.IVeryBaseInterface.Jsii$Default {
-
-        @Override
-        default void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
 
         @Override
         default void bar() {
@@ -3486,6 +3429,14 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
         public final @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
+
+        /**
+         * @return the name of the class (to verify native type names are created for derived classes).
+         */
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
+            return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
     }
 }
 
@@ -3541,6 +3492,14 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         @Deprecated
         public final @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * @return the name of the class (to verify native type names are created for derived classes).
+         */
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
+            return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
 
         /**
@@ -3784,15 +3743,6 @@ public interface IInterface extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        public final void method() {
-            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -6051,6 +6001,14 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @Deprecated
         public final @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        }
+
+        /**
+         * @return the name of the class (to verify native type names are created for derived classes).
+         */
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
+            return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
 
         /**
@@ -11651,22 +11609,6 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
-            return software.amazon.jsii.Kernel.call(this, "provideAsClass", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.Implementation.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
-            return software.amazon.jsii.Kernel.call(this, "provideAsInterface", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class));
-        }
     }
 
     /**
@@ -11724,22 +11666,6 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
-            return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String verb() {
-            return software.amazon.jsii.Kernel.call(this, "verb", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -11796,22 +11722,6 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getA() {
-            return software.amazon.jsii.Kernel.get(this, "a", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "a", java.util.Objects.requireNonNull(value, "a is required"));
-        }
     }
 
     /**
@@ -11864,14 +11774,6 @@ public interface IBell extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void ring() {
-            software.amazon.jsii.Kernel.call(this, "ring", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -11917,15 +11819,6 @@ public interface IBellRinger extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IBellRinger.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         * @param bell This parameter is required.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void yourTurn(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBell bell) {
-            software.amazon.jsii.Kernel.call(this, "yourTurn", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(bell, "bell is required") });
         }
     }
 
@@ -11973,15 +11866,6 @@ public interface IConcreteBellRinger extends software.amazon.jsii.JsiiSerializab
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IConcreteBellRinger.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         * @param bell This parameter is required.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void yourTurn(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell bell) {
-            software.amazon.jsii.Kernel.call(this, "yourTurn", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(bell, "bell is required") });
         }
     }
 
@@ -12048,36 +11932,6 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IDeprecatedInterface.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         * @deprecated could be better
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        public final @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
-            return software.amazon.jsii.Kernel.get(this, "mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         * @deprecated could be better
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        public final void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
-            software.amazon.jsii.Kernel.set(this, "mutableProperty", value);
-        }
-
-        /**
-         * @deprecated services no purpose
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        public final void method() {
-            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -12159,30 +12013,6 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public final @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
-            return software.amazon.jsii.Kernel.get(this, "mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public final void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
-            software.amazon.jsii.Kernel.set(this, "mutableProperty", value);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @Override
-        public final void method() {
-            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -12251,30 +12081,6 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IExtendsPrivateInterface.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getMoreThings() {
-            return java.util.Collections.unmodifiableList(software.amazon.jsii.Kernel.get(this, "moreThings", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getPrivateValue() {
-            return software.amazon.jsii.Kernel.get(this, "private", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setPrivateValue(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "private", java.util.Objects.requireNonNull(value, "private is required"));
         }
     }
 
@@ -12350,30 +12156,6 @@ public interface IExternalInterface extends software.amazon.jsii.JsiiSerializabl
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
-            return software.amazon.jsii.Kernel.get(this, "mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
-            software.amazon.jsii.Kernel.set(this, "mutableProperty", value);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void method() {
-            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -12444,36 +12226,6 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         * (deprecated) Say hello!
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String hello() {
-            return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         * Say farewell.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String farewell() {
-            return software.amazon.jsii.Kernel.call(this, "farewell", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         * Say goodbye.
-         * <p>
-         * @return A goodbye blessing.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String goodbye() {
-            return software.amazon.jsii.Kernel.call(this, "goodbye", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -12481,16 +12233,6 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IFriendlier, software.amazon.jsii.tests.calculator.lib.IFriendly.Jsii$Default {
-
-        /**
-         * (deprecated) Say hello!
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        default @org.jetbrains.annotations.NotNull java.lang.String hello() {
-            return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
 
         /**
          * Say farewell.
@@ -12535,27 +12277,6 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         * Returns another random number.
-         * <p>
-         * @return A random number.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.Number next() {
-            return software.amazon.jsii.Kernel.call(this, "next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         * (deprecated) Say hello!
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String hello() {
-            return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -12563,27 +12284,6 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IFriendlyRandomGenerator, software.amazon.jsii.tests.calculator.IRandomNumberGenerator.Jsii$Default, software.amazon.jsii.tests.calculator.lib.IFriendly.Jsii$Default {
-
-        /**
-         * Returns another random number.
-         * <p>
-         * @return A random number.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        default @org.jetbrains.annotations.NotNull java.lang.Number next() {
-            return software.amazon.jsii.Kernel.call(this, "next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         * (deprecated) Say hello!
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @Deprecated
-        @Override
-        default @org.jetbrains.annotations.NotNull java.lang.String hello() {
-            return software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 }
 
@@ -12617,22 +12317,6 @@ public interface IIndirectlyImplemented extends software.amazon.jsii.JsiiSeriali
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IIndirectlyImplemented.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
-            return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.Number method() {
-            return software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
     }
 
@@ -12687,14 +12371,6 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface() {
-            return software.amazon.jsii.Kernel.get(this, "propFromInterface", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -12740,30 +12416,6 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getValue() {
-            return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getOtherValue() {
-            return software.amazon.jsii.Kernel.get(this, "otherValue", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doThings() {
-            software.amazon.jsii.Kernel.call(this, "doThings", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -12776,24 +12428,8 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default @org.jetbrains.annotations.NotNull java.lang.String getValue() {
-            return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         default @org.jetbrains.annotations.NotNull java.lang.String getOtherValue() {
             return software.amazon.jsii.Kernel.get(this, "otherValue", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        default void doThings() {
-            software.amazon.jsii.Kernel.call(this, "doThings", software.amazon.jsii.NativeType.VOID);
         }
     }
 }
@@ -12823,14 +12459,6 @@ public interface IInterfaceWithInternal extends software.amazon.jsii.JsiiSeriali
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithInternal.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void visible() {
-            software.amazon.jsii.Kernel.call(this, "visible", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -12880,22 +12508,6 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithMethods.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getValue() {
-            return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doThings() {
-            software.amazon.jsii.Kernel.call(this, "doThings", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -12958,25 +12570,6 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         * @param arg1 This parameter is required.
-         * @param arg2
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void hello(final @org.jetbrains.annotations.NotNull java.lang.String arg1, final @org.jetbrains.annotations.Nullable java.lang.Number arg2) {
-            software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), arg2 });
-        }
-
-        /**
-         * @param arg1 This parameter is required.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void hello(final @org.jetbrains.annotations.NotNull java.lang.String arg1) {
-            software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required") });
-        }
     }
 
     /**
@@ -12993,6 +12586,15 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         @Override
         default void hello(final @org.jetbrains.annotations.NotNull java.lang.String arg1, final @org.jetbrains.annotations.Nullable java.lang.Number arg2) {
             software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), arg2 });
+        }
+
+        /**
+         * @param arg1 This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default void hello(final @org.jetbrains.annotations.NotNull java.lang.String arg1) {
+            software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required") });
         }
     }
 }
@@ -13031,30 +12633,6 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithProperties.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getReadOnlyString() {
-            return software.amazon.jsii.Kernel.get(this, "readOnlyString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getReadWriteString() {
-            return software.amazon.jsii.Kernel.get(this, "readWriteString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setReadWriteString(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
         }
     }
 
@@ -13120,46 +12698,6 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getReadOnlyString() {
-            return software.amazon.jsii.Kernel.get(this, "readOnlyString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getReadWriteString() {
-            return software.amazon.jsii.Kernel.get(this, "readWriteString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setReadWriteString(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Number getFoo() {
-            return software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setFoo(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
-            software.amazon.jsii.Kernel.set(this, "foo", java.util.Objects.requireNonNull(value, "foo is required"));
-        }
     }
 
     /**
@@ -13167,30 +12705,6 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IInterfaceWithPropertiesExtension, software.amazon.jsii.tests.calculator.IInterfaceWithProperties.Jsii$Default {
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default @org.jetbrains.annotations.NotNull java.lang.String getReadOnlyString() {
-            return software.amazon.jsii.Kernel.get(this, "readOnlyString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default @org.jetbrains.annotations.NotNull java.lang.String getReadWriteString() {
-            return software.amazon.jsii.Kernel.get(this, "readWriteString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default void setReadWriteString(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
-        }
 
         /**
          */
@@ -13246,46 +12760,6 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Boolean getHasRoot() {
-            return software.amazon.jsii.Kernel.get(this, "hasRoot", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
-            return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void bar() {
-            software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void baz() {
-            software.amazon.jsii.Kernel.call(this, "baz", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -13298,24 +12772,8 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default @org.jetbrains.annotations.NotNull java.lang.Boolean getHasRoot() {
-            return software.amazon.jsii.Kernel.get(this, "hasRoot", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         default @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        default void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
@@ -13366,22 +12824,6 @@ public interface IJSII417PublicBaseOfBase extends software.amazon.jsii.JsiiSeria
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Boolean getHasRoot() {
-            return software.amazon.jsii.Kernel.get(this, "hasRoot", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -13689,422 +13131,6 @@ public interface IJavaReservedWordsInAnInterface extends software.amazon.jsii.Js
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IJavaReservedWordsInAnInterface.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getWhileValue() {
-            return software.amazon.jsii.Kernel.get(this, "while", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doAbstract() {
-            software.amazon.jsii.Kernel.call(this, "abstract", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doAssert() {
-            software.amazon.jsii.Kernel.call(this, "assert", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doBoolean() {
-            software.amazon.jsii.Kernel.call(this, "boolean", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doBreak() {
-            software.amazon.jsii.Kernel.call(this, "break", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doByte() {
-            software.amazon.jsii.Kernel.call(this, "byte", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doCase() {
-            software.amazon.jsii.Kernel.call(this, "case", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doCatch() {
-            software.amazon.jsii.Kernel.call(this, "catch", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doChar() {
-            software.amazon.jsii.Kernel.call(this, "char", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doClass() {
-            software.amazon.jsii.Kernel.call(this, "class", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doConst() {
-            software.amazon.jsii.Kernel.call(this, "const", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doContinue() {
-            software.amazon.jsii.Kernel.call(this, "continue", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doDefault() {
-            software.amazon.jsii.Kernel.call(this, "default", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doDo() {
-            software.amazon.jsii.Kernel.call(this, "do", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doDouble() {
-            software.amazon.jsii.Kernel.call(this, "double", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doElse() {
-            software.amazon.jsii.Kernel.call(this, "else", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doEnum() {
-            software.amazon.jsii.Kernel.call(this, "enum", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doExtends() {
-            software.amazon.jsii.Kernel.call(this, "extends", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doFalse() {
-            software.amazon.jsii.Kernel.call(this, "false", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doFinal() {
-            software.amazon.jsii.Kernel.call(this, "final", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doFinally() {
-            software.amazon.jsii.Kernel.call(this, "finally", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doFloat() {
-            software.amazon.jsii.Kernel.call(this, "float", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doFor() {
-            software.amazon.jsii.Kernel.call(this, "for", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doGoto() {
-            software.amazon.jsii.Kernel.call(this, "goto", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doIf() {
-            software.amazon.jsii.Kernel.call(this, "if", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doImplements() {
-            software.amazon.jsii.Kernel.call(this, "implements", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doImport() {
-            software.amazon.jsii.Kernel.call(this, "import", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doInstanceof() {
-            software.amazon.jsii.Kernel.call(this, "instanceof", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doInt() {
-            software.amazon.jsii.Kernel.call(this, "int", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doInterface() {
-            software.amazon.jsii.Kernel.call(this, "interface", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doLong() {
-            software.amazon.jsii.Kernel.call(this, "long", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doNative() {
-            software.amazon.jsii.Kernel.call(this, "native", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doNull() {
-            software.amazon.jsii.Kernel.call(this, "null", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doPackage() {
-            software.amazon.jsii.Kernel.call(this, "package", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doPrivate() {
-            software.amazon.jsii.Kernel.call(this, "private", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doProtected() {
-            software.amazon.jsii.Kernel.call(this, "protected", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doPublic() {
-            software.amazon.jsii.Kernel.call(this, "public", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doReturn() {
-            software.amazon.jsii.Kernel.call(this, "return", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doShort() {
-            software.amazon.jsii.Kernel.call(this, "short", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doStatic() {
-            software.amazon.jsii.Kernel.call(this, "static", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doStrictfp() {
-            software.amazon.jsii.Kernel.call(this, "strictfp", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doSuper() {
-            software.amazon.jsii.Kernel.call(this, "super", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doSwitch() {
-            software.amazon.jsii.Kernel.call(this, "switch", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doSynchronized() {
-            software.amazon.jsii.Kernel.call(this, "synchronized", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doThis() {
-            software.amazon.jsii.Kernel.call(this, "this", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doThrow() {
-            software.amazon.jsii.Kernel.call(this, "throw", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doThrows() {
-            software.amazon.jsii.Kernel.call(this, "throws", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doTransient() {
-            software.amazon.jsii.Kernel.call(this, "transient", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doTrue() {
-            software.amazon.jsii.Kernel.call(this, "true", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doTry() {
-            software.amazon.jsii.Kernel.call(this, "try", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doVoid() {
-            software.amazon.jsii.Kernel.call(this, "void", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void doVolatile() {
-            software.amazon.jsii.Kernel.call(this, "volatile", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -14655,22 +13681,6 @@ public interface IMutableObjectLiteral extends software.amazon.jsii.JsiiSerializ
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getValue() {
-            return software.amazon.jsii.Kernel.get(this, "value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setValue(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "value", java.util.Objects.requireNonNull(value, "value is required"));
-        }
     }
 
     /**
@@ -14736,54 +13746,6 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getA() {
-            return software.amazon.jsii.Kernel.get(this, "a", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "a", java.util.Objects.requireNonNull(value, "a is required"));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getB() {
-            return software.amazon.jsii.Kernel.get(this, "b", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setB(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "b", java.util.Objects.requireNonNull(value, "b is required"));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getC() {
-            return software.amazon.jsii.Kernel.get(this, "c", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setC(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "c", java.util.Objects.requireNonNull(value, "c is required"));
-        }
     }
 
     /**
@@ -14791,22 +13753,6 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends INonInternalInterface, software.amazon.jsii.tests.calculator.IAnotherPublicInterface.Jsii$Default {
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default @org.jetbrains.annotations.NotNull java.lang.String getA() {
-            return software.amazon.jsii.Kernel.get(this, "a", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        default void setA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "a", java.util.Objects.requireNonNull(value, "a is required"));
-        }
 
         /**
          */
@@ -14878,30 +13824,6 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
-            return software.amazon.jsii.Kernel.get(this, "property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
-            software.amazon.jsii.Kernel.set(this, "property", java.util.Objects.requireNonNull(value, "property is required"));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.Boolean wasSet() {
-            return software.amazon.jsii.Kernel.call(this, "wasSet", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-        }
     }
 
     /**
@@ -14963,14 +13885,6 @@ public interface IOptionalMethod extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.Nullable java.lang.String optional() {
-            return software.amazon.jsii.Kernel.call(this, "optional", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -15014,14 +13928,6 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IPrivatelyImplemented.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
-            return software.amazon.jsii.Kernel.get(this, "success", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
         }
     }
 
@@ -15067,14 +13973,6 @@ public interface IPublicInterface extends software.amazon.jsii.JsiiSerializable 
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String bye() {
-            return software.amazon.jsii.Kernel.call(this, "bye", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -15118,14 +14016,6 @@ public interface IPublicInterface2 extends software.amazon.jsii.JsiiSerializable
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IPublicInterface2.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String ciao() {
-            return software.amazon.jsii.Kernel.call(this, "ciao", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 
@@ -15175,17 +14065,6 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         * Returns another random number.
-         * <p>
-         * @return A random number.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.Number next() {
-            return software.amazon.jsii.Kernel.call(this, "next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
     }
 
     /**
@@ -15233,14 +14112,6 @@ public interface IReturnJsii976 extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IReturnJsii976.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Number getFoo() {
-            return software.amazon.jsii.Kernel.get(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
     }
 
@@ -15290,22 +14161,6 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IReturnsNumber.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number getNumberProp() {
-            return software.amazon.jsii.Kernel.get(this, "numberProp", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Number.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber() {
-            return software.amazon.jsii.Kernel.call(this, "obtainNumber", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.IDoublable.class));
         }
     }
 
@@ -15373,30 +14228,6 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
-            return software.amazon.jsii.Kernel.get(this, "mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
-            software.amazon.jsii.Kernel.set(this, "mutableProperty", value);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void method() {
-            software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -15458,14 +14289,6 @@ public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSeria
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB returnStruct() {
-            return software.amazon.jsii.Kernel.call(this, "returnStruct", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructB.class));
-        }
     }
 
     /**
@@ -15511,15 +14334,6 @@ public interface IWallClock extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IWallClock.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         * Returns the current time, formatted as an ISO-8601 string.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String iso8601Now() {
-            return software.amazon.jsii.Kernel.call(this, "iso8601Now", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 
@@ -23933,6 +22747,14 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
+         * @return the name of the class (to verify native type names are created for derived classes).
+         */
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
+            return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
+
+        /**
          * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -24701,14 +23523,6 @@ public interface IOptionA extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String doSomething() {
-            return software.amazon.jsii.Kernel.call(this, "doSomething", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -24752,14 +23566,6 @@ public interface IOptionB extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.anonymous.IOptionB.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String doSomethingElse() {
-            return software.amazon.jsii.Kernel.call(this, "doSomethingElse", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 
@@ -25271,6 +24077,14 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue getExpression() {
             return software.amazon.jsii.Kernel.get(this, "expression", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.NumericValue.class));
         }
+
+        /**
+         * @return the name of the class (to verify native type names are created for derived classes).
+         */
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
+            return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
     }
 }
 
@@ -25408,14 +24222,6 @@ public interface IBase extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.IBase.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass getSomething() {
-            return software.amazon.jsii.Kernel.get(this, "something", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.covariant_overrides.class_overrides.Superclass.class));
         }
     }
 
@@ -26676,14 +25482,6 @@ public interface ISomething extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.intersection.ISomething.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.Object something() {
-            return software.amazon.jsii.Kernel.call(this, "something", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
     }
 
@@ -28183,22 +26981,6 @@ public interface IFoo extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.Number getBaz() {
-            return software.amazon.jsii.Kernel.get(this, "baz", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String bar() {
-            return software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -28445,21 +27227,8 @@ public interface IBaz extends software.amazon.jsii.JsiiSerializable, software.am
         }
 
         @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
-
-        @Override
         public final void bar() {
             software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void bazMethod() {
-            software.amazon.jsii.Kernel.call(this, "bazMethod", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -28468,11 +27237,6 @@ public interface IBaz extends software.amazon.jsii.JsiiSerializable, software.am
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IBaz, software.amazon.jsii.tests.calculator.baseofbase.IVeryBaseInterface.Jsii$Default {
-
-        @Override
-        default void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
 
         @Override
         default void bar() {
@@ -28514,14 +27278,6 @@ public interface IConstruct extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.module2702.IConstruct.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void constructMethod() {
-            software.amazon.jsii.Kernel.call(this, "constructMethod", software.amazon.jsii.NativeType.VOID);
         }
     }
 
@@ -28568,19 +27324,6 @@ public interface IFoo extends software.amazon.jsii.JsiiSerializable, software.am
             super(objRef);
         }
 
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getIBaseInterface() {
-            return software.amazon.jsii.Kernel.get(this, "iBaseInterface", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        @Override
-        public final void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
-        }
-
         @Override
         public final void bar() {
             software.amazon.jsii.Kernel.call(this, "bar", software.amazon.jsii.NativeType.VOID);
@@ -28599,11 +27342,6 @@ public interface IFoo extends software.amazon.jsii.JsiiSerializable, software.am
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         default @org.jetbrains.annotations.NotNull java.lang.String getIBaseInterface() {
             return software.amazon.jsii.Kernel.get(this, "iBaseInterface", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
-
-        @Override
-        default void foo() {
-            software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID);
         }
 
         @Override
@@ -28639,22 +27377,6 @@ public interface IResource extends software.amazon.jsii.JsiiSerializable, softwa
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void constructMethod() {
-            software.amazon.jsii.Kernel.call(this, "constructMethod", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void resourceMethod() {
-            software.amazon.jsii.Kernel.call(this, "resourceMethod", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -28662,14 +27384,6 @@ public interface IResource extends software.amazon.jsii.JsiiSerializable, softwa
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IResource, software.amazon.jsii.tests.calculator.module2702.IConstruct.Jsii$Default {
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        default void constructMethod() {
-            software.amazon.jsii.Kernel.call(this, "constructMethod", software.amazon.jsii.NativeType.VOID);
-        }
 
         /**
          */
@@ -28707,30 +27421,6 @@ public interface IVpc extends software.amazon.jsii.JsiiSerializable, software.am
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void constructMethod() {
-            software.amazon.jsii.Kernel.call(this, "constructMethod", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void resourceMethod() {
-            software.amazon.jsii.Kernel.call(this, "resourceMethod", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final void vpcMethod() {
-            software.amazon.jsii.Kernel.call(this, "vpcMethod", software.amazon.jsii.NativeType.VOID);
-        }
     }
 
     /**
@@ -28738,22 +27428,6 @@ public interface IVpc extends software.amazon.jsii.JsiiSerializable, software.am
      */
     @software.amazon.jsii.Internal
     interface Jsii$Default extends IVpc, software.amazon.jsii.tests.calculator.module2702.IResource.Jsii$Default {
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        default void constructMethod() {
-            software.amazon.jsii.Kernel.call(this, "constructMethod", software.amazon.jsii.NativeType.VOID);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        default void resourceMethod() {
-            software.amazon.jsii.Kernel.call(this, "resourceMethod", software.amazon.jsii.NativeType.VOID);
-        }
 
         /**
          */
@@ -29225,15 +27899,6 @@ public interface IInterfaceWithSelf extends software.amazon.jsii.JsiiSerializabl
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.python_self.IInterfaceWithSelf.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         * @param self This parameter is required.
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.String method(final @org.jetbrains.annotations.NotNull java.lang.Number self) {
-            return software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(self, "self is required") });
         }
     }
 
@@ -30397,14 +29062,6 @@ public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
-
-        /**
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public final @org.jetbrains.annotations.NotNull java.lang.String getDefinedAt() {
-            return software.amazon.jsii.Kernel.get(this, "definedAt", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-        }
     }
 
     /**
@@ -30644,14 +29301,6 @@ public interface IResolvable extends software.amazon.jsii.JsiiSerializable {
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.union.IResolvable.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-        }
-
-        /**
-         */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        @Override
-        public final @org.jetbrains.annotations.NotNull java.lang.Object resolve() {
-            return software.amazon.jsii.Kernel.call(this, "resolve", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
     }
 

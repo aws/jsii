@@ -46,6 +46,9 @@ const ANN_NOT_NULL = '@org.jetbrains.annotations.NotNull';
 const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
 const ANN_INTERNAL = '@software.amazon.jsii.Internal';
 
+// See `makeDefaultImpls` for information on what this is for
+const UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS = true;
+
 /**
  * Build Java packages all together, by generating an aggregate POM
  *
@@ -1965,11 +1968,9 @@ class JavaGenerator extends Generator {
     });
 
     // Add ourselves if we don't have a $Default interface
-    // let needToImplementMyMethods = false;
     if (type.isInterfaceType() && !hasDefaultInterfaces(type.assembly)) {
       // Extend this interface directly since this module does not have the Jsii$Default
       baseInterfaces.push(this.toNativeFqn(type.fqn));
-      // needToImplementMyMethods = true;
     }
 
     const suffix = type.isInterfaceType()
@@ -1991,9 +1992,6 @@ class JavaGenerator extends Generator {
     );
     this.code.line('super(objRef);');
     this.code.closeBlock();
-
-    // Only emit implementations for the members we add, because the rest is
-    // inherited from $Default interfaces.
 
     // emit all properties
     for (const reflectProp of type.allProperties.filter(needsProxyImpl)) {
@@ -2047,10 +2045,10 @@ class JavaGenerator extends Generator {
         overrides: type.isInterfaceType(),
       });
     }
-    for (const method of type.allMethods.filter(needsDefaultImpl)) {
-      this.emitMethod(type.spec, method.spec, {
+    for (const method of type.allMethods.flatMap(this.makeDefaultImpls)) {
+      this.emitMethod(type.spec, method, {
         defaultImpl: true,
-        overrides: type.isInterfaceType(),
+        overrides: true,
       });
     }
     this.code.closeBlock();
@@ -3368,6 +3366,34 @@ class JavaGenerator extends Generator {
     this.code.closeFile(moduleFile);
 
     return moduleClass;
+  }
+
+  /**
+   * Given a method, return the methods that we should generate implementations for on the $Default interface
+   *
+   * This can be 0..N:
+   *
+   * - 0: if the method can be inherited from a parent $Default implementation
+   * - 1: if the method cannot be inherited from a parent $Default implementation
+   * - N: ah-ha, wait! There can be overloads! And because of a historical bug,
+   *   we didn't use to generate overloads onto $Default interfaces. So it's possible
+   *   that we don't generate the "main" implementation, but we do generate its overloads.
+   *
+   * We can only get rid of this bug once the oldest dependency package a Java
+   * package can be used with definitely has overloaded $Default impls. So that will be a while.
+   */
+  private makeDefaultImpls(m: reflect.Method): spec.Method[] {
+    const ret: spec.Method[] = [];
+    if (needsDefaultImpl(m)) {
+      ret.push(m.spec);
+    }
+
+    // Account for a past bug
+    if (UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS) {
+      ret.push(...this.createOverloadsForOptionals(m.spec));
+    }
+
+    return ret;
   }
 
   private emitJsiiInitializers(cls: spec.ClassType) {
