@@ -2045,7 +2045,9 @@ class JavaGenerator extends Generator {
         overrides: type.isInterfaceType(),
       });
     }
-    for (const method of type.allMethods.flatMap(this.makeDefaultImpls)) {
+    for (const method of type.allMethods.flatMap(
+      this.makeDefaultImpls.bind(this),
+    )) {
       this.emitMethod(type.spec, method, {
         defaultImpl: true,
         overrides: true,
