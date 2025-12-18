@@ -1959,13 +1959,17 @@ class JavaGenerator extends Generator {
     );
     this.code.line(' */');
 
+    // Get the list of $Default interfaces
     const baseInterfaces = this.defaultInterfacesFor(type, {
       includeThisType: true,
     });
 
+    // Add ourselves if we don't have a $Default interface
+    // let needToImplementMyMethods = false;
     if (type.isInterfaceType() && !hasDefaultInterfaces(type.assembly)) {
       // Extend this interface directly since this module does not have the Jsii$Default
       baseInterfaces.push(this.toNativeFqn(type.fqn));
+      // needToImplementMyMethods = true;
     }
 
     const suffix = type.isInterfaceType()
@@ -1988,14 +1992,11 @@ class JavaGenerator extends Generator {
     this.code.line('super(objRef);');
     this.code.closeBlock();
 
+    // Only emit implementations for the members we add, because the rest is
+    // inherited from $Default interfaces.
+
     // emit all properties
-    for (const reflectProp of type.allProperties.filter(
-      (prop) =>
-        prop.abstract &&
-        (prop.parentType.fqn === type.fqn ||
-          prop.parentType.isClassType() ||
-          !hasDefaultInterfaces(prop.assembly)),
-    )) {
+    for (const reflectProp of type.allProperties.filter(needsProxyImpl)) {
       const prop = clone(reflectProp.spec);
       prop.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
@@ -2006,13 +2007,7 @@ class JavaGenerator extends Generator {
     }
 
     // emit all the methods
-    for (const reflectMethod of type.allMethods.filter(
-      (method) =>
-        method.abstract &&
-        (method.parentType.fqn === type.fqn ||
-          method.parentType.isClassType() ||
-          !hasDefaultInterfaces(method.assembly)),
-    )) {
+    for (const reflectMethod of type.allMethods.filter(needsProxyImpl)) {
       const method = clone(reflectMethod.spec);
       method.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
@@ -2046,26 +2041,16 @@ class JavaGenerator extends Generator {
         .join(', ')}`,
     );
 
-    for (const property of type.allProperties.filter(
-      (prop) =>
-        prop.abstract &&
-        // Only checking the getter - java.lang.Object has no setters.
-        !isJavaLangObjectMethodName(`get${jsiiToPascalCase(prop.name)}`) &&
-        (prop.parentType.fqn === type.fqn ||
-          !hasDefaultInterfaces(prop.assembly)),
-    )) {
+    const env = type.allProperties.find(x => x.name === 'env');
+    console.log(env?.name, env?.definingType.fqn, env?.abstract, env?.definingType.assembly.fqn, env?.definingType.assembly.metadata, env ? needsDefaultImpl(env, type) : 'ugh');
+
+    for (const property of type.allProperties.filter((p) => needsDefaultImpl(p, type))) {
       this.emitProperty(type.spec, property.spec, property.definingType.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
       });
     }
-    for (const method of type.allMethods.filter(
-      (method) =>
-        method.abstract &&
-        !isJavaLangObjectMethodName(method.name) &&
-        (method.parentType.fqn === type.fqn ||
-          !hasDefaultInterfaces(method.assembly)),
-    )) {
+    for (const method of type.allMethods.filter((p) => needsDefaultImpl(p, type))) {
       this.emitMethod(type.spec, method.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
@@ -4040,4 +4025,37 @@ async function resolveMavenVersions(directory: string) {
       retry: { maxAttempts: 1 },
     },
   );
+}
+
+/**
+ * Whether the given property or method needs to be implemented on a $Proxy class
+ *
+ * Proxies extend the class they're for (if for a class), and the $Default interfaces
+ * of all the base interfaces, so implementations need to be present for everything
+ * that is not abstract and can be inherited from a $Default interface.
+ */
+function needsProxyImpl(x: reflect.Property | reflect.Method) {
+  // Interface members are always marked 'abstract', but we only need to
+  // implement them if they come from a class (because interface members
+  // will have a $Default impl that calls out to jsii already).
+  const isAbstract = x.definingType.isClassType () && x.abstract;
+
+  return isAbstract || !hasDefaultInterfaces(x.definingType.assembly);
+}
+
+/**
+ * Whether the given property or method needs to be implemented on a $Default interface
+ *
+ * $Default interfaces extend the interface they're for, and the $Default interfaces
+ * of all the base interfaces, so implementations need to be present for everything
+ * that is defined on the current interface or cannot be inherited from a $Default interface.
+ */
+function needsDefaultImpl(x: reflect.Property | reflect.Method, currentType: reflect.InterfaceType) {
+  const isBuiltinMethod =
+    x instanceof reflect.Property
+      ? // Only checking the getter - java.lang.Object has no setters.
+        isJavaLangObjectMethodName(`get${jsiiToPascalCase(x.name)}`)
+      : isJavaLangObjectMethodName(x.name);
+
+  return (!hasDefaultInterfaces(x.definingType.assembly) || x.definingType.fqn === currentType.fqn) && !isBuiltinMethod;
 }

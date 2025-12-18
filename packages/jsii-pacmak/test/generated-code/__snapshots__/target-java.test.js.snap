@@ -517,6 +517,14 @@ public abstract class Base extends software.amazon.jsii.JsiiObject {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
+
+        /**
+         * @return the name of the class (to verify native type names are created for derived classes).
+         */
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
+            return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
     }
 }
 
