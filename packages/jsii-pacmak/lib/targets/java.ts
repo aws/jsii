@@ -2041,16 +2041,13 @@ class JavaGenerator extends Generator {
         .join(', ')}`,
     );
 
-    const env = type.allProperties.find(x => x.name === 'env');
-    console.log(env?.name, env?.definingType.fqn, env?.abstract, env?.definingType.assembly.fqn, env?.definingType.assembly.metadata, env ? needsDefaultImpl(env, type) : 'ugh');
-
-    for (const property of type.allProperties.filter((p) => needsDefaultImpl(p, type))) {
+    for (const property of type.allProperties.filter(needsDefaultImpl)) {
       this.emitProperty(type.spec, property.spec, property.definingType.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
       });
     }
-    for (const method of type.allMethods.filter((p) => needsDefaultImpl(p, type))) {
+    for (const method of type.allMethods.filter(needsDefaultImpl)) {
       this.emitMethod(type.spec, method.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
@@ -4038,9 +4035,10 @@ function needsProxyImpl(x: reflect.Property | reflect.Method) {
   // Interface members are always marked 'abstract', but we only need to
   // implement them if they come from a class (because interface members
   // will have a $Default impl that calls out to jsii already).
-  const isAbstract = x.definingType.isClassType () && x.abstract;
-
-  return isAbstract || !hasDefaultInterfaces(x.definingType.assembly);
+  const isAbstractClassMember = x.definingType.isClassType() && x.abstract;
+  return (
+    isAbstractClassMember || !hasDefaultInterfaces(x.definingType.assembly)
+  );
 }
 
 /**
@@ -4050,12 +4048,16 @@ function needsProxyImpl(x: reflect.Property | reflect.Method) {
  * of all the base interfaces, so implementations need to be present for everything
  * that is defined on the current interface or cannot be inherited from a $Default interface.
  */
-function needsDefaultImpl(x: reflect.Property | reflect.Method, currentType: reflect.InterfaceType) {
+function needsDefaultImpl(x: reflect.Property | reflect.Method) {
   const isBuiltinMethod =
     x instanceof reflect.Property
       ? // Only checking the getter - java.lang.Object has no setters.
         isJavaLangObjectMethodName(`get${jsiiToPascalCase(x.name)}`)
       : isJavaLangObjectMethodName(x.name);
 
-  return (!hasDefaultInterfaces(x.definingType.assembly) || x.definingType.fqn === currentType.fqn) && !isBuiltinMethod;
+  return (
+    (!hasDefaultInterfaces(x.definingType.assembly) ||
+      x.definingType.fqn === x.parentType.fqn) &&
+    !isBuiltinMethod
+  );
 }
