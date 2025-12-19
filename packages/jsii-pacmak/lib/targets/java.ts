@@ -1020,7 +1020,7 @@ class JavaGenerator extends Generator {
 
   /**
    * Emits a local default implementation for optional properties inherited from
-   * multiple distinct parent types. This remvoes the default method dispatch
+   * multiple distinct parent types. This removes the default method dispatch
    * ambiguity that would otherwise exist.
    *
    * @param ifc            the interface to be processed.
@@ -1033,46 +1033,30 @@ class JavaGenerator extends Generator {
       // Nothing to do if we don't have parent interfaces, or if we have exactly one
       return;
     }
-    const inheritedOptionalProps = ifc.interfaces
-      .map(allOptionalProps.bind(this))
-      // Calculate how many direct parents brought a given optional property
-      .reduce(
-        (histogram, entry) => {
-          for (const [name, spec] of Object.entries(entry)) {
-            histogram[name] = histogram[name] ?? { spec, count: 0 };
-            histogram[name].count += 1;
-          }
-          return histogram;
-        },
-        {} as Record<string, { readonly spec: spec.Property; count: number }>,
-      );
 
-    const localProps = new Set(ifc.properties?.map((prop) => prop.name) ?? []);
-    for (const { spec, count } of Object.values(inheritedOptionalProps)) {
-      if (count < 2 || localProps.has(spec.name)) {
-        continue;
+    const memberSources: Record<string, Record<string, spec.Property>> = {};
+    for (const parent of ifc.interfaces) {
+      const type = this.reflectAssembly.system.findInterface(parent);
+      for (const prop of type.allProperties) {
+        if (!prop.optional) {
+          continue;
+        }
+
+        if (!(prop.name in memberSources)) {
+          memberSources[prop.name] = {};
+        }
+        memberSources[prop.name][prop.definingType.fqn] = prop.spec;
       }
-      this.onInterfaceProperty(ifc, spec);
     }
 
-    function allOptionalProps(this: JavaGenerator, fqn: string) {
-      const type = this.findType(fqn) as spec.InterfaceType;
-      const result: Record<string, spec.Property> = {};
-      for (const prop of type.properties ?? []) {
-        // Adding artifical "overrides" here for code-gen quality's sake.
-        result[prop.name] = { ...prop, overrides: type.fqn };
+    for (const defininingTypes of Object.values(memberSources)) {
+      // Ignore our own type
+      delete defininingTypes[ifc.fqn];
+
+      const keys = Object.keys(defininingTypes);
+      if (keys.length > 1) {
+        this.onInterfaceProperty(ifc, defininingTypes[keys[0]]);
       }
-      // Include optional properties of all super interfaces in the result
-      for (const base of type.interfaces ?? []) {
-        for (const [name, prop] of Object.entries(
-          allOptionalProps.call(this, base),
-        )) {
-          if (!(name in result)) {
-            result[name] = prop;
-          }
-        }
-      }
-      return result;
     }
   }
 
@@ -2005,19 +1989,13 @@ class JavaGenerator extends Generator {
     }
 
     // emit all the methods
-    for (const reflectMethod of type.allMethods.filter(needsProxyImpl)) {
-      const method = clone(reflectMethod.spec);
-      method.abstract = false;
+    for (const reflectMethod of type.allMethods.flatMap(
+      this.makeProxyImpls.bind(this),
+    )) {
+      const method = clone(reflectMethod);
       // Emitting "final" since this is a proxy and nothing will/should override this
+      method.abstract = false;
       this.emitMethod(type.spec, method, { final: true, overrides: true });
-
-      for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
-        overloadedMethod.abstract = false;
-        this.emitMethod(type.spec, overloadedMethod, {
-          final: true,
-          overrides: true,
-        });
-      }
     }
 
     this.code.closeBlock();
@@ -3381,6 +3359,10 @@ class JavaGenerator extends Generator {
    *   we didn't use to generate overloads onto $Default interfaces. So it's possible
    *   that we don't generate the "main" implementation, but we do generate its overloads.
    *
+   * Technically speaking we only have to account for the bug if the type is from a different
+   * assembly (because we know all types from the current assembly will be generated ✨ bugless ✨,
+   * but just to keep it simple we'll always do the same thing).
+   *
    * We can only get rid of this bug once the oldest dependency package a Java
    * package can be used with definitely has overloaded $Default impls. So that will be a while.
    */
@@ -3391,7 +3373,37 @@ class JavaGenerator extends Generator {
     }
 
     // Account for a past bug
-    if (UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS) {
+    if (
+      needsDefaultImpl(m) ||
+      UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS
+    ) {
+      ret.push(...this.createOverloadsForOptionals(m.spec));
+    }
+
+    return ret;
+  }
+
+  /**
+   * Given a method, return the methods that we should generate implementations for on the $Proxy class
+   *
+   * See `makeDefaultImpls` for the main rationale behind this. The $Proxy class inherits from $Default
+   * so technically this could have usually been empty, but we need to account for the possibility that
+   * we implement a $Default interface from another assembly that has been generated with a buggy version
+   * of pacmak.
+   */
+  private makeProxyImpls<A extends reflect.Method | reflect.Property>(
+    m: A,
+  ): Array<A['spec']> {
+    const ret: spec.Method[] = [];
+    if (needsProxyImpl(m)) {
+      ret.push(m.spec);
+    }
+
+    // Account for a past bug
+    if (
+      needsProxyImpl(m) ||
+      UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS
+    ) {
       ret.push(...this.createOverloadsForOptionals(m.spec));
     }
 

@@ -8916,7 +8916,6 @@ public interface DiamondBottom extends software.amazon.jsii.JsiiSerializable, so
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    @Override
     default @org.jetbrains.annotations.Nullable java.lang.String getHoistedTop() {
         return null;
     }
@@ -9530,11 +9529,6 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getTopLevelProperty();
-
-    /**
-     */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    @org.jetbrains.annotations.NotNull java.lang.String getBaseLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceTopLevelStruct}
@@ -12569,6 +12563,15 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments.Jsii$Default {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
+        }
+
+        /**
+         * @param arg1 This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final void hello(final @org.jetbrains.annotations.NotNull java.lang.String arg1) {
+            software.amazon.jsii.Kernel.call(this, "hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required") });
         }
     }
 

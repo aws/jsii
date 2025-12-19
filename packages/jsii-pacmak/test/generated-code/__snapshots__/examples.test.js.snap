@@ -792,8 +792,6 @@ public interface Baz extends software.amazon.jsii.JsiiSerializable, example.test
 
     @org.jetbrains.annotations.NotNull java.lang.Boolean getBaz();
 
-    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
-
     /**
      * @return a {@link Builder} of {@link Baz}
      */
