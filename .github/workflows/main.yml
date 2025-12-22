@@ -51,7 +51,7 @@ jobs:
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |-
             ~/.m2/repository
@@ -133,7 +133,7 @@ jobs:
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       - name: Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |-
             ~/.m2/repository
@@ -324,7 +324,7 @@ jobs:
     steps:
       # Check out the code
       - name: Download Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: built-tree
       - name: Extract Artifact
@@ -367,7 +367,7 @@ jobs:
           yarn config set cache-folder D:\a\_temp\yarn
           echo "TEMP=D:\a\_temp" >> $env:GITHUB_ENV
       - name: Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |-
             ~/.m2/repository
@@ -424,7 +424,7 @@ jobs:
     steps:
       # Check out the code
       - name: Download Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: release-package
           path: ${{ runner.temp }}/release-package
