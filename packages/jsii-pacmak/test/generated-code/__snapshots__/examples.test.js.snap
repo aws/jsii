@@ -2579,16 +2579,6 @@ public class Namespace1 extends software.amazon.jsii.JsiiObject {
             protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
                 super(objRef);
             }
-
-            @Override
-            public final @org.jetbrains.annotations.NotNull java.lang.String getBar() {
-                return software.amazon.jsii.Kernel.get(this, "bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            }
-
-            @Override
-            public final void method() {
-                software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
-            }
         }
 
         /**
