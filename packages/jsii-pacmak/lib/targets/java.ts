@@ -46,8 +46,14 @@ const ANN_NOT_NULL = '@org.jetbrains.annotations.NotNull';
 const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
 const ANN_INTERNAL = '@software.amazon.jsii.Internal';
 
-// See `makeDefaultImpls` for information on what this is for
-const UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS = true;
+/**
+ * Because of a historical bug, $Default interfaces we inherit from might not
+ * have all method overloads generated correctly.
+ *
+ * So when inheriting these, we might need to generate the overloads in
+ * subinterfaces/subclasses.
+ */
+const GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS = true;
 
 /**
  * Build Java packages all together, by generating an aggregate POM
@@ -887,7 +893,7 @@ class JavaGenerator extends Generator {
   }
 
   protected onEndInterface(ifc: spec.InterfaceType) {
-    this.emitMultiplyInheritedOptionalProperties(ifc);
+    this.emitMultiplyInheritedProperties(ifc);
 
     if (ifc.datatype) {
       this.emitDataType(ifc);
@@ -1019,16 +1025,16 @@ class JavaGenerator extends Generator {
   }
 
   /**
-   * Emits a local default implementation for optional properties inherited from
-   * multiple distinct parent types. This removes the default method dispatch
-   * ambiguity that would otherwise exist.
+   * Emits a local default implementation for properties inherited from multiple
+   * distinct parent types. This removes the default method dispatch ambiguity
+   * that would otherwise exist.
    *
    * @param ifc            the interface to be processed.
 
    *
    * @see https://github.com/aws/jsii/issues/2256
    */
-  private emitMultiplyInheritedOptionalProperties(ifc: spec.InterfaceType) {
+  private emitMultiplyInheritedProperties(ifc: spec.InterfaceType) {
     if (ifc.interfaces == null || ifc.interfaces.length <= 1) {
       // Nothing to do if we don't have parent interfaces, or if we have exactly one
       return;
@@ -1038,10 +1044,6 @@ class JavaGenerator extends Generator {
     for (const parent of ifc.interfaces) {
       const type = this.reflectAssembly.system.findInterface(parent);
       for (const prop of type.allProperties) {
-        if (!prop.optional) {
-          continue;
-        }
-
         if (!(prop.name in memberSources)) {
           memberSources[prop.name] = {};
         }
@@ -3375,7 +3377,7 @@ class JavaGenerator extends Generator {
     // Account for a past bug
     if (
       needsDefaultImpl(m) ||
-      UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS
+      GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS
     ) {
       ret.push(...this.createOverloadsForOptionals(m.spec));
     }
@@ -3402,7 +3404,7 @@ class JavaGenerator extends Generator {
     // Account for a past bug
     if (
       needsProxyImpl(m) ||
-      UPSTREAM_PACKAGES_PROBABLY_LACK_DEFAULT_OVERLOAD_IMPLS
+      GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS
     ) {
       ret.push(...this.createOverloadsForOptionals(m.spec));
     }
