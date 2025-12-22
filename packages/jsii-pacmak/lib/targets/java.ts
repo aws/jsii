@@ -3375,10 +3375,7 @@ class JavaGenerator extends Generator {
     }
 
     // Account for a past bug
-    if (
-      needsDefaultImpl(m) ||
-      GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS
-    ) {
+    if (needsDefaultImpl(m) || GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS) {
       ret.push(...this.createOverloadsForOptionals(m.spec));
     }
 
@@ -3402,10 +3399,7 @@ class JavaGenerator extends Generator {
     }
 
     // Account for a past bug
-    if (
-      needsProxyImpl(m) ||
-      GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS
-    ) {
+    if (needsProxyImpl(m) || GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS) {
       ret.push(...this.createOverloadsForOptionals(m.spec));
     }
 
