@@ -1130,6 +1130,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └─┬ parameters
  │   │   │   └─┬ unionProperty
  │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   ├─┬ static staticMethodWithMapOfUnionsParam(param) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: Map<string => jsii-calc.StructA | jsii-calc.StructB>
+ │   │   │ └── returns: void
+ │   │   ├─┬ methodWithMapOfUnionsParam(param) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: Map<string => jsii-calc.StructA | jsii-calc.StructB>
+ │   │   │ └── returns: void
  │   │   └─┬ unionProperty property (stable)
  │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithCollections (stable)
@@ -5022,6 +5033,8 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class ClassWithCollectionOfUnions
  │   │ └─┬ members
  │   │   ├── <initializer>(unionProperty) initializer
+ │   │   ├── static staticMethodWithMapOfUnionsParam(param) method
+ │   │   ├── methodWithMapOfUnionsParam(param) method
  │   │   └── unionProperty property
  │   ├─┬ class ClassWithCollections
  │   │ └─┬ members

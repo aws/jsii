@@ -1582,7 +1582,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3146
+        "line": 3156
       },
       "methods": [
         {
@@ -1592,7 +1592,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3155
+            "line": 3165
           },
           "name": "mutateProperties",
           "parameters": [
@@ -2606,7 +2606,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3070
+          "line": 3076
         },
         "parameters": [
           {
@@ -2641,6 +2641,73 @@
         "filename": "lib/compliance.ts",
         "line": 3069
       },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3070
+          },
+          "name": "staticMethodWithMapOfUnionsParam",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "fqn": "jsii-calc.StructA"
+                        },
+                        {
+                          "fqn": "jsii-calc.StructB"
+                        }
+                      ]
+                    }
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ],
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3080
+          },
+          "name": "methodWithMapOfUnionsParam",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "fqn": "jsii-calc.StructA"
+                        },
+                        {
+                          "fqn": "jsii-calc.StructB"
+                        }
+                      ]
+                    }
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ]
+        }
+      ],
       "name": "ClassWithCollectionOfUnions",
       "properties": [
         {
@@ -2649,7 +2716,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3071
+            "line": 3077
           },
           "name": "unionProperty",
           "type": {
@@ -3128,7 +3195,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3080
+          "line": 3090
         },
         "parameters": [
           {
@@ -3184,7 +3251,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3079
+        "line": 3089
       },
       "name": "ClassWithNestedUnion",
       "properties": [
@@ -3194,7 +3261,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3081
+            "line": 3091
           },
           "name": "unionProperty",
           "type": {
@@ -11594,7 +11661,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3118
+          "line": 3128
         },
         "parameters": [
           {
@@ -11629,7 +11696,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3112
+        "line": 3122
       },
       "name": "ParamShadowsBuiltins",
       "symbolId": "lib/compliance:ParamShadowsBuiltins"
@@ -11644,7 +11711,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3130
+        "line": 3140
       },
       "name": "ParamShadowsBuiltinsProps",
       "properties": [
@@ -11656,7 +11723,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3132
+            "line": 3142
           },
           "name": "booleanProperty",
           "type": {
@@ -11671,7 +11738,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3131
+            "line": 3141
           },
           "name": "stringProperty",
           "type": {
@@ -11686,7 +11753,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3133
+            "line": 3143
           },
           "name": "structProperty",
           "type": {
@@ -11712,7 +11779,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3101
+        "line": 3111
       },
       "methods": [
         {
@@ -11721,7 +11788,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3103
+            "line": 3113
           },
           "name": "useScope",
           "parameters": [
@@ -11986,7 +12053,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3136
+        "line": 3146
       },
       "methods": [
         {
@@ -11996,7 +12063,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3137
+            "line": 3147
           },
           "name": "promiseIt",
           "static": true
@@ -12008,7 +12075,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3141
+            "line": 3151
           },
           "name": "instancePromiseIt"
         }
@@ -14346,7 +14413,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3075
+        "line": 3085
       },
       "name": "StructWithCollectionOfUnionts",
       "properties": [
@@ -14358,7 +14425,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3076
+            "line": 3086
           },
           "name": "unionProperty",
           "type": {
@@ -15973,7 +16040,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3090
+          "line": 3100
         },
         "parameters": [
           {
@@ -15998,7 +16065,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3087
+        "line": 3097
       },
       "name": "VariadicTypeUnion",
       "properties": [
@@ -16008,7 +16075,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3088
+            "line": 3098
           },
           "name": "union",
           "type": {
@@ -19923,5 +19990,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "EUdgCTWs9CrZDs5vGKRumTgjcoxPRjgFa4cA7Q4S+nQ="
+  "fingerprint": "lIHvj1O/NYsjHa9x/fPvrEdD8ChVE2BSlsfyzXUQaP4="
 }
