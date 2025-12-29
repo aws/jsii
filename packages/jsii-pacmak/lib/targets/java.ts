@@ -608,8 +608,22 @@ class JavaGenerator extends Generator {
     }
 
     if (propertyName === '_') {
-      // Slightly different pattern for this one
-      return '__';
+      // Slightly different pattern for this one. We used to generate `__` here
+      // but it's somewhat likely that people will use `_, __, ___` as multiple
+      // indifferent arguments, so we pick a different name.
+      //
+      // Ideally we would look at the alternative argument names and pick
+      // something guaranteed to be unique, but unfortunately the code isn't
+      // quite structured that way so we'll pick something unlikely to collide
+      // instead.
+      //
+      // Changing from `__` -> `_under` would be a breaking change if applied to
+      // public property names, but most likely this will be used for function
+      // parameters (unfortunately the code has been structured in such a way
+      // that property and parameter names are strongly tied together, in a way
+      // that would take more time to unwind than I care to invest right now),
+      // where it doesn't matter.
+      return '_under_';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {

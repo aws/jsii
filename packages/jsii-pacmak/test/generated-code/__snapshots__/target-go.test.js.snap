@@ -23121,6 +23121,7 @@ import (
 //
 type MyClass interface {
 	Foo(_arg *string)
+	MultipleUnderscores(_arg *string, __ *string, ___ *string)
 }
 
 // The jsii proxy struct for MyClass
@@ -23170,6 +23171,14 @@ func (m *jsiiProxy_MyClass) Foo(_arg *string) {
 	)
 }
 
+func (m *jsiiProxy_MyClass) MultipleUnderscores(_arg *string, __ *string, ___ *string) {
+	_jsii_.InvokeVoid(
+		m,
+		"multipleUnderscores",
+		[]interface{}{_arg, __, ___},
+	)
+}
+
 
 `;
 
@@ -23188,6 +23197,7 @@ func init() {
 		reflect.TypeOf((*MyClass)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+			_jsii_.MemberMethod{JsiiMethod: "multipleUnderscores", GoMethod: "MultipleUnderscores"},
 		},
 		func() interface{} {
 			return &jsiiProxy_MyClass{}
@@ -36661,7 +36671,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/MyClass.go.diff 1`] = `
 --- go/jsiicalc/module2530/MyClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/MyClass.go	--runtime-type-checking
-@@ -18,10 +18,13 @@
+@@ -19,10 +19,13 @@
  }
  
  func NewMyClass(_arg *float64) MyClass {
@@ -36675,7 +36685,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
  	_jsii_.Create(
  		"jsii-calc.module2530.MyClass",
  		[]interface{}{_arg},
-@@ -42,18 +45,24 @@
+@@ -43,26 +46,35 @@
  }
  
  func MyClass_Bar(_arg *bool) {
@@ -36700,12 +36710,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
  		"foo",
  		[]interface{}{_arg},
  	)
+ }
+ 
+ func (m *jsiiProxy_MyClass) MultipleUnderscores(_arg *string, __ *string, ___ *string) {
++	if err := m.validateMultipleUnderscoresParameters(_arg, __, ___); err != nil {
++		panic(err)
++	}
+ 	_jsii_.InvokeVoid(
+ 		m,
+ 		"multipleUnderscores",
+ 		[]interface{}{_arg, __, ___},
+ 	)
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/MyClass__checks.go.diff 1`] = `
 --- go/jsiicalc/module2530/MyClass__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/MyClass__checks.go	--runtime-type-checking
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,48 @@
 +//go:build !no_runtime_type_checking
 +
 +package module2530
@@ -36717,6 +36738,22 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +func (m *jsiiProxy_MyClass) validateFooParameters(_arg *string) error {
 +	if _arg == nil {
 +		return fmt.Errorf("parameter _arg is required, but nil was provided")
++	}
++
++	return nil
++}
++
++func (m *jsiiProxy_MyClass) validateMultipleUnderscoresParameters(_arg *string, __ *string, ___ *string) error {
++	if _arg == nil {
++		return fmt.Errorf("parameter _arg is required, but nil was provided")
++	}
++
++	if __ == nil {
++		return fmt.Errorf("parameter __ is required, but nil was provided")
++	}
++
++	if ___ == nil {
++		return fmt.Errorf("parameter ___ is required, but nil was provided")
 +	}
 +
 +	return nil
@@ -36743,7 +36780,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/MyClass__no_checks.go.diff 1`] = `
 --- go/jsiicalc/module2530/MyClass__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/MyClass__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,22 @@
 +//go:build no_runtime_type_checking
 +
 +package module2530
@@ -36751,6 +36788,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func (m *jsiiProxy_MyClass) validateFooParameters(_arg *string) error {
++	return nil
++}
++
++func (m *jsiiProxy_MyClass) validateMultipleUnderscoresParameters(_arg *string, __ *string, ___ *string) error {
 +	return nil
 +}
 +
