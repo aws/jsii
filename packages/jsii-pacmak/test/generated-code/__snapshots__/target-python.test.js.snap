@@ -13955,6 +13955,20 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2530.MyClass")
         '''
         return typing.cast(None, jsii.invoke(self, "foo", [_]))
 
+    @jsii.member(jsii_name="multipleUnderscores")
+    def multiple_underscores(
+        self,
+        _: builtins.str,
+        __: builtins.str,
+        ___: builtins.str,
+    ) -> None:
+        '''
+        :param _: -
+        :param __: -
+        :param ___: -
+        '''
+        return typing.cast(None, jsii.invoke(self, "multipleUnderscores", [_, __, ___]))
+
 
 __all__ = [
     "MyClass",
@@ -21950,7 +21964,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2530/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2530/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2530/__init__.py	--runtime-type-checking
-@@ -39,28 +39,55 @@
+@@ -39,25 +39,34 @@
  
      def __init__(self, _: jsii.Number) -> None:
          '''
@@ -21982,6 +21996,22 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +            check_type(argname="argument _", value=_, expected_type=type_hints["_"])
          return typing.cast(None, jsii.invoke(self, "foo", [_]))
  
+     @jsii.member(jsii_name="multipleUnderscores")
+     def multiple_underscores(
+         self,
+@@ -68,13 +77,44 @@
+         '''
+         :param _: -
+         :param __: -
+         :param ___: -
+         '''
++        if __debug__:
++            type_hints = typing.get_type_hints(_typecheckingstub__9923f6393d8cfb578b5baa739d6fea52e5a24d59447e020e0b36222d4ca9e2dc)
++            check_type(argname="argument _", value=_, expected_type=type_hints["_"])
++            check_type(argname="argument __", value=__, expected_type=type_hints["__"])
++            check_type(argname="argument ___", value=___, expected_type=type_hints["___"])
+         return typing.cast(None, jsii.invoke(self, "multipleUnderscores", [_, __, ___]))
+ 
  
  __all__ = [
      "MyClass",
@@ -22003,6 +22033,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +
 +def _typecheckingstub__dd74e61269fd21c6a0b0983199f27c5d4df8a4447ff77e770890f58f6c9b6969(
 +    _: builtins.str,
++) -> None:
++    """Type checking stubs"""
++    pass
++
++def _typecheckingstub__9923f6393d8cfb578b5baa739d6fea52e5a24d59447e020e0b36222d4ca9e2dc(
++    _: builtins.str,
++    __: builtins.str,
++    ___: builtins.str,
 +) -> None:
 +    """Type checking stubs"""
 +    pass

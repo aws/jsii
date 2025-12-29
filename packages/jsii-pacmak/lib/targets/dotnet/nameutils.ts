@@ -85,6 +85,16 @@ export class DotNetNameUtils {
       throw new Error(`Invalid parameter name: ${original}`);
     }
     const name = toCamelCase(original);
+    if (!name) {
+      // toCamelCase will return an empty string from a string like `_(_+)`. Confirm that
+      // that is what is happening, then return the original string.
+      if (original.match(/^__+$/)) {
+        return original;
+      }
+      throw new Error(
+        `toCamelCase returns an empty string from: ${JSON.stringify(original)}`,
+      );
+    }
     return this.escapeParameterName(name);
   }
 
