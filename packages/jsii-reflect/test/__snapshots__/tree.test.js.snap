@@ -1316,6 +1316,17 @@ exports[`showAll 1`] = `
  │   │   │ └─┬ parameters
  │   │   │   └─┬ unionProperty
  │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   ├─┬ static staticMethodWithMapOfUnionsParam(param) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: Map<string => jsii-calc.StructA | jsii-calc.StructB>
+ │   │   │ └── returns: void
+ │   │   ├─┬ methodWithMapOfUnionsParam(param) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: Map<string => jsii-calc.StructA | jsii-calc.StructB>
+ │   │   │ └── returns: void
  │   │   └─┬ unionProperty property
  │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithCollections

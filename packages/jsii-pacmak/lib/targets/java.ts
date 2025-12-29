@@ -745,12 +745,12 @@ class JavaGenerator extends Generator {
 
     // NOTE: even though a constructor is technically final and we COULD render covariant types, historically we didn't and I'm not changing it.
     this.code.openBlock(
-      `${initializerAccessLevel} ${cls.name}(${this.renderParameters(method.parameters, types, 'final-but-not-cov')})`,
+      `${initializerAccessLevel} ${cls.name}(${this.renderParameters(method.parameters, types, 'exact-types')})`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
-    this.emitUnionParameterValidation(method.parameters);
+    this.emitUnionParameterValidation(method.parameters, 'exact-types');
     this.code.line(
       `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(
         method,
@@ -919,6 +919,7 @@ class JavaGenerator extends Generator {
     const returnType = method.returns
       ? forceSingleType(this.toDecoratedJavaTypes(method.returns))
       : mkStatic('void');
+
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
     this.addJavaDocs(
       method,
@@ -936,7 +937,7 @@ class JavaGenerator extends Generator {
     const types = this.convertTypes(method.parameters);
 
     this.code.line(
-      `${typeVarDeclarations(types)}${displayStatic(returnType)} ${methodName}(${this.renderParameters(method.parameters, types, 'overridable')});`,
+      `${typeVarDeclarations(types)}${displayStatic(returnType)} ${methodName}(${this.renderParameters(method.parameters, types, 'exact-types')});`,
     );
   }
 
@@ -1553,12 +1554,15 @@ class JavaGenerator extends Generator {
             (!spec.isPrimitiveTypeReference(prop.type) ||
               prop.type.primitive === spec.PrimitiveType.Any)
           ) {
-            this.emitUnionParameterValidation([
-              {
-                name: 'value',
-                type: this.filterType(prop, type),
-              },
-            ]);
+            this.emitUnionParameterValidation(
+              [
+                {
+                  name: 'value',
+                  type: this.filterType(prop, type),
+                },
+              ],
+              'exact-types',
+            );
           }
           if (prop.static) {
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${displayStatic(javaClass)}.class, `;
@@ -1634,11 +1638,14 @@ class JavaGenerator extends Generator {
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
 
     const types = this.convertTypes(method.parameters);
+    const covariance = covarianceFromOverridability(
+      overridabilityFromMethod(method),
+    );
 
     const signature = `${typeVarDeclarations(types)}${displayStatic(returnType)} ${methodName}(${this.renderParameters(
       method.parameters,
       types,
-      method.static ? 'final' : 'overridable',
+      covariance,
     )})`;
     this.code.line();
     this.addJavaDocs(
@@ -1660,7 +1667,7 @@ class JavaGenerator extends Generator {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
       this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
-      this.emitUnionParameterValidation(method.parameters);
+      this.emitUnionParameterValidation(method.parameters, covariance);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
     }
@@ -1672,7 +1679,8 @@ class JavaGenerator extends Generator {
    * @param parameters the list of parameters received by the function.
    */
   private emitUnionParameterValidation(
-    parameters?: readonly spec.Parameter[],
+    parameters: readonly spec.Parameter[] | undefined,
+    covariance: Covariance,
   ): void {
     if (!this.runtimeTypeChecking) {
       // We were configured not to emit those, so bail out now.
@@ -1693,7 +1701,7 @@ class JavaGenerator extends Generator {
         const javaType = this.toSingleJavaType(param.type);
         const asListName = `__${param.name}__asList`;
         this.code.line(
-          `final java.util.List<${displayStatic(javaType)}> ${asListName} = java.util.Arrays.asList(${param.name});`,
+          `final java.util.List<${displayStatic(javaType, covariance)}> ${asListName} = java.util.Arrays.asList(${param.name});`,
         );
 
         validate.call(
@@ -1716,6 +1724,7 @@ class JavaGenerator extends Generator {
           `.append("${param.name}")`,
           param.type,
           param.name,
+          false,
         );
       }
     }
@@ -1764,7 +1773,7 @@ class JavaGenerator extends Generator {
       descr: string,
       elementType: spec.TypeReference,
       parameterName: string,
-      isRawArray = false,
+      isRawArray: boolean,
     ) {
       const suffix = createHash('sha256')
         .update(descr)
@@ -1787,6 +1796,7 @@ class JavaGenerator extends Generator {
           : `${descr}.append(".get(").append(${idxName}).append(")")`,
         elementType,
         parameterName,
+        false,
       );
       this.code.closeBlock();
     }
@@ -1822,11 +1832,17 @@ class JavaGenerator extends Generator {
       const varName = `__item_${suffix}`;
       const valName = `__val_${suffix}`;
       const javaElemType = this.toSingleJavaType(elementType);
+
+      const entryType = mkStatic('java.util.Map.Entry', [
+        mkStatic('java.lang.String'),
+        javaElemType,
+      ]);
+
       this.code.openBlock(
-        `for (final java.util.Map.Entry<String, ${displayStatic(javaElemType)}> ${varName}: ${value}.entrySet())`,
+        `for (final ${displayStatic(entryType, covariance)} ${varName}: ${value}.entrySet())`,
       );
       this.code.line(
-        `final ${displayStatic(javaElemType)} ${valName} = ${varName}.getValue();`,
+        `final ${displayStatic(javaElemType, covariance)} ${valName} = ${varName}.getValue();`,
       );
       validate.call(
         this,
@@ -3171,7 +3187,7 @@ class JavaGenerator extends Generator {
   private renderParameters(
     parameters: spec.Parameter[] | undefined,
     types: JavaType[],
-    overridable: 'overridable' | 'final' | 'final-but-not-cov',
+    cov: Covariance,
   ) {
     parameters = parameters ?? [];
     if (parameters.length !== types.length) {
@@ -3179,11 +3195,6 @@ class JavaGenerator extends Generator {
         `Arrays not same length: ${parameters.length} !== ${types.length}`,
       );
     }
-
-    // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
-    // (There are some more places where we could do this, like properties and constructors, but historically we didn't
-    // and I don't want to mess with this too much because the risk/reward isn't there.)
-    const cov = overridable === 'final' ? 'covariant' : undefined;
 
     const params = [];
     for (const [p, type] of zip(parameters, types)) {
@@ -3880,14 +3891,14 @@ function mkParam(
   };
 }
 
-function displayStatic(x: JavaType, options?: 'covariant'): string {
+function displayStatic(x: JavaType, options?: Covariance): string {
   if (x.type !== 'static') {
     throw new Error(`Expected static type here, got ${JSON.stringify(x)}`);
   }
   return displayType(x, options);
 }
 
-function displayType(x: JavaType, options?: 'covariant'): string {
+function displayType(x: JavaType, options?: Covariance): string {
   switch (x.type) {
     case 'param':
       return `${x.annotation}${x.typeSymbol}`;
@@ -4097,3 +4108,21 @@ function needsDefaultImpl(x: reflect.Property | reflect.Method) {
     !isBuiltinMethod
   );
 }
+
+type Overridability = 'overridable' | 'final' | 'final-but-not-cov';
+
+/**
+ * Return the appropriate covariance rendering for the overridability of a given method
+ */
+function covarianceFromOverridability(overridable: Overridability): Covariance {
+  // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
+  // (There are some more places where we could do this, like properties and constructors, but historically we didn't
+  // and I don't want to mess with this too much because the risk/reward isn't there.)
+  return overridable === 'final' ? 'covariant' : 'exact-types';
+}
+
+function overridabilityFromMethod(method: spec.Method): Overridability {
+  return method.static ? 'final' : 'overridable';
+}
+
+type Covariance = 'covariant' | 'exact-types';
