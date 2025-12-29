@@ -2951,8 +2951,8 @@ public class FunctionWithUnderscoreArgument extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public @org.jetbrains.annotations.NotNull java.lang.String foo(final @org.jetbrains.annotations.NotNull java.lang.String __) {
-        return software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
+    public @org.jetbrains.annotations.NotNull java.lang.String foo(final @org.jetbrains.annotations.NotNull java.lang.String _under_) {
+        return software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(_under_, "_under_ is required") });
     }
 }
 
@@ -6875,6 +6875,22 @@ public class ClassWithCollectionOfUnions extends software.amazon.jsii.JsiiObject
     public ClassWithCollectionOfUnions(final @org.jetbrains.annotations.NotNull java.util.List<java.util.Map<java.lang.String, java.lang.Object>> unionProperty) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
+    }
+
+    /**
+     * @param param Takes union: Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void staticMethodWithMapOfUnionsParam(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> param) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithCollectionOfUnions.class, "staticMethodWithMapOfUnionsParam", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+    }
+
+    /**
+     * @param param Takes union: Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void methodWithMapOfUnionsParam(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> param) {
+        software.amazon.jsii.Kernel.call(this, "methodWithMapOfUnionsParam", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
     }
 
     /**
@@ -26073,25 +26089,35 @@ public class MyClass extends software.amazon.jsii.JsiiObject {
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number __) {
+    public MyClass(final @org.jetbrains.annotations.NotNull java.lang.Number _under_) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_under_, "_under_ is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean __) {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
+    public static void bar(final @org.jetbrains.annotations.NotNull java.lang.Boolean _under_) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.module2530.MyClass.class, "bar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_under_, "_under_ is required") });
     }
 
     /**
      * @param _ This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String __) {
-        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(__, "__ is required") });
+    public void foo(final @org.jetbrains.annotations.NotNull java.lang.String _under_) {
+        software.amazon.jsii.Kernel.call(this, "foo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_under_, "_under_ is required") });
+    }
+
+    /**
+     * @param _ This parameter is required.
+     * @param __ This parameter is required.
+     * @param ___ This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void multipleUnderscores(final @org.jetbrains.annotations.NotNull java.lang.String _under_, final @org.jetbrains.annotations.NotNull java.lang.String __, final @org.jetbrains.annotations.NotNull java.lang.String ___) {
+        software.amazon.jsii.Kernel.call(this, "multipleUnderscores", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_under_, "_under_ is required"), java.util.Objects.requireNonNull(__, "__ is required"), java.util.Objects.requireNonNull(___, "___ is required") });
     }
 }
 
@@ -29743,7 +29769,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                        .append(" to contain class String; received ")
 +                        .append(value.keySet().toArray()[0].getClass()).toString());
 +            }
-+            for (final java.util.Map.Entry<String, java.lang.Object> __item_ac66f0: value.entrySet()) {
++            for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_ac66f0: value.entrySet()) {
 +                final java.lang.Object __val_ac66f0 = __item_ac66f0.getValue();
 +                if (
 +                     !(__val_ac66f0 instanceof java.lang.String)
@@ -29768,7 +29794,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithCollectionOfUnions.java	--runtime-type-checking
-@@ -19,10 +19,36 @@
+@@ -19,26 +19,98 @@
       * @param unionProperty Takes union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>. This parameter is required.
       */
      @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -29784,7 +29810,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                            .append(" to contain class String; received ")
 +                            .append(__val_1ccdf0.keySet().toArray()[0].getClass()).toString());
 +                }
-+                for (final java.util.Map.Entry<String, java.lang.Object> __item_fb617d: __val_1ccdf0.entrySet()) {
++                for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_fb617d: __val_1ccdf0.entrySet()) {
 +                    final java.lang.Object __val_fb617d = __item_fb617d.getValue();
 +                    if (
 +                         !(__val_fb617d instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -29804,8 +29830,70 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
      }
  
      /**
+      * @param param Takes union: Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>. This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public static void staticMethodWithMapOfUnionsParam(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> param) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (!(param.keySet().toArray()[0] instanceof String)) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("param").append(".keySet()")
++                        .append(" to contain class String; received ")
++                        .append(param.keySet().toArray()[0].getClass()).toString());
++            }
++            for (final java.util.Map.Entry<java.lang.String, ? extends java.lang.Object> __item_880660: param.entrySet()) {
++                final java.lang.Object __val_880660 = __item_880660.getValue();
++                if (
++                     !(__val_880660 instanceof software.amazon.jsii.tests.calculator.StructA)
++                    && !(__val_880660 instanceof software.amazon.jsii.tests.calculator.StructB)
++                    && !(__val_880660.getClass().equals(software.amazon.jsii.JsiiObject.class))
++                ) {
++                    throw new IllegalArgumentException(
++                        new java.lang.StringBuilder("Expected ")
++                            .append("param").append(".get(\\"").append((__item_880660.getKey())).append("\\")")
++                            .append(" to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received ")
++                            .append(__val_880660.getClass()).toString());
++                }
++            }
++        }
+         software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithCollectionOfUnions.class, "staticMethodWithMapOfUnionsParam", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+     }
+ 
+     /**
+      * @param param Takes union: Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>. This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public void methodWithMapOfUnionsParam(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> param) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (!(param.keySet().toArray()[0] instanceof String)) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("param").append(".keySet()")
++                        .append(" to contain class String; received ")
++                        .append(param.keySet().toArray()[0].getClass()).toString());
++            }
++            for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_880660: param.entrySet()) {
++                final java.lang.Object __val_880660 = __item_880660.getValue();
++                if (
++                     !(__val_880660 instanceof software.amazon.jsii.tests.calculator.StructA)
++                    && !(__val_880660 instanceof software.amazon.jsii.tests.calculator.StructB)
++                    && !(__val_880660.getClass().equals(software.amazon.jsii.JsiiObject.class))
++                ) {
++                    throw new IllegalArgumentException(
++                        new java.lang.StringBuilder("Expected ")
++                            .append("param").append(".get(\\"").append((__item_880660.getKey())).append("\\")")
++                            .append(" to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received ")
++                            .append(__val_880660.getClass()).toString());
++                }
++            }
++        }
+         software.amazon.jsii.Kernel.call(this, "methodWithMapOfUnionsParam", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+     }
+ 
+     /**
       * Returns union: List<Map<String, either {@link software.amazon.jsii.tests.calculator.StructA} or {@link software.amazon.jsii.tests.calculator.StructB}>>
-@@ -34,8 +60,34 @@
+@@ -50,8 +122,34 @@
  
      /**
       */
@@ -29821,7 +29909,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                            .append(" to contain class String; received ")
 +                            .append(__val_ac66f0.keySet().toArray()[0].getClass()).toString());
 +                }
-+                for (final java.util.Map.Entry<String, java.lang.Object> __item_58ec25: __val_ac66f0.entrySet()) {
++                for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_58ec25: __val_ac66f0.entrySet()) {
 +                    final java.lang.Object __val_58ec25 = __item_58ec25.getValue();
 +                    if (
 +                         !(__val_58ec25 instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -29874,7 +29962,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                                .append(" to contain class String; received ")
 +                                .append(__cast_7c6d77.keySet().toArray()[0].getClass()).toString());
 +                    }
-+                    for (final java.util.Map.Entry<String, java.lang.Object> __item_fb617d: __cast_7c6d77.entrySet()) {
++                    for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_fb617d: __cast_7c6d77.entrySet()) {
 +                        final java.lang.Object __val_fb617d = __item_fb617d.getValue();
 +                        if (
 +                             !(__val_fb617d instanceof software.amazon.jsii.tests.calculator.StructA)
@@ -29943,7 +30031,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 +                                .append(" to contain class String; received ")
 +                                .append(__cast_7fc174.keySet().toArray()[0].getClass()).toString());
 +                    }
-+                    for (final java.util.Map.Entry<String, java.lang.Object> __item_58ec25: __cast_7fc174.entrySet()) {
++                    for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_58ec25: __cast_7fc174.entrySet()) {
 +                        final java.lang.Object __val_58ec25 = __item_58ec25.getValue();
 +                        if (
 +                             !(__val_58ec25 instanceof software.amazon.jsii.tests.calculator.StructA)

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.123.0](https://github.com/aws/jsii/compare/v1.122.0...v1.123.0) (2025-12-29)
+
+
+### Bug Fixes
+
+* **java-runtime:** dependency ranges make Maven download too many files ([#5005](https://github.com/aws/jsii/issues/5005)) ([ecdd223](https://github.com/aws/jsii/commit/ecdd22338a701992df1e6418a51231f5bb6688d7))
+* **jsii-pacmak:** collection-of-union arguments in static functions break compilation ([#5012](https://github.com/aws/jsii/issues/5012)) ([2970397](https://github.com/aws/jsii/commit/2970397fa1ce7aabb3dda04ee3d5093e916a611e))
+* **jsii-pacmak:** underscore arguments conflict in Java ([#5011](https://github.com/aws/jsii/issues/5011)) ([638b546](https://github.com/aws/jsii/commit/638b546d7e396bf3d6823ef7fa25eecd2cd79c21))
+
 ## [1.122.0](https://github.com/aws/jsii/compare/v1.121.0...v1.122.0) (2025-12-22)
 
 
