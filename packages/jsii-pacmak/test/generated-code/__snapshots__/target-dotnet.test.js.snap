@@ -5579,6 +5579,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <param name="param">Type union: Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;</param>
+        [JsiiMethod(name: "staticMethodWithMapOfUnionsParam", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}}}]")]
+        public static void StaticMethodWithMapOfUnionsParam(System.Collections.Generic.IDictionary<string, object> param)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollectionOfUnions), new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{param});
+        }
+
+        /// <param name="param">Type union: Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;</param>
+        [JsiiMethod(name: "methodWithMapOfUnionsParam", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}}}]")]
+        public virtual void MethodWithMapOfUnionsParam(System.Collections.Generic.IDictionary<string, object> param)
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{param});
+        }
+
         /// <remarks>
         /// <para>Type union: (Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;)[]</para>
         /// </remarks>
@@ -23149,7 +23163,65 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
  
          /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
          /// <param name="reference">The Javascript-owned object reference</param>
-@@ -39,10 +62,33 @@
+@@ -34,17 +57,57 @@
+ 
+         /// <param name="param">Type union: Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;</param>
+         [JsiiMethod(name: "staticMethodWithMapOfUnionsParam", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}}}]")]
+         public static void StaticMethodWithMapOfUnionsParam(System.Collections.Generic.IDictionary<string, object> param)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                foreach (var __item_ccaaac in param)
++                {
++                    switch (__item_ccaaac.Value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_ea8567:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_ea8567:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_ea8567:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(param)}[\\"{__item_ccaaac.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(param));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(param)}[\\"{__item_ccaaac.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_ccaaac.Value.GetType().FullName}", nameof(param));
++                    }
++                }
++            }
+             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollectionOfUnions), new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{param});
+         }
+ 
+         /// <param name="param">Type union: Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;</param>
+         [JsiiMethod(name: "methodWithMapOfUnionsParam", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.StructA\\"},{\\"fqn\\":\\"jsii-calc.StructB\\"}]}},\\"kind\\":\\"map\\"}}}]")]
+         public virtual void MethodWithMapOfUnionsParam(System.Collections.Generic.IDictionary<string, object> param)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                foreach (var __item_ccaaac in param)
++                {
++                    switch (__item_ccaaac.Value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructA cast_ea8567:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.IStructB cast_ea8567:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_ea8567:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(param)}[\\"{__item_ccaaac.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received null", nameof(param));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(param)}[\\"{__item_ccaaac.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_ccaaac.Value.GetType().FullName}", nameof(param));
++                    }
++                }
++            }
+             InvokeInstanceVoidMethod(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{param});
+         }
+ 
+         /// <remarks>
+         /// <para>Type union: (Dictionary&lt;string, either <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructA" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.IStructB" />&gt;)[]</para>
+@@ -53,10 +116,33 @@
          public virtual System.Collections.Generic.IDictionary<string, object>[] UnionProperty
          {
              get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>[]>()!;
