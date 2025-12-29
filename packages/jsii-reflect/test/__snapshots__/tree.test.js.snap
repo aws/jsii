@@ -574,9 +574,18 @@ exports[`showAll 1`] = `
  │ │ │       │ │ └─┬ _
  │ │ │       │ │   └── type: boolean
  │ │ │       │ └── returns: void
- │ │ │       └─┬ foo(_) method
+ │ │ │       ├─┬ foo(_) method
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: string
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ multipleUnderscores(_,__,___) method
  │ │ │         ├─┬ parameters
- │ │ │         │ └─┬ _
+ │ │ │         │ ├─┬ _
+ │ │ │         │ │ └── type: string
+ │ │ │         │ ├─┬ __
+ │ │ │         │ │ └── type: string
+ │ │ │         │ └─┬ ___
  │ │ │         │   └── type: string
  │ │ │         └── returns: void
  │ │ ├─┬ module2617

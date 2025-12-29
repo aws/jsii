@@ -15767,6 +15767,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Module2530
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string)}, new object[]{_});
         }
+
+        [JsiiMethod(name: "multipleUnderscores", parametersJson: "[{\\"name\\":\\"_\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"__\\",\\"type\\":{\\"primitive\\":\\"string\\"}},{\\"name\\":\\"___\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public virtual void MultipleUnderscores(string _, string __, string ___)
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(string), typeof(string)}, new object[]{_, __, ___});
+        }
     }
 }
 

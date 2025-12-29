@@ -14,4 +14,8 @@ export class MyClass {
   public foo(_: string) {
     return;
   }
+
+  public multipleUnderscores(_: string, __: string, ___: string) {
+    return;
+  }
 }

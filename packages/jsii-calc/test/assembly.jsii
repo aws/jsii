@@ -17960,6 +17960,36 @@
               }
             }
           ]
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/module2530/index.ts",
+            "line": 18
+          },
+          "name": "multipleUnderscores",
+          "parameters": [
+            {
+              "name": "_",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "__",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "___",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
         }
       ],
       "name": "MyClass",
@@ -19960,5 +19990,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "vOdExLwYXggdf/TTFym/I+wkv5Ih6GlEJke+UiAjaXo="
+  "fingerprint": "lIHvj1O/NYsjHa9x/fPvrEdD8ChVE2BSlsfyzXUQaP4="
 }
