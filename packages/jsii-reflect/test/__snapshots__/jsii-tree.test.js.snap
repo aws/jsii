@@ -379,9 +379,18 @@ exports[`jsii-tree --all 1`] = `
  │ │ │       │ │ └─┬ _
  │ │ │       │ │   └── type: boolean
  │ │ │       │ └── returns: void
- │ │ │       └─┬ foo(_) method (stable)
+ │ │ │       ├─┬ foo(_) method (stable)
+ │ │ │       │ ├─┬ parameters
+ │ │ │       │ │ └─┬ _
+ │ │ │       │ │   └── type: string
+ │ │ │       │ └── returns: void
+ │ │ │       └─┬ multipleUnderscores(_,__,___) method (stable)
  │ │ │         ├─┬ parameters
- │ │ │         │ └─┬ _
+ │ │ │         │ ├─┬ _
+ │ │ │         │ │ └── type: string
+ │ │ │         │ ├─┬ __
+ │ │ │         │ │ └── type: string
+ │ │ │         │ └─┬ ___
  │ │ │         │   └── type: string
  │ │ │         └── returns: void
  │ │ ├─┬ module2617
@@ -1121,6 +1130,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └─┬ parameters
  │   │   │   └─┬ unionProperty
  │   │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
+ │   │   ├─┬ static staticMethodWithMapOfUnionsParam(param) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: Map<string => jsii-calc.StructA | jsii-calc.StructB>
+ │   │   │ └── returns: void
+ │   │   ├─┬ methodWithMapOfUnionsParam(param) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: Map<string => jsii-calc.StructA | jsii-calc.StructB>
+ │   │   │ └── returns: void
  │   │   └─┬ unionProperty property (stable)
  │   │     └── type: Array<Map<string => jsii-calc.StructA | jsii-calc.StructB>>
  │   ├─┬ class ClassWithCollections (stable)
@@ -4631,7 +4651,8 @@ exports[`jsii-tree --members 1`] = `
  │ │ │     └─┬ members
  │ │ │       ├── <initializer>(_) initializer
  │ │ │       ├── static bar(_) method
- │ │ │       └── foo(_) method
+ │ │ │       ├── foo(_) method
+ │ │ │       └── multipleUnderscores(_,__,___) method
  │ │ ├─┬ module2617
  │ │ │ └─┬ types
  │ │ │   └─┬ class OnlyStatics
@@ -5012,6 +5033,8 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class ClassWithCollectionOfUnions
  │   │ └─┬ members
  │   │   ├── <initializer>(unionProperty) initializer
+ │   │   ├── static staticMethodWithMapOfUnionsParam(param) method
+ │   │   ├── methodWithMapOfUnionsParam(param) method
  │   │   └── unionProperty property
  │   ├─┬ class ClassWithCollections
  │   │ └─┬ members

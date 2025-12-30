@@ -5552,6 +5552,7 @@ import (
 type ClassWithCollectionOfUnions interface {
 	UnionProperty() *[]*map[string]interface{}
 	SetUnionProperty(val *[]*map[string]interface{})
+	MethodWithMapOfUnionsParam(param *map[string]interface{})
 }
 
 // The jsii proxy struct for ClassWithCollectionOfUnions
@@ -5599,6 +5600,24 @@ func (j *jsiiProxy_ClassWithCollectionOfUnions)SetUnionProperty(val *[]*map[stri
 		j,
 		"unionProperty",
 		val,
+	)
+}
+
+func ClassWithCollectionOfUnions_StaticMethodWithMapOfUnionsParam(param *map[string]interface{}) {
+	_init_.Initialize()
+
+	_jsii_.StaticInvokeVoid(
+		"jsii-calc.ClassWithCollectionOfUnions",
+		"staticMethodWithMapOfUnionsParam",
+		[]interface{}{param},
+	)
+}
+
+func (c *jsiiProxy_ClassWithCollectionOfUnions) MethodWithMapOfUnionsParam(param *map[string]interface{}) {
+	_jsii_.InvokeVoid(
+		c,
+		"methodWithMapOfUnionsParam",
+		[]interface{}{param},
 	)
 }
 
@@ -21015,6 +21034,7 @@ func init() {
 		"jsii-calc.ClassWithCollectionOfUnions",
 		reflect.TypeOf((*ClassWithCollectionOfUnions)(nil)).Elem(),
 		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "methodWithMapOfUnionsParam", GoMethod: "MethodWithMapOfUnionsParam"},
 			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
 		},
 		func() interface{} {
@@ -23121,6 +23141,7 @@ import (
 //
 type MyClass interface {
 	Foo(_arg *string)
+	MultipleUnderscores(_arg *string, __ *string, ___ *string)
 }
 
 // The jsii proxy struct for MyClass
@@ -23170,6 +23191,14 @@ func (m *jsiiProxy_MyClass) Foo(_arg *string) {
 	)
 }
 
+func (m *jsiiProxy_MyClass) MultipleUnderscores(_arg *string, __ *string, ___ *string) {
+	_jsii_.InvokeVoid(
+		m,
+		"multipleUnderscores",
+		[]interface{}{_arg, __, ___},
+	)
+}
+
 
 `;
 
@@ -23188,6 +23217,7 @@ func init() {
 		reflect.TypeOf((*MyClass)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "foo", GoMethod: "Foo"},
+			_jsii_.MemberMethod{JsiiMethod: "multipleUnderscores", GoMethod: "MultipleUnderscores"},
 		},
 		func() interface{} {
 			return &jsiiProxy_MyClass{}
@@ -28681,7 +28711,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithCollectionOfUnions.go.diff 1`] = `
 --- go/jsiicalc/ClassWithCollectionOfUnions.go	--no-runtime-type-checking
 +++ go/jsiicalc/ClassWithCollectionOfUnions.go	--runtime-type-checking
-@@ -27,10 +27,13 @@
+@@ -28,10 +28,13 @@
  
  
  func NewClassWithCollectionOfUnions(unionProperty *[]*map[string]interface{}) ClassWithCollectionOfUnions {
@@ -28695,7 +28725,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  	_jsii_.Create(
  		"jsii-calc.ClassWithCollectionOfUnions",
  		[]interface{}{unionProperty},
-@@ -49,10 +52,13 @@
+@@ -50,28 +53,37 @@
  		c,
  	)
  }
@@ -28709,12 +28739,36 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"unionProperty",
  		val,
  	)
+ }
+ 
+ func ClassWithCollectionOfUnions_StaticMethodWithMapOfUnionsParam(param *map[string]interface{}) {
+ 	_init_.Initialize()
+ 
++	if err := validateClassWithCollectionOfUnions_StaticMethodWithMapOfUnionsParamParameters(param); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticInvokeVoid(
+ 		"jsii-calc.ClassWithCollectionOfUnions",
+ 		"staticMethodWithMapOfUnionsParam",
+ 		[]interface{}{param},
+ 	)
+ }
+ 
+ func (c *jsiiProxy_ClassWithCollectionOfUnions) MethodWithMapOfUnionsParam(param *map[string]interface{}) {
++	if err := c.validateMethodWithMapOfUnionsParamParameters(param); err != nil {
++		panic(err)
++	}
+ 	_jsii_.InvokeVoid(
+ 		c,
+ 		"methodWithMapOfUnionsParam",
+ 		[]interface{}{param},
+ 	)
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithCollectionOfUnions__checks.go.diff 1`] = `
 --- go/jsiicalc/ClassWithCollectionOfUnions__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/ClassWithCollectionOfUnions__checks.go	--runtime-type-checking
-@@ -0,0 +1,90 @@
+@@ -0,0 +1,166 @@
 +//go:build !no_runtime_type_checking
 +
 +package jsiicalc
@@ -28724,6 +28778,82 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 +
 +	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 +)
++
++func (c *jsiiProxy_ClassWithCollectionOfUnions) validateMethodWithMapOfUnionsParamParameters(param *map[string]interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	for idx_ccaaac, v := range *param {
++		switch v.(type) {
++		case *StructA:
++			v := v.(*StructA)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		case StructA:
++			v_ := v.(StructA)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		case *StructB:
++			v := v.(*StructB)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		case StructB:
++			v_ := v.(StructB)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		default:
++			if !_jsii_.IsAnonymousProxy(v) {
++				return fmt.Errorf("parameter param[%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_ccaaac, v, v)
++			}
++		}
++	}
++
++	return nil
++}
++
++func validateClassWithCollectionOfUnions_StaticMethodWithMapOfUnionsParamParameters(param *map[string]interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	for idx_ccaaac, v := range *param {
++		switch v.(type) {
++		case *StructA:
++			v := v.(*StructA)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		case StructA:
++			v_ := v.(StructA)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		case *StructB:
++			v := v.(*StructB)
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		case StructB:
++			v_ := v.(StructB)
++			v := &v_
++			if err := _jsii_.ValidateStruct(v, func() string { return fmt.Sprintf("parameter param[%#v]", idx_ccaaac) }); err != nil {
++				return err
++			}
++		default:
++			if !_jsii_.IsAnonymousProxy(v) {
++				return fmt.Errorf("parameter param[%#v] must be one of the allowed types: *StructA, *StructB; received %#v (a %T)", idx_ccaaac, v, v)
++			}
++		}
++	}
++
++	return nil
++}
 +
 +func (j *jsiiProxy_ClassWithCollectionOfUnions) validateSetUnionPropertyParameters(val *[]*map[string]interface{}) error {
 +	if val == nil {
@@ -28810,12 +28940,20 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithCollectionOfUnions__no_checks.go.diff 1`] = `
 --- go/jsiicalc/ClassWithCollectionOfUnions__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/ClassWithCollectionOfUnions__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,22 @@
 +//go:build no_runtime_type_checking
 +
 +package jsiicalc
 +
 +// Building without runtime type checking enabled, so all the below just return nil
++
++func (c *jsiiProxy_ClassWithCollectionOfUnions) validateMethodWithMapOfUnionsParamParameters(param *map[string]interface{}) error {
++	return nil
++}
++
++func validateClassWithCollectionOfUnions_StaticMethodWithMapOfUnionsParamParameters(param *map[string]interface{}) error {
++	return nil
++}
 +
 +func (j *jsiiProxy_ClassWithCollectionOfUnions) validateSetUnionPropertyParameters(val *[]*map[string]interface{}) error {
 +	return nil
@@ -36661,7 +36799,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/j
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/MyClass.go.diff 1`] = `
 --- go/jsiicalc/module2530/MyClass.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/MyClass.go	--runtime-type-checking
-@@ -18,10 +18,13 @@
+@@ -19,10 +19,13 @@
  }
  
  func NewMyClass(_arg *float64) MyClass {
@@ -36675,7 +36813,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
  	_jsii_.Create(
  		"jsii-calc.module2530.MyClass",
  		[]interface{}{_arg},
-@@ -42,18 +45,24 @@
+@@ -43,26 +46,35 @@
  }
  
  func MyClass_Bar(_arg *bool) {
@@ -36700,12 +36838,23 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
  		"foo",
  		[]interface{}{_arg},
  	)
+ }
+ 
+ func (m *jsiiProxy_MyClass) MultipleUnderscores(_arg *string, __ *string, ___ *string) {
++	if err := m.validateMultipleUnderscoresParameters(_arg, __, ___); err != nil {
++		panic(err)
++	}
+ 	_jsii_.InvokeVoid(
+ 		m,
+ 		"multipleUnderscores",
+ 		[]interface{}{_arg, __, ___},
+ 	)
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/MyClass__checks.go.diff 1`] = `
 --- go/jsiicalc/module2530/MyClass__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/MyClass__checks.go	--runtime-type-checking
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,48 @@
 +//go:build !no_runtime_type_checking
 +
 +package module2530
@@ -36717,6 +36866,22 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +func (m *jsiiProxy_MyClass) validateFooParameters(_arg *string) error {
 +	if _arg == nil {
 +		return fmt.Errorf("parameter _arg is required, but nil was provided")
++	}
++
++	return nil
++}
++
++func (m *jsiiProxy_MyClass) validateMultipleUnderscoresParameters(_arg *string, __ *string, ___ *string) error {
++	if _arg == nil {
++		return fmt.Errorf("parameter _arg is required, but nil was provided")
++	}
++
++	if __ == nil {
++		return fmt.Errorf("parameter __ is required, but nil was provided")
++	}
++
++	if ___ == nil {
++		return fmt.Errorf("parameter ___ is required, but nil was provided")
 +	}
 +
 +	return nil
@@ -36743,7 +36908,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/module2530/MyClass__no_checks.go.diff 1`] = `
 --- go/jsiicalc/module2530/MyClass__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/module2530/MyClass__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,22 @@
 +//go:build no_runtime_type_checking
 +
 +package module2530
@@ -36751,6 +36916,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/m
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func (m *jsiiProxy_MyClass) validateFooParameters(_arg *string) error {
++	return nil
++}
++
++func (m *jsiiProxy_MyClass) validateMultipleUnderscoresParameters(_arg *string, __ *string, ___ *string) error {
 +	return nil
 +}
 +

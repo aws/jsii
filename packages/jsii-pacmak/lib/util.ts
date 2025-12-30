@@ -457,7 +457,7 @@ export function flatten<A>(xs: readonly A[][]): A[] {
   return Array.prototype.concat.call([], ...xs);
 }
 
-export function zip<A, B>(xs: A[], ys: B[]): Array<[A, B]> {
+export function zip<A, B>(xs: readonly A[], ys: readonly B[]): Array<[A, B]> {
   const ret = new Array<[A, B]>();
   for (let i = 0; i < xs.length; i++) {
     ret.push([xs[i], ys[i]]);

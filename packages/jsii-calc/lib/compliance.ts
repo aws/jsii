@@ -3067,9 +3067,19 @@ export class TwoMethodsWithSimilarCapitalization {
 }
 
 export class ClassWithCollectionOfUnions {
+  public static staticMethodWithMapOfUnionsParam(
+    param: Record<string, StructA | StructB>,
+  ) {
+    void param;
+  }
+
   public constructor(
     public unionProperty: Array<Record<string, StructA | StructB>>,
   ) {}
+
+  public methodWithMapOfUnionsParam(param: Record<string, StructA | StructB>) {
+    void param;
+  }
 }
 
 export interface StructWithCollectionOfUnionts {

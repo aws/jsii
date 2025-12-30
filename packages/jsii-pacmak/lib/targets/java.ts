@@ -47,6 +47,15 @@ const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
 const ANN_INTERNAL = '@software.amazon.jsii.Internal';
 
 /**
+ * Because of a historical bug, $Default interfaces we inherit from might not
+ * have all method overloads generated correctly.
+ *
+ * So when inheriting these, we might need to generate the overloads in
+ * subinterfaces/subclasses.
+ */
+const GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS = true;
+
+/**
  * Build Java packages all together, by generating an aggregate POM
  *
  * This will make the Java build a lot more efficient (~300%).
@@ -91,11 +100,14 @@ export class JavaBuilder implements TargetBuilder {
       );
       scratchDirs.push(tempSourceDir);
 
+      await resolveMavenVersions(tempSourceDir.directory);
+
       // Need any old module object to make a target to be able to invoke build, though none of its settings
       // will be used.
       const target = this.makeTarget(this.modules[0], this.options);
       const tempOutputDir = await Scratch.make(async (dir) => {
         logging.debug(`Building Java code to ${dir}`);
+
         await target.build(tempSourceDir.directory, dir);
       });
       scratchDirs.push(tempOutputDir);
@@ -596,8 +608,22 @@ class JavaGenerator extends Generator {
     }
 
     if (propertyName === '_') {
-      // Slightly different pattern for this one
-      return '__';
+      // Slightly different pattern for this one. We used to generate `__` here
+      // but it's somewhat likely that people will use `_, __, ___` as multiple
+      // indifferent arguments, so we pick a different name.
+      //
+      // Ideally we would look at the alternative argument names and pick
+      // something guaranteed to be unique, but unfortunately the code isn't
+      // quite structured that way so we'll pick something unlikely to collide
+      // instead.
+      //
+      // Changing from `__` -> `_under` would be a breaking change if applied to
+      // public property names, but most likely this will be used for function
+      // parameters (unfortunately the code has been structured in such a way
+      // that property and parameter names are strongly tied together, in a way
+      // that would take more time to unwind than I care to invest right now),
+      // where it doesn't matter.
+      return '_under_';
     }
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
@@ -733,12 +759,12 @@ class JavaGenerator extends Generator {
 
     // NOTE: even though a constructor is technically final and we COULD render covariant types, historically we didn't and I'm not changing it.
     this.code.openBlock(
-      `${initializerAccessLevel} ${cls.name}(${this.renderParameters(method.parameters, types, 'final-but-not-cov')})`,
+      `${initializerAccessLevel} ${cls.name}(${this.renderParameters(method.parameters, types, 'exact-types')})`,
     );
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
-    this.emitUnionParameterValidation(method.parameters);
+    this.emitUnionParameterValidation(method.parameters, 'exact-types');
     this.code.line(
       `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(
         method,
@@ -881,7 +907,7 @@ class JavaGenerator extends Generator {
   }
 
   protected onEndInterface(ifc: spec.InterfaceType) {
-    this.emitMultiplyInheritedOptionalProperties(ifc);
+    this.emitMultiplyInheritedProperties(ifc);
 
     if (ifc.datatype) {
       this.emitDataType(ifc);
@@ -907,6 +933,7 @@ class JavaGenerator extends Generator {
     const returnType = method.returns
       ? forceSingleType(this.toDecoratedJavaTypes(method.returns))
       : mkStatic('void');
+
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
     this.addJavaDocs(
       method,
@@ -924,7 +951,7 @@ class JavaGenerator extends Generator {
     const types = this.convertTypes(method.parameters);
 
     this.code.line(
-      `${typeVarDeclarations(types)}${displayStatic(returnType)} ${methodName}(${this.renderParameters(method.parameters, types, 'overridable')});`,
+      `${typeVarDeclarations(types)}${displayStatic(returnType)} ${methodName}(${this.renderParameters(method.parameters, types, 'exact-types')});`,
     );
   }
 
@@ -1013,60 +1040,40 @@ class JavaGenerator extends Generator {
   }
 
   /**
-   * Emits a local default implementation for optional properties inherited from
-   * multiple distinct parent types. This remvoes the default method dispatch
-   * ambiguity that would otherwise exist.
+   * Emits a local default implementation for properties inherited from multiple
+   * distinct parent types. This removes the default method dispatch ambiguity
+   * that would otherwise exist.
    *
    * @param ifc            the interface to be processed.
 
    *
    * @see https://github.com/aws/jsii/issues/2256
    */
-  private emitMultiplyInheritedOptionalProperties(ifc: spec.InterfaceType) {
+  private emitMultiplyInheritedProperties(ifc: spec.InterfaceType) {
     if (ifc.interfaces == null || ifc.interfaces.length <= 1) {
       // Nothing to do if we don't have parent interfaces, or if we have exactly one
       return;
     }
-    const inheritedOptionalProps = ifc.interfaces
-      .map(allOptionalProps.bind(this))
-      // Calculate how many direct parents brought a given optional property
-      .reduce(
-        (histogram, entry) => {
-          for (const [name, spec] of Object.entries(entry)) {
-            histogram[name] = histogram[name] ?? { spec, count: 0 };
-            histogram[name].count += 1;
-          }
-          return histogram;
-        },
-        {} as Record<string, { readonly spec: spec.Property; count: number }>,
-      );
 
-    const localProps = new Set(ifc.properties?.map((prop) => prop.name) ?? []);
-    for (const { spec, count } of Object.values(inheritedOptionalProps)) {
-      if (count < 2 || localProps.has(spec.name)) {
-        continue;
+    const memberSources: Record<string, Record<string, spec.Property>> = {};
+    for (const parent of ifc.interfaces) {
+      const type = this.reflectAssembly.system.findInterface(parent);
+      for (const prop of type.allProperties) {
+        if (!(prop.name in memberSources)) {
+          memberSources[prop.name] = {};
+        }
+        memberSources[prop.name][prop.definingType.fqn] = prop.spec;
       }
-      this.onInterfaceProperty(ifc, spec);
     }
 
-    function allOptionalProps(this: JavaGenerator, fqn: string) {
-      const type = this.findType(fqn) as spec.InterfaceType;
-      const result: Record<string, spec.Property> = {};
-      for (const prop of type.properties ?? []) {
-        // Adding artifical "overrides" here for code-gen quality's sake.
-        result[prop.name] = { ...prop, overrides: type.fqn };
+    for (const defininingTypes of Object.values(memberSources)) {
+      // Ignore our own type
+      delete defininingTypes[ifc.fqn];
+
+      const keys = Object.keys(defininingTypes);
+      if (keys.length > 1) {
+        this.onInterfaceProperty(ifc, defininingTypes[keys[0]]);
       }
-      // Include optional properties of all super interfaces in the result
-      for (const base of type.interfaces ?? []) {
-        for (const [name, prop] of Object.entries(
-          allOptionalProps.call(this, base),
-        )) {
-          if (!(name in result)) {
-            result[name] = prop;
-          }
-        }
-      }
-      return result;
     }
   }
 
@@ -1561,12 +1568,15 @@ class JavaGenerator extends Generator {
             (!spec.isPrimitiveTypeReference(prop.type) ||
               prop.type.primitive === spec.PrimitiveType.Any)
           ) {
-            this.emitUnionParameterValidation([
-              {
-                name: 'value',
-                type: this.filterType(prop, type),
-              },
-            ]);
+            this.emitUnionParameterValidation(
+              [
+                {
+                  name: 'value',
+                  type: this.filterType(prop, type),
+                },
+              ],
+              'exact-types',
+            );
           }
           if (prop.static) {
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${displayStatic(javaClass)}.class, `;
@@ -1642,11 +1652,14 @@ class JavaGenerator extends Generator {
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
 
     const types = this.convertTypes(method.parameters);
+    const covariance = covarianceFromOverridability(
+      overridabilityFromMethod(method),
+    );
 
     const signature = `${typeVarDeclarations(types)}${displayStatic(returnType)} ${methodName}(${this.renderParameters(
       method.parameters,
       types,
-      method.static ? 'final' : 'overridable',
+      covariance,
     )})`;
     this.code.line();
     this.addJavaDocs(
@@ -1668,7 +1681,7 @@ class JavaGenerator extends Generator {
       this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
       this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
-      this.emitUnionParameterValidation(method.parameters);
+      this.emitUnionParameterValidation(method.parameters, covariance);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
     }
@@ -1680,7 +1693,8 @@ class JavaGenerator extends Generator {
    * @param parameters the list of parameters received by the function.
    */
   private emitUnionParameterValidation(
-    parameters?: readonly spec.Parameter[],
+    parameters: readonly spec.Parameter[] | undefined,
+    covariance: Covariance,
   ): void {
     if (!this.runtimeTypeChecking) {
       // We were configured not to emit those, so bail out now.
@@ -1701,7 +1715,7 @@ class JavaGenerator extends Generator {
         const javaType = this.toSingleJavaType(param.type);
         const asListName = `__${param.name}__asList`;
         this.code.line(
-          `final java.util.List<${displayStatic(javaType)}> ${asListName} = java.util.Arrays.asList(${param.name});`,
+          `final java.util.List<${displayStatic(javaType, covariance)}> ${asListName} = java.util.Arrays.asList(${param.name});`,
         );
 
         validate.call(
@@ -1724,6 +1738,7 @@ class JavaGenerator extends Generator {
           `.append("${param.name}")`,
           param.type,
           param.name,
+          false,
         );
       }
     }
@@ -1772,7 +1787,7 @@ class JavaGenerator extends Generator {
       descr: string,
       elementType: spec.TypeReference,
       parameterName: string,
-      isRawArray = false,
+      isRawArray: boolean,
     ) {
       const suffix = createHash('sha256')
         .update(descr)
@@ -1795,6 +1810,7 @@ class JavaGenerator extends Generator {
           : `${descr}.append(".get(").append(${idxName}).append(")")`,
         elementType,
         parameterName,
+        false,
       );
       this.code.closeBlock();
     }
@@ -1830,11 +1846,17 @@ class JavaGenerator extends Generator {
       const varName = `__item_${suffix}`;
       const valName = `__val_${suffix}`;
       const javaElemType = this.toSingleJavaType(elementType);
+
+      const entryType = mkStatic('java.util.Map.Entry', [
+        mkStatic('java.lang.String'),
+        javaElemType,
+      ]);
+
       this.code.openBlock(
-        `for (final java.util.Map.Entry<String, ${displayStatic(javaElemType)}> ${varName}: ${value}.entrySet())`,
+        `for (final ${displayStatic(entryType, covariance)} ${varName}: ${value}.entrySet())`,
       );
       this.code.line(
-        `final ${displayStatic(javaElemType)} ${valName} = ${varName}.getValue();`,
+        `final ${displayStatic(javaElemType, covariance)} ${valName} = ${varName}.getValue();`,
       );
       validate.call(
         this,
@@ -1956,10 +1978,12 @@ class JavaGenerator extends Generator {
     );
     this.code.line(' */');
 
+    // Get the list of $Default interfaces
     const baseInterfaces = this.defaultInterfacesFor(type, {
       includeThisType: true,
     });
 
+    // Add ourselves if we don't have a $Default interface
     if (type.isInterfaceType() && !hasDefaultInterfaces(type.assembly)) {
       // Extend this interface directly since this module does not have the Jsii$Default
       baseInterfaces.push(this.toNativeFqn(type.fqn));
@@ -1986,13 +2010,7 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
 
     // emit all properties
-    for (const reflectProp of type.allProperties.filter(
-      (prop) =>
-        prop.abstract &&
-        (prop.parentType.fqn === type.fqn ||
-          prop.parentType.isClassType() ||
-          !hasDefaultInterfaces(prop.assembly)),
-    )) {
+    for (const reflectProp of type.allProperties.filter(needsProxyImpl)) {
       const prop = clone(reflectProp.spec);
       prop.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
@@ -2003,25 +2021,13 @@ class JavaGenerator extends Generator {
     }
 
     // emit all the methods
-    for (const reflectMethod of type.allMethods.filter(
-      (method) =>
-        method.abstract &&
-        (method.parentType.fqn === type.fqn ||
-          method.parentType.isClassType() ||
-          !hasDefaultInterfaces(method.assembly)),
+    for (const reflectMethod of type.allMethods.flatMap(
+      this.makeProxyImpls.bind(this),
     )) {
-      const method = clone(reflectMethod.spec);
-      method.abstract = false;
+      const method = clone(reflectMethod);
       // Emitting "final" since this is a proxy and nothing will/should override this
+      method.abstract = false;
       this.emitMethod(type.spec, method, { final: true, overrides: true });
-
-      for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
-        overloadedMethod.abstract = false;
-        this.emitMethod(type.spec, overloadedMethod, {
-          final: true,
-          overrides: true,
-        });
-      }
     }
 
     this.code.closeBlock();
@@ -2043,29 +2049,18 @@ class JavaGenerator extends Generator {
         .join(', ')}`,
     );
 
-    for (const property of type.allProperties.filter(
-      (prop) =>
-        prop.abstract &&
-        // Only checking the getter - java.lang.Object has no setters.
-        !isJavaLangObjectMethodName(`get${jsiiToPascalCase(prop.name)}`) &&
-        (prop.parentType.fqn === type.fqn ||
-          !hasDefaultInterfaces(prop.assembly)),
-    )) {
+    for (const property of type.allProperties.filter(needsDefaultImpl)) {
       this.emitProperty(type.spec, property.spec, property.definingType.spec, {
         defaultImpl: true,
         overrides: type.isInterfaceType(),
       });
     }
-    for (const method of type.allMethods.filter(
-      (method) =>
-        method.abstract &&
-        !isJavaLangObjectMethodName(method.name) &&
-        (method.parentType.fqn === type.fqn ||
-          !hasDefaultInterfaces(method.assembly)),
+    for (const method of type.allMethods.flatMap(
+      this.makeDefaultImpls.bind(this),
     )) {
-      this.emitMethod(type.spec, method.spec, {
+      this.emitMethod(type.spec, method, {
         defaultImpl: true,
-        overrides: type.isInterfaceType(),
+        overrides: true,
       });
     }
     this.code.closeBlock();
@@ -3206,7 +3201,7 @@ class JavaGenerator extends Generator {
   private renderParameters(
     parameters: spec.Parameter[] | undefined,
     types: JavaType[],
-    overridable: 'overridable' | 'final' | 'final-but-not-cov',
+    cov: Covariance,
   ) {
     parameters = parameters ?? [];
     if (parameters.length !== types.length) {
@@ -3214,11 +3209,6 @@ class JavaGenerator extends Generator {
         `Arrays not same length: ${parameters.length} !== ${types.length}`,
       );
     }
-
-    // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
-    // (There are some more places where we could do this, like properties and constructors, but historically we didn't
-    // and I don't want to mess with this too much because the risk/reward isn't there.)
-    const cov = overridable === 'final' ? 'covariant' : undefined;
 
     const params = [];
     for (const [p, type] of zip(parameters, types)) {
@@ -3383,6 +3373,62 @@ class JavaGenerator extends Generator {
     this.code.closeFile(moduleFile);
 
     return moduleClass;
+  }
+
+  /**
+   * Given a method, return the methods that we should generate implementations for on the $Default interface
+   *
+   * This can be 0..N:
+   *
+   * - 0: if the method can be inherited from a parent $Default implementation
+   * - 1: if the method cannot be inherited from a parent $Default implementation
+   * - N: ah-ha, wait! There can be overloads! And because of a historical bug,
+   *   we didn't use to generate overloads onto $Default interfaces. So it's possible
+   *   that we don't generate the "main" implementation, but we do generate its overloads.
+   *
+   * Technically speaking we only have to account for the bug if the type is from a different
+   * assembly (because we know all types from the current assembly will be generated ✨ bugless ✨,
+   * but just to keep it simple we'll always do the same thing).
+   *
+   * We can only get rid of this bug once the oldest dependency package a Java
+   * package can be used with definitely has overloaded $Default impls. So that will be a while.
+   */
+  private makeDefaultImpls(m: reflect.Method): spec.Method[] {
+    const ret: spec.Method[] = [];
+    if (needsDefaultImpl(m)) {
+      ret.push(m.spec);
+    }
+
+    // Account for a past bug
+    if (needsDefaultImpl(m) || GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS) {
+      ret.push(...this.createOverloadsForOptionals(m.spec));
+    }
+
+    return ret;
+  }
+
+  /**
+   * Given a method, return the methods that we should generate implementations for on the $Proxy class
+   *
+   * See `makeDefaultImpls` for the main rationale behind this. The $Proxy class inherits from $Default
+   * so technically this could have usually been empty, but we need to account for the possibility that
+   * we implement a $Default interface from another assembly that has been generated with a buggy version
+   * of pacmak.
+   */
+  private makeProxyImpls<A extends reflect.Method | reflect.Property>(
+    m: A,
+  ): Array<A['spec']> {
+    const ret: spec.Method[] = [];
+    if (needsProxyImpl(m)) {
+      ret.push(m.spec);
+    }
+
+    // Account for a past bug
+    if (needsProxyImpl(m) || GENERATE_POTENTIALLY_MISING_DEFAULT_OVERLOADS) {
+      ret.push(...this.createOverloadsForOptionals(m.spec));
+    }
+
+    return ret;
   }
 
   private emitJsiiInitializers(cls: spec.ClassType) {
@@ -3859,14 +3905,14 @@ function mkParam(
   };
 }
 
-function displayStatic(x: JavaType, options?: 'covariant'): string {
+function displayStatic(x: JavaType, options?: Covariance): string {
   if (x.type !== 'static') {
     throw new Error(`Expected static type here, got ${JSON.stringify(x)}`);
   }
   return displayType(x, options);
 }
 
-function displayType(x: JavaType, options?: 'covariant'): string {
+function displayType(x: JavaType, options?: Covariance): string {
   switch (x.type) {
     case 'param':
       return `${x.annotation}${x.typeSymbol}`;
@@ -4009,3 +4055,89 @@ function removeIntersections(x: spec.TypeReference): spec.TypeReference {
   }
   return x;
 }
+
+/**
+ * Run the maven 'versions:resolve-ranges' plugin
+ *
+ * Initially, we generate version ranges into the pom file based on the NPM
+ * version ranges.
+ *
+ * At build time, given a dependency version range, Maven will download metadata
+ * for all possible versions before every (uncached) build. This takes a long
+ * time, before finally resolving to the latest version anyway.
+ *
+ * Instead, we use the Maven 'versions' plugin to resolve our wide ranges to
+ * point versions. We want the "latest matching" version anyway, and if we don't
+ * the resolution now (which downloads the .poms of all possible versions) it
+ * will happen during every single build.
+ */
+async function resolveMavenVersions(directory: string) {
+  const versionsPluginVersion = '2.20.1';
+  await subprocess(
+    'mvn',
+    [
+      `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
+      '--settings=user.xml',
+    ],
+    {
+      cwd: directory,
+      retry: { maxAttempts: 1 },
+    },
+  );
+}
+
+/**
+ * Whether the given property or method needs to be implemented on a $Proxy class
+ *
+ * Proxies extend the class they're for (if for a class), and the $Default interfaces
+ * of all the base interfaces, so implementations need to be present for everything
+ * that is not abstract and can be inherited from a $Default interface.
+ */
+function needsProxyImpl(x: reflect.Property | reflect.Method) {
+  // Interface members are always marked 'abstract', but we only need to
+  // implement them if they come from a class (because interface members
+  // will have a $Default impl that calls out to jsii already).
+  const isAbstractClassMember = x.definingType.isClassType() && x.abstract;
+  return (
+    isAbstractClassMember || !hasDefaultInterfaces(x.definingType.assembly)
+  );
+}
+
+/**
+ * Whether the given property or method needs to be implemented on a $Default interface
+ *
+ * $Default interfaces extend the interface they're for, and the $Default interfaces
+ * of all the base interfaces, so implementations need to be present for everything
+ * that is defined on the current interface or cannot be inherited from a $Default interface.
+ */
+function needsDefaultImpl(x: reflect.Property | reflect.Method) {
+  const isBuiltinMethod =
+    x instanceof reflect.Property
+      ? // Only checking the getter - java.lang.Object has no setters.
+        isJavaLangObjectMethodName(`get${jsiiToPascalCase(x.name)}`)
+      : isJavaLangObjectMethodName(x.name);
+
+  return (
+    (!hasDefaultInterfaces(x.definingType.assembly) ||
+      x.definingType.fqn === x.parentType.fqn) &&
+    !isBuiltinMethod
+  );
+}
+
+type Overridability = 'overridable' | 'final' | 'final-but-not-cov';
+
+/**
+ * Return the appropriate covariance rendering for the overridability of a given method
+ */
+function covarianceFromOverridability(overridable: Overridability): Covariance {
+  // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
+  // (There are some more places where we could do this, like properties and constructors, but historically we didn't
+  // and I don't want to mess with this too much because the risk/reward isn't there.)
+  return overridable === 'final' ? 'covariant' : 'exact-types';
+}
+
+function overridabilityFromMethod(method: spec.Method): Overridability {
+  return method.static ? 'final' : 'overridable';
+}
+
+type Covariance = 'covariant' | 'exact-types';

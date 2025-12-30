@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.124.0](https://github.com/aws/jsii/compare/v1.123.0...v1.124.0) (2025-12-30)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** Maven resolve-ranges command is missing repo settings ([#5015](https://github.com/aws/jsii/issues/5015)) ([ec8ecf9](https://github.com/aws/jsii/commit/ec8ecf9adb9bc1c7872a286f9c5b8ac5c1d3144b))
+
+## [1.123.0](https://github.com/aws/jsii/compare/v1.122.0...v1.123.0) (2025-12-29)
+
+
+### Bug Fixes
+
+* **java-runtime:** dependency ranges make Maven download too many files ([#5005](https://github.com/aws/jsii/issues/5005)) ([ecdd223](https://github.com/aws/jsii/commit/ecdd22338a701992df1e6418a51231f5bb6688d7))
+* **jsii-pacmak:** collection-of-union arguments in static functions break compilation ([#5012](https://github.com/aws/jsii/issues/5012)) ([2970397](https://github.com/aws/jsii/commit/2970397fa1ce7aabb3dda04ee3d5093e916a611e))
+* **jsii-pacmak:** underscore arguments conflict in Java ([#5011](https://github.com/aws/jsii/issues/5011)) ([638b546](https://github.com/aws/jsii/commit/638b546d7e396bf3d6823ef7fa25eecd2cd79c21))
+
+## [1.122.0](https://github.com/aws/jsii/compare/v1.121.0...v1.122.0) (2025-12-22)
+
+
+### Bug Fixes
+
+* **pacmak:** dependency ranges make Maven download too many files ([#5006](https://github.com/aws/jsii/issues/5006)) ([2198295](https://github.com/aws/jsii/commit/2198295d6c45250894ecb9f1eb9e96f4b8256b6f))
+* **pacmak:** generates too many methods for Java ([#5007](https://github.com/aws/jsii/issues/5007)) ([018396e](https://github.com/aws/jsii/commit/018396e4cec2a2cc916e5ca2bb6a8fa9fa9be7e8))
+
 ## [1.121.0](https://github.com/aws/jsii/compare/v1.120.0...v1.121.0) (2025-12-09)
 
 
