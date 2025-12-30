@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.124.0](https://github.com/aws/jsii/compare/v1.123.0...v1.124.0) (2025-12-30)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** Maven resolve-ranges command is missing repo settings ([#5015](https://github.com/aws/jsii/issues/5015)) ([ec8ecf9](https://github.com/aws/jsii/commit/ec8ecf9adb9bc1c7872a286f9c5b8ac5c1d3144b))
+
 ## [1.123.0](https://github.com/aws/jsii/compare/v1.122.0...v1.123.0) (2025-12-29)
 
 
