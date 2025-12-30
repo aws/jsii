@@ -4077,6 +4077,7 @@ async function resolveMavenVersions(directory: string) {
     'mvn',
     [
       `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
+      '--settings=user.xml',
     ],
     {
       cwd: directory,
