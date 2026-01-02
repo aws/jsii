@@ -26,7 +26,14 @@ import {
   findLocalBuildDirs,
   TargetOptions,
 } from '../target';
-import { subprocess, Scratch, slugify, setExtend, zip } from '../util';
+import {
+  subprocess,
+  Scratch,
+  slugify,
+  setExtend,
+  zip,
+  ShellOptions,
+} from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
@@ -100,11 +107,12 @@ export class JavaBuilder implements TargetBuilder {
       );
       scratchDirs.push(tempSourceDir);
 
-      await resolveMavenVersions(tempSourceDir.directory);
-
       // Need any old module object to make a target to be able to invoke build, though none of its settings
       // will be used.
       const target = this.makeTarget(this.modules[0], this.options);
+
+      await target.resolveMavenVersions(tempSourceDir.directory);
+
       const tempOutputDir = await Scratch.make(async (dir) => {
         logging.debug(`Building Java code to ${dir}`);
 
@@ -348,7 +356,7 @@ export class JavaBuilder implements TargetBuilder {
     return filePath;
   }
 
-  private makeTarget(module: JsiiModule, options: BuildOptions): Target {
+  private makeTarget(module: JsiiModule, options: BuildOptions): Java {
     return new Java({
       arguments: options.arguments,
       assembly: module.assembly,
@@ -449,13 +457,57 @@ export default class Java extends Target {
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     const url = `file://${outDir}`;
-    const mvnArguments = new Array<string>();
+
+    await this.invokeMaven(
+      sourceDir,
+      ['deploy', `-D=altDeploymentRepository=local::default::${url}`],
+      {
+        retry: { maxAttempts: 5 },
+      },
+    );
+  }
+
+  /**
+   * Run the maven 'versions:resolve-ranges' plugin
+   *
+   * Initially, we generate version ranges into the pom file based on the NPM
+   * version ranges.
+   *
+   * At build time, given a dependency version range, Maven will download metadata
+   * for all possible versions before every (uncached) build. This takes a long
+   * time, before finally resolving to the latest version anyway.
+   *
+   * Instead, we use the Maven 'versions' plugin to resolve our wide ranges to
+   * point versions. We want the "latest matching" version anyway, and if we don't
+   * the resolution now (which downloads the .poms of all possible versions) it
+   * will happen during every single build.
+   */
+  public async resolveMavenVersions(directory: string) {
+    const versionsPluginVersion = '2.20.1';
+    await this.invokeMaven(
+      directory,
+      [
+        `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
+      ],
+      {
+        retry: { maxAttempts: 1 },
+      },
+    );
+  }
+
+  private async invokeMaven(
+    directory: string,
+    args: string[],
+    options?: Omit<ShellOptions, 'cwd'>,
+  ) {
+    // Pass through jsii-pacmak --mvn-xyz=... arguments as --xyz=...
+    const passThruArgs = new Array<string>();
     for (const arg of Object.keys(this.arguments)) {
       if (!arg.startsWith('mvn-')) {
         continue;
       }
-      mvnArguments.push(`--${arg.slice(4)}`);
-      mvnArguments.push(this.arguments[arg].toString());
+      passThruArgs.push(`--${arg.slice(4)}`);
+      passThruArgs.push(this.arguments[arg].toString());
     }
 
     await subprocess(
@@ -464,21 +516,21 @@ export default class Java extends Target {
         // If we don't run in verbose mode, turn on quiet mode
         ...(this.arguments.verbose ? [] : ['--quiet']),
         '--batch-mode',
-        ...mvnArguments,
-        'deploy',
-        `-D=altDeploymentRepository=local::default::${url}`,
+        ...args,
+        ...passThruArgs,
         '--settings=user.xml',
       ],
       {
-        cwd: sourceDir,
+        cwd: directory,
         env: {
           // Twiddle the JVM settings a little for Maven. Delaying JIT compilation
           // brings down Maven execution time by about 1/3rd (15->10s, 30->20s)
           MAVEN_OPTS: `${
             process.env.MAVEN_OPTS ?? ''
           } -XX:+TieredCompilation -XX:TieredStopAtLevel=1`,
+          ...options?.env,
         },
-        retry: { maxAttempts: 5 },
+        ...options,
       },
     );
   }
@@ -4054,36 +4106,6 @@ function removeIntersections(x: spec.TypeReference): spec.TypeReference {
     };
   }
   return x;
-}
-
-/**
- * Run the maven 'versions:resolve-ranges' plugin
- *
- * Initially, we generate version ranges into the pom file based on the NPM
- * version ranges.
- *
- * At build time, given a dependency version range, Maven will download metadata
- * for all possible versions before every (uncached) build. This takes a long
- * time, before finally resolving to the latest version anyway.
- *
- * Instead, we use the Maven 'versions' plugin to resolve our wide ranges to
- * point versions. We want the "latest matching" version anyway, and if we don't
- * the resolution now (which downloads the .poms of all possible versions) it
- * will happen during every single build.
- */
-async function resolveMavenVersions(directory: string) {
-  const versionsPluginVersion = '2.20.1';
-  await subprocess(
-    'mvn',
-    [
-      `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
-      '--settings=user.xml',
-    ],
-    {
-      cwd: directory,
-      retry: { maxAttempts: 1 },
-    },
-  );
 }
 
 /**
