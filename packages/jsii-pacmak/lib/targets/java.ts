@@ -26,7 +26,14 @@ import {
   findLocalBuildDirs,
   TargetOptions,
 } from '../target';
-import { subprocess, Scratch, slugify, setExtend, zip, ShellOptions } from '../util';
+import {
+  subprocess,
+  Scratch,
+  slugify,
+  setExtend,
+  zip,
+  ShellOptions,
+} from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
@@ -451,11 +458,9 @@ export default class Java extends Target {
   public async build(sourceDir: string, outDir: string): Promise<void> {
     const url = `file://${outDir}`;
 
-    await this.invokeMaven(sourceDir,
-      [
-        'deploy',
-        `-D=altDeploymentRepository=local::default::${url}`,
-      ],
+    await this.invokeMaven(
+      sourceDir,
+      ['deploy', `-D=altDeploymentRepository=local::default::${url}`],
       {
         retry: { maxAttempts: 5 },
       },
@@ -479,14 +484,22 @@ export default class Java extends Target {
    */
   public async resolveMavenVersions(directory: string) {
     const versionsPluginVersion = '2.20.1';
-    await this.invokeMaven(directory, [
-      `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
-    ], {
-      retry: { maxAttempts: 1 },
-    });
+    await this.invokeMaven(
+      directory,
+      [
+        `org.codehaus.mojo:versions-maven-plugin:${versionsPluginVersion}:resolve-ranges`,
+      ],
+      {
+        retry: { maxAttempts: 1 },
+      },
+    );
   }
 
-  private async invokeMaven(directory: string, args: string[], options?: Omit<ShellOptions, 'cwd'>) {
+  private async invokeMaven(
+    directory: string,
+    args: string[],
+    options?: Omit<ShellOptions, 'cwd'>,
+  ) {
     // Pass through jsii-pacmak --mvn-xyz=... arguments as --xyz=...
     const passThruArgs = new Array<string>();
     for (const arg of Object.keys(this.arguments)) {
