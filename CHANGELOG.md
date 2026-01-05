@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.125.0](https://github.com/aws/jsii/compare/v1.124.0...v1.125.0) (2026-01-05)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** `--mvn-*` arguments aren't passed through ([#5018](https://github.com/aws/jsii/issues/5018)) ([68642d1](https://github.com/aws/jsii/commit/68642d1b5819cba4fc253ddb7d546c0e9315f961))
+
 ## [1.124.0](https://github.com/aws/jsii/compare/v1.123.0...v1.124.0) (2025-12-30)
 
 
