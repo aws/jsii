@@ -1090,17 +1090,22 @@ export function describeTypeReference(type?: TypeReference): string {
 }
 
 /**
- * Predefined constants for a set of jsii extension features
+ * The internal list of all jsii extension features
  */
-export type JsiiFeature = 'intersection-types' | 'class-covariant-overrides';
+const ALL_FEATURES = [
+  'intersection-types',
+  'class-covariant-overrides',
+] as const;
+
+/**
+ * Predefined type constants of available jsii extension features
+ */
+export type JsiiFeature = (typeof ALL_FEATURES)[number];
 
 /**
  * A list of all jsii extension features
  */
-export const ALL_SPEC_FEATURES: JsiiFeature[] = [
-  'intersection-types',
-  'class-covariant-overrides',
-];
+export const ALL_SPEC_FEATURES: JsiiFeature[] = [...ALL_FEATURES];
 
 /**
  * Determines whether an entity is deprecated.
