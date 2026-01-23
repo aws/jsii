@@ -1029,15 +1029,13 @@ export class Kernel {
     //
     // Pretty sure this is wrong and needs attention, but for now I'll just make an exception
     // for the one case I need to get working: `toString`.
-    let fn: any | undefined;
+    let fn: any;
     // Prototype first, but only if the method is not 'toString'
     if (methodName !== 'toString') {
       fn = instance.constructor.prototype[methodName];
     }
     // Then instance
-    if (!fn) {
-      fn = instance[methodName];
-    }
+    fn ??= instance[methodName];
     if (!fn) {
       throw new JsiiFault(`Cannot find ${methodName} on object`);
     }
