@@ -3834,6 +3834,7 @@ const JAVA_LANG_OBJECT_METHOD_NAMES = new Set([
   'hashCode',
   'notify',
   'notifyAll',
+  'toString',
   'wait',
 ]);
 
@@ -4113,6 +4114,9 @@ function removeIntersections(x: spec.TypeReference): spec.TypeReference {
  * Proxies extend the class they're for (if for a class), and the $Default interfaces
  * of all the base interfaces, so implementations need to be present for everything
  * that is not abstract and can be inherited from a $Default interface.
+ *
+ * Except we re-add potential overrides of Java Object members. We *can*
+ * implement these on classes, just not on interfaces.
  */
 function needsProxyImpl(x: reflect.Property | reflect.Method) {
   // Interface members are always marked 'abstract', but we only need to
@@ -4120,7 +4124,9 @@ function needsProxyImpl(x: reflect.Property | reflect.Method) {
   // will have a $Default impl that calls out to jsii already).
   const isAbstractClassMember = x.definingType.isClassType() && x.abstract;
   return (
-    isAbstractClassMember || !hasDefaultInterfaces(x.definingType.assembly)
+    isAbstractClassMember ||
+    !hasDefaultInterfaces(x.definingType.assembly) ||
+    isJavaLangObjectBuiltin(x)
   );
 }
 
@@ -4130,19 +4136,26 @@ function needsProxyImpl(x: reflect.Property | reflect.Method) {
  * $Default interfaces extend the interface they're for, and the $Default interfaces
  * of all the base interfaces, so implementations need to be present for everything
  * that is defined on the current interface or cannot be inherited from a $Default interface.
+ *
+ * We exclude built-in Java 'Object' methods. It's not allowed to write default
+ * implementations for these (think 'toString', 'hashCode', etc.)
  */
 function needsDefaultImpl(x: reflect.Property | reflect.Method) {
-  const isBuiltinMethod =
-    x instanceof reflect.Property
-      ? // Only checking the getter - java.lang.Object has no setters.
-        isJavaLangObjectMethodName(`get${jsiiToPascalCase(x.name)}`)
-      : isJavaLangObjectMethodName(x.name);
-
   return (
     (!hasDefaultInterfaces(x.definingType.assembly) ||
       x.definingType.fqn === x.parentType.fqn) &&
-    !isBuiltinMethod
+    !isJavaLangObjectBuiltin(x)
   );
+}
+
+/**
+ * Whether the rendering of the given property or method already appears on java.lang.Object
+ */
+function isJavaLangObjectBuiltin(x: reflect.Property | reflect.Method) {
+  return x instanceof reflect.Property
+    ? // Only checking the getter - java.lang.Object has no setters.
+      isJavaLangObjectMethodName(`get${jsiiToPascalCase(x.name)}`)
+    : isJavaLangObjectMethodName(x.name);
 }
 
 type Overridability = 'overridable' | 'final' | 'final-but-not-cov';
