@@ -14314,6 +14314,11 @@ public interface IStringable extends software.amazon.jsii.JsiiSerializable {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String nativeToString();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String toString();
 
     /**
@@ -14346,6 +14351,14 @@ public interface IStringable extends software.amazon.jsii.JsiiSerializable {
         @Override
         default @org.jetbrains.annotations.NotNull java.lang.String describe() {
             return software.amazon.jsii.Kernel.call(this, "describe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String nativeToString() {
+            return software.amazon.jsii.Kernel.call(this, "nativeToString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 }
@@ -20624,6 +20637,14 @@ public class Stringable extends software.amazon.jsii.JsiiObject implements softw
     @Override
     public @org.jetbrains.annotations.NotNull java.lang.String describe() {
         return software.amazon.jsii.Kernel.call(this, "describe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.String nativeToString() {
+        return software.amazon.jsii.Kernel.call(this, "nativeToString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**

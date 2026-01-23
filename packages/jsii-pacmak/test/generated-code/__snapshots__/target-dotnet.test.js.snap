@@ -12837,6 +12837,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         [JsiiMethod(name: "describe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string Describe();
+        [JsiiMethod(name: "nativeToString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string NativeToString();
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         string ToString();
 
@@ -12849,6 +12851,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
             [JsiiMethod(name: "describe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
             public string Describe()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
+
+            [JsiiMethod(name: "nativeToString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string NativeToString()
             {
                 return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
             }
@@ -20134,6 +20142,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         [JsiiMethod(name: "describe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
         public virtual string Describe()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "nativeToString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string NativeToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }

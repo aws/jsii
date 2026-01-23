@@ -2636,6 +2636,8 @@ exports[`showAll 1`] = `
  │   │   │ └── returns: jsii-calc.IStringable
  │   │   ├─┬ describe() method
  │   │   │ └── returns: string
+ │   │   ├─┬ nativeToString() method
+ │   │   │ └── returns: string
  │   │   └─┬ toString() method
  │   │     └── returns: string
  │   ├─┬ class StripInternal
@@ -3552,6 +3554,9 @@ exports[`showAll 1`] = `
  │   ├─┬ interface IStringable
  │   │ └─┬ members
  │   │   ├─┬ describe() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   ├─┬ nativeToString() method
  │   │   │ ├── abstract
  │   │   │ └── returns: string
  │   │   └─┬ toString() method

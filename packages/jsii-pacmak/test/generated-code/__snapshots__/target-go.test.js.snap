@@ -10551,6 +10551,7 @@ import (
 
 type IStringable interface {
 	Describe() *string
+	NativeToString() *string
 	ToString() *string
 }
 
@@ -10565,6 +10566,19 @@ func (i *jsiiProxy_IStringable) Describe() *string {
 	_jsii_.Invoke(
 		i,
 		"describe",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (i *jsiiProxy_IStringable) NativeToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"nativeToString",
 		nil, // no parameters
 		&returns,
 	)
@@ -16362,6 +16376,7 @@ import (
 type Stringable interface {
 	IStringable
 	Describe() *string
+	NativeToString() *string
 	ToString() *string
 }
 
@@ -16445,6 +16460,19 @@ func (s *jsiiProxy_Stringable) Describe() *string {
 	_jsii_.Invoke(
 		s,
 		"describe",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (s *jsiiProxy_Stringable) NativeToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"nativeToString",
 		nil, // no parameters
 		&returns,
 	)
@@ -22132,6 +22160,7 @@ func init() {
 		reflect.TypeOf((*IStringable)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "describe", GoMethod: "Describe"},
+			_jsii_.MemberMethod{JsiiMethod: "nativeToString", GoMethod: "NativeToString"},
 			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
 		},
 		func() interface{} {
@@ -22991,6 +23020,7 @@ func init() {
 		reflect.TypeOf((*Stringable)(nil)).Elem(),
 		[]_jsii_.Member{
 			_jsii_.MemberMethod{JsiiMethod: "describe", GoMethod: "Describe"},
+			_jsii_.MemberMethod{JsiiMethod: "nativeToString", GoMethod: "NativeToString"},
 			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
 		},
 		func() interface{} {

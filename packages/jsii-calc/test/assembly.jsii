@@ -8390,7 +8390,23 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3179
+            "line": 3181
+          },
+          "name": "nativeToString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3183
           },
           "name": "toString",
           "returns": {
@@ -14055,7 +14071,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3182
+        "line": 3186
       },
       "methods": [
         {
@@ -14064,7 +14080,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3193
+            "line": 3197
           },
           "name": "makeAnonymousStringable",
           "returns": {
@@ -14080,7 +14096,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3189
+            "line": 3193
           },
           "name": "makePrivateStringable",
           "returns": {
@@ -14096,7 +14112,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3185
+            "line": 3189
           },
           "name": "makePublicStringable",
           "returns": {
@@ -14112,7 +14128,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3205
+            "line": 3212
           },
           "name": "describe",
           "overrides": "jsii-calc.IStringable",
@@ -14128,7 +14144,23 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3209
+            "line": 3220
+          },
+          "name": "nativeToString",
+          "overrides": "jsii-calc.IStringable",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3216
           },
           "name": "toString",
           "overrides": "jsii-calc.IStringable",
@@ -20142,5 +20174,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "ZmcAokINSaZ+OJcyIbs4kJrOwbh4lRZFd0bmRrt6pXg="
+  "fingerprint": "1S7GvkZ3HrOIC2Ats7hbLlT+W9UTRUwvKOdPD8/ogs8="
 }

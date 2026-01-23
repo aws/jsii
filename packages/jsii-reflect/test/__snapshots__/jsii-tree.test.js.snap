@@ -2441,6 +2441,8 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: jsii-calc.IStringable
  │   │   ├─┬ describe() method (stable)
  │   │   │ └── returns: string
+ │   │   ├─┬ nativeToString() method (stable)
+ │   │   │ └── returns: string
  │   │   └─┬ toString() method (stable)
  │   │     └── returns: string
  │   ├─┬ class StripInternal (stable)
@@ -3357,6 +3359,9 @@ exports[`jsii-tree --all 1`] = `
  │   ├─┬ interface IStringable (stable)
  │   │ └─┬ members
  │   │   ├─┬ describe() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   ├─┬ nativeToString() method (stable)
  │   │   │ ├── abstract
  │   │   │ └── returns: string
  │   │   └─┬ toString() method (stable)
@@ -5636,6 +5641,7 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static makePrivateStringable() method
  │   │   ├── static makePublicStringable() method
  │   │   ├── describe() method
+ │   │   ├── nativeToString() method
  │   │   └── toString() method
  │   ├─┬ class StripInternal
  │   │ └─┬ members
@@ -6008,6 +6014,7 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IStringable
  │   │ └─┬ members
  │   │   ├── describe() method
+ │   │   ├── nativeToString() method
  │   │   └── toString() method
  │   ├─┬ interface IStructReturningDelegate
  │   │ └─┬ members
