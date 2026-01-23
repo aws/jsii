@@ -3173,3 +3173,18 @@ export class AnyPropertyAccess {
 
   private constructor() {}
 }
+
+export interface IStringable {
+  describe(): string;
+  toString(): string;
+}
+
+export class Stringable {
+  public static makeEqualStringable(): IStringable {
+    const stringValue = 'string value produced in JS';
+    return {
+      describe() { return stringValue; },
+      toString() { return stringValue; },
+    };
+  };
+}
