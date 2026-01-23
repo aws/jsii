@@ -3179,12 +3179,18 @@ export interface IStringable {
   toString(): string;
 }
 
-export class Stringable {
+export class Stringable implements IStringable {
+  private readonly stringValue = 'string value produced in JS';
+
   public static makeEqualStringable(): IStringable {
-    const stringValue = 'string value produced in JS';
-    return {
-      describe() { return stringValue; },
-      toString() { return stringValue; },
-    };
-  };
+    return new Stringable();
+  }
+
+  public describe(): string {
+    return this.stringValue;
+  }
+
+  public toString(): string {
+    return this.stringValue;
+  }
 }

@@ -24,8 +24,6 @@ import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.NumericValue;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.submodule.child.OuterClass;
-import software.amazon.jsii.tests.calculator.Stringable;
-import software.amazon.jsii.tests.calculator.IStringable;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;

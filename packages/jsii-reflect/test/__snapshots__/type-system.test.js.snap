@@ -147,6 +147,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.StaticHelloChild",
   "jsii-calc.StaticHelloParent",
   "jsii-calc.Statics",
+  "jsii-calc.Stringable",
   "jsii-calc.StripInternal",
   "jsii-calc.StructPassing",
   "jsii-calc.StructUnionConsumer",

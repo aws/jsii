@@ -8355,6 +8355,54 @@
       ],
       "symbolId": "lib/stability:IStableInterface"
     },
+    "jsii-calc.IStringable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.IStringable",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3177
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3178
+          },
+          "name": "describe",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3179
+          },
+          "name": "toString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IStringable",
+      "symbolId": "lib/compliance:IStringable"
+    },
     "jsii-calc.IStructReturningDelegate": {
       "assembly": "jsii-calc",
       "docs": {
@@ -13989,6 +14037,78 @@
       ],
       "name": "StringEnum",
       "symbolId": "lib/compliance:StringEnum"
+    },
+    "jsii-calc.Stringable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.Stringable",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "interfaces": [
+        "jsii-calc.IStringable"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3182
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3185
+          },
+          "name": "makeEqualStringable",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IStringable"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3189
+          },
+          "name": "describe",
+          "overrides": "jsii-calc.IStringable",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3193
+          },
+          "name": "toString",
+          "overrides": "jsii-calc.IStringable",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "Stringable",
+      "symbolId": "lib/compliance:Stringable"
     },
     "jsii-calc.StripInternal": {
       "assembly": "jsii-calc",
@@ -19990,5 +20110,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "lIHvj1O/NYsjHa9x/fPvrEdD8ChVE2BSlsfyzXUQaP4="
+  "fingerprint": "Wdc9GPkaOr0KSpH+9wCMQpSF88o5WtiF9lPbRkJ4ndA="
 }

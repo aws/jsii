@@ -2426,6 +2426,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ value property (stable)
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ class Stringable (stable)
+ │   │ ├── interfaces: IStringable
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ static makeEqualStringable() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ describe() method (stable)
+ │   │   │ └── returns: string
+ │   │   └─┬ toString() method (stable)
+ │   │     └── returns: string
  │   ├─┬ class StripInternal (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -3337,6 +3348,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ mutableProperty property (stable)
  │   │     ├── abstract
  │   │     └── type: Optional<number>
+ │   ├─┬ interface IStringable (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ describe() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   └─┬ toString() method (stable)
+ │   │     ├── abstract
+ │   │     └── returns: string
  │   ├─┬ interface IStructReturningDelegate (stable)
  │   │ └─┬ members
  │   │   └─┬ returnStruct() method (stable)
@@ -4249,6 +4268,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── base: StaticHelloParent
  │   ├── class StaticHelloParent
  │   ├── class Statics
+ │   ├─┬ class Stringable
+ │   │ └── interfaces: IStringable
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class StructUnionConsumer
@@ -4358,6 +4379,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
+ │   ├── interface IStringable
  │   ├── interface IStructReturningDelegate
  │   ├── interface IWallClock
  │   ├─┬ interface ImplictBaseOfBase
@@ -5601,6 +5623,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static instance property
  │   │   ├── static nonConstStatic property
  │   │   └── value property
+ │   ├─┬ class Stringable
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static makeEqualStringable() method
+ │   │   ├── describe() method
+ │   │   └── toString() method
  │   ├─┬ class StripInternal
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -5969,6 +5997,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── method() method
  │   │   └── mutableProperty property
+ │   ├─┬ interface IStringable
+ │   │ └─┬ members
+ │   │   ├── describe() method
+ │   │   └── toString() method
  │   ├─┬ interface IStructReturningDelegate
  │   │ └─┬ members
  │   │   └── returnStruct() method
@@ -6596,6 +6628,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class StaticHelloChild
  │   ├── class StaticHelloParent
  │   ├── class Statics
+ │   ├── class Stringable
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class StructUnionConsumer
@@ -6674,6 +6707,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
+ │   ├── interface IStringable
  │   ├── interface IStructReturningDelegate
  │   ├── interface IWallClock
  │   ├── interface ImplictBaseOfBase
