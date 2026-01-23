@@ -3182,9 +3182,37 @@ export interface IStringable {
 export class Stringable implements IStringable {
   private readonly stringValue = 'string value produced in JS';
 
-  public static makeEqualStringable(): IStringable {
+  public static makePublicStringable(): IStringable {
     return new Stringable();
   }
+
+  public static makePrivateStringable(): IStringable {
+    return new PrivateStringable();
+  }
+
+  public static makeAnonymousStringable(): IStringable {
+    const stringValue = 'string value produced in JS';
+    return {
+      describe() {
+        return stringValue;
+      },
+      toString() {
+        return stringValue;
+      },
+    };
+  }
+
+  public describe(): string {
+    return this.stringValue;
+  }
+
+  public toString(): string {
+    return this.stringValue;
+  }
+}
+
+class PrivateStringable implements IStringable {
+  private readonly stringValue = 'string value produced in JS';
 
   public describe(): string {
     return this.stringValue;

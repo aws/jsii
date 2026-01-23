@@ -1848,8 +1848,20 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canStringifyViaInterface() {
-        IStringable s = Stringable.makeEqualStringable();
+    public void canStringifyPublicClassViaInterface() {
+        IStringable s = Stringable.makePublicStringable();
+        assertEquals(s.describe(), s.toString());
+    }
+
+    @Test
+    public void canStringifyPrivateClassViaInterface() {
+        IStringable s = Stringable.makePrivateStringable();
+        assertEquals(s.describe(), s.toString());
+    }
+
+    @Test
+    public void canStringifyAnonymousClassViaInterface() {
+        IStringable s = Stringable.makeAnonymousStringable();
         assertEquals(s.describe(), s.toString());
     }
 }

@@ -3834,7 +3834,6 @@ const JAVA_LANG_OBJECT_METHOD_NAMES = new Set([
   'hashCode',
   'notify',
   'notifyAll',
-  'toString',
   'wait',
 ]);
 
