@@ -984,12 +984,62 @@ export class Kernel {
     // if we didn't find the method on the prototype, it could be a literal object
     // that implements an interface, so we look if we have the method on the object
     // itself. if we do, we invoke it.
-    let fn = instance.constructor.prototype[methodName];
+    //
+    //--------------------------------------------------------------
+    //
+    // huijbers@ (2026) -- I'm pretty sure the above logic is wrong. It reads like
+    // looking up methods from the prototype is intended to prevent cyclic calls
+    // when subclassing JS classes from a jsii language. We don't want:
+    //
+    // ```java
+    // class MyClass extends JavaScriptClass {
+    //   public void myMethod() {
+    //     super.myMethod();  <-- should call myMethod on base class
+    //   }
+    // }
+    // ```
+    //
+    // To call the same `myMethod` again and infinitely recurse, which a naive `invoke(this, 'myMethod')`
+    // would do. In order to work around this we seem to be default-ignoring functions
+    // that live directly on an object, *unless* we otherwise can't find it on the class.
+    //
+    // But `#findInvokeTarget()` is used for *all* invokes, and this now finds the wrong
+    // method in situations where both a class and the instance have a method, for whatever
+    // reason; maybe the JS object got patched or something.
+    //
+    // At least one case where I ran into this is when calling `toString()` on an anonymous
+    // object. Because 'Object.prototype' already has an implementation for `toString`, we
+    // never call the one on the anonymous object but always the built-in one which returns
+    // "[object Object]".
+    //
+    // I'm tempted to reverse the logic: look up the method on the instance, *unless* we
+    // have reasons to think the object we're looking at is a proxy for a jsii-client object
+    // in which case we look up on the parent. But even that is wrong because it would also
+    // do the wrong thing in this case:
+    //
+    // ```java
+    // class MyClass extends JavaScriptClass {
+    //   @Override public void myMethod1() {
+    //     this.myMethod2();  <-- should call myMethod2 below, not from parent
+    //   }
+    //   @Override public void myMethod2() {
+    //   }
+    // }
+    // ```
+    //
+    // Pretty sure this is wrong and needs attention, but for now I'll just make an exception
+    // for the one case I need to get working: `toString`.
+    let fn: any | undefined;
+    // Prototype first, but only if the method is not 'toString'
+    if (methodName !== 'toString') {
+      fn = instance.constructor.prototype[methodName];
+    }
+    // Then instance
     if (!fn) {
       fn = instance[methodName];
-      if (!fn) {
-        throw new JsiiFault(`Cannot find ${methodName} on object`);
-      }
+    }
+    if (!fn) {
+      throw new JsiiFault(`Cannot find ${methodName} on object`);
     }
     return { ti, obj: instance, fn };
   }

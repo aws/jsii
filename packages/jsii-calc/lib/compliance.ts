@@ -3176,6 +3176,10 @@ export class AnyPropertyAccess {
 
 export interface IStringable {
   describe(): string;
+
+  // Calling toString from JS should produce the same value as calling toString from Java/C#/Python/...
+  nativeToString(): string;
+
   toString(): string;
 }
 
@@ -3199,6 +3203,9 @@ export class Stringable implements IStringable {
       toString() {
         return stringValue;
       },
+      nativeToString() {
+        return this.toString();
+      },
     };
   }
 
@@ -3208,6 +3215,10 @@ export class Stringable implements IStringable {
 
   public toString(): string {
     return this.stringValue;
+  }
+
+  public nativeToString(): string {
+    return this.toString();
   }
 }
 
@@ -3220,5 +3231,9 @@ class PrivateStringable implements IStringable {
 
   public toString(): string {
     return this.stringValue;
+  }
+
+  public nativeToString(): string {
+    return this.toString();
   }
 }
