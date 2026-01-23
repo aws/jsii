@@ -3437,6 +3437,16 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
         public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
             return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
+
+        /**
+         * (deprecated) String representation of the value.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String toString() {
+            return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
     }
 }
 
@@ -4067,6 +4077,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 Issue2638.java
           ┃                 ┣━ 📄 Issue2638B.java
           ┃                 ┣━ 📄 IStableInterface.java
+          ┃                 ┣━ 📄 IStringable.java
           ┃                 ┣━ 📄 IStructReturningDelegate.java
           ┃                 ┣━ 📄 IWallClock.java
           ┃                 ┣━ 📄 JavaReservedWords.java
@@ -4193,6 +4204,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 StaticHelloChild.java
           ┃                 ┣━ 📄 StaticHelloParent.java
           ┃                 ┣━ 📄 Statics.java
+          ┃                 ┣━ 📄 Stringable.java
           ┃                 ┣━ 📄 StringEnum.java
           ┃                 ┣━ 📄 StripInternal.java
           ┃                 ┣━ 📄 StructA.java
@@ -14283,6 +14295,76 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IStringable.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IStringable")
+@software.amazon.jsii.Jsii.Proxy(IStringable.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IStringable extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String describe();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String nativeToString();
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String toString();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    @software.amazon.jsii.Internal
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IStringable.Jsii$Default {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String toString() {
+            return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+
+    /**
+     * Internal default implementation for {@link IStringable}.
+     */
+    @software.amazon.jsii.Internal
+    interface Jsii$Default extends IStringable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String describe() {
+            return software.amazon.jsii.Kernel.call(this, "describe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        default @org.jetbrains.annotations.NotNull java.lang.String nativeToString() {
+            return software.amazon.jsii.Kernel.call(this, "nativeToString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IStructReturningDelegate.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -20502,6 +20584,80 @@ public enum StringEnum {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Stringable.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Stringable")
+public class Stringable extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IStringable {
+
+    protected Stringable(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Stringable(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public Stringable() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makeAnonymousStringable() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makeAnonymousStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makePrivateStringable() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makePrivateStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makePublicStringable() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makePublicStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.String describe() {
+        return software.amazon.jsii.Kernel.call(this, "describe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.String nativeToString() {
+        return software.amazon.jsii.Kernel.call(this, "nativeToString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @Override
+    public @org.jetbrains.annotations.NotNull java.lang.String toString() {
+        return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StripInternal.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -24103,6 +24259,15 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         @Override
         public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
             return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
+
+        /**
+         * String representation of the value.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String toString() {
+            return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 }
@@ -29498,6 +29663,7 @@ jsii-calc.IRandomNumberGenerator=software.amazon.jsii.tests.calculator.IRandomNu
 jsii-calc.IReturnJsii976=software.amazon.jsii.tests.calculator.IReturnJsii976
 jsii-calc.IReturnsNumber=software.amazon.jsii.tests.calculator.IReturnsNumber
 jsii-calc.IStableInterface=software.amazon.jsii.tests.calculator.IStableInterface
+jsii-calc.IStringable=software.amazon.jsii.tests.calculator.IStringable
 jsii-calc.IStructReturningDelegate=software.amazon.jsii.tests.calculator.IStructReturningDelegate
 jsii-calc.IWallClock=software.amazon.jsii.tests.calculator.IWallClock
 jsii-calc.ImplementInternalInterface=software.amazon.jsii.tests.calculator.ImplementInternalInterface
@@ -29587,6 +29753,7 @@ jsii-calc.StaticHelloChild=software.amazon.jsii.tests.calculator.StaticHelloChil
 jsii-calc.StaticHelloParent=software.amazon.jsii.tests.calculator.StaticHelloParent
 jsii-calc.Statics=software.amazon.jsii.tests.calculator.Statics
 jsii-calc.StringEnum=software.amazon.jsii.tests.calculator.StringEnum
+jsii-calc.Stringable=software.amazon.jsii.tests.calculator.Stringable
 jsii-calc.StripInternal=software.amazon.jsii.tests.calculator.StripInternal
 jsii-calc.StructA=software.amazon.jsii.tests.calculator.StructA
 jsii-calc.StructB=software.amazon.jsii.tests.calculator.StructB
