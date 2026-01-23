@@ -2625,7 +2625,13 @@ exports[`showAll 1`] = `
  │   │ ├── interfaces: IStringable
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   ├─┬ static makeEqualStringable() method
+ │   │   ├─┬ static makeAnonymousStringable() method
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ static makePrivateStringable() method
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ static makePublicStringable() method
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.IStringable
  │   │   ├─┬ describe() method

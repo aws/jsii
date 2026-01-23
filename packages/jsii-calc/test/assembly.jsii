@@ -14064,9 +14064,9 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3185
+            "line": 3193
           },
-          "name": "makeEqualStringable",
+          "name": "makeAnonymousStringable",
           "returns": {
             "type": {
               "fqn": "jsii-calc.IStringable"
@@ -14082,6 +14082,38 @@
             "filename": "lib/compliance.ts",
             "line": 3189
           },
+          "name": "makePrivateStringable",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IStringable"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3185
+          },
+          "name": "makePublicStringable",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IStringable"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3205
+          },
           "name": "describe",
           "overrides": "jsii-calc.IStringable",
           "returns": {
@@ -14096,7 +14128,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3193
+            "line": 3209
           },
           "name": "toString",
           "overrides": "jsii-calc.IStringable",
@@ -20110,5 +20142,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "Wdc9GPkaOr0KSpH+9wCMQpSF88o5WtiF9lPbRkJ4ndA="
+  "fingerprint": "ZmcAokINSaZ+OJcyIbs4kJrOwbh4lRZFd0bmRrt6pXg="
 }

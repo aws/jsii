@@ -20114,8 +20114,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "makeEqualStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakeEqualStringable()
+        [JsiiMethod(name: "makeAnonymousStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakeAnonymousStringable()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStringable>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "makePrivateStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakePrivateStringable()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStringable>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "makePublicStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakePublicStringable()
         {
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStringable>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), new System.Type[]{}, new object[]{})!;
         }

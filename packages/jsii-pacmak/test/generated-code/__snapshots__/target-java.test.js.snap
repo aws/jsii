@@ -3437,6 +3437,16 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
         public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
             return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
+
+        /**
+         * (deprecated) String representation of the value.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String toString() {
+            return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
     }
 }
 
@@ -14314,6 +14324,14 @@ public interface IStringable extends software.amazon.jsii.JsiiSerializable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
         }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String toString() {
+            return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        }
     }
 
     /**
@@ -20582,8 +20600,22 @@ public class Stringable extends software.amazon.jsii.JsiiObject implements softw
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makeEqualStringable() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makeEqualStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makeAnonymousStringable() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makeAnonymousStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makePrivateStringable() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makePrivateStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStringable makePublicStringable() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Stringable.class, "makePublicStringable", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IStringable.class));
     }
 
     /**
@@ -24206,6 +24238,15 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         @Override
         public final @org.jetbrains.annotations.NotNull java.lang.Object typeName() {
             return software.amazon.jsii.Kernel.call(this, "typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        }
+
+        /**
+         * String representation of the value.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public final @org.jetbrains.annotations.NotNull java.lang.String toString() {
+            return software.amazon.jsii.Kernel.call(this, "toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 }

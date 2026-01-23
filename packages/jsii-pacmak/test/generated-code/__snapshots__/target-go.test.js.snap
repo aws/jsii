@@ -16394,14 +16394,44 @@ func NewStringable_Override(s Stringable) {
 	)
 }
 
-func Stringable_MakeEqualStringable() IStringable {
+func Stringable_MakeAnonymousStringable() IStringable {
 	_init_.Initialize()
 
 	var returns IStringable
 
 	_jsii_.StaticInvoke(
 		"jsii-calc.Stringable",
-		"makeEqualStringable",
+		"makeAnonymousStringable",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func Stringable_MakePrivateStringable() IStringable {
+	_init_.Initialize()
+
+	var returns IStringable
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.Stringable",
+		"makePrivateStringable",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func Stringable_MakePublicStringable() IStringable {
+	_init_.Initialize()
+
+	var returns IStringable
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.Stringable",
+		"makePublicStringable",
 		nil, // no parameters
 		&returns,
 	)

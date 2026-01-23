@@ -2430,7 +2430,13 @@ exports[`jsii-tree --all 1`] = `
  │   │ ├── interfaces: IStringable
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
- │   │   ├─┬ static makeEqualStringable() method (stable)
+ │   │   ├─┬ static makeAnonymousStringable() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ static makePrivateStringable() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ static makePublicStringable() method (stable)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.IStringable
  │   │   ├─┬ describe() method (stable)
@@ -5626,7 +5632,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class Stringable
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   ├── static makeEqualStringable() method
+ │   │   ├── static makeAnonymousStringable() method
+ │   │   ├── static makePrivateStringable() method
+ │   │   ├── static makePublicStringable() method
  │   │   ├── describe() method
  │   │   └── toString() method
  │   ├─┬ class StripInternal
