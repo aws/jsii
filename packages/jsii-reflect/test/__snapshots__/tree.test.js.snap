@@ -2621,6 +2621,25 @@ exports[`showAll 1`] = `
  │   │   └─┬ value property
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ class Stringable
+ │   │ ├── interfaces: IStringable
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ static makeAnonymousStringable() method
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ static makePrivateStringable() method
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ static makePublicStringable() method
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.IStringable
+ │   │   ├─┬ describe() method
+ │   │   │ └── returns: string
+ │   │   ├─┬ nativeToString() method
+ │   │   │ └── returns: string
+ │   │   └─┬ toString() method
+ │   │     └── returns: string
  │   ├─┬ class StripInternal
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3532,6 +3551,17 @@ exports[`showAll 1`] = `
  │   │   └─┬ mutableProperty property
  │   │     ├── abstract
  │   │     └── type: Optional<number>
+ │   ├─┬ interface IStringable
+ │   │ └─┬ members
+ │   │   ├─┬ describe() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   ├─┬ nativeToString() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   └─┬ toString() method
+ │   │     ├── abstract
+ │   │     └── returns: string
  │   ├─┬ interface IStructReturningDelegate
  │   │ └─┬ members
  │   │   └─┬ returnStruct() method
@@ -4440,6 +4470,7 @@ exports[`types 1`] = `
  │   ├── class StaticHelloChild
  │   ├── class StaticHelloParent
  │   ├── class Statics
+ │   ├── class Stringable
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class StructUnionConsumer
@@ -4518,6 +4549,7 @@ exports[`types 1`] = `
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
+ │   ├── interface IStringable
  │   ├── interface IStructReturningDelegate
  │   ├── interface IWallClock
  │   ├── interface ImplictBaseOfBase

@@ -135,4 +135,25 @@ public class TypeCheckingTest {
         });
         assertEquals("Expected struct to be one of: software.amazon.jsii.tests.calculator.StructA, software.amazon.jsii.tests.calculator.StructB; received class java.lang.String", e.getMessage());
     }
+
+    @Test
+    public void canStringifyPublicClassViaInterface() {
+        IStringable s = Stringable.makePublicStringable();
+        assertEquals(s.toString(), s.nativeToString());
+        assertEquals(s.describe(), s.toString());
+    }
+
+    @Test
+    public void canStringifyPrivateClassViaInterface() {
+        IStringable s = Stringable.makePrivateStringable();
+        assertEquals(s.toString(), s.nativeToString());
+        assertEquals(s.describe(), s.toString());
+    }
+
+    @Test
+    public void canStringifyAnonymousClassViaInterface() {
+        IStringable s = Stringable.makeAnonymousStringable();
+        assertEquals(s.toString(), s.nativeToString());
+        assertEquals(s.describe(), s.toString());
+    }
 }
