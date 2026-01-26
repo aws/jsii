@@ -3394,6 +3394,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 Issue2638B.cs
        ┃           ┣━ 📄 IStableInterface.cs
        ┃           ┣━ 📄 IStableStruct.cs
+       ┃           ┣━ 📄 IStringable.cs
        ┃           ┣━ 📄 IStructA.cs
        ┃           ┣━ 📄 IStructB.cs
        ┃           ┣━ 📄 IStructParameterType.cs
@@ -3536,6 +3537,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 StaticHelloChild.cs
        ┃           ┣━ 📄 StaticHelloParent.cs
        ┃           ┣━ 📄 Statics.cs
+       ┃           ┣━ 📄 Stringable.cs
        ┃           ┣━ 📄 StringEnum.cs
        ┃           ┣━ 📄 StripInternal.cs
        ┃           ┣━ 📄 StructA.cs
@@ -12823,6 +12825,53 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IStringable.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(IStringable), fullyQualifiedName: "jsii-calc.IStringable")]
+    public interface IStringable
+    {
+        [JsiiMethod(name: "describe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string Describe();
+        [JsiiMethod(name: "nativeToString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string NativeToString();
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string ToString();
+
+        [JsiiTypeProxy(nativeType: typeof(IStringable), fullyQualifiedName: "jsii-calc.IStringable")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStringable
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiMethod(name: "describe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string Describe()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
+
+            [JsiiMethod(name: "nativeToString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string NativeToString()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
+
+            [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+            public string ToString()
+            {
+                return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IStructA.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -20034,6 +20083,80 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         B,
         [JsiiEnumMember(name: "C")]
         C
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Stringable.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), fullyQualifiedName: "jsii-calc.Stringable")]
+    public class Stringable : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStringable
+    {
+        public Stringable(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Stringable(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Stringable(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "makeAnonymousStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakeAnonymousStringable()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStringable>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "makePrivateStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakePrivateStringable()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStringable>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "makePublicStringable", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.IStringable\\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IStringable MakePublicStringable()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStringable>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Stringable), new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "describe", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string Describe()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "nativeToString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string NativeToString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public override string ToString()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
     }
 }
 

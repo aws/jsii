@@ -3173,3 +3173,67 @@ export class AnyPropertyAccess {
 
   private constructor() {}
 }
+
+export interface IStringable {
+  describe(): string;
+
+  // Calling toString from JS should produce the same value as calling toString from Java/C#/Python/...
+  nativeToString(): string;
+
+  toString(): string;
+}
+
+export class Stringable implements IStringable {
+  private readonly stringValue = 'string value produced in JS';
+
+  public static makePublicStringable(): IStringable {
+    return new Stringable();
+  }
+
+  public static makePrivateStringable(): IStringable {
+    return new PrivateStringable();
+  }
+
+  public static makeAnonymousStringable(): IStringable {
+    const stringValue = 'string value produced in JS';
+    return {
+      describe() {
+        return stringValue;
+      },
+      toString() {
+        return stringValue;
+      },
+      nativeToString() {
+        return this.toString();
+      },
+    };
+  }
+
+  public describe(): string {
+    return this.stringValue;
+  }
+
+  public toString(): string {
+    return this.stringValue;
+  }
+
+  public nativeToString(): string {
+    return this.toString();
+  }
+}
+
+class PrivateStringable implements IStringable {
+  private readonly stringValue = 'string value produced in JS';
+
+  public describe(): string {
+    return this.stringValue;
+  }
+
+  public toString(): string {
+    return this.stringValue;
+  }
+
+  public nativeToString(): string {
+    return this.toString();
+  }
+}
