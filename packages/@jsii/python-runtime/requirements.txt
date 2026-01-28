@@ -5,6 +5,6 @@ pytest~=8.4
 pytest-mypy~=1.0
 setuptools~=80.3
 types-python-dateutil~=2.9
-wheel~=0.45
+wheel~=0.46
 
 -e .

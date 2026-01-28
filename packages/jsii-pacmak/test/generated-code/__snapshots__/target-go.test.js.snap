@@ -2998,6 +2998,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 Issue2638.go
        ┣━ 📄 Issue2638B.go
        ┣━ 📄 IStableInterface.go
+       ┣━ 📄 IStringable.go
        ┣━ 📄 IStructReturningDelegate.go
        ┣━ 📄 IWallClock.go
        ┣━ 📄 JavaReservedWords.go
@@ -3156,6 +3157,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 StaticHelloChild.go
        ┣━ 📄 StaticHelloParent.go
        ┣━ 📄 Statics.go
+       ┣━ 📄 Stringable.go
        ┣━ 📄 StringEnum.go
        ┣━ 📄 StripInternal.go
        ┣━ 📄 StructA.go
@@ -10540,6 +10542,66 @@ func (j *jsiiProxy_IStableInterface)SetMutableProperty(val *float64) {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/IStringable.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+)
+
+type IStringable interface {
+	Describe() *string
+	NativeToString() *string
+	ToString() *string
+}
+
+// The jsii proxy for IStringable
+type jsiiProxy_IStringable struct {
+	_ byte // padding
+}
+
+func (i *jsiiProxy_IStringable) Describe() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"describe",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (i *jsiiProxy_IStringable) NativeToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"nativeToString",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (i *jsiiProxy_IStringable) ToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		i,
+		"toString",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/IStructReturningDelegate.go 1`] = `
 package jsiicalc
 
@@ -16303,6 +16365,137 @@ const (
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/Stringable.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+type Stringable interface {
+	IStringable
+	Describe() *string
+	NativeToString() *string
+	ToString() *string
+}
+
+// The jsii proxy struct for Stringable
+type jsiiProxy_Stringable struct {
+	jsiiProxy_IStringable
+}
+
+func NewStringable() Stringable {
+	_init_.Initialize()
+
+	j := jsiiProxy_Stringable{}
+
+	_jsii_.Create(
+		"jsii-calc.Stringable",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewStringable_Override(s Stringable) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.Stringable",
+		nil, // no parameters
+		s,
+	)
+}
+
+func Stringable_MakeAnonymousStringable() IStringable {
+	_init_.Initialize()
+
+	var returns IStringable
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.Stringable",
+		"makeAnonymousStringable",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func Stringable_MakePrivateStringable() IStringable {
+	_init_.Initialize()
+
+	var returns IStringable
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.Stringable",
+		"makePrivateStringable",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func Stringable_MakePublicStringable() IStringable {
+	_init_.Initialize()
+
+	var returns IStringable
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.Stringable",
+		"makePublicStringable",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (s *jsiiProxy_Stringable) Describe() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"describe",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (s *jsiiProxy_Stringable) NativeToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"nativeToString",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (s *jsiiProxy_Stringable) ToString() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"toString",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StripInternal.go 1`] = `
 package jsiicalc
 
@@ -21963,6 +22156,18 @@ func init() {
 		},
 	)
 	_jsii_.RegisterInterface(
+		"jsii-calc.IStringable",
+		reflect.TypeOf((*IStringable)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "describe", GoMethod: "Describe"},
+			_jsii_.MemberMethod{JsiiMethod: "nativeToString", GoMethod: "NativeToString"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+		},
+		func() interface{} {
+			return &jsiiProxy_IStringable{}
+		},
+	)
+	_jsii_.RegisterInterface(
 		"jsii-calc.IStructReturningDelegate",
 		reflect.TypeOf((*IStructReturningDelegate)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -22808,6 +23013,20 @@ func init() {
 			"A": StringEnum_A,
 			"B": StringEnum_B,
 			"C": StringEnum_C,
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.Stringable",
+		reflect.TypeOf((*Stringable)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "describe", GoMethod: "Describe"},
+			_jsii_.MemberMethod{JsiiMethod: "nativeToString", GoMethod: "NativeToString"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+		},
+		func() interface{} {
+			j := jsiiProxy_Stringable{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IStringable)
+			return &j
 		},
 	)
 	_jsii_.RegisterClass(

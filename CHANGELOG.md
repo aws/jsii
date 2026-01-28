@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.126.0](https://github.com/aws/jsii/compare/v1.125.0...v1.126.0) (2026-01-26)
+
+
+### Features
+
+* **spec:** export list of all jsii features ([#5021](https://github.com/aws/jsii/issues/5021)) ([20111a6](https://github.com/aws/jsii/commit/20111a698aee4de7db21f23f7e2fde686ee149f1))
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** toString() on anonymous classes does not call JavaScript implementation ([#5027](https://github.com/aws/jsii/issues/5027)) ([d6a243b](https://github.com/aws/jsii/commit/d6a243b2cd8369e7cd1347594e2cd73734527e81))
+
 ## [1.125.0](https://github.com/aws/jsii/compare/v1.124.0...v1.125.0) (2026-01-05)
 
 
