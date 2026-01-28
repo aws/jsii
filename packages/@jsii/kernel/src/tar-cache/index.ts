@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { mkdirSync, rmSync } from 'fs';
 import * as tar from 'tar';
 

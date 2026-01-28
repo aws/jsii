@@ -186,6 +186,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           host,
         );
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       if (typeof value !== primitiveType.primitive) {
         throw new SerializationError(
           `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
@@ -211,6 +212,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           host,
         );
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       if (typeof value !== primitiveType.primitive) {
         throw new SerializationError(
           `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,

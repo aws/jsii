@@ -105,7 +105,7 @@ func TestAnySlice(t *testing.T) {
 	// Test with strings
 	result2 := AnySlice(Strings("hello", "world"))
 	assert.Equal(t, []interface{}{"hello", "world"}, *result2)
-	
+
 	// Test with *[]*float64
 	floats := []*float64{Number(1.5), Number(2.5)}
 	result3 := AnySlice(&floats)
@@ -114,7 +114,7 @@ func TestAnySlice(t *testing.T) {
 	// Test with Numbers
 	result4 := AnySlice(Numbers(1.5, 2.5))
 	assert.Equal(t, []interface{}{1.5, 2.5}, *result4)
-	
+
 	// Test with nil
 	assert.Nil(t, AnySlice((*[]*string)(nil)))
 }
