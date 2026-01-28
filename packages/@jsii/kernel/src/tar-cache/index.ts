@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { mkdirSync, rmSync } from 'fs';
 import * as tar from 'tar';
 
@@ -6,7 +7,7 @@ import { link } from '../link';
 import { defaultCacheRoot } from './default-cache-root';
 
 export type ExtractOptions = Omit<
-  tar.ExtractOptions & tar.FileOptions,
+  Parameters<typeof tar.extract>[0],
   'file' | 'cwd'
 >;
 
@@ -102,7 +103,7 @@ function extractToOutDir(
 }
 
 function untarInto(
-  options: tar.ExtractOptions & tar.FileOptions & { cwd: string },
+  options: Parameters<typeof tar.extract>[0] & { cwd: string },
 ) {
   try {
     tar.extract({ ...options, sync: true });

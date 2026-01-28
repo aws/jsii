@@ -38,8 +38,7 @@ export interface IRandomNumberGenerator {
 }
 
 export interface IFriendlyRandomGenerator
-  extends IRandomNumberGenerator,
-    IFriendly {}
+  extends IRandomNumberGenerator, IFriendly {}
 
 /**
  * Represents an operation with two operands.
