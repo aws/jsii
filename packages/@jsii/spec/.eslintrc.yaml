@@ -1,2 +1,5 @@
 ---
 extends: ../../../eslint-config.yaml
+
+ignorePatterns:
+  - build-tools/generate-validators.js

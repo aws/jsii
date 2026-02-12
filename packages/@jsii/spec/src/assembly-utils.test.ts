@@ -1,4 +1,4 @@
-import * as fs from 'fs-extra';
+import * as fs from 'node:fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as zlib from 'zlib';
@@ -44,7 +44,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  fs.removeSync(tmpdir);
+  fs.rmSync(tmpdir, { recursive: true, force: true });
 });
 
 describe(writeAssembly, () => {
@@ -56,9 +56,11 @@ describe(writeAssembly, () => {
     ).toBeTruthy();
 
     // includes .jsii files with instructions for finding compressed file
-    const instructions = fs.readJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
-      encoding: 'utf-8',
-    });
+    const instructions = JSON.parse(
+      fs.readFileSync(path.join(tmpdir, SPEC_FILE_NAME), {
+        encoding: 'utf-8',
+      }),
+    );
     expect(instructions).toEqual({
       schema: 'jsii/file-redirect',
       compression: 'gzip',
@@ -117,16 +119,23 @@ describe(loadAssemblyFromPath, () => {
       loadAssemblyFromPath(uncompressedTmpDir),
     );
 
-    fs.removeSync(compressedTmpDir);
-    fs.removeSync(uncompressedTmpDir);
+    fs.rmSync(compressedTmpDir, { recursive: true, force: true });
+    fs.rmSync(uncompressedTmpDir, { recursive: true, force: true });
   });
 
   test('throws if redirect object has unsupported compression', () => {
-    fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
-      schema: 'jsii/file-redirect',
-      compression: '7zip',
-      filename: '.jsii.7z',
-    });
+    fs.writeFileSync(
+      path.join(tmpdir, SPEC_FILE_NAME),
+      JSON.stringify(
+        {
+          schema: 'jsii/file-redirect',
+          compression: '7zip',
+          filename: '.jsii.7z',
+        },
+        null,
+        2,
+      ),
+    );
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
       /Error: Invalid assembly redirect:\n \* redirect\/compression must be equal to constant/m,
@@ -134,9 +143,16 @@ describe(loadAssemblyFromPath, () => {
   });
 
   test('throws if redirect object is missing filename', () => {
-    fs.writeJsonSync(path.join(tmpdir, SPEC_FILE_NAME), {
-      schema: 'jsii/file-redirect',
-    });
+    fs.writeFileSync(
+      path.join(tmpdir, SPEC_FILE_NAME),
+      JSON.stringify(
+        {
+          schema: 'jsii/file-redirect',
+        },
+        null,
+        2,
+      ),
+    );
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
       /Error: Invalid assembly redirect:\n \* redirect must have required property 'filename'/m,
@@ -144,15 +160,16 @@ describe(loadAssemblyFromPath, () => {
   });
 
   test('throws if assembly is invalid', () => {
-    fs.writeJsonSync(
+    fs.writeFileSync(
       path.join(tmpdir, SPEC_FILE_NAME),
-      {
-        assembly: 'not a valid assembly',
-      },
-      {
-        encoding: 'utf8',
-        spaces: 2,
-      },
+      JSON.stringify(
+        {
+          assembly: 'not a valid assembly',
+        },
+        null,
+        2,
+      ),
+      { encoding: 'utf8' },
     );
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrow(/Invalid assembly/);

@@ -1,7 +1,10 @@
-import Ajv from 'ajv';
+import { formatErrors } from './format-errors';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 export const assemblyRedirectSchema = require('../schema/assembly-redirect.schema.json');
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+const { validateRedirect: validateSchema } = require('../lib/validators');
 
 const SCHEMA = 'jsii/file-redirect';
 
@@ -43,18 +46,9 @@ export function isAssemblyRedirect(obj: unknown): obj is AssemblyRedirect {
  * @returns the validated value.
  */
 export function validateAssemblyRedirect(obj: unknown): AssemblyRedirect {
-  const ajv = new Ajv({
-    allErrors: true,
-  });
-  const validate = ajv.compile(assemblyRedirectSchema);
-  validate(obj);
-
-  if (validate.errors) {
+  if (!validateSchema(obj)) {
     throw new Error(
-      `Invalid assembly redirect:\n * ${ajv.errorsText(validate.errors, {
-        separator: '\n * ',
-        dataVar: 'redirect',
-      })}`,
+      `Invalid assembly redirect:\n * ${formatErrors(validateSchema.errors, 'redirect')}`,
     );
   }
 

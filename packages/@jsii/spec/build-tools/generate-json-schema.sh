@@ -40,3 +40,7 @@ set -euo pipefail
         --strictNullChecks true              \
         --topRef           true
 }
+
+# Generate standalone validation code from schemas
+echo "Generating standalone validation code"
+node build-tools/generate-validators.js
