@@ -1,5 +1,6 @@
 const Ajv = require('ajv');
 const standaloneCode = require('ajv/dist/standalone').default;
+const esbuild = require('esbuild');
 const { readFileSync, writeFileSync } = require('fs');
 
 const ajv = new Ajv({ code: { source: true, esm: false }, allErrors: true });
@@ -11,11 +12,20 @@ const redirectSchema = JSON.parse(readFileSync('schema/assembly-redirect.schema.
 ajv.addSchema(assemblySchema, 'assembly');
 ajv.addSchema(redirectSchema, 'redirect');
 
-// Generate standalone code
+// Generate standalone code and bundle to inline ajv runtime dependencies
 const code = standaloneCode(ajv, {
   validateAssembly: 'assembly',
   validateRedirect: 'redirect',
 });
 
-writeFileSync('lib/validators.js', code);
+const result = esbuild.buildSync({
+  stdin: { contents: code, resolveDir: __dirname },
+  bundle: true,
+  platform: 'node',
+  format: 'cjs',
+  write: false,
+  minify: true,
+});
+
+writeFileSync('lib/validators.js', result.outputFiles[0].text);
 console.log('Generated lib/validators.js');
