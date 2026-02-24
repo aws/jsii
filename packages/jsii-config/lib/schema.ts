@@ -1,5 +1,5 @@
+import { Separator } from '@inquirer/prompts';
 import { Config, PackageJson, Stability } from '@jsii/spec';
-import { Question, Separator } from 'inquirer';
 
 /*
  * Structure of package.json accepted by jsii-config
@@ -16,9 +16,21 @@ export interface BasePackageJson extends Omit<
 }
 
 /*
+ * A single prompt descriptor used to build questions.
+ */
+export interface PromptDescriptor {
+  type: string;
+  message: string;
+  default?: any;
+  choices?: Array<string | Separator>;
+  when?: (answers: any) => boolean;
+  validate?: (val: string) => true | string;
+}
+
+/*
  * Type of fields used in schema to prompt users.
  */
-type Field = Omit<Question, 'name'>;
+type Field = PromptDescriptor;
 
 interface NestedField {
   [key: string]: SchemaField;
