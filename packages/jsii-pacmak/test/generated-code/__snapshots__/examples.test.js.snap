@@ -491,7 +491,7 @@ type FooBar struct {
 exports[`diamond-struct-parameter.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
-go 1.23
+go 1.25
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0
@@ -2113,7 +2113,7 @@ func NewNamespace2_Foo_Final_Override(n Namespace2_Foo_Final) {
 exports[`nested-types.ts: <outDir>/go/testpkg/go.mod 1`] = `
 module example.test/demo/testpkg
 
-go 1.23
+go 1.25
 
 require (
 	github.com/aws/jsii-runtime-go v0.0.0

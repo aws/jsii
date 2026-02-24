@@ -13,10 +13,10 @@ as follows:
 For specific languages, these are the minimum runtime versions that are supported by the `jsii` toolchain:
 
 | Runtime | Version |
-|---------|---------|
+| ------- | ------- |
 | .NET    | 6.0     |
 | Java    | 8       |
-| Go      | 1.23    |
+| Go      | 1.25    |
 | Python  | 3.9     |
 
 [runtime architecture]: ../../overview/runtime-architecture.md

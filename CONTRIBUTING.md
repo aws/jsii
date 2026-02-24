@@ -42,7 +42,7 @@ in your development environment.
   - [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   - [`wheel`](https://pypi.org/project/wheel/)
   - *Recommended:* [`twine`](https://pypi.org/project/twine/)
-- [Go] `1.23` or newer
+- [Go] `1.25` or newer
 
 [Node.js]: https://nodejs.org/en/download
 [Yarn]: https://yarnpkg.com/en/docs/install
