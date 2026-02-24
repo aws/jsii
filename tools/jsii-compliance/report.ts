@@ -29,6 +29,7 @@ function determineTestStatus(testResult: schema.TestResult | undefined) {
       return FAILURE;
     case 'n/a':
       return NOTAPPL;
+    case undefined:
     default:
       return MISSING;
   }

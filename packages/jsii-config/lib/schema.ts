@@ -6,8 +6,10 @@ import { Question, Separator } from 'inquirer';
  *
  * Exits with error message if input is missing required fields.
  */
-export interface BasePackageJson
-  extends Omit<PackageJson, 'jsii' | 'types' | 'stability'> {
+export interface BasePackageJson extends Omit<
+  PackageJson,
+  'jsii' | 'types' | 'stability'
+> {
   jsii?: Config;
   types?: string;
   stability?: Stability;
