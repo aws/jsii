@@ -1,7 +1,15 @@
-import { QuestionCollection, Separator } from 'inquirer';
+import { Separator } from '@inquirer/prompts';
 
-import schema, { ConfigPromptsSchema, BasePackageJson } from './schema';
+import schema, {
+  ConfigPromptsSchema,
+  BasePackageJson,
+  PromptDescriptor,
+} from './schema';
 import { getNestedValue, flattenKeys } from './util';
+
+export interface NamedPrompt extends PromptDescriptor {
+  name: string;
+}
 
 /*
  * Get current value of field to be used as default
@@ -21,9 +29,9 @@ function getCurrentValue(name: string, current: BasePackageJson): any {
 function flattenNestedQuestions(
   fields: ConfigPromptsSchema,
   current: BasePackageJson,
-): QuestionCollection[] {
+): NamedPrompt[] {
   return Object.entries(fields).reduce(
-    (accum: QuestionCollection[], [name, question]: [string, any]) => {
+    (accum: NamedPrompt[], [name, question]: [string, any]) => {
       if (question.type && question.message) {
         const currentValue = getCurrentValue(name, current) ?? question.default;
         return [
@@ -46,16 +54,16 @@ function flattenNestedQuestions(
 function buildQuestions(
   schema: ConfigPromptsSchema,
   current: BasePackageJson,
-): QuestionCollection[] {
+): NamedPrompt[] {
   const currentTargets = getNestedValue(['jsii', 'targets'], current) ?? {};
-  const targetsPrompt: QuestionCollection = {
+  const targetsPrompt: NamedPrompt = {
     name: 'jsiiTargets',
     message: 'Target Languages',
     type: 'checkbox',
     choices: Object.keys(schema.jsii.targets),
     default: Object.keys(currentTargets),
   };
-  const tsconfigPrompt: QuestionCollection = {
+  const tsconfigPrompt: NamedPrompt = {
     name: 'tsconfig',
     message:
       'Typescript config - should jsii generate a compatible tsconfig or do you want to manage it yourself',

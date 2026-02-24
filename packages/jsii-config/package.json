@@ -20,14 +20,13 @@
     "jsii-config": "bin/jsii-config"
   },
   "devDependencies": {
-    "@types/inquirer": "^8.2.3",
     "@types/yargs": "^17.0.33",
     "jest-expect-message": "^1.1.3"
   },
   "dependencies": {
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "0.0.0",
-    "inquirer": "^8.2.7",
+    "@inquirer/prompts": "^8.3.0",
     "yargs": "^17.7.2"
   }
 }
