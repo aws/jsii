@@ -186,7 +186,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           host,
         );
       }
-      if (typeof value !== primitiveType.primitive) {
+      if (typeof value !== (primitiveType.primitive as string)) {
         throw new SerializationError(
           `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
           value,
@@ -211,7 +211,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           host,
         );
       }
-      if (typeof value !== primitiveType.primitive) {
+      if (typeof value !== (primitiveType.primitive as string)) {
         throw new SerializationError(
           `Value is not a ${spec.describeTypeReference(optionalValue.type)}`,
           value,
