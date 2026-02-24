@@ -14,7 +14,7 @@ parserOptions:
   ecmaVersion: 2020
   impliedStrict: true
   sourceType: script
-  project: ./**/tsconfig.json
+  projectService: true
 
 extends:
   - eslint:recommended
@@ -208,7 +208,7 @@ rules:
 
   'no-restricted-properties':
     - error
-    - { property: "substr", message: "Use .slice instead of .substr." }
+    - { property: 'substr', message: 'Use .slice instead of .substr.' }
 
   'no-return-await':
     - error
