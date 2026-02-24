@@ -6,7 +6,7 @@ import { link } from '../link';
 import { defaultCacheRoot } from './default-cache-root';
 
 export type ExtractOptions = Omit<
-  tar.ExtractOptions & tar.FileOptions,
+  tar.TarOptionsWithAliasesAsyncNoFile,
   'file' | 'cwd'
 >;
 
@@ -102,7 +102,7 @@ function extractToOutDir(
 }
 
 function untarInto(
-  options: tar.ExtractOptions & tar.FileOptions & { cwd: string },
+  options: tar.TarOptionsWithAliasesAsync & { cwd: string; file: string },
 ) {
   try {
     tar.extract({ ...options, sync: true });

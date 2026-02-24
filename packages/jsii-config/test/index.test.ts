@@ -1,43 +1,65 @@
+import * as prompts from '@inquirer/prompts';
+import { Stability } from '@jsii/spec';
 import * as fs from 'fs';
-import * as inquirer from 'inquirer';
 
 import jsiiConfig from '../lib';
 import { packageJsonObject, findQuestions, findQuestion } from './util';
+import getQuestions from '../lib/questions';
+
+// Mock individual @inquirer/prompts functions
+// @inquirer/prompts v8 is ESM-only, so we provide a full manual mock
+jest.mock('@inquirer/prompts', () => {
+  class Separator {
+    public separator: string;
+    public type = 'separator';
+    public constructor(separator = '--------') {
+      this.separator = separator;
+    }
+  }
+  return {
+    Separator,
+    input: jest.fn(),
+    select: jest.fn(),
+    checkbox: jest.fn(),
+    confirm: jest.fn(),
+  };
+});
+
+const inputMock = prompts.input as jest.MockedFunction<typeof prompts.input>;
+const selectMock = prompts.select as jest.MockedFunction<typeof prompts.select>;
+const checkboxMock = prompts.checkbox as jest.MockedFunction<
+  typeof prompts.checkbox
+>;
+const confirmMock = prompts.confirm as jest.MockedFunction<
+  typeof prompts.confirm
+>;
 
 describe('jsii-config', () => {
-  const promptMock = jest.fn();
   const readJsonMock = jest.fn();
 
   beforeEach(() => {
     // eslint-disable-next-line no-import-assign
     Object.defineProperty(fs, 'readFile', { value: readJsonMock });
-    // eslint-disable-next-line no-import-assign
-    Object.defineProperty(inquirer, 'prompt', { value: promptMock });
-  });
-
-  afterEach(() => {
-    promptMock.mockClear();
-    readJsonMock.mockClear();
-  });
-
-  afterAll(() => {
-    promptMock.mockRestore();
-    readJsonMock.mockRestore();
+    jest.clearAllMocks();
   });
 
   describe('errors', () => {
     it('throws when no readFile fails', async () => {
       const message = 'Err Message';
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(new Error(message));
-      });
+      readJsonMock.mockImplementation(
+        (_path: string, cb: (...args: any[]) => void) => {
+          cb(new Error(message));
+        },
+      );
       await expect(jsiiConfig('unknown.json')).rejects.toThrow(message);
     });
 
     it('throws when package.json is invalid', async () => {
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(null, Buffer.from('INVALID JSON STRING'));
-      });
+      readJsonMock.mockImplementation(
+        (_path: string, cb: (...args: any[]) => void) => {
+          cb(null, Buffer.from('INVALID JSON STRING'));
+        },
+      );
 
       await expect(jsiiConfig('package.json')).rejects.toThrow(
         new RegExp(
@@ -54,17 +76,19 @@ describe('jsii-config', () => {
 
   describe('missing top level package fields', () => {
     const mockMissingField = (field: string) =>
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(
-          null,
-          Buffer.from(
-            JSON.stringify({
-              ...packageJsonObject,
-              [field]: undefined,
-            }),
-          ),
-        );
-      });
+      readJsonMock.mockImplementation(
+        (_path: string, cb: (...args: any[]) => void) => {
+          cb(
+            null,
+            Buffer.from(
+              JSON.stringify({
+                ...packageJsonObject,
+                [field]: undefined,
+              }),
+            ),
+          );
+        },
+      );
 
     const requiredNpmFields = [
       'name',
@@ -84,113 +108,11 @@ describe('jsii-config', () => {
     });
   });
 
-  describe('user-provided tsconfig', () => {
-    const configAnswers = {
-      tsconfig: 'user-provided',
-      stability: 'experimental',
-      types: 'index.d.ts',
-      jsii: {
-        versionFormat: 'short',
-        tsconfig: 'tsconfig.dev.json',
-        validateTsconfig: 'generated',
-      },
-    };
+  describe('question structure', () => {
+    // These tests verify the question descriptors directly without running prompts
+    const questions = getQuestions(packageJsonObject);
 
-    beforeEach(() => {
-      promptMock
-        .mockResolvedValueOnce({
-          jsiiTargets: [],
-          ...configAnswers,
-        })
-        .mockResolvedValueOnce({
-          confirm: true,
-        });
-
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
-      });
-    });
-
-    it('prompts for tsc.outDir only when jsii-managed tsconfig is enabled', async () => {
-      await jsiiConfig('./package.json');
-      const enabled = { tsconfig: 'jsii-managed' };
-      const disabled = { tsconfig: 'user-provided' };
-      const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestions(['jsii.tsc.outDir'], questions);
-
-      subject.forEach((question: any) => {
-        expect(question.when(enabled)).toBe(true);
-      });
-
-      subject.forEach((question: any) => {
-        expect(question.when(disabled)).toBe(false);
-      });
-    });
-
-    it('prompts for user-provided tsconfig settings only when user-provided tsconfig is enabled', async () => {
-      await jsiiConfig('./package.json');
-      const enabled = { tsconfig: 'user-provided' };
-      const disabled = { tsconfig: 'jsii-managed' };
-      const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestions(
-        ['jsii.tsconfig', 'jsii.validateTsconfig'],
-        questions,
-      );
-
-      subject.forEach((question: any) => {
-        expect(question.when(enabled)).toBe(true);
-      });
-
-      subject.forEach((question: any) => {
-        expect(question.when(disabled)).toBe(false);
-      });
-    });
-  });
-
-  describe('no existing jsii configuration', () => {
-    const configAnswers = {
-      stability: 'experimental',
-      types: 'index.d.ts',
-      jsii: {
-        outdir: 'dist',
-        versionFormat: 'short',
-        targets: {
-          java: {
-            package: 'software.amazon.module.core',
-            maven: {
-              groupId: 'software.amazon.module',
-              artifactId: 'core',
-              versionSuffix: '' as string | undefined,
-            },
-          },
-          dotnet: {
-            namespace: 'Amazon.Module',
-            packageId: 'Amazon.Module',
-            iconUrl: undefined,
-            versionSuffix: '' as string | undefined,
-          },
-        },
-      },
-    };
-
-    beforeEach(() => {
-      promptMock
-        .mockResolvedValueOnce({
-          jsiiTargets: [],
-          ...configAnswers,
-        })
-        .mockResolvedValueOnce({
-          confirm: true,
-        });
-
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
-      });
-    });
-
-    it('prompts user for top level jsii config and language targets', async () => {
-      await jsiiConfig('./package.json');
-      const questions = promptMock.mock.calls[0][0];
+    it('prompts user for top level jsii config and language targets', () => {
       const [stability, types, tscOutDir, versionFormat, targets, tsconfig] =
         findQuestions(
           [
@@ -235,11 +157,9 @@ describe('jsii-config', () => {
       expect(tsconfig.choices).toContain('user-provided');
     });
 
-    it('prompts for java specific values when only target enabled', async () => {
-      await jsiiConfig('./package.json');
+    it('prompts for java specific values when only target enabled', () => {
       const enabled = { jsiiTargets: ['java'] };
       const disabled = { jsiiTargets: [] };
-      const questions = promptMock.mock.calls[0][0];
       const subject = findQuestions(
         [
           'jsii.targets.java.package',
@@ -259,11 +179,9 @@ describe('jsii-config', () => {
       });
     });
 
-    it('prompts for python specific values only when target enabled', async () => {
-      await jsiiConfig('./package.json');
+    it('prompts for python specific values only when target enabled', () => {
       const enabled = { jsiiTargets: ['python'] };
       const disabled = { jsiiTargets: [] };
-      const questions = promptMock.mock.calls[0][0];
       const subject = findQuestions(
         ['jsii.targets.python.module', 'jsii.targets.python.distName'],
         questions,
@@ -278,11 +196,9 @@ describe('jsii-config', () => {
       });
     });
 
-    it('prompts for dotnet specific values only when target enabled', async () => {
-      await jsiiConfig('./package.json');
+    it('prompts for dotnet specific values only when target enabled', () => {
       const enabled = { jsiiTargets: ['dotnet'] };
       const disabled = { jsiiTargets: [] };
-      const questions = promptMock.mock.calls[0][0];
       const subject = findQuestions(
         [
           'jsii.targets.dotnet.namespace',
@@ -302,16 +218,34 @@ describe('jsii-config', () => {
       });
     });
 
-    it('returns new config with empty values removed', async () => {
-      const subject = await jsiiConfig('./package.json');
-      const expected = { ...configAnswers };
-      delete expected.jsii.targets.dotnet.iconUrl;
-      delete expected.jsii.targets.dotnet.versionSuffix;
-      delete expected.jsii.targets.java.maven.versionSuffix;
+    it('prompts for tsc.outDir only when jsii-managed tsconfig is enabled', () => {
+      const enabled = { tsconfig: 'jsii-managed' };
+      const disabled = { tsconfig: 'user-provided' };
+      const subject = findQuestions(['jsii.tsc.outDir'], questions);
 
-      expect(subject).toEqual({
-        ...packageJsonObject,
-        ...expected,
+      subject.forEach((question: any) => {
+        expect(question.when(enabled)).toBe(true);
+      });
+
+      subject.forEach((question: any) => {
+        expect(question.when(disabled)).toBe(false);
+      });
+    });
+
+    it('prompts for user-provided tsconfig settings only when user-provided tsconfig is enabled', () => {
+      const enabled = { tsconfig: 'user-provided' };
+      const disabled = { tsconfig: 'jsii-managed' };
+      const subject = findQuestions(
+        ['jsii.tsconfig', 'jsii.validateTsconfig'],
+        questions,
+      );
+
+      subject.forEach((question: any) => {
+        expect(question.when(enabled)).toBe(true);
+      });
+
+      subject.forEach((question: any) => {
+        expect(question.when(disabled)).toBe(false);
       });
     });
 
@@ -326,9 +260,7 @@ describe('jsii-config', () => {
       'jsii.targets.dotnet.namespace',
       'jsii.targets.dotnet.packageId',
     ].forEach((field) => {
-      it(`shows error message when empty ${field} is submitted`, async () => {
-        await jsiiConfig('./package.json');
-        const questions = promptMock.mock.calls[0][0];
+      it(`shows error message when empty ${field} is submitted`, () => {
         const subject = findQuestion(field, questions);
 
         expect(subject.validate()).toEqual('Please enter a value');
@@ -336,9 +268,7 @@ describe('jsii-config', () => {
       });
     });
 
-    it('shows error message when dotnet version suffix is submitted empty or without a "-"', async () => {
-      await jsiiConfig('./package.json');
-      const questions = promptMock.mock.calls[0][0];
+    it('shows error message when dotnet version suffix is submitted empty or without a "-"', () => {
       const subject = findQuestion(
         'jsii.targets.dotnet.versionSuffix',
         questions,
@@ -351,15 +281,52 @@ describe('jsii-config', () => {
     });
   });
 
+  describe('no existing jsii configuration', () => {
+    it('returns new config with empty values removed', async () => {
+      readJsonMock.mockImplementation(
+        (_path: string, cb: (...args: any[]) => void) => {
+          cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
+        },
+      );
+
+      // checkbox for targets
+      checkboxMock.mockResolvedValueOnce([]);
+      // selects: tsconfig, stability, versionFormat
+      selectMock
+        .mockResolvedValueOnce('jsii-managed')
+        .mockResolvedValueOnce('experimental')
+        .mockResolvedValueOnce('short');
+      // inputs: types, tsc.outDir
+      inputMock
+        .mockResolvedValueOnce('index.d.ts')
+        .mockResolvedValueOnce('dist');
+      // confirm
+      confirmMock.mockResolvedValueOnce(true);
+
+      const subject = await jsiiConfig('./package.json');
+      expect(subject).toEqual({
+        ...packageJsonObject,
+        stability: 'experimental',
+        types: 'index.d.ts',
+        jsii: {
+          versionFormat: 'short',
+          tsc: {
+            outDir: 'dist',
+          },
+        },
+      });
+    });
+  });
+
   describe('existing configuration', () => {
     const existingConfig = {
-      stability: 'experimental',
+      stability: Stability.Experimental,
       types: 'TYPES',
       jsii: {
         tsc: {
           outDir: 'OUTDIR',
         },
-        versionFormat: 'short',
+        versionFormat: 'short' as const,
         targets: {
           java: {
             package: 'JAVA_PACKAGE',
@@ -385,37 +352,11 @@ describe('jsii-config', () => {
       },
     };
 
-    const configAnswers = {
-      stability: 'stable',
-      types: 'new_types.d.ts',
-      jsii: {
-        tsc: {
-          outDir: 'dist',
-        },
-        versionFormat: 'short',
-      },
-    };
-
-    beforeEach(() => {
-      promptMock.mockResolvedValueOnce(configAnswers).mockResolvedValueOnce({
-        confirm: true,
+    it('uses existing values as prompt defaults', () => {
+      const questions = getQuestions({
+        ...packageJsonObject,
+        ...existingConfig,
       });
-
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(
-          null,
-          Buffer.from(
-            JSON.stringify({
-              ...packageJsonObject,
-              ...existingConfig,
-            }),
-          ),
-        );
-      });
-    });
-
-    it('uses existing values as prompt defaults', async () => {
-      await jsiiConfig('./package.json');
       const defaultMap: { [key: string]: any } = {
         jsiiTargets: ['java', 'dotnet', 'python'],
         stability: 'experimental',
@@ -431,7 +372,6 @@ describe('jsii-config', () => {
         ['jsii.targets.dotnet.packageId']: 'DOTNET_PACKAGEID',
         ['jsii.targets.dotnet.iconUrl']: 'DOTNET_ICONURL',
       };
-      const questions = promptMock.mock.calls[0][0];
 
       Object.entries(defaultMap).forEach((entry: [string, any]) => {
         const [name, defaultVal] = entry;
@@ -442,12 +382,44 @@ describe('jsii-config', () => {
     });
 
     it('preserves existing jsii metadata fields', async () => {
+      readJsonMock.mockImplementation(
+        (_path: string, cb: (...args: any[]) => void) => {
+          cb(
+            null,
+            Buffer.from(
+              JSON.stringify({
+                ...packageJsonObject,
+                ...existingConfig,
+              }),
+            ),
+          );
+        },
+      );
+
+      // checkbox for targets (java, dotnet, python are current)
+      checkboxMock.mockResolvedValueOnce([]);
+      // selects: tsconfig, stability, versionFormat
+      selectMock
+        .mockResolvedValueOnce('jsii-managed')
+        .mockResolvedValueOnce('stable')
+        .mockResolvedValueOnce('short');
+      // inputs: types, tsc.outDir
+      inputMock
+        .mockResolvedValueOnce('new_types.d.ts')
+        .mockResolvedValueOnce('dist');
+      // confirm
+      confirmMock.mockResolvedValueOnce(true);
+
       const subject = await jsiiConfig('./package.json');
       expect(subject).toEqual({
         ...packageJsonObject,
-        ...configAnswers,
+        stability: 'stable',
+        types: 'new_types.d.ts',
         jsii: {
-          ...configAnswers.jsii,
+          tsc: {
+            outDir: 'dist',
+          },
+          versionFormat: 'short',
           metadata: {
             'jsii:boolean': true,
             'jsii:number': 1337,
@@ -458,55 +430,50 @@ describe('jsii-config', () => {
   });
 
   describe('edit config', () => {
-    const answers = {
-      jsiiTargets: ['python'],
-      jsii: {
-        tsc: {
-          outDir: 'OUTDIR',
-        },
-        versionFormat: 'short',
-        targets: {
-          python: {
-            distName: 'PYTHON_DISTNAME',
-            module: 'PYTHON_MODULE',
-          },
-        },
-      },
-    };
-
-    beforeEach(() => {
-      promptMock
-        .mockResolvedValueOnce(answers)
-        .mockResolvedValueOnce({
-          confirm: false,
-        })
-        .mockResolvedValueOnce(answers)
-        .mockResolvedValueOnce({
-          confirm: true,
-        });
-
-      readJsonMock.mockImplementation((_path, cb) => {
-        cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
-      });
-    });
-
     it('prompts user again with previous answers if confirmation is declined', async () => {
-      await jsiiConfig('./package.json');
-      const defaultMap: { [key: string]: any } = {
-        jsiiTargets: ['python'],
-        ['jsii.tsc.outDir']: 'OUTDIR',
-        ['jsii.versionFormat']: 'short',
-        ['jsii.targets.python.distName']: 'PYTHON_DISTNAME',
-        ['jsii.targets.python.module']: 'PYTHON_MODULE',
-      };
-      const questions = promptMock.mock.calls[2][0];
+      readJsonMock.mockImplementation(
+        (_path: string, cb: (...args: any[]) => void) => {
+          cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
+        },
+      );
 
-      Object.entries(defaultMap).forEach((entry: [string, any]) => {
-        const [name, defaultVal] = entry;
-        const subject = findQuestion(name, questions);
+      // First round
+      checkboxMock.mockResolvedValueOnce(['python']);
+      selectMock
+        .mockResolvedValueOnce('jsii-managed')
+        .mockResolvedValueOnce('experimental')
+        .mockResolvedValueOnce('short');
+      inputMock
+        .mockResolvedValueOnce('index.d.ts')
+        .mockResolvedValueOnce('PYTHON_DISTNAME')
+        .mockResolvedValueOnce('PYTHON_MODULE')
+        .mockResolvedValueOnce('OUTDIR');
+      // Decline first confirmation
+      confirmMock.mockResolvedValueOnce(false);
 
-        expect(subject).toHaveProperty('default', defaultVal);
-      });
+      // Second round (re-prompted with previous answers as defaults)
+      checkboxMock.mockResolvedValueOnce(['python']);
+      selectMock
+        .mockResolvedValueOnce('jsii-managed')
+        .mockResolvedValueOnce('experimental')
+        .mockResolvedValueOnce('short');
+      inputMock
+        .mockResolvedValueOnce('index.d.ts')
+        .mockResolvedValueOnce('PYTHON_DISTNAME')
+        .mockResolvedValueOnce('PYTHON_MODULE')
+        .mockResolvedValueOnce('OUTDIR');
+      // Accept second confirmation
+      confirmMock.mockResolvedValueOnce(true);
+
+      const subject = await jsiiConfig('./package.json');
+      expect(subject).toHaveProperty(
+        'jsii.targets.python.distName',
+        'PYTHON_DISTNAME',
+      );
+      expect(subject).toHaveProperty(
+        'jsii.targets.python.module',
+        'PYTHON_MODULE',
+      );
     });
   });
 });

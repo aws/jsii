@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: yarn
-          node-version: 'lts/*'
+          node-version: "lts/*"
 
       - name: Install Tools
         run: |-
@@ -74,7 +74,7 @@ jobs:
         # We special-case @xmldom/xmldom because newer versions are not compatible with the code and jsii-rosetta 1.x is soon EOS
         run: |-
           # Upgrade devDependencies at repository root
-          ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus
+          ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus,eslint
           ncu --upgrade --target=patch --filter=typescript
           ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint-plugin-import
 
@@ -134,14 +134,14 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           # Git commit details
-          author: 'AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>'
+          author: "AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>"
           branch: automation/yarn-upgrade
           commit-message: |-
             chore: npm-check-updates && yarn upgrade
 
             Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
           # Pull Request details
-          title: 'chore: npm-check-updates && yarn upgrade'
+          title: "chore: npm-check-updates && yarn upgrade"
           body: |-
             Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
           labels: contribution/core,dependencies,auto-approve

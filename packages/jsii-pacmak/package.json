@@ -45,8 +45,8 @@
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
-    "semver": "^7.7.2",
-    "spdx-license-list": "^6.10.0",
+    "semver": "^7.7.4",
+    "spdx-license-list": "^6.11.0",
     "xmlbuilder": "^15.1.1",
     "yargs": "^17.7.2"
   },
@@ -59,17 +59,17 @@
     "@types/commonmark": "^0.27.10",
     "@types/diff": "^5.2.3",
     "@types/fs-extra": "^9.0.13",
-    "@types/semver": "^7.7.0",
+    "@types/semver": "^7.7.1",
     "@types/yargs": "^17.0.33",
-    "diff": "^5.2.0",
-    "jsii": "^5.9.10" ,
+    "diff": "^5.2.2",
+    "jsii": "^5.9.28",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-rosetta": "~5.9.10",
-    "pyright": "^1.1.403"
+    "jsii-rosetta": "~5.9.32",
+    "pyright": "^1.1.408"
   },
   "peerDependencies": {
-    "jsii-rosetta": ">=5.7.0"
+    "jsii-rosetta": ">=5.9.0"
   },
   "keywords": [
     "jsii",

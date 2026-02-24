@@ -585,8 +585,7 @@ export interface IInterfaceWithProperties {
   readWriteString: string;
 }
 
-export interface IInterfaceWithPropertiesExtension
-  extends IInterfaceWithProperties {
+export interface IInterfaceWithPropertiesExtension extends IInterfaceWithProperties {
   foo: number;
 }
 
@@ -1370,9 +1369,7 @@ export class DoNotOverridePrivates {
 /**
  * Class that implements interface properties automatically, but using a private constructor
  */
-export class ClassWithPrivateConstructorAndAutomaticProperties
-  implements IInterfaceWithProperties
-{
+export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
   public static create(readOnlyString: string, readWriteString: string) {
     return new ClassWithPrivateConstructorAndAutomaticProperties(
       readOnlyString,
@@ -1396,8 +1393,7 @@ export interface IInterfaceWithMethods {
  * Even though this interface has only properties, it is disqualified from being a datatype
  * because it inherits from an interface that is not a datatype.
  */
-export interface IInterfaceThatShouldNotBeADataType
-  extends IInterfaceWithMethods {
+export interface IInterfaceThatShouldNotBeADataType extends IInterfaceWithMethods {
   readonly otherValue: string;
 }
 
@@ -1847,13 +1843,11 @@ export interface INonInternalInterface extends IAnotherInternalInterface {
 }
 
 /** @internal */
-export interface IInternalInterfaceThatExtendsTheNonInternalOne
-  extends INonInternalInterface {
+export interface IInternalInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
   d: string;
 }
 
-interface IPrivateInterfaceThatExtendsTheNonInternalOne
-  extends INonInternalInterface {
+interface IPrivateInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
   e: string;
 }
 
@@ -1868,9 +1862,7 @@ export class ClassThatImplementsTheInternalInterface
   public d = 'd';
 }
 
-export class ClassThatImplementsThePrivateInterface
-  implements IPrivateInterfaceThatExtendsTheNonInternalOne
-{
+export class ClassThatImplementsThePrivateInterface implements IPrivateInterfaceThatExtendsTheNonInternalOne {
   public a = 'a';
   public b = 'b';
   public c = 'c';
@@ -2087,18 +2079,17 @@ export interface DiamondInheritanceBaseLevelStruct {
   readonly baseLevelProperty: string;
 }
 
-export interface DiamondInheritanceFirstMidLevelStruct
-  extends DiamondInheritanceBaseLevelStruct {
+export interface DiamondInheritanceFirstMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
   readonly firstMidLevelProperty: string;
 }
 
-export interface DiamondInheritanceSecondMidLevelStruct
-  extends DiamondInheritanceBaseLevelStruct {
+export interface DiamondInheritanceSecondMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
   readonly secondMidLevelProperty: string;
 }
 
 export interface DiamondInheritanceTopLevelStruct
-  extends DiamondInheritanceFirstMidLevelStruct,
+  extends
+    DiamondInheritanceFirstMidLevelStruct,
     DiamondInheritanceSecondMidLevelStruct {
   readonly topLevelProperty: string;
 }
@@ -2269,9 +2260,7 @@ export interface IAnonymousImplementationProvider {
   provideAsInterface(): IAnonymouslyImplementMe;
   provideAsClass(): Implementation;
 }
-export class AnonymousImplementationProvider
-  implements IAnonymousImplementationProvider
-{
+export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
   private readonly instance = new PrivateType();
 
   public provideAsClass(): Implementation {

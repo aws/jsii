@@ -61,4 +61,3 @@ func TestTypeCasting(t *testing.T) {
 		t.Errorf("Expected SubSubclass, got %s", name)
 	}
 }
-
