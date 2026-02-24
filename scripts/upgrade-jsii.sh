@@ -26,12 +26,14 @@ echo ""
 # Set jsii-pacmak minimal dependency
 echo "Updating jsii-pacmak peerDependency to >=$oldest.0"
 echo ""
-npm --prefix packages/jsii-pacmak pkg set peerDependencies.jsii-rosetta=">=$oldest.0"
+jq --arg v ">=$oldest.0" '.peerDependencies["jsii-rosetta"] = $v' packages/jsii-pacmak/package.json > packages/jsii-pacmak/package.json.tmp \
+  && mv packages/jsii-pacmak/package.json.tmp packages/jsii-pacmak/package.json
 
 # Update TypeScript version
 echo "Updating TypeScript version to latest"
 echo ""
-npm pkg set devDependencies.typescript=">=$latest.x"
+jq --arg v ">=$latest.x" '.devDependencies["typescript"] = $v' package.json > package.json.tmp \
+  && mv package.json.tmp package.json
 
 # GitHub Actions
 matrix=$(echo $supported | jq -rs '["latest"] + map(. + ".x") | @csv')

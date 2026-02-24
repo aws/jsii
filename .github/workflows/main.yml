@@ -418,8 +418,6 @@ jobs:
       matrix:
         rosetta:
           - latest
-          - 5.7.x
-          - 5.8.x
           - 5.9.x
     steps:
       # Check out the code
