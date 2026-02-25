@@ -16,9 +16,7 @@ export const SPEC_FILE_NAME_COMPRESSED = `${SPEC_FILE_NAME}.gz`;
  * A JSII assembly specification.
  */
 export interface Assembly
-  extends AssemblyConfiguration,
-    Documentable,
-    ReadMeContainer {
+  extends AssemblyConfiguration, Documentable, ReadMeContainer {
   /**
    * The version of the spec schema
    *
@@ -702,10 +700,7 @@ export interface Overridable {
  * A class property.
  */
 export interface Property
-  extends Documentable,
-    OptionalValue,
-    Overridable,
-    SourceLocatable {
+  extends Documentable, OptionalValue, Overridable, SourceLocatable {
   /**
    * The name of the property.
    *
@@ -872,9 +867,7 @@ export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
  * Common attributes of a type definition.
  */
 export interface TypeBase
-  extends Documentable,
-    SourceLocatable,
-    TypeScriptLocatable {
+  extends Documentable, SourceLocatable, TypeScriptLocatable {
   /**
    * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
    *

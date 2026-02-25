@@ -1,18 +1,14 @@
-import Ajv from 'ajv';
-
 import { Assembly } from './assembly';
+import { formatErrors } from './format-errors';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 export const schema = require('../schema/jsii-spec.schema.json');
 
-export function validateAssembly(obj: any): Assembly {
-  const ajv = new Ajv({
-    allErrors: true,
-  });
-  const validate = ajv.compile(schema);
-  validate(obj);
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+const { validateAssembly: validateSchema } = require('../lib/validators');
 
-  if (validate.errors) {
+export function validateAssembly(obj: any): Assembly {
+  if (!validateSchema(obj)) {
     let descr = '';
     if (typeof obj.name === 'string' && obj.name !== '') {
       descr =
@@ -21,10 +17,7 @@ export function validateAssembly(obj: any): Assembly {
           : ` ${obj.name}`;
     }
     throw new Error(
-      `Invalid assembly${descr}:\n * ${ajv.errorsText(validate.errors, {
-        separator: '\n * ',
-        dataVar: 'assembly',
-      })}`,
+      `Invalid assembly${descr}:\n * ${formatErrors(validateSchema.errors, 'assembly')}`,
     );
   }
   return obj;

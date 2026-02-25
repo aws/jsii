@@ -271,9 +271,6 @@ async function go(command: string, args: string[], options: { cwd: string }) {
   const { cwd } = options;
   return subprocess('go', [command, ...args], {
     cwd,
-    env: {
-      // disable the use of sumdb to reduce eventual consistency issues when new modules are published
-      GOSUMDB: 'off',
-    },
+    env: {},
   });
 }

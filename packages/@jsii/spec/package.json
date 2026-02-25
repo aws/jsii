@@ -30,12 +30,10 @@
     "test:update": "jest -u",
     "package": "package-js"
   },
-  "dependencies": {
-    "ajv": "^8.17.1"
-  },
   "devDependencies": {
-    "fs-extra": "^10.1.0",
+    "ajv": "^8.18.0",
+    "esbuild": "^0.27.3",
     "jsii-build-tools": "^0.0.0",
-    "typescript-json-schema": "^0.65.1"
+    "typescript-json-schema": "^0.67.1"
   }
 }

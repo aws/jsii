@@ -28,25 +28,25 @@ jobs:
       - name: Set up .NET 6
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '6.0.x'
-      - name: Set up Go 1.23
+          dotnet-version: "6.0.x"
+      - name: Set up Go 1.25
         uses: actions/setup-go@v6
         with:
-          go-version: '1.23'
+          go-version: "1.25"
       - name: Set up Java 8
         uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: '8'
+          distribution: "zulu"
+          java-version: "8"
       - name: Set up Node LTS
         uses: actions/setup-node@v6
         with:
           cache: yarn
-          node-version: 'lts/*'
+          node-version: "lts/*"
       - name: Set up Python 3.9
         uses: actions/setup-python@v6
         with:
-          python-version: '3.9'
+          python-version: "3.9"
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -79,13 +79,13 @@ jobs:
             --directory=${{ github.workspace }}                                 \
             .
       # Upload artifact (we'll tar it up to save time)
-      - name: 'Upload Artifact: built-tree'
+      - name: "Upload Artifact: built-tree"
         uses: actions/upload-artifact@v6
         with:
           name: built-tree
           path: ${{ runner.temp }}/built-tree.tgz
       # Ensure working directory is clean (build should not change checked in source code)
-      - name: 'Assert clean working directory'
+      - name: "Assert clean working directory"
         if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
         run: |-
           # Make sure the index is up-to-date (git diff-index assumes it was done)
@@ -110,25 +110,25 @@ jobs:
       - name: Set up .NET 6
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '6.0.x'
-      - name: Set up Go 1.23
+          dotnet-version: "6.0.x"
+      - name: Set up Go 1.25
         uses: actions/setup-go@v6
         with:
-          go-version: '1.23'
+          go-version: "1.25"
       - name: Set up Java 8
         uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: '8'
+          distribution: "zulu"
+          java-version: "8"
       - name: Set up Node LTS
         uses: actions/setup-node@v6
         with:
           cache: yarn
-          node-version: 'lts/*'
+          node-version: "lts/*"
       - name: Set up Python 3.9
         uses: actions/setup-python@v6
         with:
-          python-version: '3.9'
+          python-version: "3.9"
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -172,7 +172,7 @@ jobs:
         run: |-
           yarn package
       # Upload artifacts
-      - name: 'Upload Artifact: release-package'
+      - name: "Upload Artifact: release-package"
         uses: actions/upload-artifact@v6
         with:
           name: release-package
@@ -185,140 +185,140 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        title: ['baseline']
-        dotnet: ['6.0.x']
-        go: ['1.23']
-        java: ['8']
-        node: ['20'] # EOS 2026-10-30
+        title: ["baseline"]
+        dotnet: ["6.0.x"]
+        go: ["1.25"]
+        java: ["8"]
+        node: ["20"] # EOS 2026-10-30
         os: [ubuntu-latest]
-        python: ['3.9']
+        python: ["3.9"]
         # Add specific combinations to be tested against (to restrict cardinality)
         include:
           # Test using Windows
-          - title: 'Windows'
+          - title: "Windows"
             os: windows-latest
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
-            python: '3.9'
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
+            python: "3.9"
           # Test using macOS
-          - title: 'macOS'
+          - title: "macOS"
             os: macos-latest
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
-            python: '3.9'
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
+            python: "3.9"
           # Test alternate Nodes
-          - title: 'Node 20'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.23'
-            node: '20' # EOL 2026-04-30
+          - title: "Node 20"
+            java: "8"
+            dotnet: "6.0.x"
+            go: "1.25"
+            node: "20" # EOL 2026-04-30
             os: ubuntu-latest
-            python: '3.9'
-          - title: 'Node 22'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.23'
-            node: '22' # EOL 2027-04-30
+            python: "3.9"
+          - title: "Node 22"
+            java: "8"
+            dotnet: "6.0.x"
+            go: "1.25"
+            node: "22" # EOL 2027-04-30
             os: ubuntu-latest
-            python: '3.9'
-          - title: 'Node 24'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.23'
-            node: '24' # EOL 2028-04-30
+            python: "3.9"
+          - title: "Node 24"
+            java: "8"
+            dotnet: "6.0.x"
+            go: "1.25"
+            node: "24" # EOL 2028-04-30
             os: ubuntu-latest
-            python: '3.9'
+            python: "3.9"
           # Test alternate .NETs
-          - title: '.NET 7.0'
-            java: '8'
-            dotnet: '7.0.x'
-            go: '1.23'
-            node: '20'
+          - title: ".NET 7.0"
+            java: "8"
+            dotnet: "7.0.x"
+            go: "1.25"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
-          - title: '.NET 8.0'
-            java: '8'
-            dotnet: '7.0.x'
-            go: '1.23'
-            node: '20'
+            python: "3.9"
+          - title: ".NET 8.0"
+            java: "8"
+            dotnet: "7.0.x"
+            go: "1.25"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
-          - title: '.NET 9.0'
-            java: '8'
-            dotnet: '9.0.x'
-            go: '1.23'
-            node: '20'
+            python: "3.9"
+          - title: ".NET 9.0"
+            java: "8"
+            dotnet: "9.0.x"
+            go: "1.25"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
-          - title: '.NET 10.0'
-            java: '8'
-            dotnet: '10.0.x'
-            go: '1.23'
-            node: '20'
+            python: "3.9"
+          - title: ".NET 10.0"
+            java: "8"
+            dotnet: "10.0.x"
+            go: "1.25"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
+            python: "3.9"
           # Test alternate Gos
-          - title: 'Go 1.24'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.24'
-            node: '20'
+          - title: "Go 1.25"
+            java: "8"
+            dotnet: "6.0.x"
+            go: "1.25"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
-          - title: 'Go 1.25'
-            java: '8'
-            dotnet: '6.0.x'
-            go: '1.25'
-            node: '20'
+            python: "3.9"
+          - title: "Go 1.26"
+            java: "8"
+            dotnet: "6.0.x"
+            go: "1.26"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
+            python: "3.9"
           # Test alternate Javas
-          - title: 'Java 11'
-            java: '11'
-            dotnet: '6.0.x'
-            go: '1.23'
-            node: '20'
+          - title: "Java 11"
+            java: "11"
+            dotnet: "6.0.x"
+            go: "1.25"
+            node: "20"
             os: ubuntu-latest
-            python: '3.9'
+            python: "3.9"
           # Test alternate Pythons
-          - title: 'Python 3.9'
-            python: '3.9'
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
+          - title: "Python 3.9"
+            python: "3.9"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
             os: ubuntu-latest
-          - title: 'Python 3.10'
-            python: '3.10'
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
+          - title: "Python 3.10"
+            python: "3.10"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
             os: ubuntu-latest
-          - title: 'Python 3.11'
-            python: '3.11'
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
+          - title: "Python 3.11"
+            python: "3.11"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
             os: ubuntu-latest
-          - title: 'Python 3.12'
-            python: '3.12'
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
+          - title: "Python 3.12"
+            python: "3.12"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
             os: ubuntu-latest
-          - title: 'Python 3.13'
-            python: '3.13'
-            dotnet: '6.0.x'
-            go: '1.23'
-            java: '8'
-            node: '20'
+          - title: "Python 3.13"
+            python: "3.13"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -346,7 +346,7 @@ jobs:
       - name: Set up Java ${{ matrix.java }}
         uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
+          distribution: "zulu"
           java-version: ${{ matrix.java }}
       - name: Set up Node ${{ matrix.node }}
         uses: actions/setup-node@v6
@@ -358,7 +358,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - name: 'Linux: Install python3-venv'
+      - name: "Linux: Install python3-venv"
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
       - if: runner.os == 'Windows'
@@ -386,7 +386,7 @@ jobs:
         run: |-
           yarn test
       # Ensure working directory is clean (tests should not change checked in source code)
-      - name: 'Assert clean working directory'
+      - name: "Assert clean working directory"
         if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
         run: |-
           # Make sure the index is up-to-date (git diff-index assumes it was done)
@@ -418,8 +418,6 @@ jobs:
       matrix:
         rosetta:
           - latest
-          - 5.7.x
-          - 5.8.x
           - 5.9.x
     steps:
       # Check out the code
@@ -432,24 +430,24 @@ jobs:
       - name: Set up .NET 7
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '7.0.x'
-      - name: Set up Go 1.23
+          dotnet-version: "7.0.x"
+      - name: Set up Go 1.25
         uses: actions/setup-go@v6
         with:
-          go-version: '1.23'
+          go-version: "1.25"
       - name: Set up Java 20
         uses: actions/setup-java@v5
         with:
-          distribution: 'corretto'
-          java-version: '20'
+          distribution: "corretto"
+          java-version: "20"
       - name: Set up Node 20
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: "20"
       - name: Set up Python 3.11
         uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: "3.11"
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
       # Show time!
@@ -474,7 +472,7 @@ jobs:
         run: |-
           ./node_modules/.bin/jsii-pacmak --no-parallel ./node_modules/aws-cdk-lib
       # Upload artifact only on main and for latest rosetta
-      - name: 'Upload Artifact: integtest_aws-cdk-lib'
+      - name: "Upload Artifact: integtest_aws-cdk-lib"
         if: github.ref == 'ref/head/main' && matrix.rosetta == 'latest'
         uses: actions/upload-artifact@v6
         with:
