@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.127.0](https://github.com/aws/jsii/compare/v1.126.0...v1.127.0) (2026-02-25)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** remove GOSUMDB=off from Go target ([#5044](https://github.com/aws/jsii/issues/5044)) ([0dbfb03](https://github.com/aws/jsii/commit/0dbfb0362dfb5bdb7385d699baa1588e29d859ef))
+* **spec:** bundle validators to inline ajv runtime dependencies ([#5040](https://github.com/aws/jsii/issues/5040)) ([f423bb6](https://github.com/aws/jsii/commit/f423bb60596fc1993b79dbece6c7ce4d0bdd8021))
+* **spec:** pre-compile JSON schema validators at build time ([#5039](https://github.com/aws/jsii/issues/5039)) ([43f0ec3](https://github.com/aws/jsii/commit/43f0ec3c3c174eea217815281c7dcbc3eccb203c))
+
 ## [1.126.0](https://github.com/aws/jsii/compare/v1.125.0...v1.126.0) (2026-01-26)
 
 
