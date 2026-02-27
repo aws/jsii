@@ -324,7 +324,7 @@ jobs:
     steps:
       # Check out the code
       - name: Download Artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: built-tree
       - name: Extract Artifact
@@ -422,7 +422,7 @@ jobs:
     steps:
       # Check out the code
       - name: Download Artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: release-package
           path: ${{ runner.temp }}/release-package
