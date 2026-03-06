@@ -76,7 +76,7 @@ jobs:
           # Upgrade devDependencies at repository root
           ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus,eslint
           ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint-plugin-import
+          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint,eslint-plugin-import
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
           lerna exec --parallel ncu -- --upgrade --target=minor                                     \
