@@ -60,6 +60,9 @@ export class Kernel {
   readonly #waiting = new Map<string, Callback>();
   readonly #promises = new Map<string, AsyncInvocation>();
 
+  // Cache for O(1) FQN-to-Type lookups (assemblies are immutable after load)
+  readonly #typeCache = new Map<string, spec.Type>();
+
   readonly #serializerHost: wire.SerializerHost;
 
   #nextid = 20000; // incrementing counter for objid, cbid, promiseid
@@ -587,6 +590,9 @@ export class Kernel {
   #addAssembly(assm: Assembly) {
     this.#assemblies.set(assm.metadata.name, assm);
 
+    // Invalidate type cache as assembly data may have changed
+    this.#typeCache.clear();
+
     // We can use jsii runtime type information from jsii 1.19.0 onwards... Note that a version of
     // 0.0.0 means we are assessing against a development tree, which is newer...
     const jsiiVersion = assm.metadata.jsiiVersion.split(' ', 1)[0];
@@ -1109,6 +1115,12 @@ export class Kernel {
   }
 
   #typeInfoForFqn(fqn: spec.FQN): spec.Type {
+    // Check cache first for O(1) lookup
+    const cached = this.#typeCache.get(fqn);
+    if (cached) {
+      return cached;
+    }
+
     const components = fqn.split('.');
     const moduleName = components[0];
 
@@ -1123,6 +1135,8 @@ export class Kernel {
       throw new JsiiFault(`Type '${fqn}' not found`);
     }
 
+    // Cache for subsequent lookups (callers must not mutate returned objects)
+    this.#typeCache.set(fqn, fqnInfo);
     return fqnInfo;
   }
 
