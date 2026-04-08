@@ -7,13 +7,14 @@ genRoot="${test}/generated"
 rm -rf ${genRoot}
 
 # Generate .NET projects for jsii-calc and its dependencies.
-jsii-pacmak -t dotnet --code-only --recurse -o ${genRoot} ../../jsii-calc
+yarn jsii-pacmak -t dotnet --code-only --recurse -o ${genRoot} ../../jsii-calc
 
 # Hack around project references to de-duplicate Amazon.JSII.Runtime in generated code.
+runtimeCsproj="$(cd "$(dirname "$0")" && pwd)/../dotnet-runtime/src/Amazon.JSII.Runtime/Amazon.JSII.Runtime.csproj"
 for csproj in ${genRoot}/dotnet/*/*.csproj
 do
-  dotnet remove ${csproj} package Amazon.JSII.Runtime
-  dotnet add    ${csproj} reference ../dotnet-runtime/src/Amazon.JSII.Runtime/Amazon.JSII.Runtime.csproj
+  (cd "$(dirname "${csproj}")" && dotnet remove package Amazon.JSII.Runtime)
+  (cd "$(dirname "${csproj}")" && dotnet add reference "${runtimeCsproj}")
 done
 
 # Generate Directory.Build.props

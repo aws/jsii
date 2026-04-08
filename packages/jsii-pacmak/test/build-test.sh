@@ -86,8 +86,8 @@ ${pacmak} ${OPTS} -v --no-parallel $packagedirs
 
 # Test custom pack command
 clean_dists
-echo "Testing yarn custom pack command."
-${pacmak} ${OPTS} -v --pack-command='yarn pack -f custom.tgz -s && echo custom.tgz' ${PWD}/../../@scope/jsii-calc-base-of-base
+echo "Testing custom pack command."
+${pacmak} ${OPTS} -v --pack-command='npm pack' ${PWD}/../../@scope/jsii-calc-base-of-base
 
 # Test custom mvn settings command
 clean_dists
