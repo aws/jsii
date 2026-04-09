@@ -42,7 +42,7 @@
     "update": "./update-all.sh"
   },
   "dependencies": {
-    "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
+    "@fixtures/jsii-calc-bundled": "workspace:*",
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0"
   },
@@ -51,9 +51,11 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "jsii": "5.9.28" ,
+    "eslint": "^9.39.4",
+    "jsii": "5.9.28",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^5.9.32" 
+    "jsii-rosetta": "^5.9.32",
+    "typescript": "5.9.x"
   },
   "jsii": {
     "outdir": "dist",
@@ -103,6 +105,9 @@
   "bundledDependencies": [
     "@fixtures/jsii-calc-bundled"
   ],
+  "installConfig": {
+    "hoistingLimits": "dependencies"
+  },
   "contributors": [
     {
       "name": "Elad Ben-Israel",
