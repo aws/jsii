@@ -111,12 +111,6 @@ pull_request_rules:
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
 
-  - name: Clean branch up
-    actions:
-      delete_head_branch: {}
-    conditions:
-      - merged
-
   - name: Remove Label
     actions:
       label:
