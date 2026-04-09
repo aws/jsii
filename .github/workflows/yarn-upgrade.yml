@@ -16,6 +16,9 @@ jobs:
       - name: Check Out
         uses: actions/checkout@v6
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
@@ -24,7 +27,7 @@ jobs:
 
       - name: Install Tools
         run: |-
-          npm -g install lerna npm-check-updates@^9.0.0
+          npm -g install lerna npm-check-updates@^20
 
       - name: List Mono-Repo Packages
         id: monorepo-packages
@@ -95,8 +98,8 @@ jobs:
       - name: Run "yarn install"
         run: yarn install
 
-      - name: Run "yarn upgrade"
-        run: yarn upgrade
+      - name: Run "yarn up"
+        run: yarn up '*'
 
       # Next, create and upload the changes as a patch file. This will later be downloaded to create a pull request
       # Creating a pull request requires write permissions and it's best to keep write privileges isolated.
@@ -137,13 +140,13 @@ jobs:
           author: "AWS CDK Automation <aws-cdk-automation@users.noreply.github.com>"
           branch: automation/yarn-upgrade
           commit-message: |-
-            chore: npm-check-updates && yarn upgrade
+            chore: npm-check-updates && yarn up
 
-            Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
+            Ran npm-check-updates and yarn up to keep the `yarn.lock` file up-to-date.
           # Pull Request details
-          title: "chore: npm-check-updates && yarn upgrade"
+          title: "chore: npm-check-updates && yarn up"
           body: |-
-            Ran npm-check-updates and yarn upgrade to keep the `yarn.lock` file up-to-date.
+            Ran npm-check-updates and yarn up to keep the `yarn.lock` file up-to-date.
           labels: contribution/core,dependencies,auto-approve
           # Privileged token so automated PR validation happens
           token: ${{ secrets.PROJEN_GITHUB_TOKEN }}

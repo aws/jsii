@@ -1,5 +1,14 @@
 node_modules/
 lerna-debug.log
+
+# Yarn Berry
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 pip-wheel-metadata/
 tsconfig.tsbuildinfo
 .DS_Store

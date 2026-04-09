@@ -19,5 +19,8 @@
   "engines": {
     "node": ">= 14.17.0"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  }
 }
