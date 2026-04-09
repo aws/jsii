@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.128.0](https://github.com/aws/jsii/compare/v1.127.0...v1.128.0) (2026-04-09)
+
+
+### Bug Fixes
+
+* **kernel:** clean up resolved promises from #promises map ([#5054](https://github.com/aws/jsii/issues/5054)) ([e1766bd](https://github.com/aws/jsii/commit/e1766bdd0c0335b1c86d9ec3bfbc22f8eb645335))
+
 ## [1.127.0](https://github.com/aws/jsii/compare/v1.126.0...v1.127.0) (2026-02-25)
 
 
