@@ -21,13 +21,13 @@
     "node": ">= 14.17.0"
   },
   "bin": {
-    "diff-test": "bin/diff-test",
-    "package-js": "bin/package-js",
-    "package-java": "bin/package-java",
-    "package-dotnet": "bin/package-dotnet",
-    "package-ruby": "bin/package-ruby",
-    "package-python": "bin/package-python",
-    "package-private": "bin/package-private"
+    "diff-test": "bin/diff-test.bin",
+    "package-dotnet": "bin/package-dotnet.bin",
+    "package-java": "bin/package-java.bin",
+    "package-js": "bin/package-js.bin",
+    "package-private": "bin/package-private.bin",
+    "package-python": "bin/package-python.bin",
+    "package-ruby": "bin/package-ruby.bin"
   },
   "scripts": {
     "build": "chmod +x bin/*"

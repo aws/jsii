@@ -20,9 +20,7 @@
     "node": ">= 14.17.0"
   },
   "main": "lib/index.js",
-  "bin": {
-    "jsii-diff": "bin/jsii-diff"
-  },
+  "bin": "bin/jsii-diff",
   "scripts": {
     "build": "bash ./generate.sh && tsc --build && yarn lint",
     "watch": "bash ./generate.sh && tsc --build -w",
@@ -44,8 +42,11 @@
     "@types/fs-extra": "^9.0.13",
     "@types/tar-fs": "^2.0.4",
     "@types/yargs": "^17.0.33",
+    "eslint": "^9.39.4",
+    "jest": "^30.3.0",
     "jest-expect-message": "^1.1.3",
-    "jsii": "^5.9.28" ,
-    "jsii-build-tools": "^0.0.0"
+    "jsii": "^5.9.28",
+    "jsii-build-tools": "^0.0.0",
+    "typescript": "5.9.x"
   }
 }

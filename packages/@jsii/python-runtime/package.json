@@ -25,7 +25,7 @@
     "generate": "ts-node build-tools/gen.ts",
     "deps": "ts-node build-tools/deps.ts",
     "dist-clean": "rm -rf dist",
-    "build": "cp ../../../README.md . && rm -f jsii-*.whl && yarn generate && yarn deps && yarn lint",
+    "build": "cp ../../../README.md . && find . -maxdepth 1 -name 'jsii-*.whl' -delete && yarn generate && yarn deps && yarn lint",
     "lint": "ts-node build-tools/venv.ts black .",
     "package": "package-python && package-private",
     "test": "yarn test:gen && yarn test:run:typeguard-2 && yarn test:run:typeguard-3 && yarn test:run:typeguard-4 && yarn test:types",
