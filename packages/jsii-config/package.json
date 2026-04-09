@@ -10,23 +10,25 @@
     "build": "tsc --build && yarn lint",
     "build+test": "tsc --build && yarn test",
     "watch": "tsc --build -w",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore '--ignore-pattern=test/negatives/*'",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
     "package": "package-js",
     "exec": "yarn build && node bin/jsii-config.js"
   },
-  "bin": {
-    "jsii-config": "bin/jsii-config"
-  },
+  "bin": "bin/jsii-config",
   "devDependencies": {
     "@types/yargs": "^17.0.33",
-    "jest-expect-message": "^1.1.3"
+    "eslint": "^9.39.4",
+    "jest": "^30.3.0",
+    "jest-expect-message": "^1.1.3",
+    "jsii-build-tools": "^0.0.0",
+    "typescript": "5.9.x"
   },
   "dependencies": {
+    "@inquirer/prompts": "^8.3.2",
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "0.0.0",
-    "@inquirer/prompts": "^8.3.0",
     "yargs": "^17.7.2"
   }
 }
