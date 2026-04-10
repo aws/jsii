@@ -500,6 +500,8 @@ export class Kernel {
         throw e;
       }
       throw new RuntimeError(e);
+    } finally {
+      this.#promises.delete(promiseid);
     }
 
     return {
