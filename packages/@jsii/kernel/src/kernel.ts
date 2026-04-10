@@ -60,6 +60,9 @@ export class Kernel {
   readonly #waiting = new Map<string, Callback>();
   readonly #promises = new Map<string, AsyncInvocation>();
 
+  // Lazy caches for O(1) method/property lookup by name (replaces linear search)
+  readonly #methodMapCache = new Map<string, Map<string, spec.Method>>();
+  readonly #propertyMapCache = new Map<string, Map<string, spec.Property>>();
   // Cache for O(1) FQN-to-Type lookups (assemblies are immutable after load)
   readonly #typeCache = new Map<string, spec.Type>();
 
@@ -1194,10 +1197,20 @@ export class Kernel {
       const methods =
         (typeinfo as spec.ClassType | spec.InterfaceType).methods ?? [];
 
-      for (const m of methods) {
-        if (m.name === methodName) {
-          return m;
+      // Build lazy cache for this type if not present
+      if (!this.#methodMapCache.has(fqn)) {
+        const methodMap = new Map<string, spec.Method>();
+        for (const m of methods) {
+          methodMap.set(m.name, m);
         }
+        this.#methodMapCache.set(fqn, methodMap);
+      }
+
+      // O(1) lookup via Map
+      const methodMap = this.#methodMapCache.get(fqn)!;
+      const method = methodMap.get(methodName);
+      if (method) {
+        return method;
       }
 
       // recursion to parent type (if exists)
@@ -1248,10 +1261,20 @@ export class Kernel {
         );
       }
 
-      for (const p of properties ?? []) {
-        if (p.name === property) {
-          return p;
+      // Build lazy cache for this type if not present
+      if (!this.#propertyMapCache.has(fqn)) {
+        const propertyMap = new Map<string, spec.Property>();
+        for (const p of properties ?? []) {
+          propertyMap.set(p.name, p);
         }
+        this.#propertyMapCache.set(fqn, propertyMap);
+      }
+
+      // O(1) lookup via Map
+      const propertyMap = this.#propertyMapCache.get(fqn)!;
+      const prop = propertyMap.get(property);
+      if (prop) {
+        return prop;
       }
 
       // recurse to parent type (if exists)
