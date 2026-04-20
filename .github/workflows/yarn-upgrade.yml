@@ -75,23 +75,26 @@ jobs:
         # We special-case eslint-plugin-import because 26 is the last version that works for us.
         # We special-case glob because newer version don't support Node 18
         # We special-case @xmldom/xmldom because newer versions are not compatible with the code and jsii-rosetta 1.x is soon EOS
+        # --cooldown=3 ignores package versions published in the last 3 days to reduce
+        # the risk of pulling in newly published, potentially compromised packages.
+        # This matches `npmMinimalAgeGate` in `.yarnrc.yml`.
         run: |-
           # Upgrade devDependencies at repository root
-          ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus,eslint
-          ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint,eslint-plugin-import
+          ncu --upgrade --cooldown=3 --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus,eslint
+          ncu --upgrade --cooldown=3 --target=patch --filter=typescript
+          ncu --upgrade --cooldown=3 --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint,eslint-plugin-import
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
-          lerna exec --parallel ncu -- --upgrade --target=minor                                     \
+          lerna exec --parallel ncu -- --upgrade --cooldown=3 --target=minor                        \
             --filter='@types/diff,@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'                            \
             --reject='typescript,@xmldom/xmldom,jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
-          lerna exec --parallel ncu -- --upgrade --target=patch                                     \
+          lerna exec --parallel ncu -- --upgrade --cooldown=3 --target=patch                        \
             --filter=typescript,@xmldom/xmldom
 
           # Upgrade all other dependencies (devDependencies) to the latest
-          lerna exec --parallel ncu -- --upgrade --target=latest                                    \
+          lerna exec --parallel ncu -- --upgrade --cooldown=3 --target=latest                       \
             --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,${{ steps.production-dependencies.outputs.list }},jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
