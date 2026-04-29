@@ -31,7 +31,7 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "eslint": "^9.39.4",
+    "eslint": "^10.2.1",
     "jest": "^30.3.0",
     "jsii-build-tools": "^0.0.0",
     "typescript": "5.9.x"

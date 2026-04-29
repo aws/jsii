@@ -31,9 +31,9 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "ajv": "^8.18.0",
-    "esbuild": "^0.27.4",
-    "eslint": "^9.39.4",
+    "ajv": "^8.20.0",
+    "esbuild": "^0.28.0",
+    "eslint": "^10.2.1",
     "jest": "^30.3.0",
     "jsii-build-tools": "^0.0.0",
     "typescript": "5.9.x",
