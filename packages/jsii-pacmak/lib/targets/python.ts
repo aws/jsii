@@ -2284,7 +2284,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '~=3.9',
+      python_requires: '~=3.10',
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
@@ -2418,7 +2418,7 @@ class Package {
     code.line();
     code.line('[tool.pyright]');
     code.line('defineConstant = { DEBUG = true }');
-    code.line('pythonVersion = "3.9"');
+    code.line('pythonVersion = "3.10"');
     code.line('pythonPlatform = "All"');
     code.line('reportSelfClsParameterName = false');
     code.closeFile('pyproject.toml');
