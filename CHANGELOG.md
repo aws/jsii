@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.129.0](https://github.com/aws/jsii/compare/v1.128.0...v1.129.0) (2026-04-30)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** conditionally install mypy based on Python version ([#5093](https://github.com/aws/jsii/issues/5093)) ([32090f1](https://github.com/aws/jsii/commit/32090f1bb4152e8b925f9968d286ec6f758731ca)), closes [#5084](https://github.com/aws/jsii/issues/5084)
+
 ## [1.128.0](https://github.com/aws/jsii/compare/v1.127.0...v1.128.0) (2026-04-09)
 
 
