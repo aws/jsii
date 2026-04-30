@@ -47,7 +47,7 @@
     "jsii-calc": "^3.20.120",
     "source-map-loader": "^5.0.0",
     "typescript": "5.9.x",
-    "webpack": "^5.105.4",
+    "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
   }
 }

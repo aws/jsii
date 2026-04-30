@@ -26,7 +26,7 @@
     "typescript": "5.9.x"
   },
   "dependencies": {
-    "@inquirer/prompts": "^8.3.2",
+    "@inquirer/prompts": "^8.4.2",
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "0.0.0",
     "yargs": "^17.7.2"

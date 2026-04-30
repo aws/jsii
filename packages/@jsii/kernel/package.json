@@ -41,7 +41,6 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/lockfile": "^1.0.4",
-    "@types/tar": "^6.1.13",
     "eslint": "^9.39.4",
     "jest": "^30.3.0",
     "jest-expect-message": "^1.1.3",
