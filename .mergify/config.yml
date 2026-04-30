@@ -143,3 +143,4 @@ priority_rules:
     conditions:
       - queue-name=default-squash
     priority: 2250
+    allow_checks_interruption: true
