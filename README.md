@@ -13,7 +13,7 @@
 
 [cdk]: https://github.com/aws/aws-cdk
 
-A class library written in **TypeScript** can be used in projects authored in **TypeScript** or **Javascript** (as
+A class library written in **TypeScript** can be used in projects authored in **TypeScript** or **JavaScript** (as
 usual), but also in **Python**, **Java**, **C#** (and other languages from the _.NET_ family), ...
 
 ## :question: Documentation
