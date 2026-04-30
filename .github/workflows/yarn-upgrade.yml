@@ -13,13 +13,13 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out
+      - name: Checkout
         uses: actions/checkout@v6
 
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Set up Node
+      - name: Setup Node
         uses: actions/setup-node@v6
         with:
           cache: yarn
@@ -29,7 +29,7 @@ jobs:
         run: |-
           npm -g install lerna npm-check-updates@^20
 
-      - name: List Mono-Repo Packages
+      - name: List Monorepo Packages
         id: monorepo-packages
         # These need to be ignored from the `ncu` runs!
         run: |-
@@ -75,31 +75,34 @@ jobs:
         # We special-case eslint-plugin-import because 26 is the last version that works for us.
         # We special-case glob because newer version don't support Node 18
         # We special-case @xmldom/xmldom because newer versions are not compatible with the code and jsii-rosetta 1.x is soon EOS
+        # --cooldown=3 ignores package versions published in the last 3 days to reduce
+        # the risk of pulling in newly published, potentially compromised packages.
+        # This matches `npmMinimalAgeGate` in `.yarnrc.yml`.
         run: |-
           # Upgrade devDependencies at repository root
-          ncu --upgrade --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus,eslint
-          ncu --upgrade --target=patch --filter=typescript
-          ncu --upgrade --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint,eslint-plugin-import
+          ncu --upgrade --cooldown=3 --target=minor --filter=@types/inquirer,@types/node,@jest/types,jest-config,jest-circus,eslint
+          ncu --upgrade --cooldown=3 --target=patch --filter=typescript
+          ncu --upgrade --cooldown=3 --target=latest --reject=@types/inquirer,@types/node,typescript,@jest/types,jest-config,jest-circus,eslint,eslint-plugin-import
 
           # Upgrade all production dependencies (and other always major-pinned dependencies)
-          lerna exec --parallel ncu -- --upgrade --target=minor                                     \
+          lerna exec --parallel ncu -- --upgrade --cooldown=3 --target=minor                        \
             --filter='@types/diff,@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'                            \
             --reject='typescript,@xmldom/xmldom,jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
           # Upgrade all minor-pinned dependencies
-          lerna exec --parallel ncu -- --upgrade --target=patch                                     \
+          lerna exec --parallel ncu -- --upgrade --cooldown=3 --target=patch                        \
             --filter=typescript,@xmldom/xmldom
 
           # Upgrade all other dependencies (devDependencies) to the latest
-          lerna exec --parallel ncu -- --upgrade --target=latest                                    \
+          lerna exec --parallel ncu -- --upgrade --cooldown=3 --target=latest                       \
             --reject='@types/diff,@types/inquirer,@types/node,@types/fs-extra,@types/yargs,@xmldom/xmldom,glob,typescript,${{ steps.production-dependencies.outputs.list }},jsii,jsii-rosetta,${{ steps.monorepo-packages.outputs.list }}'
 
       # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
       - name: Run "yarn install"
-        run: yarn install
+        run: yarn install --no-immutable
 
       - name: Run "yarn up"
-        run: yarn up '*'
+        run: yarn up -R '*'
 
       # Next, create and upload the changes as a patch file. This will later be downloaded to create a pull request
       # Creating a pull request requires write permissions and it's best to keep write privileges isolated.
@@ -121,7 +124,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out
+      - name: Checkout
         uses: actions/checkout@v6
 
       - name: Download patch
@@ -131,7 +134,8 @@ jobs:
           path: ${{ runner.temp }}
 
       - name: Apply patch
-        run: '[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp }}/upgrade.patch || echo "Empty patch. Skipping."'
+        run: "[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp
+          }}/upgrade.patch || echo \"Empty patch. Skipping.\""
 
       - name: Make Pull Request
         uses: peter-evans/create-pull-request@v8

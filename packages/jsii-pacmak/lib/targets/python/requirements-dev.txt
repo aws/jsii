@@ -10,4 +10,4 @@ twine~=6.2.0
 
 # The dependency on packaging is necessary to work around an incompatibility between
 # what setuptools generates and what twine expects. <https://github.com/pypa/twine/issues/1216>
-packaging >= 24.2
+packaging >= 26.2
