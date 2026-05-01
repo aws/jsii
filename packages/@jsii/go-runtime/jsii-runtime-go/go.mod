@@ -3,7 +3,7 @@ module github.com/aws/jsii-runtime-go
 go 1.25.0
 
 require (
-	github.com/Masterminds/semver/v3 v3.4.0
+	github.com/Masterminds/semver/v3 v3.5.0
 	github.com/fatih/color v1.19.0
 	github.com/mattn/go-isatty v0.0.22
 	github.com/stretchr/testify v1.11.1
