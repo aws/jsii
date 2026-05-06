@@ -40,7 +40,7 @@
     "semver": "^7.7.4"
   },
   "devDependencies": {
-    "eslint": "^9.39.4",
+    "eslint": "^10.3.0",
     "jest": "^30.3.0",
     "jsii-build-tools": "^0.0.0",
     "typescript": "5.9.x"
