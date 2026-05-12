@@ -3,7 +3,7 @@ requires = ["setuptools~=80.3", "wheel~=0.47"]
 build-backend = 'setuptools.build_meta'
 
 [tool.black]
-target-version = ['py39', 'py310', 'py311']
+target-version = ['py310', 'py311']
 include = '\.pyi?$'
 exclude = '\.(git|mypy_cache|env)'
 
@@ -11,6 +11,6 @@ exclude = '\.(git|mypy_cache|env)'
 ignore_missing_imports = true
 
 [tool.pyright]
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 venv = ".env"
 venvPath = "."
