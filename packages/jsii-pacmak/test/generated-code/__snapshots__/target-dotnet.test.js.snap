@@ -1048,6 +1048,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃        ┃  ┗━ 📁 LibNamespace
        ┃        ┃     ┣━ 📄 BaseFor2647.cs
        ┃        ┃     ┣━ 📁 DeprecationRemoval
+       ┃        ┃     ┃  ┣━ 📄 DeprecatedImplementation.cs
        ┃        ┃     ┃  ┣━ 📄 IInterface.cs
        ┃        ┃     ┃  ┣━ 📄 InterfaceFactory.cs
        ┃        ┃     ┃  ┗━ 📄 VisibleBaseClass.cs
@@ -1189,6 +1190,64 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         public virtual void Foo(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseInterface obj)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseInterface)}, new object[]{obj});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CalculatorNamespace/LibNamespace/DeprecationRemoval/DeprecatedImplementation.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.DeprecatedImplementation), fullyQualifiedName: "@scope/jsii-calc-lib.deprecationRemoval.DeprecatedImplementation")]
+    [System.Obsolete("do not use me!")]
+    public class DeprecatedImplementation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.VisibleBaseClass, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.DeprecationRemoval.IInterface
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [System.Obsolete()]
+        public DeprecatedImplementation(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected DeprecatedImplementation(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected DeprecatedImplementation(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiMethod(name: "method")]
+        [System.Obsolete()]
+        public virtual void Method()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
     }
 }
@@ -4991,17 +5050,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     ///
     /// <code><![CDATA[
-    /// var calculator = new Calculator();
-    /// calculator.Add(5);
-    /// calculator.Mul(3);
+    /// const calculator = new calc.Calculator();
+    /// calculator.add(5);
+    /// calculator.mul(3);
+    /// // console.log(calculator.expression.value);
     /// ]]></code>
     ///
     /// I will repeat this example again, but in an
     /// </remarks>
     /// <example>
-    /// <code>var calculator = new Calculator();
-    /// calculator.Add(5);
-    /// calculator.Mul(3);</code>
+    /// <code>const calculator = new calc.Calculator();
+    /// calculator.add(5);
+    /// calculator.mul(3);
+    /// // console.log(calculator.expression.value);</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Initialization properties.\\"},\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.CalculatorProps\\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
@@ -5769,8 +5830,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <strong>CustomAttribute</strong>: hasAValue
     /// </remarks>
     /// <example>
-    /// <code>public void AnExample()
-    /// {
+    /// <code>function anExample() {
     /// }</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDocs), fullyQualifiedName: "jsii-calc.ClassWithDocs")]
@@ -7838,13 +7898,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
-    /// <code>var x = 12 + 44;
-    /// var s1 = "string";
-    /// var s2 = @"string
-    /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
-    /// var s3 = @"string
+    /// <code>const x = 12 + 44;
+    /// const s1 = "string";
+    /// const s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+    /// const s3 = \`string
     ///             with
-    ///             new lines";</code>
+    ///             new lines\`;</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -17113,20 +17172,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     ///
     /// <code><![CDATA[
-    /// var calculator = new Calculator();
+    /// const calculator = new calc.Calculator();
     /// ]]></code>
     ///
     /// Then call some operations:
     ///
     /// <code><![CDATA[
-    /// calculator.Add(10);
+    /// calculator.add(10);
     /// ]]></code>
     ///
     /// <h2>Code Samples</h2>
     ///
     /// <code><![CDATA[
     /// /* This is totes a magic comment in here, just you wait! */
-    /// var foo = "bar";
+    /// const foo = 'bar';
     /// ]]></code>
     /// </remarks>
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -23226,7 +23285,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs.diff 1`] = `
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--runtime-type-checking
-@@ -132,10 +132,26 @@
+@@ -134,10 +134,26 @@
          public virtual object? UnionProperty
          {
              get => GetInstanceProperty<object?>();

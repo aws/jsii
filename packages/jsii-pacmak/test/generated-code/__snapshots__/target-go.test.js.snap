@@ -981,6 +981,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┃  ┣━ 📄 ReflectableEntry.go
        ┃  ┗━ 📄 Reflector.go
        ┣━ 📁 deprecationremoval
+       ┃  ┣━ 📄 DeprecatedImplementation.go
        ┃  ┣━ 📄 IInterface.go
        ┃  ┣━ 📄 InterfaceFactory.go
        ┃  ┣━ 📄 main.go
@@ -2162,6 +2163,78 @@ func init() {
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/DeprecatedImplementation.go 1`] = `
+package deprecationremoval
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+)
+
+// Deprecated: do not use me!
+type DeprecatedImplementation interface {
+	VisibleBaseClass
+	IInterface
+	// Deprecated: do not use me!
+	PropertyPresent() *bool
+	// Deprecated: do not use me!
+	Method()
+}
+
+// The jsii proxy struct for DeprecatedImplementation
+type jsiiProxy_DeprecatedImplementation struct {
+	jsiiProxy_VisibleBaseClass
+	jsiiProxy_IInterface
+}
+
+func (j *jsiiProxy_DeprecatedImplementation) PropertyPresent() *bool {
+	var returns *bool
+	_jsii_.Get(
+		j,
+		"propertyPresent",
+		&returns,
+	)
+	return returns
+}
+
+
+// Deprecated: do not use me!
+func NewDeprecatedImplementation() DeprecatedImplementation {
+	_init_.Initialize()
+
+	j := jsiiProxy_DeprecatedImplementation{}
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.deprecationRemoval.DeprecatedImplementation",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+// Deprecated: do not use me!
+func NewDeprecatedImplementation_Override(d DeprecatedImplementation) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"@scope/jsii-calc-lib.deprecationRemoval.DeprecatedImplementation",
+		nil, // no parameters
+		d,
+	)
+}
+
+func (d *jsiiProxy_DeprecatedImplementation) Method() {
+	_jsii_.InvokeVoid(
+		d,
+		"method",
+		nil, // no parameters
+	)
+}
+
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/deprecationremoval/IInterface.go 1`] = `
 package deprecationremoval
 
@@ -2296,6 +2369,20 @@ import (
 )
 
 func init() {
+	_jsii_.RegisterClass(
+		"@scope/jsii-calc-lib.deprecationRemoval.DeprecatedImplementation",
+		reflect.TypeOf((*DeprecatedImplementation)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "method", GoMethod: "Method"},
+			_jsii_.MemberProperty{JsiiProperty: "propertyPresent", GoGetter: "PropertyPresent"},
+		},
+		func() interface{} {
+			j := jsiiProxy_DeprecatedImplementation{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_VisibleBaseClass)
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IInterface)
+			return &j
+		},
+	)
 	_jsii_.RegisterInterface(
 		"@scope/jsii-calc-lib.deprecationRemoval.IInterface",
 		reflect.TypeOf((*IInterface)(nil)).Elem(),
@@ -4958,9 +5045,10 @@ import (
 // I will repeat this example again, but in an.
 //
 // Example:
-//   calculator := calc.NewCalculator()
-//   calculator.Add(jsii.Number(5))
-//   calculator.Mul(jsii.Number(3))
+//   const calculator = new calc.Calculator();
+//   calculator.add(5);
+//   calculator.mul(3);
+//   // console.log(calculator.expression.value);
 //
 type Calculator interface {
 	composition.CompositeOperation
@@ -5881,7 +5969,7 @@ import (
 // The docs are great. They're a bunch of tags.
 //
 // Example:
-//   func anExample() {
+//   function anExample() {
 //   }
 //
 // See: https://aws.amazon.com/
@@ -7505,12 +7593,12 @@ import (
 // Multiple paragraphs are separated by an empty line.
 //
 // Example:
-//   x := 12 + 44
-//   s1 := "string"
-//   s2 := "string \\nwith new newlines" // see https://github.com/aws/jsii/issues/2569
-//   s3 := \`string
+//   const x = 12 + 44;
+//   const s1 = "string";
+//   const s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+//   const s3 = \`string
 //               with
-//               new lines\`
+//               new lines\`;
 //
 type DocumentedClass interface {
 	// Greet the indicated person.
@@ -15236,20 +15324,20 @@ This library is used to demonstrate and test the features of JSII
 First, create a calculator:
 
 \`\`\`go
-calculator := calc.NewCalculator()
+const calculator = new calc.Calculator();
 \`\`\`
 
 Then call some operations:
 
 \`\`\`go
-calculator.Add(jsii.Number(10))
+calculator.add(10);
 \`\`\`
 
 ## Code Samples
 
 \`\`\`go
 /* This is totes a magic comment in here, just you wait! */
-foo := "bar"
+const foo = 'bar';
 \`\`\`
 
 `;
@@ -28414,7 +28502,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/B
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/Calculator.go.diff 1`] = `
 --- go/jsiicalc/Calculator.go	--no-runtime-type-checking
 +++ go/jsiicalc/Calculator.go	--runtime-type-checking
-@@ -179,10 +179,13 @@
+@@ -180,10 +180,13 @@
  
  // Creates a Calculator object.
  func NewCalculator(props *CalculatorProps) Calculator {
@@ -28428,7 +28516,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  	_jsii_.Create(
  		"jsii-calc.Calculator",
  		[]interface{}{props},
-@@ -202,26 +205,35 @@
+@@ -203,26 +206,35 @@
  		c,
  	)
  }
@@ -28464,7 +28552,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"decorationPrefixes",
  		val,
  	)
-@@ -234,34 +246,46 @@
+@@ -235,34 +247,46 @@
  		val,
  	)
  }
@@ -28511,7 +28599,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"mul",
  		[]interface{}{value},
  	)
-@@ -274,10 +298,13 @@
+@@ -275,10 +299,13 @@
  		nil, // no parameters
  	)
  }
