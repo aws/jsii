@@ -6,15 +6,15 @@ Replace eager submodule imports in jsii-pacmak's Python code generator with PEP 
 
 ## Tasks
 
-- [ ] 1. Add `import importlib as _importlib` to module header imports
+- [x] 1. Add `import importlib as _importlib` to module header imports
   - In `PythonModule.emit()` in `packages/jsii-pacmak/lib/targets/python.ts`, add a conditional `import importlib as _importlib` line to the standard imports block
   - Only emit this import when `this.modules.length > 0` (module has child submodules)
   - Place it alongside the existing standard library imports (`abc`, `builtins`, `datetime`, etc.)
   - Do NOT emit it for assembly-loading modules (`this.loadAssembly === true`), since those never have child submodules (enforced by the existing `assert` in `addPythonModule`)
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [ ] 2. Replace eager submodule imports with lazy loading block
-  - [ ] 2.1 Generate `_SUBMODULES` set and `__getattr__`/`__dir__` functions
+- [x] 2. Replace eager submodule imports with lazy loading block
+  - [x] 2.1 Generate `_SUBMODULES` set and `__getattr__`/`__dir__` functions
     - In `PythonModule.emit()`, replace the existing "Loading modules" block (the `if (this.modules.length > 0)` section that emits `from . import <submodule>`) with the lazy loading code block
     - Emit a `_SUBMODULES` set literal containing sorted short names of all direct child submodules
     - Emit a `__getattr__` function that checks `_SUBMODULES`, calls `_importlib.import_module(f".{name}", __name__)`, caches in `globals()`, and raises `AttributeError` for unknown names
@@ -24,7 +24,7 @@ Replace eager submodule imports in jsii-pacmak's Python code generator with PEP 
     - Submodule names must remain in the `__all__` list (no changes to `exportedMembers` logic)
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 7.1, 7.2, 8.1, 8.3_
 
-  - [ ] 2.2 Ensure assembly-loading modules are excluded
+  - [x] 2.2 Ensure assembly-loading modules are excluded
     - Verify that the `loadAssembly` guard prevents lazy loading code from being emitted for assembly-loading modules
     - The existing code structure already handles this: the `if (this.modules.length > 0)` block is only reached for non-assembly modules (assembly modules never have child submodules due to the `assert` in `addPythonModule`)
     - No code change expected here — this is a verification step during implementation
@@ -55,11 +55,11 @@ Replace eager submodule imports in jsii-pacmak's Python code generator with PEP 
     - **Validates: Requirements 8.2**
     - For a given module configuration, run `emit()` twice and verify the outputs are byte-for-byte identical
 
-- [ ] 3. Checkpoint - Verify core implementation
+- [x] 3. Checkpoint - Verify core implementation
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Write example-based unit tests
-  - [ ] 4.1 Create unit test file for lazy loading code generation
+- [x] 4. Write example-based unit tests
+  - [x] 4.1 Create unit test file for lazy loading code generation
     - Create `packages/jsii-pacmak/test/python-lazy-imports.test.ts`
     - Test that a module with submodules generates `__getattr__` with correct `_importlib.import_module(f".{name}", __name__)` pattern
     - Test that a module with submodules generates `__dir__` returning `[*__all__, *_SUBMODULES]`
@@ -71,8 +71,8 @@ Replace eager submodule imports in jsii-pacmak's Python code generator with PEP 
     - Test that the `from ..._jsii import *` statement is preserved in non-assembly modules
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 3.3, 6.1, 6.2, 7.1, 8.1, 8.3_
 
-- [ ] 5. Update snapshot tests
-  - [ ] 5.1 Regenerate Python target snapshots
+- [x] 5. Update snapshot tests
+  - [x] 5.1 Regenerate Python target snapshots
     - Run `npx jest --updateSnapshot` for `packages/jsii-pacmak/test/generated-code/target-python.test.ts` to update all Python snapshot files
     - The snapshots for all four test fixture packages (`@scope/jsii-calc-base-of-base`, `@scope/jsii-calc-base`, `@scope/jsii-calc-lib`, `jsii-calc`) will be updated to reflect the new lazy loading pattern
     - Verify the updated snapshots show: `_SUBMODULES` set, `__getattr__`, `__dir__` in modules with submodules
@@ -81,13 +81,13 @@ Replace eager submodule imports in jsii-pacmak's Python code generator with PEP 
     - Verify the mypy check passes on the generated code (runs automatically as part of the snapshot test)
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 3.3, 4.5, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 8.1, 8.2, 8.3_
 
-- [ ] 6. Benchmark import time before and after
+- [x] 6. Benchmark import time before and after
   - Record baseline import time using the current published `aws-cdk-lib` package: `for i in {1..10}; do python -c "import time; s=time.perf_counter(); import aws_cdk; print(f'{time.perf_counter()-s:.3f}s')"; done`
   - After implementing the change, regenerate the Python package using the modified pacmak, install it into a venv, and run the same benchmark script
   - Compare average times and document the improvement (expected: ~6s → ~0.4s for `import aws_cdk` alone)
   - Also measure a realistic scenario: `from aws_cdk import App, Stack, aws_s3` to show typical user improvement
 
-- [ ] 7. Final checkpoint - Ensure all tests pass
+- [x] 7. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
