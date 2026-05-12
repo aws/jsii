@@ -4958,10 +4958,9 @@ import (
 // I will repeat this example again, but in an.
 //
 // Example:
-//   const calculator = new calc.Calculator();
-//   calculator.add(5);
-//   calculator.mul(3);
-//   // console.log(calculator.expression.value);
+//   calculator := calc.NewCalculator()
+//   calculator.Add(jsii.Number(5))
+//   calculator.Mul(jsii.Number(3))
 //
 type Calculator interface {
 	composition.CompositeOperation
@@ -5882,7 +5881,7 @@ import (
 // The docs are great. They're a bunch of tags.
 //
 // Example:
-//   function anExample() {
+//   func anExample() {
 //   }
 //
 // See: https://aws.amazon.com/
@@ -7506,12 +7505,12 @@ import (
 // Multiple paragraphs are separated by an empty line.
 //
 // Example:
-//   const x = 12 + 44;
-//   const s1 = "string";
-//   const s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
-//   const s3 = \`string
+//   x := 12 + 44
+//   s1 := "string"
+//   s2 := "string \\nwith new newlines" // see https://github.com/aws/jsii/issues/2569
+//   s3 := \`string
 //               with
-//               new lines\`;
+//               new lines\`
 //
 type DocumentedClass interface {
 	// Greet the indicated person.
@@ -15237,20 +15236,20 @@ This library is used to demonstrate and test the features of JSII
 First, create a calculator:
 
 \`\`\`go
-const calculator = new calc.Calculator();
+calculator := calc.NewCalculator()
 \`\`\`
 
 Then call some operations:
 
 \`\`\`go
-calculator.add(10);
+calculator.Add(jsii.Number(10))
 \`\`\`
 
 ## Code Samples
 
 \`\`\`go
 /* This is totes a magic comment in here, just you wait! */
-const foo = 'bar';
+foo := "bar"
 \`\`\`
 
 `;
@@ -28415,7 +28414,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/B
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/Calculator.go.diff 1`] = `
 --- go/jsiicalc/Calculator.go	--no-runtime-type-checking
 +++ go/jsiicalc/Calculator.go	--runtime-type-checking
-@@ -180,10 +180,13 @@
+@@ -179,10 +179,13 @@
  
  // Creates a Calculator object.
  func NewCalculator(props *CalculatorProps) Calculator {
@@ -28429,7 +28428,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  	_jsii_.Create(
  		"jsii-calc.Calculator",
  		[]interface{}{props},
-@@ -203,26 +206,35 @@
+@@ -202,26 +205,35 @@
  		c,
  	)
  }
@@ -28465,7 +28464,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"decorationPrefixes",
  		val,
  	)
-@@ -235,34 +247,46 @@
+@@ -234,34 +246,46 @@
  		val,
  	)
  }
@@ -28512,7 +28511,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"mul",
  		[]interface{}{value},
  	)
-@@ -275,10 +299,13 @@
+@@ -274,10 +298,13 @@
  		nil, // no parameters
  	)
  }
