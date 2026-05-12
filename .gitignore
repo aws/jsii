@@ -1,6 +1,12 @@
 node_modules/
 lerna-debug.log
 
+# Kiro specs and config
+.kiro/
+
+# Generated docs
+docs/python-lazy-imports-full-flow.md
+
 # Yarn Berry
 .yarn/*
 !.yarn/patches
