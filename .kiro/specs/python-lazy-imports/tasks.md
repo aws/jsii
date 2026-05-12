@@ -81,7 +81,13 @@ Replace eager submodule imports in jsii-pacmak's Python code generator with PEP 
     - Verify the mypy check passes on the generated code (runs automatically as part of the snapshot test)
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 3.3, 4.5, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 8.1, 8.2, 8.3_
 
-- [ ] 6. Final checkpoint - Ensure all tests pass
+- [ ] 6. Benchmark import time before and after
+  - Record baseline import time using the current published `aws-cdk-lib` package: `for i in {1..10}; do python -c "import time; s=time.perf_counter(); import aws_cdk; print(f'{time.perf_counter()-s:.3f}s')"; done`
+  - After implementing the change, regenerate the Python package using the modified pacmak, install it into a venv, and run the same benchmark script
+  - Compare average times and document the improvement (expected: ~6s → ~0.4s for `import aws_cdk` alone)
+  - Also measure a realistic scenario: `from aws_cdk import App, Stack, aws_s3` to show typical user improvement
+
+- [ ] 7. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
