@@ -1949,9 +1949,7 @@ class PythonModule implements PythonType {
       // Emit __getattr__ function
       code.openBlock('def __getattr__(name: str) -> object');
       code.openBlock('if name in _SUBMODULES');
-      code.line(
-        'mod = _importlib.import_module(f".{name}", __name__)',
-      );
+      code.line('mod = _importlib.import_module(f".{name}", __name__)');
       code.line('globals()[name] = mod');
       code.line('return mod');
       code.closeBlock();
