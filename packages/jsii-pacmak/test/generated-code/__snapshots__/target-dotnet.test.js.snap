@@ -4991,17 +4991,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     ///
     /// <code><![CDATA[
-    /// var calculator = new Calculator();
-    /// calculator.Add(5);
-    /// calculator.Mul(3);
+    /// const calculator = new calc.Calculator();
+    /// calculator.add(5);
+    /// calculator.mul(3);
+    /// // console.log(calculator.expression.value);
     /// ]]></code>
     ///
     /// I will repeat this example again, but in an
     /// </remarks>
     /// <example>
-    /// <code>var calculator = new Calculator();
-    /// calculator.Add(5);
-    /// calculator.Mul(3);</code>
+    /// <code>const calculator = new calc.Calculator();
+    /// calculator.add(5);
+    /// calculator.mul(3);
+    /// // console.log(calculator.expression.value);</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"Initialization properties.\\"},\\"name\\":\\"props\\",\\"optional\\":true,\\"type\\":{\\"fqn\\":\\"jsii-calc.CalculatorProps\\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
@@ -5769,8 +5771,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <strong>CustomAttribute</strong>: hasAValue
     /// </remarks>
     /// <example>
-    /// <code>public void AnExample()
-    /// {
+    /// <code>function anExample() {
     /// }</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDocs), fullyQualifiedName: "jsii-calc.ClassWithDocs")]
@@ -7838,13 +7839,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// </remarks>
     /// <example>
-    /// <code>var x = 12 + 44;
-    /// var s1 = "string";
-    /// var s2 = @"string
-    /// with new newlines"; // see https://github.com/aws/jsii/issues/2569
-    /// var s3 = @"string
+    /// <code>const x = 12 + 44;
+    /// const s1 = "string";
+    /// const s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+    /// const s3 = \`string
     ///             with
-    ///             new lines";</code>
+    ///             new lines\`;</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -17113,20 +17113,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     ///
     /// <code><![CDATA[
-    /// var calculator = new Calculator();
+    /// const calculator = new calc.Calculator();
     /// ]]></code>
     ///
     /// Then call some operations:
     ///
     /// <code><![CDATA[
-    /// calculator.Add(10);
+    /// calculator.add(10);
     /// ]]></code>
     ///
     /// <h2>Code Samples</h2>
     ///
     /// <code><![CDATA[
     /// /* This is totes a magic comment in here, just you wait! */
-    /// var foo = "bar";
+    /// const foo = 'bar';
     /// ]]></code>
     /// </remarks>
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -23226,7 +23226,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs.diff 1`] = `
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Calculator.cs	--runtime-type-checking
-@@ -132,10 +132,26 @@
+@@ -134,10 +134,26 @@
          public virtual object? UnionProperty
          {
              get => GetInstanceProperty<object?>();

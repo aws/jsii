@@ -6114,9 +6114,10 @@ package software.amazon.jsii.tests.calculator;
  * Here's how you use it:
  * <p>
  * <blockquote><pre>
- * Calculator calculator = new Calculator();
+ * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
+ * // console.log(calculator.expression.value);
  * </pre></blockquote>
  * <p>
  * I will repeat this example again, but in an
@@ -6124,9 +6125,10 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * Calculator calculator = new Calculator();
+ * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
+ * // console.log(calculator.expression.value);
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -7186,7 +7188,7 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * public void anExample() {
+ * function anExample() {
  * }
  * </pre></blockquote>
  * <p>
@@ -9899,10 +9901,12 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * Number x = 12 + 44;
- * String s1 = "string";
- * String s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
- * String s3 = "string\\n            with\\n            new lines";
+ * const x = 12 + 44;
+ * const s1 = "string";
+ * const s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+ * const s3 = \`string
+ *             with
+ *             new lines\`;
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -27831,7 +27835,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * First, create a calculator:
  * <p>
  * <blockquote><pre>
- * Calculator calculator = new Calculator();
+ * const calculator = new calc.Calculator();
  * </pre></blockquote>
  * <p>
  * Then call some operations:
@@ -27844,7 +27848,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * <p>
  * <blockquote><pre>
  * /* This is totes a magic comment in here, just you wait! *&#47;
- * String foo = "bar";
+ * const foo = 'bar';
  * </pre></blockquote>
  */
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
