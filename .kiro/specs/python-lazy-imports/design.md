@@ -254,3 +254,16 @@ The existing integration test suite (compliance tests, runtime tests) validates 
 
 These tests run against the generated packages and exercise the actual lazy loading at runtime.
 
+
+
+## Implementation Notes
+
+### Note 1: Dotted imports bypass `__getattr__`
+
+`import aws_cdk.aws_s3` (the dotted form) does NOT go through `__getattr__`. Python's import system resolves subpackages directly by looking for the directory on disk. This means the dotted import pattern works without any special handling from our side. No action needed — just be aware that `__getattr__` only fires for attribute access (`aws_cdk.aws_s3`) and `from aws_cdk import aws_s3`, not for `import aws_cdk.aws_s3`.
+
+### Note 2: Cross-module type deserialization (verify during implementation)
+
+If a method returns a type from a module the user never explicitly imported (e.g., an `aws_s3.Bucket` method returns an `aws_iam.Role`), the jsii runtime needs to deserialize that type. Currently this works because `aws_iam` was eagerly loaded. With lazy loading, `aws_iam` might not be loaded yet.
+
+The jsii Python runtime resolves types by FQN and should trigger imports as needed, so this is expected to work. However, add a test case during implementation that exercises this scenario: call a method that returns a type from an unimported submodule and verify it deserializes correctly.
