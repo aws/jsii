@@ -9177,13 +9177,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^22.0.1":
-  version: 22.0.1
-  resolution: "npm-check-updates@npm:22.0.1"
+"npm-check-updates@npm:^22.1.0":
+  version: 22.1.1
+  resolution: "npm-check-updates@npm:22.1.1"
   bin:
     ncu: build/cli.js
     npm-check-updates: build/cli.js
-  checksum: 10c0/21efed20ef6115e13b5484214caeda67b3d49922fe4f447af6ed2e57df8de0db44c6c352008640c325fc4604af2925da23a84e67430f27101613cc0e0d008dcc
+  checksum: 10c0/0986120592eaffad93063e133e31cdf0122926a498119a450b6ed35efdb435b0ccc1dd1abfd72450724b71fe90bbcf8ceaab4186d24fdf922eb1c005f46410e3
   languageName: node
   linkType: hard
 
@@ -10578,7 +10578,7 @@ __metadata:
     jest-config: "npm:^30.3.0"
     jest-expect-message: "npm:^1.1.3"
     lerna: "npm:^9.0.7"
-    npm-check-updates: "npm:^22.0.1"
+    npm-check-updates: "npm:^22.1.0"
     prettier: "npm:^3.8.3"
     standard-version: "npm:^9.5.0"
     ts-node: "npm:^10.9.2"
