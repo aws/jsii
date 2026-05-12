@@ -1,6 +1,6 @@
+import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
-import * as fs from 'fs-extra';
 
 import { pacmak, TargetName } from '../../../lib';
 
@@ -26,18 +26,8 @@ afterEach(() => {
  * Helper to generate Python code for a given fixture package and return
  * the content of a specific __init__.py file.
  */
-async function generateAndRead(
-  pkg: string,
-  initPath: string,
-): Promise<string> {
-  const pkgRoot = path.resolve(
-    __dirname,
-    '..',
-    '..',
-    '..',
-    '..',
-    pkg,
-  );
+async function generateAndRead(pkg: string, initPath: string): Promise<string> {
+  const pkgRoot = path.resolve(__dirname, '..', '..', '..', '..', pkg);
   await pacmak({
     codeOnly: true,
     fingerprint: false,
@@ -138,9 +128,7 @@ describe('Python lazy imports code generation', () => {
 
   test('_SUBMODULES set entries are sorted', async () => {
     const content = await generateAndRead(CALC_PKG, CALC_INIT);
-    const submodulesMatch = content.match(
-      /_SUBMODULES = \{([\s\S]*?)\}/,
-    );
+    const submodulesMatch = content.match(/_SUBMODULES = \{([\s\S]*?)\}/);
     expect(submodulesMatch).not.toBeNull();
     const entries = submodulesMatch![1]
       .split('\n')
