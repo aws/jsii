@@ -6,6 +6,7 @@ lerna-debug.log
 
 # Generated docs
 docs/python-lazy-imports-full-flow.md
+docs/solution-explained-in-detail.md
 
 # Yarn Berry
 .yarn/*
