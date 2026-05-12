@@ -1797,6 +1797,9 @@ class PythonModule implements PythonType {
     code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
+    if (this.modules.length > 0) {
+      code.line('import importlib as _importlib');
+    }
     code.line('import typing');
     code.line();
     code.line('import jsii');
@@ -1925,24 +1928,43 @@ class PythonModule implements PythonType {
     code.line();
     code.line('publication.publish()');
 
-    // Finally, we'll load all registered python modules
+    // Finally, we'll set up lazy loading for all registered python modules
     if (this.modules.length > 0) {
       code.line();
-      code.line(
-        '# Loading modules to ensure their types are registered with the jsii runtime library',
-      );
-      for (const module of this.modules.sort((l, r) =>
-        l.pythonName.localeCompare(r.pythonName),
-      )) {
-        // Rather than generating an absolute import like
-        // "import jsii_calc.submodule" this builds a relative import like
-        // "from . import submodule". This enables distributing python packages
-        // and using the generated modules in the same codebase.
-        const submodule = module.pythonName.substring(
-          this.pythonName.length + 1,
+      // Build sorted list of submodule short names
+      const submoduleNames = this.modules
+        .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
+        .map((module) =>
+          module.pythonName.substring(this.pythonName.length + 1),
         );
-        code.line(`from . import ${submodule}`);
+
+      // Emit _SUBMODULES set
+      code.indent('_SUBMODULES = {');
+      for (const name of submoduleNames) {
+        code.line(`"${name}",`);
       }
+      code.unindent('}');
+      code.line();
+
+      // Emit __getattr__ function
+      code.openBlock('def __getattr__(name: str) -> object');
+      code.openBlock('if name in _SUBMODULES');
+      code.line(
+        'mod = _importlib.import_module(f".{name}", __name__)',
+      );
+      code.line('globals()[name] = mod');
+      code.line('return mod');
+      code.closeBlock();
+      code.line(
+        'raise AttributeError(f"module {__name__!r} has no attribute {name!r}")',
+      );
+      code.closeBlock();
+      code.line();
+
+      // Emit __dir__ function
+      code.openBlock('def __dir__() -> list[str]');
+      code.line('return [*__all__, *_SUBMODULES]');
+      code.closeBlock();
     }
 
     context.typeCheckingHelper.flushStubs(code);

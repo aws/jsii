@@ -1442,6 +1442,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 $Module.java
           ┃                    ┣━ 📄 BaseFor2647.java
           ┃                    ┣━ 📁 deprecation_removal
+          ┃                    ┃  ┣━ 📄 DeprecatedImplementation.java
           ┃                    ┃  ┣━ 📄 IInterface.java
           ┃                    ┃  ┣━ 📄 InterfaceFactory.java
           ┃                    ┃  ┗━ 📄 VisibleBaseClass.java
@@ -3728,6 +3729,47 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/deprecation_removal/DeprecatedImplementation.java 1`] = `
+package software.amazon.jsii.tests.calculator.lib.deprecation_removal;
+
+/**
+ * @deprecated do not use me!
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.deprecationRemoval.DeprecatedImplementation")
+public class DeprecatedImplementation extends software.amazon.jsii.tests.calculator.lib.deprecation_removal.VisibleBaseClass implements software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface {
+
+    protected DeprecatedImplementation(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DeprecatedImplementation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public DeprecatedImplementation() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @Override
+    public void method() {
+        software.amazon.jsii.Kernel.call(this, "method", software.amazon.jsii.NativeType.VOID);
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/lib/deprecation_removal/IInterface.java 1`] = `
 package software.amazon.jsii.tests.calculator.lib.deprecation_removal;
 
@@ -3870,6 +3912,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 @scope/jsii-calc-lib.NumericValue=software.amazon.jsii.tests.calculator.lib.NumericValue
 @scope/jsii-calc-lib.Operation=software.amazon.jsii.tests.calculator.lib.Operation
 @scope/jsii-calc-lib.StructWithOnlyOptionals=software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals
+@scope/jsii-calc-lib.deprecationRemoval.DeprecatedImplementation=software.amazon.jsii.tests.calculator.lib.deprecation_removal.DeprecatedImplementation
 @scope/jsii-calc-lib.deprecationRemoval.IInterface=software.amazon.jsii.tests.calculator.lib.deprecation_removal.IInterface
 @scope/jsii-calc-lib.deprecationRemoval.InterfaceFactory=software.amazon.jsii.tests.calculator.lib.deprecation_removal.InterfaceFactory
 @scope/jsii-calc-lib.deprecationRemoval.VisibleBaseClass=software.amazon.jsii.tests.calculator.lib.deprecation_removal.VisibleBaseClass
@@ -6114,9 +6157,10 @@ package software.amazon.jsii.tests.calculator;
  * Here's how you use it:
  * <p>
  * <blockquote><pre>
- * Calculator calculator = new Calculator();
+ * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
+ * // console.log(calculator.expression.value);
  * </pre></blockquote>
  * <p>
  * I will repeat this example again, but in an
@@ -6124,9 +6168,10 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * Calculator calculator = new Calculator();
+ * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
+ * // console.log(calculator.expression.value);
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -7186,7 +7231,7 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * public void anExample() {
+ * function anExample() {
  * }
  * </pre></blockquote>
  * <p>
@@ -9899,10 +9944,12 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>
- * Number x = 12 + 44;
- * String s1 = "string";
- * String s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
- * String s3 = "string\\n            with\\n            new lines";
+ * const x = 12 + 44;
+ * const s1 = "string";
+ * const s2 = "string \\nwith new newlines"; // see https://github.com/aws/jsii/issues/2569
+ * const s3 = \`string
+ *             with
+ *             new lines\`;
  * </pre></blockquote>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -27831,7 +27878,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * First, create a calculator:
  * <p>
  * <blockquote><pre>
- * Calculator calculator = new Calculator();
+ * const calculator = new calc.Calculator();
  * </pre></blockquote>
  * <p>
  * Then call some operations:
@@ -27844,7 +27891,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * <p>
  * <blockquote><pre>
  * /* This is totes a magic comment in here, just you wait! *&#47;
- * String foo = "bar";
+ * const foo = 'bar';
  * </pre></blockquote>
  */
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
