@@ -1923,6 +1923,25 @@ class PythonModule implements PythonType {
       code.line('__all__: typing.List[typing.Any] = []');
     }
 
+    // Emit TYPE_CHECKING block with explicit submodule imports so that
+    // static type checkers (pyright, mypy) can see the submodule names
+    // that are listed in __all__. At runtime TYPE_CHECKING is False,
+    // so these imports don't execute and lazy loading is preserved.
+    if (this.modules.length > 0) {
+      const submoduleNames = this.modules
+        .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
+        .map((module) =>
+          module.pythonName.substring(this.pythonName.length + 1),
+        );
+
+      code.line();
+      code.openBlock('if typing.TYPE_CHECKING');
+      for (const name of submoduleNames) {
+        code.line(`from . import ${name} as ${name}`);
+      }
+      code.closeBlock();
+    }
+
     // Next up, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.
     code.line();
@@ -1959,8 +1978,9 @@ class PythonModule implements PythonType {
       code.closeBlock();
       code.line();
 
-      // Emit __dir__ function
-      code.openBlock('def __dir__() -> list[str]');
+      // Emit __dir__ function — use quoted return type to avoid
+      // runtime evaluation issues with older Python versions
+      code.openBlock('def __dir__() -> "list[str]"');
       code.line('return [*__all__, *_SUBMODULES]');
       code.closeBlock();
     }

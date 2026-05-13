@@ -2119,6 +2119,10 @@ __all__ = [
     "deprecation_removal",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import custom_submodule_name as custom_submodule_name
+    from . import deprecation_removal as deprecation_removal
+
 publication.publish()
 
 _SUBMODULES = {
@@ -2133,7 +2137,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 for cls in [IDoublable, IFriendly, IThreeLevelsInterface]:
@@ -2730,10 +2734,10 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -643,7 +673,65 @@
+@@ -647,7 +677,65 @@
      raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
  
- def __dir__() -> list[str]:
+ def __dir__() -> "list[str]":
      return [*__all__, *_SUBMODULES]
  
 +def _typecheckingstub__46512218b53da06690990919b41a88d6c2379b11ef0a3243cf6d60add5197ae2(
@@ -12182,6 +12186,33 @@ __all__ = [
     "union",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import anonymous as anonymous
+    from . import cdk16625 as cdk16625
+    from . import cdk22369 as cdk22369
+    from . import composition as composition
+    from . import covariant_overrides as covariant_overrides
+    from . import derived_class_has_no_properties as derived_class_has_no_properties
+    from . import homonymous_forward_references as homonymous_forward_references
+    from . import interface_in_namespace_includes_classes as interface_in_namespace_includes_classes
+    from . import interface_in_namespace_only_interface as interface_in_namespace_only_interface
+    from . import intersection as intersection
+    from . import jsii3656 as jsii3656
+    from . import jsii4894 as jsii4894
+    from . import module2530 as module2530
+    from . import module2617 as module2617
+    from . import module2647 as module2647
+    from . import module2689 as module2689
+    from . import module2692 as module2692
+    from . import module2700 as module2700
+    from . import module2702 as module2702
+    from . import nodirect as nodirect
+    from . import onlystatic as onlystatic
+    from . import pascal_case_name as pascal_case_name
+    from . import python_self as python_self
+    from . import submodule as submodule
+    from . import union as union
+
 publication.publish()
 
 _SUBMODULES = {
@@ -12219,7 +12250,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 for cls in [IAnonymousImplementationProvider, IAnonymouslyImplementMe, IAnotherPublicInterface, IBell, IBellRinger, IConcreteBellRinger, IDeprecatedInterface, IExperimentalInterface, IExtendsPrivateInterface, IExternalInterface, IFriendlier, IFriendlyRandomGenerator, IIndirectlyImplemented, IInterfaceImplementedByAbstractClass, IInterfaceThatShouldNotBeADataType, IInterfaceWithInternal, IInterfaceWithMethods, IInterfaceWithOptionalMethodArguments, IInterfaceWithProperties, IInterfaceWithPropertiesExtension, IJSII417Derived, IJSII417PublicBaseOfBase, IJavaReservedWordsInAnInterface, IJsii487External, IJsii487External2, IJsii496, IMutableObjectLiteral, INonInternalInterface, IObjectWithProperty, IOptionalMethod, IPrivatelyImplemented, IPublicInterface, IPublicInterface2, IRandomNumberGenerator, IReturnJsii976, IReturnsNumber, IStableInterface, IStringable, IStructReturningDelegate, IWallClock]:
@@ -12480,6 +12511,9 @@ __all__ = [
     "donotimport",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import donotimport as donotimport
+
 publication.publish()
 
 _SUBMODULES = {
@@ -12493,7 +12527,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -12829,6 +12863,9 @@ __all__ = [
     "class_overrides",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import class_overrides as class_overrides
+
 publication.publish()
 
 _SUBMODULES = {
@@ -12842,7 +12879,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -13187,6 +13224,10 @@ __all__ = [
     "foo",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import bar as bar
+    from . import foo as foo
+
 publication.publish()
 
 _SUBMODULES = {
@@ -13201,7 +13242,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -14279,6 +14320,12 @@ __all__ = [
     "structs",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import methods as methods
+    from . import props as props
+    from . import retval as retval
+    from . import structs as structs
+
 publication.publish()
 
 _SUBMODULES = {
@@ -14295,7 +14342,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -14626,6 +14673,10 @@ __all__ = [
     "submodule2",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import submodule1 as submodule1
+    from . import submodule2 as submodule2
+
 publication.publish()
 
 _SUBMODULES = {
@@ -14640,7 +14691,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -15243,6 +15294,10 @@ __all__ = [
     "sub2",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import sub1 as sub1
+    from . import sub2 as sub2
+
 publication.publish()
 
 _SUBMODULES = {
@@ -15257,7 +15312,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -15798,6 +15853,14 @@ __all__ = [
     "returnsparam",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import back_references as back_references
+    from . import child as child
+    from . import isolated as isolated
+    from . import nested_submodule as nested_submodule
+    from . import param as param
+    from . import returnsparam as returnsparam
+
 publication.publish()
 
 _SUBMODULES = {
@@ -15816,7 +15879,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -16248,6 +16311,9 @@ __all__ = [
     "deeply_nested",
 ]
 
+if typing.TYPE_CHECKING:
+    from . import deeply_nested as deeply_nested
+
 publication.publish()
 
 _SUBMODULES = {
@@ -16261,7 +16327,7 @@ def __getattr__(name: str) -> object:
         return mod
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-def __dir__() -> list[str]:
+def __dir__() -> "list[str]":
     return [*__all__, *_SUBMODULES]
 
 `;
@@ -19868,10 +19934,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8841,7 +9638,1573 @@
+@@ -8868,7 +9665,1573 @@
      raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
  
- def __dir__() -> list[str]:
+ def __dir__() -> "list[str]":
      return [*__all__, *_SUBMODULES]
  
 +def _typecheckingstub__8348af6419fc01178f78ba59cea59d0c7437626169866d772f4e957d09e6e13a(
@@ -21528,11 +21594,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
  
-@@ -87,5 +90,11 @@
+@@ -90,5 +93,11 @@
          return mod
      raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
  
- def __dir__() -> list[str]:
+ def __dir__() -> "list[str]":
      return [*__all__, *_SUBMODULES]
 +
 +def _typecheckingstub__92f621cedc18f68d281c38191023e89bba6348836db623bc5d780630324b992b(
@@ -22557,11 +22623,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "Default",
-@@ -160,5 +166,18 @@
+@@ -168,5 +174,18 @@
          return mod
      raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
  
- def __dir__() -> list[str]:
+ def __dir__() -> "list[str]":
      return [*__all__, *_SUBMODULES]
 +
 +def _typecheckingstub__a44c39bd2002b354344d30dcb1ae0e2dc7ef8f604c2d31c61616cbbfc6a6fc40(
