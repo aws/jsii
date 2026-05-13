@@ -1,4 +1,5 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
+import importlib
 import inspect
 
 from typing import Any, Iterable, List, Mapping, MutableMapping, Type
@@ -9,6 +10,10 @@ _types = {}
 _data_types: MutableMapping[str, Any] = {}
 _enums: MutableMapping[str, Any] = {}
 _interfaces: MutableMapping[str, Any] = {}
+
+# Mapping from jsii assembly name to Python root module name, populated by
+# JSIIAssembly.load() so that on-demand type resolution can trigger imports.
+_assembly_to_module: MutableMapping[str, str] = {}
 
 
 def register_type(klass: Type):
@@ -25,6 +30,47 @@ def register_enum(enum_type: Any):
 
 def register_interface(iface: Any):
     _interfaces[iface.__jsii_type__] = iface
+
+
+def _try_import_type_module(class_fqn: str) -> bool:
+    """Attempt to import the Python module containing a jsii type by FQN.
+
+    When lazy loading is enabled, submodules are not imported until first
+    access. If the jsii runtime needs to deserialize a type from an unloaded
+    submodule, this function attempts to trigger the import so that the type
+    gets registered.
+
+    The FQN format is: ``assembly_name.submodule.path.TypeName``
+    We strip the type name (last dot-separated component) and try to import
+    progressively shorter module paths until one succeeds.
+
+    Returns True if an import was successfully triggered, False otherwise.
+    """
+    # Split FQN into components: e.g. "jsii-calc.cdk16625.donotimport.MyType"
+    parts = class_fqn.split(".")
+    if len(parts) < 2:
+        return False
+
+    # The first component is the assembly name
+    assembly_name = parts[0]
+    root_module = _assembly_to_module.get(assembly_name)
+    if root_module is None:
+        return False
+
+    # Try importing submodule paths from most specific to least specific
+    # e.g. for "jsii-calc.cdk16625.donotimport.MyType":
+    #   try: jsii_calc.cdk16625.donotimport
+    #   try: jsii_calc.cdk16625
+    submodule_parts = parts[1:]  # Remove assembly name
+    for depth in range(len(submodule_parts), 0, -1):
+        module_path = f"{root_module}.{'.'.join(submodule_parts[:depth])}"
+        try:
+            importlib.import_module(module_path)
+            return True
+        except (ImportError, ModuleNotFoundError):
+            continue
+
+    return False
 
 
 class _FakeReference:
@@ -128,6 +174,18 @@ class _ReferenceMap:
             else:
                 return InterfaceDynamicProxy(self.build_interface_proxies_for_ref(ref))
         else:
+            # Attempt on-demand import: the type may reside in a lazily-loaded
+            # submodule that hasn't been imported yet. We try to import the
+            # containing module, which will trigger type registration as a side
+            # effect, and then retry the lookup.
+            if _try_import_type_module(class_fqn):
+                # Retry after import
+                if class_fqn in _types:
+                    return self.resolve(kernel, ref)
+                elif class_fqn in _data_types:
+                    return self.resolve(kernel, ref)
+                elif class_fqn in _enums:
+                    return self.resolve(kernel, ref)
             raise ValueError(f"Unknown type: {class_fqn}")
 
     def resolve_id(self, id: str) -> Any:

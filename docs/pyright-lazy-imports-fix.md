@@ -102,4 +102,42 @@ skips all downstream packages (`dotnet-runtime-test`, `go-runtime-test`,
 ## Files Modified
 
 - `packages/jsii-pacmak/lib/targets/python.ts` — code generator changes
+- `packages/@jsii/python-runtime/src/jsii/_reference_map.py` — on-demand type import
+- `packages/@jsii/python-runtime/src/jsii/_runtime.py` — assembly-to-module registration
 - `packages/jsii-pacmak/test/generated-code/__snapshots__/*.snap` — regenerated
+
+## Issue 3: `publication.publish()` breaks `__getattr__` on the public module
+
+**Problem:** `publication.publish()` replaces the module in `sys.modules` with a
+new `ModuleType` object that only copies names from `__all__` plus specific
+dunder names. It does NOT copy `__getattr__` or `__dir__`. Since the lazy
+loading code is defined after `publication.publish()`, it lives on the original
+(now private) module, not the public one. Attribute access like `jsii_calc.anonymous`
+fails with `AttributeError`.
+
+**Fix:** After defining `__getattr__` and `__dir__`, explicitly install them on
+the public module via `sys.modules[__name__]`:
+
+```python
+import sys as _sys
+_sys.modules[__name__].__getattr__ = __getattr__
+_sys.modules[__name__].__dir__ = __dir__
+```
+
+## Issue 4: jsii runtime cannot resolve types from unloaded submodules
+
+**Problem:** With eager imports, all submodules were loaded at import time,
+registering their types with the jsii runtime. With lazy loading, submodules
+are only loaded on first access. If the jsii kernel returns a type from an
+unloaded submodule (e.g., during a callback), the runtime raises
+`Unknown type: jsii-calc.cdk16625.donotimport.UnimportedSubmoduleType`.
+
+**Fix:** Added on-demand type resolution in `_reference_map.py`. When a type
+FQN is not found in the type registries, the runtime now:
+
+1. Extracts the assembly name from the FQN
+2. Looks up the Python root module for that assembly (registered during
+   `JSIIAssembly.load()`)
+3. Attempts to import the containing submodule (trying progressively shorter
+   paths)
+4. Retries the type lookup after the import triggers type registration
