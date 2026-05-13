@@ -2003,12 +2003,8 @@ class PythonModule implements PythonType {
       // __getattr__ and __dir__ as special methods on ModuleType and rejects
       // direct assignment with "Cannot assign to a method [method-assign]".
       code.line('import sys as _sys');
-      code.line(
-        'setattr(_sys.modules[__name__], "__getattr__", __getattr__)',
-      );
-      code.line(
-        'setattr(_sys.modules[__name__], "__dir__", __dir__)',
-      );
+      code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
+      code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
     context.typeCheckingHelper.flushStubs(code);
