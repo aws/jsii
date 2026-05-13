@@ -1935,6 +1935,12 @@ class PythonModule implements PythonType {
         );
 
       code.line();
+      code.line(
+        '# Type-checking-only imports for static analyzers (pyright/mypy).',
+      );
+      code.line(
+        '# At runtime TYPE_CHECKING is False, preserving lazy loading.',
+      );
       code.openBlock('if typing.TYPE_CHECKING');
       for (const name of submoduleNames) {
         code.line(`from . import ${name} as ${name}`);
@@ -1981,20 +1987,28 @@ class PythonModule implements PythonType {
       code.closeBlock();
       code.line();
 
-      // Emit __dir__ function — use quoted return type to avoid
-      // runtime evaluation issues with older Python versions
+      // Emit __dir__ function — quoted return type because pyright flags
+      // bare `list[str]` as a runtime subscript error when pythonVersion < 3.9
       code.openBlock('def __dir__() -> "list[str]"');
       code.line('return [*__all__, *_SUBMODULES]');
       code.closeBlock();
       code.line();
 
       // Install __getattr__ and __dir__ on the public module that
-      // publication.publish() placed in sys.modules. Without this,
-      // attribute access like `pkg.submodule` would fail because the
-      // public module doesn't have these functions.
+      // publication.publish() placed in sys.modules. publication replaces
+      // the module object but doesn't copy __getattr__/__dir__, so without
+      // this, attribute access like `pkg.submodule` would raise AttributeError.
+      //
+      // We use setattr() instead of direct assignment because mypy treats
+      // __getattr__ and __dir__ as special methods on ModuleType and rejects
+      // direct assignment with "Cannot assign to a method [method-assign]".
       code.line('import sys as _sys');
-      code.line('_sys.modules[__name__].__getattr__ = __getattr__');
-      code.line('_sys.modules[__name__].__dir__ = __dir__');
+      code.line(
+        'setattr(_sys.modules[__name__], "__getattr__", __getattr__)',
+      );
+      code.line(
+        'setattr(_sys.modules[__name__], "__dir__", __dir__)',
+      );
     }
 
     context.typeCheckingHelper.flushStubs(code);

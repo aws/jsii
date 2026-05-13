@@ -12,7 +12,8 @@ _enums: MutableMapping[str, Any] = {}
 _interfaces: MutableMapping[str, Any] = {}
 
 # Mapping from jsii assembly name to Python root module name, populated by
-# JSIIAssembly.load() so that on-demand type resolution can trigger imports.
+# JSIIAssembly.load() so that on-demand type resolution can trigger imports
+# of lazily-loaded submodules when the kernel returns an unknown type.
 _assembly_to_module: MutableMapping[str, str] = {}
 
 
@@ -35,10 +36,11 @@ def register_interface(iface: Any):
 def _try_import_type_module(class_fqn: str) -> bool:
     """Attempt to import the Python module containing a jsii type by FQN.
 
-    When lazy loading is enabled, submodules are not imported until first
-    access. If the jsii runtime needs to deserialize a type from an unloaded
-    submodule, this function attempts to trigger the import so that the type
-    gets registered.
+    With PEP 562 lazy loading, submodules are not imported until first attribute
+    access. If the jsii runtime needs to deserialize a type from a submodule
+    that hasn't been imported yet (e.g., a callback returns an object whose type
+    lives in an unloaded submodule), this function triggers the import so that
+    the type self-registers with the runtime.
 
     The FQN format is: ``assembly_name.submodule.path.TypeName``
     We strip the type name (last dot-separated component) and try to import
@@ -174,12 +176,11 @@ class _ReferenceMap:
             else:
                 return InterfaceDynamicProxy(self.build_interface_proxies_for_ref(ref))
         else:
-            # Attempt on-demand import: the type may reside in a lazily-loaded
-            # submodule that hasn't been imported yet. We try to import the
-            # containing module, which will trigger type registration as a side
-            # effect, and then retry the lookup.
+            # The type isn't registered yet. With lazy loading, it may live in
+            # a submodule that hasn't been imported. Try importing the module
+            # that should contain this type — importing triggers type
+            # registration as a side effect — then retry the lookup.
             if _try_import_type_module(class_fqn):
-                # Retry after import
                 if class_fqn in _types:
                     return self.resolve(kernel, ref)
                 elif class_fqn in _data_types:

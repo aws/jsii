@@ -116,13 +116,18 @@ loading code is defined after `publication.publish()`, it lives on the original
 fails with `AttributeError`.
 
 **Fix:** After defining `__getattr__` and `__dir__`, explicitly install them on
-the public module via `sys.modules[__name__]`:
+the public module via `setattr()` on `sys.modules[__name__]`:
 
 ```python
 import sys as _sys
-_sys.modules[__name__].__getattr__ = __getattr__
-_sys.modules[__name__].__dir__ = __dir__
+setattr(_sys.modules[__name__], "__getattr__", __getattr__)
+setattr(_sys.modules[__name__], "__dir__", __dir__)
 ```
+
+Note: Direct assignment (`_sys.modules[__name__].__getattr__ = __getattr__`)
+does not work because mypy treats `__getattr__` and `__dir__` as special
+methods on `ModuleType` and raises `Cannot assign to a method [method-assign]`.
+Using `setattr()` achieves the same runtime effect while bypassing mypy's check.
 
 ## Issue 4: jsii runtime cannot resolve types from unloaded submodules
 
@@ -141,3 +146,29 @@ FQN is not found in the type registries, the runtime now:
 3. Attempts to import the containing submodule (trying progressively shorter
    paths)
 4. Retries the type lookup after the import triggers type registration
+
+## Issue 5: mypy `Cannot assign to a method [method-assign]`
+
+**Generated code (initial attempt):**
+
+```python
+import sys as _sys
+_sys.modules[__name__].__getattr__ = __getattr__
+_sys.modules[__name__].__dir__ = __dir__
+```
+
+**Problem:** mypy treats `__getattr__` and `__dir__` as special methods defined
+on `types.ModuleType`. Direct assignment to these attributes triggers
+`Cannot assign to a method [method-assign]` under `--strict` mode. The test
+harness runs mypy with `--strict` on all generated code.
+
+**Fix:** Use `setattr()` instead of direct attribute assignment:
+
+```python
+import sys as _sys
+setattr(_sys.modules[__name__], "__getattr__", __getattr__)
+setattr(_sys.modules[__name__], "__dir__", __dir__)
+```
+
+`setattr()` achieves the same runtime effect but mypy does not perform the
+same method-assignment check on it.
