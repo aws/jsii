@@ -86,16 +86,44 @@ describe('Python lazy imports code generation', () => {
 
   test('module with submodules generates __dir__ function', async () => {
     const content = await generateAndRead(LIB_PKG, LIB_INIT);
-    expect(content).toContain('def __dir__() -> list[str]:');
+    expect(content).toContain('def __dir__() -> "list[str]":');
     expect(content).toContain('return [*__all__, *_SUBMODULES]');
   });
 
-  test('module with submodules does NOT generate eager from . import statements', async () => {
+  test('module with submodules does NOT generate eager from . import statements outside TYPE_CHECKING', async () => {
     const content = await generateAndRead(LIB_PKG, LIB_INIT);
-    expect(content).not.toContain('from . import custom_submodule_name');
-    expect(content).not.toContain('from . import deprecation_removal');
+    // Should not have eager imports outside of TYPE_CHECKING block
+    // The only "from . import" should be inside "if typing.TYPE_CHECKING:"
+    const lines = content.split('\n');
+    let inTypeChecking = false;
+    for (const line of lines) {
+      if (line.includes('if typing.TYPE_CHECKING:')) {
+        inTypeChecking = true;
+        continue;
+      }
+      // TYPE_CHECKING block ends at next non-indented line
+      if (inTypeChecking && !line.startsWith(' ') && line.trim() !== '') {
+        inTypeChecking = false;
+      }
+      if (!inTypeChecking) {
+        expect(line).not.toMatch(
+          /^\s*from \. import (custom_submodule_name|deprecation_removal)/,
+        );
+      }
+    }
     expect(content).not.toContain(
       '# Loading modules to ensure their types are registered',
+    );
+  });
+
+  test('module with submodules generates TYPE_CHECKING imports for pyright compatibility', async () => {
+    const content = await generateAndRead(LIB_PKG, LIB_INIT);
+    expect(content).toContain('if typing.TYPE_CHECKING:');
+    expect(content).toContain(
+      'from . import custom_submodule_name as custom_submodule_name',
+    );
+    expect(content).toContain(
+      'from . import deprecation_removal as deprecation_removal',
     );
   });
 
@@ -151,9 +179,13 @@ describe('Python lazy imports code generation', () => {
     expect(content).toContain('import importlib as _importlib');
     expect(content).toContain('_SUBMODULES = {');
     expect(content).toContain('def __getattr__(name: str) -> object:');
-    expect(content).toContain('def __dir__() -> list[str]:');
-    // Should NOT have eager imports
-    expect(content).not.toMatch(/^from \. import \w+/m);
+    expect(content).toContain('def __dir__() -> "list[str]":');
+    // Should have TYPE_CHECKING imports
+    expect(content).toContain('if typing.TYPE_CHECKING:');
+    // Should NOT have eager imports outside TYPE_CHECKING
+    // (the only "from . import X" lines should be inside the TYPE_CHECKING block)
+    const outsideTypeChecking = content.split('if typing.TYPE_CHECKING:')[0];
+    expect(outsideTypeChecking).not.toMatch(/^from \. import \w+/m);
     // Verify some known submodules are in _SUBMODULES
     expect(content).toContain('"composition"');
     expect(content).toContain('"submodule"');
