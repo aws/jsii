@@ -2119,6 +2119,8 @@ __all__ = [
     "deprecation_removal",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import custom_submodule_name as custom_submodule_name
     from . import deprecation_removal as deprecation_removal
@@ -2738,7 +2740,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -651,7 +681,65 @@
+@@ -653,7 +683,65 @@
  
  import sys as _sys
  setattr(_sys.modules[__name__], "__getattr__", __getattr__)
@@ -12190,6 +12192,8 @@ __all__ = [
     "union",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import anonymous as anonymous
     from . import cdk16625 as cdk16625
@@ -12519,6 +12523,8 @@ __all__ = [
     "donotimport",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import donotimport as donotimport
 
@@ -12875,6 +12881,8 @@ __all__ = [
     "class_overrides",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import class_overrides as class_overrides
 
@@ -13240,6 +13248,8 @@ __all__ = [
     "foo",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import bar as bar
     from . import foo as foo
@@ -14340,6 +14350,8 @@ __all__ = [
     "structs",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import methods as methods
     from . import props as props
@@ -14697,6 +14709,8 @@ __all__ = [
     "submodule2",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import submodule1 as submodule1
     from . import submodule2 as submodule2
@@ -15322,6 +15336,8 @@ __all__ = [
     "sub2",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import sub1 as sub1
     from . import sub2 as sub2
@@ -15885,6 +15901,8 @@ __all__ = [
     "returnsparam",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import back_references as back_references
     from . import child as child
@@ -16347,6 +16365,8 @@ __all__ = [
     "deeply_nested",
 ]
 
+# Type-checking-only imports for static analyzers (pyright/mypy).
+# At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
     from . import deeply_nested as deeply_nested
 
