@@ -54,6 +54,10 @@ class JSIIAssembly:
         ) as assembly_path:
             _kernel.load(assembly.name, assembly.version, os.fspath(assembly_path))
 
+        # Register the assembly-to-module mapping so that on-demand type
+        # resolution can trigger lazy imports of submodules when needed.
+        _reference_map._assembly_to_module[assembly.name] = assembly.module
+
         # Give our record of the assembly back to the caller.
         return assembly
 

@@ -1947,7 +1947,10 @@ class PythonModule implements PythonType {
     code.line();
     code.line('publication.publish()');
 
-    // Finally, we'll set up lazy loading for all registered python modules
+    // Finally, we'll set up lazy loading for all registered python modules.
+    // We define __getattr__ and __dir__ and then install them on the public
+    // module (the one publication.publish() placed in sys.modules) so that
+    // lazy attribute access works through the publication barrier.
     if (this.modules.length > 0) {
       code.line();
       // Build sorted list of submodule short names
@@ -1983,6 +1986,15 @@ class PythonModule implements PythonType {
       code.openBlock('def __dir__() -> "list[str]"');
       code.line('return [*__all__, *_SUBMODULES]');
       code.closeBlock();
+      code.line();
+
+      // Install __getattr__ and __dir__ on the public module that
+      // publication.publish() placed in sys.modules. Without this,
+      // attribute access like `pkg.submodule` would fail because the
+      // public module doesn't have these functions.
+      code.line('import sys as _sys');
+      code.line('_sys.modules[__name__].__getattr__ = __getattr__');
+      code.line('_sys.modules[__name__].__dir__ = __dir__');
     }
 
     context.typeCheckingHelper.flushStubs(code);
