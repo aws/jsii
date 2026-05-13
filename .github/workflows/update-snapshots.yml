@@ -1,0 +1,85 @@
+name: Update Snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to update snapshots on"
+        required: true
+  pull_request:
+    types: [labeled]
+
+env:
+  DOTNET_NOLOGO: true
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  update-snapshots:
+    name: Update Snapshots
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event.label.name == 'update-snapshots'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.branch || github.head_ref }}
+          token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+      - name: Set up .NET 6
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "6.0.x"
+      - name: Set up Go 1.25
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.25"
+      - name: Set up Java 8
+        uses: actions/setup-java@v5
+        with:
+          distribution: "zulu"
+          java-version: "8"
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node LTS
+        uses: actions/setup-node@v6
+        with:
+          cache: yarn
+          node-version: "lts/*"
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install python3-venv
+        run: sudo apt install -y python3-venv
+      - name: Cache
+        uses: actions/cache@v5
+        with:
+          path: |-
+            ~/.m2/repository
+            !~/.m2/repository/software/amazon/jsii/
+            ~/.nuget/packages
+            !~/.nuget/packages/amazon.jsii.*
+          key: ${{ runner.os }}-${{ hashFiles('**/Directory.Build.targets') }}
+          restore-keys: |-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: yarn install --immutable
+      - name: Full Build
+        run: yarn build
+      - name: Update Snapshots
+        run: yarn test:update
+      - name: Commit and push snapshot changes
+        run: |-
+          git config user.name "AWS CDK Automation"
+          git config user.email "aws-cdk-automation@users.noreply.github.com"
+          git add .
+          if git diff --staged --quiet; then
+            echo "Snapshots are already up-to-date."
+          else
+            git commit -m "chore: update snapshots"
+            git push
+          fi
