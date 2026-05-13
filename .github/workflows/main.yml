@@ -45,10 +45,10 @@ jobs:
         with:
           cache: yarn
           node-version: "lts/*"
-      - name: Set up Python 3.9
+      - name: Set up Python 3.10
         uses: actions/setup-python@v6
         with:
-          python-version: "3.9"
+          python-version: "3.10"
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -129,10 +129,10 @@ jobs:
         with:
           cache: yarn
           node-version: "lts/*"
-      - name: Set up Python 3.9
+      - name: Set up Python 3.10
         uses: actions/setup-python@v6
         with:
-          python-version: "3.9"
+          python-version: "3.10"
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
@@ -195,7 +195,7 @@ jobs:
         java: ["8"]
         node: ["20"] # EOS 2026-10-30
         os: [ubuntu-latest]
-        python: ["3.9"]
+        python: ["3.10"]
         # Add specific combinations to be tested against (to restrict cardinality)
         include:
           # Test using Windows
@@ -205,7 +205,7 @@ jobs:
             go: "1.25"
             java: "8"
             node: "20"
-            python: "3.9"
+            python: "3.10"
           # Test using macOS
           - title: "macOS"
             os: macos-latest
@@ -213,7 +213,7 @@ jobs:
             go: "1.25"
             java: "8"
             node: "20"
-            python: "3.9"
+            python: "3.10"
           # Test alternate Nodes
           - title: "Node 20"
             java: "8"
@@ -221,21 +221,21 @@ jobs:
             go: "1.25"
             node: "20" # EOL 2026-04-30
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           - title: "Node 22"
             java: "8"
             dotnet: "6.0.x"
             go: "1.25"
             node: "22" # EOL 2027-04-30
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           - title: "Node 24"
             java: "8"
             dotnet: "6.0.x"
             go: "1.25"
             node: "24" # EOL 2028-04-30
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           # Test alternate .NETs
           - title: ".NET 7.0"
             java: "8"
@@ -243,28 +243,28 @@ jobs:
             go: "1.25"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           - title: ".NET 8.0"
             java: "8"
             dotnet: "7.0.x"
             go: "1.25"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           - title: ".NET 9.0"
             java: "8"
             dotnet: "9.0.x"
             go: "1.25"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           - title: ".NET 10.0"
             java: "8"
             dotnet: "10.0.x"
             go: "1.25"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           # Test alternate Gos
           - title: "Go 1.25"
             java: "8"
@@ -272,14 +272,14 @@ jobs:
             go: "1.25"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           - title: "Go 1.26"
             java: "8"
             dotnet: "6.0.x"
             go: "1.26"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           # Test alternate Javas
           - title: "Java 11"
             java: "11"
@@ -287,15 +287,8 @@ jobs:
             go: "1.25"
             node: "20"
             os: ubuntu-latest
-            python: "3.9"
+            python: "3.10"
           # Test alternate Pythons
-          - title: "Python 3.9"
-            python: "3.9"
-            dotnet: "6.0.x"
-            go: "1.25"
-            java: "8"
-            node: "20"
-            os: ubuntu-latest
           - title: "Python 3.10"
             python: "3.10"
             dotnet: "6.0.x"
