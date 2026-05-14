@@ -329,7 +329,8 @@ class _NodeProcess:
         self._process.stdin.flush()
 
         resp: _ProcessResponse = self._serializer.structure(
-            self._next_message(), _ProcessResponse
+            self._next_message(),
+            _ProcessResponse,  # pyright: ignore[reportArgumentType]
         )
 
         if isinstance(resp, _OkayResponse):
