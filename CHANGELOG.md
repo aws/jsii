@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.130.0](https://github.com/aws/jsii/compare/v1.129.0...v1.130.0) (2026-05-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Python 3.9 is no longer supported. The minimum required
+Python version is now 3.10. Python 3.9 reached end-of-life in October
+2025.
+
+Changes:
+- CI matrix: baseline Python changed from 3.9 to 3.10, removed dedicated
+Python 3.9 test entry
+- Generated code: python_requires bumped from ~=3.9 to ~=3.10, pyright
+pythonVersion set to 3.10
+- Runtime: pyright and black target versions updated
+- Dev dependencies: mypy bumped to 2.1.0 (requires Python >= 3.10)
+- Snapshots updated to reflect new version constraints
+
+Snapshots changed during test run with: `yarn test:update`. Run using
+jsii-superchain.
+
+### Features
+
+* drop Python 3.9 support, require Python >= 3.10 ([#5094](https://github.com/aws/jsii/issues/5094)) ([d17bb06](https://github.com/aws/jsii/commit/d17bb06eae789902e8a05ac95f332b8003f05a56)), closes [#5084](https://github.com/aws/jsii/issues/5084)
+
 ## [1.129.0](https://github.com/aws/jsii/compare/v1.128.0...v1.129.0) (2026-04-30)
 
 
