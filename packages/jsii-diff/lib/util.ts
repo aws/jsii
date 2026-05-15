@@ -48,6 +48,7 @@ export async function downloadNpmPackage<T>(
       // to not bork when it can find the dependencies.
       await execFile('npm', ['install', '--silent', '--prefix', '.', pkg]);
     } catch (e: any) {
+      console.log(e);
       // If this fails, might be because the package doesn't exist
       if (!isSubprocesFailedError(e)) {
         throw e;
