@@ -40,12 +40,18 @@ export async function downloadNpmPackage<T>(
   pkg: string,
   block: (dir: string) => Promise<T>,
 ): Promise<NpmDownloadResult<T>> {
+  validateValidPackageSpecifier(pkg);
+
   return inTempDir(async () => {
     LOG.info(`Fetching NPM package ${pkg}`);
 
     try {
       // Need to install package and dependencies in order for jsii-reflect
       // to not bork when it can find the dependencies.
+      //
+      // This executes the shell, which is necessary: on Windows, npm is a .cmd file,
+      // and only the shell and execute .bat/.cmd files. We have validated the package
+      // name already to make sure it contains only safe characters.
       await exec(`npm install --silent --prefix . ${pkg}`);
     } catch (e: any) {
       // If this fails, might be because the package doesn't exist
@@ -77,6 +83,9 @@ function isSubprocesFailedError(e: any) {
 async function npmPackageExists(pkg: string): Promise<boolean> {
   try {
     LOG.info(`Checking existence of ${pkg}`);
+    // This executes the shell, which is necessary: on Windows, npm is a .cmd file,
+    // and only the shell and execute .bat/.cmd files. We have validated the package
+    // name already to make sure it contains only safe characters.
     await exec(`npm show --silent ${pkg}`);
     return true;
   } catch (e) {
@@ -94,6 +103,19 @@ function trimVersionString(pkg: string) {
   // The arbitrary char before the @ prevents matching a @ at the start of the
   // string.
   return pkg.replace(/(.)@.*$/, '$1');
+}
+
+/**
+ * Validate a package name against a list of allowed characters
+ *
+ * If we are too strict here, that's not a biggy: script writers are always
+ * able to download their exotically-named NPM package themselves before running
+ * jsii-diff on it.
+ */
+function validateValidPackageSpecifier(pkg: string) {
+  if (pkg.match(/[^a-z0-9@\/._-]/i)) {
+    throw new Error(`Invalid package name, only 'a-z0-9@/._-' are allowed: ${JSON.stringify(pkg)}`);
+  }
 }
 
 export function flatMap<T, U>(xs: T[], fn: (x: T) => U[]): U[] {
