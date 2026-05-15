@@ -7,7 +7,7 @@ import * as util from 'util';
 
 const LOG = log4js.getLogger('jsii-diff');
 
-const exec = util.promisify(childProcess.exec);
+const execFile = util.promisify(childProcess.execFile);
 
 export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
   const origDir = process.cwd();
@@ -46,7 +46,7 @@ export async function downloadNpmPackage<T>(
     try {
       // Need to install package and dependencies in order for jsii-reflect
       // to not bork when it can find the dependencies.
-      await exec(`npm install --silent --prefix . ${pkg}`);
+      await execFile('npm', ['install', '--silent', '--prefix', '.', pkg]);
     } catch (e: any) {
       // If this fails, might be because the package doesn't exist
       if (!isSubprocesFailedError(e)) {
@@ -77,7 +77,7 @@ function isSubprocesFailedError(e: any) {
 async function npmPackageExists(pkg: string): Promise<boolean> {
   try {
     LOG.info(`Checking existence of ${pkg}`);
-    await exec(`npm show --silent ${pkg}`);
+    await execFile('npm', ['show', '--silent', pkg]);
     return true;
   } catch (e) {
     if (!isSubprocesFailedError(e)) {
