@@ -113,8 +113,8 @@ function trimVersionString(pkg: string) {
  * jsii-diff on it.
  */
 function validateValidPackageSpecifier(pkg: string) {
-  if (pkg.match(/[^a-z0-9@\/._-]/i)) {
-    throw new Error(`Invalid package name, only 'a-z0-9@/._-' are allowed: ${JSON.stringify(pkg)}`);
+  if (pkg.match(/[^a-z0-9@\/:._-]/i)) {
+    throw new Error(`Invalid package name, only 'a-z0-9@/:._-' are allowed: ${JSON.stringify(pkg)}`);
   }
 }
 
