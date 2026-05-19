@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.131.0](https://github.com/aws/jsii/compare/v1.130.0...v1.131.0) (2026-05-19)
+
+
+### Bug Fixes
+
+* **jsii-diff:** `npm:` argument type can be shell-injected ([#5118](https://github.com/aws/jsii/issues/5118)) ([9f42f27](https://github.com/aws/jsii/commit/9f42f274b23e80dd38dce51d0e8847149fcf2528))
+
 ## [1.130.0](https://github.com/aws/jsii/compare/v1.129.0...v1.130.0) (2026-05-14)
 
 
