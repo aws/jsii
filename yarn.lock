@@ -1861,7 +1861,7 @@ __metadata:
     jest: "npm:^30.3.0"
     jsii-build-tools: "npm:^0.0.0"
     typescript: "npm:5.9.x"
-    typescript-json-schema: "npm:^0.67.1"
+    typescript-json-schema: "npm:0.67.1"
   languageName: unknown
   linkType: soft
 
@@ -11794,7 +11794,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-json-schema@npm:^0.67.1":
+"typescript-json-schema@npm:0.67.1":
   version: 0.67.1
   resolution: "typescript-json-schema@npm:0.67.1"
   dependencies:
