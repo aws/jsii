@@ -445,6 +445,44 @@ export class SyncVirtualMethods {
   }
 }
 
+/**
+ * Demonstrates that arguments passed by JS-side callers in excess of a method's
+ * declared signature are silently dropped at the language-runtime boundary.
+ *
+ * Calling a function with more arguments than declared is legal in JavaScript
+ * (the extras are simply ignored), and jsii cannot prevent packages from doing
+ * so. jsii must therefore accept these calls and forward only the declared
+ * arguments to the language runtime — refusing them would break otherwise-valid
+ * JS code as soon as the receiver happens to be implemented in another language.
+ *
+ * This pattern occurs in the wild when a JS caller (e.g. the CDK
+ * `Lazy.any` resolution path with `IStableAnyProducer`) invokes an override
+ * with more arguments than the interface declares.
+ *
+ * @see https://github.com/aws/jsii/pull/5126
+ */
+export class SyncOverrideExtraArgs {
+  /**
+   * Override this method. Declared with no parameters.
+   */
+  public produce(): string {
+    return 'default';
+  }
+
+  /**
+   * Calls `produce()` with one extra argument that the spec does not declare,
+   * and returns whatever the override produced. The extra argument is expected
+   * to be silently dropped before it crosses the language boundary.
+   */
+  public callProduceWithExtraArg(): string {
+    // Cast to bypass TypeScript's parameter-count check — we deliberately
+    // pass an argument that the declared signature does not accept.
+    return (this.produce as (...args: unknown[]) => string)({
+      ignoredExtra: true,
+    });
+  }
+}
+
 export class VirtualMethodPlayground {
   public async serialSumAsync(count: number) {
     return Promise.all(
