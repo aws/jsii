@@ -82,7 +82,7 @@ Each one of these scripts can be executed either from the root of the repo using
 `npx lerna run <script> --scope <package>` or from individual modules using
 `yarn <script>`.
 
-#### Reproducting Bugs (Test-Driven Solving)
+#### Reproducing Bugs (Test-Driven Solving)
 
 Troubleshooting bugs usually starts with adding a new test that demonstrates the
 faulty behavior, then modifying implementations until the test passes.

@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import { createRequire } from 'module';
 import * as os from 'os';
 import * as path from 'path';
+import { inspect } from 'util';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
@@ -1376,9 +1377,10 @@ export class Kernel {
     }
     if (xs.length > parametersCopy.length) {
       throw new JsiiFault(
-        `Argument list (${JSON.stringify(
-          xs,
-        )}) not same size as expected argument list (length ${
+        `Argument list (${inspect(xs, {
+          depth: 2,
+          breakLength: Infinity,
+        })}) not same size as expected argument list (length ${
           parametersCopy.length
         })`,
       );

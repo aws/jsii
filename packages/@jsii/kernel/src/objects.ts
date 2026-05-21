@@ -1,5 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as assert from 'assert';
+import { inspect } from 'util';
 
 import * as api from './api';
 import { JsiiFault } from './kernel';
@@ -105,9 +106,10 @@ function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
   // writable.
   if (Object.prototype.hasOwnProperty.call(obj, OBJID_SYMBOL)) {
     console.error(
-      `[jsii/kernel] WARNING: object ${JSON.stringify(
-        obj as any,
-      )} was already tagged as ${(obj as any)[OBJID_SYMBOL]}!`,
+      `[jsii/kernel] WARNING: object ${inspect(obj, {
+        depth: 2,
+        breakLength: Infinity,
+      })} was already tagged as ${(obj as any)[OBJID_SYMBOL]}!`,
     );
   }
 
