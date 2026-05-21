@@ -2733,6 +2733,13 @@ exports[`showAll 1`] = `
  │   │   └─┬ propId property
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class SyncOverrideExtraArgs
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ callProduceWithExtraArg() method
+ │   │   │ └── returns: string
+ │   │   └─┬ produce() method
+ │   │     └── returns: string
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4477,6 +4484,7 @@ exports[`types 1`] = `
  │   ├── class Sum
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
+ │   ├── class SyncOverrideExtraArgs
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower

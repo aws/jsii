@@ -904,6 +904,47 @@ defineTest('sync overrides with async caller', async (sandbox) => {
   expect((await sandbox.end({ promiseid: p2.promiseid })).result).toBe(22);
 });
 
+// Regression test for https://github.com/aws/jsii/pull/5126
+//
+// Calling a function with more arguments than declared is legal in JavaScript
+// (the extras are simply ignored), and jsii cannot prevent packages from doing
+// this. The kernel must therefore accept such calls and forward only the
+// declared arguments to the language runtime — refusing them would break
+// otherwise-valid JS code as soon as the receiver happens to be implemented in
+// another language.
+//
+// The most visible affected user is the CDK `Lazy.any` resolution path with
+// `IStableAnyProducer.produce()`, which is declared with zero parameters but
+// is called by JS with an `IResolveContext` argument.
+defineTest(
+  'sync overrides: extra args from JS caller are silently dropped',
+  (sandbox) => {
+    const receivedArgs: any[][] = [];
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
+      receivedArgs.push(callback.invoke!.args ?? []);
+      return 'overridden';
+    });
+
+    const obj = sandbox.create({
+      fqn: 'jsii-calc.SyncOverrideExtraArgs',
+      overrides: [{ method: 'produce', cookie: 'myCookie' }],
+    });
+
+    // The JS body of `callProduceWithExtraArg` invokes `this.produce({ ignoredExtra: true })`,
+    // even though the spec for `produce` declares zero parameters. The kernel
+    // should drop the extra argument and forward an empty argument list to the
+    // language runtime.
+    const result = sandbox.invoke({
+      objref: obj,
+      method: 'callProduceWithExtraArg',
+    }).result;
+
+    expect(result).toBe('overridden');
+    expect(receivedArgs).toHaveLength(1);
+    expect(receivedArgs[0]).toEqual([]);
+  },
+);
+
 defineTest('sync overrides: properties - readwrite', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.SyncVirtualMethods',

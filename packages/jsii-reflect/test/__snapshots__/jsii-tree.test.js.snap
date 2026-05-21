@@ -2538,6 +2538,13 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ propId property (stable)
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class SyncOverrideExtraArgs (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ callProduceWithExtraArg() method (stable)
+ │   │   │ └── returns: string
+ │   │   └─┬ produce() method (stable)
+ │   │     └── returns: string
  │   ├─┬ class SyncVirtualMethods (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -4289,6 +4296,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class SupportsNiceJavaBuilder
  │   │ └── base: SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
+ │   ├── class SyncOverrideExtraArgs
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
@@ -5673,6 +5681,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── bar property
  │   │   ├── id property
  │   │   └── propId property
+ │   ├─┬ class SyncOverrideExtraArgs
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── callProduceWithExtraArg() method
+ │   │   └── produce() method
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -6650,6 +6663,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Sum
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
+ │   ├── class SyncOverrideExtraArgs
  │   ├── class SyncVirtualMethods
  │   ├── class TestStructWithEnum
  │   ├── class Thrower
