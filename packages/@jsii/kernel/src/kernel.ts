@@ -4,7 +4,6 @@ import * as fs from 'fs-extra';
 import { createRequire } from 'module';
 import * as os from 'os';
 import * as path from 'path';
-import { inspect } from 'util';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
@@ -1375,17 +1374,30 @@ export class Kernel {
     while (variadic && parametersCopy.length < xs.length) {
       parametersCopy.push(parametersCopy[parametersCopy.length - 1]);
     }
-    if (xs.length > parametersCopy.length) {
-      throw new JsiiFault(
-        `Argument list (${inspect(xs, {
-          depth: 2,
-          breakLength: Infinity,
-        })}) not same size as expected argument list (length ${
-          parametersCopy.length
-        })`,
-      );
-    }
-    return xs.map((x, i) =>
+    // Silently drop any arguments that go beyond the declared method signature.
+    //
+    // Calling a function with more arguments than declared is legal in
+    // JavaScript: the extras are simply ignored. This is observable behavior
+    // that JS code in jsii packages can and does rely on (e.g. CDK's `Lazy.any`
+    // resolution path invokes `IStableAnyProducer.produce(context)` even though
+    // the interface declares `produce()` with no parameters). jsii cannot
+    // prevent packages from doing this, so it must accept it — refusing such
+    // calls would break otherwise-valid JS code as soon as the receiver
+    // happens to be implemented in another language.
+    //
+    // We therefore truncate the argument list to the declared signature before
+    // crossing the language boundary, so that the language runtime only sees
+    // the arguments it knows how to handle.
+    //
+    // Incoming calls (invoke/sinvoke/begin/create) are validated upstream by
+    // `#validateMethodArguments`, so in practice this truncation only affects
+    // outgoing override callbacks installed by `#installSyncMethodOverride` and
+    // `#installAsyncMethodOverride`.
+    const declaredArgs =
+      xs.length > parametersCopy.length
+        ? xs.slice(0, parametersCopy.length)
+        : xs;
+    return declaredArgs.map((x, i) =>
       boxUnbox(
         x,
         parametersCopy[i],

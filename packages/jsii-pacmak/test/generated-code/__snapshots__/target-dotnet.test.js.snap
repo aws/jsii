@@ -3584,6 +3584,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 SupportsNiceJavaBuilder.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilderProps.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilderWithRequiredProps.cs
+       ┃           ┣━ 📄 SyncOverrideExtraArgs.cs
        ┃           ┣━ 📄 SyncVirtualMethods.cs
        ┃           ┣━ 📄 TestStructWithEnum.cs
        ┃           ┣━ 📄 Thrower.cs
@@ -21544,6 +21545,79 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual string? PropId
         {
             get => GetInstanceProperty<string?>();
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/SyncOverrideExtraArgs.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Demonstrates that arguments passed by JS-side callers in excess of a method's declared signature are silently dropped at the language-runtime boundary.</summary>
+    /// <remarks>
+    /// Calling a function with more arguments than declared is legal in JavaScript
+    /// (the extras are simply ignored), and jsii cannot prevent packages from doing
+    /// so. jsii must therefore accept these calls and forward only the declared
+    /// arguments to the language runtime — refusing them would break otherwise-valid
+    /// JS code as soon as the receiver happens to be implemented in another language.
+    ///
+    /// This pattern occurs in the wild when a JS caller (e.g. the CDK
+    /// <c>Lazy.any</c> resolution path with <c>IStableAnyProducer</c>) invokes an override
+    /// with more arguments than the interface declares.
+    ///
+    /// <strong>See</strong>: https://github.com/aws/jsii/pull/5126
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SyncOverrideExtraArgs), fullyQualifiedName: "jsii-calc.SyncOverrideExtraArgs")]
+    public class SyncOverrideExtraArgs : DeputyBase
+    {
+        public SyncOverrideExtraArgs(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SyncOverrideExtraArgs(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected SyncOverrideExtraArgs(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Calls \`produce()\` with one extra argument that the spec does not declare, and returns whatever the override produced.</summary>
+        /// <remarks>
+        /// The extra argument is expected
+        /// to be silently dropped before it crosses the language boundary.
+        /// </remarks>
+        [JsiiMethod(name: "callProduceWithExtraArg", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string CallProduceWithExtraArg()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
+        }
+
+        /// <summary>Override this method.</summary>
+        /// <remarks>
+        /// Declared with no parameters.
+        /// </remarks>
+        [JsiiMethod(name: "produce", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string Produce()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{})!;
         }
     }
 }
