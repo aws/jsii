@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.132.0](https://github.com/aws/jsii/compare/v1.131.0...v1.132.0) (2026-05-22)
+
+
+### Bug Fixes
+
+* **kernel:** forward only declared arguments to language overrides ([#5126](https://github.com/aws/jsii/issues/5126)) ([8945287](https://github.com/aws/jsii/commit/8945287729029ccc0535b83da10740a342c14704)), closes [#5125](https://github.com/aws/jsii/issues/5125)
+* **kernel:** unsafe JSON.stringify on circular arguments hides original error ([#5125](https://github.com/aws/jsii/issues/5125)) ([8f00f85](https://github.com/aws/jsii/commit/8f00f85b4a7f541f79a967d942605ac7200f2396))
+
 ## [1.131.0](https://github.com/aws/jsii/compare/v1.130.0...v1.131.0) (2026-05-19)
 
 
