@@ -3210,6 +3210,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 SupportsNiceJavaBuilder.go
        ┣━ 📄 SupportsNiceJavaBuilderProps.go
        ┣━ 📄 SupportsNiceJavaBuilderWithRequiredProps.go
+       ┣━ 📄 SyncOverrideExtraArgs.go
        ┣━ 📄 SyncVirtualMethods.go
        ┣━ 📄 TestStructWithEnum.go
        ┣━ 📄 Thrower.go
@@ -17172,6 +17173,97 @@ func NewSupportsNiceJavaBuilderWithRequiredProps_Override(s SupportsNiceJavaBuil
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/SyncOverrideExtraArgs.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Demonstrates that arguments passed by JS-side callers in excess of a method's declared signature are silently dropped at the language-runtime boundary.
+//
+// Calling a function with more arguments than declared is legal in JavaScript
+// (the extras are simply ignored), and jsii cannot prevent packages from doing
+// so. jsii must therefore accept these calls and forward only the declared
+// arguments to the language runtime — refusing them would break otherwise-valid
+// JS code as soon as the receiver happens to be implemented in another language.
+//
+// This pattern occurs in the wild when a JS caller (e.g. the CDK
+// \`Lazy.any\` resolution path with \`IStableAnyProducer\`) invokes an override
+// with more arguments than the interface declares.
+// See: https://github.com/aws/jsii/pull/5126
+//
+type SyncOverrideExtraArgs interface {
+	// Calls \`produce()\` with one extra argument that the spec does not declare, and returns whatever the override produced.
+	//
+	// The extra argument is expected
+	// to be silently dropped before it crosses the language boundary.
+	CallProduceWithExtraArg() *string
+	// Override this method.
+	//
+	// Declared with no parameters.
+	Produce() *string
+}
+
+// The jsii proxy struct for SyncOverrideExtraArgs
+type jsiiProxy_SyncOverrideExtraArgs struct {
+	_ byte // padding
+}
+
+func NewSyncOverrideExtraArgs() SyncOverrideExtraArgs {
+	_init_.Initialize()
+
+	j := jsiiProxy_SyncOverrideExtraArgs{}
+
+	_jsii_.Create(
+		"jsii-calc.SyncOverrideExtraArgs",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewSyncOverrideExtraArgs_Override(s SyncOverrideExtraArgs) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.SyncOverrideExtraArgs",
+		nil, // no parameters
+		s,
+	)
+}
+
+func (s *jsiiProxy_SyncOverrideExtraArgs) CallProduceWithExtraArg() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"callProduceWithExtraArg",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (s *jsiiProxy_SyncOverrideExtraArgs) Produce() *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		s,
+		"produce",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/SyncVirtualMethods.go 1`] = `
 package jsiicalc
 
@@ -23127,6 +23219,17 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_SupportsNiceJavaBuilderWithRequiredProps{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.SyncOverrideExtraArgs",
+		reflect.TypeOf((*SyncOverrideExtraArgs)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "callProduceWithExtraArg", GoMethod: "CallProduceWithExtraArg"},
+			_jsii_.MemberMethod{JsiiMethod: "produce", GoMethod: "Produce"},
+		},
+		func() interface{} {
+			return &jsiiProxy_SyncOverrideExtraArgs{}
 		},
 	)
 	_jsii_.RegisterClass(

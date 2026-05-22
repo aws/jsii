@@ -4245,6 +4245,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 SupportsNiceJavaBuilder.java
           ┃                 ┣━ 📄 SupportsNiceJavaBuilderProps.java
           ┃                 ┣━ 📄 SupportsNiceJavaBuilderWithRequiredProps.java
+          ┃                 ┣━ 📄 SyncOverrideExtraArgs.java
           ┃                 ┣━ 📄 SyncVirtualMethods.java
           ┃                 ┣━ 📄 TestStructWithEnum.java
           ┃                 ┣━ 📄 Thrower.java
@@ -22284,6 +22285,69 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/SyncOverrideExtraArgs.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Demonstrates that arguments passed by JS-side callers in excess of a method's declared signature are silently dropped at the language-runtime boundary.
+ * <p>
+ * Calling a function with more arguments than declared is legal in JavaScript
+ * (the extras are simply ignored), and jsii cannot prevent packages from doing
+ * so. jsii must therefore accept these calls and forward only the declared
+ * arguments to the language runtime — refusing them would break otherwise-valid
+ * JS code as soon as the receiver happens to be implemented in another language.
+ * <p>
+ * This pattern occurs in the wild when a JS caller (e.g. the CDK
+ * <code>Lazy.any</code> resolution path with <code>IStableAnyProducer</code>) invokes an override
+ * with more arguments than the interface declares.
+ * <p>
+ * @see <a href="https://github.com/aws/jsii/pull/5126">https://github.com/aws/jsii/pull/5126</a>
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SyncOverrideExtraArgs")
+public class SyncOverrideExtraArgs extends software.amazon.jsii.JsiiObject {
+
+    protected SyncOverrideExtraArgs(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected SyncOverrideExtraArgs(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public SyncOverrideExtraArgs() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * Calls <code>produce()</code> with one extra argument that the spec does not declare, and returns whatever the override produced.
+     * <p>
+     * The extra argument is expected
+     * to be silently dropped before it crosses the language boundary.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String callProduceWithExtraArg() {
+        return software.amazon.jsii.Kernel.call(this, "callProduceWithExtraArg", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     * Override this method.
+     * <p>
+     * Declared with no parameters.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String produce() {
+        return software.amazon.jsii.Kernel.call(this, "produce", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/SyncVirtualMethods.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -29767,6 +29831,7 @@ jsii-calc.Sum=software.amazon.jsii.tests.calculator.Sum
 jsii-calc.SupportsNiceJavaBuilder=software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder
 jsii-calc.SupportsNiceJavaBuilderProps=software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps
 jsii-calc.SupportsNiceJavaBuilderWithRequiredProps=software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps
+jsii-calc.SyncOverrideExtraArgs=software.amazon.jsii.tests.calculator.SyncOverrideExtraArgs
 jsii-calc.SyncVirtualMethods=software.amazon.jsii.tests.calculator.SyncVirtualMethods
 jsii-calc.TestStructWithEnum=software.amazon.jsii.tests.calculator.TestStructWithEnum
 jsii-calc.Thrower=software.amazon.jsii.tests.calculator.Thrower
