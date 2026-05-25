@@ -1091,7 +1091,7 @@ def test_return_subclass_that_implements_interface_976():
 def test_return_subclass_that_implements_interface_976_raises_attributeerror_when_using_non_existent_method():
     obj = SomeTypeJsii976.return_return()
     try:
-        print(obj.not_a_real_method_I_swear)  # type:ignore
+        print(obj.not_a_real_method_I_swear)  # type: ignore
         failed = False
     except AttributeError as err:
         failed = True
@@ -1376,6 +1376,7 @@ def test_lazy_submodule_access():
 
     # Verify we can access types within the lazily-loaded submodule
     from jsii_calc.submodule.child import SomeEnum as LazyEnum
+
     assert LazyEnum.SOME is not None
 
 

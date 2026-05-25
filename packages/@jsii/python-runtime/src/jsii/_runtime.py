@@ -22,7 +22,6 @@ from ._compat import importlib_resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
 
-
 # Yea, a global here is kind of gross, however, there's not really a better way of
 # handling this. Fundamentally this is a global value, since we can only reasonably
 # have a single kernel active at any one time in a real program.
