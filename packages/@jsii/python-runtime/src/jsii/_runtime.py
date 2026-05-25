@@ -58,6 +58,16 @@ class JSIIAssembly:
         # types from lazily-loaded submodules by importing them on demand.
         _reference_map._assembly_to_module[assembly.name] = assembly.module
 
+        # If the generated _jsii package provides a submodule FQN map (emitted
+        # by jsii-pacmak >= the version that introduced lazy loading support),
+        # register it so the runtime can deterministically resolve FQNs to
+        # Python module paths without relying on naming heuristics.
+        jsii_module = sys.modules.get(f"{assembly.module}._jsii")
+        if jsii_module is not None:
+            fqn_map = getattr(jsii_module, "_SUBMODULE_FQN_MAP", None)
+            if fqn_map is not None:
+                _reference_map._submodule_fqn_map.update(fqn_map)
+
         # Give our record of the assembly back to the caller.
         return assembly
 

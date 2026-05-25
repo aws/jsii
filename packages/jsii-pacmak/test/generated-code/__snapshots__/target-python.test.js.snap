@@ -2189,6 +2189,11 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
     "@scope/jsii-calc-lib", "0.0.0", __name__[0:-6], "jsii-calc-lib@0.0.0.jsii.tgz"
 )
 
+_SUBMODULE_FQN_MAP = {
+    "@scope/jsii-calc-lib.deprecationRemoval": "scope.jsii_calc_lib.deprecation_removal",
+    "@scope/jsii-calc-lib.submodule": "scope.jsii_calc_lib.custom_submodule_name",
+}
+
 __all__ = [
     "__jsii_assembly__",
 ]
@@ -12348,6 +12353,53 @@ import scope.jsii_calc_lib._jsii
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "jsii-calc", "3.20.120", __name__[0:-6], "jsii-calc@3.20.120.jsii.tgz"
 )
+
+_SUBMODULE_FQN_MAP = {
+    "jsii-calc.DerivedClassHasNoProperties": "jsii_calc.derived_class_has_no_properties",
+    "jsii-calc.InterfaceInNamespaceIncludesClasses": "jsii_calc.interface_in_namespace_includes_classes",
+    "jsii-calc.InterfaceInNamespaceOnlyInterface": "jsii_calc.interface_in_namespace_only_interface",
+    "jsii-calc.PythonSelf": "jsii_calc.python_self",
+    "jsii-calc.anonymous": "jsii_calc.anonymous",
+    "jsii-calc.cdk16625": "jsii_calc.cdk16625",
+    "jsii-calc.cdk16625.donotimport": "jsii_calc.cdk16625.donotimport",
+    "jsii-calc.cdk22369": "jsii_calc.cdk22369",
+    "jsii-calc.composition": "jsii_calc.composition",
+    "jsii-calc.covariantOverrides": "jsii_calc.covariant_overrides",
+    "jsii-calc.covariantOverrides.classOverrides": "jsii_calc.covariant_overrides.class_overrides",
+    "jsii-calc.homonymousForwardReferences": "jsii_calc.homonymous_forward_references",
+    "jsii-calc.homonymousForwardReferences.bar": "jsii_calc.homonymous_forward_references.bar",
+    "jsii-calc.homonymousForwardReferences.foo": "jsii_calc.homonymous_forward_references.foo",
+    "jsii-calc.intersection": "jsii_calc.intersection",
+    "jsii-calc.jsii3656": "jsii_calc.jsii3656",
+    "jsii-calc.jsii4894": "jsii_calc.jsii4894",
+    "jsii-calc.module2530": "jsii_calc.module2530",
+    "jsii-calc.module2617": "jsii_calc.module2617",
+    "jsii-calc.module2647": "jsii_calc.module2647",
+    "jsii-calc.module2689": "jsii_calc.module2689",
+    "jsii-calc.module2689.methods": "jsii_calc.module2689.methods",
+    "jsii-calc.module2689.props": "jsii_calc.module2689.props",
+    "jsii-calc.module2689.retval": "jsii_calc.module2689.retval",
+    "jsii-calc.module2689.structs": "jsii_calc.module2689.structs",
+    "jsii-calc.module2692": "jsii_calc.module2692",
+    "jsii-calc.module2692.submodule1": "jsii_calc.module2692.submodule1",
+    "jsii-calc.module2692.submodule2": "jsii_calc.module2692.submodule2",
+    "jsii-calc.module2700": "jsii_calc.module2700",
+    "jsii-calc.module2702": "jsii_calc.module2702",
+    "jsii-calc.nodirect": "jsii_calc.nodirect",
+    "jsii-calc.nodirect.sub1": "jsii_calc.nodirect.sub1",
+    "jsii-calc.nodirect.sub2": "jsii_calc.nodirect.sub2",
+    "jsii-calc.onlystatic": "jsii_calc.onlystatic",
+    "jsii-calc.pascalCaseName": "jsii_calc.pascal_case_name",
+    "jsii-calc.submodule": "jsii_calc.submodule",
+    "jsii-calc.submodule.back_references": "jsii_calc.submodule.back_references",
+    "jsii-calc.submodule.child": "jsii_calc.submodule.child",
+    "jsii-calc.submodule.isolated": "jsii_calc.submodule.isolated",
+    "jsii-calc.submodule.nested_submodule": "jsii_calc.submodule.nested_submodule",
+    "jsii-calc.submodule.nested_submodule.deeplyNested": "jsii_calc.submodule.nested_submodule.deeply_nested",
+    "jsii-calc.submodule.param": "jsii_calc.submodule.param",
+    "jsii-calc.submodule.returnsparam": "jsii_calc.submodule.returnsparam",
+    "jsii-calc.union": "jsii_calc.union",
+}
 
 __all__ = [
     "__jsii_assembly__",

@@ -16,6 +16,12 @@ _interfaces: MutableMapping[str, Any] = {}
 # of lazily-loaded submodules when the kernel returns an unknown type.
 _assembly_to_module: MutableMapping[str, str] = {}
 
+# Mapping from submodule FQN to Python module path, populated by
+# JSIIAssembly.load() from the _SUBMODULE_FQN_MAP emitted by jsii-pacmak.
+# This allows deterministic resolution of FQNs to Python modules even when
+# submodules have custom Python target names.
+_submodule_fqn_map: MutableMapping[str, str] = {}
+
 
 def register_type(klass: Type):
     _types[klass.__jsii_type__] = klass
@@ -42,9 +48,10 @@ def _try_import_type_module(class_fqn: str) -> bool:
     lives in an unloaded submodule), this function triggers the import so that
     the type self-registers with the runtime.
 
-    The FQN format is: ``assembly_name.submodule.path.TypeName``
-    We strip the type name (last dot-separated component) and try to import
-    progressively shorter module paths until one succeeds.
+    Resolution uses the ``_submodule_fqn_map`` (populated at assembly load time
+    from the code-generated ``_SUBMODULE_FQN_MAP`` dict) to deterministically
+    find the correct Python module for any FQN, even when submodules have custom
+    Python target names that differ from the FQN structure.
 
     Returns True if an import was successfully triggered, False otherwise.
     """
@@ -53,24 +60,35 @@ def _try_import_type_module(class_fqn: str) -> bool:
     if len(parts) < 2:
         return False
 
-    # The first component is the assembly name
+    # The first component is the assembly name (may contain special chars for
+    # scoped packages, but the FQN uses it as-is).
     assembly_name = parts[0]
     root_module = _assembly_to_module.get(assembly_name)
     if root_module is None:
         return False
 
-    # Try importing submodule paths from most specific to least specific
-    # e.g. for "jsii-calc.cdk16625.donotimport.MyType":
-    #   try: jsii_calc.cdk16625.donotimport
-    #   try: jsii_calc.cdk16625
-    submodule_parts = parts[1:]  # Remove assembly name
-    for depth in range(len(submodule_parts), 0, -1):
-        module_path = f"{root_module}.{'.'.join(submodule_parts[:depth])}"
-        try:
-            importlib.import_module(module_path)
-            return True
-        except (ImportError, ModuleNotFoundError):
-            continue
+    # Strategy 1: Use the submodule FQN map for deterministic resolution.
+    # Walk from most-specific to least-specific prefix of the FQN to find
+    # the containing submodule. We skip the last component (always a type name)
+    # and the first component (the assembly name).
+    if _submodule_fqn_map:
+        for depth in range(len(parts) - 1, 1, -1):
+            candidate_fqn = ".".join(parts[:depth])
+            python_module = _submodule_fqn_map.get(candidate_fqn)
+            if python_module is not None:
+                try:
+                    importlib.import_module(python_module)
+                    return True
+                except (ImportError, ModuleNotFoundError):
+                    continue
+
+    # Strategy 2: Fall back to importing the root module itself.
+    # The type might live at the assembly root (no submodule).
+    try:
+        importlib.import_module(root_module)
+        return True
+    except (ImportError, ModuleNotFoundError):
+        pass
 
     return False
 

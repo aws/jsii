@@ -1863,6 +1863,11 @@ class PythonModule implements PythonType {
         ],
         ')',
       );
+
+      // Emit a mapping from submodule FQNs to their Python module paths.
+      // This is used by the runtime to deterministically resolve types from
+      // lazily-loaded submodules without relying on FQN-to-path heuristics.
+      this.emitSubmoduleFqnMap(code);
     } else {
       // Then we must import the ._jsii subpackage.
       code.line();
@@ -2147,6 +2152,34 @@ class PythonModule implements PythonType {
         code.line(`import ${moduleName}`);
       }
     }
+  }
+
+  /**
+   * Emit a mapping from submodule FQNs to their Python module paths.
+   *
+   * This allows the Python runtime to deterministically resolve a jsii FQN
+   * to the correct Python module to import, even when submodules have custom
+   * Python target names that don't match the FQN structure.
+   */
+  private emitSubmoduleFqnMap(code: CodeMaker) {
+    const submodules = this.assembly.submodules;
+    if (submodules == null || Object.keys(submodules).length === 0) {
+      return;
+    }
+
+    // Build the mapping: submodule FQN -> Python module path
+    const entries: Array<[string, string]> = [];
+    for (const fqn of Object.keys(submodules).sort()) {
+      const pythonModule = toPackageName(fqn, this.assembly);
+      entries.push([fqn, pythonModule]);
+    }
+
+    code.line();
+    code.indent('_SUBMODULE_FQN_MAP = {');
+    for (const [fqn, pythonModule] of entries) {
+      code.line(`${JSON.stringify(fqn)}: ${JSON.stringify(pythonModule)},`);
+    }
+    code.unindent('}');
   }
 
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
