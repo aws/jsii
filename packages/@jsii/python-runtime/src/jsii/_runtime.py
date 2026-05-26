@@ -63,7 +63,11 @@ class JSIIAssembly:
         # Python module paths without relying on naming heuristics.
         jsii_module = sys.modules.get(f"{assembly.module}._jsii")
         if jsii_module is not None:
-            fqn_map = getattr(jsii_module, "_SUBMODULE_FQN_MAP", None)
+            # _SUBMODULE_FQN_MAP is defined before JSIIAssembly.load() is called,
+            # so it's available on the module (or its _private backing module if
+            # publication.publish() has already run).
+            private = getattr(jsii_module, "_private", jsii_module)
+            fqn_map = getattr(private, "_SUBMODULE_FQN_MAP", None)
             if fqn_map is not None:
                 _reference_map._submodule_fqn_map.update(fqn_map)
 

@@ -2185,14 +2185,14 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
 import scope.jsii_calc_base._jsii
 import scope.jsii_calc_base_of_base._jsii
 
-__jsii_assembly__ = jsii.JSIIAssembly.load(
-    "@scope/jsii-calc-lib", "0.0.0", __name__[0:-6], "jsii-calc-lib@0.0.0.jsii.tgz"
-)
-
 _SUBMODULE_FQN_MAP = {
     "@scope/jsii-calc-lib.deprecationRemoval": "scope.jsii_calc_lib.deprecation_removal",
     "@scope/jsii-calc-lib.submodule": "scope.jsii_calc_lib.custom_submodule_name",
 }
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "@scope/jsii-calc-lib", "0.0.0", __name__[0:-6], "jsii-calc-lib@0.0.0.jsii.tgz"
+)
 
 __all__ = [
     "__jsii_assembly__",
@@ -12350,10 +12350,6 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
 import scope.jsii_calc_base._jsii
 import scope.jsii_calc_lib._jsii
 
-__jsii_assembly__ = jsii.JSIIAssembly.load(
-    "jsii-calc", "3.20.120", __name__[0:-6], "jsii-calc@3.20.120.jsii.tgz"
-)
-
 _SUBMODULE_FQN_MAP = {
     "jsii-calc.DerivedClassHasNoProperties": "jsii_calc.derived_class_has_no_properties",
     "jsii-calc.InterfaceInNamespaceIncludesClasses": "jsii_calc.interface_in_namespace_includes_classes",
@@ -12400,6 +12396,10 @@ _SUBMODULE_FQN_MAP = {
     "jsii-calc.submodule.returnsparam": "jsii_calc.submodule.returnsparam",
     "jsii-calc.union": "jsii_calc.union",
 }
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "jsii-calc", "3.20.120", __name__[0:-6], "jsii-calc@3.20.120.jsii.tgz"
+)
 
 __all__ = [
     "__jsii_assembly__",

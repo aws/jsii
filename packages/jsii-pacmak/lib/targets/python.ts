@@ -1851,6 +1851,10 @@ class PythonModule implements PythonType {
     if (this.loadAssembly) {
       this.emitDependencyImports(code);
 
+      // Emit the submodule FQN map BEFORE loading the assembly, so it's
+      // available when JSIIAssembly.load() registers it with the runtime.
+      this.emitSubmoduleFqnMap(code);
+
       code.line();
       emitList(
         code,
@@ -1863,11 +1867,6 @@ class PythonModule implements PythonType {
         ],
         ')',
       );
-
-      // Emit a mapping from submodule FQNs to their Python module paths.
-      // This is used by the runtime to deterministically resolve types from
-      // lazily-loaded submodules without relying on FQN-to-path heuristics.
-      this.emitSubmoduleFqnMap(code);
     } else {
       // Then we must import the ._jsii subpackage.
       code.line();
