@@ -25,6 +25,8 @@ import {
   toTypeName,
   PythonImports,
   mergePythonImports,
+  subtractPythonImports,
+  hasImports,
   toPackageName,
   toPythonFqn,
   IntersectionTypesRegistry,
@@ -432,6 +434,12 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return mergePythonImports(
       ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
       ...this.members.map((mem) => mem.requiredImports(context)),
+    );
+  }
+
+  public runtimeRequiredImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
     );
   }
 
@@ -1513,6 +1521,15 @@ class Class extends BasePythonClassType implements ISortableType {
     );
   }
 
+  public runtimeRequiredImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      super.runtimeRequiredImports(context),
+      ...this.interfaces.map((iface) =>
+        toTypeName(iface).requiredImports(context),
+      ),
+    );
+  }
+
   public emit(code: CodeMaker, context: EmitContext) {
     // First we emit our implments decorator
     if (this.interfaces.length > 0) {
@@ -2182,8 +2199,46 @@ class PythonModule implements PythonType {
   }
 
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
-    const requiredImports = this.requiredImports(context);
-    const statements = Object.entries(requiredImports)
+    const allImports = this.requiredImports(context);
+
+    if (!context.runtimeTypeChecking) {
+      // Collect runtime-required imports from members that implement runtimeRequiredImports
+      const runtimeImports = mergePythonImports(
+        ...this.members
+          .filter(
+            (
+              m,
+            ): m is PythonBase & {
+              runtimeRequiredImports(context: EmitContext): PythonImports;
+            } => 'runtimeRequiredImports' in m,
+          )
+          .map((m) => m.runtimeRequiredImports(context)),
+      );
+
+      // Compute annotation-only imports via set subtraction
+      const annotationOnlyImports = subtractPythonImports(
+        allImports,
+        runtimeImports,
+      );
+
+      // Emit runtime imports at top level
+      this.emitImportStatements(code, runtimeImports);
+
+      // Emit annotation-only imports in TYPE_CHECKING block
+      if (hasImports(annotationOnlyImports)) {
+        code.line();
+        code.openBlock('if typing.TYPE_CHECKING');
+        this.emitImportStatements(code, annotationOnlyImports);
+        code.closeBlock();
+      }
+    } else {
+      // When runtime type checking is enabled, emit all imports at top level
+      this.emitImportStatements(code, allImports);
+    }
+  }
+
+  private emitImportStatements(code: CodeMaker, imports: PythonImports) {
+    const statements = Object.entries(imports)
       .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
       .reduce(
         (acc, elt) => [...acc, ...elt],
