@@ -1091,7 +1091,7 @@ def test_return_subclass_that_implements_interface_976():
 def test_return_subclass_that_implements_interface_976_raises_attributeerror_when_using_non_existent_method():
     obj = SomeTypeJsii976.return_return()
     try:
-        print(obj.not_a_real_method_I_swear)  # type:ignore
+        print(obj.not_a_real_method_I_swear)  # type: ignore
         failed = False
     except AttributeError as err:
         failed = True
@@ -1359,3 +1359,55 @@ def test_void_returning_async():
     assert PromiseNothing().instance_promise_it() is None
     ## TODO: This is currently broken as code-gen is incorrect for static async.
     # assert PromiseNothing.promise_it() is None
+
+
+def test_lazy_submodule_access():
+    """Verifies that submodules can be accessed as attributes without explicit import.
+
+    With PEP 562 lazy loading, submodules are loaded on first attribute access
+    rather than eagerly at package import time. This test verifies that accessing
+    a submodule attribute triggers the lazy load correctly.
+    """
+    import jsii_calc
+
+    # Access a submodule as an attribute — this triggers __getattr__ / lazy load
+    submod = jsii_calc.submodule
+    assert submod is not None
+
+    # Verify we can access types within the lazily-loaded submodule
+    from jsii_calc.submodule.child import SomeEnum as LazyEnum
+
+    assert LazyEnum.SOME is not None
+
+
+def test_lazy_submodule_dir_includes_submodules():
+    """Verifies that dir() on a module includes submodule names.
+
+    The __dir__ function should report submodule names so that tab-completion
+    and introspection tools can discover them without importing them.
+    """
+    import jsii_calc
+
+    members = dir(jsii_calc)
+    # These are submodules that should be discoverable
+    assert "submodule" in members
+    assert "composition" in members
+    assert "cdk16625" in members
+
+
+def test_custom_named_submodule_types_resolve():
+    """Verifies that types from submodules with custom Python names work correctly.
+
+    The @scope/jsii-calc-lib.submodule is mapped to the Python module
+    scope.jsii_calc_lib.custom_submodule_name. This test verifies that types
+    from such custom-named submodules can be used and resolved properly.
+    """
+    from scope.jsii_calc_lib.custom_submodule_name import Reflector, IReflectable
+
+    # Verify the types are usable
+    assert Reflector is not None
+    assert IReflectable is not None
+
+    # Create an instance to verify the type works end-to-end through the kernel
+    reflector = Reflector()
+    assert reflector is not None

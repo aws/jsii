@@ -22,7 +22,6 @@ from ._compat import importlib_resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
 
-
 # Yea, a global here is kind of gross, however, there's not really a better way of
 # handling this. Fundamentally this is a global value, since we can only reasonably
 # have a single kernel active at any one time in a real program.
@@ -53,6 +52,24 @@ class JSIIAssembly:
             )
         ) as assembly_path:
             _kernel.load(assembly.name, assembly.version, os.fspath(assembly_path))
+
+        # Register the assembly-to-module mapping so the runtime can resolve
+        # types from lazily-loaded submodules by importing them on demand.
+        _reference_map._assembly_to_module[assembly.name] = assembly.module
+
+        # If the generated _jsii package provides a submodule FQN map (emitted
+        # by jsii-pacmak >= the version that introduced lazy loading support),
+        # register it so the runtime can deterministically resolve FQNs to
+        # Python module paths without relying on naming heuristics.
+        jsii_module = sys.modules.get(f"{assembly.module}._jsii")
+        if jsii_module is not None:
+            # _SUBMODULE_FQN_MAP is defined before JSIIAssembly.load() is called,
+            # so it's available on the module (or its _private backing module if
+            # publication.publish() has already run).
+            private = getattr(jsii_module, "_private", jsii_module)
+            fqn_map = getattr(private, "_SUBMODULE_FQN_MAP", None)
+            if fqn_map is not None:
+                _reference_map._submodule_fqn_map.update(fqn_map)
 
         # Give our record of the assembly back to the caller.
         return assembly
