@@ -152,6 +152,39 @@ export function mergePythonImports(
   return result;
 }
 
+/**
+ * Subtract one PythonImports set from another.
+ * Returns imports that are in `all` but not in `runtime`.
+ * If all items for a package are subtracted, the package is omitted entirely.
+ */
+export function subtractPythonImports(
+  all: PythonImports,
+  runtime: PythonImports,
+): PythonImports {
+  const result: Record<string, Set<string>> = {};
+  for (const [pkg, items] of Object.entries(all)) {
+    const runtimeItems = runtime[pkg];
+    if (runtimeItems == null) {
+      result[pkg] = new Set(items);
+    } else {
+      const remaining = new Set(
+        [...items].filter((item) => !runtimeItems.has(item)),
+      );
+      if (remaining.size > 0) {
+        result[pkg] = remaining;
+      }
+    }
+  }
+  return result;
+}
+
+/**
+ * Check if a PythonImports object has any entries.
+ */
+export function hasImports(imports: PythonImports): boolean {
+  return Object.keys(imports).length > 0;
+}
+
 function isOptionalValue(
   type: OptionalValue | TypeReference,
 ): type is OptionalValue {
