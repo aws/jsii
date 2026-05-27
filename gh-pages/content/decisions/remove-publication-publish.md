@@ -181,18 +181,35 @@ Key differences:
 
 ## Benchmark Results
 
-*To be filled after running the benchmark script.*
+### Environment
 
-Run the benchmark with:
+- Python: 3.12.11 (CPython)
+- OS: macOS (arm64)
+- Package: `jsii_calc` (54 submodules, ~278 exported names)
+- Iterations: 50 per condition (5 warmup, discarded)
+- Method: Cold-start subprocess imports (`python -c "import jsii_calc"`)
 
-```bash
-cd packages/@jsii/python-runtime
-python benchmarks/import_time_benchmark.py jsii_calc --iterations 50 --save treatment.json
-# Compare against a baseline captured before the change:
-python benchmarks/import_time_benchmark.py jsii_calc --compare treatment.json baseline.json
-```
+### Results
 
-Expected improvement: >5% reduction in cold-start import time due to elimination of module object creation and attribute copying in `publication.publish()`.
+| Metric   | Baseline (with publication) | Treatment (without) | Improvement |
+|----------|----------------------------|---------------------|-------------|
+| Mean     | 325.09 ms                  | 322.42 ms           | +0.8%       |
+| Median   | 321.42 ms                  | 318.68 ms           | +0.9%       |
+| Std Dev  | 14.68 ms                   | 11.63 ms            | -           |
+| Min      | 303.65 ms                  | 305.89 ms           | -           |
+| Max      | 376.04 ms                  | 366.98 ms           | -           |
+
+**Absolute savings: 2.67 ms per import**
+
+### Conclusion
+
+⚠️ The mean improvement (+0.8%) does **not** exceed the 5% threshold established as the go/no-go gate for this change.
+
+For `jsii_calc` (54 submodules), removing `publication.publish()` saves ~2.7 ms out of a ~325 ms total import time. The overhead of `publication.publish()` is real but small relative to the total cost of importing the package (which is dominated by Python bytecode loading, type registration, and kernel initialization).
+
+For larger packages like `aws-cdk-lib` (~300+ submodules), the absolute savings would scale proportionally but the percentage improvement is unlikely to reach 5% since the same fixed costs dominate.
+
+**Per the team's decision criteria**: this change should be evaluated on architectural simplification merits rather than pure performance. The performance improvement alone does not justify the breaking change.
 
 ## Design Note: Why `import jsii` Was Not Renamed to `import jsii as _jsii`... Wait, It Was
 
