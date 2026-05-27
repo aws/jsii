@@ -1163,7 +1163,7 @@ class Interface extends BasePythonClassType {
       toTypeName(b).pythonType('decl', context),
     );
 
-    params.push('typing_extensions.Protocol');
+    params.push('_typing_extensions.Protocol');
 
     return params;
   }
@@ -1803,8 +1803,7 @@ class PythonModule implements PythonType {
     code.line('import typing');
     code.line();
     code.line('import jsii');
-    code.line('import publication');
-    code.line('import typing_extensions');
+    code.line('import typing_extensions as _typing_extensions');
     code.line();
 
     code.line('import typeguard');
@@ -1892,14 +1891,8 @@ class PythonModule implements PythonType {
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
     //
-    // __all__ is normally used for when users write `from library import *`, but we also
-    // use it with the `publication` module to hide everything that's NOT in the list.
-    //
-    // Normally adding submodules to `__all__` has the (negative?) side-effect
-    // that all submodules get loaded when the user does `import *`, but we
-    // already load submodules anyway so it doesn't make a difference, and in combination
-    // with the `publication` module NOT having them in this list hides any submodules
-    // we import as part of typechecking.
+    // __all__ is used for when users write `from library import *`, and also
+    // signals which names are part of the public API.
     const exportedMembers = [
       ...this.members.map((m) => `"${m.pythonName}"`),
       ...this.modules
@@ -1952,15 +1945,7 @@ class PythonModule implements PythonType {
       code.closeBlock();
     }
 
-    // Next up, we'll use publication to ensure that all of the non-public names
-    // get hidden from dir(), tab-complete, etc.
-    code.line();
-    code.line('publication.publish()');
-
-    // Finally, we'll set up lazy loading for all registered python modules.
-    // We define __getattr__ and __dir__ and then install them on the public
-    // module (the one publication.publish() placed in sys.modules) so that
-    // lazy attribute access works through the publication barrier.
+    // Set up lazy loading for all registered python modules.
     if (this.modules.length > 0) {
       code.line();
       // Build sorted list of submodule short names
@@ -1996,19 +1981,6 @@ class PythonModule implements PythonType {
       code.openBlock('def __dir__() -> "list[str]"');
       code.line('return [*__all__, *_SUBMODULES]');
       code.closeBlock();
-      code.line();
-
-      // Install __getattr__ and __dir__ on the public module that
-      // publication.publish() placed in sys.modules. publication replaces
-      // the module object but doesn't copy __getattr__/__dir__, so without
-      // this, attribute access like `pkg.submodule` would raise AttributeError.
-      //
-      // We use setattr() instead of direct assignment because mypy treats
-      // __getattr__ and __dir__ as special methods on ModuleType and rejects
-      // direct assignment with "Cannot assign to a method [method-assign]".
-      code.line('import sys as _sys');
-      code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
-      code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
     context.typeCheckingHelper.flushStubs(code);
@@ -2381,7 +2353,6 @@ class Package {
       python_requires: '~=3.10',
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
-        'publication>=0.0.3',
         `typeguard==${typeguardVersion}`,
       ]
         .concat(dependencies)

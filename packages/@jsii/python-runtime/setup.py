@@ -37,7 +37,6 @@ setuptools.setup(
         "attrs>=21.2,<26.0",
         "cattrs>=1.8,<25.4",
         "importlib_resources>=5.2.0",
-        "publication>=0.0.3",  # This is used by all generated code.
         f"typeguard=={TYPEGUARD_VERSION}",
         "python-dateutil",
         "typing_extensions>=3.8,<5.0",

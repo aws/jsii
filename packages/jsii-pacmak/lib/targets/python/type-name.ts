@@ -583,7 +583,7 @@ export class IntersectionTypesRegistry {
     for (const [name, types] of this.types.entries()) {
       code.line('');
       code.line(
-        `class ${name}(${types.join(', ')}, typing_extensions.Protocol):`,
+        `class ${name}(${types.join(', ')}, _typing_extensions.Protocol):`,
       );
       code.line('    pass');
     }

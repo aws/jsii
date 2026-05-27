@@ -1269,7 +1269,6 @@ kwargs = json.loads(
     "python_requires": "~=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
         "typeguard==2.13.3"
     ],
     "classifiers": [
@@ -1307,8 +1306,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -1500,8 +1498,6 @@ __all__ = [
     "FooBar",
 ]
 
-publication.publish()
-
 def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
     *,
     foo: jsii.Number,
@@ -1539,8 +1535,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -1566,8 +1561,6 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
 __all__ = [
     "__jsii_assembly__",
 ]
-
-publication.publish()
 
 `;
 
@@ -2715,7 +2708,6 @@ kwargs = json.loads(
     "python_requires": "~=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
         "typeguard==2.13.3"
     ],
     "classifiers": [
@@ -2753,8 +2745,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -2819,7 +2810,7 @@ class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             )
 
     @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
-    class IBar(typing_extensions.Protocol):
+    class IBar(_typing_extensions.Protocol):
         @builtins.property
         @jsii.member(jsii_name="bar")
         def bar(self) -> builtins.str:
@@ -2873,8 +2864,6 @@ __all__ = [
     "Namespace2",
 ]
 
-publication.publish()
-
 def _typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9(
     *,
     bar: builtins.str,
@@ -2895,8 +2884,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -2922,8 +2910,6 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
 __all__ = [
     "__jsii_assembly__",
 ]
-
-publication.publish()
 
 `;
 

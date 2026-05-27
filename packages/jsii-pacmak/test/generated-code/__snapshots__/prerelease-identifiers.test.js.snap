@@ -458,7 +458,6 @@ kwargs = json.loads(
     "install_requires": [
         "bar>=2.0.0.rc42, <3.0.0",
         "jsii<0.0.1",
-        "publication>=0.0.3",
         "typeguard==2.13.3"
     ],
     "classifiers": [
@@ -495,8 +494,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -524,8 +522,6 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
 __all__ = [
     "__jsii_assembly__",
 ]
-
-publication.publish()
 
 `;
 
@@ -989,7 +985,6 @@ kwargs = json.loads(
     "install_requires": [
         "bar>=4.5.6.dev1337, <5.0.0",
         "jsii<0.0.1",
-        "publication>=0.0.3",
         "typeguard==2.13.3"
     ],
     "classifiers": [
@@ -1026,8 +1021,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -1055,8 +1049,6 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
 __all__ = [
     "__jsii_assembly__",
 ]
-
-publication.publish()
 
 `;
 
@@ -1499,7 +1491,6 @@ kwargs = json.loads(
     "python_requires": "~=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
         "typeguard==2.13.3"
     ],
     "classifiers": [
@@ -1536,8 +1527,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -1563,8 +1553,6 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
 __all__ = [
     "__jsii_assembly__",
 ]
-
-publication.publish()
 
 `;
 
@@ -2007,7 +1995,6 @@ kwargs = json.loads(
     "python_requires": "~=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
         "typeguard==2.13.3"
     ],
     "classifiers": [
@@ -2044,8 +2031,7 @@ import enum
 import typing
 
 import jsii
-import publication
-import typing_extensions
+import typing_extensions as _typing_extensions
 
 import typeguard
 from importlib.metadata import version as _metadata_package_version
@@ -2071,8 +2057,6 @@ __jsii_assembly__ = jsii.JSIIAssembly.load(
 __all__ = [
     "__jsii_assembly__",
 ]
-
-publication.publish()
 
 `;
 
