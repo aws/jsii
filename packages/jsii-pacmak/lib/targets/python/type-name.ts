@@ -431,20 +431,18 @@ class UserType implements TypeName {
         .split('.');
       const aliasSuffix = createHash('sha256')
         .update(typeSubmodulePythonName)
-        .update('.')
-        .update(toImport)
+        .update('.*')
         .digest('hex')
         .substring(0, 8);
-      const alias = `_${toImport}_${aliasSuffix}`;
+      const moduleAlias = `_${lastComponent(typeSubmodulePythonName)}_${aliasSuffix}`;
 
       return {
-        pythonType: wrapType([alias, ...nested].join('.')),
+        pythonType: wrapType(
+          `${moduleAlias}.${toImport}${nested.length > 0 ? `.${nested.join('.')}` : ''}`,
+        ),
         requiredImport: {
-          sourcePackage: relativeImportPath(
-            submodulePythonName,
-            typeSubmodulePythonName,
-          ),
-          item: `${toImport} as ${alias}`,
+          sourcePackage: `${typeSubmodulePythonName} as ${moduleAlias}`,
+          item: '',
         },
       };
 
@@ -521,7 +519,7 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
  *  relativeImportPath('A.B.C', 'A.B')     === '..';
  *  relativeImportPath('A.B', 'A.B.C')     === '.C';
  */
-function relativeImportPath(fromPkg: string, toPkg: string): string {
+export function relativeImportPath(fromPkg: string, toPkg: string): string {
   if (toPkg.startsWith(fromPkg)) {
     // from A.B to A.B.C === .C
     return `.${toPkg.substring(fromPkg.length + 1)}`;

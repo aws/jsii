@@ -206,11 +206,9 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local, Submodule)',
       input: { fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}` },
-      pythonType: `"_${SUBMODULE_TYPE}_72dbc9ef"`,
+      pythonType: `"_submodule_b81e7cf1.${SUBMODULE_TYPE}"`,
       requiredImports: {
-        '.submodule': new Set([
-          `${SUBMODULE_TYPE} as _${SUBMODULE_TYPE}_72dbc9ef`,
-        ]),
+        [`${LOCAL_MODULE}.submodule as _submodule_b81e7cf1`]: new Set(['']),
       },
     },
     {
@@ -218,11 +216,9 @@ describe(toTypeName, () => {
       input: {
         fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}`,
       },
-      pythonType: `"_${SUBMODULE_TYPE}_72dbc9ef.${SUBMODULE_NESTED_TYPE}"`,
+      pythonType: `"_submodule_b81e7cf1.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}"`,
       requiredImports: {
-        '.submodule': new Set([
-          `${SUBMODULE_TYPE} as _${SUBMODULE_TYPE}_72dbc9ef`,
-        ]),
+        [`${LOCAL_MODULE}.submodule as _submodule_b81e7cf1`]: new Set(['']),
       },
     },
     {
@@ -238,11 +234,9 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local, Parent)',
       input: { fqn: `${assembly.name}.other.${OTHER_SUBMODULE_TYPE}` },
-      pythonType: `"_${OTHER_SUBMODULE_TYPE}_78b5948e"`,
+      pythonType: `"_other_d480fe3b.${OTHER_SUBMODULE_TYPE}"`,
       requiredImports: {
-        '..other': new Set([
-          `${OTHER_SUBMODULE_TYPE} as _${OTHER_SUBMODULE_TYPE}_78b5948e`,
-        ]),
+        [`${LOCAL_MODULE}.other as _other_d480fe3b`]: new Set(['']),
       },
       inSubmodule: `${assembly.name}.submodule`,
     },
