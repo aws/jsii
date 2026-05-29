@@ -454,7 +454,7 @@ kwargs = json.loads(
             "foo@1.2.3.jsii.tgz"
         ]
     },
-    "python_requires": "~=3.10",
+    "python_requires": ">=3.10",
     "install_requires": [
         "bar>=2.0.0.rc42, <3.0.0",
         "jsii<0.0.1",
@@ -466,9 +466,11 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Typing :: Typed"
     ],
     "scripts": []
@@ -985,7 +987,7 @@ kwargs = json.loads(
             "foo@1.2.3.jsii.tgz"
         ]
     },
-    "python_requires": "~=3.10",
+    "python_requires": ">=3.10",
     "install_requires": [
         "bar>=4.5.6.dev1337, <5.0.0",
         "jsii<0.0.1",
@@ -997,9 +999,11 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Typing :: Typed"
     ],
     "scripts": []
@@ -1496,7 +1500,7 @@ kwargs = json.loads(
             "foo@2.0.0-rc.42.jsii.tgz"
         ]
     },
-    "python_requires": "~=3.10",
+    "python_requires": ">=3.10",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -1507,9 +1511,11 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Typing :: Typed"
     ],
     "scripts": []
@@ -2004,7 +2010,7 @@ kwargs = json.loads(
             "foo@4.5.6-pre.1337.jsii.tgz"
         ]
     },
-    "python_requires": "~=3.10",
+    "python_requires": ">=3.10",
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
@@ -2015,9 +2021,11 @@ kwargs = json.loads(
         "Operating System :: OS Independent",
         "Programming Language :: JavaScript",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Typing :: Typed"
     ],
     "scripts": []

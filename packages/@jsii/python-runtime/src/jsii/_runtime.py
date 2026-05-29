@@ -18,7 +18,7 @@ from typing import (
 )
 
 from . import _reference_map
-from ._compat import importlib_resources
+import importlib.resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
 
@@ -46,8 +46,8 @@ class JSIIAssembly:
         # importlib.resources API here instead of manually constructing the path, in
         # the hopes that this will make JSII modules able to be used with zipimport
         # instead of only on the FS.
-        with importlib_resources.as_file(
-            importlib_resources.files(f"{assembly.module}._jsii").joinpath(
+        with importlib.resources.as_file(
+            importlib.resources.files(f"{assembly.module}._jsii").joinpath(
                 assembly.filename
             )
         ) as assembly_path:
