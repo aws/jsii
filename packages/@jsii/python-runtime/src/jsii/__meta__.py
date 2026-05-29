@@ -1,10 +1,10 @@
 import json
 
-from ._compat import importlib_resources
+import importlib.resources
 
 # Load our version number and other metadata.
 _meta = json.loads(
-    importlib_resources.files("jsii").joinpath("_metadata.json").read_text()
+    importlib.resources.files("jsii").joinpath("_metadata.json").read_text()
 )
 
 __version__ = _meta["version"]
