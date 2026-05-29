@@ -94,6 +94,8 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>\${jetbrains-annotations.version}</version>
+            <!-- Compile-only: CLASS/SOURCE retention, no runtime behavior, not needed in consumers' runtime closure -->
+            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
