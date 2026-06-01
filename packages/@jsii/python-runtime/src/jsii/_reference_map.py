@@ -1,14 +1,25 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
+import importlib
 import inspect
 
 from typing import Any, Iterable, List, Mapping, MutableMapping, Type
 from ._kernel.types import ObjRef
 
-
 _types = {}
 _data_types: MutableMapping[str, Any] = {}
 _enums: MutableMapping[str, Any] = {}
 _interfaces: MutableMapping[str, Any] = {}
+
+# Mapping from jsii assembly name to Python root module name, populated by
+# JSIIAssembly.load() so that on-demand type resolution can trigger imports
+# of lazily-loaded submodules when the kernel returns an unknown type.
+_assembly_to_module: MutableMapping[str, str] = {}
+
+# Mapping from submodule FQN to Python module path, populated by
+# JSIIAssembly.load() from the _SUBMODULE_FQN_MAP emitted by jsii-pacmak.
+# This allows deterministic resolution of FQNs to Python modules even when
+# submodules have custom Python target names.
+_submodule_fqn_map: MutableMapping[str, str] = {}
 
 
 def register_type(klass: Type):
@@ -25,6 +36,60 @@ def register_enum(enum_type: Any):
 
 def register_interface(iface: Any):
     _interfaces[iface.__jsii_type__] = iface
+
+
+def _try_import_type_module(class_fqn: str) -> bool:
+    """Attempt to import the Python module containing a jsii type by FQN.
+
+    With PEP 562 lazy loading, submodules are not imported until first attribute
+    access. If the jsii runtime needs to deserialize a type from a submodule
+    that hasn't been imported yet (e.g., a callback returns an object whose type
+    lives in an unloaded submodule), this function triggers the import so that
+    the type self-registers with the runtime.
+
+    Resolution uses the ``_submodule_fqn_map`` (populated at assembly load time
+    from the code-generated ``_SUBMODULE_FQN_MAP`` dict) to deterministically
+    find the correct Python module for any FQN, even when submodules have custom
+    Python target names that differ from the FQN structure.
+
+    Returns True if an import was successfully triggered, False otherwise.
+    """
+    # Split FQN into components: e.g. "jsii-calc.cdk16625.donotimport.MyType"
+    parts = class_fqn.split(".")
+    if len(parts) < 2:
+        return False
+
+    # The first component is the assembly name (may contain special chars for
+    # scoped packages, but the FQN uses it as-is).
+    assembly_name = parts[0]
+    root_module = _assembly_to_module.get(assembly_name)
+    if root_module is None:
+        return False
+
+    # Strategy 1: Use the submodule FQN map for deterministic resolution.
+    # Walk from most-specific to least-specific prefix of the FQN to find
+    # the containing submodule. We skip the last component (always a type name)
+    # and the first component (the assembly name).
+    if _submodule_fqn_map:
+        for depth in range(len(parts) - 1, 1, -1):
+            candidate_fqn = ".".join(parts[:depth])
+            python_module = _submodule_fqn_map.get(candidate_fqn)
+            if python_module is not None:
+                try:
+                    importlib.import_module(python_module)
+                    return True
+                except (ImportError, ModuleNotFoundError):
+                    continue
+
+    # Strategy 2: Fall back to importing the root module itself.
+    # The type might live at the assembly root (no submodule).
+    try:
+        importlib.import_module(root_module)
+        return True
+    except (ImportError, ModuleNotFoundError):
+        pass
+
+    return False
 
 
 class _FakeReference:
@@ -128,6 +193,17 @@ class _ReferenceMap:
             else:
                 return InterfaceDynamicProxy(self.build_interface_proxies_for_ref(ref))
         else:
+            # The type isn't registered yet. With lazy loading, it may live in
+            # a submodule that hasn't been imported. Try importing the module
+            # that should contain this type — importing triggers type
+            # registration as a side effect — then retry the lookup.
+            if _try_import_type_module(class_fqn):
+                if class_fqn in _types:
+                    return self.resolve(kernel, ref)
+                elif class_fqn in _data_types:
+                    return self.resolve(kernel, ref)
+                elif class_fqn in _enums:
+                    return self.resolve(kernel, ref)
             raise ValueError(f"Unknown type: {class_fqn}")
 
     def resolve_id(self, id: str) -> Any:

@@ -22,7 +22,7 @@ import dateutil.parser
 import jsii._embedded.jsii
 
 from ...__meta__ import __jsii_runtime_version__
-from ..._compat import importlib_resources
+import importlib.resources
 from ..._utils import memoized_property
 from .base import BaseProvider
 from ..types import (
@@ -238,7 +238,7 @@ class _NodeProcess:
             pathlib.Path(os.path.dirname(filename)).mkdir(exist_ok=True)
             with open(filename, "wb") as fp:
                 fp.write(
-                    importlib_resources.files(jsii._embedded.jsii)
+                    importlib.resources.files(jsii._embedded.jsii)
                     .joinpath(resname)
                     .read_bytes()
                 )

@@ -1797,6 +1797,9 @@ class PythonModule implements PythonType {
     code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
+    if (this.modules.length > 0) {
+      code.line('import importlib as _importlib');
+    }
     code.line('import typing');
     code.line();
     code.line('import jsii');
@@ -1847,6 +1850,10 @@ class PythonModule implements PythonType {
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
       this.emitDependencyImports(code);
+
+      // Emit the submodule FQN map BEFORE loading the assembly, so it's
+      // available when JSIIAssembly.load() registers it with the runtime.
+      this.emitSubmoduleFqnMap(code);
 
       code.line();
       emitList(
@@ -1920,29 +1927,88 @@ class PythonModule implements PythonType {
       code.line('__all__: typing.List[typing.Any] = []');
     }
 
+    // Emit TYPE_CHECKING block with explicit submodule imports so that
+    // static type checkers (pyright, mypy) can see the submodule names
+    // that are listed in __all__. At runtime TYPE_CHECKING is False,
+    // so these imports don't execute and lazy loading is preserved.
+    if (this.modules.length > 0) {
+      const submoduleNames = this.modules
+        .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
+        .map((module) =>
+          module.pythonName.substring(this.pythonName.length + 1),
+        );
+
+      code.line();
+      code.line(
+        '# Type-checking-only imports for static analyzers (pyright/mypy).',
+      );
+      code.line(
+        '# At runtime TYPE_CHECKING is False, preserving lazy loading.',
+      );
+      code.openBlock('if typing.TYPE_CHECKING');
+      for (const name of submoduleNames) {
+        code.line(`from . import ${name} as ${name}`);
+      }
+      code.closeBlock();
+    }
+
     // Next up, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.
     code.line();
     code.line('publication.publish()');
 
-    // Finally, we'll load all registered python modules
+    // Finally, we'll set up lazy loading for all registered python modules.
+    // We define __getattr__ and __dir__ and then install them on the public
+    // module (the one publication.publish() placed in sys.modules) so that
+    // lazy attribute access works through the publication barrier.
     if (this.modules.length > 0) {
       code.line();
-      code.line(
-        '# Loading modules to ensure their types are registered with the jsii runtime library',
-      );
-      for (const module of this.modules.sort((l, r) =>
-        l.pythonName.localeCompare(r.pythonName),
-      )) {
-        // Rather than generating an absolute import like
-        // "import jsii_calc.submodule" this builds a relative import like
-        // "from . import submodule". This enables distributing python packages
-        // and using the generated modules in the same codebase.
-        const submodule = module.pythonName.substring(
-          this.pythonName.length + 1,
+      // Build sorted list of submodule short names
+      const submoduleNames = this.modules
+        .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
+        .map((module) =>
+          module.pythonName.substring(this.pythonName.length + 1),
         );
-        code.line(`from . import ${submodule}`);
+
+      // Emit _SUBMODULES set
+      code.indent('_SUBMODULES = {');
+      for (const name of submoduleNames) {
+        code.line(`"${name}",`);
       }
+      code.unindent('}');
+      code.line();
+
+      // Emit __getattr__ function
+      code.openBlock('def __getattr__(name: str) -> object');
+      code.openBlock('if name in _SUBMODULES');
+      code.line('mod = _importlib.import_module(f".{name}", __name__)');
+      code.line('globals()[name] = mod');
+      code.line('return mod');
+      code.closeBlock();
+      code.line(
+        'raise AttributeError(f"module {__name__!r} has no attribute {name!r}")',
+      );
+      code.closeBlock();
+      code.line();
+
+      // Emit __dir__ function — quoted return type because pyright flags
+      // bare `list[str]` as a runtime subscript error when pythonVersion < 3.9
+      code.openBlock('def __dir__() -> "list[str]"');
+      code.line('return [*__all__, *_SUBMODULES]');
+      code.closeBlock();
+      code.line();
+
+      // Install __getattr__ and __dir__ on the public module that
+      // publication.publish() placed in sys.modules. publication replaces
+      // the module object but doesn't copy __getattr__/__dir__, so without
+      // this, attribute access like `pkg.submodule` would raise AttributeError.
+      //
+      // We use setattr() instead of direct assignment because mypy treats
+      // __getattr__ and __dir__ as special methods on ModuleType and rejects
+      // direct assignment with "Cannot assign to a method [method-assign]".
+      code.line('import sys as _sys');
+      code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
+      code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
     context.typeCheckingHelper.flushStubs(code);
@@ -2085,6 +2151,34 @@ class PythonModule implements PythonType {
         code.line(`import ${moduleName}`);
       }
     }
+  }
+
+  /**
+   * Emit a mapping from submodule FQNs to their Python module paths.
+   *
+   * This allows the Python runtime to deterministically resolve a jsii FQN
+   * to the correct Python module to import, even when submodules have custom
+   * Python target names that don't match the FQN structure.
+   */
+  private emitSubmoduleFqnMap(code: CodeMaker) {
+    const submodules = this.assembly.submodules;
+    if (submodules == null || Object.keys(submodules).length === 0) {
+      return;
+    }
+
+    // Build the mapping: submodule FQN -> Python module path
+    const entries: Array<[string, string]> = [];
+    for (const fqn of Object.keys(submodules).sort()) {
+      const pythonModule = toPackageName(fqn, this.assembly);
+      entries.push([fqn, pythonModule]);
+    }
+
+    code.line();
+    code.indent('_SUBMODULE_FQN_MAP = {');
+    for (const [fqn, pythonModule] of entries) {
+      code.line(`${JSON.stringify(fqn)}: ${JSON.stringify(pythonModule)},`);
+    }
+    code.unindent('}');
   }
 
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
@@ -2284,7 +2378,7 @@ class Package {
       package_dir: { '': 'src' },
       packages: modules.map((m) => m.pythonName),
       package_data: packageData,
-      python_requires: '~=3.10',
+      python_requires: '>=3.10',
       install_requires: [
         `jsii${toPythonVersionRange(`^${VERSION}`)}`,
         'publication>=0.0.3',
@@ -2297,9 +2391,11 @@ class Package {
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
         'Typing :: Typed',
       ],
       scripts,
