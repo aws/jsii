@@ -40,9 +40,9 @@ def _resolve() -> typing.Callable[..., typing.Any]:
         def _check_type(
             argname: str, value: object, expected_type: typing.Any
         ) -> typing.Any:
-            return typeguard.check_type(
+            return typeguard.check_type(  # type: ignore[call-overload]
                 argname=argname, value=value, expected_type=expected_type
-            )  # type:ignore[call-overload]
+            )
 
     elif major_version == 3:
 
@@ -52,12 +52,12 @@ def _resolve() -> typing.Callable[..., typing.Any]:
             if isinstance(value, InterfaceDynamicProxy):
                 pass
             else:
-                typeguard.config.collection_check_strategy = (
-                    typeguard.CollectionCheckStrategy.ALL_ITEMS
-                )  # type:ignore[attr-defined]
-                typeguard.check_type(
+                typeguard.config.collection_check_strategy = (  # type: ignore[attr-defined]
+                    typeguard.CollectionCheckStrategy.ALL_ITEMS  # type: ignore[attr-defined]
+                )
+                typeguard.check_type(  # type: ignore[call-arg]
                     value=value, expected_type=expected_type
-                )  # type:ignore[call-overload]
+                )
 
     else:
 
@@ -67,10 +67,10 @@ def _resolve() -> typing.Callable[..., typing.Any]:
             if isinstance(value, InterfaceDynamicProxy):
                 pass
             else:
-                typeguard.check_type(
+                typeguard.check_type(  # type: ignore[call-arg]
                     value=value,
                     expected_type=expected_type,
-                    collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS,  # type:ignore[attr-defined]
+                    collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS,  # type: ignore[attr-defined]
                 )
 
     return _check_type
