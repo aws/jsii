@@ -153,32 +153,6 @@ export function mergePythonImports(
 }
 
 /**
- * Subtract one PythonImports set from another.
- * Returns imports that are in `all` but not in `runtime`.
- * If all items for a package are subtracted, the package is omitted entirely.
- */
-export function subtractPythonImports(
-  all: PythonImports,
-  runtime: PythonImports,
-): PythonImports {
-  const result: Record<string, Set<string>> = {};
-  for (const [pkg, items] of Object.entries(all)) {
-    const runtimeItems = runtime[pkg];
-    if (runtimeItems == null) {
-      result[pkg] = new Set(items);
-    } else {
-      const remaining = new Set(
-        [...items].filter((item) => !runtimeItems.has(item)),
-      );
-      if (remaining.size > 0) {
-        result[pkg] = remaining;
-      }
-    }
-  }
-  return result;
-}
-
-/**
  * Check if a PythonImports object has any entries.
  */
 export function hasImports(imports: PythonImports): boolean {
@@ -519,7 +493,7 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
  *  relativeImportPath('A.B.C', 'A.B')     === '..';
  *  relativeImportPath('A.B', 'A.B.C')     === '.C';
  */
-export function relativeImportPath(fromPkg: string, toPkg: string): string {
+function relativeImportPath(fromPkg: string, toPkg: string): string {
   if (toPkg.startsWith(fromPkg)) {
     // from A.B to A.B.C === .C
     return `.${toPkg.substring(fromPkg.length + 1)}`;
