@@ -2143,10 +2143,27 @@ class PythonModule implements PythonType {
    * indicating a full module import. Parses the sourcePackage string which
    * has the format "module.name as _alias" to extract the module name and alias.
    * Sorts assignments by alias for deterministic output.
+   *
+   * NOTE: All current code paths in type-name.ts produce `item: ''` (full
+   * module imports). If a non-empty item is encountered, it means a new import
+   * pattern was introduced without updating this method to handle it at runtime.
    */
   private emitLazyProxyAssignments(code: CodeMaker, imports: PythonImports) {
+    // Verify all imports use the expected full-module pattern (item === '').
+    // If this assertion fires, a new import pattern was added to type-name.ts
+    // that needs a corresponding runtime lazy-loading strategy here.
+    for (const [sourcePackage, items] of Object.entries(imports)) {
+      const nonEmpty = Array.from(items).filter((i) => i !== '');
+      if (nonEmpty.length > 0) {
+        throw new Error(
+          `Unexpected non-empty import items for "${sourcePackage}": [${nonEmpty.join(', ')}]. ` +
+            `emitLazyProxyAssignments only supports full-module imports (empty item). ` +
+            `Update this method to handle per-item imports at runtime.`,
+        );
+      }
+    }
+
     const assignments = Object.entries(imports)
-      .filter(([, items]) => items.has('')) // Only full module imports (empty string = import the whole module)
       .map(([sourcePackage]) => {
         // sourcePackage is like "aws_cdk.aws_iam as _aws_cdk_aws_iam_abcd1234"
         const match = sourcePackage.match(/^(.+)\s+as\s+(.+)$/);

@@ -72,21 +72,13 @@ instead of the full 11-line class definition. Since `jsii` is already imported b
 
 ### 3. [Medium] `emitLazyProxyAssignments` silently drops non-empty items at runtime
 
-**Status: Not a real concern today**
+**Status: FIXED**
 
-The `emitLazyProxyAssignments` method filters with:
+The `emitLazyProxyAssignments` method previously filtered with `.filter(([, items]) => items.has(''))`, which would silently skip any import entry with non-empty items — meaning it would appear in the `TYPE_CHECKING` block for type checkers but have no runtime equivalent.
 
-```typescript
-.filter(([, items]) => items.has(''))
-```
+**Fix:** Replaced the silent filter with an explicit assertion that throws an error if any non-empty items are encountered. This ensures that if a new import pattern is ever introduced in `type-name.ts`, the code generator will fail loudly at build time rather than producing subtly broken runtime code.
 
-If there were ever a `PythonImports` entry with non-empty items (e.g., `from foo import Bar`), it would appear in the `TYPE_CHECKING` block but have **no runtime equivalent** in the `else` branch.
-
-**Verified:** All `requiredImport` entries in `type-name.ts` use `item: ''`. There are exactly two code paths that produce `requiredImport` objects (foreign assembly imports at line 390, same-assembly cross-submodule imports at line 420), and both set `item: ''`. The old per-type import pattern (`item: 'TypeName as _TypeName_hash'`) was completely replaced by the new module-level approach. There is no code path that currently produces non-empty items for cross-module imports.
-
-The `emitImportStatements` method (in the `TYPE_CHECKING` block) does handle both empty and non-empty items correctly, so type checkers would see correct imports regardless.
-
-**Action:** Optional — add a comment in `emitLazyProxyAssignments` noting that only full-module imports (empty item) are expected. Not blocking.
+**Verified:** All current code paths produce `item: ''` (two locations in `type-name.ts`), so the assertion never fires today — it's purely a safety net for future changes.
 
 ---
 
@@ -150,16 +142,13 @@ The review suggests relative imports would work without installation, but:
 
 ### 7. [Low] `_LazyImport` doesn't implement `__repr__`
 
-**Status: Legit, very low priority**
+**Status: FIXED (as part of issue #2 fix)**
 
-If someone inspects the proxy object in a debugger, they'll see `<_LazyImport object at 0x...>` rather than something informative.
+The `_LazyImport` class now lives in the jsii runtime and includes a `__repr__` method:
+- Before resolution: `_LazyImport('some_module')`
+- After resolution: delegates to the real module's `repr()`
 
-However:
-- Users should never interact with `_LazyImport` objects directly — they're internal implementation details prefixed with `_`.
-- Once any attribute is accessed, the proxy resolves to the real module transparently.
-- Adding `__repr__` would add 2 more lines per module (compounding issue #2).
-
-**Action:** Optional follow-up. Not blocking.
+This was added for free when moving the class to the runtime package.
 
 ---
 
@@ -170,9 +159,15 @@ The implementation is sound and none of these issues are blocking. The approach 
 | Issue | Verdict | Blocking? | Action |
 |-------|---------|-----------|--------|
 | 1. Eager resolution for base classes/decorators | Legit observation, not a bug | No | Document limitation in PR |
-| 2. `_LazyImport` duplication | Legit, reasonable tradeoff | No | Consider follow-up optimization |
-| 3. Silent drop of non-empty items | Not a real concern today | No | Optional defensive comment |
+| 2. `_LazyImport` duplication | ~~Legit concern~~ FIXED | No | Moved to jsii runtime package |
+| 3. Silent drop of non-empty items | ~~Not a real concern~~ FIXED | No | Added defensive assertion |
 | 4. Hash change causes churn | Legit, inherent to approach | No | Document in PR description |
 | 5. `__future__` emitted unnecessarily | Technically correct, harmless | No | None |
 | 6. Absolute vs relative imports | Not a real concern | No | None |
-| 7. Missing `__repr__` | Legit, very low priority | No | Optional follow-up |
+| 7. Missing `__repr__` | ~~Legit~~ FIXED (with #2) | No | Added to runtime class |
+
+---
+
+## Branch Status
+
+Snapshot tests are now passing after the issue #2 fix. The `target-python` and `type-name` test suites both pass (78 tests, 126 snapshots).
