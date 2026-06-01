@@ -14,6 +14,7 @@ from ._runtime import (
     kernel,
     proxy_for,
 )
+from ._utils import _LazyImport
 from . import python
 
 
@@ -49,6 +50,7 @@ if sys.version_info < (3, 8):
 __all__ = [
     "__version__",
     "__jsii_runtime_version__",
+    "_LazyImport",
     "JSIIAssembly",
     "JSIIMeta",
     "JSIIAbstractClass",
