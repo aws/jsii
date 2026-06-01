@@ -135,6 +135,8 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
             <version>\${javax-annotations.version}</version>
+            <!-- Compile-only: only provides @javax.annotation.Generated (SOURCE retention), not present in bytecode -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
