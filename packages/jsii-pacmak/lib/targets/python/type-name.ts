@@ -480,29 +480,6 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
   return { assemblyName, packageName, pythonFqn: fqnParts.join('.') };
 }
 
-/**
- * Computes the python relative import path from `fromModule` to `toModule`.
- *
- * @param fromPkg the package where the relative import statement is located.
- * @param toPkg   the package that needs to be relatively imported.
- *
- * @returns a relative import path.
- *
- * @example
- *  relativeImportPath('A.B.C.D', 'A.B.E') === '...E';
- *  relativeImportPath('A.B.C', 'A.B')     === '..';
- *  relativeImportPath('A.B', 'A.B.C')     === '.C';
- */
-function relativeImportPath(fromPkg: string, toPkg: string): string {
-  if (toPkg.startsWith(fromPkg)) {
-    // from A.B to A.B.C === .C
-    return `.${toPkg.substring(fromPkg.length + 1)}`;
-  }
-  // from A.B.E to A.B.C === .<from A.B to A.B.C>
-  const fromPkgParent = fromPkg.substring(0, fromPkg.lastIndexOf('.'));
-  return `.${relativeImportPath(fromPkgParent, toPkg)}`;
-}
-
 function getPackageName(fqn: string, rootAssm: Assembly) {
   const segments = fqn.split('.');
   const assemblyName = segments[0];
