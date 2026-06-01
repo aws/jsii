@@ -2124,30 +2124,13 @@ class PythonModule implements PythonType {
   }
 
   /**
-   * Emit the `_LazyImport` helper class that defers `importlib.import_module()`
-   * until first attribute access via `__getattr__`.
-   *
-   * The class is emitted once per module that has cross-module imports. It wraps
-   * a module name string and caches the imported module after first access.
-   * Failed imports are NOT cached, allowing retry on subsequent access.
+   * Emit the `_LazyImport` alias that references `jsii._LazyImport` from the
+   * runtime package. This avoids duplicating the class definition in every
+   * generated module.
    */
-  private emitLazyImportClass(code: CodeMaker) {
+  private emitLazyImportAlias(code: CodeMaker) {
     code.line();
-    code.openBlock('class _LazyImport');
-    // __init__
-    code.openBlock('def __init__(self, module_name: str) -> None');
-    code.line('self._module_name = module_name');
-    code.line('self._module: typing.Any = None');
-    code.closeBlock();
-    // __getattr__
-    code.openBlock('def __getattr__(self, name: str) -> typing.Any');
-    code.openBlock('if self._module is None');
-    code.line('import importlib');
-    code.line('self._module = importlib.import_module(self._module_name)');
-    code.closeBlock();
-    code.line('return getattr(self._module, name)');
-    code.closeBlock();
-    code.closeBlock();
+    code.line('_LazyImport = jsii._LazyImport');
   }
 
   /**
@@ -2218,8 +2201,8 @@ class PythonModule implements PythonType {
       return;
     }
 
-    // Emit _LazyImport class definition
-    this.emitLazyImportClass(code);
+    // Emit a local alias to jsii._LazyImport for use in lazy proxy assignments
+    this.emitLazyImportAlias(code);
 
     // Emit TYPE_CHECKING block with original import statements for static type checkers,
     // and lazy proxy assignments in the else branch for runtime.
