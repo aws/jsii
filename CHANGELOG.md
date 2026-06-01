@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.133.0](https://github.com/aws/jsii/compare/v1.132.0...v1.133.0) (2026-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **python:** require Python 3.10+ in modules and update runtime dependencies (#5135)
+
+### Features
+
+* replace eager submodule imports with lazy loading ([#5110](https://github.com/aws/jsii/issues/5110)) ([2ad8838](https://github.com/aws/jsii/commit/2ad88388e1c8fbed76858da8f482e5e6bca34f74)), closes [40jsii/python-runtime/tests/test_compliance.py#L1331](https://github.com/40jsii/python-runtime/tests/test_compliance.py/issues/L1331)
+
+
+### Bug Fixes
+
+* **java-runtime:** org.jetbrains:annotations leaks onto consumers' runtime classpath ([#5136](https://github.com/aws/jsii/issues/5136)) ([16727a6](https://github.com/aws/jsii/commit/16727a67011af2210c02081d62b5680af5cebc27))
+* **python:** require Python 3.10+ in modules and update runtime dependencies ([#5135](https://github.com/aws/jsii/issues/5135)) ([e14cd30](https://github.com/aws/jsii/commit/e14cd30cbf62a271d7dfc97154e77d84071e7024)), closes [#5094](https://github.com/aws/jsii/issues/5094) [#5130](https://github.com/aws/jsii/issues/5130)
+
 ## [1.132.0](https://github.com/aws/jsii/compare/v1.131.0...v1.132.0) (2026-05-22)
 
 
