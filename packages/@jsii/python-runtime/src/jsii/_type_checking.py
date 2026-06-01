@@ -33,9 +33,7 @@ def _resolve() -> typing.Callable[..., typing.Any]:
     from importlib.metadata import version as _metadata_package_version
     from jsii._reference_map import InterfaceDynamicProxy
 
-    major_version: int = int(
-        _metadata_package_version("typeguard").split(".")[0]
-    )
+    major_version: int = int(_metadata_package_version("typeguard").split(".")[0])
 
     if major_version <= 2:
 
@@ -51,18 +49,22 @@ def _resolve() -> typing.Callable[..., typing.Any]:
         def _check_type(
             argname: str, value: object, expected_type: typing.Any
         ) -> typing.Any:
-            if isinstance(value, InterfaceDynamicProxy):  # pyright: ignore[reportAttributeAccessIssue]
+            if isinstance(value, InterfaceDynamicProxy):
                 pass
             else:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS  # type:ignore[attr-defined]
-                typeguard.check_type(value=value, expected_type=expected_type)  # type:ignore[call-overload]
+                typeguard.config.collection_check_strategy = (
+                    typeguard.CollectionCheckStrategy.ALL_ITEMS
+                )  # type:ignore[attr-defined]
+                typeguard.check_type(
+                    value=value, expected_type=expected_type
+                )  # type:ignore[call-overload]
 
     else:
 
         def _check_type(
             argname: str, value: object, expected_type: typing.Any
         ) -> typing.Any:
-            if isinstance(value, InterfaceDynamicProxy):  # pyright: ignore[reportAttributeAccessIssue]
+            if isinstance(value, InterfaceDynamicProxy):
                 pass
             else:
                 typeguard.check_type(
