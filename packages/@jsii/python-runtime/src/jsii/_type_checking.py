@@ -29,7 +29,7 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
 
 def _resolve() -> typing.Callable[..., typing.Any]:
     """Lazily import typeguard and return the appropriate check_type implementation."""
-    import typeguard
+    import typeguard  # type: ignore
     from importlib.metadata import version as _metadata_package_version
     from jsii._reference_map import InterfaceDynamicProxy
 
@@ -40,9 +40,7 @@ def _resolve() -> typing.Callable[..., typing.Any]:
         def _check_type(
             argname: str, value: object, expected_type: typing.Any
         ) -> typing.Any:
-            return typeguard.check_type(
-                argname=argname, value=value, expected_type=expected_type
-            )  # type:ignore[call-overload]
+            return typeguard.check_type(argname=argname, value=value, expected_type=expected_type)  # type: ignore
 
     elif major_version == 3:
 
@@ -52,12 +50,8 @@ def _resolve() -> typing.Callable[..., typing.Any]:
             if isinstance(value, InterfaceDynamicProxy):
                 pass
             else:
-                typeguard.config.collection_check_strategy = (
-                    typeguard.CollectionCheckStrategy.ALL_ITEMS
-                )  # type:ignore[attr-defined]
-                typeguard.check_type(
-                    value=value, expected_type=expected_type
-                )  # type:ignore[call-overload]
+                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS  # type: ignore
+                typeguard.check_type(value=value, expected_type=expected_type)  # type: ignore
 
     else:
 
@@ -67,10 +61,6 @@ def _resolve() -> typing.Callable[..., typing.Any]:
             if isinstance(value, InterfaceDynamicProxy):
                 pass
             else:
-                typeguard.check_type(
-                    value=value,
-                    expected_type=expected_type,
-                    collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS,  # type:ignore[attr-defined]
-                )
+                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS)  # type: ignore
 
     return _check_type
