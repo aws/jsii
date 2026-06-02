@@ -32,6 +32,14 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <scope>test</scope>
         </dependency>
 
+        <!-- ComplianceTest uses @NotNull; the runtime no longer leaks it transitively (it is provided-scoped there) -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>[13.0.0,24.0-a0)</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
