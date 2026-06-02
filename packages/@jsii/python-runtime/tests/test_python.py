@@ -98,3 +98,60 @@ def find_struct_bases(x):
 
     recurse(x)
     return ret
+
+
+class TestLazyImport:
+    """Tests for jsii._LazyImport used by generated code to defer cross-module imports."""
+
+    def test_defers_import_until_first_access(self):
+        lazy = jsii._LazyImport("os.path")
+        # The module should not be loaded yet
+        assert lazy._module is None
+        # Accessing an attribute triggers the import
+        result = lazy.join
+        assert result is __import__("os.path", fromlist=["join"]).join
+        assert lazy._module is not None
+
+    def test_caches_module_after_first_access(self):
+        lazy = jsii._LazyImport("os")
+        _ = lazy.sep
+        mod = lazy._module
+        # Second access should reuse the cached module
+        _ = lazy.path
+        assert lazy._module is mod
+
+    def test_raises_attribute_error_for_missing_attr(self):
+        lazy = jsii._LazyImport("os")
+        with pytest.raises(AttributeError, match="has no attribute"):
+            _ = lazy.nonexistent_attribute_xyz_12345
+
+    def test_raises_module_not_found_for_bad_module(self):
+        lazy = jsii._LazyImport("nonexistent_module_xyz_12345")
+        with pytest.raises(ModuleNotFoundError):
+            _ = lazy.something
+
+    def test_failed_import_allows_retry(self):
+        lazy = jsii._LazyImport("nonexistent_module_xyz_12345")
+        with pytest.raises(ModuleNotFoundError):
+            _ = lazy.something
+        # _module should still be None so a retry is possible
+        assert lazy._module is None
+
+    def test_repr_before_import(self):
+        lazy = jsii._LazyImport("os")
+        assert repr(lazy) == "_LazyImport('os')"
+
+    def test_repr_after_import(self):
+        lazy = jsii._LazyImport("os")
+        _ = lazy.sep
+        # After import, repr delegates to the real module
+        assert "os" in repr(lazy)
+
+    def test_works_as_type_checking_proxy(self):
+        """Simulates the generated pattern: attribute access resolves a type from the module."""
+        lazy = jsii._LazyImport("collections.abc")
+        # Accessing a class through the proxy
+        mapping_cls = lazy.Mapping
+        import collections.abc
+
+        assert mapping_cls is collections.abc.Mapping
