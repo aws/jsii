@@ -1785,7 +1785,9 @@ class PythonModule implements PythonType {
     // cross-module imports. This makes all annotations strings at definition
     // time, preventing lazy proxy resolution during module load.
     // Must be the first statement in the file (after docstring) per Python rules.
-    if (hasImports(this.requiredImports(context))) {
+    // Only emitted for non-root modules (root modules that load the assembly
+    // don't use emitRequiredImports and therefore don't need lazy proxies).
+    if (!this.loadAssembly && hasImports(this.requiredImports(context))) {
       code.line('from __future__ import annotations');
       code.line();
     }
