@@ -19,16 +19,16 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
     Typeguard and version detection are loaded on first invocation and cached
     for subsequent calls.
     """
-    resolved = _resolve()
+    impl = _load_typeguard_check()
     # Hot-patch the module-level name so future calls go directly to the resolved function.
     import jsii._type_checking as _self
 
-    _self.check_type = resolved  # type: ignore[attr-defined]
-    return resolved(argname=argname, value=value, expected_type=expected_type)
+    _self.check_type = impl  # type: ignore[attr-defined]
+    return impl(argname=argname, value=value, expected_type=expected_type)
 
 
-def _resolve() -> typing.Callable[..., typing.Any]:
-    """Lazily import typeguard and return the appropriate check_type implementation."""
+def _load_typeguard_check() -> typing.Callable[..., typing.Any]:
+    """Lazily import typeguard and return a version-appropriate check_type implementation."""
     import typeguard  # type: ignore
     from importlib.metadata import version as _metadata_package_version
     from jsii._reference_map import InterfaceDynamicProxy
