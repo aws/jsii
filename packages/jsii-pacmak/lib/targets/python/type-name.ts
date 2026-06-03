@@ -410,14 +410,39 @@ class UserType implements TypeName {
         .substring(0, 8);
       const moduleAlias = `_${lastComponent(typeSubmodulePythonName)}_${aliasSuffix}`;
 
+      // Determine import style: relative when target is a sibling/descendant submodule,
+      // absolute when target is the root package (can't relatively-import your own root).
+      const rootPackageName = toPythonFqn(assembly.name, assembly).pythonFqn;
+      let requiredImport: { sourcePackage: string; item: string };
+
+      if (typeSubmodulePythonName === rootPackageName) {
+        // Target is the root package — must use absolute import
+        requiredImport = {
+          sourcePackage: `${typeSubmodulePythonName} as ${moduleAlias}`,
+          item: '',
+        };
+      } else {
+        // Target is a submodule — use relative import
+        const importName = lastComponent(typeSubmodulePythonName);
+        const targetParent = typeSubmodulePythonName.substring(
+          0,
+          typeSubmodulePythonName.lastIndexOf('.'),
+        );
+        const relativeBase = relativeImportPath(
+          submodulePythonName,
+          targetParent,
+        );
+        requiredImport = {
+          sourcePackage: relativeBase,
+          item: `${importName} as ${moduleAlias}`,
+        };
+      }
+
       return {
         pythonType: wrapType(
           `${moduleAlias}.${toImport}${nested.length > 0 ? `.${nested.join('.')}` : ''}`,
         ),
-        requiredImport: {
-          sourcePackage: `${typeSubmodulePythonName} as ${moduleAlias}`,
-          item: '',
-        },
+        requiredImport,
       };
 
       // Have the 'else' here to minimize the diff.
@@ -478,6 +503,29 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
   }
 
   return { assemblyName, packageName, pythonFqn: fqnParts.join('.') };
+}
+
+/**
+ * Computes the python relative import path from `fromModule` to `toModule`.
+ *
+ * @param fromPkg the package where the relative import statement is located.
+ * @param toPkg   the package that needs to be relatively imported.
+ *
+ * @returns a relative import path.
+ *
+ * @example
+ *  relativeImportPath('A.B.C.D', 'A.B.E') === '...E';
+ *  relativeImportPath('A.B.C', 'A.B')     === '..';
+ *  relativeImportPath('A.B', 'A.B.C')     === '.C';
+ */
+function relativeImportPath(fromPkg: string, toPkg: string): string {
+  if (toPkg.startsWith(fromPkg)) {
+    // from A.B to A.B.C === .C
+    return `.${toPkg.substring(fromPkg.length + 1)}`;
+  }
+  // from A.B.E to A.B.C === .<from A.B to A.B.C>
+  const fromPkgParent = fromPkg.substring(0, fromPkg.lastIndexOf('.'));
+  return `.${relativeImportPath(fromPkgParent, toPkg)}`;
 }
 
 function getPackageName(fqn: string, rootAssm: Assembly) {

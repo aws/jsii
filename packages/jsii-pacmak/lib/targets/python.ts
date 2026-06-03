@@ -2130,50 +2130,71 @@ class PythonModule implements PythonType {
   /**
    * Emit `_LazyImport(...)` assignments for all cross-module imports.
    *
-   * Only processes entries where the items set contains '' (empty string),
-   * indicating a full module import. Parses the sourcePackage string which
-   * has the format "module.name as _alias" to extract the module name and alias.
-   * Sorts assignments by alias for deterministic output.
+   * Handles two import patterns:
+   * 1. Cross-assembly (absolute): sourcePackage is "pkg.name as _alias", item is ''.
+   *    Emits: `_alias = _LazyImport("pkg.name")`
+   * 2. Same-assembly (relative): sourcePackage is a relative path (e.g. ".."),
+   *    item is "module_name as _alias".
+   *    Emits: `_alias = _LazyImport(".module_name", __name__)`
    *
-   * NOTE: All current code paths in type-name.ts produce `item: ''` (full
-   * module imports). If a non-empty item is encountered, it means a new import
-   * pattern was introduced without updating this method to handle it at runtime.
+   * Sorts assignments by alias for deterministic output.
    */
   private emitLazyProxyAssignments(code: CodeMaker, imports: PythonImports) {
-    // Verify all imports use the expected full-module pattern (item === '').
-    // If this assertion fires, a new import pattern was added to type-name.ts
-    // that needs a corresponding runtime lazy-loading strategy here.
-    for (const [sourcePackage, items] of Object.entries(imports)) {
-      const nonEmpty = Array.from(items).filter((i) => i !== '');
-      if (nonEmpty.length > 0) {
-        throw new Error(
-          `Unexpected non-empty import items for "${sourcePackage}": [${nonEmpty.join(', ')}]. ` +
-            `emitLazyProxyAssignments only supports full-module imports (empty item). ` +
-            `Update this method to handle per-item imports at runtime.`,
-        );
-      }
-    }
+    const assignments: Array<{ alias: string; code: string }> = [];
 
-    const assignments = Object.entries(imports)
-      .map(([sourcePackage]) => {
-        // sourcePackage is like "aws_cdk.aws_iam as _aws_cdk_aws_iam_abcd1234"
+    for (const [sourcePackage, items] of Object.entries(imports)) {
+      if (items.has('')) {
+        // Full module import: sourcePackage is "pkg.name as _alias"
         const match = sourcePackage.match(/^(.+)\s+as\s+(.+)$/);
         if (match) {
           const [, moduleName, alias] = match;
-          return { moduleName, alias };
+          assignments.push({
+            alias,
+            code: `${alias} = _LazyImport("${moduleName}")`,
+          });
+        } else {
+          // Fallback: no alias in sourcePackage
+          const alias = `_${sourcePackage.replace(/\./g, '_')}`;
+          assignments.push({
+            alias,
+            code: `${alias} = _LazyImport("${sourcePackage}")`,
+          });
         }
-        // Fallback: no alias
-        return {
-          moduleName: sourcePackage,
-          alias: `_${sourcePackage.replace(/\./g, '_')}`,
-        };
-      })
-      .sort((a, b) => a.alias.localeCompare(b.alias));
+      }
+
+      // Per-item imports: "name as _alias" from a relative source
+      const pieceMeal = Array.from(items).filter((i) => i !== '');
+      for (const item of pieceMeal) {
+        const itemMatch = item.match(/^(.+)\s+as\s+(.+)$/);
+        if (itemMatch) {
+          const [, importName, alias] = itemMatch;
+          // sourcePackage is a relative path like ".." or ".child"
+          // Combine into a relative module name for importlib
+          const relativeName =
+            sourcePackage === '.'
+              ? `.${importName}`
+              : sourcePackage.endsWith('.')
+                ? `${sourcePackage}${importName}`
+                : `${sourcePackage}.${importName}`;
+          assignments.push({
+            alias,
+            code: `${alias} = _LazyImport("${relativeName}", __name__)`,
+          });
+        } else {
+          throw new Error(
+            `Unexpected import item format "${item}" for source "${sourcePackage}". ` +
+              `Expected "name as alias" pattern.`,
+          );
+        }
+      }
+    }
+
+    assignments.sort((a, b) => a.alias.localeCompare(b.alias));
 
     if (assignments.length > 0) {
       code.line();
-      for (const { moduleName, alias } of assignments) {
-        code.line(`${alias} = _LazyImport("${moduleName}")`);
+      for (const { code: assignmentCode } of assignments) {
+        code.line(assignmentCode);
       }
     }
   }

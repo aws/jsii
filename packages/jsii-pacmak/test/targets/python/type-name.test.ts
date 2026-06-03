@@ -208,7 +208,7 @@ describe(toTypeName, () => {
       input: { fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}` },
       pythonType: `"_submodule_b81e7cf1.${SUBMODULE_TYPE}"`,
       requiredImports: {
-        [`${LOCAL_MODULE}.submodule as _submodule_b81e7cf1`]: new Set(['']),
+        '.': new Set([`submodule as _submodule_b81e7cf1`]),
       },
     },
     {
@@ -218,7 +218,7 @@ describe(toTypeName, () => {
       },
       pythonType: `"_submodule_b81e7cf1.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}"`,
       requiredImports: {
-        [`${LOCAL_MODULE}.submodule as _submodule_b81e7cf1`]: new Set(['']),
+        '.': new Set([`submodule as _submodule_b81e7cf1`]),
       },
     },
     {
@@ -236,7 +236,7 @@ describe(toTypeName, () => {
       input: { fqn: `${assembly.name}.other.${OTHER_SUBMODULE_TYPE}` },
       pythonType: `"_other_d480fe3b.${OTHER_SUBMODULE_TYPE}"`,
       requiredImports: {
-        [`${LOCAL_MODULE}.other as _other_d480fe3b`]: new Set(['']),
+        '..': new Set([`other as _other_d480fe3b`]),
       },
       inSubmodule: `${assembly.name}.submodule`,
     },
