@@ -355,6 +355,13 @@ interface PythonBase {
   emit(code: CodeMaker, context: EmitContext, opts?: any): void;
 
   requiredImports(context: EmitContext): PythonImports;
+
+  /**
+   * Return imports that are needed at runtime (e.g. base classes, decorators).
+   * These will get lazy proxy assignments so they're available outside TYPE_CHECKING.
+   * By default, returns no runtime imports (annotations are already strings).
+   */
+  runtimeImports(context: EmitContext): PythonImports;
 }
 
 interface PythonType extends PythonBase {
@@ -433,6 +440,13 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return mergePythonImports(
       ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
       ...this.members.map((mem) => mem.requiredImports(context)),
+    );
+  }
+
+  public runtimeImports(context: EmitContext): PythonImports {
+    // Base classes are evaluated at class definition time (value position)
+    return mergePythonImports(
+      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
     );
   }
 
@@ -651,6 +665,11 @@ abstract class BaseMethod implements PythonBase {
         }
       }
     }
+  }
+
+  public runtimeImports(_context: EmitContext): PythonImports {
+    // Method signatures are annotations (already quoted strings) — no runtime imports needed
+    return {};
   }
 
   public emit(
@@ -1024,6 +1043,11 @@ abstract class BaseProperty implements PythonBase {
 
   public requiredImports(context: EmitContext): PythonImports {
     return toTypeName(this.type).requiredImports(context);
+  }
+
+  public runtimeImports(_context: EmitContext): PythonImports {
+    // Property type annotations are already quoted strings — no runtime imports needed
+    return {};
   }
 
   public emit(
@@ -1414,6 +1438,11 @@ class StructField implements PythonBase {
     return toTypeName(this.type).requiredImports(context);
   }
 
+  public runtimeImports(_context: EmitContext): PythonImports {
+    // Struct field type annotations are already quoted strings — no runtime imports needed
+    return {};
+  }
+
   public isStruct(generator: PythonGenerator): boolean {
     return isStruct(generator.reflectAssembly.system, this.type.type);
   }
@@ -1514,6 +1543,15 @@ class Class extends BasePythonClassType implements ISortableType {
     );
   }
 
+  public runtimeImports(context: EmitContext): PythonImports {
+    // Base classes + @jsii.implements interfaces are evaluated at class definition time
+    return mergePythonImports(
+      super.runtimeImports(context),
+      ...this.interfaces.map((base) =>
+        toTypeName(base).requiredImports(context),
+      ),
+    );
+  }
   public emit(code: CodeMaker, context: EmitContext) {
     // First we emit our implments decorator
     if (this.interfaces.length > 0) {
@@ -1679,6 +1717,10 @@ class EnumMember implements PythonBase {
   public requiredImports(_context: EmitContext): PythonImports {
     return {};
   }
+
+  public runtimeImports(_context: EmitContext): PythonImports {
+    return {};
+  }
 }
 
 interface ModuleOpts {
@@ -1765,6 +1807,12 @@ class PythonModule implements PythonType {
     );
   }
 
+  public runtimeImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      ...this.members.map((mem) => mem.runtimeImports(context)),
+    );
+  }
+
   public emit(code: CodeMaker, context: EmitContext) {
     this.emitModuleDocumentation(code);
 
@@ -1780,17 +1828,6 @@ class PythonModule implements PythonType {
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
-
-    // Emit PEP 563 (from __future__ import annotations) if this module has
-    // cross-module imports. This makes all annotations strings at definition
-    // time, preventing lazy proxy resolution during module load.
-    // Must be the first statement in the file (after docstring) per Python rules.
-    // Only emitted for non-root modules (root modules that load the assembly
-    // don't use emitRequiredImports and therefore don't need lazy proxies).
-    if (!this.loadAssembly && hasImports(this.requiredImports(context))) {
-      code.line('from __future__ import annotations');
-      code.line();
-    }
 
     // If multiple packages use the same namespace (in Python, a directory) it
     // depends on how they are laid out on disk if deep imports of multiple packages
@@ -2223,19 +2260,26 @@ class PythonModule implements PythonType {
       return;
     }
 
-    // Emit a local alias to jsii._LazyImport for use in lazy proxy assignments
-    this.emitLazyImportAlias(code);
+    const runtimeImports = this.runtimeImports(context);
+    const hasRuntime = hasImports(runtimeImports);
 
-    // Emit TYPE_CHECKING block with original import statements for static type checkers,
-    // and lazy proxy assignments in the else branch for runtime.
-    // This structure ensures pyright/mypy see the real module types while runtime uses lazy proxies.
+    // Emit _LazyImport alias only if there are runtime imports that need lazy proxies
+    if (hasRuntime) {
+      this.emitLazyImportAlias(code);
+    }
+
+    // Emit TYPE_CHECKING block with all import statements for static type checkers.
+    // Type annotations are rendered as string literals so they don't need runtime imports.
+    // Only runtime-needed imports (base classes, decorators) get lazy proxy assignments.
     code.line();
     code.openBlock('if typing.TYPE_CHECKING');
     this.emitImportStatements(code, allImports);
     code.closeBlock();
-    code.openBlock('else');
-    this.emitLazyProxyAssignments(code, allImports);
-    code.closeBlock();
+    if (hasRuntime) {
+      code.openBlock('else');
+      this.emitLazyProxyAssignments(code, runtimeImports);
+      code.closeBlock();
+    }
   }
 
   private emitImportStatements(code: CodeMaker, imports: PythonImports) {
