@@ -155,3 +155,13 @@ class TestLazyImport:
         import collections.abc
 
         assert mapping_cls is collections.abc.Mapping
+
+    def test_relative_import_with_package(self):
+        """Simulates the generated pattern for same-assembly relative imports."""
+        # From within 'email', import '.mime.text' relatively
+        lazy = jsii._LazyImport(".mime.text", "email")
+        # Accessing a class through the proxy
+        mime_text_cls = lazy.MIMEText
+        from email.mime.text import MIMEText
+
+        assert mime_text_cls is MIMEText

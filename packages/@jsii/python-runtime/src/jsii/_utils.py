@@ -37,16 +37,19 @@ class _LazyImport:
     imports are NOT cached, allowing retry on subsequent access.
     """
 
-    def __init__(self, module_name: str) -> None:
+    def __init__(self, module_name: str, package: str | None = None) -> None:
         self._module_name = module_name
+        self._package = package
         self._module: Any = None
 
     def __getattr__(self, name: str) -> Any:
         if self._module is None:
-            self._module = importlib.import_module(self._module_name)
+            self._module = importlib.import_module(self._module_name, self._package)
         return getattr(self._module, name)
 
     def __repr__(self) -> str:
         if self._module is not None:
             return repr(self._module)
+        if self._package:
+            return f"_LazyImport({self._module_name!r}, {self._package!r})"
         return f"_LazyImport({self._module_name!r})"

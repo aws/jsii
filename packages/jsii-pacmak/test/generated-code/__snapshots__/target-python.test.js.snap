@@ -3348,14 +3348,14 @@ _LazyImport = jsii._LazyImport
 
 if typing.TYPE_CHECKING:
 
-    import jsii_calc.composition as _composition_4f38e801
     import scope.jsii_calc_base as _scope_jsii_calc_base_734f0262
     import scope.jsii_calc_base_of_base as _scope_jsii_calc_base_of_base_49fa37fe
     import scope.jsii_calc_lib as _scope_jsii_calc_lib_c61f082f
     import scope.jsii_calc_lib.custom_submodule_name as _scope_jsii_calc_lib_custom_submodule_name_c61f082f
+    from . import composition as _composition_4f38e801
 else:
 
-    _composition_4f38e801 = _LazyImport("jsii_calc.composition")
+    _composition_4f38e801 = _LazyImport(".composition", __name__)
     _scope_jsii_calc_base_734f0262 = _LazyImport("scope.jsii_calc_base")
     _scope_jsii_calc_base_of_base_49fa37fe = _LazyImport("scope.jsii_calc_base_of_base")
     _scope_jsii_calc_lib_c61f082f = _LazyImport("scope.jsii_calc_lib")
@@ -14529,10 +14529,10 @@ _LazyImport = jsii._LazyImport
 
 if typing.TYPE_CHECKING:
 
-    import jsii_calc.module2692.submodule1 as _submodule1_382c143d
+    from .. import submodule1 as _submodule1_382c143d
 else:
 
-    _submodule1_382c143d = _LazyImport("jsii_calc.module2692.submodule1")
+    _submodule1_382c143d = _LazyImport("..submodule1", __name__)
 
 
 @jsii.data_type(
@@ -15368,15 +15368,14 @@ _LazyImport = jsii._LazyImport
 if typing.TYPE_CHECKING:
 
     import jsii_calc as _jsii_calc_e856c20f
-    import jsii_calc.submodule.child as _child_05c7385e
-    import jsii_calc.submodule.nested_submodule.deeply_nested as _deeply_nested_66202a01
-    import jsii_calc.submodule.param as _param_532223cc
+    from . import child as _child_05c7385e, param as _param_532223cc
+    from .nested_submodule import deeply_nested as _deeply_nested_66202a01
 else:
 
-    _child_05c7385e = _LazyImport("jsii_calc.submodule.child")
-    _deeply_nested_66202a01 = _LazyImport("jsii_calc.submodule.nested_submodule.deeply_nested")
+    _child_05c7385e = _LazyImport(".child", __name__)
+    _deeply_nested_66202a01 = _LazyImport(".nested_submodule.deeply_nested", __name__)
     _jsii_calc_e856c20f = _LazyImport("jsii_calc")
-    _param_532223cc = _LazyImport("jsii_calc.submodule.param")
+    _param_532223cc = _LazyImport(".param", __name__)
 
 
 @jsii.data_type(
@@ -15534,10 +15533,10 @@ _LazyImport = jsii._LazyImport
 
 if typing.TYPE_CHECKING:
 
-    import jsii_calc.submodule as _submodule_f946ba2c
+    from ... import submodule as _submodule_f946ba2c
 else:
 
-    _submodule_f946ba2c = _LazyImport("jsii_calc.submodule")
+    _submodule_f946ba2c = _LazyImport("...submodule", __name__)
 
 
 @jsii.data_type(
@@ -15804,10 +15803,10 @@ _LazyImport = jsii._LazyImport
 
 if typing.TYPE_CHECKING:
 
-    import jsii_calc.submodule.child as _child_05c7385e
+    from .. import child as _child_05c7385e
 else:
 
-    _child_05c7385e = _LazyImport("jsii_calc.submodule.child")
+    _child_05c7385e = _LazyImport("..child", __name__)
 
 
 class Kwargs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.isolated.Kwargs"):
@@ -15862,12 +15861,12 @@ _LazyImport = jsii._LazyImport
 
 if typing.TYPE_CHECKING:
 
-    import jsii_calc.submodule.child as _child_05c7385e
-    import jsii_calc.submodule.nested_submodule.deeply_nested as _deeply_nested_66202a01
+    from . import deeply_nested as _deeply_nested_66202a01
+    from .. import child as _child_05c7385e
 else:
 
-    _child_05c7385e = _LazyImport("jsii_calc.submodule.child")
-    _deeply_nested_66202a01 = _LazyImport("jsii_calc.submodule.nested_submodule.deeply_nested")
+    _child_05c7385e = _LazyImport("..child", __name__)
+    _deeply_nested_66202a01 = _LazyImport(".deeply_nested", __name__)
 
 
 @jsii.implements(_deeply_nested_66202a01.INamespaced)
@@ -16065,10 +16064,10 @@ _LazyImport = jsii._LazyImport
 
 if typing.TYPE_CHECKING:
 
-    import jsii_calc.submodule.param as _param_532223cc
+    from .. import param as _param_532223cc
 else:
 
-    _param_532223cc = _LazyImport("jsii_calc.submodule.param")
+    _param_532223cc = _LazyImport("..param", __name__)
 
 
 class ReturnsSpecialParameter(
@@ -22150,7 +22149,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/submodule/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/submodule/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/submodule/__init__.py	--runtime-type-checking
-@@ -49,10 +49,13 @@
+@@ -48,10 +48,13 @@
  
          :param foo: 
  
@@ -22164,7 +22163,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -117,10 +120,13 @@
+@@ -116,10 +119,13 @@
      def all_types(self) -> typing.Optional["_jsii_calc_e856c20f.AllTypes"]:
          return typing.cast(typing.Optional["_jsii_calc_e856c20f.AllTypes"], jsii.get(self, "allTypes"))
  
@@ -22178,7 +22177,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "Default",
-@@ -165,5 +171,18 @@
+@@ -164,5 +170,18 @@
      return [*__all__, *_SUBMODULES]
  
  import sys as _sys
