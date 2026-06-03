@@ -603,13 +603,14 @@ exports[`diamond-struct-parameter.ts: <outDir>/java/pom.xml 1`] = `
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>[16.0.3,20.0.0)</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -1269,8 +1270,7 @@ kwargs = json.loads(
     "python_requires": ">=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
-        "typeguard==2.13.3"
+        "publication>=0.0.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -1312,22 +1312,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
@@ -1544,22 +1530,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "testpkg", "0.0.1", __name__[0:-6], "testpkg@0.0.1.jsii.tgz"
@@ -2260,13 +2232,14 @@ exports[`nested-types.ts: <outDir>/java/pom.xml 1`] = `
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>[16.0.3,20.0.0)</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -2717,8 +2690,7 @@ kwargs = json.loads(
     "python_requires": ">=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
-        "typeguard==2.13.3"
+        "publication>=0.0.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -2760,22 +2732,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
@@ -2902,22 +2860,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "testpkg", "0.0.1", __name__[0:-6], "testpkg@0.0.1.jsii.tgz"

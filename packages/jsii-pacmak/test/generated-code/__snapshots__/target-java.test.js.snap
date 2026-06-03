@@ -292,13 +292,14 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/java/pom.xml 1`] =
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>[16.0.3,20.0.0)</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -1022,13 +1023,14 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/pom.x
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>[16.0.3,20.0.0)</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -1735,13 +1737,14 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/pom.xml 1`] = 
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>[16.0.3,20.0.0)</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
@@ -4566,13 +4569,14 @@ exports[`Generated code for "jsii-calc": <outDir>/java/pom.xml 1`] = `
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>[16.0.3,20.0.0)</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
       <version>[1.3.2,1.4.0)</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>

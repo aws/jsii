@@ -1400,20 +1400,21 @@ class JavaGenerator extends Generator {
               toMavenVersionRange(`^${VERSION}`),
       });
 
-      // Provides @org.jetbrains.*
+      // Provides @org.jetbrains.* (compile-only: CLASS retention, no runtime behavior)
       dependencies.push({
         groupId: 'org.jetbrains',
         artifactId: 'annotations',
         version: '[16.0.3,20.0.0)',
+        scope: 'provided',
       });
 
-      // Provides @javax.annotation.Generated for JDKs >= 9
+      // Provides @javax.annotation.Generated for JDKs >= 9 (compile-only: SOURCE retention, not in bytecode)
       dependencies.push({
         '#comment': 'Provides @javax.annotation.Generated for JDKs >= 9',
         groupId: 'javax.annotation',
         artifactId: 'javax.annotation-api',
         version: '[1.3.2,1.4.0)',
-        scope: 'compile',
+        scope: 'provided',
       });
 
       return dependencies;

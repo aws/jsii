@@ -292,8 +292,7 @@ kwargs = json.loads(
     "install_requires": [
         "jsii<0.0.1",
         "publication>=0.0.3",
-        "scope.jsii-calc-base-of-base>=2.1.1, <3.0.0",
-        "typeguard==2.13.3"
+        "scope.jsii-calc-base-of-base>=2.1.1, <3.0.0"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -338,22 +337,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
@@ -495,22 +480,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 import scope.jsii_calc_base_of_base._jsii
 
@@ -545,7 +516,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/ 
 exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/python/src/scope/jsii_calc_base/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_base/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_base/__init__.py	--runtime-type-checking
-@@ -71,10 +71,14 @@
+@@ -57,10 +57,14 @@
      ) -> None:
          '''
          :param foo: -
@@ -560,7 +531,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
              "bar": bar,
          }
  
-@@ -138,10 +142,13 @@
+@@ -124,10 +128,13 @@
      @builtins.classmethod
      def consume(cls, *args: typing.Any) -> None:
          '''
@@ -574,7 +545,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
  
  __all__ = [
      "Base",
-@@ -150,7 +157,21 @@
+@@ -136,7 +143,21 @@
      "StaticConsumer",
  ]
  
@@ -889,8 +860,7 @@ kwargs = json.loads(
     "python_requires": ">=3.10",
     "install_requires": [
         "jsii<0.0.1",
-        "publication>=0.0.3",
-        "typeguard==2.13.3"
+        "publication>=0.0.3"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -935,22 +905,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
@@ -1063,22 +1019,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
     "@scope/jsii-calc-base-of-base",
@@ -1114,7 +1056,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/python/src/scope/jsii_calc_base_of_base/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_base_of_base/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_base_of_base/__init__.py	--runtime-type-checking
-@@ -60,10 +60,13 @@
+@@ -46,10 +46,13 @@
      @builtins.classmethod
      def consume(cls, *_args: typing.Any) -> None:
          '''
@@ -1128,7 +1070,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
  
  class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
      '''(experimental) Something here.
-@@ -90,10 +93,13 @@
+@@ -76,10 +79,13 @@
  class VeryBaseProps:
      def __init__(self, *, foo: "Very") -> None:
          '''
@@ -1142,7 +1084,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
          }
  
      @builtins.property
-@@ -121,7 +127,20 @@
+@@ -107,7 +113,20 @@
      "VeryBaseProps",
  ]
  
@@ -1464,8 +1406,7 @@ kwargs = json.loads(
         "jsii<0.0.1",
         "publication>=0.0.3",
         "scope.jsii-calc-base-of-base>=2.1.1, <3.0.0",
-        "scope.jsii-calc-base<0.0.1",
-        "typeguard==2.13.3"
+        "scope.jsii-calc-base<0.0.1"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -1512,22 +1453,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
@@ -2171,22 +2098,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 import scope.jsii_calc_base._jsii
 import scope.jsii_calc_base_of_base._jsii
@@ -2229,22 +2142,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -2511,22 +2410,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -2635,7 +2520,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_lib/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_lib/__init__.py	--runtime-type-checking
-@@ -56,19 +56,25 @@
+@@ -42,19 +42,25 @@
          '''
          :param very: -
  
@@ -2661,7 +2546,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  @jsii.data_type(
      jsii_type="@scope/jsii-calc-lib.DiamondLeft",
-@@ -86,10 +92,14 @@
+@@ -72,10 +78,14 @@
          :param hoisted_top: 
          :param left: 
  
@@ -2676,7 +2561,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if left is not None:
              self._values["left"] = left
-@@ -138,10 +148,14 @@
+@@ -124,10 +134,14 @@
          :param hoisted_top: 
          :param right: 
  
@@ -2691,7 +2576,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["hoisted_top"] = hoisted_top
          if right is not None:
              self._values["right"] = right
-@@ -213,10 +227,13 @@
+@@ -199,10 +213,13 @@
          '''
          :param _: -
  
@@ -2705,7 +2590,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
  class IDoublable(typing_extensions.Protocol):
-@@ -364,10 +381,15 @@
+@@ -350,10 +367,15 @@
          :param astring: (deprecated) A string value.
          :param first_optional: 
  
@@ -2721,7 +2606,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              "astring": astring,
          }
          if first_optional is not None:
-@@ -524,10 +546,15 @@
+@@ -510,10 +532,15 @@
          :param optional2: 
          :param optional3: 
  
@@ -2737,7 +2622,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              self._values["optional1"] = optional1
          if optional2 is not None:
              self._values["optional2"] = optional2
-@@ -587,10 +614,13 @@
+@@ -573,10 +600,13 @@
  
          :param value: The number.
  
@@ -2751,7 +2636,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -653,7 +683,65 @@
+@@ -639,7 +669,65 @@
  
  import sys as _sys
  setattr(_sys.modules[__name__], "__getattr__", __getattr__)
@@ -2822,7 +2707,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py.diff 1`] = `
 --- python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py	--no-runtime-type-checking
 +++ python/src/scope/jsii_calc_lib/custom_submodule_name/__init__.py	--runtime-type-checking
-@@ -61,10 +61,13 @@
+@@ -47,10 +47,13 @@
              '''
              :param name: 
  
@@ -2836,7 +2721,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              }
  
          @builtins.property
-@@ -167,10 +170,13 @@
+@@ -153,10 +156,13 @@
  
              :param name: 
  
@@ -2850,7 +2735,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              }
  
          @builtins.property
-@@ -205,10 +211,14 @@
+@@ -191,10 +197,14 @@
          :param key: 
          :param value: 
  
@@ -2865,7 +2750,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
              "value": value,
          }
  
-@@ -264,10 +274,13 @@
+@@ -250,10 +260,13 @@
          '''
          :param reflectable: -
  
@@ -2879,7 +2764,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
  __all__ = [
      "ClassWithNONPASCALCASEDName",
-@@ -277,7 +290,35 @@
+@@ -263,7 +276,35 @@
      "Reflector",
  ]
  
@@ -3366,8 +3251,7 @@ kwargs = json.loads(
         "jsii<0.0.1",
         "publication>=0.0.3",
         "scope.jsii-calc-base<0.0.1",
-        "scope.jsii-calc-lib<0.0.1",
-        "typeguard==2.13.3"
+        "scope.jsii-calc-lib<0.0.1"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
@@ -3440,22 +3324,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
@@ -12338,22 +12208,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 import scope.jsii_calc_base._jsii
 import scope.jsii_calc_lib._jsii
@@ -12452,22 +12308,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -12562,22 +12404,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -12665,22 +12493,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -12738,22 +12552,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -12824,22 +12624,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -12959,22 +12745,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -13023,22 +12795,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -13249,22 +13007,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -13325,22 +13069,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -13392,22 +13122,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -13525,22 +13241,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -13658,22 +13360,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -13750,22 +13438,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -13824,22 +13498,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -13957,22 +13617,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14095,22 +13741,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14209,22 +13841,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14293,22 +13911,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14350,22 +13954,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14425,22 +14015,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14498,22 +14074,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -14571,22 +14133,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -14633,22 +14181,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -14693,22 +14227,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -14786,22 +14306,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -14853,22 +14359,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -14927,22 +14419,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -15058,22 +14536,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -15158,22 +14622,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -15413,22 +14863,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -15480,22 +14916,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -15534,22 +14956,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -15588,22 +14996,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -15642,22 +15036,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -15726,22 +15106,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -15877,22 +15243,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -16053,22 +15405,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -16129,22 +15467,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -16344,22 +15668,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -16411,22 +15721,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -16507,22 +15803,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ...._jsii import *
 
@@ -16574,22 +15856,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -16648,22 +15916,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ..._jsii import *
 
@@ -16704,22 +15958,8 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from .._jsii import *
 
@@ -16844,7 +16084,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/__init__.py	--runtime-type-checking
-@@ -130,10 +130,13 @@
+@@ -116,10 +116,13 @@
      def work_it_all(self, seed: builtins.str) -> builtins.str:
          '''Sets \`\`seed\`\` to \`\`this.property\`\`, then calls \`\`someMethod\`\` with \`\`this.property\`\` and returns the result.
  
@@ -16858,7 +16098,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="property")
      @abc.abstractmethod
-@@ -150,19 +153,25 @@
+@@ -136,19 +139,25 @@
      @jsii.member(jsii_name="someMethod")
      def _some_method(self, str: builtins.str) -> builtins.str:
          '''
@@ -16884,7 +16124,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, AbstractSuite).__jsii_proxy_class__ = lambda : _AbstractSuiteProxy
  
-@@ -180,10 +189,13 @@
+@@ -166,10 +175,13 @@
      @jsii.member(jsii_name="anyIn")
      def any_in(self, inp: typing.Any) -> None:
          '''
@@ -16898,7 +16138,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="anyOut")
      def any_out(self) -> typing.Any:
          return typing.cast(typing.Any, jsii.invoke(self, "anyOut", []))
-@@ -191,10 +203,13 @@
+@@ -177,10 +189,13 @@
      @jsii.member(jsii_name="enumMethod")
      def enum_method(self, value: "StringEnum") -> "StringEnum":
          '''
@@ -16912,7 +16152,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="enumPropertyValue")
      def enum_property_value(self) -> jsii.Number:
-@@ -205,73 +220,97 @@
+@@ -191,73 +206,97 @@
      def any_array_property(self) -> typing.List[typing.Any]:
          return typing.cast(typing.List[typing.Any], jsii.get(self, "anyArrayProperty"))
  
@@ -17010,7 +16250,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="mapProperty")
      def map_property(
-@@ -282,28 +321,37 @@
+@@ -268,28 +307,37 @@
      @map_property.setter
      def map_property(
          self,
@@ -17048,7 +16288,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionArrayProperty")
      def union_array_property(
-@@ -314,10 +362,13 @@
+@@ -300,10 +348,13 @@
      @union_array_property.setter
      def union_array_property(
          self,
@@ -17062,7 +16302,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionMapProperty")
      def union_map_property(
-@@ -328,10 +379,13 @@
+@@ -314,10 +365,13 @@
      @union_map_property.setter
      def union_map_property(
          self,
@@ -17076,7 +16316,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -342,19 +396,25 @@
+@@ -328,19 +382,25 @@
      @union_property.setter
      def union_property(
          self,
@@ -17102,7 +16342,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unknownMapProperty")
      def unknown_map_property(self) -> typing.Mapping[builtins.str, typing.Any]:
-@@ -363,28 +423,37 @@
+@@ -349,28 +409,37 @@
      @unknown_map_property.setter
      def unknown_map_property(
          self,
@@ -17140,7 +16380,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.AllTypesEnum")
  class AllTypesEnum(enum.Enum):
-@@ -404,36 +473,52 @@
+@@ -390,36 +459,52 @@
      def get_bar(self, _p1: builtins.str, _p2: jsii.Number) -> None:
          '''
          :param _p1: -
@@ -17193,7 +16433,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class AmbiguousParameters(
      metaclass=jsii.JSIIMeta,
-@@ -449,10 +534,13 @@
+@@ -435,10 +520,13 @@
          '''
          :param scope_: -
          :param scope: 
@@ -17207,7 +16447,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          jsii.create(self.__class__, self, [scope_, props_])
  
      @builtins.property
-@@ -484,10 +572,16 @@
+@@ -470,10 +558,16 @@
          :param obj: the receiver object.
          :param prop_a: the first property to read.
          :param prop_b: the second property to read.
@@ -17224,7 +16464,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class AsyncVirtualMethods(
      metaclass=jsii.JSIIMeta,
-@@ -522,10 +616,13 @@
+@@ -508,10 +602,13 @@
      @jsii.member(jsii_name="overrideMe")
      def override_me(self, mult: jsii.Number) -> jsii.Number:
          '''
@@ -17238,7 +16478,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="overrideMeToo")
      def override_me_too(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.ainvoke(self, "overrideMeToo", []))
-@@ -586,10 +683,14 @@
+@@ -572,10 +669,14 @@
          '''Creates a BinaryOperation.
  
          :param lhs: Left-hand side operand.
@@ -17253,7 +16493,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="hello")
      def hello(self) -> builtins.str:
          '''Say hello!'''
-@@ -650,10 +751,13 @@
+@@ -636,10 +737,13 @@
  
          :param value: the value that should be returned.
  
@@ -17267,7 +16507,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, BurriedAnonymousObject).__jsii_proxy_class__ = lambda : _BurriedAnonymousObjectProxy
  
-@@ -701,18 +805,24 @@
+@@ -687,18 +791,24 @@
      def add(self, value: jsii.Number) -> None:
          '''Adds a number to the current value.
  
@@ -17292,7 +16532,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="neg")
      def neg(self) -> None:
          '''Negates the current value.'''
-@@ -722,10 +832,13 @@
+@@ -708,10 +818,13 @@
      def pow(self, value: jsii.Number) -> None:
          '''Raises the current value by a power.
  
@@ -17306,7 +16546,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="readUnionValue")
      def read_union_value(self) -> jsii.Number:
          '''Returns teh value of the union property (if defined).'''
-@@ -759,20 +872,26 @@
+@@ -745,20 +858,26 @@
          '''The current value.'''
          return typing.cast("_scope_jsii_calc_lib_c61f082f.NumericValue", jsii.get(self, "curr"))
  
@@ -17333,7 +16573,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -784,10 +903,13 @@
+@@ -770,10 +889,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -17347,7 +16587,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.CalculatorProps",
-@@ -804,10 +926,14 @@
+@@ -790,10 +912,14 @@
          '''Properties for Calculator.
  
          :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
@@ -17362,7 +16602,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["initial_value"] = initial_value
          if maximum_value is not None:
              self._values["maximum_value"] = maximum_value
-@@ -853,10 +979,13 @@
+@@ -839,10 +965,13 @@
          union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]],
      ) -> None:
          '''
@@ -17376,7 +16616,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticMethodWithMapOfUnionsParam")
      @builtins.classmethod
      def static_method_with_map_of_unions_param(
-@@ -864,20 +993,26 @@
+@@ -850,20 +979,26 @@
          param: typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]],
      ) -> None:
          '''
@@ -17403,7 +16643,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -888,10 +1023,13 @@
+@@ -874,10 +1009,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -17417,7 +16657,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ClassWithCollections(
      metaclass=jsii.JSIIMeta,
-@@ -904,10 +1042,14 @@
+@@ -890,10 +1028,14 @@
      ) -> None:
          '''
          :param map: -
@@ -17432,7 +16672,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="createAList")
      @builtins.classmethod
      def create_a_list(cls) -> typing.List[builtins.str]:
-@@ -923,37 +1065,49 @@
+@@ -909,37 +1051,49 @@
      def static_array(cls) -> typing.List[builtins.str]:  # pyright: ignore [reportGeneralTypeIssues,reportRedeclaration]
          return typing.cast(typing.List[builtins.str], jsii.sget(cls, "staticArray"))
  
@@ -17482,7 +16722,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ClassWithContainerTypes(
      metaclass=jsii.JSIIMeta,
-@@ -975,10 +1129,15 @@
+@@ -961,10 +1115,15 @@
          :param obj: -
          :param array_prop: 
          :param obj_prop: 
@@ -17498,7 +16738,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          )
  
          jsii.create(self.__class__, self, [array, record, obj, props])
-@@ -1028,17 +1187,23 @@
+@@ -1014,17 +1173,23 @@
  ):
      def __init__(self, int: builtins.str) -> None:
          '''
@@ -17522,7 +16762,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="int")
      def int(self) -> builtins.str:
-@@ -1057,10 +1222,13 @@
+@@ -1043,10 +1208,13 @@
      def mutable_object(self) -> "IMutableObjectLiteral":
          return typing.cast("IMutableObjectLiteral", jsii.get(self, "mutableObject"))
  
@@ -17536,7 +16776,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ClassWithNestedUnion(
      metaclass=jsii.JSIIMeta,
-@@ -1071,10 +1239,13 @@
+@@ -1057,10 +1225,13 @@
          union_property: typing.Sequence[typing.Union[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]], typing.Sequence[typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]]],
      ) -> None:
          '''
@@ -17550,7 +16790,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="unionProperty")
      def union_property(
-@@ -1085,10 +1256,13 @@
+@@ -1071,10 +1242,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -17564,7 +16804,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ConfusingToJackson(
      metaclass=jsii.JSIIMeta,
-@@ -1119,10 +1293,13 @@
+@@ -1105,10 +1279,13 @@
      @union_property.setter
      def union_property(
          self,
@@ -17578,7 +16818,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ConfusingToJacksonStruct",
-@@ -1136,10 +1313,13 @@
+@@ -1122,10 +1299,13 @@
          union_property: typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.Sequence[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]] = None,
      ) -> None:
          '''
@@ -17592,7 +16832,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["union_property"] = union_property
  
      @builtins.property
-@@ -1167,10 +1347,13 @@
+@@ -1153,10 +1333,13 @@
  ):
      def __init__(self, consumer: "PartiallyInitializedThisConsumer") -> None:
          '''
@@ -17606,7 +16846,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
      def __init__(self) -> None:
-@@ -1218,10 +1401,13 @@
+@@ -1204,10 +1387,13 @@
  ):
      def __init__(self, delegate: "IStructReturningDelegate") -> None:
          '''
@@ -17620,7 +16860,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="workItBaby")
      def work_it_baby(self) -> "StructB":
          return typing.cast("StructB", jsii.invoke(self, "workItBaby", []))
-@@ -1250,10 +1436,13 @@
+@@ -1236,10 +1422,13 @@
  
          Returns whether the bell was rung.
  
@@ -17634,7 +16874,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticImplementedByPrivateClass")
      @builtins.classmethod
      def static_implemented_by_private_class(
-@@ -1264,10 +1453,13 @@
+@@ -1250,10 +1439,13 @@
  
          Return whether the bell was rung.
  
@@ -17648,7 +16888,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticImplementedByPublicClass")
      @builtins.classmethod
      def static_implemented_by_public_class(cls, ringer: "IBellRinger") -> builtins.bool:
-@@ -1275,10 +1467,13 @@
+@@ -1261,10 +1453,13 @@
  
          Return whether the bell was rung.
  
@@ -17662,7 +16902,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="staticWhenTypedAsClass")
      @builtins.classmethod
      def static_when_typed_as_class(cls, ringer: "IConcreteBellRinger") -> builtins.bool:
-@@ -1286,50 +1481,65 @@
+@@ -1272,50 +1467,65 @@
  
          Return whether the bell was rung.
  
@@ -17728,7 +16968,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ConsumersOfThisCrazyTypeSystem(
      metaclass=jsii.JSIIMeta,
-@@ -1344,20 +1554,26 @@
+@@ -1330,20 +1540,26 @@
          obj: "IAnotherPublicInterface",
      ) -> builtins.str:
          '''
@@ -17755,7 +16995,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ContainerProps",
-@@ -1379,10 +1595,15 @@
+@@ -1365,10 +1581,15 @@
          '''
          :param array_prop: 
          :param obj_prop: 
@@ -17771,7 +17011,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "obj_prop": obj_prop,
              "record_prop": record_prop,
          }
-@@ -1448,17 +1669,23 @@
+@@ -1434,17 +1655,23 @@
          data: typing.Mapping[builtins.str, typing.Any],
      ) -> builtins.str:
          '''
@@ -17795,7 +17035,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Default(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Default"):
      '''A class named "Default".
-@@ -1487,10 +1714,15 @@
+@@ -1473,10 +1700,15 @@
          '''
          :param arg1: -
          :param arg2: -
@@ -17811,7 +17051,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="arg1")
      def arg1(self) -> jsii.Number:
-@@ -1548,10 +1780,14 @@
+@@ -1534,10 +1766,14 @@
  
          :deprecated: this constructor is "just" okay
  
@@ -17826,7 +17066,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -1581,10 +1817,13 @@
+@@ -1567,10 +1803,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -17840,7 +17080,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.DeprecatedEnum")
  class DeprecatedEnum(enum.Enum):
-@@ -1620,10 +1859,13 @@
+@@ -1606,10 +1845,13 @@
  
          :deprecated: it just wraps a string
  
@@ -17854,7 +17094,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -1688,10 +1930,21 @@
+@@ -1674,10 +1916,21 @@
          :param non_primitive: An example of a non primitive property.
          :param another_optional: This is optional.
          :param optional_any: 
@@ -17876,7 +17116,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "astring": astring,
              "another_required": another_required,
              "bool": bool,
-@@ -1812,10 +2065,16 @@
+@@ -1798,10 +2051,16 @@
          :param hoisted_top: 
          :param left: 
          :param right: 
@@ -17893,7 +17133,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["hoisted_top"] = hoisted_top
          if left is not None:
              self._values["left"] = left
-@@ -1873,10 +2132,13 @@
+@@ -1859,10 +2118,13 @@
  class DiamondInheritanceBaseLevelStruct:
      def __init__(self, *, base_level_property: builtins.str) -> None:
          '''
@@ -17907,7 +17147,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -1914,10 +2176,14 @@
+@@ -1900,10 +2162,14 @@
      ) -> None:
          '''
          :param base_level_property: 
@@ -17922,7 +17162,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "first_mid_level_property": first_mid_level_property,
          }
  
-@@ -1962,10 +2228,14 @@
+@@ -1948,10 +2214,14 @@
      ) -> None:
          '''
          :param base_level_property: 
@@ -17937,7 +17177,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "second_mid_level_property": second_mid_level_property,
          }
  
-@@ -2021,10 +2291,16 @@
+@@ -2007,10 +2277,16 @@
          :param base_level_property: 
          :param first_mid_level_property: 
          :param second_mid_level_property: 
@@ -17954,7 +17194,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "first_mid_level_property": first_mid_level_property,
              "second_mid_level_property": second_mid_level_property,
              "top_level_property": top_level_property,
-@@ -2104,10 +2380,13 @@
+@@ -2090,10 +2366,13 @@
      @jsii.member(jsii_name="changePrivatePropertyValue")
      def change_private_property_value(self, new_value: builtins.str) -> None:
          '''
@@ -17968,7 +17208,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="privateMethodValue")
      def private_method_value(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.invoke(self, "privateMethodValue", []))
-@@ -2136,10 +2415,15 @@
+@@ -2122,10 +2401,15 @@
          '''
          :param _required_any: -
          :param _optional_any: -
@@ -17984,7 +17224,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedClass"):
      '''Here's the first line of the TSDoc comment.
-@@ -2211,10 +2495,14 @@
+@@ -2197,10 +2481,14 @@
      ) -> builtins.str:
          '''
          :param optional: -
@@ -17999,7 +17239,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.DontUseMe",
-@@ -2227,10 +2515,13 @@
+@@ -2213,10 +2501,13 @@
  
     Don't use this interface An interface that shouldn't be used, with the annotation in a weird place.
  
@@ -18013,7 +17253,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["dont_set_me"] = dont_set_me
  
      @builtins.property
-@@ -2264,10 +2555,13 @@
+@@ -2250,10 +2541,13 @@
  class DummyObj:
      def __init__(self, *, example: builtins.str) -> None:
          '''
@@ -18027,7 +17267,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -2296,28 +2590,37 @@
+@@ -2282,28 +2576,37 @@
  
      def __init__(self, value_store: builtins.str) -> None:
          '''
@@ -18065,7 +17305,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class DynamicPropertyBearerChild(
      DynamicPropertyBearer,
-@@ -2326,20 +2629,26 @@
+@@ -2312,20 +2615,26 @@
  ):
      def __init__(self, original_value: builtins.str) -> None:
          '''
@@ -18092,7 +17332,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="originalValue")
      def original_value(self) -> builtins.str:
-@@ -2352,10 +2661,13 @@
+@@ -2338,10 +2647,13 @@
      def __init__(self, clock: "IWallClock") -> None:
          '''Creates a new instance of Entropy.
  
@@ -18106,7 +17346,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="increase")
      def increase(self) -> builtins.str:
          '''Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
-@@ -2383,10 +2695,13 @@
+@@ -2369,10 +2681,13 @@
  
          :param word: the value to return.
  
@@ -18120,7 +17360,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, Entropy).__jsii_proxy_class__ = lambda : _EntropyProxy
  
-@@ -2423,10 +2738,14 @@
+@@ -2409,10 +2724,14 @@
          are being erased when sending values from native code to JS.
  
          :param opts: -
@@ -18135,7 +17375,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="prop1IsNull")
      @builtins.classmethod
      def prop1_is_null(cls) -> typing.Mapping[builtins.str, typing.Any]:
-@@ -2454,10 +2773,14 @@
+@@ -2440,10 +2759,14 @@
      ) -> None:
          '''
          :param option1: 
@@ -18150,7 +17390,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["option1"] = option1
          if option2 is not None:
              self._values["option2"] = option2
-@@ -2501,10 +2824,14 @@
+@@ -2487,10 +2810,14 @@
          :param readonly_string: -
          :param mutable_number: -
  
@@ -18165,7 +17405,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -2528,10 +2855,13 @@
+@@ -2514,10 +2841,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18179,7 +17419,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.ExperimentalEnum")
  class ExperimentalEnum(enum.Enum):
-@@ -2559,10 +2889,13 @@
+@@ -2545,10 +2875,13 @@
          '''
          :param readonly_property: 
  
@@ -18193,7 +17433,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -2592,10 +2925,13 @@
+@@ -2578,10 +2911,13 @@
  ):
      def __init__(self, success: builtins.bool) -> None:
          '''
@@ -18207,7 +17447,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="success")
      def success(self) -> builtins.bool:
-@@ -2611,10 +2947,14 @@
+@@ -2597,10 +2933,14 @@
      def __init__(self, *, boom: builtins.bool, prop: builtins.str) -> None:
          '''
          :param boom: 
@@ -18222,7 +17462,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "prop": prop,
          }
  
-@@ -2656,10 +2996,14 @@
+@@ -2642,10 +2982,14 @@
          :param readonly_string: -
          :param mutable_number: -
  
@@ -18237,7 +17477,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -2683,10 +3027,13 @@
+@@ -2669,10 +3013,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18251,7 +17491,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.ExternalEnum")
  class ExternalEnum(enum.Enum):
-@@ -2714,10 +3061,13 @@
+@@ -2700,10 +3047,13 @@
          '''
          :param readonly_property: 
  
@@ -18265,7 +17505,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -2860,10 +3210,13 @@
+@@ -2846,10 +3196,13 @@
      def __init__(self, *, name: typing.Optional[builtins.str] = None) -> None:
          '''These are some arguments you can pass to a method.
  
@@ -18279,7 +17519,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["name"] = name
  
      @builtins.property
-@@ -2900,10 +3253,13 @@
+@@ -2886,10 +3239,13 @@
          friendly: "_scope_jsii_calc_lib_c61f082f.IFriendly",
      ) -> builtins.str:
          '''
@@ -18293,7 +17533,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.interface(jsii_type="jsii-calc.IAnonymousImplementationProvider")
  class IAnonymousImplementationProvider(typing_extensions.Protocol):
-@@ -2983,10 +3339,13 @@
+@@ -2969,10 +3325,13 @@
      def a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "a"))
  
@@ -18307,7 +17547,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IAnotherPublicInterface).__jsii_proxy_class__ = lambda : _IAnotherPublicInterfaceProxy
  
-@@ -3029,10 +3388,13 @@
+@@ -3015,10 +3374,13 @@
      @jsii.member(jsii_name="yourTurn")
      def your_turn(self, bell: "IBell") -> None:
          '''
@@ -18321,7 +17561,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IBellRinger).__jsii_proxy_class__ = lambda : _IBellRingerProxy
  
-@@ -3057,10 +3419,13 @@
+@@ -3043,10 +3405,13 @@
      @jsii.member(jsii_name="yourTurn")
      def your_turn(self, bell: "Bell") -> None:
          '''
@@ -18335,7 +17575,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IConcreteBellRinger).__jsii_proxy_class__ = lambda : _IConcreteBellRingerProxy
  
-@@ -3116,10 +3481,13 @@
+@@ -3102,10 +3467,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18349,7 +17589,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -3174,10 +3542,13 @@
+@@ -3160,10 +3528,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18363,7 +17603,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -3219,10 +3590,13 @@
+@@ -3205,10 +3576,13 @@
      def private(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "private"))
  
@@ -18377,7 +17617,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IExtendsPrivateInterface).__jsii_proxy_class__ = lambda : _IExtendsPrivateInterfaceProxy
  
-@@ -3268,10 +3642,13 @@
+@@ -3254,10 +3628,13 @@
          '''
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18391,7 +17631,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          '''
-@@ -3453,10 +3830,14 @@
+@@ -3439,10 +3816,14 @@
      ) -> None:
          '''
          :param arg1: -
@@ -18406,7 +17646,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithOptionalMethodArguments).__jsii_proxy_class__ = lambda : _IInterfaceWithOptionalMethodArgumentsProxy
  
-@@ -3491,10 +3872,13 @@
+@@ -3477,10 +3858,13 @@
      def read_write_string(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "readWriteString"))
  
@@ -18420,7 +17660,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithProperties).__jsii_proxy_class__ = lambda : _IInterfaceWithPropertiesProxy
  
-@@ -3524,10 +3908,13 @@
+@@ -3510,10 +3894,13 @@
      def foo(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.get(self, "foo"))
  
@@ -18434,7 +17674,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithPropertiesExtension).__jsii_proxy_class__ = lambda : _IInterfaceWithPropertiesExtensionProxy
  
-@@ -4047,10 +4434,13 @@
+@@ -4033,10 +4420,13 @@
      def value(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "value"))
  
@@ -18448,7 +17688,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IMutableObjectLiteral).__jsii_proxy_class__ = lambda : _IMutableObjectLiteralProxy
  
-@@ -4086,19 +4476,25 @@
+@@ -4072,19 +4462,25 @@
      def b(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "b"))
  
@@ -18474,7 +17714,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, INonInternalInterface).__jsii_proxy_class__ = lambda : _INonInternalInterfaceProxy
  
-@@ -4131,10 +4527,13 @@
+@@ -4117,10 +4513,13 @@
      def property(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "property"))
  
@@ -18488,7 +17728,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="wasSet")
      def was_set(self) -> builtins.bool:
          return typing.cast(builtins.bool, jsii.invoke(self, "wasSet", []))
-@@ -4327,10 +4726,13 @@
+@@ -4313,10 +4712,13 @@
      def mutable_property(self) -> typing.Optional[jsii.Number]:
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -18502,7 +17742,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          return typing.cast(None, jsii.invoke(self, "method", []))
-@@ -4431,10 +4833,13 @@
+@@ -4417,10 +4819,13 @@
      def prop(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "prop"))
  
@@ -18516,7 +17756,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementation"):
      def __init__(self) -> None:
-@@ -4480,10 +4885,13 @@
+@@ -4466,10 +4871,13 @@
      def private(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "private"))
  
@@ -18530,7 +17770,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ImplictBaseOfBase",
-@@ -4501,10 +4909,15 @@
+@@ -4487,10 +4895,15 @@
          '''
          :param foo: -
          :param bar: -
@@ -18546,7 +17786,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "bar": bar,
              "goo": goo,
          }
-@@ -4579,10 +4992,13 @@
+@@ -4565,10 +4978,13 @@
          count: jsii.Number,
      ) -> typing.List["_scope_jsii_calc_lib_c61f082f.IDoublable"]:
          '''
@@ -18560,7 +17800,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorphism"):
      '''Checks the "same instance" isomorphism is preserved within the constructor.
-@@ -4687,19 +5103,25 @@
+@@ -4673,19 +5089,25 @@
      def prop_a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "propA"))
  
@@ -18586,7 +17826,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class JavaReservedWords(
      metaclass=jsii.JSIIMeta,
-@@ -4921,10 +5343,13 @@
+@@ -4907,10 +5329,13 @@
      def while_(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "while"))
  
@@ -18600,7 +17840,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IJsii487External2, IJsii487External)
  class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derived"):
-@@ -5026,10 +5451,13 @@
+@@ -5012,10 +5437,13 @@
      @builtins.classmethod
      def stringify(cls, value: typing.Any = None) -> typing.Optional[builtins.str]:
          '''
@@ -18614,7 +17854,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class LevelOne(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.LevelOne"):
      '''Validates that nested classes get correct code generation for the occasional forward reference.'''
-@@ -5059,10 +5487,13 @@
+@@ -5045,10 +5473,13 @@
      class PropBooleanValue:
          def __init__(self, *, value: builtins.bool) -> None:
              '''
@@ -18628,7 +17868,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -5096,10 +5527,13 @@
+@@ -5082,10 +5513,13 @@
              '''
              :param prop: 
              '''
@@ -18642,7 +17882,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -5134,10 +5568,13 @@
+@@ -5120,10 +5554,13 @@
          '''
          :param prop: 
          '''
@@ -18656,7 +17896,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -5185,10 +5622,17 @@
+@@ -5171,10 +5608,17 @@
          :param cpu: The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments This default is set in the underlying FargateTaskDefinition construct. Default: 256
          :param memory_mib: The amount (in MiB) of memory used by the task. This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
          :param public_load_balancer: Determines whether the Application Load Balancer will be internet-facing. Default: true
@@ -18674,7 +17914,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["container_port"] = container_port
          if cpu is not None:
              self._values["cpu"] = cpu
-@@ -5315,10 +5759,14 @@
+@@ -5301,10 +5745,14 @@
          '''Creates a BinaryOperation.
  
          :param lhs: Left-hand side operand.
@@ -18689,7 +17929,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="farewell")
      def farewell(self) -> builtins.str:
          '''Say farewell.'''
-@@ -5366,10 +5814,13 @@
+@@ -5352,10 +5800,13 @@
  class NestedStruct:
      def __init__(self, *, number_prop: jsii.Number) -> None:
          '''
@@ -18703,7 +17943,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -5440,17 +5891,24 @@
+@@ -5426,17 +5877,24 @@
      def __init__(self, _param1: builtins.str, optional: typing.Any = None) -> None:
          '''
          :param _param1: -
@@ -18728,7 +17968,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="giveMeUndefinedInsideAnObject")
      def give_me_undefined_inside_an_object(
          self,
-@@ -5478,10 +5936,13 @@
+@@ -5464,10 +5922,13 @@
      def change_me_to_undefined(self) -> typing.Optional[builtins.str]:
          return typing.cast(typing.Optional[builtins.str], jsii.get(self, "changeMeToUndefined"))
  
@@ -18742,7 +17982,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.NullShouldBeTreatedAsUndefinedData",
-@@ -5500,10 +5961,14 @@
+@@ -5486,10 +5947,14 @@
      ) -> None:
          '''
          :param array_with_three_elements_and_undefined_as_second_argument: 
@@ -18757,7 +17997,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if this_should_be_undefined is not None:
              self._values["this_should_be_undefined"] = this_should_be_undefined
-@@ -5538,17 +6003,23 @@
+@@ -5524,17 +5989,23 @@
  
      def __init__(self, generator: "IRandomNumberGenerator") -> None:
          '''
@@ -18781,7 +18021,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="nextTimes100")
      def next_times100(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.invoke(self, "nextTimes100", []))
-@@ -5558,10 +6029,13 @@
+@@ -5544,10 +6015,13 @@
      def generator(self) -> "IRandomNumberGenerator":
          return typing.cast("IRandomNumberGenerator", jsii.get(self, "generator"))
  
@@ -18795,7 +18035,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ObjectRefsInCollections(
      metaclass=jsii.JSIIMeta,
-@@ -5579,10 +6053,13 @@
+@@ -5565,10 +6039,13 @@
      ) -> jsii.Number:
          '''Returns the sum of all values.
  
@@ -18809,7 +18049,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="sumFromMap")
      def sum_from_map(
          self,
-@@ -5590,10 +6067,13 @@
+@@ -5576,10 +6053,13 @@
      ) -> jsii.Number:
          '''Returns the sum of all values in a map.
  
@@ -18823,7 +18063,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ObjectWithPropertyProvider(
      metaclass=jsii.JSIIMeta,
-@@ -5634,10 +6114,13 @@
+@@ -5620,10 +6100,13 @@
  ):
      def __init__(self, delegate: "IInterfaceWithOptionalMethodArguments") -> None:
          '''
@@ -18837,7 +18077,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="invokeWithOptional")
      def invoke_with_optional(self) -> None:
          return typing.cast(None, jsii.invoke(self, "invokeWithOptional", []))
-@@ -5660,10 +6143,15 @@
+@@ -5646,10 +6129,15 @@
          '''
          :param arg1: -
          :param arg2: -
@@ -18853,7 +18093,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="arg1")
      def arg1(self) -> jsii.Number:
-@@ -5688,10 +6176,13 @@
+@@ -5674,10 +6162,13 @@
  class OptionalStruct:
      def __init__(self, *, field: typing.Optional[builtins.str] = None) -> None:
          '''
@@ -18867,7 +18107,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              self._values["field"] = field
  
      @builtins.property
-@@ -5767,10 +6258,13 @@
+@@ -5753,10 +6244,13 @@
      def _override_read_write(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "overrideReadWrite"))
  
@@ -18881,7 +18121,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class OverrideReturnsObject(
      metaclass=jsii.JSIIMeta,
-@@ -5782,10 +6276,13 @@
+@@ -5768,10 +6262,13 @@
      @jsii.member(jsii_name="test")
      def test(self, obj: "IReturnsNumber") -> jsii.Number:
          '''
@@ -18895,7 +18135,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ParamShadowsBuiltins(
      metaclass=jsii.JSIIMeta,
-@@ -5807,10 +6304,14 @@
+@@ -5793,10 +6290,14 @@
          :param str: should be set to something that is NOT a valid expression in Python (e.g: "\${NOPE}"").
          :param boolean_property: 
          :param string_property: 
@@ -18910,7 +18150,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              string_property=string_property,
              struct_property=struct_property,
          )
-@@ -5840,10 +6341,15 @@
+@@ -5826,10 +6327,15 @@
          :param string_property: 
          :param struct_property: 
          '''
@@ -18926,7 +18166,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "string_property": string_property,
              "struct_property": struct_property,
          }
-@@ -5896,10 +6402,13 @@
+@@ -5882,10 +6388,13 @@
          scope: "_scope_jsii_calc_lib_c61f082f.Number",
      ) -> "_scope_jsii_calc_lib_c61f082f.Number":
          '''
@@ -18940,7 +18180,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ParentStruct982",
-@@ -5910,10 +6419,13 @@
+@@ -5896,10 +6405,13 @@
      def __init__(self, *, foo: builtins.str) -> None:
          '''https://github.com/aws/jsii/issues/982.
  
@@ -18954,7 +18194,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -5968,10 +6480,15 @@
+@@ -5954,10 +6466,15 @@
          '''
          :param obj: -
          :param dt: -
@@ -18970,7 +18210,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, PartiallyInitializedThisConsumer).__jsii_proxy_class__ = lambda : _PartiallyInitializedThisConsumerProxy
  
-@@ -5986,10 +6503,13 @@
+@@ -5972,10 +6489,13 @@
          friendly: "_scope_jsii_calc_lib_c61f082f.IFriendly",
      ) -> builtins.str:
          '''
@@ -18984,7 +18224,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Power(
      _CompositeOperation_1c4d123b,
-@@ -6006,10 +6526,14 @@
+@@ -5992,10 +6512,14 @@
          '''Creates a Power operation.
  
          :param base: The base of the power.
@@ -18999,7 +18239,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="base")
      def base(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
-@@ -6232,10 +6756,13 @@
+@@ -6218,10 +6742,13 @@
          value: "_scope_jsii_calc_lib_c61f082f.EnumFromScopedModule",
      ) -> None:
          '''
@@ -19013,7 +18253,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="foo")
      def foo(
-@@ -6246,10 +6773,13 @@
+@@ -6232,10 +6759,13 @@
      @foo.setter
      def foo(
          self,
@@ -19027,7 +18267,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class ReturnsPrivateImplementationOfInterface(
      metaclass=jsii.JSIIMeta,
-@@ -6291,10 +6821,14 @@
+@@ -6277,10 +6807,14 @@
          :param string_prop: May not be empty.
          :param nested_struct: 
          '''
@@ -19042,7 +18282,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if nested_struct is not None:
              self._values["nested_struct"] = nested_struct
-@@ -6361,17 +6895,25 @@
+@@ -6347,17 +6881,25 @@
          '''
          :param arg1: -
          :param arg2: -
@@ -19068,7 +18308,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="methodWithOptionalArguments")
      def method_with_optional_arguments(
          self,
-@@ -6383,10 +6925,15 @@
+@@ -6369,10 +6911,15 @@
  
          :param arg1: -
          :param arg2: -
@@ -19084,7 +18324,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.SecondLevelStruct",
-@@ -6405,10 +6952,14 @@
+@@ -6391,10 +6938,14 @@
      ) -> None:
          '''
          :param deeper_required_prop: It's long and required.
@@ -19099,7 +18339,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if deeper_optional_prop is not None:
              self._values["deeper_optional_prop"] = deeper_optional_prop
-@@ -6470,10 +7021,13 @@
+@@ -6456,10 +7007,13 @@
      @jsii.member(jsii_name="isSingletonInt")
      def is_singleton_int(self, value: jsii.Number) -> builtins.bool:
          '''
@@ -19113,7 +18353,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.SingletonIntEnum")
  class SingletonIntEnum(enum.Enum):
-@@ -6492,10 +7046,13 @@
+@@ -6478,10 +7032,13 @@
      @jsii.member(jsii_name="isSingletonString")
      def is_singleton_string(self, value: builtins.str) -> builtins.bool:
          '''
@@ -19127,7 +18367,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.SingletonStringEnum")
  class SingletonStringEnum(enum.Enum):
-@@ -6519,10 +7076,14 @@
+@@ -6505,10 +7062,14 @@
      ) -> None:
          '''
          :param property: 
@@ -19142,7 +18382,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "yet_anoter_one": yet_anoter_one,
          }
  
-@@ -6576,10 +7137,13 @@
+@@ -6562,10 +7123,13 @@
      class ParentStruct:
          def __init__(self, *, field1: builtins.str) -> None:
              '''
@@ -19156,7 +18396,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -6608,10 +7172,14 @@
+@@ -6594,10 +7158,14 @@
          def __init__(self, *, field1: builtins.str, field2: builtins.str) -> None:
              '''
              :param field1: 
@@ -19171,7 +18411,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
                  "field2": field2,
              }
  
-@@ -6662,10 +7230,14 @@
+@@ -6648,10 +7216,14 @@
      ) -> None:
          '''
          :param readonly_string: -
@@ -19186,7 +18426,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="method")
      def method(self) -> None:
          return typing.cast(None, jsii.invoke(self, "method", []))
-@@ -6680,10 +7252,13 @@
+@@ -6666,10 +7238,13 @@
      def mutable_property(self) -> typing.Optional[jsii.Number]:
          return typing.cast(typing.Optional[jsii.Number], jsii.get(self, "mutableProperty"))
  
@@ -19200,7 +18440,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.enum(jsii_type="jsii-calc.StableEnum")
  class StableEnum(enum.Enum):
-@@ -6699,10 +7274,13 @@
+@@ -6685,10 +7260,13 @@
  class StableStruct:
      def __init__(self, *, readonly_property: builtins.str) -> None:
          '''
@@ -19214,7 +18454,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -6739,10 +7317,13 @@
+@@ -6725,10 +7303,13 @@
      def static_variable(cls) -> builtins.bool:  # pyright: ignore [reportGeneralTypeIssues,reportRedeclaration]
          return typing.cast(builtins.bool, jsii.sget(cls, "staticVariable"))
  
@@ -19228,7 +18468,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class StaticHelloParent(
      metaclass=jsii.JSIIMeta,
-@@ -6777,19 +7358,25 @@
+@@ -6763,19 +7344,25 @@
  class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
      def __init__(self, value: builtins.str) -> None:
          '''
@@ -19254,7 +18494,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="justMethod")
      def just_method(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.invoke(self, "justMethod", []))
-@@ -6826,19 +7413,25 @@
+@@ -6812,19 +7399,25 @@
          '''
          return typing.cast("Statics", jsii.sget(cls, "instance"))
  
@@ -19280,7 +18520,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="value")
      def value(self) -> builtins.str:
-@@ -6894,10 +7487,13 @@
+@@ -6880,10 +7473,13 @@
      def you_see_me(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "youSeeMe"))
  
@@ -19294,7 +18534,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.StructA",
-@@ -6920,10 +7516,15 @@
+@@ -6906,10 +7502,15 @@
  
          :param required_string: 
          :param optional_number: 
@@ -19310,7 +18550,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if optional_number is not None:
              self._values["optional_number"] = optional_number
-@@ -6981,10 +7582,15 @@
+@@ -6967,10 +7568,15 @@
          :param optional_boolean: 
          :param optional_struct_a: 
          '''
@@ -19326,7 +18566,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if optional_boolean is not None:
              self._values["optional_boolean"] = optional_boolean
-@@ -7036,10 +7642,14 @@
+@@ -7022,10 +7628,14 @@
          See: https://github.com/aws/aws-cdk/issues/4302
  
          :param scope: 
@@ -19341,7 +18581,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if props is not None:
              self._values["props"] = props
-@@ -7082,10 +7692,14 @@
+@@ -7068,10 +7678,14 @@
      ) -> jsii.Number:
          '''
          :param _positional: -
@@ -19356,7 +18596,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="roundTrip")
      @builtins.classmethod
      def round_trip(
-@@ -7100,10 +7714,13 @@
+@@ -7086,10 +7700,13 @@
          :param _positional: -
          :param required: This is a required field.
          :param second_level: A union to really stress test our serialization.
@@ -19370,7 +18610,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          )
  
          return typing.cast("TopLevelStruct", jsii.sinvoke(cls, "roundTrip", [_positional, input]))
-@@ -7120,10 +7737,13 @@
+@@ -7106,10 +7723,13 @@
          struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
      ) -> builtins.bool:
          '''
@@ -19384,7 +18624,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="isStructB")
      @builtins.classmethod
      def is_struct_b(
-@@ -7131,18 +7751,24 @@
+@@ -7117,18 +7737,24 @@
          struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
      ) -> builtins.bool:
          '''
@@ -19409,7 +18649,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.StructWithCollectionOfUnionts",
-@@ -7156,10 +7782,13 @@
+@@ -7142,10 +7768,13 @@
          union_property: typing.Sequence[typing.Mapping[builtins.str, typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]]]],
      ) -> None:
          '''
@@ -19423,7 +18663,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -7196,10 +7825,14 @@
+@@ -7182,10 +7811,14 @@
      ) -> None:
          '''
          :param foo: An enum value.
@@ -19438,7 +18678,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if bar is not None:
              self._values["bar"] = bar
-@@ -7255,10 +7888,16 @@
+@@ -7241,10 +7874,16 @@
          :param default: 
          :param assert_: 
          :param result: 
@@ -19455,7 +18695,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if assert_ is not None:
              self._values["assert_"] = assert_
-@@ -7328,10 +7967,13 @@
+@@ -7314,10 +7953,13 @@
      @parts.setter
      def parts(
          self,
@@ -19469,7 +18709,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.SupportsNiceJavaBuilderProps",
-@@ -7347,10 +7989,14 @@
+@@ -7333,10 +7975,14 @@
      ) -> None:
          '''
          :param bar: Some number, like 42.
@@ -19484,7 +18724,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if id is not None:
              self._values["id"] = id
-@@ -7399,10 +8045,13 @@
+@@ -7385,10 +8031,13 @@
          '''
          :param id_: some identifier of your choice.
          :param bar: Some number, like 42.
@@ -19498,7 +18738,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          jsii.create(self.__class__, self, [id_, props])
  
      @builtins.property
-@@ -7480,17 +8129,23 @@
+@@ -7466,17 +8115,23 @@
      @jsii.member(jsii_name="modifyOtherProperty")
      def modify_other_property(self, value: builtins.str) -> None:
          '''
@@ -19522,7 +18762,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="readA")
      def read_a(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.invoke(self, "readA", []))
-@@ -7510,17 +8165,23 @@
+@@ -7496,17 +8151,23 @@
      @jsii.member(jsii_name="virtualMethod")
      def virtual_method(self, n: jsii.Number) -> jsii.Number:
          '''
@@ -19546,7 +18786,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="readonlyProperty")
      def readonly_property(self) -> builtins.str:
-@@ -7531,46 +8192,61 @@
+@@ -7517,46 +8178,61 @@
      def a(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.get(self, "a"))
  
@@ -19608,7 +18848,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class TestStructWithEnum(
      metaclass=jsii.JSIIMeta,
-@@ -7653,10 +8329,15 @@
+@@ -7639,10 +8315,15 @@
          '''
          :param required: This is a required field.
          :param second_level: A union to really stress test our serialization.
@@ -19624,7 +18864,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "second_level": second_level,
          }
          if optional is not None:
-@@ -7747,10 +8428,13 @@
+@@ -7733,10 +8414,13 @@
  
      def __init__(self, operand: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
          '''
@@ -19638,7 +18878,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="operand")
      def operand(self) -> "_scope_jsii_calc_lib_c61f082f.NumericValue":
-@@ -7781,10 +8465,14 @@
+@@ -7767,10 +8451,14 @@
      ) -> None:
          '''
          :param bar: 
@@ -19653,7 +18893,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if foo is not None:
              self._values["foo"] = foo
-@@ -7821,10 +8509,13 @@
+@@ -7807,10 +8495,13 @@
  
      def __init__(self, delegate: typing.Mapping[builtins.str, typing.Any]) -> None:
          '''
@@ -19667,7 +18907,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.python.classproperty
      @jsii.member(jsii_name="reflector")
      def REFLECTOR(
-@@ -7869,10 +8560,13 @@
+@@ -7855,10 +8546,13 @@
  ):
      def __init__(self, obj: "IInterfaceWithProperties") -> None:
          '''
@@ -19681,7 +18921,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="justRead")
      def just_read(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.invoke(self, "justRead", []))
-@@ -7883,17 +8577,23 @@
+@@ -7869,17 +8563,23 @@
          ext: "IInterfaceWithPropertiesExtension",
      ) -> builtins.str:
          '''
@@ -19705,7 +18945,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="obj")
      def obj(self) -> "IInterfaceWithProperties":
-@@ -7903,25 +8603,34 @@
+@@ -7889,25 +8589,34 @@
  class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvoker"):
      def __init__(self, method: "VariadicMethod") -> None:
          '''
@@ -19740,7 +18980,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="asArray")
      def as_array(
          self,
-@@ -7930,10 +8639,14 @@
+@@ -7916,10 +8625,14 @@
      ) -> typing.List[jsii.Number]:
          '''
          :param first: the first element of the array to be returned (after the \`\`prefix\`\` provided at construction time).
@@ -19755,7 +18995,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class VariadicTypeUnion(
      metaclass=jsii.JSIIMeta,
-@@ -7941,19 +8654,25 @@
+@@ -7927,19 +8640,25 @@
  ):
      def __init__(self, *union: typing.Union["StructA", "StructB"]) -> None:
          '''
@@ -19781,7 +19021,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class VirtualMethodPlayground(
      metaclass=jsii.JSIIMeta,
-@@ -7965,38 +8684,53 @@
+@@ -7951,38 +8670,53 @@
      @jsii.member(jsii_name="overrideMeAsync")
      def override_me_async(self, index: jsii.Number) -> jsii.Number:
          '''
@@ -19835,7 +19075,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class VoidCallback(
      metaclass=jsii.JSIIAbstractClass,
-@@ -8058,10 +8792,13 @@
+@@ -8044,10 +8778,13 @@
          '''
          return typing.cast(typing.Optional[builtins.str], jsii.get(self, "dontReadMe"))
  
@@ -19849,7 +19089,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class WithPrivatePropertyInConstructor(
      metaclass=jsii.JSIIMeta,
-@@ -8071,10 +8808,13 @@
+@@ -8057,10 +8794,13 @@
  
      def __init__(self, private_field: typing.Optional[builtins.str] = None) -> None:
          '''
@@ -19863,7 +19103,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="success")
      def success(self) -> builtins.bool:
-@@ -8115,10 +8855,13 @@
+@@ -8101,10 +8841,13 @@
      @jsii.member(jsii_name="abstractMethod")
      def abstract_method(self, name: builtins.str) -> builtins.str:
          '''
@@ -19877,7 +19117,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, AbstractClass).__jsii_proxy_class__ = lambda : _AbstractClassProxy
  
-@@ -8134,10 +8877,14 @@
+@@ -8120,10 +8863,14 @@
          '''Creates a BinaryOperation.
  
          :param lhs: Left-hand side operand.
@@ -19892,7 +19132,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="toString")
      def to_string(self) -> builtins.str:
          '''String representation of the value.'''
-@@ -8181,10 +8928,13 @@
+@@ -8167,10 +8914,13 @@
      def rung(self) -> builtins.bool:
          return typing.cast(builtins.bool, jsii.get(self, "rung"))
  
@@ -19906,7 +19146,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.ChildStruct982",
-@@ -8195,10 +8945,14 @@
+@@ -8181,10 +8931,14 @@
      def __init__(self, *, foo: builtins.str, bar: jsii.Number) -> None:
          '''
          :param foo: 
@@ -19921,7 +19161,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "bar": bar,
          }
  
-@@ -8239,37 +8993,49 @@
+@@ -8225,37 +8979,49 @@
      def a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "a"))
  
@@ -19971,7 +19211,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(INonInternalInterface)
  class ClassThatImplementsThePrivateInterface(
-@@ -8284,37 +9050,49 @@
+@@ -8270,37 +9036,49 @@
      def a(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "a"))
  
@@ -20021,7 +19261,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IInterfaceWithProperties)
  class ClassWithPrivateConstructorAndAutomaticProperties(
-@@ -8332,10 +9110,14 @@
+@@ -8318,10 +9096,14 @@
      ) -> "ClassWithPrivateConstructorAndAutomaticProperties":
          '''
          :param read_only_string: -
@@ -20036,7 +19276,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="readOnlyString")
      def read_only_string(self) -> builtins.str:
-@@ -8346,10 +9128,13 @@
+@@ -8332,10 +9114,13 @@
      def read_write_string(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "readWriteString"))
  
@@ -20050,7 +19290,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IIndirectlyImplemented)
  class FullCombo(BaseClass, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.FullCombo"):
-@@ -8464,10 +9249,13 @@
+@@ -8450,10 +9235,13 @@
  ):
      def __init__(self, property: builtins.str) -> None:
          '''
@@ -20064,7 +19304,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="bar")
      def bar(self) -> None:
          return typing.cast(None, jsii.invoke(self, "bar", []))
-@@ -8488,10 +9276,13 @@
+@@ -8474,10 +9262,13 @@
  
      def __init__(self, operand: "_scope_jsii_calc_lib_c61f082f.NumericValue") -> None:
          '''
@@ -20078,7 +19318,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="farewell")
      def farewell(self) -> builtins.str:
          '''Say farewell.'''
-@@ -8556,10 +9347,16 @@
+@@ -8542,10 +9333,16 @@
          :param id: some identifier.
          :param default_bar: the default value of \`\`bar\`\`.
          :param props: some props once can provide.
@@ -20095,7 +19335,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -8915,7 +9712,1573 @@
+@@ -8901,7 +9698,1573 @@
  
  import sys as _sys
  setattr(_sys.modules[__name__], "__getattr__", __getattr__)
@@ -21674,7 +20914,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/anonymous/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/anonymous/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/anonymous/__init__.py	--runtime-type-checking
-@@ -72,26 +72,35 @@
+@@ -58,26 +58,35 @@
      @builtins.classmethod
      def consume(cls, option: typing.Union["IOptionA", "IOptionB"]) -> builtins.str:
          '''
@@ -21710,7 +20950,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "IOptionA",
-@@ -99,7 +108,25 @@
+@@ -85,7 +94,25 @@
      "UseOptions",
  ]
  
@@ -21741,7 +20981,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/cdk16625/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/cdk16625/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/cdk16625/__init__.py	--runtime-type-checking
-@@ -61,10 +61,13 @@
+@@ -47,10 +47,13 @@
      def _unwrap(self, gen: "_IRandomNumberGenerator_9643a8b9") -> jsii.Number:
          '''Implement this functin to return \`\`gen.next()\`\`. It is extremely important that the \`\`donotimport\`\` submodule is NEVER explicitly loaded in the testing application (otherwise this test is void).
  
@@ -21755,7 +20995,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
  
-@@ -96,5 +99,11 @@
+@@ -82,5 +85,11 @@
      return [*__all__, *_SUBMODULES]
  
  import sys as _sys
@@ -21772,7 +21012,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/cdk16625/donotimport/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/cdk16625/donotimport/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/cdk16625/donotimport/__init__.py	--runtime-type-checking
-@@ -49,10 +49,13 @@
+@@ -35,10 +35,13 @@
  
      def __init__(self, value: jsii.Number) -> None:
          '''
@@ -21786,7 +21026,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="next")
      def next(self) -> jsii.Number:
          '''Not quite random, but it'll do.
-@@ -65,5 +68,11 @@
+@@ -51,5 +54,11 @@
  __all__ = [
      "UnimportedSubmoduleType",
  ]
@@ -21803,7 +21043,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/cdk22369/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/cdk22369/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/cdk22369/__init__.py	--runtime-type-checking
-@@ -49,10 +49,13 @@
+@@ -35,10 +35,13 @@
  class AcceptsPathProps:
      def __init__(self, *, source_path: builtins.str) -> None:
          '''
@@ -21817,7 +21057,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -78,5 +81,12 @@
+@@ -64,5 +67,12 @@
      "AcceptsPath",
      "AcceptsPathProps",
  ]
@@ -21835,7 +21075,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/composition/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/composition/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/composition/__init__.py	--runtime-type-checking
-@@ -70,30 +70,39 @@
+@@ -56,30 +56,39 @@
          '''A set of postfixes to include in a decorated .toString().'''
          return typing.cast(typing.List[builtins.str], jsii.get(self, "decorationPostfixes"))
  
@@ -21875,7 +21115,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.enum(
          jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
      )
-@@ -126,5 +135,23 @@
+@@ -112,5 +121,23 @@
  __all__ = [
      "CompositeOperation",
  ]
@@ -21904,7 +21144,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/covariant_overrides/class_overrides/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/covariant_overrides/class_overrides/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/covariant_overrides/class_overrides/__init__.py	--runtime-type-checking
-@@ -69,10 +69,13 @@
+@@ -55,10 +55,13 @@
      def name(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "name"))
  
@@ -21918,7 +21158,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.implements(IBase)
  class Base(
-@@ -114,10 +117,13 @@
+@@ -100,10 +103,13 @@
      def add_unrelated_member(self) -> jsii.Number:
          return typing.cast(jsii.Number, jsii.get(self, "addUnrelatedMember"))
  
@@ -21932,7 +21172,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Subclass(
      Superclass,
-@@ -138,10 +144,13 @@
+@@ -124,10 +130,13 @@
      def name(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "name"))
  
@@ -21946,7 +21186,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Derived(
      Middle,
-@@ -191,20 +200,26 @@
+@@ -177,20 +186,26 @@
      def name(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "name"))
  
@@ -21973,7 +21213,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "Base",
-@@ -216,7 +231,37 @@
+@@ -202,7 +217,37 @@
      "Superclass",
  ]
  
@@ -22016,7 +21256,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/derived_class_has_no_properties/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/derived_class_has_no_properties/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/derived_class_has_no_properties/__init__.py	--runtime-type-checking
-@@ -43,10 +43,13 @@
+@@ -29,10 +29,13 @@
      def prop(self) -> builtins.str:
          return typing.cast(builtins.str, jsii.get(self, "prop"))
  
@@ -22030,7 +21270,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  class Derived(
      Base,
-@@ -61,5 +64,11 @@
+@@ -47,5 +50,11 @@
      "Base",
      "Derived",
  ]
@@ -22047,7 +21287,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/homonymous_forward_references/bar/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/homonymous_forward_references/bar/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/homonymous_forward_references/bar/__init__.py	--runtime-type-checking
-@@ -64,10 +64,13 @@
+@@ -50,10 +50,13 @@
          '''
          :param homonymous: 
          '''
@@ -22061,7 +21301,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -96,10 +99,13 @@
+@@ -82,10 +85,13 @@
  class Homonymous:
      def __init__(self, *, numeric_property: jsii.Number) -> None:
          '''
@@ -22075,7 +21315,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -125,5 +131,19 @@
+@@ -111,5 +117,19 @@
      "ConsumerProps",
      "Homonymous",
  ]
@@ -22100,7 +21340,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/homonymous_forward_references/foo/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/homonymous_forward_references/foo/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/homonymous_forward_references/foo/__init__.py	--runtime-type-checking
-@@ -64,10 +64,13 @@
+@@ -50,10 +50,13 @@
          '''
          :param homonymous: 
          '''
@@ -22114,7 +21354,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -96,10 +99,13 @@
+@@ -82,10 +85,13 @@
  class Homonymous:
      def __init__(self, *, string_property: builtins.str) -> None:
          '''
@@ -22128,7 +21368,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -125,5 +131,19 @@
+@@ -111,5 +117,19 @@
      "ConsumerProps",
      "Homonymous",
  ]
@@ -22153,7 +21393,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/interface_in_namespace_includes_classes/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/interface_in_namespace_includes_classes/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/interface_in_namespace_includes_classes/__init__.py	--runtime-type-checking
-@@ -43,10 +43,13 @@
+@@ -29,10 +29,13 @@
      def bar(self) -> typing.Optional[builtins.str]:
          return typing.cast(typing.Optional[builtins.str], jsii.get(self, "bar"))
  
@@ -22167,7 +21407,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.data_type(
      jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello",
-@@ -56,10 +59,13 @@
+@@ -42,10 +45,13 @@
  class Hello:
      def __init__(self, *, foo: jsii.Number) -> None:
          '''
@@ -22181,7 +21421,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -84,5 +90,18 @@
+@@ -70,5 +76,18 @@
      "Foo",
      "Hello",
  ]
@@ -22205,7 +21445,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/interface_in_namespace_only_interface/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/interface_in_namespace_only_interface/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/interface_in_namespace_only_interface/__init__.py	--runtime-type-checking
-@@ -39,10 +39,13 @@
+@@ -25,10 +25,13 @@
  class Hello:
      def __init__(self, *, foo: jsii.Number) -> None:
          '''
@@ -22219,7 +21459,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -66,5 +69,12 @@
+@@ -52,5 +55,12 @@
  __all__ = [
      "Hello",
  ]
@@ -22237,7 +21477,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/intersection/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/intersection/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/intersection/__init__.py	--runtime-type-checking
-@@ -49,10 +49,13 @@
+@@ -35,10 +35,13 @@
      @builtins.classmethod
      def accepts_intersection(cls, param: '_ISomething_IFriendly') -> None:
          '''
@@ -22251,7 +21491,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="acceptsPropWithIntersection")
      @builtins.classmethod
      def accepts_prop_with_intersection(cls, *, param: '_ISomething_IFriendly') -> None:
-@@ -90,10 +93,13 @@
+@@ -76,10 +79,13 @@
  class IntersectionProps:
      def __init__(self, *, param: '_ISomething_IFriendly') -> None:
          '''
@@ -22265,7 +21505,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -120,10 +126,23 @@
+@@ -106,10 +112,23 @@
      "IntersectionProps",
  ]
  
@@ -22294,7 +21534,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/jsii3656/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/jsii3656/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/jsii3656/__init__.py	--runtime-type-checking
-@@ -45,10 +45,14 @@
+@@ -31,10 +31,14 @@
      ) -> None:
          '''
          :param name: 
@@ -22309,7 +21549,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if count is not None:
              self._values["count"] = count
-@@ -87,10 +91,13 @@
+@@ -73,10 +77,13 @@
      @builtins.classmethod
      def call_abstract(cls, receiver: "OverrideMe") -> builtins.bool:
          '''
@@ -22323,7 +21563,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="implementMe")
      @abc.abstractmethod
      def implement_me(
-@@ -130,5 +137,19 @@
+@@ -116,5 +123,19 @@
      "ImplementMeOpts",
      "OverrideMe",
  ]
@@ -22348,7 +21588,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/jsii4894/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/jsii4894/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/jsii4894/__init__.py	--runtime-type-checking
-@@ -76,10 +76,13 @@
+@@ -62,10 +62,13 @@
          '''
          :param some_type: 
          '''
@@ -22362,7 +21602,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -106,5 +109,12 @@
+@@ -92,5 +95,12 @@
      "NonPascalCaseTest",
      "NonPascalCaseTestProps",
  ]
@@ -22380,7 +21620,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2530/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2530/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2530/__init__.py	--runtime-type-checking
-@@ -39,25 +39,34 @@
+@@ -25,25 +25,34 @@
  
      def __init__(self, _: jsii.Number) -> None:
          '''
@@ -22415,7 +21655,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="multipleUnderscores")
      def multiple_underscores(
          self,
-@@ -68,13 +77,44 @@
+@@ -54,13 +63,44 @@
          '''
          :param _: -
          :param __: -
@@ -22465,7 +21705,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2647/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2647/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2647/__init__.py	--runtime-type-checking
-@@ -49,10 +49,13 @@
+@@ -35,10 +35,13 @@
          '''
          :param very: -
  
@@ -22479,7 +21719,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @jsii.member(jsii_name="hello")
      def hello(self) -> builtins.str:
          '''Say hello!'''
-@@ -66,5 +69,11 @@
+@@ -52,5 +55,11 @@
  __all__ = [
      "ExtendAndImplement",
  ]
@@ -22496,7 +21736,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2689/methods/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2689/methods/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2689/methods/__init__.py	--runtime-type-checking
-@@ -47,23 +47,41 @@
+@@ -33,23 +33,41 @@
          _bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
      ) -> None:
          '''
@@ -22543,7 +21783,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2689/structs/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2689/structs/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2689/structs/__init__.py	--runtime-type-checking
-@@ -48,10 +48,14 @@
+@@ -34,10 +34,14 @@
      ) -> None:
          '''
          :param base_map: 
@@ -22558,7 +21798,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "numbers": numbers,
          }
  
-@@ -84,5 +88,13 @@
+@@ -70,5 +74,13 @@
  __all__ = [
      "MyStruct",
  ]
@@ -22577,7 +21817,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2692/submodule1/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2692/submodule1/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2692/submodule1/__init__.py	--runtime-type-checking
-@@ -39,10 +39,13 @@
+@@ -25,10 +25,13 @@
  class Bar:
      def __init__(self, *, bar1: builtins.str) -> None:
          '''
@@ -22591,7 +21831,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -66,5 +69,12 @@
+@@ -52,5 +55,12 @@
  __all__ = [
      "Bar",
  ]
@@ -22609,7 +21849,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/module2692/submodule2/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/module2692/submodule2/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2692/submodule2/__init__.py	--runtime-type-checking
-@@ -41,10 +41,13 @@
+@@ -27,10 +27,13 @@
  class Bar:
      def __init__(self, *, bar2: builtins.str) -> None:
          '''
@@ -22623,7 +21863,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -81,10 +84,15 @@
+@@ -67,10 +70,15 @@
          '''
          :param bar2: 
          :param bar1: 
@@ -22639,7 +21879,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              "bar1": bar1,
              "foo2": foo2,
          }
-@@ -123,5 +131,21 @@
+@@ -109,5 +117,21 @@
      "Bar",
      "Foo",
  ]
@@ -22666,7 +21906,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/python_self/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/python_self/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/python_self/__init__.py	--runtime-type-checking
-@@ -37,17 +37,23 @@
+@@ -23,17 +23,23 @@
  ):
      def __init__(self_, self: builtins.str) -> None:
          '''
@@ -22690,7 +21930,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="self")
      def self(self) -> builtins.str:
-@@ -88,10 +94,13 @@
+@@ -74,10 +80,13 @@
      @jsii.member(jsii_name="method")
      def method(self_, self: jsii.Number) -> builtins.str:
          '''
@@ -22704,7 +21944,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
  typing.cast(typing.Any, IInterfaceWithSelf).__jsii_proxy_class__ = lambda : _IInterfaceWithSelfProxy
  
-@@ -104,10 +113,13 @@
+@@ -90,10 +99,13 @@
  class StructWithSelf:
      def __init__(self_, *, self: builtins.str) -> None:
          '''
@@ -22718,7 +21958,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -135,7 +147,32 @@
+@@ -121,7 +133,32 @@
      "StructWithSelf",
  ]
  
@@ -22756,7 +21996,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/submodule/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/submodule/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/submodule/__init__.py	--runtime-type-checking
-@@ -58,10 +58,13 @@
+@@ -44,10 +44,13 @@
  
          :param foo: 
  
@@ -22770,7 +22010,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -126,10 +129,13 @@
+@@ -112,10 +115,13 @@
      def all_types(self) -> typing.Optional["_AllTypes_b08307c5"]:
          return typing.cast(typing.Optional["_AllTypes_b08307c5"], jsii.get(self, "allTypes"))
  
@@ -22784,7 +22024,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "Default",
-@@ -174,5 +180,18 @@
+@@ -160,5 +166,18 @@
      return [*__all__, *_SUBMODULES]
  
  import sys as _sys
@@ -22808,7 +22048,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/submodule/back_references/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/submodule/back_references/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/submodule/back_references/__init__.py	--runtime-type-checking
-@@ -41,10 +41,13 @@
+@@ -27,10 +27,13 @@
  class MyClassReference:
      def __init__(self, *, reference: "_MyClass_a2fdc0b6") -> None:
          '''
@@ -22822,7 +22062,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -68,5 +71,12 @@
+@@ -54,5 +57,12 @@
  __all__ = [
      "MyClassReference",
  ]
@@ -22840,7 +22080,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/submodule/child/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/submodule/child/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/submodule/child/__init__.py	--runtime-type-checking
-@@ -91,10 +91,13 @@
+@@ -77,10 +77,13 @@
  class SomeStruct:
      def __init__(self, *, prop: "SomeEnum") -> None:
          '''
@@ -22854,7 +22094,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -123,10 +126,13 @@
+@@ -109,10 +112,13 @@
  class Structure:
      def __init__(self, *, bool: builtins.bool) -> None:
          '''
@@ -22868,7 +22108,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -161,10 +167,14 @@
+@@ -147,10 +153,14 @@
      ) -> None:
          '''
          :param prop: 
@@ -22883,7 +22123,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
          if extra is not None:
              self._values["extra"] = extra
-@@ -202,5 +212,27 @@
+@@ -188,5 +198,27 @@
      "SomeStruct",
      "Structure",
  ]
@@ -22916,7 +22156,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/submodule/param/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/submodule/param/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/submodule/param/__init__.py	--runtime-type-checking
-@@ -39,10 +39,13 @@
+@@ -25,10 +25,13 @@
  class SpecialParameter:
      def __init__(self, *, value: builtins.str) -> None:
          '''
@@ -22930,7 +22170,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          }
  
      @builtins.property
-@@ -66,5 +69,12 @@
+@@ -52,5 +55,12 @@
  __all__ = [
      "SpecialParameter",
  ]
@@ -22948,7 +22188,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/union/__init__.py.diff 1`] = `
 --- python/src/jsii_calc/union/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/union/__init__.py	--runtime-type-checking
-@@ -41,10 +41,13 @@
+@@ -27,10 +27,13 @@
          param: typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "IResolvable", "Resolvable"],
      ) -> None:
          '''
@@ -22962,7 +22202,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  @jsii.interface(jsii_type="jsii-calc.union.IResolvable")
  class IResolvable(typing_extensions.Protocol):
-@@ -77,7 +80,13 @@
+@@ -63,7 +66,13 @@
      "Resolvable",
  ]
  
