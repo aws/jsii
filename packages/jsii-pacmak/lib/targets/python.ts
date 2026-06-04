@@ -156,8 +156,12 @@ class TypeCheckingStub {
   readonly #hash: string;
 
   public constructor(fqn: string, args: readonly string[]) {
-    // Removing the quoted type names -- this will be emitted at the very end of the module.
-    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    // Keep type annotations as string literals (forward references). The stubs
+    // are emitted at the very end of the module, but deferred (lazy) classes may
+    // not yet be materialized in module globals at function definition time.
+    // typing.get_type_hints() resolves string annotations on demand using the
+    // module's globalns, which triggers __getattr__ for deferred classes.
+    this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
@@ -377,6 +381,24 @@ interface PythonTypeOpts {
   bases?: spec.TypeReference[];
 }
 
+/**
+ * Options controlling how a class/interface/struct is emitted.
+ * When `wrapInFactory` is true, the entire class definition is wrapped
+ * inside a memoized factory function `_lazy_build_{ClassName}()`.
+ */
+interface ClassEmitOpts {
+  /**
+   * Whether to wrap the emission in a `@_memoized` factory function.
+   */
+  wrapInFactory?: boolean;
+  /**
+   * Names of deferred (lazy) classes in the same module.
+   * When a base class name is in this set, the factory call
+   * `_lazy_build_{Name}()` is used instead of the bare name.
+   */
+  deferredClassNames?: Set<string>;
+}
+
 abstract class BasePythonClassType implements PythonType, ISortableType {
   protected bases: spec.TypeReference[];
   protected members: PythonBase[];
@@ -449,12 +471,12 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return { api: 'type', fqn: this.fqn };
   }
 
-  public emit(code: CodeMaker, context: EmitContext) {
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
     context = nestedContext(context, this.fqn);
 
     this.sortBasesForMro();
 
-    const baseClasses = this.getClassParams(context);
+    const baseClasses = this.getClassParams(context, opts);
     openSignature(code, 'class', this.pythonName, baseClasses);
 
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
@@ -575,7 +597,49 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return resolver.bind(this.fqn);
   }
 
-  protected abstract getClassParams(context: EmitContext): string[];
+  /**
+   * Determines whether this class/interface/struct has any cross-module
+   * dependencies in its definition (base classes, implemented interfaces,
+   * or proxy_for references). Used to decide if the class definition should
+   * be wrapped in a lazy factory function.
+   */
+  public hasCrossModuleDefinitionDep(resolver: TypeResolver): boolean {
+    for (const base of this.bases) {
+      if (spec.isNamedTypeReference(base)) {
+        if (!resolver.isInModule(base)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  protected abstract getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[];
+
+  /**
+   * Post-process base class parameters to replace deferred same-module class
+   * names with their factory function calls (e.g., `B` → `_lazy_build_B()`).
+   */
+  protected applyDeferredBaseReplacements(
+    params: string[],
+    deferredClassNames?: Set<string>,
+  ): string[] {
+    if (!deferredClassNames || deferredClassNames.size === 0) {
+      return params;
+    }
+    return params.map((p) => {
+      // Only replace if the param is exactly a deferred class name (not a
+      // qualified reference like `module.ClassName` or a keyword arg like
+      // `metaclass=...`)
+      if (deferredClassNames.has(p)) {
+        return `_lazy_build_${p}() # type: ignore[misc]`;
+      }
+      return p;
+    });
+  }
 }
 
 interface BaseMethodOpts {
@@ -1110,14 +1174,22 @@ abstract class BaseProperty implements PythonBase {
 }
 
 class Interface extends BasePythonClassType {
-  public emit(code: CodeMaker, context: EmitContext) {
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
+    const wrapInFactory = opts?.wrapInFactory ?? false;
+
+    // Open factory function wrapper if requested
+    if (wrapInFactory) {
+      code.line('@_memoized');
+      code.openBlock(`def _lazy_build_${this.pythonName}() -> type`);
+    }
+
     this.sortBasesForMro();
 
     context = nestedContext(context, this.fqn);
     emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
 
     // First we do our normal class logic for emitting our members.
-    super.emit(code, context);
+    super.emit(code, context, opts);
 
     code.line();
     code.line();
@@ -1154,16 +1226,30 @@ class Interface extends BasePythonClassType {
     code.line(
       `typing.cast(typing.Any, ${this.pythonName}).__jsii_proxy_class__ = lambda : ${this.proxyClassName}`,
     );
+
+    // Close factory function wrapper with return statement
+    if (wrapInFactory) {
+      // Strip __protocol_attrs__ inside the factory since the interface name
+      // is not available at module level for deferred interfaces.
+      code.line(
+        `typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ = typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+      );
+      code.line(`return ${this.pythonName}`);
+      code.closeBlock();
+    }
   }
 
-  protected getClassParams(context: EmitContext): string[] {
+  protected getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[] {
     const params: string[] = this.bases.map((b) =>
       toTypeName(b).pythonType('decl', context),
     );
 
     params.push('typing_extensions.Protocol');
 
-    return params;
+    return this.applyDeferredBaseReplacements(params, opts?.deferredClassNames);
   }
 
   private get proxyClassName(): string {
@@ -1195,11 +1281,19 @@ class Struct extends BasePythonClassType {
     this.directMembers.push(member);
   }
 
-  public emit(code: CodeMaker, context: EmitContext) {
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
+    const wrapInFactory = opts?.wrapInFactory ?? false;
+
+    // Open factory function wrapper if requested
+    if (wrapInFactory) {
+      code.line('@_memoized');
+      code.openBlock(`def _lazy_build_${this.pythonName}() -> type`);
+    }
+
     this.sortBasesForMro();
 
     context = nestedContext(context, this.fqn);
-    const baseInterfaces = this.getClassParams(context);
+    const baseInterfaces = this.getClassParams(context, opts);
 
     code.indent('@jsii.data_type(');
     code.line(`jsii_type=${JSON.stringify(this.fqn)},`);
@@ -1217,6 +1311,12 @@ class Struct extends BasePythonClassType {
     this.emitMagicMethods(code);
 
     code.closeBlock();
+
+    // Close factory function wrapper with return statement
+    if (wrapInFactory) {
+      code.line(`return ${this.pythonName}`);
+      code.closeBlock();
+    }
   }
 
   public requiredImports(context: EmitContext) {
@@ -1226,8 +1326,14 @@ class Struct extends BasePythonClassType {
     );
   }
 
-  protected getClassParams(context: EmitContext): string[] {
-    return this.bases.map((b) => toTypeName(b).pythonType('decl', context));
+  protected getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[] {
+    return this.applyDeferredBaseReplacements(
+      this.bases.map((b) => toTypeName(b).pythonType('decl', context)),
+      opts?.deferredClassNames,
+    );
   }
 
   /**
@@ -1511,8 +1617,38 @@ class Class extends BasePythonClassType implements ISortableType {
     );
   }
 
-  public emit(code: CodeMaker, context: EmitContext) {
-    // First we emit our implments decorator
+  public override hasCrossModuleDefinitionDep(resolver: TypeResolver): boolean {
+    // Check bases (from BasePythonClassType)
+    if (super.hasCrossModuleDefinitionDep(resolver)) {
+      return true;
+    }
+    // Check @jsii.implements() interfaces (already NamedTypeReference[])
+    for (const iface of this.interfaces) {
+      if (!resolver.isInModule(iface)) {
+        return true;
+      }
+    }
+    // Check abstract base classes used in jsii.proxy_for()
+    if (this.abstract) {
+      for (const base of this.abstractBases) {
+        if (!resolver.isInModule(base.fqn)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
+    const wrapInFactory = opts?.wrapInFactory ?? false;
+
+    // Open factory function wrapper if requested
+    if (wrapInFactory) {
+      code.line('@_memoized');
+      code.openBlock(`def _lazy_build_${this.pythonName}() -> type`);
+    }
+
+    // First we emit our implements decorator
     if (this.interfaces.length > 0) {
       const interfaces: string[] = this.interfaces.map((b) =>
         toTypeName(b).pythonType('decl', context),
@@ -1521,7 +1657,7 @@ class Class extends BasePythonClassType implements ISortableType {
     }
 
     // Then we do our normal class logic for emitting our members.
-    super.emit(code, context);
+    super.emit(code, context, opts);
 
     // Then, if our class is Abstract, we have to go through and redo all of
     // this logic, except only emiting abstract methods and properties as non
@@ -1572,18 +1708,33 @@ class Class extends BasePythonClassType implements ISortableType {
         `typing.cast(typing.Any, ${this.pythonName}).__jsii_proxy_class__ = lambda : ${this.proxyClassName}`,
       );
     }
+
+    // Close factory function wrapper with return statement
+    if (wrapInFactory) {
+      code.line(`return ${this.pythonName}`);
+      code.closeBlock();
+    }
   }
 
-  protected getClassParams(context: EmitContext): string[] {
+  protected getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[] {
     const params: string[] = this.bases.map((b) =>
       toTypeName(b).pythonType('decl', context),
     );
     const metaclass: string = this.abstract ? 'JSIIAbstractClass' : 'JSIIMeta';
 
-    params.push(`metaclass=jsii.${metaclass}`);
-    params.push(`jsii_type="${this.fqn}"`);
+    // Apply deferred base class replacements before adding keyword args
+    const resolvedParams = this.applyDeferredBaseReplacements(
+      params,
+      opts?.deferredClassNames,
+    );
 
-    return params;
+    resolvedParams.push(`metaclass=jsii.${metaclass}`);
+    resolvedParams.push(`jsii_type="${this.fqn}"`);
+
+    return resolvedParams;
   }
 
   private get proxyClassName(): string {
@@ -1637,8 +1788,18 @@ class Enum extends BasePythonClassType {
     return super.emit(code, context);
   }
 
-  protected getClassParams(_context: EmitContext): string[] {
+  protected getClassParams(
+    _context: EmitContext,
+    _opts?: ClassEmitOpts,
+  ): string[] {
     return ['enum.Enum'];
+  }
+
+  public override hasCrossModuleDefinitionDep(
+    _resolver: TypeResolver,
+  ): boolean {
+    // Enums always extend enum.Enum (a builtin), never a cross-module type
+    return false;
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -1844,11 +2005,96 @@ class PythonModule implements PythonType {
       this.emitRequiredImports(code, context);
     }
 
-    // Emit all of our members.
-    for (const member of prepareMembers(this.members, resolver)) {
+    // Partition members into eager and deferred groups.
+    // A member is "deferred" if it's a BasePythonClassType with cross-module
+    // definition dependencies. Non-class members (methods, properties) and
+    // Enums are always eager.
+    const sortedMembers = prepareMembers(this.members, resolver);
+    const eagerMembers: PythonBase[] = [];
+    const deferredMembers: PythonBase[] = [];
+
+    for (const member of sortedMembers) {
+      if (
+        member instanceof BasePythonClassType &&
+        !(member instanceof Enum) &&
+        member.hasCrossModuleDefinitionDep(resolver)
+      ) {
+        deferredMembers.push(member);
+      } else {
+        eagerMembers.push(member);
+      }
+    }
+
+    // Promotion logic (fixed-point iteration):
+    // If an eager class inherits from or implements a deferred class in the
+    // same module, that deferred class must be promoted to eager so it's
+    // available at class definition time. Promotion is transitive.
+    let promotionOccurred = true;
+    while (promotionOccurred) {
+      promotionOccurred = false;
+      // Iterate over a snapshot of eagerMembers to avoid issues with mutation
+      const currentEager = [...eagerMembers];
+      for (const member of currentEager) {
+        if (!(member instanceof BasePythonClassType)) {
+          continue;
+        }
+        // dependsOn(resolver) returns same-module dependencies including
+        // base classes AND interfaces (for Class instances)
+        const deps = member.dependsOn(resolver);
+        for (const dep of deps) {
+          const idx = deferredMembers.indexOf(dep as PythonBase);
+          if (idx !== -1) {
+            // Promote: move from deferred to eager
+            deferredMembers.splice(idx, 1);
+            eagerMembers.push(dep as PythonBase);
+            promotionOccurred = true;
+          }
+        }
+      }
+    }
+
+    // After promotion, re-sort eagerMembers to maintain topological order.
+    // Promoted members are appended at the end which may violate the ordering
+    // (e.g., a class that depends on a promoted class may appear before it).
+    // We use the original sortedMembers order as the canonical topological order.
+    const sortOrder = new Map(sortedMembers.map((m, i) => [m, i]));
+    eagerMembers.sort(
+      (a, b) => (sortOrder.get(a) ?? 0) - (sortOrder.get(b) ?? 0),
+    );
+
+    // Store sorted deferred class names for _LAZY_CLASSES emission
+    const deferredClassNames: string[] = deferredMembers
+      .map((m) => m.pythonName)
+      .sort();
+
+    // Emit _memoized alias and import sys when deferred members exist
+    if (deferredMembers.length > 0) {
+      code.line();
+      code.line('_memoized = jsii._memoized');
+      code.line('import sys as _sys');
+    } else if (this.modules.length > 0) {
+      code.line();
+      code.line('import sys as _sys');
+    }
+
+    // Emit eager members normally
+    for (const member of eagerMembers) {
       code.line();
       code.line();
       member.emit(code, context);
+    }
+
+    // Emit deferred members wrapped in factory functions
+    if (deferredMembers.length > 0) {
+      const deferredSet = new Set(deferredClassNames);
+      for (const member of deferredMembers) {
+        code.line();
+        code.line();
+        (member as BasePythonClassType).emit(code, context, {
+          wrapInFactory: true,
+          deferredClassNames: deferredSet,
+        });
+      }
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
@@ -1888,6 +2134,16 @@ class PythonModule implements PythonType {
       code.line('__all__: typing.List[typing.Any] = []');
     }
 
+    // Emit _LAZY_CLASSES dict mapping deferred class names to factory functions
+    if (deferredClassNames.length > 0) {
+      code.line();
+      code.indent('_LAZY_CLASSES = {');
+      for (const name of deferredClassNames) {
+        code.line(`"${name}": _lazy_build_${name},`);
+      }
+      code.unindent('}');
+    }
+
     // Emit TYPE_CHECKING block with explicit submodule imports so that
     // static type checkers (pyright, mypy) can see the submodule names
     // that are listed in __all__. At runtime TYPE_CHECKING is False,
@@ -1918,34 +2174,52 @@ class PythonModule implements PythonType {
     code.line();
     code.line('publication.publish()');
 
-    // Finally, we'll set up lazy loading for all registered python modules.
+    // Finally, we'll set up lazy loading for deferred classes and/or submodules.
     // We define __getattr__ and __dir__ and then install them on the public
     // module (the one publication.publish() placed in sys.modules) so that
     // lazy attribute access works through the publication barrier.
-    if (this.modules.length > 0) {
+    if (this.modules.length > 0 || deferredClassNames.length > 0) {
       code.line();
-      // Build sorted list of submodule short names
-      const submoduleNames = this.modules
-        .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
-        .map((module) =>
-          module.pythonName.substring(this.pythonName.length + 1),
-        );
 
-      // Emit _SUBMODULES set
-      code.indent('_SUBMODULES = {');
-      for (const name of submoduleNames) {
-        code.line(`"${name}",`);
+      // Emit _SUBMODULES set (only when submodules exist)
+      if (this.modules.length > 0) {
+        // Build sorted list of submodule short names
+        const submoduleNames = this.modules
+          .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
+          .map((module) =>
+            module.pythonName.substring(this.pythonName.length + 1),
+          );
+
+        code.indent('_SUBMODULES = {');
+        for (const name of submoduleNames) {
+          code.line(`"${name}",`);
+        }
+        code.unindent('}');
+        code.line();
       }
-      code.unindent('}');
-      code.line();
 
-      // Emit __getattr__ function
+      // Emit unified __getattr__ function handling both deferred classes and submodules.
+      // Uses setattr(_sys.modules[__name__], ...) instead of globals()[name] = ...
+      // because after publication.publish() replaces the module in sys.modules,
+      // globals() writes to the original module dict, not the publication module's
+      // __dict__. PEP 562 __getattr__ is only invoked when the attribute is NOT in
+      // the module's __dict__, so globals() makes the cache ineffective. setattr on
+      // sys.modules[__name__] correctly writes to the publication module.
       code.openBlock('def __getattr__(name: str) -> object');
-      code.openBlock('if name in _SUBMODULES');
-      code.line('mod = _importlib.import_module(f".{name}", __name__)');
-      code.line('globals()[name] = mod');
-      code.line('return mod');
-      code.closeBlock();
+      if (deferredClassNames.length > 0) {
+        code.openBlock('if name in _LAZY_CLASSES');
+        code.line('cls = _LAZY_CLASSES[name]()');
+        code.line('setattr(_sys.modules[__name__], name, cls)');
+        code.line('return cls');
+        code.closeBlock();
+      }
+      if (this.modules.length > 0) {
+        code.openBlock('if name in _SUBMODULES');
+        code.line('mod = _importlib.import_module(f".{name}", __name__)');
+        code.line('setattr(_sys.modules[__name__], name, mod)');
+        code.line('return mod');
+        code.closeBlock();
+      }
       code.line(
         'raise AttributeError(f"module {__name__!r} has no attribute {name!r}")',
       );
@@ -1955,7 +2229,11 @@ class PythonModule implements PythonType {
       // Emit __dir__ function — quoted return type because pyright flags
       // bare `list[str]` as a runtime subscript error when pythonVersion < 3.9
       code.openBlock('def __dir__() -> "list[str]"');
-      code.line('return [*__all__, *_SUBMODULES]');
+      if (this.modules.length > 0) {
+        code.line('return [*__all__, *_SUBMODULES]');
+      } else {
+        code.line('return [*__all__]');
+      }
       code.closeBlock();
       code.line();
 
@@ -1967,7 +2245,6 @@ class PythonModule implements PythonType {
       // We use setattr() instead of direct assignment because mypy treats
       // __getattr__ and __dir__ as special methods on ModuleType and rejects
       // direct assignment with "Cannot assign to a method [method-assign]".
-      code.line('import sys as _sys');
       code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
@@ -1975,8 +2252,10 @@ class PythonModule implements PythonType {
     context.typeCheckingHelper.flushStubs(code);
     context.intersectionTypes.flushHelperTypes(code);
 
+    const deferredClassNamesSet = new Set(deferredClassNames);
     const interfaces = this.members
       .filter((m) => m instanceof Interface)
+      .filter((m) => !deferredClassNamesSet.has(m.pythonName))
       .map((m) => m.pythonName);
 
     this.emitProtocolStripper(code, [

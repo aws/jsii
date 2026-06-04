@@ -27,6 +27,22 @@ def memoized_property(fgetter):
     return property(wrapped)
 
 
+def _memoized(func):
+    """Cache the return value of a no-arg factory function."""
+    sentinel = object()
+    result = sentinel
+
+    def wrapper():
+        nonlocal result
+        if result is sentinel:
+            result = func()
+        return result
+
+    wrapper.__name__ = func.__name__
+    wrapper.__wrapped__ = func
+    return wrapper
+
+
 class _LazyImport:
     """Defers ``importlib.import_module()`` until first attribute access.
 

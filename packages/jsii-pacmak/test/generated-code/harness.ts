@@ -400,6 +400,10 @@ async function runMypy(pythonRoot: string): Promise<void> {
         // could override the nested one, so mypy does not even try).
         // For more info => https://github.com/python/mypy/issues/8482
         '--disable-error-code=name-defined',
+        // The _memoized decorator from jsii._utils is not fully typed, and in strict mode mypy
+        // treats decorated functions as untyped. This is acceptable since the decorator only
+        // caches return values and doesn't modify the function signature.
+        '--disable-error-code=untyped-decorator',
         // Ignore subclassing types that did not resolve because we don't have dependencies
         '--allow-subclassing-any',
         pythonRoot,
