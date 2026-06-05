@@ -2056,7 +2056,7 @@ def _lazy_build_Operation() -> type:
 
     class _OperationProxy(
         Operation,
-        jsii.proxy_for(NumericValue), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_NumericValue()), # type: ignore[misc]
     ):
         @jsii.member(jsii_name="toString")
         def to_string(self) -> builtins.str:
@@ -2146,7 +2146,7 @@ def _lazy_build_StructWithOnlyOptionals() -> type:
 
 @_memoized
 def _lazy_build_Number() -> type:
-    @jsii.implements(IDoublable)
+    @jsii.implements(_lazy_build_IDoublable())
     class Number(
         _lazy_build_NumericValue(),
         metaclass=jsii.JSIIMeta,
@@ -7406,7 +7406,7 @@ def _lazy_build_IInterfaceWithPropertiesExtension() -> type:
 
 
     class _IInterfaceWithPropertiesExtensionProxy(
-        jsii.proxy_for(IInterfaceWithProperties), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IInterfaceWithProperties()), # type: ignore[misc]
     ):
         __jsii_type__: typing.ClassVar[str] = "jsii-calc.IInterfaceWithPropertiesExtension"
 
@@ -7999,7 +7999,7 @@ def _lazy_build_INonInternalInterface() -> type:
 
 
     class _INonInternalInterfaceProxy(
-        jsii.proxy_for(IAnotherPublicInterface), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IAnotherPublicInterface()), # type: ignore[misc]
     ):
         __jsii_type__: typing.ClassVar[str] = "jsii-calc.INonInternalInterface"
 
@@ -8426,7 +8426,7 @@ def _lazy_build_Implementation() -> type:
 
 @_memoized
 def _lazy_build_ImplementsInterfaceWithInternal() -> type:
-    @jsii.implements(IInterfaceWithInternal)
+    @jsii.implements(_lazy_build_IInterfaceWithInternal())
     class ImplementsInterfaceWithInternal(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.ImplementsInterfaceWithInternal",
@@ -8954,7 +8954,7 @@ def _lazy_build_JavaReservedWords() -> type:
 
 @_memoized
 def _lazy_build_Jsii487Derived() -> type:
-    @jsii.implements(IJsii487External2, IJsii487External)
+    @jsii.implements(_lazy_build_IJsii487External2(), _lazy_build_IJsii487External())
     class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derived"):
         def __init__(self) -> None:
             jsii.create(self.__class__, self, [])
@@ -8963,7 +8963,7 @@ def _lazy_build_Jsii487Derived() -> type:
 
 @_memoized
 def _lazy_build_Jsii496Derived() -> type:
-    @jsii.implements(IJsii496)
+    @jsii.implements(_lazy_build_IJsii496())
     class Jsii496Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii496Derived"):
         def __init__(self) -> None:
             jsii.create(self.__class__, self, [])
@@ -9351,7 +9351,7 @@ def _lazy_build_MethodNamedProperty() -> type:
 
 @_memoized
 def _lazy_build_Multiply() -> type:
-    @jsii.implements(IFriendlier, IRandomNumberGenerator)
+    @jsii.implements(_lazy_build_IFriendlier(), _lazy_build_IRandomNumberGenerator())
     class Multiply(
         _lazy_build_BinaryOperation(),
         metaclass=jsii.JSIIMeta,
@@ -11016,7 +11016,7 @@ def _lazy_build_Statics() -> type:
 
 @_memoized
 def _lazy_build_Stringable() -> type:
-    @jsii.implements(IStringable)
+    @jsii.implements(_lazy_build_IStringable())
     class Stringable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Stringable"):
         def __init__(self) -> None:
             jsii.create(self.__class__, self, [])
@@ -12353,7 +12353,7 @@ def _lazy_build_WithPrivatePropertyInConstructor() -> type:
 
 @_memoized
 def _lazy_build_AbstractClass() -> type:
-    @jsii.implements(IInterfaceImplementedByAbstractClass)
+    @jsii.implements(_lazy_build_IInterfaceImplementedByAbstractClass())
     class AbstractClass(
         _lazy_build_AbstractClassBase(),
         metaclass=jsii.JSIIAbstractClass,
@@ -12382,7 +12382,7 @@ def _lazy_build_AbstractClass() -> type:
 
     class _AbstractClassProxy(
         AbstractClass,
-        jsii.proxy_for(AbstractClassBase), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_AbstractClassBase()), # type: ignore[misc]
     ):
         @jsii.member(jsii_name="abstractMethod")
         def abstract_method(self, name: builtins.str) -> builtins.str:
@@ -12432,7 +12432,7 @@ def _lazy_build_Add() -> type:
 
 @_memoized
 def _lazy_build_AnonymousImplementationProvider() -> type:
-    @jsii.implements(IAnonymousImplementationProvider)
+    @jsii.implements(_lazy_build_IAnonymousImplementationProvider())
     class AnonymousImplementationProvider(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.AnonymousImplementationProvider",
@@ -12452,7 +12452,7 @@ def _lazy_build_AnonymousImplementationProvider() -> type:
 
 @_memoized
 def _lazy_build_Bell() -> type:
-    @jsii.implements(IBell)
+    @jsii.implements(_lazy_build_IBell())
     class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
         def __init__(self) -> None:
             jsii.create(self.__class__, self, [])
@@ -12517,7 +12517,7 @@ def _lazy_build_ChildStruct982() -> type:
 
 @_memoized
 def _lazy_build_ClassThatImplementsTheInternalInterface() -> type:
-    @jsii.implements(INonInternalInterface)
+    @jsii.implements(_lazy_build_INonInternalInterface())
     class ClassThatImplementsTheInternalInterface(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.ClassThatImplementsTheInternalInterface",
@@ -12565,7 +12565,7 @@ def _lazy_build_ClassThatImplementsTheInternalInterface() -> type:
 
 @_memoized
 def _lazy_build_ClassThatImplementsThePrivateInterface() -> type:
-    @jsii.implements(INonInternalInterface)
+    @jsii.implements(_lazy_build_INonInternalInterface())
     class ClassThatImplementsThePrivateInterface(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.ClassThatImplementsThePrivateInterface",
@@ -12613,7 +12613,7 @@ def _lazy_build_ClassThatImplementsThePrivateInterface() -> type:
 
 @_memoized
 def _lazy_build_ClassWithPrivateConstructorAndAutomaticProperties() -> type:
-    @jsii.implements(IInterfaceWithProperties)
+    @jsii.implements(_lazy_build_IInterfaceWithProperties())
     class ClassWithPrivateConstructorAndAutomaticProperties(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
@@ -12651,7 +12651,7 @@ def _lazy_build_ClassWithPrivateConstructorAndAutomaticProperties() -> type:
 
 @_memoized
 def _lazy_build_FullCombo() -> type:
-    @jsii.implements(IIndirectlyImplemented)
+    @jsii.implements(_lazy_build_IIndirectlyImplemented())
     class FullCombo(
         _lazy_build_BaseClass(),
         metaclass=jsii.JSIIMeta,
@@ -12673,7 +12673,7 @@ def _lazy_build_IFriendlyRandomGenerator() -> type:
 
 
     class _IFriendlyRandomGeneratorProxy(
-        jsii.proxy_for(IRandomNumberGenerator), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IRandomNumberGenerator()), # type: ignore[misc]
         jsii.proxy_for(_scope_jsii_calc_lib_c61f082f.IFriendly), # type: ignore[misc]
     ):
         __jsii_type__: typing.ClassVar[str] = "jsii-calc.IFriendlyRandomGenerator"
@@ -12701,7 +12701,7 @@ def _lazy_build_IInterfaceThatShouldNotBeADataType() -> type:
 
 
     class _IInterfaceThatShouldNotBeADataTypeProxy(
-        jsii.proxy_for(IInterfaceWithMethods), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IInterfaceWithMethods()), # type: ignore[misc]
     ):
         '''Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.'''
 
@@ -12740,7 +12740,7 @@ def _lazy_build_IJSII417Derived() -> type:
 
 
     class _IJSII417DerivedProxy(
-        jsii.proxy_for(IJSII417PublicBaseOfBase), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IJSII417PublicBaseOfBase()), # type: ignore[misc]
     ):
         __jsii_type__: typing.ClassVar[str] = "jsii-calc.IJSII417Derived"
 
@@ -12765,7 +12765,7 @@ def _lazy_build_IJSII417Derived() -> type:
 
 @_memoized
 def _lazy_build_InbetweenClass() -> type:
-    @jsii.implements(IPublicInterface2)
+    @jsii.implements(_lazy_build_IPublicInterface2())
     class InbetweenClass(
         _lazy_build_PublicClass(),
         metaclass=jsii.JSIIMeta,
@@ -12810,7 +12810,7 @@ def _lazy_build_JSII417Derived() -> type:
 
 @_memoized
 def _lazy_build_Negate() -> type:
-    @jsii.implements(IFriendlier)
+    @jsii.implements(_lazy_build_IFriendlier())
     class Negate(
         _lazy_build_UnaryOperation(),
         metaclass=jsii.JSIIMeta,
@@ -12916,7 +12916,7 @@ def _lazy_build_SupportsNiceJavaBuilder() -> type:
 
 @_memoized
 def _lazy_build_DoubleTrouble() -> type:
-    @jsii.implements(IFriendlyRandomGenerator)
+    @jsii.implements(_lazy_build_IFriendlyRandomGenerator())
     class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"):
         def __init__(self) -> None:
             jsii.create(self.__class__, self, [])
@@ -14395,7 +14395,7 @@ def _lazy_build_Superclass() -> type:
 
 @_memoized
 def _lazy_build_Base() -> type:
-    @jsii.implements(IBase)
+    @jsii.implements(_lazy_build_IBase())
     class Base(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.covariantOverrides.classOverrides.Base",
@@ -16943,7 +16943,7 @@ def _lazy_build_IFoo() -> type:
 
 @_memoized
 def _lazy_build_Base() -> type:
-    @jsii.implements(IFoo)
+    @jsii.implements(_lazy_build_IFoo())
     class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.module2700.Base"):
         def __init__(self) -> None:
             jsii.create(self.__class__, self, [])
@@ -16961,7 +16961,7 @@ def _lazy_build_Base() -> type:
 
 @_memoized
 def _lazy_build_Derived() -> type:
-    @jsii.implements(IFoo)
+    @jsii.implements(_lazy_build_IFoo())
     class Derived(
         _lazy_build_Base(),
         metaclass=jsii.JSIIMeta,
@@ -17194,7 +17194,7 @@ def _lazy_build_IResource() -> type:
 
 
     class _IResourceProxy(
-        jsii.proxy_for(IConstruct), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IConstruct()), # type: ignore[misc]
     ):
         __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IResource"
 
@@ -17218,7 +17218,7 @@ def _lazy_build_IVpc() -> type:
 
 
     class _IVpcProxy(
-        jsii.proxy_for(IResource), # type: ignore[misc]
+        jsii.proxy_for(_lazy_build_IResource()), # type: ignore[misc]
     ):
         __jsii_type__: typing.ClassVar[str] = "jsii-calc.module2702.IVpc"
 
@@ -17234,7 +17234,7 @@ def _lazy_build_IVpc() -> type:
 
 @_memoized
 def _lazy_build_Baz() -> type:
-    @jsii.implements(IBaz)
+    @jsii.implements(_lazy_build_IBaz())
     class Baz(
         _lazy_build_Class3(),
         metaclass=jsii.JSIIMeta,
@@ -17251,7 +17251,7 @@ def _lazy_build_Baz() -> type:
 
 @_memoized
 def _lazy_build_Construct() -> type:
-    @jsii.implements(IConstruct)
+    @jsii.implements(_lazy_build_IConstruct())
     class Construct(
         metaclass=jsii.JSIIMeta,
         jsii_type="jsii-calc.module2702.Construct",
@@ -17267,7 +17267,7 @@ def _lazy_build_Construct() -> type:
 
 @_memoized
 def _lazy_build_Resource() -> type:
-    @jsii.implements(IResource)
+    @jsii.implements(_lazy_build_IResource())
     class Resource(
         _lazy_build_Construct(),
         metaclass=jsii.JSIIAbstractClass,
@@ -17291,7 +17291,7 @@ def _lazy_build_Resource() -> type:
 
 @_memoized
 def _lazy_build_Vpc() -> type:
-    @jsii.implements(IVpc)
+    @jsii.implements(_lazy_build_IVpc())
     class Vpc(
         _lazy_build_Resource(),
         metaclass=jsii.JSIIMeta,
@@ -19087,7 +19087,7 @@ def _lazy_build_IResolvable() -> type:
 
 @_memoized
 def _lazy_build_Resolvable() -> type:
-    @jsii.implements(IResolvable)
+    @jsii.implements(_lazy_build_IResolvable())
     class Resolvable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.union.Resolvable"):
         @jsii.member(jsii_name="resolve")
         def resolve(self) -> typing.Any:

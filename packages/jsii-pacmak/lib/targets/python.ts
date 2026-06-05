@@ -1197,11 +1197,15 @@ class Interface extends BasePythonClassType {
     code.line();
 
     // Then, we have to emit a Proxy class which implements our proxy interface.
-    const proxyBases: string[] = this.bases.map(
-      (b) =>
-        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
-        `jsii.proxy_for(${toTypeName(b).pythonType('value', context)}) # type: ignore[misc]`,
-    );
+    const proxyBases: string[] = this.bases.map((b) => {
+      let baseExpr = toTypeName(b).pythonType('value', context);
+      // Replace same-module deferred class names with factory calls
+      if (opts?.deferredClassNames?.has(baseExpr)) {
+        baseExpr = `_lazy_build_${baseExpr}()`;
+      }
+      // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
+      return `jsii.proxy_for(${baseExpr}) # type: ignore[misc]`;
+    });
     openSignature(code, 'class', this.proxyClassName, proxyBases);
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
@@ -1633,7 +1637,11 @@ class Class extends BasePythonClassType implements ISortableType {
       const interfaces: string[] = this.interfaces.map((b) =>
         toTypeName(b).pythonType('decl', context),
       );
-      code.line(`@jsii.implements(${interfaces.join(', ')})`);
+      const resolvedInterfaces = this.applyDeferredBaseReplacements(
+        interfaces,
+        opts?.deferredClassNames,
+      );
+      code.line(`@jsii.implements(${resolvedInterfaces.join(', ')})`);
     }
 
     // Then we do our normal class logic for emitting our members.
@@ -1648,9 +1656,12 @@ class Class extends BasePythonClassType implements ISortableType {
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
         // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
-        proxyBases.push(
-          `jsii.proxy_for(${toTypeName(base).pythonType('value', context)}) # type: ignore[misc]`,
-        );
+        let baseExpr = toTypeName(base).pythonType('value', context);
+        // Replace same-module deferred class names with factory calls
+        if (opts?.deferredClassNames?.has(baseExpr)) {
+          baseExpr = `_lazy_build_${baseExpr}()`;
+        }
+        proxyBases.push(`jsii.proxy_for(${baseExpr}) # type: ignore[misc]`);
       }
 
       code.line();
