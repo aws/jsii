@@ -1418,6 +1418,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#-tsconfig-validate-tsconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --tsconfig, --validate-tsconfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#experimental-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1428,17 +1439,6 @@
   
     <nav class="md-nav" aria-label="Experimental Features">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#-tsconfig-validate-tsconfig-available-from-jsii-52" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        --tsconfig, --validate-tsconfig (available from jsii &gt;= 5.2)
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#-strip-deprecated" class="md-nav__link">
@@ -2238,6 +2238,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#-tsconfig-validate-tsconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --tsconfig, --validate-tsconfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#experimental-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2248,17 +2259,6 @@
   
     <nav class="md-nav" aria-label="Experimental Features">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#-tsconfig-validate-tsconfig-available-from-jsii-52" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        --tsconfig, --validate-tsconfig (available from jsii &gt;= 5.2)
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#-strip-deprecated" class="md-nav__link">
@@ -2353,15 +2353,8 @@ words, too).</p>
 option to only warn about reserved words of languages that are configured
 for the current project.</p>
 </div>
-<h3 id="experimental-features"><img alt="🧪" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9ea.svg" title=":test_tube:" /> Experimental Features</h3>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>The features discussed in this section are experimental. Their behavior may
-change as bugs are addressed, and requirements are clarified through early
-adopters. Use at your own risk, and don't forget to <a href="https://github.com/aws/jsii/issues/new/choose">report bugs</a> you
-encounter while doing so!</p>
-</div>
-<h4 id="-tsconfig-validate-tsconfig-available-from-jsii-52"><code>--tsconfig</code>, <code>--validate-tsconfig</code> <em>(available from jsii &gt;= 5.2)</em></h4>
+<h3 id="-tsconfig-validate-tsconfig"><code>--tsconfig</code>, <code>--validate-tsconfig</code></h3>
+<p><em>Available from jsii &gt;= 5.2</em></p>
 <p>By default, jsii will generate a <code>tsconfig.json</code> for you, using best practice
 settings that are optimized for widespread support and backwards compatibility.
 In some situations it can be useful to provide a custom typescript
@@ -2397,9 +2390,17 @@ option. You may choose the level of validation to suit your use case.</p>
 </tr>
 </tbody>
 </table>
-<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" title=":star:" /> Recommended setting\
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" title=":star:" /> Recommended setting<br />
 <img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" title=":warning:" /> Resulting jsii assembly/package may be incompatible with wider ecosystem</p>
 <p>There is currently no easy way to inspect these rule sets, however detailed error messages are returned if a provided tsconfig fails validation.</p>
+<h3 id="experimental-features"><img alt="🧪" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9ea.svg" title=":test_tube:" /> Experimental Features</h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The features discussed in this section are experimental. Their behavior may
+change as bugs are addressed, and requirements are clarified through early
+adopters. Use at your own risk, and don't forget to <a href="https://github.com/aws/jsii/issues/new/choose">report bugs</a> you
+encounter while doing so!</p>
+</div>
 <h4 id="-strip-deprecated"><code>--strip-deprecated</code></h4>
 <p>The <code>--strip-deprecated</code> option modifies the compilation flow such that all
 declarations (types, members) documented with the <code>@deprecated</code> tag will be
@@ -2460,7 +2461,7 @@ with the <code>--add-deprecated-warnings</code> flag.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-03-23
+    2026-06-05
   </span>
 
     
