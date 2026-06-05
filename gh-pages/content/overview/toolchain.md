@@ -5,18 +5,20 @@
 !!! info
     We are considering creating an "umbrella entrypoint" to make it easier to consume.
 
-| Name            | Release | Stability     | Description                                                           |
-| --------------- | ------- | ------------- | --------------------------------------------------------------------- |
-| [jsii1]         | `1.x`   | [Maintenance] | Compiles TypeScript to jsii module (TypeScript 3.9 Syntax)            |
-| [jsii]          | `5.x`   | GA            | Compiles TypeScript to jsii module (TypeScript 5.x Syntax)            |
-| [jsii-pacmak]   | `1.x`   | GA            | Creates ready-to-publish language-specific packages from jsii modules |
-| [jsii-reflect]  | `1.x`   | GA            | Strong-typed reflection library for jsii type systems                 |
-| [jsii-diff]     | `1.x`   | GA            | API backwards compatibility checker                                   |
-| [jsii-rosetta1] | `1.x`   | [Maintenance] | Transpile code snippets (in docs) from TypeScript to jsii languages   |
-| [jsii-rosetta]  | `5.x`   | GA            | Transpile code snippets (in docs) from TypeScript to jsii languages   |
-| [jsii-config]   | `1.x`   | Experimental  | Interactive tool for generating jsii configuration                    |
-| [jsii-srcmak]   | `1.x`   | Community     | Generates relocatable source code in jsii languages from typescript   |
-| [jsii-docgen]   | *any*   | Community     | Generates markdown API documentation for jsii modules                 |
+| Name           | Release | Stability     | Description                                                           |
+| -------------- | ------- | ------------- | --------------------------------------------------------------------- |
+| [jsii]         | `6.x`   | GA            | Compiles TypeScript to jsii module (TypeScript 6.x)                   |
+|                | `5.x`   | [Maintenance] | Compiles TypeScript to jsii module (TypeScript 5.x)                   |
+|                | `1.x`   | [Maintenance] | Compiles TypeScript to jsii module (TypeScript 3.9)                   |
+| [jsii-pacmak]  | `1.x`   | GA            | Creates ready-to-publish language-specific packages from jsii modules |
+| [jsii-reflect] | `1.x`   | GA            | Strong-typed reflection library for jsii type systems                 |
+| [jsii-diff]    | `1.x`   | GA            | API backwards compatibility checker                                   |
+| [jsii-rosetta] | `6.x`   | GA            | Transpile code snippets (in docs) from TypeScript to jsii languages   |
+|                | `5.x`   | [Maintenance] | (as above but for TypeScript 5.x)                                     |
+|                | `1.x`   | [Maintenance] | (as above but for TypeScript 3.9)                                     |
+| [jsii-config]  | `1.x`   | Experimental  | Interactive tool for generating jsii configuration                    |
+| [jsii-srcmak]  | `1.x`   | Community     | Generates relocatable source code in jsii languages from typescript   |
+| [jsii-docgen]  | *any*   | Community     | Generates markdown API documentation for jsii modules                 |
 
 ??? question "Stability Definitions"
     - **GA**: Projects that are deemed *Generally Available* and for which customers can expect full support, including
@@ -32,13 +34,11 @@
     [semver]: https://semver.org/spec/v2.0.0.html
 
 [Maintenance]: ../compiler-and-rosetta-maintenance.md
-[jsii1]: https://github.com/aws/jsii/tree/main/packages/jsii
 [jsii]: https://github.com/aws/jsii-compiler#readme
 [jsii-pacmak]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
 [jsii-reflect]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
 [jsii-config]: https://github.com/aws/jsii/tree/main/packages/jsii-config
 [jsii-diff]: https://github.com/aws/jsii/tree/main/packages/jsii-diff
-[jsii-rosetta1]: https://github.com/aws/jsii/tree/main/packages/jsii-rosetta
 [jsii-rosetta]: https://github.com/aws/jsii-rosetta#readme
 [jsii-srcmak]: https://github.com/cdklabs/jsii-srcmak
 [jsii-docgen]: https://github.com/cdklabs/jsii-docgen

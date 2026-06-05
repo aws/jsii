@@ -209,7 +209,7 @@ are set in the `jsii.tsc` section of the `package.json` file, but use the same n
   default, all visible `@types/*` packages will be loaded, which can be undesirable (in particular in monorepos, where
   some type libraries are not compatible with the TypeScript compiler version that `jsii` uses). The value specified
   here will be forwarded as-is to the TypeScript compiler.
-- `baseUrl` and `paths` can be used to configure TypeScript path mappings, and are copied verbatim to `tsconfig.json`.
+- `paths` can be used to configure TypeScript path mappings, and is copied verbatim to `tsconfig.json`.
 
 Refer to the [TypeScript compiler options reference][ts-options] for more information about those options.
 
@@ -219,10 +219,6 @@ Refer to the [TypeScript compiler options reference][ts-options] for more inform
 #### `tsconfig`
 
 _Available from jsii >= 5.2_
-
-!!! warn
-    :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
-    through early adopters. Use at your own risk, and please any [report bugs].
 
 Provide this setting, to use a user-provided typescript configuration with `jsii`. Set to the name of the tsconfig
 file that should be used. Usually this will be `"tsconfig.json"`, but can be set to any filename.
@@ -239,10 +235,6 @@ The provided tsconfig is subject to validation rules, see below for more details
 #### `validateTsconfig`
 
 _Available from jsii >= 5.2_
-
-!!! warn
-    :test_tube: This features is experimental. Behavior may change as bugs are addressed, and requirements are clarified
-    through early adopters. Use at your own risk, and please any [report bugs].
 
 A user-provider typescript config must follow certain rules to be a valid config for use with jsii.
 By default the tsconfig is validated against the `strict` rule set.
@@ -334,4 +326,3 @@ modules, **must** also be referenced in the [`bundledDependencies`][npm-bundled]
 within the NPM package.
 
 [npm-bundled]: https://docs.npmjs.com/files/package.json#bundleddependencies
-[report bugs]: https://github.com/aws/jsii/issues/new/choose
