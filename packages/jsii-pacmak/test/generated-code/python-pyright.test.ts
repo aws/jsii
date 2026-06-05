@@ -84,6 +84,9 @@ beforeAll(async () => {
       // functions rather than at module scope. They become available via
       // __getattr__ (PEP 562) at runtime.
       'reportUnsupportedDunderAll = false',
+      // _LazyImport proxies and factory return values are typed as `object`,
+      // so attribute access on them triggers false positives.
+      'reportAttributeAccessIssue = false',
       `venvPath = ${JSON.stringify(path.dirname(venv.venvRoot))}`,
       `venv = ${JSON.stringify(path.basename(venv.venvRoot))}`,
     ].join('\n'),

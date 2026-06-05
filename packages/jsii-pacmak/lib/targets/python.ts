@@ -132,10 +132,22 @@ interface EmitContext extends NamingContext {
 
 class TypeCheckingHelper {
   #stubs = new Array<TypeCheckingStub>();
+  #useLazyNamespace = false;
+
+  /**
+   * When set to true, the generated get_type_hints calls will use a
+   * lazy-resolving namespace that materializes deferred classes on demand.
+   */
+  public set useLazyNamespace(value: boolean) {
+    this.#useLazyNamespace = value;
+  }
 
   public getTypeHints(fqn: string, args: readonly string[]): string {
-    const stub = new TypeCheckingStub(fqn, args);
+    const stub = new TypeCheckingStub(fqn, args, this.#useLazyNamespace);
     this.#stubs.push(stub);
+    if (this.#useLazyNamespace) {
+      return `typing.get_type_hints(${stub.name}, globalns=_typechecking_ns)`;
+    }
     return `typing.get_type_hints(${stub.name})`;
   }
 
@@ -155,13 +167,20 @@ class TypeCheckingStub {
   readonly #arguments: readonly string[];
   readonly #hash: string;
 
-  public constructor(fqn: string, args: readonly string[]) {
-    // Keep type annotations as string literals (forward references). The stubs
-    // are emitted at the very end of the module, but deferred (lazy) classes may
-    // not yet be materialized in module globals at function definition time.
-    // typing.get_type_hints() resolves string annotations on demand using the
-    // module's globalns, which triggers __getattr__ for deferred classes.
-    this.#arguments = args;
+  public constructor(
+    fqn: string,
+    args: readonly string[],
+    keepQuotes: boolean,
+  ) {
+    // When the module has deferred (lazy) classes, keep type annotations as
+    // string literals (forward references). typing.get_type_hints() will
+    // resolve them on demand using a custom globalns that materializes
+    // deferred classes. When there are no deferred classes, strip quotes so
+    // annotations resolve eagerly at definition time (preserving correct
+    // resolution for homonymous forward references across sibling modules).
+    this.#arguments = keepQuotes
+      ? args
+      : args.map((arg) => arg.replace(/"/g, ''));
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
@@ -597,23 +616,6 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return resolver.bind(this.fqn);
   }
 
-  /**
-   * Determines whether this class/interface/struct has any cross-module
-   * dependencies in its definition (base classes, implemented interfaces,
-   * or proxy_for references). Used to decide if the class definition should
-   * be wrapped in a lazy factory function.
-   */
-  public hasCrossModuleDefinitionDep(resolver: TypeResolver): boolean {
-    for (const base of this.bases) {
-      if (spec.isNamedTypeReference(base)) {
-        if (!resolver.isInModule(base)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   protected abstract getClassParams(
     context: EmitContext,
     opts?: ClassEmitOpts,
@@ -635,7 +637,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
       // qualified reference like `module.ClassName` or a keyword arg like
       // `metaclass=...`)
       if (deferredClassNames.has(p)) {
-        return `_lazy_build_${p}() # type: ignore[misc]`;
+        return `_lazy_build_${p}()`;
       }
       return p;
     });
@@ -1617,28 +1619,6 @@ class Class extends BasePythonClassType implements ISortableType {
     );
   }
 
-  public override hasCrossModuleDefinitionDep(resolver: TypeResolver): boolean {
-    // Check bases (from BasePythonClassType)
-    if (super.hasCrossModuleDefinitionDep(resolver)) {
-      return true;
-    }
-    // Check @jsii.implements() interfaces (already NamedTypeReference[])
-    for (const iface of this.interfaces) {
-      if (!resolver.isInModule(iface)) {
-        return true;
-      }
-    }
-    // Check abstract base classes used in jsii.proxy_for()
-    if (this.abstract) {
-      for (const base of this.abstractBases) {
-        if (!resolver.isInModule(base.fqn)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
     const wrapInFactory = opts?.wrapInFactory ?? false;
 
@@ -1795,13 +1775,6 @@ class Enum extends BasePythonClassType {
     return ['enum.Enum'];
   }
 
-  public override hasCrossModuleDefinitionDep(
-    _resolver: TypeResolver,
-  ): boolean {
-    // Enums always extend enum.Enum (a builtin), never a cross-module type
-    return false;
-  }
-
   public requiredImports(context: EmitContext): PythonImports {
     return super.requiredImports(context);
   }
@@ -1933,6 +1906,7 @@ class PythonModule implements PythonType {
       ...context,
       submodule: this.fqn ?? context.submodule,
       intersectionTypes: new IntersectionTypesRegistry(),
+      typeCheckingHelper: new TypeCheckingHelper(),
       resolver,
     };
 
@@ -2005,62 +1979,21 @@ class PythonModule implements PythonType {
       this.emitRequiredImports(code, context);
     }
 
-    // Partition members into eager and deferred groups.
-    // A member is "deferred" if it's a BasePythonClassType with cross-module
-    // definition dependencies. Non-class members (methods, properties) and
-    // Enums are always eager.
+    // Partition members into non-class (eager) and class (deferred) groups.
+    // All classes, interfaces, and structs are deferred (wrapped in factory
+    // functions) for maximum lazy loading. Only Enums and non-class members
+    // (methods, properties) are emitted eagerly at module scope.
     const sortedMembers = prepareMembers(this.members, resolver);
     const eagerMembers: PythonBase[] = [];
     const deferredMembers: PythonBase[] = [];
 
     for (const member of sortedMembers) {
-      if (
-        member instanceof BasePythonClassType &&
-        !(member instanceof Enum) &&
-        member.hasCrossModuleDefinitionDep(resolver)
-      ) {
+      if (member instanceof BasePythonClassType && !(member instanceof Enum)) {
         deferredMembers.push(member);
       } else {
         eagerMembers.push(member);
       }
     }
-
-    // Promotion logic (fixed-point iteration):
-    // If an eager class inherits from or implements a deferred class in the
-    // same module, that deferred class must be promoted to eager so it's
-    // available at class definition time. Promotion is transitive.
-    let promotionOccurred = true;
-    while (promotionOccurred) {
-      promotionOccurred = false;
-      // Iterate over a snapshot of eagerMembers to avoid issues with mutation
-      const currentEager = [...eagerMembers];
-      for (const member of currentEager) {
-        if (!(member instanceof BasePythonClassType)) {
-          continue;
-        }
-        // dependsOn(resolver) returns same-module dependencies including
-        // base classes AND interfaces (for Class instances)
-        const deps = member.dependsOn(resolver);
-        for (const dep of deps) {
-          const idx = deferredMembers.indexOf(dep as PythonBase);
-          if (idx !== -1) {
-            // Promote: move from deferred to eager
-            deferredMembers.splice(idx, 1);
-            eagerMembers.push(dep as PythonBase);
-            promotionOccurred = true;
-          }
-        }
-      }
-    }
-
-    // After promotion, re-sort eagerMembers to maintain topological order.
-    // Promoted members are appended at the end which may violate the ordering
-    // (e.g., a class that depends on a promoted class may appear before it).
-    // We use the original sortedMembers order as the canonical topological order.
-    const sortOrder = new Map(sortedMembers.map((m, i) => [m, i]));
-    eagerMembers.sort(
-      (a, b) => (sortOrder.get(a) ?? 0) - (sortOrder.get(b) ?? 0),
-    );
 
     // Store sorted deferred class names for _LAZY_CLASSES emission
     const deferredClassNames: string[] = deferredMembers
@@ -2072,19 +2005,22 @@ class PythonModule implements PythonType {
       code.line();
       code.line('_memoized = jsii._memoized');
       code.line('import sys as _sys');
+      // Enable lazy namespace for type checking stubs so that
+      // typing.get_type_hints() can resolve deferred class names
+      context.typeCheckingHelper.useLazyNamespace = true;
     } else if (this.modules.length > 0) {
       code.line();
       code.line('import sys as _sys');
     }
 
-    // Emit eager members normally
+    // Emit eager members (Enums, non-class members) normally
     for (const member of eagerMembers) {
       code.line();
       code.line();
       member.emit(code, context);
     }
 
-    // Emit deferred members wrapped in factory functions
+    // Emit all classes/interfaces/structs wrapped in factory functions
     if (deferredMembers.length > 0) {
       const deferredSet = new Set(deferredClassNames);
       for (const member of deferredMembers) {
@@ -2210,6 +2146,11 @@ class PythonModule implements PythonType {
         code.openBlock('if name in _LAZY_CLASSES');
         code.line('cls = _LAZY_CLASSES[name]()');
         code.line('setattr(_sys.modules[__name__], name, cls)');
+        // Also store in the original module globals so that
+        // typing.get_type_hints() can resolve forward references in
+        // type-checking stubs (which use this module's __dict__ as their
+        // __globals__).
+        code.line('globals()[name] = cls');
         code.line('return cls');
         code.closeBlock();
       }
@@ -2247,6 +2188,29 @@ class PythonModule implements PythonType {
       // direct assignment with "Cannot assign to a method [method-assign]".
       code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
+    }
+
+    // Emit a lazy-resolving namespace for typing.get_type_hints() when
+    // deferred classes exist. This dict subclass intercepts lookups for
+    // deferred class names, materializes them via their factory, and caches
+    // the result in both this namespace and the module globals.
+    if (deferredClassNames.length > 0) {
+      code.line();
+      code.indent('class _TypeCheckingNamespace(typing.Dict[str, object]):');
+      code.line('_LAZY = _LAZY_CLASSES');
+      code.line();
+      code.openBlock('def __missing__(self, key: str) -> object');
+      code.openBlock('if key in self._LAZY');
+      code.line('cls = self._LAZY[key]()');
+      code.line('self[key] = cls');
+      code.line('globals()[key] = cls');
+      code.line('setattr(_sys.modules[__name__], key, cls)');
+      code.line('return cls');
+      code.closeBlock();
+      code.line('raise KeyError(key)');
+      code.closeBlock();
+      code.unindent();
+      code.line('_typechecking_ns = _TypeCheckingNamespace(globals())');
     }
 
     context.typeCheckingHelper.flushStubs(code);

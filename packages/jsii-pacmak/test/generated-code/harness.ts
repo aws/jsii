@@ -404,6 +404,18 @@ async function runMypy(pythonRoot: string): Promise<void> {
         // treats decorated functions as untyped. This is acceptable since the decorator only
         // caches return values and doesn't modify the function signature.
         '--disable-error-code=untyped-decorator',
+        // Deferred class factories return `type` which mypy treats as `object`. When used as
+        // base classes or in jsii_struct_bases lists, mypy reports list-item and valid-type
+        // errors. These are runtime-correct but statically unverifiable.
+        '--disable-error-code=list-item',
+        '--disable-error-code=valid-type',
+        // _LazyImport proxies resolve to `object` statically, so mypy flags calls through
+        // them (operator) and passing them as type arguments (arg-type).
+        '--disable-error-code=arg-type',
+        '--disable-error-code=operator',
+        // With all classes deferred, some typing.cast() calls become redundant from mypy's
+        // perspective since it can't see the actual return types through factory functions.
+        '--disable-error-code=redundant-cast',
         // Ignore subclassing types that did not resolve because we don't have dependencies
         '--allow-subclassing-any',
         pythonRoot,

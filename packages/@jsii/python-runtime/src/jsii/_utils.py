@@ -39,7 +39,7 @@ def _memoized(func):
         return result
 
     wrapper.__name__ = func.__name__
-    wrapper.__wrapped__ = func
+    wrapper.__wrapped__ = func  # type: ignore[attr-defined]
     return wrapper
 
 
