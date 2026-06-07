@@ -17,6 +17,9 @@ export const suite: schema.Suite = {
     python: {
       report: 'packages/@jsii/python-runtime-test/compliance-report.json',
     },
+    ruby: {
+      report: 'packages/@jsii/ruby-runtime-test/compliance-report.json',
+    },
   },
   testCases: [
     {

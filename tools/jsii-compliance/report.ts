@@ -166,7 +166,7 @@ for (const [i, testCase] of suite.testCases.entries()) {
 
 const columns = ['number', 'test'];
 
-for (const language of Object.keys(reports)) {
+for (const language of Object.keys(suite.bindings)) {
   const coverage = (
     (successes[language] / suite.testCases.length) *
     100

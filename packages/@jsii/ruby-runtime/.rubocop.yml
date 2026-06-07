@@ -1,0 +1,37 @@
+AllCops:
+  # Keep in sync with required_ruby_version in jsii-ruby-runtime.gemspec.
+  TargetRubyVersion: 3.3
+  NewCops: disable
+  SuggestExtensions: false
+
+# This gem is an RPC bridge to a Node sidecar.  The kernel naturally
+# multiplexes many concerns in a few hot methods (popen3 setup, request
+# loop, shutdown sequencing, type-dispatch serializers) and splitting them
+# for the sake of the metric raises noise without making the code clearer.
+# Bumped thresholds, not disabled, so a runaway method still trips.
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/AbcSize:
+  Max: 22
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+# `consistent` keeps multi-line hash literals at a stable 2-space indent
+# from the line start, regardless of how deep the surrounding call sits.
+# The default `special_inside_parentheses` style aligns to the column
+# after the opening `(`, which produces very deep, hard-to-read indents
+# for `send_payload({ complete: { ... } })`-style calls.
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+# Same rationale for multi-line argument lists.
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent

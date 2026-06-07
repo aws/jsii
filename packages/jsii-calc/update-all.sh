@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 scriptdir=$(cd $(dirname $0) && pwd)
 cd ${scriptdir}
