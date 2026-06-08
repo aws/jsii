@@ -2227,9 +2227,7 @@ class PythonModule implements PythonType {
       code.line('_typechecking_ns: "dict[str, object] | None" = None');
       code.line('_typechecking_localns: "dict[str, object] | None" = None');
       code.line();
-      code.openBlock(
-        'def _get_typechecking_ns() -> "dict[str, object]"',
-      );
+      code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
       code.line('global _typechecking_ns');
       code.openBlock('if _typechecking_ns is None');
       code.line('ns = dict(globals())');
@@ -2246,9 +2244,7 @@ class PythonModule implements PythonType {
       // Python's ForwardRef._evaluate to re-resolve forward references against
       // this module's namespace rather than using a cached (possibly wrong)
       // value from a sibling module with a homonymous type.
-      code.openBlock(
-        'def _get_typechecking_localns() -> "dict[str, object]"',
-      );
+      code.openBlock('def _get_typechecking_localns() -> "dict[str, object]"');
       code.line('global _typechecking_localns');
       code.openBlock('if _typechecking_localns is None');
       code.line('ns = dict(globals())');
