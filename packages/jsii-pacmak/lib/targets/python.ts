@@ -2217,35 +2217,26 @@ class PythonModule implements PythonType {
     // cross-contamination between sibling modules with homonymous types).
     if (deferredClassNames.length > 0) {
       code.line();
-      code.indent('class _TypeCheckingNamespace(typing.Dict[str, object]):');
-      code.line('_LAZY = _LAZY_CLASSES');
-      code.line();
-      // Override __contains__ so that Python 3.14's ForwardRef.evaluate()
-      // fast path (`if arg in locals`) returns True for deferred class names.
-      // Without this, `in` only checks already-materialized keys and the
-      // subsequent `locals[arg]` (which triggers __missing__) is never reached.
-      code.openBlock('def __contains__(self, key: object) -> bool');
-      code.line(
-        'return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)',
-      );
+      // Build a namespace dict that eagerly materializes all deferred classes.
+      // We cannot use a dict subclass with __missing__ because Python 3.14's
+      // ForwardRef.evaluate() converts globals to a plain dict via
+      // `globals = dict(globals)` when the owner has __type_params__ (even if
+      // empty), which strips any custom __missing__ behavior.
+      // Instead, we build a plain dict with all deferred classes pre-resolved.
+      code.openBlock('def _build_typechecking_ns() -> "dict[str, object]"');
+      code.line('ns = dict(globals())');
+      code.openBlock('for name, factory in _LAZY_CLASSES.items()');
+      code.line('ns[name] = factory()');
       code.closeBlock();
-      code.line();
-      code.openBlock('def __missing__(self, key: str) -> object');
-      code.openBlock('if key in self._LAZY');
-      code.line('cls = self._LAZY[key]()');
-      code.line('self[key] = cls');
-      code.line('return cls');
+      code.line('return ns');
       code.closeBlock();
-      code.line('raise KeyError(key)');
-      code.closeBlock();
-      code.unindent();
-      code.line('_typechecking_ns = _TypeCheckingNamespace(globals())');
+      code.line('_typechecking_ns = _build_typechecking_ns()');
       // A second instance used as localns in typing.get_type_hints() calls.
       // This ensures `localns is not globalns` evaluates to True, which forces
       // Python's ForwardRef._evaluate to re-resolve forward references against
       // this module's namespace rather than using a cached (possibly wrong)
       // value from a sibling module with a homonymous type.
-      code.line('_typechecking_localns = _TypeCheckingNamespace(globals())');
+      code.line('_typechecking_localns = _build_typechecking_ns()');
     }
 
     context.typeCheckingHelper.flushStubs(code);

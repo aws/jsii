@@ -1530,21 +1530,13 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-class _TypeCheckingNamespace(typing.Dict[str, object]):
-    _LAZY = _LAZY_CLASSES
-
-    def __contains__(self, key: object) -> bool:
-        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
-
-    def __missing__(self, key: str) -> object:
-        if key in self._LAZY:
-            cls = self._LAZY[key]()
-            self[key] = cls
-            return cls
-        raise KeyError(key)
-
-_typechecking_ns = _TypeCheckingNamespace(globals())
-_typechecking_localns = _TypeCheckingNamespace(globals())
+def _build_typechecking_ns() -> "dict[str, object]":
+    ns = dict(globals())
+    for name, factory in _LAZY_CLASSES.items():
+        ns[name] = factory()
+    return ns
+_typechecking_ns = _build_typechecking_ns()
+_typechecking_localns = _build_typechecking_ns()
 
 def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
     *,
@@ -2926,21 +2918,13 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-class _TypeCheckingNamespace(typing.Dict[str, object]):
-    _LAZY = _LAZY_CLASSES
-
-    def __contains__(self, key: object) -> bool:
-        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
-
-    def __missing__(self, key: str) -> object:
-        if key in self._LAZY:
-            cls = self._LAZY[key]()
-            self[key] = cls
-            return cls
-        raise KeyError(key)
-
-_typechecking_ns = _TypeCheckingNamespace(globals())
-_typechecking_localns = _TypeCheckingNamespace(globals())
+def _build_typechecking_ns() -> "dict[str, object]":
+    ns = dict(globals())
+    for name, factory in _LAZY_CLASSES.items():
+        ns[name] = factory()
+    return ns
+_typechecking_ns = _build_typechecking_ns()
+_typechecking_localns = _build_typechecking_ns()
 
 def _typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9(
     *,
