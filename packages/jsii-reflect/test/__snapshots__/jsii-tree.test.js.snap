@@ -1615,6 +1615,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ friendly
  │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
  │   │     └── returns: string
+ │   ├─┬ class HostStackTraceReader (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ static capturedTrace() method (stable)
+ │   │     ├── static
+ │   │     └── returns: any
  │   ├─┬ class ImplementInternalInterface (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -4213,6 +4219,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IIndirectlyImplemented
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class HostStackTraceReader
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
  │   ├─┬ class ImplementsInterfaceWithInternal
@@ -5262,6 +5269,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── betterGreeting(friendly) method
+ │   ├─┬ class HostStackTraceReader
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── static capturedTrace() method
  │   ├─┬ class ImplementInternalInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -6596,6 +6607,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class FullCombo
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class HostStackTraceReader
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
  │   ├── class ImplementsInterfaceWithInternal

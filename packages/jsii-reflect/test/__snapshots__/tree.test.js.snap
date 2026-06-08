@@ -1810,6 +1810,12 @@ exports[`showAll 1`] = `
  │   │     │ └─┬ friendly
  │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
  │   │     └── returns: string
+ │   ├─┬ class HostStackTraceReader
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ static capturedTrace() method
+ │   │     ├── static
+ │   │     └── returns: any
  │   ├─┬ class ImplementInternalInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4417,6 +4423,7 @@ exports[`types 1`] = `
  │   ├── class FullCombo
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class HostStackTraceReader
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
  │   ├── class ImplementsInterfaceWithInternal
