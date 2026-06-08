@@ -1338,9 +1338,10 @@ def _lazy_build_Consumer() -> type:
             :param foo: -
             :param bar: -
             '''
-            baz_ = Baz(baz=baz, foo=foo, bar=bar)
+            baz_ = _lazy_build_Baz()(baz=baz, foo=foo, bar=bar)
 
             return typing.cast(None, jsii.sinvoke(cls, "consumeBaz", [baz_]))
+    Consumer.__qualname__ = "Consumer"
     return Consumer
 
 
@@ -1379,6 +1380,7 @@ def _lazy_build_Foo() -> type:
             return "Foo(%s)" % ", ".join(
                 k + "=" + repr(v) for k, v in self._values.items()
             )
+    Foo.__qualname__ = "Foo"
     return Foo
 
 
@@ -1431,6 +1433,7 @@ def _lazy_build_FooBar() -> type:
             return "FooBar(%s)" % ", ".join(
                 k + "=" + repr(v) for k, v in self._values.items()
             )
+    FooBar.__qualname__ = "FooBar"
     return FooBar
 
 
@@ -1493,6 +1496,7 @@ def _lazy_build_Baz() -> type:
             return "Baz(%s)" % ", ".join(
                 k + "=" + repr(v) for k, v in self._values.items()
             )
+    Baz.__qualname__ = "Baz"
     return Baz
 
 
@@ -2861,6 +2865,7 @@ def _lazy_build_Namespace1() -> type:
 
         # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
         typing.cast(typing.Any, IBar).__jsii_proxy_class__ = lambda : _IBarProxy
+    Namespace1.__qualname__ = "Namespace1"
     return Namespace1
 
 
@@ -2889,6 +2894,7 @@ def _lazy_build_Namespace2() -> type:
                 @jsii.member(jsii_name="done")
                 def done(self) -> builtins.bool:
                     return typing.cast(builtins.bool, jsii.get(self, "done"))
+    Namespace2.__qualname__ = "Namespace2"
     return Namespace2
 
 

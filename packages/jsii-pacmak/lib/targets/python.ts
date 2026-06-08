@@ -128,6 +128,9 @@ interface EmitContext extends NamingContext {
 
   /** The numerical IDs used for type annotation data storing */
   readonly typeCheckingHelper: TypeCheckingHelper;
+
+  /** Names of deferred (lazy) classes in the current module */
+  readonly deferredClassNames?: Set<string>;
 }
 
 class TypeCheckingHelper {
@@ -931,10 +934,12 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType(
-      'value',
-      context,
-    );
+    let typeName = toTypeName(lastParameter.type).pythonType('value', context);
+
+    // If the type is a same-module deferred class, use factory call instead
+    if (context.deferredClassNames?.has(typeName)) {
+      typeName = `_lazy_build_${typeName}()`;
+    }
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specify to start with in our dictionary literal.
@@ -1240,6 +1245,7 @@ class Interface extends BasePythonClassType {
       code.line(
         `typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ = typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
       );
+      code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
       code.line(`return ${this.pythonName}`);
       code.closeBlock();
     }
@@ -1320,6 +1326,7 @@ class Struct extends BasePythonClassType {
 
     // Close factory function wrapper with return statement
     if (wrapInFactory) {
+      code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
       code.line(`return ${this.pythonName}`);
       code.closeBlock();
     }
@@ -1378,10 +1385,11 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType(
-        'value',
-        context,
-      );
+      let typeName = toTypeName(member.type.type).pythonType('value', context);
+      // If the type is a same-module deferred class, use factory call instead
+      if (context.deferredClassNames?.has(typeName)) {
+        typeName = `_lazy_build_${typeName}()`;
+      }
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
@@ -1702,6 +1710,7 @@ class Class extends BasePythonClassType implements ISortableType {
 
     // Close factory function wrapper with return statement
     if (wrapInFactory) {
+      code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
       code.line(`return ${this.pythonName}`);
       code.closeBlock();
     }
@@ -2034,10 +2043,11 @@ class PythonModule implements PythonType {
     // Emit all classes/interfaces/structs wrapped in factory functions
     if (deferredMembers.length > 0) {
       const deferredSet = new Set(deferredClassNames);
+      const deferredContext = { ...context, deferredClassNames: deferredSet };
       for (const member of deferredMembers) {
         code.line();
         code.line();
-        (member as BasePythonClassType).emit(code, context, {
+        (member as BasePythonClassType).emit(code, deferredContext, {
           wrapInFactory: true,
           deferredClassNames: deferredSet,
         });
