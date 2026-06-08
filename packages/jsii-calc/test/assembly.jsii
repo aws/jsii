@@ -6400,6 +6400,47 @@
       "name": "GreetingAugmenter",
       "symbolId": "lib/compliance:GreetingAugmenter"
     },
+    "jsii-calc.HostStackTraceReader": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "This is used for integration testing to verify that stack traces captured\nin the host language (Python, Java, Go, .NET) are correctly transmitted\nto the kernel.",
+        "stability": "stable",
+        "summary": "A class that exposes the host stack trace provided by the jsii runtime."
+      },
+      "fqn": "jsii-calc.HostStackTraceReader",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/host-stack-trace.ts",
+        "line": 10
+      },
+      "methods": [
+        {
+          "docs": {
+            "remarks": "Each frame is a tuple of [file, line, column, function].\nReturns undefined if no host stack trace is available.",
+            "stability": "stable",
+            "summary": "Returns the current host stack trace, if one was provided by the runtime."
+          },
+          "locationInModule": {
+            "filename": "lib/host-stack-trace.ts",
+            "line": 17
+          },
+          "name": "capturedTrace",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "HostStackTraceReader",
+      "symbolId": "lib/host-stack-trace:HostStackTraceReader"
+    },
     "jsii-calc.IAnonymousImplementationProvider": {
       "assembly": "jsii-calc",
       "docs": {
@@ -20232,5 +20273,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "4Z9hfwRyZV7xQ1T09J4YXlycIZsEwNINqk/vo0NzG08="
+  "fingerprint": "373D8BWB3I93c1b0C+Cvo25vpw5EySE8XH8c0uOzVZY="
 }
