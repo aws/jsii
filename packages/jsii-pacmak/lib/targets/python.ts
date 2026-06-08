@@ -149,7 +149,7 @@ class TypeCheckingHelper {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
     if (this.#useLazyNamespace) {
-      return `typing.get_type_hints(${stub.name}, globalns=_typechecking_ns)`;
+      return `typing.get_type_hints(${stub.name}, globalns=_typechecking_ns, localns=_typechecking_localns)`;
     }
     return `typing.get_type_hints(${stub.name})`;
   }
@@ -2230,6 +2230,12 @@ class PythonModule implements PythonType {
       code.closeBlock();
       code.unindent();
       code.line('_typechecking_ns = _TypeCheckingNamespace(globals())');
+      // A second instance used as localns in typing.get_type_hints() calls.
+      // This ensures `localns is not globalns` evaluates to True, which forces
+      // Python's ForwardRef._evaluate to re-resolve forward references against
+      // this module's namespace rather than using a cached (possibly wrong)
+      // value from a sibling module with a homonymous type.
+      code.line('_typechecking_localns = _TypeCheckingNamespace(globals())');
     }
 
     context.typeCheckingHelper.flushStubs(code);
