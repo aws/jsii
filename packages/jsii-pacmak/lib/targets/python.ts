@@ -149,7 +149,7 @@ class TypeCheckingHelper {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
     if (this.#useLazyNamespace) {
-      return `typing.get_type_hints(${stub.name}, globalns=_typechecking_ns, localns=_typechecking_localns)`;
+      return `typing.get_type_hints(${stub.name}, globalns=_get_typechecking_ns(), localns=_get_typechecking_localns())`;
     }
     return `typing.get_type_hints(${stub.name})`;
   }
@@ -2210,34 +2210,55 @@ class PythonModule implements PythonType {
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
-    // Emit a lazy-resolving namespace for typing.get_type_hints() when
-    // deferred classes exist. The namespace is only needed for runtime type
-    // checking (which runs inside `if __debug__:` blocks), so we guard the
-    // entire construction behind `if __debug__:` to preserve lazy loading
-    // benefits in optimized mode (`python -O`).
+    // Emit lazy-resolving namespace getters for typing.get_type_hints() when
+    // deferred classes exist. The namespaces are built on first use (not at
+    // module load time) so that importing a module does not eagerly
+    // materialize all deferred classes. The cost is deferred to the first
+    // runtime type-check call (inside `if __debug__:` blocks).
     if (deferredClassNames.length > 0) {
       code.line();
-      // Build a namespace dict that eagerly materializes all deferred classes.
       // We cannot use a dict subclass with __missing__ because Python 3.14's
       // ForwardRef.evaluate() converts globals to a plain dict via
       // `globals = dict(globals)` when the owner has __type_params__ (even if
       // empty), which strips any custom __missing__ behavior.
-      // Instead, we build a plain dict with all deferred classes pre-resolved.
+      // Instead, we build a plain dict with all deferred classes pre-resolved,
+      // but only when first needed.
       code.openBlock('if __debug__');
-      code.openBlock('def _build_typechecking_ns() -> "dict[str, object]"');
+      code.line('_typechecking_ns: "dict[str, object] | None" = None');
+      code.line('_typechecking_localns: "dict[str, object] | None" = None');
+      code.line();
+      code.openBlock(
+        'def _get_typechecking_ns() -> "dict[str, object]"',
+      );
+      code.line('global _typechecking_ns');
+      code.openBlock('if _typechecking_ns is None');
       code.line('ns = dict(globals())');
       code.openBlock('for name, factory in _LAZY_CLASSES.items()');
       code.line('ns[name] = factory()');
       code.closeBlock();
-      code.line('return ns');
+      code.line('_typechecking_ns = ns');
       code.closeBlock();
-      code.line('_typechecking_ns = _build_typechecking_ns()');
+      code.line('return _typechecking_ns');
+      code.closeBlock();
+      code.line();
       // A second instance used as localns in typing.get_type_hints() calls.
       // This ensures `localns is not globalns` evaluates to True, which forces
       // Python's ForwardRef._evaluate to re-resolve forward references against
       // this module's namespace rather than using a cached (possibly wrong)
       // value from a sibling module with a homonymous type.
-      code.line('_typechecking_localns = _build_typechecking_ns()');
+      code.openBlock(
+        'def _get_typechecking_localns() -> "dict[str, object]"',
+      );
+      code.line('global _typechecking_localns');
+      code.openBlock('if _typechecking_localns is None');
+      code.line('ns = dict(globals())');
+      code.openBlock('for name, factory in _LAZY_CLASSES.items()');
+      code.line('ns[name] = factory()');
+      code.closeBlock();
+      code.line('_typechecking_localns = ns');
+      code.closeBlock();
+      code.line('return _typechecking_localns');
+      code.closeBlock();
       code.closeBlock();
     }
 
