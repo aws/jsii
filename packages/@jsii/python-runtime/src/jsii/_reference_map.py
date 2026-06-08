@@ -249,7 +249,16 @@ class _ReferenceMap:
         return self._refs[id]
 
     def build_interface_proxies_for_ref(self, ref: ObjRef) -> List[Any]:
-        ifaces = [_interfaces[fqn] for fqn in ref.interfaces or []]
+        ifaces = []
+        for fqn in ref.interfaces or []:
+            if fqn not in _interfaces:
+                # Interface may be inside a lazy factory that hasn't run yet.
+                # Trigger the factory via _try_import_type_module + getattr.
+                _try_import_type_module(fqn)
+            if fqn in _interfaces:
+                ifaces.append(_interfaces[fqn])
+            else:
+                raise ValueError(f"Unknown interface: {fqn}")
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
 
         # If there's no classes, use an Opaque reference to make sure the
