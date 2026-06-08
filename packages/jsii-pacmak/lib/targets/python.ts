@@ -135,10 +135,22 @@ interface EmitContext extends NamingContext {
 
 class TypeCheckingHelper {
   #stubs = new Array<TypeCheckingStub>();
+  #useLazyNamespace = false;
+
+  /**
+   * When set to true, the generated get_type_hints calls will use a
+   * lazy-resolving namespace that materializes deferred classes on demand.
+   */
+  public set useLazyNamespace(value: boolean) {
+    this.#useLazyNamespace = value;
+  }
 
   public getTypeHints(fqn: string, args: readonly string[]): string {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
+    if (this.#useLazyNamespace) {
+      return `typing.get_type_hints(${stub.name}, globalns=_typechecking_ns)`;
+    }
     return `typing.get_type_hints(${stub.name})`;
   }
 
@@ -159,13 +171,10 @@ class TypeCheckingStub {
   readonly #hash: string;
 
   public constructor(fqn: string, args: readonly string[]) {
-    // Strip quotes from type annotations — by the time get_type_hints()
-    // runs at runtime, the deferred class factories will have been called
-    // (the class's own factory runs before its methods execute, and
-    // __getattr__ populates globals for other same-module classes).
-    // Stripping quotes preserves correct homonymous forward reference
-    // resolution across sibling modules.
-    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    // Keep type annotations as string literals (forward references).
+    // They will be resolved at runtime by typing.get_type_hints() using
+    // a _TypeCheckingNamespace that materializes deferred classes on demand.
+    this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
@@ -2015,6 +2024,9 @@ class PythonModule implements PythonType {
       code.line();
       code.line('_memoized = jsii._memoized');
       code.line('import sys as _sys');
+      // Enable lazy namespace for type checking stubs so that
+      // typing.get_type_hints() can resolve deferred class names
+      context.typeCheckingHelper.useLazyNamespace = true;
     } else if (this.modules.length > 0) {
       code.line();
       code.line('import sys as _sys');
@@ -2196,6 +2208,28 @@ class PythonModule implements PythonType {
       // direct assignment with "Cannot assign to a method [method-assign]".
       code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
+    }
+
+    // Emit a lazy-resolving namespace for typing.get_type_hints() when
+    // deferred classes exist. This dict subclass intercepts lookups for
+    // deferred class names, materializes them via their factory, and caches
+    // the result in this namespace only (not in module globals, to avoid
+    // cross-contamination between sibling modules with homonymous types).
+    if (deferredClassNames.length > 0) {
+      code.line();
+      code.indent('class _TypeCheckingNamespace(typing.Dict[str, object]):');
+      code.line('_LAZY = _LAZY_CLASSES');
+      code.line();
+      code.openBlock('def __missing__(self, key: str) -> object');
+      code.openBlock('if key in self._LAZY');
+      code.line('cls = self._LAZY[key]()');
+      code.line('self[key] = cls');
+      code.line('return cls');
+      code.closeBlock();
+      code.line('raise KeyError(key)');
+      code.closeBlock();
+      code.unindent();
+      code.line('_typechecking_ns = _TypeCheckingNamespace(globals())');
     }
 
     context.typeCheckingHelper.flushStubs(code);
