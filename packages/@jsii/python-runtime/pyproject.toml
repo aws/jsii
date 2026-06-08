@@ -21,3 +21,7 @@ reportAttributeAccessIssue = "warning"
 reportCallIssue = "warning"
 reportOperatorIssue = "warning"
 reportFunctionMemberAccess = "warning"
+# Factory-produced classes used as base classes or passed to @jsii.implements
+# resolve to 'object' statically, triggering base class and argument type errors.
+reportGeneralTypeIssues = "warning"
+reportArgumentType = "warning"
