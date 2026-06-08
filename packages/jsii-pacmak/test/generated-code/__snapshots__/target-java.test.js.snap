@@ -4022,6 +4022,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┃  ┃  ┣━ 📄 ConsumerProps.java
           ┃                 ┃  ┃  ┗━ 📄 Homonymous.java
           ┃                 ┃  ┗━ 📄 package-info.java
+          ┃                 ┣━ 📄 HostStackTraceReader.java
           ┃                 ┣━ 📄 IAnonymousImplementationProvider.java
           ┃                 ┣━ 📄 IAnonymouslyImplementMe.java
           ┃                 ┣━ 📄 IAnotherPublicInterface.java
@@ -11601,6 +11602,51 @@ public class GreetingAugmenter extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.String betterGreeting(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
         return software.amazon.jsii.Kernel.call(this, "betterGreeting", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(friendly, "friendly is required") });
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/HostStackTraceReader.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * A class that exposes the host stack trace provided by the jsii runtime.
+ * <p>
+ * This is used for integration testing to verify that stack traces captured
+ * in the host language (Python, Java, Go, .NET) are correctly transmitted
+ * to the kernel.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.HostStackTraceReader")
+public class HostStackTraceReader extends software.amazon.jsii.JsiiObject {
+
+    protected HostStackTraceReader(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected HostStackTraceReader(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public HostStackTraceReader() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * Returns the current host stack trace, if one was provided by the runtime.
+     * <p>
+     * Each frame is a tuple of [file, line, column, function].
+     * Returns undefined if no host stack trace is available.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Object capturedTrace() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.HostStackTraceReader.class, "capturedTrace", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 }
 
@@ -29694,6 +29740,7 @@ jsii-calc.FullCombo=software.amazon.jsii.tests.calculator.FullCombo
 jsii-calc.GiveMeStructs=software.amazon.jsii.tests.calculator.GiveMeStructs
 jsii-calc.Greetee=software.amazon.jsii.tests.calculator.Greetee
 jsii-calc.GreetingAugmenter=software.amazon.jsii.tests.calculator.GreetingAugmenter
+jsii-calc.HostStackTraceReader=software.amazon.jsii.tests.calculator.HostStackTraceReader
 jsii-calc.IAnonymousImplementationProvider=software.amazon.jsii.tests.calculator.IAnonymousImplementationProvider
 jsii-calc.IAnonymouslyImplementMe=software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe
 jsii-calc.IAnotherPublicInterface=software.amazon.jsii.tests.calculator.IAnotherPublicInterface

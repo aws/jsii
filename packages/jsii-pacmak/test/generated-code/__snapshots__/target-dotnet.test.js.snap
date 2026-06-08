@@ -3300,6 +3300,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┃  ┣━ 📄 IConsumerProps.cs
        ┃           ┃  ┃  ┗━ 📄 IHomonymous.cs
        ┃           ┃  ┗━ 📄 NamespaceDoc.cs
+       ┃           ┣━ 📄 HostStackTraceReader.cs
        ┃           ┣━ 📄 IAnonymousImplementationProvider.cs
        ┃           ┣━ 📄 IAnonymouslyImplementMe.cs
        ┃           ┣━ 📄 IAnotherPublicInterface.cs
@@ -9180,6 +9181,61 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.HomonymousForwardReferences
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public class NamespaceDoc
     {
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/HostStackTraceReader.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>A class that exposes the host stack trace provided by the jsii runtime.</summary>
+    /// <remarks>
+    /// This is used for integration testing to verify that stack traces captured
+    /// in the host language (Python, Java, Go, .NET) are correctly transmitted
+    /// to the kernel.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.HostStackTraceReader), fullyQualifiedName: "jsii-calc.HostStackTraceReader")]
+    public class HostStackTraceReader : DeputyBase
+    {
+        public HostStackTraceReader(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected HostStackTraceReader(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected HostStackTraceReader(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Returns the current host stack trace, if one was provided by the runtime.</summary>
+        /// <remarks>
+        /// Each frame is a tuple of [file, line, column, function].
+        /// Returns undefined if no host stack trace is available.
+        /// </remarks>
+        [JsiiMethod(name: "capturedTrace", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+        public static object CapturedTrace()
+        {
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.HostStackTraceReader), new System.Type[]{}, new object[]{})!;
+        }
     }
 }
 

@@ -2935,6 +2935,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┃  ┣━ 📄 Homonymous.go
        ┃  ┃  ┗━ 📄 main.go
        ┃  ┗━ 📄 README.md
+       ┣━ 📄 HostStackTraceReader.go
        ┣━ 📄 IAnonymousImplementationProvider.go
        ┣━ 📄 IAnonymouslyImplementMe.go
        ┣━ 📄 IAnotherPublicInterface.go
@@ -8682,6 +8683,73 @@ func (g *jsiiProxy_GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.I
 		g,
 		"betterGreeting",
 		[]interface{}{friendly},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/HostStackTraceReader.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// A class that exposes the host stack trace provided by the jsii runtime.
+//
+// This is used for integration testing to verify that stack traces captured
+// in the host language (Python, Java, Go, .NET) are correctly transmitted
+// to the kernel.
+type HostStackTraceReader interface {
+}
+
+// The jsii proxy struct for HostStackTraceReader
+type jsiiProxy_HostStackTraceReader struct {
+	_ byte // padding
+}
+
+func NewHostStackTraceReader() HostStackTraceReader {
+	_init_.Initialize()
+
+	j := jsiiProxy_HostStackTraceReader{}
+
+	_jsii_.Create(
+		"jsii-calc.HostStackTraceReader",
+		nil, // no parameters
+		&j,
+	)
+
+	return &j
+}
+
+func NewHostStackTraceReader_Override(h HostStackTraceReader) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.HostStackTraceReader",
+		nil, // no parameters
+		h,
+	)
+}
+
+// Returns the current host stack trace, if one was provided by the runtime.
+//
+// Each frame is a tuple of [file, line, column, function].
+// Returns undefined if no host stack trace is available.
+func HostStackTraceReader_CapturedTrace() interface{} {
+	_init_.Initialize()
+
+	var returns interface{}
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.HostStackTraceReader",
+		"capturedTrace",
+		nil, // no parameters
 		&returns,
 	)
 
@@ -21791,6 +21859,14 @@ func init() {
 		},
 		func() interface{} {
 			return &jsiiProxy_GreetingAugmenter{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.HostStackTraceReader",
+		reflect.TypeOf((*HostStackTraceReader)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_HostStackTraceReader{}
 		},
 	)
 	_jsii_.RegisterInterface(
