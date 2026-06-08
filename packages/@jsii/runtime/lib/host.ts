@@ -10,6 +10,8 @@ import { EventEmitter } from 'events';
 
 import { Input, IInputOutput } from './in-out';
 
+const HOST_STACK_TRACE_SYMBOL = Symbol.for('jsii.context.hostStackTrace');
+
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
   private readonly eventEmitter = new EventEmitter();
@@ -123,6 +125,9 @@ export class KernelHost {
     const apiReq = req;
     const fn = this.findApi(apiReq.api);
 
+    const hostTrace = (req as any)['$jsii.stacktrace'];
+    (global as any)[HOST_STACK_TRACE_SYMBOL] = hostTrace ?? undefined;
+
     try {
       const ret = fn.call(this.kernel, req);
 
@@ -139,6 +144,7 @@ export class KernelHost {
         this.debug('processing pending promises before responding');
 
         setImmediate(() => {
+          (global as any)[HOST_STACK_TRACE_SYMBOL] = undefined;
           this.writeOkay(ret);
           next();
         });
@@ -157,11 +163,13 @@ export class KernelHost {
         promise
           .then((val) => {
             this.debug('promise succeeded:', val);
+            (global as any)[HOST_STACK_TRACE_SYMBOL] = undefined;
             this.writeOkay(val);
             next();
           })
           .catch((e) => {
             this.debug('promise failed:', e);
+            (global as any)[HOST_STACK_TRACE_SYMBOL] = undefined;
             this.writeError(e);
             next();
           });
@@ -172,6 +180,8 @@ export class KernelHost {
       this.writeOkay(ret);
     } catch (e: any) {
       this.writeError(e);
+    } finally {
+      (global as any)[HOST_STACK_TRACE_SYMBOL] = undefined;
     }
 
     // indicate this request was processed (synchronously).

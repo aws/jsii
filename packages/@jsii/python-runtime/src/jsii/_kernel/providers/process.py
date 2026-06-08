@@ -23,6 +23,7 @@ import jsii._embedded.jsii
 
 from ...__meta__ import __jsii_runtime_version__
 import importlib.resources
+from ..._stack_trace import capture_stack_trace
 from ..._utils import memoized_property
 from .base import BaseProvider
 from ..types import (
@@ -321,6 +322,11 @@ class _NodeProcess:
         self, request: KernelRequest, response_type: Type[KernelResponse]
     ) -> KernelResponse:
         req_dict = self._serializer.unstructure(request)
+
+        stack_trace = capture_stack_trace()
+        if stack_trace is not None:
+            req_dict["$jsii.stacktrace"] = stack_trace
+
         data = json.dumps(req_dict, default=jdefault).encode("utf8")
 
         # Send our data, ensure that it is framed with a trailing \n
