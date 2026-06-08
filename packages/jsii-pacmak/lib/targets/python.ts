@@ -2211,10 +2211,10 @@ class PythonModule implements PythonType {
     }
 
     // Emit a lazy-resolving namespace for typing.get_type_hints() when
-    // deferred classes exist. This dict subclass intercepts lookups for
-    // deferred class names, materializes them via their factory, and caches
-    // the result in this namespace only (not in module globals, to avoid
-    // cross-contamination between sibling modules with homonymous types).
+    // deferred classes exist. The namespace is only needed for runtime type
+    // checking (which runs inside `if __debug__:` blocks), so we guard the
+    // entire construction behind `if __debug__:` to preserve lazy loading
+    // benefits in optimized mode (`python -O`).
     if (deferredClassNames.length > 0) {
       code.line();
       // Build a namespace dict that eagerly materializes all deferred classes.
@@ -2223,6 +2223,7 @@ class PythonModule implements PythonType {
       // `globals = dict(globals)` when the owner has __type_params__ (even if
       // empty), which strips any custom __missing__ behavior.
       // Instead, we build a plain dict with all deferred classes pre-resolved.
+      code.openBlock('if __debug__');
       code.openBlock('def _build_typechecking_ns() -> "dict[str, object]"');
       code.line('ns = dict(globals())');
       code.openBlock('for name, factory in _LAZY_CLASSES.items()');
@@ -2237,6 +2238,7 @@ class PythonModule implements PythonType {
       // this module's namespace rather than using a cached (possibly wrong)
       // value from a sibling module with a homonymous type.
       code.line('_typechecking_localns = _build_typechecking_ns()');
+      code.closeBlock();
     }
 
     context.typeCheckingHelper.flushStubs(code);

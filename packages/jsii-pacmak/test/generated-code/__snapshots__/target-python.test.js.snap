@@ -514,13 +514,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -603,12 +604,12 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
      return StaticConsumer
  
  
-@@ -196,5 +203,19 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -197,5 +204,19 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__e2d8a566db7d86eb1cb511cb869273dae39a21b3ad7041359aabb7bd283dcfef(
 +    *,
@@ -1098,13 +1099,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -1187,12 +1189,12 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
              }
  
          @builtins.property
-@@ -156,5 +162,18 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -157,5 +163,18 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__740535cda6ecbc578919a2921dd1fa0b87c5dd735a2acd391963310cdf59f47c(
 +    *_args: typing.Any,
@@ -2266,13 +2268,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -2630,13 +2633,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -2777,13 +2781,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -2922,12 +2927,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
          @builtins.property
          @jsii.member(jsii_name="doubleValue")
          def double_value(self) -> jsii.Number:
-@@ -732,5 +762,63 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -733,5 +763,63 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__46512218b53da06690990919b41a88d6c2379b11ef0a3243cf6d60add5197ae2(
 +    very: "_scope_jsii_calc_base_of_base_49fa37fe.Very",
@@ -3048,12 +3053,12 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      return Reflector
  
  
-@@ -317,5 +330,33 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -318,5 +331,33 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__7073f0b0063a9ba1ceb949a9aefe7e3af5a1acbcf19b5013a8c15b7f3495c1ed(
 +    *,
@@ -13770,13 +13775,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14012,13 +14018,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14139,13 +14146,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14238,13 +14246,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14351,13 +14360,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14515,13 +14525,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14841,13 +14852,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -14934,13 +14946,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -15157,13 +15170,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -15319,13 +15333,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -15435,13 +15450,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -15528,13 +15544,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -15697,13 +15714,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
     pass
@@ -15866,13 +15884,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16011,13 +16030,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16114,13 +16134,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16190,13 +16211,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16291,13 +16313,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16452,13 +16475,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16544,13 +16568,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16634,13 +16659,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16753,13 +16779,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -16901,13 +16928,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17063,13 +17091,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17195,13 +17224,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17555,13 +17585,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17683,13 +17714,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17756,13 +17788,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17829,13 +17862,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -17937,13 +17971,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18120,13 +18155,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18323,13 +18359,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18425,13 +18462,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18674,13 +18712,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18772,13 +18811,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18887,13 +18927,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -18972,13 +19013,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -19065,13 +19107,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -19147,13 +19190,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -19272,13 +19316,14 @@ def __dir__() -> "list[str]":
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
-def _build_typechecking_ns() -> "dict[str, object]":
-    ns = dict(globals())
-    for name, factory in _LAZY_CLASSES.items():
-        ns[name] = factory()
-    return ns
-_typechecking_ns = _build_typechecking_ns()
-_typechecking_localns = _build_typechecking_ns()
+if __debug__:
+    def _build_typechecking_ns() -> "dict[str, object]":
+        ns = dict(globals())
+        for name, factory in _LAZY_CLASSES.items():
+            ns[name] = factory()
+        return ns
+    _typechecking_ns = _build_typechecking_ns()
+    _typechecking_localns = _build_typechecking_ns()
 
 `;
 
@@ -22611,12 +22656,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @builtins.property
          @jsii.member(jsii_name="id")
          def id(self) -> jsii.Number:
-@@ -10207,5 +11004,1571 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -10208,5 +11005,1571 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__8348af6419fc01178f78ba59cea59d0c7437626169866d772f4e957d09e6e13a(
 +    seed: builtins.str,
@@ -24224,12 +24269,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return UseOptions
  
  
-@@ -134,5 +143,23 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -135,5 +144,23 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__132536bffc9129421b4ae0a6539d0bbfdc1c52c3de007c4546d2f2626ba8c31e(
 +    option: typing.Union["IOptionA", "IOptionB"],
@@ -24267,12 +24312,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
      typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
      Cdk16625.__qualname__ = "Cdk16625"
-@@ -119,5 +122,11 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -120,5 +123,11 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__92f621cedc18f68d281c38191023e89bba6348836db623bc5d780630324b992b(
 +    gen: "_jsii_calc_e856c20f.IRandomNumberGenerator",
@@ -24298,12 +24343,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.member(jsii_name="next")
          def next(self) -> jsii.Number:
              '''Not quite random, but it'll do.
-@@ -91,5 +94,11 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -92,5 +95,11 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__e2659669d69691129e05836f0722a48449fe2efe197706d9d59c10c141470a4b(
 +    value: jsii.Number,
@@ -24329,12 +24374,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -105,5 +108,12 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -106,5 +109,12 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__5a067c851774273f33badeac9c167720ebde25d4301ab096dec54b2e615dc8a4(
 +    *,
@@ -24388,12 +24433,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.enum(
              jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
          )
-@@ -156,5 +165,23 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -157,5 +166,23 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__f546e09b5b6c86dfee3f946eff8913ea8feb763a4156fb8aad45ecc179c63e62(
 +    value: typing.List[builtins.str],
@@ -24486,12 +24531,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return SubSubclass
  
  
-@@ -266,5 +281,35 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -267,5 +282,35 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__eeb0e2f6f15e62545344a73c109909bc39f12407f617cc17046a16d750ae9821(
 +    value: builtins.str,
@@ -24541,12 +24586,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return Base
  
  
-@@ -85,5 +88,11 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -86,5 +89,11 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__4b95d284137921c7cbf29a9e3a15da0a5cf9dda87efad87aa9ed601662f00b2c(
 +    value: builtins.str,
@@ -24586,12 +24631,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -154,5 +160,19 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -155,5 +161,19 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__a201923592702b83e439b8af921b7eae6f1b86b0eeeffb6c2b506d66a57d4c3a(
 +    *,
@@ -24639,12 +24684,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -154,5 +160,19 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -155,5 +161,19 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__56bad81fb024ccb6a97af9b4edcb748a4d5e34e81491c4222bb761bc0e5890b6(
 +    *,
@@ -24692,12 +24737,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -108,5 +114,18 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -109,5 +115,18 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__3319085b675e83451882dd81f7704e88da2e392266f9d5188ecb22725f3f71bb(
 +    value: typing.Optional[builtins.str],
@@ -24730,12 +24775,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -85,5 +88,12 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -86,5 +89,12 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__cc86cfd2ea53d0ae81d6d80ed07db33f3ca7b140e37166ba1d572a8ed2a78d2c(
 +    *,
@@ -24776,11 +24821,11 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -162,10 +168,23 @@
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -163,10 +169,23 @@
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
  
 +def _typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420(
 +    param: '_ISomething_IFriendly',
@@ -24834,12 +24879,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.member(jsii_name="implementMe")
          @abc.abstractmethod
          def implement_me(
-@@ -155,5 +162,19 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -156,5 +163,19 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__9754f0ac616c8a4339db020e52a796e65577c9909ed5e25d0c696417da04377c(
 +    *,
@@ -24873,12 +24918,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -137,5 +140,12 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -138,5 +141,12 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__7303ee79d186b33b0bfda2001105f495ddcaf7ff505dc8e171a74f9536581765(
 +    *,
@@ -24942,12 +24987,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return MyClass
  
  
-@@ -95,5 +109,31 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -96,5 +110,31 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__d62f783e4108a6327009d506f8ae7f5aca2734de07314ffd120f24d3e918f697(
 +    _: jsii.Number,
@@ -24993,12 +25038,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.member(jsii_name="hello")
          def hello(self) -> builtins.str:
              '''Say hello!'''
-@@ -93,5 +96,11 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -94,5 +97,11 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__3b33906576528227344dbb0f079876c5dccd08a32f3dbaa0acdc3f444c5fe448(
 +    very: "_scope_jsii_calc_base_of_base_49fa37fe.Very",
@@ -25037,12 +25082,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return MyClass
  
  
-@@ -92,5 +98,17 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -93,5 +99,17 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__cfbe1bc46497cbad551fc80c4d304742daa30493dee8c65b7119cafdeb06e9af(
 +    _bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
@@ -25075,12 +25120,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
                  "numbers": numbers,
              }
  
-@@ -111,5 +115,13 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -112,5 +116,13 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__71fe496245d27f33a2ded522fdf47757e7fb41b578fd3ec479cd5b45534588fc(
 +    *,
@@ -25108,12 +25153,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -85,5 +88,12 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -86,5 +89,12 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__6602c05b71ef2e77c650dd283c33ba4543f756dbbca5d1c31752ee29f836b1f5(
 +    *,
@@ -25156,12 +25201,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
                  "bar1": bar1,
                  "foo2": foo2,
              }
-@@ -154,5 +162,21 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -155,5 +163,21 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__d9a43a9ecad39319deef77fa38822e65c584450447849fb04c34b767a8c0881d(
 +    *,
@@ -25235,12 +25280,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -170,5 +182,30 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -171,5 +183,30 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__5cc662603963e69f50f446fe7bf40b3f3ccf17842ed59562f45f4eb63848155b(
 +    self: builtins.str,
@@ -25299,12 +25344,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return MyClass
  
  
-@@ -195,5 +201,18 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -196,5 +202,18 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__a44c39bd2002b354344d30dcb1ae0e2dc7ef8f604c2d31c61616cbbfc6a6fc40(
 +    *,
@@ -25337,12 +25382,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -94,5 +97,12 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -95,5 +98,12 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__e7f53d1efa418d6ee29ababd1c2660c1d3d9a5d3de3ad874b2d0cd7c6481139b(
 +    *,
@@ -25398,12 +25443,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
              if extra is not None:
                  self._values["extra"] = extra
-@@ -241,5 +251,27 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -242,5 +252,27 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__ce6e4bc4b6c503e757ba9e0640368ea37840d2ca58311e6ec8b98cdcda077f48(
 +    *,
@@ -25445,12 +25490,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -85,5 +88,12 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -86,5 +89,12 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__25c6f5775c01f503690c503a264eb256af186a94c0c65bd43d6a11942ff54b1c(
 +    *,
@@ -25477,12 +25522,12 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return ConsumesUnion
  
  
-@@ -117,5 +120,11 @@
-     for name, factory in _LAZY_CLASSES.items():
-         ns[name] = factory()
-     return ns
- _typechecking_ns = _build_typechecking_ns()
- _typechecking_localns = _build_typechecking_ns()
+@@ -118,5 +121,11 @@
+         for name, factory in _LAZY_CLASSES.items():
+             ns[name] = factory()
+         return ns
+     _typechecking_ns = _build_typechecking_ns()
+     _typechecking_localns = _build_typechecking_ns()
 +
 +def _typecheckingstub__62dfa3c0a0a719fea295807df31fd40fd66b0e76cf44d9f742ffb421f8e4ca77(
 +    param: typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "IResolvable", "Resolvable"],
