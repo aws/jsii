@@ -1358,7 +1358,7 @@ def _lazy_build_Foo() -> type:
             :param foo: -
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5, globalns=_typechecking_ns)
+                type_hints = typing.get_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5)
                 check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
             self._values: typing.Dict[builtins.str, typing.Any] = {
                 "foo": foo,
@@ -1403,7 +1403,7 @@ def _lazy_build_FooBar() -> type:
             :param bar: -
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4, globalns=_typechecking_ns)
+                type_hints = typing.get_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4)
                 check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
                 check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
             self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -1458,7 +1458,7 @@ def _lazy_build_Baz() -> type:
             :param baz: -
             '''
             if __debug__:
-                type_hints = typing.get_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d, globalns=_typechecking_ns)
+                type_hints = typing.get_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d)
                 check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
                 check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
                 check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
@@ -1529,20 +1529,6 @@ def __dir__() -> "list[str]":
 
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
-
-class _TypeCheckingNamespace(typing.Dict[str, object]):
-    _LAZY = _LAZY_CLASSES
-
-    def __missing__(self, key: str) -> object:
-        if key in self._LAZY:
-            cls = self._LAZY[key]()
-            self[key] = cls
-            globals()[key] = cls
-            setattr(_sys.modules[__name__], key, cls)
-            return cls
-        raise KeyError(key)
-
-_typechecking_ns = _TypeCheckingNamespace(globals())
 
 def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
     *,
@@ -2816,7 +2802,7 @@ def _lazy_build_Namespace1() -> type:
                 :param bar: -
                 '''
                 if __debug__:
-                    type_hints = typing.get_type_hints(_typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9, globalns=_typechecking_ns)
+                    type_hints = typing.get_type_hints(_typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9)
                     check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
                 self._values: typing.Dict[builtins.str, typing.Any] = {
                     "bar": bar,
@@ -2923,20 +2909,6 @@ def __dir__() -> "list[str]":
 
 setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
-
-class _TypeCheckingNamespace(typing.Dict[str, object]):
-    _LAZY = _LAZY_CLASSES
-
-    def __missing__(self, key: str) -> object:
-        if key in self._LAZY:
-            cls = self._LAZY[key]()
-            self[key] = cls
-            globals()[key] = cls
-            setattr(_sys.modules[__name__], key, cls)
-            return cls
-        raise KeyError(key)
-
-_typechecking_ns = _TypeCheckingNamespace(globals())
 
 def _typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9(
     *,
