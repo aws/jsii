@@ -1246,6 +1246,9 @@ class Interface extends BasePythonClassType {
         `typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ = typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
       );
       code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      code.line(
+        `${this.proxyClassName}.__qualname__ = "${this.proxyClassName}"`,
+      );
       code.line(`return ${this.pythonName}`);
       code.closeBlock();
     }
@@ -1711,6 +1714,11 @@ class Class extends BasePythonClassType implements ISortableType {
     // Close factory function wrapper with return statement
     if (wrapInFactory) {
       code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      if (this.abstract) {
+        code.line(
+          `${this.proxyClassName}.__qualname__ = "${this.proxyClassName}"`,
+        );
+      }
       code.line(`return ${this.pythonName}`);
       code.closeBlock();
     }

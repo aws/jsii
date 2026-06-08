@@ -206,6 +206,11 @@ class _ReferenceMap:
             return _enums[class_fqn]
         elif class_fqn == "Object":
             # If any one interface is a struct, all of them are guaranteed to be (Kernel invariant)
+            # Trigger lazy loading for interfaces/structs that haven't been loaded yet
+            if ref.interfaces is not None:
+                for fqn in ref.interfaces:
+                    if fqn not in _data_types and fqn not in _interfaces:
+                        _try_import_type_module(fqn)
             if ref.interfaces is not None and any(
                 fqn in _data_types for fqn in ref.interfaces
             ):
