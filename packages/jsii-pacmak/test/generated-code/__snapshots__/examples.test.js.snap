@@ -1533,6 +1533,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -2925,6 +2928,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:

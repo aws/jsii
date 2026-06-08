@@ -517,6 +517,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -608,7 +611,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <runtime-type-check-diff>/p
      return StaticConsumer
  
  
-@@ -201,5 +208,19 @@
+@@ -204,5 +211,19 @@
              return cls
          raise KeyError(key)
  
@@ -1106,6 +1109,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -1197,7 +1203,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
              }
  
          @builtins.property
-@@ -161,5 +167,18 @@
+@@ -164,5 +170,18 @@
              return cls
          raise KeyError(key)
  
@@ -2279,6 +2285,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -2648,6 +2657,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -2800,6 +2812,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -2947,7 +2962,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
          @builtins.property
          @jsii.member(jsii_name="doubleValue")
          def double_value(self) -> jsii.Number:
-@@ -737,5 +767,63 @@
+@@ -740,5 +770,63 @@
              return cls
          raise KeyError(key)
  
@@ -3073,7 +3088,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      return Reflector
  
  
-@@ -322,5 +335,33 @@
+@@ -325,5 +338,33 @@
              return cls
          raise KeyError(key)
  
@@ -13798,6 +13813,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -14045,6 +14063,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -14177,6 +14198,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -14280,6 +14304,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -14398,6 +14425,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -14567,6 +14597,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -14899,6 +14932,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -14996,6 +15032,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -15225,6 +15264,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -15392,6 +15434,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -15513,6 +15558,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -15610,6 +15658,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -15785,6 +15836,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -15959,6 +16013,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -16109,6 +16166,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -16217,6 +16277,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -16297,6 +16360,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -16403,6 +16469,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -16570,6 +16639,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -16667,6 +16739,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -16761,6 +16836,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -16885,6 +16963,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -17038,6 +17119,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -17206,6 +17290,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -17342,6 +17429,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -17708,6 +17798,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -17841,6 +17934,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -17919,6 +18015,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -17996,6 +18095,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -18109,6 +18211,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -18297,6 +18402,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -18506,6 +18614,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -18612,6 +18723,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -18867,6 +18981,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -18969,6 +19086,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -19090,6 +19210,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -19179,6 +19302,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -19278,6 +19404,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
 
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
+
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
             cls = self._LAZY[key]()
@@ -19364,6 +19493,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -19494,6 +19626,9 @@ setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 class _TypeCheckingNamespace(typing.Dict[str, object]):
     _LAZY = _LAZY_CLASSES
+
+    def __contains__(self, key: object) -> bool:
+        return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)
 
     def __missing__(self, key: str) -> object:
         if key in self._LAZY:
@@ -22836,7 +22971,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @builtins.property
          @jsii.member(jsii_name="id")
          def id(self) -> jsii.Number:
-@@ -10212,5 +11009,1571 @@
+@@ -10215,5 +11012,1571 @@
              return cls
          raise KeyError(key)
  
@@ -24449,7 +24584,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return UseOptions
  
  
-@@ -139,5 +148,23 @@
+@@ -142,5 +151,23 @@
              return cls
          raise KeyError(key)
  
@@ -24492,7 +24627,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
      typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
      Cdk16625.__qualname__ = "Cdk16625"
-@@ -124,5 +127,11 @@
+@@ -127,5 +130,11 @@
              return cls
          raise KeyError(key)
  
@@ -24523,7 +24658,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.member(jsii_name="next")
          def next(self) -> jsii.Number:
              '''Not quite random, but it'll do.
-@@ -96,5 +99,11 @@
+@@ -99,5 +102,11 @@
              return cls
          raise KeyError(key)
  
@@ -24554,7 +24689,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -110,5 +113,12 @@
+@@ -113,5 +116,12 @@
              return cls
          raise KeyError(key)
  
@@ -24613,7 +24748,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.enum(
              jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
          )
-@@ -161,5 +170,23 @@
+@@ -164,5 +173,23 @@
              return cls
          raise KeyError(key)
  
@@ -24711,7 +24846,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return SubSubclass
  
  
-@@ -271,5 +286,35 @@
+@@ -274,5 +289,35 @@
              return cls
          raise KeyError(key)
  
@@ -24766,7 +24901,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return Base
  
  
-@@ -90,5 +93,11 @@
+@@ -93,5 +96,11 @@
              return cls
          raise KeyError(key)
  
@@ -24811,7 +24946,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -159,5 +165,19 @@
+@@ -162,5 +168,19 @@
              return cls
          raise KeyError(key)
  
@@ -24864,7 +24999,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -159,5 +165,19 @@
+@@ -162,5 +168,19 @@
              return cls
          raise KeyError(key)
  
@@ -24917,7 +25052,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -113,5 +119,18 @@
+@@ -116,5 +122,18 @@
              return cls
          raise KeyError(key)
  
@@ -24955,7 +25090,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -90,5 +93,12 @@
+@@ -93,5 +96,12 @@
              return cls
          raise KeyError(key)
  
@@ -25001,7 +25136,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -167,10 +173,23 @@
+@@ -170,10 +176,23 @@
          raise KeyError(key)
  
  _typechecking_ns = _TypeCheckingNamespace(globals())
@@ -25059,7 +25194,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.member(jsii_name="implementMe")
          @abc.abstractmethod
          def implement_me(
-@@ -160,5 +167,19 @@
+@@ -163,5 +170,19 @@
              return cls
          raise KeyError(key)
  
@@ -25098,7 +25233,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -142,5 +145,12 @@
+@@ -145,5 +148,12 @@
              return cls
          raise KeyError(key)
  
@@ -25167,7 +25302,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return MyClass
  
  
-@@ -100,5 +114,31 @@
+@@ -103,5 +117,31 @@
              return cls
          raise KeyError(key)
  
@@ -25218,7 +25353,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          @jsii.member(jsii_name="hello")
          def hello(self) -> builtins.str:
              '''Say hello!'''
-@@ -98,5 +101,11 @@
+@@ -101,5 +104,11 @@
              return cls
          raise KeyError(key)
  
@@ -25262,7 +25397,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return MyClass
  
  
-@@ -97,5 +103,17 @@
+@@ -100,5 +106,17 @@
              return cls
          raise KeyError(key)
  
@@ -25300,7 +25435,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
                  "numbers": numbers,
              }
  
-@@ -116,5 +120,13 @@
+@@ -119,5 +123,13 @@
              return cls
          raise KeyError(key)
  
@@ -25333,7 +25468,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -90,5 +93,12 @@
+@@ -93,5 +96,12 @@
              return cls
          raise KeyError(key)
  
@@ -25381,7 +25516,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
                  "bar1": bar1,
                  "foo2": foo2,
              }
-@@ -159,5 +167,21 @@
+@@ -162,5 +170,21 @@
              return cls
          raise KeyError(key)
  
@@ -25460,7 +25595,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -175,5 +187,30 @@
+@@ -178,5 +190,30 @@
              return cls
          raise KeyError(key)
  
@@ -25524,7 +25659,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return MyClass
  
  
-@@ -200,5 +206,18 @@
+@@ -203,5 +209,18 @@
              return cls
          raise KeyError(key)
  
@@ -25562,7 +25697,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -99,5 +102,12 @@
+@@ -102,5 +105,12 @@
              return cls
          raise KeyError(key)
  
@@ -25623,7 +25758,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
              if extra is not None:
                  self._values["extra"] = extra
-@@ -246,5 +256,27 @@
+@@ -249,5 +259,27 @@
              return cls
          raise KeyError(key)
  
@@ -25670,7 +25805,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              }
  
          @builtins.property
-@@ -90,5 +93,12 @@
+@@ -93,5 +96,12 @@
              return cls
          raise KeyError(key)
  
@@ -25702,7 +25837,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      return ConsumesUnion
  
  
-@@ -122,5 +125,11 @@
+@@ -125,5 +128,11 @@
              return cls
          raise KeyError(key)
  

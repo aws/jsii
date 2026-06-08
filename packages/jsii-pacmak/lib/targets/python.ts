@@ -2220,6 +2220,16 @@ class PythonModule implements PythonType {
       code.indent('class _TypeCheckingNamespace(typing.Dict[str, object]):');
       code.line('_LAZY = _LAZY_CLASSES');
       code.line();
+      // Override __contains__ so that Python 3.14's ForwardRef.evaluate()
+      // fast path (`if arg in locals`) returns True for deferred class names.
+      // Without this, `in` only checks already-materialized keys and the
+      // subsequent `locals[arg]` (which triggers __missing__) is never reached.
+      code.openBlock('def __contains__(self, key: object) -> bool');
+      code.line(
+        'return super().__contains__(key) or (isinstance(key, str) and key in self._LAZY)',
+      );
+      code.closeBlock();
+      code.line();
       code.openBlock('def __missing__(self, key: str) -> object');
       code.openBlock('if key in self._LAZY');
       code.line('cls = self._LAZY[key]()');
