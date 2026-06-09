@@ -143,9 +143,7 @@ def _try_import_type_module(class_fqn: str) -> bool:
     # Phase 2: Type not registered yet — traverse the module to trigger
     # lazy factories, then check registration.
     if _resolve_type_on_module(python_module, type_parts):
-        return (
-            class_fqn in _types or class_fqn in _data_types or class_fqn in _enums
-        )
+        return class_fqn in _types or class_fqn in _data_types or class_fqn in _enums
 
     return False
 

@@ -134,12 +134,15 @@ Is it actually a problem? Not really, for three reasons:
 
 **Reviewer comment:** This function looks the same as the other one?
 
-**Answer:** It was. The original rationale was to ensure `localns is not globalns` evaluates to `True` in `typing.get_type_hints()`, which was believed to prevent ForwardRef cache pollution across modules. However, testing on both Python 3.12 and 3.14 shows this isn't actually needed — Python correctly re-resolves ForwardRefs when different globalns dicts are passed, regardless of localns.
+**Answer:** The logic is identical, but having two separate dict instances is intentional. It prevents Python's `ForwardRef` from reusing a cached resolution from a sibling module that has a type with the same name.
 
-**Fix:** Removed `_get_typechecking_localns` entirely. The `typing.get_type_hints()` call now only passes `globalns=_get_typechecking_ns()` without a separate `localns` argument.
+The test `test_homonymous_forward_references` (from [#3818](https://github.com/aws/jsii/issues/3818)) catches this: two modules each define a type called `Homonymous`. When `typing.get_type_hints()` is called with `globalns=X, localns=X` (same object), Python's ForwardRef caches the resolution keyed partly on object identity. The second module's `"Homonymous"` forward ref resolves to the first module's type. Passing `localns` as a separate (but content-identical) dict forces re-resolution.
+
+Attempted removing it — the homonymous forward references test immediately fails. It stays.
+
+Added a comment in the code explaining why it exists (referencing #3818).
 
 **Files changed:**
-- `packages/jsii-pacmak/lib/targets/python.ts`
-- Snapshots updated
+- `packages/jsii-pacmak/lib/targets/python.ts` (added clarifying comment)
 
-**Status:** ✅ Done
+**Status:** ✅ Kept with better documentation

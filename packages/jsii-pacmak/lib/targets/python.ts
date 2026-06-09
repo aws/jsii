@@ -149,7 +149,7 @@ class TypeCheckingHelper {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
     if (this.#useLazyNamespace) {
-      return `typing.get_type_hints(${stub.name}, globalns=_get_typechecking_ns())`;
+      return `typing.get_type_hints(${stub.name}, globalns=_get_typechecking_ns(), localns=_get_typechecking_localns())`;
     }
     return `typing.get_type_hints(${stub.name})`;
   }
@@ -2388,6 +2388,7 @@ class PythonModule implements PythonType {
       // but only when first needed.
       code.openBlock('if __debug__');
       code.line('_typechecking_ns: "dict[str, object] | None" = None');
+      code.line('_typechecking_localns: "dict[str, object] | None" = None');
       code.line();
       code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
       code.line('global _typechecking_ns');
@@ -2399,6 +2400,23 @@ class PythonModule implements PythonType {
       code.line('_typechecking_ns = ns');
       code.closeBlock();
       code.line('return _typechecking_ns');
+      code.closeBlock();
+      code.line();
+      // A second dict instance used as localns in typing.get_type_hints().
+      // This ensures `localns is not globalns` evaluates to True, which
+      // prevents Python's ForwardRef from reusing a cached resolution from
+      // a sibling module that has a type with the same name (homonymous
+      // forward references). See https://github.com/aws/jsii/issues/3818.
+      code.openBlock('def _get_typechecking_localns() -> "dict[str, object]"');
+      code.line('global _typechecking_localns');
+      code.openBlock('if _typechecking_localns is None');
+      code.line('ns = dict(globals())');
+      code.openBlock('for name, factory in _LAZY_CLASSES.items()');
+      code.line('ns[name] = factory()');
+      code.closeBlock();
+      code.line('_typechecking_localns = ns');
+      code.closeBlock();
+      code.line('return _typechecking_localns');
       code.closeBlock();
       code.closeBlock();
     }
