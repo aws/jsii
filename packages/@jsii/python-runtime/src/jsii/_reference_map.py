@@ -149,7 +149,24 @@ def _try_import_type_module(class_fqn: str) -> bool:
 
     return False
 
-    return False
+
+def _obtain_interface(fqn: str) -> Any:
+    """Look up an interface by FQN, triggering lazy loading if necessary.
+
+    Returns the interface class. Raises ValueError if the interface cannot
+    be found after attempting lazy resolution.
+    """
+    iface = _interfaces.get(fqn)
+    if iface is not None:
+        return iface
+
+    _try_import_type_module(fqn)
+
+    iface = _interfaces.get(fqn)
+    if iface is not None:
+        return iface
+
+    raise ValueError(f"Unknown interface: {fqn}")
 
 
 class _FakeReference:
@@ -227,7 +244,7 @@ class _ReferenceMap:
             return _enums[class_fqn]
         elif class_fqn == "Object":
             # If any one interface is a struct, all of them are guaranteed to be (Kernel invariant)
-            # Trigger lazy loading for interfaces/structs that haven't been loaded yet
+            # Ensure all interfaces/structs are loaded (may be behind lazy factories)
             if ref.interfaces is not None:
                 for fqn in ref.interfaces:
                     if fqn not in _data_types and fqn not in _interfaces:
@@ -275,16 +292,7 @@ class _ReferenceMap:
         return self._refs[id]
 
     def build_interface_proxies_for_ref(self, ref: ObjRef) -> List[Any]:
-        ifaces = []
-        for fqn in ref.interfaces or []:
-            if fqn not in _interfaces:
-                # Interface may be inside a lazy factory that hasn't run yet.
-                # Trigger the factory via _try_import_type_module + getattr.
-                _try_import_type_module(fqn)
-            if fqn in _interfaces:
-                ifaces.append(_interfaces[fqn])
-            else:
-                raise ValueError(f"Unknown interface: {fqn}")
+        ifaces = [_obtain_interface(fqn) for fqn in ref.interfaces or []]
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
 
         # If there's no classes, use an Opaque reference to make sure the

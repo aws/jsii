@@ -82,3 +82,32 @@ All new code paths are additive fallbacks that only activate when types aren't e
 **Status:** ✅ Done
 
 
+
+## 5. Extract `_obtain_interface` to separate lookup concerns
+
+**Reviewer comment:** The `build_interface_proxies_for_ref` code mixes concerns — the inline "check cache, trigger lazy load, check cache again" pattern should be a function. Should be as simple as `ifaces = [_obtain_interface(fqn) for fqn in ref.interfaces or []]`.
+
+**Fix:** Added `_obtain_interface(fqn)` function that encapsulates the "look up or lazy-load" pattern:
+```python
+def _obtain_interface(fqn: str) -> Any:
+    iface = _interfaces.get(fqn)
+    if iface is not None:
+        return iface
+    _try_import_type_module(fqn)
+    iface = _interfaces.get(fqn)
+    if iface is not None:
+        return iface
+    raise ValueError(f"Unknown interface: {fqn}")
+```
+
+`build_interface_proxies_for_ref` is now a clean one-liner:
+```python
+ifaces = [_obtain_interface(fqn) for fqn in ref.interfaces or []]
+```
+
+Also fixed a duplicate `return False` in `_try_import_type_module`.
+
+**Files changed:**
+- `packages/@jsii/python-runtime/src/jsii/_reference_map.py`
+
+**Status:** ✅ Done
