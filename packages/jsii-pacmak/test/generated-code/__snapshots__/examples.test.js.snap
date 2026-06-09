@@ -3055,6 +3055,8 @@ else:
             # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
             typing.cast(typing.Any, IBar).__jsii_proxy_class__ = lambda : _IBarProxy
         Namespace1.__qualname__ = "Namespace1"
+        Namespace1.Foo.__qualname__ = "Namespace1.Foo"
+        Namespace1.IBar.__qualname__ = "Namespace1.IBar"
         return Namespace1
 
 

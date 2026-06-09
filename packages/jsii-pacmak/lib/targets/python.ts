@@ -629,6 +629,31 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   ): string[];
 
   /**
+   * Emit `__qualname__` fixups for all nested class members (recursively).
+   *
+   * When a class is defined inside a factory function like `_lazy_build_X()`,
+   * Python sets the `__qualname__` of inner classes to include the factory
+   * function scope (e.g., `_lazy_build_X.<locals>.X.Inner`). We must
+   * explicitly set the correct `__qualname__` for every nested class so that
+   * pickling, repr, and introspection work correctly.
+   */
+  protected emitNestedQualnames(
+    code: CodeMaker,
+    parentQualname: string,
+    parentAccessor: string,
+  ) {
+    for (const member of this.members) {
+      if (member instanceof BasePythonClassType && !(member instanceof Enum)) {
+        const nestedQualname = `${parentQualname}.${member.pythonName}`;
+        const nestedAccessor = `${parentAccessor}.${member.pythonName}`;
+        code.line(`${nestedAccessor}.__qualname__ = "${nestedQualname}"`);
+        // Recurse into deeper nesting
+        member.emitNestedQualnames(code, nestedQualname, nestedAccessor);
+      }
+    }
+  }
+
+  /**
    * Post-process base class parameters to replace deferred same-module class
    * names with their factory function calls (e.g., `B` → `_lazy_build_B()`).
    */
@@ -1280,6 +1305,7 @@ class Interface extends BasePythonClassType {
         `typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ = typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
       );
       code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      this.emitNestedQualnames(code, this.pythonName, this.pythonName);
       code.line(
         `${this.proxyClassName}.__qualname__ = "${this.proxyClassName}"`,
       );
@@ -1387,6 +1413,7 @@ class Struct extends BasePythonClassType {
     // Close factory function wrapper with return statement
     if (wrapInFactory) {
       code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      this.emitNestedQualnames(code, this.pythonName, this.pythonName);
       code.line(`return ${this.pythonName}`);
       code.closeBlock();
     }
@@ -1817,6 +1844,7 @@ class Class extends BasePythonClassType implements ISortableType {
     // Close factory function wrapper with return statement
     if (wrapInFactory) {
       code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      this.emitNestedQualnames(code, this.pythonName, this.pythonName);
       if (this.abstract) {
         code.line(
           `${this.proxyClassName}.__qualname__ = "${this.proxyClassName}"`,
