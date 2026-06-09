@@ -84,7 +84,6 @@ def test_overrides_method_with_kwargs() -> None:
     assert OverrideMe.call_abstract(Overridden())
 
 
-
 def find_struct_bases(x):
     ret = []
     seen = set([])
