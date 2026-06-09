@@ -226,7 +226,7 @@ class TestMemoized:
             return 123
 
         wrapped = jsii._memoized(original)
-        assert wrapped.__wrapped__ is original
+        assert wrapped.__wrapped__ is original  # type: ignore[attr-defined]
 
 
 class TestLazyClassFactory:
@@ -253,7 +253,7 @@ class TestLazyClassFactory:
                 cls = type(
                     "MyClass", (), {"__jsii_type__": "fake-assembly.sub.MyClass"}
                 )
-                _types[cls.__jsii_type__] = cls
+                _types[cls.__jsii_type__] = cls  # type: ignore[attr-defined]
                 setattr(sys.modules["fake_pkg.sub"], name, cls)
                 return cls
             raise AttributeError(name)
@@ -312,8 +312,8 @@ class TestLazyClassFactory:
                     },
                 )
                 # Register both types (like JSIIMeta would do)
-                _types[parent_cls.__jsii_type__] = parent_cls
-                _types[nested_cls.__jsii_type__] = nested_cls
+                _types[parent_cls.__jsii_type__] = parent_cls  # type: ignore[attr-defined]
+                _types[nested_cls.__jsii_type__] = nested_cls  # type: ignore[attr-defined]
                 setattr(sys.modules["nested_pkg.sub"], name, parent_cls)
                 return parent_cls
             raise AttributeError(name)
