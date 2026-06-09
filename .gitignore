@@ -24,3 +24,6 @@ dist/
 build/
 coverage/
 jsii-outdir/
+
+# Personal PR review tracking
+PR_FIXES.md
