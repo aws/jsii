@@ -111,3 +111,35 @@ Also fixed a duplicate `return False` in `_try_import_type_module`.
 - `packages/@jsii/python-runtime/src/jsii/_reference_map.py`
 
 **Status:** ✅ Done
+
+## 6. `_get_typechecking_ns()` de-lazifies everything — consider `_LazyAccess` pattern
+
+**Reviewer comment:** The `for name, factory in _LAZY_CLASSES.items(): ns[name] = factory()` loop is de-lazifying everything. Suggests using a `_LazyAccess` object (like `_LazyImport`) with `__getattr__` that triggers factories on demand, and using it as the namespace AND for base class references. Proposes a `THIS_MODULE = _LazyAccess()` pattern.
+
+**Answer:** Yes it de-lazifies the module, but only on the first debug-mode type check, and we can't avoid it due to a Python 3.14 constraint where `ForwardRef.evaluate()` converts the globalns to a plain dict.
+
+The issue the reviewer is raising is: when runtime type checking runs for the first time in a module, `_get_typechecking_ns()` calls ALL factory functions in that module, effectively undoing the lazy loading for that module.
+
+Is it actually a problem? Not really, for three reasons:
+
+1. **It only fires inside `if __debug__:`** — running with `python -O` (which is common in production) skips type checking entirely, so the factories are never bulk-materialized.
+
+2. **It's per-module, not global** — only the module you actually call into gets its factories triggered. Unused modules stay fully lazy.
+
+3. **We can't fix it** — Python 3.14's `typing.get_type_hints()` internally does `globals = dict(globals)`, which strips any custom `__missing__` behavior from the namespace. Confirmed on actual Python 3.14. There's no way to lazily resolve names one-at-a-time through that code path.
+
+**Status:** ℹ️ Not fixable due to Python 3.14 constraint — acceptable tradeoff
+
+## 7. `_get_typechecking_localns` is identical to `_get_typechecking_ns`
+
+**Reviewer comment:** This function looks the same as the other one?
+
+**Answer:** It was. The original rationale was to ensure `localns is not globalns` evaluates to `True` in `typing.get_type_hints()`, which was believed to prevent ForwardRef cache pollution across modules. However, testing on both Python 3.12 and 3.14 shows this isn't actually needed — Python correctly re-resolves ForwardRefs when different globalns dicts are passed, regardless of localns.
+
+**Fix:** Removed `_get_typechecking_localns` entirely. The `typing.get_type_hints()` call now only passes `globalns=_get_typechecking_ns()` without a separate `localns` argument.
+
+**Files changed:**
+- `packages/jsii-pacmak/lib/targets/python.ts`
+- Snapshots updated
+
+**Status:** ✅ Done
