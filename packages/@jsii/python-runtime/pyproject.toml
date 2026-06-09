@@ -14,14 +14,3 @@ ignore_missing_imports = true
 pythonVersion = "3.10"
 venv = ".env"
 venvPath = "."
-# Deferred (lazy) classes loaded via __getattr__ are typed as 'object' by
-# pyright, so attribute access and calls on them trigger false positives.
-# These are expected limitations of the lazy class factory pattern.
-reportAttributeAccessIssue = "warning"
-reportCallIssue = "warning"
-reportOperatorIssue = "warning"
-reportFunctionMemberAccess = "warning"
-# Factory-produced classes used as base classes or passed to @jsii.implements
-# resolve to 'object' statically, triggering base class and argument type errors.
-reportGeneralTypeIssues = "warning"
-reportArgumentType = "warning"

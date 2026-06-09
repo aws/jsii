@@ -68,25 +68,6 @@ beforeAll(async () => {
       'pythonVersion = "3.8"',
       'pythonPlatform = "All"',
       'reportSelfClsParameterName = false',
-      // Deferred classes are accessible at runtime via PEP 562 __getattr__,
-      // but pyright cannot statically verify names that are lazily defined
-      // inside factory functions. This matches the mypy --disable-error-code=name-defined.
-      'reportUndefinedVariable = false',
-      // Factory functions return `type` which is too generic for pyright to
-      // verify metaclass keyword arguments and base class validity. These are
-      // runtime-correct but statically unverifiable due to the dynamic pattern.
-      'reportGeneralTypeIssues = false',
-      'reportCallIssue = false',
-      // Factory return values used as decorator/function arguments resolve to
-      // `type` (object) rather than the specific class type pyright expects.
-      'reportArgumentType = false',
-      // Deferred class names are in __all__ but defined inside factory
-      // functions rather than at module scope. They become available via
-      // __getattr__ (PEP 562) at runtime.
-      'reportUnsupportedDunderAll = false',
-      // _LazyImport proxies and factory return values are typed as `object`,
-      // so attribute access on them triggers false positives.
-      'reportAttributeAccessIssue = false',
       `venvPath = ${JSON.stringify(path.dirname(venv.venvRoot))}`,
       `venv = ${JSON.stringify(path.basename(venv.venvRoot))}`,
     ].join('\n'),

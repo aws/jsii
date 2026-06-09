@@ -156,8 +156,12 @@ class TypeCheckingHelper {
 
   /** Emits instructions that create the annotations data... */
   public flushStubs(code: CodeMaker) {
+    const seen = new Set<string>();
     for (const stub of this.#stubs) {
-      stub.emit(code);
+      if (!seen.has(stub.name)) {
+        seen.add(stub.name);
+        stub.emit(code);
+      }
     }
     // Reset the stubs list
     this.#stubs = [];
@@ -410,6 +414,12 @@ interface ClassEmitOpts {
    * `_lazy_build_{Name}()` is used instead of the bare name.
    */
   deferredClassNames?: Set<string>;
+  /**
+   * When true, emit only class/method/property signatures with `...` bodies.
+   * Used inside `if typing.TYPE_CHECKING:` blocks so static type checkers
+   * can see the class shape without runtime implementation details.
+   */
+  stubOnly?: boolean;
 }
 
 abstract class BasePythonClassType implements PythonType, ISortableType {
@@ -499,13 +509,16 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
     if (this.members.length > 0) {
       const resolver = this.boundResolver(context.resolver);
+      const memberEmitOpts = opts?.stubOnly
+        ? { suppressBody: true }
+        : undefined;
       let shouldSeparate = false;
       for (const member of prepareMembers(this.members, resolver)) {
         if (shouldSeparate) {
           code.line();
         }
         shouldSeparate = this.separateMembers;
-        member.emit(code, { ...context, resolver });
+        member.emit(code, { ...context, resolver }, memberEmitOpts);
       }
     } else {
       code.line('pass');
@@ -647,6 +660,8 @@ interface BaseMethodOpts {
 interface BaseMethodEmitOpts {
   renderAbstract?: boolean;
   forceEmitBody?: boolean;
+  /** When true, emit `...` as the body regardless of other flags. Used for TYPE_CHECKING stubs. */
+  suppressBody?: boolean;
 }
 
 abstract class BaseMethod implements PythonBase {
@@ -718,7 +733,11 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     opts?: BaseMethodEmitOpts,
   ) {
-    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
+    const {
+      renderAbstract = true,
+      forceEmitBody = false,
+      suppressBody = false,
+    } = opts ?? {};
 
     const returnType: string = toTypeName(this.returns).pythonType('type', {
       ...context,
@@ -865,6 +884,7 @@ abstract class BaseMethod implements PythonBase {
       documentableItem: `method-${this.pythonName}`,
     });
     if (
+      !suppressBody &&
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
@@ -882,6 +902,7 @@ abstract class BaseMethod implements PythonBase {
       context,
       renderAbstract,
       forceEmitBody,
+      suppressBody,
       liftedPropNames,
       pythonParams[0],
       returnType,
@@ -894,11 +915,13 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     renderAbstract: boolean,
     forceEmitBody: boolean,
+    suppressBody: boolean,
     liftedPropNames: Set<string>,
     implicitParameter: string,
     returnType: string,
   ) {
     if (
+      suppressBody ||
       (!this.shouldEmitBody && !forceEmitBody) ||
       (renderAbstract && this.abstract)
     ) {
@@ -1045,6 +1068,8 @@ interface BasePropertyOpts {
 interface BasePropertyEmitOpts {
   renderAbstract?: boolean;
   forceEmitBody?: boolean;
+  /** When true, emit `...` as the body regardless of other flags. Used for TYPE_CHECKING stubs. */
+  suppressBody?: boolean;
 }
 
 abstract class BaseProperty implements PythonBase {
@@ -1090,7 +1115,11 @@ abstract class BaseProperty implements PythonBase {
     context: EmitContext,
     opts?: BasePropertyEmitOpts,
   ) {
-    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
+    const {
+      renderAbstract = true,
+      forceEmitBody = false,
+      suppressBody = false,
+    } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType('type', context);
 
     code.line(`@${this.decorator}`);
@@ -1115,6 +1144,7 @@ abstract class BaseProperty implements PythonBase {
     });
     // NOTE: No parameters to validate here, this is a getter...
     if (
+      !suppressBody &&
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
@@ -1146,6 +1176,7 @@ abstract class BaseProperty implements PythonBase {
         'None',
       );
       if (
+        !suppressBody &&
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
@@ -1174,6 +1205,18 @@ abstract class BaseProperty implements PythonBase {
 class Interface extends BasePythonClassType {
   public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
     const wrapInFactory = opts?.wrapInFactory ?? false;
+    const stubOnly = opts?.stubOnly ?? false;
+
+    // In stub mode, emit only the protocol class with `...` bodies for type checkers.
+    if (stubOnly) {
+      this.sortBasesForMro();
+      context = nestedContext(context, this.fqn);
+      // Emit the interface decorator so type checkers understand it's a jsii interface
+      emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
+      // Interface members already have shouldEmitBody=false, so they naturally emit `...`
+      super.emit(code, context, opts);
+      return;
+    }
 
     // Open factory function wrapper if requested
     if (wrapInFactory) {
@@ -1289,6 +1332,29 @@ class Struct extends BasePythonClassType {
 
   public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
     const wrapInFactory = opts?.wrapInFactory ?? false;
+    const stubOnly = opts?.stubOnly ?? false;
+
+    // In stub mode, emit class signature + __init__ signature + property stubs
+    if (stubOnly) {
+      this.sortBasesForMro();
+      context = nestedContext(context, this.fqn);
+      const baseInterfaces = this.getClassParams(context, opts);
+
+      openSignature(code, 'class', this.pythonName, baseInterfaces);
+      this.generator.emitDocString(code, this.apiLocation, this.docs, {
+        documentableItem: `class-${this.pythonName}`,
+        trailingNewLine: true,
+      });
+      // Emit __init__ stub with correct signature
+      this.emitConstructorStub(code, context);
+      // Emit property getter stubs
+      for (const member of this.allMembers) {
+        code.line();
+        this.emitGetterStub(member, code, context);
+      }
+      code.closeBlock();
+      return;
+    }
 
     // Open factory function wrapper if requested
     if (wrapInFactory) {
@@ -1455,6 +1521,39 @@ class Struct extends BasePythonClassType {
       );
     }
     code.line(`return typing.cast(${pythonType}, result)`);
+    code.closeBlock();
+  }
+
+  /** Emit a stub __init__ (signature + `...`) for TYPE_CHECKING blocks. */
+  private emitConstructorStub(code: CodeMaker, context: EmitContext) {
+    const members = this.allMembers;
+    const kwargs = members.map((m) => m.constructorDecl(context));
+    const implicitParameter = slugifyAsNeeded(
+      'self',
+      members.map((m) => m.pythonName),
+    );
+    const constructorArguments =
+      kwargs.length > 0
+        ? [implicitParameter, '*', ...kwargs]
+        : [implicitParameter];
+
+    openSignature(code, 'def', '__init__', constructorArguments, 'None');
+    this.emitConstructorDocstring(code);
+    code.line('...');
+    code.closeBlock();
+  }
+
+  /** Emit a stub property getter (signature + `...`) for TYPE_CHECKING blocks. */
+  private emitGetterStub(
+    member: StructField,
+    code: CodeMaker,
+    context: EmitContext,
+  ) {
+    const pythonType = member.typeAnnotation(context);
+    code.line('@builtins.property');
+    openSignature(code, 'def', member.pythonName, ['self'], pythonType);
+    member.emitDocString(code);
+    code.line('...');
     code.closeBlock();
   }
 
@@ -1627,6 +1726,19 @@ class Class extends BasePythonClassType implements ISortableType {
 
   public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
     const wrapInFactory = opts?.wrapInFactory ?? false;
+    const stubOnly = opts?.stubOnly ?? false;
+
+    // In stub mode, emit only the class signature with `...` bodies for type checkers.
+    if (stubOnly) {
+      if (this.interfaces.length > 0) {
+        const interfaces: string[] = this.interfaces.map((b) =>
+          toTypeName(b).pythonType('decl', context),
+        );
+        code.line(`@jsii.implements(${interfaces.join(', ')})`);
+      }
+      super.emit(code, context, opts);
+      return;
+    }
 
     // Open factory function wrapper if requested
     if (wrapInFactory) {
@@ -2022,7 +2134,6 @@ class PythonModule implements PythonType {
     // Emit _memoized alias and import sys when deferred members exist
     if (deferredMembers.length > 0) {
       code.line();
-      code.line('_memoized = jsii._memoized');
       code.line('import sys as _sys');
       // Enable lazy namespace for type checking stubs so that
       // typing.get_type_hints() can resolve deferred class names
@@ -2039,9 +2150,34 @@ class PythonModule implements PythonType {
       member.emit(code, context);
     }
 
-    // Emit all classes/interfaces/structs wrapped in factory functions
+    // Emit deferred classes/interfaces/structs with TYPE_CHECKING guard:
+    // - Type checkers see the stub declarations (signatures with `...` bodies)
+    // - Runtime executes the lazy factory functions
     if (deferredMembers.length > 0) {
       const deferredSet = new Set(deferredClassNames);
+
+      // Declare _LAZY_CLASSES at module scope so both branches and __getattr__
+      // can reference it without pyright reporting "not defined".
+      code.line();
+      code.line(
+        '_LAZY_CLASSES: typing.Dict[builtins.str, typing.Callable[[], type]]',
+      );
+
+      // TYPE_CHECKING branch: emit class stubs for static analysis
+      code.line();
+      code.line();
+      code.openBlock('if typing.TYPE_CHECKING');
+      for (const member of deferredMembers) {
+        code.line();
+        (member as BasePythonClassType).emit(code, context, {
+          stubOnly: true,
+        });
+      }
+      code.closeBlock();
+
+      // else branch: emit lazy factory functions for runtime
+      code.openBlock('else');
+      code.line('_memoized = jsii._memoized');
       const deferredContext = { ...context, deferredClassNames: deferredSet };
       for (const member of deferredMembers) {
         code.line();
@@ -2051,6 +2187,15 @@ class PythonModule implements PythonType {
           deferredClassNames: deferredSet,
         });
       }
+
+      // Emit _LAZY_CLASSES dict inside the else branch
+      code.line();
+      code.indent('_LAZY_CLASSES = {');
+      for (const name of deferredClassNames) {
+        code.line(`"${name}": _lazy_build_${name},`);
+      }
+      code.unindent('}');
+      code.closeBlock();
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
@@ -2088,16 +2233,6 @@ class PythonModule implements PythonType {
       code.unindent(']');
     } else {
       code.line('__all__: typing.List[typing.Any] = []');
-    }
-
-    // Emit _LAZY_CLASSES dict mapping deferred class names to factory functions
-    if (deferredClassNames.length > 0) {
-      code.line();
-      code.indent('_LAZY_CLASSES = {');
-      for (const name of deferredClassNames) {
-        code.line(`"${name}": _lazy_build_${name},`);
-      }
-      code.unindent('}');
     }
 
     // Emit TYPE_CHECKING block with explicit submodule imports so that
