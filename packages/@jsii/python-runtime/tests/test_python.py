@@ -84,34 +84,6 @@ def test_overrides_method_with_kwargs() -> None:
     assert OverrideMe.call_abstract(Overridden())
 
 
-class TestHostStackTrace:
-    def test_stack_trace_is_passed_to_kernel(self, monkeypatch):
-        monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
-        from jsii_calc import HostStackTraceReader
-
-        trace = HostStackTraceReader.captured_trace()
-        assert trace is not None
-        assert len(trace) > 0
-        # Each frame should be [file, line, column, function]
-        for frame in trace:
-            assert len(frame) == 4
-
-    def test_stack_trace_contains_this_file(self, monkeypatch):
-        monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
-        from jsii_calc import HostStackTraceReader
-
-        trace = HostStackTraceReader.captured_trace()
-        assert trace is not None
-        files = [frame[0] for frame in trace]
-        assert any("test_python" in f for f in files)
-
-    def test_stack_trace_not_passed_when_disabled(self, monkeypatch):
-        monkeypatch.delenv("JSII_HOST_STACK_TRACES", raising=False)
-        from jsii_calc import HostStackTraceReader
-
-        trace = HostStackTraceReader.captured_trace()
-        assert trace is None
-
 
 def find_struct_bases(x):
     ret = []

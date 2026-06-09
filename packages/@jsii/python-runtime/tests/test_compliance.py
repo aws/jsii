@@ -19,6 +19,7 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Bell,
     Calculator,
+    HostStackTraceReader,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConfusingToJackson,
     ConsumerCanRingBell,
@@ -1411,3 +1412,27 @@ def test_custom_named_submodule_types_resolve():
     # Create an instance to verify the type works end-to-end through the kernel
     reflector = Reflector()
     assert reflector is not None
+
+
+def test_host_stack_trace_is_passed_to_kernel(monkeypatch):
+    monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
+    trace = HostStackTraceReader.captured_trace()
+    assert trace is not None
+    assert len(trace) > 0
+    # Each frame should be [file, line, column, function]
+    for frame in trace:
+        assert len(frame) == 4
+
+
+def test_host_stack_trace_contains_test_file(monkeypatch):
+    monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
+    trace = HostStackTraceReader.captured_trace()
+    assert trace is not None
+    files = [frame[0] for frame in trace]
+    assert any("test_compliance" in f for f in files)
+
+
+def test_host_stack_trace_not_passed_when_disabled(monkeypatch):
+    monkeypatch.delenv("JSII_HOST_STACK_TRACES", raising=False)
+    trace = HostStackTraceReader.captured_trace()
+    assert trace is None
