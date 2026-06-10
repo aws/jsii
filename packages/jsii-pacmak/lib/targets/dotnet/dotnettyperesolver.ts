@@ -47,7 +47,7 @@ export class DotNetTypeResolver {
         typeName = this.nameutils.convertInterfaceName(type);
         break;
       case spec.TypeKind.Class:
-        typeName = this.nameutils.convertClassName(type as spec.ClassType);
+        typeName = this.nameutils.convertClassName(type);
         break;
       case spec.TypeKind.Enum:
         typeName = this.nameutils.convertTypeName(type.name);

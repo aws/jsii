@@ -2,16 +2,17 @@ import '@jsii/check-node/run';
 
 import { writeFile } from 'fs';
 import { promisify } from 'util';
-import * as yargs from 'yargs';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
-import jsiiConfig from '../lib';
+import jsiiConfig from '../lib/index.ts';
 
 const writeFilePromise = promisify(writeFile);
 /*
  * Read package.json and prompt user for new or revised jsii config values.
  */
 async function main() {
-  const argv = await yargs
+  const argv = await yargs(hideBin(process.argv))
     .command('$0 [args]', 'configure jsii compilation options in package.json')
     .option('package-json', {
       alias: 'p',

@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as process from 'process';
+import process from 'process';
 
 const removeSyncPaths = new Array<string>();
 
