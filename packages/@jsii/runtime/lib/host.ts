@@ -11,6 +11,7 @@ import { EventEmitter } from 'events';
 import { Input, IInputOutput } from './in-out';
 
 const HOST_STACK_TRACE_SYMBOL = Symbol.for('jsii.context.hostStackTrace');
+const HOST_DIR_NAME_SYMBOL = Symbol.for('jsii.context.hostDirName');
 
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
@@ -127,6 +128,7 @@ export class KernelHost {
 
     const hostTrace = (req as any)['$jsii.stacktrace'];
     (global as any)[HOST_STACK_TRACE_SYMBOL] = hostTrace ?? undefined;
+    (global as any)[HOST_DIR_NAME_SYMBOL] = __dirname;
 
     try {
       const ret = fn.call(this.kernel, req);

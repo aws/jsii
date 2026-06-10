@@ -25,7 +25,10 @@ def capture_stack_trace() -> Optional[List[List]]:
             continue
         if frame.filename.startswith("<"):
             continue
-        result.append([frame.filename, frame.lineno, 0, frame.name])
+        colno = frame.colno if frame.colno is not None else 0
+        result.append([frame.filename, frame.lineno, colno, frame.name])
 
+    # The last line is the call to the jsii runtime, which is never interesting to the user
+    result.pop()
     result.reverse()
     return result if result else None

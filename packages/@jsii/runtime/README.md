@@ -49,12 +49,12 @@ request sent to the kernel:
 
 Each frame is a tuple of `[file, line, column, function]`:
 
-| Field    | Type   | Description                                           |
-|----------|--------|-------------------------------------------------------|
-| file     | string | Source file path (relative or absolute)               |
-| line     | number | 1-indexed line number                                 |
-| column   | number | 0-indexed column (0 if unavailable)                   |
-| function | string | Qualified function name (e.g. `MyStack.__init__`)     |
+| Field    | Type   | Description                             |
+|----------|--------|-----------------------------------------|
+| file     | string | Source file path (relative or absolute) |
+| line     | number | The line number                         |
+| column   | number | The column number (0 if unavailable)    |
+| function | string | Function name (e.g. `.__init__`)        |
 
 Frames are ordered most-recent-first (matching V8 `Error.stack` convention).
 
