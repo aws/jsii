@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as clone from 'clone';
+import clone from 'clone';
 import * as fs from 'fs-extra';
 import * as http from 'http';
 import * as https from 'https';

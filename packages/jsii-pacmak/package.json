@@ -62,12 +62,12 @@
     "diff": "^5.2.2",
     "eslint": "^9.39.4",
     "jest": "^30.4.2",
-    "jsii": "^5.9.28",
+    "jsii": "^6.0.1",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
-    "jsii-rosetta": "~5.9.32",
+    "jsii-rosetta": "~6.0.0",
     "pyright": "^1.1.410",
-    "typescript": "5.9.x"
+    "typescript": "6.x"
   },
   "peerDependencies": {
     "jsii-rosetta": ">=5.9.0"

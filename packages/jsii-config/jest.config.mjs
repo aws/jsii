@@ -1,3 +1,6 @@
-import config from '../../jest.config.mjs';
+import { overriddenConfig } from '../../jest.config.mjs';
 
-export default config;
+export default overriddenConfig({
+  // jsii-config is an ESM package
+  transform: {},
+});

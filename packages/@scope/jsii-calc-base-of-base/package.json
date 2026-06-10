@@ -30,10 +30,10 @@
     "test:update": "yarn build && UPDATE_DIFF=1 yarn test"
   },
   "devDependencies": {
-    "jsii": "5.9.28",
+    "jsii": "6.0.1",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^5.9.32",
-    "typescript": "5.9.x"
+    "jsii-rosetta": "^6.0.0",
+    "typescript": "6.x"
   },
   "jsii": {
     "outdir": "dist",

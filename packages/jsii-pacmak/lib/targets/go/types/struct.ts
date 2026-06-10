@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import { InterfaceType } from 'jsii-reflect';
 
 import { SpecialDependencies } from '../dependencies';

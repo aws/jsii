@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
     "target": "ES2020",                    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
-    "module": "commonjs",                  /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
-    "moduleResolution": "Node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "module": "Node16",                     /* Specify module code generation. */
+    "moduleResolution": "Node16",          /* Specify module resolution strategy. */
     "lib": ["es2020", "es2021.WeakRef"],   /* Specify library files to be included in the compilation:  */
+    "types": ["node", "jest"],             /* Type declaration files to be included in compilation. */
     "strict": true,                        /* Enable all strict type-checking options. */
     "strictPropertyInitialization": true,  /* Require all properties be initialized in the constructor. */
     "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
     "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     "declarationMap": true,                /* Generates declaration map '.d.ts.map' file. */
-    "esModuleInterop": false,              /* Turn on babel and typesystem compatibility with ES modules */
+    "esModuleInterop": true,               /* Turn on babel and typesystem compatibility with ES modules */
     "sourceMap": true,                     /* Generates source file .js.map file. */
     "inlineSourceMap": false,              /* Emit a single file with source maps instead of having a separate file. */
     "inlineSources": false,                /* Emit the source alongside the sourcemaps within a single file. */

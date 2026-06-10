@@ -1,4 +1,4 @@
-import { BasePackageJson } from './schema';
+import { BasePackageJson } from './schema.ts';
 
 /*
  * Top level keys required for jsii that aren't controlled by jsii-config

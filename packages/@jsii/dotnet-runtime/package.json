@@ -42,6 +42,6 @@
     "@types/semver": "^7.7.1",
     "jsii-build-tools": "^0.0.0",
     "semver": "^7.8.1",
-    "typescript": "5.9.x"
+    "typescript": "6.x"
   }
 }

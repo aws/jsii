@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as assert from 'assert';
+import assert from 'assert';
 import { inspect } from 'util';
 
 import * as api from './api';
