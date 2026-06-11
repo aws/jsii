@@ -1,9 +1,9 @@
 import { input, select, checkbox, confirm, Separator } from '@inquirer/prompts';
 import { PackageJson } from '@jsii/spec';
 
-import getQuestions, { NamedPrompt } from './questions';
-import { BasePackageJson } from './schema';
-import { getNestedValue, removeEmptyValues } from './util';
+import getQuestions, { NamedPrompt } from './questions.ts';
+import { BasePackageJson } from './schema.ts';
+import { getNestedValue, removeEmptyValues } from './util.ts';
 
 interface PromptAnswers extends PackageJson {
   jsiiTargets: string[];

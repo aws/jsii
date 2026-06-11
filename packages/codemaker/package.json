@@ -39,6 +39,6 @@
     "@types/fs-extra": "^9.0.13",
     "eslint": "^9.39.4",
     "jest": "^30.4.2",
-    "typescript": "5.9.x"
+    "typescript": "6.x"
   }
 }

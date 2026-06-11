@@ -30,7 +30,7 @@ To determine the version of **TypeScript** that is in use by the installed relea
 
 ```console
 # jsii --version
-5.1.6 (build d8f400c), typescript 5.1.6
+6.0.0 (build abc1234), typescript 6.0.0
 ```
 
 You can then refer to the [TypeScript] documentation to determine which language features are available in that specific
@@ -38,12 +38,11 @@ You can then refer to the [TypeScript] documentation to determine which language
 
 !!! warning
     The `jsii` compiler imposes some restrictions on what **TypeScript** features can be used to declare the APIs
-    exported by a *jsii module*, in order to ensure those APIs can be consistently represented in other languages. For
+    exported by a _jsii module_, in order to ensure those APIs can be consistently represented in other languages. For
     more information, refer to the [TypeScript Restrictions page][restrictions].
 
-    [restrictions]: ../user-guides/lib-author/typescript-restrictions.md
-
-[typescript]: https://www.typescriptlang.org
+[restrictions]: ../user-guides/lib-author/typescript-restrictions.md
+[TypeScript]: https://www.typescriptlang.org
 
 ## Target Languages
 
@@ -55,7 +54,6 @@ The following target languages are currently offered by `jsii-pacmak`, or are cu
 | Go         | :octicons-check-circle-24: Generally Available |
 | Java       | :octicons-check-circle-24: Generally Available |
 | JavaScript | :octicons-check-circle-24: Generally Available |
-| Kotlin     | :octicons-tools-24:        Development         |
 | Python     | :octicons-check-circle-24: Generally Available |
 | TypeScript | :octicons-check-circle-24: Generally Available |
 

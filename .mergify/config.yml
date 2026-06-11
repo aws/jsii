@@ -5,6 +5,7 @@ merge_queue:
 queue_rules:
   - name: default-squash
     queue_conditions:
+      - label!=pr/no-squash
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     merge_conditions:
@@ -19,6 +20,7 @@ queue_rules:
 
   - name: default-merge
     queue_conditions:
+      - label=pr/no-squash
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     merge_conditions:

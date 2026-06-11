@@ -45,8 +45,8 @@
     "eslint": "^9.39.4",
     "jest": "^30.4.2",
     "jest-expect-message": "^1.1.3",
-    "jsii": "^5.9.28",
+    "jsii": "^6.0.1",
     "jsii-build-tools": "^0.0.0",
-    "typescript": "5.9.x"
+    "typescript": "6.x"
   }
 }

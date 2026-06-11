@@ -49,17 +49,9 @@ reserved words in an identifier.
     option to only warn about reserved words of languages that are configured
     for the current project.
 
-### :test_tube: Experimental Features
+### `--tsconfig`, `--validate-tsconfig`
 
-!!! danger
-    The features discussed in this section are experimental. Their behavior may
-    change as bugs are addressed, and requirements are clarified through early
-    adopters. Use at your own risk, and don't forget to [report bugs] you
-    encounter while doing so!
-
-    [report bugs]: https://github.com/aws/jsii/issues/new/choose
-
-#### `--tsconfig`, `--validate-tsconfig` _(available from jsii >= 5.2)_
+_Available from jsii >= 5.2_
 
 By default, jsii will generate a `tsconfig.json` for you, using best practice
 settings that are optimized for widespread support and backwards compatibility.
@@ -74,6 +66,16 @@ config for use with jsii. These rules are enforced by the `--validate-tsconfig`
 option. You may choose the level of validation to suit your use case.
 
 --8<-- "partials/tsconfig-rulesets.md"
+
+### :test_tube: Experimental Features
+
+!!! danger
+    The features discussed in this section are experimental. Their behavior may
+    change as bugs are addressed, and requirements are clarified through early
+    adopters. Use at your own risk, and don't forget to [report bugs] you
+    encounter while doing so!
+
+    [report bugs]: https://github.com/aws/jsii/issues/new/choose
 
 #### `--strip-deprecated`
 
@@ -91,7 +93,7 @@ erased from the visible API of the module:
   types)
 
 However, in order to ensure the underlying code continues to work as designed,
-the *implementation* of such declarations will remain in the **JavaScript**
+the _implementation_ of such declarations will remain in the **JavaScript**
 (`.js`) files produced by the compilation. This is, in fact, similar to marking
 all `@deprecated` members `@internal`.
 
