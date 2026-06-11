@@ -643,7 +643,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     parentAccessor: string,
   ) {
     for (const member of this.members) {
-      if (member instanceof BasePythonClassType && !(member instanceof Enum)) {
+      if (member instanceof BasePythonClassType) {
         const nestedQualname = `${parentQualname}.${member.pythonName}`;
         const nestedAccessor = `${parentAccessor}.${member.pythonName}`;
         code.line(`${nestedAccessor}.__qualname__ = "${nestedQualname}"`);

@@ -21983,6 +21983,7 @@ else:
         # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
         typing.cast(typing.Any, CompositeOperation).__jsii_proxy_class__ = lambda : _CompositeOperationProxy
         CompositeOperation.__qualname__ = "CompositeOperation"
+        CompositeOperation.CompositionStringStyle.__qualname__ = "CompositeOperation.CompositionStringStyle"
         _CompositeOperationProxy.__qualname__ = "_CompositeOperationProxy"
         return CompositeOperation
 
@@ -23653,6 +23654,12 @@ else:
         IntersectionProps.__qualname__ = "IntersectionProps"
         return IntersectionProps
 
+    class _ISomething_IFriendly(_lazy_build_ISomething(), _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
+        pass
+
+    for cls in [_ISomething_IFriendly]:
+        typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
+
     _LAZY_CLASSES = {
         "ConsumesIntersection": _lazy_build_ConsumesIntersection,
         "ISomething": _lazy_build_ISomething,
@@ -23703,12 +23710,6 @@ if __debug__:
                 ns[name] = factory()
             _typechecking_localns = ns
         return _typechecking_localns
-
-class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
-    pass
-
-for cls in [_ISomething_IFriendly]:
-    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 
 `;
 
@@ -33844,7 +33845,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
              @jsii.enum(
                  jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
              )
-@@ -251,5 +260,23 @@
+@@ -252,5 +261,23 @@
              ns = dict(globals())
              for name, factory in _LAZY_CLASSES.items():
                  ns[name] = factory()
@@ -34232,12 +34233,13 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
                  }
  
              @builtins.property
-@@ -229,10 +235,23 @@
+@@ -234,5 +240,18 @@
+             ns = dict(globals())
              for name, factory in _LAZY_CLASSES.items():
                  ns[name] = factory()
              _typechecking_localns = ns
          return _typechecking_localns
- 
++
 +def _typecheckingstub__a36fd0053d186cf16119b874974d4b9825317b52ccd23075a83b521970a1f420(
 +    param: '_ISomething_IFriendly',
 +) -> None:
@@ -34250,12 +34252,6 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +) -> None:
 +    """Type checking stubs"""
 +    pass
-+
- class _ISomething_IFriendly(ISomething, _scope_jsii_calc_lib_c61f082f.IFriendly, typing_extensions.Protocol):
-     pass
- 
- for cls in [_ISomething_IFriendly]:
-     typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/jsii_calc/jsii3656/__init__.py.diff 1`] = `

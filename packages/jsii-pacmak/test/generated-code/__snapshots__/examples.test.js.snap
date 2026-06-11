@@ -3086,6 +3086,8 @@ else:
                     def done(self) -> builtins.bool:
                         return typing.cast(builtins.bool, jsii.get(self, "done"))
         Namespace2.__qualname__ = "Namespace2"
+        Namespace2.Foo.__qualname__ = "Namespace2.Foo"
+        Namespace2.Foo.Final.__qualname__ = "Namespace2.Foo.Final"
         return Namespace2
 
     _LAZY_CLASSES = {
