@@ -1295,6 +1295,18 @@ exports[`showAll 1`] = `
  │   │   │ └── type: Optional<number>
  │   │   └─┬ unionProperty property
  │   │     └── type: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
+ │   ├─┬ class CallbackStackTraceTest
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ callbackProvider() method
+ │   │   │ ├── abstract
+ │   │   │ ├── protected
+ │   │   │ └── returns: any
+ │   │   ├─┬ invokeCallback() method
+ │   │   │ └── returns: void
+ │   │   └─┬ traceFromCallback property
+ │   │     ├── immutable
+ │   │     └── type: any
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
@@ -1810,6 +1822,12 @@ exports[`showAll 1`] = `
  │   │     │ └─┬ friendly
  │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
  │   │     └── returns: string
+ │   ├─┬ class HostStackTraceReader
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └─┬ static capturedTrace() method
+ │   │     ├── static
+ │   │     └── returns: any
  │   ├─┬ class ImplementInternalInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4379,6 +4397,7 @@ exports[`types 1`] = `
  │   ├── class BinaryOperation
  │   ├── class BurriedAnonymousObject
  │   ├── class Calculator
+ │   ├── class CallbackStackTraceTest
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithCollectionOfUnions
@@ -4417,6 +4436,7 @@ exports[`types 1`] = `
  │   ├── class FullCombo
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class HostStackTraceReader
  │   ├── class ImplementInternalInterface
  │   ├── class Implementation
  │   ├── class ImplementsInterfaceWithInternal
