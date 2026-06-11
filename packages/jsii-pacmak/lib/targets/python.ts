@@ -2201,6 +2201,9 @@ class PythonModule implements PythonType {
           stubOnly: true,
         });
       }
+      // Emit intersection type helper stubs so type checkers can resolve
+      // forward references to intersection protocol names.
+      context.intersectionTypes.flushHelperTypeStubs(code);
       code.closeBlock();
 
       // else branch: emit lazy factory functions for runtime

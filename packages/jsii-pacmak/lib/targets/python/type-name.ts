@@ -627,6 +627,21 @@ export class IntersectionTypesRegistry {
       code.line('    pass');
     }
   }
+
+  /**
+   * Emit stub class declarations for use inside `if typing.TYPE_CHECKING:` blocks.
+   * These allow static type checkers (pyright/mypy) to resolve intersection type
+   * names that are used as string annotations in the TYPE_CHECKING stubs.
+   */
+  public flushHelperTypeStubs(code: CodeMaker) {
+    for (const [name, types] of this.types.entries()) {
+      code.line('');
+      code.line(
+        `class ${name}(${types.join(', ')}, typing_extensions.Protocol):`,
+      );
+      code.line('    pass');
+    }
+  }
 }
 
 function lastComponent(x: string) {
