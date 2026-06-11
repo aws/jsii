@@ -325,7 +325,7 @@ class _NodeProcess:
 
         if _stack_traces_enabled():
             stack_trace = capture_stack_trace()
-            if stack_trace is not None:
+            if stack_trace:
                 req_dict["$jsii.stacktrace"] = stack_trace
 
         data = json.dumps(req_dict, default=jdefault).encode("utf8")
