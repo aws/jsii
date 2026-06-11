@@ -37,12 +37,12 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "semver": "^7.8.1"
+    "semver": "^7.8.2"
   },
   "devDependencies": {
     "eslint": "^9.39.4",
     "jest": "^30.4.2",
     "jsii-build-tools": "^0.0.0",
-    "typescript": "5.9.x"
+    "typescript": "6.x"
   }
 }

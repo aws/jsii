@@ -1,5 +1,5 @@
 import * as spec from '@jsii/spec';
-import * as clone from 'clone';
+import clone from 'clone';
 import { CodeMaker } from 'codemaker';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
@@ -394,7 +394,7 @@ export abstract class Generator implements IGenerator {
       if (!this.shouldExcludeType(type.name)) {
         switch (type.kind) {
           case spec.TypeKind.Class:
-            const classSpec = type as spec.ClassType;
+            const classSpec = type;
             const abstract = classSpec.abstract;
             if (abstract && this.options.addBasePostfixToAbstractClassNames) {
               this.addAbstractPostfixToClassName(classSpec);
@@ -405,14 +405,14 @@ export abstract class Generator implements IGenerator {
             this.onEndClass(classSpec);
             break;
           case spec.TypeKind.Enum:
-            const enumSpec = type as spec.EnumType;
+            const enumSpec = type;
             this.onBeginEnum(enumSpec);
             this.visitEnum(enumSpec);
             visitChildren();
             this.onEndEnum(enumSpec);
             break;
           case spec.TypeKind.Interface:
-            const interfaceSpec = type as spec.InterfaceType;
+            const interfaceSpec = type;
             this.onBeginInterface(interfaceSpec);
             this.visitInterface(interfaceSpec);
             visitChildren();

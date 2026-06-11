@@ -1,5 +1,8 @@
 {
   "extends": "../../tsconfig-base",
+  "compilerOptions": {
+    "rewriteRelativeImportExtensions": true,
+  },
   "include": [
     "**/*.ts"
   ],

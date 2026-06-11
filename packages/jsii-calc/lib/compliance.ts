@@ -477,6 +477,7 @@ export class SyncOverrideExtraArgs {
   public callProduceWithExtraArg(): string {
     // Cast to bypass TypeScript's parameter-count check — we deliberately
     // pass an argument that the declared signature does not accept.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return (this.produce as (...args: unknown[]) => string)({
       ignoredExtra: true,
     });
@@ -1833,7 +1834,7 @@ export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterface
   /**
    * @internal
    */
-  public _propertiesToo?: string;
+  declare public _propertiesToo: string | undefined;
 }
 
 //

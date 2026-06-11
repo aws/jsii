@@ -1,8 +1,8 @@
 import * as spec from '@jsii/spec';
-import * as assert from 'assert';
+import assert from 'assert';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as crypto from 'crypto';
-import * as escapeStringRegexp from 'escape-string-regexp';
+import escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
@@ -746,14 +746,11 @@ abstract class BaseMethod implements PythonBase {
 
       // Document them as keyword arguments
       documentableArgs.push(
-        ...liftedProperties.map(
-          (p) =>
-            ({
-              name: p.prop.name,
-              docs: p.prop.docs,
-              definingType: p.definingType,
-            }) as DocumentableArgument,
-        ),
+        ...liftedProperties.map((p) => ({
+          name: p.prop.name,
+          docs: p.prop.docs,
+          definingType: p.definingType,
+        })),
       );
     } else if (
       this.parameters.length >= 1 &&

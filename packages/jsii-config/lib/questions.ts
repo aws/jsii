@@ -4,8 +4,8 @@ import schema, {
   ConfigPromptsSchema,
   BasePackageJson,
   PromptDescriptor,
-} from './schema';
-import { getNestedValue, flattenKeys } from './util';
+} from './schema.ts';
+import { getNestedValue, flattenKeys } from './util.ts';
 
 export interface NamedPrompt extends PromptDescriptor {
   name: string;

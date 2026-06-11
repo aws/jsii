@@ -1,6 +1,6 @@
 import * as spec from '@jsii/spec';
-import * as assert from 'assert';
-import * as clone from 'clone';
+import assert from 'assert';
+import clone from 'clone';
 import { toSnakeCase } from 'codemaker/lib/case-utils';
 import { createHash } from 'crypto';
 import * as fs from 'fs-extra';

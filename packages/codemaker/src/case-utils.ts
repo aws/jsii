@@ -1,4 +1,4 @@
-import * as camelcase from 'camelcase';
+import camelcase from 'camelcase';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import decamelize = require('decamelize');
 

@@ -1,14 +1,16 @@
-import * as prompts from '@inquirer/prompts';
+import { jest, describe, beforeEach, it, expect } from '@jest/globals';
 import { Stability } from '@jsii/spec';
-import * as fs from 'fs';
 
-import jsiiConfig from '../lib';
-import { packageJsonObject, findQuestions, findQuestion } from './util';
-import getQuestions from '../lib/questions';
+import { packageJsonObject, findQuestions, findQuestion } from './util.ts';
 
-// Mock individual @inquirer/prompts functions
-// @inquirer/prompts v8 is ESM-only, so we provide a full manual mock
-jest.mock('@inquirer/prompts', () => {
+// Mock fs module
+const readFileMock = jest.fn<any>();
+jest.unstable_mockModule('fs', () => ({
+  readFile: readFileMock,
+}));
+
+// Mock @inquirer/prompts (ESM-only)
+jest.unstable_mockModule('@inquirer/prompts', () => {
   class Separator {
     public separator: string;
     public type = 'separator';
@@ -17,14 +19,20 @@ jest.mock('@inquirer/prompts', () => {
     }
   }
   return {
+    input: jest.fn<any>(),
+    select: jest.fn<any>(),
+    checkbox: jest.fn<any>(),
+    confirm: jest.fn<any>(),
     Separator,
-    input: jest.fn(),
-    select: jest.fn(),
-    checkbox: jest.fn(),
-    confirm: jest.fn(),
   };
 });
 
+const { default: jsiiConfig } = await import('../lib/index.ts');
+const { default: getQuestions } = await import('../lib/questions.ts');
+const prompts = await import('@inquirer/prompts');
+
+// Mock individual @inquirer/prompts functions
+// @inquirer/prompts v8 is ESM-only, so we provide a full manual mock
 const inputMock = prompts.input as jest.MockedFunction<typeof prompts.input>;
 const selectMock = prompts.select as jest.MockedFunction<typeof prompts.select>;
 const checkboxMock = prompts.checkbox as jest.MockedFunction<
@@ -35,18 +43,14 @@ const confirmMock = prompts.confirm as jest.MockedFunction<
 >;
 
 describe('jsii-config', () => {
-  const readJsonMock = jest.fn();
-
   beforeEach(() => {
-    // eslint-disable-next-line no-import-assign
-    Object.defineProperty(fs, 'readFile', { value: readJsonMock });
     jest.clearAllMocks();
   });
 
   describe('errors', () => {
     it('throws when no readFile fails', async () => {
       const message = 'Err Message';
-      readJsonMock.mockImplementation(
+      readFileMock.mockImplementation(
         (_path: string, cb: (...args: any[]) => void) => {
           cb(new Error(message));
         },
@@ -55,7 +59,7 @@ describe('jsii-config', () => {
     });
 
     it('throws when package.json is invalid', async () => {
-      readJsonMock.mockImplementation(
+      readFileMock.mockImplementation(
         (_path: string, cb: (...args: any[]) => void) => {
           cb(null, Buffer.from('INVALID JSON STRING'));
         },
@@ -76,7 +80,7 @@ describe('jsii-config', () => {
 
   describe('missing top level package fields', () => {
     const mockMissingField = (field: string) =>
-      readJsonMock.mockImplementation(
+      readFileMock.mockImplementation(
         (_path: string, cb: (...args: any[]) => void) => {
           cb(
             null,
@@ -283,7 +287,7 @@ describe('jsii-config', () => {
 
   describe('no existing jsii configuration', () => {
     it('returns new config with empty values removed', async () => {
-      readJsonMock.mockImplementation(
+      readFileMock.mockImplementation(
         (_path: string, cb: (...args: any[]) => void) => {
           cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
         },
@@ -382,7 +386,7 @@ describe('jsii-config', () => {
     });
 
     it('preserves existing jsii metadata fields', async () => {
-      readJsonMock.mockImplementation(
+      readFileMock.mockImplementation(
         (_path: string, cb: (...args: any[]) => void) => {
           cb(
             null,
@@ -431,7 +435,7 @@ describe('jsii-config', () => {
 
   describe('edit config', () => {
     it('prompts user again with previous answers if confirmation is declined', async () => {
-      readJsonMock.mockImplementation(
+      readFileMock.mockImplementation(
         (_path: string, cb: (...args: any[]) => void) => {
           cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
         },

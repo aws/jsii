@@ -433,6 +433,7 @@ jobs:
         rosetta:
           - latest
           - 5.9.x
+          - 6.0.x
     steps:
       # Check out the code
       - name: Download Artifact

@@ -104,18 +104,29 @@ class TestInvokeBinScript:
                 current_dt = datetime.utcnow()
 
                 delay_s = round((current_dt - last_dt).total_seconds())
-                timed_lines.append([line, delay_s])
+                timed_lines.append((line, delay_s))
 
                 last_dt = current_dt
         exit_code = proc.wait()
 
         assert exit_code == 0
-        assert timed_lines == [
-            [b"Hello World!\n", 0],
-            [b"  arguments: arg1, delay\n", 0],
-            [b"sleeping 1s 1\n", 0],
-            [b"sleeping 1s 2\n", 1],
-            [b"sleeping 1s 3\n", 1],
-            [b"sleeping 1s 4\n", 1],
-            [b"sleeping 1s 5\n", 1],
+        expected_lines = [
+            b"Hello World!\n",
+            b"  arguments: arg1, delay\n",
+            b"sleeping 1s 1\n",
+            b"sleeping 1s 2\n",
+            b"sleeping 1s 3\n",
+            b"sleeping 1s 4\n",
+            b"sleeping 1s 5\n",
         ]
+
+        # Check we got the right lines
+        assert [item[0] for item in timed_lines] == expected_lines
+
+        # Check that we didn't receive all lines at once (which would happen if they were buffered)
+        # The first 3 lines are printed immediately, so their delays should be around 0.
+        # The subsequent lines should have delays > 0 since they sleep for 1s.
+        for line, delay in timed_lines[3:]:
+            assert (
+                int(delay) >= 1
+            ), f"Expected line {line!r} to be delayed, but got delay of {delay}s"

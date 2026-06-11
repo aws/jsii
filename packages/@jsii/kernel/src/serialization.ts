@@ -27,7 +27,7 @@
  */
 
 import * as spec from '@jsii/spec';
-import * as assert from 'assert';
+import assert from 'assert';
 import { inspect } from 'util';
 
 import {
@@ -1288,12 +1288,12 @@ function describeTypeOf(
         return 'an array';
       }
 
-      const fqn = jsiiTypeFqn(value as object, isVisibleType);
+      const fqn = jsiiTypeFqn(value, isVisibleType);
       if (fqn != null && fqn !== EMPTY_OBJECT_FQN) {
         return `an instance of ${fqn}`;
       }
 
-      const ctorName = (value as object).constructor.name;
+      const ctorName = value.constructor.name;
       if (ctorName != null && ctorName !== Object.name) {
         return `an instance of ${ctorName}`;
       }

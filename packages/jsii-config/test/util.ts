@@ -1,4 +1,4 @@
-import { BasePackageJson } from '../lib/schema';
+import { BasePackageJson } from '../lib/schema.ts';
 
 export const packageJsonObject: BasePackageJson = {
   name: 'jsii-config-test',

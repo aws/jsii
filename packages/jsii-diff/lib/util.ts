@@ -65,14 +65,14 @@ export async function downloadNpmPackage<T>(
       return {
         success: false,
         reason: 'no_such_package',
-      } as NpmDownloadResult<T>;
+      };
     }
 
     const pkgDir = trimVersionString(pkg);
     return {
       success: true,
       result: await block(path.join(process.cwd(), 'node_modules', pkgDir)),
-    } as NpmDownloadResult<T>;
+    };
   });
 }
 
