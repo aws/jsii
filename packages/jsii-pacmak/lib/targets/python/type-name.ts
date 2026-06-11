@@ -609,11 +609,20 @@ export class IntersectionTypesRegistry {
     return Array.from(this.types.keys());
   }
 
-  public flushHelperTypes(code: CodeMaker) {
+  public flushHelperTypes(code: CodeMaker, deferredClassNames?: Set<string>) {
     for (const [name, types] of this.types.entries()) {
+      const resolvedTypes = types.map((t) => {
+        // If this is a bare same-module name that is deferred (lazy),
+        // replace it with the factory call so the class can be defined
+        // at import time without a NameError.
+        if (deferredClassNames?.has(t)) {
+          return `_lazy_build_${t}()`;
+        }
+        return t;
+      });
       code.line('');
       code.line(
-        `class ${name}(${types.join(', ')}, typing_extensions.Protocol):`,
+        `class ${name}(${resolvedTypes.join(', ')}, typing_extensions.Protocol):`,
       );
       code.line('    pass');
     }

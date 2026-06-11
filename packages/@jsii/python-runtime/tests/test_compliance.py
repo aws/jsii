@@ -1462,3 +1462,61 @@ def test_host_stack_trace_through_callback(monkeypatch):
         "invoke_callback",
         "test_host_stack_trace_through_callback",
     ]
+
+
+def test_intersection_types_importable():
+    """Verifies that modules using intersection types (A & B) can be imported.
+
+    The jsii_calc.intersection module has parameters typed as ISomething & IFriendly.
+    The code generator emits a helper protocol class (_ISomething_IFriendly) that
+    extends both interfaces. This test ensures the module loads without NameError.
+    """
+    from jsii_calc.intersection import ConsumesIntersection, ISomething
+
+    # Verify the types are importable and usable
+    assert ConsumesIntersection is not None
+    assert ISomething is not None
+
+
+def test_intersection_types_usage():
+    """Verifies that intersection types work end-to-end through the jsii kernel.
+
+    This tests the full lifecycle: importing the module, instantiating classes
+    that accept intersection-typed parameters, and calling static methods that
+    take intersection-typed arguments. This exercises:
+    - The intersection helper protocol class (_ISomething_IFriendly)
+    - The struct (IntersectionProps) that has an intersection-typed property
+    - Static methods accepting intersection-typed parameters
+    - Constructor accepting a struct with intersection-typed property
+    """
+    from jsii_calc.intersection import (
+        ConsumesIntersection,
+        ISomething,
+        IntersectionProps,
+    )
+
+    # Verify all exported types are accessible
+    assert ConsumesIntersection is not None
+    assert ISomething is not None
+    assert IntersectionProps is not None
+
+    # Create an object that satisfies both ISomething and IFriendly
+    @jsii.implements(ISomething)
+    class FriendlyThing:
+        def something(self):
+            return 42
+
+        def hello(self):
+            return "hi there"
+
+    thing = FriendlyThing()
+
+    # Call static method with intersection-typed parameter
+    ConsumesIntersection.accepts_intersection(thing)
+
+    # Call static method with struct containing intersection-typed property
+    ConsumesIntersection.accepts_prop_with_intersection(param=thing)
+
+    # Instantiate via constructor that takes the struct
+    instance = ConsumesIntersection(param=thing)
+    assert instance is not None

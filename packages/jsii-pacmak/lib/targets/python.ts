@@ -2216,6 +2216,21 @@ class PythonModule implements PythonType {
         });
       }
 
+      // Emit intersection type helper classes inside the else branch,
+      // using factory calls for same-module deferred base classes.
+      context.intersectionTypes.flushHelperTypes(code, deferredSet);
+
+      // Emit protocol stripper for intersection helpers inside the else branch
+      // (they reference the intersection helper classes just defined above).
+      const intersectionProtocols = context.intersectionTypes.typeNames;
+      if (intersectionProtocols.length > 0) {
+        code.line('');
+        code.line(`for cls in [${intersectionProtocols.join(', ')}]:`);
+        code.line(
+          `    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+        );
+      }
+
       // Emit _LAZY_CLASSES dict inside the else branch
       code.line();
       code.indent('_LAZY_CLASSES = {');
@@ -2422,7 +2437,13 @@ class PythonModule implements PythonType {
     }
 
     context.typeCheckingHelper.flushStubs(code);
-    context.intersectionTypes.flushHelperTypes(code);
+
+    // Intersection helper types are emitted inside the else: block when
+    // deferred members exist (see above). Only flush them here for the
+    // eagerly-loaded path (no deferred members).
+    if (deferredClassNames.length === 0) {
+      context.intersectionTypes.flushHelperTypes(code);
+    }
 
     const deferredClassNamesSet = new Set(deferredClassNames);
     const interfaces = this.members
@@ -2430,10 +2451,16 @@ class PythonModule implements PythonType {
       .filter((m) => !deferredClassNamesSet.has(m.pythonName))
       .map((m) => m.pythonName);
 
-    this.emitProtocolStripper(code, [
-      ...interfaces,
-      ...context.intersectionTypes.typeNames,
-    ]);
+    // When deferred members exist, intersection protocol stripping is
+    // handled inside the else: block. Only emit it here for eager path.
+    if (deferredClassNames.length === 0) {
+      this.emitProtocolStripper(code, [
+        ...interfaces,
+        ...context.intersectionTypes.typeNames,
+      ]);
+    } else {
+      this.emitProtocolStripper(code, interfaces);
+    }
   }
 
   /**
