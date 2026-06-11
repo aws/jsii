@@ -641,7 +641,7 @@ export class Kernel {
 
     switch (typeinfo.kind) {
       case spec.TypeKind.Class:
-        const classType = typeinfo as spec.ClassType;
+        const classType = typeinfo;
         this.#validateMethodArguments(classType.initializer, args);
         return {
           ctor: this.#findSymbol(fqn),
@@ -1248,11 +1248,11 @@ export class Kernel {
       let bases;
 
       if (spec.isClassType(typeInfo)) {
-        const classTypeInfo = typeInfo as spec.ClassType;
+        const classTypeInfo = typeInfo;
         properties = classTypeInfo.properties;
         bases = classTypeInfo.base ? [classTypeInfo.base] : [];
       } else if (spec.isInterfaceType(typeInfo)) {
-        const interfaceTypeInfo = typeInfo as spec.InterfaceType;
+        const interfaceTypeInfo = typeInfo;
         properties = interfaceTypeInfo.properties;
         bases = interfaceTypeInfo.interfaces ?? [];
       } else {

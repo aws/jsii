@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "jsii-pacmak": "^0.0.0",
-    "typescript": "5.9.x"
+    "typescript": "6.x"
   },
   "dependencies": {
     "@jsii/go-runtime": "^0.0.0",

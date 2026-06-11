@@ -1,6 +1,6 @@
-import prompt from './prompt';
-import { readFilePromise } from './util';
-import validatePackageJson from './validate';
+import prompt from './prompt.ts';
+import { readFilePromise } from './util.ts';
+import validatePackageJson from './validate.ts';
 
 export default async function jsiiConfig(packageJsonLocation: string) {
   const manifest = await readFilePromise(packageJsonLocation);
