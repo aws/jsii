@@ -23,7 +23,7 @@ import jsii._embedded.jsii
 
 from ...__meta__ import __jsii_runtime_version__
 import importlib.resources
-from ..._stack_trace import capture_stack_trace
+from ..._stack_trace import capture_stack_trace, is_enabled as _stack_traces_enabled
 from ..._utils import memoized_property
 from .base import BaseProvider
 from ..types import (
@@ -323,9 +323,10 @@ class _NodeProcess:
     ) -> KernelResponse:
         req_dict = self._serializer.unstructure(request)
 
-        stack_trace = capture_stack_trace()
-        if stack_trace is not None:
-            req_dict["$jsii.stacktrace"] = stack_trace
+        if _stack_traces_enabled():
+            stack_trace = capture_stack_trace()
+            if stack_trace is not None:
+                req_dict["$jsii.stacktrace"] = stack_trace
 
         data = json.dumps(req_dict, default=jdefault).encode("utf8")
 

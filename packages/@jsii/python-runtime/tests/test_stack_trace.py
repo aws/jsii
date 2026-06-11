@@ -1,27 +1,38 @@
 import os
 import pytest
 
-from jsii._stack_trace import capture_stack_trace
+from jsii._stack_trace import capture_stack_trace, is_enabled
 
 
-@pytest.fixture(autouse=True)
-def disable_stack_traces():
-    """Ensure each test starts with stack traces disabled."""
-    os.environ["JSII_HOST_STACK_TRACES"] = ""
+class TestIsEnabled:
+    def test_disabled_when_not_set(self, monkeypatch):
+        monkeypatch.delenv("JSII_HOST_STACK_TRACES", raising=False)
+        assert is_enabled() is False
+
+    def test_enabled_with_1(self, monkeypatch):
+        monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
+        assert is_enabled() is True
+
+    def test_enabled_with_true(self, monkeypatch):
+        monkeypatch.setenv("JSII_HOST_STACK_TRACES", "true")
+        assert is_enabled() is True
+
+    def test_enabled_with_yes(self, monkeypatch):
+        monkeypatch.setenv("JSII_HOST_STACK_TRACES", "yes")
+        assert is_enabled() is True
+
+    def test_disabled_with_other_value(self, monkeypatch):
+        monkeypatch.setenv("JSII_HOST_STACK_TRACES", "0")
+        assert is_enabled() is False
 
 
 class TestCaptureStackTrace:
-    def test_returns_none_when_disabled(self):
-        assert capture_stack_trace() is None
-
-    def test_returns_frames_when_enabled(self):
-        os.environ["JSII_HOST_STACK_TRACES"] = "1"
+    def test_returns_frames(self):
         result = capture_stack_trace()
         assert result is not None
         assert len(result) > 0
 
     def test_frame_format(self):
-        os.environ["JSII_HOST_STACK_TRACES"] = "true"
         result = capture_stack_trace()
         assert result is not None
         for frame in result:
@@ -34,8 +45,6 @@ class TestCaptureStackTrace:
             assert col == 0
 
     def test_most_recent_frame_first(self):
-        os.environ["JSII_HOST_STACK_TRACES"] = "yes"
-
         def outer():
             def inner():
                 return capture_stack_trace()
@@ -50,7 +59,6 @@ class TestCaptureStackTrace:
         assert inner_idx < outer_idx
 
     def test_filters_jsii_internal_frames(self):
-        os.environ["JSII_HOST_STACK_TRACES"] = "1"
         result = capture_stack_trace()
         assert result is not None
         jsii_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
@@ -58,14 +66,12 @@ class TestCaptureStackTrace:
             assert not frame[0].startswith(os.path.join(jsii_dir, "jsii") + os.sep)
 
     def test_filters_synthetic_frames(self):
-        os.environ["JSII_HOST_STACK_TRACES"] = "1"
         result = capture_stack_trace()
         assert result is not None
         for frame in result:
             assert not frame[0].startswith("<")
 
     def test_this_file_appears_in_frames(self):
-        os.environ["JSII_HOST_STACK_TRACES"] = "1"
         result = capture_stack_trace()
         assert result is not None
         files = [frame[0] for frame in result]

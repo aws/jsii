@@ -5,18 +5,20 @@ from typing import List, Optional
 _INTERNAL_PREFIXES = (os.path.dirname(os.path.abspath(__file__)) + os.sep,)
 
 
+def is_enabled() -> bool:
+    """Check whether host stack trace capture is enabled via the environment."""
+    return os.environ.get("JSII_HOST_STACK_TRACES", "").lower() in ("1", "true", "yes")
+
+
 def capture_stack_trace() -> Optional[List[List]]:
     """Capture the current Python stack trace, filtered to user frames only.
 
     Returns a list of [file, line, column, function] tuples suitable for
-    sending over the jsii wire protocol, or None if stack trace capture
-    is disabled via the JSII_HOST_STACK_TRACES environment variable.
+    sending over the jsii wire protocol, or None if no user frames remain
+    after filtering.
 
     Frames are ordered most-recent-first (matching V8 Error.stack convention).
     """
-    if os.environ.get("JSII_HOST_STACK_TRACES", "").lower() not in ("1", "true", "yes"):
-        return None
-
     frames = traceback.extract_stack()
     result = []
 
@@ -25,10 +27,7 @@ def capture_stack_trace() -> Optional[List[List]]:
             continue
         if frame.filename.startswith("<"):
             continue
-        colno = frame.colno if frame.colno is not None else 0
-        result.append([frame.filename, frame.lineno, colno, frame.name])
+        result.append([frame.filename, frame.lineno, 0, frame.name])
 
-    # The last line is the call to the jsii runtime, which is never interesting to the user
-    result.pop()
     result.reverse()
     return result if result else None
