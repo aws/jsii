@@ -42,7 +42,7 @@ test('sets host stack trace on global during request processing', () => {
 });
 
 test('host stack trace is undefined when not provided in request', () => {
-  const inout = new SpyInputOutput([{ api: 'stats' } as any]);
+  const inout = new SpyInputOutput([{ api: 'stats' }]);
 
   const host = new KernelHost(inout, { noStack: true });
   return new Promise<void>((ok) => {

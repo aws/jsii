@@ -1437,6 +1437,7 @@ def test_host_stack_trace_not_passed_when_disabled(monkeypatch):
     trace = HostStackTraceReader.captured_trace()
     assert trace is None
 
+
 def test_host_stack_trace_through_callback(monkeypatch):
     monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
     from jsii_calc import CallbackStackTraceTest
@@ -1456,8 +1457,8 @@ def test_host_stack_trace_through_callback(monkeypatch):
     last_calls = [frame[3] for frame in trace][:4]
 
     assert last_calls == [
-        'captured_trace',
-        '_callback_provider',
-        'invoke_callback',
-        'test_host_stack_trace_through_callback'
+        "captured_trace",
+        "_callback_provider",
+        "invoke_callback",
+        "test_host_stack_trace_through_callback",
     ]
