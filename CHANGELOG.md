@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.135.0](https://github.com/aws/jsii/compare/v1.134.0...v1.135.0) (2026-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **python:** require Python 3.10+ in modules and update runtime dependencies (#5135)
+
+### Features
+
+* add support for jsii-rosetta 6.0 ([#5154](https://github.com/aws/jsii/issues/5154)) ([8f4d9f5](https://github.com/aws/jsii/commit/8f4d9f5933a00ba2e0b86b086b8ed91841563cc5))
+* replace eager submodule imports with lazy loading ([#5110](https://github.com/aws/jsii/issues/5110)) ([2ad8838](https://github.com/aws/jsii/commit/2ad88388e1c8fbed76858da8f482e5e6bca34f74)), closes [40jsii/python-runtime/tests/test_compliance.py#L1331](https://github.com/40jsii/python-runtime/tests/test_compliance.py/issues/L1331)
+
+
+### Bug Fixes
+
+* centralize and lazy-load typeguard to improve Python import times ([#5137](https://github.com/aws/jsii/issues/5137)) ([f768c2f](https://github.com/aws/jsii/commit/f768c2f30731d39a3a793cb388c5b4f0f1dc410f))
+* **java-runtime:** javax.annotation-api leaks onto consumers' runtime classpath ([#5140](https://github.com/aws/jsii/issues/5140)) ([97f68da](https://github.com/aws/jsii/commit/97f68da9245eaea50fc050691bbf66aa84a81f77)), closes [#5136](https://github.com/aws/jsii/issues/5136)
+* **java-runtime:** org.jetbrains:annotations leaks onto consumers' runtime classpath ([#5136](https://github.com/aws/jsii/issues/5136)) ([16727a6](https://github.com/aws/jsii/commit/16727a67011af2210c02081d62b5680af5cebc27))
+* **pacmak:** annotation deps leak onto consumers' runtime classpath ([#5146](https://github.com/aws/jsii/issues/5146)) ([4b9f3c0](https://github.com/aws/jsii/commit/4b9f3c04e39e1810b7fbf7a5545c132033c2923f)), closes [#5136](https://github.com/aws/jsii/issues/5136) [#5140](https://github.com/aws/jsii/issues/5140)
+* **python:** require Python 3.10+ in modules and update runtime dependencies ([#5135](https://github.com/aws/jsii/issues/5135)) ([e14cd30](https://github.com/aws/jsii/commit/e14cd30cbf62a271d7dfc97154e77d84071e7024)), closes [#5094](https://github.com/aws/jsii/issues/5094) [#5130](https://github.com/aws/jsii/issues/5130)
+
 ## [1.134.0](https://github.com/aws/jsii/compare/v1.133.0...v1.134.0) (2026-06-03)
 
 
