@@ -1100,6 +1100,18 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: Optional<number>
  │   │   └─┬ unionProperty property (stable)
  │   │     └── type: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
+ │   ├─┬ class CallbackStackTraceTest (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ callbackProvider() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ ├── protected
+ │   │   │ └── returns: any
+ │   │   ├─┬ invokeCallback() method (stable)
+ │   │   │ └── returns: void
+ │   │   └─┬ traceFromCallback property (stable)
+ │   │     ├── immutable
+ │   │     └── type: any
  │   ├─┬ class ClassThatImplementsTheInternalInterface (stable)
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
@@ -4174,6 +4186,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class BurriedAnonymousObject
  │   ├─┬ class Calculator
  │   │ └── base: CompositeOperation
+ │   ├── class CallbackStackTraceTest
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ └── interfaces: INonInternalInterface
  │   ├─┬ class ClassThatImplementsThePrivateInterface
@@ -5064,6 +5077,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── curr property
  │   │   ├── maxValue property
  │   │   └── unionProperty property
+ │   ├─┬ class CallbackStackTraceTest
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── callbackProvider() method
+ │   │   ├── invokeCallback() method
+ │   │   └── traceFromCallback property
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -6569,6 +6588,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class BinaryOperation
  │   ├── class BurriedAnonymousObject
  │   ├── class Calculator
+ │   ├── class CallbackStackTraceTest
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithCollectionOfUnions

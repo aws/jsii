@@ -1295,6 +1295,18 @@ exports[`showAll 1`] = `
  │   │   │ └── type: Optional<number>
  │   │   └─┬ unionProperty property
  │   │     └── type: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
+ │   ├─┬ class CallbackStackTraceTest
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ callbackProvider() method
+ │   │   │ ├── abstract
+ │   │   │ ├── protected
+ │   │   │ └── returns: any
+ │   │   ├─┬ invokeCallback() method
+ │   │   │ └── returns: void
+ │   │   └─┬ traceFromCallback property
+ │   │     ├── immutable
+ │   │     └── type: any
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
@@ -4385,6 +4397,7 @@ exports[`types 1`] = `
  │   ├── class BinaryOperation
  │   ├── class BurriedAnonymousObject
  │   ├── class Calculator
+ │   ├── class CallbackStackTraceTest
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithCollectionOfUnions

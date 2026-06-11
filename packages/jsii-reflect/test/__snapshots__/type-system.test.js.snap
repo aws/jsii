@@ -44,6 +44,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.BinaryOperation",
   "jsii-calc.BurriedAnonymousObject",
   "jsii-calc.Calculator",
+  "jsii-calc.CallbackStackTraceTest",
   "jsii-calc.ClassThatImplementsTheInternalInterface",
   "jsii-calc.ClassThatImplementsThePrivateInterface",
   "jsii-calc.ClassWithCollectionOfUnions",

@@ -2832,6 +2832,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 BurriedAnonymousObject.go
        ┣━ 📄 Calculator.go
        ┣━ 📄 CalculatorProps.go
+       ┣━ 📄 CallbackStackTraceTest.go
        ┣━ 📁 cdk16625
        ┃  ┣━ 📄 Cdk16625.go
        ┃  ┣━ 📁 donotimport
@@ -5278,6 +5279,85 @@ type CalculatorProps struct {
 	// Default: none.
 	//
 	MaximumValue *float64 \`field:"optional" json:"maximumValue" yaml:"maximumValue"\`
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/CallbackStackTraceTest.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Abstract class that exercises the callback flow for stack trace propagation.
+//
+// The test pattern is:
+// 1. Host overrides \`callbackProvider()\` to call \`HostStackTraceReader.capturedTrace()\`
+//    and return the result.
+// 2. Host calls \`invokeCallback()\`, which calls back into the host.
+// 3. The host's override makes a new request to the kernel to read the trace.
+// 4. The trace captured during that nested request should reflect the host's
+//    callback call site, not the original \`invokeCallback()\` call site.
+type CallbackStackTraceTest interface {
+	// Returns the trace that was captured during the callback.
+	TraceFromCallback() interface{}
+	// Override this method.
+	//
+	// In the implementation, call
+	// \`HostStackTraceReader.capturedTrace()\` and return the result.
+	CallbackProvider() interface{}
+	// Call this from the host to trigger the callback flow.
+	InvokeCallback()
+}
+
+// The jsii proxy struct for CallbackStackTraceTest
+type jsiiProxy_CallbackStackTraceTest struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_CallbackStackTraceTest) TraceFromCallback() interface{} {
+	var returns interface{}
+	_jsii_.Get(
+		j,
+		"traceFromCallback",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewCallbackStackTraceTest_Override(c CallbackStackTraceTest) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.CallbackStackTraceTest",
+		nil, // no parameters
+		c,
+	)
+}
+
+func (c *jsiiProxy_CallbackStackTraceTest) CallbackProvider() interface{} {
+	var returns interface{}
+
+	_jsii_.Invoke(
+		c,
+		"callbackProvider",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func (c *jsiiProxy_CallbackStackTraceTest) InvokeCallback() {
+	_jsii_.InvokeVoid(
+		c,
+		"invokeCallback",
+		nil, // no parameters
+	)
 }
 
 
@@ -21348,6 +21428,18 @@ func init() {
 	_jsii_.RegisterStruct(
 		"jsii-calc.CalculatorProps",
 		reflect.TypeOf((*CalculatorProps)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.CallbackStackTraceTest",
+		reflect.TypeOf((*CallbackStackTraceTest)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "callbackProvider", GoMethod: "CallbackProvider"},
+			_jsii_.MemberMethod{JsiiMethod: "invokeCallback", GoMethod: "InvokeCallback"},
+			_jsii_.MemberProperty{JsiiProperty: "traceFromCallback", GoGetter: "TraceFromCallback"},
+		},
+		func() interface{} {
+			return &jsiiProxy_CallbackStackTraceTest{}
+		},
 	)
 	_jsii_.RegisterStruct(
 		"jsii-calc.ChildStruct982",
