@@ -34,21 +34,25 @@ final class HostStackTrace {
      *         May be empty if no user frames remain after filtering.
      */
     static ArrayNode captureFrames() {
-        StackTraceElement[] elements = new Throwable().getStackTrace();
-        ArrayNode frames = JsonNodeFactory.instance.arrayNode();
+        final StackTraceElement[] elements = new Throwable().getStackTrace();
+        final JsonNodeFactory json = JsonNodeFactory.instance;
+        final ArrayNode frames = json.arrayNode();
 
-        for (StackTraceElement element : elements) {
-            String className = element.getClassName();
+        for (final StackTraceElement element : elements) {
+            final String className = element.getClassName();
             if (className.startsWith(JSII_PACKAGE_PREFIX)) {
                 continue;
             }
-            if (element.getFileName() == null) {
+
+            final String fileName = element.getFileName();
+            final int lineNumber = element.getLineNumber();
+            if (fileName == null || lineNumber <= 0) {
                 continue;
             }
 
-            ArrayNode frame = JsonNodeFactory.instance.arrayNode();
-            frame.add(element.getFileName());
-            frame.add(element.getLineNumber());
+            final ArrayNode frame = json.arrayNode();
+            frame.add(fileName);
+            frame.add(lineNumber);
             frame.add(0);
             frame.add(className + "." + element.getMethodName());
             frames.add(frame);
