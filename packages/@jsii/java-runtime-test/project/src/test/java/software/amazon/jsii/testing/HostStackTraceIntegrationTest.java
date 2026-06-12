@@ -45,6 +45,13 @@ public final class HostStackTraceIntegrationTest {
 
         assertNotNull(trace, "Trace from callback should not be null");
         assertTrue(trace instanceof List, "Trace should be a list");
-        assertFalse(((List<?>) trace).isEmpty(), "Trace should not be empty");
+
+        List<?> frames = (List<?>) trace;
+        assertFalse(frames.isEmpty(), "Trace should not be empty");
+        for (Object frameObj : frames) {
+            assertTrue(frameObj instanceof List, "Each frame should be a 4-element list");
+            List<?> frame = (List<?>) frameObj;
+            assertEquals(4, frame.size(), "Frame should have 4 elements");
+        }
     }
 }
