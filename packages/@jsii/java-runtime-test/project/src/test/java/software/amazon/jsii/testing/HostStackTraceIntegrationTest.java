@@ -21,7 +21,14 @@ public final class HostStackTraceIntegrationTest {
         Object trace = HostStackTraceReader.capturedTrace();
         assertNotNull(trace, "Stack trace should be available when JSII_HOST_STACK_TRACES is enabled");
         assertTrue(trace instanceof List, "Stack trace should be a list of frames");
-        assertFalse(((List<?>) trace).isEmpty(), "Stack trace should not be empty");
+
+        List<?> frames = (List<?>) trace;
+        assertFalse(frames.isEmpty(), "Stack trace should not be empty");
+        for (Object frameObj : frames) {
+            assertTrue(frameObj instanceof List, "Each frame should be a 4-element list");
+            List<?> frame = (List<?>) frameObj;
+            assertEquals(4, frame.size(), "Frame should have 4 elements");
+        }
     }
 
     @Test
