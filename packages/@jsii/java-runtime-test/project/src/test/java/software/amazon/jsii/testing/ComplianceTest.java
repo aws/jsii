@@ -1846,4 +1846,31 @@ public class ComplianceTest {
         }
         assertTrue(thrown);
     }
+
+    @Test
+    public void hostStackTraceIsPassedToKernel() {
+        // JSII_HOST_STACK_TRACES=1 is set via maven-surefire-plugin configuration
+        Object trace = HostStackTraceReader.capturedTrace();
+        assertNotNull(trace, "Stack trace should be available when JSII_HOST_STACK_TRACES is enabled");
+        assertTrue(trace instanceof List, "Stack trace should be a list of frames");
+        assertFalse(((List<?>) trace).isEmpty(), "Stack trace should not be empty");
+    }
+
+    @Test
+    public void hostStackTraceThroughCallback() {
+        // JSII_HOST_STACK_TRACES=1 is set via maven-surefire-plugin configuration
+        CallbackStackTraceTest obj = new CallbackStackTraceTest() {
+            @Override
+            protected Object callbackProvider() {
+                return HostStackTraceReader.capturedTrace();
+            }
+        };
+
+        obj.invokeCallback();
+        Object trace = obj.getTraceFromCallback();
+
+        assertNotNull(trace, "Trace from callback should not be null");
+        assertTrue(trace instanceof List, "Trace should be a list");
+        assertFalse(((List<?>) trace).isEmpty(), "Trace should not be empty");
+    }
 }

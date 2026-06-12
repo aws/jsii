@@ -103,6 +103,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
+                <configuration>
+                    <environmentVariables>
+                        <JSII_HOST_STACK_TRACES>1</JSII_HOST_STACK_TRACES>
+                    </environmentVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

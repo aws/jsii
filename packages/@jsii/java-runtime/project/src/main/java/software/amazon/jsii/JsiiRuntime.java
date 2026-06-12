@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -101,6 +102,14 @@ public final class JsiiRuntime {
      */
     JsonNode requestResponse(final JsonNode request) {
         try {
+            // Attach host stack trace if enabled
+            if (HostStackTrace.isEnabled() && request instanceof ObjectNode) {
+                ArrayNode stackTrace = HostStackTrace.captureFrames();
+                if (stackTrace.size() > 0) {
+                    ((ObjectNode) request).set("$jsii.stacktrace", stackTrace);
+                }
+            }
+
             JsiiRuntime.notifyInspector(request, MessageInspector.MessageType.Request);
 
             // write request
