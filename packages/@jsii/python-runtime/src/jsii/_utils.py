@@ -69,3 +69,39 @@ class _LazyImport:
         if self._package:
             return f"_LazyImport({self._module_name!r}, {self._package!r})"
         return f"_LazyImport({self._module_name!r})"
+
+
+class _TypeCheckingNamespace(dict):
+    """A dict subclass that lazily resolves deferred class names on first access.
+
+    Used as the ``globalns`` or ``localns`` argument to
+    ``typing.get_type_hints()`` in jsii-pacmak generated code. When Python's
+    ``ForwardRef._evaluate`` calls ``eval(code, globalns, localns)``, name
+    lookups that miss the dict trigger ``__missing__``, which calls the
+    corresponding factory function from ``_LAZY_CLASSES`` to materialize only
+    the class that is actually needed — without eagerly building every deferred
+    class in the module.
+
+    Two separate instances are used as ``globalns`` and ``localns`` so that
+    ``localns is not globalns`` evaluates to ``True``. This prevents CPython
+    3.12-3.13's ``ForwardRef`` from reusing a cached evaluation result from a
+    sibling module that has a type with the same name (the homonymous forward
+    reference caching bug, see https://github.com/aws/jsii/issues/3818).
+
+    On CPython 3.12-3.13, the ``dict()`` conversion inside
+    ``ForwardRef._evaluate`` only triggers when ``type_params`` is truthy (i.e.,
+    for generic functions/classes with ``TypeVar``/``ParamSpec``). jsii
+    type-checking stubs are plain non-generic functions, so ``__missing__`` is
+    always honoured by ``eval()``.
+    """
+
+    def __init__(self, module_globals: "dict[str, Any]", lazy_classes: "dict[str, Any]") -> None:
+        super().__init__(module_globals)
+        self._lazy_classes = lazy_classes
+
+    def __missing__(self, key: str) -> Any:
+        if key in self._lazy_classes:
+            cls = self._lazy_classes[key]()
+            self[key] = cls
+            return cls
+        raise KeyError(key)

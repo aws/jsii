@@ -1613,25 +1613,19 @@ setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 if __debug__:
-    _typechecking_ns: "dict[str, object] | None" = None
-    _typechecking_localns: "dict[str, object] | None" = None
+    _typechecking_ns: "jsii._TypeCheckingNamespace | None" = None
+    _typechecking_localns: "jsii._TypeCheckingNamespace | None" = None
 
     def _get_typechecking_ns() -> "dict[str, object]":
         global _typechecking_ns
         if _typechecking_ns is None:
-            ns = dict(globals())
-            for name, factory in _LAZY_CLASSES.items():
-                ns[name] = factory()
-            _typechecking_ns = ns
+            _typechecking_ns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)
         return _typechecking_ns
 
     def _get_typechecking_localns() -> "dict[str, object]":
         global _typechecking_localns
         if _typechecking_localns is None:
-            ns = dict(globals())
-            for name, factory in _LAZY_CLASSES.items():
-                ns[name] = factory()
-            _typechecking_localns = ns
+            _typechecking_localns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)
         return _typechecking_localns
 
 def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
@@ -3118,25 +3112,19 @@ setattr(_sys.modules[__name__], "__getattr__", __getattr__)
 setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 if __debug__:
-    _typechecking_ns: "dict[str, object] | None" = None
-    _typechecking_localns: "dict[str, object] | None" = None
+    _typechecking_ns: "jsii._TypeCheckingNamespace | None" = None
+    _typechecking_localns: "jsii._TypeCheckingNamespace | None" = None
 
     def _get_typechecking_ns() -> "dict[str, object]":
         global _typechecking_ns
         if _typechecking_ns is None:
-            ns = dict(globals())
-            for name, factory in _LAZY_CLASSES.items():
-                ns[name] = factory()
-            _typechecking_ns = ns
+            _typechecking_ns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)
         return _typechecking_ns
 
     def _get_typechecking_localns() -> "dict[str, object]":
         global _typechecking_localns
         if _typechecking_localns is None:
-            ns = dict(globals())
-            for name, factory in _LAZY_CLASSES.items():
-                ns[name] = factory()
-            _typechecking_localns = ns
+            _typechecking_localns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)
         return _typechecking_localns
 
 def _typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9(

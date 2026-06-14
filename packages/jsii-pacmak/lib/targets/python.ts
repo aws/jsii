@@ -2392,30 +2392,25 @@ class PythonModule implements PythonType {
     }
 
     // Emit lazy-resolving namespace getters for typing.get_type_hints() when
-    // deferred classes exist. The namespaces are built on first use (not at
-    // module load time) so that importing a module does not eagerly
-    // materialize all deferred classes. The cost is deferred to the first
-    // runtime type-check call (inside `if __debug__:` blocks).
+    // deferred classes exist. The namespaces use a dict subclass with
+    // __missing__ that materializes only the class actually referenced in a
+    // type-check stub — not every deferred class in the module.
     if (deferredClassNames.length > 0) {
       code.line();
-      // We cannot use a dict subclass with __missing__ because Python 3.14's
-      // ForwardRef.evaluate() converts globals to a plain dict via
-      // `globals = dict(globals)` when the owner has __type_params__ (even if
-      // empty), which strips any custom __missing__ behavior.
-      // Instead, we build a plain dict with all deferred classes pre-resolved,
-      // but only when first needed.
       code.openBlock('if __debug__');
-      code.line('_typechecking_ns: "dict[str, object] | None" = None');
-      code.line('_typechecking_localns: "dict[str, object] | None" = None');
+      code.line(
+        '_typechecking_ns: "jsii._TypeCheckingNamespace | None" = None',
+      );
+      code.line(
+        '_typechecking_localns: "jsii._TypeCheckingNamespace | None" = None',
+      );
       code.line();
       code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
       code.line('global _typechecking_ns');
       code.openBlock('if _typechecking_ns is None');
-      code.line('ns = dict(globals())');
-      code.openBlock('for name, factory in _LAZY_CLASSES.items()');
-      code.line('ns[name] = factory()');
-      code.closeBlock();
-      code.line('_typechecking_ns = ns');
+      code.line(
+        '_typechecking_ns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
+      );
       code.closeBlock();
       code.line('return _typechecking_ns');
       code.closeBlock();
@@ -2428,11 +2423,9 @@ class PythonModule implements PythonType {
       code.openBlock('def _get_typechecking_localns() -> "dict[str, object]"');
       code.line('global _typechecking_localns');
       code.openBlock('if _typechecking_localns is None');
-      code.line('ns = dict(globals())');
-      code.openBlock('for name, factory in _LAZY_CLASSES.items()');
-      code.line('ns[name] = factory()');
-      code.closeBlock();
-      code.line('_typechecking_localns = ns');
+      code.line(
+        '_typechecking_localns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
+      );
       code.closeBlock();
       code.line('return _typechecking_localns');
       code.closeBlock();
