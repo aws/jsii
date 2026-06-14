@@ -137,13 +137,23 @@ def _try_import_type_module(class_fqn: str) -> bool:
     python_module, type_parts = result
 
     # If the type is already registered (eager code path), we're done.
-    if class_fqn in _types or class_fqn in _data_types or class_fqn in _enums or class_fqn in _interfaces:
+    if (
+        class_fqn in _types
+        or class_fqn in _data_types
+        or class_fqn in _enums
+        or class_fqn in _interfaces
+    ):
         return True
 
     # Phase 2: Type not registered yet — traverse the module to trigger
     # lazy factories, then check registration.
     if _resolve_type_on_module(python_module, type_parts):
-        return class_fqn in _types or class_fqn in _data_types or class_fqn in _enums or class_fqn in _interfaces
+        return (
+            class_fqn in _types
+            or class_fqn in _data_types
+            or class_fqn in _enums
+            or class_fqn in _interfaces
+        )
 
     return False
 
