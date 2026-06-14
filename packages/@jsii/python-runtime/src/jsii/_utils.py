@@ -95,7 +95,9 @@ class _TypeCheckingNamespace(dict):
     always honoured by ``eval()``.
     """
 
-    def __init__(self, module_globals: "dict[str, Any]", lazy_classes: "dict[str, Any]") -> None:
+    def __init__(
+        self, module_globals: "dict[str, Any]", lazy_classes: "dict[str, Any]"
+    ) -> None:
         super().__init__(module_globals)
         self._lazy_classes = lazy_classes
 
