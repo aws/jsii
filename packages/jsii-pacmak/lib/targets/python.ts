@@ -2394,13 +2394,12 @@ class PythonModule implements PythonType {
     // Emit lazy-resolving namespace getter for typing.get_type_hints() when
     // deferred classes exist.
     //
-    // On Python 3.12-3.13: Uses _TypeCheckingNamespace (dict subclass with
-    // __missing__) so only the classes actually referenced in a type-check
-    // stub are materialized on demand.
+    // Uses _TypeCheckingNamespace which combines two lazy resolution mechanisms:
+    // 1. __missing__ on the dict itself (works on 3.12-3.13 where eval() triggers it)
+    // 2. A __builtins__ entry with _LazyBuiltins (works on 3.14+ where eval()
+    //    falls through to builtins after failing globals/locals lookup)
     //
-    // On Python 3.14+: ForwardRef.evaluate() bypasses our globalns/localns
-    // and resolves names directly from the module's __dict__. We must
-    // pre-populate globals() with all deferred classes so they're findable.
+    // This provides fully lazy, per-class-on-demand resolution across all versions.
     //
     // The homonymous ForwardRef caching bug (where interned Union objects share
     // a ForwardRef across modules) is avoided by emitting entire type annotations
@@ -2408,28 +2407,16 @@ class PythonModule implements PythonType {
     if (deferredClassNames.length > 0) {
       code.line();
       code.openBlock('if __debug__');
-      code.line('import sys as _sys_ver');
       code.line(
-        '_typechecking_ns: "jsii._TypeCheckingNamespace | dict[str, object] | None" = None',
+        '_typechecking_ns: "jsii._TypeCheckingNamespace | None" = None',
       );
       code.line();
       code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
       code.line('global _typechecking_ns');
       code.openBlock('if _typechecking_ns is None');
-      // On 3.14+, ForwardRef.evaluate() looks directly at the module's
-      // __dict__ (ignoring our globalns). Pre-populate globals() with all
-      // deferred classes so they're accessible.
-      code.openBlock('if _sys_ver.version_info >= (3, 14)');
-      code.openBlock('for _name, _factory in _LAZY_CLASSES.items()');
-      code.line('globals().setdefault(_name, _factory())');
-      code.closeBlock();
-      code.line('_typechecking_ns = globals()');
-      code.closeBlock();
-      code.openBlock('else');
       code.line(
         '_typechecking_ns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
       );
-      code.closeBlock();
       code.closeBlock();
       code.line('return _typechecking_ns');
       code.closeBlock();

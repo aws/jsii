@@ -71,22 +71,48 @@ class _LazyImport:
         return f"_LazyImport({self._module_name!r})"
 
 
+class _LazyBuiltins(dict):
+    """A builtins dict that lazily materializes deferred classes on lookup.
+
+    CPython's ``eval()`` checks builtins as a fallback after globals and locals.
+    Unlike globals/locals lookups (which use C-level ``PyDict_GetItemWithError``
+    and bypass ``__missing__``), the builtins lookup uses ``PyObject_GetItem``
+    which triggers Python-level ``__missing__`` on dict subclasses.
+
+    This is used as the ``__builtins__`` value inside the namespace passed to
+    ``typing.get_type_hints()``, providing lazy class resolution that works
+    across all Python versions (3.12+).
+    """
+
+    def __init__(
+        self, base: "dict[str, Any]", lazy_classes: "dict[str, Any]"
+    ) -> None:
+        super().__init__(base)
+        self._lazy_classes = lazy_classes
+
+    def __missing__(self, key: str) -> Any:
+        if key in self._lazy_classes:
+            cls = self._lazy_classes[key]()
+            self[key] = cls
+            return cls
+        raise KeyError(key)
+
+
 class _TypeCheckingNamespace(dict):
-    """A dict subclass that lazily resolves deferred class names on first access.
+    """A namespace dict for ``typing.get_type_hints()`` that lazily resolves
+    deferred class names.
 
-    Used as the ``globalns`` argument to ``typing.get_type_hints()`` in
-    jsii-pacmak generated code.
+    Combines two mechanisms for cross-version compatibility:
 
-    On CPython 3.12-3.13, ``ForwardRef._evaluate`` calls
-    ``eval(code, globalns, localns)`` which triggers ``__missing__`` on dict
-    lookups for keys not yet present.
+    1. ``__missing__`` + ``__contains__`` on this dict — works on Python 3.12-3.13
+       where ``eval()`` triggers ``__missing__`` on the globals dict, and on 3.14
+       for simple identifier annotations (ForwardRef fast path).
 
-    On CPython 3.14+, ``ForwardRef.evaluate()`` no longer uses ``eval()``.
-    Instead it performs explicit ``if arg in locals`` / ``if arg in globals``
-    checks followed by direct ``[]`` access. The ``in`` operator calls
-    ``__contains__``, so we override it to report ``True`` for any key that
-    has a lazy factory — ensuring the subsequent ``[]`` access triggers
-    ``__missing__`` which materializes the class.
+    2. A ``__builtins__`` entry containing a ``_LazyBuiltins`` dict — works on
+       Python 3.14+ for complex annotations (e.g. ``typing.Union[Struct, ...]``)
+       where ``ForwardRef.evaluate()`` copies locals into a plain dict and
+       ``eval()`` no longer triggers ``__missing__`` on globals. The builtins
+       fallback uses ``PyObject_GetItem`` which does trigger ``__missing__``.
 
     The homonymous ForwardRef caching bug (where interned Union objects cause
     cross-module contamination) is avoided by emitting entire type annotations
@@ -99,6 +125,11 @@ class _TypeCheckingNamespace(dict):
     ) -> None:
         super().__init__(module_globals)
         self._lazy_classes = lazy_classes
+        # Install lazy builtins so eval() can resolve deferred classes
+        # via the builtins fallback (works on all Python versions).
+        import builtins as _builtins
+
+        self["__builtins__"] = _LazyBuiltins(vars(_builtins), lazy_classes)
 
     def __missing__(self, key: str) -> Any:
         if key in self._lazy_classes:
@@ -109,8 +140,8 @@ class _TypeCheckingNamespace(dict):
 
     def __contains__(self, key: object) -> bool:
         # Python 3.14's ForwardRef.evaluate() uses `arg in globals` before
-        # doing `globals[arg]`. We must report True for lazy class names so
-        # the subsequent __getitem__ triggers __missing__.
+        # doing `globals[arg]` for simple identifiers. We must report True
+        # for lazy class names so the subsequent __getitem__ triggers __missing__.
         if super().__contains__(key):
             return True
         if isinstance(key, str) and key in self._lazy_classes:
