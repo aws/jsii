@@ -9,6 +9,7 @@ queue_rules:
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     merge_conditions:
+      - label!=pr/no-squash
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     commit_message_template: |-
@@ -24,6 +25,7 @@ queue_rules:
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     merge_conditions:
+      - label=pr/no-squash
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
     commit_message_template: |-
