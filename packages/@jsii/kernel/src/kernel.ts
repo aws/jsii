@@ -69,7 +69,7 @@ export class Kernel {
   readonly #serializerHost: wire.SerializerHost;
 
   #nextid = 20000; // incrementing counter for objid, cbid, promiseid
-  #syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
+  #syncInProgress?: string | (() => string); // forbids async calls (begin) while processing sync calls (get/set/invoke)
   #installDir?: string;
   /** The internal require function, used instead of the global "require" so that webpack does not transform it... */
   #require?: typeof require;
@@ -311,11 +311,15 @@ export class Kernel {
     // make the actual "get", and block any async calls that might be performed
     // by jsii overrides.
     const value = this.#ensureSync(
-      `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
+      () => `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
       () => instance[propertyToGet],
     );
     this.#debug('value:', value);
-    const ret = this.#fromSandbox(value, ti, `of property ${fqn}.${property}`);
+    const ret = this.#fromSandbox(
+      value,
+      ti,
+      () => `of property ${fqn}.${property}`,
+    );
     this.#debug('ret:', ret);
     return { value: ret };
   }
@@ -336,12 +340,12 @@ export class Kernel {
     const propertyToSet = this.#findPropertyTarget(instance, property);
 
     this.#ensureSync(
-      `property '${objref[TOKEN_REF]}.${propertyToSet}'`,
+      () => `property '${objref[TOKEN_REF]}.${propertyToSet}'`,
       () =>
         (instance[propertyToSet] = this.#toSandbox(
           value,
           propInfo,
-          `assigned to property ${fqn}.${property}`,
+          () => `assigned to property ${fqn}.${property}`,
         )),
     );
 
@@ -362,13 +366,13 @@ export class Kernel {
 
     const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
     const ret = this.#ensureSync(
-      `method '${objref[TOKEN_REF]}.${method}'`,
+      () => `method '${objref[TOKEN_REF]}.${method}'`,
       () => {
         return fn.apply(
           obj,
           this.#toSandboxValues(
             args,
-            `method ${fqn ? `${fqn}#` : ''}${method}`,
+            () => `method ${fqn ? `${fqn}#` : ''}${method}`,
             ti.parameters,
           ),
         );
@@ -378,7 +382,7 @@ export class Kernel {
     const result = this.#fromSandbox(
       ret,
       ti.returns ?? 'void',
-      `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
+      () => `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
     );
     this.#debug('invoke result', result);
 
@@ -433,8 +437,12 @@ export class Kernel {
     this.#debug('begin', objref, method, args);
 
     if (this.#syncInProgress) {
+      const inProgress =
+        typeof this.#syncInProgress === 'function'
+          ? this.#syncInProgress()
+          : this.#syncInProgress;
       throw new JsiiFault(
-        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.#syncInProgress} is being processed`,
+        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${inProgress} is being processed`,
       );
     }
 
@@ -682,7 +690,7 @@ export class Kernel {
     const obj = new ctor(
       ...this.#toSandboxValues(
         requestArgs,
-        `new ${fqn}`,
+        () => `new ${fqn}`,
         ctorResult.parameters,
       ),
     );
@@ -1120,24 +1128,42 @@ export class Kernel {
   }
 
   #typeInfoForFqn(fqn: spec.FQN): spec.Type {
+    const fqnInfo = this.#tryTypeInfoForFqn(fqn);
+    if (!fqnInfo) {
+      // Reproduce the more specific error messages on the (cold) failure path.
+      const moduleName = fqn.split('.')[0];
+      if (!this.#assemblies.has(moduleName)) {
+        throw new JsiiFault(`Module '${moduleName}' not found`);
+      }
+      throw new JsiiFault(`Type '${fqn}' not found`);
+    }
+    return fqnInfo;
+  }
+
+  /**
+   * Like {@link #typeInfoForFqn}, but returns `undefined` instead of throwing
+   * when the FQN does not correspond to a known exported type. This lets
+   * callers that only need to test for existence (e.g. {@link #isVisibleType})
+   * avoid the cost of throwing and catching exceptions on the hot path.
+   */
+  #tryTypeInfoForFqn(fqn: spec.FQN): spec.Type | undefined {
     // Check cache first for O(1) lookup
     const cached = this.#typeCache.get(fqn);
     if (cached) {
       return cached;
     }
 
-    const components = fqn.split('.');
-    const moduleName = components[0];
+    const moduleName = fqn.split('.')[0];
 
     const assembly = this.#assemblies.get(moduleName);
     if (!assembly) {
-      throw new JsiiFault(`Module '${moduleName}' not found`);
+      return undefined;
     }
 
     const types = assembly.metadata.types ?? {};
     const fqnInfo = types[fqn];
     if (!fqnInfo) {
-      throw new JsiiFault(`Type '${fqn}' not found`);
+      return undefined;
     }
 
     // Cache for subsequent lookups (callers must not mutate returned objects)
@@ -1154,15 +1180,7 @@ export class Kernel {
    * @returns `true` IIF the FQN corresponds to a know exported type.
    */
   #isVisibleType(fqn: spec.FQN): boolean {
-    try {
-      /* ignored */ this.#typeInfoForFqn(fqn);
-      return true;
-    } catch (e) {
-      if (e instanceof JsiiFault) {
-        return false;
-      }
-      throw e;
-    }
+    return this.#tryTypeInfoForFqn(fqn) !== undefined;
   }
 
   #typeInfoForMethod(
@@ -1309,7 +1327,7 @@ export class Kernel {
   #toSandbox(
     v: any,
     expectedType: wire.OptionalValueOrVoid,
-    context: string,
+    context: string | (() => string),
   ): any {
     return wire.process(
       this.#serializerHost,
@@ -1323,7 +1341,7 @@ export class Kernel {
   #fromSandbox(
     v: any,
     targetType: wire.OptionalValueOrVoid,
-    context: string,
+    context: string | (() => string),
   ): any {
     return wire.process(
       this.#serializerHost,
@@ -1336,7 +1354,7 @@ export class Kernel {
 
   #toSandboxValues(
     xs: readonly unknown[],
-    methodContext: string,
+    methodContext: string | (() => string),
     parameters: readonly spec.Parameter[] | undefined,
   ) {
     return this.#boxUnboxParameters(
@@ -1349,7 +1367,7 @@ export class Kernel {
 
   #fromSandboxValues(
     xs: readonly unknown[],
-    methodContext: string,
+    methodContext: string | (() => string),
     parameters: readonly spec.Parameter[] | undefined,
   ) {
     return this.#boxUnboxParameters(
@@ -1362,9 +1380,13 @@ export class Kernel {
 
   #boxUnboxParameters(
     xs: readonly unknown[],
-    methodContext: string,
+    methodContext: string | (() => string),
     parameters: readonly spec.Parameter[] = [],
-    boxUnbox: (x: any, t: wire.OptionalValueOrVoid, context: string) => any,
+    boxUnbox: (
+      x: any,
+      t: wire.OptionalValueOrVoid,
+      context: string | (() => string),
+    ) => any,
   ) {
     const parametersCopy = [...parameters];
     const variadic =
@@ -1401,7 +1423,12 @@ export class Kernel {
       boxUnbox(
         x,
         parametersCopy[i],
-        `passed to parameter ${parametersCopy[i].name} of ${methodContext}`,
+        () =>
+          `passed to parameter ${parametersCopy[i].name} of ${
+            typeof methodContext === 'function'
+              ? methodContext()
+              : methodContext
+          }`,
       ),
     );
   }
@@ -1430,7 +1457,7 @@ export class Kernel {
    * Ensures that `fn` is called and defends against beginning to invoke
    * async methods until fn finishes (successfully or not).
    */
-  #ensureSync<T>(desc: string, fn: () => T): T {
+  #ensureSync<T>(desc: string | (() => string), fn: () => T): T {
     this.#syncInProgress = desc;
     try {
       return fn();
