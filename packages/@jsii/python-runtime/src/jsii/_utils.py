@@ -84,9 +84,7 @@ class _LazyBuiltins(dict):
     across all Python versions (3.12+).
     """
 
-    def __init__(
-        self, base: "dict[str, Any]", lazy_classes: "dict[str, Any]"
-    ) -> None:
+    def __init__(self, base: "dict[str, Any]", lazy_classes: "dict[str, Any]") -> None:
         super().__init__(base)
         self._lazy_classes = lazy_classes
 

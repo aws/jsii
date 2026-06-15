@@ -542,6 +542,7 @@ class TestLazyLoadingIntegration:
         from scope.jsii_calc_lib import Number as Num1
 
         import scope.jsii_calc_lib
+
         Num2 = scope.jsii_calc_lib.Number
 
         assert Num1 is Num2
@@ -621,6 +622,7 @@ class TestTypeCheckingNamespace:
         from jsii._utils import _TypeCheckingNamespace
 
         calls = []
+
         def factory():
             calls.append(1)
             return type("Foo", (), {})
@@ -635,6 +637,7 @@ class TestTypeCheckingNamespace:
         from jsii._utils import _TypeCheckingNamespace
 
         calls = []
+
         def factory():
             calls.append(1)
             return type("Foo", (), {})
@@ -658,6 +661,7 @@ class TestTypeCheckingNamespace:
         from jsii._utils import _TypeCheckingNamespace
 
         calls = []
+
         def factory():
             calls.append(1)
             return type("Foo", (), {})
