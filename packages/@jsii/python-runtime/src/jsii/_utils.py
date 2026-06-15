@@ -74,14 +74,17 @@ class _LazyImport:
 class _LazyBuiltins(dict):
     """A builtins dict that lazily materializes deferred classes on lookup.
 
-    CPython's ``eval()`` checks builtins as a fallback after globals and locals.
-    Unlike globals/locals lookups (which use C-level ``PyDict_GetItemWithError``
-    and bypass ``__missing__``), the builtins lookup uses ``PyObject_GetItem``
-    which triggers Python-level ``__missing__`` on dict subclasses.
+    CPython's ``LOAD_NAME`` bytecode (used by ``eval()``) resolves names in
+    order: locals → globals → builtins. The globals lookup uses
+    ``PyDict_GetItemRef`` (C-level dict access that bypasses ``__missing__``),
+    while the builtins lookup uses ``PyMapping_GetOptionalItem`` (which
+    triggers Python-level ``__missing__`` on dict subclasses).
+
+    See CPython source: Python/ceval.c, function ``_PyEval_LoadName``.
 
     This is used as the ``__builtins__`` value inside the namespace passed to
     ``typing.get_type_hints()``, providing lazy class resolution that works
-    across all Python versions (3.12+).
+    across all CPython versions (3.12+).
     """
 
     def __init__(self, base: "dict[str, Any]", lazy_classes: "dict[str, Any]") -> None:
