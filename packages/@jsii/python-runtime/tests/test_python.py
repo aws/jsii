@@ -166,6 +166,43 @@ class TestLazyImport:
 
         assert mime_text_cls is MIMEText
 
+    def test_missing_instance_attrs_do_not_recurse(self):
+        """An instance created without __init__ (e.g. via __new__) must not
+        cause __getattr__ to recurse infinitely when its own attributes are
+        absent from __dict__."""
+        obj = jsii._LazyImport.__new__(jsii._LazyImport)
+        # _module / _module_name / _package were never assigned.
+        for attr in ("_module", "_module_name", "_package"):
+            with pytest.raises(AttributeError):
+                getattr(obj, attr)
+
+    def test_copy_does_not_recurse(self):
+        """copy.copy() creates the object via __new__ and probes dunder
+        attributes; this must not trigger infinite recursion."""
+        import copy
+
+        lazy = jsii._LazyImport("os")
+        clone = copy.copy(lazy)
+        # The clone should still behave as a lazy proxy.
+        assert clone._module_name == "os"
+        assert clone.sep == __import__("os").sep
+
+    def test_deepcopy_does_not_recurse(self):
+        import copy
+
+        lazy = jsii._LazyImport("os")
+        clone = copy.deepcopy(lazy)
+        assert clone._module_name == "os"
+        assert clone.sep == __import__("os").sep
+
+    def test_pickle_does_not_recurse(self):
+        import pickle
+
+        lazy = jsii._LazyImport("os")
+        restored = pickle.loads(pickle.dumps(lazy))
+        assert restored._module_name == "os"
+        assert restored.sep == __import__("os").sep
+
 
 class TestMemoized:
     """Tests for jsii._memoized used by generated code to cache factory function results."""
