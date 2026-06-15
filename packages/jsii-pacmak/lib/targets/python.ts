@@ -2392,40 +2392,64 @@ class PythonModule implements PythonType {
     }
 
     // Emit lazy-resolving namespace getters for typing.get_type_hints() when
-    // deferred classes exist. The namespaces use a dict subclass with
-    // __missing__ that materializes only the class actually referenced in a
-    // type-check stub — not every deferred class in the module.
+    // deferred classes exist.
+    //
+    // On Python 3.12-3.13: Uses _TypeCheckingNamespace (dict subclass with
+    // __missing__) so only the classes actually referenced in a type-check
+    // stub are materialized on demand.
+    //
+    // On Python 3.14+: ForwardRef.evaluate() bypasses our globalns/localns
+    // and resolves names directly from the module's __dict__. We must
+    // pre-populate globals() with all deferred classes so they're findable.
+    // The homonymous caching issue doesn't exist on 3.14, so we don't need
+    // separate globalns/localns there.
     if (deferredClassNames.length > 0) {
       code.line();
       code.openBlock('if __debug__');
+      code.line('import sys as _sys_ver');
       code.line(
-        '_typechecking_ns: "jsii._TypeCheckingNamespace | None" = None',
+        '_typechecking_ns: "jsii._TypeCheckingNamespace | dict[str, object] | None" = None',
       );
       code.line(
-        '_typechecking_localns: "jsii._TypeCheckingNamespace | None" = None',
+        '_typechecking_localns: "jsii._TypeCheckingNamespace | dict[str, object] | None" = None',
       );
       code.line();
       code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
       code.line('global _typechecking_ns');
       code.openBlock('if _typechecking_ns is None');
+      // On 3.14+, ForwardRef.evaluate() looks directly at the module's
+      // __dict__ (ignoring our globalns). Pre-populate globals() with all
+      // deferred classes so they're accessible.
+      code.openBlock('if _sys_ver.version_info >= (3, 14)');
+      code.openBlock('for _name, _factory in _LAZY_CLASSES.items()');
+      code.line('globals().setdefault(_name, _factory())');
+      code.closeBlock();
+      code.line('_typechecking_ns = globals()');
+      code.closeBlock();
+      code.openBlock('else');
       code.line(
         '_typechecking_ns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
       );
+      code.closeBlock();
       code.closeBlock();
       code.line('return _typechecking_ns');
       code.closeBlock();
       code.line();
       // A second dict instance used as localns in typing.get_type_hints().
-      // This ensures `localns is not globalns` evaluates to True, which
-      // prevents Python's ForwardRef from reusing a cached resolution from
-      // a sibling module that has a type with the same name (homonymous
-      // forward references). See https://github.com/aws/jsii/issues/3818.
+      // On 3.12-3.13: ensures `localns is not globalns` evaluates to True,
+      // preventing ForwardRef's homonymous caching bug.
+      // On 3.14+: the homonymous bug is fixed; we just return globals().
       code.openBlock('def _get_typechecking_localns() -> "dict[str, object]"');
       code.line('global _typechecking_localns');
       code.openBlock('if _typechecking_localns is None');
+      code.openBlock('if _sys_ver.version_info >= (3, 14)');
+      code.line('_typechecking_localns = globals()');
+      code.closeBlock();
+      code.openBlock('else');
       code.line(
         '_typechecking_localns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
       );
+      code.closeBlock();
       code.closeBlock();
       code.line('return _typechecking_localns');
       code.closeBlock();

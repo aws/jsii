@@ -75,24 +75,24 @@ class _TypeCheckingNamespace(dict):
     """A dict subclass that lazily resolves deferred class names on first access.
 
     Used as the ``globalns`` or ``localns`` argument to
-    ``typing.get_type_hints()`` in jsii-pacmak generated code. When Python's
-    ``ForwardRef._evaluate`` calls ``eval(code, globalns, localns)``, name
-    lookups that miss the dict trigger ``__missing__``, which calls the
-    corresponding factory function from ``_LAZY_CLASSES`` to materialize only
-    the class that is actually needed — without eagerly building every deferred
-    class in the module.
+    ``typing.get_type_hints()`` in jsii-pacmak generated code.
+
+    On CPython 3.12-3.13, ``ForwardRef._evaluate`` calls
+    ``eval(code, globalns, localns)`` which triggers ``__missing__`` on dict
+    lookups for keys not yet present.
+
+    On CPython 3.14+, ``ForwardRef.evaluate()`` no longer uses ``eval()``.
+    Instead it performs explicit ``if arg in locals`` / ``if arg in globals``
+    checks followed by direct ``[]`` access. The ``in`` operator calls
+    ``__contains__``, so we override it to report ``True`` for any key that
+    has a lazy factory — ensuring the subsequent ``[]`` access triggers
+    ``__missing__`` which materializes the class.
 
     Two separate instances are used as ``globalns`` and ``localns`` so that
     ``localns is not globalns`` evaluates to ``True``. This prevents CPython
     3.12-3.13's ``ForwardRef`` from reusing a cached evaluation result from a
     sibling module that has a type with the same name (the homonymous forward
     reference caching bug, see https://github.com/aws/jsii/issues/3818).
-
-    On CPython 3.12-3.13, the ``dict()`` conversion inside
-    ``ForwardRef._evaluate`` only triggers when ``type_params`` is truthy (i.e.,
-    for generic functions/classes with ``TypeVar``/``ParamSpec``). jsii
-    type-checking stubs are plain non-generic functions, so ``__missing__`` is
-    always honoured by ``eval()``.
     """
 
     def __init__(
@@ -107,3 +107,13 @@ class _TypeCheckingNamespace(dict):
             self[key] = cls
             return cls
         raise KeyError(key)
+
+    def __contains__(self, key: object) -> bool:
+        # Python 3.14's ForwardRef.evaluate() uses `arg in globals` before
+        # doing `globals[arg]`. We must report True for lazy class names so
+        # the subsequent __getitem__ triggers __missing__.
+        if super().__contains__(key):
+            return True
+        if isinstance(key, str) and key in self._lazy_classes:
+            return True
+        return False
