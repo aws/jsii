@@ -130,7 +130,7 @@ class _TypeCheckingNamespace(dict):
         # via the builtins fallback (works on all Python versions).
         import builtins as _builtins
 
-        self["__builtins__"] = _LazyBuiltins(vars(_builtins), lazy_classes)
+        self["__builtins__"] = _LazyBuiltins(dict(vars(_builtins)), lazy_classes)
 
     def __missing__(self, key: str) -> Any:
         if key in self._lazy_classes:
