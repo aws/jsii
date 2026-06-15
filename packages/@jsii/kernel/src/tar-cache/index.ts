@@ -1,5 +1,8 @@
-import { mkdirSync, rmSync } from 'fs';
+import { SPEC_FILE_NAME, isAssemblyRedirect } from '@jsii/spec';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import * as tar from 'tar';
+import { gunzipSync } from 'zlib';
 
 import { DiskCache } from '../disk-cache';
 import { link } from '../link';
@@ -75,11 +78,48 @@ function extractViaCache(
       cwd: path,
       file,
     });
+    // Resolve a (gzipped) assembly redirect once, at cache-population time, so
+    // that every subsequent load of this cached package reads the assembly
+    // directly instead of paying decompression on each load.
+    inlineAssemblyRedirect(path);
   });
 
   link(path, outDir);
 
   return { cache };
+}
+
+/**
+ * If the freshly-extracted package's assembly file ({@link SPEC_FILE_NAME}) is
+ * a redirect to a (possibly compressed) file, resolve it in place: replace the
+ * redirect with the decompressed assembly contents. This is done once, while
+ * populating the cache, so that loading a cached package never has to gunzip
+ * the assembly again.
+ *
+ * Any failure here is non-fatal: the redirect is left untouched and the
+ * assembly loader resolves it as usual.
+ */
+function inlineAssemblyRedirect(dir: string): void {
+  const specPath = join(dir, SPEC_FILE_NAME);
+
+  let contents: unknown;
+  try {
+    contents = JSON.parse(readFileSync(specPath, 'utf-8'));
+  } catch {
+    return;
+  }
+
+  if (!isAssemblyRedirect(contents)) {
+    return;
+  }
+
+  try {
+    const raw = readFileSync(join(dir, contents.filename));
+    const resolved = contents.compression === 'gzip' ? gunzipSync(raw) : raw;
+    writeFileSync(specPath, resolved);
+  } catch {
+    // Leave the redirect in place; the loader will handle it.
+  }
 }
 
 /**
