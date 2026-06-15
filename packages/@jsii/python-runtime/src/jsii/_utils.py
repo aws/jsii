@@ -74,8 +74,8 @@ class _LazyImport:
 class _TypeCheckingNamespace(dict):
     """A dict subclass that lazily resolves deferred class names on first access.
 
-    Used as the ``globalns`` or ``localns`` argument to
-    ``typing.get_type_hints()`` in jsii-pacmak generated code.
+    Used as the ``globalns`` argument to ``typing.get_type_hints()`` in
+    jsii-pacmak generated code.
 
     On CPython 3.12-3.13, ``ForwardRef._evaluate`` calls
     ``eval(code, globalns, localns)`` which triggers ``__missing__`` on dict
@@ -88,11 +88,10 @@ class _TypeCheckingNamespace(dict):
     has a lazy factory — ensuring the subsequent ``[]`` access triggers
     ``__missing__`` which materializes the class.
 
-    Two separate instances are used as ``globalns`` and ``localns`` so that
-    ``localns is not globalns`` evaluates to ``True``. This prevents CPython
-    3.12-3.13's ``ForwardRef`` from reusing a cached evaluation result from a
-    sibling module that has a type with the same name (the homonymous forward
-    reference caching bug, see https://github.com/aws/jsii/issues/3818).
+    The homonymous ForwardRef caching bug (where interned Union objects cause
+    cross-module contamination) is avoided by emitting entire type annotations
+    as string literals, so each ``get_type_hints()`` call creates a fresh
+    ForwardRef that is always re-evaluated in the correct namespace.
     """
 
     def __init__(

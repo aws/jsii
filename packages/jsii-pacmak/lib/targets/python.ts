@@ -149,7 +149,7 @@ class TypeCheckingHelper {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
     if (this.#useLazyNamespace) {
-      return `typing.get_type_hints(${stub.name}, globalns=_get_typechecking_ns(), localns=_get_typechecking_localns())`;
+      return `typing.get_type_hints(${stub.name}, globalns=_get_typechecking_ns())`;
     }
     return `typing.get_type_hints(${stub.name})`;
   }
@@ -2391,7 +2391,7 @@ class PythonModule implements PythonType {
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
-    // Emit lazy-resolving namespace getters for typing.get_type_hints() when
+    // Emit lazy-resolving namespace getter for typing.get_type_hints() when
     // deferred classes exist.
     //
     // On Python 3.12-3.13: Uses _TypeCheckingNamespace (dict subclass with
@@ -2401,17 +2401,16 @@ class PythonModule implements PythonType {
     // On Python 3.14+: ForwardRef.evaluate() bypasses our globalns/localns
     // and resolves names directly from the module's __dict__. We must
     // pre-populate globals() with all deferred classes so they're findable.
-    // The homonymous caching issue doesn't exist on 3.14, so we don't need
-    // separate globalns/localns there.
+    //
+    // The homonymous ForwardRef caching bug (where interned Union objects share
+    // a ForwardRef across modules) is avoided by emitting entire type annotations
+    // as string literals — each get_type_hints() call creates a fresh ForwardRef.
     if (deferredClassNames.length > 0) {
       code.line();
       code.openBlock('if __debug__');
       code.line('import sys as _sys_ver');
       code.line(
         '_typechecking_ns: "jsii._TypeCheckingNamespace | dict[str, object] | None" = None',
-      );
-      code.line(
-        '_typechecking_localns: "jsii._TypeCheckingNamespace | dict[str, object] | None" = None',
       );
       code.line();
       code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
@@ -2433,25 +2432,6 @@ class PythonModule implements PythonType {
       code.closeBlock();
       code.closeBlock();
       code.line('return _typechecking_ns');
-      code.closeBlock();
-      code.line();
-      // A second dict instance used as localns in typing.get_type_hints().
-      // On 3.12-3.13: ensures `localns is not globalns` evaluates to True,
-      // preventing ForwardRef's homonymous caching bug.
-      // On 3.14+: the homonymous bug is fixed; we just return globals().
-      code.openBlock('def _get_typechecking_localns() -> "dict[str, object]"');
-      code.line('global _typechecking_localns');
-      code.openBlock('if _typechecking_localns is None');
-      code.openBlock('if _sys_ver.version_info >= (3, 14)');
-      code.line('_typechecking_localns = globals()');
-      code.closeBlock();
-      code.openBlock('else');
-      code.line(
-        '_typechecking_localns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
-      );
-      code.closeBlock();
-      code.closeBlock();
-      code.line('return _typechecking_localns');
       code.closeBlock();
       code.closeBlock();
     }

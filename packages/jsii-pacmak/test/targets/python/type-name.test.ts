@@ -244,8 +244,8 @@ describe(toTypeName, () => {
     {
       name: 'Struct parameter type annotation',
       input: { fqn: `${assembly.name}.Struct` },
-      forwardPythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
-      pythonType: `typing.Union["Struct", typing.Dict[builtins.str, typing.Any]]`,
+      forwardPythonType: `"typing.Union[Struct, typing.Dict[builtins.str, typing.Any]]"`,
+      pythonType: `"typing.Union[Struct, typing.Dict[builtins.str, typing.Any]]"`,
       context: {
         parameterType: true,
         intersectionTypes: new IntersectionTypesRegistry(),

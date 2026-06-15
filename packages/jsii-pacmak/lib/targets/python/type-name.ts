@@ -365,7 +365,11 @@ class UserType implements TypeName {
     const wrapType =
       pos === 'type' && parameterType && isStruct
         ? (pyType: string) =>
-            `typing.Union[${maybeQuote(pyType)}, typing.Dict[builtins.str, typing.Any]]`
+            // Quote the entire Union expression as a single string annotation.
+            // This ensures typing.get_type_hints() creates a fresh ForwardRef per call,
+            // avoiding the CPython ForwardRef caching bug where interned Union objects
+            // share a ForwardRef that returns stale results from a different module.
+            `"typing.Union[${stripQuotes(pyType)}, typing.Dict[builtins.str, typing.Any]]"`
         : maybeQuote;
 
     /////////////////////////////////
