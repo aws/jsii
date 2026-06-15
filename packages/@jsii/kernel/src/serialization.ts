@@ -279,7 +279,8 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           toMap,
           { type: { primitive: spec.PrimitiveType.Json } },
-          typeof key === 'string' ? `key ${inspect(key)}` : `index ${key}`,
+          () =>
+            typeof key === 'string' ? `key ${inspect(key)}` : `index ${key}`,
         );
       }
     },
@@ -354,7 +355,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'serialize',
           x,
           { type: arrayType.collection.elementtype },
-          `index ${inspect(idx)}`,
+          () => `index ${inspect(idx)}`,
         ),
       );
     },
@@ -376,7 +377,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
           'deserialize',
           x,
           { type: arrayType.collection.elementtype },
-          `index ${inspect(idx)}`,
+          () => `index ${inspect(idx)}`,
         ),
       );
     },
@@ -400,7 +401,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
               'serialize',
               v,
               { type: mapType.collection.elementtype },
-              `key ${inspect(key)}`,
+              () => `key ${inspect(key)}`,
             ),
           host,
         ),
@@ -431,7 +432,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
                 optional: allowNullishMapValue,
                 type: mapType.collection.elementtype,
               },
-              `key ${inspect(key)}`,
+              () => `key ${inspect(key)}`,
             ),
           host,
         );
@@ -447,7 +448,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
               optional: allowNullishMapValue,
               type: mapType.collection.elementtype,
             },
-            `key ${inspect(key)}`,
+            () => `key ${inspect(key)}`,
           ),
         host,
       );
@@ -572,7 +573,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             v,
             props[key],
-            `key ${inspect(key)}`,
+            () => `key ${inspect(key)}`,
           );
         },
         host,
@@ -674,7 +675,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'serialize',
             e,
             { type: spec.CANONICAL_ANY },
-            `index ${inspect(idx)}`,
+            () => `index ${inspect(idx)}`,
           ),
         );
       }
@@ -758,7 +759,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'serialize',
             v,
             { type: spec.CANONICAL_ANY },
-            `key ${inspect(key)}`,
+            () => `key ${inspect(key)}`,
           ),
         host,
       );
@@ -785,7 +786,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             e,
             { type: spec.CANONICAL_ANY },
-            `index ${inspect(idx)}`,
+            () => `index ${inspect(idx)}`,
           ),
         );
       }
@@ -836,7 +837,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
             'deserialize',
             v,
             { type: spec.CANONICAL_ANY },
-            `key ${inspect(key)}`,
+            () => `key ${inspect(key)}`,
           ),
         host,
       );
@@ -888,6 +889,30 @@ export interface TypeSerialization {
  * There can be multiple, because the type can be a type union.
  */
 export function serializationType(
+  typeRef: OptionalValueOrVoid,
+  lookup: LookupType,
+): TypeSerialization[] {
+  // The serialization shape of a given declared type is stable, and the type
+  // references coming from assembly metadata (method parameters, property and
+  // return types) are long-lived objects. Cache by object identity so we don't
+  // recompute (and re-allocate) the wire-type array on every (de)serialization.
+  // `void` is a string sentinel and inline type references are short-lived, so
+  // those simply don't benefit (the WeakMap reclaims throwaway keys).
+  if (typeRef !== VOID && typeRef != null) {
+    const cached = SERIALIZATION_TYPE_CACHE.get(typeRef);
+    if (cached) {
+      return cached;
+    }
+    const computed = computeSerializationType(typeRef, lookup);
+    SERIALIZATION_TYPE_CACHE.set(typeRef, computed);
+    return computed;
+  }
+  return computeSerializationType(typeRef, lookup);
+}
+
+const SERIALIZATION_TYPE_CACHE = new WeakMap<object, TypeSerialization[]>();
+
+function computeSerializationType(
   typeRef: OptionalValueOrVoid,
   lookup: LookupType,
 ): TypeSerialization[] {
@@ -1183,12 +1208,14 @@ export function process(
   serde: keyof Serializer,
   value: unknown,
   type: OptionalValueOrVoid,
-  context: string,
+  context: string | (() => string),
 ) {
   const wireTypes = serializationType(type, host.lookupType);
   host.debug(serde, value, ...wireTypes);
 
-  const errors = new Array<any>();
+  // Allocated lazily: on the (common) success path the first serializer
+  // returns and we never create this array.
+  let errors: any[] | undefined;
   for (const { serializationClass, typeRef } of wireTypes) {
     try {
       return SERIALIZERS[serializationClass][serde](value, typeRef, host);
@@ -1196,7 +1223,7 @@ export function process(
       error.context = `as ${
         typeRef === VOID ? VOID : spec.describeTypeReference(typeRef.type)
       }`;
-      errors.push(error);
+      (errors ??= []).push(error);
     }
   }
 
@@ -1204,11 +1231,14 @@ export function process(
     type === VOID ? type : spec.describeTypeReference(type.type);
   const optionalTypeDescr =
     type !== VOID && type.optional ? `${typeDescr} | undefined` : typeDescr;
+  // `context` is only consumed to render this error, so callers may pass a
+  // thunk to avoid building the string on the (common) success path.
+  const contextStr = typeof context === 'function' ? context() : context;
   throw new SerializationError(
-    `${titleize(context)}: Unable to ${serde} value as ${optionalTypeDescr}`,
+    `${titleize(contextStr)}: Unable to ${serde} value as ${optionalTypeDescr}`,
     value,
     host,
-    errors,
+    errors ?? [],
     { renderValue: true },
   );
 
