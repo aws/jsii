@@ -11,6 +11,7 @@ import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
 import {
   loadRuntimeAssembly,
+  type AssemblyMetadata,
   type AssemblyTypes,
   type LoadedAssembly,
 } from './runtime-index';
@@ -1561,7 +1562,7 @@ interface AsyncInvocation {
 
 class Assembly {
   public constructor(
-    public readonly metadata: spec.Assembly,
+    public readonly metadata: AssemblyMetadata,
     public readonly closure: any,
     public readonly types: AssemblyTypes,
   ) {}

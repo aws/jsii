@@ -96,10 +96,7 @@ interface Manifest {
   /** Path to the data file, relative to the manifest's own directory. */
   readonly data: string;
   /** Assembly metadata minus `types`, `readme`, and `submodules`. */
-  readonly assemblyMetadata: Omit<
-    spec.Assembly,
-    'types' | 'readme' | 'submodules'
-  >;
+  readonly assemblyMetadata: AssemblyMetadata;
   readonly layout: Layout;
 }
 
@@ -233,9 +230,22 @@ class LazyTypes implements AssemblyTypes {
   }
 }
 
+/**
+ * Assembly metadata as returned by {@link loadRuntimeAssembly}.
+ *
+ * Narrower than {@link spec.Assembly}: `types` are accessed through
+ * {@link AssemblyTypes} instead, and `readme`/`submodules` are compile-time
+ * only data not available at runtime. Omitting them here means TypeScript
+ * will flag any accidental access at compile time.
+ */
+export type AssemblyMetadata = Omit<
+  spec.Assembly,
+  'types' | 'readme' | 'submodules'
+>;
+
 export interface LoadedAssembly {
-  /** The assembly metadata (without the heavyweight `types` map). */
-  readonly metadata: spec.Assembly;
+  /** The assembly metadata (without `types`, `readme`, or `submodules`). */
+  readonly metadata: AssemblyMetadata;
   /** Accessor for the assembly's types. */
   readonly types: AssemblyTypes;
 }
@@ -265,9 +275,8 @@ export function loadRuntimeAssembly(
 ): LoadedAssembly {
   const { cached, validate, supportedFeatures } = options;
 
-  // The index drops information needed for schema validation, and trades strict
-  // content for a faster shape; only use it for the regular (non-validating)
-  // cached load path.
+  // Only use the index for cached, non-validating loads:
+  // Validation needs the full unmodified assembly, and uncached loads are obviously not cached.
   const useIndex = cached && !validate;
 
   if (useIndex) {
@@ -387,10 +396,7 @@ function tryLoadIndexed(
     rows.set(fqns[i], i);
   }
 
-  const metadata: spec.Assembly = {
-    ...(manifest.assemblyMetadata as spec.Assembly),
-    types: {},
-  };
+  const metadata = manifest.assemblyMetadata;
 
   // Feature checking is cheap and must happen regardless of validation; mirror
   // what a full load does.
@@ -579,7 +585,7 @@ function writeFileAtomic(targetPath: string, data: Buffer): void {
 }
 
 function checkSupportedFeatures(
-  assembly: spec.Assembly,
+  assembly: AssemblyMetadata,
   supportedFeatures: spec.JsiiFeature[],
 ): void {
   const unsupported = (assembly.usedFeatures ?? []).filter(
