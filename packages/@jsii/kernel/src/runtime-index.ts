@@ -1,38 +1,106 @@
 import * as spec from '@jsii/spec';
 import {
+  closeSync,
   existsSync,
+  openSync,
   readFileSync,
+  readSync,
   renameSync,
   rmSync,
+  statSync,
   writeFileSync,
 } from 'fs';
-import { join } from 'path';
+import { isAbsolute, join, resolve, sep } from 'path';
 
 /**
  * Version of the on-disk runtime index format.
  *
- * Bump this whenever the layout written by {@link buildIndex} changes in a way
- * that an older reader could not understand (or an older writer would produce
- * incorrectly). The version is encoded in the index/bodies file *names*, so a
- * bump simply means the current runtime looks for (and builds) a different
- * file. This is deliberately filename-based rather than a field inside the
- * file: a single cache entry may be shared by multiple jsii runtimes of
- * different versions at the same time, and each must be able to read and write
- * its own index without clobbering another version's.
+ * Bump this whenever the manifest or data-file layout written by
+ * {@link buildIndex} changes in a way that an older reader could not understand
+ * (or an older writer would produce incorrectly). The version is encoded both
+ * in the manifest file *name* and in a field *inside* it:
  *
- * Indices for other versions are left untouched (they are tiny and may be in
- * use by a concurrent runtime); they are simply never read by this version.
+ * - The name (`.jsii.runtime.v{VERSION}.json`) lets a single cache entry shared
+ *   by multiple jsii runtimes of different versions at the same time keep each
+ *   version's own manifest side-by-side without clobbering. A runtime simply
+ *   never reads a manifest whose name encodes a version other than its own.
+ * - The `version` field is an integrity check that a file's contents match what
+ *   its name claims.
+ *
+ * The format is a private, best-effort, on-disk cache owned exclusively by this
+ * package. It is not part of the published `.jsii` assembly specification and
+ * carries no backwards-compatibility guarantee.
  */
 export const RUNTIME_INDEX_VERSION = 1;
 
-/** Name of the index file for a given format version, within a cache entry. */
-function indexFileName(version: number): string {
-  return `.jsii.runtime-index.v${version}.json`;
+/** Discriminator stored in (and required of) a runtime index manifest. */
+const MANIFEST_SCHEMA = 'jsii/runtime-index';
+
+/**
+ * Base name of the binary data file for a given format version, recorded in the
+ * manifest. Like the manifest, the data file is versioned in its name so that a
+ * cache entry shared by multiple jsii runtimes of different versions never has
+ * one version clobber another's data file.
+ */
+function dataFileName(version: number): string {
+  return `.jsii.runtime-index.v${version}`;
 }
 
-/** Name of the bodies file (slimmed type definitions) for a format version. */
-function bodiesFileName(version: number): string {
-  return `.jsii.runtime-bodies.v${version}`;
+/** Name of the manifest file for a given format version, within a cache entry. */
+function manifestFileName(version: number): string {
+  return `.jsii.runtime.v${version}.json`;
+}
+
+/**
+ * Mapping between {@link spec.TypeKind} and the compact unsigned-byte ordinal
+ * stored in the data file's `kinds` column. New ordinals MUST only be appended
+ * and MUST be accompanied by a {@link RUNTIME_INDEX_VERSION} bump.
+ */
+const KIND_BY_ORDINAL: readonly spec.TypeKind[] = [
+  spec.TypeKind.Class,
+  spec.TypeKind.Interface,
+  spec.TypeKind.Enum,
+];
+
+function ordinalOfKind(kind: spec.TypeKind): number {
+  const ordinal = KIND_BY_ORDINAL.indexOf(kind);
+  if (ordinal < 0) {
+    throw new Error(`Unindexable type kind: ${kind}`);
+  }
+  return ordinal;
+}
+
+/** A `[start, start + length)` byte range within the data file. */
+interface ByteRange {
+  readonly start: number;
+  readonly length: number;
+}
+
+/** Byte layout of the regions within the data file. */
+interface Layout {
+  readonly typeCount: number;
+  /** Column: FQNs joined by "\n", UTF-8. */
+  readonly names: ByteRange;
+  /** Column: one unsigned byte per type, the {@link KIND_BY_ORDINAL} ordinal. */
+  readonly kinds: ByteRange;
+  /** Column: `typeCount + 1` little-endian uint32 offsets into the `defs` region. */
+  readonly offsets: ByteRange;
+  /** Region: the concatenated, doc-stripped type definitions. */
+  readonly defs: ByteRange;
+}
+
+/** Shape of the manifest file (`.jsii.runtime.v{VERSION}.json`). */
+interface Manifest {
+  readonly schema: typeof MANIFEST_SCHEMA;
+  readonly version: number;
+  /** Path to the data file, relative to the manifest's own directory. */
+  readonly data: string;
+  /** Assembly metadata minus `types`, `readme`, and `submodules`. */
+  readonly assemblyMetadata: Omit<
+    spec.Assembly,
+    'types' | 'readme' | 'submodules'
+  >;
+  readonly layout: Layout;
 }
 
 /**
@@ -86,42 +154,58 @@ class EagerTypes implements AssemblyTypes {
   }
 }
 
-interface IndexEntry {
-  readonly kind: spec.TypeKind;
-  readonly offset: number;
-  readonly length: number;
-}
-
 /**
- * {@link AssemblyTypes} backed by a runtime index: the kind and byte range of
- * each type is known up front, but a type's definition is only read and parsed
- * the first time it is requested. Parsed definitions are memoized so repeated
- * lookups (e.g. after the kernel clears its own type cache) do not re-parse.
+ * {@link AssemblyTypes} backed by a columnar runtime index.
+ *
+ * The small columns (names, kinds, offsets) are read up front so that the kind
+ * and byte range of every type is known without parsing; a type's definition is
+ * only read from the (large) `defs` region and parsed the first time it is
+ * requested. Parsed definitions are memoized so repeated lookups (e.g. after the
+ * kernel clears its own type cache) do not re-parse.
  */
 class LazyTypes implements AssemblyTypes {
-  readonly #index: ReadonlyMap<string, IndexEntry>;
-  readonly #bodiesPath: string;
+  /** FQN -> row index, shared by the columns. */
+  readonly #rows: ReadonlyMap<string, number>;
+  /** The columns region of the data file (names + kinds + offsets). */
+  readonly #columns: Buffer;
+  readonly #kindsStart: number;
+  readonly #offsetsStart: number;
+  readonly #dataPath: string;
+  readonly #defs: ByteRange;
   readonly #memo = new Map<string, spec.Type>();
-  #bodies?: Buffer;
+  /** The `defs` region bytes, read lazily on first {@link get}. */
+  #defsBytes?: Buffer;
 
-  public constructor(
-    index: ReadonlyMap<string, IndexEntry>,
-    bodiesPath: string,
-  ) {
-    this.#index = index;
-    this.#bodiesPath = bodiesPath;
+  public constructor(opts: {
+    readonly rows: ReadonlyMap<string, number>;
+    readonly columns: Buffer;
+    readonly kindsStart: number;
+    readonly offsetsStart: number;
+    readonly dataPath: string;
+    readonly defs: ByteRange;
+  }) {
+    this.#rows = opts.rows;
+    this.#columns = opts.columns;
+    this.#kindsStart = opts.kindsStart;
+    this.#offsetsStart = opts.offsetsStart;
+    this.#dataPath = opts.dataPath;
+    this.#defs = opts.defs;
   }
 
   public get count(): number {
-    return this.#index.size;
+    return this.#rows.size;
   }
 
   public fqns(): Iterable<string> {
-    return this.#index.keys();
+    return this.#rows.keys();
   }
 
   public kindOf(fqn: string): spec.TypeKind | undefined {
-    return this.#index.get(fqn)?.kind;
+    const row = this.#rows.get(fqn);
+    if (row == null) {
+      return undefined;
+    }
+    return KIND_BY_ORDINAL[this.#columns[this.#kindsStart + row]];
   }
 
   public get(fqn: string): spec.Type | undefined {
@@ -130,19 +214,20 @@ class LazyTypes implements AssemblyTypes {
       return memoized;
     }
 
-    const entry = this.#index.get(fqn);
-    if (entry == null) {
+    const row = this.#rows.get(fqn);
+    if (row == null) {
       return undefined;
     }
 
-    // Read the bodies blob once (lazily), then decode only this type's slice.
-    const bodies = (this.#bodies ??= readFileSync(this.#bodiesPath));
-    const json = bodies.toString(
-      'utf-8',
-      entry.offset,
-      entry.offset + entry.length,
-    );
-    const type = JSON.parse(json) as spec.Type;
+    // Read the (large) defs region once, lazily, then decode only this slice.
+    const defs = (this.#defsBytes ??= readFileRange(
+      this.#dataPath,
+      this.#defs.start,
+      this.#defs.length,
+    ));
+    const begin = this.#columns.readUInt32LE(this.#offsetsStart + row * 4);
+    const end = this.#columns.readUInt32LE(this.#offsetsStart + (row + 1) * 4);
+    const type = JSON.parse(defs.toString('utf-8', begin, end)) as spec.Type;
     this.#memo.set(fqn, type);
     return type;
   }
@@ -216,39 +301,94 @@ export function loadRuntimeAssembly(
  * Attempts to load the assembly via an existing, current runtime index.
  *
  * Returns `undefined` (so the caller falls back to a full load that rebuilds
- * the index) when no index for the current format version exists, or it is
- * unreadable, malformed, or its bodies file is absent. Throws only for "real"
- * load errors, such as the assembly using unsupported features -- matching the
- * behavior of a full load.
+ * the index) when no manifest for the current format version exists, or it is
+ * unreadable, malformed, or its data file is absent/inconsistent. Throws only
+ * for "real" load errors, such as the assembly using unsupported features --
+ * matching the behavior of a full load.
  */
 function tryLoadIndexed(
   packageDir: string,
   supportedFeatures: spec.JsiiFeature[],
 ): LoadedAssembly | undefined {
-  const indexPath = join(packageDir, indexFileName(RUNTIME_INDEX_VERSION));
-  const bodiesPath = join(packageDir, bodiesFileName(RUNTIME_INDEX_VERSION));
+  const manifestPath = join(
+    packageDir,
+    manifestFileName(RUNTIME_INDEX_VERSION),
+  );
 
-  let raw: any;
+  let manifest: Manifest;
   try {
-    raw = JSON.parse(readFileSync(indexPath, 'utf-8'));
+    manifest = JSON.parse(readFileSync(manifestPath, 'utf-8')) as Manifest;
   } catch {
     return undefined;
   }
 
   if (
-    raw == null ||
-    typeof raw.types !== 'object' ||
-    raw.header == null ||
-    !existsSync(bodiesPath)
+    manifest == null ||
+    manifest.schema !== MANIFEST_SCHEMA ||
+    manifest.version !== RUNTIME_INDEX_VERSION ||
+    typeof manifest.data !== 'string' ||
+    manifest.assemblyMetadata == null ||
+    !isValidLayout(manifest.layout)
   ) {
     return undefined;
   }
 
-  const index = new Map<string, IndexEntry>(
-    Object.entries(raw.types as { [fqn: string]: IndexEntry }),
-  );
+  // The data path comes from a file and is therefore untrusted: it must resolve
+  // to a plain file within the cache entry directory (no absolute paths, no
+  // `..` escape).
+  const dataPath = resolveWithin(packageDir, manifest.data);
+  if (dataPath == null || !existsSync(dataPath)) {
+    return undefined;
+  }
+
+  const { typeCount, names, kinds, offsets, defs } = manifest.layout;
+
+  // The columns must be contiguous from the start of the file, and the regions
+  // must agree with the on-disk file size.
+  if (
+    names.start !== 0 ||
+    kinds.start !== names.start + names.length ||
+    offsets.start !== kinds.start + kinds.length ||
+    defs.start !== offsets.start + offsets.length ||
+    kinds.length !== typeCount ||
+    offsets.length !== (typeCount + 1) * 4
+  ) {
+    return undefined;
+  }
+
+  let columns: Buffer;
+  try {
+    if (statSync(dataPath).size !== defs.start + defs.length) {
+      return undefined;
+    }
+    // Read only the (small) columns region eagerly; defs are read on demand.
+    columns = readFileRange(dataPath, 0, defs.start);
+  } catch {
+    return undefined;
+  }
+
+  // The final offset must point exactly at the end of the defs region.
+  if (columns.readUInt32LE(offsets.start + typeCount * 4) !== defs.length) {
+    return undefined;
+  }
+
+  const fqns =
+    names.length === 0
+      ? []
+      : columns
+          .toString('utf-8', names.start, names.start + names.length)
+          .split('\n');
+  if (fqns.length !== typeCount) {
+    return undefined;
+  }
+
+  const rows = new Map<string, number>();
+  for (let i = 0; i < fqns.length; i++) {
+    rows.set(fqns[i], i);
+  }
+
   const metadata: spec.Assembly = {
-    ...(raw.header as spec.Assembly),
+    ...(manifest.assemblyMetadata as spec.Assembly),
     types: {},
   };
 
@@ -256,12 +396,90 @@ function tryLoadIndexed(
   // what a full load does.
   checkSupportedFeatures(metadata, supportedFeatures);
 
-  return { metadata, types: new LazyTypes(index, bodiesPath) };
+  return {
+    metadata,
+    types: new LazyTypes({
+      rows,
+      columns,
+      kindsStart: kinds.start,
+      offsetsStart: offsets.start,
+      dataPath,
+      defs,
+    }),
+  };
+}
+
+/** Validates the structural shape of a {@link Layout} read from disk. */
+function isValidLayout(layout: unknown): layout is Layout {
+  if (layout == null || typeof layout !== 'object') {
+    return false;
+  }
+  const l = layout as Record<string, unknown>;
+  return (
+    isUint(l.typeCount) &&
+    isByteRange(l.names) &&
+    isByteRange(l.kinds) &&
+    isByteRange(l.offsets) &&
+    isByteRange(l.defs)
+  );
+}
+
+function isByteRange(value: unknown): value is ByteRange {
+  if (value == null || typeof value !== 'object') {
+    return false;
+  }
+  const r = value as Record<string, unknown>;
+  return isUint(r.start) && isUint(r.length);
+}
+
+function isUint(value: unknown): value is number {
+  return typeof value === 'number' && Number.isInteger(value) && value >= 0;
 }
 
 /**
- * Fields the runtime kernel never reads, dropped from the indexed bodies to
- * shrink them (and speed up the per-type parse). Verified against all kernel
+ * Resolves `relativePath` against `dir`, returning the absolute path only if it
+ * stays strictly within `dir`. Rejects absolute paths and any `..` traversal
+ * (guarding against a tampered or corrupted manifest pointing elsewhere).
+ */
+function resolveWithin(dir: string, relativePath: string): string | undefined {
+  if (relativePath === '' || isAbsolute(relativePath)) {
+    return undefined;
+  }
+  if (relativePath.split(/[\\/]/).includes('..')) {
+    return undefined;
+  }
+  const base = resolve(dir);
+  const resolved = resolve(base, relativePath);
+  if (resolved !== base && !resolved.startsWith(base + sep)) {
+    return undefined;
+  }
+  return resolved;
+}
+
+/** Reads `length` bytes starting at `position` from a file. */
+function readFileRange(path: string, position: number, length: number): Buffer {
+  const fd = openSync(path, 'r');
+  try {
+    const buffer = Buffer.allocUnsafe(length);
+    let read = 0;
+    while (read < length) {
+      const n = readSync(fd, buffer, read, length - read, position + read);
+      if (n === 0) {
+        throw new Error(
+          `Unexpected end of file reading ${path} (wanted ${length} bytes at ${position}, got ${read})`,
+        );
+      }
+      read += n;
+    }
+    return buffer;
+  } finally {
+    closeSync(fd);
+  }
+}
+
+/**
+ * Fields the runtime kernel never reads, dropped from the indexed definitions
+ * to shrink them (and speed up the per-type parse). Verified against all kernel
  * and runtime consumers: documentation and source locations are used at compile
  * time, not at runtime.
  */
@@ -275,25 +493,45 @@ function slimReplacer(key: string, value: unknown): unknown {
 /**
  * Builds (or overwrites) the runtime index for an assembly in its cache entry.
  *
- * Each type is serialized (minus the runtime-unused fields) into a single
- * "bodies" blob; an index file records, per FQN, the type kind and the byte
- * range of its definition within that blob. Both files are written atomically
+ * Produces two files: a small JSON manifest (assembly metadata + byte layout)
+ * and a binary data file laid out columnarly as `names | kinds | offsets | defs`
+ * (see the runtime-index specification). Both files are written atomically
  * (temp file + rename) so a concurrent reader never observes a partial write.
  */
 function buildIndex(packageDir: string, assembly: spec.Assembly): void {
   const types = assembly.types ?? {};
+  const fqns = Object.keys(types);
+  const typeCount = fqns.length;
 
-  const chunks: Buffer[] = [];
-  const index: { [fqn: string]: IndexEntry } = {};
+  const kinds = Buffer.allocUnsafe(typeCount);
+  const offsets = Buffer.allocUnsafe((typeCount + 1) * 4);
+  const defChunks: Buffer[] = [];
   let offset = 0;
-  for (const [fqn, type] of Object.entries(types)) {
-    const body = Buffer.from(JSON.stringify(type, slimReplacer), 'utf-8');
-    index[fqn] = { kind: type.kind, offset, length: body.length };
-    chunks.push(body);
-    offset += body.length;
+  for (let i = 0; i < typeCount; i++) {
+    const type = types[fqns[i]];
+    kinds[i] = ordinalOfKind(type.kind);
+    offsets.writeUInt32LE(offset, i * 4);
+    const def = Buffer.from(JSON.stringify(type, slimReplacer), 'utf-8');
+    defChunks.push(def);
+    offset += def.length;
   }
+  offsets.writeUInt32LE(offset, typeCount * 4);
 
-  // The header is the assembly without the bulky parts the kernel reads lazily
+  const names = Buffer.from(fqns.join('\n'), 'utf-8');
+  const defs = Buffer.concat(defChunks);
+
+  const layout: Layout = {
+    typeCount,
+    names: { start: 0, length: names.length },
+    kinds: { start: names.length, length: kinds.length },
+    offsets: { start: names.length + kinds.length, length: offsets.length },
+    defs: {
+      start: names.length + kinds.length + offsets.length,
+      length: defs.length,
+    },
+  };
+
+  // The assembly metadata without the bulky parts the kernel reads lazily
   // (`types`) or never (`readme`, `submodules`). `submodules` in particular is
   // large for packages like aws-cdk-lib (per-submodule language-binding
   // metadata) and is only consumed by compile-time tooling, not the runtime.
@@ -301,21 +539,27 @@ function buildIndex(packageDir: string, assembly: spec.Assembly): void {
     types: _types,
     readme: _readme,
     submodules: _submodules,
-    ...header
+    ...assemblyMetadata
   } = assembly;
 
-  // Write bodies first: if the (current-version) index is present, its bodies
-  // are guaranteed to exist (a partial state just triggers a rebuild on the
-  // next load). The version is part of the file names so that runtimes of
-  // different format versions sharing this cache entry never clobber each
-  // other.
+  const manifest: Manifest = {
+    schema: MANIFEST_SCHEMA,
+    version: RUNTIME_INDEX_VERSION,
+    data: dataFileName(RUNTIME_INDEX_VERSION),
+    assemblyMetadata,
+    layout,
+  };
+
+  // Write the data file before the manifest, so that a present, current-version
+  // manifest always implies a complete data file. A crash in between leaves a
+  // manifest-less data file, which the next load simply overwrites.
   writeFileAtomic(
-    join(packageDir, bodiesFileName(RUNTIME_INDEX_VERSION)),
-    Buffer.concat(chunks),
+    join(packageDir, dataFileName(RUNTIME_INDEX_VERSION)),
+    Buffer.concat([names, kinds, offsets, defs]),
   );
   writeFileAtomic(
-    join(packageDir, indexFileName(RUNTIME_INDEX_VERSION)),
-    Buffer.from(JSON.stringify({ header, types: index }), 'utf-8'),
+    join(packageDir, manifestFileName(RUNTIME_INDEX_VERSION)),
+    Buffer.from(JSON.stringify(manifest), 'utf-8'),
   );
 }
 

@@ -55,8 +55,12 @@ if (recordingOutput) {
 }
 
 afterAll(() => {
-  // Jest prevents execution of "beforeExit" events.
-  DiskCache.inDirectory(defaultCacheRoot()).pruneExpiredEntries();
+  // Jest prevents execution of "beforeExit" events. Honour the per-test-run
+  // cache root override (set by jest's globalSetup) so we don't touch the
+  // developer's real package cache.
+  DiskCache.inDirectory(
+    process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT ?? defaultCacheRoot(),
+  ).pruneExpiredEntries();
 });
 
 function defineTest(
