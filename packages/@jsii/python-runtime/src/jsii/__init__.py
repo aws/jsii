@@ -14,7 +14,7 @@ from ._runtime import (
     kernel,
     proxy_for,
 )
-from ._utils import _LazyImport, _memoized, _TypeCheckingNamespace
+from ._utils import _LazyImport, _memoized, _type_checking_namespace
 from . import python
 
 
@@ -52,7 +52,7 @@ __all__ = [
     "__jsii_runtime_version__",
     "_LazyImport",
     "_memoized",
-    "_TypeCheckingNamespace",
+    "_type_checking_namespace",
     "JSIIAssembly",
     "JSIIMeta",
     "JSIIAbstractClass",

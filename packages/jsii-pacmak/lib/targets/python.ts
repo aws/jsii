@@ -177,7 +177,8 @@ class TypeCheckingStub {
   public constructor(fqn: string, args: readonly string[]) {
     // Keep type annotations as string literals (forward references).
     // They will be resolved at runtime by typing.get_type_hints() using
-    // a _TypeCheckingNamespace that materializes deferred classes on demand.
+    // the namespace returned by jsii._type_checking_namespace(), which
+    // materializes deferred classes on demand.
     this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
@@ -2394,7 +2395,10 @@ class PythonModule implements PythonType {
     // Emit lazy-resolving namespace getter for typing.get_type_hints() when
     // deferred classes exist.
     //
-    // Uses _TypeCheckingNamespace which combines two lazy resolution mechanisms:
+    // Generated code calls the single runtime facade jsii._type_checking_namespace().
+    // That function is the only type-checking symbol in the generated-code/runtime
+    // contract; its internals (_TypeCheckingNamespace, _LazyBuiltins) are private and
+    // combine two lazy resolution mechanisms:
     // 1. __missing__ on the dict itself (works on 3.12-3.13 where eval() triggers it)
     // 2. A __builtins__ entry with _LazyBuiltins (works on 3.14+ where eval()
     //    falls through to builtins after failing globals/locals lookup)
@@ -2407,15 +2411,13 @@ class PythonModule implements PythonType {
     if (deferredClassNames.length > 0) {
       code.line();
       code.openBlock('if __debug__');
-      code.line(
-        '_typechecking_ns: "jsii._TypeCheckingNamespace | None" = None',
-      );
+      code.line('_typechecking_ns: "dict[str, object] | None" = None');
       code.line();
       code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
       code.line('global _typechecking_ns');
       code.openBlock('if _typechecking_ns is None');
       code.line(
-        '_typechecking_ns = jsii._TypeCheckingNamespace(globals(), _LAZY_CLASSES)',
+        '_typechecking_ns = jsii._type_checking_namespace(globals(), _LAZY_CLASSES)',
       );
       code.closeBlock();
       code.line('return _typechecking_ns');

@@ -168,3 +168,23 @@ class _TypeCheckingNamespace(dict):
         if isinstance(key, str) and key in self._lazy_classes:
             return True
         return False
+
+
+def _type_checking_namespace(
+    module_globals: "dict[str, Any]", lazy_classes: "dict[str, Any]"
+) -> "dict[str, Any]":
+    """Build the globals namespace used by generated ``typing.get_type_hints()``.
+
+    This is the ONLY type-checking helper that jsii-pacmak generated code
+    references by name, and is therefore the only part of the type-checking
+    machinery that is part of the (permanent) generated-code/runtime contract.
+    Everything it relies on (``_TypeCheckingNamespace``, ``_LazyBuiltins``) is a
+    private implementation detail that can be changed or removed at any time.
+
+    The function takes the generated module's ``globals()`` and its
+    ``_LAZY_CLASSES`` factory map and returns a mapping suitable as ``globalns``.
+    If runtime type checking is ever dropped (see aws/jsii#5165), this can be
+    reduced to ``return module_globals`` without breaking older generated
+    packages, and the helper classes below can be deleted.
+    """
+    return _TypeCheckingNamespace(module_globals, lazy_classes)
