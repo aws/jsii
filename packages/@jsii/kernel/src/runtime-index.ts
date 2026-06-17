@@ -1,10 +1,7 @@
 import * as spec from '@jsii/spec';
 import {
-  closeSync,
   existsSync,
-  openSync,
   readFileSync,
-  readSync,
   renameSync,
   rmSync,
   statSync,
@@ -16,14 +13,14 @@ import { Worker } from 'worker_threads';
 /**
  * Version of the on-disk runtime index format.
  *
- * Bump this whenever the manifest or data-file layout written by
+ * Bump this whenever the manifest, index, or defs layout written by
  * {@link buildIndex} changes in a way that an older reader could not understand
  * (or an older writer would produce incorrectly). The version is encoded both
- * in the manifest file *name* and in a field *inside* it:
+ * in the file *names* and in a `version` field *inside* the manifest:
  *
- * - The name (`.jsii.runtime.v{VERSION}.json`) lets a single cache entry shared
- *   by multiple jsii runtimes of different versions at the same time keep each
- *   version's own manifest side-by-side without clobbering. A runtime simply
+ * - The names (`.jsii.runtime.v{VERSION}.json`, ...) let a single cache entry
+ *   shared by multiple jsii runtimes of different versions at the same time keep
+ *   each version's own files side-by-side without clobbering. A runtime simply
  *   never reads a manifest whose name encodes a version other than its own.
  * - The `version` field is an integrity check that a file's contents match what
  *   its name claims.
@@ -37,14 +34,19 @@ export const RUNTIME_INDEX_VERSION = 1;
 /** Discriminator stored in (and required of) a runtime index manifest. */
 const MANIFEST_SCHEMA = 'jsii/runtime-index';
 
-/**
- * Base name of the binary data file for a given format version, recorded in the
- * manifest. Like the manifest, the data file is versioned in its name so that a
- * cache entry shared by multiple jsii runtimes of different versions never has
- * one version clobber another's data file.
- */
-function dataFileName(version: number): string {
+/** Name of the manifest file for a given format version, within a cache entry. */
+function manifestFileName(version: number): string {
+  return `.jsii.runtime.v${version}.json`;
+}
+
+/** Name of the binary index file (columns) for a given format version. */
+function indexFileName(version: number): string {
   return `.jsii.runtime-index.v${version}`;
+}
+
+/** Name of the JSONL definitions file for a given format version. */
+function defsFileName(version: number): string {
+  return `.jsii.runtime-defs.v${version}.jsonl`;
 }
 
 /**
@@ -61,14 +63,9 @@ export interface IndexBuilderWorkerData {
   readonly supportedFeatures: spec.JsiiFeature[];
 }
 
-/** Name of the manifest file for a given format version, within a cache entry. */
-function manifestFileName(version: number): string {
-  return `.jsii.runtime.v${version}.json`;
-}
-
 /**
  * Mapping between {@link spec.TypeKind} and the compact unsigned-byte ordinal
- * stored in the data file's `kinds` column. New ordinals MUST only be appended
+ * stored in the index file's `kinds` column. New ordinals MUST only be appended
  * and MUST be accompanied by a {@link RUNTIME_INDEX_VERSION} bump.
  */
 const KIND_BY_ORDINAL: readonly spec.TypeKind[] = [
@@ -85,31 +82,34 @@ function ordinalOfKind(kind: spec.TypeKind): number {
   return ordinal;
 }
 
-/** A `[start, start + length)` byte range within the data file. */
+/** A `[start, start + length)` byte range within the index file. */
 interface ByteRange {
   readonly start: number;
   readonly length: number;
 }
 
-/** Byte layout of the regions within the data file. */
+/** Byte layout of the three columns within the index file. */
 interface Layout {
   readonly typeCount: number;
   /** Column: FQNs joined by "\n", UTF-8. */
   readonly names: ByteRange;
   /** Column: one unsigned byte per type, the {@link KIND_BY_ORDINAL} ordinal. */
   readonly kinds: ByteRange;
-  /** Column: `typeCount + 1` little-endian uint32 offsets into the `defs` region. */
+  /**
+   * Column: `typeCount + 1` little-endian uint32 byte offsets into the *defs*
+   * file. Type `i`'s definition is the byte range `[offsets[i], offsets[i+1])`.
+   */
   readonly offsets: ByteRange;
-  /** Region: the concatenated, doc-stripped type definitions. */
-  readonly defs: ByteRange;
 }
 
 /** Shape of the manifest file (`.jsii.runtime.v{VERSION}.json`). */
 interface Manifest {
   readonly schema: typeof MANIFEST_SCHEMA;
   readonly version: number;
-  /** Path to the data file, relative to the manifest's own directory. */
-  readonly data: string;
+  /** Path to the binary index file, relative to the manifest's own directory. */
+  readonly index: string;
+  /** Path to the JSONL definitions file, relative to the manifest's own directory. */
+  readonly defs: string;
   /** Assembly metadata minus `types`, `readme`, and `submodules`. */
   readonly assemblyMetadata: AssemblyMetadata;
   readonly layout: Layout;
@@ -129,6 +129,12 @@ export interface AssemblyTypes {
 
   /** Iterates the fully-qualified names of all declared types. */
   fqns(): Iterable<string>;
+
+  /**
+   * Iterates `[fqn, kind]` for every declared type, by row, without requiring a
+   * name lookup. Preferred over `fqns()` + `kindOf()` when visiting every type.
+   */
+  entries(): Iterable<readonly [string, spec.TypeKind | undefined]>;
 
   /**
    * Returns the {@link spec.TypeKind} of a type without materializing its full
@@ -157,6 +163,12 @@ class EagerTypes implements AssemblyTypes {
     return Object.keys(this.types);
   }
 
+  public *entries(): Iterable<readonly [string, spec.TypeKind | undefined]> {
+    for (const [fqn, type] of Object.entries(this.types)) {
+      yield [fqn, type.kind];
+    }
+  }
+
   public kindOf(fqn: string): spec.TypeKind | undefined {
     return this.types[fqn]?.kind;
   }
@@ -169,55 +181,73 @@ class EagerTypes implements AssemblyTypes {
 /**
  * {@link AssemblyTypes} backed by a columnar runtime index.
  *
- * The small columns (names, kinds, offsets) are read up front so that the kind
- * and byte range of every type is known without parsing; a type's definition is
- * only read from the (large) `defs` region and parsed the first time it is
- * requested. Parsed definitions are memoized so repeated lookups (e.g. after the
- * kernel clears its own type cache) do not re-parse.
+ * The columns (names, kinds, offsets) are held in memory as a single buffer, so
+ * every type's kind and definition can be addressed by *row*. Two things are
+ * produced lazily, on first use:
+ *
+ * - the `name -> row` map, built on the first lookup *by FQN* (`get`/`kindOf`);
+ *   a package whose types are never looked up by name never builds it;
+ * - a type's definition, read from the (large) JSONL defs file and parsed on
+ *   first access, then memoized.
+ *
+ * Visiting every type (`entries()`/`fqns()`) walks rows directly and does not
+ * build the `name -> row` map.
  */
 class LazyTypes implements AssemblyTypes {
-  /** FQN -> row index, shared by the columns. */
-  readonly #rows: ReadonlyMap<string, number>;
-  /** The columns region of the data file (names + kinds + offsets). */
-  readonly #columns: Buffer;
+  readonly #index: Buffer;
+  readonly #namesStart: number;
+  readonly #namesLength: number;
   readonly #kindsStart: number;
   readonly #offsetsStart: number;
-  readonly #dataPath: string;
-  readonly #defs: ByteRange;
+  readonly #typeCount: number;
+  readonly #defsPath: string;
   readonly #memo = new Map<string, spec.Type>();
-  /** The `defs` region bytes, read lazily on first {@link get}. */
+  /** FQNs in row order, decoded from the `names` column on first use. */
+  #names?: string[];
+  /** FQN -> row index, built on first lookup by FQN. */
+  #rows?: ReadonlyMap<string, number>;
+  /** The whole defs file, read on first {@link get}. */
   #defsBytes?: Buffer;
 
   public constructor(opts: {
-    readonly rows: ReadonlyMap<string, number>;
-    readonly columns: Buffer;
+    readonly index: Buffer;
+    readonly namesStart: number;
+    readonly namesLength: number;
     readonly kindsStart: number;
     readonly offsetsStart: number;
-    readonly dataPath: string;
-    readonly defs: ByteRange;
+    readonly typeCount: number;
+    readonly defsPath: string;
   }) {
-    this.#rows = opts.rows;
-    this.#columns = opts.columns;
+    this.#index = opts.index;
+    this.#namesStart = opts.namesStart;
+    this.#namesLength = opts.namesLength;
     this.#kindsStart = opts.kindsStart;
     this.#offsetsStart = opts.offsetsStart;
-    this.#dataPath = opts.dataPath;
-    this.#defs = opts.defs;
+    this.#typeCount = opts.typeCount;
+    this.#defsPath = opts.defsPath;
   }
 
   public get count(): number {
-    return this.#rows.size;
+    return this.#typeCount;
   }
 
   public fqns(): Iterable<string> {
-    return this.#rows.keys();
+    return this.#decodeNames();
+  }
+
+  public *entries(): Iterable<readonly [string, spec.TypeKind | undefined]> {
+    const names = this.#decodeNames();
+    for (let i = 0; i < names.length; i++) {
+      yield [names[i], KIND_BY_ORDINAL[this.#index[this.#kindsStart + i]]];
+    }
   }
 
   public kindOf(fqn: string): spec.TypeKind | undefined {
-    const row = this.#rows.get(fqn);
+    const row = this.#rowOf(fqn);
     if (row == null) {
       return undefined;
     }
-    return KIND_BY_ORDINAL[this.#columns[this.#kindsStart + row]];
+    return KIND_BY_ORDINAL[this.#index[this.#kindsStart + row]];
   }
 
   public get(fqn: string): spec.Type | undefined {
@@ -226,22 +256,48 @@ class LazyTypes implements AssemblyTypes {
       return memoized;
     }
 
-    const row = this.#rows.get(fqn);
+    const row = this.#rowOf(fqn);
     if (row == null) {
       return undefined;
     }
 
-    // Read the (large) defs region once, lazily, then decode only this slice.
-    const defs = (this.#defsBytes ??= readFileRange(
-      this.#dataPath,
-      this.#defs.start,
-      this.#defs.length,
-    ));
-    const begin = this.#columns.readUInt32LE(this.#offsetsStart + row * 4);
-    const end = this.#columns.readUInt32LE(this.#offsetsStart + (row + 1) * 4);
+    // Read the (large) defs file once, lazily, then decode only this type's line.
+    const defs = (this.#defsBytes ??= readFileSync(this.#defsPath));
+    const begin = this.#index.readUInt32LE(this.#offsetsStart + row * 4);
+    const end = this.#index.readUInt32LE(this.#offsetsStart + (row + 1) * 4);
     const type = JSON.parse(defs.toString('utf-8', begin, end)) as spec.Type;
     this.#memo.set(fqn, type);
     return type;
+  }
+
+  /** Decodes the `names` column into a row-ordered array, lazily and once. */
+  #decodeNames(): string[] {
+    if (this.#names == null) {
+      this.#names =
+        this.#namesLength === 0
+          ? []
+          : this.#index
+              .toString(
+                'utf-8',
+                this.#namesStart,
+                this.#namesStart + this.#namesLength,
+              )
+              .split('\n');
+    }
+    return this.#names;
+  }
+
+  /** Resolves an FQN to its row, building the `name -> row` map lazily and once. */
+  #rowOf(fqn: string): number | undefined {
+    if (this.#rows == null) {
+      const names = this.#decodeNames();
+      const rows = new Map<string, number>();
+      for (let i = 0; i < names.length; i++) {
+        rows.set(names[i], i);
+      }
+      this.#rows = rows;
+    }
+    return this.#rows.get(fqn);
   }
 }
 
@@ -380,9 +436,9 @@ export function buildIndexInWorker(
  *
  * Returns `undefined` (so the caller falls back to a full load that rebuilds
  * the index) when no manifest for the current format version exists, or it is
- * unreadable, malformed, or its data file is absent/inconsistent. Throws only
- * for "real" load errors, such as the assembly using unsupported features --
- * matching the behavior of a full load.
+ * unreadable, malformed, or its index/defs files are absent or inconsistent.
+ * Throws only for "real" load errors, such as the assembly using unsupported
+ * features -- matching the behavior of a full load.
  */
 function tryLoadIndexed(
   packageDir: string,
@@ -404,65 +460,68 @@ function tryLoadIndexed(
     manifest == null ||
     manifest.schema !== MANIFEST_SCHEMA ||
     manifest.version !== RUNTIME_INDEX_VERSION ||
-    typeof manifest.data !== 'string' ||
+    typeof manifest.index !== 'string' ||
+    typeof manifest.defs !== 'string' ||
     manifest.assemblyMetadata == null ||
     !isValidLayout(manifest.layout)
   ) {
     return undefined;
   }
 
-  // The data path comes from a file and is therefore untrusted: it must resolve
-  // to a plain file within the cache entry directory (no absolute paths, no
-  // `..` escape).
-  const dataPath = resolveWithin(packageDir, manifest.data);
-  if (dataPath == null || !existsSync(dataPath)) {
+  // The index/defs paths come from a file and are therefore untrusted: each must
+  // resolve to a plain file within the cache entry directory (no absolute paths,
+  // no `..` escape).
+  const indexPath = resolveWithin(packageDir, manifest.index);
+  const defsPath = resolveWithin(packageDir, manifest.defs);
+  if (
+    indexPath == null ||
+    defsPath == null ||
+    !existsSync(indexPath) ||
+    !existsSync(defsPath)
+  ) {
     return undefined;
   }
 
-  const { typeCount, names, kinds, offsets, defs } = manifest.layout;
+  const { typeCount, names, kinds, offsets } = manifest.layout;
 
-  // The columns must be contiguous from the start of the file, and the regions
-  // must agree with the on-disk file size.
+  // The columns must be contiguous from the start of the index file.
   if (
     names.start !== 0 ||
     kinds.start !== names.start + names.length ||
     offsets.start !== kinds.start + kinds.length ||
-    defs.start !== offsets.start + offsets.length ||
     kinds.length !== typeCount ||
     offsets.length !== (typeCount + 1) * 4
   ) {
     return undefined;
   }
 
-  let columns: Buffer;
+  let index: Buffer;
+  let defsSize: number;
   try {
-    if (statSync(dataPath).size !== defs.start + defs.length) {
-      return undefined;
-    }
-    // Read only the (small) columns region eagerly; defs are read on demand.
-    columns = readFileRange(dataPath, 0, defs.start);
+    index = readFileSync(indexPath);
+    defsSize = statSync(defsPath).size;
   } catch {
     return undefined;
   }
 
-  // The final offset must point exactly at the end of the defs region.
-  if (columns.readUInt32LE(offsets.start + typeCount * 4) !== defs.length) {
+  // The index file is exactly the three columns; the offsets must be monotonic,
+  // start at 0, and end exactly at the defs file's size.
+  if (index.length !== offsets.start + offsets.length) {
     return undefined;
   }
-
-  const fqns =
-    names.length === 0
-      ? []
-      : columns
-          .toString('utf-8', names.start, names.start + names.length)
-          .split('\n');
-  if (fqns.length !== typeCount) {
+  let previous = index.readUInt32LE(offsets.start);
+  if (previous !== 0) {
     return undefined;
   }
-
-  const rows = new Map<string, number>();
-  for (let i = 0; i < fqns.length; i++) {
-    rows.set(fqns[i], i);
+  for (let i = 1; i <= typeCount; i++) {
+    const current = index.readUInt32LE(offsets.start + i * 4);
+    if (current < previous) {
+      return undefined;
+    }
+    previous = current;
+  }
+  if (previous !== defsSize) {
+    return undefined;
   }
 
   const metadata = manifest.assemblyMetadata;
@@ -474,12 +533,13 @@ function tryLoadIndexed(
   return {
     metadata,
     types: new LazyTypes({
-      rows,
-      columns,
+      index,
+      namesStart: names.start,
+      namesLength: names.length,
       kindsStart: kinds.start,
       offsetsStart: offsets.start,
-      dataPath,
-      defs,
+      typeCount,
+      defsPath,
     }),
   };
 }
@@ -494,8 +554,7 @@ function isValidLayout(layout: unknown): layout is Layout {
     isUint(l.typeCount) &&
     isByteRange(l.names) &&
     isByteRange(l.kinds) &&
-    isByteRange(l.offsets) &&
-    isByteRange(l.defs)
+    isByteRange(l.offsets)
   );
 }
 
@@ -528,27 +587,6 @@ function resolveWithin(dir: string, relativePath: string): string | undefined {
   return resolved;
 }
 
-/** Reads `length` bytes starting at `position` from a file. */
-function readFileRange(path: string, position: number, length: number): Buffer {
-  const fd = openSync(path, 'r');
-  try {
-    const buffer = Buffer.allocUnsafe(length);
-    let read = 0;
-    while (read < length) {
-      const n = readSync(fd, buffer, read, length - read, position + read);
-      if (n === 0) {
-        throw new Error(
-          `Unexpected end of file reading ${path} (wanted ${length} bytes at ${position}, got ${read})`,
-        );
-      }
-      read += n;
-    }
-    return buffer;
-  } finally {
-    closeSync(fd);
-  }
-}
-
 /**
  * Fields the runtime kernel never reads, dropped from the indexed definitions
  * to shrink them (and speed up the per-type parse). Verified against all kernel
@@ -565,10 +603,11 @@ function slimReplacer(key: string, value: unknown): unknown {
 /**
  * Builds (or overwrites) the runtime index for an assembly in its cache entry.
  *
- * Produces two files: a small JSON manifest (assembly metadata + byte layout)
- * and a binary data file laid out columnarly as `names | kinds | offsets | defs`
- * (see the runtime-index specification). Both files are written atomically
- * (temp file + rename) so a concurrent reader never observes a partial write.
+ * Produces three files (see the runtime-index specification): a small JSON
+ * manifest, a binary index file with the `names | kinds | offsets` columns, and
+ * a JSONL defs file with one doc-stripped type definition per line. All files
+ * are written atomically (temp file + rename) so a concurrent reader never
+ * observes a partial write, and the manifest is written last.
  */
 function buildIndex(packageDir: string, assembly: spec.Assembly): void {
   const types = assembly.types ?? {};
@@ -577,30 +616,31 @@ function buildIndex(packageDir: string, assembly: spec.Assembly): void {
 
   const kinds = Buffer.allocUnsafe(typeCount);
   const offsets = Buffer.allocUnsafe((typeCount + 1) * 4);
-  const defChunks: Buffer[] = [];
+  const defLines: Buffer[] = [];
   let offset = 0;
   for (let i = 0; i < typeCount; i++) {
     const type = types[fqns[i]];
     kinds[i] = ordinalOfKind(type.kind);
     offsets.writeUInt32LE(offset, i * 4);
-    const def = Buffer.from(JSON.stringify(type, slimReplacer), 'utf-8');
-    defChunks.push(def);
-    offset += def.length;
+    // One JSON object per line (JSONL); the trailing newline is part of the
+    // line's byte range and is harmless to `JSON.parse`.
+    const line = Buffer.from(
+      `${JSON.stringify(type, slimReplacer)}\n`,
+      'utf-8',
+    );
+    defLines.push(line);
+    offset += line.length;
   }
   offsets.writeUInt32LE(offset, typeCount * 4);
 
   const names = Buffer.from(fqns.join('\n'), 'utf-8');
-  const defs = Buffer.concat(defChunks);
+  const defs = Buffer.concat(defLines);
 
   const layout: Layout = {
     typeCount,
     names: { start: 0, length: names.length },
     kinds: { start: names.length, length: kinds.length },
     offsets: { start: names.length + kinds.length, length: offsets.length },
-    defs: {
-      start: names.length + kinds.length + offsets.length,
-      length: defs.length,
-    },
   };
 
   // The assembly metadata without the bulky parts the kernel reads lazily
@@ -617,17 +657,19 @@ function buildIndex(packageDir: string, assembly: spec.Assembly): void {
   const manifest: Manifest = {
     schema: MANIFEST_SCHEMA,
     version: RUNTIME_INDEX_VERSION,
-    data: dataFileName(RUNTIME_INDEX_VERSION),
+    index: indexFileName(RUNTIME_INDEX_VERSION),
+    defs: defsFileName(RUNTIME_INDEX_VERSION),
     assemblyMetadata,
     layout,
   };
 
-  // Write the data file before the manifest, so that a present, current-version
-  // manifest always implies a complete data file. A crash in between leaves a
-  // manifest-less data file, which the next load simply overwrites.
+  // Write the data files before the manifest, so that a present, current-version
+  // manifest always implies complete index and defs files. A crash in between
+  // leaves manifest-less data files, which the next load simply overwrites.
+  writeFileAtomic(join(packageDir, defsFileName(RUNTIME_INDEX_VERSION)), defs);
   writeFileAtomic(
-    join(packageDir, dataFileName(RUNTIME_INDEX_VERSION)),
-    Buffer.concat([names, kinds, offsets, defs]),
+    join(packageDir, indexFileName(RUNTIME_INDEX_VERSION)),
+    Buffer.concat([names, kinds, offsets]),
   );
   writeFileAtomic(
     join(packageDir, manifestFileName(RUNTIME_INDEX_VERSION)),

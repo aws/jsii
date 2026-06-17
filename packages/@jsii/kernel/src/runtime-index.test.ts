@@ -18,7 +18,8 @@ import {
 import { runIndexBuilder } from './runtime-index-builder';
 
 const MANIFEST_FILE = `.jsii.runtime.v${RUNTIME_INDEX_VERSION}.json`;
-const DATA_FILE = `.jsii.runtime-index.v${RUNTIME_INDEX_VERSION}`;
+const INDEX_FILE = `.jsii.runtime-index.v${RUNTIME_INDEX_VERSION}`;
+const DEFS_FILE = `.jsii.runtime-defs.v${RUNTIME_INDEX_VERSION}.jsonl`;
 
 /** A minimal but structurally-valid assembly with a few types. */
 function sampleAssembly() {
@@ -94,30 +95,50 @@ describe('runtime index', () => {
       supportedFeatures: [],
     });
 
-  test('building the index produces the manifest and data files', () => {
+  test('building the index produces the manifest, index, and defs files', () => {
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
     build();
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
-    expect(existsSync(join(dir, DATA_FILE))).toBe(true);
+    expect(existsSync(join(dir, INDEX_FILE))).toBe(true);
+    expect(existsSync(join(dir, DEFS_FILE))).toBe(true);
   });
 
-  test('the manifest is self-describing (schema, version, data path, layout)', () => {
+  test('the defs file is valid JSONL (one doc-stripped type per line)', () => {
+    build();
+    const lines = readFileSync(join(dir, DEFS_FILE), 'utf-8')
+      .split('\n')
+      .filter((l) => l.length > 0);
+    expect(lines).toHaveLength(3);
+    const parsed = lines.map((l) => JSON.parse(l));
+    expect(parsed.map((t) => t.fqn).sort()).toEqual([
+      'test.Color',
+      'test.Foo',
+      'test.IBar',
+    ]);
+    // Runtime-unused fields are stripped.
+    const foo = parsed.find((t) => t.fqn === 'test.Foo');
+    expect(foo.docs).toBeUndefined();
+    expect(foo.locationInModule).toBeUndefined();
+  });
+
+  test('the manifest is self-describing (schema, version, file refs, layout)', () => {
     build();
     const manifest = JSON.parse(
       readFileSync(join(dir, MANIFEST_FILE), 'utf-8'),
     );
     expect(manifest.schema).toBe('jsii/runtime-index');
     expect(manifest.version).toBe(RUNTIME_INDEX_VERSION);
-    expect(manifest.data).toBe(DATA_FILE);
+    expect(manifest.index).toBe(INDEX_FILE);
+    expect(manifest.defs).toBe(DEFS_FILE);
     expect(manifest.layout.typeCount).toBe(3);
-    // Columns are contiguous from the start of the data file.
-    const { names, kinds, offsets, defs } = manifest.layout;
+    // Columns are contiguous from the start of the index file.
+    const { names, kinds, offsets } = manifest.layout;
     expect(names.start).toBe(0);
     expect(kinds.start).toBe(names.start + names.length);
     expect(offsets.start).toBe(kinds.start + kinds.length);
-    expect(defs.start).toBe(offsets.start + offsets.length);
     expect(kinds.length).toBe(3);
     expect(offsets.length).toBe((3 + 1) * 4);
+    expect(manifest.layout.defs).toBeUndefined(); // offsets point into the defs file
     // assemblyMetadata carries the header, never the heavyweight members.
     expect(manifest.assemblyMetadata.name).toBe('test');
     expect(manifest.assemblyMetadata.types).toBeUndefined();
@@ -148,6 +169,20 @@ describe('runtime index', () => {
     expect(loaded.metadata.jsiiVersion).toBe('5.0.0');
   });
 
+  test('entries() yields [fqn, kind] for every type by row', () => {
+    build();
+    writeFileSync(join(dir, '.jsii'), 'this is not valid json');
+    const loaded = load();
+    const entries = [...loaded.types.entries()].sort((a, b) =>
+      a[0].localeCompare(b[0]),
+    );
+    expect(entries).toEqual([
+      ['test.Color', 'enum'],
+      ['test.Foo', 'class'],
+      ['test.IBar', 'interface'],
+    ]);
+  });
+
   test('enumerating fqns returns every declared type', () => {
     build();
     writeFileSync(join(dir, '.jsii'), 'this is not valid json');
@@ -176,9 +211,17 @@ describe('runtime index', () => {
     expect(loaded.types.get('test.Foo')?.kind).toBe('class');
   });
 
-  test('a manifest whose data file is missing is ignored (eager fallback)', () => {
+  test('a manifest whose index file is missing is ignored (eager fallback)', () => {
     build();
-    rmSync(join(dir, DATA_FILE), { force: true });
+    rmSync(join(dir, INDEX_FILE), { force: true });
+
+    const loaded = load();
+    expect(loaded.types.count).toBe(3);
+  });
+
+  test('a manifest whose defs file is missing is ignored (eager fallback)', () => {
+    build();
+    rmSync(join(dir, DEFS_FILE), { force: true });
 
     const loaded = load();
     expect(loaded.types.count).toBe(3);
@@ -188,7 +231,7 @@ describe('runtime index', () => {
     build();
     const manifestPath = join(dir, MANIFEST_FILE);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
-    // Claim more types than the data file actually holds.
+    // Claim more types than the index file actually holds.
     manifest.layout.typeCount = 999;
     writeFileSync(manifestPath, JSON.stringify(manifest));
 
@@ -200,7 +243,7 @@ describe('runtime index', () => {
     build();
     const manifestPath = join(dir, MANIFEST_FILE);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
-    manifest.data = '../escape';
+    manifest.defs = '../escape.jsonl';
     writeFileSync(manifestPath, JSON.stringify(manifest));
 
     // Path traversal must be refused; load falls back to the .jsii.
@@ -213,27 +256,23 @@ describe('runtime index', () => {
     // same cache entry. Its files are version-namespaced and must survive a
     // build by our version untouched.
     const otherVersion = RUNTIME_INDEX_VERSION + 1;
-    const otherManifest = join(dir, `.jsii.runtime.v${otherVersion}.json`);
-    const otherDataName = `.jsii.runtime-index.v${otherVersion}`;
-    const otherDataPath = join(dir, otherDataName);
-    const otherManifestContents = JSON.stringify({
-      schema: 'jsii/runtime-index',
-      version: otherVersion,
-      data: otherDataName,
-      assemblyMetadata: {},
-      layout: {},
-    });
-    const otherDataContents = 'other-version data file';
-    writeFileSync(otherManifest, otherManifestContents);
-    writeFileSync(otherDataPath, otherDataContents);
+    const others = {
+      [`.jsii.runtime.v${otherVersion}.json`]: 'other manifest',
+      [`.jsii.runtime-index.v${otherVersion}`]: 'other index',
+      [`.jsii.runtime-defs.v${otherVersion}.jsonl`]: 'other defs',
+    };
+    for (const [name, contents] of Object.entries(others)) {
+      writeFileSync(join(dir, name), contents);
+    }
 
     build();
 
     // Our version's files were written...
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
     // ...and the other version's files were left untouched.
-    expect(readFileSync(otherManifest, 'utf-8')).toBe(otherManifestContents);
-    expect(readFileSync(otherDataPath, 'utf-8')).toBe(otherDataContents);
+    for (const [name, contents] of Object.entries(others)) {
+      expect(readFileSync(join(dir, name), 'utf-8')).toBe(contents);
+    }
   });
 
   test('non-cached loads do not build an index (eager fallback)', () => {
@@ -243,7 +282,8 @@ describe('runtime index', () => {
       supportedFeatures: [],
     });
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
-    expect(existsSync(join(dir, DATA_FILE))).toBe(false);
+    expect(existsSync(join(dir, INDEX_FILE))).toBe(false);
+    expect(existsSync(join(dir, DEFS_FILE))).toBe(false);
     // ...but it still loads everything eagerly, including docs.
     expect(loaded.types.count).toBe(3);
     expect((loaded.types.get('test.Foo') as any).docs).toEqual({
@@ -261,7 +301,8 @@ describe('runtime index', () => {
       await once(worker!, 'exit');
 
       expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
-      expect(existsSync(join(dir, DATA_FILE))).toBe(true);
+      expect(existsSync(join(dir, INDEX_FILE))).toBe(true);
+      expect(existsSync(join(dir, DEFS_FILE))).toBe(true);
 
       // The built index is readable by a subsequent (warm) load.
       const loaded = load();
@@ -279,7 +320,8 @@ describe('runtime index', () => {
 
       // The index is produced off the critical path; it appears shortly after.
       await waitFor(() => existsSync(join(dir, MANIFEST_FILE)));
-      expect(existsSync(join(dir, DATA_FILE))).toBe(true);
+      expect(existsSync(join(dir, INDEX_FILE))).toBe(true);
+      expect(existsSync(join(dir, DEFS_FILE))).toBe(true);
     });
   });
 

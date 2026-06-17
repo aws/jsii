@@ -632,16 +632,16 @@ export class Kernel {
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
-    for (const fqn of assm.types.fqns()) {
-      switch (assm.types.kindOf(fqn)) {
-        case undefined:
-        case spec.TypeKind.Interface:
-          continue; // absent kind or interface: nothing to tag
+    for (const [fqn, kind] of assm.types.entries()) {
+      switch (kind) {
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
           const constructor = this.#findSymbol(fqn);
           tagJsiiConstructor(constructor, fqn);
           break;
+        case undefined:
+        case spec.TypeKind.Interface:
+          break; // absent kind or interface: nothing to tag
       }
     }
   }
