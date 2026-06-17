@@ -12,6 +12,14 @@ lazily on first call to :func:`check_type`. This means:
 
 import typing
 
+# Resolved typeguard-backed implementation, populated on first call to
+# ``check_type`` and reused thereafter. Caching here (rather than hot-patching
+# the module attribute) ensures the expensive resolution in
+# ``_load_typeguard_check`` runs at most once per process, even though generated
+# code imports ``check_type`` by value (``from jsii._type_checking import
+# check_type``) and therefore never re-reads the module attribute.
+_resolved_check: typing.Optional[typing.Callable[..., typing.Any]] = None
+
 
 def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
     """Validate *value* against *expected_type*, adapting to the installed typeguard version.
@@ -19,12 +27,18 @@ def check_type(argname: str, value: object, expected_type: typing.Any) -> typing
     Typeguard and version detection are loaded on first invocation and cached
     for subsequent calls.
     """
-    impl = _load_typeguard_check()
-    # Hot-patch the module-level name so future calls go directly to the resolved function.
-    import jsii._type_checking as _self
-
-    _self.check_type = impl  # type: ignore[attr-defined]
+    impl = _resolved_check
+    if impl is None:
+        impl = _resolve_check()
     return impl(argname=argname, value=value, expected_type=expected_type)
+
+
+def _resolve_check() -> typing.Callable[..., typing.Any]:
+    """Resolve and memoize the typeguard-backed check implementation (runs once)."""
+    global _resolved_check
+    if _resolved_check is None:
+        _resolved_check = _load_typeguard_check()
+    return _resolved_check
 
 
 def _load_typeguard_check() -> typing.Callable[..., typing.Any]:
