@@ -135,23 +135,98 @@ interface EmitContext extends NamingContext {
 
 class TypeCheckingHelper {
   #stubs = new Array<TypeCheckingStub>();
-  #useLazyNamespace = false;
+  #deferredClassNames: ReadonlySet<string> = new Set();
+  #usesTypeCheckNs = false;
 
   /**
-   * When set to true, the generated get_type_hints calls will use a
-   * lazy-resolving namespace that materializes deferred classes on demand.
+   * The set of same-module classes that are emitted behind lazy factory
+   * functions (`_lazy_build_<Name>()`). When a type-checking stub references
+   * one of these names, it is not yet present in the module globals, so it
+   * must be materialized into the namespace passed to `typing.get_type_hints`.
    */
-  public set useLazyNamespace(value: boolean) {
-    this.#useLazyNamespace = value;
+  public set deferredClassNames(value: ReadonlySet<string>) {
+    this.#deferredClassNames = value;
   }
 
   public getTypeHints(fqn: string, args: readonly string[]): string {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
-    if (this.#useLazyNamespace) {
-      return `typing.get_type_hints(${stub.name}, globalns=_get_typechecking_ns())`;
+
+    // Same-module deferred classes are not present in the module globals until
+    // first accessed, so any of them referenced by this stub's annotations must
+    // be materialized into the namespace handed to typing.get_type_hints().
+    // Cross-module references resolve through the module-level _LazyImport
+    // proxies that already live in globals(), so a plain `globals()` suffices
+    // for them — no runtime helper is needed.
+    //
+    // We funnel this through the generated module-level `_type_check_ns` helper
+    // (NOT a runtime symbol) rather than inlining `_lazy_build_<Name>()` at the
+    // call site: method bodies of deferred classes are emitted both in the
+    // runtime `else:` branch (where `_lazy_build_<Name>` exists) and in the
+    // `if typing.TYPE_CHECKING:` stub branch (where it does not). The helper is
+    // defined once at module scope, so its name is valid in both branches.
+    const referenced = this.#referencedDeferredClasses(args);
+    if (referenced.length > 0) {
+      this.#usesTypeCheckNs = true;
+      const names = referenced.map((name) => JSON.stringify(name)).join(', ');
+      return `typing.get_type_hints(${stub.name}, globalns=_type_check_ns(${names}))`;
     }
     return `typing.get_type_hints(${stub.name})`;
+  }
+
+  /**
+   * Whether any emitted call site referenced the generated `_type_check_ns`
+   * helper, which means its definition must be emitted into the module.
+   */
+  public get usesTypeCheckNs(): boolean {
+    return this.#usesTypeCheckNs;
+  }
+
+  /**
+   * Emit the generated module-level `_type_check_ns` helper. It returns a plain
+   * dict consisting of the module globals plus the named same-module deferred
+   * classes (materialized via their lazy factories). This is generated code,
+   * not part of the runtime contract.
+   */
+  public emitTypeCheckNamespaceHelper(code: CodeMaker) {
+    if (!this.#usesTypeCheckNs) {
+      return;
+    }
+    code.line();
+    code.openBlock('if __debug__');
+    code.openBlock(
+      'def _type_check_ns(*names: builtins.str) -> typing.Dict[builtins.str, typing.Any]',
+    );
+    code.line('ns = dict(globals())');
+    code.openBlock('for _name in names');
+    code.openBlock('if _name not in ns');
+    code.line('ns[_name] = _LAZY_CLASSES[_name]()');
+    code.closeBlock();
+    code.closeBlock();
+    code.line('return ns');
+    code.closeBlock();
+    code.closeBlock();
+  }
+
+  /**
+   * Return the sorted list of same-module deferred class names that appear as
+   * identifiers within the given annotation strings.
+   */
+  #referencedDeferredClasses(args: readonly string[]): string[] {
+    if (this.#deferredClassNames.size === 0) {
+      return [];
+    }
+    const text = args.join('\n');
+    const found: string[] = [];
+    for (const name of this.#deferredClassNames) {
+      // Match the bare identifier, but not when it is an attribute access
+      // (e.g. `_other_module.Name`) or part of a longer identifier.
+      const re = new RegExp(`(?<![\\w.])${name}(?![\\w])`);
+      if (re.test(text)) {
+        found.push(name);
+      }
+    }
+    return found.sort();
   }
 
   /** Emits instructions that create the annotations data... */
@@ -176,9 +251,9 @@ class TypeCheckingStub {
 
   public constructor(fqn: string, args: readonly string[]) {
     // Keep type annotations as string literals (forward references).
-    // They will be resolved at runtime by typing.get_type_hints() using
-    // the namespace returned by jsii._type_checking_namespace(), which
-    // materializes deferred classes on demand.
+    // They are resolved at runtime by typing.get_type_hints(), which is
+    // handed an inline namespace (globals() plus any same-module deferred
+    // classes referenced by this stub) at each call site.
     this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
@@ -2164,9 +2239,12 @@ class PythonModule implements PythonType {
     if (deferredMembers.length > 0) {
       code.line();
       code.line('import sys as _sys');
-      // Enable lazy namespace for type checking stubs so that
-      // typing.get_type_hints() can resolve deferred class names
-      context.typeCheckingHelper.useLazyNamespace = true;
+      // Make the set of same-module deferred class names available to the
+      // type-checking helper so that get_type_hints() can resolve references
+      // to them via an inline namespace (no runtime helper required).
+      context.typeCheckingHelper.deferredClassNames = new Set(
+        deferredClassNames,
+      );
     } else if (this.modules.length > 0) {
       code.line();
       code.line('import sys as _sys');
@@ -2392,38 +2470,7 @@ class PythonModule implements PythonType {
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
-    // Emit lazy-resolving namespace getter for typing.get_type_hints() when
-    // deferred classes exist.
-    //
-    // Generated code calls the single runtime facade jsii._type_checking_namespace().
-    // That function is the only type-checking symbol in the generated-code/runtime
-    // contract; its internals (_TypeCheckingNamespace, _LazyBuiltins) are private and
-    // combine two lazy resolution mechanisms:
-    // 1. __missing__ on the dict itself (works on 3.12-3.13 where eval() triggers it)
-    // 2. A __builtins__ entry with _LazyBuiltins (works on 3.14+ where eval()
-    //    falls through to builtins after failing globals/locals lookup)
-    //
-    // This provides fully lazy, per-class-on-demand resolution across all versions.
-    //
-    // The homonymous ForwardRef caching bug (where interned Union objects share
-    // a ForwardRef across modules) is avoided by emitting entire type annotations
-    // as string literals — each get_type_hints() call creates a fresh ForwardRef.
-    if (deferredClassNames.length > 0) {
-      code.line();
-      code.openBlock('if __debug__');
-      code.line('_typechecking_ns: "dict[str, object] | None" = None');
-      code.line();
-      code.openBlock('def _get_typechecking_ns() -> "dict[str, object]"');
-      code.line('global _typechecking_ns');
-      code.openBlock('if _typechecking_ns is None');
-      code.line(
-        '_typechecking_ns = jsii._type_checking_namespace(globals(), _LAZY_CLASSES)',
-      );
-      code.closeBlock();
-      code.line('return _typechecking_ns');
-      code.closeBlock();
-      code.closeBlock();
-    }
+    context.typeCheckingHelper.emitTypeCheckNamespaceHelper(code);
 
     context.typeCheckingHelper.flushStubs(code);
 
