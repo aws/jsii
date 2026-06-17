@@ -12,6 +12,14 @@ module.exports = {
       import: './lib/program.js',
       filename: 'lib/program.js',
     },
+    // Worker entry that builds the kernel's runtime index off the main thread.
+    // Emitted as a sibling of program.js so the kernel can start it via
+    // `new Worker(join(__dirname, 'runtime-index-builder.js'))`. The module
+    // self-executes on a worker thread (it is guarded by `!isMainThread`).
+    'index-builder': {
+      import: '@jsii/kernel/lib/runtime-index-builder',
+      filename: 'lib/runtime-index-builder.js',
+    },
   },
   output: {
     path: __dirname + '/webpack',

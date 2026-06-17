@@ -1,3 +1,4 @@
+import { once } from 'events';
 import {
   existsSync,
   mkdtempSync,
@@ -8,7 +9,13 @@ import {
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { loadRuntimeAssembly, RUNTIME_INDEX_VERSION } from './runtime-index';
+import {
+  buildIndexInWorker,
+  buildRuntimeIndex,
+  loadRuntimeAssembly,
+  RUNTIME_INDEX_VERSION,
+} from './runtime-index';
+import { runIndexBuilder } from './runtime-index-builder';
 
 const MANIFEST_FILE = `.jsii.runtime.v${RUNTIME_INDEX_VERSION}.json`;
 const DATA_FILE = `.jsii.runtime-index.v${RUNTIME_INDEX_VERSION}`;
@@ -51,6 +58,20 @@ function sampleAssembly() {
   };
 }
 
+async function waitFor(
+  predicate: () => boolean,
+  timeoutMs = 10_000,
+): Promise<void> {
+  const start = Date.now();
+  while (!predicate()) {
+    if (Date.now() - start > timeoutMs) {
+      throw new Error('Timed out waiting for condition');
+    }
+    // eslint-disable-next-line no-await-in-loop
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+}
+
 describe('runtime index', () => {
   let dir: string;
 
@@ -63,6 +84,9 @@ describe('runtime index', () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
+  /** Build the index synchronously (the work a builder worker performs). */
+  const build = () => buildRuntimeIndex(dir, []);
+
   const load = () =>
     loadRuntimeAssembly(dir, {
       cached: true,
@@ -70,18 +94,15 @@ describe('runtime index', () => {
       supportedFeatures: [],
     });
 
-  test('first cached load builds the manifest and data files', () => {
+  test('building the index produces the manifest and data files', () => {
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
-    const loaded = load();
-
+    build();
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
     expect(existsSync(join(dir, DATA_FILE))).toBe(true);
-    expect(loaded.types.count).toBe(3);
-    expect(loaded.types.get('test.Foo')?.kind).toBe('class');
   });
 
   test('the manifest is self-describing (schema, version, data path, layout)', () => {
-    load();
+    build();
     const manifest = JSON.parse(
       readFileSync(join(dir, MANIFEST_FILE), 'utf-8'),
     );
@@ -104,8 +125,8 @@ describe('runtime index', () => {
     expect(manifest.assemblyMetadata.submodules).toBeUndefined();
   });
 
-  test('subsequent load reads the index, not the original assembly', () => {
-    load(); // builds index
+  test('a load with an existing index reads it, not the original assembly', () => {
+    build();
 
     // Corrupt the original assembly: a correct lazy load must not touch it.
     writeFileSync(join(dir, '.jsii'), 'this is not valid json');
@@ -128,7 +149,7 @@ describe('runtime index', () => {
   });
 
   test('enumerating fqns returns every declared type', () => {
-    load();
+    build();
     writeFileSync(join(dir, '.jsii'), 'this is not valid json');
     const loaded = load();
     expect([...loaded.types.fqns()].sort()).toEqual([
@@ -139,33 +160,32 @@ describe('runtime index', () => {
   });
 
   test('unknown FQNs resolve to undefined (kernel turns this into a fault)', () => {
+    build();
     const loaded = load();
     expect(loaded.types.get('test.DoesNotExist')).toBeUndefined();
     expect(loaded.types.kindOf('test.DoesNotExist')).toBeUndefined();
   });
 
-  test('a corrupt manifest for the current version is ignored and rebuilt', () => {
-    load(); // builds a current index
+  test('a corrupt manifest for the current version is ignored (eager fallback)', () => {
+    build();
+    writeFileSync(join(dir, MANIFEST_FILE), 'not valid json');
 
-    const manifestPath = join(dir, MANIFEST_FILE);
-    writeFileSync(manifestPath, 'not valid json');
-
-    const loaded = load(); // must fall back to the .jsii and rebuild
+    // Must fall back to the .jsii (served eagerly), never throw.
+    const loaded = load();
     expect(loaded.types.count).toBe(3);
-    expect(() => JSON.parse(readFileSync(manifestPath, 'utf-8'))).not.toThrow();
+    expect(loaded.types.get('test.Foo')?.kind).toBe('class');
   });
 
-  test('a manifest whose data file is missing is ignored and rebuilt', () => {
-    load();
+  test('a manifest whose data file is missing is ignored (eager fallback)', () => {
+    build();
     rmSync(join(dir, DATA_FILE), { force: true });
 
-    const loaded = load(); // data file gone -> fall back, rebuild both
+    const loaded = load();
     expect(loaded.types.count).toBe(3);
-    expect(existsSync(join(dir, DATA_FILE))).toBe(true);
   });
 
-  test('a manifest with an inconsistent layout is ignored and rebuilt', () => {
-    load();
+  test('a manifest with an inconsistent layout is ignored (eager fallback)', () => {
+    build();
     const manifestPath = join(dir, MANIFEST_FILE);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
     // Claim more types than the data file actually holds.
@@ -173,30 +193,25 @@ describe('runtime index', () => {
     writeFileSync(manifestPath, JSON.stringify(manifest));
 
     const loaded = load();
-    expect(loaded.types.count).toBe(3); // rebuilt from .jsii
+    expect(loaded.types.count).toBe(3); // served from .jsii
   });
 
-  test('a manifest pointing outside the cache entry is rejected', () => {
-    load();
+  test('a manifest pointing outside the cache entry is rejected (eager fallback)', () => {
+    build();
     const manifestPath = join(dir, MANIFEST_FILE);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
     manifest.data = '../escape';
     writeFileSync(manifestPath, JSON.stringify(manifest));
 
-    // Path traversal must be refused; load falls back to the .jsii and rebuilds
-    // a valid manifest (with the default, in-directory data path).
+    // Path traversal must be refused; load falls back to the .jsii.
     const loaded = load();
     expect(loaded.types.count).toBe(3);
-    expect(JSON.parse(readFileSync(manifestPath, 'utf-8')).data).toBe(
-      DATA_FILE,
-    );
   });
 
-  test('a manifest for a different format version is not used, and its files are left intact', () => {
+  test('building does not clobber a different format version sharing the cache', () => {
     // Simulates another jsii runtime (different index version) sharing the
-    // same cache entry. Its files must be ignored and survive untouched —
-    // including its data file, which (being version-namespaced) must not be
-    // clobbered by our version's writer.
+    // same cache entry. Its files are version-namespaced and must survive a
+    // build by our version untouched.
     const otherVersion = RUNTIME_INDEX_VERSION + 1;
     const otherManifest = join(dir, `.jsii.runtime.v${otherVersion}.json`);
     const otherDataName = `.jsii.runtime-index.v${otherVersion}`;
@@ -212,25 +227,16 @@ describe('runtime index', () => {
     writeFileSync(otherManifest, otherManifestContents);
     writeFileSync(otherDataPath, otherDataContents);
 
-    const loaded = load();
-    expect(loaded.types.count).toBe(3);
+    build();
 
-    // Our version's manifest was built...
+    // Our version's files were written...
     expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
     // ...and the other version's files were left untouched.
     expect(readFileSync(otherManifest, 'utf-8')).toBe(otherManifestContents);
     expect(readFileSync(otherDataPath, 'utf-8')).toBe(otherDataContents);
   });
 
-  test('an existing cached package without an index gets one built', () => {
-    // Simulates a package cached by a runtime that predates this feature.
-    expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
-    const loaded = load();
-    expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
-    expect(loaded.types.count).toBe(3);
-  });
-
-  test('non-cached loads do not write an index (eager fallback)', () => {
+  test('non-cached loads do not build an index (eager fallback)', () => {
     const loaded = loadRuntimeAssembly(dir, {
       cached: false,
       validate: false,
@@ -243,6 +249,51 @@ describe('runtime index', () => {
     expect((loaded.types.get('test.Foo') as any).docs).toEqual({
       summary: 'a class',
       remarks: 'y'.repeat(500),
+    });
+  });
+
+  describe('worker', () => {
+    test('buildIndexInWorker builds the index on a worker thread', async () => {
+      expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
+
+      const worker = buildIndexInWorker(dir, []);
+      expect(worker).toBeDefined();
+      await once(worker!, 'exit');
+
+      expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
+      expect(existsSync(join(dir, DATA_FILE))).toBe(true);
+
+      // The built index is readable by a subsequent (warm) load.
+      const loaded = load();
+      expect(loaded.types.count).toBe(3);
+      expect(loaded.types.get('test.Foo')?.kind).toBe('class');
+    });
+
+    test('a cold cached load serves eagerly and builds the index in the background', async () => {
+      expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
+
+      // Cold load returns immediately, served from the parsed assembly.
+      const loaded = load();
+      expect(loaded.types.count).toBe(3);
+      expect(loaded.types.get('test.Foo')?.kind).toBe('class');
+
+      // The index is produced off the critical path; it appears shortly after.
+      await waitFor(() => existsSync(join(dir, MANIFEST_FILE)));
+      expect(existsSync(join(dir, DATA_FILE))).toBe(true);
+    });
+  });
+
+  describe('runIndexBuilder (worker entry)', () => {
+    test('builds the index for the given package directory', () => {
+      runIndexBuilder({ packageDir: dir, supportedFeatures: [] });
+      expect(existsSync(join(dir, MANIFEST_FILE))).toBe(true);
+      const loaded = load();
+      expect(loaded.types.count).toBe(3);
+    });
+
+    test('is a no-op when no package directory is given', () => {
+      expect(() => runIndexBuilder({} as any)).not.toThrow();
+      expect(existsSync(join(dir, MANIFEST_FILE))).toBe(false);
     });
   });
 });

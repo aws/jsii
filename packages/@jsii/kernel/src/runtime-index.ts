@@ -11,6 +11,7 @@ import {
   writeFileSync,
 } from 'fs';
 import { isAbsolute, join, resolve, sep } from 'path';
+import { Worker } from 'worker_threads';
 
 /**
  * Version of the on-disk runtime index format.
@@ -44,6 +45,20 @@ const MANIFEST_SCHEMA = 'jsii/runtime-index';
  */
 function dataFileName(version: number): string {
   return `.jsii.runtime-index.v${version}`;
+}
+
+/**
+ * File name of the compiled worker entry point that builds the index, resolved
+ * as a sibling of this module. In a normal (unbundled) install it is the
+ * kernel's own compiled `runtime-index-builder.js`; in the webpack-bundled
+ * runtime it is emitted next to `program.js` (see the runtime's webpack config).
+ */
+const RUNTIME_INDEX_BUILDER = 'runtime-index-builder.js';
+
+/** Data handed to the index-builder worker via {@link Worker} `workerData`. */
+export interface IndexBuilderWorkerData {
+  readonly packageDir: string;
+  readonly supportedFeatures: spec.JsiiFeature[];
 }
 
 /** Name of the manifest file for a given format version, within a cache entry. */
@@ -294,16 +309,70 @@ export function loadRuntimeAssembly(
   );
 
   if (useIndex) {
-    // Populate the index for subsequent loads. Best-effort -- never fail a load
-    // because the index could not be written.
-    try {
-      buildIndex(packageDir, metadata);
-    } catch {
-      // Ignore: the next load will simply try again.
-    }
+    // Build the index for *subsequent* loads off the critical path: the current
+    // run is served eagerly from `metadata` and never reads the index being
+    // built, so there is no reason to make this load wait for it. The work runs
+    // on a worker thread; this load returns as soon as the assembly is parsed.
+    // Strictly best-effort -- a failure to start (or finish) the worker just
+    // means the next load tries again.
+    buildIndexInWorker(packageDir, supportedFeatures);
   }
 
   return { metadata, types: new EagerTypes(metadata.types ?? {}) };
+}
+
+/**
+ * Builds the runtime index for a cached package by (re-)reading its assembly.
+ *
+ * This is the unit of work performed on the index-builder worker thread; it is
+ * intentionally self-contained (takes only a `packageDir`) so it can run with
+ * no shared state. Errors propagate to the caller.
+ */
+export function buildRuntimeIndex(
+  packageDir: string,
+  supportedFeatures: spec.JsiiFeature[],
+): void {
+  const metadata = spec.loadAssemblyFromPath(
+    packageDir,
+    false,
+    supportedFeatures,
+  );
+  buildIndex(packageDir, metadata);
+}
+
+/**
+ * Starts a worker thread that builds the runtime index for a cached package and
+ * returns immediately, without awaiting it.
+ *
+ * The worker is `unref`'d so it never keeps the host process alive on its own;
+ * building the index is purely an optimization for future loads. The worker
+ * shares no kernel state -- it is handed only the `packageDir` and re-reads the
+ * assembly itself. All failures are swallowed; this is strictly best-effort.
+ *
+ * Returns the {@link Worker} (so callers that want to, e.g., await it on a
+ * graceful shutdown can), or `undefined` if it could not be started.
+ */
+export function buildIndexInWorker(
+  packageDir: string,
+  supportedFeatures: spec.JsiiFeature[],
+): Worker | undefined {
+  try {
+    const workerData: IndexBuilderWorkerData = {
+      packageDir,
+      supportedFeatures,
+    };
+    const worker = new Worker(join(__dirname, RUNTIME_INDEX_BUILDER), {
+      workerData,
+    });
+    // Swallow worker failures (e.g. the entry file is missing in an environment
+    // that did not ship it); the next load will simply retry.
+    worker.once('error', () => undefined);
+    worker.unref();
+    return worker;
+  } catch {
+    // Ignore synchronous start failures: best-effort.
+    return undefined;
+  }
 }
 
 /**
@@ -449,9 +518,6 @@ function isUint(value: unknown): value is number {
  */
 function resolveWithin(dir: string, relativePath: string): string | undefined {
   if (relativePath === '' || isAbsolute(relativePath)) {
-    return undefined;
-  }
-  if (relativePath.split(/[\\/]/).includes('..')) {
     return undefined;
   }
   const base = resolve(dir);

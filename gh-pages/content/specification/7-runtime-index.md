@@ -189,11 +189,6 @@ widths or order, changed body-stripping rules). Because the version is in the fi
 transparently invalidates older indices: the new runtime looks for (and builds) a new manifest, and
 leaves indices for other versions untouched.
 
-!!! note "Pre-release"
-    While this feature remains unreleased, its layout may be changed **in place without a version bump** —
-    there are no deployed readers to be compatible with. The version remains `1` until the first release
-    that ships it.
-
 ## Concurrency and atomicity
 
 - Both files are written via temp-file + `rename`, so a concurrent reader never observes a partial write.
