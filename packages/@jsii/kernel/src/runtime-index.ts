@@ -52,10 +52,10 @@ function defsFileName(version: number): string {
 /**
  * File name of the compiled worker entry point that builds the index, resolved
  * as a sibling of this module. In a normal (unbundled) install it is the
- * kernel's own compiled `runtime-index-builder.js`; in the webpack-bundled
+ * kernel's own compiled `runtime-index-worker.js`; in the webpack-bundled
  * runtime it is emitted next to `program.js` (see the runtime's webpack config).
  */
-const RUNTIME_INDEX_BUILDER = 'runtime-index-builder.js';
+const RUNTIME_INDEX_WORKER = 'runtime-index-worker.js';
 
 /** Data handed to the index-builder worker via {@link Worker} `workerData`. */
 export interface IndexBuilderWorkerData {
@@ -326,7 +326,7 @@ export interface LoadedAssembly {
  *
  * When the directory is a stable package-cache entry (`cached`) and assembly
  * validation is not requested, a compact "runtime index" is used so that only
- * the types actually accessed during execution are parsed -- a large saving for
+ * the types actually accessed during execution are parsed, a large saving for
  * big assemblies (e.g. aws-cdk-lib), of which a typical run touches a tiny
  * fraction.
  *
@@ -342,9 +342,11 @@ export function loadRuntimeAssembly(
     readonly cached: boolean;
     readonly validate: boolean;
     readonly supportedFeatures: spec.JsiiFeature[];
+    /** Optional sink for best-effort diagnostics from the index-builder worker. */
+    readonly debug?: (...args: any[]) => void;
   },
 ): LoadedAssembly {
-  const { cached, validate, supportedFeatures } = options;
+  const { cached, validate, supportedFeatures, debug } = options;
 
   // Only use the index for cached, non-validating loads:
   // Validation needs the full unmodified assembly, and uncached loads are obviously not cached.
@@ -369,9 +371,9 @@ export function loadRuntimeAssembly(
     // run is served eagerly from `metadata` and never reads the index being
     // built, so there is no reason to make this load wait for it. The work runs
     // on a worker thread; this load returns as soon as the assembly is parsed.
-    // Strictly best-effort -- a failure to start (or finish) the worker just
-    // means the next load tries again.
-    buildIndexInWorker(packageDir, supportedFeatures);
+    // Best-effort: a failure to start or finish the worker just means the next
+    // load tries again.
+    buildIndexInWorker(packageDir, supportedFeatures, debug);
   }
 
   return { metadata, types: new EagerTypes(metadata.types ?? {}) };
@@ -400,33 +402,45 @@ export function buildRuntimeIndex(
  * Starts a worker thread that builds the runtime index for a cached package and
  * returns immediately, without awaiting it.
  *
- * The worker is `unref`'d so it never keeps the host process alive on its own;
- * building the index is purely an optimization for future loads. The worker
- * shares no kernel state -- it is handed only the `packageDir` and re-reads the
- * assembly itself. All failures are swallowed; this is strictly best-effort.
+ * The worker is intentionally not `unref`'d: it keeps the host process alive
+ * until the index has been written, then exits on its own. This way even a
+ * short-lived process (which has already returned its results to the host)
+ * finishes building the index rather than abandoning it half-written. The
+ * worker shares no kernel state; it is handed only the `packageDir` and
+ * re-reads the assembly itself. Building the index is best-effort: any failure
+ * is reported to `debug` (when provided) and the next load retries.
  *
- * Returns the {@link Worker} (so callers that want to, e.g., await it on a
- * graceful shutdown can), or `undefined` if it could not be started.
+ * Returns the {@link Worker}, or `undefined` if it could not be started.
  */
 export function buildIndexInWorker(
   packageDir: string,
   supportedFeatures: spec.JsiiFeature[],
+  debug?: (...args: any[]) => void,
 ): Worker | undefined {
   try {
     const workerData: IndexBuilderWorkerData = {
       packageDir,
       supportedFeatures,
     };
-    const worker = new Worker(join(__dirname, RUNTIME_INDEX_BUILDER), {
+    const worker = new Worker(join(__dirname, RUNTIME_INDEX_WORKER), {
       workerData,
     });
-    // Swallow worker failures (e.g. the entry file is missing in an environment
-    // that did not ship it); the next load will simply retry.
-    worker.once('error', () => undefined);
-    worker.unref();
+    // The worker reports a build failure by posting `{ error }` back; surface it
+    // on the kernel's debug channel rather than failing the already-served load.
+    worker.on('message', (message: { error?: string }) => {
+      if (message?.error != null) {
+        debug?.('runtime index build failed:', message.error);
+      }
+    });
+    // Fires if the worker itself fails to start or throws uncaught (e.g. its
+    // entry file is missing in an environment that did not ship it).
+    worker.on('error', (err) => {
+      debug?.('runtime index worker error:', err);
+    });
     return worker;
-  } catch {
-    // Ignore synchronous start failures: best-effort.
+  } catch (err) {
+    // Ignore synchronous start failures; best-effort.
+    debug?.('could not start runtime index worker:', err);
     return undefined;
   }
 }
@@ -438,7 +452,7 @@ export function buildIndexInWorker(
  * the index) when no manifest for the current format version exists, or it is
  * unreadable, malformed, or its index/defs files are absent or inconsistent.
  * Throws only for "real" load errors, such as the assembly using unsupported
- * features -- matching the behavior of a full load.
+ * features, matching the behavior of a full load.
  */
 function tryLoadIndexed(
   packageDir: string,

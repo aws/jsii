@@ -182,6 +182,7 @@ export class Kernel {
             cached,
             validate: this.validateAssemblies,
             supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
+            debug: this.#debug.bind(this),
           }),
         `loadAssemblyFromPath(${packageDir})`,
       );

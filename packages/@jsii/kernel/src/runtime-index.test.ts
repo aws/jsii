@@ -15,7 +15,7 @@ import {
   loadRuntimeAssembly,
   RUNTIME_INDEX_VERSION,
 } from './runtime-index';
-import { runIndexBuilder } from './runtime-index-builder';
+import { runIndexBuilder } from './runtime-index-worker';
 
 const MANIFEST_FILE = `.jsii.runtime.v${RUNTIME_INDEX_VERSION}.json`;
 const INDEX_FILE = `.jsii.runtime-index.v${RUNTIME_INDEX_VERSION}`;
