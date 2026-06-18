@@ -7,9 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* ability to send Java stack traces to the host ([8165b51](https://github.com/aws/jsii/commit/8165b51fa8486183b239eecc94ba30274586d4e1))
 * ability to send Java stack traces to the host ([#5158](https://github.com/aws/jsii/issues/5158)) ([45c50ba](https://github.com/aws/jsii/commit/45c50ba7804bde9582ab54de8614715ff648c6c5))
-* propagate host-language stack traces through the jsii protocol ([c0bb04d](https://github.com/aws/jsii/commit/c0bb04dde306ea9e3aebb35fd92b1efbd7586076))
 * propagate host-language stack traces through the jsii protocol ([#5153](https://github.com/aws/jsii/issues/5153)) ([6d28fc7](https://github.com/aws/jsii/commit/6d28fc74bf0e579f1633f0ca020d84cc5df42c31))
 
 
