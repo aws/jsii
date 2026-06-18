@@ -25,6 +25,7 @@ import {
   toTypeName,
   PythonImports,
   mergePythonImports,
+  hasImports,
   toPackageName,
   toPythonFqn,
   IntersectionTypesRegistry,
@@ -1777,6 +1778,15 @@ class PythonModule implements PythonType {
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
 
+    // Emit PEP 563 (from __future__ import annotations) if this module has
+    // cross-module imports. This makes all annotations strings at definition
+    // time, preventing lazy proxy resolution during module load.
+    // Must be the first statement in the file (after docstring) per Python rules.
+    if (hasImports(this.requiredImports(context))) {
+      code.line('from __future__ import annotations');
+      code.line();
+    }
+
     // If multiple packages use the same namespace (in Python, a directory) it
     // depends on how they are laid out on disk if deep imports of multiple packages
     // will succeed. `pip` merges all packages into the same directory, and deep
@@ -2114,6 +2124,67 @@ class PythonModule implements PythonType {
   }
 
   /**
+   * Emit the `_LazyImport` helper class that defers `importlib.import_module()`
+   * until first attribute access via `__getattr__`.
+   *
+   * The class is emitted once per module that has cross-module imports. It wraps
+   * a module name string and caches the imported module after first access.
+   * Failed imports are NOT cached, allowing retry on subsequent access.
+   */
+  private emitLazyImportClass(code: CodeMaker) {
+    code.line();
+    code.openBlock('class _LazyImport');
+    // __init__
+    code.openBlock('def __init__(self, module_name: str) -> None');
+    code.line('self._module_name = module_name');
+    code.line('self._module: typing.Any = None');
+    code.closeBlock();
+    // __getattr__
+    code.openBlock('def __getattr__(self, name: str) -> typing.Any');
+    code.openBlock('if self._module is None');
+    code.line('import importlib');
+    code.line('self._module = importlib.import_module(self._module_name)');
+    code.closeBlock();
+    code.line('return getattr(self._module, name)');
+    code.closeBlock();
+    code.closeBlock();
+  }
+
+  /**
+   * Emit `_LazyImport(...)` assignments for all cross-module imports.
+   *
+   * Only processes entries where the items set contains '' (empty string),
+   * indicating a full module import. Parses the sourcePackage string which
+   * has the format "module.name as _alias" to extract the module name and alias.
+   * Sorts assignments by alias for deterministic output.
+   */
+  private emitLazyProxyAssignments(code: CodeMaker, imports: PythonImports) {
+    const assignments = Object.entries(imports)
+      .filter(([, items]) => items.has('')) // Only full module imports (empty string = import the whole module)
+      .map(([sourcePackage]) => {
+        // sourcePackage is like "aws_cdk.aws_iam as _aws_cdk_aws_iam_abcd1234"
+        const match = sourcePackage.match(/^(.+)\s+as\s+(.+)$/);
+        if (match) {
+          const [, moduleName, alias] = match;
+          return { moduleName, alias };
+        }
+        // Fallback: no alias
+        return {
+          moduleName: sourcePackage,
+          alias: `_${sourcePackage.replace(/\./g, '_')}`,
+        };
+      })
+      .sort((a, b) => a.alias.localeCompare(b.alias));
+
+    if (assignments.length > 0) {
+      code.line();
+      for (const { moduleName, alias } of assignments) {
+        code.line(`${alias} = _LazyImport("${moduleName}")`);
+      }
+    }
+  }
+
+  /**
    * Emit a mapping from submodule FQNs to their Python module paths.
    *
    * This allows the Python runtime to deterministically resolve a jsii FQN
@@ -2142,8 +2213,28 @@ class PythonModule implements PythonType {
   }
 
   private emitRequiredImports(code: CodeMaker, context: EmitContext) {
-    const requiredImports = this.requiredImports(context);
-    const statements = Object.entries(requiredImports)
+    const allImports = this.requiredImports(context);
+    if (!hasImports(allImports)) {
+      return;
+    }
+
+    // Emit _LazyImport class definition
+    this.emitLazyImportClass(code);
+
+    // Emit TYPE_CHECKING block with original import statements for static type checkers,
+    // and lazy proxy assignments in the else branch for runtime.
+    // This structure ensures pyright/mypy see the real module types while runtime uses lazy proxies.
+    code.line();
+    code.openBlock('if typing.TYPE_CHECKING');
+    this.emitImportStatements(code, allImports);
+    code.closeBlock();
+    code.openBlock('else');
+    this.emitLazyProxyAssignments(code, allImports);
+    code.closeBlock();
+  }
+
+  private emitImportStatements(code: CodeMaker, imports: PythonImports) {
+    const statements = Object.entries(imports)
       .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
       .reduce(
         (acc, elt) => [...acc, ...elt],
