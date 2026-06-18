@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.136.0](https://github.com/aws/jsii/compare/v1.135.0...v1.136.0) (2026-06-18)
+
+
+### Features
+
+* ability to send Java stack traces to the host ([8165b51](https://github.com/aws/jsii/commit/8165b51fa8486183b239eecc94ba30274586d4e1))
+* ability to send Java stack traces to the host ([#5158](https://github.com/aws/jsii/issues/5158)) ([45c50ba](https://github.com/aws/jsii/commit/45c50ba7804bde9582ab54de8614715ff648c6c5))
+* propagate host-language stack traces through the jsii protocol ([c0bb04d](https://github.com/aws/jsii/commit/c0bb04dde306ea9e3aebb35fd92b1efbd7586076))
+* propagate host-language stack traces through the jsii protocol ([#5153](https://github.com/aws/jsii/issues/5153)) ([6d28fc7](https://github.com/aws/jsii/commit/6d28fc74bf0e579f1633f0ca020d84cc5df42c31))
+
+
+### Bug Fixes
+
+* **kernel:** improve performance by ~10% by deferring error-context and cache serialization values ([#5162](https://github.com/aws/jsii/issues/5162)) ([69f2c2b](https://github.com/aws/jsii/commit/69f2c2b9bf6937de9062fb1ccf51635044bbd3a1))
+* **python:** typeguard check runs on every call instead of once per process ([#5169](https://github.com/aws/jsii/issues/5169)) ([d9b804b](https://github.com/aws/jsii/commit/d9b804b5c98f50f03142eb1386eb28d6d4b82459))
+* sibling module dependencies are eagerly loaded even if only for type annotations ([#5172](https://github.com/aws/jsii/issues/5172)) ([6088919](https://github.com/aws/jsii/commit/6088919e8be0513140654bf22ba5eb95899a2f2a))
+
 ## [1.135.0](https://github.com/aws/jsii/compare/v1.134.0...v1.135.0) (2026-06-11)
 
 
