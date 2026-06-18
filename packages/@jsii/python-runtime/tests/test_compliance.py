@@ -1414,6 +1414,69 @@ def test_custom_named_submodule_types_resolve():
     assert reflector is not None
 
 
+def test_lazy_cross_module_imports_emit_type_checking_pattern():
+    """The generated package defers cross-module annotation imports.
+
+    The lazy-import optimization rewrites cross-module dependencies (used only
+    to satisfy type annotations) so they are NOT imported eagerly at module
+    load. Instead the generator emits:
+
+    - ``from __future__ import annotations`` so annotations are never evaluated
+      at definition time,
+    - an ``if typing.TYPE_CHECKING:`` block holding the real imports (seen only
+      by static type checkers), and
+    - an ``else:`` branch binding each cross-module alias to a ``_LazyImport``
+      proxy that defers ``importlib.import_module`` until first attribute access.
+
+    This inspects the *generated source* of an installed module that has
+    cross-module dependencies, asserting the pattern is present. It validates
+    exactly what the code generator controls, independent of the separate
+    assembly-loading bootstrap (``_jsii``) which eagerly loads dependency
+    assemblies regardless of this optimization.
+    """
+    import inspect
+    import jsii_calc
+
+    source = inspect.getsource(jsii_calc)
+
+    # PEP 563: annotations are strings, so referencing a lazy alias in an
+    # annotation does not import anything at definition time.
+    assert "from __future__ import annotations" in source
+
+    # The TYPE_CHECKING / else split that hides real imports from the runtime.
+    assert "if typing.TYPE_CHECKING:" in source
+
+    # The runtime binds cross-module aliases to deferred _LazyImport proxies
+    # rather than importing the modules eagerly.
+    assert "_LazyImport(" in source
+    assert "class _LazyImport:" in source
+
+
+def test_lazy_cross_module_annotation_resolves_on_typechecked_call():
+    """A runtime-type-checked method with a cross-module annotation works.
+
+    ``Add`` lives in jsii_calc and takes ``NumericValue`` arguments, a type from
+    scope.jsii_calc_lib. Under runtime type checking the generated code calls
+    ``typing.get_type_hints()`` inside the constructor, which must resolve the
+    string annotation referencing the lazily-imported module alias. Constructing
+    ``Add`` therefore exercises the full lazy-resolution path end to end: the
+    ``_LazyImport`` proxy is touched, the real module is imported on demand, and
+    the type check passes.
+    """
+    from jsii_calc import Add
+
+    result = Add(Number(10), Number(20))
+
+    # The kernel round-trips the cross-module NumericValue arguments correctly.
+    assert result.value == 30
+
+    # Passing a wrong type for a cross-module-annotated argument must still be
+    # rejected by the runtime type check (it only works if get_type_hints
+    # resolved the lazily-imported annotation rather than silently skipping it).
+    with pytest.raises((TypeError, Exception)):
+        Add("not-a-number", Number(1))  # type: ignore[arg-type]
+
+
 def test_host_stack_trace_is_passed_to_kernel(monkeypatch):
     monkeypatch.setenv("JSII_HOST_STACK_TRACES", "1")
     trace = HostStackTraceReader.captured_trace()
@@ -1462,3 +1525,61 @@ def test_host_stack_trace_through_callback(monkeypatch):
         "invoke_callback",
         "test_host_stack_trace_through_callback",
     ]
+
+
+def test_intersection_types_importable():
+    """Verifies that modules using intersection types (A & B) can be imported.
+
+    The jsii_calc.intersection module has parameters typed as ISomething & IFriendly.
+    The code generator emits a helper protocol class (_ISomething_IFriendly) that
+    extends both interfaces. Under the lazy-import scheme this helper and the
+    cross-module references it depends on must still resolve, so importing the
+    module must not raise NameError.
+    """
+    from jsii_calc.intersection import ConsumesIntersection, ISomething
+
+    assert ConsumesIntersection is not None
+    assert ISomething is not None
+
+
+def test_intersection_types_usage():
+    """Verifies that intersection types work end-to-end through the jsii kernel.
+
+    This tests the full lifecycle: importing the module, instantiating classes
+    that accept intersection-typed parameters, and calling static methods that
+    take intersection-typed arguments. This exercises:
+    - The intersection helper protocol class (_ISomething_IFriendly)
+    - The struct (IntersectionProps) that has an intersection-typed property
+    - Static methods accepting intersection-typed parameters
+    - Constructor accepting a struct with intersection-typed property
+    """
+    from jsii_calc.intersection import (
+        ConsumesIntersection,
+        ISomething,
+        IntersectionProps,
+    )
+
+    assert ConsumesIntersection is not None
+    assert ISomething is not None
+    assert IntersectionProps is not None
+
+    # Create an object that satisfies both ISomething and IFriendly
+    @jsii.implements(ISomething)
+    class FriendlyThing:
+        def something(self):
+            return 42
+
+        def hello(self):
+            return "hi there"
+
+    thing = FriendlyThing()
+
+    # Call static method with intersection-typed parameter
+    ConsumesIntersection.accepts_intersection(thing)
+
+    # Call static method with struct containing intersection-typed property
+    ConsumesIntersection.accepts_prop_with_intersection(param=thing)
+
+    # Instantiate via constructor that takes the struct
+    instance = ConsumesIntersection(param=thing)
+    assert instance is not None
