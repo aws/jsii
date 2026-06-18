@@ -3206,6 +3206,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 BurriedAnonymousObject.cs
        ┃           ┣━ 📄 Calculator.cs
        ┃           ┣━ 📄 CalculatorProps.cs
+       ┃           ┣━ 📄 CallbackStackTraceTest.cs
        ┃           ┣━ 📁 Cdk16625
        ┃           ┃  ┣━ 📄 Cdk16625.cs
        ┃           ┃  ┗━ 📁 Donotimport
@@ -3300,6 +3301,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┃  ┣━ 📄 IConsumerProps.cs
        ┃           ┃  ┃  ┗━ 📄 IHomonymous.cs
        ┃           ┃  ┗━ 📄 NamespaceDoc.cs
+       ┃           ┣━ 📄 HostStackTraceReader.cs
        ┃           ┣━ 📄 IAnonymousImplementationProvider.cs
        ┃           ┣━ 📄 IAnonymouslyImplementMe.cs
        ┃           ┣━ 📄 IAnotherPublicInterface.cs
@@ -5160,6 +5162,112 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
             set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/CallbackStackTraceTest.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Abstract class that exercises the callback flow for stack trace propagation.</summary>
+    /// <remarks>
+    /// The test pattern is:
+    ///
+    /// <list type="number">
+    /// <description>Host overrides <c>callbackProvider()</c> to call <c>HostStackTraceReader.capturedTrace()</c>
+    /// and return the result.</description>
+    /// <description>Host calls <c>invokeCallback()</c>, which calls back into the host.</description>
+    /// <description>The host's override makes a new request to the kernel to read the trace.</description>
+    /// <description>The trace captured during that nested request should reflect the host's
+    /// callback call site, not the original <c>invokeCallback()</c> call site.</description>
+    /// </list>
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.CallbackStackTraceTest), fullyQualifiedName: "jsii-calc.CallbackStackTraceTest")]
+    public abstract class CallbackStackTraceTest : DeputyBase
+    {
+        protected CallbackStackTraceTest(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected CallbackStackTraceTest(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected CallbackStackTraceTest(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Override this method.</summary>
+        /// <remarks>
+        /// In the implementation, call
+        /// <c>HostStackTraceReader.capturedTrace()</c> and return the result.
+        /// </remarks>
+        [JsiiMethod(name: "callbackProvider", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+        protected abstract object CallbackProvider();
+
+
+        /// <summary>Call this from the host to trigger the callback flow.</summary>
+        [JsiiMethod(name: "invokeCallback")]
+        public virtual void InvokeCallback()
+        {
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+        }
+
+        /// <summary>Returns the trace that was captured during the callback.</summary>
+        [JsiiProperty(name: "traceFromCallback", typeJson: "{\\"primitive\\":\\"any\\"}")]
+        public virtual object TraceFromCallback
+        {
+            get => GetInstanceProperty<object>()!;
+        }
+
+        /// <summary>Abstract class that exercises the callback flow for stack trace propagation.</summary>
+        /// <remarks>
+        /// The test pattern is:
+        ///
+        /// <list type="number">
+        /// <description>Host overrides <c>callbackProvider()</c> to call <c>HostStackTraceReader.capturedTrace()</c>
+        /// and return the result.</description>
+        /// <description>Host calls <c>invokeCallback()</c>, which calls back into the host.</description>
+        /// <description>The host's override makes a new request to the kernel to read the trace.</description>
+        /// <description>The trace captured during that nested request should reflect the host's
+        /// callback call site, not the original <c>invokeCallback()</c> call site.</description>
+        /// </list>
+        /// </remarks>
+        [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.CallbackStackTraceTest), fullyQualifiedName: "jsii-calc.CallbackStackTraceTest")]
+        internal sealed class _Proxy : Amazon.JSII.Tests.CalculatorNamespace.CallbackStackTraceTest
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>Override this method.</summary>
+            /// <remarks>
+            /// In the implementation, call
+            /// <c>HostStackTraceReader.capturedTrace()</c> and return the result.
+            /// </remarks>
+            [JsiiMethod(name: "callbackProvider", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+            protected override object CallbackProvider()
+            {
+                return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
+            }
         }
     }
 }
@@ -9180,6 +9288,61 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.HomonymousForwardReferences
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public class NamespaceDoc
     {
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/HostStackTraceReader.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>A class that exposes the host stack trace provided by the jsii runtime.</summary>
+    /// <remarks>
+    /// This is used for integration testing to verify that stack traces captured
+    /// in the host language (Python, Java, Go, .NET) are correctly transmitted
+    /// to the kernel.
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.HostStackTraceReader), fullyQualifiedName: "jsii-calc.HostStackTraceReader")]
+    public class HostStackTraceReader : DeputyBase
+    {
+        public HostStackTraceReader(): base(_MakeDeputyProps())
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps()
+        {
+            return new DeputyProps(System.Array.Empty<object?>());
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected HostStackTraceReader(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected HostStackTraceReader(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Returns the current host stack trace, if one was provided by the runtime.</summary>
+        /// <remarks>
+        /// Each frame is a tuple of [file, line, column, function].
+        /// Returns undefined if no host stack trace is available.
+        /// </remarks>
+        [JsiiMethod(name: "capturedTrace", returnsJson: "{\\"type\\":{\\"primitive\\":\\"any\\"}}")]
+        public static object CapturedTrace()
+        {
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.HostStackTraceReader), new System.Type[]{}, new object[]{})!;
+        }
     }
 }
 

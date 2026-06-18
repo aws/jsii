@@ -15,6 +15,63 @@ See [STDIN/STDOUT protocol](./lib/in-out.ts) and [@jsii/kernel
 API](https://github.com/aws/jsii/blob/main/packages/@jsii/kernel/lib/api.ts)
 for details.
 
+## Host Stack Traces
+
+When using jsii from a non-JavaScript language (Python, Java, Go, .NET), stack
+traces captured inside the kernel refer to JavaScript frames, which are not
+useful to end users. The **host stack trace** feature allows language runtimes to
+capture a stack trace on the host side and send it to the kernel, so that
+downstream consumers (such as the AWS CDK) can report meaningful traces in the
+user's language.
+
+### Enabling
+
+Set the environment variable `JSII_HOST_STACK_TRACES=1` to opt in. When
+disabled (the default), no stack traces are captured and no additional data is
+sent over the wire.
+
+### Wire protocol
+
+When enabled, the host runtime attaches a `$jsii.stacktrace` field to any
+request sent to the kernel:
+
+```json
+{
+  "api": "create",
+  "fqn": "aws-cdk-lib.Stack",
+  "args": [],
+  "$jsii.stacktrace": [
+    ["my_app/my_stack.py", 42, 0, "MyStack.__init__"],
+    ["app.py", 12, 0, "<module>"]
+  ]
+}
+```
+
+Each frame is a tuple of `[file, line, column, function]`:
+
+| Field    | Type   | Description                             |
+|----------|--------|-----------------------------------------|
+| file     | string | Source file path (relative or absolute) |
+| line     | number | The line number                         |
+| column   | number | The column number (0 if unavailable)    |
+| function | string | Function name (e.g. `.__init__`)        |
+
+Frames are ordered most-recent-first (matching V8 `Error.stack` convention).
+
+### Kernel-side contract
+
+The kernel extracts the `$jsii.stacktrace` field and stores it in a well-known
+global before dispatching the request:
+
+```js
+globalThis[Symbol.for('jsii.context.hostStackTrace')]
+```
+
+This global is set before the kernel method executes and cleared immediately
+after. JavaScript code running inside the kernel (e.g., CDK construct libraries)
+can read this global to obtain the host-side stack trace without depending on any
+jsii package.
+
 ## License
 
 __jsii__ is distributed under the

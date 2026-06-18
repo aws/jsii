@@ -9,6 +9,12 @@ import * as api from './api';
 import { TOKEN_REF } from './api';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
+import {
+  loadRuntimeAssembly,
+  type AssemblyMetadata,
+  type AssemblyTypes,
+  type LoadedAssembly,
+} from './runtime-index';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
@@ -69,7 +75,7 @@ export class Kernel {
   readonly #serializerHost: wire.SerializerHost;
 
   #nextid = 20000; // incrementing counter for objid, cbid, promiseid
-  #syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
+  #syncInProgress?: string | (() => string); // forbids async calls (begin) while processing sync calls (get/set/invoke)
   #installDir?: string;
   /** The internal require function, used instead of the global "require" so that webpack does not transform it... */
   #require?: typeof require;
@@ -129,12 +135,13 @@ export class Kernel {
 
       return {
         assembly: assm.metadata.name,
-        types: Object.keys(assm.metadata.types ?? {}).length,
+        types: assm.types.count,
       };
     }
 
     // Force umask to have npm-install-like permissions
     const originalUmask = process.umask(0o022);
+    let cached = false;
     try {
       // untar the archive to its final location
       const { cache } = this.#debugTime(
@@ -153,6 +160,7 @@ export class Kernel {
         `tar.extract(${req.tarball}) => ${packageDir}`,
       );
 
+      cached = cache != null;
       if (cache != null) {
         this.#debug(
           `Package cache enabled, extraction resulted in a cache ${cache}`,
@@ -163,16 +171,19 @@ export class Kernel {
       process.umask(originalUmask);
     }
 
-    // read .jsii metadata from the root of the package
-    let assmSpec: spec.Assembly;
+    // read .jsii metadata from the root of the package. When the package is a
+    // stable cache entry, this uses (and lazily builds) a compact runtime index
+    // so only the types actually used are parsed.
+    let loaded: LoadedAssembly;
     try {
-      assmSpec = this.#debugTime(
+      loaded = this.#debugTime(
         () =>
-          spec.loadAssemblyFromPath(
-            packageDir,
-            this.validateAssemblies,
-            ASSEMBLY_SUPPORTED_FEATURES,
-          ),
+          loadRuntimeAssembly(packageDir, {
+            cached,
+            validate: this.validateAssemblies,
+            supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
+            debug: this.#debug.bind(this),
+          }),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
@@ -180,6 +191,7 @@ export class Kernel {
         `Error for package tarball ${req.tarball}: ${e.message}`,
       );
     }
+    const assmSpec = loaded.metadata;
 
     // We do a `require.resolve` call, as otherwise, requiring with a directory will cause any `exports` from
     // `package.json` to be ignored, preventing injection of a "lazy index" entry point.
@@ -191,17 +203,15 @@ export class Kernel {
       () => this.#require!(entryPoint),
       `require(${entryPoint})`,
     );
-    const assm = new Assembly(assmSpec, closure);
+    const assm = new Assembly(assmSpec, closure, loaded.types);
     this.#debugTime(
       () => this.#addAssembly(assm),
-      `registerAssembly({ name: ${assm.metadata.name}, types: ${
-        Object.keys(assm.metadata.types ?? {}).length
-      } })`,
+      `registerAssembly({ name: ${assm.metadata.name}, types: ${assm.types.count} })`,
     );
 
     return {
       assembly: assmSpec.name,
-      types: Object.keys(assmSpec.types ?? {}).length,
+      types: assm.types.count,
     };
   }
 
@@ -311,11 +321,15 @@ export class Kernel {
     // make the actual "get", and block any async calls that might be performed
     // by jsii overrides.
     const value = this.#ensureSync(
-      `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
+      () => `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
       () => instance[propertyToGet],
     );
     this.#debug('value:', value);
-    const ret = this.#fromSandbox(value, ti, `of property ${fqn}.${property}`);
+    const ret = this.#fromSandbox(
+      value,
+      ti,
+      () => `of property ${fqn}.${property}`,
+    );
     this.#debug('ret:', ret);
     return { value: ret };
   }
@@ -336,12 +350,12 @@ export class Kernel {
     const propertyToSet = this.#findPropertyTarget(instance, property);
 
     this.#ensureSync(
-      `property '${objref[TOKEN_REF]}.${propertyToSet}'`,
+      () => `property '${objref[TOKEN_REF]}.${propertyToSet}'`,
       () =>
         (instance[propertyToSet] = this.#toSandbox(
           value,
           propInfo,
-          `assigned to property ${fqn}.${property}`,
+          () => `assigned to property ${fqn}.${property}`,
         )),
     );
 
@@ -362,13 +376,13 @@ export class Kernel {
 
     const fqn = jsiiTypeFqn(obj, this.#isVisibleType.bind(this));
     const ret = this.#ensureSync(
-      `method '${objref[TOKEN_REF]}.${method}'`,
+      () => `method '${objref[TOKEN_REF]}.${method}'`,
       () => {
         return fn.apply(
           obj,
           this.#toSandboxValues(
             args,
-            `method ${fqn ? `${fqn}#` : ''}${method}`,
+            () => `method ${fqn ? `${fqn}#` : ''}${method}`,
             ti.parameters,
           ),
         );
@@ -378,7 +392,7 @@ export class Kernel {
     const result = this.#fromSandbox(
       ret,
       ti.returns ?? 'void',
-      `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
+      () => `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
     );
     this.#debug('invoke result', result);
 
@@ -433,8 +447,12 @@ export class Kernel {
     this.#debug('begin', objref, method, args);
 
     if (this.#syncInProgress) {
+      const inProgress =
+        typeof this.#syncInProgress === 'function'
+          ? this.#syncInProgress()
+          : this.#syncInProgress;
       throw new JsiiFault(
-        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.#syncInProgress} is being processed`,
+        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${inProgress} is being processed`,
       );
     }
 
@@ -615,15 +633,16 @@ export class Kernel {
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
-    for (const fqn of Object.keys(assm.metadata.types ?? {})) {
-      const typedef = assm.metadata.types![fqn];
-      switch (typedef.kind) {
-        case spec.TypeKind.Interface:
-          continue; // interfaces don't really exist
+    for (const [fqn, kind] of assm.types.entries()) {
+      switch (kind) {
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
           const constructor = this.#findSymbol(fqn);
           tagJsiiConstructor(constructor, fqn);
+          break;
+        case undefined:
+        case spec.TypeKind.Interface:
+          break; // absent kind or interface: nothing to tag
       }
     }
   }
@@ -682,7 +701,7 @@ export class Kernel {
     const obj = new ctor(
       ...this.#toSandboxValues(
         requestArgs,
-        `new ${fqn}`,
+        () => `new ${fqn}`,
         ctorResult.parameters,
       ),
     );
@@ -1120,24 +1139,41 @@ export class Kernel {
   }
 
   #typeInfoForFqn(fqn: spec.FQN): spec.Type {
+    const fqnInfo = this.#tryTypeInfoForFqn(fqn);
+    if (!fqnInfo) {
+      // Reproduce the more specific error messages on the (cold) failure path.
+      const moduleName = fqn.split('.')[0];
+      if (!this.#assemblies.has(moduleName)) {
+        throw new JsiiFault(`Module '${moduleName}' not found`);
+      }
+      throw new JsiiFault(`Type '${fqn}' not found`);
+    }
+    return fqnInfo;
+  }
+
+  /**
+   * Like {@link #typeInfoForFqn}, but returns `undefined` instead of throwing
+   * when the FQN does not correspond to a known exported type. This lets
+   * callers that only need to test for existence (e.g. {@link #isVisibleType})
+   * avoid the cost of throwing and catching exceptions on the hot path.
+   */
+  #tryTypeInfoForFqn(fqn: spec.FQN): spec.Type | undefined {
     // Check cache first for O(1) lookup
     const cached = this.#typeCache.get(fqn);
     if (cached) {
       return cached;
     }
 
-    const components = fqn.split('.');
-    const moduleName = components[0];
+    const moduleName = fqn.split('.')[0];
 
     const assembly = this.#assemblies.get(moduleName);
     if (!assembly) {
-      throw new JsiiFault(`Module '${moduleName}' not found`);
+      return undefined;
     }
 
-    const types = assembly.metadata.types ?? {};
-    const fqnInfo = types[fqn];
+    const fqnInfo = assembly.types.get(fqn);
     if (!fqnInfo) {
-      throw new JsiiFault(`Type '${fqn}' not found`);
+      return undefined;
     }
 
     // Cache for subsequent lookups (callers must not mutate returned objects)
@@ -1154,15 +1190,7 @@ export class Kernel {
    * @returns `true` IIF the FQN corresponds to a know exported type.
    */
   #isVisibleType(fqn: spec.FQN): boolean {
-    try {
-      /* ignored */ this.#typeInfoForFqn(fqn);
-      return true;
-    } catch (e) {
-      if (e instanceof JsiiFault) {
-        return false;
-      }
-      throw e;
-    }
+    return this.#tryTypeInfoForFqn(fqn) !== undefined;
   }
 
   #typeInfoForMethod(
@@ -1309,7 +1337,7 @@ export class Kernel {
   #toSandbox(
     v: any,
     expectedType: wire.OptionalValueOrVoid,
-    context: string,
+    context: string | (() => string),
   ): any {
     return wire.process(
       this.#serializerHost,
@@ -1323,7 +1351,7 @@ export class Kernel {
   #fromSandbox(
     v: any,
     targetType: wire.OptionalValueOrVoid,
-    context: string,
+    context: string | (() => string),
   ): any {
     return wire.process(
       this.#serializerHost,
@@ -1336,7 +1364,7 @@ export class Kernel {
 
   #toSandboxValues(
     xs: readonly unknown[],
-    methodContext: string,
+    methodContext: string | (() => string),
     parameters: readonly spec.Parameter[] | undefined,
   ) {
     return this.#boxUnboxParameters(
@@ -1349,7 +1377,7 @@ export class Kernel {
 
   #fromSandboxValues(
     xs: readonly unknown[],
-    methodContext: string,
+    methodContext: string | (() => string),
     parameters: readonly spec.Parameter[] | undefined,
   ) {
     return this.#boxUnboxParameters(
@@ -1362,9 +1390,13 @@ export class Kernel {
 
   #boxUnboxParameters(
     xs: readonly unknown[],
-    methodContext: string,
+    methodContext: string | (() => string),
     parameters: readonly spec.Parameter[] = [],
-    boxUnbox: (x: any, t: wire.OptionalValueOrVoid, context: string) => any,
+    boxUnbox: (
+      x: any,
+      t: wire.OptionalValueOrVoid,
+      context: string | (() => string),
+    ) => any,
   ) {
     const parametersCopy = [...parameters];
     const variadic =
@@ -1401,7 +1433,12 @@ export class Kernel {
       boxUnbox(
         x,
         parametersCopy[i],
-        `passed to parameter ${parametersCopy[i].name} of ${methodContext}`,
+        () =>
+          `passed to parameter ${parametersCopy[i].name} of ${
+            typeof methodContext === 'function'
+              ? methodContext()
+              : methodContext
+          }`,
       ),
     );
   }
@@ -1430,7 +1467,7 @@ export class Kernel {
    * Ensures that `fn` is called and defends against beginning to invoke
    * async methods until fn finishes (successfully or not).
    */
-  #ensureSync<T>(desc: string, fn: () => T): T {
+  #ensureSync<T>(desc: string | (() => string), fn: () => T): T {
     this.#syncInProgress = desc;
     try {
       return fn();
@@ -1526,7 +1563,8 @@ interface AsyncInvocation {
 
 class Assembly {
   public constructor(
-    public readonly metadata: spec.Assembly,
+    public readonly metadata: AssemblyMetadata,
     public readonly closure: any,
+    public readonly types: AssemblyTypes,
   ) {}
 }

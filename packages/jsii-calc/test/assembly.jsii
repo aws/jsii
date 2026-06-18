@@ -2401,6 +2401,77 @@
       ],
       "symbolId": "lib/calculator:CalculatorProps"
     },
+    "jsii-calc.CallbackStackTraceTest": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "The test pattern is:\n1. Host overrides `callbackProvider()` to call `HostStackTraceReader.capturedTrace()`\n   and return the result.\n2. Host calls `invokeCallback()`, which calls back into the host.\n3. The host's override makes a new request to the kernel to read the trace.\n4. The trace captured during that nested request should reflect the host's\n   callback call site, not the original `invokeCallback()` call site.",
+        "stability": "stable",
+        "summary": "Abstract class that exercises the callback flow for stack trace propagation."
+      },
+      "fqn": "jsii-calc.CallbackStackTraceTest",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/host-stack-trace.ts",
+        "line": 33
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "remarks": "In the implementation, call\n`HostStackTraceReader.capturedTrace()` and return the result.",
+            "stability": "stable",
+            "summary": "Override this method."
+          },
+          "locationInModule": {
+            "filename": "lib/host-stack-trace.ts",
+            "line": 40
+          },
+          "name": "callbackProvider",
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Call this from the host to trigger the callback flow."
+          },
+          "locationInModule": {
+            "filename": "lib/host-stack-trace.ts",
+            "line": 45
+          },
+          "name": "invokeCallback"
+        }
+      ],
+      "name": "CallbackStackTraceTest",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns the trace that was captured during the callback."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/host-stack-trace.ts",
+            "line": 52
+          },
+          "name": "traceFromCallback",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ],
+      "symbolId": "lib/host-stack-trace:CallbackStackTraceTest"
+    },
     "jsii-calc.ChildStruct982": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -6399,6 +6470,47 @@
       ],
       "name": "GreetingAugmenter",
       "symbolId": "lib/compliance:GreetingAugmenter"
+    },
+    "jsii-calc.HostStackTraceReader": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "This is used for integration testing to verify that stack traces captured\nin the host language (Python, Java, Go, .NET) are correctly transmitted\nto the kernel.",
+        "stability": "stable",
+        "summary": "A class that exposes the host stack trace provided by the jsii runtime."
+      },
+      "fqn": "jsii-calc.HostStackTraceReader",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/host-stack-trace.ts",
+        "line": 10
+      },
+      "methods": [
+        {
+          "docs": {
+            "remarks": "Each frame is a tuple of [file, line, column, function].\nReturns undefined if no host stack trace is available.",
+            "stability": "stable",
+            "summary": "Returns the current host stack trace, if one was provided by the runtime."
+          },
+          "locationInModule": {
+            "filename": "lib/host-stack-trace.ts",
+            "line": 17
+          },
+          "name": "capturedTrace",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "HostStackTraceReader",
+      "symbolId": "lib/host-stack-trace:HostStackTraceReader"
     },
     "jsii-calc.IAnonymousImplementationProvider": {
       "assembly": "jsii-calc",
@@ -20232,5 +20344,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "Yjds+pkJSrpbn8c6onIz+ANFgziPFo0D6hlZ1OztxEw="
+  "fingerprint": "8zCkQ4s8u1G+YV6XqQg5xv6Irda+gdxbB8OjhdzJ8nY="
 }
