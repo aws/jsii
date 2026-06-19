@@ -210,10 +210,10 @@ describe('Ruby naming behavior', () => {
         targets: { ruby: { module: 'AWSCDK' } },
         submodules: {
           'aws-cdk-lib.aws_dynamodb': {
-            targets: { ruby: { module: 'AWSCDK::AWSDynamoDB' } },
+            targets: { ruby: { module: 'AWSCDK::DynamoDB' } },
           },
           'aws-cdk-lib.aws_dynamodb.nested': {
-            targets: { ruby: { module: 'AWSCDK::AWSDynamoDB::Nested' } },
+            targets: { ruby: { module: 'AWSCDK::DynamoDB::Nested' } },
           },
         },
       };
@@ -227,11 +227,11 @@ describe('Ruby naming behavior', () => {
 
       expect(
         rubyTarget.rubyFullTypeName('aws-cdk-lib.aws_dynamodb.Table'),
-      ).toBe('AWSCDK::AWSDynamoDB::Table');
+      ).toBe('AWSCDK::DynamoDB::Table');
 
       expect(
         rubyTarget.rubyFullTypeName('aws-cdk-lib.aws_dynamodb.nested.Type'),
-      ).toBe('AWSCDK::AWSDynamoDB::Nested::Type');
+      ).toBe('AWSCDK::DynamoDB::Nested::Type');
 
       // Fallback for unconfigured submodule
       expect(rubyTarget.rubyFullTypeName('aws-cdk-lib.aws_s3.Bucket')).toBe(
