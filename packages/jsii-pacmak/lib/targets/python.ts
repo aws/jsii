@@ -136,7 +136,7 @@ class TypeCheckingHelper {
   public getTypeHints(fqn: string, args: readonly string[]): string {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
-    return `typing.get_type_hints(${stub.name})`;
+    return `cached_type_hints(${stub.name})`;
   }
 
   /** Emits instructions that create the annotations data... */
@@ -1814,7 +1814,7 @@ class PythonModule implements PythonType {
     code.line('import typing_extensions');
     code.line();
 
-    code.line('from jsii._type_checking import check_type');
+    code.line('from jsii._type_checking import cached_type_hints, check_type');
     code.line();
 
     // Determine if we need to write out the kernel load line.
