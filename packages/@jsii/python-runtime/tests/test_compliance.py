@@ -1345,6 +1345,50 @@ def test_class_can_be_used_when_not_expressedly_loaded():
     Subject().test()
 
 
+def test_interface_can_be_used_when_not_expressedly_loaded():
+    """
+    Verifies that a value whose dynamic type is a *behavioral interface* from a
+    submodule that was never explicitly imported can be resolved by the runtime.
+
+    With lazy cross-module imports (see jsii-pacmak), a submodule is not loaded
+    until first accessed, so its interfaces are not registered with the runtime.
+    When the kernel returns an object tagged with such an interface FQN, the
+    reference map must import the containing submodule on demand to resolve the
+    interface proxy. Previously ``build_interface_proxies_for_ref`` did a bare
+    ``_interfaces[fqn]`` lookup and raised ``KeyError`` for unregistered
+    interfaces (mirrors the aws-cdk-lib shape where, e.g., ``aws_codebuild``
+    returns an ``aws_codestarnotifications`` interface).
+
+    The ``jsii_calc.module2700`` submodule (which declares the behavioral
+    interface ``IFoo``) must NEVER be explicitly imported by this test,
+    otherwise it is void.
+    """
+    import sys
+    from jsii import _reference_map
+    from jsii._kernel.types import ObjRef
+
+    iface_fqn = "jsii-calc.module2700.IFoo"
+    submodule = "jsii_calc.module2700"
+
+    # Precondition: the submodule has not been imported, so its interface is
+    # not yet registered. (Other tests run in the same process, so only assert
+    # the registration state, which is what the code path depends on.)
+    assert iface_fqn not in _reference_map._interfaces
+
+    # Simulate the kernel returning an anonymous object that implements a
+    # behavioral interface from the un-imported submodule.
+    ref = ObjRef(ref="Object@90125", interfaces=[iface_fqn])
+
+    # This must NOT raise: the runtime imports jsii_calc.module2700 on demand,
+    # which registers IFoo, then builds the interface proxy.
+    proxy = _reference_map.resolve_reference(jsii.kernel, ref)
+    assert proxy is not None
+
+    # The on-demand import should have registered the interface.
+    assert iface_fqn in _reference_map._interfaces
+    assert submodule in sys.modules
+
+
 def test_stripped_deprecated_member_can_be_received():
     assert InterfaceFactory.create() is not None
 

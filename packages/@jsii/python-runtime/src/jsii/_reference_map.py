@@ -92,6 +92,30 @@ def _try_import_type_module(class_fqn: str) -> bool:
     return False
 
 
+def _obtain_interface(fqn: str) -> Any:
+    """Look up an interface by FQN, triggering lazy loading if necessary.
+
+    With lazy cross-module imports, a behavioral interface may live in a
+    submodule that has not been imported yet, so it is not registered in
+    ``_interfaces``. Importing the containing module triggers registration as a
+    side effect; then we retry the lookup.
+
+    Returns the interface class. Raises ValueError if the interface cannot be
+    found after attempting lazy resolution.
+    """
+    iface = _interfaces.get(fqn)
+    if iface is not None:
+        return iface
+
+    _try_import_type_module(fqn)
+
+    iface = _interfaces.get(fqn)
+    if iface is not None:
+        return iface
+
+    raise ValueError(f"Unknown interface: {fqn}")
+
+
 class _FakeReference:
     def __init__(self, ref: str) -> None:
         self.__jsii_ref__ = ref
@@ -167,6 +191,14 @@ class _ReferenceMap:
             return _enums[class_fqn]
         elif class_fqn == "Object":
             # If any one interface is a struct, all of them are guaranteed to be (Kernel invariant)
+            # With lazy loading, the struct/interface types may live in
+            # submodules that have not been imported yet. Trigger lazy
+            # registration before deciding whether this is a struct or a
+            # behavioral interface, and before dereferencing _data_types.
+            if ref.interfaces is not None:
+                for fqn in ref.interfaces:
+                    if fqn not in _data_types and fqn not in _interfaces:
+                        _try_import_type_module(fqn)
             if ref.interfaces is not None and any(
                 fqn in _data_types for fqn in ref.interfaces
             ):
@@ -210,7 +242,7 @@ class _ReferenceMap:
         return self._refs[id]
 
     def build_interface_proxies_for_ref(self, ref: ObjRef) -> List[Any]:
-        ifaces = [_interfaces[fqn] for fqn in ref.interfaces or []]
+        ifaces = [_obtain_interface(fqn) for fqn in ref.interfaces or []]
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
 
         # If there's no classes, use an Opaque reference to make sure the
