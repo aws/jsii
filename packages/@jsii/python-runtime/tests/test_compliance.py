@@ -1389,6 +1389,64 @@ def test_interface_can_be_used_when_not_expressedly_loaded():
     assert submodule in sys.modules
 
 
+def test_byref_struct_can_be_used_when_not_expressedly_loaded():
+    """
+    Verifies that a struct (data type) serialized by-reference, whose type lives
+    in a submodule that was never explicitly imported, can be resolved by the
+    runtime.
+
+    Data types are sometimes serialized by-reference (see aws/jsii#400), in
+    which case they arrive as an anonymous ``Object`` whose ``ref.interfaces``
+    names the struct's FQN. ``resolve()`` decides between the struct path and
+    the behavioral-interface path by checking ``fqn in _data_types``. With lazy
+    loading, a struct from an un-imported submodule is not registered there yet,
+    so without an on-demand import the check is False, execution wrongly falls
+    into the interface branch, and resolution fails with
+    ``ValueError: Unknown interface: <struct fqn>``. ``resolve()`` now imports
+    unregistered ``ref.interfaces`` FQNs before that decision.
+
+    The ``jsii_calc.module2692.submodule1`` submodule (which declares the struct
+    ``Bar``) must NEVER be explicitly imported by this test, otherwise it is
+    void.
+    """
+    import sys
+    from jsii import _reference_map
+    from jsii._kernel.types import ObjRef
+
+    struct_fqn = "jsii-calc.module2692.submodule1.Bar"
+    submodule = "jsii_calc.module2692.submodule1"
+
+    # Precondition: the submodule has not been imported, so the struct is not
+    # yet registered as a data type.
+    assert struct_fqn not in _reference_map._data_types
+
+    # A by-reference struct's properties are read back from the kernel via
+    # kernel.get(). The bug under test is in resolve()'s struct-vs-interface
+    # decision (whether the submodule is imported on demand BEFORE that
+    # decision), which happens before any property read, so a minimal fake
+    # kernel that returns property values is sufficient to exercise it without
+    # standing up a real kernel-backed object.
+    class _FakeKernel:
+        def get(self, _ref, _name):
+            return "value-from-kernel"
+
+    # Simulate the kernel returning a by-reference struct: an anonymous object
+    # whose interfaces names the struct FQN.
+    ref = ObjRef(ref="Object@90126", interfaces=[struct_fqn])
+
+    # This must NOT raise ValueError("Unknown interface: ..."): the runtime
+    # imports the submodule on demand (registering Bar as a data type),
+    # recognizes it as a struct, and rebuilds it by reading its properties.
+    result = _reference_map.resolve_reference(_FakeKernel(), ref)
+    assert result is not None
+
+    # The on-demand import should have registered the struct as a data type, and
+    # the resolved value should be an instance of it (not an interface proxy).
+    assert struct_fqn in _reference_map._data_types
+    assert submodule in sys.modules
+    assert isinstance(result, _reference_map._data_types[struct_fqn])
+
+
 def test_stripped_deprecated_member_can_be_received():
     assert InterfaceFactory.create() is not None
 
