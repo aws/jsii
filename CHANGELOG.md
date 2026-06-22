@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.137.0](https://github.com/aws/jsii/compare/v1.136.0...v1.137.0) (2026-06-22)
+
+
+### Bug Fixes
+
+* interface from un-imported submodule raises KeyError under lazy loading ([#5179](https://github.com/aws/jsii/issues/5179)) ([9a78379](https://github.com/aws/jsii/commit/9a783795df1bcf748bf3e3f9b13d13d65c1d1e1b))
+
 ## [1.136.0](https://github.com/aws/jsii/compare/v1.135.0...v1.136.0) (2026-06-18)
 
 
