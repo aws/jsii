@@ -95,8 +95,10 @@ def test_cached_type_hints_resolves_stringized_forward_ref():
 
     # Build a stub whose annotations are *strings* (as emitted under
     # ``from __future__ import annotations``) referencing the lazy alias by the
-    # name it is bound to in the resolution namespace.
-    def _typecheckingstub__forwardref(value=None):
+    # name it is bound to in the resolution namespace. No ``None`` default is
+    # used, since that would make get_type_hints implicitly wrap the annotation
+    # in ``typing.Optional`` and obscure the forward-ref resolution we're testing.
+    def _typecheckingstub__forwardref(value):
         """Type checking stubs"""
         pass
 
