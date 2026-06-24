@@ -43,10 +43,10 @@
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^10.1.0",
     "jsii-reflect": "^0.0.0",
-    "semver": "^7.8.4",
+    "semver": "^7.8.5",
     "spdx-license-list": "^6.11.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^17.7.2"
+    "yargs": "^17.7.3"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",

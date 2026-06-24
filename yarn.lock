@@ -1780,7 +1780,7 @@ __metadata:
     eslint: "npm:^9.39.4"
     jest: "npm:^30.4.2"
     jsii-build-tools: "npm:^0.0.0"
-    semver: "npm:^7.8.4"
+    semver: "npm:^7.8.5"
     typescript: "npm:6.x"
   languageName: unknown
   linkType: soft
@@ -1795,13 +1795,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.135.0, @jsii/check-node@npm:^1.134.0":
-  version: 1.135.0
-  resolution: "@jsii/check-node@npm:1.135.0"
+"@jsii/check-node@npm:1.136.0, @jsii/check-node@npm:^1.135.0":
+  version: 1.136.0
+  resolution: "@jsii/check-node@npm:1.136.0"
   dependencies:
     chalk: "npm:^4.1.2"
-    semver: "npm:^7.8.2"
-  checksum: 10c0/13507f78c9537d8ecf2101e74321a40d41aaab78397f1b5d58688e13c54f6c2d0d8bbce580a6203bbcd458ccacefd88a051ed21f4ffd97c93e8ced53c806acd8
+    semver: "npm:^7.8.4"
+  checksum: 10c0/c506ea22d7ffe86db94fe4a7ea7092a70d968a1adc339d9daf65cfc350bcd124ee1bd280d17ceca1a6541fa00b3fa8505051735afdff08dd7614303cd034906d
   languageName: node
   linkType: hard
 
@@ -1823,7 +1823,7 @@ __metadata:
     "@jsii/runtime": "npm:^0.0.0"
     "@types/semver": "npm:^7.7.1"
     jsii-build-tools: "npm:^0.0.0"
-    semver: "npm:^7.8.4"
+    semver: "npm:^7.8.5"
     typescript: "npm:6.x"
   languageName: unknown
   linkType: soft
@@ -1951,10 +1951,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.135.0, @jsii/spec@npm:^1.134.0":
-  version: 1.135.0
-  resolution: "@jsii/spec@npm:1.135.0"
-  checksum: 10c0/154d59e728e1731475da68079f19ea3c17219a7746541416c4d0b34cf96c52d0aad156cc0438cc15e10bc88eeedf9ea86bc7723c8c642b2d70e7d13e216c2d9e
+"@jsii/spec@npm:1.136.0, @jsii/spec@npm:^1.135.0":
+  version: 1.136.0
+  resolution: "@jsii/spec@npm:1.136.0"
+  checksum: 10c0/d1fcdb5fa138d8ad24452d00994687cdb7235a29c7bd1243f63366011a4e8cf419c718c702c9c8ef6479d3be13a8c06c8ba20054ed2eada051602cec0d2ef7fd
   languageName: node
   linkType: hard
 
@@ -3967,11 +3967,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.10.12":
-  version: 2.10.37
-  resolution: "baseline-browser-mapping@npm:2.10.37"
+  version: 2.10.38
+  resolution: "baseline-browser-mapping@npm:2.10.38"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/ff489d3ffecd9e440ccabc49401b49f693ecae4a0e73ab71c8c24d43c760399eab8d3eebc9a7798255ef9dc9ed26bb987db813ef9d2044f35455428561f9084b
+  checksum: 10c0/44bbea61ec54df6845f5f6f149c99057370081f1041d6e8dbc92835630ce37da9adc102528ebebd37f563342da2a5eea525d24698ced6674cdcfadb2ed613136
   languageName: node
   linkType: hard
 
@@ -4233,9 +4233,9 @@ __metadata:
   linkType: hard
 
 "chardet@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "chardet@npm:2.1.1"
-  checksum: 10c0/d8391dd412338442b3de0d3a488aa9327f8bcf74b62b8723d6bd0b85c4084d50b731320e0a7c710edb1d44de75969995d2784b80e4c13b004a6c7a0db4c6e793
+  version: 2.2.0
+  resolution: "chardet@npm:2.2.0"
+  checksum: 10c0/8d43a1dd3ce535aa070d04139fae62f879b4388394eb1d857364ce416675a1f0f63974fba8208e9cd11b49e1a6da3e65ea6393d0fc654a8c4217c0d74c16b1b4
   languageName: node
   linkType: hard
 
@@ -5248,9 +5248,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.328":
-  version: 1.5.372
-  resolution: "electron-to-chromium@npm:1.5.372"
-  checksum: 10c0/2071da5329cde5f2eb6c01b181ee4b61c09f8da38609b6203155357427dd3b5489e9cdb0b7686b0be4b0633d5df5c86a96d588fc599be4fb7a65169270a8568b
+  version: 1.5.376
+  resolution: "electron-to-chromium@npm:1.5.376"
+  checksum: 10c0/c57e306ef12ad258e427218f90e14d155dfba68b23699674d7b66e528ce41ff69b46a78f38545ee7690d080d25d3ebb98338282e95d65510e8fa5fd4f7455a86
   languageName: node
   linkType: hard
 
@@ -5364,6 +5364,18 @@ __metadata:
   dependencies:
     is-arrayish: "npm:^0.2.1"
   checksum: 10c0/b9e34ff4778b8f3b31a8377e1c654456f4c41aeaa3d10a1138c3b7635d8b7b2e03eb2475d46d8ae055c1f180a1063e100bffabf64ea7e7388b37735df5328664
+  languageName: node
+  linkType: hard
+
+"es-abstract-get@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "es-abstract-get@npm:1.0.0"
+  dependencies:
+    es-errors: "npm:^1.3.0"
+    es-object-atoms: "npm:^1.1.2"
+    is-callable: "npm:^1.2.7"
+    object-inspect: "npm:^1.13.4"
+  checksum: 10c0/f9b4838ae719752207383a6d95a74590f891122bf26b92f5e72eeedbe53771029e4561f1cf75ea19330b71bcf3d4f536fb0c8f7e2b601fe24d284f46e488c7e3
   languageName: node
   linkType: hard
 
@@ -5490,13 +5502,15 @@ __metadata:
   linkType: hard
 
 "es-to-primitive@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "es-to-primitive@npm:1.3.0"
+  version: 1.3.1
+  resolution: "es-to-primitive@npm:1.3.1"
   dependencies:
+    es-abstract-get: "npm:^1.0.0"
+    es-errors: "npm:^1.3.0"
     is-callable: "npm:^1.2.7"
-    is-date-object: "npm:^1.0.5"
-    is-symbol: "npm:^1.0.4"
-  checksum: 10c0/c7e87467abb0b438639baa8139f701a06537d2b9bc758f23e8622c3b42fd0fdb5bde0f535686119e446dd9d5e4c0f238af4e14960f4771877cf818d023f6730b
+    is-date-object: "npm:^1.1.0"
+    is-symbol: "npm:^1.1.1"
+  checksum: 10c0/288ec25e5d08c2718bab9faa87924e11f42f2b0b59854fc241f1fbbedcadf2682ab3a9a9fb4676fa40c483ce563ea63cfd3e33777cbb53833e94d5f60a851cde
   languageName: node
   linkType: hard
 
@@ -7194,7 +7208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-date-object@npm:^1.0.5, is-date-object@npm:^1.1.0":
+"is-date-object@npm:^1.1.0":
   version: 1.1.0
   resolution: "is-date-object@npm:1.1.0"
   dependencies:
@@ -7389,7 +7403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-symbol@npm:^1.0.4, is-symbol@npm:^1.1.1":
+"is-symbol@npm:^1.1.1":
   version: 1.1.1
   resolution: "is-symbol@npm:1.1.1"
   dependencies:
@@ -8155,7 +8169,7 @@ __metadata:
     jest-expect-message: "npm:^1.1.3"
     jsii-build-tools: "npm:^0.0.0"
     typescript: "npm:6.x"
-    yargs: "npm:^17.7.2"
+    yargs: "npm:^17.7.3"
   bin:
     jsii-config: bin/jsii-config
   languageName: unknown
@@ -8179,7 +8193,7 @@ __metadata:
     jsii-reflect: "npm:^0.0.0"
     log4js: "npm:^6.9.1"
     typescript: "npm:6.x"
-    yargs: "npm:^17.7.2"
+    yargs: "npm:^17.7.3"
   bin:
     jsii-diff: bin/jsii-diff
   languageName: unknown
@@ -8215,11 +8229,11 @@ __metadata:
     jsii-reflect: "npm:^0.0.0"
     jsii-rosetta: "npm:~6.0.0"
     pyright: "npm:^1.1.410"
-    semver: "npm:^7.8.4"
+    semver: "npm:^7.8.5"
     spdx-license-list: "npm:^6.11.0"
     typescript: "npm:6.x"
     xmlbuilder: "npm:^15.1.1"
-    yargs: "npm:^17.7.2"
+    yargs: "npm:^17.7.3"
   peerDependencies:
     jsii-rosetta: ">=5.9.0"
   bin:
@@ -8245,7 +8259,7 @@ __metadata:
     jsii-calc: "npm:^3.20.120"
     oo-ascii-tree: "npm:^0.0.0"
     typescript: "npm:6.x"
-    yargs: "npm:^17.7.2"
+    yargs: "npm:^17.7.3"
   bin:
     jsii-query: bin/jsii-query
     jsii-tree: bin/jsii-tree
@@ -8253,11 +8267,11 @@ __metadata:
   linkType: soft
 
 "jsii-rosetta@npm:^6.0.0, jsii-rosetta@npm:~6.0.0":
-  version: 6.0.1
-  resolution: "jsii-rosetta@npm:6.0.1"
+  version: 6.0.2
+  resolution: "jsii-rosetta@npm:6.0.2"
   dependencies:
-    "@jsii/check-node": "npm:^1.134.0"
-    "@jsii/spec": "npm:^1.134.0"
+    "@jsii/check-node": "npm:^1.135.0"
+    "@jsii/spec": "npm:^1.135.0"
     "@xmldom/xmldom": "npm:^0.9.10"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
@@ -8271,7 +8285,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/f9f612f01c40c9ca8ee2d8b4a0d7a82b0026e4476593b62f43bcf2c6504fa3ae2f9c2af954d1dc7296767497ece3d76f0d3be637c08bb6bd6e08fc6c073f98f8
+  checksum: 10c0/a6f131e56add3d9763d7e38b8739ea80219cf7e88399e93ce01025f85a87da178eaf28788db595fd7142c0adfc28fdca97e3eb35bf32eeecf10bf3cbd69d98f3
   languageName: node
   linkType: hard
 
@@ -8298,11 +8312,11 @@ __metadata:
   linkType: hard
 
 "jsii@npm:^6.0.1, jsii@npm:~6.0.0":
-  version: 6.0.3
-  resolution: "jsii@npm:6.0.3"
+  version: 6.0.4
+  resolution: "jsii@npm:6.0.4"
   dependencies:
-    "@jsii/check-node": "npm:1.135.0"
-    "@jsii/spec": "npm:1.135.0"
+    "@jsii/check-node": "npm:1.136.0"
+    "@jsii/spec": "npm:1.136.0"
     case: "npm:^1.6.3"
     chalk: "npm:^4"
     fast-deep-equal: "npm:^3.1.3"
@@ -8315,7 +8329,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/5e300e4cfbc79900e6befe4be5f4279cac137d0568b957100e1765ff9c4675e5fdef7ed8d6f3dd5831d139d2371bb9968ccba6ca2e8517b1e6f3917843382512
+  checksum: 10c0/93e02b951d14eab6537cd6f71e54da0d2c126f68b57cc56367f043da7ba58d6a0757ac95d9c1bc1d06ef0ff0c1b76c4c185ebc9f3e26d16872f7b8653368df84
   languageName: node
   linkType: hard
 
@@ -9275,9 +9289,9 @@ __metadata:
   linkType: hard
 
 "node-releases@npm:^2.0.36":
-  version: 2.0.47
-  resolution: "node-releases@npm:2.0.47"
-  checksum: 10c0/fb1a703adb88c3bfe73aa39ebe0a0bc6d59c9d20d74ad61fb50958ffb22840da82a7a256076840b84c8ed57bb80e6fc8e588e675712fcf7af269aab16206b9b5
+  version: 2.0.48
+  resolution: "node-releases@npm:2.0.48"
+  checksum: 10c0/17eac8493c0be99130793e87fd67feb6291aecb9f4e473dea3b00f59c002cc8b9c0bdc923227c9aa84968da6b2e4c58e75251981503eb367ec9c742715175a34
   languageName: node
   linkType: hard
 
@@ -9363,13 +9377,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^22.2.3":
-  version: 22.2.3
-  resolution: "npm-check-updates@npm:22.2.3"
+"npm-check-updates@npm:^22.2.7":
+  version: 22.2.7
+  resolution: "npm-check-updates@npm:22.2.7"
   bin:
     ncu: build/cli.js
     npm-check-updates: build/cli.js
-  checksum: 10c0/f292a33bdf4bb86071af9839789e24f085d8e3cd23536a94f4f54e87458fcb3b08affa46ad599f04b4bf8908783f187647f850cbd8f8e1d3409d8a0e582dc18b
+  checksum: 10c0/663d404e2c24e5893366f844c4cc215310c416f85186ab2a0f1f5f5b41245f07fbe7b9092179dd8ccad05af08dc89b8ae5855847fc65217e0b3a630b10a97a6d
   languageName: node
   linkType: hard
 
@@ -10779,7 +10793,7 @@ __metadata:
     jest-config: "npm:^30.4.2"
     jest-expect-message: "npm:^1.1.3"
     lerna: "npm:^9.0.7"
-    npm-check-updates: "npm:^22.2.3"
+    npm-check-updates: "npm:^22.2.7"
     prettier: "npm:^3.8.4"
     standard-version: "npm:^9.5.0"
     ts-node: "npm:^10.9.2"
@@ -10947,12 +10961,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.1, semver@npm:^7.8.2, semver@npm:^7.8.4":
-  version: 7.8.4
-  resolution: "semver@npm:7.8.4"
+"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.1, semver@npm:^7.8.2, semver@npm:^7.8.4, semver@npm:^7.8.5":
+  version: 7.8.5
+  resolution: "semver@npm:7.8.5"
   bin:
     semver: bin/semver.js
-  checksum: 10c0/81b7c296fd7927b80f67fa516b75fa1017caac8167795320de28e76ccbc6f7f01763c30ecd10d6a0d8fd089708ab0548a5aebb94b0870e99c2a2b4600a46389b
+  checksum: 10c0/b1f3127a5be8125a94f37188b361c212466c292c6910adce3ec106cff5dc211ccaedc4739c11bb70fda59d6fc1f040a9bca289f4e093451521a2372e5231fe0c
   languageName: node
   linkType: hard
 
@@ -12136,9 +12150,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^6.25.0":
-  version: 6.26.0
-  resolution: "undici@npm:6.26.0"
-  checksum: 10c0/cf2b4caf58c33d6582970991290cc7a6486d6e738845f25dcdd16952d708ec844815c6d30362919764fcaf30f719891289341f1ada496f003ce2700310453a47
+  version: 6.27.0
+  resolution: "undici@npm:6.27.0"
+  checksum: 10c0/f88c3dae3957dbf9d93cb481440aced317bd3c4941b5914fea5efba516d51138988cdb5c76006f0bb1337e41d56c3443351055d492e73af2428521c37ba2a76f
   languageName: node
   linkType: hard
 
@@ -12787,7 +12801,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:17.7.2, yargs@npm:^17.7.2":
+"yargs@npm:17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
@@ -12822,8 +12836,8 @@ __metadata:
   linkType: hard
 
 "yargs@npm:^16.0.0, yargs@npm:^16.2.0":
-  version: 16.2.0
-  resolution: "yargs@npm:16.2.0"
+  version: 16.2.2
+  resolution: "yargs@npm:16.2.2"
   dependencies:
     cliui: "npm:^7.0.2"
     escalade: "npm:^3.1.1"
@@ -12832,7 +12846,22 @@ __metadata:
     string-width: "npm:^4.2.0"
     y18n: "npm:^5.0.5"
     yargs-parser: "npm:^20.2.2"
-  checksum: 10c0/b1dbfefa679848442454b60053a6c95d62f2d2e21dd28def92b647587f415969173c6e99a0f3bab4f1b67ee8283bf735ebe3544013f09491186ba9e8a9a2b651
+  checksum: 10c0/1ca2152581ee7c9c9fb4174767ff7294b1c272d2d0a1f6eb13c39ce177fded85eb9c96711e00cd7913c0a9b88b6e763713ee11cae81b9b62fd97bdd0b03d5549
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^17.7.2, yargs@npm:^17.7.3":
+  version: 17.7.3
+  resolution: "yargs@npm:17.7.3"
+  dependencies:
+    cliui: "npm:^8.0.1"
+    escalade: "npm:^3.1.1"
+    get-caller-file: "npm:^2.0.5"
+    require-directory: "npm:^2.1.1"
+    string-width: "npm:^4.2.3"
+    y18n: "npm:^5.0.5"
+    yargs-parser: "npm:^21.1.1"
+  checksum: 10c0/7a28572f7e785a57886e34fdbddb9b28756dec552e1453d5f6e7cdd00ad8721a4e8c4321d33683f5e61cacb36ad43258adbb48396b71ec4ed14abee0fc0d0c1f
   languageName: node
   linkType: hard
 
