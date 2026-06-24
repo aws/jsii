@@ -31,6 +31,6 @@
     "@inquirer/prompts": "^8.5.2",
     "@jsii/check-node": "0.0.0",
     "@jsii/spec": "0.0.0",
-    "yargs": "^17.7.2"
+    "yargs": "^17.7.3"
   }
 }
