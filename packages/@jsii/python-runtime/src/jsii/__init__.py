@@ -16,7 +16,6 @@ from ._runtime import (
 )
 from . import python
 
-
 # JS doesn't have distinct float or integer types, but we do. So we'll define our own
 # type alias that will allow either.
 Number = Union[int, float]
