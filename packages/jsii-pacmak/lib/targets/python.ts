@@ -15,7 +15,6 @@ import * as path from 'path';
 
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
-import { isBehavioralInterfaceType } from '../type-visitor';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell, subprocess, zip } from '../util';
@@ -35,6 +34,7 @@ import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { topologicalSort } from '../toposort';
+import { isBehavioralInterfaceType } from '../type-visitor';
 
 import { TargetName } from './index';
 
