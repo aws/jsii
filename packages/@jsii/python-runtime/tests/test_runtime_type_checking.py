@@ -732,24 +732,31 @@ class TestRuntimeTypeCheckingTypeGuardV4:
 class TestRuntimeTypeCheckingToggle:
     """Verifies the opt-in toggle that gates runtime type checking."""
 
+    @property
+    def check_type_error(self):
+        # typeguard 2.x raises TypeError; 3.x/4.x raise typeguard.TypeCheckError.
+        if TYPEGUARD_MAJOR_VERSION == 2:
+            return TypeError
+        return typeguard.TypeCheckError  # type:ignore
+
     def test_toggle_round_trips(self):
         jsii.set_runtime_type_checking(True)
         assert jsii.runtime_type_checking_enabled() is True
         jsii.set_runtime_type_checking(False)
         assert jsii.runtime_type_checking_enabled() is False
 
-    def test_no_call_site_typeerror_when_disabled(self):
+    def test_no_call_site_error_when_disabled(self):
         """With checking disabled, the Python-side check does not fire.
 
         An invalid value is still rejected -- but by the kernel on the wire (as a
-        ``RuntimeError``), not as a call-site ``TypeError`` from ``check_type``.
+        ``RuntimeError``), not as a call-site check error from ``check_type``.
         """
         jsii.set_runtime_type_checking(False)
         with pytest.raises(Exception) as excinfo:
             jsii_calc.Calculator(initial_value="nope")  # type: ignore
-        assert not isinstance(excinfo.value, TypeError)
+        assert not isinstance(excinfo.value, self.check_type_error)
 
-    def test_call_site_typeerror_when_enabled(self):
+    def test_call_site_error_when_enabled(self):
         jsii.set_runtime_type_checking(True)
-        with pytest.raises(TypeError):
+        with pytest.raises(self.check_type_error):
             jsii_calc.Calculator(initial_value="nope")  # type: ignore
