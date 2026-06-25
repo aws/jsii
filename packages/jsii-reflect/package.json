@@ -40,7 +40,7 @@
     "chalk": "^4",
     "fs-extra": "^10.1.0",
     "oo-ascii-tree": "^0.0.0",
-    "yargs": "^17.7.2"
+    "yargs": "^17.7.3"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.0.0",

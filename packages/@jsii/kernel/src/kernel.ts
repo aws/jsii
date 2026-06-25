@@ -9,6 +9,12 @@ import * as api from './api';
 import { TOKEN_REF } from './api';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
+import {
+  loadRuntimeAssembly,
+  type AssemblyMetadata,
+  type AssemblyTypes,
+  type LoadedAssembly,
+} from './runtime-index';
 import * as wire from './serialization';
 import * as tar from './tar-cache';
 
@@ -129,12 +135,13 @@ export class Kernel {
 
       return {
         assembly: assm.metadata.name,
-        types: Object.keys(assm.metadata.types ?? {}).length,
+        types: assm.types.count,
       };
     }
 
     // Force umask to have npm-install-like permissions
     const originalUmask = process.umask(0o022);
+    let cached = false;
     try {
       // untar the archive to its final location
       const { cache } = this.#debugTime(
@@ -153,6 +160,7 @@ export class Kernel {
         `tar.extract(${req.tarball}) => ${packageDir}`,
       );
 
+      cached = cache != null;
       if (cache != null) {
         this.#debug(
           `Package cache enabled, extraction resulted in a cache ${cache}`,
@@ -163,16 +171,19 @@ export class Kernel {
       process.umask(originalUmask);
     }
 
-    // read .jsii metadata from the root of the package
-    let assmSpec: spec.Assembly;
+    // read .jsii metadata from the root of the package. When the package is a
+    // stable cache entry, this uses (and lazily builds) a compact runtime index
+    // so only the types actually used are parsed.
+    let loaded: LoadedAssembly;
     try {
-      assmSpec = this.#debugTime(
+      loaded = this.#debugTime(
         () =>
-          spec.loadAssemblyFromPath(
-            packageDir,
-            this.validateAssemblies,
-            ASSEMBLY_SUPPORTED_FEATURES,
-          ),
+          loadRuntimeAssembly(packageDir, {
+            cached,
+            validate: this.validateAssemblies,
+            supportedFeatures: ASSEMBLY_SUPPORTED_FEATURES,
+            debug: this.#debug.bind(this),
+          }),
         `loadAssemblyFromPath(${packageDir})`,
       );
     } catch (e: any) {
@@ -180,6 +191,7 @@ export class Kernel {
         `Error for package tarball ${req.tarball}: ${e.message}`,
       );
     }
+    const assmSpec = loaded.metadata;
 
     // We do a `require.resolve` call, as otherwise, requiring with a directory will cause any `exports` from
     // `package.json` to be ignored, preventing injection of a "lazy index" entry point.
@@ -191,17 +203,15 @@ export class Kernel {
       () => this.#require!(entryPoint),
       `require(${entryPoint})`,
     );
-    const assm = new Assembly(assmSpec, closure);
+    const assm = new Assembly(assmSpec, closure, loaded.types);
     this.#debugTime(
       () => this.#addAssembly(assm),
-      `registerAssembly({ name: ${assm.metadata.name}, types: ${
-        Object.keys(assm.metadata.types ?? {}).length
-      } })`,
+      `registerAssembly({ name: ${assm.metadata.name}, types: ${assm.types.count} })`,
     );
 
     return {
       assembly: assmSpec.name,
-      types: Object.keys(assmSpec.types ?? {}).length,
+      types: assm.types.count,
     };
   }
 
@@ -623,15 +633,16 @@ export class Kernel {
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
-    for (const fqn of Object.keys(assm.metadata.types ?? {})) {
-      const typedef = assm.metadata.types![fqn];
-      switch (typedef.kind) {
-        case spec.TypeKind.Interface:
-          continue; // interfaces don't really exist
+    for (const [fqn, kind] of assm.types.entries()) {
+      switch (kind) {
         case spec.TypeKind.Class:
         case spec.TypeKind.Enum:
           const constructor = this.#findSymbol(fqn);
           tagJsiiConstructor(constructor, fqn);
+          break;
+        case undefined:
+        case spec.TypeKind.Interface:
+          break; // absent kind or interface: nothing to tag
       }
     }
   }
@@ -1160,8 +1171,7 @@ export class Kernel {
       return undefined;
     }
 
-    const types = assembly.metadata.types ?? {};
-    const fqnInfo = types[fqn];
+    const fqnInfo = assembly.types.get(fqn);
     if (!fqnInfo) {
       return undefined;
     }
@@ -1553,7 +1563,8 @@ interface AsyncInvocation {
 
 class Assembly {
   public constructor(
-    public readonly metadata: spec.Assembly,
+    public readonly metadata: AssemblyMetadata,
     public readonly closure: any,
+    public readonly types: AssemblyTypes,
   ) {}
 }
