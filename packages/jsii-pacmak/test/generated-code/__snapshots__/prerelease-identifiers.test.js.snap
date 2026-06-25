@@ -500,7 +500,7 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import check_type
+from jsii._type_checking import cached_type_hints, check_type
 
 
 import bar._jsii
@@ -1019,7 +1019,7 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import check_type
+from jsii._type_checking import cached_type_hints, check_type
 
 
 import bar._jsii
@@ -1517,7 +1517,7 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import check_type
+from jsii._type_checking import cached_type_hints, check_type
 
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
@@ -2013,7 +2013,7 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import check_type
+from jsii._type_checking import cached_type_hints, check_type
 
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
