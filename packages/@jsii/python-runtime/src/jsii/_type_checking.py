@@ -10,7 +10,44 @@ lazily on first call to :func:`check_type`. This means:
   ``check_type`` is never called and typeguard is never imported at all.
 """
 
+import os
 import typing
+
+# Whether jsii runtime type checking is enabled. Defaults to off (opt-in): the
+# kernel enforces the same constraints on the wire, so the generated Python-side
+# checks are an ergonomic aid (a native ``TypeError`` raised at the call site, in
+# Python vocabulary) rather than an additional safety mechanism. The value is
+# seeded once from the environment at import time -- matching the static-field
+# semantics of the Java/.NET ``Configuration`` toggles -- and can be changed at
+# runtime via :func:`set_runtime_type_checking`. Because generated code imports
+# the ``runtime_type_checking_enabled`` *function* (not its return value), a
+# later call to :func:`set_runtime_type_checking` is observed on subsequent
+# checks.
+_ENABLED: bool = os.environ.get("JSII_RUNTIME_TYPE_CHECKING", "").lower() in (
+    "1",
+    "true",
+    "on",
+)
+
+
+def runtime_type_checking_enabled() -> bool:
+    """Return whether jsii runtime type checking is currently enabled.
+
+    Defaults to ``False``. Enable it by setting the ``JSII_RUNTIME_TYPE_CHECKING``
+    environment variable (to ``1``, ``true``, or ``on``) before import, or by
+    calling :func:`set_runtime_type_checking` at runtime.
+    """
+    return _ENABLED
+
+
+def set_runtime_type_checking(enabled: bool) -> None:
+    """Enable or disable jsii runtime type checking for the current process.
+
+    Takes effect for all subsequent jsii method/constructor/property calls.
+    """
+    global _ENABLED
+    _ENABLED = bool(enabled)
+
 
 # Resolved typeguard-backed implementation, populated on first call to
 # ``check_type`` and reused thereafter. Caching here (rather than hot-patching

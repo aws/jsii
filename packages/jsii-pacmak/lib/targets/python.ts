@@ -1814,7 +1814,9 @@ class PythonModule implements PythonType {
     code.line('import typing_extensions');
     code.line();
 
-    code.line('from jsii._type_checking import cached_type_hints, check_type');
+    code.line(
+      'from jsii._type_checking import cached_type_hints, check_type, runtime_type_checking_enabled',
+    );
     code.line();
 
     // Determine if we need to write out the kernel load line.
@@ -3488,7 +3490,9 @@ function emitParameterTypeChecks(
     }
 
     if (!openedBlock) {
-      code.openBlock('if __debug__');
+      // Gate on both `__debug__` (so `python -O` elides the block entirely) and
+      // the opt-in runtime toggle (off by default; see jsii._type_checking).
+      code.openBlock('if __debug__ and runtime_type_checking_enabled()');
       code.line(
         `${typesVar} = ${context.typeCheckingHelper.getTypeHints(fqn, params)}`,
       );

@@ -19,6 +19,21 @@ class PythonInvalidBellRinger:
         bell.ring()
 
 
+@pytest.fixture(autouse=True)
+def _enable_runtime_type_checking():
+    """Runtime type checking is opt-in (off by default) since the toggle was added.
+
+    The assertions in this module exercise the checks, so enable them for the
+    duration of each test and restore the prior state afterwards.
+    """
+    previous = jsii.runtime_type_checking_enabled()
+    jsii.set_runtime_type_checking(True)
+    try:
+        yield
+    finally:
+        jsii.set_runtime_type_checking(previous)
+
+
 @pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 2, reason="requires typeguard 2.x")
 class TestRuntimeTypeCheckingTypeGuardV2:
 
@@ -712,3 +727,29 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
                 PythonInvalidBellRinger()  # type: ignore
             )
+
+
+class TestRuntimeTypeCheckingToggle:
+    """Verifies the opt-in toggle that gates runtime type checking."""
+
+    def test_toggle_round_trips(self):
+        jsii.set_runtime_type_checking(True)
+        assert jsii.runtime_type_checking_enabled() is True
+        jsii.set_runtime_type_checking(False)
+        assert jsii.runtime_type_checking_enabled() is False
+
+    def test_no_call_site_typeerror_when_disabled(self):
+        """With checking disabled, the Python-side check does not fire.
+
+        An invalid value is still rejected -- but by the kernel on the wire (as a
+        ``RuntimeError``), not as a call-site ``TypeError`` from ``check_type``.
+        """
+        jsii.set_runtime_type_checking(False)
+        with pytest.raises(Exception) as excinfo:
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
+        assert not isinstance(excinfo.value, TypeError)
+
+    def test_call_site_typeerror_when_enabled(self):
+        jsii.set_runtime_type_checking(True)
+        with pytest.raises(TypeError):
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
