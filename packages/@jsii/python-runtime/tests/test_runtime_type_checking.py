@@ -737,7 +737,7 @@ class TestRuntimeTypeCheckingToggle:
         # typeguard 2.x raises TypeError; 3.x/4.x raise typeguard.TypeCheckError.
         if TYPEGUARD_MAJOR_VERSION == 2:
             return TypeError
-        return typeguard.TypeCheckError  # type:ignore
+        return typeguard.TypeCheckError  # type: ignore
 
     def test_toggle_round_trips(self):
         jsii.set_runtime_type_checking(True)
@@ -777,9 +777,9 @@ class TestRuntimeTypeCheckingToggle:
         """
         jsii.set_runtime_type_checking(False)
         with pytest.raises(
-            typeguard.TypeCheckError,  # type:ignore
+            typeguard.TypeCheckError,  # type: ignore
             match=re.escape("no method named 'your_turn'"),
         ):
             jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
-                PythonInvalidBellRinger()  # type:ignore
+                PythonInvalidBellRinger()  # type: ignore
             )
