@@ -760,3 +760,26 @@ class TestRuntimeTypeCheckingToggle:
         jsii.set_runtime_type_checking(True)
         with pytest.raises(self.check_type_error):
             jsii_calc.Calculator(initial_value="nope")  # type: ignore
+
+    @pytest.mark.skipif(
+        TYPEGUARD_MAJOR_VERSION != 4,
+        reason="structural protocol conformance checks require typeguard 4.x",
+    )
+    def test_interface_conformance_checked_even_when_disabled(self):
+        """Interface-conformance checks run regardless of the toggle.
+
+        The kernel cannot validate that a by-reference host object structurally
+        conforms to the expected interface (it is passed by reference and would
+        only fail later, during a callback, if a member is missing). The
+        generated Python-side conformance check is therefore the only upfront
+        guard, so it is emitted ungated (``if __debug__``) and must fire even
+        when runtime type checking is disabled.
+        """
+        jsii.set_runtime_type_checking(False)
+        with pytest.raises(
+            typeguard.TypeCheckError,  # type:ignore
+            match=re.escape("no method named 'your_turn'"),
+        ):
+            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
+                PythonInvalidBellRinger()  # type:ignore
+            )

@@ -2573,7 +2573,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
          :stability: deprecated
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__e721760a6f0cb2ba909986665323a1f1f880769c379ae1f2ad0dbadf80ee9016)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
          return typing.cast(None, jsii.invoke(self, "foo", [obj]))
@@ -2791,7 +2791,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
  
          :stability: deprecated
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__bed3b5b08c611933987ef5d9dfc131289e09ebcd26286417337c3708ca054e9f)
 +            check_type(argname="argument reflectable", value=reflectable, expected_type=type_hints["reflectable"])
          return typing.cast(typing.Mapping[builtins.str, typing.Any], jsii.invoke(self, "asMap", [reflectable]))
@@ -17214,7 +17214,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @mutable_object.setter
      def mutable_object(self, value: "IMutableObjectLiteral") -> None:
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__3afbef7e05ef43a18b9260b86660c09b15be66fabeae128c9a9f99b729da7143)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
          jsii.set(self, "mutableObject", value) # pyright: ignore[reportArgumentType]
@@ -17256,7 +17256,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          self,
          value: typing.Optional[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", typing.List[typing.Union["_scope_jsii_calc_lib_c61f082f.IFriendly", "AbstractClass"]]]],
      ) -> None:
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__ec229cc92e04670f4dca9546759b3b39ee813eb1aa18057135bb155d08971e6a)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
          jsii.set(self, "unionProperty", value) # pyright: ignore[reportArgumentType]
@@ -17270,7 +17270,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param union_property: 
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__481b1113b85e6dc9d7ba31c3ef5654e3550abac1edef9204348ab0f9554f61c1)
 +            check_type(argname="argument union_property", value=union_property, expected_type=type_hints["union_property"])
          self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -17298,7 +17298,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param delegate: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__5c5defc6d683ee91707f8b7770d8d2fb11d381b9c928d7e5d6e2c5c495395f38)
 +            check_type(argname="argument delegate", value=delegate, expected_type=type_hints["delegate"])
          jsii.create(self.__class__, self, [delegate])
@@ -17312,7 +17312,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__1df814299f3f9720be108d84bdfd61bc591699a79a3c8ac6d450bfb0a9610278)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticImplementedByObjectLiteral", [ringer]))
@@ -17326,7 +17326,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__2f08bd2d56e856071db5f777b63fe2577f9e96dbfcd91e4044d0eda2d26f9017)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticImplementedByPrivateClass", [ringer]))
@@ -17340,7 +17340,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__4a2b7f0a05298ddaec112cb088cc71cfa2856aaa1d8414a5157d581b6d5a7293)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticImplementedByPublicClass", [ringer]))
@@ -17354,7 +17354,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__f751da3f5766ea4973eb2d89086565259f0a3cd626425a7eec723afd7b64f392)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.sinvoke(cls, "staticWhenTypedAsClass", [ringer]))
@@ -17367,7 +17367,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__cca04fe4a4c41a0034087ab0c574d1d2f1d0427d87a806fc660446b6a7e5290a)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.invoke(self, "implementedByObjectLiteral", [ringer]))
@@ -17380,7 +17380,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__7bde53b867de290d21a419baa46b8e833a0d394835a1ce2be3b429179b2ddce5)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.invoke(self, "implementedByPrivateClass", [ringer]))
@@ -17393,7 +17393,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__988e53d92b16fb4b7224c654f985a074cbfa7dd5f567df005b41522641ad92ac)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.invoke(self, "implementedByPublicClass", [ringer]))
@@ -17406,7 +17406,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param ringer: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__1d786308546ae61deacb465c6f501fe7e0be028973494548b57e0480759ed460)
 +            check_type(argname="argument ringer", value=ringer, expected_type=type_hints["ringer"])
          return typing.cast(builtins.bool, jsii.invoke(self, "whenTypedAsClass", [ringer]))
@@ -17420,7 +17420,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param obj: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__83037a3f429b90a38d2d9532a347144030578d83f68817b1a5677ebcd1b38e12)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
          return typing.cast(builtins.str, jsii.invoke(self, "consumeAnotherPublicInterface", [obj]))
@@ -17433,7 +17433,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param obj: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__139bf4e63e56bef32e364c5972e055de5cba153d49cc821740fba1d51f73ef70)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
          return typing.cast(typing.Any, jsii.invoke(self, "consumeNonInternalInterface", [obj]))
@@ -17784,7 +17784,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param clock: your implementation of \`\`WallClock\`\`.
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__2a7f203302b2610301f1b36f34453db0f5572f2e02b0bc4c9933fd670e594222)
 +            check_type(argname="argument clock", value=clock, expected_type=type_hints["clock"])
          jsii.create(self.__class__, self, [clock])
@@ -17971,7 +17971,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param friendly: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__d17f0544be961cba6cabfbb40f28c196963de107fcaef9c56d8227bdcb359431)
 +            check_type(argname="argument friendly", value=friendly, expected_type=type_hints["friendly"])
          return typing.cast(builtins.str, jsii.invoke(self, "betterGreeting", [friendly]))
@@ -17999,7 +17999,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param bell: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__d127476ce3b6e59ff9f375f547c1b6e1826d7a3969612c0605ebd0017d2b985d)
 +            check_type(argname="argument bell", value=bell, expected_type=type_hints["bell"])
          return typing.cast(None, jsii.invoke(self, "yourTurn", [bell]))
@@ -18449,7 +18449,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param generator: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__3c1812783ba0b3b2146a3dd9609a6e12af404502ff5fbb9b9a9be49bf576122b)
 +            check_type(argname="argument generator", value=generator, expected_type=type_hints["generator"])
          jsii.create(self.__class__, self, [generator])
@@ -18459,7 +18459,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param gen: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__151b90e9765ce9a05ae13e568f4ba7c9e36e34c1cd991c5c1ee0249869fd4cce)
 +            check_type(argname="argument gen", value=gen, expected_type=type_hints["gen"])
          return typing.cast(builtins.bool, jsii.invoke(self, "isSameGenerator", [gen]))
@@ -18473,7 +18473,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @generator.setter
      def generator(self, value: "IRandomNumberGenerator") -> None:
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__0f5a1cc548d3db6e156cec5671bc04b980132e529c77f3bb5aaa58427db35e7c)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
          jsii.set(self, "generator", value) # pyright: ignore[reportArgumentType]
@@ -18515,7 +18515,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param delegate: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__da93d15e57e6e2a1857cd7df156fb2a55ec91715c97323f20268def40f72137c)
 +            check_type(argname="argument delegate", value=delegate, expected_type=type_hints["delegate"])
          jsii.create(self.__class__, self, [delegate])
@@ -18573,7 +18573,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param obj: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__ca8d417ddf787890441d6903718eebaf7fde3508b3466202724fdac3a17ba79b)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
          return typing.cast(jsii.Number, jsii.invoke(self, "test", [obj]))
@@ -18662,7 +18662,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param friendly: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__edbbf85a7c4217635da7418d28aa61c4e11f7a0c1e9c960528ed4e7bee1ad541)
 +            check_type(argname="argument friendly", value=friendly, expected_type=type_hints["friendly"])
          return typing.cast(builtins.str, jsii.invoke(self, "sayHello", [friendly]))
@@ -19359,7 +19359,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param obj: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__73d1545891c65d400938add489402441cb083c61d214ad7a922b6417d3984732)
 +            check_type(argname="argument obj", value=obj, expected_type=type_hints["obj"])
          jsii.create(self.__class__, self, [obj])
@@ -19373,7 +19373,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param ext: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__60f3870a6dceb3773397b75ec3f3b664f38c2cc3d2f37dc055262663d12f41a8)
 +            check_type(argname="argument ext", value=ext, expected_type=type_hints["ext"])
          return typing.cast(builtins.str, jsii.invoke(self, "readStringAndNumber", [ext]))
@@ -21366,7 +21366,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param option: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__132536bffc9129421b4ae0a6539d0bbfdc1c52c3de007c4546d2f2626ba8c31e)
 +            check_type(argname="argument option", value=option, expected_type=type_hints["option"])
          return typing.cast(builtins.str, jsii.sinvoke(cls, "consume", [option]))
@@ -21433,7 +21433,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
          :param gen: a VERY pseudo random number generator.
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__92f621cedc18f68d281c38191023e89bba6348836db623bc5d780630324b992b)
 +            check_type(argname="argument gen", value=gen, expected_type=type_hints["gen"])
          return typing.cast(jsii.Number, jsii.invoke(self, "unwrap", [gen]))
@@ -22640,7 +22640,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          '''
          :param param: -
          '''
-+        if __debug__ and runtime_type_checking_enabled():
++        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__62dfa3c0a0a719fea295807df31fd40fd66b0e76cf44d9f742ffb421f8e4ca77)
 +            check_type(argname="argument param", value=param, expected_type=type_hints["param"])
          return typing.cast(None, jsii.sinvoke(cls, "unionType", [param]))
