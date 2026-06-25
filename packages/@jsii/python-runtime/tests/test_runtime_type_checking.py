@@ -39,7 +39,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument initial_value must be one of (int, float, NoneType); got str instead"
             ),
         ):
-            jsii_calc.Calculator(initial_value="nope")  # type:ignore
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
 
     def test_constructor_decorated(self):
         """
@@ -68,7 +68,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
 
             jsii_calc.Calculator.__init__ = decorated
             try:
-                jsii_calc.Calculator(initial_value="nope")  # type:ignore
+                jsii_calc.Calculator(initial_value="nope")  # type: ignore
             finally:
                 jsii_calc.Calculator.__init__ = orig_init
 
@@ -79,7 +79,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument foo must be jsii_calc.StringEnum; got int instead"
             ),
         ):
-            jsii_calc.StructWithEnum(foo=1337)  # type:ignore
+            jsii_calc.StructWithEnum(foo=1337)  # type: ignore
 
     def test_method_arg(self):
         subject = jsii_calc.Calculator()
@@ -89,7 +89,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument value must be one of (int, float); got str instead"
             ),
         ):
-            subject.mul("Not a Number")  # type:ignore
+            subject.mul("Not a Number")  # type: ignore
 
     def test_method_kwarg(self):
         subject = jsii_calc.DocumentedClass()
@@ -99,7 +99,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument name must be one of (str, NoneType); got int instead"
             ),
         ):
-            subject.greet(name=1337)  # type:ignore
+            subject.greet(name=1337)  # type: ignore
 
     def test_method_vararg(self):
         subject = jsii_calc.StructPassing()
@@ -109,7 +109,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument inputs[0] must be jsii_calc.TopLevelStruct; got int instead"
             ),
         ):
-            subject.how_many_var_args_did_i_pass(1337, 42)  # type:ignore
+            subject.how_many_var_args_did_i_pass(1337, 42)  # type: ignore
 
     def test_setter_to_enum(self):
         subject = jsii_calc.AllTypes()
@@ -119,7 +119,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument value must be jsii_calc.AllTypesEnum; got int instead"
             ),
         ):
-            subject.enum_property = 1337  # type:ignore
+            subject.enum_property = 1337  # type: ignore
 
     def test_setter_to_primitive(self):
         subject = jsii_calc.AllTypes()
@@ -127,7 +127,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
             self.check_type_error,
             match=re.escape("type of argument value must be str; got int instead"),
         ):
-            subject.string_property = 1337  # type:ignore
+            subject.string_property = 1337  # type: ignore
 
     def test_setter_to_map(self):
         subject = jsii_calc.AllTypes()
@@ -137,7 +137,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument value must be collections.abc.Mapping; got jsii_calc.StructWithEnum instead"
             ),
         ):
-            subject.map_property = jsii_calc.StructWithEnum(  # type:ignore
+            subject.map_property = jsii_calc.StructWithEnum(  # type: ignore
                 foo=jsii_calc.StringEnum.A
             )
 
@@ -147,7 +147,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
             self.check_type_error,
             match=re.escape("type of argument value must be a list; got int instead"),
         ):
-            subject.array_property = 1337  # type:ignore
+            subject.array_property = 1337  # type: ignore
 
     def test_setter_to_list_with_invalid_value(self):
         subject = jsii_calc.AllTypes()
@@ -155,7 +155,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
             self.check_type_error,
             match=re.escape("type of argument value[0] must be str; got int instead"),
         ):
-            subject.array_property = [1337]  # type:ignore
+            subject.array_property = [1337]  # type: ignore
 
     def test_setter_to_union(self):
         subject = jsii_calc.AllTypes()
@@ -165,7 +165,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument value must be one of (str, int, float, scope.jsii_calc_lib.Number, jsii_calc.Multiply); got jsii_calc.StringEnum instead"
             ),
         ):
-            subject.union_property = jsii_calc.StringEnum.B  # type:ignore
+            subject.union_property = jsii_calc.StringEnum.B  # type: ignore
 
     def test_nested_struct(self):
         # None of these should throw...
@@ -185,7 +185,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
                 "type of argument union_property[0] must be one of (Mapping[str, Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]], Sequence[Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]); got float instead"
             ),
         ):
-            jsii_calc.ClassWithNestedUnion([1337.42])  # type:ignore
+            jsii_calc.ClassWithNestedUnion([1337.42])  # type: ignore
 
     def test_variadic(self):
         with pytest.raises(
@@ -195,7 +195,7 @@ class TestRuntimeTypeCheckingTypeGuardV2:
             ),
         ):
             jsii_calc.VariadicTypeUnion(
-                jsii_calc.StructA(required_string="present"), 1337.42  # type:ignore
+                jsii_calc.StructA(required_string="present"), 1337.42  # type: ignore
             )
 
         jsii_calc.VariadicTypeUnion()
@@ -256,7 +256,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
 
     @property
     def check_type_error(self):
-        return typeguard.TypeCheckError  # type:ignore
+        return typeguard.TypeCheckError  # type: ignore
 
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
@@ -271,7 +271,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int\n  NoneType: is not an instance of NoneType"
             ),
         ):
-            jsii_calc.Calculator(initial_value="nope")  # type:ignore
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
 
     def test_constructor_decorated(self):
         """
@@ -300,7 +300,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
 
             jsii_calc.Calculator.__init__ = decorated
             try:
-                jsii_calc.Calculator(initial_value="nope")  # type:ignore
+                jsii_calc.Calculator(initial_value="nope")  # type: ignore
             finally:
                 jsii_calc.Calculator.__init__ = orig_init
 
@@ -309,7 +309,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             self.check_type_error,
             match=re.escape("int is not an instance of jsii_calc.StringEnum"),
         ):
-            jsii_calc.StructWithEnum(foo=1337)  # type:ignore
+            jsii_calc.StructWithEnum(foo=1337)  # type: ignore
 
     def test_method_arg(self):
         subject = jsii_calc.Calculator()
@@ -319,7 +319,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int"
             ),
         ):
-            subject.mul("Not a Number")  # type:ignore
+            subject.mul("Not a Number")  # type: ignore
 
     def test_method_kwarg(self):
         subject = jsii_calc.DocumentedClass()
@@ -329,7 +329,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "int did not match any element in the union:\n  str: is not an instance of str\n  NoneType: is not an instance of NoneType"
             ),
         ):
-            subject.greet(name=1337)  # type:ignore
+            subject.greet(name=1337)  # type: ignore
 
     def test_method_vararg(self):
         subject = jsii_calc.StructPassing()
@@ -339,7 +339,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "item 0 of tuple is not an instance of jsii_calc.TopLevelStruct"
             ),
         ):
-            subject.how_many_var_args_did_i_pass(1337, 42)  # type:ignore
+            subject.how_many_var_args_did_i_pass(1337, 42)  # type: ignore
 
     def test_setter_to_enum(self):
         subject = jsii_calc.AllTypes()
@@ -347,7 +347,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             self.check_type_error,
             match=re.escape("int is not an instance of jsii_calc.AllTypesEnum"),
         ):
-            subject.enum_property = 1337  # type:ignore
+            subject.enum_property = 1337  # type: ignore
 
     def test_setter_to_primitive(self):
         subject = jsii_calc.AllTypes()
@@ -355,7 +355,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             self.check_type_error,
             match=re.escape("int is not an instance of str"),
         ):
-            subject.string_property = 1337  # type:ignore
+            subject.string_property = 1337  # type: ignore
 
     def test_setter_to_map(self):
         subject = jsii_calc.AllTypes()
@@ -363,7 +363,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             self.check_type_error,
             match=re.escape("jsii_calc.StructWithEnum is not a mapping"),
         ):
-            subject.map_property = jsii_calc.StructWithEnum(  # type:ignore
+            subject.map_property = jsii_calc.StructWithEnum(  # type: ignore
                 foo=jsii_calc.StringEnum.A
             )
 
@@ -373,7 +373,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             self.check_type_error,
             match=re.escape("int is not a list"),
         ):
-            subject.array_property = 1337  # type:ignore
+            subject.array_property = 1337  # type: ignore
 
     def test_setter_to_list_with_invalid_value(self):
         subject = jsii_calc.AllTypes()
@@ -381,7 +381,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             self.check_type_error,
             match=re.escape("item 0 of list is not an instance of str"),
         ):
-            subject.array_property = [1337]  # type:ignore
+            subject.array_property = [1337]  # type: ignore
 
     def test_setter_to_union(self):
         subject = jsii_calc.AllTypes()
@@ -391,7 +391,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "jsii_calc.StringEnum did not match any element in the union:\n  str: is not an instance of str\n  int: is not an instance of int\n  float: is neither float or int\n  scope.jsii_calc_lib.Number: is not an instance of scope.jsii_calc_lib.Number\n  jsii_calc.Multiply: is not an instance of jsii_calc.Multiply"
             ),
         ):
-            subject.union_property = jsii_calc.StringEnum.B  # type:ignore
+            subject.union_property = jsii_calc.StringEnum.B  # type: ignore
 
     def test_nested_struct(self):
         # None of these should throw...
@@ -411,7 +411,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
                 "item 0 of list did not match any element in the union:\n  Mapping[str, Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a mapping\n  Sequence[Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a sequence"
             ),
         ):
-            jsii_calc.ClassWithNestedUnion([1337.42])  # type:ignore
+            jsii_calc.ClassWithNestedUnion([1337.42])  # type: ignore
 
     def test_variadic(self):
         with pytest.raises(
@@ -421,7 +421,7 @@ class TestRuntimeTypeCheckingTypeGuardV3:
             ),
         ):
             jsii_calc.VariadicTypeUnion(
-                jsii_calc.StructA(required_string="present"), 1337.42  # type:ignore
+                jsii_calc.StructA(required_string="present"), 1337.42  # type: ignore
             )
 
         jsii_calc.VariadicTypeUnion()
@@ -482,7 +482,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
 
     @property
     def check_type_error(self):
-        return typeguard.TypeCheckError  # type:ignore
+        return typeguard.TypeCheckError  # type: ignore
 
     """
     These tests verify that runtime type checking performs the necessary validations and produces error messages that
@@ -497,7 +497,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int\n  NoneType: is not an instance of NoneType"
             ),
         ):
-            jsii_calc.Calculator(initial_value="nope")  # type:ignore
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
 
     def test_constructor_decorated(self):
         """
@@ -526,7 +526,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
 
             jsii_calc.Calculator.__init__ = decorated
             try:
-                jsii_calc.Calculator(initial_value="nope")  # type:ignore
+                jsii_calc.Calculator(initial_value="nope")  # type: ignore
             finally:
                 jsii_calc.Calculator.__init__ = orig_init
 
@@ -535,7 +535,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             self.check_type_error,
             match=re.escape("int is not an instance of jsii_calc.StringEnum"),
         ):
-            jsii_calc.StructWithEnum(foo=1337)  # type:ignore
+            jsii_calc.StructWithEnum(foo=1337)  # type: ignore
 
     def test_method_arg(self):
         subject = jsii_calc.Calculator()
@@ -545,7 +545,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "str did not match any element in the union:\n  int: is not an instance of int\n  float: is neither float or int"
             ),
         ):
-            subject.mul("Not a Number")  # type:ignore
+            subject.mul("Not a Number")  # type: ignore
 
     def test_method_kwarg(self):
         subject = jsii_calc.DocumentedClass()
@@ -555,7 +555,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "int did not match any element in the union:\n  str: is not an instance of str\n  NoneType: is not an instance of NoneType"
             ),
         ):
-            subject.greet(name=1337)  # type:ignore
+            subject.greet(name=1337)  # type: ignore
 
     def test_method_vararg(self):
         subject = jsii_calc.StructPassing()
@@ -565,7 +565,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "item 0 of tuple is not an instance of jsii_calc.TopLevelStruct"
             ),
         ):
-            subject.how_many_var_args_did_i_pass(1337, 42)  # type:ignore
+            subject.how_many_var_args_did_i_pass(1337, 42)  # type: ignore
 
     def test_setter_to_enum(self):
         subject = jsii_calc.AllTypes()
@@ -573,7 +573,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             self.check_type_error,
             match=re.escape("int is not an instance of jsii_calc.AllTypesEnum"),
         ):
-            subject.enum_property = 1337  # type:ignore
+            subject.enum_property = 1337  # type: ignore
 
     def test_setter_to_primitive(self):
         subject = jsii_calc.AllTypes()
@@ -581,7 +581,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             self.check_type_error,
             match=re.escape("int is not an instance of str"),
         ):
-            subject.string_property = 1337  # type:ignore
+            subject.string_property = 1337  # type: ignore
 
     def test_setter_to_map(self):
         subject = jsii_calc.AllTypes()
@@ -589,7 +589,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             self.check_type_error,
             match=re.escape("jsii_calc.StructWithEnum is not a mapping"),
         ):
-            subject.map_property = jsii_calc.StructWithEnum(  # type:ignore
+            subject.map_property = jsii_calc.StructWithEnum(  # type: ignore
                 foo=jsii_calc.StringEnum.A
             )
 
@@ -599,7 +599,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             self.check_type_error,
             match=re.escape("int is not a list"),
         ):
-            subject.array_property = 1337  # type:ignore
+            subject.array_property = 1337  # type: ignore
 
     def test_setter_to_list_with_invalid_value(self):
         subject = jsii_calc.AllTypes()
@@ -607,7 +607,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             self.check_type_error,
             match=re.escape("item 0 of list is not an instance of str"),
         ):
-            subject.array_property = [1337]  # type:ignore
+            subject.array_property = [1337]  # type: ignore
 
     def test_setter_to_union(self):
         subject = jsii_calc.AllTypes()
@@ -617,7 +617,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "jsii_calc.StringEnum did not match any element in the union:\n  str: is not an instance of str\n  int: is not an instance of int\n  float: is neither float or int\n  scope.jsii_calc_lib.Number: is not an instance of scope.jsii_calc_lib.Number\n  jsii_calc.Multiply: is not an instance of jsii_calc.Multiply"
             ),
         ):
-            subject.union_property = jsii_calc.StringEnum.B  # type:ignore
+            subject.union_property = jsii_calc.StringEnum.B  # type: ignore
 
     def test_nested_struct(self):
         # None of these should throw...
@@ -637,7 +637,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
                 "item 0 of list did not match any element in the union:\n  Mapping[str, Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a mapping\n  Sequence[Union[jsii_calc.StructA, Dict[str, Any], jsii_calc.StructB]]: is not a sequence"
             ),
         ):
-            jsii_calc.ClassWithNestedUnion([1337.42])  # type:ignore
+            jsii_calc.ClassWithNestedUnion([1337.42])  # type: ignore
 
     def test_variadic(self):
         with pytest.raises(
@@ -647,7 +647,7 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             ),
         ):
             jsii_calc.VariadicTypeUnion(
-                jsii_calc.StructA(required_string="present"), 1337.42  # type:ignore
+                jsii_calc.StructA(required_string="present"), 1337.42  # type: ignore
             )
 
         jsii_calc.VariadicTypeUnion()
@@ -710,5 +710,5 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             ),
         ):
             jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
-                PythonInvalidBellRinger()  # type:ignore
+                PythonInvalidBellRinger()  # type: ignore
             )
