@@ -2578,14 +2578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sigstore/core@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@sigstore/core@npm:3.2.0"
-  checksum: 10c0/64a4abe361af3b56fd1689e195516759d8124b3033cd182888d007db0be9adc8825c5af350040b6a8eceeebe79c1296149c4d3afce7effca4a93fc00bb9373dc
-  languageName: node
-  linkType: hard
-
-"@sigstore/core@npm:^3.2.1":
+"@sigstore/core@npm:^3.2.0, @sigstore/core@npm:^3.2.1":
   version: 3.2.1
   resolution: "@sigstore/core@npm:3.2.1"
   checksum: 10c0/b7f7dadf07234b6fa110dfeedd8453c6d81fa0fc77731c097dc72b3fb9e0e8750e7b3fa82c33f4b9d8bdda1be634eda18231f5dad1679bdf31f204f855926f61
