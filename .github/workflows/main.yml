@@ -153,16 +153,21 @@ jobs:
       # Determine a prerelease version (depending on whether this is a PR or Push event)
       - name: Standard Version (PR)
         if: github.event_name == 'pull_request'
+        env:
+          GIT_SHA: ${{ github.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |-
           npx standard-version                                                                                          \
-            --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
-            --prerelease=dev.${{ github.event.pull_request.number }}                                                    \
+            --compareUrlFormat="{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${GIT_SHA}"                 \
+            --prerelease="dev.${PR_NUMBER}"                                                                             \
             --skip.commit
       - name: Standard Version (Nightly)
         if: github.event_name == 'push'
+        env:
+          GIT_SHA: ${{ github.sha }}
         run: |-
           npx standard-version                                                                                          \
-            --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
+            --compareUrlFormat="{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${GIT_SHA}"                 \
             --prerelease=dev.$(date -u +'%Y%m%d')                                                                       \
             --skip.commit
       # Now we'll be preparing a release package (with the "real" version)
