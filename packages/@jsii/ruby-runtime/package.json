@@ -1,0 +1,48 @@
+{
+  "name": "@jsii/ruby-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Ruby client for jsii runtime",
+  "license": "Apache-2.0",
+  "author": "Amazon Web Services (https://aws.amazon.com)",
+  "scripts": {
+    "build": "gem build *.gemspec && mkdir -p dist/ruby && mv *.gem dist/ruby",
+    "doc": "bundle exec rake doc",
+    "package": "package-ruby && package-private"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aws/jsii.git",
+    "directory": "packages/@jsii/ruby-runtime"
+  },
+  "engines": {
+    "node": ">= 14.17.0"
+  },
+  "dependencies": {
+    "@jsii/runtime": "^0.0.0"
+  },
+  "devDependencies": {
+    "fs-extra": "^10.1.0",
+    "jsii-build-tools": "^0.0.0",
+    "jsii-calc": "^3.20.120",
+    "jsii-pacmak": "^0.0.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "{projectRoot}/dist/ruby/*.gem"
+        ]
+      }
+    }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "type": "commonjs"
+}

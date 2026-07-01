@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'jsii-ruby-runtime', path: '../ruby-runtime'
+gem 'rspec', '~> 3.12'
+# Used by spec/unit/rbs_spec.rb to validate the generator's emitted `sig/*.rbs`.
+gem 'rbs', '~> 3.4'
