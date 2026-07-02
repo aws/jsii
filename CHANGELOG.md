@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.138.0](https://github.com/aws/jsii/compare/v1.137.0...v1.138.0) (2026-07-02)
+
+
+### Features
+
+* cache get_type_hints resolution for runtime type checking ([#5177](https://github.com/aws/jsii/issues/5177)) ([11eb280](https://github.com/aws/jsii/commit/11eb2804033066fab41d00c38c96ac59b811d70c))
+
 ## [1.137.0](https://github.com/aws/jsii/compare/v1.136.0...v1.137.0) (2026-06-22)
 
 
