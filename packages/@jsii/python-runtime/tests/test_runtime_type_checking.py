@@ -19,6 +19,21 @@ class PythonInvalidBellRinger:
         bell.ring()
 
 
+@pytest.fixture(autouse=True)
+def _enable_runtime_type_checking():
+    """Runtime type checking is opt-in (off by default) since the toggle was added.
+
+    The assertions in this module exercise the checks, so enable them for the
+    duration of each test and restore the prior state afterwards.
+    """
+    previous = jsii.runtime_type_checking_enabled()
+    jsii.set_runtime_type_checking(True)
+    try:
+        yield
+    finally:
+        jsii.set_runtime_type_checking(previous)
+
+
 @pytest.mark.skipif(TYPEGUARD_MAJOR_VERSION != 2, reason="requires typeguard 2.x")
 class TestRuntimeTypeCheckingTypeGuardV2:
 
@@ -708,6 +723,62 @@ class TestRuntimeTypeCheckingTypeGuardV4:
             match=re.escape(
                 "tests.test_runtime_type_checking.PythonInvalidBellRinger is not compatible with the IBellRinger protocol because it has no method named 'your_turn'"
             ),
+        ):
+            jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
+                PythonInvalidBellRinger()  # type: ignore
+            )
+
+
+class TestRuntimeTypeCheckingToggle:
+    """Verifies the opt-in toggle that gates runtime type checking."""
+
+    @property
+    def check_type_error(self):
+        # typeguard 2.x raises TypeError; 3.x/4.x raise typeguard.TypeCheckError.
+        if TYPEGUARD_MAJOR_VERSION == 2:
+            return TypeError
+        return typeguard.TypeCheckError  # type: ignore
+
+    def test_toggle_round_trips(self):
+        jsii.set_runtime_type_checking(True)
+        assert jsii.runtime_type_checking_enabled() is True
+        jsii.set_runtime_type_checking(False)
+        assert jsii.runtime_type_checking_enabled() is False
+
+    def test_no_call_site_error_when_disabled(self):
+        """With checking disabled, the Python-side check does not fire.
+
+        An invalid value is still rejected -- but by the kernel on the wire (as a
+        ``RuntimeError``), not as a call-site check error from ``check_type``.
+        """
+        jsii.set_runtime_type_checking(False)
+        with pytest.raises(Exception) as excinfo:
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
+        assert not isinstance(excinfo.value, self.check_type_error)
+
+    def test_call_site_error_when_enabled(self):
+        jsii.set_runtime_type_checking(True)
+        with pytest.raises(self.check_type_error):
+            jsii_calc.Calculator(initial_value="nope")  # type: ignore
+
+    @pytest.mark.skipif(
+        TYPEGUARD_MAJOR_VERSION != 4,
+        reason="structural protocol conformance checks require typeguard 4.x",
+    )
+    def test_interface_conformance_checked_even_when_disabled(self):
+        """Interface-conformance checks run regardless of the toggle.
+
+        The kernel cannot validate that a by-reference host object structurally
+        conforms to the expected interface (it is passed by reference and would
+        only fail later, during a callback, if a member is missing). The
+        generated Python-side conformance check is therefore the only upfront
+        guard, so it is emitted ungated (``if __debug__``) and must fire even
+        when runtime type checking is disabled.
+        """
+        jsii.set_runtime_type_checking(False)
+        with pytest.raises(
+            typeguard.TypeCheckError,  # type: ignore
+            match=re.escape("no method named 'your_turn'"),
         ):
             jsii_calc.ConsumerCanRingBell().implemented_by_object_literal(
                 PythonInvalidBellRinger()  # type: ignore

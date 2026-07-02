@@ -34,6 +34,7 @@ import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { topologicalSort } from '../toposort';
+import { isBehavioralInterfaceType } from '../type-visitor';
 
 import { TargetName } from './index';
 
@@ -815,6 +816,13 @@ abstract class BaseMethod implements PythonBase {
         `${this.pythonParent.fqn ?? this.pythonParent.pythonName}#${
           this.pythonName
         }`,
+        this.parameters.some((p) =>
+          typeReferenceInvolvesBehavioralInterface(p.type, context),
+        ) ||
+          (this.liftedProp !== undefined &&
+            this.getLiftedProperties(context.resolver).some((p) =>
+              typeReferenceInvolvesBehavioralInterface(p.prop.type, context),
+            )),
       );
     }
     this.emitBody(
@@ -1094,6 +1102,7 @@ abstract class BaseProperty implements PythonBase {
           `${this.pythonParent.fqn ?? this.pythonParent.pythonName}#${
             this.pythonName
           }`,
+          typeReferenceInvolvesBehavioralInterface(this.type.type, context),
         );
         // In case of a static setter, the 'cls' type is the class type but because we use a custom
         // decorator to make the setter operate on classes instead of objects, pyright doesn't know about
@@ -1281,6 +1290,9 @@ class Struct extends BasePythonClassType {
         { ...context, runtimeTypeCheckKwargs: true },
         ['*', ...kwargs],
         `${this.fqn ?? this.pythonName}#__init__`,
+        members.some((m) =>
+          typeReferenceInvolvesBehavioralInterface(m.type.type, context),
+        ),
       );
     }
 
@@ -1814,7 +1826,9 @@ class PythonModule implements PythonType {
     code.line('import typing_extensions');
     code.line();
 
-    code.line('from jsii._type_checking import cached_type_hints, check_type');
+    code.line(
+      'from jsii._type_checking import cached_type_hints, check_type, runtime_type_checking_enabled',
+    );
     code.line();
 
     // Determine if we need to write out the kernel load line.
@@ -3450,11 +3464,53 @@ function openSignature(
  * @param params      the parameter signatures to be type-checked.
  * @params pythonName the name of the Python function being checked (qualified).
  */
+/**
+ * Determines whether a type reference involves a behavioral interface, either
+ * directly or nested within a collection or a type union.
+ *
+ * Parameters of such types require runtime type checking that cannot be elided
+ * by the opt-in toggle: the kernel cannot validate that a by-reference host
+ * object structurally conforms to the expected interface (it is passed by
+ * reference and would only fail later, during a callback, if a member is
+ * missing). The generated Python-side conformance check is therefore the only
+ * upfront guard, so it must always run.
+ */
+function typeReferenceInvolvesBehavioralInterface(
+  typeRef: spec.TypeReference | undefined,
+  context: EmitContext,
+): boolean {
+  if (typeRef == null) {
+    return false;
+  }
+  if (spec.isNamedTypeReference(typeRef)) {
+    let type: spec.Type | undefined;
+    try {
+      type = context.typeResolver(typeRef.fqn);
+    } catch {
+      return false;
+    }
+    return type != null && isBehavioralInterfaceType(type);
+  }
+  if (spec.isCollectionTypeReference(typeRef)) {
+    return typeReferenceInvolvesBehavioralInterface(
+      typeRef.collection.elementtype,
+      context,
+    );
+  }
+  if (spec.isUnionTypeReference(typeRef)) {
+    return typeRef.union.types.some((t) =>
+      typeReferenceInvolvesBehavioralInterface(t, context),
+    );
+  }
+  return false;
+}
+
 function emitParameterTypeChecks(
   code: CodeMaker,
   context: EmitContext,
   params: readonly string[],
   fqn: string,
+  alwaysCheck = false,
 ): boolean {
   if (!context.runtimeTypeChecking) {
     return false;
@@ -3488,7 +3544,19 @@ function emitParameterTypeChecks(
     }
 
     if (!openedBlock) {
-      code.openBlock('if __debug__');
+      // Always gate on `__debug__` (so `python -O` elides the block entirely).
+      // For most parameters, additionally gate on the opt-in runtime toggle
+      // (off by default; see jsii._type_checking). The exception is parameters
+      // whose type involves a behavioral interface: the kernel cannot validate
+      // that a by-reference host object structurally conforms to the expected
+      // interface (it would only fail later, during a callback, if a member is
+      // missing), so this is the only upfront conformance guard and must run
+      // regardless of the toggle.
+      code.openBlock(
+        alwaysCheck
+          ? 'if __debug__'
+          : 'if __debug__ and runtime_type_checking_enabled()',
+      );
       code.line(
         `${typesVar} = ${context.typeCheckingHelper.getTypeHints(fqn, params)}`,
       );

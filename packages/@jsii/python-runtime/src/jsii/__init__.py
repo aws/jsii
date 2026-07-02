@@ -14,6 +14,10 @@ from ._runtime import (
     kernel,
     proxy_for,
 )
+from ._type_checking import (
+    runtime_type_checking_enabled,
+    set_runtime_type_checking,
+)
 from . import python
 
 # JS doesn't have distinct float or integer types, but we do. So we'll define our own
