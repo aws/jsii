@@ -5,7 +5,7 @@ import inspect
 from typing import Any, Iterable, List, Mapping, MutableMapping, Type
 from ._kernel.types import ObjRef
 
-_types = {}
+_types: MutableMapping[str, Any] = {}
 _data_types: MutableMapping[str, Any] = {}
 _enums: MutableMapping[str, Any] = {}
 _interfaces: MutableMapping[str, Any] = {}

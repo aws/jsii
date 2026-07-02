@@ -50,7 +50,6 @@ from .types import (
 )
 from .._utils import Singleton
 
-
 _nothing = object()
 
 
