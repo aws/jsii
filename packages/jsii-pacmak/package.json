@@ -66,7 +66,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-rosetta": "~6.0.0",
-    "pyright": "^1.1.410",
+    "pyright": "^1.1.411",
     "typescript": "6.x"
   },
   "peerDependencies": {
