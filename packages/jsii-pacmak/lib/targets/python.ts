@@ -128,21 +128,115 @@ interface EmitContext extends NamingContext {
 
   /** The numerical IDs used for type annotation data storing */
   readonly typeCheckingHelper: TypeCheckingHelper;
+
+  /** Names of deferred (lazy) classes in the current module */
+  readonly deferredClassNames?: Set<string>;
 }
 
 class TypeCheckingHelper {
   #stubs = new Array<TypeCheckingStub>();
+  #deferredClassNames: ReadonlySet<string> = new Set();
+  #usesTypeCheckNs = false;
+
+  /**
+   * The set of same-module classes that are emitted behind lazy factory
+   * functions (`_lazy_build_<Name>()`). When a type-checking stub references
+   * one of these names, it is not yet present in the module globals, so it
+   * must be materialized into the namespace passed to `typing.get_type_hints`.
+   */
+  public set deferredClassNames(value: ReadonlySet<string>) {
+    this.#deferredClassNames = value;
+  }
 
   public getTypeHints(fqn: string, args: readonly string[]): string {
     const stub = new TypeCheckingStub(fqn, args);
     this.#stubs.push(stub);
-    return `cached_type_hints(${stub.name})`;
+
+    // Same-module deferred classes are not present in the module globals until
+    // first accessed, so any of them referenced by this stub's annotations must
+    // be materialized into the namespace handed to typing.get_type_hints().
+    // Cross-module references resolve through the module-level _LazyImport
+    // proxies that already live in globals(), so a plain `globals()` suffices
+    // for them — no runtime helper is needed.
+    //
+    // We funnel this through the generated module-level `_type_check_ns` helper
+    // (NOT a runtime symbol) rather than inlining `_lazy_build_<Name>()` at the
+    // call site: method bodies of deferred classes are emitted both in the
+    // runtime `else:` branch (where `_lazy_build_<Name>` exists) and in the
+    // `if typing.TYPE_CHECKING:` stub branch (where it does not). The helper is
+    // defined once at module scope, so its name is valid in both branches.
+    const referenced = this.#referencedDeferredClasses(args);
+    if (referenced.length > 0) {
+      this.#usesTypeCheckNs = true;
+      const names = referenced.map((name) => JSON.stringify(name)).join(', ');
+      return `typing.get_type_hints(${stub.name}, globalns=_type_check_ns(${names}))`;
+    }
+    return `typing.get_type_hints(${stub.name})`;
+  }
+
+  /**
+   * Whether any emitted call site referenced the generated `_type_check_ns`
+   * helper, which means its definition must be emitted into the module.
+   */
+  public get usesTypeCheckNs(): boolean {
+    return this.#usesTypeCheckNs;
+  }
+
+  /**
+   * Emit the generated module-level `_type_check_ns` helper. It returns a plain
+   * dict consisting of the module globals plus the named same-module deferred
+   * classes (materialized via their lazy factories). This is generated code,
+   * not part of the runtime contract.
+   */
+  public emitTypeCheckNamespaceHelper(code: CodeMaker) {
+    if (!this.#usesTypeCheckNs) {
+      return;
+    }
+    code.line();
+    code.openBlock('if __debug__');
+    code.openBlock(
+      'def _type_check_ns(*names: builtins.str) -> typing.Dict[builtins.str, typing.Any]',
+    );
+    code.line('ns = dict(globals())');
+    code.openBlock('for _name in names');
+    code.openBlock('if _name not in ns');
+    code.line('ns[_name] = _LAZY_CLASSES[_name]()');
+    code.closeBlock();
+    code.closeBlock();
+    code.line('return ns');
+    code.closeBlock();
+    code.closeBlock();
+  }
+
+  /**
+   * Return the sorted list of same-module deferred class names that appear as
+   * identifiers within the given annotation strings.
+   */
+  #referencedDeferredClasses(args: readonly string[]): string[] {
+    if (this.#deferredClassNames.size === 0) {
+      return [];
+    }
+    const text = args.join('\n');
+    const found: string[] = [];
+    for (const name of this.#deferredClassNames) {
+      // Match the bare identifier, but not when it is an attribute access
+      // (e.g. `_other_module.Name`) or part of a longer identifier.
+      const re = new RegExp(`(?<![\\w.])${name}(?![\\w])`);
+      if (re.test(text)) {
+        found.push(name);
+      }
+    }
+    return found.sort();
   }
 
   /** Emits instructions that create the annotations data... */
   public flushStubs(code: CodeMaker) {
+    const seen = new Set<string>();
     for (const stub of this.#stubs) {
-      stub.emit(code);
+      if (!seen.has(stub.name)) {
+        seen.add(stub.name);
+        stub.emit(code);
+      }
     }
     // Reset the stubs list
     this.#stubs = [];
@@ -156,8 +250,11 @@ class TypeCheckingStub {
   readonly #hash: string;
 
   public constructor(fqn: string, args: readonly string[]) {
-    // Removing the quoted type names -- this will be emitted at the very end of the module.
-    this.#arguments = args.map((arg) => arg.replace(/"/g, ''));
+    // Keep type annotations as string literals (forward references).
+    // They are resolved at runtime by typing.get_type_hints(), which is
+    // handed an inline namespace (globals() plus any same-module deferred
+    // classes referenced by this stub) at each call site.
+    this.#arguments = args;
     this.#hash = crypto
       .createHash('sha256')
       .update(TypeCheckingStub.#PREFIX)
@@ -377,6 +474,30 @@ interface PythonTypeOpts {
   bases?: spec.TypeReference[];
 }
 
+/**
+ * Options controlling how a class/interface/struct is emitted.
+ * When `wrapInFactory` is true, the entire class definition is wrapped
+ * inside a memoized factory function `_lazy_build_{ClassName}()`.
+ */
+interface ClassEmitOpts {
+  /**
+   * Whether to wrap the emission in a `@_memoized` factory function.
+   */
+  wrapInFactory?: boolean;
+  /**
+   * Names of deferred (lazy) classes in the same module.
+   * When a base class name is in this set, the factory call
+   * `_lazy_build_{Name}()` is used instead of the bare name.
+   */
+  deferredClassNames?: Set<string>;
+  /**
+   * When true, emit only class/method/property signatures with `...` bodies.
+   * Used inside `if typing.TYPE_CHECKING:` blocks so static type checkers
+   * can see the class shape without runtime implementation details.
+   */
+  stubOnly?: boolean;
+}
+
 abstract class BasePythonClassType implements PythonType, ISortableType {
   protected bases: spec.TypeReference[];
   protected members: PythonBase[];
@@ -449,12 +570,12 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return { api: 'type', fqn: this.fqn };
   }
 
-  public emit(code: CodeMaker, context: EmitContext) {
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
     context = nestedContext(context, this.fqn);
 
     this.sortBasesForMro();
 
-    const baseClasses = this.getClassParams(context);
+    const baseClasses = this.getClassParams(context, opts);
     openSignature(code, 'class', this.pythonName, baseClasses);
 
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
@@ -464,13 +585,16 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
     if (this.members.length > 0) {
       const resolver = this.boundResolver(context.resolver);
+      const memberEmitOpts = opts?.stubOnly
+        ? { suppressBody: true }
+        : undefined;
       let shouldSeparate = false;
       for (const member of prepareMembers(this.members, resolver)) {
         if (shouldSeparate) {
           code.line();
         }
         shouldSeparate = this.separateMembers;
-        member.emit(code, { ...context, resolver });
+        member.emit(code, { ...context, resolver }, memberEmitOpts);
       }
     } else {
       code.line('pass');
@@ -575,7 +699,57 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return resolver.bind(this.fqn);
   }
 
-  protected abstract getClassParams(context: EmitContext): string[];
+  protected abstract getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[];
+
+  /**
+   * Emit `__qualname__` fixups for all nested class members (recursively).
+   *
+   * When a class is defined inside a factory function like `_lazy_build_X()`,
+   * Python sets the `__qualname__` of inner classes to include the factory
+   * function scope (e.g., `_lazy_build_X.<locals>.X.Inner`). We must
+   * explicitly set the correct `__qualname__` for every nested class so that
+   * pickling, repr, and introspection work correctly.
+   */
+  protected emitNestedQualnames(
+    code: CodeMaker,
+    parentQualname: string,
+    parentAccessor: string,
+  ) {
+    for (const member of this.members) {
+      if (member instanceof BasePythonClassType) {
+        const nestedQualname = `${parentQualname}.${member.pythonName}`;
+        const nestedAccessor = `${parentAccessor}.${member.pythonName}`;
+        code.line(`${nestedAccessor}.__qualname__ = "${nestedQualname}"`);
+        // Recurse into deeper nesting
+        member.emitNestedQualnames(code, nestedQualname, nestedAccessor);
+      }
+    }
+  }
+
+  /**
+   * Post-process base class parameters to replace deferred same-module class
+   * names with their factory function calls (e.g., `B` → `_lazy_build_B()`).
+   */
+  protected applyDeferredBaseReplacements(
+    params: string[],
+    deferredClassNames?: Set<string>,
+  ): string[] {
+    if (!deferredClassNames || deferredClassNames.size === 0) {
+      return params;
+    }
+    return params.map((p) => {
+      // Only replace if the param is exactly a deferred class name (not a
+      // qualified reference like `module.ClassName` or a keyword arg like
+      // `metaclass=...`)
+      if (deferredClassNames.has(p)) {
+        return `_lazy_build_${p}()`;
+      }
+      return p;
+    });
+  }
 }
 
 interface BaseMethodOpts {
@@ -587,6 +761,8 @@ interface BaseMethodOpts {
 interface BaseMethodEmitOpts {
   renderAbstract?: boolean;
   forceEmitBody?: boolean;
+  /** When true, emit `...` as the body regardless of other flags. Used for TYPE_CHECKING stubs. */
+  suppressBody?: boolean;
 }
 
 abstract class BaseMethod implements PythonBase {
@@ -658,7 +834,11 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     opts?: BaseMethodEmitOpts,
   ) {
-    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
+    const {
+      renderAbstract = true,
+      forceEmitBody = false,
+      suppressBody = false,
+    } = opts ?? {};
 
     const returnType: string = toTypeName(this.returns).pythonType('type', {
       ...context,
@@ -805,6 +985,7 @@ abstract class BaseMethod implements PythonBase {
       documentableItem: `method-${this.pythonName}`,
     });
     if (
+      !suppressBody &&
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
@@ -822,6 +1003,7 @@ abstract class BaseMethod implements PythonBase {
       context,
       renderAbstract,
       forceEmitBody,
+      suppressBody,
       liftedPropNames,
       pythonParams[0],
       returnType,
@@ -834,11 +1016,13 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     renderAbstract: boolean,
     forceEmitBody: boolean,
+    suppressBody: boolean,
     liftedPropNames: Set<string>,
     implicitParameter: string,
     returnType: string,
   ) {
     if (
+      suppressBody ||
       (!this.shouldEmitBody && !forceEmitBody) ||
       (renderAbstract && this.abstract)
     ) {
@@ -865,10 +1049,12 @@ abstract class BaseMethod implements PythonBase {
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType(
-      'value',
-      context,
-    );
+    let typeName = toTypeName(lastParameter.type).pythonType('value', context);
+
+    // If the type is a same-module deferred class, use factory call instead
+    if (context.deferredClassNames?.has(typeName)) {
+      typeName = `_lazy_build_${typeName}()`;
+    }
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specify to start with in our dictionary literal.
@@ -983,6 +1169,8 @@ interface BasePropertyOpts {
 interface BasePropertyEmitOpts {
   renderAbstract?: boolean;
   forceEmitBody?: boolean;
+  /** When true, emit `...` as the body regardless of other flags. Used for TYPE_CHECKING stubs. */
+  suppressBody?: boolean;
 }
 
 abstract class BaseProperty implements PythonBase {
@@ -1028,7 +1216,11 @@ abstract class BaseProperty implements PythonBase {
     context: EmitContext,
     opts?: BasePropertyEmitOpts,
   ) {
-    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
+    const {
+      renderAbstract = true,
+      forceEmitBody = false,
+      suppressBody = false,
+    } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType('type', context);
 
     code.line(`@${this.decorator}`);
@@ -1053,6 +1245,7 @@ abstract class BaseProperty implements PythonBase {
     });
     // NOTE: No parameters to validate here, this is a getter...
     if (
+      !suppressBody &&
       (this.shouldEmitBody || forceEmitBody) &&
       (!renderAbstract || !this.abstract)
     ) {
@@ -1084,6 +1277,7 @@ abstract class BaseProperty implements PythonBase {
         'None',
       );
       if (
+        !suppressBody &&
         (this.shouldEmitBody || forceEmitBody) &&
         (!renderAbstract || !this.abstract)
       ) {
@@ -1110,24 +1304,48 @@ abstract class BaseProperty implements PythonBase {
 }
 
 class Interface extends BasePythonClassType {
-  public emit(code: CodeMaker, context: EmitContext) {
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
+    const wrapInFactory = opts?.wrapInFactory ?? false;
+    const stubOnly = opts?.stubOnly ?? false;
+
+    // In stub mode, emit only the protocol class with `...` bodies for type checkers.
+    if (stubOnly) {
+      this.sortBasesForMro();
+      context = nestedContext(context, this.fqn);
+      // Emit the interface decorator so type checkers understand it's a jsii interface
+      emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
+      // Interface members already have shouldEmitBody=false, so they naturally emit `...`
+      super.emit(code, context, opts);
+      return;
+    }
+
+    // Open factory function wrapper if requested
+    if (wrapInFactory) {
+      code.line('@_memoized');
+      code.openBlock(`def _lazy_build_${this.pythonName}() -> type`);
+    }
+
     this.sortBasesForMro();
 
     context = nestedContext(context, this.fqn);
     emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
 
     // First we do our normal class logic for emitting our members.
-    super.emit(code, context);
+    super.emit(code, context, opts);
 
     code.line();
     code.line();
 
     // Then, we have to emit a Proxy class which implements our proxy interface.
-    const proxyBases: string[] = this.bases.map(
-      (b) =>
-        // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
-        `jsii.proxy_for(${toTypeName(b).pythonType('value', context)}) # type: ignore[misc]`,
-    );
+    const proxyBases: string[] = this.bases.map((b) => {
+      let baseExpr = toTypeName(b).pythonType('value', context);
+      // Replace same-module deferred class names with factory calls
+      if (opts?.deferredClassNames?.has(baseExpr)) {
+        baseExpr = `_lazy_build_${baseExpr}()`;
+      }
+      // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
+      return `jsii.proxy_for(${baseExpr}) # type: ignore[misc]`;
+    });
     openSignature(code, 'class', this.proxyClassName, proxyBases);
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
       documentableItem: `class-${this.pythonName}`,
@@ -1154,16 +1372,35 @@ class Interface extends BasePythonClassType {
     code.line(
       `typing.cast(typing.Any, ${this.pythonName}).__jsii_proxy_class__ = lambda : ${this.proxyClassName}`,
     );
+
+    // Close factory function wrapper with return statement
+    if (wrapInFactory) {
+      // Strip __protocol_attrs__ inside the factory since the interface name
+      // is not available at module level for deferred interfaces.
+      code.line(
+        `typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ = typing.cast(typing.Any, ${this.pythonName}).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+      );
+      code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      this.emitNestedQualnames(code, this.pythonName, this.pythonName);
+      code.line(
+        `${this.proxyClassName}.__qualname__ = "${this.proxyClassName}"`,
+      );
+      code.line(`return ${this.pythonName}`);
+      code.closeBlock();
+    }
   }
 
-  protected getClassParams(context: EmitContext): string[] {
+  protected getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[] {
     const params: string[] = this.bases.map((b) =>
       toTypeName(b).pythonType('decl', context),
     );
 
     params.push('typing_extensions.Protocol');
 
-    return params;
+    return this.applyDeferredBaseReplacements(params, opts?.deferredClassNames);
   }
 
   private get proxyClassName(): string {
@@ -1195,11 +1432,42 @@ class Struct extends BasePythonClassType {
     this.directMembers.push(member);
   }
 
-  public emit(code: CodeMaker, context: EmitContext) {
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
+    const wrapInFactory = opts?.wrapInFactory ?? false;
+    const stubOnly = opts?.stubOnly ?? false;
+
+    // In stub mode, emit class signature + __init__ signature + property stubs
+    if (stubOnly) {
+      this.sortBasesForMro();
+      context = nestedContext(context, this.fqn);
+      const baseInterfaces = this.getClassParams(context, opts);
+
+      openSignature(code, 'class', this.pythonName, baseInterfaces);
+      this.generator.emitDocString(code, this.apiLocation, this.docs, {
+        documentableItem: `class-${this.pythonName}`,
+        trailingNewLine: true,
+      });
+      // Emit __init__ stub with correct signature
+      this.emitConstructorStub(code, context);
+      // Emit property getter stubs
+      for (const member of this.allMembers) {
+        code.line();
+        this.emitGetterStub(member, code, context);
+      }
+      code.closeBlock();
+      return;
+    }
+
+    // Open factory function wrapper if requested
+    if (wrapInFactory) {
+      code.line('@_memoized');
+      code.openBlock(`def _lazy_build_${this.pythonName}() -> type`);
+    }
+
     this.sortBasesForMro();
 
     context = nestedContext(context, this.fqn);
-    const baseInterfaces = this.getClassParams(context);
+    const baseInterfaces = this.getClassParams(context, opts);
 
     code.indent('@jsii.data_type(');
     code.line(`jsii_type=${JSON.stringify(this.fqn)},`);
@@ -1217,6 +1485,14 @@ class Struct extends BasePythonClassType {
     this.emitMagicMethods(code);
 
     code.closeBlock();
+
+    // Close factory function wrapper with return statement
+    if (wrapInFactory) {
+      code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      this.emitNestedQualnames(code, this.pythonName, this.pythonName);
+      code.line(`return ${this.pythonName}`);
+      code.closeBlock();
+    }
   }
 
   public requiredImports(context: EmitContext) {
@@ -1226,8 +1502,14 @@ class Struct extends BasePythonClassType {
     );
   }
 
-  protected getClassParams(context: EmitContext): string[] {
-    return this.bases.map((b) => toTypeName(b).pythonType('decl', context));
+  protected getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[] {
+    return this.applyDeferredBaseReplacements(
+      this.bases.map((b) => toTypeName(b).pythonType('decl', context)),
+      opts?.deferredClassNames,
+    );
   }
 
   /**
@@ -1266,10 +1548,11 @@ class Struct extends BasePythonClassType {
     // Re-type struct arguments that were passed as "dict". Do this before validating argument types...
     for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType(
-        'value',
-        context,
-      );
+      let typeName = toTypeName(member.type.type).pythonType('value', context);
+      // If the type is a same-module deferred class, use factory call instead
+      if (context.deferredClassNames?.has(typeName)) {
+        typeName = `_lazy_build_${typeName}()`;
+      }
       code.openBlock(`if isinstance(${member.pythonName}, dict)`);
       code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
       code.closeBlock();
@@ -1341,6 +1624,39 @@ class Struct extends BasePythonClassType {
       );
     }
     code.line(`return typing.cast(${pythonType}, result)`);
+    code.closeBlock();
+  }
+
+  /** Emit a stub __init__ (signature + `...`) for TYPE_CHECKING blocks. */
+  private emitConstructorStub(code: CodeMaker, context: EmitContext) {
+    const members = this.allMembers;
+    const kwargs = members.map((m) => m.constructorDecl(context));
+    const implicitParameter = slugifyAsNeeded(
+      'self',
+      members.map((m) => m.pythonName),
+    );
+    const constructorArguments =
+      kwargs.length > 0
+        ? [implicitParameter, '*', ...kwargs]
+        : [implicitParameter];
+
+    openSignature(code, 'def', '__init__', constructorArguments, 'None');
+    this.emitConstructorDocstring(code);
+    code.line('...');
+    code.closeBlock();
+  }
+
+  /** Emit a stub property getter (signature + `...`) for TYPE_CHECKING blocks. */
+  private emitGetterStub(
+    member: StructField,
+    code: CodeMaker,
+    context: EmitContext,
+  ) {
+    const pythonType = member.typeAnnotation(context);
+    code.line('@builtins.property');
+    openSignature(code, 'def', member.pythonName, ['self'], pythonType);
+    member.emitDocString(code);
+    code.line('...');
     code.closeBlock();
   }
 
@@ -1511,17 +1827,42 @@ class Class extends BasePythonClassType implements ISortableType {
     );
   }
 
-  public emit(code: CodeMaker, context: EmitContext) {
-    // First we emit our implments decorator
+  public emit(code: CodeMaker, context: EmitContext, opts?: ClassEmitOpts) {
+    const wrapInFactory = opts?.wrapInFactory ?? false;
+    const stubOnly = opts?.stubOnly ?? false;
+
+    // In stub mode, emit only the class signature with `...` bodies for type checkers.
+    if (stubOnly) {
+      if (this.interfaces.length > 0) {
+        const interfaces: string[] = this.interfaces.map((b) =>
+          toTypeName(b).pythonType('decl', context),
+        );
+        code.line(`@jsii.implements(${interfaces.join(', ')})`);
+      }
+      super.emit(code, context, opts);
+      return;
+    }
+
+    // Open factory function wrapper if requested
+    if (wrapInFactory) {
+      code.line('@_memoized');
+      code.openBlock(`def _lazy_build_${this.pythonName}() -> type`);
+    }
+
+    // First we emit our implements decorator
     if (this.interfaces.length > 0) {
       const interfaces: string[] = this.interfaces.map((b) =>
         toTypeName(b).pythonType('decl', context),
       );
-      code.line(`@jsii.implements(${interfaces.join(', ')})`);
+      const resolvedInterfaces = this.applyDeferredBaseReplacements(
+        interfaces,
+        opts?.deferredClassNames,
+      );
+      code.line(`@jsii.implements(${resolvedInterfaces.join(', ')})`);
     }
 
     // Then we do our normal class logic for emitting our members.
-    super.emit(code, context);
+    super.emit(code, context, opts);
 
     // Then, if our class is Abstract, we have to go through and redo all of
     // this logic, except only emiting abstract methods and properties as non
@@ -1532,9 +1873,12 @@ class Class extends BasePythonClassType implements ISortableType {
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
         // "# type: ignore[misc]" because MyPy cannot check dynamic base classes (naturally)
-        proxyBases.push(
-          `jsii.proxy_for(${toTypeName(base).pythonType('value', context)}) # type: ignore[misc]`,
-        );
+        let baseExpr = toTypeName(base).pythonType('value', context);
+        // Replace same-module deferred class names with factory calls
+        if (opts?.deferredClassNames?.has(baseExpr)) {
+          baseExpr = `_lazy_build_${baseExpr}()`;
+        }
+        proxyBases.push(`jsii.proxy_for(${baseExpr}) # type: ignore[misc]`);
       }
 
       code.line();
@@ -1572,18 +1916,40 @@ class Class extends BasePythonClassType implements ISortableType {
         `typing.cast(typing.Any, ${this.pythonName}).__jsii_proxy_class__ = lambda : ${this.proxyClassName}`,
       );
     }
+
+    // Close factory function wrapper with return statement
+    if (wrapInFactory) {
+      code.line(`${this.pythonName}.__qualname__ = "${this.pythonName}"`);
+      this.emitNestedQualnames(code, this.pythonName, this.pythonName);
+      if (this.abstract) {
+        code.line(
+          `${this.proxyClassName}.__qualname__ = "${this.proxyClassName}"`,
+        );
+      }
+      code.line(`return ${this.pythonName}`);
+      code.closeBlock();
+    }
   }
 
-  protected getClassParams(context: EmitContext): string[] {
+  protected getClassParams(
+    context: EmitContext,
+    opts?: ClassEmitOpts,
+  ): string[] {
     const params: string[] = this.bases.map((b) =>
       toTypeName(b).pythonType('decl', context),
     );
     const metaclass: string = this.abstract ? 'JSIIAbstractClass' : 'JSIIMeta';
 
-    params.push(`metaclass=jsii.${metaclass}`);
-    params.push(`jsii_type="${this.fqn}"`);
+    // Apply deferred base class replacements before adding keyword args
+    const resolvedParams = this.applyDeferredBaseReplacements(
+      params,
+      opts?.deferredClassNames,
+    );
 
-    return params;
+    resolvedParams.push(`metaclass=jsii.${metaclass}`);
+    resolvedParams.push(`jsii_type="${this.fqn}"`);
+
+    return resolvedParams;
   }
 
   private get proxyClassName(): string {
@@ -1637,7 +2003,10 @@ class Enum extends BasePythonClassType {
     return super.emit(code, context);
   }
 
-  protected getClassParams(_context: EmitContext): string[] {
+  protected getClassParams(
+    _context: EmitContext,
+    _opts?: ClassEmitOpts,
+  ): string[] {
     return ['enum.Enum'];
   }
 
@@ -1772,20 +2141,12 @@ class PythonModule implements PythonType {
       ...context,
       submodule: this.fqn ?? context.submodule,
       intersectionTypes: new IntersectionTypesRegistry(),
+      typeCheckingHelper: new TypeCheckingHelper(),
       resolver,
     };
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
-
-    // Emit PEP 563 (from __future__ import annotations) if this module has
-    // cross-module imports. This makes all annotations strings at definition
-    // time, preventing lazy proxy resolution during module load.
-    // Must be the first statement in the file (after docstring) per Python rules.
-    if (hasImports(this.requiredImports(context))) {
-      code.line('from __future__ import annotations');
-      code.line();
-    }
 
     // If multiple packages use the same namespace (in Python, a directory) it
     // depends on how they are laid out on disk if deep imports of multiple packages
@@ -1814,7 +2175,7 @@ class PythonModule implements PythonType {
     code.line('import typing_extensions');
     code.line();
 
-    code.line('from jsii._type_checking import cached_type_hints, check_type');
+    code.line('from jsii._type_checking import check_type');
     code.line();
 
     // Determine if we need to write out the kernel load line.
@@ -1853,11 +2214,113 @@ class PythonModule implements PythonType {
       this.emitRequiredImports(code, context);
     }
 
-    // Emit all of our members.
-    for (const member of prepareMembers(this.members, resolver)) {
+    // Partition members into non-class (eager) and class (deferred) groups.
+    // All classes, interfaces, and structs are deferred (wrapped in factory
+    // functions) for maximum lazy loading. Only Enums and non-class members
+    // (methods, properties) are emitted eagerly at module scope.
+    const sortedMembers = prepareMembers(this.members, resolver);
+    const eagerMembers: PythonBase[] = [];
+    const deferredMembers: PythonBase[] = [];
+
+    for (const member of sortedMembers) {
+      if (member instanceof BasePythonClassType && !(member instanceof Enum)) {
+        deferredMembers.push(member);
+      } else {
+        eagerMembers.push(member);
+      }
+    }
+
+    // Store sorted deferred class names for _LAZY_CLASSES emission
+    const deferredClassNames: string[] = deferredMembers
+      .map((m) => m.pythonName)
+      .sort();
+
+    // Emit _memoized alias and import sys when deferred members exist
+    if (deferredMembers.length > 0) {
+      code.line();
+      code.line('import sys as _sys');
+      // Make the set of same-module deferred class names available to the
+      // type-checking helper so that get_type_hints() can resolve references
+      // to them via an inline namespace (no runtime helper required).
+      context.typeCheckingHelper.deferredClassNames = new Set(
+        deferredClassNames,
+      );
+    } else if (this.modules.length > 0) {
+      code.line();
+      code.line('import sys as _sys');
+    }
+
+    // Emit eager members (Enums, non-class members) normally
+    for (const member of eagerMembers) {
       code.line();
       code.line();
       member.emit(code, context);
+    }
+
+    // Emit deferred classes/interfaces/structs with TYPE_CHECKING guard:
+    // - Type checkers see the stub declarations (signatures with `...` bodies)
+    // - Runtime executes the lazy factory functions
+    if (deferredMembers.length > 0) {
+      const deferredSet = new Set(deferredClassNames);
+
+      // Declare _LAZY_CLASSES at module scope so both branches and __getattr__
+      // can reference it without pyright reporting "not defined".
+      code.line();
+      code.line(
+        '_LAZY_CLASSES: typing.Dict[builtins.str, typing.Callable[[], type]]',
+      );
+
+      // TYPE_CHECKING branch: emit class stubs for static analysis
+      code.line();
+      code.line();
+      code.openBlock('if typing.TYPE_CHECKING');
+      for (const member of deferredMembers) {
+        code.line();
+        (member as BasePythonClassType).emit(code, context, {
+          stubOnly: true,
+        });
+      }
+      // Emit intersection type helper stubs so type checkers can resolve
+      // forward references to intersection protocol names.
+      context.intersectionTypes.flushHelperTypeStubs(code);
+      code.closeBlock();
+
+      // else branch: emit lazy factory functions for runtime
+      code.openBlock('else');
+      code.line('_memoized = jsii._memoized');
+      const deferredContext = { ...context, deferredClassNames: deferredSet };
+      for (const member of deferredMembers) {
+        code.line();
+        code.line();
+        (member as BasePythonClassType).emit(code, deferredContext, {
+          wrapInFactory: true,
+          deferredClassNames: deferredSet,
+        });
+      }
+
+      // Emit intersection type helper classes inside the else branch,
+      // using factory calls for same-module deferred base classes.
+      context.intersectionTypes.flushHelperTypes(code, deferredSet);
+
+      // Emit protocol stripper for intersection helpers inside the else branch
+      // (they reference the intersection helper classes just defined above).
+      const intersectionProtocols = context.intersectionTypes.typeNames;
+      if (intersectionProtocols.length > 0) {
+        code.line('');
+        code.line(`for cls in [${intersectionProtocols.join(', ')}]:`);
+        code.line(
+          `    typing.cast(typing.Any, cls).__protocol_attrs__ = typing.cast(typing.Any, cls).__protocol_attrs__ - set(['__jsii_proxy_class__', '__jsii_type__'])`,
+        );
+      }
+
+      // Emit _LAZY_CLASSES dict inside the else branch
+      code.line();
+      code.indent('_LAZY_CLASSES = {');
+      for (const name of deferredClassNames) {
+        code.line(`"${name}": _lazy_build_${name},`);
+      }
+      code.unindent('}');
+      code.closeBlock();
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
@@ -1927,34 +2390,57 @@ class PythonModule implements PythonType {
     code.line();
     code.line('publication.publish()');
 
-    // Finally, we'll set up lazy loading for all registered python modules.
+    // Finally, we'll set up lazy loading for deferred classes and/or submodules.
     // We define __getattr__ and __dir__ and then install them on the public
     // module (the one publication.publish() placed in sys.modules) so that
     // lazy attribute access works through the publication barrier.
-    if (this.modules.length > 0) {
+    if (this.modules.length > 0 || deferredClassNames.length > 0) {
       code.line();
-      // Build sorted list of submodule short names
-      const submoduleNames = this.modules
-        .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
-        .map((module) =>
-          module.pythonName.substring(this.pythonName.length + 1),
-        );
 
-      // Emit _SUBMODULES set
-      code.indent('_SUBMODULES = {');
-      for (const name of submoduleNames) {
-        code.line(`"${name}",`);
+      // Emit _SUBMODULES set (only when submodules exist)
+      if (this.modules.length > 0) {
+        // Build sorted list of submodule short names
+        const submoduleNames = this.modules
+          .sort((l, r) => l.pythonName.localeCompare(r.pythonName))
+          .map((module) =>
+            module.pythonName.substring(this.pythonName.length + 1),
+          );
+
+        code.indent('_SUBMODULES = {');
+        for (const name of submoduleNames) {
+          code.line(`"${name}",`);
+        }
+        code.unindent('}');
+        code.line();
       }
-      code.unindent('}');
-      code.line();
 
-      // Emit __getattr__ function
+      // Emit unified __getattr__ function handling both deferred classes and submodules.
+      // Uses setattr(_sys.modules[__name__], ...) instead of globals()[name] = ...
+      // because after publication.publish() replaces the module in sys.modules,
+      // globals() writes to the original module dict, not the publication module's
+      // __dict__. PEP 562 __getattr__ is only invoked when the attribute is NOT in
+      // the module's __dict__, so globals() makes the cache ineffective. setattr on
+      // sys.modules[__name__] correctly writes to the publication module.
       code.openBlock('def __getattr__(name: str) -> object');
-      code.openBlock('if name in _SUBMODULES');
-      code.line('mod = _importlib.import_module(f".{name}", __name__)');
-      code.line('globals()[name] = mod');
-      code.line('return mod');
-      code.closeBlock();
+      if (deferredClassNames.length > 0) {
+        code.openBlock('if name in _LAZY_CLASSES');
+        code.line('cls = _LAZY_CLASSES[name]()');
+        code.line('setattr(_sys.modules[__name__], name, cls)');
+        // Also store in the original module globals so that
+        // typing.get_type_hints() can resolve forward references in
+        // type-checking stubs (which use this module's __dict__ as their
+        // __globals__).
+        code.line('globals()[name] = cls');
+        code.line('return cls');
+        code.closeBlock();
+      }
+      if (this.modules.length > 0) {
+        code.openBlock('if name in _SUBMODULES');
+        code.line('mod = _importlib.import_module(f".{name}", __name__)');
+        code.line('setattr(_sys.modules[__name__], name, mod)');
+        code.line('return mod');
+        code.closeBlock();
+      }
       code.line(
         'raise AttributeError(f"module {__name__!r} has no attribute {name!r}")',
       );
@@ -1964,7 +2450,11 @@ class PythonModule implements PythonType {
       // Emit __dir__ function — quoted return type because pyright flags
       // bare `list[str]` as a runtime subscript error when pythonVersion < 3.9
       code.openBlock('def __dir__() -> "list[str]"');
-      code.line('return [*__all__, *_SUBMODULES]');
+      if (this.modules.length > 0) {
+        code.line('return [*__all__, *_SUBMODULES]');
+      } else {
+        code.line('return [*__all__]');
+      }
       code.closeBlock();
       code.line();
 
@@ -1976,22 +2466,37 @@ class PythonModule implements PythonType {
       // We use setattr() instead of direct assignment because mypy treats
       // __getattr__ and __dir__ as special methods on ModuleType and rejects
       // direct assignment with "Cannot assign to a method [method-assign]".
-      code.line('import sys as _sys');
       code.line('setattr(_sys.modules[__name__], "__getattr__", __getattr__)');
       code.line('setattr(_sys.modules[__name__], "__dir__", __dir__)');
     }
 
-    context.typeCheckingHelper.flushStubs(code);
-    context.intersectionTypes.flushHelperTypes(code);
+    context.typeCheckingHelper.emitTypeCheckNamespaceHelper(code);
 
+    context.typeCheckingHelper.flushStubs(code);
+
+    // Intersection helper types are emitted inside the else: block when
+    // deferred members exist (see above). Only flush them here for the
+    // eagerly-loaded path (no deferred members).
+    if (deferredClassNames.length === 0) {
+      context.intersectionTypes.flushHelperTypes(code);
+    }
+
+    const deferredClassNamesSet = new Set(deferredClassNames);
     const interfaces = this.members
       .filter((m) => m instanceof Interface)
+      .filter((m) => !deferredClassNamesSet.has(m.pythonName))
       .map((m) => m.pythonName);
 
-    this.emitProtocolStripper(code, [
-      ...interfaces,
-      ...context.intersectionTypes.typeNames,
-    ]);
+    // When deferred members exist, intersection protocol stripping is
+    // handled inside the else: block. Only emit it here for eager path.
+    if (deferredClassNames.length === 0) {
+      this.emitProtocolStripper(code, [
+        ...interfaces,
+        ...context.intersectionTypes.typeNames,
+      ]);
+    } else {
+      this.emitProtocolStripper(code, interfaces);
+    }
   }
 
   /**
@@ -2124,62 +2629,83 @@ class PythonModule implements PythonType {
   }
 
   /**
-   * Emit the `_LazyImport` helper class that defers `importlib.import_module()`
-   * until first attribute access via `__getattr__`.
-   *
-   * The class is emitted once per module that has cross-module imports. It wraps
-   * a module name string and caches the imported module after first access.
-   * Failed imports are NOT cached, allowing retry on subsequent access.
+   * Emit the `_LazyImport` alias that references `jsii._LazyImport` from the
+   * runtime package. This avoids duplicating the class definition in every
+   * generated module.
    */
-  private emitLazyImportClass(code: CodeMaker) {
+  private emitLazyImportAlias(code: CodeMaker) {
     code.line();
-    code.openBlock('class _LazyImport');
-    // __init__
-    code.openBlock('def __init__(self, module_name: str) -> None');
-    code.line('self._module_name = module_name');
-    code.line('self._module: typing.Any = None');
-    code.closeBlock();
-    // __getattr__
-    code.openBlock('def __getattr__(self, name: str) -> typing.Any');
-    code.openBlock('if self._module is None');
-    code.line('import importlib');
-    code.line('self._module = importlib.import_module(self._module_name)');
-    code.closeBlock();
-    code.line('return getattr(self._module, name)');
-    code.closeBlock();
-    code.closeBlock();
+    code.line('_LazyImport = jsii._LazyImport');
   }
 
   /**
    * Emit `_LazyImport(...)` assignments for all cross-module imports.
    *
-   * Only processes entries where the items set contains '' (empty string),
-   * indicating a full module import. Parses the sourcePackage string which
-   * has the format "module.name as _alias" to extract the module name and alias.
+   * Handles two import patterns:
+   * 1. Cross-assembly (absolute): sourcePackage is "pkg.name as _alias", item is ''.
+   *    Emits: `_alias = _LazyImport("pkg.name")`
+   * 2. Same-assembly (relative): sourcePackage is a relative path (e.g. ".."),
+   *    item is "module_name as _alias".
+   *    Emits: `_alias = _LazyImport(".module_name", __name__)`
+   *
    * Sorts assignments by alias for deterministic output.
    */
   private emitLazyProxyAssignments(code: CodeMaker, imports: PythonImports) {
-    const assignments = Object.entries(imports)
-      .filter(([, items]) => items.has('')) // Only full module imports (empty string = import the whole module)
-      .map(([sourcePackage]) => {
-        // sourcePackage is like "aws_cdk.aws_iam as _aws_cdk_aws_iam_abcd1234"
+    const assignments: Array<{ alias: string; code: string }> = [];
+
+    for (const [sourcePackage, items] of Object.entries(imports)) {
+      if (items.has('')) {
+        // Full module import: sourcePackage is "pkg.name as _alias"
         const match = sourcePackage.match(/^(.+)\s+as\s+(.+)$/);
         if (match) {
           const [, moduleName, alias] = match;
-          return { moduleName, alias };
+          assignments.push({
+            alias,
+            code: `${alias} = _LazyImport("${moduleName}")`,
+          });
+        } else {
+          // Fallback: no alias in sourcePackage
+          const alias = `_${sourcePackage.replace(/\./g, '_')}`;
+          assignments.push({
+            alias,
+            code: `${alias} = _LazyImport("${sourcePackage}")`,
+          });
         }
-        // Fallback: no alias
-        return {
-          moduleName: sourcePackage,
-          alias: `_${sourcePackage.replace(/\./g, '_')}`,
-        };
-      })
-      .sort((a, b) => a.alias.localeCompare(b.alias));
+      }
+
+      // Per-item imports: "name as _alias" from a relative source
+      const pieceMeal = Array.from(items).filter((i) => i !== '');
+      for (const item of pieceMeal) {
+        const itemMatch = item.match(/^(.+)\s+as\s+(.+)$/);
+        if (itemMatch) {
+          const [, importName, alias] = itemMatch;
+          // sourcePackage is a relative path like ".." or ".child"
+          // Combine into a relative module name for importlib
+          const relativeName =
+            sourcePackage === '.'
+              ? `.${importName}`
+              : sourcePackage.endsWith('.')
+                ? `${sourcePackage}${importName}`
+                : `${sourcePackage}.${importName}`;
+          assignments.push({
+            alias,
+            code: `${alias} = _LazyImport("${relativeName}", __name__)`,
+          });
+        } else {
+          throw new Error(
+            `Unexpected import item format "${item}" for source "${sourcePackage}". ` +
+              `Expected "name as alias" pattern.`,
+          );
+        }
+      }
+    }
+
+    assignments.sort((a, b) => a.alias.localeCompare(b.alias));
 
     if (assignments.length > 0) {
       code.line();
-      for (const { moduleName, alias } of assignments) {
-        code.line(`${alias} = _LazyImport("${moduleName}")`);
+      for (const { code: assignmentCode } of assignments) {
+        code.line(assignmentCode);
       }
     }
   }
@@ -2218,12 +2744,14 @@ class PythonModule implements PythonType {
       return;
     }
 
-    // Emit _LazyImport class definition
-    this.emitLazyImportClass(code);
+    // Emit a local alias to jsii._LazyImport for use in lazy proxy assignments
+    this.emitLazyImportAlias(code);
 
-    // Emit TYPE_CHECKING block with original import statements for static type checkers,
-    // and lazy proxy assignments in the else branch for runtime.
-    // This structure ensures pyright/mypy see the real module types while runtime uses lazy proxies.
+    // Emit TYPE_CHECKING block with all import statements for static type checkers.
+    // Type annotations are rendered as string literals so they don't need runtime imports,
+    // but the runtime type-checking stubs (emitted at module end) strip the quotes and use
+    // typing.get_type_hints() which resolves names from module globals — so all cross-module
+    // names must be resolvable at runtime via lazy proxies.
     code.line();
     code.openBlock('if typing.TYPE_CHECKING');
     this.emitImportStatements(code, allImports);

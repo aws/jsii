@@ -1,6 +1,7 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
 import importlib
 import inspect
+import sys
 
 from typing import Any, Iterable, List, Mapping, MutableMapping, Type
 from ._kernel.types import ObjRef
@@ -38,6 +39,75 @@ def register_interface(iface: Any):
     _interfaces[iface.__jsii_type__] = iface
 
 
+def _find_containing_module(class_fqn: str) -> "tuple[str, list[str]] | None":
+    """Find the Python module that should contain the given jsii type.
+
+    Returns a tuple of (python_module_name, remaining_type_parts) if found,
+    or None if no module could be identified.
+
+    Resolution strategy:
+    1. Use the submodule FQN map (most-specific to least-specific prefix)
+    2. Fall back to the assembly's root module
+    """
+    parts = class_fqn.split(".")
+    if len(parts) < 2:
+        return None
+
+    # The first component is the assembly name
+    assembly_name = parts[0]
+    root_module = _assembly_to_module.get(assembly_name)
+    if root_module is None:
+        return None
+
+    # Strategy 1: Use the submodule FQN map for deterministic resolution.
+    # Walk from most-specific to least-specific prefix of the FQN to find
+    # the containing submodule. We skip the last component (always a type name)
+    # and the first component (the assembly name).
+    if _submodule_fqn_map:
+        for depth in range(len(parts) - 1, 1, -1):
+            candidate_fqn = ".".join(parts[:depth])
+            python_module = _submodule_fqn_map.get(candidate_fqn)
+            if python_module is not None:
+                try:
+                    importlib.import_module(python_module)
+                    return (python_module, parts[depth:])
+                except (ImportError, ModuleNotFoundError):
+                    continue
+
+    # Strategy 2: Fall back to importing the root module itself.
+    # The type might live at the assembly root (no submodule).
+    try:
+        importlib.import_module(root_module)
+        return (root_module, parts[1:])
+    except (ImportError, ModuleNotFoundError):
+        return None
+
+
+def _resolve_type_on_module(python_module: str, type_parts: "list[str]") -> bool:
+    """Traverse a module using dot-separated type parts to trigger lazy loading.
+
+    For eagerly-loaded modules, the type self-registers during import via the
+    JSIIMeta metaclass. For lazily-loaded modules, accessing an attribute on
+    the module triggers ``__getattr__`` which calls the factory function.
+
+    For nested types like "Parent.Nested", accessing "Parent" on the module
+    triggers the factory which defines both Parent and Nested inside it.
+
+    Returns True if the traversal succeeded (type should now be registered).
+    """
+    mod = sys.modules.get(python_module)
+    if mod is None or not type_parts:
+        return False
+
+    try:
+        obj: Any = mod
+        for part in type_parts:
+            obj = getattr(obj, part)
+        return True
+    except AttributeError:
+        return False
+
+
 def _try_import_type_module(class_fqn: str) -> bool:
     """Attempt to import the Python module containing a jsii type by FQN.
 
@@ -52,42 +122,38 @@ def _try_import_type_module(class_fqn: str) -> bool:
     find the correct Python module for any FQN, even when submodules have custom
     Python target names that differ from the FQN structure.
 
+    After a successful import, if the type is still not registered (because the
+    module uses lazy class factories), this function triggers the factory by
+    calling ``getattr()`` progressively on the module with each component of
+    the type's name path.
+
     Returns True if an import was successfully triggered, False otherwise.
     """
-    # Split FQN into components: e.g. "jsii-calc.cdk16625.donotimport.MyType"
-    parts = class_fqn.split(".")
-    if len(parts) < 2:
+    # Phase 1: Find the containing module and import it.
+    result = _find_containing_module(class_fqn)
+    if result is None:
         return False
 
-    # The first component is the assembly name (may contain special chars for
-    # scoped packages, but the FQN uses it as-is).
-    assembly_name = parts[0]
-    root_module = _assembly_to_module.get(assembly_name)
-    if root_module is None:
-        return False
+    python_module, type_parts = result
 
-    # Strategy 1: Use the submodule FQN map for deterministic resolution.
-    # Walk from most-specific to least-specific prefix of the FQN to find
-    # the containing submodule. We skip the last component (always a type name)
-    # and the first component (the assembly name).
-    if _submodule_fqn_map:
-        for depth in range(len(parts) - 1, 1, -1):
-            candidate_fqn = ".".join(parts[:depth])
-            python_module = _submodule_fqn_map.get(candidate_fqn)
-            if python_module is not None:
-                try:
-                    importlib.import_module(python_module)
-                    return True
-                except (ImportError, ModuleNotFoundError):
-                    continue
-
-    # Strategy 2: Fall back to importing the root module itself.
-    # The type might live at the assembly root (no submodule).
-    try:
-        importlib.import_module(root_module)
+    # If the type is already registered (eager code path), we're done.
+    if (
+        class_fqn in _types
+        or class_fqn in _data_types
+        or class_fqn in _enums
+        or class_fqn in _interfaces
+    ):
         return True
-    except (ImportError, ModuleNotFoundError):
-        pass
+
+    # Phase 2: Type not registered yet — traverse the module to trigger
+    # lazy factories, then check registration.
+    if _resolve_type_on_module(python_module, type_parts):
+        return (
+            class_fqn in _types
+            or class_fqn in _data_types
+            or class_fqn in _enums
+            or class_fqn in _interfaces
+        )
 
     return False
 

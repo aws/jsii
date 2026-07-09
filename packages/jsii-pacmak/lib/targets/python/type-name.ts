@@ -365,7 +365,11 @@ class UserType implements TypeName {
     const wrapType =
       pos === 'type' && parameterType && isStruct
         ? (pyType: string) =>
-            `typing.Union[${maybeQuote(pyType)}, typing.Dict[builtins.str, typing.Any]]`
+            // Quote the entire Union expression as a single string annotation.
+            // This ensures typing.get_type_hints() creates a fresh ForwardRef per call,
+            // avoiding the CPython ForwardRef caching bug where interned Union objects
+            // share a ForwardRef that returns stale results from a different module.
+            `"typing.Union[${stripQuotes(pyType)}, typing.Dict[builtins.str, typing.Any]]"`
         : maybeQuote;
 
     /////////////////////////////////
@@ -410,14 +414,39 @@ class UserType implements TypeName {
         .substring(0, 8);
       const moduleAlias = `_${lastComponent(typeSubmodulePythonName)}_${aliasSuffix}`;
 
+      // Determine import style: relative when target is a sibling/descendant submodule,
+      // absolute when target is the root package (can't relatively-import your own root).
+      const rootPackageName = toPythonFqn(assembly.name, assembly).pythonFqn;
+      let requiredImport: { sourcePackage: string; item: string };
+
+      if (typeSubmodulePythonName === rootPackageName) {
+        // Target is the root package — must use absolute import
+        requiredImport = {
+          sourcePackage: `${typeSubmodulePythonName} as ${moduleAlias}`,
+          item: '',
+        };
+      } else {
+        // Target is a submodule — use relative import
+        const importName = lastComponent(typeSubmodulePythonName);
+        const targetParent = typeSubmodulePythonName.substring(
+          0,
+          typeSubmodulePythonName.lastIndexOf('.'),
+        );
+        const relativeBase = relativeImportPath(
+          submodulePythonName,
+          targetParent,
+        );
+        requiredImport = {
+          sourcePackage: relativeBase,
+          item: `${importName} as ${moduleAlias}`,
+        };
+      }
+
       return {
         pythonType: wrapType(
           `${moduleAlias}.${toImport}${nested.length > 0 ? `.${nested.join('.')}` : ''}`,
         ),
-        requiredImport: {
-          sourcePackage: `${typeSubmodulePythonName} as ${moduleAlias}`,
-          item: '',
-        },
+        requiredImport,
       };
 
       // Have the 'else' here to minimize the diff.
@@ -493,7 +522,7 @@ export function toPythonFqn(fqn: string, rootAssm: Assembly) {
  *  relativeImportPath('A.B.C', 'A.B')     === '..';
  *  relativeImportPath('A.B', 'A.B.C')     === '.C';
  */
-export function relativeImportPath(fromPkg: string, toPkg: string): string {
+function relativeImportPath(fromPkg: string, toPkg: string): string {
   if (toPkg.startsWith(fromPkg)) {
     // from A.B to A.B.C === .C
     return `.${toPkg.substring(fromPkg.length + 1)}`;
@@ -584,7 +613,31 @@ export class IntersectionTypesRegistry {
     return Array.from(this.types.keys());
   }
 
-  public flushHelperTypes(code: CodeMaker) {
+  public flushHelperTypes(code: CodeMaker, deferredClassNames?: Set<string>) {
+    for (const [name, types] of this.types.entries()) {
+      const resolvedTypes = types.map((t) => {
+        // If this is a bare same-module name that is deferred (lazy),
+        // replace it with the factory call so the class can be defined
+        // at import time without a NameError.
+        if (deferredClassNames?.has(t)) {
+          return `_lazy_build_${t}()`;
+        }
+        return t;
+      });
+      code.line('');
+      code.line(
+        `class ${name}(${resolvedTypes.join(', ')}, typing_extensions.Protocol):`,
+      );
+      code.line('    pass');
+    }
+  }
+
+  /**
+   * Emit stub class declarations for use inside `if typing.TYPE_CHECKING:` blocks.
+   * These allow static type checkers (pyright/mypy) to resolve intersection type
+   * names that are used as string annotations in the TYPE_CHECKING stubs.
+   */
+  public flushHelperTypeStubs(code: CodeMaker) {
     for (const [name, types] of this.types.entries()) {
       code.line('');
       code.line(

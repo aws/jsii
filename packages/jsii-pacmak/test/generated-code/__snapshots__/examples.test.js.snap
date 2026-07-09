@@ -1312,173 +1312,281 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import cached_type_hints, check_type
+from jsii._type_checking import check_type
 
 
 from ._jsii import *
 
+import sys as _sys
 
-class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
-    @jsii.member(jsii_name="consumeBaz")
-    @builtins.classmethod
-    def consume_baz(
-        cls,
-        *,
-        baz: builtins.bool,
-        foo: jsii.Number,
-        bar: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''
-        :param baz: -
-        :param foo: -
-        :param bar: -
-        '''
-        baz_ = Baz(baz=baz, foo=foo, bar=bar)
-
-        return typing.cast(None, jsii.sinvoke(cls, "consumeBaz", [baz_]))
+_LAZY_CLASSES: typing.Dict[builtins.str, typing.Callable[[], type]]
 
 
-@jsii.data_type(
-    jsii_type="testpkg.Foo",
-    jsii_struct_bases=[],
-    name_mapping={"foo": "foo"},
-)
-class Foo:
-    def __init__(self, *, foo: jsii.Number) -> None:
-        '''
-        :param foo: -
-        '''
-        if __debug__:
-            type_hints = cached_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "foo": foo,
-        }
+if typing.TYPE_CHECKING:
 
-    @builtins.property
-    def foo(self) -> jsii.Number:
-        result = self._values.get("foo")
-        assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(jsii.Number, result)
+    class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
+        @jsii.member(jsii_name="consumeBaz")
+        @builtins.classmethod
+        def consume_baz(
+            cls,
+            *,
+            baz: builtins.bool,
+            foo: jsii.Number,
+            bar: typing.Optional[builtins.str] = None,
+        ) -> None:
+            '''
+            :param baz: -
+            :param foo: -
+            :param bar: -
+            '''
+            ...
 
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
+    class Foo:
+        def __init__(self, *, foo: jsii.Number) -> None:
+            '''
+            :param foo: -
+            '''
+            ...
 
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
+        @builtins.property
+        def foo(self) -> jsii.Number:
+            ...
 
-    def __repr__(self) -> str:
-        return "Foo(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
+    class FooBar:
+        def __init__(
+            self,
+            *,
+            foo: jsii.Number,
+            bar: typing.Optional[builtins.str] = None,
+        ) -> None:
+            '''
+            :param foo: -
+            :param bar: -
+            '''
+            ...
+
+        @builtins.property
+        def foo(self) -> jsii.Number:
+            ...
+
+        @builtins.property
+        def bar(self) -> typing.Optional[builtins.str]:
+            ...
+
+    class Baz(Foo, FooBar):
+        def __init__(
+            self,
+            *,
+            foo: jsii.Number,
+            bar: typing.Optional[builtins.str] = None,
+            baz: builtins.bool,
+        ) -> None:
+            '''
+            :param foo: -
+            :param bar: -
+            :param baz: -
+            '''
+            ...
+
+        @builtins.property
+        def foo(self) -> jsii.Number:
+            ...
+
+        @builtins.property
+        def bar(self) -> typing.Optional[builtins.str]:
+            ...
+
+        @builtins.property
+        def baz(self) -> builtins.bool:
+            ...
+else:
+    _memoized = jsii._memoized
+
+
+    @_memoized
+    def _lazy_build_Consumer() -> type:
+        class Consumer(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Consumer"):
+            @jsii.member(jsii_name="consumeBaz")
+            @builtins.classmethod
+            def consume_baz(
+                cls,
+                *,
+                baz: builtins.bool,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+            ) -> None:
+                '''
+                :param baz: -
+                :param foo: -
+                :param bar: -
+                '''
+                baz_ = _lazy_build_Baz()(baz=baz, foo=foo, bar=bar)
+
+                return typing.cast(None, jsii.sinvoke(cls, "consumeBaz", [baz_]))
+        Consumer.__qualname__ = "Consumer"
+        return Consumer
+
+
+    @_memoized
+    def _lazy_build_Foo() -> type:
+        @jsii.data_type(
+            jsii_type="testpkg.Foo",
+            jsii_struct_bases=[],
+            name_mapping={"foo": "foo"},
         )
+        class Foo:
+            def __init__(self, *, foo: jsii.Number) -> None:
+                '''
+                :param foo: -
+                '''
+                if __debug__:
+                    type_hints = typing.get_type_hints(_typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5)
+                    check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+                self._values: typing.Dict[builtins.str, typing.Any] = {
+                    "foo": foo,
+                }
+
+            @builtins.property
+            def foo(self) -> jsii.Number:
+                result = self._values.get("foo")
+                assert result is not None, "Required property 'foo' is missing"
+                return typing.cast(jsii.Number, result)
+
+            def __eq__(self, rhs: typing.Any) -> builtins.bool:
+                return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+            def __ne__(self, rhs: typing.Any) -> builtins.bool:
+                return not (rhs == self)
+
+            def __repr__(self) -> str:
+                return "Foo(%s)" % ", ".join(
+                    k + "=" + repr(v) for k, v in self._values.items()
+                )
+        Foo.__qualname__ = "Foo"
+        return Foo
 
 
-@jsii.data_type(
-    jsii_type="testpkg.FooBar",
-    jsii_struct_bases=[],
-    name_mapping={"foo": "foo", "bar": "bar"},
-)
-class FooBar:
-    def __init__(
-        self,
-        *,
-        foo: jsii.Number,
-        bar: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''
-        :param foo: -
-        :param bar: -
-        '''
-        if __debug__:
-            type_hints = cached_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "foo": foo,
-        }
-        if bar is not None:
-            self._values["bar"] = bar
-
-    @builtins.property
-    def foo(self) -> jsii.Number:
-        result = self._values.get("foo")
-        assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(jsii.Number, result)
-
-    @builtins.property
-    def bar(self) -> typing.Optional[builtins.str]:
-        result = self._values.get("bar")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "FooBar(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
+    @_memoized
+    def _lazy_build_FooBar() -> type:
+        @jsii.data_type(
+            jsii_type="testpkg.FooBar",
+            jsii_struct_bases=[],
+            name_mapping={"foo": "foo", "bar": "bar"},
         )
+        class FooBar:
+            def __init__(
+                self,
+                *,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+            ) -> None:
+                '''
+                :param foo: -
+                :param bar: -
+                '''
+                if __debug__:
+                    type_hints = typing.get_type_hints(_typecheckingstub__0cb0385f4239a994a5509c1ac8d143d10f8400893975d4519442a0d7baf1b5d4)
+                    check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+                    check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+                self._values: typing.Dict[builtins.str, typing.Any] = {
+                    "foo": foo,
+                }
+                if bar is not None:
+                    self._values["bar"] = bar
+
+            @builtins.property
+            def foo(self) -> jsii.Number:
+                result = self._values.get("foo")
+                assert result is not None, "Required property 'foo' is missing"
+                return typing.cast(jsii.Number, result)
+
+            @builtins.property
+            def bar(self) -> typing.Optional[builtins.str]:
+                result = self._values.get("bar")
+                return typing.cast(typing.Optional[builtins.str], result)
+
+            def __eq__(self, rhs: typing.Any) -> builtins.bool:
+                return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+            def __ne__(self, rhs: typing.Any) -> builtins.bool:
+                return not (rhs == self)
+
+            def __repr__(self) -> str:
+                return "FooBar(%s)" % ", ".join(
+                    k + "=" + repr(v) for k, v in self._values.items()
+                )
+        FooBar.__qualname__ = "FooBar"
+        return FooBar
 
 
-@jsii.data_type(
-    jsii_type="testpkg.Baz",
-    jsii_struct_bases=[Foo, FooBar],
-    name_mapping={"foo": "foo", "bar": "bar", "baz": "baz"},
-)
-class Baz(Foo, FooBar):
-    def __init__(
-        self,
-        *,
-        foo: jsii.Number,
-        bar: typing.Optional[builtins.str] = None,
-        baz: builtins.bool,
-    ) -> None:
-        '''
-        :param foo: -
-        :param bar: -
-        :param baz: -
-        '''
-        if __debug__:
-            type_hints = cached_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d)
-            check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
-            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-            check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "foo": foo,
-            "baz": baz,
-        }
-        if bar is not None:
-            self._values["bar"] = bar
-
-    @builtins.property
-    def foo(self) -> jsii.Number:
-        result = self._values.get("foo")
-        assert result is not None, "Required property 'foo' is missing"
-        return typing.cast(jsii.Number, result)
-
-    @builtins.property
-    def bar(self) -> typing.Optional[builtins.str]:
-        result = self._values.get("bar")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def baz(self) -> builtins.bool:
-        result = self._values.get("baz")
-        assert result is not None, "Required property 'baz' is missing"
-        return typing.cast(builtins.bool, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "Baz(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
+    @_memoized
+    def _lazy_build_Baz() -> type:
+        @jsii.data_type(
+            jsii_type="testpkg.Baz",
+            jsii_struct_bases=[_lazy_build_Foo(), _lazy_build_FooBar()],
+            name_mapping={"foo": "foo", "bar": "bar", "baz": "baz"},
         )
+        class Baz(_lazy_build_Foo(), _lazy_build_FooBar()):
+            def __init__(
+                self,
+                *,
+                foo: jsii.Number,
+                bar: typing.Optional[builtins.str] = None,
+                baz: builtins.bool,
+            ) -> None:
+                '''
+                :param foo: -
+                :param bar: -
+                :param baz: -
+                '''
+                if __debug__:
+                    type_hints = typing.get_type_hints(_typecheckingstub__98e5f88ba6c94001e15cc6f3ce78d86bd3610eea1b79954536d33da0dee53b2d)
+                    check_type(argname="argument foo", value=foo, expected_type=type_hints["foo"])
+                    check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+                    check_type(argname="argument baz", value=baz, expected_type=type_hints["baz"])
+                self._values: typing.Dict[builtins.str, typing.Any] = {
+                    "foo": foo,
+                    "baz": baz,
+                }
+                if bar is not None:
+                    self._values["bar"] = bar
+
+            @builtins.property
+            def foo(self) -> jsii.Number:
+                result = self._values.get("foo")
+                assert result is not None, "Required property 'foo' is missing"
+                return typing.cast(jsii.Number, result)
+
+            @builtins.property
+            def bar(self) -> typing.Optional[builtins.str]:
+                result = self._values.get("bar")
+                return typing.cast(typing.Optional[builtins.str], result)
+
+            @builtins.property
+            def baz(self) -> builtins.bool:
+                result = self._values.get("baz")
+                assert result is not None, "Required property 'baz' is missing"
+                return typing.cast(builtins.bool, result)
+
+            def __eq__(self, rhs: typing.Any) -> builtins.bool:
+                return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+            def __ne__(self, rhs: typing.Any) -> builtins.bool:
+                return not (rhs == self)
+
+            def __repr__(self) -> str:
+                return "Baz(%s)" % ", ".join(
+                    k + "=" + repr(v) for k, v in self._values.items()
+                )
+        Baz.__qualname__ = "Baz"
+        return Baz
+
+    _LAZY_CLASSES = {
+        "Baz": _lazy_build_Baz,
+        "Consumer": _lazy_build_Consumer,
+        "Foo": _lazy_build_Foo,
+        "FooBar": _lazy_build_FooBar,
+    }
 
 
 __all__ = [
@@ -1489,6 +1597,20 @@ __all__ = [
 ]
 
 publication.publish()
+
+def __getattr__(name: str) -> object:
+    if name in _LAZY_CLASSES:
+        cls = _LAZY_CLASSES[name]()
+        setattr(_sys.modules[__name__], name, cls)
+        globals()[name] = cls
+        return cls
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+def __dir__() -> "list[str]":
+    return [*__all__]
+
+setattr(_sys.modules[__name__], "__getattr__", __getattr__)
+setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 def _typecheckingstub__bf2f596592c027f75261089e0a96611ccca28179a004c918d9b1057b4e390db5(
     *,
@@ -1530,7 +1652,7 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import cached_type_hints, check_type
+from jsii._type_checking import check_type
 
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
@@ -2732,102 +2854,224 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import cached_type_hints, check_type
+from jsii._type_checking import check_type
 
 
 from ._jsii import *
 
+import sys as _sys
 
-class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
-    def __init__(self) -> None:
-        jsii.create(self.__class__, self, [])
+_LAZY_CLASSES: typing.Dict[builtins.str, typing.Callable[[], type]]
 
-    @jsii.member(jsii_name="foo")
-    def foo(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "foo", []))
 
-    @jsii.data_type(
-        jsii_type="testpkg.Namespace1.Foo",
-        jsii_struct_bases=[],
-        name_mapping={"bar": "bar"},
-    )
-    class Foo:
-        def __init__(self, *, bar: builtins.str) -> None:
-            '''
-            :param bar: -
-            '''
-            if __debug__:
-                type_hints = cached_type_hints(_typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9)
-                check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
-            self._values: typing.Dict[builtins.str, typing.Any] = {
-                "bar": bar,
-            }
+if typing.TYPE_CHECKING:
 
-        @builtins.property
-        def bar(self) -> builtins.str:
-            result = self._values.get("bar")
-            assert result is not None, "Required property 'bar' is missing"
-            return typing.cast(builtins.str, result)
-
-        def __eq__(self, rhs: typing.Any) -> builtins.bool:
-            return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-        def __ne__(self, rhs: typing.Any) -> builtins.bool:
-            return not (rhs == self)
-
-        def __repr__(self) -> str:
-            return "Foo(%s)" % ", ".join(
-                k + "=" + repr(v) for k, v in self._values.items()
-            )
-
-    @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
-    class IBar(typing_extensions.Protocol):
-        @builtins.property
-        @jsii.member(jsii_name="bar")
-        def bar(self) -> builtins.str:
+    class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
+        def __init__(self) -> None:
             ...
 
-        @jsii.member(jsii_name="method")
-        def method(self) -> None:
+        @jsii.member(jsii_name="foo")
+        def foo(self) -> None:
             ...
 
+        @jsii.data_type(
+            jsii_type="testpkg.Namespace1.Foo",
+            jsii_struct_bases=[],
+            name_mapping={"bar": "bar"},
+        )
+        class Foo:
+            def __init__(self, *, bar: builtins.str) -> None:
+                '''
+                :param bar: -
+                '''
+                if __debug__:
+                    type_hints = typing.get_type_hints(_typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9)
+                    check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+                self._values: typing.Dict[builtins.str, typing.Any] = {
+                    "bar": bar,
+                }
 
-    class _IBarProxy:
-        __jsii_type__: typing.ClassVar[str] = "testpkg.Namespace1.IBar"
+            @builtins.property
+            def bar(self) -> builtins.str:
+                result = self._values.get("bar")
+                assert result is not None, "Required property 'bar' is missing"
+                return typing.cast(builtins.str, result)
 
-        @builtins.property
-        @jsii.member(jsii_name="bar")
-        def bar(self) -> builtins.str:
-            return typing.cast(builtins.str, jsii.get(self, "bar"))
+            def __eq__(self, rhs: typing.Any) -> builtins.bool:
+                return isinstance(rhs, self.__class__) and rhs._values == self._values
 
-        @jsii.member(jsii_name="method")
-        def method(self) -> None:
-            return typing.cast(None, jsii.invoke(self, "method", []))
+            def __ne__(self, rhs: typing.Any) -> builtins.bool:
+                return not (rhs == self)
 
-    # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
-    typing.cast(typing.Any, IBar).__jsii_proxy_class__ = lambda : _IBarProxy
+            def __repr__(self) -> str:
+                return "Foo(%s)" % ", ".join(
+                    k + "=" + repr(v) for k, v in self._values.items()
+                )
+
+        @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
+        class IBar(typing_extensions.Protocol):
+            @builtins.property
+            @jsii.member(jsii_name="bar")
+            def bar(self) -> builtins.str:
+                ...
+
+            @jsii.member(jsii_name="method")
+            def method(self) -> None:
+                ...
 
 
-class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
-    def __init__(self) -> None:
-        jsii.create(self.__class__, self, [])
+        class _IBarProxy:
+            __jsii_type__: typing.ClassVar[str] = "testpkg.Namespace1.IBar"
 
-    @jsii.member(jsii_name="foo")
-    def foo(self) -> None:
-        return typing.cast(None, jsii.invoke(self, "foo", []))
+            @builtins.property
+            @jsii.member(jsii_name="bar")
+            def bar(self) -> builtins.str:
+                return typing.cast(builtins.str, jsii.get(self, "bar"))
 
-    @jsii.enum(jsii_type="testpkg.Namespace2.Foo")
-    class Foo(enum.Enum):
-        BAR = "BAR"
-        BAZ = "BAZ"
-        class Final(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2.Foo.Final"):
+            @jsii.member(jsii_name="method")
+            def method(self) -> None:
+                return typing.cast(None, jsii.invoke(self, "method", []))
+
+        # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+        typing.cast(typing.Any, IBar).__jsii_proxy_class__ = lambda : _IBarProxy
+
+    class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
+        def __init__(self) -> None:
+            ...
+
+        @jsii.member(jsii_name="foo")
+        def foo(self) -> None:
+            ...
+
+        @jsii.enum(jsii_type="testpkg.Namespace2.Foo")
+        class Foo(enum.Enum):
+            BAR = "BAR"
+            BAZ = "BAZ"
+            class Final(
+                metaclass=jsii.JSIIMeta,
+                jsii_type="testpkg.Namespace2.Foo.Final",
+            ):
+                def __init__(self) -> None:
+                    jsii.create(self.__class__, self, [])
+
+                @builtins.property
+                @jsii.member(jsii_name="done")
+                def done(self) -> builtins.bool:
+                    return typing.cast(builtins.bool, jsii.get(self, "done"))
+else:
+    _memoized = jsii._memoized
+
+
+    @_memoized
+    def _lazy_build_Namespace1() -> type:
+        class Namespace1(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace1"):
             def __init__(self) -> None:
                 jsii.create(self.__class__, self, [])
 
-            @builtins.property
-            @jsii.member(jsii_name="done")
-            def done(self) -> builtins.bool:
-                return typing.cast(builtins.bool, jsii.get(self, "done"))
+            @jsii.member(jsii_name="foo")
+            def foo(self) -> None:
+                return typing.cast(None, jsii.invoke(self, "foo", []))
+
+            @jsii.data_type(
+                jsii_type="testpkg.Namespace1.Foo",
+                jsii_struct_bases=[],
+                name_mapping={"bar": "bar"},
+            )
+            class Foo:
+                def __init__(self, *, bar: builtins.str) -> None:
+                    '''
+                    :param bar: -
+                    '''
+                    if __debug__:
+                        type_hints = typing.get_type_hints(_typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9)
+                        check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+                    self._values: typing.Dict[builtins.str, typing.Any] = {
+                        "bar": bar,
+                    }
+
+                @builtins.property
+                def bar(self) -> builtins.str:
+                    result = self._values.get("bar")
+                    assert result is not None, "Required property 'bar' is missing"
+                    return typing.cast(builtins.str, result)
+
+                def __eq__(self, rhs: typing.Any) -> builtins.bool:
+                    return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+                def __ne__(self, rhs: typing.Any) -> builtins.bool:
+                    return not (rhs == self)
+
+                def __repr__(self) -> str:
+                    return "Foo(%s)" % ", ".join(
+                        k + "=" + repr(v) for k, v in self._values.items()
+                    )
+
+            @jsii.interface(jsii_type="testpkg.Namespace1.IBar")
+            class IBar(typing_extensions.Protocol):
+                @builtins.property
+                @jsii.member(jsii_name="bar")
+                def bar(self) -> builtins.str:
+                    ...
+
+                @jsii.member(jsii_name="method")
+                def method(self) -> None:
+                    ...
+
+
+            class _IBarProxy:
+                __jsii_type__: typing.ClassVar[str] = "testpkg.Namespace1.IBar"
+
+                @builtins.property
+                @jsii.member(jsii_name="bar")
+                def bar(self) -> builtins.str:
+                    return typing.cast(builtins.str, jsii.get(self, "bar"))
+
+                @jsii.member(jsii_name="method")
+                def method(self) -> None:
+                    return typing.cast(None, jsii.invoke(self, "method", []))
+
+            # Adding a "__jsii_proxy_class__(): typing.Type" function to the interface
+            typing.cast(typing.Any, IBar).__jsii_proxy_class__ = lambda : _IBarProxy
+        Namespace1.__qualname__ = "Namespace1"
+        Namespace1.Foo.__qualname__ = "Namespace1.Foo"
+        Namespace1.IBar.__qualname__ = "Namespace1.IBar"
+        return Namespace1
+
+
+    @_memoized
+    def _lazy_build_Namespace2() -> type:
+        class Namespace2(metaclass=jsii.JSIIMeta, jsii_type="testpkg.Namespace2"):
+            def __init__(self) -> None:
+                jsii.create(self.__class__, self, [])
+
+            @jsii.member(jsii_name="foo")
+            def foo(self) -> None:
+                return typing.cast(None, jsii.invoke(self, "foo", []))
+
+            @jsii.enum(jsii_type="testpkg.Namespace2.Foo")
+            class Foo(enum.Enum):
+                BAR = "BAR"
+                BAZ = "BAZ"
+                class Final(
+                    metaclass=jsii.JSIIMeta,
+                    jsii_type="testpkg.Namespace2.Foo.Final",
+                ):
+                    def __init__(self) -> None:
+                        jsii.create(self.__class__, self, [])
+
+                    @builtins.property
+                    @jsii.member(jsii_name="done")
+                    def done(self) -> builtins.bool:
+                        return typing.cast(builtins.bool, jsii.get(self, "done"))
+        Namespace2.__qualname__ = "Namespace2"
+        Namespace2.Foo.__qualname__ = "Namespace2.Foo"
+        Namespace2.Foo.Final.__qualname__ = "Namespace2.Foo.Final"
+        return Namespace2
+
+    _LAZY_CLASSES = {
+        "Namespace1": _lazy_build_Namespace1,
+        "Namespace2": _lazy_build_Namespace2,
+    }
 
 
 __all__ = [
@@ -2836,6 +3080,20 @@ __all__ = [
 ]
 
 publication.publish()
+
+def __getattr__(name: str) -> object:
+    if name in _LAZY_CLASSES:
+        cls = _LAZY_CLASSES[name]()
+        setattr(_sys.modules[__name__], name, cls)
+        globals()[name] = cls
+        return cls
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+def __dir__() -> "list[str]":
+    return [*__all__]
+
+setattr(_sys.modules[__name__], "__getattr__", __getattr__)
+setattr(_sys.modules[__name__], "__dir__", __dir__)
 
 def _typecheckingstub__2a8df629360a764124e23427f4b4bb1422fef01e5b6dcd040a2f64d477f476d9(
     *,
@@ -2860,7 +3118,7 @@ import jsii
 import publication
 import typing_extensions
 
-from jsii._type_checking import cached_type_hints, check_type
+from jsii._type_checking import check_type
 
 
 __jsii_assembly__ = jsii.JSIIAssembly.load(
