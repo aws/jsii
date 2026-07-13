@@ -1916,6 +1916,11 @@ class PythonModule implements PythonType {
         '# At runtime TYPE_CHECKING is False, preserving lazy loading.',
       );
       code.openBlock('if typing.TYPE_CHECKING');
+      // `pass` keeps this block syntactically valid even if a downstream
+      // consumer strips the relative imports below (e.g. cdktf's codegen
+      // post-processing removes `from . import ...` lines). Without it, such
+      // stripping would leave an empty `if` block and an IndentationError.
+      code.line('pass');
       for (const name of submoduleNames) {
         code.line(`from . import ${name} as ${name}`);
       }
