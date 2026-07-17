@@ -12,10 +12,16 @@ export class Resolvable implements IResolvable {
   }
 }
 
+export interface UnionResolvableStruct {
+  readonly value: string;
+}
+
 export class ConsumesUnion {
   public static unionType(param: IResolvable | Resolvable | IFriendly) {
     void param;
   }
+
+  public unionProperty?: IResolvable | UnionResolvableStruct;
 
   private constructor() {}
 }
