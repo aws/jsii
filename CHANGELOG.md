@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.139.0](https://github.com/aws/jsii/compare/v1.138.0...v1.139.0) (2026-07-17)
+
+
+### Bug Fixes
+
+* IndentationError after cdktf strips submodule imports ([#5201](https://github.com/aws/jsii/issues/5201)) ([61cbaec](https://github.com/aws/jsii/commit/61cbaec3945045a638c0a6742f7a9649ed3dbe86)), closes [40cdktf/provider-generator/lib/get/constructs-maker.ts#L713](https://github.com/40cdktf/provider-generator/lib/get/constructs-maker.ts/issues/L713)
+
 ## [1.138.0](https://github.com/aws/jsii/compare/v1.137.0...v1.138.0) (2026-07-02)
 
 
