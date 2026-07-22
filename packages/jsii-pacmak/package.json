@@ -60,13 +60,13 @@
     "@types/semver": "^7.7.1",
     "@types/yargs": "^17.0.33",
     "diff": "^5.2.2",
-    "eslint": "^9.39.4",
+    "eslint": "^9.39.5",
     "jest": "^30.4.2",
     "jsii": "^6.0.1",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "jsii-rosetta": "~6.0.0",
-    "pyright": "^1.1.410",
+    "pyright": "^1.1.411",
     "typescript": "6.x"
   },
   "peerDependencies": {
