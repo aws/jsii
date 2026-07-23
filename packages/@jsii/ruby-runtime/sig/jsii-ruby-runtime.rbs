@@ -1,0 +1,65 @@
+# Hand-written RBS for the jsii Ruby runtime base classes. Generated gem
+# signatures (sig/<assembly>.rbs) reference these as the superclasses of
+# every proxy class, struct, and enum.
+
+module Jsii
+  # Base proxy class for all jsii object references.
+  class Object
+    extend _FqnExtension
+
+    attr_accessor jsii_fqn: String
+    attr_reader jsii_ref: String?
+
+    def initialize: (*untyped args) ?{ (instance) -> void } -> void
+    def jsii_serialize: () -> Hash[String, untyped]
+    def jsii_interfaces: () -> Array[String]
+    def ruby_class: () -> Class
+
+    # Dynamic dispatch fallback for members without a generated stub
+    # (e.g. on anonymously-returned objects). Untyped by nature.
+    def method_missing: (Symbol name, *untyped args) -> untyped
+    def respond_to_missing?: (Symbol name, ?bool include_private) -> bool
+
+    def self.register_jsii_fqn: (String fqn, (Class | Module) klass) -> void
+    def self.from_jsii_ref: (String ref, String fqn) -> Jsii::Object
+  end
+
+  # Base class for jsii data types (structs), passed by value.
+  class Struct
+    extend _FqnExtension
+
+    attr_accessor jsii_ref: String?
+
+    def initialize: (**untyped kwargs) -> void
+    def to_jsii: () -> Hash[String, untyped]
+    def jsii_serialize: () -> Hash[String, untyped]
+    def ==: (untyped other) -> bool
+    def eql?: (untyped other) -> bool
+    def hash: () -> Integer
+    def is_a?: (Module klass) -> bool
+    def kind_of?: (Module klass) -> bool
+
+    def self.jsii_extra_struct_bases: () -> Array[Class]
+    def self.jsii_struct_conforms_to?: (Class klass) -> bool
+  end
+
+  # An enum member: a fully-qualified jsii enum value.
+  class Enum
+    attr_reader fqn: String
+    attr_reader value: String
+
+    def initialize: (String fqn, String value) -> void
+    def jsii_serialize: () -> Hash[String, String]
+    def to_s: () -> String
+    def inspect: () -> String
+    def ==: (untyped other) -> bool
+
+    def self.jsii_deserialize: (Hash[String, untyped] value) -> Jsii::Enum
+  end
+
+  # Mixin providing the jsii_fqn class attribute on generated types.
+  interface _FqnExtension
+    def jsii_fqn: () -> String?
+    def jsii_fqn=: (String) -> String
+  end
+end
