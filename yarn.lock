@@ -1908,6 +1908,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@jsii/ruby-runtime-test@workspace:packages/@jsii/ruby-runtime-test":
+  version: 0.0.0-use.local
+  resolution: "@jsii/ruby-runtime-test@workspace:packages/@jsii/ruby-runtime-test"
+  dependencies:
+    "@jsii/ruby-runtime": "npm:^0.0.0"
+    "@scope/jsii-calc-base": "npm:^0.0.0"
+    "@scope/jsii-calc-base-of-base": "npm:^2.1.1"
+    "@scope/jsii-calc-lib": "npm:^0.0.0"
+    jsii-calc: "npm:^3.20.120"
+    jsii-pacmak: "npm:^0.0.0"
+  languageName: unknown
+  linkType: soft
+
+"@jsii/ruby-runtime@npm:^0.0.0, @jsii/ruby-runtime@workspace:packages/@jsii/ruby-runtime":
+  version: 0.0.0-use.local
+  resolution: "@jsii/ruby-runtime@workspace:packages/@jsii/ruby-runtime"
+  dependencies:
+    "@jsii/runtime": "npm:^0.0.0"
+    fs-extra: "npm:^10.1.0"
+    jsii-build-tools: "npm:^0.0.0"
+    jsii-calc: "npm:^3.20.120"
+    jsii-pacmak: "npm:^0.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@jsii/runtime@npm:^0.0.0, @jsii/runtime@workspace:packages/@jsii/runtime":
   version: 0.0.0-use.local
   resolution: "@jsii/runtime@workspace:packages/@jsii/runtime"
@@ -2529,7 +2554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scope/jsii-calc-base-of-base@npm:2.1.1, @scope/jsii-calc-base-of-base@workspace:packages/@scope/jsii-calc-base-of-base":
+"@scope/jsii-calc-base-of-base@npm:2.1.1, @scope/jsii-calc-base-of-base@npm:^2.1.1, @scope/jsii-calc-base-of-base@workspace:packages/@scope/jsii-calc-base-of-base":
   version: 0.0.0-use.local
   resolution: "@scope/jsii-calc-base-of-base@workspace:packages/@scope/jsii-calc-base-of-base"
   dependencies:
