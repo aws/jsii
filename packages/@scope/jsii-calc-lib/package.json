@@ -67,6 +67,10 @@
       "python": {
         "distName": "scope.jsii-calc-lib",
         "module": "scope.jsii_calc_lib"
+      },
+      "ruby": {
+        "gem": "scope-jsii-calc-lib",
+        "module": "Scope::JsiiCalcLib"
       }
     },
     "tsc": {
