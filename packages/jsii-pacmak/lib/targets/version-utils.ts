@@ -69,6 +69,38 @@ export function toPythonVersionRange(semverRange: string): string {
 }
 
 /**
+ * Converts a SemVer range expression to a Ruby gemspec compatible version
+ * constraint expression.
+ *
+ * @param semverRange the SemVer range expression to convert.
+ */
+export function toRubyVersionRange(semverRange: string): string {
+  const range = new Range(semverRange);
+  if (range.set.length > 1) {
+    throw new Error(
+      `RubyGems does not support OR (||) requirements natively in a single dependency. Unsupported/unrepresentable constraint: ${semverRange}`,
+    );
+  }
+  return range.set[0]
+    .map((comp) => {
+      const versionId = toReleaseVersion(
+        comp.semver.raw?.replace(/-0$/, '') ?? '0.0.0',
+        TargetName.RUBY,
+      );
+      // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
+      switch (comp.operator) {
+        case '':
+          return comp.value === '' ? "'>= 0.0.0'" : `'= ${versionId}'`;
+        case '=':
+          return `'= ${versionId}'`;
+        default:
+          return `'${comp.operator} ${versionId}'`;
+      }
+    })
+    .join(', ');
+}
+
+/**
  * Converts an original version number from the NPM convention to the target
  * language's convention for expressing the same. For versions that do not
  * include a prerelease identifier, this always returns the assembly version
@@ -168,6 +200,118 @@ export function toReleaseVersion(
       return version.build.length > 0
         ? `${baseVersion}.${prereleaseVersion}+${version.build.join('.')}`
         : `${baseVersion}.${prereleaseVersion}`;
+    case TargetName.RUBY:
+      const baseRuby = `${version.major}.${version.minor}.${version.patch}`;
+
+      // Fallback for purely numeric prerelease (e.g. 0.0.0-1234)
+      if (
+        version.prerelease.length > 0 &&
+        version.prerelease.every(
+          (p) => typeof p === 'number' || !Number.isNaN(Number(p)),
+        )
+      ) {
+        return `${baseRuby}.pre.${version.prerelease.join('.')}`;
+      }
+
+      const rubyReleaseLabels: Record<string, string> = {
+        alpha: 'alpha',
+        beta: 'beta',
+        rc: 'rc',
+        post: 'post',
+        dev: 'dev',
+        pre: 'pre',
+      };
+
+      const rubyValidationErrors: string[] = [];
+
+      version.prerelease.forEach((elem, idx, arr) => {
+        const next: string | number | undefined = arr[idx + 1];
+        if (typeof elem === 'string') {
+          if (!Object.keys(rubyReleaseLabels).includes(elem)) {
+            rubyValidationErrors.push(
+              `Label ${elem} is not one of ${Object.keys(rubyReleaseLabels).join(',')}`,
+            );
+          }
+          if (
+            next === undefined ||
+            !Number.isSafeInteger(next) ||
+            (next as number) <= 0
+          ) {
+            rubyValidationErrors.push(
+              `Label ${elem} must be followed by a positive integer`,
+            );
+          }
+        }
+      });
+
+      const rubyPostIdx = version.prerelease.findIndex(
+        (v) => v.toString() === 'post',
+      );
+      const rubyDevIdx = version.prerelease.findIndex((v) =>
+        ['dev', 'pre'].includes(v.toString()),
+      );
+      const rubyPreReleaseIdx = version.prerelease.findIndex((v) =>
+        ['alpha', 'beta', 'rc'].includes(v.toString()),
+      );
+
+      const unconsumed = version.prerelease.filter((_, idx) => {
+        if (
+          rubyPreReleaseIdx > -1 &&
+          (idx === rubyPreReleaseIdx || idx === rubyPreReleaseIdx + 1)
+        ) {
+          return false;
+        }
+        if (
+          rubyPostIdx > -1 &&
+          (idx === rubyPostIdx || idx === rubyPostIdx + 1)
+        ) {
+          return false;
+        }
+        if (rubyDevIdx > -1 && (idx === rubyDevIdx || idx === rubyDevIdx + 1)) {
+          return false;
+        }
+        return true;
+      });
+
+      if (unconsumed.some((v) => typeof v === 'string')) {
+        rubyValidationErrors.push(
+          `Contains multiple or unmappable prerelease labels: ${inspect(version.prerelease)}`,
+        );
+      }
+
+      if (rubyValidationErrors.length > 0) {
+        throw new Error(
+          `Unable to map prerelease identifier (in: ${assemblyVersion}) components to ruby: ${inspect(
+            version.prerelease,
+          )}. The format should be 'X.Y.Z-[label.sequence][.post.sequence][.(dev|pre).sequence]', where sequence is a positive integer and label is one of ${inspect(
+            Object.keys(rubyReleaseLabels),
+          )}. Validation errors encountered: ${rubyValidationErrors.join(', ')}`,
+        );
+      }
+
+      const rubyPrereleaseVersion = [
+        rubyPreReleaseIdx > -1
+          ? `${rubyReleaseLabels[version.prerelease[rubyPreReleaseIdx]]}.${
+              version.prerelease[rubyPreReleaseIdx + 1] ?? 0
+            }`
+          : undefined,
+        rubyPostIdx > -1
+          ? `post.${version.prerelease[rubyPostIdx + 1] ?? 0}`
+          : undefined,
+        rubyDevIdx > -1
+          ? `${version.prerelease[rubyDevIdx]}.${version.prerelease[rubyDevIdx + 1] ?? 0}`
+          : undefined,
+      ]
+        .filter((v) => v)
+        .join('.');
+
+      if (rubyPrereleaseVersion) {
+        return `${baseRuby}.${rubyPrereleaseVersion}`;
+      }
+
+      throw new Error(
+        `Unable to map prerelease identifier (in: ${assemblyVersion}) components to ruby. The format should be 'X.Y.Z-[label.sequence][.post.sequence][.(dev|pre).sequence]'.`,
+      );
     case TargetName.DOTNET:
     case TargetName.GO:
     case TargetName.JAVA:
