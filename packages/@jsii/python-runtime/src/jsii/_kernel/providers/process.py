@@ -150,8 +150,74 @@ def jdefault(obj):
     raise TypeError("Don't know how to convert object to JSON: %r" % obj)
 
 
+import sys as _sys
+import typing as _typing
+
+# POC (protocol pipelining): code-object id -> jsii fqn of a generated binding's
+# declared reference return type (or None). Resolved once, then cached.
+_RET_FQN_CACHE: dict = {}
+
+
+def _caller_jsii_return_fqn():
+    """Return the jsii fqn of the calling generated binding's declared return
+    type, but only for true reference types (classes / interface proxies). Used
+    to decide whether a call's result can be pipelined (returned as a handle the
+    host can use before the kernel confirms it). Returns None for value returns,
+    structs, enums, Optionals, unions, and anything unresolved -- those stay
+    synchronous. POC shortcut: walks frames + reads annotations; production would
+    thread the return fqn through pacmak codegen instead.
+    """
+    frame = _sys._getframe(1)
+    while frame is not None:
+        mod = frame.f_globals.get("__name__", "")
+        if mod != "jsii" and not mod.startswith("jsii."):
+            break
+        frame = frame.f_back
+    if frame is None:
+        return None
+    code = frame.f_code
+    key = id(code)
+    if key in _RET_FQN_CACHE:
+        return _RET_FQN_CACHE[key]
+    fqn = None
+    try:
+        name = code.co_name
+        holder = frame.f_locals.get("self", None)
+        if holder is None:
+            holder = frame.f_locals.get("cls", None)
+        if holder is not None:
+            klass = holder if isinstance(holder, type) else type(holder)
+            func = None
+            for k in getattr(klass, "__mro__", [klass]):
+                if name in vars(k):
+                    raw = vars(k)[name]
+                    func = (
+                        raw.fget
+                        if isinstance(raw, property)
+                        else getattr(raw, "__func__", raw)
+                    )
+                    break
+            if func is not None:
+                ret = _typing.get_type_hints(func).get("return")
+                cand = getattr(ret, "__jsii_type__", None)
+                if cand is not None:
+                    from ... import _reference_map as _rm
+
+                    if cand in _rm._types:
+                        fqn = cand
+    except Exception:
+        fqn = None
+    _RET_FQN_CACHE[key] = fqn
+    return fqn
+
+
 class _NodeProcess:
     def __init__(self):
+        # POC (pipelining) state: fire-and-forget reference-returning calls
+        # without waiting; drain acks at sync points; cap to avoid deadlock.
+        self._pending = 0
+        self._objid_seq = 0
+        self._PIPELINE_CAP = 64
         self._serializer = cattr.Converter()
         self._serializer.register_unstructure_hook(enum.Enum, _unstructure_enum)
         self._serializer.register_unstructure_hook(
@@ -318,9 +384,7 @@ class _NodeProcess:
             or resp.hello == f"@jsii/runtime@0.0.0"
         ), f"Invalid JSII Runtime Version: {resp.hello!r}"
 
-    def send(
-        self, request: KernelRequest, response_type: Type[KernelResponse]
-    ) -> KernelResponse:
+    def _write(self, request) -> None:
         req_dict = self._serializer.unstructure(request)
 
         if _stack_traces_enabled():
@@ -330,10 +394,50 @@ class _NodeProcess:
 
         data = json.dumps(req_dict, default=jdefault).encode("utf8")
 
-        # Send our data, ensure that it is framed with a trailing \n
         assert self._process.stdin is not None
         self._process.stdin.write(b"%b\n" % (data,))
         self._process.stdin.flush()
+
+    def _drain(self) -> None:
+        # Read and discard acks for fire-and-forget calls. POC shortcut: errors
+        # are ignored; callbacks during the pipelined window are unsupported.
+        while self._pending > 0:
+            resp = self._serializer.structure(self._next_message(), _ProcessResponse)
+            if isinstance(resp, _CallbackResponse):
+                raise RuntimeError("pipelining POC: callback during drain")
+            self._pending -= 1
+
+    def _fire(self, request, fqn: str) -> str:
+        # Mint a client object id, fire the request without waiting, and return
+        # the id. The kernel registers/aliases this id to whatever the call
+        # produces (in order), so later references resolve correctly.
+        self._objid_seq += 1
+        objid = f"{fqn}@{1_000_000_000 + self._objid_seq}"
+        self._write(attr.evolve(request, objid=objid))
+        self._pending += 1
+        if self._pending >= self._PIPELINE_CAP:
+            self._drain()
+        return objid
+
+    def create_async(self, request: "CreateRequest") -> "CreateResponse":
+        objid = self._fire(request, request.fqn)
+        return CreateResponse(ref=objid, interfaces=request.interfaces)
+
+    def invoke_async(self, request, return_fqn: str) -> "InvokeResponse":
+        return InvokeResponse(result=ObjRef(ref=self._fire(request, return_fqn)))
+
+    def get_async(self, request, return_fqn: str) -> "GetResponse":
+        return GetResponse(value=ObjRef(ref=self._fire(request, return_fqn)))
+
+    def send(
+        self, request: KernelRequest, response_type: Type[KernelResponse]
+    ) -> KernelResponse:
+        # Any synchronous call is a barrier: the kernel processes requests in
+        # order, so its response comes after all pending fire-and-forget acks.
+        if self._pending:
+            self._drain()
+
+        self._write(request)
 
         resp: _ProcessResponse = self._serializer.structure(
             self._next_message(),
@@ -370,24 +474,36 @@ class ProcessProvider(BaseProvider):
         return self._process.send(request, InvokeScriptResponse)
 
     def create(self, request: CreateRequest) -> CreateResponse:
-        return self._process.send(request, CreateResponse)
+        return self._process.create_async(request)
 
     def get(self, request: GetRequest) -> GetResponse:
+        fqn = _caller_jsii_return_fqn()
+        if fqn is not None:
+            return self._process.get_async(request, fqn)
         return self._process.send(request, GetResponse)
 
     def set(self, request: SetRequest) -> SetResponse:
         return self._process.send(request, SetResponse)
 
     def sget(self, request: StaticGetRequest) -> GetResponse:
+        fqn = _caller_jsii_return_fqn()
+        if fqn is not None:
+            return self._process.get_async(request, fqn)
         return self._process.send(request, GetResponse)
 
     def sset(self, request: StaticSetRequest) -> SetResponse:
         return self._process.send(request, SetResponse)
 
     def invoke(self, request: InvokeRequest) -> Union[InvokeResponse, Callback]:
+        fqn = _caller_jsii_return_fqn()
+        if fqn is not None:
+            return self._process.invoke_async(request, fqn)
         return self._process.send(request, InvokeResponse)
 
     def sinvoke(self, request: StaticInvokeRequest) -> InvokeResponse:
+        fqn = _caller_jsii_return_fqn()
+        if fqn is not None:
+            return self._process.invoke_async(request, fqn)
         return self._process.send(request, InvokeResponse)
 
     def delete(self, request: DeleteRequest) -> DeleteResponse:
