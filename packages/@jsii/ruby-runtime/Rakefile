@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+# The runtime's tests (unit and compliance) live in
+# packages/@jsii/ruby-runtime-test — run them from there with
+# `bundle exec rspec`.
+
+begin
+  require 'yard'
+  YARD::Rake::YardocTask.new(:doc) do |t|
+    t.files = ['lib/**/*.rb']
+  end
+rescue LoadError
+  # yard not installed; `rake doc` unavailable
+end

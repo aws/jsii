@@ -72,6 +72,10 @@
       "python": {
         "distName": "scope.jsii-calc-base",
         "module": "scope.jsii_calc_base"
+      },
+      "ruby": {
+        "gem": "scope-jsii-calc-base",
+        "module": "Scope::JsiiCalcBase"
       }
     },
     "tsc": {
