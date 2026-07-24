@@ -217,6 +217,7 @@ The `@jsii/runtime` spawns two node processes: a wrapper process manages IPC wit
 - The Python target (`packages/jsii-pacmak/lib/targets/python.ts`) is the recommended reference implementation to study when modifying or adding a code generation target.
 - Each target extends a base class and implements visitor methods that traverse the assembly's type system.
 - After modifying a target, run `cd packages/jsii-pacmak && yarn test:update` to update generated code snapshots.
+- For changes to the **Python** target that affect import behavior, lazy loading, or runtime type checking, follow the verification checklist in `docs/target-python/import-verification.md`.
 
 ## Testing
 
@@ -278,6 +279,7 @@ The `@jsii/runtime` spawns two node processes: a wrapper process manages IPC wit
 | Kernel API specification | `gh-pages/content/specification/3-kernel-api.md` |
 | Compliance suite specification | `gh-pages/content/specification/4-standard-compliance-suite.md` |
 | Architecture reference | `docs/jsii-architecture-reference.md` |
+| Python import/lazy-loading verification checklist | `docs/target-python/import-verification.md` |
 | jsii compiler repository | https://github.com/aws/jsii-compiler |
 | jsii-rosetta repository | https://github.com/aws/jsii-rosetta |
 | jsii-superchain repository | https://github.com/aws/jsii-superchain |
