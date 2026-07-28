@@ -20,6 +20,35 @@ import typing
 # check_type``) and therefore never re-reads the module attribute.
 _resolved_check: typing.Optional[typing.Callable[..., typing.Any]] = None
 
+# Memoized ``typing.get_type_hints`` results, keyed by the type-checking stub
+# function. Generated type-checking stubs are module-level functions whose
+# annotations never change, yet generated code resolves their hints on *every*
+# jsii method/constructor/struct invocation. Resolving the (PEP 563 stringized)
+# annotations -- evaluating forward refs, walking generics, building ``typing``
+# objects -- is the dominant per-call cost of runtime type checking and scales
+# with the number of jsii calls. Caching turns that into one resolution per
+# distinct stub actually used. The runtime is single-threaded by design, so a
+# plain dict needs no locking.
+_type_hints_cache: "typing.Dict[typing.Any, typing.Dict[str, typing.Any]]" = {}
+
+
+def cached_type_hints(
+    stub: typing.Callable[..., typing.Any],
+) -> typing.Dict[str, typing.Any]:
+    """Return ``typing.get_type_hints(stub)``, memoized per stub function.
+
+    Behaves identically to :func:`typing.get_type_hints` for the stub functions
+    emitted by jsii-pacmak (whose annotations are fixed for the life of the
+    process), but resolves each stub's hints at most once instead of on every
+    call. Callers must treat the returned mapping as read-only, since it is
+    shared across all invocations that reference the same stub.
+    """
+    hints = _type_hints_cache.get(stub)
+    if hints is None:
+        hints = typing.get_type_hints(stub)
+        _type_hints_cache[stub] = hints
+    return hints
+
 
 def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
     """Validate *value* against *expected_type*, adapting to the installed typeguard version.

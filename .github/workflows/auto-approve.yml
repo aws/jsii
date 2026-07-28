@@ -20,6 +20,8 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - run: gh pr review --approve ${{ github.event.pull_request.number }} -R ${{ github.repository }}
+    - run: gh pr review --approve "$PR_NUMBER" -R "$REPO"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        REPO: ${{ github.repository }}

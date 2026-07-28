@@ -1,7 +1,6 @@
 import json
 import setuptools
 
-
 with open("src/jsii/_metadata.json") as fp:
     metadata = json.load(fp)
 
