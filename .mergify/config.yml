@@ -12,10 +12,9 @@ queue_rules:
       - label!=pr/no-squash
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
-    commit_message_template: |-
-      {{ title }} (#{{ number }})
-
-      {{ body }}
+    commit_message_format:
+      title: pr-title
+      body: pr-body
     merge_method: squash
     batch_size: 1
 
@@ -28,10 +27,9 @@ queue_rules:
       - label=pr/no-squash
       - status-success=Unit Tests
       - status-success=Integration test (jsii-pacmak)
-    commit_message_template: |-
-      {{ title }} (#{{ number }})
-
-      {{ body }}
+    commit_message_format:
+      title: pr-title
+      body: pr-body
     merge_method: merge
     batch_size: 1
 
