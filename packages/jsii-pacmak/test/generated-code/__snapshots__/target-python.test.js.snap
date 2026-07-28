@@ -2090,6 +2090,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import custom_submodule_name as custom_submodule_name
     from . import deprecation_removal as deprecation_removal
 
@@ -2671,7 +2672,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/py
      @builtins.property
      @jsii.member(jsii_name="doubleValue")
      def double_value(self) -> jsii.Number:
-@@ -657,7 +687,65 @@
+@@ -658,7 +688,65 @@
  
  import sys as _sys
  setattr(_sys.modules[__name__], "__getattr__", __getattr__)
@@ -12257,6 +12258,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import anonymous as anonymous
     from . import cdk16625 as cdk16625
     from . import cdk22369 as cdk22369
@@ -12610,6 +12612,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import donotimport as donotimport
 
 publication.publish()
@@ -12946,6 +12949,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import class_overrides as class_overrides
 
 publication.publish()
@@ -13271,6 +13275,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import bar as bar
     from . import foo as foo
 
@@ -14271,6 +14276,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import methods as methods
     from . import props as props
     from . import retval as retval
@@ -14632,6 +14638,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import submodule1 as submodule1
     from . import submodule2 as submodule2
 
@@ -15223,6 +15230,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import sub1 as sub1
     from . import sub2 as sub2
 
@@ -15719,6 +15727,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import back_references as back_references
     from . import child as child
     from . import isolated as isolated
@@ -16177,6 +16186,7 @@ __all__ = [
 # Type-checking-only imports for static analyzers (pyright/mypy).
 # At runtime TYPE_CHECKING is False, preserving lazy loading.
 if typing.TYPE_CHECKING:
+    pass
     from . import deeply_nested as deeply_nested
 
 publication.publish()
@@ -19781,7 +19791,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
      @builtins.property
      @jsii.member(jsii_name="id")
      def id(self) -> jsii.Number:
-@@ -9004,7 +9801,1573 @@
+@@ -9005,7 +9802,1573 @@
  
  import sys as _sys
  setattr(_sys.modules[__name__], "__getattr__", __getattr__)
@@ -21441,7 +21451,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  # Adding a "__jsii_proxy_class__(): typing.Type" function to the abstract class
  typing.cast(typing.Any, Cdk16625).__jsii_proxy_class__ = lambda : _Cdk16625Proxy
  
-@@ -99,5 +102,11 @@
+@@ -100,5 +103,11 @@
      return [*__all__, *_SUBMODULES]
  
  import sys as _sys
@@ -22470,7 +22480,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
  __all__ = [
      "Default",
-@@ -175,5 +181,18 @@
+@@ -176,5 +182,18 @@
      return [*__all__, *_SUBMODULES]
  
  import sys as _sys
