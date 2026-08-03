@@ -10,8 +10,7 @@ export type Output =
   | { error: string; stack?: string };
 
 export type Input =
-  | ({ api: string } & api.KernelRequest)
-  | { complete: api.CompleteRequest };
+  ({ api: string } & api.KernelRequest) | { complete: api.CompleteRequest };
 
 export type Exit = { exit: number };
 

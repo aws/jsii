@@ -246,8 +246,7 @@ async function tryFindLocalModule(baseDir: string, pkg: RootPackage) {
  * is identified under the local module path exposed by `@jsii/go-runtime` .
  */
 function tryFindLocalRuntime():
-  | { readonly [name: string]: string }
-  | undefined {
+  { readonly [name: string]: string } | undefined {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-extraneous-dependencies
     const localRuntime = require('@jsii/go-runtime');
