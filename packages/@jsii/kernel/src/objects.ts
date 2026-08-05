@@ -163,6 +163,7 @@ export class ObjectTable {
     obj: unknown,
     fqn: spec.FQN,
     interfaces?: spec.FQN[],
+    providedId?: string,
   ): api.ObjRef {
     if (fqn === undefined) {
       throw new JsiiFault('FQN cannot be undefined');
@@ -196,11 +197,29 @@ export class ObjectTable {
 
     interfaces = this.#removeRedundant(interfaces, fqn);
 
-    const objid = this.#makeId(fqn);
+    const objid = providedId ?? this.#makeId(fqn);
     this.#objects.set(objid, { instance: obj, fqn, interfaces });
     tagObject(obj, objid, interfaces);
 
     return { [api.TOKEN_REF]: objid, [api.TOKEN_INTERFACES]: interfaces };
+  }
+
+  /**
+   * Registers an additional (client-allocated) id pointing at the same object
+   * an existing reference denotes. Used for pipelined invoke results: the host
+   * mints a fresh id before the call returns, and the kernel aliases it to
+   * whatever object the call actually produced (fresh or pre-existing). A no-op
+   * if the value is not an object reference.
+   */
+  public aliasObject(clientId: string, obj: unknown): void {
+    const ref = objectReference(obj);
+    if (!ref) {
+      return;
+    }
+    const entry = this.#objects.get(ref[api.TOKEN_REF]);
+    if (entry) {
+      this.#objects.set(clientId, entry);
+    }
   }
 
   /**
