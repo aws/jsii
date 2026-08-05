@@ -2,6 +2,8 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      ruby: 3.3
     commands:
       - corepack enable
       - yarn install --immutable
