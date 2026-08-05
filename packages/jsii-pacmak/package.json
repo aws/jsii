@@ -57,7 +57,7 @@
     "@types/commonmark": "^0.27.10",
     "@types/diff": "^5.2.3",
     "@types/fs-extra": "^9.0.13",
-    "@types/semver": "^7.7.1",
+    "@types/semver": "^7.8.0",
     "@types/yargs": "^17.0.33",
     "diff": "^5.2.2",
     "eslint": "^9.39.5",
