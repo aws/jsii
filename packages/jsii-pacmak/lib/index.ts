@@ -7,7 +7,8 @@ import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
 import { assertSpecIsRosettaCompatible } from './rosetta-assembly';
-import { ALL_BUILDERS, TargetName } from './targets';
+import { loadTargetPlugins } from './plugins';
+import { ALL_BUILDERS, BuilderFactory, TargetName } from './targets';
 import { Timers } from './timer';
 import { Toposorted } from './toposort';
 import { flatten } from './util';
@@ -31,6 +32,7 @@ export async function pacmak({
   inputDirectories,
   outputDirectory,
   parallel = true,
+  plugins = [],
   recurse = false,
   rosettaTablet,
   rosettaUnknownSnippets = undefined,
@@ -46,6 +48,23 @@ export async function pacmak({
   });
   if (rosettaTablet) {
     await rosetta.loadTabletFromFile(rosettaTablet);
+  }
+
+  const pluginBuilders = loadTargetPlugins(plugins);
+  {
+    const validTargets = new Set<string>([
+      ...Object.values(TargetName),
+      ...Object.keys(pluginBuilders),
+    ]);
+    for (const target of targets) {
+      if (!validTargets.has(target)) {
+        throw new Error(
+          `Unsupported target: '${target}' (valid values are: ${[
+            ...validTargets,
+          ].join(', ')})`,
+        );
+      }
+    }
   }
 
   const modulesToPackageSorted = await findJsiiModules(
@@ -131,6 +150,7 @@ export async function pacmak({
                   fingerprint,
                   force,
                   perLanguageDirectory,
+                  pluginBuilders,
                   rosetta,
                   runtimeTypeChecking,
                 },
@@ -272,7 +292,15 @@ export interface PacmakOptions {
    *
    * @default Object.values(TargetName)
    */
-  readonly targets?: readonly TargetName[];
+  readonly targets?: readonly string[];
+
+  /**
+   * External target plugins to load (module specifiers: npm package names or
+   * paths). Plugin target names become valid values for `targets`.
+   *
+   * @default []
+   */
+  readonly plugins?: readonly string[];
 
   /**
    * A `Timers` object, if you are interested in including the rosetta run in a larger set of timed operations.
@@ -309,6 +337,7 @@ async function buildTargetsForLanguage(
     fingerprint,
     force,
     perLanguageDirectory,
+    pluginBuilders,
     rosetta,
     runtimeTypeChecking,
   }: {
@@ -318,12 +347,14 @@ async function buildTargetsForLanguage(
     fingerprint: boolean;
     force: boolean;
     perLanguageDirectory: boolean;
+    pluginBuilders: Record<string, BuilderFactory>;
     rosetta: RosettaTabletReader;
     runtimeTypeChecking: boolean;
   },
 ): Promise<void> {
-  // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
-  const factory = ALL_BUILDERS[targetLanguage as TargetName];
+  const factory =
+    ALL_BUILDERS[targetLanguage as TargetName] ??
+    pluginBuilders[targetLanguage];
   if (!factory) {
     throw new Error(`Unsupported target: '${targetLanguage}'`);
   }
@@ -356,7 +387,7 @@ interface TargetSet {
 
 function sliceTargets(
   modulesSorted: Toposorted<JsiiModule>,
-  requestedTargets: readonly TargetName[],
+  requestedTargets: readonly string[],
   force: boolean,
 ): readonly TargetSet[] {
   const ret = new Array<TargetSet>();

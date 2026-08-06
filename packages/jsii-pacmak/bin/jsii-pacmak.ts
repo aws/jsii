@@ -4,7 +4,7 @@ import '@jsii/check-node/run';
 import { UnknownSnippetMode } from 'jsii-rosetta';
 import * as yargs from 'yargs';
 
-import { pacmak, configureLogging, TargetName } from '../lib';
+import { pacmak, configureLogging } from '../lib';
 import { debug } from '../lib/logging';
 import { DEFAULT_PACK_COMMAND } from '../lib/packaging';
 import { VERSION_DESC } from '../lib/version';
@@ -31,21 +31,19 @@ import { VERSION_DESC } from '../lib/version';
       desc: 'target languages for which to generate bindings',
       defaultDescription:
         'all targets defined in `package.json` will be generated',
+      // Names are validated in pacmak() itself, where loaded target plugins
+      // are known and extend the set of valid values beyond the built-ins.
       coerce: (value: string | string[]) =>
-        (typeof value === 'string'
+        typeof value === 'string'
           ? value.split(',')
-          : value.flatMap((item) => item.split(','))
-        ).map((choice) => {
-          if (Object.values(TargetName).includes(choice as any)) {
-            return choice as TargetName;
-          }
-          throw new Error(
-            `Invalid target name: ${choice} (valid values are: ${Object.values(
-              TargetName,
-            ).join(', ')})`,
-          );
-        }),
+          : value.flatMap((item) => item.split(',')),
       required: false,
+    })
+    .option('plugin', {
+      type: 'string',
+      array: true,
+      desc: 'load an external target plugin (an npm package name or a path); may be repeated. Plugin target names become valid --targets values.',
+      default: [],
     })
     .option('outdir', {
       alias: 'o',
@@ -198,6 +196,7 @@ import { VERSION_DESC } from '../lib/version';
     inputDirectories: argv.PROJECTS as any, // type cast due to bug https://github.com/yargs/yargs/issues/2292
     outputDirectory: argv.outdir,
     parallel: argv.parallel,
+    plugins: argv.plugin,
     recurse: argv.recurse,
     rosettaUnknownSnippets,
     rosettaTablet: argv['rosetta-tablet'],
