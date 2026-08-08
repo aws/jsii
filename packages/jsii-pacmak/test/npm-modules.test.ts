@@ -70,7 +70,7 @@ describe(findJsiiModules, () => {
           python: {},
         },
       },
-      devDependencies: {
+      peerDependencies: {
         packageA: '*',
       },
     });
@@ -84,10 +84,12 @@ describe(findJsiiModules, () => {
       ],
       false,
     );
+    // dependencies and peerDependencies order (B before A, A before D);
+    // devDependencies do not (C is not held back by its devDependency on B).
     expect(flatten(mods).map((m) => m.name)).toEqual([
       'packageB',
-      'packageA',
       'packageC',
+      'packageA',
       'packageD',
     ]);
   });
