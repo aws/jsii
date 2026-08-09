@@ -58,7 +58,10 @@ export interface TargetPluginDeclaration {
 export function loadTargetPlugins(
   specs: readonly string[],
 ): Record<string, BuilderFactory> {
-  const result: Record<string, BuilderFactory> = {};
+  // Null prototype: a target named like an Object.prototype member
+  // (`toString`, ...) must be neither rejected as its own duplicate by the
+  // `in` check below nor resolved to an inherited function by lookups.
+  const result: Record<string, BuilderFactory> = Object.create(null);
   for (const spec of specs) {
     const declaration = loadTargetPlugin(spec);
     if (declaration.targetName in result) {
