@@ -42,7 +42,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/tar-fs": "^2.0.4",
     "@types/yargs": "^17.0.33",
-    "eslint": "^9.39.4",
+    "eslint": "^9.39.5",
     "jest": "^30.4.2",
     "jest-expect-message": "^1.1.3",
     "jsii": "^6.0.1",

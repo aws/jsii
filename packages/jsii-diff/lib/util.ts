@@ -24,8 +24,7 @@ export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
 export type DownloadFailure = 'no_such_package';
 
 export type NpmDownloadResult<T> =
-  | { success: true; result: T }
-  | { success: false; reason: DownloadFailure };
+  { success: true; result: T } | { success: false; reason: DownloadFailure };
 
 export function showDownloadFailure(f: DownloadFailure) {
   switch (f) {

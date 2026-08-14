@@ -633,8 +633,7 @@ export class DotNetGenerator extends Generator {
       this.emitUnionParameterValdation(
         (
           this.reflectAssembly.findType(cls.fqn) as
-            | reflect.ClassType
-            | reflect.InterfaceType
+            reflect.ClassType | reflect.InterfaceType
         ).allMethods.find((m) => m.name === method.name)!.parameters,
       );
       this.code.line(
@@ -1123,8 +1122,7 @@ export class DotNetGenerator extends Generator {
 
     // Emit setters
     const reflectCls = this.reflectAssembly.findType(cls.fqn) as
-      | reflect.ClassType
-      | reflect.InterfaceType;
+      reflect.ClassType | reflect.InterfaceType;
     const syntheticParam = new reflect.Parameter(
       reflectCls.system,
       reflectCls,
