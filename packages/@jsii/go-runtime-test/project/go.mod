@@ -7,9 +7,9 @@ require (
 	github.com/aws/jsii/jsii-calc/go/jcb v0.0.0
 	github.com/aws/jsii/jsii-calc/go/jsiicalc/v3 v3.20.120
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalclib v0.0.0-devpreview
-	github.com/stretchr/testify v1.11.1
+	github.com/stretchr/testify v1.12.0
 	golang.org/x/lint v0.0.0-20241112194109-818c5a804067
-	golang.org/x/tools v0.48.0
+	golang.org/x/tools v0.49.0
 )
 
 require (
@@ -21,10 +21,10 @@ require (
 	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/yuin/goldmark v1.7.16 // indirect
-	golang.org/x/mod v0.38.0 // indirect
+	golang.org/x/mod v0.39.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
-	golang.org/x/telemetry v0.0.0-20260708182218-49f421fb7959 // indirect
+	golang.org/x/telemetry v0.0.0-20260811182544-a038080d80e5 // indirect
 	golang.org/x/tools/cmd/godoc v0.1.0-deprecated // indirect
 	golang.org/x/tools/godoc v0.1.0-deprecated // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
