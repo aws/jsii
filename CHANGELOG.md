@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.140.0](https://github.com/aws/jsii/compare/v1.139.0...v1.140.0) (2026-08-24)
+
+
+### Bug Fixes
+
+* **jsii-diff:** ignore scripts when running `npm install` ([#5229](https://github.com/aws/jsii/issues/5229)) ([e7d83a3](https://github.com/aws/jsii/commit/e7d83a374b820a8b34ee548f6f9469b7981d1fc2))
+
 ## [1.139.0](https://github.com/aws/jsii/compare/v1.138.0...v1.139.0) (2026-07-17)
 
 

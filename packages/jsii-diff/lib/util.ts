@@ -24,8 +24,7 @@ export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
 export type DownloadFailure = 'no_such_package';
 
 export type NpmDownloadResult<T> =
-  | { success: true; result: T }
-  | { success: false; reason: DownloadFailure };
+  { success: true; result: T } | { success: false; reason: DownloadFailure };
 
 export function showDownloadFailure(f: DownloadFailure) {
   switch (f) {
@@ -52,7 +51,12 @@ export async function downloadNpmPackage<T>(
       // This executes the shell, which is necessary: on Windows, npm is a .cmd file,
       // and only the shell and execute .bat/.cmd files. We have validated the package
       // name already to make sure it contains only safe characters.
-      await exec(`npm install --silent --prefix . ${pkg}`);
+      //
+      // `--ignore-scripts` prevents lifecycle scripts (preinstall/install/postinstall)
+      // of the downloaded package and its dependencies from executing. We only need the
+      // files on disk to read the assembly, so there is no reason to run arbitrary code
+      // from the package under comparison.
+      await exec(`npm install --silent --ignore-scripts --prefix . ${pkg}`);
     } catch (e: any) {
       // If this fails, might be because the package doesn't exist
       if (!isSubprocesFailedError(e)) {

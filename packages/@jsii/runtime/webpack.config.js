@@ -26,6 +26,13 @@ module.exports = {
     iife: false,
   },
   devtool: 'source-map',
+  experiments: {
+    // Webpack >= 5.109 auto-enables built-in TypeScript support (type
+    // stripping) on Node.js >= 22.6, which makes it resolve the `.ts` sources
+    // living next to the compiled `.js` in `lib/`. We bundle the pre-compiled
+    // output, so keep this disabled.
+    typescript: false,
+  },
   target: 'node12', // Continue to target node 12 so that check-node does not fail to load on it.
   node: {
     global: false,

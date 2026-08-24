@@ -32,11 +32,11 @@
   },
   "devDependencies": {
     "ajv": "^8.20.0",
-    "esbuild": "^0.28.1",
-    "eslint": "^9.39.4",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.39.5",
     "jest": "^30.4.2",
     "jsii-build-tools": "^0.0.0",
     "typescript": "6.x",
-    "typescript-json-schema": "^0.67.4"
+    "typescript-json-schema": "^0.68.0"
   }
 }
