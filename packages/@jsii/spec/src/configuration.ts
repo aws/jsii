@@ -78,6 +78,22 @@ export interface Config {
        */
       versionSuffix?: string;
     };
+    ruby?: {
+      /**
+       * name of the generated Ruby gem
+       */
+      gem: string;
+
+      /**
+       * name of generated Ruby module
+       */
+      module: string;
+
+      /**
+       * A list of acronyms used to enforce correct PascalCasing for Ruby module names
+       */
+      acronyms?: string[];
+    };
   };
 
   /**
