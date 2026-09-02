@@ -71,6 +71,10 @@ class CreateRequest:
     args: List[Any] = attr.Factory(list)
     overrides: List[Override] = attr.Factory(list)
     interfaces: Optional[List[str]] = None
+    # POC (pipelining): client-allocated object id. When set, the kernel
+    # registers the new instance under this id instead of allocating one,
+    # letting the host use the reference without waiting for the response.
+    objid: Optional[str] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -90,12 +94,14 @@ class DeleteResponse: ...
 class GetRequest:
     objref: ObjRef
     property: str
+    objid: Optional[str] = None  # POC (pipelining): alias reference-typed value
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class StaticGetRequest:
     fqn: str
     property: str
+    objid: Optional[str] = None  # POC (pipelining): alias reference-typed value
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -126,6 +132,7 @@ class StaticInvokeRequest:
     fqn: str
     method: str
     args: Optional[List[Any]] = attr.Factory(list)
+    objid: Optional[str] = None  # POC (pipelining): alias reference-typed result
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -133,6 +140,7 @@ class InvokeRequest:
     objref: ObjRef
     method: str
     args: Optional[List[Any]] = attr.Factory(list)
+    objid: Optional[str] = None  # POC (pipelining): alias reference-typed result
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
