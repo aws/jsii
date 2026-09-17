@@ -48,6 +48,7 @@ export class FileGenerator {
   public generateProjectFile(
     dependencies: Map<string, DotNetDependency>,
     iconFile?: string,
+    readmeFile?: string,
   ) {
     const assembly = this.assm;
     const packageId: string = assembly.targets!.dotnet!.packageId;
@@ -88,6 +89,14 @@ export class FileGenerator {
     propertyGroup.ele('PackageId', packageId);
     propertyGroup.ele('PackageLicenseExpression', assembly.license);
     propertyGroup.ele('PackageVersion', this.getDecoratedVersion(assembly));
+    if (readmeFile != null) {
+      propertyGroup.ele('PackageReadmeFile', readmeFile);
+      // We also need to actually include the README in the package
+      const noneNode = rootNode.ele('ItemGroup').ele('None');
+      noneNode.att('Include', readmeFile);
+      noneNode.att('Pack', 'true');
+      noneNode.att('PackagePath', '\\');
+    }
     if (dotnetInfo!.title != null) {
       propertyGroup.ele('Title', dotnetInfo!.title);
     }
