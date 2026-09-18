@@ -69,6 +69,14 @@ updates:
       - auto-approve
     ignore:
       - dependency-name: "go" # don't upgrad the golang version
+      # Minor releases of `golang.org/x/tools` raise the `go` directive in go.mod
+      # as a side effect (v0.50.0 requires `go >= 1.26.0`). That is a toolchain
+      # ratchet the `go` ignore above cannot catch, and it breaks every CI job
+      # until the pinned Go version is bumped by hand. Patch updates still flow.
+      - dependency-name: golang.org/x/tools
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
       - dependency-name: github.com/aws/jsii-runtime-go
       - dependency-name: github.com/aws/jsii-runtime-go/*
       - dependency-name: github.com/aws/jsii/jsii-calc/go/*
