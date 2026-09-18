@@ -3,5 +3,5 @@ set -euo pipefail
 
 mkdir -p dist/ruby
 
-gem build project/*.gemspec
+gem build *.gemspec
 mv *.gem dist/ruby

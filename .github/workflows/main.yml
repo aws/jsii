@@ -52,6 +52,10 @@ jobs:
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
+      - name: Set up Ruby 3.3
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
       - name: Cache
         uses: actions/cache@v6
         with:
@@ -136,6 +140,10 @@ jobs:
           cache: pip
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
+      - name: Set up Ruby 3.3
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
       - name: Cache
         uses: actions/cache@v6
         with:
@@ -201,6 +209,7 @@ jobs:
         node: ["20"] # EOS 2026-10-30
         os: [ubuntu-latest]
         python: ["3.10"]
+        ruby: ["3.3"]
         # Add specific combinations to be tested against (to restrict cardinality)
         include:
           # Test using Windows
@@ -211,6 +220,7 @@ jobs:
             java: "8"
             node: "20"
             python: "3.10"
+            ruby: "3.3"
           # Test using macOS
           - title: "macOS"
             os: macos-latest
@@ -219,6 +229,7 @@ jobs:
             java: "8"
             node: "20"
             python: "3.10"
+            ruby: "3.3"
           # Test alternate Nodes
           - title: "Node 20"
             java: "8"
@@ -227,6 +238,7 @@ jobs:
             node: "20" # EOL 2026-04-30
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           - title: "Node 22"
             java: "8"
             dotnet: "6.0.x"
@@ -234,6 +246,7 @@ jobs:
             node: "22" # EOL 2027-04-30
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           - title: "Node 24"
             java: "8"
             dotnet: "6.0.x"
@@ -241,6 +254,7 @@ jobs:
             node: "24" # EOL 2028-04-30
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           # Test alternate .NETs
           - title: ".NET 7.0"
             java: "8"
@@ -249,6 +263,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           - title: ".NET 8.0"
             java: "8"
             dotnet: "7.0.x"
@@ -256,6 +271,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           - title: ".NET 9.0"
             java: "8"
             dotnet: "9.0.x"
@@ -263,6 +279,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           - title: ".NET 10.0"
             java: "8"
             dotnet: "10.0.x"
@@ -270,6 +287,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           # Test alternate Gos
           - title: "Go 1.25"
             java: "8"
@@ -278,6 +296,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           - title: "Go 1.26"
             java: "8"
             dotnet: "6.0.x"
@@ -285,6 +304,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           # Test alternate Javas
           - title: "Java 11"
             java: "11"
@@ -293,6 +313,7 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
+            ruby: "3.3"
           # Test alternate Pythons
           - title: "Python 3.10"
             python: "3.10"
@@ -301,6 +322,7 @@ jobs:
             java: "8"
             node: "20"
             os: ubuntu-latest
+            ruby: "3.3"
           - title: "Python 3.11"
             python: "3.11"
             dotnet: "6.0.x"
@@ -308,6 +330,7 @@ jobs:
             java: "8"
             node: "20"
             os: ubuntu-latest
+            ruby: "3.3"
           - title: "Python 3.12"
             python: "3.12"
             dotnet: "6.0.x"
@@ -315,6 +338,7 @@ jobs:
             java: "8"
             node: "20"
             os: ubuntu-latest
+            ruby: "3.3"
           - title: "Python 3.13"
             python: "3.13"
             dotnet: "6.0.x"
@@ -322,6 +346,7 @@ jobs:
             java: "8"
             node: "20"
             os: ubuntu-latest
+            ruby: "3.3"
           - title: "Python 3.14"
             python: "3.14"
             dotnet: "6.0.x"
@@ -329,6 +354,25 @@ jobs:
             java: "8"
             node: "20"
             os: ubuntu-latest
+            ruby: "3.3"
+          # Test alternate Rubies (3.1/3.2 are EOL and unsupported —
+          # required_ruby_version is >= 3.3.0; 3.3 itself is the baseline)
+          - title: "Ruby 3.4"
+            ruby: "3.4"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
+            os: ubuntu-latest
+            python: "3.10"
+          - title: "Ruby 4.0"
+            ruby: "4.0"
+            dotnet: "6.0.x"
+            go: "1.25"
+            java: "8"
+            node: "20"
+            os: ubuntu-latest
+            python: "3.10"
     runs-on: ${{ matrix.os }}
     steps:
       # Check out the code
@@ -380,6 +424,10 @@ jobs:
       - name: "Linux: Install python3-venv"
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
       - if: runner.os == 'Windows'
         name: Windows performance improvements
         run: |-
@@ -470,6 +518,10 @@ jobs:
           python-version: "3.11"
       - name: Install python3-venv
         run: sudo apt install -y python3-venv
+      - name: Set up Ruby 3.3
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
       # Show time!
       - name: Prepare Work Tree
         # 1) Install aws-cdk-lib,
