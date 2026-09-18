@@ -22,6 +22,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
+       ┣━ 📄 README.md
        ┣━ 📁 resources
        ┃  ┗━ 📄 default-256-dark.png
        ┗━ 📄 scope-jsii-calc-base-0.0.0.tgz
@@ -37,6 +38,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageVersion>0.0.0</PackageVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -56,6 +58,9 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
   </PropertyGroup>
   <ItemGroup>
     <None Include="resources\\default-256-dark.png" Pack="true" PackagePath="\\resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-base-0.0.0.tgz" />
@@ -532,6 +537,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/README.md 1`] = `# @scope/jsii-calc-base`;
+
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/resources/default-256-dark.png 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/resources/default-256-dark.png is a binary file`;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/scope-jsii-calc-base-0.0.0.tgz is a tarball`;
@@ -563,6 +570,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
+       ┣━ 📄 README.md
        ┗━ 📄 scope-jsii-calc-base-of-base-2.1.1.tgz
 `;
 
@@ -574,6 +582,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageVersion>2.1.1</PackageVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -591,6 +600,9 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-base-of-base-2.1.1.tgz" />
   </ItemGroup>
@@ -1030,6 +1042,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/README.md 1`] = `# @scope/jsii-calc-base-of-base`;
+
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-2.1.1.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/scope-jsii-calc-base-of-base-2.1.1.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check-diff>/ 1`] = `
@@ -1083,6 +1097,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
        ┣━ 📄 AssemblyInfo.cs
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
+       ┣━ 📄 README.md
        ┗━ 📄 scope-jsii-calc-lib-0.0.0.tgz
 `;
 
@@ -1094,6 +1109,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.LibPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageVersion>0.0.0-devpreview</PackageVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -1111,6 +1127,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scope-jsii-calc-lib-0.0.0.tgz" />
   </ItemGroup>
@@ -3167,6 +3186,8 @@ Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/README.md 1`] = `# @scope/jsii-calc-lib`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/scope-jsii-calc-lib-0.0.0.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/scope-jsii-calc-lib-0.0.0.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <runtime-type-check-diff>/ 1`] = `
@@ -3615,6 +3636,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 jsii-calc-3.20.120.tgz
        ┣━ 📄 LICENSE
        ┣━ 📄 NOTICE
+       ┣━ 📄 README.md
        ┗━ 📁 resources
           ┗━ 📄 AWSLogo128x128.png
 `;
@@ -3629,6 +3651,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageVersion>3.20.120</PackageVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -3649,6 +3672,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
   </PropertyGroup>
   <ItemGroup>
     <None Include="resources\\AWSLogo128x128.png" Pack="true" PackagePath="\\resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="jsii-calc-3.20.120.tgz" />
@@ -23244,6 +23270,33 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
 jsii
 Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/README.md 1`] = `
+# jsii Calculator
+
+This library is used to demonstrate and test the features of JSII
+
+## How to use running sum API:
+
+First, create a calculator:
+
+\`\`\`csharp
+var calculator = new Calculator();
+\`\`\`
+
+Then call some operations:
+
+\`\`\`csharp
+calculator.Add(10);
+\`\`\`
+
+## Code Samples
+
+\`\`\`csharp
+/* This is totes a magic comment in here, just you wait! */
+var foo = "bar";
+\`\`\`
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz 1`] = `dotnet/Amazon.JSII.Tests.CalculatorPackageId/jsii-calc-3.20.120.tgz is a tarball`;
