@@ -2916,10 +2916,10 @@ included.</p>
 notation:</p>
 <ul>
 <li>Messages sent by the <em>host</em> runtime to the <code>node</code> process:
-  <div class="highlight"><pre><span></span><code>&gt; { &quot;api&quot;: &quot;foo&quot; }
+  <div class="highlight"><pre><span></span><code>&gt; { "api": "foo" }
 </code></pre></div></li>
 <li>Messages received by the <em>host</em> runtime from the <code>node</code> process:
-  <div class="highlight"><pre><span></span><code>&lt; { &quot;result&quot;: &quot;bar&quot; }
+  <div class="highlight"><pre><span></span><code>&lt; { "result": "bar" }
 </code></pre></div></li>
 <li>Comments to improve readability of the trace:
   <div class="highlight"><pre><span></span><code># Comment continues until the end of the line
@@ -2964,9 +2964,9 @@ unambiguous description to a terse one that could be subject to interpretation.
 
 <span class="sb">```</span>
 <span class="sb">## You can omit the initial hello/load messages</span>
-<span class="sb"># &lt; { &quot;hello&quot;: &quot;@jsii/runtime@1.2.3&quot; }</span>
-<span class="sb"># &gt; { &quot;load&quot;: { &quot;name&quot;: &quot;test-case-001&quot;, &quot;version&quot;: &quot;1.2.3&quot;, &quot;tarball&quot;: &quot;/tmp/jsii-kernel-test/lib.tgz&quot; } }</span>
-<span class="sb"># &lt; { &quot;assembly&quot;: &quot;test-case-001&quot;, &quot;types&quot;: 3 }</span>
+<span class="sb"># &lt; { "hello": "@jsii/runtime@1.2.3" }</span>
+<span class="sb"># &gt; { "load": { "name": "test-case-001", "version": "1.2.3", "tarball": "/tmp/jsii-kernel-test/lib.tgz" } }</span>
+<span class="sb"># &lt; { "assembly": "test-case-001", "types": 3 }</span>
 <span class="sb">```</span>
 
 &lt;/details&gt;
@@ -2982,7 +2982,7 @@ report in the form of a JSON document that follows the following schema:</p>
 <span class="w">    </span><span class="cm">/** For each test in the category, using its name as-is */</span>
 <span class="w">    </span><span class="p">[</span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="cm">/** Whether the test passed or failed */</span>
-<span class="w">      </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;PASS&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;FAIL&#39;</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">'PASS'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'FAIL'</span><span class="p">;</span>
 <span class="w">      </span><span class="cm">/** The kernel messages captured during the test */</span>
 <span class="w">      </span><span class="nx">kernelTrace</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="nx">KernelMessage</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="w">    </span><span class="p">};</span>
@@ -2991,7 +2991,7 @@ report in the form of a JSON document that follows the following schema:</p>
 
 <span class="kd">interface</span><span class="w"> </span><span class="nx">KernelMessage</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/** The direction the message was sent (Host -&gt; Kernel / Kernel -&gt; Host) */</span>
-<span class="w">  </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;FromKernel&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;ToKernel&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="s1">'FromKernel'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'ToKernel'</span><span class="p">;</span>
 <span class="w">  </span><span class="cm">/** The message, as a JSON object */</span>
 <span class="w">  </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">unknown</span><span class="w"> </span><span class="p">};</span>
 <span class="p">}</span>
@@ -3032,9 +3032,9 @@ correct declared type to be preserved.</p>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">1</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">);</span>
 <span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">2</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;makesYouForgetTheMatrix&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'makesYouForgetTheMatrix'</span><span class="p">);</span>
 <span class="w">      </span><span class="nx">default</span><span class="o">:</span>
 <span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3043,9 +3043,9 @@ correct declared type to be preserved.</p>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">1</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">);</span>
 <span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">2</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;makesYouExitTheMatrix&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'makesYouExitTheMatrix'</span><span class="p">);</span>
 <span class="w">      </span><span class="nx">default</span><span class="o">:</span>
 <span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3057,16 +3057,16 @@ correct declared type to be preserved.</p>
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">tookRed</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
 
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">pill</span><span class="o">:</span><span class="w"> </span><span class="kt">BluePill</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">RedPill</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">tookBlue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;Neo&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">tookRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;Neo&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">tookBlue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Neo'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">tookRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Neo'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">bluePillA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;not Neo&#39;</span><span class="w"> </span><span class="p">});</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">bluePillB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Neo&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">makesYouForgetTheMatrix</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">redPillA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;not Neo&#39;</span><span class="w"> </span><span class="p">});</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">redPillB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Neo&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">makesYouExitTheMatrix</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">bluePillA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'not Neo'</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">bluePillB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'Neo'</span><span class="p">,</span><span class="w"> </span><span class="nx">makesYouForgetTheMatrix</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">redPillA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'not Neo'</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">redPillB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'Neo'</span><span class="p">,</span><span class="w"> </span><span class="nx">makesYouExitTheMatrix</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">pill</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">BluePill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
@@ -3130,16 +3130,16 @@ object hash for instances in Java (so they can be safely used with <code>HashMap
 <span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">obj</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
 </code></pre></div>
 <h5 id="kernel-trace_1">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
-# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
-# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
+# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
+# &lt; {"ok":{"assembly":"...","types":2}}
 
-&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.PartiallyInitializedThisConsumer&quot;,&quot;args&quot;:[],&quot;overrides&quot;:[{&quot;method&quot;:&quot;consumePartiallyInitializedThis&quot;}],&quot;interfaces&quot;:[]}
-&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.PartiallyInitializedThisConsumer@10000&quot;}}
-&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.ConstructorPassesThisOut&quot;,&quot;args&quot;:[{&quot;$jsii.byref&quot;:&quot;test.PartiallyInitializedThisConsumer@10000&quot;,&quot;$jsii.interfaces&quot;:[]}],&quot;overrides&quot;:[],&quot;interfaces&quot;:[]}
-&lt; {&quot;callback&quot;:{&quot;cbid&quot;:&quot;jsii::callback::20000&quot;,&quot;invoke&quot;:{&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.PartiallyInitializedThisConsumer@10000&quot;},&quot;method&quot;:&quot;consumePartiallyInitializedThis&quot;,&quot;args&quot;:[{&quot;$jsii.byref&quot;:&quot;test.ConstructorPassesThisOut@10001&quot;}]}}}
-&gt; {&quot;complete&quot;:{&quot;api&quot;:&quot;complete&quot;,&quot;cbid&quot;:&quot;jsii::callback::20000&quot;}}
-&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.ConstructorPassesThisOut@10001&quot;}}
+&gt; {"api":"create","fqn":"test.PartiallyInitializedThisConsumer","args":[],"overrides":[{"method":"consumePartiallyInitializedThis"}],"interfaces":[]}
+&lt; {"ok":{"$jsii.byref":"test.PartiallyInitializedThisConsumer@10000"}}
+&gt; {"api":"create","fqn":"test.ConstructorPassesThisOut","args":[{"$jsii.byref":"test.PartiallyInitializedThisConsumer@10000","$jsii.interfaces":[]}],"overrides":[],"interfaces":[]}
+&lt; {"callback":{"cbid":"jsii::callback::20000","invoke":{"objref":{"$jsii.byref":"test.PartiallyInitializedThisConsumer@10000"},"method":"consumePartiallyInitializedThis","args":[{"$jsii.byref":"test.ConstructorPassesThisOut@10001"}]}}}
+&gt; {"complete":{"api":"complete","cbid":"jsii::callback::20000"}}
+&lt; {"ok":{"$jsii.byref":"test.ConstructorPassesThisOut@10001"}}
 </code></pre></div>
 </details>
 <h3 id="interfaces">Interfaces</h3>
@@ -3177,30 +3177,30 @@ the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfa
 <span class="kd">class</span><span class="w"> </span><span class="nx">Implementation</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IBehavioralInterface</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1337</span><span class="p">;</span>
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">methodCall</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;Hello!&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Hello!'</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">impl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Implementation</span><span class="p">();</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">InterfaceConsumer</span><span class="p">(</span><span class="nx">impl</span><span class="p">);</span>
 
 <span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">composeResult</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello! / 1337&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">composeResult</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello! / 1337'</span><span class="p">);</span>
 </code></pre></div>
 <h5 id="kernel-trace_2">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
-# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
-# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
+# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
+# &lt; {"ok":{"assembly":"...","types":2}}
 
-&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;Object&quot;,&quot;args&quot;:[],&quot;overrides&quot;:[{&quot;method&quot;:&quot;methodCall&quot;},{&quot;property&quot;:&quot;property&quot;}],&quot;interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]}
-&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]}}
-&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.InterfaceConsumer&quot;,&quot;args&quot;:[{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[]}],&quot;overrides&quot;:[],&quot;interfaces&quot;:[]}
-&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.InterfaceConsumer@10001&quot;}}
-&gt; {&quot;api&quot;:&quot;invoke&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.InterfaceConsumer@10001&quot;},&quot;method&quot;:&quot;composeResult&quot;,&quot;args&quot;:[]}
-&lt; {&quot;callback&quot;:{&quot;cbid&quot;:&quot;jsii::callback::20000&quot;,&quot;invoke&quot;:{&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]},&quot;method&quot;:&quot;methodCall&quot;,&quot;args&quot;:[]}}}
-&gt; {&quot;complete&quot;:{&quot;api&quot;:&quot;complete&quot;,&quot;cbid&quot;:&quot;jsii::callback::20000&quot;,&quot;result&quot;:&quot;Hello!&quot;}}
-&lt; {&quot;callback&quot;:{&quot;cbid&quot;:&quot;jsii::callback::20001&quot;,&quot;get&quot;:{&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]},&quot;property&quot;:&quot;property&quot;}}}
-&gt; {&quot;complete&quot;:{&quot;api&quot;:&quot;complete&quot;,&quot;cbid&quot;:&quot;jsii::callback::20001&quot;,&quot;result&quot;:1337.0}}
-&lt; {&quot;ok&quot;:{&quot;result&quot;:&quot;Hello! / 1337&quot;}}
+&gt; {"api":"create","fqn":"Object","args":[],"overrides":[{"method":"methodCall"},{"property":"property"}],"interfaces":["test.IBehavioralInterface"]}
+&lt; {"ok":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.IBehavioralInterface"]}}
+&gt; {"api":"create","fqn":"test.InterfaceConsumer","args":[{"$jsii.byref":"Object@10000","$jsii.interfaces":[]}],"overrides":[],"interfaces":[]}
+&lt; {"ok":{"$jsii.byref":"test.InterfaceConsumer@10001"}}
+&gt; {"api":"invoke","objref":{"$jsii.byref":"test.InterfaceConsumer@10001"},"method":"composeResult","args":[]}
+&lt; {"callback":{"cbid":"jsii::callback::20000","invoke":{"objref":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.IBehavioralInterface"]},"method":"methodCall","args":[]}}}
+&gt; {"complete":{"api":"complete","cbid":"jsii::callback::20000","result":"Hello!"}}
+&lt; {"callback":{"cbid":"jsii::callback::20001","get":{"objref":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.IBehavioralInterface"]},"property":"property"}}}
+&gt; {"complete":{"api":"complete","cbid":"jsii::callback::20001","result":1337.0}}
+&lt; {"ok":{"result":"Hello! / 1337"}}
 </code></pre></div>
 </details>
 <h3 id="structs-keyword-arguments">Structs &amp; Keyword Arguments</h3>
@@ -3219,25 +3219,25 @@ respective values are passed in the correct parameter location when calling into
 <span class="p">}</span>
 
 <span class="c1">// WHEN</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ClassType</span><span class="p">(</span><span class="s1">&#39;Bazinga!&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">1337</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ClassType</span><span class="p">(</span><span class="s1">'Bazinga!'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">1337</span><span class="w"> </span><span class="p">});</span>
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1337</span><span class="p">);</span>
-<span class="nx">expect</span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">opts</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Bazinga!&#39;</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">opts</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Bazinga!'</span><span class="p">);</span>
 </code></pre></div>
 <h5 id="kernel-trace_3">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
-# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
-# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
+# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
+# &lt; {"ok":{"assembly":"...","types":2}}
 
-&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.ClassType&quot;,&quot;args&quot;:[1337.0,{&quot;$jsii.struct&quot;:{&quot;fqn&quot;:&quot;test.StructType&quot;,&quot;data&quot;:{&quot;foo&quot;:&quot;Bazinga!&quot;}}}],&quot;overrides&quot;:[],&quot;interfaces&quot;:[]}
-&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.ClassType@10000&quot;}}
-&gt; {&quot;api&quot;:&quot;get&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.ClassType@10000&quot;},&quot;property&quot;:&quot;foo&quot;}
-&lt; {&quot;ok&quot;:{&quot;value&quot;:1337}}
-&gt; {&quot;api&quot;:&quot;get&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.ClassType@10000&quot;},&quot;property&quot;:&quot;opts&quot;}
-&lt; {&quot;ok&quot;:{&quot;value&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10001&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.StructType&quot;]}}}
-&gt; {&quot;api&quot;:&quot;get&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10001&quot;},&quot;property&quot;:&quot;foo&quot;}
-&lt; {&quot;ok&quot;:{&quot;value&quot;:&quot;Bazinga!&quot;}}
+&gt; {"api":"create","fqn":"test.ClassType","args":[1337.0,{"$jsii.struct":{"fqn":"test.StructType","data":{"foo":"Bazinga!"}}}],"overrides":[],"interfaces":[]}
+&lt; {"ok":{"$jsii.byref":"test.ClassType@10000"}}
+&gt; {"api":"get","objref":{"$jsii.byref":"test.ClassType@10000"},"property":"foo"}
+&lt; {"ok":{"value":1337}}
+&gt; {"api":"get","objref":{"$jsii.byref":"test.ClassType@10000"},"property":"opts"}
+&lt; {"ok":{"value":{"$jsii.byref":"Object@10001","$jsii.interfaces":["test.StructType"]}}}
+&gt; {"api":"get","objref":{"$jsii.byref":"Object@10001"},"property":"foo"}
+&lt; {"ok":{"value":"Bazinga!"}}
 </code></pre></div>
 </details>
 <h3 id="collections">Collections</h3>
@@ -3254,7 +3254,7 @@ type. This is a requirement for statically typed languages such as Java where ty
 <span class="p">}</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StructProvider</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">provide</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructType</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="w"> </span><span class="p">}];</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">'value'</span><span class="w"> </span><span class="p">}];</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -3268,12 +3268,12 @@ type. This is a requirement for statically typed languages such as Java where ty
 <span class="p">}</span>
 </code></pre></div>
 <h5 id="kernel-trace_4">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
-# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
-# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
+# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
+# &lt; {"ok":{"assembly":"...","types":2}}
 
-&gt; {&quot;api&quot;:&quot;sinvoke&quot;,&quot;fqn&quot;:&quot;test.StructProvider&quot;,&quot;method&quot;:&quot;provide&quot;,&quot;args&quot;:[]}
-&lt; {&quot;ok&quot;:{&quot;result&quot;:[{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.StructType&quot;]}]}}
+&gt; {"api":"sinvoke","fqn":"test.StructProvider","method":"provide","args":[]}
+&lt; {"ok":{"result":[{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.StructType"]}]}}
 </code></pre></div>
 </details>
 <h4 id="struct-elements-of-map-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>Map</code> are deserialized to the correct apparent type</h4>
@@ -3288,7 +3288,7 @@ type. This is a requirement for statically typed languages such as Java where ty
 <span class="p">}</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StructProvider</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">provide</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">StructType</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">'value'</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -3302,12 +3302,12 @@ type. This is a requirement for statically typed languages such as Java where ty
 <span class="p">}</span>
 </code></pre></div>
 <h5 id="kernel-trace_5">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
-# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
-# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
+# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
+# &lt; {"ok":{"assembly":"...","types":2}}
 
-&gt; {&quot;api&quot;:&quot;sinvoke&quot;,&quot;fqn&quot;:&quot;test.StructProvider&quot;,&quot;method&quot;:&quot;provide&quot;,&quot;args&quot;:[]}
-&lt; {&quot;ok&quot;:{&quot;result&quot;:{&quot;$jsii.map&quot;:{&quot;foo&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.StructType&quot;]}}}}}
+&gt; {"api":"sinvoke","fqn":"test.StructProvider","method":"provide","args":[]}
+&lt; {"ok":{"result":{"$jsii.map":{"foo":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.StructType"]}}}}}
 </code></pre></div>
 </details>
 
@@ -3330,7 +3330,7 @@ type. This is a requirement for statically typed languages such as Java where ty
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-07-20
+    2026-09-22
   </span>
 
     

@@ -2531,7 +2531,7 @@ output pipes.</p>
 <p>Upon initialization, the <code>@jsii/kernel</code> process introduces itself to the <em>host</em> application by emitting a single JSON
 message:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;hello&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@jsii/runtime@0.21.1&quot;</span>
+<span class="w">  </span><span class="nt">"hello"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@jsii/runtime@0.21.1"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Any additional key present on the <code>hello</code> message will be silently ignored by a <em>host</em> library that does not know how to
@@ -2565,19 +2565,19 @@ Requests take the form of JSON-encoded messages that all follow the following pa
 <span class="cm">   * This field discriminates the various request types.</span>
 <span class="cm">   */</span>
 <span class="w">  </span><span class="nx">api</span><span class="o">:</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;load&#39;</span><span class="w"> </span><span class="c1">// Loading jsii assemblies into the Kernel</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;naming&#39;</span><span class="w"> </span><span class="c1">// Obtaining naming information for loaded assemblies</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;stats&#39;</span><span class="w"> </span><span class="c1">// Obtaining statistics about the Kernel usage</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;create&#39;</span><span class="w"> </span><span class="c1">// Creating objects</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;del&#39;</span><span class="w"> </span><span class="c1">// Destroying objects</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;invoke&#39;</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;sinvoke&#39;</span><span class="w"> </span><span class="c1">// Invoking methods (and static methods)</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;get&#39;</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;sget&#39;</span><span class="w"> </span><span class="c1">// Invoking getters (and static getters)</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;set&#39;</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;sset&#39;</span><span class="w"> </span><span class="c1">// Invoking setters (and static setters)</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;begin&#39;</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;end&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Asynchronous method invocation</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'load'</span><span class="w"> </span><span class="c1">// Loading jsii assemblies into the Kernel</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'naming'</span><span class="w"> </span><span class="c1">// Obtaining naming information for loaded assemblies</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'stats'</span><span class="w"> </span><span class="c1">// Obtaining statistics about the Kernel usage</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'create'</span><span class="w"> </span><span class="c1">// Creating objects</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'del'</span><span class="w"> </span><span class="c1">// Destroying objects</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'invoke'</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'sinvoke'</span><span class="w"> </span><span class="c1">// Invoking methods (and static methods)</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'get'</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'sget'</span><span class="w"> </span><span class="c1">// Invoking getters (and static getters)</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'set'</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'sset'</span><span class="w"> </span><span class="c1">// Invoking setters (and static setters)</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'begin'</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'end'</span><span class="p">;</span><span class="w"> </span><span class="c1">// Asynchronous method invocation</span>
 
 <span class="w">  </span><span class="c1">// ... request-type specific fields ...</span>
 <span class="p">}</span>
@@ -2596,7 +2596,7 @@ dependencies of a given <em>jsii</em> module must have been loaded into the kern
 <span class="w">  </span><span class="nx">tarball</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;load&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'load'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The response to the <code>load</code> call provides some high-level information pertaining to the loaded assembly, which may be
@@ -2618,7 +2618,7 @@ the translation table from a <em>jsii</em> fully-qualified name to a <em>host</e
 <span class="w">  </span><span class="nx">assembly</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;naming&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'naming'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>In response to the <code>naming</code> call, the <code>@jsii/kernel</code> returns the configuration block for each language supported by the
@@ -2639,7 +2639,7 @@ named <code>assembly</code>:</p>
 tests or in order to produce metrics for tracking the health of a long-running <em>jsii</em> app.</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StatsRequest</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;stats&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'stats'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The response to the <code>stats</code> call contains synthetic information about the current state of the <code>Kernel</code>:</p>
@@ -2664,26 +2664,26 @@ collection of <em>behavioral interfaces</em>.</p>
 <span class="w">  </span><span class="nx">overrides?</span><span class="o">:</span><span class="w"> </span><span class="kt">Override</span><span class="p">[];</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;create&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'create'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The response to the object call is a decorated <code>ObjectReference</code> object (which is a common parameter to other calls in
 the <code>@jsii/kernel</code> API, used to refer to a particular instance):</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">ObjectReference</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/** A handle that uniquely idenfies an instance */</span>
-<span class="w">  </span><span class="s1">&#39;$jsii.byref&#39;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="s1">'$jsii.byref'</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kd">interface</span><span class="w"> </span><span class="nx">CreateResponse</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">ObjectReference</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/** The list of interfaces implemented by the instance */</span>
-<span class="w">  </span><span class="s1">&#39;$jsii.interfaces&#39;</span><span class="nx">?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">  </span><span class="s1">'$jsii.interfaces'</span><span class="nx">?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The value of the <code>'$jsii.byref'</code> field of the <code>ObjectReference</code> type is formatted in the following way:</p>
 <div class="highlight"><pre><span></span><code>@aws-cdk/core.Stack@10003
 └────────┬────────┘ └─┬─┘
          │            └─ Opaque numeric identifier
-         └─ Object instance&#39;s base class&#39; jsii fully qualified name
+         └─ Object instance's base class' jsii fully qualified name
 </code></pre></div>
 <p>The first part of the reference identifier can have the special un-qualified value <code>Object</code> to denote the absence of a
 <em>jsii</em>-known base class (for example when the object <em>only</em> implements a <em>jsii</em> interface).</p>
@@ -2796,7 +2796,7 @@ triggered the callback request. This may be another callback request, or the fin
 <p>The <code>callbacks</code> call may be used to determine the list of all outstanding callback requests:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">CallbacksRequest</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;callbacks&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'callbacks'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>This call results in a list of outstanding callbacks:</p>
@@ -2814,7 +2814,7 @@ reclaim the associated memory footprint, the <code>del</code> API must be used:<
 <span class="w">  </span><span class="nx">objref</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectReference</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;del&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'del'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition danger">
@@ -2848,7 +2848,7 @@ reachable from there).</p>
 <span class="w">  </span><span class="nx">args?</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">[];</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;invoke&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'invoke'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Static method invocations do not have a receiving instance, and instead are implemented by way of the <code>sinvoke</code> call:</p>
@@ -2861,7 +2861,7 @@ reachable from there).</p>
 <span class="w">  </span><span class="nx">args?</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">[];</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sinvoke&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'sinvoke'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Note that, unlike in certain programming languages such as <strong>Java</strong>, it is illegal to attempt invoking a static method
@@ -2897,7 +2897,7 @@ an <code>invoke</code> call), and until it has completed that synchronous operat
 <span class="w">  </span><span class="nx">args?</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">[];</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;begin&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'begin'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition question">
@@ -2920,7 +2920,7 @@ an <code>invoke</code> call), and until it has completed that synchronous operat
 <span class="w">  </span><span class="nx">promiseid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;end&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'end'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>This will result in the promise being awaited and then resolved:</p>
@@ -2943,7 +2943,7 @@ that might cause the application to terminate in certain environments.</p>
 <span class="w">  </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;get&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'get'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>When operating on static properties, or in order to obtain the value of <code>enum</code> constants, the <code>sget</code> API must be used
@@ -2955,7 +2955,7 @@ instead:</p>
 <span class="w">  </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sget&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'sget'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Both the <code>get</code> and <code>sget</code> calls result in the same response:</p>
@@ -2975,7 +2975,7 @@ instead:</p>
 <span class="w">  </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;set&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'set'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>When operating on static properties, the <code>sset</code> API must be used instead:</p>
@@ -2988,7 +2988,7 @@ instead:</p>
 <span class="w">  </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
-<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sset&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'sset'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Both the <code>set</code> and <code>sset</code> calls result in the same response, which is an empty object:</p>
@@ -3014,7 +3014,7 @@ instead:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-07-20
+    2026-09-22
   </span>
 
     

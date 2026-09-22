@@ -2300,7 +2300,7 @@ corresponding implementation (for example, using reflection).</p>
 <span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">baz</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">bar</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">baz</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">baz</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">baz</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">baz</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="nx">reverse</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="p">{</span>
@@ -2317,7 +2317,7 @@ corresponding implementation (for example, using reflection).</p>
 
 <span class="w">  </span><span class="nd">@Override</span>
 <span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getBaz</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;baz&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"baz"</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="nd">@Override</span>
@@ -2333,28 +2333,28 @@ corresponding implementation (for example, using reflection).</p>
 ┃  Kernel   ┃                                                  ┃Runtime Library┃
 ┗━━━━━┳━━━━━┛                                                  ┗━━━━━━━┳━━━━━━━┛
       ┃  ┌──────────────────────────────────────────────────────────┐  ┃
-      ┃◀─┤  Create(FQN: &quot;FooClass&quot;, Overrides=[&quot;baz&quot;, &quot;reverse&quot;])   ├──┃
+      ┃◀─┤  Create(FQN: "FooClass", Overrides=["baz", "reverse"])   ├──┃
       ┃  └──────────────────────────────────────────────────────────┘  ┃
       ┃  ┌──────────────────────────────────────────────────────────┐  ┃
-      ┃──┤                     OK(ObjID: &quot;Foo&quot;)                     ├─▶┃
+      ┃──┤                     OK(ObjID: "Foo")                     ├─▶┃
       ┃  └──────────────────────────────────────────────────────────┘  ┃
       ┃  ┌──────────────────────────────────────────────────────────┐  ┃
-      ┃◀─┤        InvokeRequest(ObjID: &quot;Foo&quot;, Method: &quot;bar&quot;)        ├──┃
+      ┃◀─┤        InvokeRequest(ObjID: "Foo", Method: "bar")        ├──┃
       ┃  └──────────────────────────────────────────────────────────┘  ┃
       ┃  ┌──────────────────────────────────────────────────────────┐  ┃
-      ┃──┤ CallbackRequest(ID: 1, ObjID: &quot;Foo&quot;, Invoke: &quot;reverse&quot;)  ├─▶┃────┐
+      ┃──┤ CallbackRequest(ID: 1, ObjID: "Foo", Invoke: "reverse")  ├─▶┃────┐
       ┃  └──────────────────────────────────────────────────────────┘  ┃    │call
-      ┃  ┌──────────────────────────────────────────────────────────┐  ┃    │obj(&quot;Foo&quot;).reverse()
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃    │obj("Foo").reverse()
       ┃◀─┤            Complete(CallbackID: 1, OK: true)             ├──┃◀───┘
       ┃  └──────────────────────────────────────────────────────────┘  ┃
       ┃  ┌──────────────────────────────────────────────────────────┐  ┃
-      ┃──┤     CallbackRequest(ID: 2, ObjID: &quot;Foo&quot;, Get: &quot;baz&quot;)     ├─▶┃────┐
+      ┃──┤     CallbackRequest(ID: 2, ObjID: "Foo", Get: "baz")     ├─▶┃────┐
       ┃  └──────────────────────────────────────────────────────────┘  ┃    │get
-      ┃  ┌──────────────────────────────────────────────────────────┐  ┃    │obj(&quot;Foo&quot;).baz
-      ┃◀─┤            Complete(CallbackID: 2, OK: &quot;baz&quot;)            ├──┃◀───┘
+      ┃  ┌──────────────────────────────────────────────────────────┐  ┃    │obj("Foo").baz
+      ┃◀─┤            Complete(CallbackID: 2, OK: "baz")            ├──┃◀───┘
       ┃  └──────────────────────────────────────────────────────────┘  ┃
       ┃  ┌──────────────────────────────────────────────────────────┐  ┃
-      ┃──┤                InvokeResponse(OK: &quot;zab&quot;)                 ├─▶┃
+      ┃──┤                InvokeResponse(OK: "zab")                 ├─▶┃
       ┃  └──────────────────────────────────────────────────────────┘  ┃
       ┃                                                                ┃
 </code></pre></div>
@@ -2383,7 +2383,7 @@ corresponding implementation (for example, using reflection).</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-07-20
+    2026-09-22
   </span>
 
     

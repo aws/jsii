@@ -3264,13 +3264,13 @@ the behavior dictated by the declared element type of the list, combined with th
 <p>JSON has no standard expression for <code>Date</code>. A special JSON object representation is used to allow unambiguously
 conveying a date. The wrapper has a single key (<code>$jsii.date</code>) with the <a href="https://www.iso.org/obp/ui#iso:std:iso:8601:-1:ed-1:v1:en">ISO 8601-1</a> UTC representation of the <code>Date</code>
 value:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-20T14:04:00.000Z&quot;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"$jsii.date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-20T14:04:00.000Z"</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <h3 id="enum-serialization">Enum Serialization</h3>
 <p>In <strong>JavaScript</strong>, <code>enum</code> entries are represented by their value equivalent. In order to support statically typed
 representations in other languages, these are serialized using a dedicated wrapper object, using a single key
 (<code>$jsii.enum</code>) with the fully qualified name of the <code>enum</code> entry (formatted as <code>&lt;enum type fqn&gt;/&lt;entry name&gt;</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.EnumType/ENTRY_NAME&quot;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"$jsii.enum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@scope/module.EnumType/ENTRY_NAME"</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <h3 id="identity-serialization">Identity Serialization</h3>
 <p>The identity serialization is achieved by using the standard JSON representation of the primitive type. JSON strings are
@@ -3280,10 +3280,10 @@ expressed using the <code>UTF-8</code> character set.</p>
 with the JSON representation of the encoded object; where values are serialized according to the behavior dictated by
 the element type of the mapping, combined with the dynamic type of the value itself:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;$jsii.map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-20T14:04:00.000Z&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"$jsii.map"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"foo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$jsii.date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-20T14:04:00.000Z"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"map"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$jsii.map"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -3294,8 +3294,8 @@ the instance within its owning process. It includes a <code>$jsii.byref</code> k
 identifies the instance, and an optional <code>$jsii.interfaces</code> key that provides a list of interfaces that the object
 implements.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;$jsii.byref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.Foo@1337&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;$jsii.interfaces&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;@scope/module.IBar&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@scope/module.IBaz&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"$jsii.byref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@scope/module.Foo@1337"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"$jsii.interfaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@scope/module.IBar"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@scope/module.IBaz"</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="value-serialization">Value Serialization</h3>
@@ -3305,11 +3305,11 @@ type information for the provided data as well as the <em>struct</em>'s members.
 type, and a <code>data</code> key that contains the members of the <em>struct</em>, serialized according to the behavior described in this
 document.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;$jsii.struct&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;fqn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.StructType&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;enumValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;$jsii.enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@scope/module.EnumType.ENTRY_NAME&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;stringProperty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello, I&#39;m a string!&quot;</span>
+<span class="w">  </span><span class="nt">"$jsii.struct"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"fqn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@scope/module.StructType"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"enumValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"$jsii.enum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@scope/module.EnumType.ENTRY_NAME"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"stringProperty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello, I'm a string!"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -3337,7 +3337,7 @@ one <em>submodule</em>.</p>
 <p>There are two supported ways to introduce <em>submodules</em>:</p>
 <ul>
 <li>Using the namespaced export syntax:
-  <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">ns</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./module&#39;</span><span class="p">;</span>
+  <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">ns</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./module'</span><span class="p">;</span>
 </code></pre></div></li>
 <li>Using an explicit namespace declaration:
   <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="nx">namespace</span><span class="w"> </span><span class="nx">ns</span><span class="w"> </span><span class="p">{</span>
@@ -3401,7 +3401,7 @@ basis for the <em>jsii</em> type system. Additionally, the <strong>JavaScript</s
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-07-20
+    2026-09-22
   </span>
 
     

@@ -2738,11 +2738,11 @@ optional in the standard <a href="https://docs.npmjs.com/files/package.json">pac
   the <code>object</code> format:
   <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">// ...</span>
-<span class="w">  </span><span class="s2">&quot;author&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;The Octocat&quot;</span><span class="p">,</span><span class="w">                </span><span class="c1">// Required</span>
-<span class="w">    </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;octocat@github.com&quot;</span><span class="p">,</span><span class="w">        </span><span class="c1">// Optional</span>
-<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/octocat&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Optional</span>
-<span class="w">    </span><span class="s2">&quot;organization&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w">                 </span><span class="c1">// Optional (defaults to false)</span>
+<span class="w">  </span><span class="s2">"author"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"The Octocat"</span><span class="p">,</span><span class="w">                </span><span class="c1">// Required</span>
+<span class="w">    </span><span class="s2">"email"</span><span class="o">:</span><span class="w"> </span><span class="s2">"octocat@github.com"</span><span class="p">,</span><span class="w">        </span><span class="c1">// Optional</span>
+<span class="w">    </span><span class="s2">"url"</span><span class="o">:</span><span class="w"> </span><span class="s2">"https://github.com/octocat"</span><span class="p">,</span><span class="w">  </span><span class="c1">// Optional</span>
+<span class="w">    </span><span class="s2">"organization"</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w">                 </span><span class="c1">// Optional (defaults to false)</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="c1">// ...</span>
 <span class="p">}</span>
@@ -2782,10 +2782,10 @@ bindings whenever possible.</p>
 <p>The <a href="https://docs.npmjs.com/files/package.json#repository"><code>repository</code></a> field must be set to the URL of the source-control system (such as a <code>git</code>
 repository) for the package. The recommended way to provide the value is using the <code>object</code> representation:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;repository&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/aws/jsii.git&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Required</span>
-<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;git&quot;</span><span class="p">,</span><span class="w">                            </span><span class="c1">// Recommended</span>
-<span class="w">    </span><span class="s2">&quot;directory&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/path&quot;</span><span class="w">                      </span><span class="c1">// Optional</span>
+<span class="w">  </span><span class="s2">"repository"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"url"</span><span class="o">:</span><span class="w"> </span><span class="s2">"https://github.com/aws/jsii.git"</span><span class="p">,</span><span class="w"> </span><span class="c1">// Required</span>
+<span class="w">    </span><span class="s2">"type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"git"</span><span class="p">,</span><span class="w">                            </span><span class="c1">// Recommended</span>
+<span class="w">    </span><span class="s2">"directory"</span><span class="o">:</span><span class="w"> </span><span class="s2">"/path"</span><span class="w">                      </span><span class="c1">// Optional</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2856,7 +2856,7 @@ following entries:</p>
 <td><code>tsc</code></td>
 <td><code class="highlight"><span class="nx">object</span></code></td>
 <td style="text-align: center;"></td>
-<td><code class="highlight"><span class="p">{</span><span class="w"> </span><span class="nx">outDir</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">rootDir</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="p">}</span></code></td>
+<td><code class="highlight"><span class="p">{</span><span class="w"> </span><span class="nx">outDir</span><span class="o">:</span><span class="w"> </span><span class="s1">'.'</span><span class="p">,</span><span class="w"> </span><span class="nx">rootDir</span><span class="o">:</span><span class="w"> </span><span class="s1">'.'</span><span class="w"> </span><span class="p">}</span></code></td>
 <td><em>all</em></td>
 </tr>
 <tr>
@@ -2868,16 +2868,16 @@ following entries:</p>
 </tr>
 <tr>
 <td><code>validateTsconfig</code></td>
-<td><code class="highlight"><span class="s1">&#39;strict&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;generated&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;minimal&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;off&#39;</span></code></td>
+<td><code class="highlight"><span class="s1">'strict'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'generated'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'minimal'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'off'</span></code></td>
 <td style="text-align: center;"></td>
 <td><em>none</em></td>
 <td><code>&gt;= 5.2</code></td>
 </tr>
 <tr>
 <td><code>versionFormat</code></td>
-<td><code class="highlight"><span class="s1">&#39;short&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;full&#39;</span></code></td>
+<td><code class="highlight"><span class="s1">'short'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'full'</span></code></td>
 <td style="text-align: center;"></td>
-<td><code class="highlight"><span class="s1">&#39;full&#39;</span></code></td>
+<td><code class="highlight"><span class="s1">'full'</span></code></td>
 <td><em>all</em></td>
 </tr>
 </tbody>
@@ -2945,8 +2945,8 @@ are set in the <code>jsii.tsc</code> section of the <code>package.json</code> fi
 file that should be used. Usually this will be <code>"tsconfig.json"</code>, but can be set to any filename.
 The provided tsconfig is subject to validation rules, see below for more details.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;jsii&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;tsconfig&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tsconfig.json&quot;</span>
+<span class="w">  </span><span class="nt">"jsii"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"tsconfig"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tsconfig.json"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2985,9 +2985,9 @@ If needed, you can change the level of enforcement with the <code>validateTsconf
 <img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" title=":warning:" /> Resulting jsii assembly/package may be incompatible with wider ecosystem</p>
 <p>There is currently no easy way to inspect these rule sets, however detailed error messages are returned if a provided tsconfig fails validation.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;jsii&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;tsconfig&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tsconfig.json&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;validateTsconfig&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generated&quot;</span><span class="w"> </span><span class="c1">// ensure user tsconfig is similar to jsii-generated tsconfig</span>
+<span class="w">  </span><span class="nt">"jsii"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"tsconfig"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tsconfig.json"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"validateTsconfig"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generated"</span><span class="w"> </span><span class="c1">// ensure user tsconfig is similar to jsii-generated tsconfig</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3013,13 +3013,13 @@ generation problems.</p>
 "message", by default. Diagnostics categorized as "error" will fail the jsii compiler and the rest will be printed to
 console.</p>
 <p>These can be re-configured to a different category under the <code>diagnostics</code> key as so -</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;jsii&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"jsii"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// ...</span>
-<span class="w">  </span><span class="nt">&quot;diagnostics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;documentation/non-existent-parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;code-style/submodule-name-casing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;JSII9998&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;JSII9001&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span>
+<span class="w">  </span><span class="nt">"diagnostics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"documentation/non-existent-parameter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"code-style/submodule-name-casing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"JSII9998"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"JSII9001"</span><span class="p">:</span><span class="w"> </span><span class="s2">"warning"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3060,7 +3060,7 @@ within the NPM package.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-07-20
+    2026-09-22
   </span>
 
     
