@@ -131,9 +131,25 @@ export class DotNetGenerator extends Generator {
             return Promise.resolve(undefined);
           })
         : undefined;
+
+    // Include the README in the package so it is rendered on NuGet.org
+    let readmeFile: string | undefined;
+    if (this.assembly.readme?.markdown) {
+      readmeFile = 'README.md';
+      await fs.writeFile(
+        path.join(outdir, packageId, readmeFile),
+        this.dotnetDocGenerator.renderMarkdown(this.assembly.readme.markdown, {
+          api: 'moduleReadme',
+          moduleFqn: this.assembly.name,
+        }),
+        { encoding: 'utf8' },
+      );
+    }
+
     filegen.generateProjectFile(
       this.typeresolver.namespaceDependencies,
       iconFile,
+      readmeFile,
     );
 
     // Create an anchor file for the current model
