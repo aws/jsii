@@ -81,6 +81,10 @@
         "classifiers": [
           "Test :: Classifier :: Is Dummy"
         ]
+      },
+      "ruby": {
+        "gem": "jsii-calc",
+        "module": "JsiiCalc"
       }
     },
     "tsc": {

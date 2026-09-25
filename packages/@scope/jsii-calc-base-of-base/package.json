@@ -55,6 +55,10 @@
       "python": {
         "distName": "scope.jsii-calc-base-of-base",
         "module": "scope.jsii_calc_base_of_base"
+      },
+      "ruby": {
+        "gem": "scope-jsii-calc-base-of-base",
+        "module": "Scope::JsiiCalcBaseOfBase"
       }
     },
     "tsc": {

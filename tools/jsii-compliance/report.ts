@@ -149,7 +149,15 @@ for (const [i, testCase] of suite.testCases.entries()) {
 
   for (const language of Object.keys(suite.bindings)) {
     const report = reports[language];
-    const testResult = report?.[normalizeTestName(testCase.name)];
+
+    // No report file for this binding means we have no data at all — render
+    // 'n/a' rather than implying every test is missing (or scoring 0.00%).
+    if (!report) {
+      row[language] = 'n/a';
+      continue;
+    }
+
+    const testResult = report[normalizeTestName(testCase.name)];
 
     const status = determineTestStatus(testResult);
     row[language] = testResult?.url ? `[${status}](${testResult.url})` : status;
@@ -166,7 +174,13 @@ for (const [i, testCase] of suite.testCases.entries()) {
 
 const columns = ['number', 'test'];
 
-for (const language of Object.keys(reports)) {
+for (const language of Object.keys(suite.bindings)) {
+  // A binding without a report file has no percentage to claim.
+  if (!(language in reports)) {
+    columns.push(`${language} (n/a)`);
+    continue;
+  }
+
   const coverage = (
     (successes[language] / suite.testCases.length) *
     100
