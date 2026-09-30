@@ -42,13 +42,13 @@
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "eslint": "^9.39.5",
-    "jest": "^30.5.1",
+    "jest": "^30.5.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
     "source-map-loader": "^5.0.0",
     "terser-webpack-plugin": "^5.6.1",
     "typescript": "6.x",
-    "webpack": "^5.110.3",
+    "webpack": "^5.111.1",
     "webpack-cli": "^7.2.3"
   }
 }
