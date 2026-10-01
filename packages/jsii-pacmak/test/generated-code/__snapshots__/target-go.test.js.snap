@@ -2851,6 +2851,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 ClassWithCollectionOfUnions.go
        ┣━ 📄 ClassWithCollections.go
        ┣━ 📄 ClassWithContainerTypes.go
+       ┣━ 📄 ClassWithDateUnions.go
        ┣━ 📄 ClassWithDocs.go
        ┣━ 📄 ClassWithJavaReservedWords.go
        ┣━ 📄 ClassWithMutableObjectLiteralProperty.go
@@ -5945,6 +5946,114 @@ func NewClassWithContainerTypes_Override(c ClassWithContainerTypes, array *[]*Du
 		[]interface{}{array, record, obj, props},
 		c,
 	)
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/ClassWithDateUnions.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Unions that include \`Date\`, which requires the generated Go runtime type checks to import the "time" package.
+type ClassWithDateUnions interface {
+	UnionProperty() interface{}
+	SetUnionProperty(val interface{})
+	MethodWithCollectionsOfDateUnionsParams(list *[]interface{}, map_ *map[string]interface{}) *float64
+	MethodWithDateUnionParam(param interface{}) *string
+}
+
+// The jsii proxy struct for ClassWithDateUnions
+type jsiiProxy_ClassWithDateUnions struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_ClassWithDateUnions) UnionProperty() interface{} {
+	var returns interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClassWithDateUnions(unionProperty interface{}) ClassWithDateUnions {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithDateUnions{}
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithDateUnions",
+		[]interface{}{unionProperty},
+		&j,
+	)
+
+	return &j
+}
+
+func NewClassWithDateUnions_Override(c ClassWithDateUnions, unionProperty interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithDateUnions",
+		[]interface{}{unionProperty},
+		c,
+	)
+}
+
+func (j *jsiiProxy_ClassWithDateUnions)SetUnionProperty(val interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
+		val,
+	)
+}
+
+func ClassWithDateUnions_StaticMethodWithDateUnionParam(param interface{}) *string {
+	_init_.Initialize()
+
+	var returns *string
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.ClassWithDateUnions",
+		"staticMethodWithDateUnionParam",
+		[]interface{}{param},
+		&returns,
+	)
+
+	return returns
+}
+
+func (c *jsiiProxy_ClassWithDateUnions) MethodWithCollectionsOfDateUnionsParams(list *[]interface{}, map_ *map[string]interface{}) *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		c,
+		"methodWithCollectionsOfDateUnionsParams",
+		[]interface{}{list, map_},
+		&returns,
+	)
+
+	return returns
+}
+
+func (c *jsiiProxy_ClassWithDateUnions) MethodWithDateUnionParam(param interface{}) *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		c,
+		"methodWithDateUnionParam",
+		[]interface{}{param},
+		&returns,
+	)
+
+	return returns
 }
 
 
@@ -21511,6 +21620,18 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.ClassWithDateUnions",
+		reflect.TypeOf((*ClassWithDateUnions)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "methodWithCollectionsOfDateUnionsParams", GoMethod: "MethodWithCollectionsOfDateUnionsParams"},
+			_jsii_.MemberMethod{JsiiMethod: "methodWithDateUnionParam", GoMethod: "MethodWithDateUnionParam"},
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ClassWithDateUnions{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.ClassWithDocs",
 		reflect.TypeOf((*ClassWithDocs)(nil)).Elem(),
 		nil, // no members
@@ -26990,6 +27111,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 ClassWithContainerTypes__checks.go
        ┣━ 🆕 ClassWithContainerTypes__no_checks.go
        ┣━ 📄 ClassWithContainerTypes.go.diff
+       ┣━ 🆕 ClassWithDateUnions__checks.go
+       ┣━ 🆕 ClassWithDateUnions__no_checks.go
+       ┣━ 📄 ClassWithDateUnions.go.diff
        ┣━ 🆕 ClassWithJavaReservedWords__checks.go
        ┣━ 🆕 ClassWithJavaReservedWords__no_checks.go
        ┣━ 📄 ClassWithJavaReservedWords.go.diff
@@ -29698,6 +29822,247 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateNewClassWithContainerTypesParameters(array *[]*DummyObj, record *map[string]*DummyObj, obj *map[string]*DummyObj, props *ContainerProps) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithDateUnions.go.diff 1`] = `
+--- go/jsiicalc/ClassWithDateUnions.go	--no-runtime-type-checking
++++ go/jsiicalc/ClassWithDateUnions.go	--runtime-type-checking
+@@ -30,10 +30,13 @@
+ 
+ 
+ func NewClassWithDateUnions(unionProperty interface{}) ClassWithDateUnions {
+ 	_init_.Initialize()
+ 
++	if err := validateNewClassWithDateUnionsParameters(unionProperty); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_ClassWithDateUnions{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.ClassWithDateUnions",
+ 		[]interface{}{unionProperty},
+@@ -52,20 +55,26 @@
+ 		c,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_ClassWithDateUnions)SetUnionProperty(val interface{}) {
++	if err := j.validateSetUnionPropertyParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"unionProperty",
+ 		val,
+ 	)
+ }
+ 
+ func ClassWithDateUnions_StaticMethodWithDateUnionParam(param interface{}) *string {
+ 	_init_.Initialize()
+ 
++	if err := validateClassWithDateUnions_StaticMethodWithDateUnionParamParameters(param); err != nil {
++		panic(err)
++	}
+ 	var returns *string
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.ClassWithDateUnions",
+ 		"staticMethodWithDateUnionParam",
+@@ -75,10 +84,13 @@
+ 
+ 	return returns
+ }
+ 
+ func (c *jsiiProxy_ClassWithDateUnions) MethodWithCollectionsOfDateUnionsParams(list *[]interface{}, map_ *map[string]interface{}) *float64 {
++	if err := c.validateMethodWithCollectionsOfDateUnionsParamsParameters(list, map_); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.Invoke(
+ 		c,
+ 		"methodWithCollectionsOfDateUnionsParams",
+@@ -88,10 +100,13 @@
+ 
+ 	return returns
+ }
+ 
+ func (c *jsiiProxy_ClassWithDateUnions) MethodWithDateUnionParam(param interface{}) *string {
++	if err := c.validateMethodWithDateUnionParamParameters(param); err != nil {
++		panic(err)
++	}
+ 	var returns *string
+ 
+ 	_jsii_.Invoke(
+ 		c,
+ 		"methodWithDateUnionParam",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithDateUnions__checks.go.diff 1`] = `
+--- go/jsiicalc/ClassWithDateUnions__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/ClassWithDateUnions__checks.go	--runtime-type-checking
+@@ -0,0 +1,129 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++	"time"
++)
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithCollectionsOfDateUnionsParamsParameters(list *[]interface{}, map_ *map[string]interface{}) error {
++	if list == nil {
++		return fmt.Errorf("parameter list is required, but nil was provided")
++	}
++	for idx_a33039, v := range *list {
++		switch v.(type) {
++		case *string:
++			// ok
++		case string:
++			// ok
++		case *time.Time:
++			// ok
++		case time.Time:
++			// ok
++		default:
++			return fmt.Errorf("parameter list[%#v] must be one of the allowed types: *string, *time.Time; received %#v (a %T)", idx_a33039, v, v)
++		}
++	}
++
++	if map_ == nil {
++		return fmt.Errorf("parameter map_ is required, but nil was provided")
++	}
++	for idx_509433, v := range *map_ {
++		switch v.(type) {
++		case *string:
++			// ok
++		case string:
++			// ok
++		case *time.Time:
++			// ok
++		case time.Time:
++			// ok
++		default:
++			return fmt.Errorf("parameter map_[%#v] must be one of the allowed types: *string, *time.Time; received %#v (a %T)", idx_509433, v, v)
++		}
++	}
++
++	return nil
++}
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithDateUnionParamParameters(param interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	switch param.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter param must be one of the allowed types: *string, *time.Time; received %#v (a %T)", param, param)
++	}
++
++	return nil
++}
++
++func validateClassWithDateUnions_StaticMethodWithDateUnionParamParameters(param interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	switch param.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter param must be one of the allowed types: *string, *time.Time; received %#v (a %T)", param, param)
++	}
++
++	return nil
++}
++
++func (j *jsiiProxy_ClassWithDateUnions) validateSetUnionPropertyParameters(val interface{}) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++	switch val.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter val must be one of the allowed types: *string, *time.Time; received %#v (a %T)", val, val)
++	}
++
++	return nil
++}
++
++func validateNewClassWithDateUnionsParameters(unionProperty interface{}) error {
++	if unionProperty == nil {
++		return fmt.Errorf("parameter unionProperty is required, but nil was provided")
++	}
++	switch unionProperty.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter unionProperty must be one of the allowed types: *string, *time.Time; received %#v (a %T)", unionProperty, unionProperty)
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithDateUnions__no_checks.go.diff 1`] = `
+--- go/jsiicalc/ClassWithDateUnions__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/ClassWithDateUnions__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,26 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithCollectionsOfDateUnionsParamsParameters(list *[]interface{}, map_ *map[string]interface{}) error {
++	return nil
++}
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithDateUnionParamParameters(param interface{}) error {
++	return nil
++}
++
++func validateClassWithDateUnions_StaticMethodWithDateUnionParamParameters(param interface{}) error {
++	return nil
++}
++
++func (j *jsiiProxy_ClassWithDateUnions) validateSetUnionPropertyParameters(val interface{}) error {
++	return nil
++}
++
++func validateNewClassWithDateUnionsParameters(unionProperty interface{}) error {
 +	return nil
 +}
 +

@@ -443,6 +443,9 @@ abstract class Validation {
             runtime: hasInterface,
             time: false,
           },
+          // The `case` clauses emitted below reference each member type
+          // (e.g. `*time.Time` for dates), so their imports are required.
+          ...types.map((t) => t.specialDependencies),
           ...types.flatMap((t) => {
             const validator = Validation.forTypeMap(
               expression,

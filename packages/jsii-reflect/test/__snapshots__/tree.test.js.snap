@@ -1398,6 +1398,32 @@ exports[`showAll 1`] = `
  │   │   └─┬ props property
  │   │     ├── immutable
  │   │     └── type: Optional<jsii-calc.ContainerProps>
+ │   ├─┬ class ClassWithDateUnions
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: date | string
+ │   │   ├─┬ static staticMethodWithDateUnionParam(param) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: date | string
+ │   │   │ └── returns: string
+ │   │   ├─┬ methodWithCollectionsOfDateUnionsParams(list,map) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ ├─┬ list
+ │   │   │ │ │ └── type: Array<date | string>
+ │   │   │ │ └─┬ map
+ │   │   │ │   └── type: Map<string => date | string>
+ │   │   │ └── returns: number
+ │   │   ├─┬ methodWithDateUnionParam(param) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: date | string
+ │   │   │ └── returns: string
+ │   │   └─┬ unionProperty property
+ │   │     └── type: date | string
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
@@ -4403,6 +4429,7 @@ exports[`types 1`] = `
  │   ├── class ClassWithCollectionOfUnions
  │   ├── class ClassWithCollections
  │   ├── class ClassWithContainerTypes
+ │   ├── class ClassWithDateUnions
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty

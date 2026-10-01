@@ -3131,6 +3131,29 @@ export class VariadicTypeUnion {
 }
 
 /**
+ * Unions that include `Date`, which requires the generated Go runtime type
+ * checks to import the "time" package.
+ */
+export class ClassWithDateUnions {
+  public static staticMethodWithDateUnionParam(param: string | Date): string {
+    return String(param);
+  }
+
+  public constructor(public unionProperty: string | Date) {}
+
+  public methodWithDateUnionParam(param: string | Date): string {
+    return String(param);
+  }
+
+  public methodWithCollectionsOfDateUnionsParams(
+    list: Array<string | Date>,
+    map: Record<string, string | Date>,
+  ): number {
+    return list.length + Object.keys(map).length;
+  }
+}
+
+/**
  * Validate that namespaces being shadowed by local variables does not cause
  * type checking issues.
  *
