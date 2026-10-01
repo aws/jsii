@@ -125,6 +125,13 @@ export class DotNetDocGenerator {
     }
   }
 
+  /**
+   * Returns the given markdown with its code samples translated to C#
+   */
+  public renderMarkdown(markdown: string, apiLocation: ApiLocation): string {
+    return this.convertSamplesInMarkdown(markdown, apiLocation);
+  }
+
   public emitMarkdownAsRemarks(
     markdown: string | undefined,
     apiLocation: ApiLocation,

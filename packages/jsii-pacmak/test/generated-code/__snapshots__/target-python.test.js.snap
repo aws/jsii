@@ -242,7 +242,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/README.md 1
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "build~=1.5.0"]
+requires = ["setuptools~=75.3.2", "build~=1.6.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -828,7 +828,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/REA
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "build~=1.5.0"]
+requires = ["setuptools~=75.3.2", "build~=1.6.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -1370,7 +1370,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/README.md 1`
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "build~=1.5.0"]
+requires = ["setuptools~=75.3.2", "build~=1.6.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
@@ -3192,7 +3192,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["setuptools~=75.3.2", "build~=1.5.0"]
+requires = ["setuptools~=75.3.2", "build~=1.6.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]

@@ -36,7 +36,7 @@ import { VersionFile } from './version-file';
 import { VERSION } from '../../version';
 
 export const GOMOD_FILENAME = 'go.mod';
-export const GO_VERSION = '1.25';
+export const GO_VERSION = '1.26';
 const MAIN_FILE = 'main.go';
 
 /*

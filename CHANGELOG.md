@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.141.0](https://github.com/aws/jsii/compare/v1.140.0...v1.141.0) (2026-10-01)
+
+
+### Features
+
+* **go:** bump minimum Go to 1.26 ([#5241](https://github.com/aws/jsii/issues/5241)) ([9c55c19](https://github.com/aws/jsii/commit/9c55c199c5575c045f0519b1ab980574ce75d5cd))
+* **jsii-pacmak:** include README in NuGet packages ([#5243](https://github.com/aws/jsii/issues/5243)) ([9300249](https://github.com/aws/jsii/commit/930024985e5b1b51a04a0e2aa249bee90dfe1dc4)), closes [#3717](https://github.com/aws/jsii/issues/3717)
+
 ## [1.140.0](https://github.com/aws/jsii/compare/v1.139.0...v1.140.0) (2026-08-24)
 
 

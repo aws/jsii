@@ -16,7 +16,7 @@ For specific languages, these are the minimum runtime versions that are supporte
 | ------- | ------- |
 | .NET    | 6.0     |
 | Java    | 8       |
-| Go      | 1.25    |
+| Go      | 1.26    |
 | Python  | 3.9     |
 
 [runtime architecture]: ../../overview/runtime-architecture.md
