@@ -87,9 +87,12 @@ from jsii_calc.python_self import (
 )
 from jsii_calc.submodule.isolated import Kwargs
 from jsii_calc.submodule.child import SomeEnum
+from jsii_calc.union import Resolvable
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 from scope.jsii_calc_lib.deprecation_removal import InterfaceFactory
+
+from jsii._reference_map import InterfaceDynamicProxy
 
 # Note: The names of these test functions have been chosen to map as closely to the
 #       Java Compliance tests as possible.
@@ -1445,6 +1448,95 @@ def test_byref_struct_can_be_used_when_not_expressedly_loaded():
     assert struct_fqn in _reference_map._data_types
     assert submodule in sys.modules
     assert isinstance(result, _reference_map._data_types[struct_fqn])
+
+
+def test_known_class_ref_with_struct_in_interfaces_resolves():
+    """
+    Verifies resolving an object reference whose primary type is a known
+    class, but whose ``interfaces`` list contains an unrelated struct
+    FQN, does not raise an Unknown interface exception. And that the known
+    class instance ends up as the proxy's primary delegate.
+
+    This shape occurs for properties typed as a union of a behavioral
+    interface and a struct, such as ``ConsumesUnion.union_property``
+    (``IResolvable | UnionResolvableStruct`` below), which mirrors AWS CDK
+    shapes like ``CfnLaunchTemplate.launchTemplateData: IResolvable |
+    LaunchTemplateDataProperty``.
+
+    The shape is produced by the kernel as follows:
+
+    - The kernel tries each union member's serializer in a fixed
+      priority order and uses the first one that doesn't throw an exception.
+
+        - SerializationClass.Void,
+        - SerializationClass.Date,
+        - SerializationClass.Scalar,
+        - SerializationClass.Json,
+        - SerializationClass.Enum,
+        - SerializationClass.Array,
+        - SerializationClass.Map,
+        - SerializationClass.Struct,
+        - SerializationClass.ReferenceType,
+        - SerializationClass.Any,
+
+      ``Struct`` serialization checks that the value is a non-null,
+      non-array, non-``Date`` object. Any object value matching that
+      criteria is serialized as a struct even if the real type is actually
+      the ``interface`` half of the union. From the example above, setting
+      the ``launchTemplateData`` property to ``Fn.condition_if`` sets the true
+      class as ``Intrinsic`` which implements the ``IResolvable`` interface.
+
+    - When Struct.serialize calls registerObject(value, "Object", ["...SomeDataProperty"]),
+      and the value was already registered under it's true class (``Intrinsic``), the identity
+      cache merges interfaces into the existing entry instead of creating a new one. That is
+      how a reference whose primary type is a known class ends up with a unrelated struct
+      FQN riding along in ``ref.interfaces``.
+
+      class_fqn='aws-cdk-lib.Intrinsic' ref.interfaces=['aws-cdk-lib.ICfnRuleConditionExpression']
+      ...
+      class_fqn='aws-cdk-lib.Intrinsic' ref.interfaces=['aws-cdk-lib.ICfnRuleConditionExpression', 'aws-cdk-lib.aws_ec2.CfnLaunchTemplate.LaunchTemplateDataProperty']
+
+    ``resolve()``'s "known class" branch (``class_fqn in _types``) used to
+    invoke ``_obtain_interface`` for every item in ``ref.interfaces``. If
+    ``ref.interfaces`` contained an entry for a struct registered in
+    ``_data_types``, then ``_obtain_interface`` would be unable to find
+    the interace and raise a ``ValueError``. To avoid the issue, the logic
+    now filters out any FQN in the ``_data_types`` map before invoking
+    ``_obtain_interface``.
+
+    This test simulates that exact shape with a synthetic ``ObjRef`` (a known
+    class FQN as the primary type, an unrelated struct FQN in ``interfaces``)
+    and checks not just that resolution succeeds, but that it produces the
+    *correct* result: the known ``Resolvable`` instance as the proxy's
+    primary delegate, and the struct FQN represented by an opaque fallback
+    delegate rather than being dropped, misidentified, or raising.
+    """
+    from jsii import _reference_map
+    from jsii._kernel.types import ObjRef
+
+    # FQNs of ConsumesUnion.union_property's `IResolvable | UnionResolvableStruct`
+    # union members (see packages/jsii-calc/lib/union.ts).
+    class_fqn = "jsii-calc.union.Resolvable"
+    struct_fqn = "jsii-calc.union.UnionResolvableStruct"
+
+    # Simulate the kernel returning a reference to a known Resolvable instance
+    # that also lists the struct's FQN in its interfaces -- the shape produced
+    # for union-typed values.
+    ref = ObjRef(ref=f"{class_fqn}@90127", interfaces=[struct_fqn])
+
+    # This must NOT raise: the struct FQN is recognized and skipped rather
+    # than treated as an (unknown) behavioral interface.
+    result = _reference_map.resolve_reference(jsii.kernel, ref)
+    assert result is not None
+    assert isinstance(result, InterfaceDynamicProxy)
+
+    # The known Resolvable instance should be the proxy's
+    # primary delegate, with the struct FQN represented as
+    # an opaque fallback rather than an (unknown) behavioral
+    # interface.
+    assert isinstance(result._delegates[0], Resolvable)
+    assert isinstance(result._delegates[1], _reference_map.Opaque)
+    assert result._delegates[1].__jsii_ref__ == ref
 
 
 def test_stripped_deprecated_member_can_be_received():
