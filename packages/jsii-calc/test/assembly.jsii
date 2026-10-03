@@ -1582,7 +1582,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3184
+        "line": 3207
       },
       "methods": [
         {
@@ -1592,7 +1592,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3193
+            "line": 3216
           },
           "name": "mutateProperties",
           "parameters": [
@@ -3121,6 +3121,195 @@
         }
       ],
       "symbolId": "lib/container-types:ClassWithContainerTypes"
+    },
+    "jsii-calc.ClassWithDateUnions": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Unions that include `Date`, which requires the generated Go runtime type checks to import the \"time\" package."
+      },
+      "fqn": "jsii-calc.ClassWithDateUnions",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 3142
+        },
+        "parameters": [
+          {
+            "name": "unionProperty",
+            "type": {
+              "union": {
+                "types": [
+                  {
+                    "primitive": "string"
+                  },
+                  {
+                    "primitive": "date"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3137
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3138
+          },
+          "name": "staticMethodWithDateUnionParam",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "union": {
+                  "types": [
+                    {
+                      "primitive": "string"
+                    },
+                    {
+                      "primitive": "date"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3148
+          },
+          "name": "methodWithCollectionsOfDateUnionsParams",
+          "parameters": [
+            {
+              "name": "list",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "primitive": "string"
+                        },
+                        {
+                          "primitive": "date"
+                        }
+                      ]
+                    }
+                  },
+                  "kind": "array"
+                }
+              }
+            },
+            {
+              "name": "map",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "union": {
+                      "types": [
+                        {
+                          "primitive": "string"
+                        },
+                        {
+                          "primitive": "date"
+                        }
+                      ]
+                    }
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3144
+          },
+          "name": "methodWithDateUnionParam",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "union": {
+                  "types": [
+                    {
+                      "primitive": "string"
+                    },
+                    {
+                      "primitive": "date"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "ClassWithDateUnions",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3142
+          },
+          "name": "unionProperty",
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "primitive": "date"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "symbolId": "lib/compliance:ClassWithDateUnions"
     },
     "jsii-calc.ClassWithDocs": {
       "assembly": "jsii-calc",
@@ -8476,7 +8665,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3205
+        "line": 3228
       },
       "methods": [
         {
@@ -8486,7 +8675,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3206
+            "line": 3229
           },
           "name": "describe",
           "returns": {
@@ -8502,7 +8691,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3209
+            "line": 3232
           },
           "name": "nativeToString",
           "returns": {
@@ -8518,7 +8707,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3211
+            "line": 3234
           },
           "name": "toString",
           "returns": {
@@ -11837,7 +12026,7 @@
         },
         "locationInModule": {
           "filename": "lib/compliance.ts",
-          "line": 3156
+          "line": 3179
         },
         "parameters": [
           {
@@ -11872,7 +12061,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3150
+        "line": 3173
       },
       "name": "ParamShadowsBuiltins",
       "symbolId": "lib/compliance:ParamShadowsBuiltins"
@@ -11887,7 +12076,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3168
+        "line": 3191
       },
       "name": "ParamShadowsBuiltinsProps",
       "properties": [
@@ -11899,7 +12088,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3170
+            "line": 3193
           },
           "name": "booleanProperty",
           "type": {
@@ -11914,7 +12103,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3169
+            "line": 3192
           },
           "name": "stringProperty",
           "type": {
@@ -11929,7 +12118,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3171
+            "line": 3194
           },
           "name": "structProperty",
           "type": {
@@ -11955,7 +12144,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3139
+        "line": 3162
       },
       "methods": [
         {
@@ -11964,7 +12153,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3141
+            "line": 3164
           },
           "name": "useScope",
           "parameters": [
@@ -12229,7 +12418,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3174
+        "line": 3197
       },
       "methods": [
         {
@@ -12239,7 +12428,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3175
+            "line": 3198
           },
           "name": "promiseIt",
           "static": true
@@ -12251,7 +12440,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3179
+            "line": 3202
           },
           "name": "instancePromiseIt"
         }
@@ -14183,7 +14372,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3214
+        "line": 3237
       },
       "methods": [
         {
@@ -14192,7 +14381,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3225
+            "line": 3248
           },
           "name": "makeAnonymousStringable",
           "returns": {
@@ -14208,7 +14397,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3221
+            "line": 3244
           },
           "name": "makePrivateStringable",
           "returns": {
@@ -14224,7 +14413,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3217
+            "line": 3240
           },
           "name": "makePublicStringable",
           "returns": {
@@ -14240,7 +14429,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3240
+            "line": 3263
           },
           "name": "describe",
           "overrides": "jsii-calc.IStringable",
@@ -14256,7 +14445,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3248
+            "line": 3271
           },
           "name": "nativeToString",
           "overrides": "jsii-calc.IStringable",
@@ -14272,7 +14461,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3244
+            "line": 3267
           },
           "name": "toString",
           "overrides": "jsii-calc.IStringable",
@@ -20344,5 +20533,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "8zCkQ4s8u1G+YV6XqQg5xv6Irda+gdxbB8OjhdzJ8nY="
+  "fingerprint": "AO4FkD0g+U6DCE176hcP3qpIP9xNEM8bmn3QFf4sNbk="
 }
