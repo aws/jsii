@@ -20419,7 +20419,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/union.ts",
-        "line": 15
+        "line": 19
       },
       "methods": [
         {
@@ -20428,7 +20428,7 @@
           },
           "locationInModule": {
             "filename": "lib/union.ts",
-            "line": 16
+            "line": 20
           },
           "name": "unionType",
           "parameters": [
@@ -20456,6 +20456,31 @@
       ],
       "name": "ConsumesUnion",
       "namespace": "union",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/union.ts",
+            "line": 24
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "jsii-calc.union.IResolvable"
+                },
+                {
+                  "fqn": "jsii-calc.union.UnionResolvableStruct"
+                }
+              ]
+            }
+          }
+        }
+      ],
       "symbolId": "lib/union:ConsumesUnion"
     },
     "jsii-calc.union.IResolvable": {
@@ -20526,6 +20551,39 @@
       "name": "Resolvable",
       "namespace": "union",
       "symbolId": "lib/union:Resolvable"
+    },
+    "jsii-calc.union.UnionResolvableStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.union.UnionResolvableStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/union.ts",
+        "line": 15
+      },
+      "name": "UnionResolvableStruct",
+      "namespace": "union",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/union.ts",
+            "line": 16
+          },
+          "name": "value",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "lib/union:UnionResolvableStruct"
     }
   },
   "usedFeatures": [
@@ -20533,5 +20591,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "AO4FkD0g+U6DCE176hcP3qpIP9xNEM8bmn3QFf4sNbk="
+  "fingerprint": "Y2SeKEcyG6WI7uV9yvkMYB7SXlL77AqUxrJr7nOGLDY="
 }

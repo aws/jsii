@@ -977,22 +977,30 @@ exports[`showAll 1`] = `
  │ │   └─┬ types
  │ │     ├─┬ class ConsumesUnion
  │ │     │ └─┬ members
- │ │     │   └─┬ static unionType(param) method
- │ │     │     ├── static
- │ │     │     ├─┬ parameters
- │ │     │     │ └─┬ param
- │ │     │     │   └── type: @scope/jsii-calc-lib.IFriendly | jsii-calc.union.IResolvable | jsii-calc.union.Resolvable
- │ │     │     └── returns: void
+ │ │     │   ├─┬ static unionType(param) method
+ │ │     │   │ ├── static
+ │ │     │   │ ├─┬ parameters
+ │ │     │   │ │ └─┬ param
+ │ │     │   │ │   └── type: @scope/jsii-calc-lib.IFriendly | jsii-calc.union.IResolvable | jsii-calc.union.Resolvable
+ │ │     │   │ └── returns: void
+ │ │     │   └─┬ unionProperty property
+ │ │     │     └── type: Optional<jsii-calc.union.IResolvable | jsii-calc.union.UnionResolvableStruct>
  │ │     ├─┬ class Resolvable
  │ │     │ ├── interfaces: IResolvable
  │ │     │ └─┬ members
  │ │     │   └─┬ resolve() method
  │ │     │     └── returns: any
- │ │     └─┬ interface IResolvable
+ │ │     ├─┬ interface IResolvable
+ │ │     │ └─┬ members
+ │ │     │   └─┬ resolve() method
+ │ │     │     ├── abstract
+ │ │     │     └── returns: any
+ │ │     └─┬ interface UnionResolvableStruct
  │ │       └─┬ members
- │ │         └─┬ resolve() method
+ │ │         └─┬ value property
  │ │           ├── abstract
- │ │           └── returns: any
+ │ │           ├── immutable
+ │ │           └── type: string
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -4403,7 +4411,8 @@ exports[`types 1`] = `
  │ │   └─┬ types
  │ │     ├── class ConsumesUnion
  │ │     ├── class Resolvable
- │ │     └── interface IResolvable
+ │ │     ├── interface IResolvable
+ │ │     └── interface UnionResolvableStruct
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
