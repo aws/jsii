@@ -3618,7 +3618,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📁 Union
        ┃           ┃  ┣━ 📄 ConsumesUnion.cs
        ┃           ┃  ┣━ 📄 IResolvable.cs
-       ┃           ┃  ┗━ 📄 Resolvable.cs
+       ┃           ┃  ┣━ 📄 IUnionResolvableStruct.cs
+       ┃           ┃  ┣━ 📄 Resolvable.cs
+       ┃           ┃  ┗━ 📄 UnionResolvableStruct.cs
        ┃           ┣━ 📄 UnionProperties.cs
        ┃           ┣━ 📄 UpcasingReflectable.cs
        ┃           ┣━ 📄 UseBundledDependency.cs
@@ -22340,6 +22342,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Union
         {
             InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), new System.Type[]{typeof(object)}, new object[]{param});
         }
+
+        /// <remarks>
+        /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.IUnionResolvableStruct" /></para>
+        /// </remarks>
+        [JsiiOptional]
+        [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.UnionResolvableStruct\\"}]}}", isOptional: true)]
+        public virtual object? UnionProperty
+        {
+            get => GetInstanceProperty<object?>();
+            set
+            {
+                SetInstanceProperty(value);
+            }
+        }
     }
 }
 
@@ -22376,6 +22392,40 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Union
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/IUnionResolvableStruct.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Union
+{
+    [JsiiInterface(nativeType: typeof(IUnionResolvableStruct), fullyQualifiedName: "jsii-calc.union.UnionResolvableStruct")]
+    public interface IUnionResolvableStruct
+    {
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Value
+        {
+            get;
+        }
+
+        [JsiiTypeProxy(nativeType: typeof(IUnionResolvableStruct), fullyQualifiedName: "jsii-calc.union.UnionResolvableStruct")]
+        internal sealed class _Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Union.IUnionResolvableStruct
+        {
+            private _Proxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            public string Value
+            {
+                get => GetInstanceProperty<string>()!;
+            }
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/Resolvable.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -22404,6 +22454,29 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Union
         public virtual object Resolve()
         {
             return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{})!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/UnionResolvableStruct.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Union
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.union.UnionResolvableStruct")]
+    public class UnionResolvableStruct : Amazon.JSII.Tests.CalculatorNamespace.Union.IUnionResolvableStruct
+    {
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string Value
+        {
+            get;
+            set;
         }
     }
 }
@@ -24057,7 +24130,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs.diff 1`] = `
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Union/ConsumesUnion.cs	--runtime-type-checking
-@@ -23,9 +23,26 @@
+@@ -23,10 +23,27 @@
  
          /// <param name="param">Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.Resolvable" /></param>
          [JsiiMethod(name: "unionType", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"fqn\\":\\"@scope/jsii-calc-lib.IFriendly\\"},{\\"fqn\\":\\"jsii-calc.union.IResolvable\\"},{\\"fqn\\":\\"jsii-calc.union.Resolvable\\"}]}}}]")]
@@ -24081,6 +24154,35 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                }
 +            }
              InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.ConsumesUnion), new System.Type[]{typeof(object)}, new object[]{param});
+         }
+ 
+         /// <remarks>
+         /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.Union.IUnionResolvableStruct" /></para>
+@@ -36,10 +53,27 @@
+         public virtual object? UnionProperty
+         {
+             get => GetInstanceProperty<object?>();
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable cast_cd4240:
++                            break;
++                        case Amazon.JSII.Tests.CalculatorNamespace.Union.IUnionResolvableStruct cast_cd4240:
++                            break;
++                        case Amazon.JSII.Runtime.Deputy.AnonymousObject cast_cd4240:
++                            // Not enough information to type-check...
++                            break;
++                        case null:
++                            break;
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IResolvable).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.Union.IUnionResolvableStruct).FullName}; received {value.GetType().FullName}", nameof(value));
++                    }
++                }
+                 SetInstanceProperty(value);
+             }
          }
      }
  }
