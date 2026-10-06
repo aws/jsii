@@ -3224,7 +3224,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 ConsumesUnion.go
        ┃  ┣━ 📄 IResolvable.go
        ┃  ┣━ 📄 main.go
-       ┃  ┗━ 📄 Resolvable.go
+       ┃  ┣━ 📄 Resolvable.go
+       ┃  ┗━ 📄 UnionResolvableStruct.go
        ┣━ 📄 UnionProperties.go
        ┣━ 📄 UpcasingReflectable.go
        ┣━ 📄 UseBundledDependency.go
@@ -26786,11 +26787,32 @@ import (
 )
 
 type ConsumesUnion interface {
+	UnionProperty() interface{}
+	SetUnionProperty(val interface{})
 }
 
 // The jsii proxy struct for ConsumesUnion
 type jsiiProxy_ConsumesUnion struct {
 	_ byte // padding
+}
+
+func (j *jsiiProxy_ConsumesUnion) UnionProperty() interface{} {
+	var returns interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func (j *jsiiProxy_ConsumesUnion)SetUnionProperty(val interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
+		val,
+	)
 }
 
 func ConsumesUnion_UnionType(param interface{}) {
@@ -26871,6 +26893,17 @@ func (r *jsiiProxy_Resolvable) Resolve() interface{} {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/union/UnionResolvableStruct.go 1`] = `
+package union
+
+
+type UnionResolvableStruct struct {
+	Value *string \`field:"required" json:"value" yaml:"value"\`
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/union/main.go 1`] = `
 package union
 
@@ -26884,7 +26917,9 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.union.ConsumesUnion",
 		reflect.TypeOf((*ConsumesUnion)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
 		func() interface{} {
 			return &jsiiProxy_ConsumesUnion{}
 		},
@@ -26910,6 +26945,10 @@ func init() {
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_IResolvable)
 			return &j
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.union.UnionResolvableStruct",
+		reflect.TypeOf((*UnionResolvableStruct)(nil)).Elem(),
 	)
 }
 
@@ -37957,7 +37996,20 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/ConsumesUnion.go.diff 1`] = `
 --- go/jsiicalc/union/ConsumesUnion.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/ConsumesUnion.go	--runtime-type-checking
-@@ -14,10 +14,13 @@
+@@ -25,20 +25,26 @@
+ 	return returns
+ }
+ 
+ 
+ func (j *jsiiProxy_ConsumesUnion)SetUnionProperty(val interface{}) {
++	if err := j.validateSetUnionPropertyParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"unionProperty",
+ 		val,
+ 	)
  }
  
  func ConsumesUnion_UnionType(param interface{}) {
@@ -37976,7 +38028,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/ConsumesUnion__checks.go.diff 1`] = `
 --- go/jsiicalc/union/ConsumesUnion__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/ConsumesUnion__checks.go	--runtime-type-checking
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,56 @@
 +//go:build !no_runtime_type_checking
 +
 +package union
@@ -38009,12 +38061,36 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 +	return nil
 +}
 +
++func (j *jsiiProxy_ConsumesUnion) validateSetUnionPropertyParameters(val interface{}) error {
++	switch val.(type) {
++	case IResolvable:
++		// ok
++	case *UnionResolvableStruct:
++		val := val.(*UnionResolvableStruct)
++		if err := _jsii_.ValidateStruct(val, func() string { return "parameter val" }); err != nil {
++			return err
++		}
++	case UnionResolvableStruct:
++		val_ := val.(UnionResolvableStruct)
++		val := &val_
++		if err := _jsii_.ValidateStruct(val, func() string { return "parameter val" }); err != nil {
++			return err
++		}
++	default:
++		if !_jsii_.IsAnonymousProxy(val) {
++			return fmt.Errorf("parameter val must be one of the allowed types: IResolvable, *UnionResolvableStruct; received %#v (a %T)", val, val)
++		}
++	}
++
++	return nil
++}
++
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/ConsumesUnion__no_checks.go.diff 1`] = `
 --- go/jsiicalc/union/ConsumesUnion__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/ConsumesUnion__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
 +
 +package union
@@ -38022,6 +38098,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateConsumesUnion_UnionTypeParameters(param interface{}) error {
++	return nil
++}
++
++func (j *jsiiProxy_ConsumesUnion) validateSetUnionPropertyParameters(val interface{}) error {
 +	return nil
 +}
 +
