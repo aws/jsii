@@ -142,7 +142,7 @@ class _ReferenceMap:
         except KeyError:
             pass
 
-        # If we got to this point, then we didn't have a referene for this, in that case
+        # If we got to this point, then we didn't have a reference for this, in that case
         # we want to create a new instance, but we need to create it in such a way that
         # we don't try to recreate the type inside of the JSII interface.
         class_fqn = ref.ref.rsplit("@", 1)[0]
@@ -242,7 +242,16 @@ class _ReferenceMap:
         return self._refs[id]
 
     def build_interface_proxies_for_ref(self, ref: ObjRef) -> List[Any]:
-        ifaces = [_obtain_interface(fqn) for fqn in ref.interfaces or []]
+        fqns = ref.interfaces or []
+        for fqn in fqns:
+            if fqn not in _data_types and fqn not in _interfaces:
+                _try_import_type_module(fqn)
+
+        # A struct FQN can show up in the ref.interfaces when a value is typed as
+        # a union of a behavioral interface and a struct (e.g. foo: IResolvable | SomeProperty
+        # that appears on many L1 constructs). Skip structs instead of treating them
+        # as an unknown behavioral interface.
+        ifaces = [_obtain_interface(fqn) for fqn in fqns if fqn not in _data_types]
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
 
         # If there's no classes, use an Opaque reference to make sure the
