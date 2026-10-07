@@ -1098,8 +1098,12 @@ abstract class BaseProperty implements PythonBase {
         // In case of a static setter, the 'cls' type is the class type but because we use a custom
         // decorator to make the setter operate on classes instead of objects, pyright doesn't know about
         // that and thinks the first argument is an instance instead of a class. Shut it up.
+        // MyPY (since 2.4) also type-checks the body of static setters and reports the same problem.
+        // See https://github.com/aws/jsii/issues/5259
         code.line(
-          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value) # pyright: ignore[reportArgumentType]`,
+          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value) #${
+            this.isStatic ? ' type: ignore[arg-type] #' : ''
+          } pyright: ignore[reportArgumentType]`,
         );
       } else {
         code.line('...');
