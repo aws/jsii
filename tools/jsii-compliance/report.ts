@@ -41,7 +41,12 @@ function determineTestStatus(testResult: schema.TestResult | undefined) {
  * @param testName the test name.
  */
 function normalizeTestName(testName: string): string {
-  return testName.toUpperCase();
+  // Ignore case, underscores and leading "test"s, so each language can follow its own
+  // naming conventions: `test_null_is_a_valid_optional_list` matches `testNullIsAValidOptionalList`
+  return testName
+    .toUpperCase()
+    .replace(/_/g, '')
+    .replace(/^(TEST)+/, '');
 }
 
 /**

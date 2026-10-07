@@ -16,3 +16,6 @@ __pycache__
 build/
 
 README.md
+
+# Written by tests/conftest.py, consumed by tools/jsii-compliance
+compliance-report.json
