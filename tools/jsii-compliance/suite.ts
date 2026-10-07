@@ -530,5 +530,10 @@ export const suite: schema.Suite = {
       name: 'voidReturningAsync',
       description: 'Verifies that returning Promise<void> is correctly handled',
     },
+    {
+      name: 'staticPropertyAssignment',
+      description:
+        'Assigning a static property updates its value on the JavaScript side',
+    },
   ],
 };

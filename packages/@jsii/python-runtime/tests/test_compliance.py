@@ -58,6 +58,7 @@ from jsii_calc import (
     PythonReservedWords,
     ReferenceEnumFromScopedPackage,
     ReturnsPrivateImplementationOfInterface,
+    StaticPropertyAssignment,
     Statics,
     Sum,
     SyncVirtualMethods,
@@ -820,6 +821,19 @@ def test_statics():
     assert Statics.instance.value == "new value"
 
     assert Statics.non_const_static == 100
+
+
+def test_static_property_assignment():
+    assert StaticPropertyAssignment.read_value() == "default"
+    try:
+        StaticPropertyAssignment.value = "assigned"
+
+        assert StaticPropertyAssignment.read_value() == "assigned"
+        assert StaticPropertyAssignment.value == "assigned"
+    finally:
+        StaticPropertyAssignment.value = "default"
+
+    assert StaticPropertyAssignment.read_value() == "default"
 
 
 def test_consts():

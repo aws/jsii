@@ -2630,6 +2630,14 @@ exports[`showAll 1`] = `
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: number
+ │   ├─┬ class StaticPropertyAssignment
+ │   │ └─┬ members
+ │   │   ├─┬ static readValue() method
+ │   │   │ ├── static
+ │   │   │ └── returns: string
+ │   │   └─┬ static value property
+ │   │     ├── static
+ │   │     └── type: string
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) initializer
@@ -4532,6 +4540,7 @@ exports[`types 1`] = `
  │   ├── class StaticContext
  │   ├── class StaticHelloChild
  │   ├── class StaticHelloParent
+ │   ├── class StaticPropertyAssignment
  │   ├── class Statics
  │   ├── class Stringable
  │   ├── class StripInternal

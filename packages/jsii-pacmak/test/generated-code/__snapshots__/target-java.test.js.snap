@@ -4209,6 +4209,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 StaticContext.java
           ┃                 ┣━ 📄 StaticHelloChild.java
           ┃                 ┣━ 📄 StaticHelloParent.java
+          ┃                 ┣━ 📄 StaticPropertyAssignment.java
           ┃                 ┣━ 📄 Statics.java
           ┃                 ┣━ 📄 Stringable.java
           ┃                 ┣━ 📄 StringEnum.java
@@ -20661,6 +20662,50 @@ public class StaticHelloParent extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StaticPropertyAssignment.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Validates that assigning a static property from a jsii host language updates the value on the JavaScript side.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StaticPropertyAssignment")
+public class StaticPropertyAssignment extends software.amazon.jsii.JsiiObject {
+
+    protected StaticPropertyAssignment(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected StaticPropertyAssignment(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * Reads <code>value</code> from within JavaScript, so that host language assignments are observable.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.String readValue() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StaticPropertyAssignment.class, "readValue", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.String getValue() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticPropertyAssignment.class, "value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static void setValue(final @org.jetbrains.annotations.NotNull java.lang.String value) {
+        software.amazon.jsii.JsiiObject.jsiiStaticSet(software.amazon.jsii.tests.calculator.StaticPropertyAssignment.class, "value", java.util.Objects.requireNonNull(value, "value is required"));
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Statics.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -30180,6 +30225,7 @@ jsii-calc.StableStruct=software.amazon.jsii.tests.calculator.StableStruct
 jsii-calc.StaticContext=software.amazon.jsii.tests.calculator.StaticContext
 jsii-calc.StaticHelloChild=software.amazon.jsii.tests.calculator.StaticHelloChild
 jsii-calc.StaticHelloParent=software.amazon.jsii.tests.calculator.StaticHelloParent
+jsii-calc.StaticPropertyAssignment=software.amazon.jsii.tests.calculator.StaticPropertyAssignment
 jsii-calc.Statics=software.amazon.jsii.tests.calculator.Statics
 jsii-calc.StringEnum=software.amazon.jsii.tests.calculator.StringEnum
 jsii-calc.Stringable=software.amazon.jsii.tests.calculator.Stringable

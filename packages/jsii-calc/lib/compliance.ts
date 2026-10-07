@@ -2003,6 +2003,23 @@ export class StaticContext {
 }
 
 /**
+ * Validates that assigning a static property from a jsii host language updates
+ * the value on the JavaScript side.
+ */
+export class StaticPropertyAssignment {
+  public static value = 'default';
+
+  /**
+   * Reads `value` from within JavaScript, so that host language assignments are observable.
+   */
+  public static readValue(): string {
+    return StaticPropertyAssignment.value;
+  }
+
+  private constructor() {}
+}
+
+/**
  * This test is used to validate the runtimes can return correctly from a void callback.
  *
  * - Implement `overrideMe` (method does not have to do anything).
