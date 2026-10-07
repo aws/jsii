@@ -46,6 +46,18 @@ func (suite *ComplianceSuite) TestStatics() {
 
 }
 
+func (suite *ComplianceSuite) TestStaticPropertyAssignment() {
+	require := suite.Require()
+
+	require.Equal("default", *calc.StaticPropertyAssignment_ReadValue())
+	defer calc.StaticPropertyAssignment_SetValue(jsii.String("default"))
+
+	calc.StaticPropertyAssignment_SetValue(jsii.String("assigned"))
+
+	require.Equal("assigned", *calc.StaticPropertyAssignment_ReadValue())
+	require.Equal("assigned", *calc.StaticPropertyAssignment_Value())
+}
+
 func (suite *ComplianceSuite) TestPrimitiveTypes() {
 	require := suite.Require()
 

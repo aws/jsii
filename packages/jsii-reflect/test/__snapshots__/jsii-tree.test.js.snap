@@ -2435,6 +2435,14 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: number
+ │   ├─┬ class StaticPropertyAssignment (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ static readValue() method (stable)
+ │   │   │ ├── static
+ │   │   │ └── returns: string
+ │   │   └─┬ static value property (stable)
+ │   │     ├── static
+ │   │     └── type: string
  │   ├─┬ class Statics (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) initializer (stable)
@@ -4341,6 +4349,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class StaticHelloChild
  │   │ └── base: StaticHelloParent
  │   ├── class StaticHelloParent
+ │   ├── class StaticPropertyAssignment
  │   ├── class Statics
  │   ├─┬ class Stringable
  │   │ └── interfaces: IStringable
@@ -5707,6 +5716,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static method() method
  │   │   ├── static property property
  │   │   └── static PROPERTY property
+ │   ├─┬ class StaticPropertyAssignment
+ │   │ └─┬ members
+ │   │   ├── static readValue() method
+ │   │   └── static value property
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├── <initializer>(value) initializer
@@ -6736,6 +6749,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class StaticContext
  │   ├── class StaticHelloChild
  │   ├── class StaticHelloParent
+ │   ├── class StaticPropertyAssignment
  │   ├── class Statics
  │   ├── class Stringable
  │   ├── class StripInternal

@@ -795,6 +795,25 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(100, Statics.NonConstStatic);
         }
 
+        [Fact(DisplayName = Prefix + nameof(StaticPropertyAssignmentTest))]
+        public void StaticPropertyAssignmentTest()
+        {
+            Assert.Equal("default", StaticPropertyAssignment.ReadValue());
+            try
+            {
+                StaticPropertyAssignment.Value = "assigned";
+
+                Assert.Equal("assigned", StaticPropertyAssignment.ReadValue());
+                Assert.Equal("assigned", StaticPropertyAssignment.Value);
+            }
+            finally
+            {
+                StaticPropertyAssignment.Value = "default";
+            }
+
+            Assert.Equal("default", StaticPropertyAssignment.ReadValue());
+        }
+
         [Fact(DisplayName = Prefix + nameof(Consts))]
         public void Consts()
         {

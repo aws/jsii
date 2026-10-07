@@ -1005,6 +1005,21 @@ public class ComplianceTest {
     }
 
     @Test
+    public void staticPropertyAssignment() {
+        assertEquals("default", StaticPropertyAssignment.readValue());
+        try {
+            StaticPropertyAssignment.setValue("assigned");
+
+            assertEquals("assigned", StaticPropertyAssignment.readValue());
+            assertEquals("assigned", StaticPropertyAssignment.getValue());
+        } finally {
+            StaticPropertyAssignment.setValue("default");
+        }
+
+        assertEquals("default", StaticPropertyAssignment.readValue());
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     public void consts() throws Exception {
         /*

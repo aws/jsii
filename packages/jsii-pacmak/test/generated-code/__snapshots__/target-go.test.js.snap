@@ -3159,6 +3159,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 StaticContext.go
        ┣━ 📄 StaticHelloChild.go
        ┣━ 📄 StaticHelloParent.go
+       ┣━ 📄 StaticPropertyAssignment.go
        ┣━ 📄 Statics.go
        ┣━ 📄 Stringable.go
        ┣━ 📄 StringEnum.go
@@ -16440,6 +16441,62 @@ func StaticHelloParent_PROPERTY() *float64 {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StaticPropertyAssignment.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Validates that assigning a static property from a jsii host language updates the value on the JavaScript side.
+type StaticPropertyAssignment interface {
+}
+
+// The jsii proxy struct for StaticPropertyAssignment
+type jsiiProxy_StaticPropertyAssignment struct {
+	_ byte // padding
+}
+
+// Reads \`value\` from within JavaScript, so that host language assignments are observable.
+func StaticPropertyAssignment_ReadValue() *string {
+	_init_.Initialize()
+
+	var returns *string
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StaticPropertyAssignment",
+		"readValue",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func StaticPropertyAssignment_Value() *string {
+	_init_.Initialize()
+	var returns *string
+	_jsii_.StaticGet(
+		"jsii-calc.StaticPropertyAssignment",
+		"value",
+		&returns,
+	)
+	return returns
+}
+
+func StaticPropertyAssignment_SetValue(val *string) {
+	_init_.Initialize()
+	_jsii_.StaticSet(
+		"jsii-calc.StaticPropertyAssignment",
+		"value",
+		val,
+	)
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/Statics.go 1`] = `
 package jsiicalc
 
@@ -23378,6 +23435,14 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.StaticPropertyAssignment",
+		reflect.TypeOf((*StaticPropertyAssignment)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_StaticPropertyAssignment{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.Statics",
 		reflect.TypeOf((*Statics)(nil)).Elem(),
 		[]_jsii_.Member{
@@ -27411,6 +27476,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 StaticContext__checks.go
        ┣━ 🆕 StaticContext__no_checks.go
        ┣━ 📄 StaticContext.go.diff
+       ┣━ 🆕 StaticPropertyAssignment__checks.go
+       ┣━ 🆕 StaticPropertyAssignment__no_checks.go
+       ┣━ 📄 StaticPropertyAssignment.go.diff
        ┣━ 🆕 Statics__checks.go
        ┣━ 🆕 Statics__no_checks.go
        ┣━ 📄 Statics.go.diff
@@ -34792,6 +34860,63 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/S
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateStaticContext_SetStaticVariableParameters(val *bool) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticPropertyAssignment.go.diff 1`] = `
+--- go/jsiicalc/StaticPropertyAssignment.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticPropertyAssignment.go	--runtime-type-checking
+@@ -41,10 +41,13 @@
+ 	return returns
+ }
+ 
+ func StaticPropertyAssignment_SetValue(val *string) {
+ 	_init_.Initialize()
++	if err := validateStaticPropertyAssignment_SetValueParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticSet(
+ 		"jsii-calc.StaticPropertyAssignment",
+ 		"value",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticPropertyAssignment__checks.go.diff 1`] = `
+--- go/jsiicalc/StaticPropertyAssignment__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticPropertyAssignment__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateStaticPropertyAssignment_SetValueParameters(val *string) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticPropertyAssignment__no_checks.go.diff 1`] = `
+--- go/jsiicalc/StaticPropertyAssignment__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticPropertyAssignment__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateStaticPropertyAssignment_SetValueParameters(val *string) error {
 +	return nil
 +}
 +
