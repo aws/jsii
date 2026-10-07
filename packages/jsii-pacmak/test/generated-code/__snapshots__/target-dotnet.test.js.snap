@@ -3242,6 +3242,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ClassWithCollectionOfUnions.cs
        ┃           ┣━ 📄 ClassWithCollections.cs
        ┃           ┣━ 📄 ClassWithContainerTypes.cs
+       ┃           ┣━ 📄 ClassWithDateUnions.cs
        ┃           ┣━ 📄 ClassWithDocs.cs
        ┃           ┣━ 📄 ClassWithJavaReservedWords.cs
        ┃           ┣━ 📄 ClassWithMutableObjectLiteralProperty.cs
@@ -5884,6 +5885,81 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IContainerProps? Props
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IContainerProps?>();
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithDateUnions.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Unions that include \`Date\`, which requires the generated Go runtime type checks to import the "time" package.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDateUnions), fullyQualifiedName: "jsii-calc.ClassWithDateUnions", parametersJson: "[{\\"name\\":\\"unionProperty\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}}}]")]
+    public class ClassWithDateUnions : DeputyBase
+    {
+        /// <param name="unionProperty">Type union: either string or System.DateTime</param>
+        public ClassWithDateUnions(object unionProperty): base(_MakeDeputyProps(unionProperty))
+        {
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static DeputyProps _MakeDeputyProps(object unionProperty)
+        {
+            return new DeputyProps(new object?[]{unionProperty});
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ClassWithDateUnions(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ClassWithDateUnions(DeputyProps props): base(props)
+        {
+        }
+
+        /// <param name="param">Type union: either string or System.DateTime</param>
+        [JsiiMethod(name: "staticMethodWithDateUnionParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}}}]")]
+        public static string StaticMethodWithDateUnionParam(object param)
+        {
+            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDateUnions), new System.Type[]{typeof(object)}, new object[]{param})!;
+        }
+
+        /// <param name="list">Type union: (either string or System.DateTime)[]</param>
+        /// <param name="map">Type union: Dictionary&lt;string, either string or System.DateTime&gt;</param>
+        [JsiiMethod(name: "methodWithCollectionsOfDateUnionsParams", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"list\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}},\\"kind\\":\\"array\\"}}},{\\"name\\":\\"map\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}},\\"kind\\":\\"map\\"}}}]")]
+        public virtual double MethodWithCollectionsOfDateUnionsParams(object[] list, System.Collections.Generic.IDictionary<string, object> map)
+        {
+            return InvokeInstanceMethod<double>(new System.Type[]{typeof(object[]), typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{list, map})!;
+        }
+
+        /// <param name="param">Type union: either string or System.DateTime</param>
+        [JsiiMethod(name: "methodWithDateUnionParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}}}]")]
+        public virtual string MethodWithDateUnionParam(object param)
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(object)}, new object[]{param})!;
+        }
+
+        /// <remarks>
+        /// <para>Type union: either string or System.DateTime</para>
+        /// </remarks>
+        [JsiiProperty(name: "unionProperty", typeJson: "{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}}")]
+        public virtual object UnionProperty
+        {
+            get => GetInstanceProperty<object>()!;
+            set
+            {
+                SetInstanceProperty(value);
+            }
         }
     }
 }
@@ -23389,6 +23465,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                    ┃  ┗━ 📄 UseOptions.cs.diff
                    ┣━ 📄 Calculator.cs.diff
                    ┣━ 📄 ClassWithCollectionOfUnions.cs.diff
+                   ┣━ 📄 ClassWithDateUnions.cs.diff
                    ┣━ 📄 ClassWithNestedUnion.cs.diff
                    ┣━ 📄 ConfusingToJackson.cs.diff
                    ┣━ 📄 ConfusingToJacksonStruct.cs.diff
@@ -23740,6 +23817,146 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 +                                    throw new System.ArgumentException($"Expected {nameof(value)}[{__idx_cd4240}][\\"{__item_e9c63e.Key}\\"] to be one of: {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructA).FullName}, {typeof(Amazon.JSII.Tests.CalculatorNamespace.IStructB).FullName}; received {__item_e9c63e.Value.GetType().FullName}", nameof(value));
 +                            }
 +                        }
++                    }
++                }
+                 SetInstanceProperty(value);
+             }
+         }
+     }
+ }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithDateUnions.cs.diff 1`] = `
+--- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithDateUnions.cs	--no-runtime-type-checking
++++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ClassWithDateUnions.cs	--runtime-type-checking
+@@ -14,10 +14,24 @@
+         }
+ 
+         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+         private static DeputyProps _MakeDeputyProps(object unionProperty)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (unionProperty)
++                {
++                    case string cast_7e4c6f:
++                        break;
++                    case System.DateTime cast_7e4c6f:
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)} to be one of: string, {typeof(System.DateTime).FullName}; received null", nameof(unionProperty));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(unionProperty)} to be one of: string, {typeof(System.DateTime).FullName}; received {unionProperty.GetType().FullName}", nameof(unionProperty));
++                }
++            }
+             return new DeputyProps(new object?[]{unionProperty});
+         }
+ 
+         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+         /// <param name="reference">The Javascript-owned object reference</param>
+@@ -35,25 +49,84 @@
+ 
+         /// <param name="param">Type union: either string or System.DateTime</param>
+         [JsiiMethod(name: "staticMethodWithDateUnionParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}}}]")]
+         public static string StaticMethodWithDateUnionParam(object param)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (param)
++                {
++                    case string cast_ccaaac:
++                        break;
++                    case System.DateTime cast_ccaaac:
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: string, {typeof(System.DateTime).FullName}; received null", nameof(param));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: string, {typeof(System.DateTime).FullName}; received {param.GetType().FullName}", nameof(param));
++                }
++            }
+             return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDateUnions), new System.Type[]{typeof(object)}, new object[]{param})!;
+         }
+ 
+         /// <param name="list">Type union: (either string or System.DateTime)[]</param>
+         /// <param name="map">Type union: Dictionary&lt;string, either string or System.DateTime&gt;</param>
+         [JsiiMethod(name: "methodWithCollectionsOfDateUnionsParams", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}", parametersJson: "[{\\"name\\":\\"list\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}},\\"kind\\":\\"array\\"}}},{\\"name\\":\\"map\\",\\"type\\":{\\"collection\\":{\\"elementtype\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}},\\"kind\\":\\"map\\"}}}]")]
+         public virtual double MethodWithCollectionsOfDateUnionsParams(object[] list, System.Collections.Generic.IDictionary<string, object> map)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                for (var __idx_a33039 = 0 ; __idx_a33039 < list.Length ; __idx_a33039++)
++                {
++                    switch (list[__idx_a33039])
++                    {
++                        case string cast_68c2b4:
++                            break;
++                        case System.DateTime cast_68c2b4:
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(list)}[{__idx_a33039}] to be one of: string, {typeof(System.DateTime).FullName}; received null", nameof(list));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(list)}[{__idx_a33039}] to be one of: string, {typeof(System.DateTime).FullName}; received {list[__idx_a33039].GetType().FullName}", nameof(list));
++                    }
++                }
++                foreach (var __item_60be98 in map)
++                {
++                    switch (__item_60be98.Value)
++                    {
++                        case string cast_1ae324:
++                            break;
++                        case System.DateTime cast_1ae324:
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected argument {nameof(map)}[\\"{__item_60be98.Key}\\"] to be one of: string, {typeof(System.DateTime).FullName}; received null", nameof(map));
++                        default:
++                            throw new System.ArgumentException($"Expected argument {nameof(map)}[\\"{__item_60be98.Key}\\"] to be one of: string, {typeof(System.DateTime).FullName}; received {__item_60be98.Value.GetType().FullName}", nameof(map));
++                    }
++                }
++            }
+             return InvokeInstanceMethod<double>(new System.Type[]{typeof(object[]), typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{list, map})!;
+         }
+ 
+         /// <param name="param">Type union: either string or System.DateTime</param>
+         [JsiiMethod(name: "methodWithDateUnionParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"union\\":{\\"types\\":[{\\"primitive\\":\\"string\\"},{\\"primitive\\":\\"date\\"}]}}}]")]
+         public virtual string MethodWithDateUnionParam(object param)
+         {
++            if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++            {
++                switch (param)
++                {
++                    case string cast_ccaaac:
++                        break;
++                    case System.DateTime cast_ccaaac:
++                        break;
++                    case null:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: string, {typeof(System.DateTime).FullName}; received null", nameof(param));
++                    default:
++                        throw new System.ArgumentException($"Expected argument {nameof(param)} to be one of: string, {typeof(System.DateTime).FullName}; received {param.GetType().FullName}", nameof(param));
++                }
++            }
+             return InvokeInstanceMethod<string>(new System.Type[]{typeof(object)}, new object[]{param})!;
+         }
+ 
+         /// <remarks>
+         /// <para>Type union: either string or System.DateTime</para>
+@@ -62,10 +135,24 @@
+         public virtual object UnionProperty
+         {
+             get => GetInstanceProperty<object>()!;
+             set
+             {
++                if (Amazon.JSII.Runtime.Configuration.RuntimeTypeChecking)
++                {
++                    switch (value)
++                    {
++                        case string cast_cd4240:
++                            break;
++                        case System.DateTime cast_cd4240:
++                            break;
++                        case null:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, {typeof(System.DateTime).FullName}; received null", nameof(value));
++                        default:
++                            throw new System.ArgumentException($"Expected {nameof(value)} to be one of: string, {typeof(System.DateTime).FullName}; received {value.GetType().FullName}", nameof(value));
 +                    }
 +                }
                  SetInstanceProperty(value);

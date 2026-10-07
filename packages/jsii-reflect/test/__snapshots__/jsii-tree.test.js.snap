@@ -1211,6 +1211,32 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ props property (stable)
  │   │     ├── immutable
  │   │     └── type: Optional<jsii-calc.ContainerProps>
+ │   ├─┬ class ClassWithDateUnions (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(unionProperty) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ unionProperty
+ │   │   │     └── type: date | string
+ │   │   ├─┬ static staticMethodWithDateUnionParam(param) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: date | string
+ │   │   │ └── returns: string
+ │   │   ├─┬ methodWithCollectionsOfDateUnionsParams(list,map) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ ├─┬ list
+ │   │   │ │ │ └── type: Array<date | string>
+ │   │   │ │ └─┬ map
+ │   │   │ │   └── type: Map<string => date | string>
+ │   │   │ └── returns: number
+ │   │   ├─┬ methodWithDateUnionParam(param) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ param
+ │   │   │ │   └── type: date | string
+ │   │   │ └── returns: string
+ │   │   └─┬ unionProperty property (stable)
+ │   │     └── type: date | string
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (stable)
@@ -4203,6 +4229,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ClassWithCollectionOfUnions
  │   ├── class ClassWithCollections
  │   ├── class ClassWithContainerTypes
+ │   ├── class ClassWithDateUnions
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
@@ -5132,6 +5159,13 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── obj property
  │   │   ├── record property
  │   │   └── props property
+ │   ├─┬ class ClassWithDateUnions
+ │   │ └─┬ members
+ │   │   ├── <initializer>(unionProperty) initializer
+ │   │   ├── static staticMethodWithDateUnionParam(param) method
+ │   │   ├── methodWithCollectionsOfDateUnionsParams(list,map) method
+ │   │   ├── methodWithDateUnionParam(param) method
+ │   │   └── unionProperty property
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
@@ -6608,6 +6642,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassWithCollectionOfUnions
  │   ├── class ClassWithCollections
  │   ├── class ClassWithContainerTypes
+ │   ├── class ClassWithDateUnions
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty

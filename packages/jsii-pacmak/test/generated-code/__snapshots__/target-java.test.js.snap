@@ -3947,6 +3947,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 ClassWithCollectionOfUnions.java
           ┃                 ┣━ 📄 ClassWithCollections.java
           ┃                 ┣━ 📄 ClassWithContainerTypes.java
+          ┃                 ┣━ 📄 ClassWithDateUnions.java
           ┃                 ┣━ 📄 ClassWithDocs.java
           ┃                 ┣━ 📄 ClassWithJavaReservedWords.java
           ┃                 ┣━ 📄 ClassWithMutableObjectLiteralProperty.java
@@ -7266,6 +7267,84 @@ public class ClassWithContainerTypes extends software.amazon.jsii.JsiiObject {
             }
             return this.props;
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithDateUnions.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Unions that include <code>Date</code>, which requires the generated Go runtime type checks to import the "time" package.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ClassWithDateUnions")
+public class ClassWithDateUnions extends software.amazon.jsii.JsiiObject {
+
+    protected ClassWithDateUnions(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ClassWithDateUnions(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param unionProperty Takes union: either {@link java.lang.String} or {@link java.time.Instant}. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ClassWithDateUnions(final @org.jetbrains.annotations.NotNull java.lang.Object unionProperty) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
+    }
+
+    /**
+     * @param param Takes union: either {@link java.lang.String} or {@link java.time.Instant}. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.String staticMethodWithDateUnionParam(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithDateUnions.class, "staticMethodWithDateUnionParam", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+    }
+
+    /**
+     * @param list Takes union: List<either {@link java.lang.String} or {@link java.time.Instant}>. This parameter is required.
+     * @param map Takes union: Map<String, either {@link java.lang.String} or {@link java.time.Instant}>. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Number methodWithCollectionsOfDateUnionsParams(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> list, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> map) {
+        return software.amazon.jsii.Kernel.call(this, "methodWithCollectionsOfDateUnionsParams", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(list, "list is required"), java.util.Objects.requireNonNull(map, "map is required") });
+    }
+
+    /**
+     * @param param Takes union: either {@link java.lang.String} or {@link java.time.Instant}. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String methodWithDateUnionParam(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
+        return software.amazon.jsii.Kernel.call(this, "methodWithDateUnionParam", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+    }
+
+    /**
+     * Returns union: either {@link java.lang.String} or {@link java.time.Instant}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.Object getUnionProperty() {
+        return software.amazon.jsii.Kernel.get(this, "unionProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
+        software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public void setUnionProperty(final @org.jetbrains.annotations.NotNull java.time.Instant value) {
+        software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
     }
 }
 
@@ -29920,6 +29999,7 @@ jsii-calc.ClassThatImplementsThePrivateInterface=software.amazon.jsii.tests.calc
 jsii-calc.ClassWithCollectionOfUnions=software.amazon.jsii.tests.calculator.ClassWithCollectionOfUnions
 jsii-calc.ClassWithCollections=software.amazon.jsii.tests.calculator.ClassWithCollections
 jsii-calc.ClassWithContainerTypes=software.amazon.jsii.tests.calculator.ClassWithContainerTypes
+jsii-calc.ClassWithDateUnions=software.amazon.jsii.tests.calculator.ClassWithDateUnions
 jsii-calc.ClassWithDocs=software.amazon.jsii.tests.calculator.ClassWithDocs
 jsii-calc.ClassWithJavaReservedWords=software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords
 jsii-calc.ClassWithMutableObjectLiteralProperty=software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty
@@ -30236,6 +30316,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
                             ┣━ 📁 anonymous
                             ┃  ┗━ 📄 UseOptions.java.diff
                             ┣━ 📄 ClassWithCollectionOfUnions.java.diff
+                            ┣━ 📄 ClassWithDateUnions.java.diff
                             ┣━ 📄 ClassWithNestedUnion.java.diff
                             ┣━ 📄 ConfusingToJackson.java.diff
                             ┣━ 📄 StructUnionConsumer.java.diff
@@ -30446,6 +30527,118 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
          software.amazon.jsii.Kernel.set(this, "unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
      }
  }
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithDateUnions.java.diff 1`] = `
+--- java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithDateUnions.java	--no-runtime-type-checking
++++ java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithDateUnions.java	--runtime-type-checking
+@@ -20,35 +20,106 @@
+      * @param unionProperty Takes union: either {@link java.lang.String} or {@link java.time.Instant}. This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public ClassWithDateUnions(final @org.jetbrains.annotations.NotNull java.lang.Object unionProperty) {
+         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(unionProperty instanceof java.lang.String)
++                && !(unionProperty instanceof java.time.Instant)
++            ) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("unionProperty")
++                        .append(" to be one of: java.lang.String, java.time.Instant; received ")
++                        .append(unionProperty.getClass()).toString());
++            }
++        }
+         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(unionProperty, "unionProperty is required") });
+     }
+ 
+     /**
+      * @param param Takes union: either {@link java.lang.String} or {@link java.time.Instant}. This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public static @org.jetbrains.annotations.NotNull java.lang.String staticMethodWithDateUnionParam(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(param instanceof java.lang.String)
++                && !(param instanceof java.time.Instant)
++            ) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("param")
++                        .append(" to be one of: java.lang.String, java.time.Instant; received ")
++                        .append(param.getClass()).toString());
++            }
++        }
+         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithDateUnions.class, "staticMethodWithDateUnionParam", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+     }
+ 
+     /**
+      * @param list Takes union: List<either {@link java.lang.String} or {@link java.time.Instant}>. This parameter is required.
+      * @param map Takes union: Map<String, either {@link java.lang.String} or {@link java.time.Instant}>. This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public @org.jetbrains.annotations.NotNull java.lang.Number methodWithCollectionsOfDateUnionsParams(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> list, final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> map) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            for (int __idx_de3b74 = 0; __idx_de3b74 < list.size(); __idx_de3b74++) {
++                final java.lang.Object __val_de3b74 = list.get(__idx_de3b74);
++                if (
++                     !(__val_de3b74 instanceof java.lang.String)
++                    && !(__val_de3b74 instanceof java.time.Instant)
++                ) {
++                    throw new IllegalArgumentException(
++                        new java.lang.StringBuilder("Expected ")
++                            .append("list").append(".get(").append(__idx_de3b74).append(")")
++                            .append(" to be one of: java.lang.String, java.time.Instant; received ")
++                            .append(__val_de3b74.getClass()).toString());
++                }
++            }
++            if (!(map.keySet().toArray()[0] instanceof String)) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("map").append(".keySet()")
++                        .append(" to contain class String; received ")
++                        .append(map.keySet().toArray()[0].getClass()).toString());
++            }
++            for (final java.util.Map.Entry<java.lang.String, java.lang.Object> __item_36d66e: map.entrySet()) {
++                final java.lang.Object __val_36d66e = __item_36d66e.getValue();
++                if (
++                     !(__val_36d66e instanceof java.lang.String)
++                    && !(__val_36d66e instanceof java.time.Instant)
++                ) {
++                    throw new IllegalArgumentException(
++                        new java.lang.StringBuilder("Expected ")
++                            .append("map").append(".get(\\"").append((__item_36d66e.getKey())).append("\\")")
++                            .append(" to be one of: java.lang.String, java.time.Instant; received ")
++                            .append(__val_36d66e.getClass()).toString());
++                }
++            }
++        }
+         return software.amazon.jsii.Kernel.call(this, "methodWithCollectionsOfDateUnionsParams", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(list, "list is required"), java.util.Objects.requireNonNull(map, "map is required") });
+     }
+ 
+     /**
+      * @param param Takes union: either {@link java.lang.String} or {@link java.time.Instant}. This parameter is required.
+      */
+     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+     public @org.jetbrains.annotations.NotNull java.lang.String methodWithDateUnionParam(final @org.jetbrains.annotations.NotNull java.lang.Object param) {
++        if (software.amazon.jsii.Configuration.getRuntimeTypeChecking()) {
++            if (
++                 !(param instanceof java.lang.String)
++                && !(param instanceof java.time.Instant)
++            ) {
++                throw new IllegalArgumentException(
++                    new java.lang.StringBuilder("Expected ")
++                        .append("param")
++                        .append(" to be one of: java.lang.String, java.time.Instant; received ")
++                        .append(param.getClass()).toString());
++            }
++        }
+         return software.amazon.jsii.Kernel.call(this, "methodWithDateUnionParam", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(param, "param is required") });
+     }
+ 
+     /**
+      * Returns union: either {@link java.lang.String} or {@link java.time.Instant}
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ClassWithNestedUnion.java.diff 1`] = `

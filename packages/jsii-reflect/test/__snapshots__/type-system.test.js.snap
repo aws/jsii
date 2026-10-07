@@ -50,6 +50,7 @@ exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
   "jsii-calc.ClassWithCollectionOfUnions",
   "jsii-calc.ClassWithCollections",
   "jsii-calc.ClassWithContainerTypes",
+  "jsii-calc.ClassWithDateUnions",
   "jsii-calc.ClassWithDocs",
   "jsii-calc.ClassWithJavaReservedWords",
   "jsii-calc.ClassWithMutableObjectLiteralProperty",
