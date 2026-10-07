@@ -1890,6 +1890,7 @@ __metadata:
   resolution: "@jsii/dotnet-runtime-test@workspace:packages/@jsii/dotnet-runtime-test"
   dependencies:
     "@jsii/dotnet-runtime": "npm:^0.0.0"
+    "@xmldom/xmldom": "npm:0.9.12"
     jsii-calc: "npm:^3.20.120"
     jsii-pacmak: "npm:^0.0.0"
     typescript: "npm:6.x"
@@ -3651,7 +3652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xmldom/xmldom@npm:^0.9.12":
+"@xmldom/xmldom@npm:0.9.12, @xmldom/xmldom@npm:^0.9.12":
   version: 0.9.12
   resolution: "@xmldom/xmldom@npm:0.9.12"
   checksum: 10c0/0a9ef38e203213717dde8d16c62743c26c37eb4195aeb4f286550a0aec2145c063a6c3633f253c29f75202f922d7c961d1acaad4dd93e5db1ef05c813354d178

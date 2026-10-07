@@ -23,3 +23,7 @@ node_modules/
 coverage/
 .nuget/
 *.d.ts.map
+
+# Written by test.sh, consumed by tools/jsii-compliance
+test-results.trx
+compliance-report.json
