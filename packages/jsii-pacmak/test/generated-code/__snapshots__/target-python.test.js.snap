@@ -4309,7 +4309,7 @@ class ClassWithCollections(
 
     @static_array.setter # type: ignore[no-redef]
     def static_array(cls, value: typing.List[builtins.str]) -> None:
-        jsii.sset(cls, "staticArray", value) # pyright: ignore[reportArgumentType]
+        jsii.sset(cls, "staticArray", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticMap")
@@ -4318,7 +4318,7 @@ class ClassWithCollections(
 
     @static_map.setter # type: ignore[no-redef]
     def static_map(cls, value: typing.Mapping[builtins.str, builtins.str]) -> None:
-        jsii.sset(cls, "staticMap", value) # pyright: ignore[reportArgumentType]
+        jsii.sset(cls, "staticMap", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
 
     @builtins.property
     @jsii.member(jsii_name="array")
@@ -10211,7 +10211,7 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
 
     @static_variable.setter # type: ignore[no-redef]
     def static_variable(cls, value: builtins.bool) -> None:
-        jsii.sset(cls, "staticVariable", value) # pyright: ignore[reportArgumentType]
+        jsii.sset(cls, "staticVariable", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
 
 
 class StaticHelloParent(
@@ -10298,7 +10298,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
 
     @instance.setter # type: ignore[no-redef]
     def instance(cls, value: "Statics") -> None:
-        jsii.sset(cls, "instance", value) # pyright: ignore[reportArgumentType]
+        jsii.sset(cls, "instance", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="nonConstStatic")
@@ -10307,7 +10307,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
 
     @non_const_static.setter # type: ignore[no-redef]
     def non_const_static(cls, value: jsii.Number) -> None:
-        jsii.sset(cls, "nonConstStatic", value) # pyright: ignore[reportArgumentType]
+        jsii.sset(cls, "nonConstStatic", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
 
     @builtins.property
     @jsii.member(jsii_name="value")
@@ -17246,7 +17246,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__964903eb68623806c91fc9026cacfdc726cfbb287698530724c5a9938a7bb2ca)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
-         jsii.sset(cls, "staticArray", value) # pyright: ignore[reportArgumentType]
+         jsii.sset(cls, "staticArray", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
  
      @jsii.python.classproperty
      @jsii.member(jsii_name="staticMap")
@@ -17258,7 +17258,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__8dd7203701e4915203e4778820ee40fe6bdd6f0bb2855c200f375606277e06c8)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
-         jsii.sset(cls, "staticMap", value) # pyright: ignore[reportArgumentType]
+         jsii.sset(cls, "staticMap", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
  
      @builtins.property
      @jsii.member(jsii_name="array")
@@ -19098,7 +19098,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__cf00e16ec45ebcadc1f7003eb344ecf452096a12a1a76ff0e15fce1066d716d2)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
-         jsii.sset(cls, "staticVariable", value) # pyright: ignore[reportArgumentType]
+         jsii.sset(cls, "staticVariable", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
  
  
  class StaticHelloParent(
@@ -19138,7 +19138,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__748a4d0813e4a3ab750bd52215b9ff4dee315d39b160d47884780ea7c4b10daf)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
-         jsii.sset(cls, "instance", value) # pyright: ignore[reportArgumentType]
+         jsii.sset(cls, "instance", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
  
      @jsii.python.classproperty
      @jsii.member(jsii_name="nonConstStatic")
@@ -19150,7 +19150,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__5d0ed37ae4b7f5bd294a768da342f4735c6636e0197883a5727e46ed81deec69)
 +            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
-         jsii.sset(cls, "nonConstStatic", value) # pyright: ignore[reportArgumentType]
+         jsii.sset(cls, "nonConstStatic", value) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
  
      @builtins.property
      @jsii.member(jsii_name="value")
