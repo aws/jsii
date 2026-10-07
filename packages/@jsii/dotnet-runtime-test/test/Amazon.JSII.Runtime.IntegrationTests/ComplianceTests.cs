@@ -811,10 +811,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("world", Statics.ZooBar["hello"]);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ReservedKeywordsAreSlugifiedInMethodNames), Skip = "TODO")]
+        [Fact(DisplayName = Prefix + nameof(ReservedKeywordsAreSlugifiedInMethodNames))]
         public void ReservedKeywordsAreSlugifiedInMethodNames()
         {
-            throw new NotImplementedException();
+            var obj = new JavaReservedWords();
+            obj.Import();
+            obj.Const();
+            Assert.Equal("hello", obj.While); // properties should also be 'slugified'
         }
 
         [Fact(DisplayName = Prefix + nameof(NodeStandardLibrary))]
@@ -1371,6 +1374,484 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void StrippedDeprecatedMemberCanBeReceived()
         {
             Assert.NotNull(InterfaceFactory.Create());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(VariadicMethodCanBeInvoked))]
+        public void VariadicMethodCanBeInvoked()
+        {
+            var variadicMethod = new VariadicMethod(1);
+            var result = variadicMethod.AsArray(3, 4, 5, 6);
+            Assert.Equal(new[] { 1d, 3d, 4d, 5d, 6d }, result);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanLoadEnumValues))]
+        public void CanLoadEnumValues()
+        {
+            Assert.True(Enum.IsDefined(typeof(StringEnum), EnumDispenser.RandomStringLikeEnum()));
+            Assert.True(Enum.IsDefined(typeof(AllTypesEnum), EnumDispenser.RandomIntegerLikeEnum()));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(VoidReturningAsync), Skip = "Invoking an async Promise<void> method throws System.ArgumentNullException in EndResponse: the kernel 'end' response carries no 'result' for a void async method")]
+        public void VoidReturningAsync()
+        {
+            // Verifies it's okay to return a Promise<void>.
+            new PromiseNothing().InstancePromiseIt();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Downcasting), Skip = "UnsafeCast to an interface cannot read members off an anonymous object returned as 'any': the kernel objref is typed 'Object' (no interfaces), so 'get foo' fails with 'Type Object doesn't have a property foo'")]
+        public void Downcasting()
+        {
+            var anyValue = SomeTypeJsii976.ReturnAnonymous();
+            var realValue = ((DeputyBase) anyValue).UnsafeCast<IReturnJsii976>();
+            Assert.Equal(1337d, realValue.Foo);
+        }
+
+        class BellRinger : DeputyBase, IBellRinger
+        {
+            public void YourTurn(IBell bell)
+            {
+                bell.Ring();
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CallbackParameterIsInterface))]
+        public void CallbackParameterIsInterface()
+        {
+            var ringer = new BellRinger();
+            Assert.True(ConsumerCanRingBell.StaticImplementedByObjectLiteral(ringer));
+            Assert.True(ConsumerCanRingBell.StaticImplementedByPrivateClass(ringer));
+            Assert.True(ConsumerCanRingBell.StaticImplementedByPublicClass(ringer));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ClassesCanSelfReferenceDuringClassInitialization))]
+        public void ClassesCanSelfReferenceDuringClassInitialization()
+        {
+            var outerClass = new Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.OuterClass();
+            Assert.NotNull(outerClass.InnerClass);
+        }
+
+        private sealed class DerivedFromAllTypes : AllTypes
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(TestFluentApiWithDerivedClasses))]
+        public void TestFluentApiWithDerivedClasses()
+        {
+            // make sure that fluent API can be assigned to objects from derived classes
+            var obj = new DerivedFromAllTypes();
+            obj.StringProperty = "Hello";
+            obj.NumberProperty = 12;
+            Assert.Equal("Hello", obj.StringProperty);
+            Assert.Equal(12d, obj.NumberProperty);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReservedKeywordsAreSlugifiedInClassProperties))]
+        public void ReservedKeywordsAreSlugifiedInClassProperties()
+        {
+            var obj = new ClassWithJavaReservedWords("one");
+            var result = obj.Import("two");
+            Assert.Equal("onetwo", result);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReservedKeywordsAreSlugifiedInStructProperties))]
+        public void ReservedKeywordsAreSlugifiedInStructProperties()
+        {
+            var @struct = new StructWithJavaReservedWords
+            {
+                Assert = "one",
+                Default = "two"
+            };
+
+            Assert.Equal("one", @struct.Assert);
+            Assert.Equal("two", @struct.Default);
+        }
+
+        private sealed class InterfaceBuilderImpl : DeputyBase, IInterfaceWithProperties
+        {
+            private string _value = "READ_WRITE";
+
+            public string ReadOnlyString => "READ_ONLY";
+
+            public string ReadWriteString
+            {
+                get => _value;
+                set => _value = value;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(InterfaceBuilder))]
+        public void InterfaceBuilder()
+        {
+            // Seems to be a duplicate of propertyOverrides_interfaces, implemented like the Java suite.
+            var interact = new UsesInterfaceWithProperties(new InterfaceBuilderImpl());
+            Assert.Equal("READ_ONLY", interact.JustRead());
+            Assert.Equal("Hello", interact.WriteAndRead("Hello"));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_WithDiamondInheritance_CorrectlyDedupeProperties))]
+        public void Structs_WithDiamondInheritance_CorrectlyDedupeProperties()
+        {
+            var @struct = new DiamondInheritanceTopLevelStruct
+            {
+                BaseLevelProperty = "base",
+                FirstMidLevelProperty = "mid1",
+                SecondMidLevelProperty = "mid2",
+                TopLevelProperty = "top"
+            };
+
+            Assert.Equal("base", @struct.BaseLevelProperty);
+            Assert.Equal("mid1", @struct.FirstMidLevelProperty);
+            Assert.Equal("mid2", @struct.SecondMidLevelProperty);
+            Assert.Equal("top", @struct.TopLevelProperty);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_ReturnedLiteralEqualsNativeBuilt))]
+        public void Structs_ReturnedLiteralEqualsNativeBuilt()
+        {
+            var gms = new GiveMeStructs();
+            var returnedLiteral = gms.StructLiteral;
+            var nativeBuilt = new Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.StructWithOnlyOptionals
+            {
+                Optional1 = "optional1FromStructLiteral",
+                Optional3 = false
+            };
+
+            // .NET generated by-value classes do not override Equals, so compare the fields,
+            // which is what "indistinguishable from a natively-built struct" means here.
+            Assert.Equal(nativeBuilt.Optional1, returnedLiteral.Optional1);
+            Assert.Equal(nativeBuilt.Optional2, returnedLiteral.Optional2);
+            Assert.Equal(nativeBuilt.Optional3, returnedLiteral.Optional3);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(UnionPropertiesWithBuilder))]
+        public void UnionPropertiesWithBuilder()
+        {
+            // .NET has no builders; structs use object initializers. This verifies that
+            // the union-typed properties can be set with each of the union member types and read back.
+            var obj1 = new UnionProperties { Bar = 12d, Foo = "Hello" };
+            Assert.Equal(12d, obj1.Bar);
+            Assert.Equal("Hello", obj1.Foo);
+
+            var obj2 = new UnionProperties { Bar = "BarIsString" };
+            Assert.Equal("BarIsString", obj2.Bar);
+            Assert.Null(obj2.Foo);
+
+            var allTypes = new AllTypes();
+            var obj3 = new UnionProperties { Bar = allTypes, Foo = 999d };
+            Assert.Same(allTypes, obj3.Bar);
+            Assert.Equal(999d, obj3.Foo);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ArrayReturnedByMethodCanBeRead))]
+        public void ArrayReturnedByMethodCanBeRead()
+        {
+            Assert.Equal(new[] { "one", "two" }, ClassWithCollections.CreateAList());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(MapReturnedByMethodCanBeRead))]
+        public void MapReturnedByMethodCanBeRead()
+        {
+            var result = ClassWithCollections.CreateAMap();
+            Assert.Equal("value1", result["key1"]);
+            Assert.Equal("value2", result["key2"]);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ListInClassCanBeReadCorrectly))]
+        public void ListInClassCanBeReadCorrectly()
+        {
+            var classWithCollections = new ClassWithCollections(
+                new Dictionary<string, string>(),
+                new[] { "one", "two" });
+            Assert.Equal(new[] { "one", "two" }, classWithCollections.Array);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(MapInClassCanBeReadCorrectly))]
+        public void MapInClassCanBeReadCorrectly()
+        {
+            var classWithCollections = new ClassWithCollections(
+                new Dictionary<string, string> { ["key"] = "value" },
+                System.Array.Empty<string>());
+            var result = classWithCollections.Map;
+            Assert.Equal("value", result["key"]);
+            Assert.Single(result);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticListInClassCanBeReadCorrectly))]
+        public void StaticListInClassCanBeReadCorrectly()
+        {
+            Assert.Equal(new[] { "one", "two" }, ClassWithCollections.StaticArray);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticMapInClassCanBeReadCorrectly))]
+        public void StaticMapInClassCanBeReadCorrectly()
+        {
+            var result = ClassWithCollections.StaticMap;
+            Assert.Equal("value1", result["key1"]);
+            Assert.Equal("value2", result["key2"]);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanOverrideProtectedMethod))]
+        public void CanOverrideProtectedMethod()
+        {
+            const string challenge = "Cthulhu Fhtagn!";
+            var overridden = new OverrideProtectedMethod(challenge);
+            Assert.Equal(challenge, overridden.ValueFromProtected());
+        }
+
+        private sealed class OverrideProtectedMethod : OverridableProtectedMember
+        {
+            private readonly string _challenge;
+
+            public OverrideProtectedMethod(string challenge)
+            {
+                _challenge = challenge;
+            }
+
+            protected override string OverrideMe()
+            {
+                return _challenge;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanOverrideProtectedGetter))]
+        public void CanOverrideProtectedGetter()
+        {
+            var overridden = new OverrideProtectedGetter();
+            Assert.Equal("Cthulhu Fhtagn!", overridden.ValueFromProtected());
+        }
+
+        private sealed class OverrideProtectedGetter : OverridableProtectedMember
+        {
+            protected override string OverrideReadOnly => "Cthulhu ";
+
+            protected override string OverrideReadWrite => "Fhtagn!";
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanOverrideProtectedSetter))]
+        public void CanOverrideProtectedSetter()
+        {
+            const string challenge = "Bazzzzzzzzzzzaar...";
+            var overridden = new OverrideProtectedSetter();
+            overridden.SwitchModes();
+            Assert.Equal(challenge, overridden.ValueFromProtected());
+        }
+
+        private sealed class OverrideProtectedSetter : OverridableProtectedMember
+        {
+            protected override string OverrideReadWrite
+            {
+                get => base.OverrideReadWrite;
+                set => base.OverrideReadWrite = "zzzzzzzzz" + value;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Method_Public))]
+        public void DoNotOverridePrivates_Method_Public()
+        {
+            var obj = new DoNotOverridePrivatesMethodPublic();
+            Assert.Equal("privateMethod", obj.PrivateMethodValue());
+        }
+
+        private sealed class DoNotOverridePrivatesMethodPublic : DoNotOverridePrivates
+        {
+            public string PrivateMethod()
+            {
+                return "privateMethod-Override";
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Method_Private))]
+        public void DoNotOverridePrivates_Method_Private()
+        {
+            var obj = new DoNotOverridePrivatesMethodPrivate();
+            Assert.Equal("privateMethod", obj.PrivateMethodValue());
+        }
+
+        private sealed class DoNotOverridePrivatesMethodPrivate : DoNotOverridePrivates
+        {
+            private string PrivateMethod()
+            {
+                return "privateMethod-Override";
+            }
+
+            // Referenced only to prove the private member exists without the compiler eliding it.
+            public string CallPrivateMethod() => PrivateMethod();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Property_By_Name_Public))]
+        public void DoNotOverridePrivates_Property_By_Name_Public()
+        {
+            var obj = new DoNotOverridePrivatesPropertyByNamePublic();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyByNamePublic : DoNotOverridePrivates
+        {
+            public string PrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Property_By_Name_Private))]
+        public void DoNotOverridePrivates_Property_By_Name_Private()
+        {
+            var obj = new DoNotOverridePrivatesPropertyByNamePrivate();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyByNamePrivate : DoNotOverridePrivates
+        {
+            private string PrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+
+            public string CallPrivateProperty() => PrivateProperty();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Property_Getter_Public))]
+        public void DoNotOverridePrivates_Property_Getter_Public()
+        {
+            var obj = new DoNotOverridePrivatesPropertyGetterPublic();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+
+            // verify the setter override is not invoked.
+            obj.ChangePrivatePropertyValue("MyNewValue");
+            Assert.Equal("MyNewValue", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyGetterPublic : DoNotOverridePrivates
+        {
+            public string GetPrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+
+            public void SetPrivateProperty(string value)
+            {
+                throw new RuntimeException("Boom");
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Property_Getter_Private))]
+        public void DoNotOverridePrivates_Property_Getter_Private()
+        {
+            var obj = new DoNotOverridePrivatesPropertyGetterPrivate();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+
+            // verify the setter override is not invoked.
+            obj.ChangePrivatePropertyValue("MyNewValue");
+            Assert.Equal("MyNewValue", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyGetterPrivate : DoNotOverridePrivates
+        {
+            private string GetPrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+
+            public void SetPrivateProperty(string value)
+            {
+                throw new RuntimeException("Boom");
+            }
+
+            public string CallGetPrivateProperty() => GetPrivateProperty();
+        }
+
+        // ----------------------------------------------------------------------
+        // Tests that are not applicable to the .NET language binding.
+        // ----------------------------------------------------------------------
+
+        // .NET returns a standard, mutable System.Collections.Generic.Dictionary for maps;
+        // immutability of returned maps is not part of the .NET binding contract (same as Go).
+        [Fact(DisplayName = Prefix + nameof(MapInClassCannotBeModified), Skip = "Not applicable: .NET returns a standard mutable IDictionary; returned maps are not immutable")]
+        public void MapInClassCannotBeModified()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(MapReturnedByMethodCannotBeModified), Skip = "Not applicable: .NET returns a standard mutable IDictionary; returned maps are not immutable")]
+        public void MapReturnedByMethodCannotBeModified()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticMapInClassCannotBeModified), Skip = "Not applicable: .NET returns a standard mutable IDictionary; returned maps are not immutable")]
+        public void StaticMapInClassCannotBeModified()
+        {
+        }
+
+        // Collections modeled as arrays are surfaced as fixed-size C# arrays (string[]), which
+        // have no add/remove API that could be rejected at runtime (same reasoning as Go).
+        [Fact(DisplayName = Prefix + nameof(StaticListInClassCannotBeModified), Skip = "Not applicable: C# arrays (string[]) are fixed-size by design; there is no add/remove API to reject")]
+        public void StaticListInClassCannotBeModified()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ArrayReturnedByMethodCannotBeModified), Skip = "Not applicable: C# arrays (string[]) are fixed-size by design; there is no add/remove API to reject")]
+        public void ArrayReturnedByMethodCannotBeModified()
+        {
+        }
+
+        // The .NET generator does not emit Equals/GetHashCode for structs yet, so structs
+        // are compared and hashed by reference.
+        [Fact(DisplayName = Prefix + nameof(Structs_NonOptionalequals), Skip = "Not implemented: the .NET generator does not emit Equals for structs")]
+        public void Structs_NonOptionalequals()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_OptionalEquals), Skip = "Not implemented: the .NET generator does not emit Equals for structs")]
+        public void Structs_OptionalEquals()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_MultiplePropertiesEquals), Skip = "Not implemented: the .NET generator does not emit Equals for structs")]
+        public void Structs_MultiplePropertiesEquals()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(EqualsIsResistantToPropertyShadowingResultVariable), Skip = "Not implemented: the .NET generator does not emit Equals for structs")]
+        public void EqualsIsResistantToPropertyShadowingResultVariable()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_NonOptionalhashCode), Skip = "Not implemented: the .NET generator does not emit GetHashCode for structs")]
+        public void Structs_NonOptionalhashCode()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_OptionalHashCode), Skip = "Not implemented: the .NET generator does not emit GetHashCode for structs")]
+        public void Structs_OptionalHashCode()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(Structs_MultiplePropertiesHashCode), Skip = "Not implemented: the .NET generator does not emit GetHashCode for structs")]
+        public void Structs_MultiplePropertiesHashCode()
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(HashCodeIsResistantToPropertyShadowingResultVariable), Skip = "Not implemented: the .NET generator does not emit GetHashCode for structs")]
+        public void HashCodeIsResistantToPropertyShadowingResultVariable()
+        {
+        }
+
+        // Step/staged builders are a Java-only concept; .NET structs are created with object initializers.
+        [Fact(DisplayName = Prefix + nameof(Structs_StepBuilders), Skip = "Not applicable: .NET does not generate step/staged builders; structs are created with object initializers")]
+        public void Structs_StepBuilders()
+        {
+        }
+
+        // ----------------------------------------------------------------------
+        // Tests that are applicable but currently fail due to a generator/runtime gap.
+        // ----------------------------------------------------------------------
+
+        // The .NET generator does not emit required-field validation for structs, so passing an
+        // under-specified struct to the kernel does not raise. See https://github.com/aws/jsii/issues/2672
+        [Fact(DisplayName = Prefix + nameof(Structs_ContainsNullChecks), Skip = ".NET does not validate required struct fields when marshalling to the kernel; see https://github.com/aws/jsii/issues/2672")]
+        public void Structs_ContainsNullChecks()
+        {
         }
     }
 }

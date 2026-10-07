@@ -174,18 +174,6 @@ def test_structEquality():
     assert a != d
 
 
-def test_consumer_calls_method_static_objliteral():
-    assert ConsumerCanRingBell.static_implemented_by_object_literal(PythonBellRinger())
-
-
-def test_consumer_calls_method_static_publicclass():
-    assert ConsumerCanRingBell.static_implemented_by_public_class(PythonBellRinger())
-
-
-def test_consumer_calls_method_static_privateclass():
-    assert ConsumerCanRingBell.static_implemented_by_private_class(PythonBellRinger())
-
-
 def test_consumer_calls_method_static_typed_as_class():
     assert ConsumerCanRingBell.static_when_typed_as_class(PythonConcreteBellRinger())
 

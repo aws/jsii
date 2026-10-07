@@ -445,10 +445,16 @@ type mulTen struct {
 	calc.Multiply
 }
 
-func newMulTen(value *float64) mulTen {
-	return mulTen{
-		calc.NewMultiply(calclib.NewNumber(value), calclib.NewNumber(jsii.Number(10))),
-	}
+func newMulTen(value *float64) *mulTen {
+	m := &mulTen{}
+	calc.NewMultiply_Override(m, calclib.NewNumber(value), calclib.NewNumber(jsii.Number(10)))
+	return m
+}
+
+// Go native subclasses must override at least one method with a pointer
+// receiver to be registered with the kernel.
+func (m *mulTen) Hello() *string {
+	return jsii.String("Hello from mulTen!")
 }
 
 func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects() {
@@ -461,8 +467,6 @@ func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects()
 	_, ok := (types.AnyProperty()).(calclib.Number)
 	require.True(ok)
 
-	suite.FailTest("??", "??")
-
 	nativeObj := addTen.New(jsii.Number(10))
 	types.SetAnyProperty(nativeObj)
 	result1 := types.AnyProperty()
@@ -470,7 +474,7 @@ func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects()
 
 	nativeObj2 := newMulTen(jsii.Number(20))
 	types.SetAnyProperty(nativeObj2)
-	unmarshalledNativeObj, ok := (types.AnyProperty()).(mulTen)
+	unmarshalledNativeObj, ok := (types.AnyProperty()).(*mulTen)
 	require.True(ok)
 	require.Equal(nativeObj2, unmarshalledNativeObj)
 }
@@ -753,16 +757,26 @@ func newTestCanOverrideProtectedSetterOverridableProtectedMember() *TestCanOverr
 func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType() {
 	require := suite.Require()
 
+	classRef := calc.Constructors_MakeClass()
 	ifaceRef := calc.Constructors_MakeInterface()
-	v := ifaceRef
-	require.NotNil(v)
 
-	// TODO: I am not sure this is possible in Go (probably N/A)
-	suite.FailTest("N/A?", "")
-
-	classRef, ok := calc.Constructors_MakeClass().(calc.InbetweenClass)
+	// Constructors.makeClass() is typed as PublicClass but actually returns an
+	// InbetweenClass instance. The kernel labels the object reference with its
+	// most derived type, so the Go type assertion to InbetweenClass must succeed.
+	_, ok := classRef.(calc.InbetweenClass)
 	require.True(ok)
-	require.NotNil(classRef)
+	require.NotNil(ifaceRef)
+}
+
+// TestVoidReturningAsync verifies that returning Promise<void> is correctly handled.
+func (suite *ComplianceSuite) TestVoidReturningAsync() {
+	// Async methods are generated as synchronous kernel invocations in Go, which
+	// the kernel rejects ("<method> is an async method, use \"begin\" instead").
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
+
+	obj := calc.NewPromiseNothing()
+	obj.InstancePromiseIt()
+	calc.PromiseNothing_PromiseIt()
 }
 
 func (suite *ComplianceSuite) TestStructs_StepBuilders() {

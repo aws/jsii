@@ -8,14 +8,16 @@ import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestWatcher;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-public final class ComplianceSuiteHarness implements BeforeEachCallback, AfterEachCallback, AfterAllCallback {
+public final class ComplianceSuiteHarness implements BeforeEachCallback, AfterEachCallback, AfterAllCallback, TestWatcher {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ObjectNode result = objectMapper.createObjectNode();
     private final Map<String, List<String>> kernelTraces = new HashMap<>();
@@ -42,6 +44,16 @@ public final class ComplianceSuiteHarness implements BeforeEachCallback, AfterEa
         final ObjectNode entry = result.putObject(extensionContext.getRequiredTestMethod().getName());
         entry.put("status", extensionContext.getExecutionException().isPresent() ? "failure" : "success");
         entry.putPOJO("kernelTrace", kernelTraces.remove(extensionContext.getUniqueId()));
+    }
+
+    /**
+     * Disabled tests don't run, so they are reported as failing with the reason they are disabled for.
+     */
+    @Override
+    public void testDisabled(final ExtensionContext extensionContext, final Optional<String> reason) {
+        final ObjectNode entry = result.putObject(extensionContext.getRequiredTestMethod().getName());
+        entry.put("status", "failure");
+        reason.ifPresent(r -> entry.put("reason", r));
     }
 
     @Override
