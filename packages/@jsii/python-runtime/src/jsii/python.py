@@ -1,21 +1,27 @@
-from typing import Any, Callable, Optional, Type, Union
+from typing import Any, Callable, Generic, Optional, Type, TypeVar, Union
+
+T = TypeVar("T")
 
 
-class _ClassProperty:
+class _ClassProperty(Generic[T]):
+    """
+    A property on a class (rather than on an instance), holding a value of type `T`.
+    """
+
     def __init__(
         self,
-        fget: classmethod,
-        fset: Optional[classmethod] = None,
+        fget: "classmethod[Any, [], T]",
+        fset: "Optional[classmethod[Any, [T], None]]" = None,
     ):
         self.fget = fget
         self.fset = fset
 
-    def __get__(self, obj: Any, klass: Optional[Type] = None) -> Any:
+    def __get__(self, obj: Any, klass: Optional[Type] = None) -> T:
         if klass is None:
             klass = type(obj)
         return self.fget.__get__(obj, klass)()
 
-    def __set__(self, obj: Any, value: Any) -> None:
+    def __set__(self, obj: Any, value: T) -> None:
         if self.fset is None:
             raise AttributeError("Can't set class property (no setter)")
         # `obj` is what the property was assigned on: the class for `Foo.prop = value`,
@@ -25,8 +31,8 @@ class _ClassProperty:
         return setter(value)
 
     def setter(
-        self, fset: Union[Callable[[Any, Any], None], classmethod]
-    ) -> "_ClassProperty":
+        self, fset: "Union[Callable[[Any, T], None], classmethod[Any, [T], None]]"
+    ) -> "_ClassProperty[T]":
         """
         Defines the setter for a class property
         """
@@ -36,7 +42,9 @@ class _ClassProperty:
         return self
 
 
-def classproperty(fget: Union[Callable[[Any], Any], classmethod]) -> _ClassProperty:
+def classproperty(
+    fget: "Union[Callable[[Any], T], classmethod[Any, [], T]]",
+) -> _ClassProperty[T]:
     """
     Declares a new class property with the decorated getter.
     """
