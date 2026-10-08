@@ -15,7 +15,7 @@ export const suite: schema.Suite = {
       report: 'packages/@jsii/dotnet-runtime-test/compliance-report.json',
     },
     python: {
-      report: 'packages/@jsii/python-runtime-test/compliance-report.json',
+      report: 'packages/@jsii/python-runtime/compliance-report.json',
     },
   },
   testCases: [

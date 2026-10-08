@@ -41,8 +41,8 @@ The `<test-case-name>` must match the test case name in the suite definition. Fo
 
 Requires that each language report to include an entry with a key called `maps`.
 
-> Note that matching is **not case sensitive**, which means you can and should adhere to the
-> conventions of your specific language when writing the tests.
+> Note that matching ignores case, underscores and a leading `test`, which means you can and should
+> adhere to the conventions of your specific language when writing the tests.
 
 These reports are then aggregated into a single multi-language compliance report. It is generated during build time,
 and should be checked into [source control](../../gh-pages/content/specification/6-compliance-report.md).
