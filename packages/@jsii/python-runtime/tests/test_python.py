@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import cast, Any, Optional
+from typing import Any, Optional
 import jsii
 import pytest
 import re
@@ -9,19 +9,29 @@ import jsii_calc
 from jsii_calc.module2702 import IVpc, Vpc, IBaz, Baz
 from jsii_calc.jsii3656 import OverrideMe
 from jsii_calc import (
+    ConfusingToJackson,
+    AllTypes,
+    Calculator,
     ConsumerCanRingBell,
+    DiamondInheritanceTopLevelStruct,
     Entropy,
     HostStackTraceReader,
     IBellRinger,
     IConcreteBellRinger,
+    IInterfaceWithProperties,
     IWallClock,
     Isomorphism,
+    OptionalStruct,
     RootStructValidator,
     SecondLevelStruct,
     SomeTypeJsii976,
+    StableStruct,
     StructPassing,
+    StructWithJavaReservedWords,
     TopLevelStruct,
+    UnionProperties,
     UpcasingReflectable,
+    UsesInterfaceWithProperties,
 )
 from jsii_calc.python_self import ClassWithSelf, ClassWithSelfKwarg
 from jsii_calc.submodule.child import SomeEnum
@@ -120,33 +130,6 @@ def find_struct_bases(x):
 
     recurse(x)
     return ret
-
-
-def test_passNestedStruct():
-    output = StructPassing.round_trip(
-        123,
-        required="hello",
-        second_level=SecondLevelStruct(deeper_required_prop="exists"),
-    )
-
-    assert output.required == "hello"
-    assert output.optional is None
-    assert cast(SecondLevelStruct, output.second_level).deeper_required_prop == "exists"
-
-    # Test stringification
-    # Dicts are ordered in Python 3.7+, so this is fine: https://mail.python.org/pipermail/python-dev/2017-December/151283.html
-    assert (
-        str(output)
-        == "TopLevelStruct(required='hello', second_level=SecondLevelStruct(deeper_required_prop='exists'))"
-    )
-
-
-def test_passNestedScalar():
-    output = StructPassing.round_trip(123, required="hello", second_level=5)
-
-    assert output.required == "hello"
-    assert output.optional is None
-    assert output.second_level == 5
 
 
 def test_passStructsInVariadic():
@@ -589,3 +572,115 @@ def test_host_stack_trace_through_callback(monkeypatch):
         "invoke_callback",
         "test_host_stack_trace_through_callback",
     ]
+
+
+#
+# Tests moved out of the compliance suite: these exercise real Python binding
+# behaviour that no longer corresponds to a shared compliance test case.
+#
+
+
+def test_fluent_api():
+    calc3 = Calculator(initial_value=20, maximum_value=30)
+    calc3.add(3)
+    assert calc3.value == 23
+
+
+def test_union_properties_with_builder():
+    # Python does not have fluent builders; properties are passed as keyword
+    # arguments to the struct constructor.
+    obj1 = UnionProperties(bar=12, foo="Hello")
+    assert obj1.bar == 12
+    assert obj1.foo == "Hello"
+
+    obj2 = UnionProperties(bar="BarIsString")
+    assert obj2.bar == "BarIsString"
+    assert obj2.foo is None
+
+    all_types = AllTypes()
+    obj3 = UnionProperties(bar=all_types, foo=999)
+    assert obj3.bar is all_types
+    assert obj3.foo == 999
+
+
+def test_interface_builder():
+    @jsii.implements(IInterfaceWithProperties)
+    class TInterfaceWithProperties:
+        x = "READ_WRITE"
+
+        @property
+        def read_only_string(self):
+            return "READ_ONLY"
+
+        @property
+        def read_write_string(self):
+            return self.x
+
+        @read_write_string.setter
+        def read_write_string(self, value):
+            self.x = value
+
+    obj = TInterfaceWithProperties()
+    interact = UsesInterfaceWithProperties(obj)
+    assert interact.just_read() == "READ_ONLY"
+    assert interact.write_and_read("Hello") == "Hello"
+
+
+def test_structs_non_optional_equals():
+    struct_a = StableStruct(readonly_property="one")
+    struct_b = StableStruct(readonly_property="one")
+    struct_c = StableStruct(readonly_property="two")
+
+    assert struct_a == struct_b
+    assert struct_a != struct_c
+
+
+def test_structs_optional_equals():
+    struct_a = OptionalStruct(field="one")
+    struct_b = OptionalStruct(field="one")
+    struct_c = OptionalStruct(field="two")
+    struct_d = OptionalStruct()
+
+    assert struct_a == struct_b
+    assert struct_a != struct_c
+    assert struct_a != struct_d
+
+
+def test_structs_multiple_properties_equals():
+    struct_a = DiamondInheritanceTopLevelStruct(
+        base_level_property="one",
+        first_mid_level_property="two",
+        second_mid_level_property="three",
+        top_level_property="four",
+    )
+    struct_b = DiamondInheritanceTopLevelStruct(
+        base_level_property="one",
+        first_mid_level_property="two",
+        second_mid_level_property="three",
+        top_level_property="four",
+    )
+    struct_c = DiamondInheritanceTopLevelStruct(
+        base_level_property="one",
+        first_mid_level_property="two",
+        second_mid_level_property="different",
+        top_level_property="four",
+    )
+
+    assert struct_a == struct_b
+    assert struct_a != struct_c
+
+
+def test_equals_is_resistant_to_property_shadowing_result_variable():
+    # StructWithJavaReservedWords has a property named `result`, which the
+    # generated per-property getter also uses as a local variable name. This
+    # verifies equality is not confused by that shadowing.
+    first = StructWithJavaReservedWords(default="one")
+    second = StructWithJavaReservedWords(default="one")
+    third = StructWithJavaReservedWords(default="two")
+
+    assert first == second
+    assert first != third
+
+
+def test_can_obtain_struct_reference_with_overloaded_setter():
+    assert ConfusingToJackson.make_struct_instance() is not None

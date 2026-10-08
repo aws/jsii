@@ -2766,6 +2766,15 @@ export class ConfusingToJackson {
     return {};
   }
 
+  /**
+   * Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+   */
+  public static roundTripStruct(
+    input: ConfusingToJacksonStruct,
+  ): ConfusingToJacksonStruct {
+    return { unionProperty: input.unionProperty };
+  }
+
   public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 
   private constructor() {}

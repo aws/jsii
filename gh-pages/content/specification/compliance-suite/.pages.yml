@@ -1,0 +1,15 @@
+---
+title: Test Suite
+nav:
+  - "Primitives & Optional Values": 01-primitives.md
+  - "Classes & Object References": 02-classes.md
+  - "Statics & Constants": 03-statics.md
+  - "Enums": 04-enums.md
+  - "Collections": 05-collections.md
+  - "Structs & Keyword Arguments": 06-structs.md
+  - "Interfaces": 07-interfaces.md
+  - "Subclassing & Overrides": 08-overrides.md
+  - "Async": 09-async.md
+  - "Errors": 10-errors.md
+  - "Naming": 11-naming.md
+  - "Runtime Environment": 12-runtime.md

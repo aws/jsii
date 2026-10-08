@@ -1,539 +1,176 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import * as schema from './schema';
 
-export const suite: schema.Suite = {
-  name: 'standard',
-  description:
-    'JSII standard compliance test suite. These tests must be implemented in each language binding.',
-  bindings: {
-    java: {
-      report: 'packages/@jsii/java-runtime-test/project/compliance-report.json',
-    },
-    golang: {
-      report: 'packages/@jsii/go-runtime-test/project/compliance-report.json',
-    },
-    dotnet: {
-      report: 'packages/@jsii/dotnet-runtime-test/compliance-report.json',
-    },
-    python: {
-      report: 'packages/@jsii/python-runtime/compliance-report.json',
-    },
-  },
-  testCases: [
-    {
-      name: 'asyncOverrides_overrideCallsSuper',
-      description: '',
-    },
-    {
-      name: 'arrayReturnedByMethodCanBeRead',
-      description:
-        'Array created in the kernel can be queried for its elements',
-    },
-    {
-      name: 'unionProperties',
-      description:
-        'Kernel values that accept a union type can be set, and are returned with the concrete type',
-    },
-    {
-      name: 'syncOverrides',
-      description: '',
-    },
-    {
-      name: 'useEnumFromScopedModule',
-      description:
-        'Property that accepts an enum type from a third-party package can be set, and read',
-    },
-    {
-      name: 'createObjectAndCtorOverloads',
-      description:
-        'Class can be instantiated with empty and non empty constructor',
-    },
-    {
-      name: 'fail_syncOverrides_callsDoubleAsync_method',
-      description: '',
-    },
-    {
-      name: 'collectionOfInterfaces_MapOfStructs',
-      description: '',
-    },
-    {
-      name: 'asyncOverrides_overrideAsyncMethod',
-      description: '',
-    },
-    {
-      name: 'statics',
-      description:
-        'Static functions can be invoked and accept and return the correct type',
-    },
-    {
-      name: 'structs_returnedLiteralEqualsNativeBuilt',
-      description:
-        'A struct returned from the kernel is not distinguishable from a struct created natively',
-    },
-    {
-      name: 'classesCanSelfReferenceDuringClassInitialization',
-      description: 'Classes can reference other classes during initialization',
-    },
-    {
-      name: 'canObtainStructReferenceWithOverloadedSetter',
-      description:
-        'A class with a settable property of a union type can be returned from the kernel',
-    },
-    {
-      name: 'callbacksCorrectlyDeserializeArguments',
-      description:
-        'Runtime properly deserializes callback arguments from the kernel',
-    },
-    {
-      name: 'canUseInterfaceSetters',
-      description:
-        'Read-write properties generate the corresponding setters in the target language',
-    },
-    {
-      name: 'propertyOverrides_interfaces',
-      description: 'Target language can override properties of host interfaces',
-    },
-    {
-      name: 'syncOverrides_callsSuper',
-      description: '',
-    },
-    {
-      name: 'testJsiiAgent',
-      description:
-        'Asserts the correct value of the JSII_AGENT env variable for the kernel process',
-    },
-    {
-      name: 'doNotOverridePrivates_method_private',
-      description:
-        'Non public methods on the guest class do not override methods in the host class',
-    },
-    {
-      name: 'pureInterfacesCanBeUsedTransparently',
-      description:
-        'Guest implementation of a pure host interface can be used by host consumers accepting that interface',
-    },
-    {
-      name: 'nullShouldBeTreatedAsUndefined',
-      description:
-        'Null value of target language is treated as undefined by the host',
-    },
-    {
-      name: 'primitiveTypes',
-      description:
-        'All Primitive types are set and read with their respective types',
-    },
-    {
-      name: 'reservedKeywordsAreSlugifiedInClassProperties',
-      description:
-        'TS code that uses reserved words as class property names get slugified so it is usable in the target language',
-    },
-    {
-      name: 'objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut',
-      description:
-        "Ensure the JSII kernel can pass 'this' out to JSII remotes from within the constructor",
-    },
-    {
-      name: 'interfaceBuilder',
-      description: "Seems to be a duplicate of 'propertyOverrides_interfaces'?",
-    },
-    {
-      name: 'unionTypes',
-      description: '',
-    },
-    {
-      name: 'arrays',
-      description: '',
-    },
-    {
-      name: 'staticMapInClassCannotBeModified',
-      description: '',
-    },
-    {
-      name: 'consts',
-      description: '',
-    },
-    {
-      name: 'pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing',
-      description: '',
-    },
-    {
-      name: 'reservedKeywordsAreSlugifiedInMethodNames',
-      description: '',
-    },
-    {
-      name: 'exceptions',
-      description: '',
-    },
-    {
-      name: 'testLiteralInterface',
-      description: '',
-    },
-    {
-      name: 'structs_nonOptionalhashCode',
-      description: '',
-    },
-    {
-      name: 'propertyOverrides_set_throws',
-      description: '',
-    },
-    {
-      name: 'canLeverageIndirectInterfacePolymorphism',
-      description: '',
-    },
-    {
-      name: 'fluentApi',
-      description: '',
-    },
-    {
-      name: 'staticListInClassCanBeReadCorrectly',
-      description: '',
-    },
-    {
-      name: 'mapReturnedByMethodCannotBeModified',
-      description: '',
-    },
-    {
-      name: 'receiveInstanceOfPrivateClass',
-      description: '',
-    },
-    {
-      name: 'staticMapInClassCanBeReadCorrectly',
-      description: '',
-    },
-    {
-      name: 'testNativeObjectsWithInterfaces',
-      description: '',
-    },
-    {
-      name: 'doNotOverridePrivates_property_getter_public',
-      description: '',
-    },
-    {
-      name: 'equalsIsResistantToPropertyShadowingResultVariable',
-      description: '',
-    },
-    {
-      name: 'listInClassCanBeReadCorrectly',
-      description: '',
-    },
-    {
-      name: 'useNestedStruct',
-      description: '',
-    },
-    {
-      name: 'testFluentApiWithDerivedClasses',
-      description: '',
-    },
-    {
-      name: 'interfacesCanBeUsedTransparently_WhenAddedToJsiiType',
-      description: '',
-    },
-    {
-      name: 'canOverrideProtectedGetter',
-      description: '',
-    },
-    {
-      name: 'getAndSetEnumValues',
-      description: '',
-    },
-    {
-      name: 'structs_nonOptionalequals',
-      description: '',
-    },
-    {
-      name: 'testInterfaceParameter',
-      description: '',
-    },
-    {
-      name: 'liftedKwargWithSameNameAsPositionalArg',
-      description: '',
-    },
-    {
-      name: 'creationOfNativeObjectsFromJavaScriptObjects',
-      description: '',
-    },
-    {
-      name: 'canOverrideProtectedMethod',
-      description: '',
-    },
-    {
-      name: 'canLoadEnumValues',
-      description: '',
-    },
-    {
-      name: 'eraseUnsetDataValues',
-      description: '',
-    },
-    {
-      name: 'maps',
-      description: '',
-    },
-    {
-      name: 'structs_containsNullChecks',
-      description: '',
-    },
-    {
-      name: 'canOverrideProtectedSetter',
-      description: '',
-    },
-    {
-      name: 'asyncOverrides_callAsyncMethod',
-      description: '',
-    },
-    {
-      name: 'nodeStandardLibrary',
-      description: '',
-    },
-    {
-      name: 'dates',
-      description: '',
-    },
-    {
-      name: 'collectionOfInterfaces_ListOfStructs',
-      description: '',
-    },
-    {
-      name: 'objRefsAreLabelledUsingWithTheMostCorrectType',
-      description: '',
-    },
-    {
-      name: 'unionPropertiesWithBuilder',
-      description: '',
-    },
-    {
-      name: 'doNotOverridePrivates_property_getter_private',
-      description: '',
-    },
-    {
-      name: 'structs_withDiamondInheritance_correctlyDedupeProperties',
-      description: '',
-    },
-    {
-      name: 'abstractMembersAreCorrectlyHandled',
-      description: '',
-    },
-    {
-      name: 'doNotOverridePrivates_property_by_name_private',
-      description: '',
-    },
-    {
-      name: 'testNullIsAValidOptionalMap',
-      description: '',
-    },
-    {
-      name: 'mapReturnedByMethodCanBeRead',
-      description: '',
-    },
-    {
-      name: 'structs_multiplePropertiesEquals',
-      description: '',
-    },
-    {
-      name: 'mapInClassCanBeReadCorrectly',
-      description: '',
-    },
-    {
-      name: 'staticListInClassCannotBeModified',
-      description: '',
-    },
-    {
-      name: 'collectionOfInterfaces_MapOfInterfaces',
-      description: '',
-    },
-    {
-      name: 'asyncOverrides_overrideThrows',
-      description: '',
-    },
-    {
-      name: 'callMethods',
-      description: '',
-    },
-    {
-      name: 'returnAbstract',
-      description: '',
-    },
-    {
-      name: 'dynamicTypes',
-      description: '',
-    },
-    {
-      name: 'hashCodeIsResistantToPropertyShadowingResultVariable',
-      description: '',
-    },
-    {
-      name: 'returnSubclassThatImplementsInterface976',
-      description: '',
-    },
-    {
-      name: 'structs_optionalEquals',
-      description: '',
-    },
-    {
-      name: 'propertyOverrides_get_calls_super',
-      description: '',
-    },
-    {
-      name: 'unmarshallIntoAbstractType',
-      description: '',
-    },
-    {
-      name: 'structs_multiplePropertiesHashCode',
-      description: '',
-    },
-    {
-      name: 'fail_syncOverrides_callsDoubleAsync_propertyGetter',
-      description: '',
-    },
-    {
-      name: 'propertyOverrides_get_set',
-      description: '',
-    },
-    {
-      name: 'variadicMethodCanBeInvoked',
-      description: '',
-    },
-    {
-      name: 'collectionTypes',
-      description: '',
-    },
-    {
-      name: 'asyncOverrides_overrideAsyncMethodByParentClass',
-      description: '',
-    },
-    {
-      name: 'structs_optionalHashCode',
-      description: '',
-    },
-    {
-      name: 'testStructsCanBeDowncastedToParentType',
-      description: '',
-    },
-    {
-      name: 'propertyOverrides_get_throws',
-      description: '',
-    },
-    {
-      name: 'getSetPrimitiveProperties',
-      description: '',
-    },
-    {
-      name: 'getAndSetNonPrimitiveProperties',
-      description: '',
-    },
-    {
-      name: 'reservedKeywordsAreSlugifiedInStructProperties',
-      description: '',
-    },
-    {
-      name: 'fail_syncOverrides_callsDoubleAsync_propertySetter',
-      description: '',
-    },
-    {
-      name: 'doNotOverridePrivates_method_public',
-      description: '',
-    },
-    {
-      name: 'testNullIsAValidOptionalList',
-      description: '',
-    },
-    {
-      name: 'mapInClassCannotBeModified',
-      description: '',
-    },
-    {
-      name: 'doNotOverridePrivates_property_by_name_public',
-      description: '',
-    },
-    {
-      name: 'asyncOverrides_twoOverrides',
-      description: '',
-    },
-    {
-      name: 'propertyOverrides_set_calls_super',
-      description: '',
-    },
-    {
-      name: 'iso8601DoesNotDeserializeToDate',
-      description: '',
-    },
-    {
-      name: 'collectionOfInterfaces_ListOfInterfaces',
-      description: '',
-    },
-    {
-      name: 'undefinedAndNull',
-      description: '',
-    },
-    {
-      name: 'structs_serializeToJsii',
-      description: '',
-    },
-    {
-      name: 'structsAreUndecoratedOntheWayToKernel',
-      description: '',
-    },
-    {
-      name: 'canObtainReferenceWithOverloadedSetter',
-      description: '',
-    },
-    {
-      name: 'testJSObjectLiteralToNative',
-      description: '',
-    },
-    {
-      name: 'structs_stepBuilders',
-      description: '',
-    },
-    {
-      name: 'classWithPrivateConstructorAndAutomaticProperties',
-      description: '',
-    },
-    {
-      name: 'arrayReturnedByMethodCannotBeModified',
-      description: '',
-    },
-    {
-      name: 'correctlyDeserializesStructUnions',
-      description: '',
-    },
-    {
-      name: 'subclassing',
-      description: '',
-    },
-    {
-      name: 'testInterfaces',
-      description: '',
-    },
-    {
-      name: 'callbackParameterIsInterface',
-      description: 'Validates pure interfaces can be passed to callbacks',
-    },
-    {
-      name: 'classCanBeUsedWhenNotExpressedlyLoaded',
-      description:
-        'Validates that types not explicitly loaded by the user can safely be returned by JS code',
-    },
-    {
-      name: 'downcasting',
-      description: 'Ensures unsafe-cast features work as expected',
-    },
-    {
-      name: 'strippedDeprecatedMemberCanBeReceived',
-      description:
-        'Ensures --strip-deprecated does not cause odd runtime errors',
-    },
-    {
-      name: 'exceptionMessage',
-      description:
-        'Verifies that custom exception names are correctly forwarded',
-    },
-    {
-      name: 'voidReturningAsync',
-      description: 'Verifies that returning Promise<void> is correctly handled',
-    },
-    {
-      name: 'staticPropertyAssignment',
-      description:
-        'Assigning a static property updates its value on the JavaScript side',
-    },
-  ],
-};
+/**
+ * The directory containing the test case definitions: `suite/<category>/<test-name>.md`
+ */
+export const SUITE_DIR = path.join(__dirname, 'suite');
+
+/**
+ * Loads the compliance suite from the markdown files in `suite/`.
+ *
+ * @throws if any category or test case file is invalid.
+ */
+export function loadSuite(): schema.Suite {
+  const errors: string[] = [];
+  const categories: schema.Category[] = [];
+
+  for (const id of listDirectories(SUITE_DIR)) {
+    const categoryDir = path.join(SUITE_DIR, id);
+    const readme = path.join(categoryDir, 'README.md');
+    if (!fs.existsSync(readme)) {
+      errors.push(
+        `${relative(categoryDir)}: missing README.md with the category title and description`,
+      );
+      continue;
+    }
+    const { title, body: description } = parseMarkdown(
+      fs.readFileSync(readme, 'utf-8'),
+    );
+    if (!title) {
+      errors.push(`${relative(readme)}: missing H1 title`);
+    }
+
+    const testCases: schema.TestCase[] = [];
+    for (const file of fs.readdirSync(categoryDir).sort()) {
+      if (file === 'README.md' || !file.endsWith('.md')) {
+        continue;
+      }
+      const testCase = loadTestCase(id, path.join(categoryDir, file), errors);
+      if (testCase) {
+        testCases.push(testCase);
+      }
+    }
+
+    categories.push({ id, title: title ?? id, description, testCases });
+  }
+
+  // Test names must be unique across categories, since language reports only use the name
+  const seen = new Map<string, string>();
+  for (const testCase of categories.flatMap((c) => c.testCases)) {
+    const key = normalizeTestName(testCase.name);
+    const other = seen.get(key);
+    if (other) {
+      errors.push(
+        `Test '${testCase.name}' is defined in both ${other} and ${testCase.category}`,
+      );
+    }
+    seen.set(key, testCase.category);
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Invalid compliance suite:\n  ${errors.join('\n  ')}`);
+  }
+
+  return {
+    name: 'standard',
+    description:
+      'JSII standard compliance test suite. These tests must be implemented in each language binding.',
+    bindings: {
+      java: {
+        report:
+          'packages/@jsii/java-runtime-test/project/compliance-report.json',
+      },
+      golang: {
+        report: 'packages/@jsii/go-runtime-test/project/compliance-report.json',
+      },
+      dotnet: {
+        report: 'packages/@jsii/dotnet-runtime-test/compliance-report.json',
+      },
+      python: {
+        report: 'packages/@jsii/python-runtime/compliance-report.json',
+      },
+    },
+    categories,
+  };
+}
+
+/**
+ * Given a test name, normalize it so it can be compared across different language bindings.
+ *
+ * Ignores case, underscores and leading "test"s, so each language can follow its own
+ * naming conventions: `test_null_is_a_valid_optional_list` matches `testNullIsAValidOptionalList`
+ */
+export function normalizeTestName(testName: string): string {
+  return testName
+    .toUpperCase()
+    .replace(/_/g, '')
+    .replace(/^(TEST)+/, '');
+}
+
+function loadTestCase(
+  category: string,
+  file: string,
+  errors: string[],
+): schema.TestCase | undefined {
+  const name = path.basename(file, '.md');
+  const { frontmatter, title, body } = parseMarkdown(
+    fs.readFileSync(file, 'utf-8'),
+  );
+  const location = relative(file);
+
+  if (Object.keys(frontmatter).length > 0) {
+    errors.push(`${location}: test cases have no frontmatter`);
+  }
+  if (!title) {
+    errors.push(`${location}: missing H1 title`);
+  }
+  if (!/\b(MUST|SHOULD|MAY)( NOT)?\b/.test(body.split(/^## /m)[0])) {
+    errors.push(
+      `${location}: the description must state the requirement using RFC 2119 keywords`,
+    );
+  }
+  if (!/^## Reference Implementation$/m.test(body)) {
+    errors.push(`${location}: missing '## Reference Implementation' section`);
+  }
+
+  if (!title) {
+    return undefined;
+  }
+  return { name, title, category, body };
+}
+
+/**
+ * Splits a markdown file into its YAML frontmatter (simple `key: value` pairs only),
+ * its H1 title, and the remaining body.
+ */
+function parseMarkdown(content: string): {
+  frontmatter: Record<string, string>;
+  title?: string;
+  body: string;
+} {
+  const frontmatter: Record<string, string> = {};
+  let rest = content;
+
+  const match = /^---\n([\s\S]*?)\n---\n/.exec(content);
+  if (match) {
+    for (const line of match[1].split('\n')) {
+      const [key, ...value] = line.split(':');
+      if (key.trim()) {
+        frontmatter[key.trim()] = value.join(':').trim();
+      }
+    }
+    rest = content.slice(match[0].length);
+  }
+
+  const titleMatch = /^\s*# (.+)\n/.exec(rest);
+  if (titleMatch) {
+    rest = rest.slice(titleMatch[0].length);
+  }
+
+  return { frontmatter, title: titleMatch?.[1].trim(), body: rest.trim() };
+}
+
+function listDirectories(dir: string): string[] {
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort();
+}
+
+function relative(file: string): string {
+  return path.relative(path.join(__dirname, '..', '..'), file);
+}

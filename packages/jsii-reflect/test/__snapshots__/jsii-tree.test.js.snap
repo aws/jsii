@@ -1291,6 +1291,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ static makeStructInstance() method (stable)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
+ │   │   ├─┬ static roundTripStruct(input) method (stable)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.ConfusingToJacksonStruct
+ │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
  │   │   └─┬ unionProperty property (stable)
  │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ class ConstructorPassesThisOut (stable)
@@ -5200,6 +5206,7 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── static makeInstance() method
  │   │   ├── static makeStructInstance() method
+ │   │   ├── static roundTripStruct(input) method
  │   │   └── unionProperty property
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members

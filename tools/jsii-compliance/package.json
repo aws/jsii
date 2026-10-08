@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "build": "echo 'build not needed for the jsii-compliance package'",
+    "check": "ts-node check-suite.ts",
     "report": "ts-node report.ts",
     "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts",
     "lint:fix": "yarn lint --fix"
