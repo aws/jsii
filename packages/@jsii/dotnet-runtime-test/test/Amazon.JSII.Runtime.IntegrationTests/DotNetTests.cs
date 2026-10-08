@@ -233,5 +233,136 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             Assert.Equal(bells, allTypes.AnyProperty);
         }
+
+        // Moved out of the compliance suite: `fluentApi` is no longer a compliance test, but this
+        // exercises real .NET behaviour (object-initializer construction plus a method call).
+        [Fact(DisplayName = Prefix + nameof(FluentApi))]
+        public void FluentApi()
+        {
+            Calculator calc = new Calculator(new CalculatorProps
+            {
+                InitialValue = 20,
+                MaximumValue = 30,
+            });
+            calc.Add(3);
+            Assert.Equal(23, calc.Value);
+        }
+
+        // Moved out of the compliance suite: `canObtainStructReferenceWithOverloadedSetter` is no
+        // longer a compliance test, but obtaining a struct reference with an overloaded setter is
+        // real .NET behaviour.
+        [Fact(DisplayName = Prefix + nameof(CanObtainStructReferenceWithOverloadedSetter))]
+        public void CanObtainStructReferenceWithOverloadedSetter()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeStructInstance());
+        }
+
+        // Moved out of the compliance suite: `unionPropertiesWithBuilder` is no longer a compliance
+        // test. .NET has no builders; structs use object initializers. This verifies that the
+        // union-typed properties can be set with each of the union member types and read back.
+        [Fact(DisplayName = Prefix + nameof(UnionPropertiesWithBuilder))]
+        public void UnionPropertiesWithBuilder()
+        {
+            var obj1 = new UnionProperties { Bar = 12d, Foo = "Hello" };
+            Assert.Equal(12d, obj1.Bar);
+            Assert.Equal("Hello", obj1.Foo);
+
+            var obj2 = new UnionProperties { Bar = "BarIsString" };
+            Assert.Equal("BarIsString", obj2.Bar);
+            Assert.Null(obj2.Foo);
+
+            var allTypes = new AllTypes();
+            var obj3 = new UnionProperties { Bar = allTypes, Foo = 999d };
+            Assert.Same(allTypes, obj3.Bar);
+            Assert.Equal(999d, obj3.Foo);
+        }
+
+        // Moved out of the compliance suite: `interfaceBuilder` is no longer a compliance test
+        // (it duplicated propertyOverrides_interfaces), but it exercises real .NET behaviour.
+        [Fact(DisplayName = Prefix + nameof(InterfaceBuilder))]
+        public void InterfaceBuilder()
+        {
+            var interact = new UsesInterfaceWithProperties(new InterfaceBuilderImpl());
+            Assert.Equal("READ_ONLY", interact.JustRead());
+            Assert.Equal("Hello", interact.WriteAndRead("Hello"));
+        }
+
+        private sealed class InterfaceBuilderImpl : DeputyBase, IInterfaceWithProperties
+        {
+            private string _value = "READ_WRITE";
+
+            public string ReadOnlyString => "READ_ONLY";
+
+            public string ReadWriteString
+            {
+                get => _value;
+                set => _value = value;
+            }
+        }
+
+        // Moved out of the compliance suite: the suite keeps only the `_public` variants of
+        // doNotOverridePrivates. The `_private` variants below assert real .NET behaviour: a
+        // private member in a host subclass that coincides with a kernel private is not registered
+        // as an override.
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Method_Private))]
+        public void DoNotOverridePrivates_Method_Private()
+        {
+            var obj = new DoNotOverridePrivatesMethodPrivate();
+            Assert.Equal("privateMethod", obj.PrivateMethodValue());
+        }
+
+        private sealed class DoNotOverridePrivatesMethodPrivate : DoNotOverridePrivates
+        {
+            private string PrivateMethod()
+            {
+                return "privateMethod-Override";
+            }
+
+            // Referenced only to prove the private member exists without the compiler eliding it.
+            public string CallPrivateMethod() => PrivateMethod();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Property_By_Name_Private))]
+        public void DoNotOverridePrivates_Property_By_Name_Private()
+        {
+            var obj = new DoNotOverridePrivatesPropertyByNamePrivate();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyByNamePrivate : DoNotOverridePrivates
+        {
+            private string PrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+
+            public string CallPrivateProperty() => PrivateProperty();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DoNotOverridePrivates_Property_Getter_Private))]
+        public void DoNotOverridePrivates_Property_Getter_Private()
+        {
+            var obj = new DoNotOverridePrivatesPropertyGetterPrivate();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+
+            // verify the setter override is not invoked.
+            obj.ChangePrivatePropertyValue("MyNewValue");
+            Assert.Equal("MyNewValue", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyGetterPrivate : DoNotOverridePrivates
+        {
+            private string GetPrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+
+            public void SetPrivateProperty(string value)
+            {
+                throw new Exception("Boom");
+            }
+
+            public string CallGetPrivateProperty() => GetPrivateProperty();
+        }
     }
 }

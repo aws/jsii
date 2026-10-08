@@ -3,8 +3,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+import { testCaseLink, writeSuitePages } from './pages';
 import * as schema from './schema';
-import { suite } from './suite';
+import { loadSuite, normalizeTestName } from './suite';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const tablemark = require('tablemark');
@@ -16,10 +17,6 @@ const NOTAPPL = '⚪'; // test is not applicable for this language
 
 /**
  * Determines the status of a specific test case with respect to a specific language.
- *
- * @param testCase the test case.
- * @param language test language.
- * @param reports the reports collected from all language bindings.
  */
 function determineTestStatus(testResult: schema.TestResult | undefined) {
   switch (testResult?.status) {
@@ -36,24 +33,8 @@ function determineTestStatus(testResult: schema.TestResult | undefined) {
 }
 
 /**
- * Given a test name, normalize it so it can be compared across different language bindings.
- *
- * @param testName the test name.
- */
-function normalizeTestName(testName: string): string {
-  // Ignore case, underscores and leading "test"s, so each language can follow its own
-  // naming conventions: `test_null_is_a_valid_optional_list` matches `testNullIsAValidOptionalList`
-  return testName
-    .toUpperCase()
-    .replace(/_/g, '')
-    .replace(/^(TEST)+/, '');
-}
-
-/**
  * Given a compliance report, normalize its test names so they are comparable to the
  * tests defined in the suite.
- *
- * @param report report
  */
 function normalizeReport(report: schema.Report): schema.Report {
   const normalized: schema.Report = {};
@@ -64,15 +45,8 @@ function normalizeReport(report: schema.Report): schema.Report {
 }
 
 /**
- * Validates that a language specific compliance report doesn't violate the suite.
- *
- * Possible violations are:
- *
- *   - A test exist in the report that doesn't exist in the suite definition.
- *
- * @param report the report.
- * @param language the language.
- * @param suite the suite.
+ * Validates that every test in a language specific compliance report has a test case
+ * definition in the suite. This prevents adding compliance tests to a single language.
  *
  * @returns A list of validation errors.
  */
@@ -81,32 +55,23 @@ function validateReport(
   language: string,
   suite: schema.Suite,
 ): string[] {
-  const testsInReport = Object.keys(report);
-
-  const testsInSuite = suite.testCases.map((t: schema.TestCase) =>
-    normalizeTestName(t.name),
+  const testsInSuite = new Set(
+    suite.categories.flatMap((c) =>
+      c.testCases.map((t) => normalizeTestName(t.name)),
+    ),
   );
 
-  const errors: string[] = [];
-
-  // make sure every test in the language report exist in the suite.
-  // this prevents us from adding tests only to a specific language.
-  for (const test of testsInReport) {
-    if (!testsInSuite.includes(test)) {
-      errors.push(
-        `Test '${test}' from ${language} report does not exist in the compliance suite. If this test is language specific,
-          move it out of the compliance test, otherwise, add the test to the compliance suite definition.`,
-      );
-    }
-  }
-
-  return errors;
+  return Object.keys(report)
+    .filter((test) => !testsInSuite.has(test))
+    .map(
+      (test) =>
+        `Test '${test}' from ${language} report has no test case definition in tools/jsii-compliance/suite. If this test is language specific,
+          move it out of the compliance test, otherwise, add a test case definition to the suite.`,
+    );
 }
 
 /**
  * Collect all the individual reports into a single collection. Ignores bindings that are missing their report file.
- *
- * @param suite the compliance suite.
  */
 function collectReports(suite: schema.Suite): Record<string, schema.Report> {
   const reports: Record<string, schema.Report> = {};
@@ -122,14 +87,16 @@ function collectReports(suite: schema.Suite): Record<string, schema.Report> {
   return reports;
 }
 
-console.log('Collecting individual lanaguage binding reports');
+console.log('Loading compliance suite');
+const suite = loadSuite();
+
+console.log('Collecting individual language binding reports');
 const reports = collectReports(suite);
 
 console.log('Validating reports');
-const errors = [];
-for (const [language, report] of Object.entries(reports)) {
-  errors.push(...validateReport(report, language, suite));
-}
+const errors = Object.entries(reports).flatMap(([language, report]) =>
+  validateReport(report, language, suite),
+);
 
 if (errors.length > 0) {
   console.error('Found multiple validation errors:');
@@ -139,45 +106,64 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
+writeSuitePages(suite);
+
 console.log('Creating aggregated report');
 
-const rows = new Array<Record<string, string>>();
+const languages = Object.keys(suite.bindings);
+const testCount = suite.categories.reduce((n, c) => n + c.testCases.length, 0);
 const successes: Record<string, number> = {};
+const completeCategories: Record<string, number> = {};
+for (const language of languages) {
+  successes[language] = 0;
+  completeCategories[language] = 0;
+}
 
-for (const [i, testCase] of suite.testCases.entries()) {
-  const row: Record<string, string> = {
-    number: `${i + 1}`,
-    test: testCase.description
-      ? `[${testCase.name}]("${testCase.description}")`
-      : testCase.name,
-  };
+const sections = new Array<string>();
+for (const category of suite.categories) {
+  const categorySuccesses: Record<string, number> = {};
+  const rows = category.testCases.map((testCase) => {
+    const row: Record<string, string> = {
+      test: `[${testCase.name}](${testCaseLink(testCase)} "${testCase.title}")`,
+    };
 
-  for (const language of Object.keys(suite.bindings)) {
-    const report = reports[language];
-    const testResult = report?.[normalizeTestName(testCase.name)];
+    for (const language of languages) {
+      const testResult = reports[language]?.[normalizeTestName(testCase.name)];
+      const status = determineTestStatus(testResult);
+      row[language] = testResult?.url
+        ? `[${status}](${testResult.url})`
+        : status;
+      if (status === SUCCESS) {
+        successes[language] += 1;
+        categorySuccesses[language] = (categorySuccesses[language] ?? 0) + 1;
+      }
+    }
+    return row;
+  });
 
-    const status = determineTestStatus(testResult);
-    row[language] = testResult?.url ? `[${status}](${testResult.url})` : status;
-
-    successes[language] = successes[language] ?? 0;
-
-    if (status === SUCCESS) {
-      successes[language] = successes[language] + 1;
+  for (const language of languages) {
+    if (categorySuccesses[language] === category.testCases.length) {
+      completeCategories[language] += 1;
     }
   }
 
-  rows.push(row);
+  sections.push(
+    `## [${category.title}](${testCaseLink(category.testCases[0]).split('#')[0]})\n\n${tablemark(rows, { columns: ['Test', ...languages] })}`,
+  );
 }
 
-const columns = ['number', 'test'];
-
-for (const language of Object.keys(reports)) {
-  const coverage = (
-    (successes[language] / suite.testCases.length) *
-    100
-  ).toFixed(2);
-  columns.push(`${language} (${coverage}%)`);
-}
+const summary = languages.map((language) => {
+  const coverage = ((successes[language] / testCount) * 100).toFixed(2);
+  return {
+    language,
+    tests: reports[language]
+      ? `${coverage}% (${successes[language]} / ${testCount})`
+      : 'no report',
+    categories: reports[language]
+      ? `${completeCategories[language]} / ${suite.categories.length}`
+      : 'no report',
+  };
+});
 
 const target = path.join(
   __dirname,
@@ -192,10 +178,15 @@ const header = `<!-- Auto generated by tools/jsii-compliance/report.ts - do not 
 
 # Compliance Report
 
-This section details the current state of each language binding with respect to our standard compliance suite.
+This section details the current state of each language binding with respect to our [standard compliance suite](4-standard-compliance-suite.md).
 
+Language bindings must pass every test case. A category is complete when a language binding passes all of its test cases.
+
+${tablemark(summary, { columns: ['Language', 'Tests passing', 'Categories complete'] })}
+
+Status: ${SUCCESS} passing, ${FAILURE} failing, ${NOTAPPL} not applicable, ${MISSING} not implemented.
 `;
 
-fs.writeFileSync(target, `${header}\n${tablemark(rows, { columns })}`);
+fs.writeFileSync(target, `${header}\n${sections.join('\n\n')}`);
 
 console.log(`Report written to ${target}`);

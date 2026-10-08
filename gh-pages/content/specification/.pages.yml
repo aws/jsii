@@ -4,6 +4,8 @@ nav:
   - 1-introduction.md
   - The jsii type system: 2-type-system.md
   - The jsii kernel API: 3-kernel-api.md
-  - 4-standard-compliance-suite.md
+  - Standard Compliance Suite:
+      - 4-standard-compliance-suite.md
+      - compliance-suite
   - 5-new-language-intake.md
   - Compliance Report: 6-compliance-report.md

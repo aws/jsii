@@ -6371,6 +6371,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson), new System.Type[]{}, new object[]{})!;
         }
 
+        /// <summary>Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.</summary>
+        [JsiiMethod(name: "roundTripStruct", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.ConfusingToJacksonStruct\\"}}", parametersJson: "[{\\"name\\":\\"input\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.ConfusingToJacksonStruct\\"}}]")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct RoundTripStruct(Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct input)
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct)}, new object[]{input})!;
+        }
+
         /// <remarks>
         /// <para>Type union: either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or (either <see cref="Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly" /> or <see cref="Amazon.JSII.Tests.CalculatorNamespace.AbstractClass" />)[]</para>
         /// </remarks>
@@ -24142,7 +24149,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs.diff 1`] = `
 --- dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs	--no-runtime-type-checking
 +++ dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ConfusingToJackson.cs	--runtime-type-checking
-@@ -45,10 +45,44 @@
+@@ -52,10 +52,44 @@
          public virtual object? UnionProperty
          {
              get => GetInstanceProperty<object?>();

@@ -47,6 +47,7 @@ from jsii_calc import (
     IInterfaceWithProperties,
     IStructReturningDelegate,
     IWallClock,
+    JavaReservedWords,
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
@@ -57,7 +58,6 @@ from jsii_calc import (
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
     ObjectWithPropertyProvider,
-    OptionalStruct,
     OverridableProtectedMember,
     PartiallyInitializedThisConsumer,
     Polymorphism,
@@ -65,13 +65,11 @@ from jsii_calc import (
     PythonReservedWords,
     ReferenceEnumFromScopedPackage,
     ReturnsPrivateImplementationOfInterface,
-    StableStruct,
     StaticPropertyAssignment,
     Statics,
     StructWithJavaReservedWords,
     Sum,
     SyncVirtualMethods,
-    UnionProperties,
     UsesInterfaceWithProperties,
     composition,
     EraseUndefinedHashValues,
@@ -80,6 +78,9 @@ from jsii_calc import (
     StructA,
     StructB,
     StructUnionConsumer,
+    StructPassing,
+    SecondLevelStruct,
+    TopLevelStruct,
     SomeTypeJsii976,
     StructParameterType,
     AnonymousImplementationProvider,
@@ -213,7 +214,7 @@ class MulTen(Multiply):
         super().__init__(Number(value), Number(10))
 
 
-def test_primitiveTypes():
+def test_primitives_round_trip():
     types = AllTypes()
 
     # boolean
@@ -237,7 +238,7 @@ def test_primitiveTypes():
     assert types.json_property.get("Foo") == {"bar": 123}
 
 
-def test_dates():
+def test_dates_round_trip():
     types = AllTypes()
 
     # strong type
@@ -249,7 +250,7 @@ def test_dates():
     assert types.any_property == datetime.fromtimestamp(999 / 1000.0, tz=timezone.utc)
 
 
-def test_collectionTypes():
+def test_collection_properties_can_be_set_and_read():
     types = AllTypes()
 
     # array
@@ -263,7 +264,7 @@ def test_collectionTypes():
     # TODO: No Assertion?
 
 
-def test_dynamicTypes():
+def test_any_values_keep_their_type():
     types = AllTypes()
 
     # boolean
@@ -316,7 +317,7 @@ def test_dynamicTypes():
     assert types.any_property.value == 200
 
 
-def test_unionTypes():
+def test_union_property_accepts_each_member_type():
     types = AllTypes()
 
     # single valued property
@@ -340,12 +341,12 @@ def test_unionTypes():
     assert cast(Number, types.union_array_property[1]).value == 33
 
 
-def test_createObjectAndCtorOverloads():
+def test_optional_constructor_parameters_can_be_omitted():
     Calculator()
     Calculator(maximum_value=10)
 
 
-def test_getSetPrimitiveProperties():
+def test_primitive_properties_can_be_read():
     number = Number(20)
 
     assert number.value == 20
@@ -357,7 +358,7 @@ def test_getSetPrimitiveProperties():
     assert Power(Number(999), Number(0)).value == 1
 
 
-def test_callMethods():
+def test_instance_methods_can_be_called():
     calc = Calculator()
 
     calc.add(10)
@@ -373,14 +374,14 @@ def test_callMethods():
     assert calc.value == -3_200_000
 
 
-def test_unmarshallIntoAbstractType():
+def test_abstract_typed_value_received_as_reference():
     calc = Calculator()
     calc.add(120)
 
     assert calc.curr.value == 120
 
 
-def test_getAndSetNonPrimitiveProperties():
+def test_object_properties_can_be_read_and_assigned():
     calc = Calculator()
     calc.add(3_200_000)
     calc.neg()
@@ -389,7 +390,7 @@ def test_getAndSetNonPrimitiveProperties():
     assert calc.value == -6_400_000
 
 
-def test_getAndSetEnumValues():
+def test_enum_properties_can_be_read_and_written():
     calc = Calculator()
     calc.add(9)
     calc.pow(3)
@@ -404,7 +405,7 @@ def test_getAndSetEnumValues():
     assert calc.to_string() == "<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>"
 
 
-def test_useEnumFromScopedModule():
+def test_enums_from_dependencies_cross_the_boundary():
     obj = ReferenceEnumFromScopedPackage()
     assert obj.foo == EnumFromScopedModule.VALUE2
     obj.foo = EnumFromScopedModule.VALUE1
@@ -413,13 +414,13 @@ def test_useEnumFromScopedModule():
     assert obj.foo == EnumFromScopedModule.VALUE2
 
 
-def test_undefinedAndNull():
+def test_unset_optional_property_reads_as_absent():
     calc = Calculator()
     assert calc.max_value is None
     calc.max_value = None
 
 
-def test_arrays():
+def test_arrays_of_objects_preserve_order_and_type():
     sum_ = Sum()
     sum_.parts = [Number(5), Number(10), Multiply(Number(2), Number(3))]
 
@@ -429,7 +430,7 @@ def test_arrays():
     assert sum_.to_string() == "(((0 + 5) + 10) + (2 * 3))"
 
 
-def test_maps():
+def test_maps_of_objects_can_be_read():
     calc2 = Calculator()  # Initializer overload (props is optional)
     calc2.add(10)
     calc2.add(20)
@@ -442,7 +443,7 @@ def test_maps():
     assert got[1].value == 30
 
 
-def test_exceptions():
+def test_kernel_errors_reach_the_host():
     calc3 = Calculator(initial_value=20, maximum_value=30)
     calc3.add(3)
 
@@ -457,7 +458,7 @@ def test_exceptions():
     assert calc3.value == 33
 
 
-def test_unionProperties():
+def test_union_property_returns_concrete_type():
     calc3 = Calculator()
     calc3.union_property = Multiply(Number(9), Number(3))
 
@@ -470,7 +471,7 @@ def test_unionProperties():
     assert calc3.read_union_value() == 10**3
 
 
-def test_subclassing():
+def test_host_subclass_can_be_used():
     calc = Calculator()
     calc.curr = AddTen(33)
     calc.neg()
@@ -478,7 +479,7 @@ def test_subclassing():
     assert calc.value == -43
 
 
-def test_testJSObjectLiteralToNative():
+def test_object_literal_returned_as_class_is_usable():
     obj = JSObjectLiteralToNative()
     obj2 = obj.return_literal()
 
@@ -486,7 +487,7 @@ def test_testJSObjectLiteralToNative():
     assert obj2.prop_b == 102
 
 
-def test_testFluentApiWithDerivedClasses():
+def test_inherited_properties_usable_on_host_subclass():
     # make sure that fluent API can be assigned to objects from derived classes
     obj = DerivedFromAllTypes()
     obj.string_property = "Hello"
@@ -496,7 +497,7 @@ def test_testFluentApiWithDerivedClasses():
     assert obj.number_property == 12
 
 
-def test_creationOfNativeObjectsFromJavaScriptObjects():
+def test_object_references_round_trip_through_any():
     """
     See that we can create a native object, pass it JS and then unmarshal
     back without type information.
@@ -520,34 +521,34 @@ def test_creationOfNativeObjectsFromJavaScriptObjects():
     assert unmarshalled_native_obj.__class__ == MulTen
 
 
-def test_asyncOverrides_callAsyncMethod():
+def test_async_methods_can_be_called():
     obj = AsyncVirtualMethods()
     assert obj.call_me() == 128
     assert obj.override_me(44) == 528
 
 
-def test_asyncOverrides_overrideAsyncMethod():
+def test_async_method_can_be_overridden():
     obj = OverrideAsyncMethods()
     assert obj.call_me() == 4452
 
 
-def test_asyncOverrides_overrideAsyncMethodByParentClass():
+def test_async_override_can_be_inherited():
     obj = OverrideAsyncMethodsByBaseClass()
     assert obj.call_me() == 4452
 
 
-def test_asyncOverrides_overrideCallsSuper():
+def test_async_override_can_call_super():
     obj = OverrideCallsSuper()
     assert obj.override_me(12) == 1441
     assert obj.call_me() == 1209
 
 
-def test_asyncOverrides_twoOverrides():
+def test_multiple_async_methods_can_be_overridden():
     obj = TwoOverrides()
     assert obj.call_me() == 684
 
 
-def test_asyncOverrides_overrideThrows():
+def test_async_override_error_propagates():
     class ThrowingAsyncVirtualMethods(AsyncVirtualMethods):
         def override_me(self, mult):
             raise RuntimeError("Thrown by native code")
@@ -558,7 +559,7 @@ def test_asyncOverrides_overrideThrows():
         obj.call_me()
 
 
-def test_syncOverrides():
+def test_method_calls_use_host_override():
     obj = SyncOverrides()
     assert obj.caller_is_method() == 10 * 5
 
@@ -574,14 +575,14 @@ def test_syncOverrides():
     assert obj.caller_is_async() == 10 * 5 * 3
 
 
-def test_propertyOverrides_get_set():
+def test_property_accesses_use_host_overrides():
     so = SyncOverrides()
     assert so.retrieve_value_of_the_property() == "I am an override!"
     so.modify_value_of_the_property("New Value")
     assert so.another_the_property == "New Value"
 
 
-def test_propertyOverrides_get_calls_super():
+def test_getter_override_can_call_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
         @property
         def the_property(self):
@@ -597,7 +598,7 @@ def test_propertyOverrides_get_calls_super():
     assert so.the_property == "super:initial value"
 
 
-def test_propertyOverrides_set_calls_super():
+def test_setter_override_can_call_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
         @property
         def the_property(self):
@@ -621,7 +622,7 @@ def test_propertyOverrides_set_calls_super():
     assert so.the_property == "New Value:by override"
 
 
-def test_propertyOverrides_get_throws():
+def test_getter_override_error_propagates():
     class ThrowingSyncVirtualMethods(SyncVirtualMethods):
         @property
         def the_property(self):
@@ -637,7 +638,7 @@ def test_propertyOverrides_get_throws():
         so.retrieve_value_of_the_property()
 
 
-def test_propertyOverrides_set_throws():
+def test_setter_override_error_propagates():
     class ThrowingSyncVirtualMethods(SyncVirtualMethods):
         @property
         def the_property(self):
@@ -653,7 +654,7 @@ def test_propertyOverrides_set_throws():
         so.modify_value_of_the_property("Hii")
 
 
-def test_propertyOverrides_interfaces():
+def test_kernel_uses_host_interface_accessors():
     @jsii.implements(IInterfaceWithProperties)
     class TInterfaceWithProperties:
         x = None
@@ -677,37 +678,14 @@ def test_propertyOverrides_interfaces():
     assert interact.write_and_read("Hello") == "Hello!?"
 
 
-def test_interfaceBuilder():
-    @jsii.implements(IInterfaceWithProperties)
-    class TInterfaceWithProperties:
-        x = "READ_WRITE"
-
-        @property
-        def read_only_string(self):
-            return "READ_ONLY"
-
-        @property
-        def read_write_string(self):
-            return self.x
-
-        @read_write_string.setter
-        def read_write_string(self, value):
-            self.x = value
-
-    obj = TInterfaceWithProperties()
-    interact = UsesInterfaceWithProperties(obj)
-    assert interact.just_read() == "READ_ONLY"
-    assert interact.write_and_read("Hello") == "Hello"
-
-
-def test_syncOverrides_callsSuper():
+def test_method_override_can_call_super():
     obj = SyncOverrides()
     assert obj.caller_is_property == 10 * 5
     obj.return_super = True
     assert obj.caller_is_property == 10 * 2
 
 
-def test_fail_syncOverrides_callsDoubleAsync_method():
+def test_sync_method_override_calling_async_fails():
     obj = SyncOverrides()
     obj.call_async = True
 
@@ -716,7 +694,7 @@ def test_fail_syncOverrides_callsDoubleAsync_method():
         obj.caller_is_method()
 
 
-def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
+def test_sync_getter_override_calling_async_fails():
     obj = SyncOverrides()
     obj.call_async = True
 
@@ -725,7 +703,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
         obj.caller_is_property
 
 
-def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
+def test_sync_setter_override_calling_async_fails():
     obj = SyncOverrides()
     obj.call_async = True
 
@@ -734,7 +712,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
         obj.caller_is_property = 12
 
 
-def test_testInterfaces() -> None:
+def test_objects_usable_through_every_interface() -> None:
     friendly: IFriendly
     friendlier: IFriendlier
     random_number_generator: IRandomNumberGenerator
@@ -769,7 +747,7 @@ def test_testInterfaces() -> None:
     assert poly.say_hello(PureNativeFriendlyRandom()) == "oh, I am a native!"
 
 
-def test_testNativeObjectsWithInterfaces():
+def test_host_objects_keep_identity_across_the_boundary():
     # create a pure and native object, not part of the jsii hierarchy, only implements
     # a jsii interface
     pure_native = PureNativeFriendlyRandom()
@@ -791,7 +769,7 @@ def test_testNativeObjectsWithInterfaces():
     assert generator_bound_to_pure_native.next_times100() == 200_000
 
 
-def test_testLiteralInterface():
+def test_object_literal_returned_as_interface_is_usable():
     obj = JSObjectLiteralForInterface()
     friendly = obj.give_me_friendly()
     gen = obj.give_me_friendly_generator()
@@ -801,7 +779,7 @@ def test_testLiteralInterface():
     assert gen.next() == 42
 
 
-def test_testInterfaceParameter():
+def test_interface_value_can_be_passed_back():
     obj = JSObjectLiteralForInterface()
     friendly = obj.give_me_friendly()
     greeting_augmenter = GreetingAugmenter()
@@ -813,7 +791,7 @@ def test_testInterfaceParameter():
     )
 
 
-def test_statics():
+def test_static_members_can_be_used():
     assert Statics.static_method("Yoyo") == "hello ,Yoyo!"
     assert Statics.instance.value == "default"
 
@@ -826,7 +804,7 @@ def test_statics():
     assert Statics.non_const_static == 100
 
 
-def test_static_property_assignment():
+def test_static_property_assignment_updates_java_script():
     assert StaticPropertyAssignment.read_value() == "default"
     try:
         StaticPropertyAssignment.value = "assigned"
@@ -839,7 +817,7 @@ def test_static_property_assignment():
     assert StaticPropertyAssignment.read_value() == "default"
 
 
-def test_consts():
+def test_constants_can_be_read():
     obj = Statics.CONST_OBJ
 
     assert Statics.FOO == "hello"
@@ -848,13 +826,13 @@ def test_consts():
     assert Statics.ZOO_BAR.get("hello") == "world"
 
 
-def test_reservedKeywordsAreSlugifiedInMethodNames():
+def test_reserved_word_methods_are_callable():
     obj = PythonReservedWords()
     obj.import_()
     obj.return_()
 
 
-def test_nodeStandardLibrary():
+def test_node_standard_library_is_available():
     obj = NodeStandardLibrary()
 
     assert obj.fs_read_file() == "Hello, resource!"
@@ -866,7 +844,7 @@ def test_nodeStandardLibrary():
     )
 
 
-def test_returnAbstract():
+def test_objects_returned_as_abstract_type_are_usable():
     obj = AbstractClassReturner()
     obj2 = obj.give_me_abstract()
 
@@ -882,7 +860,7 @@ def test_returnAbstract():
     )
 
 
-def test_doNotOverridePrivates_method_public():
+def test_host_method_does_not_override_private_method():
     class TDoNotOverridePrivates(DoNotOverridePrivates):
         def private_method(self):
             return "privateMethod-Override"
@@ -892,7 +870,7 @@ def test_doNotOverridePrivates_method_public():
     assert obj.private_method_value() == "privateMethod"
 
 
-def test_doNotOverridePrivates_property_by_name_public():
+def test_host_method_does_not_override_private_property():
     class TDoNotOverridePrivates(DoNotOverridePrivates):
         def private_property(self):
             return "privateProperty-Override"
@@ -902,7 +880,7 @@ def test_doNotOverridePrivates_property_by_name_public():
     assert obj.private_property_value() == "privateProperty"
 
 
-def test_doNotOverridePrivates_property_getter_public():
+def test_host_accessor_does_not_override_private_property():
     class TDoNotOverridePrivates(DoNotOverridePrivates):
         @property
         def private_property(self) -> str:
@@ -921,13 +899,13 @@ def test_doNotOverridePrivates_property_getter_public():
     assert obj.private_property_value() == "MyNewValue"
 
 
-def test_classWithPrivateConstructorAndAutomaticProperties():
+def test_private_constructor_class_from_static_factory():
     obj = ClassWithPrivateConstructorAndAutomaticProperties.create("Hello", "Bye")
     assert obj.read_write_string == "Bye"
     assert obj.read_only_string == "Hello"
 
 
-def test_nullShouldBeTreatedAsUndefined():
+def test_host_null_is_sent_as_undefined():
     obj = NullShouldBeTreatedAsUndefined("hello", None)
     obj.give_me_undefined(None)
     obj.give_me_undefined_inside_an_object(
@@ -942,21 +920,21 @@ def test_nullShouldBeTreatedAsUndefined():
     obj.verify_property_is_undefined()
 
 
-def test_testJsiiAgent():
+def test_kernel_knows_the_host_runtime():
     assert JsiiAgent.value == f"Python/{platform.python_version()}"
 
 
-def test_receiveInstanceOfPrivateClass():
+def test_non_exported_class_received_as_interface():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success
 
 
-def test_eraseUnsetDataValues():
+def test_unset_struct_properties_are_omitted():
     opts = EraseUndefinedHashValuesOptions(option1="option1")
     assert EraseUndefinedHashValues.does_key_exist(opts, "option1")
     assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
 
 
-def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
+def test_constructor_can_pass_this_to_the_host():
     class PartiallyInitializedThisConsumerImpl(PartiallyInitializedThisConsumer):
         def consume_partially_initialized_this(self, obj, dt, ev):
             assert obj is not None
@@ -969,12 +947,12 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
     assert obj is not None
 
 
-def test_variadicMethodCanBeInvoked():
+def test_variadic_arguments_are_forwarded():
     variadic = VariadicMethod(1)
     assert variadic.as_array(3, 4, 5, 6) == [1, 3, 4, 5, 6]
 
 
-def test_callbacksCorrectlyDeserializeArguments():
+def test_override_receives_deserialized_arguments():
     class DataRendererSubclass(DataRenderer):
         def render_map(self, map):
             return super().render_map(map)
@@ -986,7 +964,7 @@ def test_callbacksCorrectlyDeserializeArguments():
     )
 
 
-def test_correctly_deserializes_struct_unions():
+def test_overlapping_struct_unions_are_disambiguated():
     a0 = StructA(required_string="Present!", optional_string="Bazinga!")
     a1 = StructA(required_string="Present!", optional_number=1337)
     b0 = StructB(required_string="Present!", optional_boolean=True)
@@ -1003,7 +981,7 @@ def test_correctly_deserializes_struct_unions():
     assert StructUnionConsumer.is_struct_b(b1)
 
 
-def test_can_leverage_indirect_interface_polymorphism():
+def test_interface_value_with_private_type_is_usable():
     provider = AnonymousImplementationProvider()
     assert provider.provide_as_class().value == 1337
     assert provider.provide_as_interface().value == 1337
@@ -1011,31 +989,44 @@ def test_can_leverage_indirect_interface_polymorphism():
 
 
 # https://github.com/aws/jsii/issues/976
-def test_return_subclass_that_implements_interface_976():
+@pytest.mark.skip(
+    reason="Binding limitation: an `any`-typed anonymous object is received as an "
+    "Opaque reference that does not expose the implemented interface's members, so "
+    "it cannot be used as IReturnJsii976 (reading `foo` raises AttributeError)."
+)
+def test_objects_usable_through_implemented_interface():
     obj = SomeTypeJsii976.return_return()
     assert obj.foo == 333
 
+    # Also covers the former `downcasting` scenario: `return_anonymous()` is
+    # declared as `any`. Python is dynamically typed and has no unsafe-cast
+    # operation, so a value returned by the kernel is used directly through the
+    # interface it implements -- reading `foo` yields the value computed by the
+    # object.
+    anonymous = SomeTypeJsii976.return_anonymous()
+    assert anonymous.foo == 1337
 
-def test_structs_can_be_downcasted_to_parent_type():
+
+def test_struct_received_as_parent_struct_type():
     assert Demonstrate982.take_this() is not None
     assert Demonstrate982.take_this_too() is not None
 
 
-def test_null_is_a_valid_optional_list():
+def test_undefined_optional_list_reads_as_absent():
     assert DisappointingCollectionSource.MAYBE_LIST is None
 
 
-def test_null_is_a_valid_optional_map():
+def test_undefined_optional_map_reads_as_absent():
     assert DisappointingCollectionSource.MAYBE_MAP is None
 
 
-def test_can_use_interface_setters():
+def test_interface_property_can_be_set():
     obj = ObjectWithPropertyProvider.provide()
     obj.property = "New Value"
     assert obj.was_set()
 
 
-def test_structs_are_undecorated_on_the_way_to_kernel():
+def test_structs_are_sent_as_plain_data():
     json = JsonFormatter.stringify(
         StructB(required_string="Bazinga!", optional_boolean=False)
     )
@@ -1045,15 +1036,11 @@ def test_structs_are_undecorated_on_the_way_to_kernel():
     }
 
 
-def test_can_obtain_reference_with_overloaded_setter():
+def test_class_with_union_property_can_be_received():
     assert ConfusingToJackson.make_instance() is not None
 
 
-def test_can_obtain_struct_reference_with_overloaded_setter():
-    assert ConfusingToJackson.make_struct_instance() is not None
-
-
-def test_pure_interfaces_can_be_used_transparently():
+def test_host_can_implement_interface():
     expected = StructB(required_string="It's Britney b**ch!")
 
     @jsii.implements(IStructReturningDelegate)
@@ -1066,7 +1053,7 @@ def test_pure_interfaces_can_be_used_transparently():
     assert consumer.work_it_baby() == expected
 
 
-def test_pure_interfaces_can_be_used_transparently_when_transitively_implementing():
+def test_host_can_implement_interface_through_superclass():
     expected = StructB(required_string="It's Britney b**ch!")
 
     @jsii.implements(IStructReturningDelegate)
@@ -1083,7 +1070,7 @@ def test_pure_interfaces_can_be_used_transparently_when_transitively_implementin
     assert consumer.work_it_baby() == expected
 
 
-def test_interfaces_can_be_used_transparently_when_added_to_jsii_type():
+def test_host_subclass_can_implement_additional_interface():
     expected = StructB(required_string="It's Britney b**ch!")
 
     @jsii.implements(IStructReturningDelegate)
@@ -1096,7 +1083,7 @@ def test_interfaces_can_be_used_transparently_when_added_to_jsii_type():
     assert consumer.work_it_baby() == expected
 
 
-def test_lifted_kwarg_with_same_name_as_positional_arg():
+def test_positional_argument_and_struct_property_with_same_name():
     bell = Bell()
     amb = AmbiguousParameters(bell, scope="Driiiing!")
 
@@ -1104,7 +1091,7 @@ def test_lifted_kwarg_with_same_name_as_positional_arg():
     assert amb.props == StructParameterType(scope="Driiiing!")
 
 
-def test_abstract_members_are_correctly_handled():
+def test_host_implements_abstract_members():
     class AbstractSuiteImpl(AbstractSuite):
         @property
         def _property(self):
@@ -1121,27 +1108,27 @@ def test_abstract_members_are_correctly_handled():
     assert "Wrapped<String<Oomf!>>" == abstract_suite.work_it_all("Oomf!")
 
 
-def test_collection_of_interfaces_list_of_structs():
+def test_list_of_structs_elements_have_struct_type():
     for elt in InterfaceCollections.list_of_structs():
         assert getattr(elt, "required_string") is not None
 
 
-def test_collection_of_interfaces_list_of_interfaces():
+def test_list_of_interfaces_elements_are_usable():
     for elt in InterfaceCollections.list_of_interfaces():
         assert getattr(elt, "ring") is not None
 
 
-def test_collection_of_interfaces_map_of_structs():
+def test_map_of_structs_values_have_struct_type():
     for elt in InterfaceCollections.map_of_structs().values():
         assert getattr(elt, "required_string") is not None
 
 
-def test_collection_of_interfaces_map_of_interfaces():
+def test_map_of_interfaces_values_are_usable():
     for elt in InterfaceCollections.map_of_interfaces().values():
         assert getattr(elt, "ring") is not None
 
 
-def test_iso8601_does_not_deserialize_to_date():
+def test_iso_date_strings_stay_strings():
     @jsii.implements(IWallClock)
     class WallClock:
         def __init__(self, now: str):
@@ -1161,7 +1148,7 @@ def test_iso8601_does_not_deserialize_to_date():
     assert now == entropy.increase()
 
 
-def test_class_can_be_used_when_not_expressedly_loaded():
+def test_types_not_loaded_by_the_host_can_be_received():
     """
     This test verifies that it is possible to receive instances of classes that
     belong to submodules that have not been explicitly imported. This implies
@@ -1177,11 +1164,11 @@ def test_class_can_be_used_when_not_expressedly_loaded():
     Subject().test()
 
 
-def test_stripped_deprecated_member_can_be_received():
+def test_stripped_deprecated_type_can_be_received():
     assert InterfaceFactory.create() is not None
 
 
-def test_exception_message():
+def test_kernel_error_message_reaches_the_host():
     with pytest.raises(RuntimeError, match="Cannot find asset"):
         AcceptsPath(source_path="A Bad Path")
 
@@ -1189,47 +1176,23 @@ def test_exception_message():
 @pytest.mark.skip(
     reason="Static async methods are generated as synchronous calls, which the kernel rejects"
 )
-def test_void_returning_async():
+def test_async_method_returning_nothing():
     """Verifies it's okay to return a Promise<void>."""
 
     assert PromiseNothing().instance_promise_it() is None
     assert PromiseNothing.promise_it() is None
 
 
-def test_fluentApi():
-    calc3 = Calculator(initial_value=20, maximum_value=30)
-    calc3.add(3)
-    assert calc3.value == 23
-
-
-def test_unionPropertiesWithBuilder():
-    # NOTE: Python does not have fluent builders; properties are passed as
-    # keyword arguments to the struct constructor. We validate the same
-    # scenario the Java `unionPropertiesWithBuilder` test exercises.
-    obj1 = UnionProperties(bar=12, foo="Hello")
-    assert obj1.bar == 12
-    assert obj1.foo == "Hello"
-
-    obj2 = UnionProperties(bar="BarIsString")
-    assert obj2.bar == "BarIsString"
-    assert obj2.foo is None
-
-    all_types = AllTypes()
-    obj3 = UnionProperties(bar=all_types, foo=999)
-    assert obj3.bar is all_types
-    assert obj3.foo == 999
-
-
-def test_useNestedStruct():
+def test_submodule_struct_can_be_passed():
     StaticConsumer.consume(NestingClass.NestedStruct(name="Bond, James Bond"))
 
 
-def test_canLoadEnumValues():
+def test_enum_values_returned_by_the_kernel():
     assert EnumDispenser.random_string_like_enum() is not None
     assert EnumDispenser.random_integer_like_enum() is not None
 
 
-def test_objRefsAreLabelledUsingWithTheMostCorrectType():
+def test_objects_received_as_most_derived_public_type():
     class_ref = Constructors.make_class()
     iface_ref = Constructors.make_interface()
 
@@ -1237,7 +1200,7 @@ def test_objRefsAreLabelledUsingWithTheMostCorrectType():
     assert iface_ref is not None
 
 
-def test_classesCanSelfReferenceDuringClassInitialization():
+def test_classes_can_reference_each_other_during_initialization():
     outer_class = OuterClass()
     assert outer_class.inner_class is not None
 
@@ -1247,18 +1210,18 @@ def test_classesCanSelfReferenceDuringClassInitialization():
 #
 
 
-def test_arrayReturnedByMethodCanBeRead():
+def test_returned_array_can_be_read():
     assert ClassWithCollections.create_a_list() == ["one", "two"]
 
 
 @pytest.mark.skip(
     reason="Not applicable: Python returns a plain, mutable list (not an immutable view)"
 )
-def test_arrayReturnedByMethodCannotBeModified():
+def test_returned_array_rejects_mutation():
     pass
 
 
-def test_mapReturnedByMethodCanBeRead():
+def test_returned_map_can_be_read():
     result = ClassWithCollections.create_a_map()
     assert result == {"key1": "value1", "key2": "value2"}
     assert len(result) == 2
@@ -1267,16 +1230,16 @@ def test_mapReturnedByMethodCanBeRead():
 @pytest.mark.skip(
     reason="Not applicable: Python returns a plain, mutable dict (not an immutable view)"
 )
-def test_mapReturnedByMethodCannotBeModified():
+def test_returned_map_rejects_mutation():
     pass
 
 
-def test_listInClassCanBeReadCorrectly():
+def test_array_property_can_be_read():
     obj = ClassWithCollections({}, ["one", "two"])
     assert obj.array == ["one", "two"]
 
 
-def test_mapInClassCanBeReadCorrectly():
+def test_map_property_can_be_read():
     obj = ClassWithCollections({"key": "value"}, [])
     result = obj.map
     assert result == {"key": "value"}
@@ -1286,22 +1249,22 @@ def test_mapInClassCanBeReadCorrectly():
 @pytest.mark.skip(
     reason="Not applicable: Python returns a plain, mutable dict (not an immutable view)"
 )
-def test_mapInClassCannotBeModified():
+def test_map_property_rejects_mutation():
     pass
 
 
-def test_staticListInClassCanBeReadCorrectly():
+def test_static_array_property_can_be_read():
     assert ClassWithCollections.static_array == ["one", "two"]
 
 
 @pytest.mark.skip(
     reason="Not applicable: Python returns a plain, mutable list (not an immutable view)"
 )
-def test_staticListInClassCannotBeModified():
+def test_static_array_property_rejects_mutation():
     pass
 
 
-def test_staticMapInClassCanBeReadCorrectly():
+def test_static_map_property_can_be_read():
     result = ClassWithCollections.static_map
     assert result == {"key1": "value1", "key2": "value2"}
     assert len(result) == 2
@@ -1310,7 +1273,7 @@ def test_staticMapInClassCanBeReadCorrectly():
 @pytest.mark.skip(
     reason="Not applicable: Python returns a plain, mutable dict (not an immutable view)"
 )
-def test_staticMapInClassCannotBeModified():
+def test_static_map_property_rejects_mutation():
     pass
 
 
@@ -1319,7 +1282,7 @@ def test_staticMapInClassCannotBeModified():
 #
 
 
-def test_canOverrideProtectedMethod():
+def test_protected_method_can_be_overridden():
     challenge = "Cthulhu Fhtagn!"
 
     class Overridden(OverridableProtectedMember):
@@ -1329,7 +1292,7 @@ def test_canOverrideProtectedMethod():
     assert Overridden().value_from_protected() == challenge
 
 
-def test_canOverrideProtectedGetter():
+def test_protected_getter_can_be_overridden():
     class Overridden(OverridableProtectedMember):
         @property
         def _override_read_only(self):
@@ -1344,7 +1307,7 @@ def test_canOverrideProtectedGetter():
     assert Overridden().value_from_protected() == "Cthulhu Fhtagn!"
 
 
-def test_canOverrideProtectedSetter():
+def test_protected_setter_can_be_overridden():
     challenge = "Bazzzzzzzzzzzaar..."
 
     class Overridden(OverridableProtectedMember):
@@ -1368,105 +1331,11 @@ def test_canOverrideProtectedSetter():
 
 
 #
-# Struct equality (Java `equals` -> Python `==`)
-#
-
-
-def test_structs_nonOptionalequals():
-    struct_a = StableStruct(readonly_property="one")
-    struct_b = StableStruct(readonly_property="one")
-    struct_c = StableStruct(readonly_property="two")
-
-    assert struct_a == struct_b
-    assert struct_a != struct_c
-
-
-def test_structs_optionalEquals():
-    struct_a = OptionalStruct(field="one")
-    struct_b = OptionalStruct(field="one")
-    struct_c = OptionalStruct(field="two")
-    struct_d = OptionalStruct()
-
-    assert struct_a == struct_b
-    assert struct_a != struct_c
-    assert struct_a != struct_d
-
-
-def test_structs_multiplePropertiesEquals():
-    struct_a = DiamondInheritanceTopLevelStruct(
-        base_level_property="one",
-        first_mid_level_property="two",
-        second_mid_level_property="three",
-        top_level_property="four",
-    )
-    struct_b = DiamondInheritanceTopLevelStruct(
-        base_level_property="one",
-        first_mid_level_property="two",
-        second_mid_level_property="three",
-        top_level_property="four",
-    )
-    struct_c = DiamondInheritanceTopLevelStruct(
-        base_level_property="one",
-        first_mid_level_property="two",
-        second_mid_level_property="different",
-        top_level_property="four",
-    )
-
-    assert struct_a == struct_b
-    assert struct_a != struct_c
-
-
-def test_equalsIsResistantToPropertyShadowingResultVariable():
-    # StructWithJavaReservedWords has a property named `result`, which the
-    # generated per-property getter also uses as a local variable name. This
-    # verifies equality is not confused by that shadowing.
-    first = StructWithJavaReservedWords(default="one")
-    second = StructWithJavaReservedWords(default="one")
-    third = StructWithJavaReservedWords(default="two")
-
-    assert first == second
-    assert first != third
-
-
-#
-# Struct hashCode (Java `hashCode` -> Python `hash()`)
-#
-
-
-@pytest.mark.skip(
-    reason="Not applicable: jsii structs implement __eq__ for value equality but are intentionally unhashable in Python (no __hash__ is generated)"
-)
-def test_structs_nonOptionalhashCode():
-    pass
-
-
-@pytest.mark.skip(
-    reason="Not applicable: jsii structs implement __eq__ for value equality but are intentionally unhashable in Python (no __hash__ is generated)"
-)
-def test_structs_optionalHashCode():
-    pass
-
-
-@pytest.mark.skip(
-    reason="Not applicable: jsii structs implement __eq__ for value equality but are intentionally unhashable in Python (no __hash__ is generated)"
-)
-def test_structs_multiplePropertiesHashCode():
-    pass
-
-
-@pytest.mark.skip(
-    reason="Not applicable: jsii structs implement __eq__ for value equality but are intentionally unhashable in Python (no __hash__ is generated)"
-)
-def test_hashCodeIsResistantToPropertyShadowingResultVariable():
-    pass
-
-
-#
 # Other struct behaviours
 #
 
 
-def test_structs_withDiamondInheritance_correctlyDedupeProperties():
+def test_diamond_inherited_struct_properties_appear_once():
     struct = DiamondInheritanceTopLevelStruct(
         base_level_property="base",
         first_mid_level_property="mid1",
@@ -1480,13 +1349,13 @@ def test_structs_withDiamondInheritance_correctlyDedupeProperties():
     assert struct.top_level_property == "top"
 
 
-def test_structs_containsNullChecks():
+def test_incomplete_struct_is_rejected():
     # Required struct properties have no default, so omitting them raises.
     with pytest.raises(TypeError):
         MyFirstStruct()  # type: ignore[call-arg]
 
 
-def test_structs_returnedLiteralEqualsNativeBuilt():
+def test_received_struct_equals_host_built_struct():
     gms = GiveMeStructs()
     returned_literal = gms.struct_literal
     native_built = StructWithOnlyOptionals(
@@ -1501,7 +1370,7 @@ def test_structs_returnedLiteralEqualsNativeBuilt():
     assert returned_literal == native_built
 
 
-def test_structs_serializeToJsii():
+def test_structs_are_passed_by_value():
     first_struct = MyFirstStruct(
         astring="FirstString",
         anumber=999,
@@ -1548,19 +1417,12 @@ def test_structs_serializeToJsii():
     assert literal.optional2 is None
 
 
-@pytest.mark.skip(
-    reason="Not applicable: Python does not have step builders; struct properties are passed as keyword arguments to the constructor"
-)
-def test_structs_stepBuilders():
-    pass
-
-
 #
 # Reserved keywords
 #
 
 
-def test_reservedKeywordsAreSlugifiedInStructProperties():
+def test_reserved_word_struct_properties_are_usable():
     # `assert` is a Python reserved word and gets slugified to `assert_`.
     struct = StructWithJavaReservedWords(assert_="one", default="two")
 
@@ -1568,38 +1430,16 @@ def test_reservedKeywordsAreSlugifiedInStructProperties():
     assert struct.default == "two"
 
 
-def test_reservedKeywordsAreSlugifiedInClassProperties():
+def test_reserved_word_class_properties_are_accessible():
     obj = ClassWithJavaReservedWords("one")
 
     result = obj.import_("two")
 
     assert result == "onetwo"
 
-
-#
-# "Do not override privates" -- Java-only private visibility variants
-#
-
-
-@pytest.mark.skip(
-    reason="Not applicable: Python has no private visibility modifier; a method defined on a subclass is never declared private"
-)
-def test_doNotOverridePrivates_method_private():
-    pass
-
-
-@pytest.mark.skip(
-    reason="Not applicable: Python has no private visibility modifier; a property defined on a subclass is never declared private"
-)
-def test_doNotOverridePrivates_property_getter_private():
-    pass
-
-
-@pytest.mark.skip(
-    reason="Not applicable: Python has no private visibility modifier; a property defined on a subclass is never declared private"
-)
-def test_doNotOverridePrivates_property_by_name_private():
-    pass
+    # `while` is a Python reserved word and gets slugified to `while_`.
+    words = JavaReservedWords()
+    assert words.while_ == "hello"
 
 
 #
@@ -1607,7 +1447,7 @@ def test_doNotOverridePrivates_property_by_name_private():
 #
 
 
-def test_callbackParameterIsInterface():
+def test_callback_receives_interface_arguments():
     @jsii.implements(IBellRinger)
     class BellRinger:
         def your_turn(self, bell):
@@ -1619,8 +1459,52 @@ def test_callbackParameterIsInterface():
     assert ConsumerCanRingBell.static_implemented_by_private_class(ringer)
 
 
-@pytest.mark.skip(
-    reason="Not applicable: Python is dynamically typed and has no unsafe-cast operation; values returned by the kernel are used directly regardless of their static type"
-)
-def test_downcasting():
-    pass
+#
+# Struct union round-trips
+#
+
+
+def test_union_struct_property_keeps_concrete_type():
+    with_struct = StructPassing.round_trip(
+        123,
+        required="hello",
+        second_level=SecondLevelStruct(deeper_required_prop="exists"),
+    )
+
+    assert with_struct.required == "hello"
+    assert with_struct.optional is None
+    assert (
+        cast(SecondLevelStruct, with_struct.second_level).deeper_required_prop
+        == "exists"
+    )
+
+    # Test stringification.
+    # Dicts are ordered in Python 3.7+, so this is deterministic:
+    # https://mail.python.org/pipermail/python-dev/2017-December/151283.html
+    assert (
+        str(with_struct)
+        == "TopLevelStruct(required='hello', second_level=SecondLevelStruct(deeper_required_prop='exists'))"
+    )
+
+    with_number = StructPassing.round_trip(123, required="hello", second_level=5)
+
+    assert with_number.required == "hello"
+    assert with_number.optional is None
+    assert with_number.second_level == 5
+
+
+def test_union_of_list_and_object_struct_property_round_trips():
+    friendly = Add(Number(1), Number(2))
+
+    # A single object reference is received back as that same object reference.
+    single = ConfusingToJackson.round_trip_struct(union_property=friendly)
+    assert single.union_property is friendly
+
+    # A list is received back as a list with the same (identical) elements.
+    listed = ConfusingToJackson.round_trip_struct(union_property=[friendly])
+    assert listed.union_property == [friendly]
+    assert cast(List[IFriendly], listed.union_property)[0] is friendly
+
+    # A property the host did not set is received as unset.
+    unset = ConfusingToJackson.round_trip_struct()
+    assert unset.union_property is None

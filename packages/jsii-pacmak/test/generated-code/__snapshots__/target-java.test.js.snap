@@ -7616,6 +7616,16 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+     * <p>
+     * @param input This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct roundTripStruct(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct input) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "roundTripStruct", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class), new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
+    }
+
+    /**
      * Returns union: either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or List<either {@link software.amazon.jsii.tests.calculator.lib.IFriendly} or {@link software.amazon.jsii.tests.calculator.AbstractClass}>
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -30831,7 +30841,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java.diff 1`] = `
 --- java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--no-runtime-type-checking
 +++ java/src/main/java/software/amazon/jsii/tests/calculator/ConfusingToJackson.java	--runtime-type-checking
-@@ -49,8 +49,24 @@
+@@ -59,8 +59,24 @@
  
      /**
       */

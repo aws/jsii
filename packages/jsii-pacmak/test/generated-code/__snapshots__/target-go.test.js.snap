@@ -6449,6 +6449,22 @@ func ConfusingToJackson_MakeStructInstance() *ConfusingToJacksonStruct {
 	return returns
 }
 
+// Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+func ConfusingToJackson_RoundTripStruct(input *ConfusingToJacksonStruct) *ConfusingToJacksonStruct {
+	_init_.Initialize()
+
+	var returns *ConfusingToJacksonStruct
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.ConfusingToJackson",
+		"roundTripStruct",
+		[]interface{}{input},
+		&returns,
+	)
+
+	return returns
+}
+
 
 `;
 
@@ -30775,12 +30791,26 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"unionProperty",
  		val,
  	)
+@@ -69,10 +72,13 @@
+ 
+ // Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+ func ConfusingToJackson_RoundTripStruct(input *ConfusingToJacksonStruct) *ConfusingToJacksonStruct {
+ 	_init_.Initialize()
+ 
++	if err := validateConfusingToJackson_RoundTripStructParameters(input); err != nil {
++		panic(err)
++	}
+ 	var returns *ConfusingToJacksonStruct
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.ConfusingToJackson",
+ 		"roundTripStruct",
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ConfusingToJackson__checks.go.diff 1`] = `
 --- go/jsiicalc/ConfusingToJackson__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/ConfusingToJackson__checks.go	--runtime-type-checking
-@@ -0,0 +1,54 @@
+@@ -0,0 +1,65 @@
 +//go:build !no_runtime_type_checking
 +
 +package jsiicalc
@@ -30792,6 +30822,17 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 +
 +	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 +)
++
++func validateConfusingToJackson_RoundTripStructParameters(input *ConfusingToJacksonStruct) error {
++	if input == nil {
++		return fmt.Errorf("parameter input is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(input, func() string { return "parameter input" }); err != nil {
++		return err
++	}
++
++	return nil
++}
 +
 +func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val interface{}) error {
 +	switch val.(type) {
@@ -30840,12 +30881,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ConfusingToJackson__no_checks.go.diff 1`] = `
 --- go/jsiicalc/ConfusingToJackson__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/ConfusingToJackson__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
 +
 +package jsiicalc
 +
 +// Building without runtime type checking enabled, so all the below just return nil
++
++func validateConfusingToJackson_RoundTripStructParameters(input *ConfusingToJacksonStruct) error {
++	return nil
++}
 +
 +func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val interface{}) error {
 +	return nil

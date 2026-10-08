@@ -1486,6 +1486,12 @@ exports[`showAll 1`] = `
  │   │   ├─┬ static makeStructInstance() method
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
+ │   │   ├─┬ static roundTripStruct(input) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── type: jsii-calc.ConfusingToJacksonStruct
+ │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
  │   │   └─┬ unionProperty property
  │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ class ConstructorPassesThisOut

@@ -30,7 +30,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-func (suite *ComplianceSuite) TestStatics() {
+func (suite *ComplianceSuite) TestStaticMembersCanBeUsed() {
 	require := suite.Require()
 
 	require.Equal("hello ,Yoyo!", *calc.Statics_StaticMethod(jsii.String("Yoyo")))
@@ -46,7 +46,7 @@ func (suite *ComplianceSuite) TestStatics() {
 
 }
 
-func (suite *ComplianceSuite) TestStaticPropertyAssignment() {
+func (suite *ComplianceSuite) TestStaticPropertyAssignmentUpdatesJavaScript() {
 	require := suite.Require()
 
 	require.Equal("default", *calc.StaticPropertyAssignment_ReadValue())
@@ -58,7 +58,7 @@ func (suite *ComplianceSuite) TestStaticPropertyAssignment() {
 	require.Equal("assigned", *calc.StaticPropertyAssignment_Value())
 }
 
-func (suite *ComplianceSuite) TestPrimitiveTypes() {
+func (suite *ComplianceSuite) TestPrimitivesRoundTrip() {
 	require := suite.Require()
 
 	types := calc.NewAllTypes()
@@ -84,13 +84,13 @@ func (suite *ComplianceSuite) TestPrimitiveTypes() {
 	require.WithinDuration(time.Unix(0, 123000000), *types.DateProperty(), 0)
 }
 
-func (suite *ComplianceSuite) TestUseNestedStruct() {
+func (suite *ComplianceSuite) TestSubmoduleStructCanBePassed() {
 	jcb.StaticConsumer_Consume(customsubmodulename.NestingClass_NestedStruct{
 		Name: jsii.String("Bond, James Bond"),
 	})
 }
 
-func (suite *ComplianceSuite) TestStaticMapInClassCanBeReadCorrectly() {
+func (suite *ComplianceSuite) TestStaticMapPropertyCanBeRead() {
 	require := suite.Require()
 
 	result := *calc.ClassWithCollections_StaticMap()
@@ -99,7 +99,7 @@ func (suite *ComplianceSuite) TestStaticMapInClassCanBeReadCorrectly() {
 	require.Equal(2, len(result))
 }
 
-func (suite *ComplianceSuite) TestTestNativeObjectsWithInterfaces() {
+func (suite *ComplianceSuite) TestHostObjectsKeepIdentityAcrossTheBoundary() {
 	require := suite.Require()
 
 	// create a pure and native object, not part of the jsii hierarchy, only implements a jsii interface
@@ -118,7 +118,7 @@ func (suite *ComplianceSuite) TestTestNativeObjectsWithInterfaces() {
 	require.Equal(float64(20000), *generatorBoundToPSubclassedObject.NextTimes100())
 }
 
-func (suite *ComplianceSuite) TestMaps() {
+func (suite *ComplianceSuite) TestMapsOfObjectsCanBeRead() {
 	require := suite.Require()
 
 	// TODO: props should be optional
@@ -134,7 +134,7 @@ func (suite *ComplianceSuite) TestMaps() {
 	require.Equal(float64(30), *resultAdd[1].Value())
 }
 
-func (suite *ComplianceSuite) TestDates() {
+func (suite *ComplianceSuite) TestDatesRoundTrip() {
 	require := suite.Require()
 
 	types := calc.NewAllTypes()
@@ -146,7 +146,7 @@ func (suite *ComplianceSuite) TestDates() {
 	require.WithinDuration(time.Unix(999, 0), types.AnyProperty().(time.Time), 0)
 }
 
-func (suite *ComplianceSuite) TestCallMethods() {
+func (suite *ComplianceSuite) TestInstanceMethodsCanBeCalled() {
 	require := suite.Require()
 
 	calc := calc.NewCalculator(&calc.CalculatorProps{})
@@ -163,7 +163,7 @@ func (suite *ComplianceSuite) TestCallMethods() {
 	require.Equal(float64(-3200000), *calc.Value())
 }
 
-func (suite *ComplianceSuite) TestNodeStandardLibrary() {
+func (suite *ComplianceSuite) TestNodeStandardLibraryIsAvailable() {
 	require := suite.Require()
 
 	obj := calc.NewNodeStandardLibrary()
@@ -175,7 +175,7 @@ func (suite *ComplianceSuite) TestNodeStandardLibrary() {
 	require.Equal("Hello, resource!", obj.FsReadFile())
 }
 
-func (suite *ComplianceSuite) TestDynamicTypes() {
+func (suite *ComplianceSuite) TestAnyValuesKeepTheirType() {
 	require := suite.Require()
 	types := calc.NewAllTypes()
 
@@ -236,7 +236,7 @@ func (suite *ComplianceSuite) TestDynamicTypes() {
 	require.WithinDuration(time.Unix(1234, 0), types.AnyProperty().(time.Time), 0)
 }
 
-func (suite *ComplianceSuite) TestArrayReturnedByMethodCanBeRead() {
+func (suite *ComplianceSuite) TestReturnedArrayCanBeRead() {
 	require := suite.Require()
 
 	arr := *calc.ClassWithCollections_CreateAList()
@@ -245,7 +245,7 @@ func (suite *ComplianceSuite) TestArrayReturnedByMethodCanBeRead() {
 	require.Contains(arr, jsii.String("two"))
 }
 
-func (suite *ComplianceSuite) TestUnionProperties() {
+func (suite *ComplianceSuite) TestUnionPropertyReturnsConcreteType() {
 	require := suite.Require()
 
 	calc3 := calc.NewCalculator(&calc.CalculatorProps{
@@ -264,7 +264,7 @@ func (suite *ComplianceSuite) TestUnionProperties() {
 	require.True(ok)
 }
 
-func (suite *ComplianceSuite) TestUseEnumFromScopedModule() {
+func (suite *ComplianceSuite) TestEnumsFromDependenciesCrossTheBoundary() {
 	require := suite.Require()
 
 	obj := calc.NewReferenceEnumFromScopedPackage()
@@ -275,11 +275,11 @@ func (suite *ComplianceSuite) TestUseEnumFromScopedModule() {
 	require.Equal(calclib.EnumFromScopedModule_VALUE2, obj.Foo())
 }
 
-func (suite *ComplianceSuite) TestCreateObjectAndCtorOverloads() {
+func (suite *ComplianceSuite) TestOptionalConstructorParametersCanBeOmitted() {
 	suite.NotApplicableTest("Golang does not have overloaded functions so the genearated class only has a single New function")
 }
 
-func (suite *ComplianceSuite) TestGetAndSetEnumValues() {
+func (suite *ComplianceSuite) TestEnumPropertiesCanBeReadAndWritten() {
 	require := suite.Require()
 
 	calc := calc.NewCalculator(&calc.CalculatorProps{})
@@ -292,7 +292,7 @@ func (suite *ComplianceSuite) TestGetAndSetEnumValues() {
 	require.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", *calc.ToString())
 }
 
-func (suite *ComplianceSuite) TestListInClassCanBeReadCorrectly() {
+func (suite *ComplianceSuite) TestArrayPropertyCanBeRead() {
 	require := suite.Require()
 
 	classWithCollections := calc.NewClassWithCollections(&map[string]*string{}, &[]*string{jsii.String("one"), jsii.String("two")})
@@ -316,7 +316,7 @@ func (suite *ComplianceSuite) AfterTest(suiteName, testName string) {
 	jsii.Close()
 }
 
-func (suite *ComplianceSuite) TestTestFluentApiWithDerivedClasses() {
+func (suite *ComplianceSuite) TestInheritedPropertiesUsableOnHostSubclass() {
 	require := suite.Require()
 
 	obj := newDerivedFromAllTypes()
@@ -326,20 +326,20 @@ func (suite *ComplianceSuite) TestTestFluentApiWithDerivedClasses() {
 	require.Equal(float64(12), *obj.NumberProperty())
 }
 
-func (suite *ComplianceSuite) TestCanLoadEnumValues() {
+func (suite *ComplianceSuite) TestEnumValuesReturnedByTheKernel() {
 	require := suite.Require()
 	require.NotEmpty(calc.EnumDispenser_RandomStringLikeEnum())
 	require.NotEmpty(calc.EnumDispenser_RandomIntegerLikeEnum())
 }
 
-func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfStructs() {
+func (suite *ComplianceSuite) TestListOfStructsElementsHaveStructType() {
 	require := suite.Require()
 
 	list := *calc.InterfaceCollections_ListOfStructs()
 	require.Equal("Hello, I'm String!", *list[0].RequiredString)
 }
 
-func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_getter_public() {
+func (suite *ComplianceSuite) TestHostAccessorDoesNotOverridePrivateProperty() {
 	require := suite.Require()
 
 	obj := doNotOverridePrivates.New()
@@ -348,15 +348,6 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_getter_public()
 	// verify the setter override is not invoked.
 	obj.ChangePrivatePropertyValue(jsii.String("MyNewValue"))
 	require.Equal("MyNewValue", *obj.PrivatePropertyValue())
-}
-
-func (suite *ComplianceSuite) TestEqualsIsResistantToPropertyShadowingResultVariable() {
-	require := suite.Require()
-	first := calc.StructWithJavaReservedWords{Default: jsii.String("one")}
-	second := calc.StructWithJavaReservedWords{Default: jsii.String("one")}
-	third := calc.StructWithJavaReservedWords{Default: jsii.String("two")}
-	require.Equal(first, second)
-	require.NotEqual(first, third)
 }
 
 type overridableProtectedMemberDerived struct {
@@ -377,7 +368,7 @@ func (x *overridableProtectedMemberDerived) OverrideReadWrite() *string {
 	return jsii.String("Fhtagn!")
 }
 
-func (suite *ComplianceSuite) TestCanOverrideProtectedGetter() {
+func (suite *ComplianceSuite) TestProtectedGetterCanBeOverridden() {
 	require := suite.Require()
 	overridden := newOverridableProtectedMemberDerived()
 	require.Equal("Cthulhu Fhtagn!", *overridden.ValueFromProtected())
@@ -398,7 +389,7 @@ func (x *implementsAdditionalInterface) ReturnStruct() *calc.StructB {
 	return &x._struct
 }
 
-func (suite *ComplianceSuite) TestInterfacesCanBeUsedTransparently_WhenAddedToJsiiType() {
+func (suite *ComplianceSuite) TestHostSubclassCanImplementAdditionalInterface() {
 	require := suite.Require()
 
 	expected := calc.StructB{RequiredString: jsii.String("It's Britney b**ch!")}
@@ -407,17 +398,7 @@ func (suite *ComplianceSuite) TestInterfacesCanBeUsedTransparently_WhenAddedToJs
 	require.Equal(expected, *consumer.WorkItBaby())
 }
 
-func (suite *ComplianceSuite) TestStructs_nonOptionalequals() {
-	require := suite.Require()
-
-	structA := calc.StableStruct{ReadonlyProperty: jsii.String("one")}
-	structB := calc.StableStruct{ReadonlyProperty: jsii.String("one")}
-	structC := calc.StableStruct{ReadonlyProperty: jsii.String("two")}
-	require.Equal(structB, structA)
-	require.NotEqual(structC, structA)
-}
-
-func (suite *ComplianceSuite) TestTestInterfaceParameter() {
+func (suite *ComplianceSuite) TestInterfaceValueCanBePassedBack() {
 	require := suite.Require()
 
 	obj := calc.NewJSObjectLiteralForInterface()
@@ -429,7 +410,7 @@ func (suite *ComplianceSuite) TestTestInterfaceParameter() {
 	require.Equal("I am literally friendly! Let me buy you a drink!", *betterGreeting)
 }
 
-func (suite *ComplianceSuite) TestLiftedKwargWithSameNameAsPositionalArg() {
+func (suite *ComplianceSuite) TestPositionalArgumentAndStructPropertyWithSameName() {
 	require := suite.Require()
 
 	// This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
@@ -457,7 +438,7 @@ func (m *mulTen) Hello() *string {
 	return jsii.String("Hello from mulTen!")
 }
 
-func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects() {
+func (suite *ComplianceSuite) TestObjectReferencesRoundTripThroughAny() {
 	require := suite.Require()
 
 	types := calc.NewAllTypes()
@@ -479,7 +460,7 @@ func (suite *ComplianceSuite) TestCreationOfNativeObjectsFromJavaScriptObjects()
 	require.Equal(nativeObj2, unmarshalledNativeObj)
 }
 
-func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
+func (suite *ComplianceSuite) TestReceivedStructEqualsHostBuiltStruct() {
 	require := suite.Require()
 
 	gms := calc.NewGiveMeStructs()
@@ -496,19 +477,14 @@ func (suite *ComplianceSuite) TestStructs_ReturnedLiteralEqualsNativeBuilt() {
 	require.EqualValues(*returnedLiteral, nativeBuilt)
 }
 
-func (suite *ComplianceSuite) TestClassesCanSelfReferenceDuringClassInitialization() {
+func (suite *ComplianceSuite) TestClassesCanReferenceEachOtherDuringInitialization() {
 	require := suite.Require()
 
 	outerClass := child.NewOuterClass()
 	require.NotNil(outerClass.InnerClass())
 }
 
-func (suite *ComplianceSuite) TestCanObtainStructReferenceWithOverloadedSetter() {
-	require := suite.Require()
-	require.NotNil(calc.ConfusingToJackson_MakeStructInstance())
-}
-
-func (suite *ComplianceSuite) TestCallbacksCorrectlyDeserializeArguments() {
+func (suite *ComplianceSuite) TestOverrideReceivesDeserializedArguments() {
 	require := suite.Require()
 	renderer := NewTestCallbacksCorrectlyDeserializeArgumentsDataRenderer()
 
@@ -532,7 +508,7 @@ func (r *testCallbacksCorrectlyDeserializeArgumentsDataRenderer) RenderMap(m *ma
 	return r.DataRenderer.RenderMap(m)
 }
 
-func (suite *ComplianceSuite) TestCanUseInterfaceSetters() {
+func (suite *ComplianceSuite) TestInterfacePropertyCanBeSet() {
 	require := suite.Require()
 	obj := calc.ObjectWithPropertyProvider_Provide()
 
@@ -540,7 +516,7 @@ func (suite *ComplianceSuite) TestCanUseInterfaceSetters() {
 	require.True(*obj.WasSet())
 }
 
-func (suite *ComplianceSuite) TestPropertyOverrides_Interfaces() {
+func (suite *ComplianceSuite) TestKernelUsesHostInterfaceAccessors() {
 	require := suite.Require()
 
 	interfaceWithProps := TestPropertyOverridesInterfacesIInterfaceWithProperties{}
@@ -570,29 +546,12 @@ func (i *TestPropertyOverridesInterfacesIInterfaceWithProperties) SetReadWriteSt
 	i.x = &newVal
 }
 
-func (suite *ComplianceSuite) TestTestJsiiAgent() {
+func (suite *ComplianceSuite) TestKernelKnowsTheHostRuntime() {
 	require := suite.Require()
 	require.Equal(fmt.Sprintf("%s/%s/%s", runtime.Version(), runtime.GOOS, runtime.GOARCH), *calc.JsiiAgent_Value())
 }
 
-func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Private() {
-	require := suite.Require()
-	obj := &TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates{
-		DoNotOverridePrivates: calc.NewDoNotOverridePrivates(),
-	}
-
-	require.Equal("privateMethod", *obj.PrivateMethodValue())
-}
-
-type TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates struct {
-	calc.DoNotOverridePrivates
-}
-
-func (d *TestDoNotOverridePrivatesMethodPrivateDoNotOverridePrivates) privateMethod() string {
-	return "privateMethod-Override"
-}
-
-func (suite *ComplianceSuite) TestPureInterfacesCanBeUsedTransparently() {
+func (suite *ComplianceSuite) TestHostCanImplementInterface() {
 	require := suite.Require()
 	expected := &calc.StructB{
 		RequiredString: jsii.String("It's Britney b**ch!"),
@@ -613,7 +572,7 @@ func (t *TestPureInterfacesCanBeUsedTransparentlyIStructReturningDelegate) Retur
 	return t.expected
 }
 
-func (suite *ComplianceSuite) TestNullShouldBeTreatedAsUndefined() {
+func (suite *ComplianceSuite) TestHostNullIsSentAsUndefined() {
 	obj := calc.NewNullShouldBeTreatedAsUndefined(jsii.String("hello"), nil)
 	obj.GiveMeUndefined(nil)
 	obj.GiveMeUndefinedInsideAnObject(&calc.NullShouldBeTreatedAsUndefinedData{
@@ -640,7 +599,7 @@ func (x *myOverridableProtectedMember) OverrideMe() *string {
 	return jsii.String("Cthulhu Fhtagn!")
 }
 
-func (suite *ComplianceSuite) TestCanOverrideProtectedMethod() {
+func (suite *ComplianceSuite) TestProtectedMethodCanBeOverridden() {
 	require := suite.Require()
 	challenge := "Cthulhu Fhtagn!"
 
@@ -649,7 +608,7 @@ func (suite *ComplianceSuite) TestCanOverrideProtectedMethod() {
 	require.Equal(challenge, *overridden.ValueFromProtected())
 }
 
-func (suite *ComplianceSuite) TestEraseUnsetDataValues() {
+func (suite *ComplianceSuite) TestUnsetStructPropertiesAreOmitted() {
 	require := suite.Require()
 	opts := calc.EraseUndefinedHashValuesOptions{Option1: jsii.String("option1")}
 	require.True(*calc.EraseUndefinedHashValues_DoesKeyExist(&opts, jsii.String("option1")))
@@ -660,7 +619,7 @@ func (suite *ComplianceSuite) TestEraseUnsetDataValues() {
 	require.False(*calc.EraseUndefinedHashValues_DoesKeyExist(&opts, jsii.String("option2")))
 }
 
-func (suite *ComplianceSuite) TestStructs_containsNullChecks() {
+func (suite *ComplianceSuite) TestIncompleteStructIsRejected() {
 	require := suite.Require()
 	s := calclib.MyFirstStruct{} // <-- this struct has required fields
 	obj := calc.NewGiveMeStructs()
@@ -671,29 +630,12 @@ func (suite *ComplianceSuite) TestStructs_containsNullChecks() {
 	require.PanicsWithError("", func() { obj.ReadFirstNumber(&s) })
 }
 
-func (suite *ComplianceSuite) TestUnionPropertiesWithBuilder() {
-	require := suite.Require()
-
-	obj1 := calc.UnionProperties{Bar: 12, Foo: "Hello"}
-	require.Equal(12, obj1.Bar)
-	require.Equal("Hello", obj1.Foo)
-
-	obj2 := calc.UnionProperties{Bar: "BarIsString"}
-	require.Equal("BarIsString", obj2.Bar)
-	require.Empty(obj2.Foo)
-
-	allTypes := calc.NewAllTypes()
-	obj3 := calc.UnionProperties{Bar: allTypes, Foo: 999}
-	require.Same(allTypes, obj3.Bar)
-	require.Equal(999, obj3.Foo)
-}
-
-func (suite *ComplianceSuite) TestTestNullIsAValidOptionalMap() {
+func (suite *ComplianceSuite) TestUndefinedOptionalMapReadsAsAbsent() {
 	require := suite.Require()
 	require.Nil(calc.DisappointingCollectionSource_MaybeMap())
 }
 
-func (suite *ComplianceSuite) TestMapReturnedByMethodCanBeRead() {
+func (suite *ComplianceSuite) TestReturnedMapCanBeRead() {
 	require := suite.Require()
 	result := *calc.ClassWithCollections_CreateAMap()
 	require.Equal("value1", *result["key1"])
@@ -726,13 +668,13 @@ func (s *myAbstractSuite) SetProperty(value *string) {
 	s._property = &v
 }
 
-func (suite *ComplianceSuite) TestAbstractMembersAreCorrectlyHandled() {
+func (suite *ComplianceSuite) TestHostImplementsAbstractMembers() {
 	require := suite.Require()
 	abstractSuite := NewMyAbstractSuite(nil)
 	require.Equal("Wrapped<String<Oomf!>>", *abstractSuite.WorkItAll(jsii.String("Oomf!")))
 }
 
-func (suite *ComplianceSuite) TestCanOverrideProtectedSetter() {
+func (suite *ComplianceSuite) TestProtectedSetterCanBeOverridden() {
 	require := suite.Require()
 	challenge := "Bazzzzzzzzzzzaar..."
 	overridden := newTestCanOverrideProtectedSetterOverridableProtectedMember()
@@ -754,7 +696,7 @@ func newTestCanOverrideProtectedSetterOverridableProtectedMember() *TestCanOverr
 	return &m
 }
 
-func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType() {
+func (suite *ComplianceSuite) TestObjectsReceivedAsMostDerivedPublicType() {
 	require := suite.Require()
 
 	classRef := calc.Constructors_MakeClass()
@@ -769,7 +711,7 @@ func (suite *ComplianceSuite) TestObjRefsAreLabelledUsingWithTheMostCorrectType(
 }
 
 // TestVoidReturningAsync verifies that returning Promise<void> is correctly handled.
-func (suite *ComplianceSuite) TestVoidReturningAsync() {
+func (suite *ComplianceSuite) TestAsyncMethodReturningNothing() {
 	// Async methods are generated as synchronous kernel invocations in Go, which
 	// the kernel rejects ("<method> is an async method, use \"begin\" instead").
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
@@ -779,15 +721,11 @@ func (suite *ComplianceSuite) TestVoidReturningAsync() {
 	calc.PromiseNothing_PromiseIt()
 }
 
-func (suite *ComplianceSuite) TestStructs_StepBuilders() {
-	suite.NotApplicableTest("Go does not generate fluent builders")
-}
-
-func (suite *ComplianceSuite) TestStaticListInClassCannotBeModified() {
+func (suite *ComplianceSuite) TestStaticArrayPropertyRejectsMutation() {
 	suite.NotApplicableTest("Go arrays are immutable by design")
 }
 
-func (suite *ComplianceSuite) TestStructsAreUndecoratedOntheWayToKernel() {
+func (suite *ComplianceSuite) TestStructsAreSentAsPlainData() {
 	require := suite.Require()
 
 	s := calc.StructB{RequiredString: jsii.String("Bazinga!"), OptionalBoolean: jsii.Bool(false)}
@@ -807,7 +745,7 @@ func (suite *ComplianceSuite) TestStructsAreUndecoratedOntheWayToKernel() {
 	)
 }
 
-func (suite *ComplianceSuite) TestReturnAbstract() {
+func (suite *ComplianceSuite) TestObjectsReturnedAsAbstractTypeAreUsable() {
 	require := suite.Require()
 
 	obj := calc.NewAbstractClassReturner()
@@ -822,39 +760,14 @@ func (suite *ComplianceSuite) TestReturnAbstract() {
 	require.Equal("hello-abstract-property", *obj.ReturnAbstractFromProperty().AbstractProperty())
 }
 
-func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfInterfaces() {
+func (suite *ComplianceSuite) TestMapOfInterfacesValuesAreUsable() {
 	mymap := *calc.InterfaceCollections_MapOfInterfaces()
 	for _, value := range mymap {
 		value.Ring()
 	}
 }
 
-func (suite *ComplianceSuite) TestStructs_multiplePropertiesEquals() {
-	require := suite.Require()
-	structA := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      jsii.String("one"),
-		FirstMidLevelProperty:  jsii.String("two"),
-		SecondMidLevelProperty: jsii.String("three"),
-		TopLevelProperty:       jsii.String("four"),
-	}
-	structB := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      jsii.String("one"),
-		FirstMidLevelProperty:  jsii.String("two"),
-		SecondMidLevelProperty: jsii.String("three"),
-		TopLevelProperty:       jsii.String("four"),
-	}
-	structC := calc.DiamondInheritanceTopLevelStruct{
-		BaseLevelProperty:      jsii.String("one"),
-		FirstMidLevelProperty:  jsii.String("two"),
-		SecondMidLevelProperty: jsii.String("different"),
-		TopLevelProperty:       jsii.String("four"),
-	}
-
-	require.Equal(structA, structB)
-	require.NotEqual(structA, structC)
-}
-
-func (suite *ComplianceSuite) TestAsyncOverrides_callAsyncMethod() {
+func (suite *ComplianceSuite) TestAsyncMethodsCanBeCalled() {
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	require := suite.Require()
 	obj := calc.NewAsyncVirtualMethods()
@@ -862,30 +775,7 @@ func (suite *ComplianceSuite) TestAsyncOverrides_callAsyncMethod() {
 	require.Equal(float64(528), *obj.OverrideMe(jsii.Number(44)))
 }
 
-type myDoNotOverridePrivates struct {
-	calc.DoNotOverridePrivates
-}
-
-func (s *myDoNotOverridePrivates) PrivateProperty() string {
-	return "privateProperty-Override"
-}
-
-func (s *myDoNotOverridePrivates) SetPrivateProperty(value string) {
-	panic("Boom")
-}
-
-func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_getter_private() {
-	require := suite.Require()
-
-	obj := myDoNotOverridePrivates{calc.NewDoNotOverridePrivates()}
-	require.Equal("privateProperty", *obj.PrivatePropertyValue())
-
-	// verify the setter override is not invoked.
-	obj.ChangePrivatePropertyValue(jsii.String("MyNewValue"))
-	require.Equal("MyNewValue", *obj.PrivatePropertyValue())
-}
-
-func (suite *ComplianceSuite) TestStructs_withDiamondInheritance_correctlyDedupeProperties() {
+func (suite *ComplianceSuite) TestDiamondInheritedStructPropertiesAppearOnce() {
 	require := suite.Require()
 	s := calc.DiamondInheritanceTopLevelStruct{
 		BaseLevelProperty:      jsii.String("base"),
@@ -900,21 +790,7 @@ func (suite *ComplianceSuite) TestStructs_withDiamondInheritance_correctlyDedupe
 	require.Equal("top", *s.TopLevelProperty)
 }
 
-type myDoNotOverridePrivates2 struct {
-	calc.DoNotOverridePrivates
-}
-
-func (s *myDoNotOverridePrivates2) PrivateProperty() string {
-	return "privateProperty-Override"
-}
-
-func (suite *ComplianceSuite) TestDoNotOverridePrivates_property_by_name_private() {
-	require := suite.Require()
-	obj := myDoNotOverridePrivates2{calc.NewDoNotOverridePrivates()}
-	require.Equal("privateProperty", *obj.PrivatePropertyValue())
-}
-
-func (suite *ComplianceSuite) TestMapInClassCanBeReadCorrectly() {
+func (suite *ComplianceSuite) TestMapPropertyCanBeRead() {
 	require := suite.Require()
 
 	modifiableMap := map[string]*string{
@@ -935,7 +811,7 @@ func (s *myAsyncVirtualMethods) OverrideMe(mult float64) {
 	panic("Thrown by native code")
 }
 
-func (suite *ComplianceSuite) TestAsyncOverrides_overrideThrows() {
+func (suite *ComplianceSuite) TestAsyncOverrideErrorPropagates() {
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	require := suite.Require()
 
@@ -944,30 +820,22 @@ func (suite *ComplianceSuite) TestAsyncOverrides_overrideThrows() {
 	require.Panics(func() { obj.CallMe() })
 }
 
-func (suite *ComplianceSuite) TestHashCodeIsResistantToPropertyShadowingResultVariable() {
-	suite.NotApplicableTest("Go does not have HashCode()")
-}
+func (suite *ComplianceSuite) TestObjectsUsableThroughImplementedInterface() {
+	require := suite.Require()
 
-func (suite *ComplianceSuite) TestStructs_MultiplePropertiesHashCode() {
-	suite.NotApplicableTest("Go does not have HashCode()")
-}
-
-func (suite *ComplianceSuite) TestStructs_OptionalHashCode() {
-	suite.NotApplicableTest("Go does not have HashCode()")
-}
-
-func (suite *ComplianceSuite) TestReturnSubclassThatImplementsInterface976() {
-	t := suite.T()
-
+	// Declared return type is the interface itself.
 	obj := calc.SomeTypeJsii976_ReturnReturn()
-	require.Equal(t, 333.0, *obj.Foo())
+	require.Equal(333.0, *obj.Foo())
+
+	// Declared return type is `any`: the value must still be usable through the
+	// interface it implements (this used to be the separate `downcasting` test).
+	anyValue := calc.SomeTypeJsii976_ReturnAnonymous()
+	var realValue calc.IReturnJsii976
+	jsii.UnsafeCast(anyValue, &realValue)
+	require.Equal(1337.0, *realValue.Foo())
 }
 
-func (suite *ComplianceSuite) TestStructs_OptionalEquals() {
-	suite.NotApplicableTest("Go does not have Equals(other)")
-}
-
-func (suite *ComplianceSuite) TestPropertyOverrides_Get_Calls_Super() {
+func (suite *ComplianceSuite) TestGetterOverrideCanCallSuper() {
 	t := suite.T()
 
 	so := &testPropertyOverridesGetCallsSuper{}
@@ -986,7 +854,7 @@ func (t *testPropertyOverridesGetCallsSuper) TheProperty() *string {
 	return jsii.String(fmt.Sprintf("super:%s", *s))
 }
 
-func (suite *ComplianceSuite) TestUnmarshallIntoAbstractType() {
+func (suite *ComplianceSuite) TestAbstractTypedValueReceivedAsReference() {
 	t := suite.T()
 
 	c := calc.NewCalculator(&calc.CalculatorProps{})
@@ -996,7 +864,7 @@ func (suite *ComplianceSuite) TestUnmarshallIntoAbstractType() {
 	require.Equal(t, 120.0, *v.Value())
 }
 
-func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertyGetter() {
+func (suite *ComplianceSuite) TestSyncGetterOverrideCallingAsyncFails() {
 	t := suite.T()
 
 	obj := syncOverrides.New()
@@ -1010,7 +878,7 @@ func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertyGe
 	obj.CallerIsProperty()
 }
 
-func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertySetter() {
+func (suite *ComplianceSuite) TestSyncSetterOverrideCallingAsyncFails() {
 	t := suite.T()
 
 	obj := syncOverrides.New()
@@ -1024,7 +892,7 @@ func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_PropertySe
 	obj.SetCallerIsProperty(jsii.Number(12))
 }
 
-func (suite *ComplianceSuite) TestPropertyOverrides_Get_Set() {
+func (suite *ComplianceSuite) TestPropertyAccessesUseHostOverrides() {
 	t := suite.T()
 
 	so := syncOverrides.New()
@@ -1033,7 +901,7 @@ func (suite *ComplianceSuite) TestPropertyOverrides_Get_Set() {
 	require.Equal(t, "New Value", *so.AnotherTheProperty)
 }
 
-func (suite *ComplianceSuite) TestVariadicMethodCanBeInvoked() {
+func (suite *ComplianceSuite) TestVariadicArgumentsAreForwarded() {
 	t := suite.T()
 
 	vm := calc.NewVariadicMethod(jsii.Number(1))
@@ -1041,7 +909,7 @@ func (suite *ComplianceSuite) TestVariadicMethodCanBeInvoked() {
 	require.Equal(t, []*float64{jsii.Number(1), jsii.Number(3), jsii.Number(4), jsii.Number(5), jsii.Number(6)}, *result)
 }
 
-func (suite *ComplianceSuite) TestCollectionTypes() {
+func (suite *ComplianceSuite) TestCollectionPropertiesCanBeSetAndRead() {
 	t := suite.T()
 
 	at := calc.NewAllTypes()
@@ -1055,7 +923,7 @@ func (suite *ComplianceSuite) TestCollectionTypes() {
 	require.Equal(t, 123.0, *(*at.MapProperty())["Foo"].Value())
 }
 
-func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethodByParentClass() {
+func (suite *ComplianceSuite) TestAsyncOverrideCanBeInherited() {
 	t := suite.T()
 
 	obj := overrideAsyncMethods.NewOverrideAsyncMethodsByBaseClass()
@@ -1063,14 +931,14 @@ func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethodByParentClas
 	require.Equal(t, 4452.0, obj.CallMe())
 }
 
-func (suite *ComplianceSuite) TestTestStructsCanBeDowncastedToParentType() {
+func (suite *ComplianceSuite) TestStructReceivedAsParentStructType() {
 	t := suite.T()
 
 	require.NotZero(t, calc.Demonstrate982_TakeThis())
 	require.NotZero(t, calc.Demonstrate982_TakeThisToo())
 }
 
-func (suite *ComplianceSuite) TestPropertyOverrides_Get_Throws() {
+func (suite *ComplianceSuite) TestGetterOverrideErrorPropagates() {
 	t := suite.T()
 
 	so := &testPropertyOverridesGetThrows{}
@@ -1096,7 +964,7 @@ func (t *testPropertyOverridesGetThrows) TheProperty() *string {
 	panic("Oh no, this is bad")
 }
 
-func (suite *ComplianceSuite) TestGetSetPrimitiveProperties() {
+func (suite *ComplianceSuite) TestPrimitivePropertiesCanBeRead() {
 	t := suite.T()
 
 	number := calclib.NewNumber(jsii.Number(20))
@@ -1109,7 +977,7 @@ func (suite *ComplianceSuite) TestGetSetPrimitiveProperties() {
 	require.Equal(t, 1.0, *calc.NewPower(calclib.NewNumber(jsii.Number(999)), calclib.NewNumber(jsii.Number(0))).Value())
 }
 
-func (suite *ComplianceSuite) TestGetAndSetNonPrimitiveProperties() {
+func (suite *ComplianceSuite) TestObjectPropertiesCanBeReadAndAssigned() {
 	t := suite.T()
 
 	c := calc.NewCalculator(&calc.CalculatorProps{})
@@ -1119,12 +987,12 @@ func (suite *ComplianceSuite) TestGetAndSetNonPrimitiveProperties() {
 	require.Equal(t, -6400000.0, *c.Value())
 }
 
-func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInStructProperties() {
+func (suite *ComplianceSuite) TestReservedWordStructPropertiesAreUsable() {
 	t := suite.T()
 	t.Skip("Go reserved words do not collide with identifiers used in API surface")
 }
 
-func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Public() {
+func (suite *ComplianceSuite) TestHostMethodDoesNotOverridePrivateMethod() {
 	t := suite.T()
 
 	obj := doNotOverridePrivates.New()
@@ -1132,7 +1000,7 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivates_Method_Public() {
 	require.Equal(t, "privateMethod", *obj.PrivateMethodValue())
 }
 
-func (suite *ComplianceSuite) TestDoNotOverridePrivates_Property_By_Name_Public() {
+func (suite *ComplianceSuite) TestHostMethodDoesNotOverridePrivateProperty() {
 	t := suite.T()
 
 	obj := doNotOverridePrivates.New()
@@ -1140,17 +1008,17 @@ func (suite *ComplianceSuite) TestDoNotOverridePrivates_Property_By_Name_Public(
 	require.Equal(t, "privateProperty", *obj.PrivatePropertyValue())
 }
 
-func (suite *ComplianceSuite) TestTestNullIsAValidOptionalList() {
+func (suite *ComplianceSuite) TestUndefinedOptionalListReadsAsAbsent() {
 	t := suite.T()
 
 	require.Nil(t, calc.DisappointingCollectionSource_MaybeList())
 }
 
-func (suite *ComplianceSuite) TestMapInClassCannotBeModified() {
+func (suite *ComplianceSuite) TestMapPropertyRejectsMutation() {
 	suite.NotApplicableTest("Go maps are immutable by design")
 }
 
-func (suite *ComplianceSuite) TestAsyncOverrides_TwoOverrides() {
+func (suite *ComplianceSuite) TestMultipleAsyncMethodsCanBeOverridden() {
 	t := suite.T()
 
 	obj := twoOverrides.New()
@@ -1158,7 +1026,7 @@ func (suite *ComplianceSuite) TestAsyncOverrides_TwoOverrides() {
 	require.Equal(t, 684.0, obj.CallMe())
 }
 
-func (suite *ComplianceSuite) TestPropertyOverrides_Set_Calls_Super() {
+func (suite *ComplianceSuite) TestSetterOverrideCanCallSuper() {
 	t := suite.T()
 
 	so := &testPropertyOverridesSetCallsSuper{}
@@ -1176,7 +1044,7 @@ func (t *testPropertyOverridesSetCallsSuper) SetTheProperty(value *string) {
 	t.SyncVirtualMethods.SetTheProperty(jsii.String(fmt.Sprintf("%s:by override", *value)))
 }
 
-func (suite *ComplianceSuite) TestIso8601DoesNotDeserializeToDate() {
+func (suite *ComplianceSuite) TestIsoDateStringsStayStrings() {
 	t := suite.T()
 
 	nowAsISO := time.Now().Format(time.RFC3339)
@@ -1187,7 +1055,7 @@ func (suite *ComplianceSuite) TestIso8601DoesNotDeserializeToDate() {
 	require.Equal(t, nowAsISO, *entropy.Increase())
 }
 
-func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfInterfaces() {
+func (suite *ComplianceSuite) TestListOfInterfacesElementsAreUsable() {
 	t := suite.T()
 
 	for _, obj := range *calc.InterfaceCollections_ListOfInterfaces() {
@@ -1195,7 +1063,7 @@ func (suite *ComplianceSuite) TestCollectionOfInterfaces_ListOfInterfaces() {
 	}
 }
 
-func (suite *ComplianceSuite) TestUndefinedAndNull() {
+func (suite *ComplianceSuite) TestUnsetOptionalPropertyReadsAsAbsent() {
 	t := suite.T()
 
 	c := calc.NewCalculator(&calc.CalculatorProps{})
@@ -1203,7 +1071,7 @@ func (suite *ComplianceSuite) TestUndefinedAndNull() {
 	c.SetMaxValue(nil)
 }
 
-func (suite *ComplianceSuite) TestStructs_SerializeToJsii() {
+func (suite *ComplianceSuite) TestStructsArePassedByValue() {
 	t := suite.T()
 
 	firstStruct := calclib.MyFirstStruct{
@@ -1238,13 +1106,13 @@ func (suite *ComplianceSuite) TestStructs_SerializeToJsii() {
 	require.Nil(t, literal.Optional2)
 }
 
-func (suite *ComplianceSuite) TestCanObtainReferenceWithOverloadedSetter() {
+func (suite *ComplianceSuite) TestClassWithUnionPropertyCanBeReceived() {
 	t := suite.T()
 
 	require.NotNil(t, calc.ConfusingToJackson_MakeInstance())
 }
 
-func (suite *ComplianceSuite) TestTestJsObjectLiteralToNative() {
+func (suite *ComplianceSuite) TestObjectLiteralReturnedAsClassIsUsable() {
 	t := suite.T()
 
 	obj := calc.NewJSObjectLiteralToNative()
@@ -1254,7 +1122,7 @@ func (suite *ComplianceSuite) TestTestJsObjectLiteralToNative() {
 	require.Equal(t, 102.0, *obj2.PropB())
 }
 
-func (suite *ComplianceSuite) TestClassWithPrivateConstructorAndAutomaticProperties() {
+func (suite *ComplianceSuite) TestPrivateConstructorClassFromStaticFactory() {
 	t := suite.T()
 
 	obj := calc.ClassWithPrivateConstructorAndAutomaticProperties_Create(jsii.String("Hello"), jsii.String("Bye"))
@@ -1263,11 +1131,11 @@ func (suite *ComplianceSuite) TestClassWithPrivateConstructorAndAutomaticPropert
 	require.Equal(t, "Hello", *obj.ReadOnlyString())
 }
 
-func (suite *ComplianceSuite) TestArrayReturnedByMethodCannotBeModified() {
+func (suite *ComplianceSuite) TestReturnedArrayRejectsMutation() {
 	suite.NotApplicableTest("Go arrays are immutable by design")
 }
 
-func (suite *ComplianceSuite) TestCorrectlyDeserializesStructUnions() {
+func (suite *ComplianceSuite) TestOverlappingStructUnionsAreDisambiguated() {
 	t := suite.T()
 
 	a0 := &calc.StructA{
@@ -1298,7 +1166,7 @@ func (suite *ComplianceSuite) TestCorrectlyDeserializesStructUnions() {
 	require.True(t, *calc.StructUnionConsumer_IsStructB(b1))
 }
 
-func (suite *ComplianceSuite) TestSubclassing() {
+func (suite *ComplianceSuite) TestHostSubclassCanBeUsed() {
 	t := suite.T()
 	t.Log("This is, in fact, demonstrating wrapping another type (which is more go-ey than extending)")
 
@@ -1308,7 +1176,7 @@ func (suite *ComplianceSuite) TestSubclassing() {
 	require.Equal(t, -43.0, *c.Value())
 }
 
-func (suite *ComplianceSuite) TestTestInterfaces() {
+func (suite *ComplianceSuite) TestObjectsUsableThroughEveryInterface() {
 	t := suite.T()
 
 	var (
@@ -1343,11 +1211,21 @@ func (suite *ComplianceSuite) TestTestInterfaces() {
 	require.Equal(t, "oh, SubclassNativeFriendlyRandom", *poly.SayHello(friendlyRandom.NewSubclass()))
 }
 
-func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInClassProperties() {
-	suite.NotApplicableTest("Golang doesnt have any reserved words that can be used in public API")
+func (suite *ComplianceSuite) TestReservedWordClassPropertiesAreAccessible() {
+	require := suite.Require()
+
+	// A property (int) and a method parameter (assert) named like reserved words
+	// remain accessible/usable under the Go binding's slugified names, mapping to
+	// their original JavaScript names across the boundary.
+	obj := calc.NewClassWithJavaReservedWords(jsii.String("one"))
+	require.Equal("onetwo", *obj.Import(jsii.String("two")))
+
+	// A class property named like a reserved word (while) reads its value.
+	words := calc.NewJavaReservedWords()
+	require.Equal("hello", *words.While())
 }
 
-func (suite *ComplianceSuite) TestObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
+func (suite *ComplianceSuite) TestConstructorCanPassThisToTheHost() {
 	reflector := NewPartiallyInitializedThisConsumerImpl(suite.Require())
 	calc.NewConstructorPassesThisOut(reflector)
 }
@@ -1373,33 +1251,7 @@ func (p *partiallyInitializedThisConsumerImpl) ConsumePartiallyInitializedThis(o
 	return jsii.String("OK")
 }
 
-func (suite *ComplianceSuite) TestInterfaceBuilder() {
-
-	require := suite.Require()
-
-	interact := calc.NewUsesInterfaceWithProperties(&TestInterfaceBuilderIInterfaceWithProperties{value: jsii.String("READ_WRITE")})
-	require.Equal("READ_ONLY", *interact.JustRead())
-
-	require.Equal("Hello", *interact.WriteAndRead(jsii.String("Hello")))
-}
-
-type TestInterfaceBuilderIInterfaceWithProperties struct {
-	value *string
-}
-
-func (i *TestInterfaceBuilderIInterfaceWithProperties) ReadOnlyString() *string {
-	return jsii.String("READ_ONLY")
-}
-
-func (i *TestInterfaceBuilderIInterfaceWithProperties) ReadWriteString() *string {
-	return i.value
-}
-
-func (i *TestInterfaceBuilderIInterfaceWithProperties) SetReadWriteString(val *string) {
-	i.value = val
-}
-
-func (suite *ComplianceSuite) TestUnionTypes() {
+func (suite *ComplianceSuite) TestUnionPropertyAcceptsEachMemberType() {
 
 	require := suite.Require()
 
@@ -1437,7 +1289,7 @@ func (suite *ComplianceSuite) TestUnionTypes() {
 	require.Equal(float64(33), *number.Value())
 }
 
-func (suite *ComplianceSuite) TestArrays() {
+func (suite *ComplianceSuite) TestArraysOfObjectsPreserveOrderAndType() {
 	require := suite.Require()
 	sum := calc.NewSum()
 
@@ -1448,11 +1300,11 @@ func (suite *ComplianceSuite) TestArrays() {
 	require.Equal("(((0 + 5) + 10) + (2 * 3))", *sum.ToString())
 }
 
-func (suite *ComplianceSuite) TestStaticMapInClassCannotBeModified() {
+func (suite *ComplianceSuite) TestStaticMapPropertyRejectsMutation() {
 	suite.NotApplicableTest("Golang does not have unmodifiable maps")
 }
 
-func (suite *ComplianceSuite) TestConsts() {
+func (suite *ComplianceSuite) TestConstantsCanBeRead() {
 
 	require := suite.Require()
 
@@ -1464,16 +1316,16 @@ func (suite *ComplianceSuite) TestConsts() {
 	require.Equal("world", *(*calc.Statics_ZooBar())["hello"])
 }
 
-func (suite *ComplianceSuite) TestReceiveInstanceOfPrivateClass() {
+func (suite *ComplianceSuite) TestNonExportedClassReceivedAsInterface() {
 	require := suite.Require()
 	require.True(*calc.NewReturnsPrivateImplementationOfInterface().PrivateImplementation().Success())
 }
 
-func (suite *ComplianceSuite) TestMapReturnedByMethodCannotBeModified() {
+func (suite *ComplianceSuite) TestReturnedMapRejectsMutation() {
 	suite.NotApplicableTest("Golang does not have unmodifiable maps")
 }
 
-func (suite *ComplianceSuite) TestStaticListInClassCanBeReadCorrectly() {
+func (suite *ComplianceSuite) TestStaticArrayPropertyCanBeRead() {
 	require := suite.Require()
 
 	arr := *calc.ClassWithCollections_StaticArray()
@@ -1481,11 +1333,7 @@ func (suite *ComplianceSuite) TestStaticListInClassCanBeReadCorrectly() {
 	require.Contains(arr, jsii.String("two"))
 }
 
-func (suite *ComplianceSuite) TestFluentApi() {
-	suite.NotApplicableTest("Golang props are intentionally not designed to be fluent")
-}
-
-func (suite *ComplianceSuite) TestCanLeverageIndirectInterfacePolymorphism() {
+func (suite *ComplianceSuite) TestInterfaceValueWithPrivateTypeIsUsable() {
 	provider := calc.NewAnonymousImplementationProvider()
 	require := suite.Require()
 	require.Equal(float64(1337), *provider.ProvideAsClass().Value())
@@ -1494,7 +1342,7 @@ func (suite *ComplianceSuite) TestCanLeverageIndirectInterfacePolymorphism() {
 	require.Equal("to implement", *provider.ProvideAsInterface().Verb())
 }
 
-func (suite *ComplianceSuite) TestPropertyOverrides_Set_Throws() {
+func (suite *ComplianceSuite) TestSetterOverrideErrorPropagates() {
 
 	require := suite.Require()
 	so := NewTestPropertyOverrides_Set_ThrowsSyncVirtualMethods()
@@ -1516,11 +1364,7 @@ func (s *testPropertyOverrides_Set_ThrowsSyncVirtualMethods) SetTheProperty(*str
 	panic("Exception from overloaded setter")
 }
 
-func (suite *ComplianceSuite) TestStructs_NonOptionalhashCode() {
-	suite.NotApplicableTest("Golang does not have hashCode")
-}
-
-func (suite *ComplianceSuite) TestTestLiteralInterface() {
+func (suite *ComplianceSuite) TestObjectLiteralReturnedAsInterfaceIsUsable() {
 
 	require := suite.Require()
 	obj := calc.NewJSObjectLiteralForInterface()
@@ -1532,11 +1376,17 @@ func (suite *ComplianceSuite) TestTestLiteralInterface() {
 	require.Equal(float64(42), *gen.Next())
 }
 
-func (suite *ComplianceSuite) TestReservedKeywordsAreSlugifiedInMethodNames() {
-	suite.NotApplicableTest("Golang doesnt have any reserved words that can be used in public API")
+func (suite *ComplianceSuite) TestReservedWordMethodsAreCallable() {
+	require := suite.Require()
+
+	// Methods named like reserved words (import, const) are slugified by the Go
+	// binding (Import, Const) and remain callable, invoking the original method.
+	obj := calc.NewJavaReservedWords()
+	require.NotPanics(func() { obj.Import() })
+	require.NotPanics(func() { obj.Const() })
 }
 
-func (suite *ComplianceSuite) TestPureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing() {
+func (suite *ComplianceSuite) TestHostCanImplementInterfaceThroughSuperclass() {
 	require := suite.Require()
 	expected := calc.StructB{
 		RequiredString: jsii.String("It's Britney b**ch!"),
@@ -1562,7 +1412,7 @@ func (i ImplementsStructReturningDelegate) ReturnStruct() *calc.StructB {
 	return i.expected
 }
 
-func (suite *ComplianceSuite) TestExceptions() {
+func (suite *ComplianceSuite) TestKernelErrorsReachTheHost() {
 	require := suite.Require()
 
 	calc3 := calc.NewCalculator(&calc.CalculatorProps{InitialValue: jsii.Number(20), MaximumValue: jsii.Number(30)})
@@ -1579,7 +1429,7 @@ func (suite *ComplianceSuite) TestExceptions() {
 
 }
 
-func (suite *ComplianceSuite) TestSyncOverrides_CallsSuper() {
+func (suite *ComplianceSuite) TestMethodOverrideCanCallSuper() {
 
 	require := suite.Require()
 
@@ -1593,7 +1443,7 @@ func (suite *ComplianceSuite) TestSyncOverrides_CallsSuper() {
 	require.Equal(float64(10*2), *obj.CallerIsProperty())
 }
 
-func (suite *ComplianceSuite) TestAsyncOverrides_OverrideCallsSuper() {
+func (suite *ComplianceSuite) TestAsyncOverrideCanCallSuper() {
 
 	require := suite.Require()
 
@@ -1613,7 +1463,7 @@ func (o *OverrideCallsSuper) OverrideMe(mult *float64) *float64 {
 	return jsii.Number(superRet*10 + 1)
 }
 
-func (suite *ComplianceSuite) TestSyncOverrides() {
+func (suite *ComplianceSuite) TestMethodCallsUseHostOverride() {
 
 	require := suite.Require()
 
@@ -1632,7 +1482,7 @@ func (suite *ComplianceSuite) TestSyncOverrides() {
 
 }
 
-func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
+func (suite *ComplianceSuite) TestAsyncMethodCanBeOverridden() {
 
 	require := suite.Require()
 
@@ -1642,7 +1492,7 @@ func (suite *ComplianceSuite) TestAsyncOverrides_OverrideAsyncMethod() {
 	require.Equal(float64(4452), obj.CallMe())
 }
 
-func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_Method() {
+func (suite *ComplianceSuite) TestSyncMethodOverrideCallingAsyncFails() {
 	suite.Require().Panics(func() {
 		obj := syncOverrides.New()
 		obj.CallAsync = true
@@ -1650,13 +1500,13 @@ func (suite *ComplianceSuite) TestFail_SyncOverrides_CallsDoubleAsync_Method() {
 	})
 }
 
-func (suite *ComplianceSuite) TestCollectionOfInterfaces_MapOfStructs() {
+func (suite *ComplianceSuite) TestMapOfStructsValuesHaveStructType() {
 	require := suite.Require()
 	m := *calc.InterfaceCollections_MapOfStructs()
 	require.Equal("Hello, I'm String!", *(*m["A"]).RequiredString)
 }
 
-func (suite *ComplianceSuite) TestCallbackParameterIsInterface() {
+func (suite *ComplianceSuite) TestCallbackReceivesInterfaceArguments() {
 	require := suite.Require()
 
 	ringer := bellRinger.New()
@@ -1666,28 +1516,17 @@ func (suite *ComplianceSuite) TestCallbackParameterIsInterface() {
 	require.True(*calc.ConsumerCanRingBell_StaticImplementedByPublicClass(ringer))
 }
 
-func (suite *ComplianceSuite) TestClassCanBeUsedWhenNotExpressedlyLoaded() {
+func (suite *ComplianceSuite) TestTypesNotLoadedByTheHostCanBeReceived() {
 	cdk16625.New().Test()
 }
 
-func (suite *ComplianceSuite) TestDownCasting() {
-	require := suite.Require()
-
-	anyValue := calc.SomeTypeJsii976_ReturnAnonymous()
-	var realValue calc.IReturnJsii976
-
-	jsii.UnsafeCast(anyValue, &realValue)
-
-	require.Equal(realValue.Foo(), jsii.Number(1337))
-}
-
-func (suite *ComplianceSuite) TestStrippedDeprecatedMemberCanBeReceived() {
+func (suite *ComplianceSuite) TestStrippedDeprecatedTypeCanBeReceived() {
 	require := suite.Require()
 
 	require.NotNil(deprecationremoval.InterfaceFactory_Create())
 }
 
-func (suite *ComplianceSuite) TestExceptionMessage() {
+func (suite *ComplianceSuite) TestKernelErrorMessageReachesTheHost() {
 	require := suite.Require()
 
 	defer func() {
@@ -1697,6 +1536,56 @@ func (suite *ComplianceSuite) TestExceptionMessage() {
 	}()
 
 	cdk22369.NewAcceptsPath(&cdk22369.AcceptsPathProps{SourcePath: jsii.String("A Bad Path")})
+}
+
+func (suite *ComplianceSuite) TestUnionStructPropertyKeepsConcreteType() {
+	require := suite.Require()
+
+	withStruct := calc.StructPassing_RoundTrip(jsii.Number(123), &calc.TopLevelStruct{
+		Required:    jsii.String("hello"),
+		SecondLevel: &calc.SecondLevelStruct{DeeperRequiredProp: jsii.String("exists")},
+	})
+	withNumber := calc.StructPassing_RoundTrip(jsii.Number(123), &calc.TopLevelStruct{
+		Required:    jsii.String("hello"),
+		SecondLevel: jsii.Number(5),
+	})
+
+	require.Equal("hello", *withStruct.Required)
+	require.Nil(withStruct.Optional)
+
+	require.Equal("hello", *withNumber.Required)
+	require.Nil(withNumber.Optional)
+	require.Equal(float64(5), withNumber.SecondLevel)
+
+	// A struct received in a union-typed (`any`) property deserializes to an
+	// opaque anonymous object proxy rather than the typed struct, so the host
+	// cannot read the nested struct's properties (`deeperRequiredProp`).
+	suite.FailTest("A struct received in a union-typed property is an opaque anonymous proxy; its properties cannot be read", "")
+	secondLevel, ok := withStruct.SecondLevel.(*calc.SecondLevelStruct)
+	require.True(ok)
+	require.Equal("exists", *secondLevel.DeeperRequiredProp)
+}
+
+func (suite *ComplianceSuite) TestUnionOfListAndObjectStructPropertyRoundTrips() {
+	require := suite.Require()
+
+	friendly := calc.NewAdd(calclib.NewNumber(jsii.Number(1)), calclib.NewNumber(jsii.Number(2)))
+
+	single := calc.ConfusingToJackson_RoundTripStruct(&calc.ConfusingToJacksonStruct{UnionProperty: friendly})
+	list := calc.ConfusingToJackson_RoundTripStruct(&calc.ConfusingToJacksonStruct{UnionProperty: []interface{}{friendly}})
+	unset := calc.ConfusingToJackson_RoundTripStruct(&calc.ConfusingToJacksonStruct{})
+
+	// A single object reference is received as an object reference, preserving identity.
+	require.Equal(friendly, single.UnionProperty)
+
+	// A list is received as a list with the same element, preserving identity.
+	listVal, ok := list.UnionProperty.([]interface{})
+	require.True(ok)
+	require.Len(listVal, 1)
+	require.Equal(friendly, listVal[0])
+
+	// A property the host did not set is received as unset.
+	require.Nil(unset.UnionProperty)
 }
 
 // required to make `go test` recognize the suite.
