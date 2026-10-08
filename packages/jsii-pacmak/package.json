@@ -29,9 +29,9 @@
     "lint": "ESLINT_USE_FLAT_CONFIG=false NODE_OPTIONS='--disable-warning=ESLintRCWarning' eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "yarn test:unit && yarn test:build",
-    "test:unit": "jest",
+    "test:unit": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
     "test:build": "bash test/build-test.sh",
-    "test:update": "jest -u && yarn test:build",
+    "test:update": "yarn test:unit -u && yarn test:build",
     "package": "package-js"
   },
   "dependencies": {
@@ -61,7 +61,7 @@
     "@types/yargs": "^17.0.33",
     "diff": "^5.2.2",
     "eslint": "^9.39.5",
-    "jest": "^30.5.1",
+    "jest": "^30.5.2",
     "jsii": "^6.0.1",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^3.20.120",
