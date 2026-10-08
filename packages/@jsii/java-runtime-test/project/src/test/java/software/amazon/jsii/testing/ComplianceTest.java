@@ -4,12 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.jsii.ComplianceSuiteHarness;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.JsiiObject;
 import software.amazon.jsii.ReloadingClassLoader;
+import software.amazon.jsii.UnsafeCast;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
 import software.amazon.jsii.tests.calculator.cdk16625.Cdk16625;
@@ -1481,6 +1484,39 @@ public class ComplianceTest {
     public void testStructsCanBeDowncastedToParentType() {
         assertNotNull(Demonstrate982.takeThis());
         assertNotNull(Demonstrate982.takeThisToo());
+    }
+
+    /**
+     * Validates pure interfaces can be passed to callbacks.
+     */
+    @Test
+    public void callbackParameterIsInterface() {
+        IBellRinger ringer = (bell) -> bell.ring();
+
+        assertTrue(ConsumerCanRingBell.staticImplementedByObjectLiteral(ringer));
+        assertTrue(ConsumerCanRingBell.staticImplementedByPrivateClass(ringer));
+        assertTrue(ConsumerCanRingBell.staticImplementedByPublicClass(ringer));
+    }
+
+    /**
+     * Ensures unsafe-cast features work as expected.
+     */
+    @Test
+    public void downcasting() {
+        Object anyValue = SomeTypeJsii976.returnAnonymous();
+        IReturnJsii976 realValue = UnsafeCast.unsafeCast((JsiiObject) anyValue, IReturnJsii976.class);
+
+        assertEquals(1337, realValue.getFoo());
+    }
+
+    /**
+     * Verifies that returning Promise&lt;void&gt; is correctly handled.
+     */
+    @Test
+    @Disabled("Static async methods are generated as synchronous calls, which the kernel rejects")
+    public void voidReturningAsync() {
+        new PromiseNothing().instancePromiseIt();
+        PromiseNothing.promiseIt();
     }
 
     @Test
