@@ -10,19 +10,20 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 )
 
 // The child is a real process with the same handshake and exit protocol as Node.
 func TestLifecycleChild(t *testing.T) {
 	mode := os.Getenv("JSII_LIFECYCLE_CHILD")
 	if mode == "" {
-		return
+		t.Skip("child process entrypoint")
 	}
 	// The upstream TestMain creates this file before selecting a test.
 	_ = os.Remove(mockRuntime)
 	if mode == "bad-handshake" {
 		fmt.Fprintln(os.Stdout, `{"hello":"invalid"}`)
-	} else {
+	} else if mode != "no-handshake" {
 		fmt.Fprintln(os.Stdout, `{"hello":"@mock/jsii-runtime@4.3.2"}`)
 	}
 	decoder := json.NewDecoder(os.Stdin)
@@ -45,23 +46,10 @@ func TestLifecycleChild(t *testing.T) {
 }
 
 func TestLifecycle(t *testing.T) {
+	// Do not parallelize this test: it temporarily replaces the global os.Stderr.
 	for _, mode := range []string{"normal", "nonzero", "crash", "bad-handshake"} {
 		t.Run(mode, func(t *testing.T) {
-			executable, err := os.Executable()
-			if err != nil {
-				t.Fatal(err)
-			}
-			command := "exec '" + strings.ReplaceAll(executable, "'", "'\"'\"'") + "' -test.run=TestLifecycleChild"
-			if runtime.GOOS == "windows" {
-				command = `"` + executable + `" -test.run=TestLifecycleChild`
-			}
-			t.Setenv(JSII_RUNTIME, command)
-			t.Setenv("JSII_LIFECYCLE_CHILD", mode)
-			t.Setenv("GORACE", "atexit_sleep_ms=0")
-			p, err := NewProcess("^4.3.2")
-			if err != nil {
-				t.Fatal(err)
-			}
+			p := newLifecycleProcess(t, mode)
 			defer p.Close()
 			// Exercise cleanup of the owned runtime directory with a custom child.
 			directory := filepath.Join(t.TempDir(), "runtime")
@@ -125,4 +113,86 @@ func TestLifecycle(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestCloseDuringHandshake(t *testing.T) {
+	p := newLifecycleProcess(t, "no-handshake")
+	cmd := p.cmd
+	stdout := p.stdout
+	reader := &handshakeReader{Reader: stdout, reading: make(chan struct{})}
+	p.responses = json.NewDecoder(reader)
+	requestDone := make(chan struct{})
+	var requestErr error
+	go func() {
+		defer close(requestDone)
+		requestErr = p.Request(EchoRequest{Message: "ready"}, &EchoResponse{})
+	}()
+	t.Cleanup(func() {
+		// Unblock startup even if the regression prevents Close from acquiring the lock.
+		stdout.Close()
+		p.Close()
+		<-requestDone
+	})
+
+	select {
+	case <-reader.reading:
+	case <-requestDone:
+		t.Fatalf("request returned before reading the handshake: %v", requestErr)
+	case <-time.After(5 * time.Second):
+		t.Fatal("request did not reach the handshake read")
+	}
+
+	closeDone := make(chan struct{})
+	go func() {
+		p.Close()
+		close(closeDone)
+	}()
+	select {
+	case <-closeDone:
+	case <-time.After(5 * time.Second):
+		t.Fatal("Close blocked while waiting for the handshake")
+	}
+	select {
+	case <-requestDone:
+		if requestErr == nil {
+			t.Error("request succeeded without a handshake")
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("Close did not unblock the pending request")
+	}
+	if cmd.ProcessState == nil || cmd.ProcessState.ExitCode() != 0 {
+		t.Errorf("process state = %v, want exit 0", cmd.ProcessState)
+	}
+}
+
+// handshakeReader signals when startup begins reading the child's stdout.
+type handshakeReader struct {
+	io.Reader
+	reading chan struct{}
+	once    sync.Once
+}
+
+func (r *handshakeReader) Read(buffer []byte) (int, error) {
+	r.once.Do(func() { close(r.reading) })
+	return r.Reader.Read(buffer)
+}
+
+func newLifecycleProcess(t *testing.T, mode string) *Process {
+	t.Helper()
+	executable, err := os.Executable()
+	if err != nil {
+		t.Fatal(err)
+	}
+	command := "exec '" + strings.ReplaceAll(executable, "'", "'\"'\"'") + "' -test.run=TestLifecycleChild"
+	if runtime.GOOS == "windows" {
+		command = `"` + executable + `" -test.run=TestLifecycleChild`
+	}
+	t.Setenv(JSII_RUNTIME, command)
+	t.Setenv("JSII_LIFECYCLE_CHILD", mode)
+	t.Setenv("GORACE", "atexit_sleep_ms=0")
+	p, err := NewProcess("^4.3.2")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return p
 }

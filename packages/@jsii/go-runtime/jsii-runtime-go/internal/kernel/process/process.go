@@ -146,16 +146,18 @@ func NewProcess(compatibleVersions string) (*Process, error) {
 
 func (p *Process) ensureStarted() error {
 	p.mutex.Lock()
-	defer p.mutex.Unlock()
 
 	if p.closed {
+		p.mutex.Unlock()
 		return fmt.Errorf("this process has been closed")
 	}
 	if p.started {
+		p.mutex.Unlock()
 		return nil
 	}
 	if err := p.cmd.Start(); err != nil {
 		p.closeLocked()
+		p.mutex.Unlock()
 		return err
 	}
 	p.started = true
@@ -166,6 +168,8 @@ func (p *Process) ensureStarted() error {
 	p.processDone = make(chan struct{})
 	go func(cmd *exec.Cmd, processDone chan struct{}) {
 		// Drain diagnostics before Wait closes the process pipes.
+		// A grandchild that inherits stderr can delay EOF indefinitely, also
+		// blocking Wait and Close until it closes the inherited pipe.
 		<-done
 		if err := cmd.Wait(); err != nil {
 			fmt.Fprintf(os.Stderr, "Runtime process exited abnormally: %v", err)
@@ -174,21 +178,24 @@ func (p *Process) ensureStarted() error {
 		p.Close()
 	}(p.cmd, p.processDone)
 
+	// Close must be able to interrupt startup if the child never sends a handshake.
+	p.mutex.Unlock()
+
 	var handshake handshakeResponse
 	if err := p.readResponse(&handshake); err != nil {
-		p.closeLocked()
+		p.Close()
 		return err
 	}
 
 	if runtimeVersion, err := handshake.runtimeVersion(); err != nil {
-		p.closeLocked()
+		p.Close()
 		return err
 	} else if ok, errs := p.compatibleVersions.Validate(runtimeVersion); !ok {
 		causes := make([]string, len(errs))
 		for i, err := range errs {
 			causes[i] = fmt.Sprintf("- %v", err)
 		}
-		p.closeLocked()
+		p.Close()
 		return fmt.Errorf("incompatible runtime version:\n%v", strings.Join(causes, "\n"))
 	}
 
