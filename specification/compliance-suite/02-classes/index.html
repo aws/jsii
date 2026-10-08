@@ -1,0 +1,4417 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/specification/compliance-suite/02-classes/">
+      
+      
+        <link rel="prev" href="../01-primitives/">
+      
+      
+        <link rel="next" href="../03-statics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Classes & Object References - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/amazon-ember-display.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#classes-object-references" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="The jsii reference" class="md-header__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The jsii reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Classes & Object References
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aws/jsii" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  Welcome
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../user-guides/" class="md-tabs__link">
+          
+  
+  
+  User guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../1-introduction/" class="md-tabs__link">
+          
+  
+  
+  Specification
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../decisions/introduction/" class="md-tabs__link">
+          
+  
+  
+  Architecture Decisions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aws/jsii" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Welcome
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/toolchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/runtime-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance Announcements
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance Announcements
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../compiler-and-rosetta-maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsii@v1.x & jsii-rosetta@v1.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Author Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Author Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quick start
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/quick-start/set-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/quick-start/write-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/typescript-restrictions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TypeScript Restrictions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/hints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Special TSDoc tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/dotnet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    .NET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/submodules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Submodules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_6" id="__nav_2_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolchain
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toolchain
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/toolchain/jsii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsii
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Consumer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Consumer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Specific
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Specific
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/language-specific/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/language-specific/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Implementation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Implementation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    .jsii Assemblies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks and Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specification
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specification
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-type-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The jsii type system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-kernel-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The jsii kernel API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standard Compliance Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-standard-compliance-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Test Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-primitives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primitives & Optional Values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes & Object References
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes & Object References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#values-of-an-abstract-declared-type-are-received-as-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Values of an abstract declared type are received as references
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Values of an abstract declared type are received as references">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-to-classes-with-union-typed-properties-can-be-obtained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References to classes with union-typed properties can be obtained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References to classes with union-typed properties can be obtained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes-can-reference-other-classes-during-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes can reference other classes during initialization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes can reference other classes during initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-constructor-can-pass-this-out-to-the-host-before-returning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A constructor can pass this out to the host before returning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A constructor can pass this out to the host before returning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-implementations-of-abstract-members-are-invoked-by-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host implementations of abstract members are invoked by the kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Host implementations of abstract members are invoked by the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inherited-properties-are-usable-on-host-subclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inherited properties are usable on host subclasses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inherited properties are usable on host subclasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instance-methods-can-be-invoked-and-mutate-kernel-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance methods can be invoked and mutate kernel state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance methods can be invoked and mutate kernel state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instances-of-non-exported-classes-are-received-as-their-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instances of non-exported classes are received as their interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instances of non-exported classes are received as their interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-plain-object-literal-returned-as-a-class-is-usable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A plain object literal returned as a class is usable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A plain object literal returned as a class is usable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-valued-properties-can-be-read-and-assigned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object-valued properties can be read and assigned
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object-valued properties can be read and assigned">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-references-round-trip-through-an-any-typed-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object references round-trip through an any-typed property
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object references round-trip through an any-typed property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-references-are-labelled-with-the-most-derived-public-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object references are labelled with the most derived public type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object references are labelled with the most derived public type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instances-returned-as-an-abstract-type-are-fully-usable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instances returned as an abstract type are fully usable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instances returned as an abstract type are fully usable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-object-is-usable-through-the-interface-it-implements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An object is usable through the interface it implements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An object is usable through the interface it implements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-constructor-parameters-can-be-omitted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional constructor parameters can be omitted
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional constructor parameters can be omitted">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes-with-a-private-constructor-are-created-via-a-static-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes with a private constructor are created via a static factory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes with a private constructor are created via a static factory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instances-of-stripped-deprecated-types-can-be-received" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instances of stripped deprecated types can be received
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instances of stripped deprecated types can be received">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-not-explicitly-loaded-by-the-host-can-be-received-and-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types not explicitly loaded by the host can be received and used
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types not explicitly loaded by the host can be received and used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-statics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statics & Constants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-structs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structs & Keyword Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-overrides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subclassing & Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-new-language-intake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    New Language Intake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-compliance-report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance Report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../decisions/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#values-of-an-abstract-declared-type-are-received-as-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Values of an abstract declared type are received as references
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Values of an abstract declared type are received as references">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-to-classes-with-union-typed-properties-can-be-obtained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References to classes with union-typed properties can be obtained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References to classes with union-typed properties can be obtained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes-can-reference-other-classes-during-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes can reference other classes during initialization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes can reference other classes during initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-constructor-can-pass-this-out-to-the-host-before-returning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A constructor can pass this out to the host before returning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A constructor can pass this out to the host before returning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-implementations-of-abstract-members-are-invoked-by-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host implementations of abstract members are invoked by the kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Host implementations of abstract members are invoked by the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inherited-properties-are-usable-on-host-subclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inherited properties are usable on host subclasses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inherited properties are usable on host subclasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instance-methods-can-be-invoked-and-mutate-kernel-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance methods can be invoked and mutate kernel state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance methods can be invoked and mutate kernel state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instances-of-non-exported-classes-are-received-as-their-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instances of non-exported classes are received as their interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instances of non-exported classes are received as their interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-plain-object-literal-returned-as-a-class-is-usable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A plain object literal returned as a class is usable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A plain object literal returned as a class is usable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-valued-properties-can-be-read-and-assigned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object-valued properties can be read and assigned
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object-valued properties can be read and assigned">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-references-round-trip-through-an-any-typed-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object references round-trip through an any-typed property
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object references round-trip through an any-typed property">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-references-are-labelled-with-the-most-derived-public-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object references are labelled with the most derived public type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object references are labelled with the most derived public type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instances-returned-as-an-abstract-type-are-fully-usable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instances returned as an abstract type are fully usable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instances returned as an abstract type are fully usable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-object-is-usable-through-the-interface-it-implements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An object is usable through the interface it implements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An object is usable through the interface it implements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-constructor-parameters-can-be-omitted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional constructor parameters can be omitted
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional constructor parameters can be omitted">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes-with-a-private-constructor-are-created-via-a-static-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classes with a private constructor are created via a static factory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes with a private constructor are created via a static factory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instances-of-stripped-deprecated-types-can-be-received" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instances of stripped deprecated types can be received
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instances of stripped deprecated types can be received">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-not-explicitly-loaded-by-the-host-can-be-received-and-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types not explicitly loaded by the host can be received and used
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types not explicitly loaded by the host can be received and used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- Auto generated by tools/jsii-compliance/report.ts - do not modify by hand -->
+
+<h1 id="classes-object-references">Classes &amp; Object References</h1>
+<p>Tests in this category ensure classes can be instantiated, their methods and properties used, and that object references returned by the kernel are represented by the correct host type and identity.</p>
+<p><a id="abstractTypedValueReceivedAsReference"></a></p>
+<h2 id="values-of-an-abstract-declared-type-are-received-as-references">Values of an abstract declared type are received as references</h2>
+<p><strong>Test:</strong> <code>abstractTypedValueReceivedAsReference</code></p>
+<p>When the host reads a property or return value whose declared type is an abstract class, the kernel returns an object
+reference. The host MUST represent that value using the declared abstract type and MUST be able to invoke the abstract
+type's members on it, even though the host cannot know the concrete runtime type of the object.</p>
+<h3 id="reference-implementation">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Calculator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">curr</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Calculator</span><span class="p">();</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">120</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calc</span><span class="p">.</span><span class="nx">curr</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">120</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="classWithUnionPropertyCanBeReceived"></a></p>
+<h2 id="references-to-classes-with-union-typed-properties-can-be-obtained">References to classes with union-typed properties can be obtained</h2>
+<p><strong>Test:</strong> <code>classWithUnionPropertyCanBeReceived</code></p>
+<p>The host MUST be able to obtain, through a static method, an object reference to a class that declares a settable
+property whose type is a union (including a union whose members are arrays). Returning such a reference MUST NOT require
+the kernel or the host to resolve the union, and the host MUST receive a usable reference.</p>
+<h3 id="reference-implementation_1">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AbstractClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">abstractMethod</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">makeInstance</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">unionProperty?</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="nx">IFriendly</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">AbstractClass</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">IFriendly</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="p">.</span><span class="nx">makeInstance</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">).</span><span class="nx">toBeInstanceOf</span><span class="p">(</span><span class="nx">ConfusingToJackson</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="classesCanReferenceEachOtherDuringInitialization"></a></p>
+<h2 id="classes-can-reference-other-classes-during-initialization">Classes can reference other classes during initialization</h2>
+<p><strong>Test:</strong> <code>classesCanReferenceEachOtherDuringInitialization</code></p>
+<p>The host MUST be able to instantiate a class whose constructor creates and references other jsii classes, and whose
+referenced types perform their own static initialization during that process. The resulting object reference MUST expose
+the nested object produced during initialization.</p>
+<h3 id="reference-implementation_2">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nx">SomeEnum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">SOME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'SOME'</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">SomeStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">prop</span><span class="o">:</span><span class="w"> </span><span class="kt">SomeEnum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">InnerClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">staticProp</span><span class="o">:</span><span class="w"> </span><span class="kt">SomeStruct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">prop</span><span class="o">:</span><span class="w"> </span><span class="kt">SomeEnum.SOME</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">OuterClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">innerClass</span><span class="o">:</span><span class="w"> </span><span class="kt">InnerClass</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">innerClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">InnerClass</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">outer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OuterClass</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">outer</span><span class="p">.</span><span class="nx">innerClass</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="constructorCanPassThisToTheHost"></a></p>
+<h2 id="a-constructor-can-pass-this-out-to-the-host-before-returning">A constructor can pass <code>this</code> out to the host before returning</h2>
+<p><strong>Test:</strong> <code>constructorCanPassThisToTheHost</code></p>
+<p>When a jsii constructor passes <code>this</code> to a host-implemented callback before the constructor has finished running, the
+host MUST receive a valid object reference for the still-initializing object and MUST be able to use it. The kernel MUST
+assign that object a stable object id and MUST NOT reallocate it: the reference delivered to the callback MUST be the
+same reference that the <code>create</code> request returns once the constructor completes. Any other arguments passed to the
+callback MUST be delivered with their declared types.</p>
+<h3 id="reference-implementation_3">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nx">AllTypesEnum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">MY_ENUM_VALUE</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">YOUR_ENUM_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">THIS_IS_GREAT</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PartiallyInitializedThisConsumer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span><span class="o">:</span><span class="w"> </span><span class="kt">ConstructorPassesThisOut</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="o">:</span><span class="w"> </span><span class="kt">Date</span><span class="p">,</span><span class="w"> </span><span class="nx">ev</span><span class="o">:</span><span class="w"> </span><span class="kt">AllTypesEnum</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConstructorPassesThisOut</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">consumer</span><span class="o">:</span><span class="w"> </span><span class="kt">PartiallyInitializedThisConsumer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">consumer</span><span class="p">.</span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">0</span><span class="p">),</span><span class="w"> </span><span class="nx">AllTypesEnum</span><span class="p">.</span><span class="nx">THIS_IS_GREAT</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">'OK'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="sb">`Expected OK but received </span><span class="si">${</span><span class="nx">result</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Consumer</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">PartiallyInitializedThisConsumer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">seen?</span><span class="o">:</span><span class="w"> </span><span class="kt">ConstructorPassesThisOut</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span><span class="o">:</span><span class="w"> </span><span class="kt">ConstructorPassesThisOut</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="o">:</span><span class="w"> </span><span class="kt">Date</span><span class="p">,</span><span class="w"> </span><span class="nx">ev</span><span class="o">:</span><span class="w"> </span><span class="kt">AllTypesEnum</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">seen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">obj</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">dt</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">0</span><span class="p">));</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">ev</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">AllTypesEnum</span><span class="p">.</span><span class="nx">THIS_IS_GREAT</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'OK'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Consumer</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConstructorPassesThisOut</span><span class="p">(</span><span class="nx">consumer</span><span class="p">);</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">seen</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="hostImplementsAbstractMembers"></a></p>
+<h2 id="host-implementations-of-abstract-members-are-invoked-by-the-kernel">Host implementations of abstract members are invoked by the kernel</h2>
+<p><strong>Test:</strong> <code>hostImplementsAbstractMembers</code></p>
+<p>When the host subclasses an abstract class and implements its abstract method and abstract property, invoking a concrete
+method of the base class on that instance MUST cause the kernel to call back into the host's implementations. Property
+reads and writes performed by the kernel MUST be routed to the host's getter and setter, and method calls to the host's
+method, so the result reflects the host-provided behavior.</p>
+<h3 id="reference-implementation_4">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AbstractSuite</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">someMethod</span><span class="p">(</span><span class="nx">str</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="cm">/** Sets `property` to `seed`, then returns `someMethod(this.property)`. */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">workItAll</span><span class="p">(</span><span class="nx">seed</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">seed</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">someMethod</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">property</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Suite</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AbstractSuite</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="nx">someMethod</span><span class="p">(</span><span class="nx">str</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Wrapped&lt;</span><span class="si">${</span><span class="nx">str</span><span class="si">}</span><span class="sb">&gt;`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">property</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">property</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`String&lt;</span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">&gt;`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">suite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Suite</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">suite</span><span class="p">.</span><span class="nx">workItAll</span><span class="p">(</span><span class="s1">'Oomf!'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Wrapped&lt;String&lt;Oomf!&gt;&gt;'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="inheritedPropertiesUsableOnHostSubclass"></a></p>
+<h2 id="inherited-properties-are-usable-on-host-subclasses">Inherited properties are usable on host subclasses</h2>
+<p><strong>Test:</strong> <code>inheritedPropertiesUsableOnHostSubclass</code></p>
+<p>When the host declares a subclass of a jsii class, the host MUST be able to assign and read the properties the subclass
+inherits from its base class. Assigning an inherited property MUST send a <code>set</code> request against the subclass instance,
+and reading it MUST return the value most recently assigned.</p>
+<h3 id="reference-implementation_5">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AllTypes</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'first value'</span><span class="p">;</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">numberValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">stringProperty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">stringValue</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">stringProperty</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">numberProperty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">numberValue</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">numberProperty</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">numberValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">DerivedFromAllTypes</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AllTypes</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DerivedFromAllTypes</span><span class="p">();</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">stringProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Hello'</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">numberProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">12</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">stringProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">numberProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">12</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="instanceMethodsCanBeCalled"></a></p>
+<h2 id="instance-methods-can-be-invoked-and-mutate-kernel-state">Instance methods can be invoked and mutate kernel state</h2>
+<p><strong>Test:</strong> <code>instanceMethodsCanBeCalled</code></p>
+<p>The host MUST be able to invoke an instance method on an object reference by sending an <code>invoke</code> request to the kernel,
+forwarding the arguments it was given. When a method mutates the object's state, that effect MUST be observable through
+subsequent property reads on the same reference. Each call MUST operate on the state left by the previous call.</p>
+<h3 id="reference-implementation_6">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">lhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">rhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lhs</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">rhs</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Multiply</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">lhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">rhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lhs</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">rhs</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Calculator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">curr</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">mul</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Multiply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Calculator</span><span class="p">();</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">afterAdd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calc</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">afterMul</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calc</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">afterAdd</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">afterMul</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">20</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="nonExportedClassReceivedAsInterface"></a></p>
+<h2 id="instances-of-non-exported-classes-are-received-as-their-interface">Instances of non-exported classes are received as their interface</h2>
+<p><strong>Test:</strong> <code>nonExportedClassReceivedAsInterface</code></p>
+<p>When the kernel returns an instance of a class that is not exported from the library, declared as an interface type, the
+host MUST receive a usable object reference and MUST be able to read the interface's properties on it. The host MUST NOT
+require the concrete (private) type to be known in order to use the value.</p>
+<h3 id="reference-implementation_7">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IPrivatelyImplemented</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ExportedBaseClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">PrivateImplementation</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">ExportedBaseClass</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IPrivatelyImplemented</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ReturnsPrivateImplementationOfInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">privateImplementation</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IPrivatelyImplemented</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PrivateImplementation</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">impl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ReturnsPrivateImplementationOfInterface</span><span class="p">().</span><span class="nx">privateImplementation</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">impl</span><span class="p">.</span><span class="nx">success</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectLiteralReturnedAsClassIsUsable"></a></p>
+<h2 id="a-plain-object-literal-returned-as-a-class-is-usable">A plain object literal returned as a class is usable</h2>
+<p><strong>Test:</strong> <code>objectLiteralReturnedAsClassIsUsable</code></p>
+<p>When a kernel method returns a plain object literal whose declared return type is a class, the host MUST receive a usable
+object reference and MUST be able to read the class's declared properties, returning the values present in the literal.</p>
+<h3 id="reference-implementation_8">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">JSObjectLiteralToNative</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">returnLiteral</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">JSObjectLiteralToNativeClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">propA</span><span class="o">:</span><span class="w"> </span><span class="s1">'Hello'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">propB</span><span class="o">:</span><span class="w"> </span><span class="kt">102</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">JSObjectLiteralToNativeClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">propA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'A'</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">propB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">JSObjectLiteralToNative</span><span class="p">().</span><span class="nx">returnLiteral</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">propA</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">propB</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">102</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectPropertiesCanBeReadAndAssigned"></a></p>
+<h2 id="object-valued-properties-can-be-read-and-assigned">Object-valued properties can be read and assigned</h2>
+<p><strong>Test:</strong> <code>objectPropertiesCanBeReadAndAssigned</code></p>
+<p>The host MUST be able to read a property whose declared type is a class, receiving an object reference from the kernel,
+and MUST be able to assign such a property by sending an object reference back to the kernel. A reference that the host
+obtained from a previous read MUST remain usable as an argument in a later request, and the kernel MUST resolve it to the
+same underlying object. The effect of the assignment MUST be observable through later reads.</p>
+<h3 id="reference-implementation_9">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Multiply</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">lhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">rhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lhs</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">rhs</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Calculator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">curr</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">neg</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">curr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Calculator</span><span class="p">();</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">3200000</span><span class="p">);</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">neg</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">previous</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calc</span><span class="p">.</span><span class="nx">curr</span><span class="p">;</span><span class="w"> </span><span class="c1">// an object reference read from the kernel</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Multiply</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">2</span><span class="p">),</span><span class="w"> </span><span class="nx">previous</span><span class="p">);</span><span class="w"> </span><span class="c1">// sent back as an argument</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">calc</span><span class="p">.</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="o">-</span><span class="mf">6400000</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectReferencesRoundTripThroughAny"></a></p>
+<h2 id="object-references-round-trip-through-an-any-typed-property">Object references round-trip through an <code>any</code>-typed property</h2>
+<p><strong>Test:</strong> <code>objectReferencesRoundTripThroughAny</code></p>
+<p>When the host assigns an object reference to a property of type <code>any</code> and then reads it back, it MUST receive a reference
+to the same underlying object. For an object created in the kernel, the returned reference MUST carry that object's
+kernel type. For an object the host created (an instance of a host subclass), the kernel MUST return the same object
+reference, and the host MUST resolve it back to the very instance it created, so object identity is preserved across the
+boundary.</p>
+<h3 id="reference-implementation_10">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">lhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">rhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lhs</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">rhs</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AllTypes</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">anyProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AllTypes</span><span class="p">();</span>
+
+<span class="c1">// An object created in the kernel keeps its kernel type.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">kernelObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">44</span><span class="p">);</span>
+<span class="nx">types</span><span class="p">.</span><span class="nx">anyProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">kernelObject</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">roundTrippedKernelObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">anyProperty</span><span class="p">;</span>
+
+<span class="c1">// An object created by the host comes back as the same host instance.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">AddTen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">10</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">hostObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AddTen</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+<span class="nx">types</span><span class="p">.</span><span class="nx">anyProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">hostObject</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">roundTrippedHostObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">anyProperty</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">roundTrippedKernelObject</span><span class="p">).</span><span class="nx">toBeInstanceOf</span><span class="p">(</span><span class="nb">Number</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">roundTrippedKernelObject</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">kernelObject</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">roundTrippedHostObject</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">hostObject</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectsReceivedAsMostDerivedPublicType"></a></p>
+<h2 id="object-references-are-labelled-with-the-most-derived-public-type">Object references are labelled with the most derived public type</h2>
+<p><strong>Test:</strong> <code>objectsReceivedAsMostDerivedPublicType</code></p>
+<p>When the kernel returns an object whose concrete class is not public, it MUST label the reference with the most derived
+<em>public</em> type in that object's ancestry. The host MUST represent the reference using that public type: a reference whose
+private class extends a public class MUST be usable as that public class, not merely as its root ancestor. When the value
+is declared as an interface, the host MUST receive it typed as that interface.</p>
+<h3 id="reference-implementation_11">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PublicClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IPublicInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">bye</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IPublicInterface2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">ciao</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">InbetweenClass</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">PublicClass</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IPublicInterface2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">ciao</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'ciao'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">PrivateClass</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">InbetweenClass</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IPublicInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">bye</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'bye'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Constructors</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">makeClass</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">PublicClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PrivateClass</span><span class="p">();</span><span class="w"> </span><span class="c1">// Wire type should be InbetweenClass</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">makeInterface</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IPublicInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PrivateClass</span><span class="p">();</span><span class="w"> </span><span class="c1">// Wire type should be IPublicInterface</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">classRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Constructors</span><span class="p">.</span><span class="nx">makeClass</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ifaceRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Constructors</span><span class="p">.</span><span class="nx">makeInterface</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">classRef</span><span class="p">).</span><span class="nx">toBeInstanceOf</span><span class="p">(</span><span class="nx">InbetweenClass</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">ifaceRef</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="objectsReturnedAsAbstractTypeAreUsable"></a></p>
+<h2 id="instances-returned-as-an-abstract-type-are-fully-usable">Instances returned as an abstract type are fully usable</h2>
+<p><strong>Test:</strong> <code>objectsReturnedAsAbstractTypeAreUsable</code></p>
+<p>The host MUST be able to receive an object reference whose declared type is an abstract class or an interface, and MUST
+be able to invoke its abstract methods, invoke its concrete (non-abstract) methods, and read properties it inherits from
+an interface. A property declared to return an abstract type MUST also yield a usable reference, even when the kernel
+backs it with a plain object rather than a class instance.</p>
+<h3 id="reference-implementation_12">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IInterfaceImplementedByAbstractClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">propFromInterface</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AbstractClassBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">abstractProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AbstractClass</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AbstractClassBase</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IInterfaceImplementedByAbstractClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">nonAbstractMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">abstractMethod</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">propFromInterface</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'propFromInterfaceValue'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">ConcreteClass</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AbstractClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">abstractMethod</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!!`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">abstractProperty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Hello, dude!'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AbstractClassReturner</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">giveMeAbstract</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">AbstractClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConcreteClass</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">giveMeInterface</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IInterfaceImplementedByAbstractClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConcreteClass</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">returnAbstractFromProperty</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">AbstractClassBase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">abstractProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">'hello-abstract-property'</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AbstractClassReturner</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">abstractInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">obj</span><span class="p">.</span><span class="nx">giveMeAbstract</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">iface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">obj</span><span class="p">.</span><span class="nx">giveMeInterface</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">abstractInstance</span><span class="p">.</span><span class="nx">abstractMethod</span><span class="p">(</span><span class="s1">'John'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello, John!!'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">abstractInstance</span><span class="p">.</span><span class="nx">propFromInterface</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'propFromInterfaceValue'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">abstractInstance</span><span class="p">.</span><span class="nx">nonAbstractMethod</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">42</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">iface</span><span class="p">.</span><span class="nx">propFromInterface</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'propFromInterfaceValue'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">returnAbstractFromProperty</span><span class="p">.</span><span class="nx">abstractProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'hello-abstract-property'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectsUsableThroughImplementedInterface"></a></p>
+<h2 id="an-object-is-usable-through-the-interface-it-implements">An object is usable through the interface it implements</h2>
+<p><strong>Test:</strong> <code>objectsUsableThroughImplementedInterface</code></p>
+<p>When the kernel returns an object reference, the host MUST be able to use the object through any interface the object
+implements, by reading the interface's members with the corresponding <code>get</code> or <code>invoke</code> request, and the values returned
+MUST be the ones computed by the object. This MUST hold when the concrete class is defined privately inside the kernel
+and is never exported, and when the declared return type is the interface itself as well as when it is <code>any</code>.</p>
+<h3 id="reference-implementation_13">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IReturnJsii976</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">BaseJsii976</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">SomeTypeJsii976</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">returnReturn</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IReturnJsii976</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">Derived</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BaseJsii976</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IReturnJsii976</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">333</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Derived</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">returnAnonymous</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">Derived</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IReturnJsii976</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1337</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Derived</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">declaredAsInterface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SomeTypeJsii976</span><span class="p">.</span><span class="nx">returnReturn</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">declaredAsAny</span><span class="o">:</span><span class="w"> </span><span class="kt">IReturnJsii976</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SomeTypeJsii976</span><span class="p">.</span><span class="nx">returnAnonymous</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">declaredAsInterface</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">333</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">declaredAsAny</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1337</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="optionalConstructorParametersCanBeOmitted"></a></p>
+<h2 id="optional-constructor-parameters-can-be-omitted">Optional constructor parameters can be omitted</h2>
+<p><strong>Test:</strong> <code>optionalConstructorParametersCanBeOmitted</code></p>
+<p>The host MUST be able to instantiate a jsii class by sending a <code>create</code> request to the kernel. When the trailing
+constructor parameter is optional, the host MAY omit it and send no argument for it, in which case the kernel MUST apply
+the parameter's default. The host MAY instead provide the optional argument, which the kernel MUST use in place of the
+default. Both forms MUST yield a usable object reference.</p>
+<h3 id="reference-implementation_14">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">CalculatorProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">initialValue?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">maximumValue?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Calculator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">maxValue?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">props?</span><span class="o">:</span><span class="w"> </span><span class="kt">CalculatorProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">maxValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">props</span><span class="o">?</span><span class="p">.</span><span class="nx">maximumValue</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">withoutProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Calculator</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">withProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Calculator</span><span class="p">({</span><span class="w"> </span><span class="nx">maximumValue</span><span class="o">:</span><span class="w"> </span><span class="kt">10</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withoutProps</span><span class="p">).</span><span class="nx">toBeInstanceOf</span><span class="p">(</span><span class="nx">Calculator</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withProps</span><span class="p">.</span><span class="nx">maxValue</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="privateConstructorClassFromStaticFactory"></a></p>
+<h2 id="classes-with-a-private-constructor-are-created-via-a-static-factory">Classes with a private constructor are created via a static factory</h2>
+<p><strong>Test:</strong> <code>privateConstructorClassFromStaticFactory</code></p>
+<p>When a class declares a private constructor, the host MUST NOT expose a way to construct it directly and MUST instead
+obtain instances through the class's static factory method, invoked as a static method on the type. On the returned
+reference, the host MUST be able to read a read-only property and MUST be able to both read and assign a read-write
+property.</p>
+<h3 id="reference-implementation_15">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassWithPrivateConstructorAndAutomaticProperties</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">create</span><span class="p">(</span><span class="nx">readOnlyString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">readWriteString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ClassWithPrivateConstructorAndAutomaticProperties</span><span class="p">(</span><span class="nx">readOnlyString</span><span class="p">,</span><span class="w"> </span><span class="nx">readWriteString</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">readOnlyString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nx">readWriteString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ClassWithPrivateConstructorAndAutomaticProperties</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Bye'</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">initialReadWrite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">obj</span><span class="p">.</span><span class="nx">readWriteString</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">readWriteString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Hello'</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">initialReadWrite</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Bye'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">readOnlyString</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">readWriteString</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="strippedDeprecatedTypeCanBeReceived"></a></p>
+<h2 id="instances-of-stripped-deprecated-types-can-be-received">Instances of stripped deprecated types can be received</h2>
+<p><strong>Test:</strong> <code>strippedDeprecatedTypeCanBeReceived</code></p>
+<p>When the kernel returns a value declared as an interface, but whose concrete class has been removed from the host's type
+information (for example because deprecated members were stripped from the type metadata), the host MUST still receive a
+usable object reference typed as the declared interface. The host MUST NOT fail merely because the concrete type is not
+present in its loaded type information.</p>
+<h3 id="reference-implementation_16">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">method</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">VisibleBaseClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">propertyPresent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/** @deprecated do not use me! */</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DeprecatedImplementation</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">VisibleBaseClass</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">method</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* NOOP */</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">InterfaceFactory</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DeprecatedImplementation</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">InterfaceFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">instance</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="typesNotLoadedByTheHostCanBeReceived"></a></p>
+<h2 id="types-not-explicitly-loaded-by-the-host-can-be-received-and-used">Types not explicitly loaded by the host can be received and used</h2>
+<p><strong>Test:</strong> <code>typesNotLoadedByTheHostCanBeReceived</code></p>
+<p>When the kernel returns an object reference whose type the host application never explicitly loaded or named, the host
+MUST still receive a usable reference and MUST be able to invoke the declared members on it. This includes the case where
+such a reference is delivered to a host callback as an argument during an override, with its type belonging to a module
+the host never imported.</p>
+<h3 id="reference-implementation_17">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">next</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/** `UnimportedType` lives in a submodule the host never explicitly loads. */</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">UnimportedType</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">n</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">n</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Cdk16625</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">gen</span><span class="o">:</span><span class="w"> </span><span class="kt">IRandomNumberGenerator</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">test</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1337</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">UnimportedType</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">rng</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">'unexpected value'</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Subject</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Cdk16625</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">gen</span><span class="o">:</span><span class="w"> </span><span class="kt">IRandomNumberGenerator</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">gen</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Subject</span><span class="p">().</span><span class="nx">test</span><span class="p">()).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toThrow</span><span class="p">();</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    2026-10-08
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 Amazon Web Services, Inc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://aws.amazon.com" target="_blank" rel="noopener" title="Amazon Web Services, Inc." class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M180.4 203c-.7 22.6 10.6 32.7 10.9 39-.1 1.3-.6 2.5-1.3 3.6s-1.7 2-2.8 2.6l-12.8 9c-1.7 1.2-3.6 1.8-5.6 1.9-.4 0-8.2 1.8-20.5-25.6-7.5 9.4-17 16.9-27.9 22s-22.7 7.7-34.7 7.5c-16.3.9-60.4-9.2-58.1-56.2-1.6-38.3 34.1-62.1 70.9-60 7.1 0 21.6.4 47 6.3v-15.6c2.7-26.5-14.7-47-44.8-43.9-2.4 0-19.4-.5-45.8 10.1-7.4 3.4-8.3 2.8-10.8 2.8-7.4 0-4.4-21.5-2.9-24.2 5.2-6.4 35.9-18.4 65.9-18.2 20.1-1.8 40.1 4.4 55.7 17.3 6.3 7.1 11.2 15.4 14.2 24.4s4.2 18.5 3.5 28v69.3zM94 235.4c32.4-.5 46.2-20 49.3-30.5 2.5-10.1 2.1-16.4 2.1-27.4-9.7-2.3-23.6-4.9-39.6-4.9-15.2-1.1-42.8 5.6-41.7 32.3-1.2 16.8 11.1 31.4 30 30.5zm170.9 23.1c-7.9.7-11.5-4.9-12.7-10.4L202.4 83.4c-1-2.8-1.6-5.6-1.9-8.6-.2-1.2.1-2.4.8-3.4s1.8-1.6 3-1.8h22.2c8.8-.9 11.6 6 12.6 10.4l35.8 140.8L308.1 80c.5-3.2 2.9-11.1 12.8-10.2h17.2c2.2-.2 11.1-.5 12.7 10.4l33.3 142.5L421 80.1c.5-2.2 2.7-11.4 12.7-10.4h19.7c.9-.1 6.2-.8 5.3 8.6-.4 1.8 3.4-10.7-52.8 169.9-1.1 5.5-4.8 11.1-12.7 10.4h-18.7c-10.9 1.2-12.5-9.7-12.7-10.7l-33.2-137.1-32.8 137c-.2 1.1-1.7 11.9-12.7 10.7h-18.3zm273.5 5.6c-5.9 0-33.9-.3-57.4-12.3-2.3-1-4.3-2.6-5.7-4.8s-2.1-4.6-2.1-7.1v-10.7c0-8.5 6.2-6.9 8.8-5.9 10 4.1 16.5 7.1 28.8 9.6 36.7 7.5 52.8-2.3 56.7-4.5 13.2-7.8 14.2-25.7 5.3-34.9-10.5-8.8-15.5-9.1-53.1-21-4.6-1.3-43.7-13.6-43.8-52.4-.6-28.2 25-56.2 69.5-56 12.7 0 46.4 4.1 55.6 15.6 1.4 2.1 2 4.6 1.9 7v10.1c0 4.4-1.6 6.7-4.9 6.7-7.7-.9-21.4-11.2-49.2-10.8-6.9-.4-39.9.9-38.4 25-.4 19 26.6 26.1 29.7 26.9 36.5 11 48.6 12.8 63.1 29.6 17.1 22.2 7.9 48.3 4.3 55.4-19.1 37.5-68.4 34.4-69.3 34.4zM578.6 369c-70 51.7-171.7 79.2-258.5 79.2C203 449 89.8 405.9 2.8 327.5c-6.5-5.9-.8-14 7.2-9.5 96.5 55.2 205.7 84.2 316.9 84.1 83-.4 165.1-17.3 241.6-49.5 11.8-5 21.8 7.8 10.1 16.4m29.2-33.3c-9-11.5-59.3-5.4-81.8-2.7-6.8.8-7.9-5.1-1.8-9.5 40.1-28.2 105.9-20.1 113.4-10.6s-2.1 75.4-39.6 106.9c-5.8 4.9-11.3 2.3-8.7-4.1 8.4-21.3 27.4-68.5 18.4-80z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

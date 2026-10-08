@@ -1,0 +1,3827 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/specification/compliance-suite/06-structs/">
+      
+      
+        <link rel="prev" href="../05-collections/">
+      
+      
+        <link rel="next" href="../07-interfaces/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Structs & Keyword Arguments - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/amazon-ember-display.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#structs-keyword-arguments" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="The jsii reference" class="md-header__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The jsii reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Structs & Keyword Arguments
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aws/jsii" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  Welcome
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../user-guides/" class="md-tabs__link">
+          
+  
+  
+  User guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../1-introduction/" class="md-tabs__link">
+          
+  
+  
+  Specification
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../decisions/introduction/" class="md-tabs__link">
+          
+  
+  
+  Architecture Decisions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aws/jsii" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Welcome
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/toolchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/runtime-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance Announcements
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance Announcements
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../compiler-and-rosetta-maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsii@v1.x & jsii-rosetta@v1.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Author Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Author Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quick start
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/quick-start/set-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/quick-start/write-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/typescript-restrictions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TypeScript Restrictions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/hints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Special TSDoc tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/dotnet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    .NET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/submodules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Submodules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_6" id="__nav_2_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolchain
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toolchain
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/toolchain/jsii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsii
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Consumer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Consumer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Specific
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Specific
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/language-specific/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/language-specific/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Implementation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Implementation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    .jsii Assemblies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks and Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specification
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specification
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-type-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The jsii type system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-kernel-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The jsii kernel API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standard Compliance Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-standard-compliance-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Test Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-primitives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primitives & Optional Values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes & Object References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-statics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statics & Constants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structs & Keyword Arguments
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structs & Keyword Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#diamond-inherited-struct-properties-are-exposed-exactly-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diamond-inherited struct properties are exposed exactly once
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diamond-inherited struct properties are exposed exactly once">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructing-a-struct-without-a-required-property-is-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing a struct without a required property is rejected
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructing a struct without a required property is rejected">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlapping-struct-types-in-a-union-are-correctly-disambiguated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overlapping struct types in a union are correctly disambiguated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overlapping struct types in a union are correctly disambiguated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-positional-argument-and-a-struct-property-of-the-same-name-stay-distinct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A positional argument and a struct property of the same name stay distinct
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A positional argument and a struct property of the same name stay distinct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-received-from-the-kernel-is-indistinguishable-from-one-built-by-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct received from the kernel is indistinguishable from one built by the host
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct received from the kernel is indistinguishable from one built by the host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-returned-struct-can-be-received-as-a-parent-struct-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A returned struct can be received as a parent struct type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A returned struct can be received as a parent struct type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-is-passed-to-the-kernel-by-value-and-its-properties-are-readable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct is passed to the kernel by value and its properties are readable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct is passed to the kernel by value and its properties are readable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structs-cross-the-boundary-as-plain-data-without-type-decoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs cross the boundary as plain data without type decoration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs cross the boundary as plain data without type decoration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-declared-in-a-submodule-can-be-constructed-and-passed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct declared in a submodule can be constructed and passed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct declared in a submodule can be constructed and passed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-property-typed-as-a-union-of-a-list-and-an-object-keeps-its-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct property typed as a union of a list and an object keeps its value
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct property typed as a union of a list and an object keeps its value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-union-typed-struct-property-keeps-its-concrete-type-across-the-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A union-typed struct property keeps its concrete type across the boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A union-typed struct property keeps its concrete type across the boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unset-optional-properties-are-omitted-not-sent-as-empty-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unset optional properties are omitted, not sent as empty values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unset optional properties are omitted, not sent as empty values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-overrides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subclassing & Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-new-language-intake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    New Language Intake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-compliance-report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance Report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../decisions/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#diamond-inherited-struct-properties-are-exposed-exactly-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diamond-inherited struct properties are exposed exactly once
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diamond-inherited struct properties are exposed exactly once">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructing-a-struct-without-a-required-property-is-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing a struct without a required property is rejected
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructing a struct without a required property is rejected">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlapping-struct-types-in-a-union-are-correctly-disambiguated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overlapping struct types in a union are correctly disambiguated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overlapping struct types in a union are correctly disambiguated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-positional-argument-and-a-struct-property-of-the-same-name-stay-distinct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A positional argument and a struct property of the same name stay distinct
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A positional argument and a struct property of the same name stay distinct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-received-from-the-kernel-is-indistinguishable-from-one-built-by-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct received from the kernel is indistinguishable from one built by the host
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct received from the kernel is indistinguishable from one built by the host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-returned-struct-can-be-received-as-a-parent-struct-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A returned struct can be received as a parent struct type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A returned struct can be received as a parent struct type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-is-passed-to-the-kernel-by-value-and-its-properties-are-readable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct is passed to the kernel by value and its properties are readable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct is passed to the kernel by value and its properties are readable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structs-cross-the-boundary-as-plain-data-without-type-decoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structs cross the boundary as plain data without type decoration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs cross the boundary as plain data without type decoration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-declared-in-a-submodule-can-be-constructed-and-passed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct declared in a submodule can be constructed and passed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct declared in a submodule can be constructed and passed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-struct-property-typed-as-a-union-of-a-list-and-an-object-keeps-its-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A struct property typed as a union of a list and an object keeps its value
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A struct property typed as a union of a list and an object keeps its value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-union-typed-struct-property-keeps-its-concrete-type-across-the-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A union-typed struct property keeps its concrete type across the boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A union-typed struct property keeps its concrete type across the boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unset-optional-properties-are-omitted-not-sent-as-empty-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unset optional properties are omitted, not sent as empty values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unset optional properties are omitted, not sent as empty values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- Auto generated by tools/jsii-compliance/report.ts - do not modify by hand -->
+
+<h1 id="structs-keyword-arguments">Structs &amp; Keyword Arguments</h1>
+<p>Tests in this category ensure that structs (data types) cross the boundary by value as plain, undecorated data, that
+unset optional properties are omitted, that inherited and union-typed properties behave correctly, and that struct
+values compare (and, where the host supports it, hash) by content. They also cover how a struct is passed alongside a
+positional argument of the same name, and the conventions a host offers for constructing structs idiomatically.</p>
+<p><a id="diamondInheritedStructPropertiesAppearOnce"></a></p>
+<h2 id="diamond-inherited-struct-properties-are-exposed-exactly-once">Diamond-inherited struct properties are exposed exactly once</h2>
+<p><strong>Test:</strong> <code>diamondInheritedStructPropertiesAppearOnce</code></p>
+<p>A struct may inherit from several parent structs that share a common ancestor, so that a property is reachable through
+more than one inheritance path (diamond inheritance). The host MUST expose each such property exactly once, with no
+duplication or ambiguity. When the host constructs the struct and passes it to the kernel, each property MUST be sent a
+single time with the assigned value, and reading the properties back MUST return those values.</p>
+<h3 id="reference-implementation">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">DiamondInheritanceBaseLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">baseLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">DiamondInheritanceFirstMidLevelStruct</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">DiamondInheritanceBaseLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">firstMidLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">DiamondInheritanceSecondMidLevelStruct</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">DiamondInheritanceBaseLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">secondMidLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">DiamondInheritanceTopLevelStruct</span>
+<span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nx">DiamondInheritanceFirstMidLevelStruct</span><span class="p">,</span><span class="w"> </span><span class="nx">DiamondInheritanceSecondMidLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">topLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">struct</span><span class="o">:</span><span class="w"> </span><span class="kt">DiamondInheritanceTopLevelStruct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">baseLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">'base'</span><span class="p">,</span><span class="w"> </span><span class="c1">// declared once, reached via both mid-level parents</span>
+<span class="w">  </span><span class="nx">firstMidLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">'mid1'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">secondMidLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">'mid2'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">topLevelProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">'top'</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">struct</span><span class="p">.</span><span class="nx">baseLevelProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'base'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">struct</span><span class="p">.</span><span class="nx">firstMidLevelProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'mid1'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">struct</span><span class="p">.</span><span class="nx">secondMidLevelProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'mid2'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">struct</span><span class="p">.</span><span class="nx">topLevelProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'top'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="incompleteStructIsRejected"></a></p>
+<h2 id="constructing-a-struct-without-a-required-property-is-rejected">Constructing a struct without a required property is rejected</h2>
+<p><strong>Test:</strong> <code>incompleteStructIsRejected</code></p>
+<p>When a struct declares a required (non-optional) property, the host MUST NOT allow a struct value that omits that
+property to be constructed and passed to the kernel. Attempting to construct such an incomplete struct MUST result in an
+error on the host, and the host MUST NOT send an incomplete struct across the boundary. In the kernel messages, this is
+observable as the absence of any message carrying the incomplete struct.</p>
+<h3 id="reference-implementation_1">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">MyFirstStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">astring</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="c1">// required</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">anumber</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="c1">// required</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">firstOptional?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN / THEN</span>
+<span class="c1">// Omitting the required `astring` and `anumber` properties must be rejected.</span>
+<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">incomplete</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">MyFirstStruct</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">acceptStruct</span><span class="p">(</span><span class="nx">incomplete</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">toThrow</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="overlappingStructUnionsAreDisambiguated"></a></p>
+<h2 id="overlapping-struct-types-in-a-union-are-correctly-disambiguated">Overlapping struct types in a union are correctly disambiguated</h2>
+<p><strong>Test:</strong> <code>overlappingStructUnionsAreDisambiguated</code></p>
+<p>When a kernel method accepts a union of two or more struct types whose shapes can structurally overlap, a statically
+typed host must still be able to recover the intended declared type. The host MUST pass the struct value as plain data,
+and the kernel MUST determine which member of the union the value represents based on the properties present. For a
+value built as one member of the union, a test for that member MUST report <code>true</code> and a test for any other member MUST
+report <code>false</code>, even when the members share one or more properties.</p>
+<h3 id="reference-implementation_2">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructA</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalString?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalNumber?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Intentionally overlaps with StructA (when only `requiredString` is provided) to test that the</span>
+<span class="c1">// kernel properly disambiguates them.</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalBoolean?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalStructA?</span><span class="o">:</span><span class="w"> </span><span class="kt">StructA</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StructUnionConsumer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">isStructA</span><span class="p">(</span><span class="nx">struct</span><span class="o">:</span><span class="w"> </span><span class="kt">StructA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">StructB</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">struct</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">StructA</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">struct</span><span class="p">));</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">1</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'requiredString'</span><span class="p">);</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">2</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'requiredString'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'optionalNumber'</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'optionalString'</span><span class="p">));</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">3</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'requiredString'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'optionalNumber'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'optionalString'</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">default</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">isStructB</span><span class="p">(</span><span class="nx">struct</span><span class="o">:</span><span class="w"> </span><span class="kt">StructA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">StructB</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">struct</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">struct</span><span class="p">));</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">1</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'requiredString'</span><span class="p">);</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">2</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'requiredString'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'optionalBoolean'</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'optionalStructA'</span><span class="p">));</span>
+<span class="w">      </span><span class="nx">default</span><span class="o">:</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a0</span><span class="o">:</span><span class="w"> </span><span class="kt">StructA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="p">,</span><span class="w"> </span><span class="nx">optionalString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Bazinga!'</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a1</span><span class="o">:</span><span class="w"> </span><span class="kt">StructA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="p">,</span><span class="w"> </span><span class="nx">optionalNumber</span><span class="o">:</span><span class="w"> </span><span class="kt">1337</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b0</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="p">,</span><span class="w"> </span><span class="nx">optionalBoolean</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b1</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="p">,</span><span class="w"> </span><span class="nx">optionalStructA</span><span class="o">:</span><span class="w"> </span><span class="kt">a1</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructA</span><span class="p">(</span><span class="nx">a0</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructA</span><span class="p">(</span><span class="nx">a1</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructA</span><span class="p">(</span><span class="nx">b0</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructA</span><span class="p">(</span><span class="nx">b1</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructB</span><span class="p">(</span><span class="nx">a0</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructB</span><span class="p">(</span><span class="nx">a1</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructB</span><span class="p">(</span><span class="nx">b0</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">StructUnionConsumer</span><span class="p">.</span><span class="nx">isStructB</span><span class="p">(</span><span class="nx">b1</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="positionalArgumentAndStructPropertyWithSameName"></a></p>
+<h2 id="a-positional-argument-and-a-struct-property-of-the-same-name-stay-distinct">A positional argument and a struct property of the same name stay distinct</h2>
+<p><strong>Test:</strong> <code>positionalArgumentAndStructPropertyWithSameName</code></p>
+<p>A method may declare a positional parameter and a trailing struct parameter that has a property with the same name as
+that positional parameter. In hosts that lift struct properties into named arguments at the call site, this creates a
+potential collision. The host MUST keep the two values distinct: the positional argument value MUST be delivered to the
+positional parameter, and the struct property value MUST be delivered inside the struct. The kernel MUST therefore
+receive the positional value in the positional slot and the struct, as plain data, in the trailing slot.</p>
+<h3 id="reference-implementation_3">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Bell</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">ring</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructParameterType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="c1">// same name as the positional parameter below</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">props?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AmbiguousParameters</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="kt">Bell</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">StructParameterType</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">bell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Bell</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">amb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AmbiguousParameters</span><span class="p">(</span><span class="nx">bell</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s1">'Driiiing!'</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">amb</span><span class="p">.</span><span class="nx">scope</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">bell</span><span class="p">);</span><span class="w"> </span><span class="c1">// positional value, delivered by reference</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">amb</span><span class="p">.</span><span class="nx">props</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s1">'Driiiing!'</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// struct property value</span>
+</code></pre></div>
+<p><a id="receivedStructEqualsHostBuiltStruct"></a></p>
+<h2 id="a-struct-received-from-the-kernel-is-indistinguishable-from-one-built-by-the-host">A struct received from the kernel is indistinguishable from one built by the host</h2>
+<p><strong>Test:</strong> <code>receivedStructEqualsHostBuiltStruct</code></p>
+<p>A struct value received from the kernel MUST be indistinguishable from a struct value constructed by the host with the
+same content. Reading corresponding properties MUST yield equal values, including optional properties that are unset on
+both sides. The received struct and the host-built struct MUST compare equal under the host's idiomatic value
+comparison, in both directions.</p>
+<h3 id="reference-implementation_4">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructWithOnlyOptionals</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional1?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional2?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional3?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">GiveMeStructs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">structLiteral</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructWithOnlyOptionals</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">optional1</span><span class="o">:</span><span class="w"> </span><span class="s1">'optional1FromStructLiteral'</span><span class="p">,</span><span class="w"> </span><span class="nx">optional3</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">gms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">GiveMeStructs</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">returnedLiteral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gms</span><span class="p">.</span><span class="nx">structLiteral</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">nativeBuilt</span><span class="o">:</span><span class="w"> </span><span class="kt">StructWithOnlyOptionals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">optional1</span><span class="o">:</span><span class="w"> </span><span class="s1">'optional1FromStructLiteral'</span><span class="p">,</span><span class="w"> </span><span class="nx">optional3</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">returnedLiteral</span><span class="p">.</span><span class="nx">optional1</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">nativeBuilt</span><span class="p">.</span><span class="nx">optional1</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">returnedLiteral</span><span class="p">.</span><span class="nx">optional2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">nativeBuilt</span><span class="p">.</span><span class="nx">optional2</span><span class="p">);</span><span class="w"> </span><span class="c1">// both unset</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">returnedLiteral</span><span class="p">.</span><span class="nx">optional3</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">nativeBuilt</span><span class="p">.</span><span class="nx">optional3</span><span class="p">);</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">returnedLiteral</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">nativeBuilt</span><span class="p">);</span><span class="w"> </span><span class="c1">// value comparison, both directions</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">nativeBuilt</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">returnedLiteral</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="structReceivedAsParentStructType"></a></p>
+<h2 id="a-returned-struct-can-be-received-as-a-parent-struct-type">A returned struct can be received as a parent struct type</h2>
+<p><strong>Test:</strong> <code>structReceivedAsParentStructType</code></p>
+<p>The kernel may return the same struct value through methods that declare different return types, where one struct type
+extends another. The host MUST accept the value under each declared struct type, including a parent type that declares
+only a subset of the properties. Receiving the value MUST succeed in both cases, whether the declared type is the full
+(child) struct or the narrower (parent) struct.</p>
+<h3 id="reference-implementation_5">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">ParentStruct982</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">ChildStruct982</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">ParentStruct982</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Demonstrate982</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// The same underlying value is handed out as a child and as a parent struct.</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">'foo'</span><span class="p">,</span><span class="w"> </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="kt">1337</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">takeThis</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">ChildStruct982</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">takeThisToo</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">ParentStruct982</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">asChild</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Demonstrate982</span><span class="p">.</span><span class="nx">takeThis</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">asParent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Demonstrate982</span><span class="p">.</span><span class="nx">takeThisToo</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">asChild</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">asParent</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="structsArePassedByValue"></a></p>
+<h2 id="a-struct-is-passed-to-the-kernel-by-value-and-its-properties-are-readable">A struct is passed to the kernel by value and its properties are readable</h2>
+<p><strong>Test:</strong> <code>structsArePassedByValue</code></p>
+<p>When the host passes a struct to the kernel, it MUST serialize the struct by value, sending its properties as a plain
+data object rather than an object reference. The kernel MUST then be able to read each individual property. A struct
+that extends another struct MUST include the inherited properties when serialized. A property whose value is an object
+reference MUST be passed by reference, so that the same instance is observed on both sides (identity is preserved). A
+struct value returned from the kernel MUST expose the property values that were set in JavaScript.</p>
+<h3 id="reference-implementation_6">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">MyFirstStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">astring</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">anumber</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">firstOptional?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">DerivedStruct</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">MyFirstStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">nonPrimitive</span><span class="o">:</span><span class="w"> </span><span class="kt">DoubleTrouble</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">bool</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">anotherRequired</span><span class="o">:</span><span class="w"> </span><span class="kt">Date</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructWithOnlyOptionals</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional1?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional2?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional3?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DoubleTrouble</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* a jsii class, used here only to observe reference identity */</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">GiveMeStructs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/** Returns the `anumber` from a MyFirstStruct struct. */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">readFirstNumber</span><span class="p">(</span><span class="nx">first</span><span class="o">:</span><span class="w"> </span><span class="kt">MyFirstStruct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">first</span><span class="p">.</span><span class="nx">anumber</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="cm">/** Returns the non-primitive member from a DerivedStruct struct. */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">readDerivedNonPrimitive</span><span class="p">(</span><span class="nx">derived</span><span class="o">:</span><span class="w"> </span><span class="kt">DerivedStruct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">derived</span><span class="p">.</span><span class="nx">nonPrimitive</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">structLiteral</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructWithOnlyOptionals</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">optional1</span><span class="o">:</span><span class="w"> </span><span class="s1">'optional1FromStructLiteral'</span><span class="p">,</span><span class="w"> </span><span class="nx">optional3</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">firstStruct</span><span class="o">:</span><span class="w"> </span><span class="kt">MyFirstStruct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">astring</span><span class="o">:</span><span class="w"> </span><span class="s1">'FirstString'</span><span class="p">,</span><span class="w"> </span><span class="nx">anumber</span><span class="o">:</span><span class="w"> </span><span class="kt">999</span><span class="p">,</span><span class="w"> </span><span class="nx">firstOptional</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'First'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Optional'</span><span class="p">]</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">doubleTrouble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DoubleTrouble</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">derivedStruct</span><span class="o">:</span><span class="w"> </span><span class="kt">DerivedStruct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">nonPrimitive</span><span class="o">:</span><span class="w"> </span><span class="kt">doubleTrouble</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">bool</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">anotherRequired</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">astring</span><span class="o">:</span><span class="w"> </span><span class="s1">'String'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">anumber</span><span class="o">:</span><span class="w"> </span><span class="kt">1234</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">firstOptional</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'one'</span><span class="p">,</span><span class="w"> </span><span class="s1">'two'</span><span class="p">],</span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">gms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">GiveMeStructs</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">gms</span><span class="p">.</span><span class="nx">readFirstNumber</span><span class="p">(</span><span class="nx">firstStruct</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">999</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">gms</span><span class="p">.</span><span class="nx">readFirstNumber</span><span class="p">(</span><span class="nx">derivedStruct</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1234</span><span class="p">);</span><span class="w"> </span><span class="c1">// inherited property is present</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">gms</span><span class="p">.</span><span class="nx">readDerivedNonPrimitive</span><span class="p">(</span><span class="nx">derivedStruct</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">doubleTrouble</span><span class="p">);</span><span class="w"> </span><span class="c1">// passed by reference (identity)</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">literal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gms</span><span class="p">.</span><span class="nx">structLiteral</span><span class="p">;</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">literal</span><span class="p">.</span><span class="nx">optional1</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'optional1FromStructLiteral'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">literal</span><span class="p">.</span><span class="nx">optional3</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">literal</span><span class="p">.</span><span class="nx">optional2</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="structsAreSentAsPlainData"></a></p>
+<h2 id="structs-cross-the-boundary-as-plain-data-without-type-decoration">Structs cross the boundary as plain data without type decoration</h2>
+<p><strong>Test:</strong> <code>structsAreSentAsPlainData</code></p>
+<p>When the host passes a struct to the kernel, it MUST serialize the struct as a plain data object whose keys are exactly
+the struct's set properties and whose values are the serialized property values. The host MUST NOT add any type tag,
+wrapper, or other decoration identifying the struct type: a struct crosses the boundary as anonymous data, and the
+kernel infers the type from the receiving parameter.</p>
+<h3 id="reference-implementation_7">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructA</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalString?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalNumber?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalBoolean?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalStructA?</span><span class="o">:</span><span class="w"> </span><span class="kt">StructA</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Bazinga!'</span><span class="p">,</span><span class="w"> </span><span class="nx">optionalBoolean</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// THEN</span>
+<span class="c1">// The data the host sends to the kernel for `value` is exactly its set properties,</span>
+<span class="c1">// carrying no type decoration.</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Bazinga!'</span><span class="p">,</span><span class="w"> </span><span class="nx">optionalBoolean</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="p">});</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">sort</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">'optionalBoolean'</span><span class="p">,</span><span class="w"> </span><span class="s1">'requiredString'</span><span class="p">]);</span>
+</code></pre></div>
+<p><a id="submoduleStructCanBePassed"></a></p>
+<h2 id="a-struct-declared-in-a-submodule-can-be-constructed-and-passed">A struct declared in a submodule can be constructed and passed</h2>
+<p><strong>Test:</strong> <code>submoduleStructCanBePassed</code></p>
+<p>A struct type may be declared inside a submodule (namespace) of an assembly, rather than at the top level. The host MUST
+be able to construct a value of such a struct and pass it across the boundary to a kernel method, with the struct
+serialized by value exactly like a top-level struct.</p>
+<h3 id="reference-implementation_8">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="c1">// Declared inside a submodule of a dependency assembly.</span>
+<span class="k">export</span><span class="w"> </span><span class="nx">namespace</span><span class="w"> </span><span class="nx">submodule</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">NestedStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">readonly</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StaticConsumer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">consume</span><span class="p">(</span><span class="nx">...args</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Accepts any arguments, including structs, and ignores them.</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN / THEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">nested</span><span class="o">:</span><span class="w"> </span><span class="kt">submodule.NestedStruct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'Bond, James Bond'</span><span class="w"> </span><span class="p">};</span>
+<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">StaticConsumer</span><span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="nx">nested</span><span class="p">)).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toThrow</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="unionOfListAndObjectStructPropertyRoundTrips"></a></p>
+<h2 id="a-struct-property-typed-as-a-union-of-a-list-and-an-object-keeps-its-value">A struct property typed as a union of a list and an object keeps its value</h2>
+<p><strong>Test:</strong> <code>unionOfListAndObjectStructPropertyRoundTrips</code></p>
+<p>A struct property may be declared as a union of a list of object references and a single object reference. When the host
+passes such a struct to the kernel and receives it back, the property MUST hold a value of the shape the host assigned: a
+single object reference MUST be received as an object reference, and a list MUST be received as a list with the same
+elements. Object references MUST preserve their identity. A property the host did not set MUST be received as unset.</p>
+<h3 id="reference-implementation_9">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BinaryOperation</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/* ... */</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">ConfusingToJacksonStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">unionProperty?</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="nx">IFriendly</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">AbstractClass</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">IFriendly</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">roundTripStruct</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="kt">ConfusingToJacksonStruct</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">ConfusingToJacksonStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">unionProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">input.unionProperty</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">friendly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Add</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">1</span><span class="p">),</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">single</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="p">.</span><span class="nx">roundTripStruct</span><span class="p">({</span><span class="w"> </span><span class="nx">unionProperty</span><span class="o">:</span><span class="w"> </span><span class="kt">friendly</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="p">.</span><span class="nx">roundTripStruct</span><span class="p">({</span><span class="w"> </span><span class="nx">unionProperty</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">friendly</span><span class="p">]</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">unset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ConfusingToJackson</span><span class="p">.</span><span class="nx">roundTripStruct</span><span class="p">({});</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">single</span><span class="p">.</span><span class="nx">unionProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">friendly</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="nx">unionProperty</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">friendly</span><span class="p">]);</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">list</span><span class="p">.</span><span class="nx">unionProperty</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IFriendly</span><span class="p">[])[</span><span class="mf">0</span><span class="p">]).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">friendly</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">unset</span><span class="p">.</span><span class="nx">unionProperty</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+</code></pre></div>
+<p><a id="unionStructPropertyKeepsConcreteType"></a></p>
+<h2 id="a-union-typed-struct-property-keeps-its-concrete-type-across-the-boundary">A union-typed struct property keeps its concrete type across the boundary</h2>
+<p><strong>Test:</strong> <code>unionStructPropertyKeepsConcreteType</code></p>
+<p>A struct property may be declared as a union of several types, for example a struct or a number. When the host passes
+such a struct to the kernel and receives it back, the property MUST hold a value of the same concrete type the host
+assigned: a struct value MUST be received as that struct type, with its properties, and a primitive value MUST be received
+as that primitive. Optional properties that the host did not set MUST be received as unset.</p>
+<h3 id="reference-implementation_10">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">SecondLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">deeperRequiredProp</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">deeperOptionalProp?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">TopLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optional?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">secondLevel</span><span class="o">:</span><span class="w"> </span><span class="kt">SecondLevelStruct</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StructPassing</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">roundTrip</span><span class="p">(</span><span class="nx">_positional</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="kt">TopLevelStruct</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">TopLevelStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="kt">input.required</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">optional</span><span class="o">:</span><span class="w"> </span><span class="kt">input.optional</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">secondLevel</span><span class="o">:</span><span class="w"> </span><span class="kt">input.secondLevel</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">withStruct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">StructPassing</span><span class="p">.</span><span class="nx">roundTrip</span><span class="p">(</span><span class="mf">123</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="s1">'hello'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">secondLevel</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">deeperRequiredProp</span><span class="o">:</span><span class="w"> </span><span class="s1">'exists'</span><span class="w"> </span><span class="p">},</span>
+<span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">withNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">StructPassing</span><span class="p">.</span><span class="nx">roundTrip</span><span class="p">(</span><span class="mf">123</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="s1">'hello'</span><span class="p">,</span><span class="w"> </span><span class="nx">secondLevel</span><span class="o">:</span><span class="w"> </span><span class="kt">5</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withStruct</span><span class="p">.</span><span class="nx">required</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withStruct</span><span class="p">.</span><span class="nx">optional</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">withStruct</span><span class="p">.</span><span class="nx">secondLevel</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">SecondLevelStruct</span><span class="p">).</span><span class="nx">deeperRequiredProp</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'exists'</span><span class="p">);</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withNumber</span><span class="p">.</span><span class="nx">required</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withNumber</span><span class="p">.</span><span class="nx">optional</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">withNumber</span><span class="p">.</span><span class="nx">secondLevel</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">5</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="unsetStructPropertiesAreOmitted"></a></p>
+<h2 id="unset-optional-properties-are-omitted-not-sent-as-empty-values">Unset optional properties are omitted, not sent as empty values</h2>
+<p><strong>Test:</strong> <code>unsetStructPropertiesAreOmitted</code></p>
+<p>When the host passes a struct or map to the kernel, any optional property or key that has no value MUST be omitted
+entirely from the data the kernel receives; the host MUST NOT send it with an explicit empty value. Consequently, a
+membership test for an unset key MUST report that the key is absent. The same erasure MUST apply in the other direction:
+a map returned from the kernel MUST NOT contain keys whose value is unset.</p>
+<h3 id="reference-implementation_11">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">EraseUndefinedHashValuesOptions</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">option1?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">option2?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">EraseUndefinedHashValues</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/** Returns `true` if `key` is defined in `opts`. */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">doesKeyExist</span><span class="p">(</span><span class="nx">opts</span><span class="o">:</span><span class="w"> </span><span class="kt">EraseUndefinedHashValuesOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">opts</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="cm">/** `prop1` holds no value and is expected to be erased. */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">prop1IsNull</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">prop1</span><span class="o">:</span><span class="w"> </span><span class="kt">undefined</span><span class="p">,</span><span class="w"> </span><span class="nx">prop2</span><span class="o">:</span><span class="w"> </span><span class="s1">'value2'</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="cm">/** `prop2` holds no value and is expected to be erased. */</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">prop2IsUndefined</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">prop1</span><span class="o">:</span><span class="w"> </span><span class="s1">'value1'</span><span class="p">,</span><span class="w"> </span><span class="nx">prop2</span><span class="o">:</span><span class="w"> </span><span class="kt">undefined</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">opts</span><span class="o">:</span><span class="w"> </span><span class="kt">EraseUndefinedHashValuesOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">option1</span><span class="o">:</span><span class="w"> </span><span class="s1">'option1'</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">EraseUndefinedHashValues</span><span class="p">.</span><span class="nx">doesKeyExist</span><span class="p">(</span><span class="nx">opts</span><span class="p">,</span><span class="w"> </span><span class="s1">'option1'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">EraseUndefinedHashValues</span><span class="p">.</span><span class="nx">doesKeyExist</span><span class="p">(</span><span class="nx">opts</span><span class="p">,</span><span class="w"> </span><span class="s1">'option2'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w"> </span><span class="c1">// unset key is absent</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">EraseUndefinedHashValues</span><span class="p">.</span><span class="nx">prop1IsNull</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">prop2</span><span class="o">:</span><span class="w"> </span><span class="s1">'value2'</span><span class="w"> </span><span class="p">});</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">EraseUndefinedHashValues</span><span class="p">.</span><span class="nx">prop2IsUndefined</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">prop1</span><span class="o">:</span><span class="w"> </span><span class="s1">'value1'</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    2026-10-08
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 Amazon Web Services, Inc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://aws.amazon.com" target="_blank" rel="noopener" title="Amazon Web Services, Inc." class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M180.4 203c-.7 22.6 10.6 32.7 10.9 39-.1 1.3-.6 2.5-1.3 3.6s-1.7 2-2.8 2.6l-12.8 9c-1.7 1.2-3.6 1.8-5.6 1.9-.4 0-8.2 1.8-20.5-25.6-7.5 9.4-17 16.9-27.9 22s-22.7 7.7-34.7 7.5c-16.3.9-60.4-9.2-58.1-56.2-1.6-38.3 34.1-62.1 70.9-60 7.1 0 21.6.4 47 6.3v-15.6c2.7-26.5-14.7-47-44.8-43.9-2.4 0-19.4-.5-45.8 10.1-7.4 3.4-8.3 2.8-10.8 2.8-7.4 0-4.4-21.5-2.9-24.2 5.2-6.4 35.9-18.4 65.9-18.2 20.1-1.8 40.1 4.4 55.7 17.3 6.3 7.1 11.2 15.4 14.2 24.4s4.2 18.5 3.5 28v69.3zM94 235.4c32.4-.5 46.2-20 49.3-30.5 2.5-10.1 2.1-16.4 2.1-27.4-9.7-2.3-23.6-4.9-39.6-4.9-15.2-1.1-42.8 5.6-41.7 32.3-1.2 16.8 11.1 31.4 30 30.5zm170.9 23.1c-7.9.7-11.5-4.9-12.7-10.4L202.4 83.4c-1-2.8-1.6-5.6-1.9-8.6-.2-1.2.1-2.4.8-3.4s1.8-1.6 3-1.8h22.2c8.8-.9 11.6 6 12.6 10.4l35.8 140.8L308.1 80c.5-3.2 2.9-11.1 12.8-10.2h17.2c2.2-.2 11.1-.5 12.7 10.4l33.3 142.5L421 80.1c.5-2.2 2.7-11.4 12.7-10.4h19.7c.9-.1 6.2-.8 5.3 8.6-.4 1.8 3.4-10.7-52.8 169.9-1.1 5.5-4.8 11.1-12.7 10.4h-18.7c-10.9 1.2-12.5-9.7-12.7-10.7l-33.2-137.1-32.8 137c-.2 1.1-1.7 11.9-12.7 10.7h-18.3zm273.5 5.6c-5.9 0-33.9-.3-57.4-12.3-2.3-1-4.3-2.6-5.7-4.8s-2.1-4.6-2.1-7.1v-10.7c0-8.5 6.2-6.9 8.8-5.9 10 4.1 16.5 7.1 28.8 9.6 36.7 7.5 52.8-2.3 56.7-4.5 13.2-7.8 14.2-25.7 5.3-34.9-10.5-8.8-15.5-9.1-53.1-21-4.6-1.3-43.7-13.6-43.8-52.4-.6-28.2 25-56.2 69.5-56 12.7 0 46.4 4.1 55.6 15.6 1.4 2.1 2 4.6 1.9 7v10.1c0 4.4-1.6 6.7-4.9 6.7-7.7-.9-21.4-11.2-49.2-10.8-6.9-.4-39.9.9-38.4 25-.4 19 26.6 26.1 29.7 26.9 36.5 11 48.6 12.8 63.1 29.6 17.1 22.2 7.9 48.3 4.3 55.4-19.1 37.5-68.4 34.4-69.3 34.4zM578.6 369c-70 51.7-171.7 79.2-258.5 79.2C203 449 89.8 405.9 2.8 327.5c-6.5-5.9-.8-14 7.2-9.5 96.5 55.2 205.7 84.2 316.9 84.1 83-.4 165.1-17.3 241.6-49.5 11.8-5 21.8 7.8 10.1 16.4m29.2-33.3c-9-11.5-59.3-5.4-81.8-2.7-6.8.8-7.9-5.1-1.8-9.5 40.1-28.2 105.9-20.1 113.4-10.6s-2.1 75.4-39.6 106.9c-5.8 4.9-11.3 2.3-8.7-4.1 8.4-21.3 27.4-68.5 18.4-80z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

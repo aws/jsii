@@ -53,6 +53,54 @@
          <lastmod>2026-10-08</lastmod>
     </url>
     <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/01-primitives/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/02-classes/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/03-statics/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/04-enums/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/05-collections/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/06-structs/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/07-interfaces/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/08-overrides/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/09-async/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/10-errors/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/11-naming/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/specification/compliance-suite/12-runtime/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
          <loc>https://aws.github.io/jsii/user-guides/</loc>
          <lastmod>2026-10-08</lastmod>
     </url>

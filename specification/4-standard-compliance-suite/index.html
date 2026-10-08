@@ -16,7 +16,7 @@
         <link rel="prev" href="../3-kernel-api/">
       
       
-        <link rel="next" href="../5-new-language-intake/">
+        <link rel="next" href="../compliance-suite/01-primitives/">
       
       
         
@@ -1849,6 +1849,58 @@
   
   
   
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standard Compliance Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -1908,10 +1960,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#goal" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Goal
+        Requirements
       
     </span>
   </a>
@@ -1919,6 +1971,18 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#format" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1927,29 +1991,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Format">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#categories" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Categories
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-case" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Case
-      
-    </span>
-  </a>
-  
 </li>
         
       </ul>
@@ -1958,338 +1999,423 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compliance" class="md-nav__link">
+  <a href="#compliance-reports" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Compliance
+        Compliance Reports
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Suite
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Test Suite">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#legacy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Legacy
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Legacy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-unions-are-correctly-disambiguated-by-the-kernel" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Type Unions are correctly disambiguated by the Kernel
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Type Unions are correctly disambiguated by the Kernel">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partially-initialized-object-consumption" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Partially initialized object consumption
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Partially initialized object consumption">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interfaces
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Interfaces">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#host-app-can-implement-an-interface-from-scratch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Host app can implement an interface "from scratch"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Host app can implement an interface &#34;from scratch&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structs-keyword-arguments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Structs &amp; Keyword Arguments
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Structs &amp; Keyword Arguments">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ambiguous-arguments-are-handled-correctly" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ambiguous arguments are handled correctly
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Ambiguous arguments are handled correctly">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#collections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Collections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Collections">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#struct-elements-of-list-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Struct elements of List are deserialized to the correct apparent type
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Struct elements of List are deserialized to the correct apparent type">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#struct-elements-of-map-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Struct elements of Map are deserialized to the correct apparent type
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Struct elements of Map are deserialized to the correct apparent type">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Test Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/01-primitives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primitives & Optional Values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/02-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes & Object References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/03-statics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statics & Constants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/04-enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/05-collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/06-structs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structs & Keyword Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/07-interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/08-overrides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subclassing & Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/09-async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/10-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/11-naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-suite/12-runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -2473,10 +2599,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#goal" class="md-nav__link">
+  <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Goal
+        Requirements
       
     </span>
   </a>
@@ -2484,6 +2610,18 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#format" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2492,29 +2630,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Format">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#categories" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Categories
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-case" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Case
-      
-    </span>
-  </a>
-  
 </li>
         
       </ul>
@@ -2523,332 +2638,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compliance" class="md-nav__link">
+  <a href="#compliance-reports" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Compliance
+        Compliance Reports
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Suite
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Test Suite">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#legacy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Legacy
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Legacy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-unions-are-correctly-disambiguated-by-the-kernel" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Type Unions are correctly disambiguated by the Kernel
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Type Unions are correctly disambiguated by the Kernel">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partially-initialized-object-consumption" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Partially initialized object consumption
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Partially initialized object consumption">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interfaces
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Interfaces">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#host-app-can-implement-an-interface-from-scratch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Host app can implement an interface "from scratch"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Host app can implement an interface &#34;from scratch&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structs-keyword-arguments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Structs &amp; Keyword Arguments
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Structs &amp; Keyword Arguments">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ambiguous-arguments-are-handled-correctly" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ambiguous arguments are handled correctly
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Ambiguous arguments are handled correctly">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#collections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Collections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Collections">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#struct-elements-of-list-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Struct elements of List are deserialized to the correct apparent type
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Struct elements of List are deserialized to the correct apparent type">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#struct-elements-of-map-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Struct elements of Map are deserialized to the correct apparent type
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Struct elements of Map are deserialized to the correct apparent type">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reference-implementation_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reference Implementation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kernel-trace_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kernel Trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2873,79 +2669,75 @@
 
 
 <h1 id="standard-compliance-suite">Standard Compliance Suite</h1>
-<h2 id="goal">Goal</h2>
-<p>The goal of the standard compliance suite is to be a normative description of the behaviors that all language runtime
-implementations (<em>host runtime library</em> in combination with <em>code generation</em>) must implement. This description takes
-the form of a collection of test cases that must be re-implemented in each <em>host</em> language, so that compliance can be
-asserted.</p>
-<p>Since the goal of <em>jsii</em> is to expose a single Object-Oriented API to multiple programming languages, it is important to
-ensure the behavior is consistent across all of them. This can be achieved by making sure that the interactions between
-the <em>host</em> and <em>kernel</em> processes are the same for a given use-case.</p>
-<h2 id="format">Format</h2>
-<p>In order to assert whether a new runtime implementation is correct, a formal compliance test suite is defined, that all
-language runtimes must fully implement before they can be deemed eligible for General Availability.</p>
-<p>This document describes these tests, as well as a general approach for ensuring conformance requirements are met in a
-systematic manner.</p>
-<h3 id="categories">Categories</h3>
-<p>Test cases in the standard compliance suite are grouped by categories, which help implementors direct their effort in
-the early stages of the implementation of new language bindings. Each category is declared in an <code>H3</code> title (a line that
-starts with <code>###</code>) within the [<code>## Test Suite</code>] title. A description of the category immediately follows the opening
-title. The category ends with the end of the document, or whenever another <code>H2</code> title is reached.</p>
-<h3 id="test-case">Test Case</h3>
-<p>Within a category title, test cases are delimited by <code>H4</code> (<code>####</code>) titles, which correspond to the test case name. The
-test case name should be kept concise (ideally within 75 characters) and try to be as descriptive as possible.</p>
-<p>Immediately after the <code>H4</code> title is an English language description of the test case that explains the property the test
-is designed to validate in as much detail as possible. As much as possible, test case descriptions should be
-self-sufficient.</p>
-<p>After the attributes table, a <strong>TypeScript</strong> block of code describes the canonical form of the test. It includes any
-type declaration that is used by the test (so the code example is self-contained). Assertions performed by the test
-should be written in the form of [<code>jest</code>] expectations.</p>
-<div class="admonition question">
-<p class="admonition-title">Question</p>
-<p>The assertion code is intended as a formal representation of the tests' normative procedure. It is not currently
-executed against the <em>kernel</em>, but this could be achieved in the future. Additionally, we might be able to
-automatically transliterate the tests to other languages using [<code>jsii-rosetta</code>].</p>
-</div>
-<p>Finally, another code block details the sequence of messages that should be exchanged between the <em>host</em> and <code>node</code>
-processes during the execution of the test case, such that implementations can assert coherent behavior.</p>
-<p>Initial messages corresponding to the <code>hello</code> and <code>load</code> calls can be omitted at the beginning of the kernel trace.
-Those messages are typically identical across tests and there is little value in asserting around those. However, any
-<code>load</code> call happening after the first call that is neither the <code>hello</code> message or another <code>load</code> call <strong>must</strong> be
-included.</p>
-<p>The dialogue is the sequence of JSON formatted messages, from the perspective of the <em>host</em> app, using the following
-notation:</p>
+<p>The standard compliance suite is the normative description of how a <em>jsii</em> language binding behaves. It is written for
+the authors of language bindings: the <em>host</em> runtime library together with its code generator. Every binding implements
+the suite in its own language, and the results show where bindings agree and where they don't.</p>
+<p><em>jsii</em> exposes a single object-oriented API to many languages, so a given piece of user code should cause the same
+behavior in every one of them. In practice, that means the messages exchanged between the <em>host</em> and the <em>kernel</em>
+should be the same for the same use case. The suite describes that behavior once, independent of any language.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Every test case is a requirement. A language binding is compliant when it passes all of them, and the
+<a href="../6-compliance-report/">compliance report</a> shows where each binding stands.</p>
+<p>Test cases state their requirements with the key words "MUST", "MUST NOT" and "MAY", as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.
+"MUST" and "MUST NOT" are what a binding has to do; "MAY" marks the freedom it has in doing so, for example in how it
+names a member that clashes with a reserved word. There are no recommendations: if a behavior is worth describing in
+the suite, every binding has to implement it.</p>
+<p><strong>A test case describes a behavior of the <em>jsii</em> API, not an idiom of one host language.</strong> The question to ask is what a
+user of <em>any</em> binding can rely on. That a struct received from the kernel compares equal to one built by the host is
+such a behavior. That the comparison is done by a method called <code>equals</code>, or that structs are constructed with a
+builder, is not. Most requirements can be observed in the messages exchanged with the <em>kernel</em>, but not all: rejecting
+an incomplete struct shows up as the <em>absence</em> of a message, and rejecting the mutation of a returned collection
+happens entirely on the host. Both are requirements all the same, because both are behaviors users depend on.</p>
+<p>Behaviors that only make sense for one language belong in that binding's own tests, not in the suite. When a binding
+can't implement a requirement, the requirement stays, and the binding reports the test as failing or not applicable,
+with the reason.</p>
+<h2 id="test-cases">Test Cases</h2>
+<p>Test cases live in <a href="https://github.com/aws/jsii/tree/main/tools/jsii-compliance/suite"><code>tools/jsii-compliance/suite</code></a>, one markdown file per test case, grouped in one directory per
+category. The categories are listed in the navigation of this site.</p>
 <ul>
-<li>Messages sent by the <em>host</em> runtime to the <code>node</code> process:
-  <div class="highlight"><pre><span></span><code>&gt; { "api": "foo" }
-</code></pre></div></li>
-<li>Messages received by the <em>host</em> runtime from the <code>node</code> process:
-  <div class="highlight"><pre><span></span><code>&lt; { "result": "bar" }
-</code></pre></div></li>
-<li>Comments to improve readability of the trace:
-  <div class="highlight"><pre><span></span><code># Comment continues until the end of the line
-</code></pre></div></li>
-<li>Blank lines can be added to logically group trace elements</li>
+<li>The directory name of a category determines the order of categories, for example <code>03-statics</code>. Each category directory
+  has a <code>README.md</code> with the category title as its H1 heading, followed by a description of the category.</li>
+<li>The file name of a test case is the name of the test case, for example <code>staticPropertyAssignmentUpdatesJavaScript.md</code>. Language bindings
+  report results using this name. Matching ignores case, underscores and leading <code>test</code>s, so each language binding can
+  follow its own naming conventions. A Python binding can call the test <code>test_static_property_assignment_updates_java_script</code>.</li>
+<li>Test case names are unique across all categories.</li>
 </ul>
-<div class="admonition question">
-<p class="admonition-title">Question</p>
-<p>Is there a need to support some form of a capture mechanism to provision for non-deterministic results, or
-non-normative elements such as the exact Object IDs issued for created instances?</p>
-</div>
+<p><strong>Test cases contain nothing that is specific to a language binding.</strong> They describe the behavior, never how one binding
+implements it or why one binding doesn't. Known deviations of a binding belong in its
+<a href="#compliance-reports">compliance report</a>, next to the result they explain.</p>
+<h3 id="format">Format</h3>
+<p>A test case file has the following structure:</p>
+<ol>
+<li>An H1 title that states the behavior, ideally within 75 characters.</li>
+<li>A description of the behavior, using the <a href="#requirements">RFC 2119</a> key words. The description is
+   self-sufficient: a reader can implement the test without searching for additional information. A long, unambiguous
+   description is better than a short one that is open to interpretation.</li>
+<li>A <strong>Reference Implementation</strong> section, with a <strong>TypeScript</strong> code block that is the canonical form of the test. It
+   declares all types the test uses, so the example is self-contained, and states its assertions as [<code>jest</code>]
+   expectations.</li>
+<li>Optionally, a <strong>Kernel Trace</strong> section with the messages exchanged between the <em>host</em> and the <code>node</code> process during
+   the test.</li>
+</ol>
+<p>The type declarations in the reference implementation are excerpts of the <code>jsii-calc</code> test fixture, which the language
+bindings use to implement the test. The reference implementation is not executed today.</p>
+<p>The kernel trace is the sequence of JSON messages, from the perspective of the <em>host</em> app, in the following notation:</p>
+<ul>
+<li>Messages the <em>host</em> runtime sends to the <code>node</code> process: <code>&gt; { "api": "foo" }</code></li>
+<li>Messages the <em>host</em> runtime receives from the <code>node</code> process: <code>&lt; { "result": "bar" }</code></li>
+<li>Comments, until the end of the line: <code># Comment</code></li>
+<li>Blank lines, to group related messages</li>
+</ul>
+<p>The initial <code>hello</code> and <code>load</code> messages, and the <code>$jsii.stacktrace</code> of each message, are omitted. A <code>load</code> message that
+is sent after the first message that is neither <code>hello</code> nor <code>load</code> is part of the trace.</p>
 <details class="example">
 <summary>Show Template</summary>
-<p>Below is the template markdown to copy-paste when introducing a new test case in the compliance suite. New tests should
-always be added at the very end of the category they belong to, right after the last test in said category.</p>
-<div class="highlight"><pre><span></span><code><span class="gu">### Test Category</span>
+<div class="highlight"><pre><span></span><code><span class="gh"># Behavior the test verifies</span>
 
-<span class="gu">#### Test Case Name</span>
+A description of the behavior, for example: the host MUST pass <span class="sb">`Foo`</span> to the kernel by reference, and MUST NOT copy
+it. The description includes enough detail for a reader to understand the test without searching for additional
+information.
 
-A short english language description of what property this test verifies. The description should include enough detail
-for a reader to be able to understand the test without having to search for any additional information. Prefer a long,
-unambiguous description to a terse one that could be subject to interpretation.
-
-&lt;details&gt;&lt;summary&gt;Show test&lt;/summary&gt;
-
-<span class="gu">##### Reference Implementation</span>
+<span class="gu">## Reference Implementation</span>
 
 <span class="sb">```ts</span>
 <span class="c1">// GIVEN</span>
@@ -2960,356 +2752,32 @@ unambiguous description to a terse one that could be subject to interpretation.
 <span class="nx">expect</span><span class="p">(</span><span class="nx">bar</span><span class="p">.</span><span class="nx">baz</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
 <span class="sb">```</span>
 
-<span class="gu">##### Reference Kernel Messaging</span>
+<span class="gu">## Kernel Trace</span>
 
 <span class="sb">```</span>
-<span class="sb">## You can omit the initial hello/load messages</span>
-<span class="sb"># &lt; { "hello": "@jsii/runtime@1.2.3" }</span>
-<span class="sb"># &gt; { "load": { "name": "test-case-001", "version": "1.2.3", "tarball": "/tmp/jsii-kernel-test/lib.tgz" } }</span>
-<span class="sb"># &lt; { "assembly": "test-case-001", "types": 3 }</span>
+<span class="sb">&gt; {"api":"create","fqn":"jsii-calc.Foo","args":[],"overrides":[],"interfaces":[]}</span>
+<span class="sb">&lt; {"ok":{"$jsii.byref":"jsii-calc.Foo@10000"}}</span>
 <span class="sb">```</span>
-
-&lt;/details&gt;
 </code></pre></div>
 </details>
-<h2 id="compliance">Compliance</h2>
-<p>In order to be able to assert compliance of language binding libraries to the standard test suite, implementations are
-responsible for providing a test harness (typically as part of the runtime library) that can produce a standardized test
-report in the form of a JSON document that follows the following schema:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">TestReport</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="cm">/** The report is broken down by test category, using the name as-is */</span>
-<span class="w">  </span><span class="p">[</span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="cm">/** For each test in the category, using its name as-is */</span>
-<span class="w">    </span><span class="p">[</span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="cm">/** Whether the test passed or failed */</span>
-<span class="w">      </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">'PASS'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'FAIL'</span><span class="p">;</span>
-<span class="w">      </span><span class="cm">/** The kernel messages captured during the test */</span>
-<span class="w">      </span><span class="nx">kernelTrace</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="nx">KernelMessage</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
+<h2 id="compliance-reports">Compliance Reports</h2>
+<p>Each language binding has a test harness that writes a compliance report during its <code>test</code> phase. The report is a JSON
+document:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">Report</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/** For each test case, using the test case name according to the conventions of the language */</span>
+<span class="w">  </span><span class="p">[</span><span class="nx">testName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/** The result of the test: passing, failing, or not applicable to this language binding */</span>
+<span class="w">    </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">'success'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'failure'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'n/a'</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/** Why the test fails or doesn't apply */</span>
+<span class="w">    </span><span class="nx">reason?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/** A link to more information, such as the issue tracking a failure */</span>
+<span class="w">    </span><span class="nx">url?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 <span class="w">  </span><span class="p">};</span>
 <span class="p">}</span>
-
-<span class="kd">interface</span><span class="w"> </span><span class="nx">KernelMessage</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="cm">/** The direction the message was sent (Host -&gt; Kernel / Kernel -&gt; Host) */</span>
-<span class="w">  </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="s1">'FromKernel'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'ToKernel'</span><span class="p">;</span>
-<span class="w">  </span><span class="cm">/** The message, as a JSON object */</span>
-<span class="w">  </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">unknown</span><span class="w"> </span><span class="p">};</span>
-<span class="p">}</span>
 </code></pre></div>
-<p>The <code>@jsii/compliance</code> package provides the necessary tools to consume such a test report, together with the Markdown
-document describing the compliance suite, and procuces a report describing compliance test coverage as well as
-information about any non-conformant test result.</p>
-<div class="admonition bug">
-<p class="admonition-title">Unimplemented</p>
-<p>The <code>@jsii/compliance</code> tool does not exist yet.</p>
-</div>
-<div class="admonition question">
-<p class="admonition-title">Question</p>
-<p>Should a "somewhat standard" format such as XUnit test report be used instead of rolling our own JSON document?</p>
-</div>
-<h2 id="test-suite">Test Suite</h2>
-<h3 id="legacy">Legacy</h3>
-<p>This section is due to contain all compliance tests that were implemented before the <em>jsii specification</em> was initially
-written. They are going to be gradually replaced by more focused tests with better descriptions.</p>
-<h4 id="type-unions-are-correctly-disambiguated-by-the-kernel">Type Unions are correctly disambiguated by the Kernel</h4>
-<p>In certain cases, two or more types in a <em>Type Union</em> can overlap in such a way that they are all valid structural types
-for the value. Statically typed languages however will not be satisfied with structural typing only, and require the
-correct declared type to be preserved.</p>
-<details class="example">
-<summary>Show test</summary>
-<h5 id="reference-implementation">Reference Implementation</h5>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">BluePill</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">makesYouForgetTheMatrix?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">RedPill</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">makesYouExitTheMatrix?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Morpheus</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span><span class="o">:</span><span class="w"> </span><span class="kt">BluePill</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">pill</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">BluePill</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">1</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">);</span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">2</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'makesYouForgetTheMatrix'</span><span class="p">);</span>
-<span class="w">      </span><span class="nx">default</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span><span class="o">:</span><span class="w"> </span><span class="kt">BluePill</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">pill</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">RedPill</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">1</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">);</span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nx">2</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'offeredTo'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'makesYouExitTheMatrix'</span><span class="p">);</span>
-<span class="w">      </span><span class="nx">default</span><span class="o">:</span>
-<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Neo</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">tookBlue</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">tookRed</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
-
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">pill</span><span class="o">:</span><span class="w"> </span><span class="kt">BluePill</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">RedPill</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">tookBlue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Neo'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">tookRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Neo'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">bluePillA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'not Neo'</span><span class="w"> </span><span class="p">});</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">bluePillB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'Neo'</span><span class="p">,</span><span class="w"> </span><span class="nx">makesYouForgetTheMatrix</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">redPillA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'not Neo'</span><span class="w"> </span><span class="p">});</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">redPillB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Neo</span><span class="p">({</span><span class="w"> </span><span class="nx">offeredTo</span><span class="o">:</span><span class="w"> </span><span class="s1">'Neo'</span><span class="p">,</span><span class="w"> </span><span class="nx">makesYouExitTheMatrix</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">pill</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">BluePill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
-
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillB</span><span class="p">.</span><span class="nx">pill</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">BluePill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
-
-<span class="nx">expect</span><span class="p">(</span><span class="nx">redPillA</span><span class="p">.</span><span class="nx">pill</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">RedPill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
-
-<span class="nx">expect</span><span class="p">(</span><span class="nx">redPillB</span><span class="p">.</span><span class="nx">pill</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">RedPill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-</code></pre></div>
-<h5 id="kernel-trace">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-</details>
-<h4 id="partially-initialized-object-consumption">Partially initialized object consumption</h4>
-<p>When a constructor passes <code>this</code> out from <strong>JavaScript</strong> to the <em>host</em> app, the reference must be correctly identified
-and passed across.</p>
-<div class="admonition bug">
-<p class="admonition-title">Unimplemented</p>
-<p>The .NET Runtime does not currently honor object identity, meaning that despite the same object reference is
-returned twice, two distinct proxies exist for it in the <em>host</em> .NET app.</p>
-<p>Generally speaking, using pure object identity on <em>jsii</em> language front-ends is dangerous, as certain statically
-typed language will require the runtime to have different instances for different static types a given object
-reference is surfaced as. It may be necessary to introduce a helper akin to <code>Jsii.isSameObject(a, b)</code> to enable
-identity predicates to be used. Other helper functions may be necessary, too, such as one to obtain a "consistent"
-object hash for instances in Java (so they can be safely used with <code>HashMap</code>, ...).</p>
-</div>
-<details class="example">
-<summary>Show test</summary>
-<h5 id="reference-implementation_1">Reference Implementation</h5>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PartiallyInitializedThisConsumer</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span><span class="o">:</span><span class="w"> </span><span class="kt">ConstructorPassesThisOut</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConstructorPassesThisOut</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">consumer</span><span class="o">:</span><span class="w"> </span><span class="kt">PartiallyInitializedThisConsumer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">consumer</span><span class="p">.</span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">class</span><span class="w"> </span><span class="nx">MyConsumer</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">PartiallyInitializedThisConsumer</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">obj?</span><span class="o">:</span><span class="w"> </span><span class="kt">ConstructorPassesThisOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
-
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span><span class="o">:</span><span class="w"> </span><span class="kt">ConstructorPassesThisOut</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">obj</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyConsumer</span><span class="p">();</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConstructorPassesThisOut</span><span class="p">(</span><span class="nx">consumer</span><span class="p">);</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">obj</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
-</code></pre></div>
-<h5 id="kernel-trace_1">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
-# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
-# &lt; {"ok":{"assembly":"...","types":2}}
-
-&gt; {"api":"create","fqn":"test.PartiallyInitializedThisConsumer","args":[],"overrides":[{"method":"consumePartiallyInitializedThis"}],"interfaces":[]}
-&lt; {"ok":{"$jsii.byref":"test.PartiallyInitializedThisConsumer@10000"}}
-&gt; {"api":"create","fqn":"test.ConstructorPassesThisOut","args":[{"$jsii.byref":"test.PartiallyInitializedThisConsumer@10000","$jsii.interfaces":[]}],"overrides":[],"interfaces":[]}
-&lt; {"callback":{"cbid":"jsii::callback::20000","invoke":{"objref":{"$jsii.byref":"test.PartiallyInitializedThisConsumer@10000"},"method":"consumePartiallyInitializedThis","args":[{"$jsii.byref":"test.ConstructorPassesThisOut@10001"}]}}}
-&gt; {"complete":{"api":"complete","cbid":"jsii::callback::20000"}}
-&lt; {"ok":{"$jsii.byref":"test.ConstructorPassesThisOut@10001"}}
-</code></pre></div>
-</details>
-<h3 id="interfaces">Interfaces</h3>
-<p>Tests in this section ensure correct behavior of <em>behavioral interfaces</em>.</p>
-<h4 id="host-app-can-implement-an-interface-from-scratch">Host app can implement an interface "from scratch"</h4>
-<p>It is possible for a "pure" host interface implementation to be passed across the language boundary, it's methods and
-properties can be used by <strong>JavaScript</strong> code within the Kernel process.</p>
-<div class="admonition bug">
-<p class="admonition-title">Bug</p>
-<p>The .NET Runtime currently requires that pure interfaces implementations extend from
-<code>Amazon.JSII.Rutime.Deputy.DepytyBase</code>.</p>
-</div>
-<div class="admonition bug">
-<p class="admonition-title">Bug</p>
-<p>The Python Runtime currently expects a somewhat un-pythonic way to implement interfaces, which requires decorating
-the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfaceFQN")</code>.</p>
-</div>
-<details class="example">
-<summary>Show test</summary>
-<h5 id="reference-implementation_2">Reference Implementation</h5>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IBehavioralInterface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">methodCall</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">InterfaceConsumer</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">iface</span><span class="o">:</span><span class="w"> </span><span class="kt">IBehavioralInterface</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">composeResult</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iface</span><span class="p">.</span><span class="nx">methodCall</span><span class="p">()</span><span class="si">}</span><span class="sb"> / </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iface</span><span class="p">.</span><span class="nx">property</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">class</span><span class="w"> </span><span class="nx">Implementation</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IBehavioralInterface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1337</span><span class="p">;</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">methodCall</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Hello!'</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">impl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Implementation</span><span class="p">();</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">InterfaceConsumer</span><span class="p">(</span><span class="nx">impl</span><span class="p">);</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">composeResult</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello! / 1337'</span><span class="p">);</span>
-</code></pre></div>
-<h5 id="kernel-trace_2">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
-# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
-# &lt; {"ok":{"assembly":"...","types":2}}
-
-&gt; {"api":"create","fqn":"Object","args":[],"overrides":[{"method":"methodCall"},{"property":"property"}],"interfaces":["test.IBehavioralInterface"]}
-&lt; {"ok":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.IBehavioralInterface"]}}
-&gt; {"api":"create","fqn":"test.InterfaceConsumer","args":[{"$jsii.byref":"Object@10000","$jsii.interfaces":[]}],"overrides":[],"interfaces":[]}
-&lt; {"ok":{"$jsii.byref":"test.InterfaceConsumer@10001"}}
-&gt; {"api":"invoke","objref":{"$jsii.byref":"test.InterfaceConsumer@10001"},"method":"composeResult","args":[]}
-&lt; {"callback":{"cbid":"jsii::callback::20000","invoke":{"objref":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.IBehavioralInterface"]},"method":"methodCall","args":[]}}}
-&gt; {"complete":{"api":"complete","cbid":"jsii::callback::20000","result":"Hello!"}}
-&lt; {"callback":{"cbid":"jsii::callback::20001","get":{"objref":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.IBehavioralInterface"]},"property":"property"}}}
-&gt; {"complete":{"api":"complete","cbid":"jsii::callback::20001","result":1337.0}}
-&lt; {"ok":{"result":"Hello! / 1337"}}
-</code></pre></div>
-</details>
-<h3 id="structs-keyword-arguments">Structs &amp; Keyword Arguments</h3>
-<h4 id="ambiguous-arguments-are-handled-correctly">Ambiguous arguments are handled correctly</h4>
-<p>When a method accepts both a positional parameter named <code>foo</code> and a struct parameter with a property named <code>foo</code>, the
-respective values are passed in the correct parameter location when calling into the <strong>JavaScript</strong> code.</p>
-<details class="example">
-<summary>Show test</summary>
-<h5 id="reference-implementation_3">Reference Implementation</h5>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructType</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassType</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">opts</span><span class="o">:</span><span class="w"> </span><span class="kt">StructType</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ClassType</span><span class="p">(</span><span class="s1">'Bazinga!'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">1337</span><span class="w"> </span><span class="p">});</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1337</span><span class="p">);</span>
-<span class="nx">expect</span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">opts</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Bazinga!'</span><span class="p">);</span>
-</code></pre></div>
-<h5 id="kernel-trace_3">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
-# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
-# &lt; {"ok":{"assembly":"...","types":2}}
-
-&gt; {"api":"create","fqn":"test.ClassType","args":[1337.0,{"$jsii.struct":{"fqn":"test.StructType","data":{"foo":"Bazinga!"}}}],"overrides":[],"interfaces":[]}
-&lt; {"ok":{"$jsii.byref":"test.ClassType@10000"}}
-&gt; {"api":"get","objref":{"$jsii.byref":"test.ClassType@10000"},"property":"foo"}
-&lt; {"ok":{"value":1337}}
-&gt; {"api":"get","objref":{"$jsii.byref":"test.ClassType@10000"},"property":"opts"}
-&lt; {"ok":{"value":{"$jsii.byref":"Object@10001","$jsii.interfaces":["test.StructType"]}}}
-&gt; {"api":"get","objref":{"$jsii.byref":"Object@10001"},"property":"foo"}
-&lt; {"ok":{"value":"Bazinga!"}}
-</code></pre></div>
-</details>
-<h3 id="collections">Collections</h3>
-<p>Tests in this section ensure correct behavior of collections (<code>List</code> and <code>Map</code>).</p>
-<h4 id="struct-elements-of-list-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>List</code> are deserialized to the correct apparent type</h4>
-<p>When the declared element type of a <code>List</code> is a <em>struct</em>, the resulting list must contain elements of the correct static
-type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
-<details class="example">
-<summary>Show test</summary>
-<h5 id="reference-implementation_4">Reference Implementation</h5>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructType</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StructProvider</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">provide</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructType</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">'value'</span><span class="w"> </span><span class="p">}];</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">items</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">expect</span><span class="p">(</span><span class="nx">item</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">StructType</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-<h5 id="kernel-trace_4">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
-# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
-# &lt; {"ok":{"assembly":"...","types":2}}
-
-&gt; {"api":"sinvoke","fqn":"test.StructProvider","method":"provide","args":[]}
-&lt; {"ok":{"result":[{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.StructType"]}]}}
-</code></pre></div>
-</details>
-<h4 id="struct-elements-of-map-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>Map</code> are deserialized to the correct apparent type</h4>
-<p>When the declared element type of a <code>Map</code> is a <em>struct</em>, the resulting list must contain elements of the correct static
-type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
-<details class="example">
-<summary>Show test</summary>
-<h5 id="reference-implementation_5">Reference Implementation</h5>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructType</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StructProvider</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">provide</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">StructType</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="s1">'value'</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">items</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">expect</span><span class="p">(</span><span class="nx">item</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">StructType</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-<h5 id="kernel-trace_5">Kernel Trace</h5>
-<div class="highlight"><pre><span></span><code># &lt; {"hello":"@jsii/runtime@..."}
-# &gt; {"api":"load","name":"...","version":"...","tarball":"..."}
-# &lt; {"ok":{"assembly":"...","types":2}}
-
-&gt; {"api":"sinvoke","fqn":"test.StructProvider","method":"provide","args":[]}
-&lt; {"ok":{"result":{"$jsii.map":{"foo":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.StructType"]}}}}}
-</code></pre></div>
-</details>
+<p>The <a href="https://github.com/aws/jsii/tree/main/tools/jsii-compliance"><code>jsii-compliance</code></a> tool collects the reports of all language bindings. It fails when a report
+contains a test that has no test case definition, which keeps tests that only exist in one language out of the suite.
+It then generates the test case pages of this site and the <a href="../6-compliance-report/">compliance report</a>.</p>
 
 
 

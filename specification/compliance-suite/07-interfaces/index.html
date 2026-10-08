@@ -1,0 +1,3887 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/specification/compliance-suite/07-interfaces/">
+      
+      
+        <link rel="prev" href="../06-structs/">
+      
+      
+        <link rel="next" href="../08-overrides/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Interfaces - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/amazon-ember-display.css">
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#interfaces" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="The jsii reference" class="md-header__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The jsii reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interfaces
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aws/jsii" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  Welcome
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../user-guides/" class="md-tabs__link">
+          
+  
+  
+  User guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../1-introduction/" class="md-tabs__link">
+          
+  
+  
+  Specification
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../decisions/introduction/" class="md-tabs__link">
+          
+  
+  
+  Architecture Decisions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aws/jsii" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Welcome
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/toolchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/runtime-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance Announcements
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Maintenance Announcements
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../compiler-and-rosetta-maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsii@v1.x & jsii-rosetta@v1.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Author Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Author Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quick start
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/quick-start/set-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/quick-start/write-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/typescript-restrictions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TypeScript Restrictions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/hints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Special TSDoc tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5_2" id="__nav_2_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/dotnet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    .NET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/configuration/targets/submodules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Submodules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_6" id="__nav_2_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolchain
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Toolchain
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-author/toolchain/jsii/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsii
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Consumer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Consumer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Specific
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Specific
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/language-specific/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/lib-user/language-specific/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Implementation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Implementation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    .jsii Assemblies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guides/language-support/callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks and Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specification
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specification
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-type-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The jsii type system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-kernel-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The jsii kernel API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standard Compliance Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-standard-compliance-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard Compliance Suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Suite
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Test Suite
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-primitives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primitives & Optional Values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes & Object References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-statics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statics & Constants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-structs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structs & Keyword Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-host-callback-receives-interface-typed-arguments-it-can-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A host callback receives interface-typed arguments it can use
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A host callback receives interface-typed arguments it can use">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-host-can-implement-an-interface-from-scratch-and-pass-it-to-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The host can implement an interface from scratch and pass it to the kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The host can implement an interface from scratch and pass it to the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-host-can-implement-an-interface-indirectly-through-a-superclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The host can implement an interface indirectly through a superclass
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The host can implement an interface indirectly through a superclass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-objects-passed-as-interfaces-keep-a-stable-identity-across-the-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host objects passed as interfaces keep a stable identity across the boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Host objects passed as interfaces keep a stable identity across the boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-host-subclass-of-a-kernel-class-can-also-implement-an-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A host subclass of a kernel class can also implement an interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A host subclass of a kernel class can also implement an interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-read-write-property-on-an-interface-can-be-set-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A read-write property on an interface can be set from the host
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A read-write property on an interface can be set from the host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-interface-value-from-the-kernel-can-be-passed-back-as-a-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An interface value from the kernel can be passed back as a parameter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An interface value from the kernel can be passed back as a parameter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-value-returned-as-an-interface-is-usable-even-when-its-concrete-type-is-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A value returned as an interface is usable even when its concrete type is private
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A value returned as an interface is usable even when its concrete type is private">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-kernel-invokes-host-implemented-interface-property-accessors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The kernel invokes host-implemented interface property accessors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The kernel invokes host-implemented interface property accessors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-literals-returned-as-an-interface-can-be-used-through-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object literals returned as an interface can be used through it
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object literals returned as an interface can be used through it">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objects-can-be-used-through-every-interface-they-implement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects can be used through every interface they implement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objects can be used through every interface they implement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-overrides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subclassing & Overrides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-new-language-intake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    New Language Intake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-compliance-report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance Report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../decisions/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-host-callback-receives-interface-typed-arguments-it-can-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A host callback receives interface-typed arguments it can use
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A host callback receives interface-typed arguments it can use">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-host-can-implement-an-interface-from-scratch-and-pass-it-to-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The host can implement an interface from scratch and pass it to the kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The host can implement an interface from scratch and pass it to the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-host-can-implement-an-interface-indirectly-through-a-superclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The host can implement an interface indirectly through a superclass
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The host can implement an interface indirectly through a superclass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-objects-passed-as-interfaces-keep-a-stable-identity-across-the-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host objects passed as interfaces keep a stable identity across the boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Host objects passed as interfaces keep a stable identity across the boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-host-subclass-of-a-kernel-class-can-also-implement-an-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A host subclass of a kernel class can also implement an interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A host subclass of a kernel class can also implement an interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-read-write-property-on-an-interface-can-be-set-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A read-write property on an interface can be set from the host
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A read-write property on an interface can be set from the host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-interface-value-from-the-kernel-can-be-passed-back-as-a-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An interface value from the kernel can be passed back as a parameter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An interface value from the kernel can be passed back as a parameter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-value-returned-as-an-interface-is-usable-even-when-its-concrete-type-is-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A value returned as an interface is usable even when its concrete type is private
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A value returned as an interface is usable even when its concrete type is private">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-kernel-invokes-host-implemented-interface-property-accessors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The kernel invokes host-implemented interface property accessors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The kernel invokes host-implemented interface property accessors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-literals-returned-as-an-interface-can-be-used-through-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object literals returned as an interface can be used through it
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object literals returned as an interface can be used through it">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objects-can-be-used-through-every-interface-they-implement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects can be used through every interface they implement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Objects can be used through every interface they implement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- Auto generated by tools/jsii-compliance/report.ts - do not modify by hand -->
+
+<h1 id="interfaces">Interfaces</h1>
+<p>Tests in this category ensure behavioral interfaces can be implemented by the host, passed across the language boundary, and used through the interface type on either side.</p>
+<p><a id="callbackReceivesInterfaceArguments"></a></p>
+<h2 id="a-host-callback-receives-interface-typed-arguments-it-can-use">A host callback receives interface-typed arguments it can use</h2>
+<p><strong>Test:</strong> <code>callbackReceivesInterfaceArguments</code></p>
+<p>When the kernel invokes a method on a host-implemented interface, it MAY pass an argument whose declared type is another
+behavioral interface. The host MUST receive that argument typed as the interface and MUST be able to invoke the
+interface's members on it. This MUST hold no matter how the kernel implements the passed-in value — as a bare object, as
+an instance of an exported class, or as an instance of a type that is not exported.</p>
+<h3 id="reference-implementation">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IBell</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">ring</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IBellRinger</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">yourTurn</span><span class="p">(</span><span class="nx">bell</span><span class="o">:</span><span class="w"> </span><span class="kt">IBell</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Bell</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IBell</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">ring</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">PrivateBell</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IBell</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">ring</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConsumerCanRingBell</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">staticImplementedByObjectLiteral</span><span class="p">(</span><span class="nx">ringer</span><span class="o">:</span><span class="w"> </span><span class="kt">IBellRinger</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">ringer</span><span class="p">.</span><span class="nx">yourTurn</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">ring</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">rung</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">rung</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">staticImplementedByPublicClass</span><span class="p">(</span><span class="nx">ringer</span><span class="o">:</span><span class="w"> </span><span class="kt">IBellRinger</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">bell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Bell</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">ringer</span><span class="p">.</span><span class="nx">yourTurn</span><span class="p">(</span><span class="nx">bell</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">bell</span><span class="p">.</span><span class="nx">rung</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">staticImplementedByPrivateClass</span><span class="p">(</span><span class="nx">ringer</span><span class="o">:</span><span class="w"> </span><span class="kt">IBellRinger</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">bell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PrivateBell</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">ringer</span><span class="p">.</span><span class="nx">yourTurn</span><span class="p">(</span><span class="nx">bell</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">bell</span><span class="p">.</span><span class="nx">rung</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="c1">// The host implements IBellRinger; the kernel calls back with an IBell argument.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Ringer</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IBellRinger</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">yourTurn</span><span class="p">(</span><span class="nx">bell</span><span class="o">:</span><span class="w"> </span><span class="kt">IBell</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">bell</span><span class="p">.</span><span class="nx">ring</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ringer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Ringer</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">ConsumerCanRingBell</span><span class="p">.</span><span class="nx">staticImplementedByObjectLiteral</span><span class="p">(</span><span class="nx">ringer</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">ConsumerCanRingBell</span><span class="p">.</span><span class="nx">staticImplementedByPrivateClass</span><span class="p">(</span><span class="nx">ringer</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">ConsumerCanRingBell</span><span class="p">.</span><span class="nx">staticImplementedByPublicClass</span><span class="p">(</span><span class="nx">ringer</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="hostCanImplementInterface"></a></p>
+<h2 id="the-host-can-implement-an-interface-from-scratch-and-pass-it-to-the-kernel">The host can implement an interface from scratch and pass it to the kernel</h2>
+<p><strong>Test:</strong> <code>hostCanImplementInterface</code></p>
+<p>The host MUST be able to implement a behavioral interface entirely on its own, with a type that implements the interface
+without deriving from any kernel type, and pass that implementation across the boundary to the kernel. The kernel MUST
+be able to invoke the implementation's members, and the values the host returns MUST be delivered back to the kernel
+unchanged.</p>
+<h3 id="reference-implementation_1">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalBoolean?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IStructReturningDelegate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">returnStruct</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructB</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConsumePureInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">delegate</span><span class="o">:</span><span class="w"> </span><span class="kt">IStructReturningDelegate</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">workItBaby</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">delegate</span><span class="p">.</span><span class="nx">returnStruct</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">expected</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Delegate</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IStructReturningDelegate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">returnStruct</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">expected</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConsumePureInterface</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">Delegate</span><span class="p">());</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">workItBaby</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">expected</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="hostCanImplementInterfaceThroughSuperclass"></a></p>
+<h2 id="the-host-can-implement-an-interface-indirectly-through-a-superclass">The host can implement an interface indirectly through a superclass</h2>
+<p><strong>Test:</strong> <code>hostCanImplementInterfaceThroughSuperclass</code></p>
+<p>The host MAY implement a behavioral interface indirectly: a type that does not itself declare the interface, but
+inherits the implementation from a superclass that does. The host MUST still be able to pass such a value to the kernel
+as that interface, and the kernel MUST be able to invoke the interface's members on it.</p>
+<h3 id="reference-implementation_2">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalBoolean?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IStructReturningDelegate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">returnStruct</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructB</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConsumePureInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">delegate</span><span class="o">:</span><span class="w"> </span><span class="kt">IStructReturningDelegate</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">workItBaby</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">delegate</span><span class="p">.</span><span class="nx">returnStruct</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">expected</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// The interface is declared on the base type; the leaf type only inherits it.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">ImplementsStructReturningDelegate</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IStructReturningDelegate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">struct</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">returnStruct</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">struct</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">IndirectlyImplementsStructReturningDelegate</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">ImplementsStructReturningDelegate</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConsumePureInterface</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">IndirectlyImplementsStructReturningDelegate</span><span class="p">(</span><span class="nx">expected</span><span class="p">));</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">workItBaby</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">expected</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="hostObjectsKeepIdentityAcrossTheBoundary"></a></p>
+<h2 id="host-objects-passed-as-interfaces-keep-a-stable-identity-across-the-boundary">Host objects passed as interfaces keep a stable identity across the boundary</h2>
+<p><strong>Test:</strong> <code>hostObjectsKeepIdentityAcrossTheBoundary</code></p>
+<p>When the host passes one of its own objects to the kernel as a behavioral interface, that object MUST be given a stable
+reference. When the kernel later returns the object to the host, the host MUST receive the very same object it sent, not
+a new proxy. When the host passes the object in again, the kernel MUST reuse the existing reference rather than creating
+a second one. Throughout, the kernel MUST be able to call back into the host object's members. This MUST hold both for a
+host object that subclasses a kernel class and for a pure host object that only implements the interface.</p>
+<h3 id="reference-implementation_3">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">next</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="nx">generator</span><span class="o">:</span><span class="w"> </span><span class="kt">IRandomNumberGenerator</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">nextTimes100</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">generator</span><span class="p">.</span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">isSameGenerator</span><span class="p">(</span><span class="nx">gen</span><span class="o">:</span><span class="w"> </span><span class="kt">IRandomNumberGenerator</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">generator</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">gen</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="c1">// A pure host object, and a host object that subclasses a kernel class.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">PureNativeFriendlyRandom</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">SubclassNativeFriendlyRandom</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="mf">908</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">subclassed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">SubclassNativeFriendlyRandom</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">generatorForSubclassed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">NumberGenerator</span><span class="p">(</span><span class="nx">subclassed</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">pure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PureNativeFriendlyRandom</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">generatorForPure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">NumberGenerator</span><span class="p">(</span><span class="nx">pure</span><span class="p">);</span>
+
+<span class="c1">// THEN</span>
+<span class="c1">// The object returned by the kernel is the same object that was passed in.</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForSubclassed</span><span class="p">.</span><span class="nx">generator</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">subclassed</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForSubclassed</span><span class="p">.</span><span class="nx">isSameGenerator</span><span class="p">(</span><span class="nx">subclassed</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="c1">// The kernel calls back into the host object, and the reference is stable across calls.</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForSubclassed</span><span class="p">.</span><span class="nx">nextTimes100</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">10000</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForSubclassed</span><span class="p">.</span><span class="nx">nextTimes100</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">20000</span><span class="p">);</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForPure</span><span class="p">.</span><span class="nx">generator</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">pure</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForPure</span><span class="p">.</span><span class="nx">isSameGenerator</span><span class="p">(</span><span class="nx">pure</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForPure</span><span class="p">.</span><span class="nx">nextTimes100</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">100000</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generatorForPure</span><span class="p">.</span><span class="nx">nextTimes100</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">200000</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="hostSubclassCanImplementAdditionalInterface"></a></p>
+<h2 id="a-host-subclass-of-a-kernel-class-can-also-implement-an-interface">A host subclass of a kernel class can also implement an interface</h2>
+<p><strong>Test:</strong> <code>hostSubclassCanImplementAdditionalInterface</code></p>
+<p>A host type MAY both subclass a kernel class and implement a behavioral interface declared by the kernel. The host MUST
+be able to pass such a value to the kernel as that interface, and the kernel MUST be able to invoke the interface's
+members on it, even though the value's primary identity is that of the kernel class it extends.</p>
+<h3 id="reference-implementation_4">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">optionalBoolean?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IStructReturningDelegate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">returnStruct</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructB</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConsumePureInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">delegate</span><span class="o">:</span><span class="w"> </span><span class="kt">IStructReturningDelegate</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">workItBaby</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">delegate</span><span class="p">.</span><span class="nx">returnStruct</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// A kernel class that the host will subclass.</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AllTypes</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">stringProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">expected</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requiredString</span><span class="o">:</span><span class="w"> </span><span class="s1">'Present!'</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">ImplementsAdditionalInterface</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AllTypes</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IStructReturningDelegate</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">struct</span><span class="o">:</span><span class="w"> </span><span class="kt">StructB</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">returnStruct</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">StructB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">struct</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">consumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ConsumePureInterface</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">ImplementsAdditionalInterface</span><span class="p">(</span><span class="nx">expected</span><span class="p">));</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">workItBaby</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">expected</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="interfacePropertyCanBeSet"></a></p>
+<h2 id="a-read-write-property-on-an-interface-can-be-set-from-the-host">A read-write property on an interface can be set from the host</h2>
+<p><strong>Test:</strong> <code>interfacePropertyCanBeSet</code></p>
+<p>When a behavioral interface declares a read-write property, the host MUST be able to assign a new value to that property
+through a value typed as the interface. The assignment MUST reach the property's setter in the kernel implementation,
+and any side effects of that setter MUST be observable afterwards.</p>
+<h3 id="reference-implementation_5">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IObjectWithProperty</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">property</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">wasSet</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ObjectWithPropertyProvider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">provide</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IObjectWithProperty</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">Impl</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IObjectWithProperty</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">private</span><span class="w"> </span><span class="nx">_property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">;</span>
+<span class="w">      </span><span class="k">private</span><span class="w"> </span><span class="nx">_wasSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">property</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_property</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">property</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">_property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">_wasSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">      </span><span class="k">public</span><span class="w"> </span><span class="nx">wasSet</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_wasSet</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Impl</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ObjectWithPropertyProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'New Value'</span><span class="p">;</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">wasSet</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="interfaceValueCanBePassedBack"></a></p>
+<h2 id="an-interface-value-from-the-kernel-can-be-passed-back-as-a-parameter">An interface value from the kernel can be passed back as a parameter</h2>
+<p><strong>Test:</strong> <code>interfaceValueCanBePassedBack</code></p>
+<p>When the host receives a value typed as a behavioral interface from the kernel, the host MUST be able to pass that same
+value back into the kernel as a method parameter. The kernel MUST be able to invoke the interface's members on the
+passed-in value, reaching the original JavaScript implementation.</p>
+<h3 id="reference-implementation_6">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">JSObjectLiteralForInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">giveMeFriendly</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">hello</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">'I am literally friendly!'</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">GreetingAugmenter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">betterGreeting</span><span class="p">(</span><span class="nx">friendly</span><span class="o">:</span><span class="w"> </span><span class="kt">IFriendly</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">friendly</span><span class="p">.</span><span class="nx">hello</span><span class="p">()</span><span class="si">}</span><span class="sb"> Let me buy you a drink!`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">friendly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">JSObjectLiteralForInterface</span><span class="p">().</span><span class="nx">giveMeFriendly</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">augmented</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">GreetingAugmenter</span><span class="p">().</span><span class="nx">betterGreeting</span><span class="p">(</span><span class="nx">friendly</span><span class="p">);</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">friendly</span><span class="p">.</span><span class="nx">hello</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'I am literally friendly!'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">augmented</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'I am literally friendly! Let me buy you a drink!'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="interfaceValueWithPrivateTypeIsUsable"></a></p>
+<h2 id="a-value-returned-as-an-interface-is-usable-even-when-its-concrete-type-is-private">A value returned as an interface is usable even when its concrete type is private</h2>
+<p><strong>Test:</strong> <code>interfaceValueWithPrivateTypeIsUsable</code></p>
+<p>When the kernel returns a value whose concrete type is not exported, the host MUST receive it typed as the declared
+return type — whether that is a behavioral interface or an exported class — and MUST be able to use the members of that
+declared type. The same underlying value MUST be usable through each declared type the kernel exposes it as.</p>
+<h3 id="reference-implementation_7">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Implementation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1337</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IAnonymouslyImplementMe</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">verb</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IAnonymousImplementationProvider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">provideAsInterface</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IAnonymouslyImplementMe</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">provideAsClass</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">Implementation</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// The concrete type is not exported from the assembly.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">PrivateType</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Implementation</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IAnonymouslyImplementMe</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">verb</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'to implement'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AnonymousImplementationProvider</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IAnonymousImplementationProvider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PrivateType</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">provideAsClass</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">Implementation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">provideAsInterface</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IAnonymouslyImplementMe</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AnonymousImplementationProvider</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">provider</span><span class="p">.</span><span class="nx">provideAsClass</span><span class="p">().</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1337</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">provider</span><span class="p">.</span><span class="nx">provideAsInterface</span><span class="p">().</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">1337</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">provider</span><span class="p">.</span><span class="nx">provideAsInterface</span><span class="p">().</span><span class="nx">verb</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'to implement'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="kernelUsesHostInterfaceAccessors"></a></p>
+<h2 id="the-kernel-invokes-host-implemented-interface-property-accessors">The kernel invokes host-implemented interface property accessors</h2>
+<p><strong>Test:</strong> <code>kernelUsesHostInterfaceAccessors</code></p>
+<p>When the host provides an implementation of a behavioral interface that declares properties, the kernel MUST read those
+properties through the host's getter and write them through the host's setter. Each read the kernel performs MUST return
+the value the host's getter produces, and each write MUST invoke the host's setter with the assigned value, so that any
+transformation the host applies is observable on the next read.</p>
+<h3 id="reference-implementation_8">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IInterfaceWithProperties</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">readOnlyString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">readWriteString</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">UsesInterfaceWithProperties</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">obj</span><span class="o">:</span><span class="w"> </span><span class="kt">IInterfaceWithProperties</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">justRead</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">readOnlyString</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">writeAndRead</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">readWriteString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">readWriteString</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="c1">// A host implementation whose accessors transform the values that cross the boundary.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Impl</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IInterfaceWithProperties</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">readOnlyString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'READ_ONLY_STRING'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">readWriteString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="sb">?`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">readWriteString</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">interact</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">UsesInterfaceWithProperties</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">Impl</span><span class="p">());</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">interact</span><span class="p">.</span><span class="nx">justRead</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'READ_ONLY_STRING'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">interact</span><span class="p">.</span><span class="nx">writeAndRead</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Hello!?'</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectLiteralReturnedAsInterfaceIsUsable"></a></p>
+<h2 id="object-literals-returned-as-an-interface-can-be-used-through-it">Object literals returned as an interface can be used through it</h2>
+<p><strong>Test:</strong> <code>objectLiteralReturnedAsInterfaceIsUsable</code></p>
+<p>The kernel may return a bare object that implements a behavioral interface without being an instance of any exported
+class. The host MUST receive such a value typed as the declared interface and MUST be able to invoke all of the
+interface's members on it, each call reaching the JavaScript implementation.</p>
+<h3 id="reference-implementation_9">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">next</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="p">,</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">JSObjectLiteralForInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">giveMeFriendly</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">hello</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">'I am literally friendly!'</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">giveMeFriendlyGenerator</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">hello</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">'giveMeFriendlyGenerator'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">next</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">42</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">JSObjectLiteralForInterface</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">friendly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">subject</span><span class="p">.</span><span class="nx">giveMeFriendly</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">generator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">subject</span><span class="p">.</span><span class="nx">giveMeFriendlyGenerator</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">friendly</span><span class="p">.</span><span class="nx">hello</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'I am literally friendly!'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generator</span><span class="p">.</span><span class="nx">hello</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'giveMeFriendlyGenerator'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">generator</span><span class="p">.</span><span class="nx">next</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">42</span><span class="p">);</span>
+</code></pre></div>
+<p><a id="objectsUsableThroughEveryInterface"></a></p>
+<h2 id="objects-can-be-used-through-every-interface-they-implement">Objects can be used through every interface they implement</h2>
+<p><strong>Test:</strong> <code>objectsUsableThroughEveryInterface</code></p>
+<p>A value MUST be usable through each of the behavioral interfaces it declares. The host MUST be able to invoke the
+methods of an interface on any value typed as that interface, and each call MUST be dispatched to the correct
+implementation. This MUST hold regardless of where the implementation lives: a kernel object, a bare object returned by
+the kernel as an interface, a host object that subclasses a kernel class, or a pure host implementation of the
+interface.</p>
+<h3 id="reference-implementation_10">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendlier</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">goodbye</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">farewell</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">next</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="p">,</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">BinaryOperation</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NumericValue</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IFriendly</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">lhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">rhs</span><span class="o">:</span><span class="w"> </span><span class="kt">NumericValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">"Hello, I am a binary operation. What's your name?"</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BinaryOperation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lhs</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">rhs</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Multiply</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BinaryOperation</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IFriendlier</span><span class="p">,</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lhs</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">rhs</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">goodbye</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Goodbye from Multiply!'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">farewell</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Farewell to you too!'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">89</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DoubleTrouble</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">12</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'world'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Polymorphism</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">sayHello</span><span class="p">(</span><span class="nx">friendly</span><span class="o">:</span><span class="w"> </span><span class="kt">IFriendly</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`oh, </span><span class="si">${</span><span class="nx">friendly</span><span class="p">.</span><span class="nx">hello</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="c1">// A host subclass of a kernel class, and a pure host implementation of the interfaces.</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">SubclassNativeFriendlyRandom</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IFriendly</span><span class="p">,</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="mf">908</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'SubclassNativeFriendlyRandom'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">PureNativeFriendlyRandom</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">nextNumber</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'I am a native!'</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Add</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">20</span><span class="p">));</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">multiply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Multiply</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">10</span><span class="p">),</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="mf">30</span><span class="p">));</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">doubleTrouble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DoubleTrouble</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Polymorphism</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="c1">// A value is reachable through each interface it declares.</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">add</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IFriendly</span><span class="p">).</span><span class="nx">hello</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">"Hello, I am a binary operation. What's your name?"</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">multiply</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IFriendly</span><span class="p">).</span><span class="nx">hello</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">"Hello, I am a binary operation. What's your name?"</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">multiply</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IFriendlier</span><span class="p">).</span><span class="nx">goodbye</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'Goodbye from Multiply!'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">multiply</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IRandomNumberGenerator</span><span class="p">).</span><span class="nx">next</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">89</span><span class="p">);</span>
+
+<span class="nx">expect</span><span class="p">((</span><span class="nx">doubleTrouble</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="p">).</span><span class="nx">hello</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'world'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">((</span><span class="nx">doubleTrouble</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">IFriendlyRandomGenerator</span><span class="p">).</span><span class="nx">next</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">12</span><span class="p">);</span>
+
+<span class="c1">// Polymorphism accepts any IFriendly, implemented anywhere.</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">poly</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">(</span><span class="nx">add</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">"oh, Hello, I am a binary operation. What's your name?"</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">poly</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">(</span><span class="nx">doubleTrouble</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'oh, world'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">poly</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">SubclassNativeFriendlyRandom</span><span class="p">())).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'oh, SubclassNativeFriendlyRandom'</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">poly</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">PureNativeFriendlyRandom</span><span class="p">())).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'oh, I am a native!'</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    2026-10-08
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 Amazon Web Services, Inc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://aws.amazon.com" target="_blank" rel="noopener" title="Amazon Web Services, Inc." class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M180.4 203c-.7 22.6 10.6 32.7 10.9 39-.1 1.3-.6 2.5-1.3 3.6s-1.7 2-2.8 2.6l-12.8 9c-1.7 1.2-3.6 1.8-5.6 1.9-.4 0-8.2 1.8-20.5-25.6-7.5 9.4-17 16.9-27.9 22s-22.7 7.7-34.7 7.5c-16.3.9-60.4-9.2-58.1-56.2-1.6-38.3 34.1-62.1 70.9-60 7.1 0 21.6.4 47 6.3v-15.6c2.7-26.5-14.7-47-44.8-43.9-2.4 0-19.4-.5-45.8 10.1-7.4 3.4-8.3 2.8-10.8 2.8-7.4 0-4.4-21.5-2.9-24.2 5.2-6.4 35.9-18.4 65.9-18.2 20.1-1.8 40.1 4.4 55.7 17.3 6.3 7.1 11.2 15.4 14.2 24.4s4.2 18.5 3.5 28v69.3zM94 235.4c32.4-.5 46.2-20 49.3-30.5 2.5-10.1 2.1-16.4 2.1-27.4-9.7-2.3-23.6-4.9-39.6-4.9-15.2-1.1-42.8 5.6-41.7 32.3-1.2 16.8 11.1 31.4 30 30.5zm170.9 23.1c-7.9.7-11.5-4.9-12.7-10.4L202.4 83.4c-1-2.8-1.6-5.6-1.9-8.6-.2-1.2.1-2.4.8-3.4s1.8-1.6 3-1.8h22.2c8.8-.9 11.6 6 12.6 10.4l35.8 140.8L308.1 80c.5-3.2 2.9-11.1 12.8-10.2h17.2c2.2-.2 11.1-.5 12.7 10.4l33.3 142.5L421 80.1c.5-2.2 2.7-11.4 12.7-10.4h19.7c.9-.1 6.2-.8 5.3 8.6-.4 1.8 3.4-10.7-52.8 169.9-1.1 5.5-4.8 11.1-12.7 10.4h-18.7c-10.9 1.2-12.5-9.7-12.7-10.7l-33.2-137.1-32.8 137c-.2 1.1-1.7 11.9-12.7 10.7h-18.3zm273.5 5.6c-5.9 0-33.9-.3-57.4-12.3-2.3-1-4.3-2.6-5.7-4.8s-2.1-4.6-2.1-7.1v-10.7c0-8.5 6.2-6.9 8.8-5.9 10 4.1 16.5 7.1 28.8 9.6 36.7 7.5 52.8-2.3 56.7-4.5 13.2-7.8 14.2-25.7 5.3-34.9-10.5-8.8-15.5-9.1-53.1-21-4.6-1.3-43.7-13.6-43.8-52.4-.6-28.2 25-56.2 69.5-56 12.7 0 46.4 4.1 55.6 15.6 1.4 2.1 2 4.6 1.9 7v10.1c0 4.4-1.6 6.7-4.9 6.7-7.7-.9-21.4-11.2-49.2-10.8-6.9-.4-39.9.9-38.4 25-.4 19 26.6 26.1 29.7 26.9 36.5 11 48.6 12.8 63.1 29.6 17.1 22.2 7.9 48.3 4.3 55.4-19.1 37.5-68.4 34.4-69.3 34.4zM578.6 369c-70 51.7-171.7 79.2-258.5 79.2C203 449 89.8 405.9 2.8 327.5c-6.5-5.9-.8-14 7.2-9.5 96.5 55.2 205.7 84.2 316.9 84.1 83-.4 165.1-17.3 241.6-49.5 11.8-5 21.8 7.8 10.1 16.4m29.2-33.3c-9-11.5-59.3-5.4-81.8-2.7-6.8.8-7.9-5.1-1.8-9.5 40.1-28.2 105.9-20.1 113.4-10.6s-2.1 75.4-39.6 106.9c-5.8 4.9-11.3 2.3-8.7-4.1 8.4-21.3 27.4-68.5 18.4-80z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.expand", "navigation.instant", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
