@@ -11,7 +11,7 @@ Language bindings must pass every test case. A category is complete when a langu
 | python   | 95.45% (105 / 110)  | 11 / 12             |
 | java     | 100.00% (110 / 110) | 12 / 12             |
 | dotnet   | 95.45% (105 / 110)  | 11 / 12             |
-| golang   | 87.27% (96 / 110)   | 9 / 12              |
+| golang   | 95.45% (105 / 110)  | 11 / 12             |
 
 
 Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
@@ -161,16 +161,16 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 
 ## [Async](compliance-suite/09-async.md)
 
-| Test                                                                                                                                                              | python | java  | dotnet | golang                                       |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | -------------------------------------------- |
-| [asyncMethodCanBeOverridden](compliance-suite/09-async.md#asyncMethodCanBeOverridden "Host overrides of asynchronous methods are invoked by the kernel")          | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [asyncMethodReturningNothing](compliance-suite/09-async.md#asyncMethodReturningNothing "Asynchronous methods returning no value can be invoked")                  | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [asyncMethodsCanBeCalled](compliance-suite/09-async.md#asyncMethodsCanBeCalled "Asynchronous methods can be invoked from the host")                               | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [asyncOverrideCanBeInherited](compliance-suite/09-async.md#asyncOverrideCanBeInherited "Overrides inherited from a host base class are registered")               | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [asyncOverrideCanCallSuper](compliance-suite/09-async.md#asyncOverrideCanCallSuper "A host asynchronous override can call the base implementation")               | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [asyncOverrideErrorPropagates](compliance-suite/09-async.md#asyncOverrideErrorPropagates "Errors thrown by host asynchronous overrides propagate to the caller")  | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [multipleAsyncMethodsCanBeOverridden](compliance-suite/09-async.md#multipleAsyncMethodsCanBeOverridden "Multiple asynchronous methods can be overridden at once") | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
-| [staticAsyncMethodsCanBeCalled](compliance-suite/09-async.md#staticAsyncMethodsCanBeCalled "Static asynchronous methods can be invoked from the host")            | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| Test                                                                                                                                                              | python | java  | dotnet | golang |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [asyncMethodCanBeOverridden](compliance-suite/09-async.md#asyncMethodCanBeOverridden "Host overrides of asynchronous methods are invoked by the kernel")          | 🟢     | 🟢    | 🟢     | 🟢     |
+| [asyncMethodReturningNothing](compliance-suite/09-async.md#asyncMethodReturningNothing "Asynchronous methods returning no value can be invoked")                  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [asyncMethodsCanBeCalled](compliance-suite/09-async.md#asyncMethodsCanBeCalled "Asynchronous methods can be invoked from the host")                               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [asyncOverrideCanBeInherited](compliance-suite/09-async.md#asyncOverrideCanBeInherited "Overrides inherited from a host base class are registered")               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [asyncOverrideCanCallSuper](compliance-suite/09-async.md#asyncOverrideCanCallSuper "A host asynchronous override can call the base implementation")               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [asyncOverrideErrorPropagates](compliance-suite/09-async.md#asyncOverrideErrorPropagates "Errors thrown by host asynchronous overrides propagate to the caller")  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [multipleAsyncMethodsCanBeOverridden](compliance-suite/09-async.md#multipleAsyncMethodsCanBeOverridden "Multiple asynchronous methods can be overridden at once") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [staticAsyncMethodsCanBeCalled](compliance-suite/09-async.md#staticAsyncMethodsCanBeCalled "Static asynchronous methods can be invoked from the host")            | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Errors](compliance-suite/10-errors.md)
@@ -192,7 +192,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 
 ## [Runtime Environment](compliance-suite/12-runtime.md)
 
-| Test                                                                                                                                               | python | java  | dotnet | golang                                       |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | -------------------------------------------- |
-| [kernelKnowsTheHostRuntime](compliance-suite/12-runtime.md#kernelKnowsTheHostRuntime "The kernel is told which host runtime is driving it")        | 🟢     | 🟢    | 🟢     | 🟢                                           |
-| [nodeStandardLibraryIsAvailable](compliance-suite/12-runtime.md#nodeStandardLibraryIsAvailable "Kernel code can use the Node.js standard library") | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| Test                                                                                                                                               | python | java  | dotnet | golang |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [kernelKnowsTheHostRuntime](compliance-suite/12-runtime.md#kernelKnowsTheHostRuntime "The kernel is told which host runtime is driving it")        | 🟢     | 🟢    | 🟢     | 🟢     |
+| [nodeStandardLibraryIsAvailable](compliance-suite/12-runtime.md#nodeStandardLibraryIsAvailable "Kernel code can use the Node.js standard library") | 🟢     | 🟢    | 🟢     | 🟢     |

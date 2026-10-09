@@ -16,21 +16,22 @@ type callback struct {
 	Set        *setCallback    `json:"set"`
 }
 
-func (c *callback) handle(result kernelResponder) error {
-	var (
-		retval reflect.Value
-		err    error
-	)
-	if c.Invoke != nil {
-		retval, err = c.Invoke.handle(c.Cookie)
-	} else if c.Get != nil {
-		retval, err = c.Get.handle(c.Cookie)
-	} else if c.Set != nil {
-		retval, err = c.Set.handle(c.Cookie)
-	} else {
-		return fmt.Errorf("invalid callback object: %v", c)
+// run executes the requested invoke, get or set in the host.
+func (c *callback) run() (reflect.Value, error) {
+	switch {
+	case c.Invoke != nil:
+		return c.Invoke.handle(c.Cookie)
+	case c.Get != nil:
+		return c.Get.handle(c.Cookie)
+	case c.Set != nil:
+		return c.Set.handle(c.Cookie)
+	default:
+		return reflect.Value{}, fmt.Errorf("invalid callback object: %v", c)
 	}
+}
 
+func (c *callback) handle(result kernelResponder) error {
+	retval, err := c.run()
 	if err != nil {
 		return err
 	}
