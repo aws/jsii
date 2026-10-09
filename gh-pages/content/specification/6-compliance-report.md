@@ -6,12 +6,12 @@ This section details the current state of each language binding with respect to 
 
 Language bindings must pass every test case. A category is complete when a language binding passes all of its test cases.
 
-| Language | Tests passing      | Categories complete |
-| -------- | ------------------ | ------------------- |
-| java     | 99.09% (109 / 110) | 11 / 12             |
-| golang   | 84.55% (93 / 110)  | 7 / 12              |
-| dotnet   | 93.64% (103 / 110) | 9 / 12              |
-| python   | 94.55% (104 / 110) | 10 / 12             |
+| Language | Tests passing       | Categories complete |
+| -------- | ------------------- | ------------------- |
+| java     | 100.00% (110 / 110) | 12 / 12             |
+| golang   | 84.55% (93 / 110)   | 7 / 12              |
+| dotnet   | 93.64% (103 / 110)  | 9 / 12              |
+| python   | 94.55% (104 / 110)  | 10 / 12             |
 
 
 Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
@@ -114,7 +114,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
 | [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
 | [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🔴    | 🔴                                           | 🟢     | 🟢     |
+| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🔴                                           | 🟢     | 🟢     |
 | [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢    | 🟢                                           | 🟢     | 🟢     |
 
 
