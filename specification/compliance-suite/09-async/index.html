@@ -2459,6 +2459,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#static-asynchronous-methods-can-be-invoked-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static asynchronous methods can be invoked from the host
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Static asynchronous methods can be invoked from the host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Trace
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2940,6 +2979,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#static-asynchronous-methods-can-be-invoked-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static asynchronous methods can be invoked from the host
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Static asynchronous methods can be invoked from the host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Trace
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3008,8 +3086,9 @@ NOT be registered as an override, but the host MAY still call it from within its
 <h2 id="asynchronous-methods-returning-no-value-can-be-invoked">Asynchronous methods returning no value can be invoked</h2>
 <p><strong>Test:</strong> <code>asyncMethodReturningNothing</code></p>
 <p>The host MUST be able to invoke a promise-returning method that resolves to no value, both when it is a static method and
-when it is an instance method. In each case the host MUST issue the invocation as an asynchronous (begin) request, drive
-it to completion, and observe successful completion with no value returned.</p>
+when it is an instance method. In each case the host MUST issue the invocation as an asynchronous request (<code>sbegin</code> for
+the static method, <code>begin</code> for the instance method), drive it to completion, and observe successful completion with no
+value returned.</p>
 <h3 id="reference-implementation_1">Reference Implementation</h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
 <span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PromiseNothing</span><span class="w"> </span><span class="p">{</span>
@@ -3208,6 +3287,34 @@ the final result.</p>
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">obj</span><span class="p">.</span><span class="nx">callMe</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">684</span><span class="p">);</span>
 </code></pre></div>
+<p><a id="staticAsyncMethodsCanBeCalled"></a></p>
+<h2 id="static-asynchronous-methods-can-be-invoked-from-the-host">Static asynchronous methods can be invoked from the host</h2>
+<p><strong>Test:</strong> <code>staticAsyncMethodsCanBeCalled</code></p>
+<p>The host MUST be able to invoke a promise-returning (asynchronous) static method without an instance. It MUST issue the
+call as a static asynchronous (<code>sbegin</code>) request with the method's arguments, allow the kernel to run its pending
+callbacks and promises to completion, and then collect the resolved value, which it MUST return to the caller with its
+declared type.</p>
+<h3 id="reference-implementation_7">Reference Implementation</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">StaticAsyncMethods</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">addOne</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN / THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">StaticAsyncMethods</span><span class="p">.</span><span class="nx">addOne</span><span class="p">(</span><span class="mf">41</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="mf">42</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="kernel-trace">Kernel Trace</h3>
+<div class="highlight"><pre><span></span><code>&gt; {"api":"sbegin","fqn":"jsii-calc.StaticAsyncMethods","method":"addOne","args":[41]}
+&lt; {"ok":{"promiseid":"jsii::promise::20000"}}
+&gt; {"api":"callbacks"}
+&lt; {"ok":{"callbacks":[]}}
+&gt; {"api":"end","promiseid":"jsii::promise::20000"}
+&lt; {"ok":{"result":42}}
+</code></pre></div>
 
 
 
@@ -3228,7 +3335,7 @@ the final result.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-10-08
+    2026-10-09
   </span>
 
     

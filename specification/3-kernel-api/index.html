@@ -3033,7 +3033,8 @@ Requests take the form of JSON-encoded messages that all follow the following pa
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'set'</span>
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'sset'</span><span class="w"> </span><span class="c1">// Invoking setters (and static setters)</span>
 <span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'begin'</span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'end'</span><span class="p">;</span><span class="w"> </span><span class="c1">// Asynchronous method invocation</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'sbegin'</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="s1">'end'</span><span class="p">;</span><span class="w"> </span><span class="c1">// Asynchronous method invocation (and static asynchronous methods)</span>
 
 <span class="w">  </span><span class="c1">// ... request-type specific fields ...</span>
 <span class="p">}</span>
@@ -3356,11 +3357,21 @@ an <code>invoke</code> call), and until it has completed that synchronous operat
 <span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'begin'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="admonition question">
-<p class="admonition-title">Question</p>
-<p>There is no static form of this call. Should there be one?</p>
-</div>
-<p>The <code>begin</code> call results in a promise being made:</p>
+<p>Static asynchronous methods are invoked with the <code>sbegin</code> call, which identifies the class by its fully qualified name
+instead of an object reference:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">StaticBeginRequest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/** The fully qualified name of the class declaring the static asynchronous method */</span>
+<span class="w">  </span><span class="nx">fqn</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/** The name of the method being invoked */</span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/** Any arguments passed to the method invocation */</span>
+<span class="w">  </span><span class="nx">args?</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">[];</span>
+
+<span class="w">  </span><span class="c1">// The discriminator</span>
+<span class="w">  </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'sbegin'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>begin</code> and <code>sbegin</code> calls result in a promise being made:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">BeginResponse</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * An opaque string that uniquely idenfies the promised result of this</span>
@@ -3372,7 +3383,7 @@ an <code>invoke</code> call), and until it has completed that synchronous operat
 <p>Whenever the <em>host</em> app needs to obtain the promised value (possibly in a blocking way), it makes the corresponding
 <code>end</code> call:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">EndRequest</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="cm">/** The promiseid that was returned from the corresponding `begin` call. */</span>
+<span class="w">  </span><span class="cm">/** The promiseid that was returned from the corresponding `begin` or `sbegin` call. */</span>
 <span class="w">  </span><span class="nx">promiseid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">// The discriminator</span>
@@ -3381,14 +3392,16 @@ an <code>invoke</code> call), and until it has completed that synchronous operat
 </code></pre></div>
 <p>This will result in the promise being awaited and then resolved:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">EndResponse</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="cm">/** The resolved value of the promise */</span>
-<span class="w">  </span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/** The resolved value of the promise, absent if the promise resolves to no value */</span>
+<span class="w">  </span><span class="nx">result?</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>There is no static form of <code>end</code>. The <code>promiseid</code> alone identifies the promise, independent of whether it was made by an
+instance (<code>begin</code>) or a static (<code>sbegin</code>) method, so the same <code>end</code> call collects the result of both.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>All <code>begin</code> calls must be matched with an <code>end</code> call. Failure to do so may result in unhandled promise rejections
-that might cause the application to terminate in certain environments.</p>
+<p>All <code>begin</code> and <code>sbegin</code> calls must be matched with an <code>end</code> call.
+Failure to do so may result in unhandled promise rejections that might cause the application to terminate in certain environments.</p>
 </div>
 <h3 id="invoking-getters-and-static-getters">Invoking getters (and static getters)</h3>
 <p>In order to obtain the value of properties, the <code>get</code> call is used:</p>
@@ -3470,7 +3483,7 @@ instead:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-10-08
+    2026-10-09
   </span>
 
     
