@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"sync"
 	"testing"
@@ -183,16 +182,15 @@ func newLifecycleProcess(t *testing.T, mode string) *Process {
 	if err != nil {
 		t.Fatal(err)
 	}
-	command := "exec '" + strings.ReplaceAll(executable, "'", "'\"'\"'") + "' -test.run=TestLifecycleChild"
-	if runtime.GOOS == "windows" {
-		command = `"` + executable + `" -test.run=TestLifecycleChild`
-	}
-	t.Setenv(JSII_RUNTIME, command)
+	t.Setenv(JSII_RUNTIME, executable)
 	t.Setenv("JSII_LIFECYCLE_CHILD", mode)
 	t.Setenv("GORACE", "atexit_sleep_ms=0")
 	p, err := NewProcess("^4.3.2")
 	if err != nil {
 		t.Fatal(err)
 	}
+	// Run the child directly so Wait observes its exit status on every platform.
+	p.cmd.Path = executable
+	p.cmd.Args = []string{executable, "-test.run=^TestLifecycleChild$"}
 	return p
 }
