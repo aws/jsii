@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.jsii.ComplianceSuiteHarness;
@@ -742,7 +741,6 @@ public class ComplianceTest {
     }
 
     @Test
-    @Disabled("Java binding limitation: a struct member of a union typed as java.lang.Object (SecondLevelStruct | number) is returned from the kernel as a raw JsiiObject and is not deserialized into SecondLevelStruct, so it cannot be read as the struct type (ClassCastException)")
     public void unionStructPropertyKeepsConcreteType() {
         TopLevelStruct withStruct = StructPassing.roundTrip(123, TopLevelStruct.builder()
                 .required("hello")
