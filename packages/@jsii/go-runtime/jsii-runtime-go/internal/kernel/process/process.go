@@ -38,9 +38,10 @@ type Process struct {
 	stdout io.ReadCloser
 	stderr io.ReadCloser
 
-	requests   *json.Encoder
-	responses  *json.Decoder
-	stderrDone chan bool
+	requests    *json.Encoder
+	responses   *json.Decoder
+	stderrDone  chan struct{}
+	processDone chan struct{}
 
 	started bool
 	closed  bool
@@ -144,21 +145,41 @@ func NewProcess(compatibleVersions string) (*Process, error) {
 }
 
 func (p *Process) ensureStarted() error {
+	p.mutex.Lock()
+
 	if p.closed {
+		p.mutex.Unlock()
 		return fmt.Errorf("this process has been closed")
 	}
 	if p.started {
+		p.mutex.Unlock()
 		return nil
 	}
 	if err := p.cmd.Start(); err != nil {
-		p.Close()
+		p.closeLocked()
+		p.mutex.Unlock()
 		return err
 	}
 	p.started = true
 
-	done := make(chan bool, 1)
+	done := make(chan struct{})
 	go p.consumeStderr(done)
 	p.stderrDone = done
+	p.processDone = make(chan struct{})
+	go func(cmd *exec.Cmd, processDone chan struct{}) {
+		// Drain diagnostics before Wait closes the process pipes.
+		// A grandchild that inherits stderr can delay EOF indefinitely, also
+		// blocking Wait and Close until it closes the inherited pipe.
+		<-done
+		if err := cmd.Wait(); err != nil {
+			fmt.Fprintf(os.Stderr, "Runtime process exited abnormally: %v", err)
+		}
+		close(processDone)
+		p.Close()
+	}(p.cmd, p.processDone)
+
+	// Close must be able to interrupt startup if the child never sends a handshake.
+	p.mutex.Unlock()
 
 	var handshake handshakeResponse
 	if err := p.readResponse(&handshake); err != nil {
@@ -177,14 +198,6 @@ func (p *Process) ensureStarted() error {
 		p.Close()
 		return fmt.Errorf("incompatible runtime version:\n%v", strings.Join(causes, "\n"))
 	}
-
-	go func() {
-		err := p.cmd.Wait()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Runtime process exited abnormally: %v", err.Error())
-		}
-		p.Close()
-	}()
 
 	return nil
 }
@@ -237,15 +250,13 @@ func (p *Process) readResponse(into interface{}) error {
 }
 
 func (p *Process) Close() {
-	if p.closed {
-		return
-	}
-
 	// Acquire the lock, so we don't try to concurrently close multiple times
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
+	p.closeLocked()
+}
 
-	// Check again now that we own the lock, it may be a fast exit!
+func (p *Process) closeLocked() {
 	if p.closed {
 		return
 	}
@@ -282,10 +293,9 @@ func (p *Process) Close() {
 		p.stderr = nil
 	}
 
-	if p.cmd != nil {
-		// Wait for the child process to be dead and gone (should already be)
-		p.cmd.Wait()
-		p.cmd = nil
+	if p.processDone != nil {
+		// The process monitor owns Wait; every closer joins its completion.
+		<-p.processDone
 	}
 
 	if p.tmpdir != "" {
