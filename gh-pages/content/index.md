@@ -94,8 +94,6 @@ header bar:
       support for a new _target language_ in _jsii_.
 
 - The [Specification](specification/1-introduction) provides detailed information on the internal components of _jsii_.
-- The [Architecture Decision Records](decisions/introduction) contains the log of all architectural decisions made while developing the
-  _jsii_ project.
 
 ## How to contribute
 

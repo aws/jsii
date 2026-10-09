@@ -14,36 +14,36 @@ When the host reads a property or return value whose declared type is an abstrac
 reference. The host MUST represent that value using the declared abstract type and MUST be able to invoke the abstract
 type's members on it, even though the host cannot know the concrete runtime type of the object.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
 
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
 
-export class Calculator {
-  public curr: NumericValue = new Number(0);
+    export class Calculator {
+      public curr: NumericValue = new Number(0);
 
-  public add(value: number) {
-    this.curr = new Number(this.curr.value + value);
-  }
-}
+      public add(value: number) {
+        this.curr = new Number(this.curr.value + value);
+      }
+    }
 
-// WHEN
-const calc = new Calculator();
-calc.add(120);
-const value: NumericValue = calc.curr;
+    // WHEN
+    const calc = new Calculator();
+    calc.add(120);
+    const value: NumericValue = calc.curr;
 
-// THEN
-expect(value.value).toBe(120);
-```
+    // THEN
+    expect(value.value).toBe(120);
+    ```
 
 <a id="classWithUnionPropertyCanBeReceived"></a>
 
@@ -55,34 +55,34 @@ The host MUST be able to obtain, through a static method, an object reference to
 property whose type is a union (including a union whose members are arrays). Returning such a reference MUST NOT require
 the kernel or the host to resolve the union, and the host MUST receive a usable reference.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IFriendly {
-  hello(): string;
-}
+    ```ts
+    // GIVEN
+    export interface IFriendly {
+      hello(): string;
+    }
 
-export abstract class AbstractClass {
-  public abstract abstractMethod(name: string): string;
-}
+    export abstract class AbstractClass {
+      public abstract abstractMethod(name: string): string;
+    }
 
-export class ConfusingToJackson {
-  public static makeInstance(): ConfusingToJackson {
-    return new ConfusingToJackson();
-  }
+    export class ConfusingToJackson {
+      public static makeInstance(): ConfusingToJackson {
+        return new ConfusingToJackson();
+      }
 
-  public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+      public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const instance = ConfusingToJackson.makeInstance();
+    // WHEN
+    const instance = ConfusingToJackson.makeInstance();
 
-// THEN
-expect(instance).toBeInstanceOf(ConfusingToJackson);
-```
+    // THEN
+    expect(instance).toBeInstanceOf(ConfusingToJackson);
+    ```
 
 <a id="classesCanReferenceEachOtherDuringInitialization"></a>
 
@@ -94,35 +94,35 @@ The host MUST be able to instantiate a class whose constructor creates and refer
 referenced types perform their own static initialization during that process. The resulting object reference MUST expose
 the nested object produced during initialization.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export enum SomeEnum {
-  SOME = 'SOME',
-}
-export interface SomeStruct {
-  readonly prop: SomeEnum;
-}
+    ```ts
+    // GIVEN
+    export enum SomeEnum {
+      SOME = 'SOME',
+    }
+    export interface SomeStruct {
+      readonly prop: SomeEnum;
+    }
 
-export class InnerClass {
-  public static readonly staticProp: SomeStruct = { prop: SomeEnum.SOME };
-}
+    export class InnerClass {
+      public static readonly staticProp: SomeStruct = { prop: SomeEnum.SOME };
+    }
 
-export class OuterClass {
-  public readonly innerClass: InnerClass;
+    export class OuterClass {
+      public readonly innerClass: InnerClass;
 
-  public constructor() {
-    this.innerClass = new InnerClass();
-  }
-}
+      public constructor() {
+        this.innerClass = new InnerClass();
+      }
+    }
 
-// WHEN
-const outer = new OuterClass();
+    // WHEN
+    const outer = new OuterClass();
 
-// THEN
-expect(outer.innerClass).toBeDefined();
-```
+    // THEN
+    expect(outer.innerClass).toBeDefined();
+    ```
 
 <a id="constructorCanPassThisToTheHost"></a>
 
@@ -136,47 +136,47 @@ assign that object a stable object id and MUST NOT reallocate it: the reference 
 same reference that the `create` request returns once the constructor completes. Any other arguments passed to the
 callback MUST be delivered with their declared types.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export enum AllTypesEnum {
-  MY_ENUM_VALUE,
-  YOUR_ENUM_VALUE = 100,
-  THIS_IS_GREAT,
-}
-
-export abstract class PartiallyInitializedThisConsumer {
-  public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
-}
-
-export class ConstructorPassesThisOut {
-  public constructor(consumer: PartiallyInitializedThisConsumer) {
-    const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.THIS_IS_GREAT);
-    if (result !== 'OK') {
-      throw new Error(`Expected OK but received ${result}`);
+    ```ts
+    // GIVEN
+    export enum AllTypesEnum {
+      MY_ENUM_VALUE,
+      YOUR_ENUM_VALUE = 100,
+      THIS_IS_GREAT,
     }
-  }
-}
 
-// WHEN
-class Consumer extends PartiallyInitializedThisConsumer {
-  public seen?: ConstructorPassesThisOut;
+    export abstract class PartiallyInitializedThisConsumer {
+      public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
+    }
 
-  public consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string {
-    this.seen = obj;
-    expect(dt).toEqual(new Date(0));
-    expect(ev).toBe(AllTypesEnum.THIS_IS_GREAT);
-    return 'OK';
-  }
-}
+    export class ConstructorPassesThisOut {
+      public constructor(consumer: PartiallyInitializedThisConsumer) {
+        const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.THIS_IS_GREAT);
+        if (result !== 'OK') {
+          throw new Error(`Expected OK but received ${result}`);
+        }
+      }
+    }
 
-const consumer = new Consumer();
-const object = new ConstructorPassesThisOut(consumer);
+    // WHEN
+    class Consumer extends PartiallyInitializedThisConsumer {
+      public seen?: ConstructorPassesThisOut;
 
-// THEN
-expect(consumer.seen).toBe(object);
-```
+      public consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string {
+        this.seen = obj;
+        expect(dt).toEqual(new Date(0));
+        expect(ev).toBe(AllTypesEnum.THIS_IS_GREAT);
+        return 'OK';
+      }
+    }
+
+    const consumer = new Consumer();
+    const object = new ConstructorPassesThisOut(consumer);
+
+    // THEN
+    expect(consumer.seen).toBe(object);
+    ```
 
 <a id="hostImplementsAbstractMembers"></a>
 
@@ -189,41 +189,41 @@ method of the base class on that instance MUST cause the kernel to call back int
 reads and writes performed by the kernel MUST be routed to the host's getter and setter, and method calls to the host's
 method, so the result reflects the host-provided behavior.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class AbstractSuite {
-  protected abstract property: string;
-  protected abstract someMethod(str: string): string;
+    ```ts
+    // GIVEN
+    export abstract class AbstractSuite {
+      protected abstract property: string;
+      protected abstract someMethod(str: string): string;
 
-  /** Sets `property` to `seed`, then returns `someMethod(this.property)`. */
-  public workItAll(seed: string) {
-    this.property = seed;
-    return this.someMethod(this.property);
-  }
-}
+      /** Sets `property` to `seed`, then returns `someMethod(this.property)`. */
+      public workItAll(seed: string) {
+        this.property = seed;
+        return this.someMethod(this.property);
+      }
+    }
 
-// WHEN
-class Suite extends AbstractSuite {
-  private value = '';
+    // WHEN
+    class Suite extends AbstractSuite {
+      private value = '';
 
-  protected someMethod(str: string): string {
-    return `Wrapped<${str}>`;
-  }
-  protected get property(): string {
-    return this.value;
-  }
-  protected set property(value: string) {
-    this.value = `String<${value}>`;
-  }
-}
+      protected someMethod(str: string): string {
+        return `Wrapped<${str}>`;
+      }
+      protected get property(): string {
+        return this.value;
+      }
+      protected set property(value: string) {
+        this.value = `String<${value}>`;
+      }
+    }
 
-const suite = new Suite();
+    const suite = new Suite();
 
-// THEN
-expect(suite.workItAll('Oomf!')).toBe('Wrapped<String<Oomf!>>');
-```
+    // THEN
+    expect(suite.workItAll('Oomf!')).toBe('Wrapped<String<Oomf!>>');
+    ```
 
 <a id="inheritedPropertiesUsableOnHostSubclass"></a>
 
@@ -235,40 +235,40 @@ When the host declares a subclass of a jsii class, the host MUST be able to assi
 inherits from its base class. Assigning an inherited property MUST send a `set` request against the subclass instance,
 and reading it MUST return the value most recently assigned.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AllTypes {
-  private stringValue = 'first value';
-  private numberValue = 0;
+    ```ts
+    // GIVEN
+    export class AllTypes {
+      private stringValue = 'first value';
+      private numberValue = 0;
 
-  public get stringProperty() {
-    return this.stringValue;
-  }
-  public set stringProperty(value: string) {
-    this.stringValue = value;
-  }
+      public get stringProperty() {
+        return this.stringValue;
+      }
+      public set stringProperty(value: string) {
+        this.stringValue = value;
+      }
 
-  public get numberProperty() {
-    return this.numberValue;
-  }
-  public set numberProperty(value: number) {
-    this.numberValue = value;
-  }
-}
+      public get numberProperty() {
+        return this.numberValue;
+      }
+      public set numberProperty(value: number) {
+        this.numberValue = value;
+      }
+    }
 
-// WHEN
-class DerivedFromAllTypes extends AllTypes {}
+    // WHEN
+    class DerivedFromAllTypes extends AllTypes {}
 
-const obj = new DerivedFromAllTypes();
-obj.stringProperty = 'Hello';
-obj.numberProperty = 12;
+    const obj = new DerivedFromAllTypes();
+    obj.stringProperty = 'Hello';
+    obj.numberProperty = 12;
 
-// THEN
-expect(obj.stringProperty).toBe('Hello');
-expect(obj.numberProperty).toBe(12);
-```
+    // THEN
+    expect(obj.stringProperty).toBe('Hello');
+    expect(obj.numberProperty).toBe(12);
+    ```
 
 <a id="instanceMethodsCanBeCalled"></a>
 
@@ -280,63 +280,63 @@ The host MUST be able to invoke an instance method on an object reference by sen
 forwarding the arguments it was given. When a method mutates the object's state, that effect MUST be observable through
 subsequent property reads on the same reference. Each call MUST operate on the state left by the previous call.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
 
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
 
-export class Add extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-}
+    export class Add extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+    }
 
-export class Multiply extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-}
+    export class Multiply extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+    }
 
-export class Calculator {
-  public curr: NumericValue = new Number(0);
+    export class Calculator {
+      public curr: NumericValue = new Number(0);
 
-  public add(value: number) {
-    this.curr = new Add(this.curr, new Number(value));
-  }
-  public mul(value: number) {
-    this.curr = new Multiply(this.curr, new Number(value));
-  }
-  public get value() {
-    return this.curr.value;
-  }
-}
+      public add(value: number) {
+        this.curr = new Add(this.curr, new Number(value));
+      }
+      public mul(value: number) {
+        this.curr = new Multiply(this.curr, new Number(value));
+      }
+      public get value() {
+        return this.curr.value;
+      }
+    }
 
-// WHEN
-const calc = new Calculator();
-calc.add(10);
-const afterAdd = calc.value;
-calc.mul(2);
-const afterMul = calc.value;
+    // WHEN
+    const calc = new Calculator();
+    calc.add(10);
+    const afterAdd = calc.value;
+    calc.mul(2);
+    const afterMul = calc.value;
 
-// THEN
-expect(afterAdd).toBe(10);
-expect(afterMul).toBe(20);
-```
+    // THEN
+    expect(afterAdd).toBe(10);
+    expect(afterMul).toBe(20);
+    ```
 
 <a id="nonExportedClassReceivedAsInterface"></a>
 
@@ -348,36 +348,36 @@ When the kernel returns an instance of a class that is not exported from the lib
 host MUST receive a usable object reference and MUST be able to read the interface's properties on it. The host MUST NOT
 require the concrete (private) type to be known in order to use the value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IPrivatelyImplemented {
-  readonly success: boolean;
-}
+    ```ts
+    // GIVEN
+    export interface IPrivatelyImplemented {
+      readonly success: boolean;
+    }
 
-export class ExportedBaseClass {
-  public constructor(public readonly success: boolean) {}
-}
+    export class ExportedBaseClass {
+      public constructor(public readonly success: boolean) {}
+    }
 
-class PrivateImplementation extends ExportedBaseClass implements IPrivatelyImplemented {
-  public constructor() {
-    super(true);
-  }
-}
+    class PrivateImplementation extends ExportedBaseClass implements IPrivatelyImplemented {
+      public constructor() {
+        super(true);
+      }
+    }
 
-export class ReturnsPrivateImplementationOfInterface {
-  public get privateImplementation(): IPrivatelyImplemented {
-    return new PrivateImplementation();
-  }
-}
+    export class ReturnsPrivateImplementationOfInterface {
+      public get privateImplementation(): IPrivatelyImplemented {
+        return new PrivateImplementation();
+      }
+    }
 
-// WHEN
-const impl = new ReturnsPrivateImplementationOfInterface().privateImplementation;
+    // WHEN
+    const impl = new ReturnsPrivateImplementationOfInterface().privateImplementation;
 
-// THEN
-expect(impl.success).toBe(true);
-```
+    // THEN
+    expect(impl.success).toBe(true);
+    ```
 
 <a id="objectLiteralReturnedAsClassIsUsable"></a>
 
@@ -388,31 +388,31 @@ expect(impl.success).toBe(true);
 When a kernel method returns a plain object literal whose declared return type is a class, the host MUST receive a usable
 object reference and MUST be able to read the class's declared properties, returning the values present in the literal.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class JSObjectLiteralToNative {
-  public returnLiteral(): JSObjectLiteralToNativeClass {
-    return {
-      propA: 'Hello',
-      propB: 102,
-    };
-  }
-}
+    ```ts
+    // GIVEN
+    export class JSObjectLiteralToNative {
+      public returnLiteral(): JSObjectLiteralToNativeClass {
+        return {
+          propA: 'Hello',
+          propB: 102,
+        };
+      }
+    }
 
-export class JSObjectLiteralToNativeClass {
-  public propA = 'A';
-  public propB = 0;
-}
+    export class JSObjectLiteralToNativeClass {
+      public propA = 'A';
+      public propB = 0;
+    }
 
-// WHEN
-const obj = new JSObjectLiteralToNative().returnLiteral();
+    // WHEN
+    const obj = new JSObjectLiteralToNative().returnLiteral();
 
-// THEN
-expect(obj.propA).toBe('Hello');
-expect(obj.propB).toBe(102);
-```
+    // THEN
+    expect(obj.propA).toBe('Hello');
+    expect(obj.propB).toBe(102);
+    ```
 
 <a id="objectPropertiesCanBeReadAndAssigned"></a>
 
@@ -425,53 +425,53 @@ and MUST be able to assign such a property by sending an object reference back t
 obtained from a previous read MUST remain usable as an argument in a later request, and the kernel MUST resolve it to the
 same underlying object. The effect of the assignment MUST be observable through later reads.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
 
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
 
-export class Multiply extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-}
+    export class Multiply extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+    }
 
-export class Calculator {
-  public curr: NumericValue = new Number(0);
+    export class Calculator {
+      public curr: NumericValue = new Number(0);
 
-  public add(value: number) {
-    this.curr = new Number(this.curr.value + value);
-  }
-  public neg() {
-    this.curr = new Number(-this.curr.value);
-  }
-  public get value() {
-    return this.curr.value;
-  }
-}
+      public add(value: number) {
+        this.curr = new Number(this.curr.value + value);
+      }
+      public neg() {
+        this.curr = new Number(-this.curr.value);
+      }
+      public get value() {
+        return this.curr.value;
+      }
+    }
 
-// WHEN
-const calc = new Calculator();
-calc.add(3200000);
-calc.neg();
-const previous = calc.curr; // an object reference read from the kernel
-calc.curr = new Multiply(new Number(2), previous); // sent back as an argument
+    // WHEN
+    const calc = new Calculator();
+    calc.add(3200000);
+    calc.neg();
+    const previous = calc.curr; // an object reference read from the kernel
+    calc.curr = new Multiply(new Number(2), previous); // sent back as an argument
 
-// THEN
-expect(calc.value).toBe(-6400000);
-```
+    // THEN
+    expect(calc.value).toBe(-6400000);
+    ```
 
 <a id="objectReferencesRoundTripThroughAny"></a>
 
@@ -485,53 +485,53 @@ kernel type. For an object the host created (an instance of a host subclass), th
 reference, and the host MUST resolve it back to the very instance it created, so object identity is preserved across the
 boundary.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
-export class Add extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-}
-export class AllTypes {
-  public anyProperty: any;
-}
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
+    export class Add extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+    }
+    export class AllTypes {
+      public anyProperty: any;
+    }
 
-// WHEN
-const types = new AllTypes();
+    // WHEN
+    const types = new AllTypes();
 
-// An object created in the kernel keeps its kernel type.
-const kernelObject = new Number(44);
-types.anyProperty = kernelObject;
-const roundTrippedKernelObject = types.anyProperty;
+    // An object created in the kernel keeps its kernel type.
+    const kernelObject = new Number(44);
+    types.anyProperty = kernelObject;
+    const roundTrippedKernelObject = types.anyProperty;
 
-// An object created by the host comes back as the same host instance.
-class AddTen extends Add {
-  public constructor(value: number) {
-    super(new Number(value), new Number(10));
-  }
-}
-const hostObject = new AddTen(10);
-types.anyProperty = hostObject;
-const roundTrippedHostObject = types.anyProperty;
+    // An object created by the host comes back as the same host instance.
+    class AddTen extends Add {
+      public constructor(value: number) {
+        super(new Number(value), new Number(10));
+      }
+    }
+    const hostObject = new AddTen(10);
+    types.anyProperty = hostObject;
+    const roundTrippedHostObject = types.anyProperty;
 
-// THEN
-expect(roundTrippedKernelObject).toBeInstanceOf(Number);
-expect(roundTrippedKernelObject).toBe(kernelObject);
-expect(roundTrippedHostObject).toBe(hostObject);
-```
+    // THEN
+    expect(roundTrippedKernelObject).toBeInstanceOf(Number);
+    expect(roundTrippedKernelObject).toBe(kernelObject);
+    expect(roundTrippedHostObject).toBe(hostObject);
+    ```
 
 <a id="objectsReceivedAsMostDerivedPublicType"></a>
 
@@ -544,49 +544,49 @@ _public_ type in that object's ancestry. The host MUST represent the reference u
 private class extends a public class MUST be usable as that public class, not merely as its root ancestor. When the value
 is declared as an interface, the host MUST receive it typed as that interface.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class PublicClass {
-  public hello(): void {
-    return;
-  }
-}
-export interface IPublicInterface {
-  bye(): string;
-}
-export interface IPublicInterface2 {
-  ciao(): string;
-}
-export class InbetweenClass extends PublicClass implements IPublicInterface2 {
-  public ciao(): string {
-    return 'ciao';
-  }
-}
-class PrivateClass extends InbetweenClass implements IPublicInterface {
-  public bye(): string {
-    return 'bye';
-  }
-}
+    ```ts
+    // GIVEN
+    export class PublicClass {
+      public hello(): void {
+        return;
+      }
+    }
+    export interface IPublicInterface {
+      bye(): string;
+    }
+    export interface IPublicInterface2 {
+      ciao(): string;
+    }
+    export class InbetweenClass extends PublicClass implements IPublicInterface2 {
+      public ciao(): string {
+        return 'ciao';
+      }
+    }
+    class PrivateClass extends InbetweenClass implements IPublicInterface {
+      public bye(): string {
+        return 'bye';
+      }
+    }
 
-export class Constructors {
-  public static makeClass(): PublicClass {
-    return new PrivateClass(); // Wire type should be InbetweenClass
-  }
-  public static makeInterface(): IPublicInterface {
-    return new PrivateClass(); // Wire type should be IPublicInterface
-  }
-}
+    export class Constructors {
+      public static makeClass(): PublicClass {
+        return new PrivateClass(); // Wire type should be InbetweenClass
+      }
+      public static makeInterface(): IPublicInterface {
+        return new PrivateClass(); // Wire type should be IPublicInterface
+      }
+    }
 
-// WHEN
-const classRef = Constructors.makeClass();
-const ifaceRef = Constructors.makeInterface();
+    // WHEN
+    const classRef = Constructors.makeClass();
+    const ifaceRef = Constructors.makeInterface();
 
-// THEN
-expect(classRef).toBeInstanceOf(InbetweenClass);
-expect(ifaceRef).toBeDefined();
-```
+    // THEN
+    expect(classRef).toBeInstanceOf(InbetweenClass);
+    expect(ifaceRef).toBeDefined();
+    ```
 
 <a id="objectsReturnedAsAbstractTypeAreUsable"></a>
 
@@ -599,61 +599,61 @@ be able to invoke its abstract methods, invoke its concrete (non-abstract) metho
 an interface. A property declared to return an abstract type MUST also yield a usable reference, even when the kernel
 backs it with a plain object rather than a class instance.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IInterfaceImplementedByAbstractClass {
-  readonly propFromInterface: string;
-}
+    ```ts
+    // GIVEN
+    export interface IInterfaceImplementedByAbstractClass {
+      readonly propFromInterface: string;
+    }
 
-export abstract class AbstractClassBase {
-  public abstract readonly abstractProperty: string;
-}
+    export abstract class AbstractClassBase {
+      public abstract readonly abstractProperty: string;
+    }
 
-export abstract class AbstractClass extends AbstractClassBase implements IInterfaceImplementedByAbstractClass {
-  public nonAbstractMethod() {
-    return 42;
-  }
-  public abstract abstractMethod(name: string): string;
-  public get propFromInterface() {
-    return 'propFromInterfaceValue';
-  }
-}
+    export abstract class AbstractClass extends AbstractClassBase implements IInterfaceImplementedByAbstractClass {
+      public nonAbstractMethod() {
+        return 42;
+      }
+      public abstract abstractMethod(name: string): string;
+      public get propFromInterface() {
+        return 'propFromInterfaceValue';
+      }
+    }
 
-class ConcreteClass extends AbstractClass {
-  public abstractMethod(name: string) {
-    return `Hello, ${name}!!`;
-  }
-  public get abstractProperty() {
-    return 'Hello, dude!';
-  }
-}
+    class ConcreteClass extends AbstractClass {
+      public abstractMethod(name: string) {
+        return `Hello, ${name}!!`;
+      }
+      public get abstractProperty() {
+        return 'Hello, dude!';
+      }
+    }
 
-export class AbstractClassReturner {
-  public giveMeAbstract(): AbstractClass {
-    return new ConcreteClass();
-  }
-  public giveMeInterface(): IInterfaceImplementedByAbstractClass {
-    return new ConcreteClass();
-  }
-  public get returnAbstractFromProperty(): AbstractClassBase {
-    return { abstractProperty: 'hello-abstract-property' };
-  }
-}
+    export class AbstractClassReturner {
+      public giveMeAbstract(): AbstractClass {
+        return new ConcreteClass();
+      }
+      public giveMeInterface(): IInterfaceImplementedByAbstractClass {
+        return new ConcreteClass();
+      }
+      public get returnAbstractFromProperty(): AbstractClassBase {
+        return { abstractProperty: 'hello-abstract-property' };
+      }
+    }
 
-// WHEN
-const obj = new AbstractClassReturner();
-const abstractInstance = obj.giveMeAbstract();
-const iface = obj.giveMeInterface();
+    // WHEN
+    const obj = new AbstractClassReturner();
+    const abstractInstance = obj.giveMeAbstract();
+    const iface = obj.giveMeInterface();
 
-// THEN
-expect(abstractInstance.abstractMethod('John')).toBe('Hello, John!!');
-expect(abstractInstance.propFromInterface).toBe('propFromInterfaceValue');
-expect(abstractInstance.nonAbstractMethod()).toBe(42);
-expect(iface.propFromInterface).toBe('propFromInterfaceValue');
-expect(obj.returnAbstractFromProperty.abstractProperty).toBe('hello-abstract-property');
-```
+    // THEN
+    expect(abstractInstance.abstractMethod('John')).toBe('Hello, John!!');
+    expect(abstractInstance.propFromInterface).toBe('propFromInterfaceValue');
+    expect(abstractInstance.nonAbstractMethod()).toBe(42);
+    expect(iface.propFromInterface).toBe('propFromInterfaceValue');
+    expect(obj.returnAbstractFromProperty.abstractProperty).toBe('hello-abstract-property');
+    ```
 
 <a id="objectsUsableThroughImplementedInterface"></a>
 
@@ -666,40 +666,40 @@ implements, by reading the interface's members with the corresponding `get` or `
 MUST be the ones computed by the object. This MUST hold when the concrete class is defined privately inside the kernel
 and is never exported, and when the declared return type is the interface itself as well as when it is `any`.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IReturnJsii976 {
-  readonly foo: number;
-}
-
-export class BaseJsii976 {}
-
-export class SomeTypeJsii976 {
-  public static returnReturn(): IReturnJsii976 {
-    class Derived extends BaseJsii976 implements IReturnJsii976 {
-      public readonly foo = 333;
+    ```ts
+    // GIVEN
+    export interface IReturnJsii976 {
+      readonly foo: number;
     }
-    return new Derived();
-  }
 
-  public static returnAnonymous(): any {
-    class Derived implements IReturnJsii976 {
-      public readonly foo = 1337;
+    export class BaseJsii976 {}
+
+    export class SomeTypeJsii976 {
+      public static returnReturn(): IReturnJsii976 {
+        class Derived extends BaseJsii976 implements IReturnJsii976 {
+          public readonly foo = 333;
+        }
+        return new Derived();
+      }
+
+      public static returnAnonymous(): any {
+        class Derived implements IReturnJsii976 {
+          public readonly foo = 1337;
+        }
+        return new Derived();
+      }
     }
-    return new Derived();
-  }
-}
 
-// WHEN
-const declaredAsInterface = SomeTypeJsii976.returnReturn();
-const declaredAsAny: IReturnJsii976 = SomeTypeJsii976.returnAnonymous();
+    // WHEN
+    const declaredAsInterface = SomeTypeJsii976.returnReturn();
+    const declaredAsAny: IReturnJsii976 = SomeTypeJsii976.returnAnonymous();
 
-// THEN
-expect(declaredAsInterface.foo).toBe(333);
-expect(declaredAsAny.foo).toBe(1337);
-```
+    // THEN
+    expect(declaredAsInterface.foo).toBe(333);
+    expect(declaredAsAny.foo).toBe(1337);
+    ```
 
 <a id="optionalConstructorParametersCanBeOmitted"></a>
 
@@ -712,31 +712,31 @@ constructor parameter is optional, the host MAY omit it and send no argument for
 the parameter's default. The host MAY instead provide the optional argument, which the kernel MUST use in place of the
 default. Both forms MUST yield a usable object reference.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface CalculatorProps {
-  readonly initialValue?: number;
-  readonly maximumValue?: number;
-}
+    ```ts
+    // GIVEN
+    export interface CalculatorProps {
+      readonly initialValue?: number;
+      readonly maximumValue?: number;
+    }
 
-export class Calculator {
-  public maxValue?: number;
+    export class Calculator {
+      public maxValue?: number;
 
-  public constructor(props?: CalculatorProps) {
-    this.maxValue = props?.maximumValue;
-  }
-}
+      public constructor(props?: CalculatorProps) {
+        this.maxValue = props?.maximumValue;
+      }
+    }
 
-// WHEN
-const withoutProps = new Calculator();
-const withProps = new Calculator({ maximumValue: 10 });
+    // WHEN
+    const withoutProps = new Calculator();
+    const withProps = new Calculator({ maximumValue: 10 });
 
-// THEN
-expect(withoutProps).toBeInstanceOf(Calculator);
-expect(withProps.maxValue).toBe(10);
-```
+    // THEN
+    expect(withoutProps).toBeInstanceOf(Calculator);
+    expect(withProps.maxValue).toBe(10);
+    ```
 
 <a id="privateConstructorClassFromStaticFactory"></a>
 
@@ -749,31 +749,31 @@ obtain instances through the class's static factory method, invoked as a static 
 reference, the host MUST be able to read a read-only property and MUST be able to both read and assign a read-write
 property.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithPrivateConstructorAndAutomaticProperties {
-  public static create(readOnlyString: string, readWriteString: string) {
-    return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
-  }
+    ```ts
+    // GIVEN
+    export class ClassWithPrivateConstructorAndAutomaticProperties {
+      public static create(readOnlyString: string, readWriteString: string) {
+        return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
+      }
 
-  private constructor(
-    public readonly readOnlyString: string,
-    public readWriteString: string,
-  ) {}
-}
+      private constructor(
+        public readonly readOnlyString: string,
+        public readWriteString: string,
+      ) {}
+    }
 
-// WHEN
-const obj = ClassWithPrivateConstructorAndAutomaticProperties.create('Hello', 'Bye');
-const initialReadWrite = obj.readWriteString;
-obj.readWriteString = 'Hello';
+    // WHEN
+    const obj = ClassWithPrivateConstructorAndAutomaticProperties.create('Hello', 'Bye');
+    const initialReadWrite = obj.readWriteString;
+    obj.readWriteString = 'Hello';
 
-// THEN
-expect(initialReadWrite).toBe('Bye');
-expect(obj.readOnlyString).toBe('Hello');
-expect(obj.readWriteString).toBe('Hello');
-```
+    // THEN
+    expect(initialReadWrite).toBe('Bye');
+    expect(obj.readOnlyString).toBe('Hello');
+    expect(obj.readWriteString).toBe('Hello');
+    ```
 
 <a id="strippedDeprecatedTypeCanBeReceived"></a>
 
@@ -786,39 +786,39 @@ information (for example because deprecated members were stripped from the type 
 usable object reference typed as the declared interface. The host MUST NOT fail merely because the concrete type is not
 present in its loaded type information.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IInterface {
-  method(): void;
-}
+    ```ts
+    // GIVEN
+    export interface IInterface {
+      method(): void;
+    }
 
-export class VisibleBaseClass {
-  public readonly propertyPresent = true;
-}
+    export class VisibleBaseClass {
+      public readonly propertyPresent = true;
+    }
 
-/** @deprecated do not use me! */
-export class DeprecatedImplementation extends VisibleBaseClass implements IInterface {
-  public method(): void {
-    /* NOOP */
-  }
-}
+    /** @deprecated do not use me! */
+    export class DeprecatedImplementation extends VisibleBaseClass implements IInterface {
+      public method(): void {
+        /* NOOP */
+      }
+    }
 
-export class InterfaceFactory {
-  public static create(): IInterface {
-    return new DeprecatedImplementation();
-  }
+    export class InterfaceFactory {
+      public static create(): IInterface {
+        return new DeprecatedImplementation();
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const instance = InterfaceFactory.create();
+    // WHEN
+    const instance = InterfaceFactory.create();
 
-// THEN
-expect(instance).toBeDefined();
-```
+    // THEN
+    expect(instance).toBeDefined();
+    ```
 
 <a id="typesNotLoadedByTheHostCanBeReceived"></a>
 
@@ -831,41 +831,41 @@ MUST still receive a usable reference and MUST be able to invoke the declared me
 such a reference is delivered to a host callback as an argument during an override, with its type belonging to a module
 the host never imported.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IRandomNumberGenerator {
-  next(): number;
-}
-
-/** `UnimportedType` lives in a submodule the host never explicitly loads. */
-class UnimportedType implements IRandomNumberGenerator {
-  public constructor(private readonly n: number) {}
-  public next() {
-    return this.n;
-  }
-}
-
-export abstract class Cdk16625 {
-  protected abstract unwrap(gen: IRandomNumberGenerator): number;
-
-  public test(): void {
-    const value = 1337;
-    const rng = new UnimportedType(value);
-    if (this.unwrap(rng) !== value) {
-      throw new Error('unexpected value');
+    ```ts
+    // GIVEN
+    export interface IRandomNumberGenerator {
+      next(): number;
     }
-  }
-}
 
-// WHEN
-class Subject extends Cdk16625 {
-  protected unwrap(gen: IRandomNumberGenerator): number {
-    return gen.next();
-  }
-}
+    /** `UnimportedType` lives in a submodule the host never explicitly loads. */
+    class UnimportedType implements IRandomNumberGenerator {
+      public constructor(private readonly n: number) {}
+      public next() {
+        return this.n;
+      }
+    }
 
-// THEN
-expect(() => new Subject().test()).not.toThrow();
-```
+    export abstract class Cdk16625 {
+      protected abstract unwrap(gen: IRandomNumberGenerator): number;
+
+      public test(): void {
+        const value = 1337;
+        const rng = new UnimportedType(value);
+        if (this.unwrap(rng) !== value) {
+          throw new Error('unexpected value');
+        }
+      }
+    }
+
+    // WHEN
+    class Subject extends Cdk16625 {
+      protected unwrap(gen: IRandomNumberGenerator): number {
+        return gen.next();
+      }
+    }
+
+    // THEN
+    expect(() => new Subject().test()).not.toThrow();
+    ```

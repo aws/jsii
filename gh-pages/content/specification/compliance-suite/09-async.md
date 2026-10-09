@@ -15,41 +15,41 @@ the instance that awaits the overridden one MUST cause the kernel to call back i
 the host returns MUST be used as the awaited result. A method the host adds that does not override any base member MUST
 NOT be registered as an override, but the host MAY still call it from within its override.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe() {
-    return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
-  }
-  public async overrideMe(mult: number) {
-    return Promise.resolve(12 * mult);
-  }
-  public async overrideMeToo() {
-    return Promise.resolve(0);
-  }
-  public dontOverrideMe() {
-    return 8;
-  }
-}
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe() {
+        return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
+      }
+      public async overrideMe(mult: number) {
+        return Promise.resolve(12 * mult);
+      }
+      public async overrideMeToo() {
+        return Promise.resolve(0);
+      }
+      public dontOverrideMe() {
+        return 8;
+      }
+    }
 
-// WHEN
-class OverrideAsyncMethods extends AsyncVirtualMethods {
-  public async overrideMe(_mult: number) {
-    return this.foo() * 2;
-  }
-  // Does not override any base member.
-  public foo() {
-    return 2222;
-  }
-}
+    // WHEN
+    class OverrideAsyncMethods extends AsyncVirtualMethods {
+      public async overrideMe(_mult: number) {
+        return this.foo() * 2;
+      }
+      // Does not override any base member.
+      public foo() {
+        return 2222;
+      }
+    }
 
-const obj = new OverrideAsyncMethods();
+    const obj = new OverrideAsyncMethods();
 
-// THEN
-expect(await obj.callMe()).toBe(4452);
-```
+    // THEN
+    expect(await obj.callMe()).toBe(4452);
+    ```
 
 <a id="asyncMethodReturningNothing"></a>
 
@@ -62,24 +62,24 @@ when it is an instance method. In each case the host MUST issue the invocation a
 the static method, `begin` for the instance method), drive it to completion, and observe successful completion with no
 value returned.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class PromiseNothing {
-  public static async promiseIt(): Promise<void> {
-    return Promise.resolve();
-  }
+    ```ts
+    // GIVEN
+    export class PromiseNothing {
+      public static async promiseIt(): Promise<void> {
+        return Promise.resolve();
+      }
 
-  public async instancePromiseIt(): Promise<void> {
-    return PromiseNothing.promiseIt();
-  }
-}
+      public async instancePromiseIt(): Promise<void> {
+        return PromiseNothing.promiseIt();
+      }
+    }
 
-// WHEN / THEN
-await expect(new PromiseNothing().instancePromiseIt()).resolves.toBeUndefined();
-await expect(PromiseNothing.promiseIt()).resolves.toBeUndefined();
-```
+    // WHEN / THEN
+    await expect(new PromiseNothing().instancePromiseIt()).resolves.toBeUndefined();
+    await expect(PromiseNothing.promiseIt()).resolves.toBeUndefined();
+    ```
 
 <a id="asyncMethodsCanBeCalled"></a>
 
@@ -92,32 +92,32 @@ as an asynchronous (begin) request, allow the kernel to run its pending callback
 collect the resolved value, which it MUST return to the caller. This applies both to a method that internally awaits
 other asynchronous methods and to an asynchronous method invoked directly.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe() {
-    return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
-  }
-  public async overrideMe(mult: number) {
-    return Promise.resolve(12 * mult);
-  }
-  public async overrideMeToo() {
-    return Promise.resolve(0);
-  }
-  public dontOverrideMe() {
-    return 8;
-  }
-}
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe() {
+        return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
+      }
+      public async overrideMe(mult: number) {
+        return Promise.resolve(12 * mult);
+      }
+      public async overrideMeToo() {
+        return Promise.resolve(0);
+      }
+      public dontOverrideMe() {
+        return 8;
+      }
+    }
 
-// WHEN
-const obj = new AsyncVirtualMethods();
+    // WHEN
+    const obj = new AsyncVirtualMethods();
 
-// THEN
-expect(await obj.callMe()).toBe(128);
-expect(await obj.overrideMe(44)).toBe(528);
-```
+    // THEN
+    expect(await obj.callMe()).toBe(128);
+    expect(await obj.overrideMe(44)).toBe(528);
+    ```
 
 <a id="asyncOverrideCanBeInherited"></a>
 
@@ -129,43 +129,43 @@ When the host instantiates a class that inherits an asynchronous-method override
 classes, that override MUST still be registered with the kernel. Invoking a method that awaits the overridden method MUST
 cause the kernel to call back into the inherited host implementation.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe() {
-    return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
-  }
-  public async overrideMe(mult: number) {
-    return Promise.resolve(12 * mult);
-  }
-  public async overrideMeToo() {
-    return Promise.resolve(0);
-  }
-  public dontOverrideMe() {
-    return 8;
-  }
-}
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe() {
+        return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
+      }
+      public async overrideMe(mult: number) {
+        return Promise.resolve(12 * mult);
+      }
+      public async overrideMeToo() {
+        return Promise.resolve(0);
+      }
+      public dontOverrideMe() {
+        return 8;
+      }
+    }
 
-// WHEN
-class OverrideAsyncMethods extends AsyncVirtualMethods {
-  public async overrideMe(_mult: number) {
-    return this.foo() * 2;
-  }
-  public foo() {
-    return 2222;
-  }
-}
+    // WHEN
+    class OverrideAsyncMethods extends AsyncVirtualMethods {
+      public async overrideMe(_mult: number) {
+        return this.foo() * 2;
+      }
+      public foo() {
+        return 2222;
+      }
+    }
 
-// The override is inherited, not declared directly on the instantiated class.
-class OverrideAsyncMethodsByBaseClass extends OverrideAsyncMethods {}
+    // The override is inherited, not declared directly on the instantiated class.
+    class OverrideAsyncMethodsByBaseClass extends OverrideAsyncMethods {}
 
-const obj = new OverrideAsyncMethodsByBaseClass();
+    const obj = new OverrideAsyncMethodsByBaseClass();
 
-// THEN
-expect(await obj.callMe()).toBe(4452);
-```
+    // THEN
+    expect(await obj.callMe()).toBe(4452);
+    ```
 
 <a id="asyncOverrideCanCallSuper"></a>
 
@@ -177,39 +177,39 @@ When a host override of a promise-returning method invokes the base class implem
 back into the kernel to run the original method and MUST receive its resolved value. The override MAY combine that value
 with its own logic, and the combined result MUST be used as the method's result.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe() {
-    return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
-  }
-  public async overrideMe(mult: number) {
-    return Promise.resolve(12 * mult);
-  }
-  public async overrideMeToo() {
-    return Promise.resolve(0);
-  }
-  public dontOverrideMe() {
-    return 8;
-  }
-}
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe() {
+        return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
+      }
+      public async overrideMe(mult: number) {
+        return Promise.resolve(12 * mult);
+      }
+      public async overrideMeToo() {
+        return Promise.resolve(0);
+      }
+      public dontOverrideMe() {
+        return 8;
+      }
+    }
 
-// WHEN
-class OverrideCallsSuper extends AsyncVirtualMethods {
-  public async overrideMe(mult: number) {
-    const superValue = await super.overrideMe(mult);
-    return superValue * 10 + 1;
-  }
-}
+    // WHEN
+    class OverrideCallsSuper extends AsyncVirtualMethods {
+      public async overrideMe(mult: number) {
+        const superValue = await super.overrideMe(mult);
+        return superValue * 10 + 1;
+      }
+    }
 
-const obj = new OverrideCallsSuper();
+    const obj = new OverrideCallsSuper();
 
-// THEN
-expect(await obj.overrideMe(12)).toBe(1441);
-expect(await obj.callMe()).toBe(1209);
-```
+    // THEN
+    expect(await obj.overrideMe(12)).toBe(1441);
+    expect(await obj.callMe()).toBe(1209);
+    ```
 
 <a id="asyncOverrideErrorPropagates"></a>
 
@@ -221,37 +221,37 @@ When the kernel calls back into a host override of a promise-returning method an
 transport the failure to the kernel. The awaiting kernel method MUST then reject, and the host that invoked the
 asynchronous method MUST observe an error rather than a result. The original error's message MUST be preserved.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe() {
-    return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
-  }
-  public async overrideMe(mult: number) {
-    return Promise.resolve(12 * mult);
-  }
-  public async overrideMeToo() {
-    return Promise.resolve(0);
-  }
-  public dontOverrideMe() {
-    return 8;
-  }
-}
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe() {
+        return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
+      }
+      public async overrideMe(mult: number) {
+        return Promise.resolve(12 * mult);
+      }
+      public async overrideMeToo() {
+        return Promise.resolve(0);
+      }
+      public dontOverrideMe() {
+        return 8;
+      }
+    }
 
-// WHEN
-class Throwing extends AsyncVirtualMethods {
-  public async overrideMe(_mult: number): Promise<number> {
-    throw new Error('Thrown by native code');
-  }
-}
+    // WHEN
+    class Throwing extends AsyncVirtualMethods {
+      public async overrideMe(_mult: number): Promise<number> {
+        throw new Error('Thrown by native code');
+      }
+    }
 
-const obj = new Throwing();
+    const obj = new Throwing();
 
-// THEN
-await expect(obj.callMe()).rejects.toThrow('Thrown by native code');
-```
+    // THEN
+    await expect(obj.callMe()).rejects.toThrow('Thrown by native code');
+    ```
 
 <a id="multipleAsyncMethodsCanBeOverridden"></a>
 
@@ -263,40 +263,40 @@ When the host overrides more than one promise-returning method of a class, invok
 methods MUST cause the kernel to call back into each of the host's overrides, and MUST compose their resolved values into
 the final result.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe() {
-    return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
-  }
-  public async overrideMe(mult: number) {
-    return Promise.resolve(12 * mult);
-  }
-  public async overrideMeToo() {
-    return Promise.resolve(0);
-  }
-  public dontOverrideMe() {
-    return 8;
-  }
-}
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe() {
+        return (await this.overrideMe(10)) + this.dontOverrideMe() + (await this.overrideMeToo());
+      }
+      public async overrideMe(mult: number) {
+        return Promise.resolve(12 * mult);
+      }
+      public async overrideMeToo() {
+        return Promise.resolve(0);
+      }
+      public dontOverrideMe() {
+        return 8;
+      }
+    }
 
-// WHEN
-class TwoOverrides extends AsyncVirtualMethods {
-  public async overrideMe(_mult: number) {
-    return 666;
-  }
-  public async overrideMeToo() {
-    return 10;
-  }
-}
+    // WHEN
+    class TwoOverrides extends AsyncVirtualMethods {
+      public async overrideMe(_mult: number) {
+        return 666;
+      }
+      public async overrideMeToo() {
+        return 10;
+      }
+    }
 
-const obj = new TwoOverrides();
+    const obj = new TwoOverrides();
 
-// THEN
-expect(await obj.callMe()).toBe(684);
-```
+    // THEN
+    expect(await obj.callMe()).toBe(684);
+    ```
 
 <a id="staticAsyncMethodsCanBeCalled"></a>
 
@@ -309,21 +309,21 @@ call as a static asynchronous (`sbegin`) request with the method's arguments, al
 callbacks and promises to completion, and then collect the resolved value, which it MUST return to the caller with its
 declared type.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class StaticAsyncMethods {
-  public static async addOne(value: number): Promise<number> {
-    return Promise.resolve(value + 1);
-  }
+    ```ts
+    // GIVEN
+    export class StaticAsyncMethods {
+      public static async addOne(value: number): Promise<number> {
+        return Promise.resolve(value + 1);
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN / THEN
-expect(await StaticAsyncMethods.addOne(41)).toBe(42);
-```
+    // WHEN / THEN
+    expect(await StaticAsyncMethods.addOne(41)).toBe(42);
+    ```
 
 ### Kernel Trace
 

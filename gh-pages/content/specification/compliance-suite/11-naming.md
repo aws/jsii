@@ -14,35 +14,35 @@ A class property whose name is a reserved word in the host language MUST remain 
 deterministic, documented alternate name chosen by the binding. A method parameter whose name is a reserved word MUST
 likewise remain usable. Both MUST map to their original JavaScript names across the boundary.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithJavaReservedWords {
-  public readonly int: string;
+    ```ts
+    // GIVEN
+    export class ClassWithJavaReservedWords {
+      public readonly int: string;
 
-  public constructor(int: string) {
-    this.int = int;
-  }
+      public constructor(int: string) {
+        this.int = int;
+      }
 
-  public import(assert: string): string {
-    return this.int + assert;
-  }
-}
+      public import(assert: string): string {
+        return this.int + assert;
+      }
+    }
 
-export class JavaReservedWords {
-  public while = 'hello';
-}
+    export class JavaReservedWords {
+      public while = 'hello';
+    }
 
-// WHEN
-const obj = new ClassWithJavaReservedWords('one');
-const result = obj.import('two');
-const words = new JavaReservedWords();
+    // WHEN
+    const obj = new ClassWithJavaReservedWords('one');
+    const result = obj.import('two');
+    const words = new JavaReservedWords();
 
-// THEN
-expect(result).toBe('onetwo');
-expect(words.while).toBe('hello');
-```
+    // THEN
+    expect(result).toBe('onetwo');
+    expect(words.while).toBe('hello');
+    ```
 
 <a id="reservedWordMethodsAreCallable"></a>
 
@@ -54,27 +54,27 @@ A method whose name is a reserved word in the host language MUST remain callable
 documented alternate name chosen by the binding. Invoking it MUST call the original method in the kernel, identified by
 its original JavaScript name.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-// `JavaReservedWords` declares one method per word that is reserved in some host languages; a representative
-// subset is shown here.
-export class JavaReservedWords {
-  public import() {
-    return;
-  }
-  public const() {
-    return;
-  }
-}
+    ```ts
+    // GIVEN
+    // `JavaReservedWords` declares one method per word that is reserved in some host languages; a representative
+    // subset is shown here.
+    export class JavaReservedWords {
+      public import() {
+        return;
+      }
+      public const() {
+        return;
+      }
+    }
 
-// WHEN / THEN
-const obj = new JavaReservedWords();
+    // WHEN / THEN
+    const obj = new JavaReservedWords();
 
-expect(() => obj.import()).not.toThrow();
-expect(() => obj.const()).not.toThrow();
-```
+    expect(() => obj.import()).not.toThrow();
+    expect(() => obj.const()).not.toThrow();
+    ```
 
 <a id="reservedWordStructPropertiesAreUsable"></a>
 
@@ -86,19 +86,19 @@ A struct (data) property whose name is a reserved word in the host language MUST
 set it when creating the struct and read it back from the resulting value, under a deterministic, documented alternate
 name chosen by the binding. Each property MUST map to its original JavaScript name across the boundary.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructWithJavaReservedWords {
-  readonly default: string;
-  readonly assert?: string;
-}
+    ```ts
+    // GIVEN
+    export interface StructWithJavaReservedWords {
+      readonly default: string;
+      readonly assert?: string;
+    }
 
-// WHEN
-const struct: StructWithJavaReservedWords = { default: 'two', assert: 'one' };
+    // WHEN
+    const struct: StructWithJavaReservedWords = { default: 'two', assert: 'one' };
 
-// THEN
-expect(struct.assert).toBe('one');
-expect(struct.default).toBe('two');
-```
+    // THEN
+    expect(struct.assert).toBe('one');
+    expect(struct.default).toBe('two');
+    ```

@@ -18,38 +18,38 @@ more than one inheritance path (diamond inheritance). The host MUST expose each 
 duplication or ambiguity. When the host constructs the struct and passes it to the kernel, each property MUST be sent a
 single time with the assigned value, and reading the properties back MUST return those values.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface DiamondInheritanceBaseLevelStruct {
-  readonly baseLevelProperty: string;
-}
-export interface DiamondInheritanceFirstMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
-  readonly firstMidLevelProperty: string;
-}
-export interface DiamondInheritanceSecondMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
-  readonly secondMidLevelProperty: string;
-}
-export interface DiamondInheritanceTopLevelStruct
-  extends DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct {
-  readonly topLevelProperty: string;
-}
+    ```ts
+    // GIVEN
+    export interface DiamondInheritanceBaseLevelStruct {
+      readonly baseLevelProperty: string;
+    }
+    export interface DiamondInheritanceFirstMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
+      readonly firstMidLevelProperty: string;
+    }
+    export interface DiamondInheritanceSecondMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
+      readonly secondMidLevelProperty: string;
+    }
+    export interface DiamondInheritanceTopLevelStruct
+      extends DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct {
+      readonly topLevelProperty: string;
+    }
 
-// WHEN
-const struct: DiamondInheritanceTopLevelStruct = {
-  baseLevelProperty: 'base', // declared once, reached via both mid-level parents
-  firstMidLevelProperty: 'mid1',
-  secondMidLevelProperty: 'mid2',
-  topLevelProperty: 'top',
-};
+    // WHEN
+    const struct: DiamondInheritanceTopLevelStruct = {
+      baseLevelProperty: 'base', // declared once, reached via both mid-level parents
+      firstMidLevelProperty: 'mid1',
+      secondMidLevelProperty: 'mid2',
+      topLevelProperty: 'top',
+    };
 
-// THEN
-expect(struct.baseLevelProperty).toBe('base');
-expect(struct.firstMidLevelProperty).toBe('mid1');
-expect(struct.secondMidLevelProperty).toBe('mid2');
-expect(struct.topLevelProperty).toBe('top');
-```
+    // THEN
+    expect(struct.baseLevelProperty).toBe('base');
+    expect(struct.firstMidLevelProperty).toBe('mid1');
+    expect(struct.secondMidLevelProperty).toBe('mid2');
+    expect(struct.topLevelProperty).toBe('top');
+    ```
 
 <a id="incompleteStructIsRejected"></a>
 
@@ -62,23 +62,23 @@ property to be constructed and passed to the kernel. Attempting to construct suc
 error on the host, and the host MUST NOT send an incomplete struct across the boundary. In the kernel messages, this is
 observable as the absence of any message carrying the incomplete struct.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface MyFirstStruct {
-  readonly astring: string; // required
-  readonly anumber: number; // required
-  readonly firstOptional?: string[];
-}
+    ```ts
+    // GIVEN
+    export interface MyFirstStruct {
+      readonly astring: string; // required
+      readonly anumber: number; // required
+      readonly firstOptional?: string[];
+    }
 
-// WHEN / THEN
-// Omitting the required `astring` and `anumber` properties must be rejected.
-expect(() => {
-  const incomplete = {} as MyFirstStruct;
-  acceptStruct(incomplete);
-}).toThrow();
-```
+    // WHEN / THEN
+    // Omitting the required `astring` and `anumber` properties must be rejected.
+    expect(() => {
+      const incomplete = {} as MyFirstStruct;
+      acceptStruct(incomplete);
+    }).toThrow();
+    ```
 
 <a id="overlappingStructUnionsAreDisambiguated"></a>
 
@@ -92,68 +92,68 @@ and the kernel MUST determine which member of the union the value represents bas
 value built as one member of the union, a test for that member MUST report `true` and a test for any other member MUST
 report `false`, even when the members share one or more properties.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructA {
-  readonly requiredString: string;
-  readonly optionalString?: string;
-  readonly optionalNumber?: number;
-}
-// Intentionally overlaps with StructA (when only `requiredString` is provided) to test that the
-// kernel properly disambiguates them.
-export interface StructB {
-  readonly requiredString: string;
-  readonly optionalBoolean?: boolean;
-  readonly optionalStructA?: StructA;
-}
-
-export class StructUnionConsumer {
-  public static isStructA(struct: StructA | StructB): struct is StructA {
-    const keys = new Set(Object.keys(struct));
-    switch (keys.size) {
-      case 1:
-        return keys.has('requiredString');
-      case 2:
-        return keys.has('requiredString') && (keys.has('optionalNumber') || keys.has('optionalString'));
-      case 3:
-        return keys.has('requiredString') && keys.has('optionalNumber') && keys.has('optionalString');
-      default:
-        return false;
+    ```ts
+    // GIVEN
+    export interface StructA {
+      readonly requiredString: string;
+      readonly optionalString?: string;
+      readonly optionalNumber?: number;
     }
-  }
-  public static isStructB(struct: StructA | StructB): struct is StructB {
-    const keys = new Set(Object.keys(struct));
-    switch (keys.size) {
-      case 1:
-        return keys.has('requiredString');
-      case 2:
-        return keys.has('requiredString') && (keys.has('optionalBoolean') || keys.has('optionalStructA'));
-      default:
-        return false;
+    // Intentionally overlaps with StructA (when only `requiredString` is provided) to test that the
+    // kernel properly disambiguates them.
+    export interface StructB {
+      readonly requiredString: string;
+      readonly optionalBoolean?: boolean;
+      readonly optionalStructA?: StructA;
     }
-  }
-  private constructor() {}
-}
 
-// WHEN
-const a0: StructA = { requiredString: 'Present!', optionalString: 'Bazinga!' };
-const a1: StructA = { requiredString: 'Present!', optionalNumber: 1337 };
-const b0: StructB = { requiredString: 'Present!', optionalBoolean: true };
-const b1: StructB = { requiredString: 'Present!', optionalStructA: a1 };
+    export class StructUnionConsumer {
+      public static isStructA(struct: StructA | StructB): struct is StructA {
+        const keys = new Set(Object.keys(struct));
+        switch (keys.size) {
+          case 1:
+            return keys.has('requiredString');
+          case 2:
+            return keys.has('requiredString') && (keys.has('optionalNumber') || keys.has('optionalString'));
+          case 3:
+            return keys.has('requiredString') && keys.has('optionalNumber') && keys.has('optionalString');
+          default:
+            return false;
+        }
+      }
+      public static isStructB(struct: StructA | StructB): struct is StructB {
+        const keys = new Set(Object.keys(struct));
+        switch (keys.size) {
+          case 1:
+            return keys.has('requiredString');
+          case 2:
+            return keys.has('requiredString') && (keys.has('optionalBoolean') || keys.has('optionalStructA'));
+          default:
+            return false;
+        }
+      }
+      private constructor() {}
+    }
 
-// THEN
-expect(StructUnionConsumer.isStructA(a0)).toBe(true);
-expect(StructUnionConsumer.isStructA(a1)).toBe(true);
-expect(StructUnionConsumer.isStructA(b0)).toBe(false);
-expect(StructUnionConsumer.isStructA(b1)).toBe(false);
+    // WHEN
+    const a0: StructA = { requiredString: 'Present!', optionalString: 'Bazinga!' };
+    const a1: StructA = { requiredString: 'Present!', optionalNumber: 1337 };
+    const b0: StructB = { requiredString: 'Present!', optionalBoolean: true };
+    const b1: StructB = { requiredString: 'Present!', optionalStructA: a1 };
 
-expect(StructUnionConsumer.isStructB(a0)).toBe(false);
-expect(StructUnionConsumer.isStructB(a1)).toBe(false);
-expect(StructUnionConsumer.isStructB(b0)).toBe(true);
-expect(StructUnionConsumer.isStructB(b1)).toBe(true);
-```
+    // THEN
+    expect(StructUnionConsumer.isStructA(a0)).toBe(true);
+    expect(StructUnionConsumer.isStructA(a1)).toBe(true);
+    expect(StructUnionConsumer.isStructA(b0)).toBe(false);
+    expect(StructUnionConsumer.isStructA(b1)).toBe(false);
+
+    expect(StructUnionConsumer.isStructB(a0)).toBe(false);
+    expect(StructUnionConsumer.isStructB(a1)).toBe(false);
+    expect(StructUnionConsumer.isStructB(b0)).toBe(true);
+    expect(StructUnionConsumer.isStructB(b1)).toBe(true);
+    ```
 
 <a id="positionalArgumentAndStructPropertyWithSameName"></a>
 
@@ -167,34 +167,34 @@ potential collision. The host MUST keep the two values distinct: the positional 
 positional parameter, and the struct property value MUST be delivered inside the struct. The kernel MUST therefore
 receive the positional value in the positional slot and the struct, as plain data, in the trailing slot.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Bell {
-  public rung = false;
-  public ring() {
-    this.rung = true;
-  }
-}
+    ```ts
+    // GIVEN
+    export class Bell {
+      public rung = false;
+      public ring() {
+        this.rung = true;
+      }
+    }
 
-export interface StructParameterType {
-  readonly scope: string; // same name as the positional parameter below
-  readonly props?: boolean;
-}
+    export interface StructParameterType {
+      readonly scope: string; // same name as the positional parameter below
+      readonly props?: boolean;
+    }
 
-export class AmbiguousParameters {
-  public constructor(public readonly scope: Bell, public readonly props: StructParameterType) {}
-}
+    export class AmbiguousParameters {
+      public constructor(public readonly scope: Bell, public readonly props: StructParameterType) {}
+    }
 
-// WHEN
-const bell = new Bell();
-const amb = new AmbiguousParameters(bell, { scope: 'Driiiing!' });
+    // WHEN
+    const bell = new Bell();
+    const amb = new AmbiguousParameters(bell, { scope: 'Driiiing!' });
 
-// THEN
-expect(amb.scope).toBe(bell); // positional value, delivered by reference
-expect(amb.props).toEqual({ scope: 'Driiiing!' }); // struct property value
-```
+    // THEN
+    expect(amb.scope).toBe(bell); // positional value, delivered by reference
+    expect(amb.props).toEqual({ scope: 'Driiiing!' }); // struct property value
+    ```
 
 <a id="receivedStructEqualsHostBuiltStruct"></a>
 
@@ -207,35 +207,35 @@ same content. Reading corresponding properties MUST yield equal values, includin
 both sides. The received struct and the host-built struct MUST compare equal under the host's idiomatic value
 comparison, in both directions.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructWithOnlyOptionals {
-  readonly optional1?: string;
-  readonly optional2?: number;
-  readonly optional3?: boolean;
-}
+    ```ts
+    // GIVEN
+    export interface StructWithOnlyOptionals {
+      readonly optional1?: string;
+      readonly optional2?: number;
+      readonly optional3?: boolean;
+    }
 
-export class GiveMeStructs {
-  public get structLiteral(): StructWithOnlyOptionals {
-    return { optional1: 'optional1FromStructLiteral', optional3: false };
-  }
-}
+    export class GiveMeStructs {
+      public get structLiteral(): StructWithOnlyOptionals {
+        return { optional1: 'optional1FromStructLiteral', optional3: false };
+      }
+    }
 
-// WHEN
-const gms = new GiveMeStructs();
-const returnedLiteral = gms.structLiteral;
-const nativeBuilt: StructWithOnlyOptionals = { optional1: 'optional1FromStructLiteral', optional3: false };
+    // WHEN
+    const gms = new GiveMeStructs();
+    const returnedLiteral = gms.structLiteral;
+    const nativeBuilt: StructWithOnlyOptionals = { optional1: 'optional1FromStructLiteral', optional3: false };
 
-// THEN
-expect(returnedLiteral.optional1).toBe(nativeBuilt.optional1);
-expect(returnedLiteral.optional2).toBe(nativeBuilt.optional2); // both unset
-expect(returnedLiteral.optional3).toBe(nativeBuilt.optional3);
+    // THEN
+    expect(returnedLiteral.optional1).toBe(nativeBuilt.optional1);
+    expect(returnedLiteral.optional2).toBe(nativeBuilt.optional2); // both unset
+    expect(returnedLiteral.optional3).toBe(nativeBuilt.optional3);
 
-expect(returnedLiteral).toEqual(nativeBuilt); // value comparison, both directions
-expect(nativeBuilt).toEqual(returnedLiteral);
-```
+    expect(returnedLiteral).toEqual(nativeBuilt); // value comparison, both directions
+    expect(nativeBuilt).toEqual(returnedLiteral);
+    ```
 
 <a id="structReceivedAsParentStructType"></a>
 
@@ -248,37 +248,37 @@ extends another. The host MUST accept the value under each declared struct type,
 only a subset of the properties. Receiving the value MUST succeed in both cases, whether the declared type is the full
 (child) struct or the narrower (parent) struct.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface ParentStruct982 {
-  readonly foo: string;
-}
-export interface ChildStruct982 extends ParentStruct982 {
-  readonly bar: number;
-}
+    ```ts
+    // GIVEN
+    export interface ParentStruct982 {
+      readonly foo: string;
+    }
+    export interface ChildStruct982 extends ParentStruct982 {
+      readonly bar: number;
+    }
 
-export class Demonstrate982 {
-  // The same underlying value is handed out as a child and as a parent struct.
-  private static readonly value = { foo: 'foo', bar: 1337 };
+    export class Demonstrate982 {
+      // The same underlying value is handed out as a child and as a parent struct.
+      private static readonly value = { foo: 'foo', bar: 1337 };
 
-  public static takeThis(): ChildStruct982 {
-    return this.value;
-  }
-  public static takeThisToo(): ParentStruct982 {
-    return this.value;
-  }
-}
+      public static takeThis(): ChildStruct982 {
+        return this.value;
+      }
+      public static takeThisToo(): ParentStruct982 {
+        return this.value;
+      }
+    }
 
-// WHEN
-const asChild = Demonstrate982.takeThis();
-const asParent = Demonstrate982.takeThisToo();
+    // WHEN
+    const asChild = Demonstrate982.takeThis();
+    const asParent = Demonstrate982.takeThisToo();
 
-// THEN
-expect(asChild).toBeDefined();
-expect(asParent).toBeDefined();
-```
+    // THEN
+    expect(asChild).toBeDefined();
+    expect(asParent).toBeDefined();
+    ```
 
 <a id="structsArePassedByValue"></a>
 
@@ -292,72 +292,72 @@ that extends another struct MUST include the inherited properties when serialize
 reference MUST be passed by reference, so that the same instance is observed on both sides (identity is preserved). A
 struct value returned from the kernel MUST expose the property values that were set in JavaScript.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface MyFirstStruct {
-  readonly astring: string;
-  readonly anumber: number;
-  readonly firstOptional?: string[];
-}
+    ```ts
+    // GIVEN
+    export interface MyFirstStruct {
+      readonly astring: string;
+      readonly anumber: number;
+      readonly firstOptional?: string[];
+    }
 
-export interface DerivedStruct extends MyFirstStruct {
-  readonly nonPrimitive: DoubleTrouble;
-  readonly bool: boolean;
-  readonly anotherRequired: Date;
-}
+    export interface DerivedStruct extends MyFirstStruct {
+      readonly nonPrimitive: DoubleTrouble;
+      readonly bool: boolean;
+      readonly anotherRequired: Date;
+    }
 
-export interface StructWithOnlyOptionals {
-  readonly optional1?: string;
-  readonly optional2?: number;
-  readonly optional3?: boolean;
-}
+    export interface StructWithOnlyOptionals {
+      readonly optional1?: string;
+      readonly optional2?: number;
+      readonly optional3?: boolean;
+    }
 
-export class DoubleTrouble {
-  /* a jsii class, used here only to observe reference identity */
-}
+    export class DoubleTrouble {
+      /* a jsii class, used here only to observe reference identity */
+    }
 
-export class GiveMeStructs {
-  /** Returns the `anumber` from a MyFirstStruct struct. */
-  public readFirstNumber(first: MyFirstStruct) {
-    return first.anumber;
-  }
+    export class GiveMeStructs {
+      /** Returns the `anumber` from a MyFirstStruct struct. */
+      public readFirstNumber(first: MyFirstStruct) {
+        return first.anumber;
+      }
 
-  /** Returns the non-primitive member from a DerivedStruct struct. */
-  public readDerivedNonPrimitive(derived: DerivedStruct) {
-    return derived.nonPrimitive;
-  }
+      /** Returns the non-primitive member from a DerivedStruct struct. */
+      public readDerivedNonPrimitive(derived: DerivedStruct) {
+        return derived.nonPrimitive;
+      }
 
-  public get structLiteral(): StructWithOnlyOptionals {
-    return { optional1: 'optional1FromStructLiteral', optional3: false };
-  }
-}
+      public get structLiteral(): StructWithOnlyOptionals {
+        return { optional1: 'optional1FromStructLiteral', optional3: false };
+      }
+    }
 
-// WHEN
-const firstStruct: MyFirstStruct = { astring: 'FirstString', anumber: 999, firstOptional: ['First', 'Optional'] };
-const doubleTrouble = new DoubleTrouble();
-const derivedStruct: DerivedStruct = {
-  nonPrimitive: doubleTrouble,
-  bool: false,
-  anotherRequired: new Date(),
-  astring: 'String',
-  anumber: 1234,
-  firstOptional: ['one', 'two'],
-};
+    // WHEN
+    const firstStruct: MyFirstStruct = { astring: 'FirstString', anumber: 999, firstOptional: ['First', 'Optional'] };
+    const doubleTrouble = new DoubleTrouble();
+    const derivedStruct: DerivedStruct = {
+      nonPrimitive: doubleTrouble,
+      bool: false,
+      anotherRequired: new Date(),
+      astring: 'String',
+      anumber: 1234,
+      firstOptional: ['one', 'two'],
+    };
 
-const gms = new GiveMeStructs();
+    const gms = new GiveMeStructs();
 
-// THEN
-expect(gms.readFirstNumber(firstStruct)).toBe(999);
-expect(gms.readFirstNumber(derivedStruct)).toBe(1234); // inherited property is present
-expect(gms.readDerivedNonPrimitive(derivedStruct)).toBe(doubleTrouble); // passed by reference (identity)
+    // THEN
+    expect(gms.readFirstNumber(firstStruct)).toBe(999);
+    expect(gms.readFirstNumber(derivedStruct)).toBe(1234); // inherited property is present
+    expect(gms.readDerivedNonPrimitive(derivedStruct)).toBe(doubleTrouble); // passed by reference (identity)
 
-const literal = gms.structLiteral;
-expect(literal.optional1).toBe('optional1FromStructLiteral');
-expect(literal.optional3).toBe(false);
-expect(literal.optional2).toBeUndefined();
-```
+    const literal = gms.structLiteral;
+    expect(literal.optional1).toBe('optional1FromStructLiteral');
+    expect(literal.optional3).toBe(false);
+    expect(literal.optional2).toBeUndefined();
+    ```
 
 <a id="structsAreSentAsPlainData"></a>
 
@@ -370,30 +370,30 @@ the struct's set properties and whose values are the serialized property values.
 wrapper, or other decoration identifying the struct type: a struct crosses the boundary as anonymous data, and the
 kernel infers the type from the receiving parameter.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructA {
-  readonly requiredString: string;
-  readonly optionalString?: string;
-  readonly optionalNumber?: number;
-}
-export interface StructB {
-  readonly requiredString: string;
-  readonly optionalBoolean?: boolean;
-  readonly optionalStructA?: StructA;
-}
+    ```ts
+    // GIVEN
+    export interface StructA {
+      readonly requiredString: string;
+      readonly optionalString?: string;
+      readonly optionalNumber?: number;
+    }
+    export interface StructB {
+      readonly requiredString: string;
+      readonly optionalBoolean?: boolean;
+      readonly optionalStructA?: StructA;
+    }
 
-// WHEN
-const value: StructB = { requiredString: 'Bazinga!', optionalBoolean: false };
+    // WHEN
+    const value: StructB = { requiredString: 'Bazinga!', optionalBoolean: false };
 
-// THEN
-// The data the host sends to the kernel for `value` is exactly its set properties,
-// carrying no type decoration.
-expect(value).toEqual({ requiredString: 'Bazinga!', optionalBoolean: false });
-expect(Object.keys(value).sort()).toEqual(['optionalBoolean', 'requiredString']);
-```
+    // THEN
+    // The data the host sends to the kernel for `value` is exactly its set properties,
+    // carrying no type decoration.
+    expect(value).toEqual({ requiredString: 'Bazinga!', optionalBoolean: false });
+    expect(Object.keys(value).sort()).toEqual(['optionalBoolean', 'requiredString']);
+    ```
 
 <a id="submoduleStructCanBePassed"></a>
 
@@ -405,27 +405,27 @@ A struct type may be declared inside a submodule (namespace) of an assembly, rat
 be able to construct a value of such a struct and pass it across the boundary to a kernel method, with the struct
 serialized by value exactly like a top-level struct.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-// Declared inside a submodule of a dependency assembly.
-export namespace submodule {
-  export interface NestedStruct {
-    readonly name: string;
-  }
-}
+    ```ts
+    // GIVEN
+    // Declared inside a submodule of a dependency assembly.
+    export namespace submodule {
+      export interface NestedStruct {
+        readonly name: string;
+      }
+    }
 
-export class StaticConsumer {
-  public static consume(...args: any[]) {
-    // Accepts any arguments, including structs, and ignores them.
-  }
-}
+    export class StaticConsumer {
+      public static consume(...args: any[]) {
+        // Accepts any arguments, including structs, and ignores them.
+      }
+    }
 
-// WHEN / THEN
-const nested: submodule.NestedStruct = { name: 'Bond, James Bond' };
-expect(() => StaticConsumer.consume(nested)).not.toThrow();
-```
+    // WHEN / THEN
+    const nested: submodule.NestedStruct = { name: 'Bond, James Bond' };
+    expect(() => StaticConsumer.consume(nested)).not.toThrow();
+    ```
 
 <a id="unionOfListAndObjectStructPropertyRoundTrips"></a>
 
@@ -438,40 +438,40 @@ passes such a struct to the kernel and receives it back, the property MUST hold 
 single object reference MUST be received as an object reference, and a list MUST be received as a list with the same
 elements. Object references MUST preserve their identity. A property the host did not set MUST be received as unset.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IFriendly {
-  hello(): string;
-}
+    ```ts
+    // GIVEN
+    export interface IFriendly {
+      hello(): string;
+    }
 
-export class Add extends BinaryOperation implements IFriendly {
-  /* ... */
-}
+    export class Add extends BinaryOperation implements IFriendly {
+      /* ... */
+    }
 
-export interface ConfusingToJacksonStruct {
-  readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
-}
+    export interface ConfusingToJacksonStruct {
+      readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+    }
 
-export class ConfusingToJackson {
-  public static roundTripStruct(input: ConfusingToJacksonStruct): ConfusingToJacksonStruct {
-    return { unionProperty: input.unionProperty };
-  }
-}
+    export class ConfusingToJackson {
+      public static roundTripStruct(input: ConfusingToJacksonStruct): ConfusingToJacksonStruct {
+        return { unionProperty: input.unionProperty };
+      }
+    }
 
-// WHEN
-const friendly = new Add(new Number(1), new Number(2));
-const single = ConfusingToJackson.roundTripStruct({ unionProperty: friendly });
-const list = ConfusingToJackson.roundTripStruct({ unionProperty: [friendly] });
-const unset = ConfusingToJackson.roundTripStruct({});
+    // WHEN
+    const friendly = new Add(new Number(1), new Number(2));
+    const single = ConfusingToJackson.roundTripStruct({ unionProperty: friendly });
+    const list = ConfusingToJackson.roundTripStruct({ unionProperty: [friendly] });
+    const unset = ConfusingToJackson.roundTripStruct({});
 
-// THEN
-expect(single.unionProperty).toBe(friendly);
-expect(list.unionProperty).toEqual([friendly]);
-expect((list.unionProperty as IFriendly[])[0]).toBe(friendly);
-expect(unset.unionProperty).toBeUndefined();
-```
+    // THEN
+    expect(single.unionProperty).toBe(friendly);
+    expect(list.unionProperty).toEqual([friendly]);
+    expect((list.unionProperty as IFriendly[])[0]).toBe(friendly);
+    expect(unset.unionProperty).toBeUndefined();
+    ```
 
 <a id="unionStructPropertyKeepsConcreteType"></a>
 
@@ -484,47 +484,47 @@ such a struct to the kernel and receives it back, the property MUST hold a value
 assigned: a struct value MUST be received as that struct type, with its properties, and a primitive value MUST be received
 as that primitive. Optional properties that the host did not set MUST be received as unset.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface SecondLevelStruct {
-  readonly deeperRequiredProp: string;
-  readonly deeperOptionalProp?: string;
-}
+    ```ts
+    // GIVEN
+    export interface SecondLevelStruct {
+      readonly deeperRequiredProp: string;
+      readonly deeperOptionalProp?: string;
+    }
 
-export interface TopLevelStruct {
-  readonly required: string;
-  readonly optional?: string;
-  readonly secondLevel: SecondLevelStruct | number;
-}
+    export interface TopLevelStruct {
+      readonly required: string;
+      readonly optional?: string;
+      readonly secondLevel: SecondLevelStruct | number;
+    }
 
-export class StructPassing {
-  public static roundTrip(_positional: number, input: TopLevelStruct): TopLevelStruct {
-    return {
-      required: input.required,
-      optional: input.optional,
-      secondLevel: input.secondLevel,
-    };
-  }
-}
+    export class StructPassing {
+      public static roundTrip(_positional: number, input: TopLevelStruct): TopLevelStruct {
+        return {
+          required: input.required,
+          optional: input.optional,
+          secondLevel: input.secondLevel,
+        };
+      }
+    }
 
-// WHEN
-const withStruct = StructPassing.roundTrip(123, {
-  required: 'hello',
-  secondLevel: { deeperRequiredProp: 'exists' },
-});
-const withNumber = StructPassing.roundTrip(123, { required: 'hello', secondLevel: 5 });
+    // WHEN
+    const withStruct = StructPassing.roundTrip(123, {
+      required: 'hello',
+      secondLevel: { deeperRequiredProp: 'exists' },
+    });
+    const withNumber = StructPassing.roundTrip(123, { required: 'hello', secondLevel: 5 });
 
-// THEN
-expect(withStruct.required).toBe('hello');
-expect(withStruct.optional).toBeUndefined();
-expect((withStruct.secondLevel as SecondLevelStruct).deeperRequiredProp).toBe('exists');
+    // THEN
+    expect(withStruct.required).toBe('hello');
+    expect(withStruct.optional).toBeUndefined();
+    expect((withStruct.secondLevel as SecondLevelStruct).deeperRequiredProp).toBe('exists');
 
-expect(withNumber.required).toBe('hello');
-expect(withNumber.optional).toBeUndefined();
-expect(withNumber.secondLevel).toBe(5);
-```
+    expect(withNumber.required).toBe('hello');
+    expect(withNumber.optional).toBeUndefined();
+    expect(withNumber.secondLevel).toBe(5);
+    ```
 
 <a id="unsetStructPropertiesAreOmitted"></a>
 
@@ -537,39 +537,39 @@ entirely from the data the kernel receives; the host MUST NOT send it with an ex
 membership test for an unset key MUST report that the key is absent. The same erasure MUST apply in the other direction:
 a map returned from the kernel MUST NOT contain keys whose value is unset.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface EraseUndefinedHashValuesOptions {
-  readonly option1?: string;
-  readonly option2?: string;
-}
+    ```ts
+    // GIVEN
+    export interface EraseUndefinedHashValuesOptions {
+      readonly option1?: string;
+      readonly option2?: string;
+    }
 
-export class EraseUndefinedHashValues {
-  /** Returns `true` if `key` is defined in `opts`. */
-  public static doesKeyExist(opts: EraseUndefinedHashValuesOptions, key: string): boolean {
-    return key in opts;
-  }
+    export class EraseUndefinedHashValues {
+      /** Returns `true` if `key` is defined in `opts`. */
+      public static doesKeyExist(opts: EraseUndefinedHashValuesOptions, key: string): boolean {
+        return key in opts;
+      }
 
-  /** `prop1` holds no value and is expected to be erased. */
-  public static prop1IsNull(): { [key: string]: any } {
-    return { prop1: undefined, prop2: 'value2' };
-  }
+      /** `prop1` holds no value and is expected to be erased. */
+      public static prop1IsNull(): { [key: string]: any } {
+        return { prop1: undefined, prop2: 'value2' };
+      }
 
-  /** `prop2` holds no value and is expected to be erased. */
-  public static prop2IsUndefined(): { [key: string]: any } {
-    return { prop1: 'value1', prop2: undefined };
-  }
-}
+      /** `prop2` holds no value and is expected to be erased. */
+      public static prop2IsUndefined(): { [key: string]: any } {
+        return { prop1: 'value1', prop2: undefined };
+      }
+    }
 
-// WHEN
-const opts: EraseUndefinedHashValuesOptions = { option1: 'option1' };
+    // WHEN
+    const opts: EraseUndefinedHashValuesOptions = { option1: 'option1' };
 
-// THEN
-expect(EraseUndefinedHashValues.doesKeyExist(opts, 'option1')).toBe(true);
-expect(EraseUndefinedHashValues.doesKeyExist(opts, 'option2')).toBe(false); // unset key is absent
+    // THEN
+    expect(EraseUndefinedHashValues.doesKeyExist(opts, 'option1')).toBe(true);
+    expect(EraseUndefinedHashValues.doesKeyExist(opts, 'option2')).toBe(false); // unset key is absent
 
-expect(EraseUndefinedHashValues.prop1IsNull()).toEqual({ prop2: 'value2' });
-expect(EraseUndefinedHashValues.prop2IsUndefined()).toEqual({ prop1: 'value1' });
-```
+    expect(EraseUndefinedHashValues.prop1IsNull()).toEqual({ prop2: 'value2' });
+    expect(EraseUndefinedHashValues.prop2IsUndefined()).toEqual({ prop1: 'value1' });
+    ```

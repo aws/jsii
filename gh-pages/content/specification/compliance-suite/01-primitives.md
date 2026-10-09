@@ -16,63 +16,63 @@ received as the host's list and map types, including when nested; and an object 
 property MUST be returned as the same reference, so the host can recover its concrete type. A plain object MUST NOT be
 auto-detected as a date, even when its contents resemble one.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AllTypes {
-  public anyProperty: any;
-  public anyArrayProperty: any[] = [];
-  public anyMapProperty: { [key: string]: any } = {};
-}
+    ```ts
+    // GIVEN
+    export class AllTypes {
+      public anyProperty: any;
+      public anyArrayProperty: any[] = [];
+      public anyMapProperty: { [key: string]: any } = {};
+    }
 
-export class Number {
-  public constructor(public readonly value: number) {}
-}
+    export class Number {
+      public constructor(public readonly value: number) {}
+    }
 
-export class Multiply {
-  public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-}
+    export class Multiply {
+      public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+    }
 
-// WHEN / THEN
-const types = new AllTypes();
+    // WHEN / THEN
+    const types = new AllTypes();
 
-types.anyProperty = false;
-expect(types.anyProperty).toBe(false);
+    types.anyProperty = false;
+    expect(types.anyProperty).toBe(false);
 
-types.anyProperty = 'String';
-expect(types.anyProperty).toBe('String');
+    types.anyProperty = 'String';
+    expect(types.anyProperty).toBe('String');
 
-types.anyProperty = 12;
-expect(types.anyProperty).toBe(12);
+    types.anyProperty = 12;
+    expect(types.anyProperty).toBe(12);
 
-types.anyProperty = new Date(1_234_000);
-expect(types.anyProperty).toEqual(new Date(1_234_000));
+    types.anyProperty = new Date(1_234_000);
+    expect(types.anyProperty).toEqual(new Date(1_234_000));
 
-// nested object/array structure is received as nested maps/lists
-types.anyProperty = { Goo: ['Hello', { World: 123 }] };
-expect(types.anyProperty.Goo[1].World).toBe(123);
+    // nested object/array structure is received as nested maps/lists
+    types.anyProperty = { Goo: ['Hello', { World: 123 }] };
+    expect(types.anyProperty.Goo[1].World).toBe(123);
 
-types.anyProperty = ['Hello', 'World'];
-expect(types.anyProperty[0]).toBe('Hello');
-expect(types.anyProperty[1]).toBe('World');
+    types.anyProperty = ['Hello', 'World'];
+    expect(types.anyProperty[0]).toBe('Hello');
+    expect(types.anyProperty[1]).toBe('World');
 
-types.anyArrayProperty = ['Hybrid', new Number(12), 123, false];
-expect(types.anyArrayProperty[2]).toBe(123);
+    types.anyArrayProperty = ['Hybrid', new Number(12), 123, false];
+    expect(types.anyArrayProperty[2]).toBe(123);
 
-types.anyMapProperty = { MapKey: 'MapValue' };
-expect(types.anyMapProperty.MapKey).toBe('MapValue');
+    types.anyMapProperty = { MapKey: 'MapValue' };
+    expect(types.anyMapProperty.MapKey).toBe('MapValue');
 
-// object references round-trip by reference, keeping their concrete type
-const mult = new Multiply(new Number(10), new Number(20));
-types.anyProperty = mult;
-expect(types.anyProperty).toBe(mult);
-expect(types.anyProperty instanceof Multiply).toBe(true);
-expect((types.anyProperty as Multiply).value).toBe(200);
-```
+    // object references round-trip by reference, keeping their concrete type
+    const mult = new Multiply(new Number(10), new Number(20));
+    types.anyProperty = mult;
+    expect(types.anyProperty).toBe(mult);
+    expect(types.anyProperty instanceof Multiply).toBe(true);
+    expect((types.anyProperty as Multiply).value).toBe(200);
+    ```
 
 <a id="datesRoundTrip"></a>
 
@@ -85,38 +85,38 @@ it is declared with a free-form (`any`) type. The host MUST send a date using th
 MUST deserialize it back into the host's date type, preserving the exact instant. A date MUST NOT be transmitted as a
 plain string or number.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AllTypes {
-  private dateValue = new Date();
-  public get dateProperty(): Date {
-    return this.dateValue;
-  }
-  public set dateProperty(value: Date) {
-    if (Object.prototype.toString.call(value) !== '[object Date]') {
-      throw new Error('not a date');
+    ```ts
+    // GIVEN
+    export class AllTypes {
+      private dateValue = new Date();
+      public get dateProperty(): Date {
+        return this.dateValue;
+      }
+      public set dateProperty(value: Date) {
+        if (Object.prototype.toString.call(value) !== '[object Date]') {
+          throw new Error('not a date');
+        }
+        this.dateValue = value;
+      }
+
+      public anyProperty: any;
     }
-    this.dateValue = value;
-  }
 
-  public anyProperty: any;
-}
+    // WHEN
+    const types = new AllTypes();
 
-// WHEN
-const types = new AllTypes();
+    // strongly-typed date property
+    types.dateProperty = new Date(123);
 
-// strongly-typed date property
-types.dateProperty = new Date(123);
+    // weakly-typed (any) property
+    types.anyProperty = new Date(999_000);
 
-// weakly-typed (any) property
-types.anyProperty = new Date(999_000);
-
-// THEN
-expect(types.dateProperty).toEqual(new Date(123));
-expect(types.anyProperty).toEqual(new Date(999_000));
-```
+    // THEN
+    expect(types.dateProperty).toEqual(new Date(123));
+    expect(types.anyProperty).toEqual(new Date(999_000));
+    ```
 
 <a id="hostNullIsSentAsUndefined"></a>
 
@@ -129,62 +129,62 @@ property, list element, or property assignment, that value MUST be transmitted t
 kernel's perspective the value MUST be strictly equal to `undefined`, and an optional struct key that was not given a
 value MUST be absent from the object entirely.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class NullShouldBeTreatedAsUndefined {
-  public changeMeToUndefined? = 'hello';
+    ```ts
+    // GIVEN
+    export class NullShouldBeTreatedAsUndefined {
+      public changeMeToUndefined? = 'hello';
 
-  public constructor(_param1: string, optional?: any) {
-    if (optional !== undefined) {
-      throw new Error('Expecting second constructor argument to be "undefined"');
+      public constructor(_param1: string, optional?: any) {
+        if (optional !== undefined) {
+          throw new Error('Expecting second constructor argument to be "undefined"');
+        }
+      }
+
+      public giveMeUndefined(value?: any) {
+        if (value !== undefined) {
+          throw new Error(`Expected undefined, got: ${JSON.stringify(value)}`);
+        }
+      }
+
+      public giveMeUndefinedInsideAnObject(input: NullShouldBeTreatedAsUndefinedData) {
+        if (input.thisShouldBeUndefined !== undefined) {
+          throw new Error('Expected "thisShouldBeUndefined" to be undefined');
+        }
+        const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        if (array.length !== 3 || array[1] !== undefined) {
+          throw new Error('Expected the middle array element to be undefined');
+        }
+      }
+
+      public verifyPropertyIsUndefined() {
+        if (this.changeMeToUndefined !== undefined) {
+          throw new Error('Expecting property "changeMeToUndefined" to be undefined');
+        }
+      }
     }
-  }
 
-  public giveMeUndefined(value?: any) {
-    if (value !== undefined) {
-      throw new Error(`Expected undefined, got: ${JSON.stringify(value)}`);
+    export interface NullShouldBeTreatedAsUndefinedData {
+      readonly thisShouldBeUndefined?: any;
+      readonly arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
     }
-  }
 
-  public giveMeUndefinedInsideAnObject(input: NullShouldBeTreatedAsUndefinedData) {
-    if (input.thisShouldBeUndefined !== undefined) {
-      throw new Error('Expected "thisShouldBeUndefined" to be undefined');
-    }
-    const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
-    if (array.length !== 3 || array[1] !== undefined) {
-      throw new Error('Expected the middle array element to be undefined');
-    }
-  }
+    // WHEN / THEN
+    // In the host, each `undefined` below is supplied as the host's own "no value" representation.
+    const obj = new NullShouldBeTreatedAsUndefined('hello', undefined);
 
-  public verifyPropertyIsUndefined() {
-    if (this.changeMeToUndefined !== undefined) {
-      throw new Error('Expecting property "changeMeToUndefined" to be undefined');
-    }
-  }
-}
+    expect(() => obj.giveMeUndefined(undefined)).not.toThrow();
+    expect(() =>
+      obj.giveMeUndefinedInsideAnObject({
+        thisShouldBeUndefined: undefined,
+        arrayWithThreeElementsAndUndefinedAsSecondArgument: ['hello', undefined, 'boom'],
+      }),
+    ).not.toThrow();
 
-export interface NullShouldBeTreatedAsUndefinedData {
-  readonly thisShouldBeUndefined?: any;
-  readonly arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
-}
-
-// WHEN / THEN
-// In the host, each `undefined` below is supplied as the host's own "no value" representation.
-const obj = new NullShouldBeTreatedAsUndefined('hello', undefined);
-
-expect(() => obj.giveMeUndefined(undefined)).not.toThrow();
-expect(() =>
-  obj.giveMeUndefinedInsideAnObject({
-    thisShouldBeUndefined: undefined,
-    arrayWithThreeElementsAndUndefinedAsSecondArgument: ['hello', undefined, 'boom'],
-  }),
-).not.toThrow();
-
-obj.changeMeToUndefined = undefined;
-expect(() => obj.verifyPropertyIsUndefined()).not.toThrow();
-```
+    obj.changeMeToUndefined = undefined;
+    expect(() => obj.verifyPropertyIsUndefined()).not.toThrow();
+    ```
 
 <a id="isoDateStringsStayStrings"></a>
 
@@ -197,53 +197,53 @@ interpreted or deserialized as a date. The protocol encodes dates explicitly, so
 encoded as dates are received as dates; any other string &mdash; including an ISO-8601 one returned from a host callback
 &mdash; MUST remain a string on both sides of the boundary.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class Entropy {
-  public constructor(private readonly clock: IWallClock) {}
+    ```ts
+    // GIVEN
+    export abstract class Entropy {
+      public constructor(private readonly clock: IWallClock) {}
 
-  /** Returns the time from the `WallClock`, verifying it stayed a string on the way in and out. */
-  public increase(): string {
-    const now = this.clock.iso8601Now();
-    if (typeof now !== 'string') {
-      throw new Error(`Now should have been a string, is a ${typeof now}`);
+      /** Returns the time from the `WallClock`, verifying it stayed a string on the way in and out. */
+      public increase(): string {
+        const now = this.clock.iso8601Now();
+        if (typeof now !== 'string') {
+          throw new Error(`Now should have been a string, is a ${typeof now}`);
+        }
+        const result = this.repeat(now);
+        if (typeof result !== 'string') {
+          throw new Error(`Repeat should return a string, but returned a ${typeof result}`);
+        }
+        return result;
+      }
+
+      public abstract repeat(word: string): string;
     }
-    const result = this.repeat(now);
-    if (typeof result !== 'string') {
-      throw new Error(`Repeat should return a string, but returned a ${typeof result}`);
+
+    export interface IWallClock {
+      iso8601Now(): string;
     }
-    return result;
-  }
 
-  public abstract repeat(word: string): string;
-}
+    // WHEN
+    const nowAsISO = '2020-01-02T03:04Z';
 
-export interface IWallClock {
-  iso8601Now(): string;
-}
+    class HostWallClock implements IWallClock {
+      public iso8601Now() {
+        return nowAsISO;
+      }
+    }
 
-// WHEN
-const nowAsISO = '2020-01-02T03:04Z';
+    class HostEntropy extends Entropy {
+      public repeat(word: string) {
+        return word;
+      }
+    }
 
-class HostWallClock implements IWallClock {
-  public iso8601Now() {
-    return nowAsISO;
-  }
-}
+    const entropy = new HostEntropy(new HostWallClock());
 
-class HostEntropy extends Entropy {
-  public repeat(word: string) {
-    return word;
-  }
-}
-
-const entropy = new HostEntropy(new HostWallClock());
-
-// THEN
-expect(entropy.increase()).toBe(nowAsISO);
-```
+    // THEN
+    expect(entropy.increase()).toBe(nowAsISO);
+    ```
 
 <a id="primitivePropertiesCanBeRead"></a>
 
@@ -256,75 +256,75 @@ received, receiving the value the kernel computed for it. When the host creates 
 instances given as constructor arguments to the kernel by reference, so that properties derived from them are computed in
 the kernel and read back with the correct value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
-
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-  public get doubleValue() {
-    return 2 * this.value;
-  }
-}
-
-export class Add extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-}
-
-export class Multiply extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-}
-
-export class Negate extends NumericValue {
-  public constructor(public readonly operand: NumericValue) {
-    super();
-  }
-  public get value() {
-    return -1 * this.operand.value;
-  }
-}
-
-export class Power extends NumericValue {
-  public constructor(public readonly base: NumericValue, public readonly pow: NumericValue) {
-    super();
-  }
-  public get value() {
-    let result = 1;
-    for (let i = 0; i < this.pow.value; ++i) {
-      result *= this.base.value;
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
     }
-    return result;
-  }
-}
 
-// WHEN
-const number = new Number(20);
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+      public get doubleValue() {
+        return 2 * this.value;
+      }
+    }
 
-// THEN
-expect(number.value).toBe(20);
-expect(number.doubleValue).toBe(40);
-expect(new Negate(new Add(new Number(20), new Number(10))).value).toBe(-30);
-expect(new Multiply(new Add(new Number(5), new Number(5)), new Number(2)).value).toBe(20);
-expect(new Power(new Number(3), new Number(4)).value).toBe(81);
-expect(new Power(new Number(999), new Number(1)).value).toBe(999);
-expect(new Power(new Number(999), new Number(0)).value).toBe(1);
-```
+    export class Add extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+    }
+
+    export class Multiply extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+    }
+
+    export class Negate extends NumericValue {
+      public constructor(public readonly operand: NumericValue) {
+        super();
+      }
+      public get value() {
+        return -1 * this.operand.value;
+      }
+    }
+
+    export class Power extends NumericValue {
+      public constructor(public readonly base: NumericValue, public readonly pow: NumericValue) {
+        super();
+      }
+      public get value() {
+        let result = 1;
+        for (let i = 0; i < this.pow.value; ++i) {
+          result *= this.base.value;
+        }
+        return result;
+      }
+    }
+
+    // WHEN
+    const number = new Number(20);
+
+    // THEN
+    expect(number.value).toBe(20);
+    expect(number.doubleValue).toBe(40);
+    expect(new Negate(new Add(new Number(20), new Number(10))).value).toBe(-30);
+    expect(new Multiply(new Add(new Number(5), new Number(5)), new Number(2)).value).toBe(20);
+    expect(new Power(new Number(3), new Number(4)).value).toBe(81);
+    expect(new Power(new Number(999), new Number(1)).value).toBe(999);
+    expect(new Power(new Number(999), new Number(0)).value).toBe(1);
+    ```
 
 <a id="primitivesRoundTrip"></a>
 
@@ -338,64 +338,64 @@ and free-form JSON objects. The host MUST serialize each value using the wire re
 type &mdash; in particular, a date MUST be sent using the protocol's dedicated date encoding, and MUST NOT be sent as a
 plain string or number &mdash; and MUST deserialize reads back into the corresponding host type.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AllTypes {
-  private boolValue = false;
-  public get booleanProperty() {
-    return this.boolValue;
-  }
-  public set booleanProperty(value: boolean) {
-    if (typeof value !== 'boolean') {
-      throw new Error('not a boolean');
+    ```ts
+    // GIVEN
+    export class AllTypes {
+      private boolValue = false;
+      public get booleanProperty() {
+        return this.boolValue;
+      }
+      public set booleanProperty(value: boolean) {
+        if (typeof value !== 'boolean') {
+          throw new Error('not a boolean');
+        }
+        this.boolValue = value;
+      }
+
+      // stringProperty and numberProperty are declared the same way, guarding `typeof value`.
+      public stringProperty = '';
+      public numberProperty = 0;
+
+      private dateValue = new Date();
+      public get dateProperty(): Date {
+        return this.dateValue;
+      }
+      public set dateProperty(value: Date) {
+        if (Object.prototype.toString.call(value) !== '[object Date]') {
+          throw new Error('not a date');
+        }
+        this.dateValue = value;
+      }
+
+      private jsonValue: object = {};
+      public get jsonProperty(): object {
+        return this.jsonValue;
+      }
+      public set jsonProperty(value: object) {
+        if (typeof value !== 'object') {
+          throw new Error('not an object');
+        }
+        this.jsonValue = value;
+      }
     }
-    this.boolValue = value;
-  }
 
-  // stringProperty and numberProperty are declared the same way, guarding `typeof value`.
-  public stringProperty = '';
-  public numberProperty = 0;
+    // WHEN
+    const types = new AllTypes();
+    types.booleanProperty = true;
+    types.stringProperty = 'foo';
+    types.numberProperty = 1234;
+    types.dateProperty = new Date(123);
+    types.jsonProperty = { Foo: { Bar: 123 } };
 
-  private dateValue = new Date();
-  public get dateProperty(): Date {
-    return this.dateValue;
-  }
-  public set dateProperty(value: Date) {
-    if (Object.prototype.toString.call(value) !== '[object Date]') {
-      throw new Error('not a date');
-    }
-    this.dateValue = value;
-  }
-
-  private jsonValue: object = {};
-  public get jsonProperty(): object {
-    return this.jsonValue;
-  }
-  public set jsonProperty(value: object) {
-    if (typeof value !== 'object') {
-      throw new Error('not an object');
-    }
-    this.jsonValue = value;
-  }
-}
-
-// WHEN
-const types = new AllTypes();
-types.booleanProperty = true;
-types.stringProperty = 'foo';
-types.numberProperty = 1234;
-types.dateProperty = new Date(123);
-types.jsonProperty = { Foo: { Bar: 123 } };
-
-// THEN
-expect(types.booleanProperty).toBe(true);
-expect(types.stringProperty).toBe('foo');
-expect(types.numberProperty).toBe(1234);
-expect(types.dateProperty).toEqual(new Date(123));
-expect((types.jsonProperty as any).Foo.Bar).toBe(123);
-```
+    // THEN
+    expect(types.booleanProperty).toBe(true);
+    expect(types.stringProperty).toBe('foo');
+    expect(types.numberProperty).toBe(1234);
+    expect(types.dateProperty).toEqual(new Date(123));
+    expect((types.jsonProperty as any).Foo.Bar).toBe(123);
+    ```
 
 <a id="undefinedOptionalListReadsAsAbsent"></a>
 
@@ -406,23 +406,23 @@ expect((types.jsonProperty as any).Foo.Bar).toBe(123);
 A property whose declared type is an optional list and whose value is `undefined` in the kernel MUST be read by the host
 as absent (the host's representation of "no value"). The host MUST NOT substitute an empty list for the missing value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class DisappointingCollectionSource {
-  /** Some list of strings, maybe? (Nah, just undefined.) */
-  public static readonly maybeList?: string[] = undefined;
+    ```ts
+    // GIVEN
+    export class DisappointingCollectionSource {
+      /** Some list of strings, maybe? (Nah, just undefined.) */
+      public static readonly maybeList?: string[] = undefined;
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const list = DisappointingCollectionSource.maybeList;
+    // WHEN
+    const list = DisappointingCollectionSource.maybeList;
 
-// THEN
-expect(list).toBeUndefined();
-```
+    // THEN
+    expect(list).toBeUndefined();
+    ```
 
 <a id="undefinedOptionalMapReadsAsAbsent"></a>
 
@@ -433,23 +433,23 @@ expect(list).toBeUndefined();
 A property whose declared type is an optional map and whose value is `undefined` in the kernel MUST be read by the host
 as absent (the host's representation of "no value"). The host MUST NOT substitute an empty map for the missing value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class DisappointingCollectionSource {
-  /** Some map of strings to numbers, maybe? (Nah, just undefined.) */
-  public static readonly maybeMap?: { [key: string]: number } = undefined;
+    ```ts
+    // GIVEN
+    export class DisappointingCollectionSource {
+      /** Some map of strings to numbers, maybe? (Nah, just undefined.) */
+      public static readonly maybeMap?: { [key: string]: number } = undefined;
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const map = DisappointingCollectionSource.maybeMap;
+    // WHEN
+    const map = DisappointingCollectionSource.maybeMap;
 
-// THEN
-expect(map).toBeUndefined();
-```
+    // THEN
+    expect(map).toBeUndefined();
+    ```
 
 <a id="unionPropertyAcceptsEachMemberType"></a>
 
@@ -461,43 +461,43 @@ A property declared as a union of types MUST accept a value of any member of the
 type and value. This applies to scalar unions as well as to unions nested inside list- and map-typed properties: each
 element MUST retain its concrete type across the boundary, so the host can tell which member of the union it received.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Number {
-  public constructor(public readonly value: number) {}
-}
+    ```ts
+    // GIVEN
+    export class Number {
+      public constructor(public readonly value: number) {}
+    }
 
-export class Multiply {
-  public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-}
+    export class Multiply {
+      public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+    }
 
-export class AllTypes {
-  public unionProperty: string | number | Number | Multiply = 'foo';
-  public unionArrayProperty: Array<Number | number> = [];
-  public unionMapProperty: { [key: string]: Number | number | string } = {};
-}
+    export class AllTypes {
+      public unionProperty: string | number | Number | Multiply = 'foo';
+      public unionArrayProperty: Array<Number | number> = [];
+      public unionMapProperty: { [key: string]: Number | number | string } = {};
+    }
 
-// WHEN / THEN
-const types = new AllTypes();
+    // WHEN / THEN
+    const types = new AllTypes();
 
-types.unionProperty = 1234;
-expect(types.unionProperty).toBe(1234);
+    types.unionProperty = 1234;
+    expect(types.unionProperty).toBe(1234);
 
-types.unionProperty = 'Hello';
-expect(types.unionProperty).toBe('Hello');
+    types.unionProperty = 'Hello';
+    expect(types.unionProperty).toBe('Hello');
 
-types.unionProperty = new Multiply(new Number(2), new Number(12));
-expect((types.unionProperty as Multiply).value).toBe(24);
+    types.unionProperty = new Multiply(new Number(2), new Number(12));
+    expect((types.unionProperty as Multiply).value).toBe(24);
 
-types.unionMapProperty = { Foo: new Number(99) };
-types.unionArrayProperty = [123, new Number(33)];
-expect((types.unionArrayProperty[1] as Number).value).toBe(33);
-```
+    types.unionMapProperty = { Foo: new Number(99) };
+    types.unionArrayProperty = [123, new Number(33)];
+    expect((types.unionArrayProperty[1] as Number).value).toBe(33);
+    ```
 
 <a id="unionPropertyReturnsConcreteType"></a>
 
@@ -509,52 +509,52 @@ When the host assigns an object reference to a property declared as a union of c
 MUST return a reference of the same concrete type, so the host can distinguish which member of the union it holds. Kernel
 code that consumes the property MUST observe the value that was most recently set.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Number {
-  public constructor(public readonly value: number) {}
-}
-export class Add {
-  public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-}
-export class Multiply {
-  public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-}
-export class Power {
-  public constructor(public readonly base: Number, public readonly pow: Number) {}
-  public get value() {
-    return this.base.value ** this.pow.value;
-  }
-}
+    ```ts
+    // GIVEN
+    export class Number {
+      public constructor(public readonly value: number) {}
+    }
+    export class Add {
+      public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+    }
+    export class Multiply {
+      public constructor(public readonly lhs: Number, public readonly rhs: Number) {}
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+    }
+    export class Power {
+      public constructor(public readonly base: Number, public readonly pow: Number) {}
+      public get value() {
+        return this.base.value ** this.pow.value;
+      }
+    }
 
-export class Calculator {
-  /** A property that accepts a union of class types. */
-  public unionProperty?: Add | Multiply | Power;
+    export class Calculator {
+      /** A property that accepts a union of class types. */
+      public unionProperty?: Add | Multiply | Power;
 
-  /** Returns the value of the union property (if defined), read from within the kernel. */
-  public readUnionValue() {
-    return this.unionProperty ? this.unionProperty.value : 0;
-  }
-}
+      /** Returns the value of the union property (if defined), read from within the kernel. */
+      public readUnionValue() {
+        return this.unionProperty ? this.unionProperty.value : 0;
+      }
+    }
 
-// WHEN / THEN
-const calc = new Calculator();
+    // WHEN / THEN
+    const calc = new Calculator();
 
-calc.unionProperty = new Multiply(new Number(9), new Number(3));
-expect(calc.unionProperty instanceof Multiply).toBe(true);
-expect(calc.readUnionValue()).toBe(27);
+    calc.unionProperty = new Multiply(new Number(9), new Number(3));
+    expect(calc.unionProperty instanceof Multiply).toBe(true);
+    expect(calc.readUnionValue()).toBe(27);
 
-calc.unionProperty = new Power(new Number(10), new Number(3));
-expect(calc.unionProperty instanceof Power).toBe(true);
-```
+    calc.unionProperty = new Power(new Number(10), new Number(3));
+    expect(calc.unionProperty instanceof Power).toBe(true);
+    ```
 
 <a id="unsetOptionalPropertyReadsAsAbsent"></a>
 
@@ -566,30 +566,30 @@ An optional property that has never been assigned MUST be read by the host as ab
 "no value"). Assigning an absent value to an optional property MUST be accepted and MUST clear the property in the
 kernel.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Calculator {
-  /** The maximum value allowed in this calculator. Optional, with no default. */
-  public maxValue?: number;
+    ```ts
+    // GIVEN
+    export class Calculator {
+      /** The maximum value allowed in this calculator. Optional, with no default. */
+      public maxValue?: number;
 
-  public constructor(props: { readonly maximumValue?: number } = {}) {
-    this.maxValue = props.maximumValue;
-  }
-}
+      public constructor(props: { readonly maximumValue?: number } = {}) {
+        this.maxValue = props.maximumValue;
+      }
+    }
 
-// WHEN / THEN
-const calculator = new Calculator();
+    // WHEN / THEN
+    const calculator = new Calculator();
 
-// never assigned: read as absent
-expect(calculator.maxValue).toBeUndefined();
+    // never assigned: read as absent
+    expect(calculator.maxValue).toBeUndefined();
 
-// assigning the host's "no value" is accepted and clears the property
-expect(() => {
-  calculator.maxValue = undefined;
-}).not.toThrow();
-```
+    // assigning the host's "no value" is accepted and clears the property
+    expect(() => {
+      calculator.maxValue = undefined;
+    }).not.toThrow();
+    ```
 
 <a id="variadicArgumentsAreForwarded"></a>
 
@@ -601,31 +601,31 @@ A method declared with a variadic (rest) parameter MUST be invocable from the ho
 arguments, including zero. The host MUST pass every supplied argument to the kernel in the order given, appended after
 any fixed parameters.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class VariadicMethod {
-  private readonly prefix: number[];
+    ```ts
+    // GIVEN
+    export class VariadicMethod {
+      private readonly prefix: number[];
 
-  /** @param prefix a prefix used for all values returned by `asArray`. */
-  public constructor(...prefix: number[]) {
-    this.prefix = prefix;
-  }
+      /** @param prefix a prefix used for all values returned by `asArray`. */
+      public constructor(...prefix: number[]) {
+        this.prefix = prefix;
+      }
 
-  /**
-   * @param first  the first element of the array (after the `prefix`).
-   * @param others other elements to include in the array.
-   */
-  public asArray(first: number, ...others: number[]): number[] {
-    return [...this.prefix, first, ...others];
-  }
-}
+      /**
+       * @param first  the first element of the array (after the `prefix`).
+       * @param others other elements to include in the array.
+       */
+      public asArray(first: number, ...others: number[]): number[] {
+        return [...this.prefix, first, ...others];
+      }
+    }
 
-// WHEN
-const variadicMethod = new VariadicMethod(1);
-const result = variadicMethod.asArray(3, 4, 5, 6);
+    // WHEN
+    const variadicMethod = new VariadicMethod(1);
+    const result = variadicMethod.asArray(3, 4, 5, 6);
 
-// THEN
-expect(result).toEqual([1, 3, 4, 5, 6]);
-```
+    // THEN
+    expect(result).toEqual([1, 3, 4, 5, 6]);
+    ```
