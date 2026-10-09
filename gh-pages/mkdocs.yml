@@ -4,7 +4,7 @@ repo_name: aws/jsii
 repo_url: https://github.com/aws/jsii
 site_url: https://aws.github.io/jsii/
 edit_uri: edit/main/gh-pages/content/
-copyright: Copyright &copy; 2021 Amazon Web Services, Inc.
+copyright: Copyright &copy; 2026 Amazon Web Services, Inc.
 
 docs_dir: content
 extra_css:
@@ -18,8 +18,6 @@ nav:
           - overview/features.md
           - overview/toolchain.md
           - overview/runtime-architecture.md
-      - Maintenance Announcements:
-          - jsii@v1.x & jsii-rosetta@v1.x: compiler-and-rosetta-maintenance.md
   - ...
 
 extra:

@@ -14,32 +14,32 @@ Tests in this category ensure static methods, static properties and constants ar
 including object references, without creating an instance of the class. Reading a constant MUST return the value
 initialized in JavaScript.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class DoubleTrouble {
-  public hello() {
-    return 'world';
-  }
-}
+    ```ts
+    // GIVEN
+    export class DoubleTrouble {
+      public hello() {
+        return 'world';
+      }
+    }
 
-export class Statics {
-  public static readonly Foo = 'hello';
-  public static readonly BAR = 1234;
-  public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
-  public static readonly ConstObj = new DoubleTrouble();
-}
+    export class Statics {
+      public static readonly Foo = 'hello';
+      public static readonly BAR = 1234;
+      public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
+      public static readonly ConstObj = new DoubleTrouble();
+    }
 
-// WHEN
-const obj = Statics.ConstObj;
+    // WHEN
+    const obj = Statics.ConstObj;
 
-// THEN
-expect(Statics.Foo).toBe('hello');
-expect(Statics.BAR).toBe(1234);
-expect(Statics.zooBar['hello']).toBe('world');
-expect(obj.hello()).toBe('world');
-```
+    // THEN
+    expect(Statics.Foo).toBe('hello');
+    expect(Statics.BAR).toBe(1234);
+    expect(Statics.zooBar['hello']).toBe('world');
+    expect(obj.hello()).toBe('world');
+    ```
 
 <a id="staticMembersCanBeUsed"></a>
 
@@ -52,43 +52,43 @@ their declared types. Static properties MUST be readable from the host, and stat
 MUST also be writable. A value assigned from the host MUST be returned by subsequent reads, and MAY be an object
 reference created by the host.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Statics {
-  public constructor(public readonly value: string) {}
+    ```ts
+    // GIVEN
+    export class Statics {
+      public constructor(public readonly value: string) {}
 
-  public static staticMethod(name: string) {
-    return `hello ,${name}!`;
-  }
+      public static staticMethod(name: string) {
+        return `hello ,${name}!`;
+      }
 
-  private static _instance?: Statics;
-  public static get instance(): Statics {
-    this._instance ??= new Statics('default');
-    return this._instance;
-  }
-  public static set instance(val: Statics) {
-    this._instance = val;
-  }
+      private static _instance?: Statics;
+      public static get instance(): Statics {
+        this._instance ??= new Statics('default');
+        return this._instance;
+      }
+      public static set instance(val: Statics) {
+        this._instance = val;
+      }
 
-  public static nonConstStatic = 100;
-}
+      public static nonConstStatic = 100;
+    }
 
-// WHEN
-const greeting = Statics.staticMethod('Yoyo');
-const defaultInstance = Statics.instance;
+    // WHEN
+    const greeting = Statics.staticMethod('Yoyo');
+    const defaultInstance = Statics.instance;
 
-const newStatics = new Statics('new value');
-Statics.instance = newStatics;
+    const newStatics = new Statics('new value');
+    Statics.instance = newStatics;
 
-// THEN
-expect(greeting).toBe('hello ,Yoyo!');
-expect(defaultInstance.value).toBe('default');
-expect(Statics.instance).toBe(newStatics);
-expect(Statics.instance.value).toBe('new value');
-expect(Statics.nonConstStatic).toBe(100);
-```
+    // THEN
+    expect(greeting).toBe('hello ,Yoyo!');
+    expect(defaultInstance.value).toBe('default');
+    expect(Statics.instance).toBe(newStatics);
+    expect(Statics.instance.value).toBe('new value');
+    expect(Statics.nonConstStatic).toBe(100);
+    ```
 
 <a id="staticPropertyAssignmentUpdatesJavaScript"></a>
 
@@ -100,30 +100,30 @@ Assigning a value to a static property from the host MUST call the property's se
 is observable from JavaScript. The host MUST NOT store the assigned value only on the host side, for example by replacing
 the host representation of the property.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class StaticPropertyAssignment {
-  public static value = 'default';
+    ```ts
+    // GIVEN
+    export class StaticPropertyAssignment {
+      public static value = 'default';
 
-  /** Reads `value` from within JavaScript, so that host language assignments are observable. */
-  public static readValue(): string {
-    return StaticPropertyAssignment.value;
-  }
+      /** Reads `value` from within JavaScript, so that host language assignments are observable. */
+      public static readValue(): string {
+        return StaticPropertyAssignment.value;
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const before = StaticPropertyAssignment.readValue();
-StaticPropertyAssignment.value = 'assigned';
+    // WHEN
+    const before = StaticPropertyAssignment.readValue();
+    StaticPropertyAssignment.value = 'assigned';
 
-// THEN
-expect(before).toBe('default');
-expect(StaticPropertyAssignment.readValue()).toBe('assigned');
-expect(StaticPropertyAssignment.value).toBe('assigned');
-```
+    // THEN
+    expect(before).toBe('default');
+    expect(StaticPropertyAssignment.readValue()).toBe('assigned');
+    expect(StaticPropertyAssignment.value).toBe('assigned');
+    ```
 
 ### Kernel Trace
 

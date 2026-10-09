@@ -8,191 +8,191 @@ Language bindings must pass every test case. A category is complete when a langu
 
 | Language | Tests passing       | Categories complete |
 | -------- | ------------------- | ------------------- |
-| java     | 100.00% (110 / 110) | 12 / 12             |
-| golang   | 84.55% (93 / 110)   | 7 / 12              |
-| dotnet   | 93.64% (103 / 110)  | 9 / 12              |
 | python   | 94.55% (104 / 110)  | 10 / 12             |
+| java     | 100.00% (110 / 110) | 12 / 12             |
+| dotnet   | 93.64% (103 / 110)  | 9 / 12              |
+| golang   | 84.55% (93 / 110)   | 7 / 12              |
 
 
 Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 
 ## [Primitives & Optional Values](compliance-suite/01-primitives.md)
 
-| Test                                                                                                                                                                   | java  | golang | dotnet | python |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [anyValuesKeepTheirType](compliance-suite/01-primitives.md#anyValuesKeepTheirType "Untyped (any) values preserve their runtime type")                                  | 🟢    | 🟢     | 🟢     | 🟢     |
-| [datesRoundTrip](compliance-suite/01-primitives.md#datesRoundTrip "Date values round-trip through typed and untyped properties")                                       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostNullIsSentAsUndefined](compliance-suite/01-primitives.md#hostNullIsSentAsUndefined "An absent host value is transmitted as undefined")                            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [isoDateStringsStayStrings](compliance-suite/01-primitives.md#isoDateStringsStayStrings "ISO-8601 strings are not interpreted as dates")                               | 🟢    | 🟢     | 🟢     | 🟢     |
-| [primitivePropertiesCanBeRead](compliance-suite/01-primitives.md#primitivePropertiesCanBeRead "Primitive properties of objects can be read")                           | 🟢    | 🟢     | 🟢     | 🟢     |
-| [primitivesRoundTrip](compliance-suite/01-primitives.md#primitivesRoundTrip "Primitive values round-trip with their declared type")                                    | 🟢    | 🟢     | 🟢     | 🟢     |
-| [undefinedOptionalListReadsAsAbsent](compliance-suite/01-primitives.md#undefinedOptionalListReadsAsAbsent "An undefined optional list reads as absent, not empty")     | 🟢    | 🟢     | 🟢     | 🟢     |
-| [undefinedOptionalMapReadsAsAbsent](compliance-suite/01-primitives.md#undefinedOptionalMapReadsAsAbsent "An undefined optional map reads as absent, not empty")        | 🟢    | 🟢     | 🟢     | 🟢     |
-| [unionPropertyAcceptsEachMemberType](compliance-suite/01-primitives.md#unionPropertyAcceptsEachMemberType "Union-typed properties accept and return each member type") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [unionPropertyReturnsConcreteType](compliance-suite/01-primitives.md#unionPropertyReturnsConcreteType "A union property returns the concrete type that was set")       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [unsetOptionalPropertyReadsAsAbsent](compliance-suite/01-primitives.md#unsetOptionalPropertyReadsAsAbsent "Unset optional properties read as absent")                  | 🟢    | 🟢     | 🟢     | 🟢     |
-| [variadicArgumentsAreForwarded](compliance-suite/01-primitives.md#variadicArgumentsAreForwarded "Variadic methods forward all trailing arguments in order")            | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                   | python | java  | dotnet | golang |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [anyValuesKeepTheirType](compliance-suite/01-primitives.md#anyValuesKeepTheirType "Untyped (any) values preserve their runtime type")                                  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [datesRoundTrip](compliance-suite/01-primitives.md#datesRoundTrip "Date values round-trip through typed and untyped properties")                                       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostNullIsSentAsUndefined](compliance-suite/01-primitives.md#hostNullIsSentAsUndefined "An absent host value is transmitted as undefined")                            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [isoDateStringsStayStrings](compliance-suite/01-primitives.md#isoDateStringsStayStrings "ISO-8601 strings are not interpreted as dates")                               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [primitivePropertiesCanBeRead](compliance-suite/01-primitives.md#primitivePropertiesCanBeRead "Primitive properties of objects can be read")                           | 🟢     | 🟢    | 🟢     | 🟢     |
+| [primitivesRoundTrip](compliance-suite/01-primitives.md#primitivesRoundTrip "Primitive values round-trip with their declared type")                                    | 🟢     | 🟢    | 🟢     | 🟢     |
+| [undefinedOptionalListReadsAsAbsent](compliance-suite/01-primitives.md#undefinedOptionalListReadsAsAbsent "An undefined optional list reads as absent, not empty")     | 🟢     | 🟢    | 🟢     | 🟢     |
+| [undefinedOptionalMapReadsAsAbsent](compliance-suite/01-primitives.md#undefinedOptionalMapReadsAsAbsent "An undefined optional map reads as absent, not empty")        | 🟢     | 🟢    | 🟢     | 🟢     |
+| [unionPropertyAcceptsEachMemberType](compliance-suite/01-primitives.md#unionPropertyAcceptsEachMemberType "Union-typed properties accept and return each member type") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [unionPropertyReturnsConcreteType](compliance-suite/01-primitives.md#unionPropertyReturnsConcreteType "A union property returns the concrete type that was set")       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [unsetOptionalPropertyReadsAsAbsent](compliance-suite/01-primitives.md#unsetOptionalPropertyReadsAsAbsent "Unset optional properties read as absent")                  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [variadicArgumentsAreForwarded](compliance-suite/01-primitives.md#variadicArgumentsAreForwarded "Variadic methods forward all trailing arguments in order")            | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Classes & Object References](compliance-suite/02-classes.md)
 
-| Test                                                                                                                                                                                            | java  | golang | dotnet | python |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [abstractTypedValueReceivedAsReference](compliance-suite/02-classes.md#abstractTypedValueReceivedAsReference "Values of an abstract declared type are received as references")                  | 🟢    | 🟢     | 🟢     | 🟢     |
-| [classWithUnionPropertyCanBeReceived](compliance-suite/02-classes.md#classWithUnionPropertyCanBeReceived "References to classes with union-typed properties can be obtained")                   | 🟢    | 🟢     | 🟢     | 🟢     |
-| [classesCanReferenceEachOtherDuringInitialization](compliance-suite/02-classes.md#classesCanReferenceEachOtherDuringInitialization "Classes can reference other classes during initialization") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [constructorCanPassThisToTheHost](compliance-suite/02-classes.md#constructorCanPassThisToTheHost "A constructor can pass `this` out to the host before returning")                              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostImplementsAbstractMembers](compliance-suite/02-classes.md#hostImplementsAbstractMembers "Host implementations of abstract members are invoked by the kernel")                              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [inheritedPropertiesUsableOnHostSubclass](compliance-suite/02-classes.md#inheritedPropertiesUsableOnHostSubclass "Inherited properties are usable on host subclasses")                          | 🟢    | 🟢     | 🟢     | 🟢     |
-| [instanceMethodsCanBeCalled](compliance-suite/02-classes.md#instanceMethodsCanBeCalled "Instance methods can be invoked and mutate kernel state")                                               | 🟢    | 🟢     | 🟢     | 🟢     |
-| [nonExportedClassReceivedAsInterface](compliance-suite/02-classes.md#nonExportedClassReceivedAsInterface "Instances of non-exported classes are received as their interface")                   | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectLiteralReturnedAsClassIsUsable](compliance-suite/02-classes.md#objectLiteralReturnedAsClassIsUsable "A plain object literal returned as a class is usable")                              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectPropertiesCanBeReadAndAssigned](compliance-suite/02-classes.md#objectPropertiesCanBeReadAndAssigned "Object-valued properties can be read and assigned")                                 | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectReferencesRoundTripThroughAny](compliance-suite/02-classes.md#objectReferencesRoundTripThroughAny "Object references round-trip through an `any`-typed property")                        | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectsReceivedAsMostDerivedPublicType](compliance-suite/02-classes.md#objectsReceivedAsMostDerivedPublicType "Object references are labelled with the most derived public type")              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectsReturnedAsAbstractTypeAreUsable](compliance-suite/02-classes.md#objectsReturnedAsAbstractTypeAreUsable "Instances returned as an abstract type are fully usable")                       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectsUsableThroughImplementedInterface](compliance-suite/02-classes.md#objectsUsableThroughImplementedInterface "An object is usable through the interface it implements")                   | 🟢    | 🟢     | 🔴     | 🔴     |
-| [optionalConstructorParametersCanBeOmitted](compliance-suite/02-classes.md#optionalConstructorParametersCanBeOmitted "Optional constructor parameters can be omitted")                          | 🟢    | ⚪      | 🟢     | 🟢     |
-| [privateConstructorClassFromStaticFactory](compliance-suite/02-classes.md#privateConstructorClassFromStaticFactory "Classes with a private constructor are created via a static factory")       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [strippedDeprecatedTypeCanBeReceived](compliance-suite/02-classes.md#strippedDeprecatedTypeCanBeReceived "Instances of stripped deprecated types can be received")                              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [typesNotLoadedByTheHostCanBeReceived](compliance-suite/02-classes.md#typesNotLoadedByTheHostCanBeReceived "Types not explicitly loaded by the host can be received and used")                  | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                                            | python | java  | dotnet | golang |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [abstractTypedValueReceivedAsReference](compliance-suite/02-classes.md#abstractTypedValueReceivedAsReference "Values of an abstract declared type are received as references")                  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [classWithUnionPropertyCanBeReceived](compliance-suite/02-classes.md#classWithUnionPropertyCanBeReceived "References to classes with union-typed properties can be obtained")                   | 🟢     | 🟢    | 🟢     | 🟢     |
+| [classesCanReferenceEachOtherDuringInitialization](compliance-suite/02-classes.md#classesCanReferenceEachOtherDuringInitialization "Classes can reference other classes during initialization") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [constructorCanPassThisToTheHost](compliance-suite/02-classes.md#constructorCanPassThisToTheHost "A constructor can pass `this` out to the host before returning")                              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostImplementsAbstractMembers](compliance-suite/02-classes.md#hostImplementsAbstractMembers "Host implementations of abstract members are invoked by the kernel")                              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [inheritedPropertiesUsableOnHostSubclass](compliance-suite/02-classes.md#inheritedPropertiesUsableOnHostSubclass "Inherited properties are usable on host subclasses")                          | 🟢     | 🟢    | 🟢     | 🟢     |
+| [instanceMethodsCanBeCalled](compliance-suite/02-classes.md#instanceMethodsCanBeCalled "Instance methods can be invoked and mutate kernel state")                                               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [nonExportedClassReceivedAsInterface](compliance-suite/02-classes.md#nonExportedClassReceivedAsInterface "Instances of non-exported classes are received as their interface")                   | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectLiteralReturnedAsClassIsUsable](compliance-suite/02-classes.md#objectLiteralReturnedAsClassIsUsable "A plain object literal returned as a class is usable")                              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectPropertiesCanBeReadAndAssigned](compliance-suite/02-classes.md#objectPropertiesCanBeReadAndAssigned "Object-valued properties can be read and assigned")                                 | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectReferencesRoundTripThroughAny](compliance-suite/02-classes.md#objectReferencesRoundTripThroughAny "Object references round-trip through an `any`-typed property")                        | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectsReceivedAsMostDerivedPublicType](compliance-suite/02-classes.md#objectsReceivedAsMostDerivedPublicType "Object references are labelled with the most derived public type")              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectsReturnedAsAbstractTypeAreUsable](compliance-suite/02-classes.md#objectsReturnedAsAbstractTypeAreUsable "Instances returned as an abstract type are fully usable")                       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectsUsableThroughImplementedInterface](compliance-suite/02-classes.md#objectsUsableThroughImplementedInterface "An object is usable through the interface it implements")                   | 🔴     | 🟢    | 🔴     | 🟢     |
+| [optionalConstructorParametersCanBeOmitted](compliance-suite/02-classes.md#optionalConstructorParametersCanBeOmitted "Optional constructor parameters can be omitted")                          | 🟢     | 🟢    | 🟢     | ⚪      |
+| [privateConstructorClassFromStaticFactory](compliance-suite/02-classes.md#privateConstructorClassFromStaticFactory "Classes with a private constructor are created via a static factory")       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [strippedDeprecatedTypeCanBeReceived](compliance-suite/02-classes.md#strippedDeprecatedTypeCanBeReceived "Instances of stripped deprecated types can be received")                              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [typesNotLoadedByTheHostCanBeReceived](compliance-suite/02-classes.md#typesNotLoadedByTheHostCanBeReceived "Types not explicitly loaded by the host can be received and used")                  | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Statics & Constants](compliance-suite/03-statics.md)
 
-| Test                                                                                                                                                                                | java  | golang | dotnet | python |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [constantsCanBeRead](compliance-suite/03-statics.md#constantsCanBeRead "Constants can be read")                                                                                     | 🟢    | 🟢     | 🟢     | 🟢     |
-| [staticMembersCanBeUsed](compliance-suite/03-statics.md#staticMembersCanBeUsed "Static methods and properties can be used")                                                         | 🟢    | 🟢     | 🟢     | 🟢     |
-| [staticPropertyAssignmentUpdatesJavaScript](compliance-suite/03-statics.md#staticPropertyAssignmentUpdatesJavaScript "Assigning a static property updates the value in JavaScript") | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                                | python | java  | dotnet | golang |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [constantsCanBeRead](compliance-suite/03-statics.md#constantsCanBeRead "Constants can be read")                                                                                     | 🟢     | 🟢    | 🟢     | 🟢     |
+| [staticMembersCanBeUsed](compliance-suite/03-statics.md#staticMembersCanBeUsed "Static methods and properties can be used")                                                         | 🟢     | 🟢    | 🟢     | 🟢     |
+| [staticPropertyAssignmentUpdatesJavaScript](compliance-suite/03-statics.md#staticPropertyAssignmentUpdatesJavaScript "Assigning a static property updates the value in JavaScript") | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Enums](compliance-suite/04-enums.md)
 
-| Test                                                                                                                                                                  | java  | golang | dotnet | python |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [enumPropertiesCanBeReadAndWritten](compliance-suite/04-enums.md#enumPropertiesCanBeReadAndWritten "Enum-valued properties can be read and written")                  | 🟢    | 🟢     | 🟢     | 🟢     |
-| [enumValuesReturnedByTheKernel](compliance-suite/04-enums.md#enumValuesReturnedByTheKernel "Enum members returned by the kernel deserialize correctly")               | 🟢    | 🟢     | 🟢     | 🟢     |
-| [enumsFromDependenciesCrossTheBoundary](compliance-suite/04-enums.md#enumsFromDependenciesCrossTheBoundary "Enum values declared in a dependency cross the boundary") | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                  | python | java  | dotnet | golang |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [enumPropertiesCanBeReadAndWritten](compliance-suite/04-enums.md#enumPropertiesCanBeReadAndWritten "Enum-valued properties can be read and written")                  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [enumValuesReturnedByTheKernel](compliance-suite/04-enums.md#enumValuesReturnedByTheKernel "Enum members returned by the kernel deserialize correctly")               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [enumsFromDependenciesCrossTheBoundary](compliance-suite/04-enums.md#enumsFromDependenciesCrossTheBoundary "Enum values declared in a dependency cross the boundary") | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Collections](compliance-suite/05-collections.md)
 
-| Test                                                                                                                                                                                     | java  | golang | dotnet | python |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [arrayPropertyCanBeRead](compliance-suite/05-collections.md#arrayPropertyCanBeRead "An array stored in an instance property can be read")                                                | 🟢    | 🟢     | 🟢     | 🟢     |
-| [arraysOfObjectsPreserveOrderAndType](compliance-suite/05-collections.md#arraysOfObjectsPreserveOrderAndType "Arrays of object references cross the boundary preserving order and type") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [collectionPropertiesCanBeSetAndRead](compliance-suite/05-collections.md#collectionPropertiesCanBeSetAndRead "Array- and map-typed properties can be set and read")                      | 🟢    | 🟢     | 🟢     | 🟢     |
-| [listOfInterfacesElementsAreUsable](compliance-suite/05-collections.md#listOfInterfacesElementsAreUsable "Elements of a returned list of interfaces are usable through the interface")   | 🟢    | 🟢     | 🟢     | 🟢     |
-| [listOfStructsElementsHaveStructType](compliance-suite/05-collections.md#listOfStructsElementsHaveStructType "Elements of a returned list of structs have the struct's apparent type")   | 🟢    | 🟢     | 🟢     | 🟢     |
-| [mapOfInterfacesValuesAreUsable](compliance-suite/05-collections.md#mapOfInterfacesValuesAreUsable "Values of a returned map of interfaces are usable through the interface")            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [mapOfStructsValuesHaveStructType](compliance-suite/05-collections.md#mapOfStructsValuesHaveStructType "Values of a returned map of structs have the struct's apparent type")            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [mapPropertyCanBeRead](compliance-suite/05-collections.md#mapPropertyCanBeRead "A map stored in an instance property can be read")                                                       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [mapPropertyRejectsMutation](compliance-suite/05-collections.md#mapPropertyRejectsMutation "A map read from an instance property rejects mutation")                                      | 🟢    | ⚪      | ⚪      | ⚪      |
-| [mapsOfObjectsCanBeRead](compliance-suite/05-collections.md#mapsOfObjectsCanBeRead "Maps of object references can be read from the kernel")                                              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [returnedArrayCanBeRead](compliance-suite/05-collections.md#returnedArrayCanBeRead "An array returned by a method can be read")                                                          | 🟢    | 🟢     | 🟢     | 🟢     |
-| [returnedArrayRejectsMutation](compliance-suite/05-collections.md#returnedArrayRejectsMutation "An array returned by a method rejects mutation")                                         | 🟢    | ⚪      | ⚪      | ⚪      |
-| [returnedMapCanBeRead](compliance-suite/05-collections.md#returnedMapCanBeRead "A map returned by a method can be read")                                                                 | 🟢    | 🟢     | 🟢     | 🟢     |
-| [returnedMapRejectsMutation](compliance-suite/05-collections.md#returnedMapRejectsMutation "A map returned by a method rejects mutation")                                                | 🟢    | ⚪      | ⚪      | ⚪      |
-| [staticArrayPropertyCanBeRead](compliance-suite/05-collections.md#staticArrayPropertyCanBeRead "A static array property can be read")                                                    | 🟢    | 🟢     | 🟢     | 🟢     |
-| [staticArrayPropertyRejectsMutation](compliance-suite/05-collections.md#staticArrayPropertyRejectsMutation "A static array property rejects mutation")                                   | 🟢    | ⚪      | ⚪      | ⚪      |
-| [staticMapPropertyCanBeRead](compliance-suite/05-collections.md#staticMapPropertyCanBeRead "A static map property can be read")                                                          | 🟢    | 🟢     | 🟢     | 🟢     |
-| [staticMapPropertyRejectsMutation](compliance-suite/05-collections.md#staticMapPropertyRejectsMutation "A static map property rejects mutation")                                         | 🟢    | ⚪      | ⚪      | ⚪      |
+| Test                                                                                                                                                                                     | python | java  | dotnet | golang |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [arrayPropertyCanBeRead](compliance-suite/05-collections.md#arrayPropertyCanBeRead "An array stored in an instance property can be read")                                                | 🟢     | 🟢    | 🟢     | 🟢     |
+| [arraysOfObjectsPreserveOrderAndType](compliance-suite/05-collections.md#arraysOfObjectsPreserveOrderAndType "Arrays of object references cross the boundary preserving order and type") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [collectionPropertiesCanBeSetAndRead](compliance-suite/05-collections.md#collectionPropertiesCanBeSetAndRead "Array- and map-typed properties can be set and read")                      | 🟢     | 🟢    | 🟢     | 🟢     |
+| [listOfInterfacesElementsAreUsable](compliance-suite/05-collections.md#listOfInterfacesElementsAreUsable "Elements of a returned list of interfaces are usable through the interface")   | 🟢     | 🟢    | 🟢     | 🟢     |
+| [listOfStructsElementsHaveStructType](compliance-suite/05-collections.md#listOfStructsElementsHaveStructType "Elements of a returned list of structs have the struct's apparent type")   | 🟢     | 🟢    | 🟢     | 🟢     |
+| [mapOfInterfacesValuesAreUsable](compliance-suite/05-collections.md#mapOfInterfacesValuesAreUsable "Values of a returned map of interfaces are usable through the interface")            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [mapOfStructsValuesHaveStructType](compliance-suite/05-collections.md#mapOfStructsValuesHaveStructType "Values of a returned map of structs have the struct's apparent type")            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [mapPropertyCanBeRead](compliance-suite/05-collections.md#mapPropertyCanBeRead "A map stored in an instance property can be read")                                                       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [mapPropertyRejectsMutation](compliance-suite/05-collections.md#mapPropertyRejectsMutation "A map read from an instance property rejects mutation")                                      | ⚪      | 🟢    | ⚪      | ⚪      |
+| [mapsOfObjectsCanBeRead](compliance-suite/05-collections.md#mapsOfObjectsCanBeRead "Maps of object references can be read from the kernel")                                              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [returnedArrayCanBeRead](compliance-suite/05-collections.md#returnedArrayCanBeRead "An array returned by a method can be read")                                                          | 🟢     | 🟢    | 🟢     | 🟢     |
+| [returnedArrayRejectsMutation](compliance-suite/05-collections.md#returnedArrayRejectsMutation "An array returned by a method rejects mutation")                                         | ⚪      | 🟢    | ⚪      | ⚪      |
+| [returnedMapCanBeRead](compliance-suite/05-collections.md#returnedMapCanBeRead "A map returned by a method can be read")                                                                 | 🟢     | 🟢    | 🟢     | 🟢     |
+| [returnedMapRejectsMutation](compliance-suite/05-collections.md#returnedMapRejectsMutation "A map returned by a method rejects mutation")                                                | ⚪      | 🟢    | ⚪      | ⚪      |
+| [staticArrayPropertyCanBeRead](compliance-suite/05-collections.md#staticArrayPropertyCanBeRead "A static array property can be read")                                                    | 🟢     | 🟢    | 🟢     | 🟢     |
+| [staticArrayPropertyRejectsMutation](compliance-suite/05-collections.md#staticArrayPropertyRejectsMutation "A static array property rejects mutation")                                   | ⚪      | 🟢    | ⚪      | ⚪      |
+| [staticMapPropertyCanBeRead](compliance-suite/05-collections.md#staticMapPropertyCanBeRead "A static map property can be read")                                                          | 🟢     | 🟢    | 🟢     | 🟢     |
+| [staticMapPropertyRejectsMutation](compliance-suite/05-collections.md#staticMapPropertyRejectsMutation "A static map property rejects mutation")                                         | ⚪      | 🟢    | ⚪      | ⚪      |
 
 
 ## [Structs & Keyword Arguments](compliance-suite/06-structs.md)
 
-| Test                                                                                                                                                                                                           | java  | golang                                       | dotnet | python |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- | ------ | ------ |
-| [diamondInheritedStructPropertiesAppearOnce](compliance-suite/06-structs.md#diamondInheritedStructPropertiesAppearOnce "Diamond-inherited struct properties are exposed exactly once")                         | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢    | [🔴](https://github.com/aws/jsii/issues/2672) | 🔴     | 🟢     |
-| [overlappingStructUnionsAreDisambiguated](compliance-suite/06-structs.md#overlappingStructUnionsAreDisambiguated "Overlapping struct types in a union are correctly disambiguated")                            | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [positionalArgumentAndStructPropertyWithSameName](compliance-suite/06-structs.md#positionalArgumentAndStructPropertyWithSameName "A positional argument and a struct property of the same name stay distinct") | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [receivedStructEqualsHostBuiltStruct](compliance-suite/06-structs.md#receivedStructEqualsHostBuiltStruct "A struct received from the kernel is indistinguishable from one built by the host")                  | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [structReceivedAsParentStructType](compliance-suite/06-structs.md#structReceivedAsParentStructType "A returned struct can be received as a parent struct type")                                                | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [structsArePassedByValue](compliance-suite/06-structs.md#structsArePassedByValue "A struct is passed to the kernel by value and its properties are readable")                                                  | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🔴                                           | 🟢     | 🟢     |
-| [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢    | 🟢                                           | 🟢     | 🟢     |
+| Test                                                                                                                                                                                                           | python | java  | dotnet | golang                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | -------------------------------------------- |
+| [diamondInheritedStructPropertiesAppearOnce](compliance-suite/06-structs.md#diamondInheritedStructPropertiesAppearOnce "Diamond-inherited struct properties are exposed exactly once")                         | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢     | 🟢    | 🔴     | [🔴](https://github.com/aws/jsii/issues/2672) |
+| [overlappingStructUnionsAreDisambiguated](compliance-suite/06-structs.md#overlappingStructUnionsAreDisambiguated "Overlapping struct types in a union are correctly disambiguated")                            | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [positionalArgumentAndStructPropertyWithSameName](compliance-suite/06-structs.md#positionalArgumentAndStructPropertyWithSameName "A positional argument and a struct property of the same name stay distinct") | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [receivedStructEqualsHostBuiltStruct](compliance-suite/06-structs.md#receivedStructEqualsHostBuiltStruct "A struct received from the kernel is indistinguishable from one built by the host")                  | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [structReceivedAsParentStructType](compliance-suite/06-structs.md#structReceivedAsParentStructType "A returned struct can be received as a parent struct type")                                                | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [structsArePassedByValue](compliance-suite/06-structs.md#structsArePassedByValue "A struct is passed to the kernel by value and its properties are readable")                                                  | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢     | 🟢    | 🟢     | 🔴                                           |
+| [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢     | 🟢    | 🟢     | 🟢                                           |
 
 
 ## [Interfaces](compliance-suite/07-interfaces.md)
 
-| Test                                                                                                                                                                                                  | java  | golang | dotnet | python |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [callbackReceivesInterfaceArguments](compliance-suite/07-interfaces.md#callbackReceivesInterfaceArguments "A host callback receives interface-typed arguments it can use")                            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostCanImplementInterface](compliance-suite/07-interfaces.md#hostCanImplementInterface "The host can implement an interface from scratch and pass it to the kernel")                                 | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostCanImplementInterfaceThroughSuperclass](compliance-suite/07-interfaces.md#hostCanImplementInterfaceThroughSuperclass "The host can implement an interface indirectly through a superclass")      | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostObjectsKeepIdentityAcrossTheBoundary](compliance-suite/07-interfaces.md#hostObjectsKeepIdentityAcrossTheBoundary "Host objects passed as interfaces keep a stable identity across the boundary") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostSubclassCanImplementAdditionalInterface](compliance-suite/07-interfaces.md#hostSubclassCanImplementAdditionalInterface "A host subclass of a kernel class can also implement an interface")      | 🟢    | 🟢     | 🟢     | 🟢     |
-| [interfacePropertyCanBeSet](compliance-suite/07-interfaces.md#interfacePropertyCanBeSet "A read-write property on an interface can be set from the host")                                             | 🟢    | 🟢     | 🟢     | 🟢     |
-| [interfaceValueCanBePassedBack](compliance-suite/07-interfaces.md#interfaceValueCanBePassedBack "An interface value from the kernel can be passed back as a parameter")                               | 🟢    | 🟢     | 🟢     | 🟢     |
-| [interfaceValueWithPrivateTypeIsUsable](compliance-suite/07-interfaces.md#interfaceValueWithPrivateTypeIsUsable "A value returned as an interface is usable even when its concrete type is private")  | 🟢    | 🟢     | 🟢     | 🟢     |
-| [kernelUsesHostInterfaceAccessors](compliance-suite/07-interfaces.md#kernelUsesHostInterfaceAccessors "The kernel invokes host-implemented interface property accessors")                             | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectLiteralReturnedAsInterfaceIsUsable](compliance-suite/07-interfaces.md#objectLiteralReturnedAsInterfaceIsUsable "Object literals returned as an interface can be used through it")              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectsUsableThroughEveryInterface](compliance-suite/07-interfaces.md#objectsUsableThroughEveryInterface "Objects can be used through every interface they implement")                               | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                                                  | python | java  | dotnet | golang |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [callbackReceivesInterfaceArguments](compliance-suite/07-interfaces.md#callbackReceivesInterfaceArguments "A host callback receives interface-typed arguments it can use")                            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostCanImplementInterface](compliance-suite/07-interfaces.md#hostCanImplementInterface "The host can implement an interface from scratch and pass it to the kernel")                                 | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostCanImplementInterfaceThroughSuperclass](compliance-suite/07-interfaces.md#hostCanImplementInterfaceThroughSuperclass "The host can implement an interface indirectly through a superclass")      | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostObjectsKeepIdentityAcrossTheBoundary](compliance-suite/07-interfaces.md#hostObjectsKeepIdentityAcrossTheBoundary "Host objects passed as interfaces keep a stable identity across the boundary") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostSubclassCanImplementAdditionalInterface](compliance-suite/07-interfaces.md#hostSubclassCanImplementAdditionalInterface "A host subclass of a kernel class can also implement an interface")      | 🟢     | 🟢    | 🟢     | 🟢     |
+| [interfacePropertyCanBeSet](compliance-suite/07-interfaces.md#interfacePropertyCanBeSet "A read-write property on an interface can be set from the host")                                             | 🟢     | 🟢    | 🟢     | 🟢     |
+| [interfaceValueCanBePassedBack](compliance-suite/07-interfaces.md#interfaceValueCanBePassedBack "An interface value from the kernel can be passed back as a parameter")                               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [interfaceValueWithPrivateTypeIsUsable](compliance-suite/07-interfaces.md#interfaceValueWithPrivateTypeIsUsable "A value returned as an interface is usable even when its concrete type is private")  | 🟢     | 🟢    | 🟢     | 🟢     |
+| [kernelUsesHostInterfaceAccessors](compliance-suite/07-interfaces.md#kernelUsesHostInterfaceAccessors "The kernel invokes host-implemented interface property accessors")                             | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectLiteralReturnedAsInterfaceIsUsable](compliance-suite/07-interfaces.md#objectLiteralReturnedAsInterfaceIsUsable "Object literals returned as an interface can be used through it")              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [objectsUsableThroughEveryInterface](compliance-suite/07-interfaces.md#objectsUsableThroughEveryInterface "Objects can be used through every interface they implement")                               | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Subclassing & Overrides](compliance-suite/08-overrides.md)
 
-| Test                                                                                                                                                                                            | java  | golang | dotnet | python |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [getterOverrideCanCallSuper](compliance-suite/08-overrides.md#getterOverrideCanCallSuper "A host property getter override can read the base value")                                             | 🟢    | 🟢     | 🟢     | 🟢     |
-| [getterOverrideErrorPropagates](compliance-suite/08-overrides.md#getterOverrideErrorPropagates "An error thrown by a host property getter propagates to the caller")                            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostAccessorDoesNotOverridePrivateProperty](compliance-suite/08-overrides.md#hostAccessorDoesNotOverridePrivateProperty "A host accessor is not an override of a private property")            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostMethodDoesNotOverridePrivateMethod](compliance-suite/08-overrides.md#hostMethodDoesNotOverridePrivateMethod "A host method is not an override of a private method of the same name")       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostMethodDoesNotOverridePrivateProperty](compliance-suite/08-overrides.md#hostMethodDoesNotOverridePrivateProperty "A host method is not an override of a private property of the same name") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [hostSubclassCanBeUsed](compliance-suite/08-overrides.md#hostSubclassCanBeUsed "A host subclass of a jsii class can be used across the boundary")                                               | 🟢    | 🟢     | 🟢     | 🟢     |
-| [methodCallsUseHostOverride](compliance-suite/08-overrides.md#methodCallsUseHostOverride "The kernel dispatches a synchronous method to the host override")                                     | 🟢    | 🟢     | 🟢     | 🟢     |
-| [methodOverrideCanCallSuper](compliance-suite/08-overrides.md#methodOverrideCanCallSuper "A host method override can invoke the base implementation")                                           | 🟢    | 🟢     | 🟢     | 🟢     |
-| [overrideReceivesDeserializedArguments](compliance-suite/08-overrides.md#overrideReceivesDeserializedArguments "A host callback receives correctly deserialized arguments")                     | 🟢    | 🟢     | 🟢     | 🟢     |
-| [propertyAccessesUseHostOverrides](compliance-suite/08-overrides.md#propertyAccessesUseHostOverrides "The kernel dispatches property reads and writes to host overrides")                       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [protectedGetterCanBeOverridden](compliance-suite/08-overrides.md#protectedGetterCanBeOverridden "The kernel invokes a host override of a protected property getter")                           | 🟢    | 🟢     | 🟢     | 🟢     |
-| [protectedMethodCanBeOverridden](compliance-suite/08-overrides.md#protectedMethodCanBeOverridden "The kernel invokes a host override of a protected method")                                    | 🟢    | 🟢     | 🟢     | 🟢     |
-| [protectedSetterCanBeOverridden](compliance-suite/08-overrides.md#protectedSetterCanBeOverridden "The kernel invokes a host override of a protected property setter")                           | 🟢    | 🟢     | 🟢     | 🟢     |
-| [setterOverrideCanCallSuper](compliance-suite/08-overrides.md#setterOverrideCanCallSuper "A host property setter override can write the base value")                                            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [setterOverrideErrorPropagates](compliance-suite/08-overrides.md#setterOverrideErrorPropagates "An error thrown by a host property setter propagates to the caller")                            | 🟢    | 🟢     | 🟢     | 🟢     |
-| [syncGetterOverrideCallingAsyncFails](compliance-suite/08-overrides.md#syncGetterOverrideCallingAsyncFails "A synchronous override invoking an async method fails (via a getter)")              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [syncMethodOverrideCallingAsyncFails](compliance-suite/08-overrides.md#syncMethodOverrideCallingAsyncFails "A synchronous override invoking an async method fails (via a method)")              | 🟢    | 🟢     | 🟢     | 🟢     |
-| [syncSetterOverrideCallingAsyncFails](compliance-suite/08-overrides.md#syncSetterOverrideCallingAsyncFails "A synchronous override invoking an async method fails (via a setter)")              | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                                            | python | java  | dotnet | golang |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [getterOverrideCanCallSuper](compliance-suite/08-overrides.md#getterOverrideCanCallSuper "A host property getter override can read the base value")                                             | 🟢     | 🟢    | 🟢     | 🟢     |
+| [getterOverrideErrorPropagates](compliance-suite/08-overrides.md#getterOverrideErrorPropagates "An error thrown by a host property getter propagates to the caller")                            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostAccessorDoesNotOverridePrivateProperty](compliance-suite/08-overrides.md#hostAccessorDoesNotOverridePrivateProperty "A host accessor is not an override of a private property")            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostMethodDoesNotOverridePrivateMethod](compliance-suite/08-overrides.md#hostMethodDoesNotOverridePrivateMethod "A host method is not an override of a private method of the same name")       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostMethodDoesNotOverridePrivateProperty](compliance-suite/08-overrides.md#hostMethodDoesNotOverridePrivateProperty "A host method is not an override of a private property of the same name") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [hostSubclassCanBeUsed](compliance-suite/08-overrides.md#hostSubclassCanBeUsed "A host subclass of a jsii class can be used across the boundary")                                               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [methodCallsUseHostOverride](compliance-suite/08-overrides.md#methodCallsUseHostOverride "The kernel dispatches a synchronous method to the host override")                                     | 🟢     | 🟢    | 🟢     | 🟢     |
+| [methodOverrideCanCallSuper](compliance-suite/08-overrides.md#methodOverrideCanCallSuper "A host method override can invoke the base implementation")                                           | 🟢     | 🟢    | 🟢     | 🟢     |
+| [overrideReceivesDeserializedArguments](compliance-suite/08-overrides.md#overrideReceivesDeserializedArguments "A host callback receives correctly deserialized arguments")                     | 🟢     | 🟢    | 🟢     | 🟢     |
+| [propertyAccessesUseHostOverrides](compliance-suite/08-overrides.md#propertyAccessesUseHostOverrides "The kernel dispatches property reads and writes to host overrides")                       | 🟢     | 🟢    | 🟢     | 🟢     |
+| [protectedGetterCanBeOverridden](compliance-suite/08-overrides.md#protectedGetterCanBeOverridden "The kernel invokes a host override of a protected property getter")                           | 🟢     | 🟢    | 🟢     | 🟢     |
+| [protectedMethodCanBeOverridden](compliance-suite/08-overrides.md#protectedMethodCanBeOverridden "The kernel invokes a host override of a protected method")                                    | 🟢     | 🟢    | 🟢     | 🟢     |
+| [protectedSetterCanBeOverridden](compliance-suite/08-overrides.md#protectedSetterCanBeOverridden "The kernel invokes a host override of a protected property setter")                           | 🟢     | 🟢    | 🟢     | 🟢     |
+| [setterOverrideCanCallSuper](compliance-suite/08-overrides.md#setterOverrideCanCallSuper "A host property setter override can write the base value")                                            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [setterOverrideErrorPropagates](compliance-suite/08-overrides.md#setterOverrideErrorPropagates "An error thrown by a host property setter propagates to the caller")                            | 🟢     | 🟢    | 🟢     | 🟢     |
+| [syncGetterOverrideCallingAsyncFails](compliance-suite/08-overrides.md#syncGetterOverrideCallingAsyncFails "A synchronous override invoking an async method fails (via a getter)")              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [syncMethodOverrideCallingAsyncFails](compliance-suite/08-overrides.md#syncMethodOverrideCallingAsyncFails "A synchronous override invoking an async method fails (via a method)")              | 🟢     | 🟢    | 🟢     | 🟢     |
+| [syncSetterOverrideCallingAsyncFails](compliance-suite/08-overrides.md#syncSetterOverrideCallingAsyncFails "A synchronous override invoking an async method fails (via a setter)")              | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Async](compliance-suite/09-async.md)
 
-| Test                                                                                                                                                              | java  | golang                                       | dotnet | python |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- | ------ | ------ |
-| [asyncMethodCanBeOverridden](compliance-suite/09-async.md#asyncMethodCanBeOverridden "Host overrides of asynchronous methods are invoked by the kernel")          | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [asyncMethodReturningNothing](compliance-suite/09-async.md#asyncMethodReturningNothing "Asynchronous methods returning no value can be invoked")                  | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [asyncMethodsCanBeCalled](compliance-suite/09-async.md#asyncMethodsCanBeCalled "Asynchronous methods can be invoked from the host")                               | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [asyncOverrideCanBeInherited](compliance-suite/09-async.md#asyncOverrideCanBeInherited "Overrides inherited from a host base class are registered")               | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [asyncOverrideCanCallSuper](compliance-suite/09-async.md#asyncOverrideCanCallSuper "A host asynchronous override can call the base implementation")               | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [asyncOverrideErrorPropagates](compliance-suite/09-async.md#asyncOverrideErrorPropagates "Errors thrown by host asynchronous overrides propagate to the caller")  | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [multipleAsyncMethodsCanBeOverridden](compliance-suite/09-async.md#multipleAsyncMethodsCanBeOverridden "Multiple asynchronous methods can be overridden at once") | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [staticAsyncMethodsCanBeCalled](compliance-suite/09-async.md#staticAsyncMethodsCanBeCalled "Static asynchronous methods can be invoked from the host")            | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
+| Test                                                                                                                                                              | python | java  | dotnet | golang                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | -------------------------------------------- |
+| [asyncMethodCanBeOverridden](compliance-suite/09-async.md#asyncMethodCanBeOverridden "Host overrides of asynchronous methods are invoked by the kernel")          | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [asyncMethodReturningNothing](compliance-suite/09-async.md#asyncMethodReturningNothing "Asynchronous methods returning no value can be invoked")                  | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [asyncMethodsCanBeCalled](compliance-suite/09-async.md#asyncMethodsCanBeCalled "Asynchronous methods can be invoked from the host")                               | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [asyncOverrideCanBeInherited](compliance-suite/09-async.md#asyncOverrideCanBeInherited "Overrides inherited from a host base class are registered")               | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [asyncOverrideCanCallSuper](compliance-suite/09-async.md#asyncOverrideCanCallSuper "A host asynchronous override can call the base implementation")               | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [asyncOverrideErrorPropagates](compliance-suite/09-async.md#asyncOverrideErrorPropagates "Errors thrown by host asynchronous overrides propagate to the caller")  | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [multipleAsyncMethodsCanBeOverridden](compliance-suite/09-async.md#multipleAsyncMethodsCanBeOverridden "Multiple asynchronous methods can be overridden at once") | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
+| [staticAsyncMethodsCanBeCalled](compliance-suite/09-async.md#staticAsyncMethodsCanBeCalled "Static asynchronous methods can be invoked from the host")            | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
 
 
 ## [Errors](compliance-suite/10-errors.md)
 
-| Test                                                                                                                                                    | java  | golang | dotnet | python |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [kernelErrorMessageReachesTheHost](compliance-suite/10-errors.md#kernelErrorMessageReachesTheHost "The kernel error's message is surfaced to the host") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [kernelErrorsReachTheHost](compliance-suite/10-errors.md#kernelErrorsReachTheHost "Errors thrown by the kernel surface to the host")                    | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                    | python | java  | dotnet | golang |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [kernelErrorMessageReachesTheHost](compliance-suite/10-errors.md#kernelErrorMessageReachesTheHost "The kernel error's message is surfaced to the host") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [kernelErrorsReachTheHost](compliance-suite/10-errors.md#kernelErrorsReachTheHost "Errors thrown by the kernel surface to the host")                    | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Naming](compliance-suite/11-naming.md)
 
-| Test                                                                                                                                                                              | java  | golang | dotnet | python |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
-| [reservedWordClassPropertiesAreAccessible](compliance-suite/11-naming.md#reservedWordClassPropertiesAreAccessible "Class properties named like reserved words remain accessible") | 🟢    | 🟢     | 🟢     | 🟢     |
-| [reservedWordMethodsAreCallable](compliance-suite/11-naming.md#reservedWordMethodsAreCallable "Methods named like reserved words remain callable")                                | 🟢    | 🟢     | 🟢     | 🟢     |
-| [reservedWordStructPropertiesAreUsable](compliance-suite/11-naming.md#reservedWordStructPropertiesAreUsable "Struct properties named like reserved words remain usable")          | 🟢    | 🟢     | 🟢     | 🟢     |
+| Test                                                                                                                                                                              | python | java  | dotnet | golang |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
+| [reservedWordClassPropertiesAreAccessible](compliance-suite/11-naming.md#reservedWordClassPropertiesAreAccessible "Class properties named like reserved words remain accessible") | 🟢     | 🟢    | 🟢     | 🟢     |
+| [reservedWordMethodsAreCallable](compliance-suite/11-naming.md#reservedWordMethodsAreCallable "Methods named like reserved words remain callable")                                | 🟢     | 🟢    | 🟢     | 🟢     |
+| [reservedWordStructPropertiesAreUsable](compliance-suite/11-naming.md#reservedWordStructPropertiesAreUsable "Struct properties named like reserved words remain usable")          | 🟢     | 🟢    | 🟢     | 🟢     |
 
 
 ## [Runtime Environment](compliance-suite/12-runtime.md)
 
-| Test                                                                                                                                               | java  | golang                                       | dotnet | python |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- | ------ | ------ |
-| [kernelKnowsTheHostRuntime](compliance-suite/12-runtime.md#kernelKnowsTheHostRuntime "The kernel is told which host runtime is driving it")        | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [nodeStandardLibraryIsAvailable](compliance-suite/12-runtime.md#nodeStandardLibraryIsAvailable "Kernel code can use the Node.js standard library") | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
+| Test                                                                                                                                               | python | java  | dotnet | golang                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | -------------------------------------------- |
+| [kernelKnowsTheHostRuntime](compliance-suite/12-runtime.md#kernelKnowsTheHostRuntime "The kernel is told which host runtime is driving it")        | 🟢     | 🟢    | 🟢     | 🟢                                           |
+| [nodeStandardLibraryIsAvailable](compliance-suite/12-runtime.md#nodeStandardLibraryIsAvailable "Kernel code can use the Node.js standard library") | 🟢     | 🟢    | 🟢     | [🔴](https://github.com/aws/jsii/issues/2670) |
