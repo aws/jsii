@@ -81,6 +81,7 @@ from jsii_calc import (
     StructPassing,
     SecondLevelStruct,
     TopLevelStruct,
+    IReturnJsii976,
     SomeTypeJsii976,
     StructParameterType,
     AnonymousImplementationProvider,
@@ -989,22 +990,13 @@ def test_interface_value_with_private_type_is_usable():
     assert provider.provide_as_interface().verb() == "to implement"
 
 
-# https://github.com/aws/jsii/issues/976
-@pytest.mark.skip(
-    reason="Binding limitation: an `any`-typed anonymous object is received as an "
-    "Opaque reference that does not expose the implemented interface's members, so "
-    "it cannot be used as IReturnJsii976 (reading `foo` raises AttributeError)."
-)
 def test_objects_usable_through_implemented_interface():
     obj = SomeTypeJsii976.return_return()
     assert obj.foo == 333
 
-    # Also covers the former `downcasting` scenario: `return_anonymous()` is
-    # declared as `any`. Python is dynamically typed and has no unsafe-cast
-    # operation, so a value returned by the kernel is used directly through the
-    # interface it implements -- reading `foo` yields the value computed by the
-    # object.
-    anonymous = SomeTypeJsii976.return_anonymous()
+    # `return_anonymous()` is declared as `any` and returns an instance of a private
+    # class, so the kernel doesn't know which interface it implements.
+    anonymous = jsii.unsafe_cast(SomeTypeJsii976.return_anonymous(), IReturnJsii976)
     assert anonymous.foo == 1337
 
 

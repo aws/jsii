@@ -10,8 +10,8 @@ Language bindings must pass every test case. A category is complete when a langu
 | -------- | ------------------- | ------------------- |
 | java     | 100.00% (110 / 110) | 12 / 12             |
 | golang   | 84.55% (93 / 110)   | 7 / 12              |
-| dotnet   | 93.64% (103 / 110)  | 9 / 12              |
-| python   | 94.55% (104 / 110)  | 10 / 12             |
+| dotnet   | 94.55% (104 / 110)  | 10 / 12             |
+| python   | 95.45% (105 / 110)  | 11 / 12             |
 
 
 Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
@@ -51,7 +51,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | [objectReferencesRoundTripThroughAny](compliance-suite/02-classes.md#objectReferencesRoundTripThroughAny "Object references round-trip through an `any`-typed property")                        | 🟢    | 🟢     | 🟢     | 🟢     |
 | [objectsReceivedAsMostDerivedPublicType](compliance-suite/02-classes.md#objectsReceivedAsMostDerivedPublicType "Object references are labelled with the most derived public type")              | 🟢    | 🟢     | 🟢     | 🟢     |
 | [objectsReturnedAsAbstractTypeAreUsable](compliance-suite/02-classes.md#objectsReturnedAsAbstractTypeAreUsable "Instances returned as an abstract type are fully usable")                       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [objectsUsableThroughImplementedInterface](compliance-suite/02-classes.md#objectsUsableThroughImplementedInterface "An object is usable through the interface it implements")                   | 🟢    | 🟢     | 🔴     | 🔴     |
+| [objectsUsableThroughImplementedInterface](compliance-suite/02-classes.md#objectsUsableThroughImplementedInterface "An object is usable through the interface it implements")                   | 🟢    | 🟢     | 🟢     | 🟢     |
 | [optionalConstructorParametersCanBeOmitted](compliance-suite/02-classes.md#optionalConstructorParametersCanBeOmitted "Optional constructor parameters can be omitted")                          | 🟢    | ⚪      | 🟢     | 🟢     |
 | [privateConstructorClassFromStaticFactory](compliance-suite/02-classes.md#privateConstructorClassFromStaticFactory "Classes with a private constructor are created via a static factory")       | 🟢    | 🟢     | 🟢     | 🟢     |
 | [strippedDeprecatedTypeCanBeReceived](compliance-suite/02-classes.md#strippedDeprecatedTypeCanBeReceived "Instances of stripped deprecated types can be received")                              | 🟢    | 🟢     | 🟢     | 🟢     |
