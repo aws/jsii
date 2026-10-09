@@ -20,7 +20,7 @@ func (o *OverrideAsyncMethods) OverrideMe(*float64) *float64 {
 }
 
 func (o *OverrideAsyncMethods) Foo() *float64 {
-	return jsii.Number(222)
+	return jsii.Number(2222)
 }
 
 type OverrideAsyncMethodsByBaseClass struct {

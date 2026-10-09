@@ -18,6 +18,12 @@ export const JSII_INVOKE_VOID_FUNC = `${JSII_RT_ALIAS}.InvokeVoid`;
 // JSII static invoke
 export const JSII_SINVOKE_FUNC = `${JSII_RT_ALIAS}.StaticInvoke`;
 export const JSII_SINVOKE_VOID_FUNC = `${JSII_RT_ALIAS}.StaticInvokeVoid`;
+// JSII async invoke request
+export const JSII_AINVOKE_FUNC = `${JSII_RT_ALIAS}.AsyncInvoke`;
+export const JSII_AINVOKE_VOID_FUNC = `${JSII_RT_ALIAS}.AsyncInvokeVoid`;
+// JSII static async invoke
+export const JSII_SAINVOKE_FUNC = `${JSII_RT_ALIAS}.StaticAsyncInvoke`;
+export const JSII_SAINVOKE_VOID_FUNC = `${JSII_RT_ALIAS}.StaticAsyncInvokeVoid`;
 
 // JSII get request
 export const JSII_GET_FUNC = `${JSII_RT_ALIAS}.Get`;

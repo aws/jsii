@@ -3,8 +3,12 @@ import { Method } from 'jsii-reflect';
 import { EmitContext } from '../emit-context';
 import { GoMethod } from '../types';
 import {
+  JSII_AINVOKE_FUNC,
+  JSII_AINVOKE_VOID_FUNC,
   JSII_INVOKE_FUNC,
   JSII_INVOKE_VOID_FUNC,
+  JSII_SAINVOKE_FUNC,
+  JSII_SAINVOKE_VOID_FUNC,
   JSII_SINVOKE_FUNC,
   JSII_SINVOKE_VOID_FUNC,
 } from './constants';
@@ -39,9 +43,11 @@ export class MethodCall extends FunctionCall {
     if (this.returnsVal) {
       code.line(`var ${this.returnVarName} ${this.returnType}`);
       code.line();
-      code.open(`${JSII_INVOKE_FUNC}(`);
+      code.open(`${this.isAsync ? JSII_AINVOKE_FUNC : JSII_INVOKE_FUNC}(`);
     } else {
-      code.open(`${JSII_INVOKE_VOID_FUNC}(`);
+      code.open(
+        `${this.isAsync ? JSII_AINVOKE_VOID_FUNC : JSII_INVOKE_VOID_FUNC}(`,
+      );
     }
 
     code.line(`${this.parent.instanceArg},`);
@@ -75,9 +81,11 @@ export class MethodCall extends FunctionCall {
     if (this.returnsVal) {
       code.line(`var ${this.returnVarName} ${this.returnType}`);
       code.line();
-      code.open(`${JSII_SINVOKE_FUNC}(`);
+      code.open(`${this.isAsync ? JSII_SAINVOKE_FUNC : JSII_SINVOKE_FUNC}(`);
     } else {
-      code.open(`${JSII_SINVOKE_VOID_FUNC}(`);
+      code.open(
+        `${this.isAsync ? JSII_SAINVOKE_VOID_FUNC : JSII_SINVOKE_VOID_FUNC}(`,
+      );
     }
 
     code.line(`"${this.parent.parent.fqn}",`);
@@ -107,5 +115,9 @@ export class MethodCall extends FunctionCall {
 
   private get inStatic(): boolean {
     return Method.isMethod(this.parent.method) && this.parent.method.static;
+  }
+
+  private get isAsync(): boolean {
+    return Method.isMethod(this.parent.method) && this.parent.method.async;
   }
 }

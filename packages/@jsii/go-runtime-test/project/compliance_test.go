@@ -170,9 +170,7 @@ func (suite *ComplianceSuite) TestNodeStandardLibraryIsAvailable() {
 	require.Equal("Hello, resource! SYNC!", *obj.FsReadFileSync())
 	require.NotEmpty(obj.OsPlatform())
 	require.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50", *obj.CryptoSha256())
-
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	require.Equal("Hello, resource!", obj.FsReadFile())
+	require.Equal("Hello, resource!", *obj.FsReadFile())
 }
 
 func (suite *ComplianceSuite) TestAnyValuesKeepTheirType() {
@@ -722,21 +720,12 @@ func (suite *ComplianceSuite) TestObjectsReceivedAsMostDerivedPublicType() {
 
 // TestVoidReturningAsync verifies that returning Promise<void> is correctly handled.
 func (suite *ComplianceSuite) TestAsyncMethodReturningNothing() {
-	// Async methods are generated as synchronous kernel invocations in Go, which
-	// the kernel rejects ("<method> is an async method, use \"begin\" instead",
-	// or "sbegin" for static methods).
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-
 	obj := calc.NewPromiseNothing()
 	obj.InstancePromiseIt()
 	calc.PromiseNothing_PromiseIt()
 }
 
 func (suite *ComplianceSuite) TestStaticAsyncMethodsCanBeCalled() {
-	// Async methods are generated as synchronous kernel invocations in Go, which
-	// the kernel rejects ("<method> is an async method, use \"sbegin\" instead").
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-
 	require := suite.Require()
 	require.Equal(float64(42), *calc.StaticAsyncMethods_AddOne(jsii.Number(41)))
 }
@@ -788,7 +777,6 @@ func (suite *ComplianceSuite) TestMapOfInterfacesValuesAreUsable() {
 }
 
 func (suite *ComplianceSuite) TestAsyncMethodsCanBeCalled() {
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	require := suite.Require()
 	obj := calc.NewAsyncVirtualMethods()
 	require.Equal(float64(128), *obj.CallMe())
@@ -827,17 +815,22 @@ type myAsyncVirtualMethods struct {
 	calc.AsyncVirtualMethods
 }
 
-func (s *myAsyncVirtualMethods) OverrideMe(mult float64) {
+func (s *myAsyncVirtualMethods) OverrideMe(mult *float64) *float64 {
 	panic("Thrown by native code")
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrideErrorPropagates() {
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 	require := suite.Require()
 
-	obj := myAsyncVirtualMethods{calc.NewAsyncVirtualMethods()}
+	obj := &myAsyncVirtualMethods{}
+	calc.NewAsyncVirtualMethods_Override(obj)
+
+	defer func() {
+		err := recover()
+		require.NotNil(err, "expected an error!")
+		require.ErrorContains(err.(error), "Thrown by native code")
+	}()
 	obj.CallMe()
-	require.Panics(func() { obj.CallMe() })
 }
 
 func (suite *ComplianceSuite) TestObjectsUsableThroughImplementedInterface() {
@@ -947,8 +940,7 @@ func (suite *ComplianceSuite) TestAsyncOverrideCanBeInherited() {
 	t := suite.T()
 
 	obj := overrideAsyncMethods.NewOverrideAsyncMethodsByBaseClass()
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	require.Equal(t, 4452.0, obj.CallMe())
+	require.Equal(t, 4452.0, *obj.CallMe())
 }
 
 func (suite *ComplianceSuite) TestStructReceivedAsParentStructType() {
@@ -1042,8 +1034,7 @@ func (suite *ComplianceSuite) TestMultipleAsyncMethodsCanBeOverridden() {
 	t := suite.T()
 
 	obj := twoOverrides.New()
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	require.Equal(t, 684.0, obj.CallMe())
+	require.Equal(t, 684.0, *obj.CallMe())
 }
 
 func (suite *ComplianceSuite) TestSetterOverrideCanCallSuper() {
@@ -1464,14 +1455,13 @@ func (suite *ComplianceSuite) TestMethodOverrideCanCallSuper() {
 }
 
 func (suite *ComplianceSuite) TestAsyncOverrideCanCallSuper() {
-
 	require := suite.Require()
 
-	obj := OverrideCallsSuper{AsyncVirtualMethods: calc.NewAsyncVirtualMethods()}
+	obj := &OverrideCallsSuper{}
+	calc.NewAsyncVirtualMethods_Override(obj)
 
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	require.Equal(1441, *obj.OverrideMe(jsii.Number(12)))
-	require.Equal(1209, *obj.CallMe())
+	require.Equal(float64(1441), *obj.OverrideMe(jsii.Number(12)))
+	require.Equal(float64(1209), *obj.CallMe())
 }
 
 type OverrideCallsSuper struct {
@@ -1508,8 +1498,7 @@ func (suite *ComplianceSuite) TestAsyncMethodCanBeOverridden() {
 
 	obj := overrideAsyncMethods.New()
 
-	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
-	require.Equal(float64(4452), obj.CallMe())
+	require.Equal(float64(4452), *obj.CallMe())
 }
 
 func (suite *ComplianceSuite) TestSyncMethodOverrideCallingAsyncFails() {
