@@ -66,8 +66,52 @@ function renderTestCase(testCase: schema.TestCase): string {
     '',
     `**Test:** \`${testCase.name}\``,
     '',
-    demoteHeadings(testCase.body),
+    demoteHeadings(collapseReferenceImplementation(testCase.body)),
   ].join('\n');
+}
+
+const REFERENCE_IMPLEMENTATION_HEADING = '## Reference Implementation';
+
+/**
+ * Wraps the "Reference Implementation" section in a collapsible block that is closed by default.
+ *
+ * Uses the `pymdownx.details` syntax (`??? note "Title"`), whose content must be indented by four spaces.
+ * The section ends at the next heading of the same level (outside of code blocks) or at the end of the body.
+ */
+function collapseReferenceImplementation(markdown: string): string {
+  const lines = markdown.split('\n');
+  const result: string[] = [];
+
+  let inCode = false;
+  let collapsing = false;
+
+  for (const line of lines) {
+    const isFence = line.startsWith('```');
+    const isHeading = !inCode && !isFence && /^## /.test(line);
+
+    if (isHeading && collapsing) {
+      collapsing = false;
+    }
+
+    if (isHeading && line === REFERENCE_IMPLEMENTATION_HEADING) {
+      collapsing = true;
+      // The blank line that follows the heading in the source provides the separation
+      result.push('??? note "Reference Implementation"');
+      continue;
+    }
+
+    if (collapsing) {
+      result.push(line === '' ? line : `    ${line}`);
+    } else {
+      result.push(line);
+    }
+
+    if (isFence) {
+      inCode = !inCode;
+    }
+  }
+
+  return result.join('\n');
 }
 
 function anchor(testCase: schema.TestCase): string {

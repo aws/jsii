@@ -14,25 +14,25 @@ When the host starts the kernel process, it MUST set the `JSII_AGENT` environmen
 host runtime and its version. Kernel code that reads that environment variable MUST observe exactly the value the host
 provided.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class JsiiAgent {
-  /** Returns the value of the JSII_AGENT environment variable. */
-  public static get value(): string | undefined {
-    return process.env.JSII_AGENT;
-  }
-}
+    ```ts
+    // GIVEN
+    export class JsiiAgent {
+      /** Returns the value of the JSII_AGENT environment variable. */
+      public static get value(): string | undefined {
+        return process.env.JSII_AGENT;
+      }
+    }
 
-// WHEN
-const agent = JsiiAgent.value;
+    // WHEN
+    const agent = JsiiAgent.value;
 
-// THEN
-// The host sets JSII_AGENT when spawning the kernel, so it is observed as a non-absent value
-// identifying the host runtime and version.
-expect(agent).toBeDefined();
-```
+    // THEN
+    // The host sets JSII_AGENT when spawning the kernel, so it is observed as a non-absent value
+    // identifying the host runtime and version.
+    expect(agent).toBeDefined();
+    ```
 
 <a id="nodeStandardLibraryIsAvailable"></a>
 
@@ -44,39 +44,39 @@ The kernel process MUST run in an environment that provides the Node.js standard
 on it &mdash; file-system, operating-system and cryptography facilities, in both their synchronous and asynchronous
 forms &mdash; executes correctly and returns its results to the host unchanged.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class NodeStandardLibrary {
-  /** Reads a bundled resource file asynchronously. @returns "Hello, resource!" */
-  public async fsReadFile(): Promise<string> {
-    const value = await readFile(path.join(__dirname, 'resource.txt'));
-    return value.toString();
-  }
+    ```ts
+    // GIVEN
+    export class NodeStandardLibrary {
+      /** Reads a bundled resource file asynchronously. @returns "Hello, resource!" */
+      public async fsReadFile(): Promise<string> {
+        const value = await readFile(path.join(__dirname, 'resource.txt'));
+        return value.toString();
+      }
 
-  /** Synchronous version of `fsReadFile`. @returns "Hello, resource! SYNC!" */
-  public fsReadFileSync(): string {
-    return `${fs.readFileSync(path.join(__dirname, 'resource.txt')).toString()} SYNC!`;
-  }
+      /** Synchronous version of `fsReadFile`. @returns "Hello, resource! SYNC!" */
+      public fsReadFileSync(): string {
+        return `${fs.readFileSync(path.join(__dirname, 'resource.txt')).toString()} SYNC!`;
+      }
 
-  /** Returns the current `os.platform()`. */
-  public get osPlatform(): string {
-    return os.platform();
-  }
+      /** Returns the current `os.platform()`. */
+      public get osPlatform(): string {
+        return os.platform();
+      }
 
-  /** Computes the sha256 of a string. @returns "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" */
-  public cryptoSha256(): string {
-    return crypto.createHash('sha256').update('some data to hash').digest('hex');
-  }
-}
+      /** Computes the sha256 of a string. @returns "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" */
+      public cryptoSha256(): string {
+        return crypto.createHash('sha256').update('some data to hash').digest('hex');
+      }
+    }
 
-// WHEN
-const obj = new NodeStandardLibrary();
+    // WHEN
+    const obj = new NodeStandardLibrary();
 
-// THEN
-expect(await obj.fsReadFile()).toBe('Hello, resource!');
-expect(obj.fsReadFileSync()).toBe('Hello, resource! SYNC!');
-expect(obj.osPlatform.length).toBeGreaterThan(0);
-expect(obj.cryptoSha256()).toBe('6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50');
-```
+    // THEN
+    expect(await obj.fsReadFile()).toBe('Hello, resource!');
+    expect(obj.fsReadFileSync()).toBe('Hello, resource! SYNC!');
+    expect(obj.osPlatform.length).toBeGreaterThan(0);
+    expect(obj.cryptoSha256()).toBe('6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50');
+    ```

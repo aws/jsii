@@ -69,18 +69,18 @@ export function loadSuite(): schema.Suite {
     description:
       'JSII standard compliance test suite. These tests must be implemented in each language binding.',
     bindings: {
+      python: {
+        report: 'packages/@jsii/python-runtime/compliance-report.json',
+      },
       java: {
         report:
           'packages/@jsii/java-runtime-test/project/compliance-report.json',
       },
-      golang: {
-        report: 'packages/@jsii/go-runtime-test/project/compliance-report.json',
-      },
       dotnet: {
         report: 'packages/@jsii/dotnet-runtime-test/compliance-report.json',
       },
-      python: {
-        report: 'packages/@jsii/python-runtime/compliance-report.json',
+      golang: {
+        report: 'packages/@jsii/go-runtime-test/project/compliance-report.json',
       },
     },
     categories,

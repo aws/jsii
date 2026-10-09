@@ -33,7 +33,7 @@
 
     [semver]: https://semver.org/spec/v2.0.0.html
 
-[Maintenance]: ../compiler-and-rosetta-maintenance.md
+[Maintenance]: ../support/compiler-and-rosetta-maintenance.md
 [jsii]: https://github.com/aws/jsii-compiler#readme
 [jsii-pacmak]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
 [jsii-reflect]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
