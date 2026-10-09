@@ -181,7 +181,7 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
 						// If there is the "field" tag, and it's "required", then panic since the value is nil.
 						if requiredOrOptional, found := field.Tag.Lookup("field"); found && requiredOrOptional == "required" {
-							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", field.Type, field.Name))
+							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", elemVal.Type(), field.Name))
 						}
 						continue
 					}

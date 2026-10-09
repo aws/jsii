@@ -32,7 +32,7 @@ require (
 )
 
 replace (
-	github.com/aws/jsii-runtime-go v0.0.0 => ../../go-runtime/jsii-runtime-go
+	github.com/aws/jsii-runtime-go => ../../go-runtime/jsii-runtime-go
 	github.com/aws/jsii/jsii-calc/go/jcb v0.0.0 => ../jsii-calc/go/jcb
 	github.com/aws/jsii/jsii-calc/go/jsiicalc/v3 v3.20.120 => ../jsii-calc/go/jsiicalc
 	github.com/aws/jsii/jsii-calc/go/scopejsiicalcbaseofbase/v2 => ../jsii-calc/go/scopejsiicalcbaseofbase

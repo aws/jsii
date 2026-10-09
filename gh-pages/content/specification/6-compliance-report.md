@@ -9,7 +9,7 @@ Language bindings must pass every test case. A category is complete when a langu
 | Language | Tests passing       | Categories complete |
 | -------- | ------------------- | ------------------- |
 | java     | 100.00% (110 / 110) | 12 / 12             |
-| golang   | 84.55% (93 / 110)   | 7 / 12              |
+| golang   | 86.36% (95 / 110)   | 8 / 12              |
 | dotnet   | 94.55% (104 / 110)  | 10 / 12             |
 | python   | 95.45% (105 / 110)  | 11 / 12             |
 
@@ -52,7 +52,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | [objectsReceivedAsMostDerivedPublicType](compliance-suite/02-classes.md#objectsReceivedAsMostDerivedPublicType "Object references are labelled with the most derived public type")              | 🟢    | 🟢     | 🟢     | 🟢     |
 | [objectsReturnedAsAbstractTypeAreUsable](compliance-suite/02-classes.md#objectsReturnedAsAbstractTypeAreUsable "Instances returned as an abstract type are fully usable")                       | 🟢    | 🟢     | 🟢     | 🟢     |
 | [objectsUsableThroughImplementedInterface](compliance-suite/02-classes.md#objectsUsableThroughImplementedInterface "An object is usable through the interface it implements")                   | 🟢    | 🟢     | 🟢     | 🟢     |
-| [optionalConstructorParametersCanBeOmitted](compliance-suite/02-classes.md#optionalConstructorParametersCanBeOmitted "Optional constructor parameters can be omitted")                          | 🟢    | ⚪      | 🟢     | 🟢     |
+| [optionalConstructorParametersCanBeOmitted](compliance-suite/02-classes.md#optionalConstructorParametersCanBeOmitted "Optional constructor parameters can be omitted")                          | 🟢    | 🟢     | 🟢     | 🟢     |
 | [privateConstructorClassFromStaticFactory](compliance-suite/02-classes.md#privateConstructorClassFromStaticFactory "Classes with a private constructor are created via a static factory")       | 🟢    | 🟢     | 🟢     | 🟢     |
 | [strippedDeprecatedTypeCanBeReceived](compliance-suite/02-classes.md#strippedDeprecatedTypeCanBeReceived "Instances of stripped deprecated types can be received")                              | 🟢    | 🟢     | 🟢     | 🟢     |
 | [typesNotLoadedByTheHostCanBeReceived](compliance-suite/02-classes.md#typesNotLoadedByTheHostCanBeReceived "Types not explicitly loaded by the host can be received and used")                  | 🟢    | 🟢     | 🟢     | 🟢     |
@@ -102,20 +102,20 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 
 ## [Structs & Keyword Arguments](compliance-suite/06-structs.md)
 
-| Test                                                                                                                                                                                                           | java  | golang                                       | dotnet | python |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- | ------ | ------ |
-| [diamondInheritedStructPropertiesAppearOnce](compliance-suite/06-structs.md#diamondInheritedStructPropertiesAppearOnce "Diamond-inherited struct properties are exposed exactly once")                         | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢    | [🔴](https://github.com/aws/jsii/issues/2672) | 🔴     | 🟢     |
-| [overlappingStructUnionsAreDisambiguated](compliance-suite/06-structs.md#overlappingStructUnionsAreDisambiguated "Overlapping struct types in a union are correctly disambiguated")                            | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [positionalArgumentAndStructPropertyWithSameName](compliance-suite/06-structs.md#positionalArgumentAndStructPropertyWithSameName "A positional argument and a struct property of the same name stay distinct") | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [receivedStructEqualsHostBuiltStruct](compliance-suite/06-structs.md#receivedStructEqualsHostBuiltStruct "A struct received from the kernel is indistinguishable from one built by the host")                  | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [structReceivedAsParentStructType](compliance-suite/06-structs.md#structReceivedAsParentStructType "A returned struct can be received as a parent struct type")                                                | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [structsArePassedByValue](compliance-suite/06-structs.md#structsArePassedByValue "A struct is passed to the kernel by value and its properties are readable")                                                  | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🔴                                           | 🟢     | 🟢     |
-| [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢    | 🟢                                           | 🟢     | 🟢     |
+| Test                                                                                                                                                                                                           | java  | golang | dotnet | python |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
+| [diamondInheritedStructPropertiesAppearOnce](compliance-suite/06-structs.md#diamondInheritedStructPropertiesAppearOnce "Diamond-inherited struct properties are exposed exactly once")                         | 🟢    | 🟢     | 🟢     | 🟢     |
+| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢    | 🟢     | 🔴     | 🟢     |
+| [overlappingStructUnionsAreDisambiguated](compliance-suite/06-structs.md#overlappingStructUnionsAreDisambiguated "Overlapping struct types in a union are correctly disambiguated")                            | 🟢    | 🟢     | 🟢     | 🟢     |
+| [positionalArgumentAndStructPropertyWithSameName](compliance-suite/06-structs.md#positionalArgumentAndStructPropertyWithSameName "A positional argument and a struct property of the same name stay distinct") | 🟢    | 🟢     | 🟢     | 🟢     |
+| [receivedStructEqualsHostBuiltStruct](compliance-suite/06-structs.md#receivedStructEqualsHostBuiltStruct "A struct received from the kernel is indistinguishable from one built by the host")                  | 🟢    | 🟢     | 🟢     | 🟢     |
+| [structReceivedAsParentStructType](compliance-suite/06-structs.md#structReceivedAsParentStructType "A returned struct can be received as a parent struct type")                                                | 🟢    | 🟢     | 🟢     | 🟢     |
+| [structsArePassedByValue](compliance-suite/06-structs.md#structsArePassedByValue "A struct is passed to the kernel by value and its properties are readable")                                                  | 🟢    | 🟢     | 🟢     | 🟢     |
+| [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢    | 🟢     | 🟢     | 🟢     |
+| [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢    | 🟢     | 🟢     | 🟢     |
+| [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢    | 🟢     | 🟢     | 🟢     |
+| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🔴     | 🟢     | 🟢     |
+| [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢    | 🟢     | 🟢     | 🟢     |
 
 
 ## [Interfaces](compliance-suite/07-interfaces.md)
