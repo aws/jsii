@@ -22,10 +22,8 @@ this policy.
 All packages in this repository are released together under a single version, and follow
 [Semantic Versioning](https://semver.org): breaking changes only come with a new major version.
 
-You can count on the following:
-
-- Packages created by `jsii-pacmak` work with the version of the runtime library they were created for.
-- Newer runtime libraries keep working with packages created by older versions of `jsii-pacmak`.
+Packages created by `jsii-pacmak` work with the version of the runtime library they were created for, and with any newer
+release in the same major version.
 
 `jsii-pacmak` uses `jsii-rosetta` to translate the code examples in your documentation. Only actively supported versions
 of `jsii-rosetta` are supported. The supported versions are listed in the `package.json` of `jsii-pacmak`, and are
