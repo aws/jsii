@@ -209,6 +209,12 @@ export interface BeginRequest {
   readonly args?: any[];
 }
 
+export interface StaticBeginRequest {
+  readonly fqn: string;
+  readonly method: string;
+  readonly args?: any[];
+}
+
 export interface BeginResponse {
   readonly promiseid: string;
 }
@@ -264,6 +270,7 @@ export type KernelRequest =
   | SetRequest
   | InvokeRequest
   | BeginRequest
+  | StaticBeginRequest
   | EndRequest
   | CallbacksRequest
   | CompleteRequest

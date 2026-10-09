@@ -713,12 +713,22 @@ func (suite *ComplianceSuite) TestObjectsReceivedAsMostDerivedPublicType() {
 // TestVoidReturningAsync verifies that returning Promise<void> is correctly handled.
 func (suite *ComplianceSuite) TestAsyncMethodReturningNothing() {
 	// Async methods are generated as synchronous kernel invocations in Go, which
-	// the kernel rejects ("<method> is an async method, use \"begin\" instead").
+	// the kernel rejects ("<method> is an async method, use \"begin\" instead",
+	// or "sbegin" for static methods).
 	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
 
 	obj := calc.NewPromiseNothing()
 	obj.InstancePromiseIt()
 	calc.PromiseNothing_PromiseIt()
+}
+
+func (suite *ComplianceSuite) TestStaticAsyncMethodsCanBeCalled() {
+	// Async methods are generated as synchronous kernel invocations in Go, which
+	// the kernel rejects ("<method> is an async method, use \"sbegin\" instead").
+	suite.FailTest("Async methods are not implemented", "https://github.com/aws/jsii/issues/2670")
+
+	require := suite.Require()
+	require.Equal(float64(42), *calc.StaticAsyncMethods_AddOne(jsii.Number(41)))
 }
 
 func (suite *ComplianceSuite) TestStaticArrayPropertyRejectsMutation() {

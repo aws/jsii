@@ -3156,6 +3156,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 StableClass.go
        ┣━ 📄 StableEnum.go
        ┣━ 📄 StableStruct.go
+       ┣━ 📄 StaticAsyncMethods.go
        ┣━ 📄 StaticContext.go
        ┣━ 📄 StaticHelloChild.go
        ┣━ 📄 StaticHelloParent.go
@@ -16268,6 +16269,41 @@ type StableStruct struct {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StaticAsyncMethods.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Static asynchronous methods, used to verify that their arguments and results cross the language boundary.
+type StaticAsyncMethods interface {
+}
+
+// The jsii proxy struct for StaticAsyncMethods
+type jsiiProxy_StaticAsyncMethods struct {
+	_ byte // padding
+}
+
+func StaticAsyncMethods_AddOne(value *float64) *float64 {
+	_init_.Initialize()
+
+	var returns *float64
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StaticAsyncMethods",
+		"addOne",
+		[]interface{}{value},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StaticContext.go 1`] = `
 package jsiicalc
 
@@ -23425,6 +23461,14 @@ func init() {
 		reflect.TypeOf((*StableStruct)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.StaticAsyncMethods",
+		reflect.TypeOf((*StaticAsyncMethods)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_StaticAsyncMethods{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.StaticContext",
 		reflect.TypeOf((*StaticContext)(nil)).Elem(),
 		nil, // no members
@@ -27489,6 +27533,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 StableClass__checks.go
        ┣━ 🆕 StableClass__no_checks.go
        ┣━ 📄 StableClass.go.diff
+       ┣━ 🆕 StaticAsyncMethods__checks.go
+       ┣━ 🆕 StaticAsyncMethods__no_checks.go
+       ┣━ 📄 StaticAsyncMethods.go.diff
        ┣━ 🆕 StaticContext__checks.go
        ┣━ 🆕 StaticContext__no_checks.go
        ┣━ 📄 StaticContext.go.diff
@@ -34848,6 +34895,63 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/S
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateNewStableClassParameters(readonlyString *string) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticAsyncMethods.go.diff 1`] = `
+--- go/jsiicalc/StaticAsyncMethods.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticAsyncMethods.go	--runtime-type-checking
+@@ -15,10 +15,13 @@
+ }
+ 
+ func StaticAsyncMethods_AddOne(value *float64) *float64 {
+ 	_init_.Initialize()
+ 
++	if err := validateStaticAsyncMethods_AddOneParameters(value); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.StaticAsyncMethods",
+ 		"addOne",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticAsyncMethods__checks.go.diff 1`] = `
+--- go/jsiicalc/StaticAsyncMethods__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticAsyncMethods__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateStaticAsyncMethods_AddOneParameters(value *float64) error {
++	if value == nil {
++		return fmt.Errorf("parameter value is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticAsyncMethods__no_checks.go.diff 1`] = `
+--- go/jsiicalc/StaticAsyncMethods__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticAsyncMethods__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateStaticAsyncMethods_AddOneParameters(value *float64) error {
 +	return nil
 +}
 +

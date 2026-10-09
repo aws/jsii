@@ -1601,6 +1601,10 @@ class StaticMethod extends BaseMethod {
   protected readonly jsiiMethod: string = 'sinvoke';
 }
 
+class StaticAsyncMethod extends StaticMethod {
+  protected readonly jsiiMethod: string = 'sainvoke';
+}
+
 class Initializer extends BaseMethod {
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiMethod: string = 'create';
@@ -3024,9 +3028,10 @@ class PythonGenerator extends Generator {
     const { parameters = [] } = method;
 
     const klass = this.getPythonType(cls.fqn);
+    const StaticMethodType = method.async ? StaticAsyncMethod : StaticMethod;
 
     klass.addMember(
-      new StaticMethod(
+      new StaticMethodType(
         this,
         toPythonMethodName(method.name),
         method.name,

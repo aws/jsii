@@ -2598,6 +2598,14 @@ exports[`showAll 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ mutableProperty property
  │   │     └── type: Optional<number>
+ │   ├─┬ class StaticAsyncMethods
+ │   │ └─┬ members
+ │   │   └─┬ static addOne(value) method
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: number
+ │   │     └── returns: Promise<number>
  │   ├─┬ class StaticContext
  │   │ └─┬ members
  │   │   ├─┬ static canAccessStaticContext() method
@@ -4543,6 +4551,7 @@ exports[`types 1`] = `
  │   ├── class SomeContainingClass
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
+ │   ├── class StaticAsyncMethods
  │   ├── class StaticContext
  │   ├── class StaticHelloChild
  │   ├── class StaticHelloParent

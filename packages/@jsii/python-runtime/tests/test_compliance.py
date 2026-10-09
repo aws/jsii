@@ -85,6 +85,7 @@ from jsii_calc import (
     StructParameterType,
     AnonymousImplementationProvider,
     PromiseNothing,
+    StaticAsyncMethods,
 )
 from jsii_calc.cdk16625 import Cdk16625
 from jsii_calc.cdk22369 import AcceptsPath
@@ -1173,14 +1174,15 @@ def test_kernel_error_message_reaches_the_host():
         AcceptsPath(source_path="A Bad Path")
 
 
-@pytest.mark.skip(
-    reason="Static async methods are generated as synchronous calls, which the kernel rejects"
-)
 def test_async_method_returning_nothing():
     """Verifies it's okay to return a Promise<void>."""
 
     assert PromiseNothing().instance_promise_it() is None
     assert PromiseNothing.promise_it() is None
+
+
+def test_static_async_methods_can_be_called():
+    assert StaticAsyncMethods.add_one(41) == 42
 
 
 def test_submodule_struct_can_be_passed():

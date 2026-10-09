@@ -2403,6 +2403,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ mutableProperty property (stable)
  │   │     └── type: Optional<number>
+ │   ├─┬ class StaticAsyncMethods (stable)
+ │   │ └─┬ members
+ │   │   └─┬ static addOne(value) method (stable)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: number
+ │   │     └── returns: Promise<number>
  │   ├─┬ class StaticContext (stable)
  │   │ └─┬ members
  │   │   ├─┬ static canAccessStaticContext() method (stable)
@@ -4351,6 +4359,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SomeContainingClass
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
+ │   ├── class StaticAsyncMethods
  │   ├── class StaticContext
  │   ├─┬ class StaticHelloChild
  │   │ └── base: StaticHelloParent
@@ -5708,6 +5717,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── method() method
  │   │   ├── readonlyProperty property
  │   │   └── mutableProperty property
+ │   ├─┬ class StaticAsyncMethods
+ │   │ └─┬ members
+ │   │   └── static addOne(value) method
  │   ├─┬ class StaticContext
  │   │ └─┬ members
  │   │   ├── static canAccessStaticContext() method
@@ -6753,6 +6765,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SomeContainingClass
  │   ├── class SomeTypeJsii976
  │   ├── class StableClass
+ │   ├── class StaticAsyncMethods
  │   ├── class StaticContext
  │   ├── class StaticHelloChild
  │   ├── class StaticHelloParent

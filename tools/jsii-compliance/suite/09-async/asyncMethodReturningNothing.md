@@ -1,8 +1,9 @@
 # Asynchronous methods returning no value can be invoked
 
 The host MUST be able to invoke a promise-returning method that resolves to no value, both when it is a static method and
-when it is an instance method. In each case the host MUST issue the invocation as an asynchronous (begin) request, drive
-it to completion, and observe successful completion with no value returned.
+when it is an instance method. In each case the host MUST issue the invocation as an asynchronous request (`sbegin` for
+the static method, `begin` for the instance method), drive it to completion, and observe successful completion with no
+value returned.
 
 ## Reference Implementation
 
