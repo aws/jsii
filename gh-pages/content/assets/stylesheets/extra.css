@@ -99,3 +99,18 @@ kbd {
 .md-content {
   overflow: initial;
 }
+
+/* Denser tables on the compliance report, where the status columns only hold an emoji */
+.md-typeset:has(> h1#compliance-report) table:not([class]) :is(th, td) {
+  padding: 0.5em 0.75em;
+}
+
+.md-typeset:has(> h1#compliance-report)
+  table:not([class])
+  :is(th, td):not(:first-child) {
+  padding-inline: 0.5em;
+  min-width: 0;
+  text-align: center;
+  width: 1%;
+  white-space: nowrap;
+}
