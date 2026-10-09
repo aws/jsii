@@ -1232,10 +1232,14 @@ public class ComplianceTest {
      * Verifies that returning Promise&lt;void&gt; is correctly handled.
      */
     @Test
-    @Disabled("Static async methods are generated as synchronous calls, which the kernel rejects")
     public void asyncMethodReturningNothing() {
         new PromiseNothing().instancePromiseIt();
         PromiseNothing.promiseIt();
+    }
+
+    @Test
+    public void staticAsyncMethodsCanBeCalled() {
+        assertEquals(42, StaticAsyncMethods.addOne(41));
     }
 
     @Test

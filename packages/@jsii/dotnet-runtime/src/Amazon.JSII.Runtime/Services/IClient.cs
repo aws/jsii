@@ -50,6 +50,10 @@ namespace Amazon.JSII.Runtime.Services
 
         BeginResponse Begin(BeginRequest request);
 
+        BeginResponse StaticBegin(string fullyQualifiedName, string method, object?[]? arguments = null);
+
+        BeginResponse StaticBegin(StaticBeginRequest request);
+
         EndResponse End(string promiseId);
 
         EndResponse End(EndRequest request);

@@ -58,8 +58,9 @@ expect(await obj.callMe()).toBe(4452);
 **Test:** `asyncMethodReturningNothing`
 
 The host MUST be able to invoke a promise-returning method that resolves to no value, both when it is a static method and
-when it is an instance method. In each case the host MUST issue the invocation as an asynchronous (begin) request, drive
-it to completion, and observe successful completion with no value returned.
+when it is an instance method. In each case the host MUST issue the invocation as an asynchronous request (`sbegin` for
+the static method, `begin` for the instance method), drive it to completion, and observe successful completion with no
+value returned.
 
 ### Reference Implementation
 
@@ -295,4 +296,42 @@ const obj = new TwoOverrides();
 
 // THEN
 expect(await obj.callMe()).toBe(684);
+```
+
+<a id="staticAsyncMethodsCanBeCalled"></a>
+
+## Static asynchronous methods can be invoked from the host
+
+**Test:** `staticAsyncMethodsCanBeCalled`
+
+The host MUST be able to invoke a promise-returning (asynchronous) static method without an instance. It MUST issue the
+call as a static asynchronous (`sbegin`) request with the method's arguments, allow the kernel to run its pending
+callbacks and promises to completion, and then collect the resolved value, which it MUST return to the caller with its
+declared type.
+
+### Reference Implementation
+
+```ts
+// GIVEN
+export class StaticAsyncMethods {
+  public static async addOne(value: number): Promise<number> {
+    return Promise.resolve(value + 1);
+  }
+
+  private constructor() {}
+}
+
+// WHEN / THEN
+expect(await StaticAsyncMethods.addOne(41)).toBe(42);
+```
+
+### Kernel Trace
+
+```
+> {"api":"sbegin","fqn":"jsii-calc.StaticAsyncMethods","method":"addOne","args":[41]}
+< {"ok":{"promiseid":"jsii::promise::20000"}}
+> {"api":"callbacks"}
+< {"ok":{"callbacks":[]}}
+> {"api":"end","promiseid":"jsii::promise::20000"}
+< {"ok":{"result":42}}
 ```

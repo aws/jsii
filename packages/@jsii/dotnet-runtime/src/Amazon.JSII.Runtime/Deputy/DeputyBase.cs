@@ -245,7 +245,11 @@ namespace Amazon.JSII.Runtime.Deputy
             return InvokeMethodCore<T>(
                 methodAttribute,
                 arguments,
-                (client, args) => throw new NotSupportedException("Async static methods are currently not supported"),
+                (client, args) => client.StaticBegin(
+                    classAttribute.FullyQualifiedName,
+                    methodAttribute.Name,
+                    ConvertArguments(methodAttribute.Parameters, arguments)
+                ),
                 (client, args) => client.StaticInvoke(
                     classAttribute.FullyQualifiedName,
                     methodAttribute.Name,

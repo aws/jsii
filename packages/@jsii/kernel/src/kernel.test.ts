@@ -714,6 +714,44 @@ defineTest('async overrides: two overrides', async (sandbox) => {
   expect(result.result).toBe(775);
 });
 
+defineTest('async methods: static async method', async (sandbox) => {
+  const promise = sandbox.sbegin({
+    fqn: 'jsii-calc.PromiseNothing',
+    method: 'promiseIt',
+  });
+
+  const result = await sandbox.end({ promiseid: promise.promiseid });
+  expect(result.result).toBeUndefined();
+});
+
+defineTest('async methods: sbegin rejects non-async methods', (sandbox) => {
+  expect(() =>
+    sandbox.sbegin({
+      fqn: 'jsii-calc.Statics',
+      method: 'staticMethod',
+      args: ['Jsii'],
+    }),
+  ).toThrow(/expected to be an async method/);
+});
+
+defineTest('async methods: sbegin rejects instance methods', (sandbox) => {
+  expect(() =>
+    sandbox.sbegin({
+      fqn: 'jsii-calc.PromiseNothing',
+      method: 'instancePromiseIt',
+    }),
+  ).toThrow(/not a static method/);
+});
+
+defineTest('async methods: sinvoke rejects async methods', (sandbox) => {
+  expect(() =>
+    sandbox.sinvoke({
+      fqn: 'jsii-calc.PromiseNothing',
+      method: 'promiseIt',
+    }),
+  ).toThrow(/is an async method, use "sbegin" instead/);
+});
+
 /**
  * This test simulates a sitation where an async method is called, which invokes
  * an async override in return, but the override's promise is not called synchronously

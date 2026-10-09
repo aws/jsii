@@ -1,17 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
+using Newtonsoft.Json;
 
 namespace Amazon.JSII.JsonModel.Api.Response
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public sealed class EndResponse : IKernelResponse
     {
-        public EndResponse(object result)
+        public EndResponse(object? result = null)
         {
-            Result = result ?? throw new ArgumentNullException(nameof(result));
+            Result = result;
         }
 
-        [JsonProperty("result")]
-        public object Result { get; }
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public object? Result { get; }
     }
 }
