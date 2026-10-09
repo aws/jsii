@@ -202,6 +202,23 @@ public final class JsiiClient {
     }
 
     /**
+     * Begins the execution of a static async method.
+     * @param fqn The FQN of the class.
+     * @param method The name of the async method.
+     * @param args Arguments for the method.
+     * @return A {@link JsiiPromise} which represents this method.
+     */
+    public JsiiPromise beginStaticAsyncMethod(final String fqn, final String method, final ArrayNode args) {
+        ObjectNode req = makeRequest("sbegin");
+        req.put("fqn", fqn);
+        req.put("method", method);
+        req.set("args", args);
+
+        JsonNode resp = this.runtime.requestResponse(req);
+        return new JsiiPromise(resp.get("promiseid").asText());
+    }
+
+    /**
      * Ends the execution of an async method.
      * @param promise The promise returned by beginAsyncMethod.
      * @return The method return value.

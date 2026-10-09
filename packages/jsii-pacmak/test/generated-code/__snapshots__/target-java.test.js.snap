@@ -4206,6 +4206,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 StableClass.java
           ┃                 ┣━ 📄 StableEnum.java
           ┃                 ┣━ 📄 StableStruct.java
+          ┃                 ┣━ 📄 StaticAsyncMethods.java
           ┃                 ┣━ 📄 StaticContext.java
           ┃                 ┣━ 📄 StaticHelloChild.java
           ┃                 ┣━ 📄 StaticHelloParent.java
@@ -18794,7 +18795,7 @@ public class PromiseNothing extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static void promiseIt() {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.PromiseNothing.class, "promiseIt", software.amazon.jsii.NativeType.VOID);
+        software.amazon.jsii.JsiiObject.jsiiStaticAsyncCall(software.amazon.jsii.tests.calculator.PromiseNothing.class, "promiseIt", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -20521,6 +20522,36 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
             int result = this.readonlyProperty.hashCode();
             return result;
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/StaticAsyncMethods.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Static asynchronous methods, used to verify that their arguments and results cross the language boundary.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StaticAsyncMethods")
+public class StaticAsyncMethods extends software.amazon.jsii.JsiiObject {
+
+    protected StaticAsyncMethods(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected StaticAsyncMethods(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param value This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static @org.jetbrains.annotations.NotNull java.lang.Number addOne(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticAsyncCall(software.amazon.jsii.tests.calculator.StaticAsyncMethods.class, "addOne", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 }
 
@@ -30232,6 +30263,7 @@ jsii-calc.SomeTypeJsii976=software.amazon.jsii.tests.calculator.SomeTypeJsii976
 jsii-calc.StableClass=software.amazon.jsii.tests.calculator.StableClass
 jsii-calc.StableEnum=software.amazon.jsii.tests.calculator.StableEnum
 jsii-calc.StableStruct=software.amazon.jsii.tests.calculator.StableStruct
+jsii-calc.StaticAsyncMethods=software.amazon.jsii.tests.calculator.StaticAsyncMethods
 jsii-calc.StaticContext=software.amazon.jsii.tests.calculator.StaticContext
 jsii-calc.StaticHelloChild=software.amazon.jsii.tests.calculator.StaticHelloChild
 jsii-calc.StaticHelloParent=software.amazon.jsii.tests.calculator.StaticHelloParent

@@ -1378,11 +1378,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(Enum.IsDefined(typeof(AllTypesEnum), EnumDispenser.RandomIntegerLikeEnum()));
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncMethodReturningNothing), Skip = "Invoking an async Promise<void> method throws System.ArgumentNullException in EndResponse: the kernel 'end' response carries no 'result' for a void async method")]
+        [Fact(DisplayName = Prefix + nameof(AsyncMethodReturningNothing))]
         public void AsyncMethodReturningNothing()
         {
             // Verifies it's okay to return a Promise<void>.
             new PromiseNothing().InstancePromiseIt();
+            PromiseNothing.PromiseIt();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticAsyncMethodsCanBeCalled))]
+        public void StaticAsyncMethodsCanBeCalled()
+        {
+            Assert.Equal(42d, StaticAsyncMethods.AddOne(41));
         }
 
         class BellRinger : DeputyBase, IBellRinger

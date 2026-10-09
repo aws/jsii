@@ -24,6 +24,7 @@ from ..types import (
     StaticSetRequest,
     BeginRequest,
     BeginResponse,
+    StaticBeginRequest,
     EndRequest,
     EndResponse,
     CallbacksRequest,
@@ -89,6 +90,9 @@ class BaseProvider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def begin(self, request: BeginRequest) -> BeginResponse: ...
+
+    @abc.abstractmethod
+    def sbegin(self, request: StaticBeginRequest) -> BeginResponse: ...
 
     @abc.abstractmethod
     def end(self, request: EndRequest) -> EndResponse: ...

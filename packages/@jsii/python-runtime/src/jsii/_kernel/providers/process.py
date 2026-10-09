@@ -53,6 +53,7 @@ from ..types import (
     StaticSetRequest,
     BeginRequest,
     BeginResponse,
+    StaticBeginRequest,
     EndRequest,
     EndResponse,
     CallbacksRequest,
@@ -201,6 +202,10 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             BeginRequest,
             _with_api_key("begin", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            StaticBeginRequest,
+            _with_api_key("sbegin", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
             EndRequest, _with_api_key("end", self._serializer.unstructure_attrs_asdict)
@@ -394,6 +399,9 @@ class ProcessProvider(BaseProvider):
         return self._process.send(request, DeleteResponse)
 
     def begin(self, request: BeginRequest) -> BeginResponse:
+        return self._process.send(request, BeginResponse)
+
+    def sbegin(self, request: StaticBeginRequest) -> BeginResponse:
         return self._process.send(request, BeginResponse)
 
     def end(self, request: EndRequest) -> EndResponse:

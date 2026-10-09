@@ -3230,6 +3230,17 @@ export class PromiseNothing {
   }
 }
 
+/**
+ * Static asynchronous methods, used to verify that their arguments and results cross the language boundary.
+ */
+export class StaticAsyncMethods {
+  public static async addOne(value: number): Promise<number> {
+    return Promise.resolve(value + 1);
+  }
+
+  private constructor() {}
+}
+
 export class AnyPropertyAccess {
   /**
    * Sets obj[resultProp] to `${obj[propA]}+${obj[propB]}`.

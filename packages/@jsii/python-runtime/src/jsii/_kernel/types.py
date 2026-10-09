@@ -148,6 +148,13 @@ class BeginRequest:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
+class StaticBeginRequest:
+    fqn: str
+    method: str
+    args: Optional[List[Any]] = attr.Factory(list)
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
 class BeginResponse:
     promiseid: str
 

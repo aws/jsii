@@ -6,12 +6,12 @@ This section details the current state of each language binding with respect to 
 
 Language bindings must pass every test case. A category is complete when a language binding passes all of its test cases.
 
-| Language | Tests passing      | Categories complete |
-| -------- | ------------------ | ------------------- |
-| java     | 98.17% (107 / 109) | 10 / 12             |
-| golang   | 85.32% (93 / 109)  | 7 / 12              |
-| dotnet   | 92.66% (101 / 109) | 8 / 12              |
-| python   | 93.58% (102 / 109) | 9 / 12              |
+| Language | Tests passing       | Categories complete |
+| -------- | ------------------- | ------------------- |
+| java     | 100.00% (110 / 110) | 12 / 12             |
+| golang   | 84.55% (93 / 110)   | 7 / 12              |
+| dotnet   | 93.64% (103 / 110)  | 9 / 12              |
+| python   | 94.55% (104 / 110)  | 10 / 12             |
 
 
 Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
@@ -114,7 +114,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
 | [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢    | 🟢                                           | 🟢     | 🟢     |
 | [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢    | 🟢                                           | 🟢     | 🟢     |
-| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🔴    | 🔴                                           | 🟢     | 🟢     |
+| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🔴                                           | 🟢     | 🟢     |
 | [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢    | 🟢                                           | 🟢     | 🟢     |
 
 
@@ -164,12 +164,13 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | Test                                                                                                                                                              | java  | golang                                       | dotnet | python |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- | ------ | ------ |
 | [asyncMethodCanBeOverridden](compliance-suite/09-async.md#asyncMethodCanBeOverridden "Host overrides of asynchronous methods are invoked by the kernel")          | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
-| [asyncMethodReturningNothing](compliance-suite/09-async.md#asyncMethodReturningNothing "Asynchronous methods returning no value can be invoked")                  | 🔴    | [🔴](https://github.com/aws/jsii/issues/2670) | 🔴     | 🔴     |
+| [asyncMethodReturningNothing](compliance-suite/09-async.md#asyncMethodReturningNothing "Asynchronous methods returning no value can be invoked")                  | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
 | [asyncMethodsCanBeCalled](compliance-suite/09-async.md#asyncMethodsCanBeCalled "Asynchronous methods can be invoked from the host")                               | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
 | [asyncOverrideCanBeInherited](compliance-suite/09-async.md#asyncOverrideCanBeInherited "Overrides inherited from a host base class are registered")               | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
 | [asyncOverrideCanCallSuper](compliance-suite/09-async.md#asyncOverrideCanCallSuper "A host asynchronous override can call the base implementation")               | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
 | [asyncOverrideErrorPropagates](compliance-suite/09-async.md#asyncOverrideErrorPropagates "Errors thrown by host asynchronous overrides propagate to the caller")  | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
 | [multipleAsyncMethodsCanBeOverridden](compliance-suite/09-async.md#multipleAsyncMethodsCanBeOverridden "Multiple asynchronous methods can be overridden at once") | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
+| [staticAsyncMethodsCanBeCalled](compliance-suite/09-async.md#staticAsyncMethodsCanBeCalled "Static asynchronous methods can be invoked from the host")            | 🟢    | [🔴](https://github.com/aws/jsii/issues/2670) | 🟢     | 🟢     |
 
 
 ## [Errors](compliance-suite/10-errors.md)

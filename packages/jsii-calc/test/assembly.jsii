@@ -1582,7 +1582,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3233
+        "line": 3244
       },
       "methods": [
         {
@@ -1592,7 +1592,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3242
+            "line": 3253
           },
           "name": "mutateProperties",
           "parameters": [
@@ -8690,7 +8690,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3254
+        "line": 3265
       },
       "methods": [
         {
@@ -8700,7 +8700,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3255
+            "line": 3266
           },
           "name": "describe",
           "returns": {
@@ -8716,7 +8716,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3258
+            "line": 3269
           },
           "name": "nativeToString",
           "returns": {
@@ -8732,7 +8732,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3260
+            "line": 3271
           },
           "name": "toString",
           "returns": {
@@ -13971,6 +13971,48 @@
       ],
       "symbolId": "lib/stability:StableStruct"
     },
+    "jsii-calc.StaticAsyncMethods": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Static asynchronous methods, used to verify that their arguments and results cross the language boundary."
+      },
+      "fqn": "jsii-calc.StaticAsyncMethods",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 3236
+      },
+      "methods": [
+        {
+          "async": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 3237
+          },
+          "name": "addOne",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "StaticAsyncMethods",
+      "symbolId": "lib/compliance:StaticAsyncMethods"
+    },
     "jsii-calc.StaticContext": {
       "assembly": "jsii-calc",
       "docs": {
@@ -14447,7 +14489,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 3263
+        "line": 3274
       },
       "methods": [
         {
@@ -14456,7 +14498,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3274
+            "line": 3285
           },
           "name": "makeAnonymousStringable",
           "returns": {
@@ -14472,7 +14514,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3270
+            "line": 3281
           },
           "name": "makePrivateStringable",
           "returns": {
@@ -14488,7 +14530,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3266
+            "line": 3277
           },
           "name": "makePublicStringable",
           "returns": {
@@ -14504,7 +14546,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3289
+            "line": 3300
           },
           "name": "describe",
           "overrides": "jsii-calc.IStringable",
@@ -14520,7 +14562,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3297
+            "line": 3308
           },
           "name": "nativeToString",
           "overrides": "jsii-calc.IStringable",
@@ -14536,7 +14578,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 3293
+            "line": 3304
           },
           "name": "toString",
           "overrides": "jsii-calc.IStringable",
@@ -20666,5 +20708,5 @@
     "intersection-types"
   ],
   "version": "3.20.120",
-  "fingerprint": "9DOGuZh1rGw59+BcxlQqNodET/lc9T7RmLO2bJaFNAY="
+  "fingerprint": "0MvJsaM3hxczxQKycMgOEi2sZ3WbS1NjKqLLwIA6UbY="
 }

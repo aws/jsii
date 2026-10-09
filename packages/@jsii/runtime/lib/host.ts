@@ -133,14 +133,18 @@ export class KernelHost {
     try {
       const ret = fn.call(this.kernel, req);
 
-      // special case for 'begin' and 'complete' which are on an async
+      // special case for 'begin', 'sbegin' and 'complete' which are on an async
       // promise path. in order to allow the kernel to actually fulfill
       // the promise, and continue any async flows (which may potentially
       // start other promises), we respond only within a setImmediate
       // block, which is scheduled in the same micro-tasks queue as
       // promises. see the kernel test 'async overrides: two overrides'
       // for an example for this use case.
-      if (apiReq.api === 'begin' || apiReq.api === 'complete') {
+      if (
+        apiReq.api === 'begin' ||
+        apiReq.api === 'sbegin' ||
+        apiReq.api === 'complete'
+      ) {
         checkIfAsyncIsAllowed();
 
         this.debug('processing pending promises before responding');
