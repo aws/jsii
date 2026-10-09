@@ -965,7 +965,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(StructUnionConsumer.IsStructB(b1));
         }
 
-        [Fact(DisplayName = Prefix + nameof(ObjectsUsableThroughImplementedInterface), Skip = "An anonymous object returned as 'any' cannot be used through the interface it implements: the returnAnonymous() objref is typed 'Object' with no '$jsii.interfaces', so reading 'foo' via UnsafeCast<IReturnJsii976> fails with 'Type Object doesn't have a property foo'. The returnReturn() half of this test passes.")]
+        [Fact(DisplayName = Prefix + nameof(ObjectsUsableThroughImplementedInterface))]
         public void ObjectsUsableThroughImplementedInterface()
         {
             var obj = SomeTypeJsii976.ReturnReturn();
