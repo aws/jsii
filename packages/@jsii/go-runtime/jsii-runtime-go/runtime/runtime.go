@@ -287,6 +287,79 @@ func StaticInvokeVoid(fqn FQN, method string, args []interface{}) {
 	}
 }
 
+// AsyncInvoke will call an async method on a jsii class instance and wait for
+// it to complete. The result will be decoded into the expected return type for
+// the method being called.
+func AsyncInvoke(obj interface{}, method string, args []interface{}, ret interface{}) {
+	res := asyncInvoke(obj, method, args)
+	kernel.GetClient().CastAndSetToPtr(ret, res.Result)
+}
+
+// AsyncInvokeVoid will call an async method that returns nothing on a jsii
+// class instance and wait for it to complete.
+func AsyncInvokeVoid(obj interface{}, method string, args []interface{}) {
+	asyncInvoke(obj, method, args)
+}
+
+func asyncInvoke(obj interface{}, method string, args []interface{}) kernel.EndResponse {
+	client := kernel.GetClient()
+
+	// Find reference to class instance in client
+	ref, found := client.FindObjectRef(reflect.ValueOf(obj))
+
+	if !found {
+		panic("No Object Found")
+	}
+
+	promise, err := client.Begin(kernel.BeginProps{
+		Method:    method,
+		Arguments: convertArguments(args),
+		ObjRef:    ref,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	return await(client, promise)
+}
+
+// StaticAsyncInvoke will call a static async method on a given jsii class and
+// wait for it to complete. The result will be decoded into the expected return
+// type for the method being called.
+func StaticAsyncInvoke(fqn FQN, method string, args []interface{}, ret interface{}) {
+	res := staticAsyncInvoke(fqn, method, args)
+	kernel.GetClient().CastAndSetToPtr(ret, res.Result)
+}
+
+// StaticAsyncInvokeVoid will call a static async method that returns nothing
+// on a given jsii class and wait for it to complete.
+func StaticAsyncInvokeVoid(fqn FQN, method string, args []interface{}) {
+	staticAsyncInvoke(fqn, method, args)
+}
+
+func staticAsyncInvoke(fqn FQN, method string, args []interface{}) kernel.EndResponse {
+	client := kernel.GetClient()
+
+	promise, err := client.SBegin(kernel.StaticBeginProps{
+		FQN:       api.FQN(fqn),
+		Method:    method,
+		Arguments: convertArguments(args),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	return await(client, promise)
+}
+
+func await(client *kernel.Client, promise kernel.BeginResponse) kernel.EndResponse {
+	res, err := client.Await(promise.PromiseID)
+	if err != nil {
+		panic(err)
+	}
+	return res
+}
+
 // Get reads a property value on a given jsii class instance. The response
 // should be decoded into the expected type of the property being read.
 func Get(obj interface{}, property string, ret interface{}) {

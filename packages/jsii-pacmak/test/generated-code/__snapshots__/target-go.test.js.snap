@@ -4446,7 +4446,7 @@ func NewAsyncVirtualMethods_Override(a AsyncVirtualMethods) {
 func (a *jsiiProxy_AsyncVirtualMethods) CallMe() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"callMe",
 		nil, // no parameters
@@ -4459,7 +4459,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) CallMe() *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) CallMe2() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"callMe2",
 		nil, // no parameters
@@ -4472,7 +4472,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) CallMe2() *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) CallMeDoublePromise() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"callMeDoublePromise",
 		nil, // no parameters
@@ -4498,7 +4498,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) DontOverrideMe() *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) OverrideMe(mult *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"overrideMe",
 		[]interface{}{mult},
@@ -4511,7 +4511,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) OverrideMe(mult *float64) *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) OverrideMeToo() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"overrideMeToo",
 		nil, // no parameters
@@ -13778,7 +13778,7 @@ func (n *jsiiProxy_NodeStandardLibrary) CryptoSha256() *string {
 func (n *jsiiProxy_NodeStandardLibrary) FsReadFile() *string {
 	var returns *string
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		n,
 		"fsReadFile",
 		nil, // no parameters
@@ -15035,7 +15035,7 @@ func NewPromiseNothing_Override(p PromiseNothing) {
 func PromiseNothing_PromiseIt() {
 	_init_.Initialize()
 
-	_jsii_.StaticInvokeVoid(
+	_jsii_.StaticAsyncInvokeVoid(
 		"jsii-calc.PromiseNothing",
 		"promiseIt",
 		nil, // no parameters
@@ -15043,7 +15043,7 @@ func PromiseNothing_PromiseIt() {
 }
 
 func (p *jsiiProxy_PromiseNothing) InstancePromiseIt() {
-	_jsii_.InvokeVoid(
+	_jsii_.AsyncInvokeVoid(
 		p,
 		"instancePromiseIt",
 		nil, // no parameters
@@ -16291,7 +16291,7 @@ func StaticAsyncMethods_AddOne(value *float64) *float64 {
 
 	var returns *float64
 
-	_jsii_.StaticInvoke(
+	_jsii_.StaticAsyncInvoke(
 		"jsii-calc.StaticAsyncMethods",
 		"addOne",
 		[]interface{}{value},
@@ -17796,7 +17796,7 @@ func (j *jsiiProxy_SyncVirtualMethods)SetValueOfOtherProperty(val *string) {
 func (s *jsiiProxy_SyncVirtualMethods) CallerIsAsync() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		s,
 		"callerIsAsync",
 		nil, // no parameters
@@ -18872,7 +18872,7 @@ func NewVirtualMethodPlayground_Override(v VirtualMethodPlayground) {
 func (v *jsiiProxy_VirtualMethodPlayground) OverrideMeAsync(index *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		v,
 		"overrideMeAsync",
 		[]interface{}{index},
@@ -18898,7 +18898,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) OverrideMeSync(index *float64) *floa
 func (v *jsiiProxy_VirtualMethodPlayground) ParallelSumAsync(count *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		v,
 		"parallelSumAsync",
 		[]interface{}{count},
@@ -18911,7 +18911,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) ParallelSumAsync(count *float64) *fl
 func (v *jsiiProxy_VirtualMethodPlayground) SerialSumAsync(count *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		v,
 		"serialSumAsync",
 		[]interface{}{count},
@@ -28775,7 +28775,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/A
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		a,
  		"overrideMe",
 `;
@@ -34914,7 +34914,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/S
 +	}
  	var returns *float64
  
- 	_jsii_.StaticInvoke(
+ 	_jsii_.StaticAsyncInvoke(
  		"jsii-calc.StaticAsyncMethods",
  		"addOne",
 `;
@@ -36601,7 +36601,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/V
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		v,
  		"overrideMeAsync",
 @@ -54,10 +57,13 @@
@@ -36629,7 +36629,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/V
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		v,
  		"parallelSumAsync",
 @@ -80,10 +89,13 @@
@@ -36643,7 +36643,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/V
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		v,
  		"serialSumAsync",
 @@ -93,10 +105,13 @@
