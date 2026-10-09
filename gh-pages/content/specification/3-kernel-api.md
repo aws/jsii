@@ -94,7 +94,8 @@ interface Request {
     | 'set'
     | 'sset' // Invoking setters (and static setters)
     | 'begin'
-    | 'end'; // Asynchronous method invocation
+    | 'sbegin'
+    | 'end'; // Asynchronous method invocation (and static asynchronous methods)
 
   // ... request-type specific fields ...
 }
@@ -498,10 +499,24 @@ interface BeginRequest {
 }
 ```
 
-!!! question
-    There is no static form of this call. Should there be one?
+Static asynchronous methods are invoked with the `sbegin` call, which identifies the class by its fully qualified name
+instead of an object reference:
 
-The `begin` call results in a promise being made:
+```ts
+interface StaticBeginRequest {
+  /** The fully qualified name of the class declaring the static asynchronous method */
+  fqn: string;
+  /** The name of the method being invoked */
+  method: string;
+  /** Any arguments passed to the method invocation */
+  args?: any[];
+
+  // The discriminator
+  api: 'sbegin';
+}
+```
+
+The `begin` and `sbegin` calls result in a promise being made:
 
 ```ts
 interface BeginResponse {
@@ -518,7 +533,7 @@ Whenever the _host_ app needs to obtain the promised value (possibly in a blocki
 
 ```ts
 interface EndRequest {
-  /** The promiseid that was returned from the corresponding `begin` call. */
+  /** The promiseid that was returned from the corresponding `begin` or `sbegin` call. */
   promiseid: string;
 
   // The discriminator

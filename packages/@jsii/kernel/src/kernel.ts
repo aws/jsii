@@ -413,7 +413,7 @@ export class Kernel {
 
     // verify this is not an async method
     if (ti.async) {
-      throw new JsiiFault(`${method} is an async method, use "begin" instead`);
+      throw new JsiiFault(`${method} is an async method, use "sbegin" instead`);
     }
 
     const prototype = this.#findSymbol(fqn);
@@ -474,16 +474,62 @@ export class Kernel {
       ),
     ) as Promise<any>;
 
+    return this.#registerPromise(promise, ti);
+  }
+
+  public sbegin(req: api.StaticBeginRequest): api.BeginResponse {
+    const { fqn, method } = req;
+    const args = req.args ?? [];
+
+    this.#debug('sbegin', fqn, method, args);
+
+    if (this.#syncInProgress) {
+      const inProgress =
+        typeof this.#syncInProgress === 'function'
+          ? this.#syncInProgress()
+          : this.#syncInProgress;
+      throw new JsiiFault(
+        `Cannot invoke async method '${fqn}.${method}' while sync ${inProgress} is being processed`,
+      );
+    }
+
+    const ti = this.#typeInfoForMethod(method, fqn);
+
+    if (!ti.static) {
+      throw new JsiiFault(`${fqn}.${method} is not a static method`);
+    }
+
+    // verify this is indeed an async method
+    if (!ti.async) {
+      throw new JsiiFault(`Method ${method} is expected to be an async method`);
+    }
+
+    const prototype = this.#findSymbol(fqn);
+    const fn = prototype[method] as (...params: any[]) => any;
+
+    const promise = fn.apply(
+      prototype,
+      this.#toSandboxValues(
+        args,
+        `static async method ${fqn}.${method}`,
+        ti.parameters,
+      ),
+    ) as Promise<any>;
+
+    return this.#registerPromise(promise, ti);
+  }
+
+  #registerPromise(
+    promise: Promise<any>,
+    method: spec.Method,
+  ): api.BeginResponse {
     // since we are planning to resolve this promise in a different scope
     // we need to handle rejections here [1]
     // [1]: https://stackoverflow.com/questions/40920179/should-i-refrain-from-handling-promise-rejection-asynchronously/40921505
     promise.catch((_) => undefined);
 
     const prid = this.#makeprid();
-    this.#promises.set(prid, {
-      promise,
-      method: ti,
-    });
+    this.#promises.set(prid, { promise, method });
 
     return { promiseid: prid };
   }

@@ -18794,7 +18794,7 @@ public class PromiseNothing extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static void promiseIt() {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.PromiseNothing.class, "promiseIt", software.amazon.jsii.NativeType.VOID);
+        software.amazon.jsii.JsiiObject.jsiiStaticAsyncCall(software.amazon.jsii.tests.calculator.PromiseNothing.class, "promiseIt", software.amazon.jsii.NativeType.VOID);
     }
 
     /**

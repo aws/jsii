@@ -2,7 +2,6 @@ package software.amazon.jsii.testing;
 
 import org.junit.jupiter.api.Test;
 import software.amazon.jsii.JsiiException;
-import software.amazon.jsii.JsiiObject;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.anonymous.*;
 import software.amazon.jsii.tests.calculator.anonymous.UseOptions;
@@ -52,7 +51,9 @@ public class TypeCheckingTest {
     public void anonymousObjectIsValid()
     {
         Object anonymousObject = UseOptions.provide("A");
-        assertEquals(JsiiObject.class, anonymousObject.getClass());
+        // The kernel tells us the anonymous object implements IOptionA, so it's received as that interface
+        assertTrue(anonymousObject instanceof IOptionA);
+        assertEquals("A", ((IOptionA) anonymousObject).doSomething());
         assertEquals("A", UseOptions.consume(anonymousObject));
     }
 
