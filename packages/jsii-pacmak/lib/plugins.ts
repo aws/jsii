@@ -1,16 +1,20 @@
 import * as path from 'node:path';
 
-import { BuilderFactory, TargetName } from './targets';
 import { IndependentPackageBuilder } from './builder';
 import { TargetConstructor } from './target';
+import { BuilderFactory, TargetName } from './targets';
 
 /**
  * The version of the target-plugin API implemented by this copy of pacmak.
  *
- * Plugins may declare the API version they were written against via
- * `pluginApiVersion`; a differing MAJOR version fails loudly at load time.
- * The API is currently experimental: no compatibility guarantee is made
- * between minor versions while the major version is 0.
+ * The API is everything exported from `jsii-pacmak/lib/plugin-api`. Plugins
+ * declare the version they were written against in `pluginApiVersion`, and
+ * load only when it is compatible:
+ *
+ * - while the major version is 0 (experimental), the major and minor versions
+ *   must both match, since any minor version may break plugins;
+ * - from 1.0, the major versions must match and the plugin's minor version
+ *   must not be newer than this one.
  */
 export const PLUGIN_API_VERSION = '0.1.0';
 
@@ -44,9 +48,10 @@ export interface TargetPluginDeclaration {
   readonly builderFactory?: BuilderFactory;
 
   /**
-   * The plugin API version this plugin was written against.
+   * The plugin API version this plugin was written against (`PLUGIN_API_VERSION`
+   * of the jsii-pacmak it was built with).
    */
-  readonly pluginApiVersion?: string;
+  readonly pluginApiVersion: string;
 }
 
 /**
@@ -106,17 +111,41 @@ function loadTargetPlugin(spec: string): TargetPluginDeclaration {
       `Target plugin ${spec} must declare exactly one of 'targetConstructor' or 'builderFactory'`,
     );
   }
-  if (declaration.pluginApiVersion != null) {
-    const pluginMajor = declaration.pluginApiVersion.split('.')[0];
-    const ourMajor = PLUGIN_API_VERSION.split('.')[0];
-    if (pluginMajor !== ourMajor) {
-      throw new Error(
-        `Target plugin ${spec} requires plugin API ${declaration.pluginApiVersion}, but this jsii-pacmak implements ${PLUGIN_API_VERSION}`,
-      );
-    }
+  if (typeof declaration.pluginApiVersion !== 'string') {
+    throw new Error(
+      `Target plugin ${spec} must declare the 'pluginApiVersion' it was written against (this jsii-pacmak implements ${PLUGIN_API_VERSION})`,
+    );
+  }
+  if (!isCompatiblePluginApi(declaration.pluginApiVersion)) {
+    throw new Error(
+      `Target plugin ${spec} requires plugin API ${declaration.pluginApiVersion}, but this jsii-pacmak implements ${PLUGIN_API_VERSION}`,
+    );
   }
 
   return declaration;
+}
+
+/**
+ * Whether a plugin written against `version` can be loaded by this pacmak.
+ */
+export function isCompatiblePluginApi(
+  version: string,
+  implemented: string = PLUGIN_API_VERSION,
+): boolean {
+  const parse = (v: string) => {
+    const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(v);
+    return match
+      ? { major: Number(match[1]), minor: Number(match[2]) }
+      : undefined;
+  };
+  const plugin = parse(version);
+  const ours = parse(implemented);
+  if (!plugin || !ours || plugin.major !== ours.major) {
+    return false;
+  }
+  return ours.major === 0
+    ? plugin.minor === ours.minor
+    : plugin.minor <= ours.minor;
 }
 
 function builderFactoryFor(

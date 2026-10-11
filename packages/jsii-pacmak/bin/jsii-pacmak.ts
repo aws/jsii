@@ -30,7 +30,7 @@ import { VERSION_DESC } from '../lib/version';
       array: true,
       desc: 'target languages for which to generate bindings',
       defaultDescription:
-        'all targets defined in `package.json` will be generated',
+        'all targets defined in `package.json`, and every plugin target',
       // Names are validated in pacmak() itself, where loaded target plugins
       // are known and extend the set of valid values beyond the built-ins.
       coerce: (value: string | string[]) =>
@@ -42,7 +42,7 @@ import { VERSION_DESC } from '../lib/version';
     .option('plugin', {
       type: 'string',
       array: true,
-      desc: 'load an external target plugin (an npm package name or a path); may be repeated. Plugin target names become valid --targets values.',
+      desc: 'load an external target plugin (an npm package name or a path); may be repeated. Plugin target names become valid --targets values, and a plugin target is generated for every package, whether or not its package.json declares it.',
       default: [],
     })
     .option('outdir', {
