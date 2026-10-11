@@ -94,6 +94,43 @@ describe(findJsiiModules, () => {
     ]);
   });
 
+  test('a devDependency back-edge does not make the closure cyclic', async () => {
+    // The shape of an installed aws-cdk-lib closure: aws-cdk-lib depends on
+    // @aws-cdk/asset-*, which devDepend on aws-cdk-lib for their own tests.
+    await mkdirp(join(workDir, 'lib'));
+    await writeJson(join(workDir, 'lib', 'package.json'), {
+      name: 'lib',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
+        },
+      },
+      dependencies: {
+        asset: '*',
+      },
+    });
+    await mkdirp(join(workDir, 'asset'));
+    await writeJson(join(workDir, 'asset', 'package.json'), {
+      name: 'asset',
+      jsii: {
+        outdir: 'dist',
+        targets: {
+          python: {},
+        },
+      },
+      devDependencies: {
+        lib: '*',
+      },
+    });
+
+    const mods = await findJsiiModules(
+      [join(workDir, 'lib'), join(workDir, 'asset')],
+      false,
+    );
+    expect(flatten(mods).map((m) => m.name)).toEqual(['asset', 'lib']);
+  });
+
   test('without deps loads packages in given order', async () => {
     await mkdirp(join(workDir, 'packageA'));
     await writeJson(join(workDir, 'packageA', 'package.json'), {
