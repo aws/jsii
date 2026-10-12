@@ -15,70 +15,70 @@ behavioral interface. The host MUST receive that argument typed as the interface
 interface's members on it. This MUST hold no matter how the kernel implements the passed-in value — as a bare object, as
 an instance of an exported class, or as an instance of a type that is not exported.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IBell {
-  ring(): void;
-}
+    ```ts
+    // GIVEN
+    export interface IBell {
+      ring(): void;
+    }
 
-export interface IBellRinger {
-  yourTurn(bell: IBell): void;
-}
+    export interface IBellRinger {
+      yourTurn(bell: IBell): void;
+    }
 
-export class Bell implements IBell {
-  public rung = false;
-  public ring() {
-    this.rung = true;
-  }
-}
+    export class Bell implements IBell {
+      public rung = false;
+      public ring() {
+        this.rung = true;
+      }
+    }
 
-class PrivateBell implements IBell {
-  public rung = false;
-  public ring() {
-    this.rung = true;
-  }
-}
+    class PrivateBell implements IBell {
+      public rung = false;
+      public ring() {
+        this.rung = true;
+      }
+    }
 
-export class ConsumerCanRingBell {
-  public static staticImplementedByObjectLiteral(ringer: IBellRinger) {
-    let rung = false;
-    ringer.yourTurn({
-      ring() {
-        rung = true;
-      },
-    });
-    return rung;
-  }
+    export class ConsumerCanRingBell {
+      public static staticImplementedByObjectLiteral(ringer: IBellRinger) {
+        let rung = false;
+        ringer.yourTurn({
+          ring() {
+            rung = true;
+          },
+        });
+        return rung;
+      }
 
-  public static staticImplementedByPublicClass(ringer: IBellRinger) {
-    const bell = new Bell();
-    ringer.yourTurn(bell);
-    return bell.rung;
-  }
+      public static staticImplementedByPublicClass(ringer: IBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+      }
 
-  public static staticImplementedByPrivateClass(ringer: IBellRinger) {
-    const bell = new PrivateBell();
-    ringer.yourTurn(bell);
-    return bell.rung;
-  }
-}
+      public static staticImplementedByPrivateClass(ringer: IBellRinger) {
+        const bell = new PrivateBell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+      }
+    }
 
-// WHEN
-// The host implements IBellRinger; the kernel calls back with an IBell argument.
-class Ringer implements IBellRinger {
-  public yourTurn(bell: IBell) {
-    bell.ring();
-  }
-}
-const ringer = new Ringer();
+    // WHEN
+    // The host implements IBellRinger; the kernel calls back with an IBell argument.
+    class Ringer implements IBellRinger {
+      public yourTurn(bell: IBell) {
+        bell.ring();
+      }
+    }
+    const ringer = new Ringer();
 
-// THEN
-expect(ConsumerCanRingBell.staticImplementedByObjectLiteral(ringer)).toBe(true);
-expect(ConsumerCanRingBell.staticImplementedByPrivateClass(ringer)).toBe(true);
-expect(ConsumerCanRingBell.staticImplementedByPublicClass(ringer)).toBe(true);
-```
+    // THEN
+    expect(ConsumerCanRingBell.staticImplementedByObjectLiteral(ringer)).toBe(true);
+    expect(ConsumerCanRingBell.staticImplementedByPrivateClass(ringer)).toBe(true);
+    expect(ConsumerCanRingBell.staticImplementedByPublicClass(ringer)).toBe(true);
+    ```
 
 <a id="hostCanImplementInterface"></a>
 
@@ -91,39 +91,39 @@ without deriving from any kernel type, and pass that implementation across the b
 be able to invoke the implementation's members, and the values the host returns MUST be delivered back to the kernel
 unchanged.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructB {
-  readonly requiredString: string;
-  readonly optionalBoolean?: boolean;
-}
+    ```ts
+    // GIVEN
+    export interface StructB {
+      readonly requiredString: string;
+      readonly optionalBoolean?: boolean;
+    }
 
-export interface IStructReturningDelegate {
-  returnStruct(): StructB;
-}
+    export interface IStructReturningDelegate {
+      returnStruct(): StructB;
+    }
 
-export class ConsumePureInterface {
-  public constructor(private readonly delegate: IStructReturningDelegate) {}
+    export class ConsumePureInterface {
+      public constructor(private readonly delegate: IStructReturningDelegate) {}
 
-  public workItBaby() {
-    return this.delegate.returnStruct();
-  }
-}
+      public workItBaby() {
+        return this.delegate.returnStruct();
+      }
+    }
 
-// WHEN
-const expected: StructB = { requiredString: 'Present!' };
-class Delegate implements IStructReturningDelegate {
-  public returnStruct(): StructB {
-    return expected;
-  }
-}
-const consumer = new ConsumePureInterface(new Delegate());
+    // WHEN
+    const expected: StructB = { requiredString: 'Present!' };
+    class Delegate implements IStructReturningDelegate {
+      public returnStruct(): StructB {
+        return expected;
+      }
+    }
+    const consumer = new ConsumePureInterface(new Delegate());
 
-// THEN
-expect(consumer.workItBaby()).toEqual(expected);
-```
+    // THEN
+    expect(consumer.workItBaby()).toEqual(expected);
+    ```
 
 <a id="hostCanImplementInterfaceThroughSuperclass"></a>
 
@@ -135,43 +135,43 @@ The host MAY implement a behavioral interface indirectly: a type that does not i
 inherits the implementation from a superclass that does. The host MUST still be able to pass such a value to the kernel
 as that interface, and the kernel MUST be able to invoke the interface's members on it.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructB {
-  readonly requiredString: string;
-  readonly optionalBoolean?: boolean;
-}
+    ```ts
+    // GIVEN
+    export interface StructB {
+      readonly requiredString: string;
+      readonly optionalBoolean?: boolean;
+    }
 
-export interface IStructReturningDelegate {
-  returnStruct(): StructB;
-}
+    export interface IStructReturningDelegate {
+      returnStruct(): StructB;
+    }
 
-export class ConsumePureInterface {
-  public constructor(private readonly delegate: IStructReturningDelegate) {}
+    export class ConsumePureInterface {
+      public constructor(private readonly delegate: IStructReturningDelegate) {}
 
-  public workItBaby() {
-    return this.delegate.returnStruct();
-  }
-}
+      public workItBaby() {
+        return this.delegate.returnStruct();
+      }
+    }
 
-// WHEN
-const expected: StructB = { requiredString: 'Present!' };
-// The interface is declared on the base type; the leaf type only inherits it.
-class ImplementsStructReturningDelegate implements IStructReturningDelegate {
-  public constructor(private readonly struct: StructB) {}
-  public returnStruct(): StructB {
-    return this.struct;
-  }
-}
-class IndirectlyImplementsStructReturningDelegate extends ImplementsStructReturningDelegate {}
+    // WHEN
+    const expected: StructB = { requiredString: 'Present!' };
+    // The interface is declared on the base type; the leaf type only inherits it.
+    class ImplementsStructReturningDelegate implements IStructReturningDelegate {
+      public constructor(private readonly struct: StructB) {}
+      public returnStruct(): StructB {
+        return this.struct;
+      }
+    }
+    class IndirectlyImplementsStructReturningDelegate extends ImplementsStructReturningDelegate {}
 
-const consumer = new ConsumePureInterface(new IndirectlyImplementsStructReturningDelegate(expected));
+    const consumer = new ConsumePureInterface(new IndirectlyImplementsStructReturningDelegate(expected));
 
-// THEN
-expect(consumer.workItBaby()).toEqual(expected);
-```
+    // THEN
+    expect(consumer.workItBaby()).toEqual(expected);
+    ```
 
 <a id="hostObjectsKeepIdentityAcrossTheBoundary"></a>
 
@@ -185,76 +185,76 @@ a new proxy. When the host passes the object in again, the kernel MUST reuse the
 a second one. Throughout, the kernel MUST be able to call back into the host object's members. This MUST hold both for a
 host object that subclasses a kernel class and for a pure host object that only implements the interface.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IRandomNumberGenerator {
-  next(): number;
-}
+    ```ts
+    // GIVEN
+    export interface IRandomNumberGenerator {
+      next(): number;
+    }
 
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
 
-export class NumberGenerator {
-  public constructor(public generator: IRandomNumberGenerator) {}
+    export class NumberGenerator {
+      public constructor(public generator: IRandomNumberGenerator) {}
 
-  public nextTimes100() {
-    return this.generator.next() * 100;
-  }
+      public nextTimes100() {
+        return this.generator.next() * 100;
+      }
 
-  public isSameGenerator(gen: IRandomNumberGenerator) {
-    return this.generator === gen;
-  }
-}
+      public isSameGenerator(gen: IRandomNumberGenerator) {
+        return this.generator === gen;
+      }
+    }
 
-// WHEN
-// A pure host object, and a host object that subclasses a kernel class.
-class PureNativeFriendlyRandom implements IRandomNumberGenerator {
-  private nextNumber = 1000;
-  public next() {
-    const result = this.nextNumber;
-    this.nextNumber += 1000;
-    return result;
-  }
-}
-class SubclassNativeFriendlyRandom extends Number implements IRandomNumberGenerator {
-  private nextNumber = 100;
-  public constructor() {
-    super(908);
-  }
-  public next() {
-    const result = this.nextNumber;
-    this.nextNumber += 100;
-    return result;
-  }
-}
+    // WHEN
+    // A pure host object, and a host object that subclasses a kernel class.
+    class PureNativeFriendlyRandom implements IRandomNumberGenerator {
+      private nextNumber = 1000;
+      public next() {
+        const result = this.nextNumber;
+        this.nextNumber += 1000;
+        return result;
+      }
+    }
+    class SubclassNativeFriendlyRandom extends Number implements IRandomNumberGenerator {
+      private nextNumber = 100;
+      public constructor() {
+        super(908);
+      }
+      public next() {
+        const result = this.nextNumber;
+        this.nextNumber += 100;
+        return result;
+      }
+    }
 
-const subclassed = new SubclassNativeFriendlyRandom();
-const generatorForSubclassed = new NumberGenerator(subclassed);
+    const subclassed = new SubclassNativeFriendlyRandom();
+    const generatorForSubclassed = new NumberGenerator(subclassed);
 
-const pure = new PureNativeFriendlyRandom();
-const generatorForPure = new NumberGenerator(pure);
+    const pure = new PureNativeFriendlyRandom();
+    const generatorForPure = new NumberGenerator(pure);
 
-// THEN
-// The object returned by the kernel is the same object that was passed in.
-expect(generatorForSubclassed.generator).toBe(subclassed);
-expect(generatorForSubclassed.isSameGenerator(subclassed)).toBe(true);
-// The kernel calls back into the host object, and the reference is stable across calls.
-expect(generatorForSubclassed.nextTimes100()).toBe(10000);
-expect(generatorForSubclassed.nextTimes100()).toBe(20000);
+    // THEN
+    // The object returned by the kernel is the same object that was passed in.
+    expect(generatorForSubclassed.generator).toBe(subclassed);
+    expect(generatorForSubclassed.isSameGenerator(subclassed)).toBe(true);
+    // The kernel calls back into the host object, and the reference is stable across calls.
+    expect(generatorForSubclassed.nextTimes100()).toBe(10000);
+    expect(generatorForSubclassed.nextTimes100()).toBe(20000);
 
-expect(generatorForPure.generator).toBe(pure);
-expect(generatorForPure.isSameGenerator(pure)).toBe(true);
-expect(generatorForPure.nextTimes100()).toBe(100000);
-expect(generatorForPure.nextTimes100()).toBe(200000);
-```
+    expect(generatorForPure.generator).toBe(pure);
+    expect(generatorForPure.isSameGenerator(pure)).toBe(true);
+    expect(generatorForPure.nextTimes100()).toBe(100000);
+    expect(generatorForPure.nextTimes100()).toBe(200000);
+    ```
 
 <a id="hostSubclassCanImplementAdditionalInterface"></a>
 
@@ -266,48 +266,48 @@ A host type MAY both subclass a kernel class and implement a behavioral interfac
 be able to pass such a value to the kernel as that interface, and the kernel MUST be able to invoke the interface's
 members on it, even though the value's primary identity is that of the kernel class it extends.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructB {
-  readonly requiredString: string;
-  readonly optionalBoolean?: boolean;
-}
+    ```ts
+    // GIVEN
+    export interface StructB {
+      readonly requiredString: string;
+      readonly optionalBoolean?: boolean;
+    }
 
-export interface IStructReturningDelegate {
-  returnStruct(): StructB;
-}
+    export interface IStructReturningDelegate {
+      returnStruct(): StructB;
+    }
 
-export class ConsumePureInterface {
-  public constructor(private readonly delegate: IStructReturningDelegate) {}
+    export class ConsumePureInterface {
+      public constructor(private readonly delegate: IStructReturningDelegate) {}
 
-  public workItBaby() {
-    return this.delegate.returnStruct();
-  }
-}
+      public workItBaby() {
+        return this.delegate.returnStruct();
+      }
+    }
 
-// A kernel class that the host will subclass.
-export class AllTypes {
-  public stringProperty = '';
-}
+    // A kernel class that the host will subclass.
+    export class AllTypes {
+      public stringProperty = '';
+    }
 
-// WHEN
-const expected: StructB = { requiredString: 'Present!' };
-class ImplementsAdditionalInterface extends AllTypes implements IStructReturningDelegate {
-  public constructor(private readonly struct: StructB) {
-    super();
-  }
-  public returnStruct(): StructB {
-    return this.struct;
-  }
-}
+    // WHEN
+    const expected: StructB = { requiredString: 'Present!' };
+    class ImplementsAdditionalInterface extends AllTypes implements IStructReturningDelegate {
+      public constructor(private readonly struct: StructB) {
+        super();
+      }
+      public returnStruct(): StructB {
+        return this.struct;
+      }
+    }
 
-const consumer = new ConsumePureInterface(new ImplementsAdditionalInterface(expected));
+    const consumer = new ConsumePureInterface(new ImplementsAdditionalInterface(expected));
 
-// THEN
-expect(consumer.workItBaby()).toEqual(expected);
-```
+    // THEN
+    expect(consumer.workItBaby()).toEqual(expected);
+    ```
 
 <a id="interfacePropertyCanBeSet"></a>
 
@@ -319,46 +319,46 @@ When a behavioral interface declares a read-write property, the host MUST be abl
 through a value typed as the interface. The assignment MUST reach the property's setter in the kernel implementation,
 and any side effects of that setter MUST be observable afterwards.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IObjectWithProperty {
-  property: string;
-  wasSet(): boolean;
-}
-
-export class ObjectWithPropertyProvider {
-  public static provide(): IObjectWithProperty {
-    class Impl implements IObjectWithProperty {
-      private _property = '';
-      private _wasSet = false;
-
-      public get property() {
-        return this._property;
-      }
-      public set property(value: string) {
-        this._property = value;
-        this._wasSet = true;
-      }
-
-      public wasSet() {
-        return this._wasSet;
-      }
+    ```ts
+    // GIVEN
+    export interface IObjectWithProperty {
+      property: string;
+      wasSet(): boolean;
     }
-    return new Impl();
-  }
 
-  private constructor() {}
-}
+    export class ObjectWithPropertyProvider {
+      public static provide(): IObjectWithProperty {
+        class Impl implements IObjectWithProperty {
+          private _property = '';
+          private _wasSet = false;
 
-// WHEN
-const obj = ObjectWithPropertyProvider.provide();
-obj.property = 'New Value';
+          public get property() {
+            return this._property;
+          }
+          public set property(value: string) {
+            this._property = value;
+            this._wasSet = true;
+          }
 
-// THEN
-expect(obj.wasSet()).toBe(true);
-```
+          public wasSet() {
+            return this._wasSet;
+          }
+        }
+        return new Impl();
+      }
+
+      private constructor() {}
+    }
+
+    // WHEN
+    const obj = ObjectWithPropertyProvider.provide();
+    obj.property = 'New Value';
+
+    // THEN
+    expect(obj.wasSet()).toBe(true);
+    ```
 
 <a id="interfaceValueCanBePassedBack"></a>
 
@@ -370,36 +370,36 @@ When the host receives a value typed as a behavioral interface from the kernel, 
 value back into the kernel as a method parameter. The kernel MUST be able to invoke the interface's members on the
 passed-in value, reaching the original JavaScript implementation.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IFriendly {
-  hello(): string;
-}
+    ```ts
+    // GIVEN
+    export interface IFriendly {
+      hello(): string;
+    }
 
-export class JSObjectLiteralForInterface {
-  public giveMeFriendly(): IFriendly {
-    return {
-      hello: () => 'I am literally friendly!',
-    };
-  }
-}
+    export class JSObjectLiteralForInterface {
+      public giveMeFriendly(): IFriendly {
+        return {
+          hello: () => 'I am literally friendly!',
+        };
+      }
+    }
 
-export class GreetingAugmenter {
-  public betterGreeting(friendly: IFriendly): string {
-    return `${friendly.hello()} Let me buy you a drink!`;
-  }
-}
+    export class GreetingAugmenter {
+      public betterGreeting(friendly: IFriendly): string {
+        return `${friendly.hello()} Let me buy you a drink!`;
+      }
+    }
 
-// WHEN
-const friendly = new JSObjectLiteralForInterface().giveMeFriendly();
-const augmented = new GreetingAugmenter().betterGreeting(friendly);
+    // WHEN
+    const friendly = new JSObjectLiteralForInterface().giveMeFriendly();
+    const augmented = new GreetingAugmenter().betterGreeting(friendly);
 
-// THEN
-expect(friendly.hello()).toBe('I am literally friendly!');
-expect(augmented).toBe('I am literally friendly! Let me buy you a drink!');
-```
+    // THEN
+    expect(friendly.hello()).toBe('I am literally friendly!');
+    expect(augmented).toBe('I am literally friendly! Let me buy you a drink!');
+    ```
 
 <a id="interfaceValueWithPrivateTypeIsUsable"></a>
 
@@ -411,48 +411,48 @@ When the kernel returns a value whose concrete type is not exported, the host MU
 return type — whether that is a behavioral interface or an exported class — and MUST be able to use the members of that
 declared type. The same underlying value MUST be usable through each declared type the kernel exposes it as.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Implementation {
-  public readonly value = 1337;
-}
-export interface IAnonymouslyImplementMe {
-  readonly value: number;
-  verb(): string;
-}
-export interface IAnonymousImplementationProvider {
-  provideAsInterface(): IAnonymouslyImplementMe;
-  provideAsClass(): Implementation;
-}
+    ```ts
+    // GIVEN
+    export class Implementation {
+      public readonly value = 1337;
+    }
+    export interface IAnonymouslyImplementMe {
+      readonly value: number;
+      verb(): string;
+    }
+    export interface IAnonymousImplementationProvider {
+      provideAsInterface(): IAnonymouslyImplementMe;
+      provideAsClass(): Implementation;
+    }
 
-// The concrete type is not exported from the assembly.
-class PrivateType extends Implementation implements IAnonymouslyImplementMe {
-  public verb() {
-    return 'to implement';
-  }
-}
+    // The concrete type is not exported from the assembly.
+    class PrivateType extends Implementation implements IAnonymouslyImplementMe {
+      public verb() {
+        return 'to implement';
+      }
+    }
 
-export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
-  private readonly instance = new PrivateType();
+    export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
+      private readonly instance = new PrivateType();
 
-  public provideAsClass(): Implementation {
-    return this.instance;
-  }
-  public provideAsInterface(): IAnonymouslyImplementMe {
-    return this.instance;
-  }
-}
+      public provideAsClass(): Implementation {
+        return this.instance;
+      }
+      public provideAsInterface(): IAnonymouslyImplementMe {
+        return this.instance;
+      }
+    }
 
-// WHEN
-const provider = new AnonymousImplementationProvider();
+    // WHEN
+    const provider = new AnonymousImplementationProvider();
 
-// THEN
-expect(provider.provideAsClass().value).toBe(1337);
-expect(provider.provideAsInterface().value).toBe(1337);
-expect(provider.provideAsInterface().verb()).toBe('to implement');
-```
+    // THEN
+    expect(provider.provideAsClass().value).toBe(1337);
+    expect(provider.provideAsInterface().value).toBe(1337);
+    expect(provider.provideAsInterface().verb()).toBe('to implement');
+    ```
 
 <a id="kernelUsesHostInterfaceAccessors"></a>
 
@@ -465,48 +465,48 @@ properties through the host's getter and write them through the host's setter. E
 the value the host's getter produces, and each write MUST invoke the host's setter with the assigned value, so that any
 transformation the host applies is observable on the next read.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IInterfaceWithProperties {
-  readonly readOnlyString: string;
-  readWriteString: string;
-}
+    ```ts
+    // GIVEN
+    export interface IInterfaceWithProperties {
+      readonly readOnlyString: string;
+      readWriteString: string;
+    }
 
-export class UsesInterfaceWithProperties {
-  public constructor(public readonly obj: IInterfaceWithProperties) {}
+    export class UsesInterfaceWithProperties {
+      public constructor(public readonly obj: IInterfaceWithProperties) {}
 
-  public justRead() {
-    return this.obj.readOnlyString;
-  }
+      public justRead() {
+        return this.obj.readOnlyString;
+      }
 
-  public writeAndRead(value: string) {
-    this.obj.readWriteString = value;
-    return this.obj.readWriteString;
-  }
-}
+      public writeAndRead(value: string) {
+        this.obj.readWriteString = value;
+        return this.obj.readWriteString;
+      }
+    }
 
-// WHEN
-// A host implementation whose accessors transform the values that cross the boundary.
-class Impl implements IInterfaceWithProperties {
-  private x = '';
-  public get readOnlyString() {
-    return 'READ_ONLY_STRING';
-  }
-  public get readWriteString() {
-    return `${this.x}?`;
-  }
-  public set readWriteString(value: string) {
-    this.x = `${value}!`;
-  }
-}
-const interact = new UsesInterfaceWithProperties(new Impl());
+    // WHEN
+    // A host implementation whose accessors transform the values that cross the boundary.
+    class Impl implements IInterfaceWithProperties {
+      private x = '';
+      public get readOnlyString() {
+        return 'READ_ONLY_STRING';
+      }
+      public get readWriteString() {
+        return `${this.x}?`;
+      }
+      public set readWriteString(value: string) {
+        this.x = `${value}!`;
+      }
+    }
+    const interact = new UsesInterfaceWithProperties(new Impl());
 
-// THEN
-expect(interact.justRead()).toBe('READ_ONLY_STRING');
-expect(interact.writeAndRead('Hello')).toBe('Hello!?');
-```
+    // THEN
+    expect(interact.justRead()).toBe('READ_ONLY_STRING');
+    expect(interact.writeAndRead('Hello')).toBe('Hello!?');
+    ```
 
 <a id="objectLiteralReturnedAsInterfaceIsUsable"></a>
 
@@ -518,43 +518,43 @@ The kernel may return a bare object that implements a behavioral interface witho
 class. The host MUST receive such a value typed as the declared interface and MUST be able to invoke all of the
 interface's members on it, each call reaching the JavaScript implementation.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IFriendly {
-  hello(): string;
-}
-export interface IRandomNumberGenerator {
-  next(): number;
-}
-export interface IFriendlyRandomGenerator extends IRandomNumberGenerator, IFriendly {}
+    ```ts
+    // GIVEN
+    export interface IFriendly {
+      hello(): string;
+    }
+    export interface IRandomNumberGenerator {
+      next(): number;
+    }
+    export interface IFriendlyRandomGenerator extends IRandomNumberGenerator, IFriendly {}
 
-export class JSObjectLiteralForInterface {
-  public giveMeFriendly(): IFriendly {
-    return {
-      hello: () => 'I am literally friendly!',
-    };
-  }
+    export class JSObjectLiteralForInterface {
+      public giveMeFriendly(): IFriendly {
+        return {
+          hello: () => 'I am literally friendly!',
+        };
+      }
 
-  public giveMeFriendlyGenerator(): IFriendlyRandomGenerator {
-    return {
-      hello: () => 'giveMeFriendlyGenerator',
-      next: () => 42,
-    };
-  }
-}
+      public giveMeFriendlyGenerator(): IFriendlyRandomGenerator {
+        return {
+          hello: () => 'giveMeFriendlyGenerator',
+          next: () => 42,
+        };
+      }
+    }
 
-// WHEN
-const subject = new JSObjectLiteralForInterface();
-const friendly = subject.giveMeFriendly();
-const generator = subject.giveMeFriendlyGenerator();
+    // WHEN
+    const subject = new JSObjectLiteralForInterface();
+    const friendly = subject.giveMeFriendly();
+    const generator = subject.giveMeFriendlyGenerator();
 
-// THEN
-expect(friendly.hello()).toBe('I am literally friendly!');
-expect(generator.hello()).toBe('giveMeFriendlyGenerator');
-expect(generator.next()).toBe(42);
-```
+    // THEN
+    expect(friendly.hello()).toBe('I am literally friendly!');
+    expect(generator.hello()).toBe('giveMeFriendlyGenerator');
+    expect(generator.next()).toBe(42);
+    ```
 
 <a id="objectsUsableThroughEveryInterface"></a>
 
@@ -568,117 +568,117 @@ implementation. This MUST hold regardless of where the implementation lives: a k
 the kernel as an interface, a host object that subclasses a kernel class, or a pure host implementation of the
 interface.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IFriendly {
-  hello(): string;
-}
-export interface IFriendlier extends IFriendly {
-  goodbye(): string;
-  farewell(): string;
-}
-export interface IRandomNumberGenerator {
-  next(): number;
-}
-export interface IFriendlyRandomGenerator extends IRandomNumberGenerator, IFriendly {}
+    ```ts
+    // GIVEN
+    export interface IFriendly {
+      hello(): string;
+    }
+    export interface IFriendlier extends IFriendly {
+      goodbye(): string;
+      farewell(): string;
+    }
+    export interface IRandomNumberGenerator {
+      next(): number;
+    }
+    export interface IFriendlyRandomGenerator extends IRandomNumberGenerator, IFriendly {}
 
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
-abstract class BinaryOperation extends NumericValue implements IFriendly {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-  public hello() {
-    return "Hello, I am a binary operation. What's your name?";
-  }
-}
-export class Add extends BinaryOperation {
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-}
-export class Multiply extends BinaryOperation implements IFriendlier, IRandomNumberGenerator {
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-  public goodbye() {
-    return 'Goodbye from Multiply!';
-  }
-  public farewell() {
-    return 'Farewell to you too!';
-  }
-  public next() {
-    return 89;
-  }
-}
-export class DoubleTrouble implements IFriendlyRandomGenerator {
-  public next() {
-    return 12;
-  }
-  public hello() {
-    return 'world';
-  }
-}
-export class Polymorphism {
-  public sayHello(friendly: IFriendly) {
-    return `oh, ${friendly.hello()}`;
-  }
-}
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
+    abstract class BinaryOperation extends NumericValue implements IFriendly {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+      public hello() {
+        return "Hello, I am a binary operation. What's your name?";
+      }
+    }
+    export class Add extends BinaryOperation {
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+    }
+    export class Multiply extends BinaryOperation implements IFriendlier, IRandomNumberGenerator {
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+      public goodbye() {
+        return 'Goodbye from Multiply!';
+      }
+      public farewell() {
+        return 'Farewell to you too!';
+      }
+      public next() {
+        return 89;
+      }
+    }
+    export class DoubleTrouble implements IFriendlyRandomGenerator {
+      public next() {
+        return 12;
+      }
+      public hello() {
+        return 'world';
+      }
+    }
+    export class Polymorphism {
+      public sayHello(friendly: IFriendly) {
+        return `oh, ${friendly.hello()}`;
+      }
+    }
 
-// WHEN
-// A host subclass of a kernel class, and a pure host implementation of the interfaces.
-class SubclassNativeFriendlyRandom extends Number implements IFriendly, IRandomNumberGenerator {
-  private nextNumber = 100;
-  public constructor() {
-    super(908);
-  }
-  public hello() {
-    return 'SubclassNativeFriendlyRandom';
-  }
-  public next() {
-    const result = this.nextNumber;
-    this.nextNumber += 100;
-    return result;
-  }
-}
-class PureNativeFriendlyRandom implements IFriendlyRandomGenerator {
-  private nextNumber = 1000;
-  public next() {
-    const result = this.nextNumber;
-    this.nextNumber += 1000;
-    return result;
-  }
-  public hello() {
-    return 'I am a native!';
-  }
-}
+    // WHEN
+    // A host subclass of a kernel class, and a pure host implementation of the interfaces.
+    class SubclassNativeFriendlyRandom extends Number implements IFriendly, IRandomNumberGenerator {
+      private nextNumber = 100;
+      public constructor() {
+        super(908);
+      }
+      public hello() {
+        return 'SubclassNativeFriendlyRandom';
+      }
+      public next() {
+        const result = this.nextNumber;
+        this.nextNumber += 100;
+        return result;
+      }
+    }
+    class PureNativeFriendlyRandom implements IFriendlyRandomGenerator {
+      private nextNumber = 1000;
+      public next() {
+        const result = this.nextNumber;
+        this.nextNumber += 1000;
+        return result;
+      }
+      public hello() {
+        return 'I am a native!';
+      }
+    }
 
-const add = new Add(new Number(10), new Number(20));
-const multiply = new Multiply(new Number(10), new Number(30));
-const doubleTrouble = new DoubleTrouble();
-const poly = new Polymorphism();
+    const add = new Add(new Number(10), new Number(20));
+    const multiply = new Multiply(new Number(10), new Number(30));
+    const doubleTrouble = new DoubleTrouble();
+    const poly = new Polymorphism();
 
-// THEN
-// A value is reachable through each interface it declares.
-expect((add as IFriendly).hello()).toBe("Hello, I am a binary operation. What's your name?");
-expect((multiply as IFriendly).hello()).toBe("Hello, I am a binary operation. What's your name?");
-expect((multiply as IFriendlier).goodbye()).toBe('Goodbye from Multiply!');
-expect((multiply as IRandomNumberGenerator).next()).toBe(89);
+    // THEN
+    // A value is reachable through each interface it declares.
+    expect((add as IFriendly).hello()).toBe("Hello, I am a binary operation. What's your name?");
+    expect((multiply as IFriendly).hello()).toBe("Hello, I am a binary operation. What's your name?");
+    expect((multiply as IFriendlier).goodbye()).toBe('Goodbye from Multiply!');
+    expect((multiply as IRandomNumberGenerator).next()).toBe(89);
 
-expect((doubleTrouble as IFriendlyRandomGenerator).hello()).toBe('world');
-expect((doubleTrouble as IFriendlyRandomGenerator).next()).toBe(12);
+    expect((doubleTrouble as IFriendlyRandomGenerator).hello()).toBe('world');
+    expect((doubleTrouble as IFriendlyRandomGenerator).next()).toBe(12);
 
-// Polymorphism accepts any IFriendly, implemented anywhere.
-expect(poly.sayHello(add)).toBe("oh, Hello, I am a binary operation. What's your name?");
-expect(poly.sayHello(doubleTrouble)).toBe('oh, world');
-expect(poly.sayHello(new SubclassNativeFriendlyRandom())).toBe('oh, SubclassNativeFriendlyRandom');
-expect(poly.sayHello(new PureNativeFriendlyRandom())).toBe('oh, I am a native!');
-```
+    // Polymorphism accepts any IFriendly, implemented anywhere.
+    expect(poly.sayHello(add)).toBe("oh, Hello, I am a binary operation. What's your name?");
+    expect(poly.sayHello(doubleTrouble)).toBe('oh, world');
+    expect(poly.sayHello(new SubclassNativeFriendlyRandom())).toBe('oh, SubclassNativeFriendlyRandom');
+    expect(poly.sayHello(new PureNativeFriendlyRandom())).toBe('oh, I am a native!');
+    ```
