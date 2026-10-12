@@ -9,8 +9,8 @@ Language bindings must pass every test case. A category is complete when a langu
 | Language | Tests passing       | Categories complete |
 | -------- | ------------------- | ------------------- |
 | java     | 100.00% (110 / 110) | 12 / 12             |
-| golang   | 86.36% (95 / 110)   | 8 / 12              |
-| dotnet   | 94.55% (104 / 110)  | 10 / 12             |
+| golang   | 87.27% (96 / 110)   | 9 / 12              |
+| dotnet   | 95.45% (105 / 110)  | 11 / 12             |
 | python   | 95.45% (105 / 110)  | 11 / 12             |
 
 
@@ -105,7 +105,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | Test                                                                                                                                                                                                           | java  | golang | dotnet | python |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------ | ------ | ------ |
 | [diamondInheritedStructPropertiesAppearOnce](compliance-suite/06-structs.md#diamondInheritedStructPropertiesAppearOnce "Diamond-inherited struct properties are exposed exactly once")                         | 🟢    | 🟢     | 🟢     | 🟢     |
-| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢    | 🟢     | 🔴     | 🟢     |
+| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢    | 🟢     | 🟢     | 🟢     |
 | [overlappingStructUnionsAreDisambiguated](compliance-suite/06-structs.md#overlappingStructUnionsAreDisambiguated "Overlapping struct types in a union are correctly disambiguated")                            | 🟢    | 🟢     | 🟢     | 🟢     |
 | [positionalArgumentAndStructPropertyWithSameName](compliance-suite/06-structs.md#positionalArgumentAndStructPropertyWithSameName "A positional argument and a struct property of the same name stay distinct") | 🟢    | 🟢     | 🟢     | 🟢     |
 | [receivedStructEqualsHostBuiltStruct](compliance-suite/06-structs.md#receivedStructEqualsHostBuiltStruct "A struct received from the kernel is indistinguishable from one built by the host")                  | 🟢    | 🟢     | 🟢     | 🟢     |
@@ -114,7 +114,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | [structsAreSentAsPlainData](compliance-suite/06-structs.md#structsAreSentAsPlainData "Structs cross the boundary as plain data without type decoration")                                                       | 🟢    | 🟢     | 🟢     | 🟢     |
 | [submoduleStructCanBePassed](compliance-suite/06-structs.md#submoduleStructCanBePassed "A struct declared in a submodule can be constructed and passed")                                                       | 🟢    | 🟢     | 🟢     | 🟢     |
 | [unionOfListAndObjectStructPropertyRoundTrips](compliance-suite/06-structs.md#unionOfListAndObjectStructPropertyRoundTrips "A struct property typed as a union of a list and an object keeps its value")       | 🟢    | 🟢     | 🟢     | 🟢     |
-| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🔴     | 🟢     | 🟢     |
+| [unionStructPropertyKeepsConcreteType](compliance-suite/06-structs.md#unionStructPropertyKeepsConcreteType "A union-typed struct property keeps its concrete type across the boundary")                        | 🟢    | 🟢     | 🟢     | 🟢     |
 | [unsetStructPropertiesAreOmitted](compliance-suite/06-structs.md#unsetStructPropertiesAreOmitted "Unset optional properties are omitted, not sent as empty values")                                            | 🟢    | 🟢     | 🟢     | 🟢     |
 
 
