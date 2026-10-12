@@ -11,10 +11,6 @@ import * as fs from 'fs';
 // The DisplayName of the compliance tests, see ComplianceTests.cs
 const COMPLIANCE_PREFIX = 'IntegrationTests.Compliance.';
 
-// Skipped tests whose skip reason starts with this are not applicable to .NET:
-// [Fact(Skip = "Not applicable: <reason>")]
-const NOT_APPLICABLE = 'Not applicable:';
-
 const [trxFile, reportFile] = process.argv.slice(2);
 if (!trxFile || !reportFile) {
   console.error(
@@ -41,16 +37,8 @@ for (const result of Array.from(trx.getElementsByTagName('UnitTestResult'))) {
   if (outcome === 'Passed') {
     report[name] = { status: 'success' };
   } else if (outcome === 'NotExecuted') {
-    const reason = skipReason(result);
-    if (reason?.startsWith(NOT_APPLICABLE)) {
-      report[name] = {
-        status: 'n/a',
-        reason: reason.slice(NOT_APPLICABLE.length).trim(),
-      };
-    } else {
-      // A skipped compliance test is not passing for this language
-      report[name] = { status: 'failure', reason };
-    }
+    // A skipped compliance test is known not to work for this language
+    report[name] = { status: 'not-implemented', reason: skipReason(result) };
   } else {
     report[name] = { status: 'failure' };
   }

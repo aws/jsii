@@ -11,9 +11,8 @@ import { loadSuite, normalizeTestName } from './suite';
 const tablemark = require('tablemark');
 
 const SUCCESS = '🟢'; // test succeeded
-const FAILURE = '🔴'; // test is failing
-const MISSING = '⭕'; // test is not implemented yet
-const NOTAPPL = '⚪'; // test is not applicable for this language
+const FAILURE = '🔴'; // test is expected to work, but fails
+const MISSING = '⭕'; // test is not implemented, or known not to work yet
 
 /**
  * Determines the status of a specific test case with respect to a specific language.
@@ -24,8 +23,7 @@ function determineTestStatus(testResult: schema.TestResult | undefined) {
       return SUCCESS;
     case 'failure':
       return FAILURE;
-    case 'n/a':
-      return NOTAPPL;
+    case 'not-implemented':
     case undefined:
     default:
       return MISSING;
@@ -184,7 +182,7 @@ Language bindings must pass every test case. A category is complete when a langu
 
 ${tablemark(summary, { columns: ['Language', 'Tests passing', 'Categories complete'] })}
 
-Status: ${SUCCESS} passing, ${FAILURE} failing, ${NOTAPPL} not applicable, ${MISSING} not implemented.
+Status: ${SUCCESS} passing, ${FAILURE} failing, ${MISSING} not implemented. Failing and not implemented tests both count as not passing.
 `;
 
 fs.writeFileSync(target, `${header}\n${sections.join('\n\n')}`);
