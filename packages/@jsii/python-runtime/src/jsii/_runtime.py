@@ -146,6 +146,7 @@ class JSIIAbstractClass(abc.ABCMeta, JSIIMeta):
 
 F = TypeVar("F", bound=Callable[..., Any])
 T = TypeVar("T", bound=Type[Any])
+I = TypeVar("I")
 
 
 def enum(*, jsii_type: str) -> Callable[[T], T]:
@@ -208,6 +209,45 @@ def proxy_for(abstract_class: Type[Any]) -> Type[Any]:
         raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
 
     return cast(Any, abstract_class).__jsii_proxy_class__()
+
+
+def unsafe_cast(value: Any, interface: Callable[..., I]) -> I:
+    """
+    Use a jsii object through a jsii interface it implements, when the kernel doesn't
+    know that it does. For example, when a method declared to return ``any``
+    returns an instance of a private class that implements ``interface``.
+
+    The cast is not checked: using a member that the object doesn't implement
+    fails when the member is used.
+
+    :param value: an object received from the kernel.
+    :param interface: the jsii interface to use the object as. Typed as a callable rather
+        than ``Type[I]``, because type checkers don't allow passing a Protocol (which
+        jsii interfaces are) where ``Type[I]`` is expected.
+    :return: the object, usable as ``interface``, or ``None`` if ``value`` is ``None``.
+    """
+    if value is None:
+        return cast(I, None)
+
+    ref = getattr(value, "__jsii_ref__", None)
+    if ref is None:
+        raise TypeError(f"{value!r} is not a jsii object")
+
+    fqn = getattr(interface, "__jsii_type__", None)
+    proxy_class = getattr(interface, "__jsii_proxy_class__", None)
+    if fqn is None or proxy_class is None:
+        raise TypeError(f"{interface!r} is not a jsii interface")
+
+    interfaces = list(ref.interfaces or [])
+    if fqn not in interfaces:
+        interfaces.append(fqn)
+
+    # A new proxy for the same object. The interface is added to the reference so that
+    # the kernel resolves the members of the interface when they are used.
+    klass = proxy_class()
+    inst = klass.__new__(klass)
+    inst.__jsii_ref__ = attr.evolve(ref, interfaces=interfaces)
+    return cast(I, inst)
 
 
 def python_jsii_mapping(cls: Type[Any]) -> Optional[Mapping[str, str]]:

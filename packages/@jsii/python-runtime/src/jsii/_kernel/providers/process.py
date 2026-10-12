@@ -121,6 +121,8 @@ def _with_reference(data, type_):
 
 
 def _unstructure_ref(value):
+    if value.interfaces:
+        return {"$jsii.byref": value.ref, "$jsii.interfaces": value.interfaces}
     return {"$jsii.byref": value.ref}
 
 

@@ -19,6 +19,7 @@ from jsii_calc import (
     IBellRinger,
     IConcreteBellRinger,
     IInterfaceWithProperties,
+    IReturnJsii976,
     IWallClock,
     Isomorphism,
     OptionalStruct,
@@ -684,3 +685,22 @@ def test_equals_is_resistant_to_property_shadowing_result_variable():
 
 def test_can_obtain_struct_reference_with_overloaded_setter():
     assert ConfusingToJackson.make_struct_instance() is not None
+
+
+class TestUnsafeCast:
+    def test_none_is_returned_as_none(self) -> None:
+        assert jsii.unsafe_cast(None, IReturnJsii976) is None
+
+    def test_rejects_values_that_are_not_jsii_objects(self) -> None:
+        with pytest.raises(TypeError, match="is not a jsii object"):
+            jsii.unsafe_cast("not a jsii object", IReturnJsii976)
+
+    def test_rejects_types_that_are_not_jsii_interfaces(self) -> None:
+        with pytest.raises(TypeError, match="is not a jsii interface"):
+            jsii.unsafe_cast(SomeTypeJsii976.return_anonymous(), str)
+
+    def test_cast_object_refers_to_the_same_kernel_object(self) -> None:
+        anonymous: Any = SomeTypeJsii976.return_anonymous()
+        cast: Any = jsii.unsafe_cast(anonymous, IReturnJsii976)
+        assert cast.__jsii_ref__.ref == anonymous.__jsii_ref__.ref
+        assert "jsii-calc.IReturnJsii976" in cast.__jsii_ref__.interfaces

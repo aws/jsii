@@ -58,16 +58,25 @@ export async function findJsiiModules(
       );
     }
 
+    // Build order comes from dependencies/peerDependencies only: published
+    // manifests keep their devDependencies (e.g. @aws-cdk/asset-* devDepend
+    // on aws-cdk-lib), which would make an installed aws-cdk-lib closure
+    // cyclic and deadlock the topological sort.
     const dependencyNames = [
       ...Object.keys(pkg.dependencies ?? {}),
       ...Object.keys(pkg.peerDependencies ?? {}),
+    ];
+    // devDependencies still count for --recurse discovery (source monorepos
+    // reference sibling jsii packages that way).
+    const discoveryNames = [
+      ...dependencyNames,
       ...Object.keys(pkg.devDependencies ?? {}),
     ];
 
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
       await Promise.all(
-        dependencyNames.flatMap(async (dep) => {
+        discoveryNames.flatMap(async (dep) => {
           if (isBuiltinModule(dep)) {
             return [];
           }

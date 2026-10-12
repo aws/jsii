@@ -13,6 +13,7 @@ from ._runtime import (
     member,
     kernel,
     proxy_for,
+    unsafe_cast,
 )
 from . import python
 
@@ -60,6 +61,7 @@ __all__ = [
     "member",
     "kernel",
     "proxy_for",
+    "unsafe_cast",
     "load",
     "create",
     "delete",

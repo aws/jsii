@@ -585,7 +585,7 @@ namespace Amazon.JSII.Runtime.Deputy
                 throw new JsiiError($"Could not find constructor to instantiate {proxyType.FullName}");
             }
 
-            result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
+            result = constructorInfo.Invoke(new object[]{ Reference.ForProxy(adequateFqn!) });
             return true;
 
             bool TryFindSupportedInterface(string declaredFqn, string[] availableFqns, ITypeCache types, out string? foundFqn)

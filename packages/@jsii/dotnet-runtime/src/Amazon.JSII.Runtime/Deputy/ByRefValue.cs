@@ -61,6 +61,12 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             ObjectReference reference = new ObjectReference();
             reference["$jsii.byref"] = Value;
+            if (Interfaces.Length > 0)
+            {
+                // The kernel uses these to resolve members of interfaces it doesn't know the object implements,
+                // e.g. after an unsafe cast.
+                reference["$jsii.interfaces"] = Interfaces;
+            }
 
             return reference;
         }
@@ -68,6 +74,18 @@ namespace Amazon.JSII.Runtime.Deputy
         internal ByRefValue ForProxy()
         {
             return IsProxy ? this : new ByRefValue(Value, FullyQualifiedName, Id, Interfaces, true);
+        }
+
+        /// <summary>
+        /// A proxy reference to the same object, which also implements the interface <c>fullyQualifiedName</c>.
+        /// </summary>
+        internal ByRefValue ForProxy(string fullyQualifiedName)
+        {
+            if (Interfaces.Contains(fullyQualifiedName))
+            {
+                return ForProxy();
+            }
+            return new ByRefValue(Value, FullyQualifiedName, Id, Interfaces.Append(fullyQualifiedName).ToArray(), true);
         }
 
         internal void Merge(ByRefValue other)
