@@ -1730,11 +1730,16 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         // Tests that are applicable but currently fail due to a generator/runtime gap.
         // ----------------------------------------------------------------------
 
-        // The .NET generator does not emit required-field validation for structs, so passing an
-        // under-specified struct to the kernel does not raise. See https://github.com/aws/jsii/issues/2672
-        [Fact(DisplayName = Prefix + nameof(IncompleteStructIsRejected), Skip = ".NET does not validate required struct fields when marshalling to the kernel; see https://github.com/aws/jsii/issues/2672")]
+        [Fact(DisplayName = Prefix + nameof(IncompleteStructIsRejected))]
         public void IncompleteStructIsRejected()
         {
+            var gms = new GiveMeStructs();
+
+            // Astring is required, but not set
+            var incomplete = new MyFirstStruct { Anumber = 1 };
+
+            var error = Assert.ThrowsAny<Exception>(() => gms.ReadFirstNumber(incomplete));
+            Assert.Contains("astring", error.Message);
         }
     }
 }

@@ -13,26 +13,26 @@ Tests in this category ensure lists and maps cross the language boundary with co
 When an array is passed to a constructor and stored in an instance property, the host MUST be able to read that property
 back from the kernel and observe the same elements, in order.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public map: { [key: string]: string };
-  public array: string[];
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public map: { [key: string]: string };
+      public array: string[];
 
-  public constructor(map: { [key: string]: string }, array: string[]) {
-    this.map = map;
-    this.array = array;
-  }
-}
+      public constructor(map: { [key: string]: string }, array: string[]) {
+        this.map = map;
+        this.array = array;
+      }
+    }
 
-// WHEN
-const subject = new ClassWithCollections({}, ['one', 'two']);
+    // WHEN
+    const subject = new ClassWithCollections({}, ['one', 'two']);
 
-// THEN
-expect(subject.array).toEqual(['one', 'two']);
-```
+    // THEN
+    expect(subject.array).toEqual(['one', 'two']);
+    ```
 
 <a id="arraysOfObjectsPreserveOrderAndType"></a>
 
@@ -44,78 +44,78 @@ The host MUST be able to assign an array of object references to a property and 
 MUST preserve the order of its elements, and each element MUST be returned as a reference to the same object that was
 sent, so that the host can invoke its members and observe the correct declared type.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-  public abstract toString(): string;
-}
-
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-  public toString() {
-    return `${this.value}`;
-  }
-}
-
-abstract class BinaryOperation extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-}
-
-export class Add extends BinaryOperation {
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-  public toString() {
-    return `(${this.lhs} + ${this.rhs})`;
-  }
-}
-
-export class Multiply extends BinaryOperation {
-  public get value() {
-    return this.lhs.value * this.rhs.value;
-  }
-  public toString() {
-    return `(${this.lhs} * ${this.rhs})`;
-  }
-}
-
-export class Sum extends NumericValue {
-  public parts: NumericValue[] = [];
-
-  public get expression(): NumericValue {
-    let curr: NumericValue = new Number(0);
-    for (const part of this.parts) {
-      curr = new Add(curr, part);
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+      public abstract toString(): string;
     }
-    return curr;
-  }
 
-  public get value() {
-    return this.expression.value;
-  }
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+      public toString() {
+        return `${this.value}`;
+      }
+    }
 
-  public toString() {
-    return this.expression.toString();
-  }
-}
+    abstract class BinaryOperation extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+    }
 
-// WHEN
-const sum = new Sum();
-sum.parts = [new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))];
+    export class Add extends BinaryOperation {
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+      public toString() {
+        return `(${this.lhs} + ${this.rhs})`;
+      }
+    }
 
-// THEN
-expect(sum.value).toBe(10 + 5 + 2 * 3);
-expect(sum.parts[0].value).toBe(5);
-expect(sum.parts[2].value).toBe(6);
-expect(sum.toString()).toBe('(((0 + 5) + 10) + (2 * 3))');
-```
+    export class Multiply extends BinaryOperation {
+      public get value() {
+        return this.lhs.value * this.rhs.value;
+      }
+      public toString() {
+        return `(${this.lhs} * ${this.rhs})`;
+      }
+    }
+
+    export class Sum extends NumericValue {
+      public parts: NumericValue[] = [];
+
+      public get expression(): NumericValue {
+        let curr: NumericValue = new Number(0);
+        for (const part of this.parts) {
+          curr = new Add(curr, part);
+        }
+        return curr;
+      }
+
+      public get value() {
+        return this.expression.value;
+      }
+
+      public toString() {
+        return this.expression.toString();
+      }
+    }
+
+    // WHEN
+    const sum = new Sum();
+    sum.parts = [new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))];
+
+    // THEN
+    expect(sum.value).toBe(10 + 5 + 2 * 3);
+    expect(sum.parts[0].value).toBe(5);
+    expect(sum.parts[2].value).toBe(6);
+    expect(sum.toString()).toBe('(((0 + 5) + 10) + (2 * 3))');
+    ```
 
 <a id="collectionPropertiesCanBeSetAndRead"></a>
 
@@ -127,42 +127,42 @@ The host MUST be able to assign to a property whose declared type is an array of
 declared type is a map of object references, and then read those values back from the kernel. The host MUST observe the
 elements it assigned, in order for the array, and by key for the map.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class Number {
-  public constructor(public readonly value: number) {}
-}
+    ```ts
+    // GIVEN
+    export class Number {
+      public constructor(public readonly value: number) {}
+    }
 
-export class AllTypes {
-  private arrayValue: string[] = [];
-  private mapValue: { [key: string]: Number } = {};
+    export class AllTypes {
+      private arrayValue: string[] = [];
+      private mapValue: { [key: string]: Number } = {};
 
-  public get arrayProperty(): string[] {
-    return this.arrayValue;
-  }
-  public set arrayProperty(value: string[]) {
-    this.arrayValue = value;
-  }
+      public get arrayProperty(): string[] {
+        return this.arrayValue;
+      }
+      public set arrayProperty(value: string[]) {
+        this.arrayValue = value;
+      }
 
-  public get mapProperty(): { [key: string]: Number } {
-    return this.mapValue;
-  }
-  public set mapProperty(value: { [key: string]: Number }) {
-    this.mapValue = value;
-  }
-}
+      public get mapProperty(): { [key: string]: Number } {
+        return this.mapValue;
+      }
+      public set mapProperty(value: { [key: string]: Number }) {
+        this.mapValue = value;
+      }
+    }
 
-// WHEN
-const types = new AllTypes();
-types.arrayProperty = ['Hello', 'World'];
-types.mapProperty = { Foo: new Number(123) };
+    // WHEN
+    const types = new AllTypes();
+    types.arrayProperty = ['Hello', 'World'];
+    types.mapProperty = { Foo: new Number(123) };
 
-// THEN
-expect(types.arrayProperty[1]).toBe('World');
-expect(types.mapProperty['Foo'].value).toBe(123);
-```
+    // THEN
+    expect(types.arrayProperty[1]).toBe('World');
+    expect(types.mapProperty['Foo'].value).toBe(123);
+    ```
 
 <a id="listOfInterfacesElementsAreUsable"></a>
 
@@ -174,38 +174,38 @@ When a method returns a list whose declared element type is a behavioral interfa
 typed as that interface and MUST be able to invoke the interface's members on it. Calls on an element MUST be dispatched
 across the boundary to its JavaScript implementation.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IBell {
-  ring(): void;
-}
+    ```ts
+    // GIVEN
+    export interface IBell {
+      ring(): void;
+    }
 
-export class InterfaceCollections {
-  public static listOfInterfaces(): IBell[] {
-    return [
-      {
-        ring: () => {
-          return;
-        },
-      },
-    ];
-  }
+    export class InterfaceCollections {
+      public static listOfInterfaces(): IBell[] {
+        return [
+          {
+            ring: () => {
+              return;
+            },
+          },
+        ];
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const items = InterfaceCollections.listOfInterfaces();
+    // WHEN
+    const items = InterfaceCollections.listOfInterfaces();
 
-// THEN
-expect(items).toHaveLength(1);
-for (const item of items) {
-  // Each element is received typed as IBell, so its members can be invoked.
-  expect(() => item.ring()).not.toThrow();
-}
-```
+    // THEN
+    expect(items).toHaveLength(1);
+    for (const item of items) {
+      // Each element is received typed as IBell, so its members can be invoked.
+      expect(() => item.ring()).not.toThrow();
+    }
+    ```
 
 <a id="listOfStructsElementsHaveStructType"></a>
 
@@ -218,34 +218,34 @@ of that struct type. The host MUST present every element with the struct's appar
 type checks recognize it as that struct and the struct's properties are accessible. This matters for hosts that reify
 the element type of a list, where an element of the wrong type would be unusable.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructA {
-  readonly requiredString: string;
-  readonly optionalString?: string;
-  readonly optionalNumber?: number;
-}
+    ```ts
+    // GIVEN
+    export interface StructA {
+      readonly requiredString: string;
+      readonly optionalString?: string;
+      readonly optionalNumber?: number;
+    }
 
-export class InterfaceCollections {
-  public static listOfStructs(): StructA[] {
-    return [{ requiredString: "Hello, I'm String!" }];
-  }
+    export class InterfaceCollections {
+      public static listOfStructs(): StructA[] {
+        return [{ requiredString: "Hello, I'm String!" }];
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const items = InterfaceCollections.listOfStructs();
+    // WHEN
+    const items = InterfaceCollections.listOfStructs();
 
-// THEN
-expect(items).toHaveLength(1);
-for (const item of items) {
-  // Each element is received with the apparent type StructA, so its properties are accessible.
-  expect(item.requiredString).toBe("Hello, I'm String!");
-}
-```
+    // THEN
+    expect(items).toHaveLength(1);
+    for (const item of items) {
+      // Each element is received with the apparent type StructA, so its properties are accessible.
+      expect(item.requiredString).toBe("Hello, I'm String!");
+    }
+    ```
 
 <a id="mapOfInterfacesValuesAreUsable"></a>
 
@@ -257,38 +257,38 @@ When a method returns a map (keyed by string) whose declared value type is a beh
 each value typed as that interface and MUST be able to invoke the interface's members on it. Calls on a value MUST be
 dispatched across the boundary to its JavaScript implementation.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface IBell {
-  ring(): void;
-}
+    ```ts
+    // GIVEN
+    export interface IBell {
+      ring(): void;
+    }
 
-export class InterfaceCollections {
-  public static mapOfInterfaces(): { [name: string]: IBell } {
-    return {
-      A: {
-        ring: () => {
-          return;
-        },
-      },
-    };
-  }
+    export class InterfaceCollections {
+      public static mapOfInterfaces(): { [name: string]: IBell } {
+        return {
+          A: {
+            ring: () => {
+              return;
+            },
+          },
+        };
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const items = InterfaceCollections.mapOfInterfaces();
+    // WHEN
+    const items = InterfaceCollections.mapOfInterfaces();
 
-// THEN
-expect(Object.keys(items)).toHaveLength(1);
-for (const item of Object.values(items)) {
-  // Each value is received typed as IBell, so its members can be invoked.
-  expect(() => item.ring()).not.toThrow();
-}
-```
+    // THEN
+    expect(Object.keys(items)).toHaveLength(1);
+    for (const item of Object.values(items)) {
+      // Each value is received typed as IBell, so its members can be invoked.
+      expect(() => item.ring()).not.toThrow();
+    }
+    ```
 
 <a id="mapOfStructsValuesHaveStructType"></a>
 
@@ -301,36 +301,36 @@ value as an instance of that struct type. The host MUST present every value with
 host's idiomatic type checks recognize it as that struct and the struct's properties are accessible. This matters for
 hosts that reify the value type of a map, where a value of the wrong type would be unusable.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface StructA {
-  readonly requiredString: string;
-  readonly optionalString?: string;
-  readonly optionalNumber?: number;
-}
+    ```ts
+    // GIVEN
+    export interface StructA {
+      readonly requiredString: string;
+      readonly optionalString?: string;
+      readonly optionalNumber?: number;
+    }
 
-export class InterfaceCollections {
-  public static mapOfStructs(): { [name: string]: StructA } {
-    return {
-      A: { requiredString: "Hello, I'm String!" },
-    };
-  }
+    export class InterfaceCollections {
+      public static mapOfStructs(): { [name: string]: StructA } {
+        return {
+          A: { requiredString: "Hello, I'm String!" },
+        };
+      }
 
-  private constructor() {}
-}
+      private constructor() {}
+    }
 
-// WHEN
-const items = InterfaceCollections.mapOfStructs();
+    // WHEN
+    const items = InterfaceCollections.mapOfStructs();
 
-// THEN
-expect(Object.keys(items)).toHaveLength(1);
-for (const item of Object.values(items)) {
-  // Each value is received with the apparent type StructA, so its properties are accessible.
-  expect(item.requiredString).toBe("Hello, I'm String!");
-}
-```
+    // THEN
+    expect(Object.keys(items)).toHaveLength(1);
+    for (const item of Object.values(items)) {
+      // Each value is received with the apparent type StructA, so its properties are accessible.
+      expect(item.requiredString).toBe("Hello, I'm String!");
+    }
+    ```
 
 <a id="mapPropertyCanBeRead"></a>
 
@@ -341,27 +341,27 @@ for (const item of Object.values(items)) {
 When a map is passed to a constructor and stored in an instance property, the host MUST be able to read that property
 back from the kernel and observe the same key/value pairs.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public map: { [key: string]: string };
-  public array: string[];
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public map: { [key: string]: string };
+      public array: string[];
 
-  public constructor(map: { [key: string]: string }, array: string[]) {
-    this.map = map;
-    this.array = array;
-  }
-}
+      public constructor(map: { [key: string]: string }, array: string[]) {
+        this.map = map;
+        this.array = array;
+      }
+    }
 
-// WHEN
-const subject = new ClassWithCollections({ key: 'value' }, []);
+    // WHEN
+    const subject = new ClassWithCollections({ key: 'value' }, []);
 
-// THEN
-expect(subject.map).toEqual({ key: 'value' });
-expect(Object.keys(subject.map)).toHaveLength(1);
-```
+    // THEN
+    expect(subject.map).toEqual({ key: 'value' });
+    expect(Object.keys(subject.map)).toHaveLength(1);
+    ```
 
 <a id="mapPropertyRejectsMutation"></a>
 
@@ -373,29 +373,29 @@ A map the host reads from an instance property is a snapshot of the value in Jav
 MUST present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected
 rather than silently mutating a copy that JavaScript will never see.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public map: { [key: string]: string };
-  public array: string[];
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public map: { [key: string]: string };
+      public array: string[];
 
-  public constructor(map: { [key: string]: string }, array: string[]) {
-    this.map = map;
-    this.array = array;
-  }
-}
+      public constructor(map: { [key: string]: string }, array: string[]) {
+        this.map = map;
+        this.array = array;
+      }
+    }
 
-// WHEN
-const subject = new ClassWithCollections({ key: 'value' }, []);
-const map = subject.map;
+    // WHEN
+    const subject = new ClassWithCollections({ key: 'value' }, []);
+    const map = subject.map;
 
-// THEN
-expect(() => {
-  (map as Readonly<Record<string, string>> as Record<string, string>)['keyTwo'] = 'valueTwo';
-}).toThrow();
-```
+    // THEN
+    expect(() => {
+      (map as Readonly<Record<string, string>> as Record<string, string>)['keyTwo'] = 'valueTwo';
+    }).toThrow();
+    ```
 
 <a id="mapsOfObjectsCanBeRead"></a>
 
@@ -407,51 +407,51 @@ The host MUST be able to read a property or method result whose declared type is
 are arrays of object references. The host MUST observe every key present in the map, and MUST be able to read each nested
 array and the members of its elements.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
 
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
 
-export class Calculator {
-  public operationsMap: { [op: string]: NumericValue[] } = {};
-  private curr: NumericValue = new Number(0);
+    export class Calculator {
+      public operationsMap: { [op: string]: NumericValue[] } = {};
+      private curr: NumericValue = new Number(0);
 
-  public add(value: number): void {
-    this.curr = new Number(this.curr.value + value);
-    this.record('add', this.curr);
-  }
+      public add(value: number): void {
+        this.curr = new Number(this.curr.value + value);
+        this.record('add', this.curr);
+      }
 
-  public mul(value: number): void {
-    this.curr = new Number(this.curr.value * value);
-    this.record('mul', this.curr);
-  }
+      public mul(value: number): void {
+        this.curr = new Number(this.curr.value * value);
+        this.record('mul', this.curr);
+      }
 
-  private record(op: string, result: NumericValue): void {
-    const list = (this.operationsMap[op] ??= []);
-    list.push(result);
-  }
-}
+      private record(op: string, result: NumericValue): void {
+        const list = (this.operationsMap[op] ??= []);
+        list.push(result);
+      }
+    }
 
-// WHEN
-const calc = new Calculator();
-calc.add(10);
-calc.add(20);
-calc.mul(2);
+    // WHEN
+    const calc = new Calculator();
+    calc.add(10);
+    calc.add(20);
+    calc.mul(2);
 
-// THEN
-expect(calc.operationsMap['add'].length).toBe(2);
-expect(calc.operationsMap['mul'].length).toBe(1);
-expect(calc.operationsMap['add'][1].value).toBe(30);
-```
+    // THEN
+    expect(calc.operationsMap['add'].length).toBe(2);
+    expect(calc.operationsMap['mul'].length).toBe(1);
+    expect(calc.operationsMap['add'][1].value).toBe(30);
+    ```
 
 <a id="returnedArrayCanBeRead"></a>
 
@@ -462,22 +462,22 @@ expect(calc.operationsMap['add'][1].value).toBe(30);
 When a method returns an array, the host MUST be able to read its contents. The returned array MUST contain exactly the
 elements produced in JavaScript, in the same order.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static createAList(): string[] {
-    return ['one', 'two'];
-  }
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static createAList(): string[] {
+        return ['one', 'two'];
+      }
+    }
 
-// WHEN
-const list = ClassWithCollections.createAList();
+    // WHEN
+    const list = ClassWithCollections.createAList();
 
-// THEN
-expect(list).toEqual(['one', 'two']);
-```
+    // THEN
+    expect(list).toEqual(['one', 'two']);
+    ```
 
 <a id="returnedArrayRejectsMutation"></a>
 
@@ -489,22 +489,22 @@ An array the host receives from the kernel is a snapshot of the value in JavaScr
 MUST present such a returned array as read-only, so that attempting to add, remove, or replace elements is rejected
 rather than silently mutating a copy that JavaScript will never see.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static createAList(): string[] {
-    return ['one', 'two'];
-  }
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static createAList(): string[] {
+        return ['one', 'two'];
+      }
+    }
 
-// WHEN
-const list = ClassWithCollections.createAList();
+    // WHEN
+    const list = ClassWithCollections.createAList();
 
-// THEN
-expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
-```
+    // THEN
+    expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
+    ```
 
 <a id="returnedMapCanBeRead"></a>
 
@@ -515,23 +515,23 @@ expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
 When a method returns a map (keyed by string), the host MUST be able to read its contents. The returned map MUST contain
 exactly the key/value pairs produced in JavaScript.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static createAMap(): { [key: string]: string } {
-    return { key1: 'value1', key2: 'value2' };
-  }
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static createAMap(): { [key: string]: string } {
+        return { key1: 'value1', key2: 'value2' };
+      }
+    }
 
-// WHEN
-const map = ClassWithCollections.createAMap();
+    // WHEN
+    const map = ClassWithCollections.createAMap();
 
-// THEN
-expect(map).toEqual({ key1: 'value1', key2: 'value2' });
-expect(Object.keys(map)).toHaveLength(2);
-```
+    // THEN
+    expect(map).toEqual({ key1: 'value1', key2: 'value2' });
+    expect(Object.keys(map)).toHaveLength(2);
+    ```
 
 <a id="returnedMapRejectsMutation"></a>
 
@@ -543,24 +543,24 @@ A map the host receives from the kernel is a snapshot of the value in JavaScript
 present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected rather than
 silently mutating a copy that JavaScript will never see.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static createAMap(): { [key: string]: string } {
-    return { key1: 'value1', key2: 'value2' };
-  }
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static createAMap(): { [key: string]: string } {
+        return { key1: 'value1', key2: 'value2' };
+      }
+    }
 
-// WHEN
-const map = ClassWithCollections.createAMap();
+    // WHEN
+    const map = ClassWithCollections.createAMap();
 
-// THEN
-expect(() => {
-  (map as Readonly<Record<string, string>> as Record<string, string>)['keyThree'] = 'valueThree';
-}).toThrow();
-```
+    // THEN
+    expect(() => {
+      (map as Readonly<Record<string, string>> as Record<string, string>)['keyThree'] = 'valueThree';
+    }).toThrow();
+    ```
 
 <a id="staticArrayPropertyCanBeRead"></a>
 
@@ -571,20 +571,20 @@ expect(() => {
 The host MUST be able to read a static property whose declared type is an array, without creating an instance of the
 class. The returned array MUST contain exactly the elements initialized in JavaScript, in order.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static staticArray: string[] = ['one', 'two'];
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static staticArray: string[] = ['one', 'two'];
+    }
 
-// WHEN
-const list = ClassWithCollections.staticArray;
+    // WHEN
+    const list = ClassWithCollections.staticArray;
 
-// THEN
-expect(list).toEqual(['one', 'two']);
-```
+    // THEN
+    expect(list).toEqual(['one', 'two']);
+    ```
 
 <a id="staticArrayPropertyRejectsMutation"></a>
 
@@ -596,20 +596,20 @@ An array the host reads from a static property is a snapshot of the value in Jav
 MUST present such a returned array as read-only, so that attempting to add, remove, or replace elements is rejected
 rather than silently mutating a copy that JavaScript will never see.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static staticArray: string[] = ['one', 'two'];
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static staticArray: string[] = ['one', 'two'];
+    }
 
-// WHEN
-const list = ClassWithCollections.staticArray;
+    // WHEN
+    const list = ClassWithCollections.staticArray;
 
-// THEN
-expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
-```
+    // THEN
+    expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
+    ```
 
 <a id="staticMapPropertyCanBeRead"></a>
 
@@ -620,24 +620,24 @@ expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
 The host MUST be able to read a static property whose declared type is a map (keyed by string), without creating an
 instance of the class. The returned map MUST contain exactly the key/value pairs initialized in JavaScript.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static staticMap: { [key: string]: string } = {
-    key1: 'value1',
-    key2: 'value2',
-  };
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static staticMap: { [key: string]: string } = {
+        key1: 'value1',
+        key2: 'value2',
+      };
+    }
 
-// WHEN
-const map = ClassWithCollections.staticMap;
+    // WHEN
+    const map = ClassWithCollections.staticMap;
 
-// THEN
-expect(map).toEqual({ key1: 'value1', key2: 'value2' });
-expect(Object.keys(map)).toHaveLength(2);
-```
+    // THEN
+    expect(map).toEqual({ key1: 'value1', key2: 'value2' });
+    expect(Object.keys(map)).toHaveLength(2);
+    ```
 
 <a id="staticMapPropertyRejectsMutation"></a>
 
@@ -649,22 +649,22 @@ A map the host reads from a static property is a snapshot of the value in JavaSc
 MUST present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected
 rather than silently mutating a copy that JavaScript will never see.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class ClassWithCollections {
-  public static staticMap: { [key: string]: string } = {
-    key1: 'value1',
-    key2: 'value2',
-  };
-}
+    ```ts
+    // GIVEN
+    export class ClassWithCollections {
+      public static staticMap: { [key: string]: string } = {
+        key1: 'value1',
+        key2: 'value2',
+      };
+    }
 
-// WHEN
-const map = ClassWithCollections.staticMap;
+    // WHEN
+    const map = ClassWithCollections.staticMap;
 
-// THEN
-expect(() => {
-  (map as Readonly<Record<string, string>> as Record<string, string>)['keyTwo'] = 'valueTwo';
-}).toThrow();
-```
+    // THEN
+    expect(() => {
+      (map as Readonly<Record<string, string>> as Record<string, string>)['keyTwo'] = 'valueTwo';
+    }).toThrow();
+    ```

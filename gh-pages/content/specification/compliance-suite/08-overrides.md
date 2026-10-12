@@ -14,31 +14,31 @@ When a host override of a property getter reads the base class value of that pro
 held in JavaScript. The override MAY combine that value with its own logic before returning it. When the kernel reads
 the property, it MUST dispatch to the host getter, which in turn observes the base value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public theProperty = 'initial value';
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public theProperty = 'initial value';
 
-  public retrieveValueOfTheProperty() {
-    return this.theProperty;
-  }
-}
+      public retrieveValueOfTheProperty() {
+        return this.theProperty;
+      }
+    }
 
-// Host subclass whose getter override reads the base value.
-class SyncOverrides extends SyncVirtualMethods {
-  public override get theProperty() {
-    return 'super:' + super.theProperty;
-  }
-}
+    // Host subclass whose getter override reads the base value.
+    class SyncOverrides extends SyncVirtualMethods {
+      public override get theProperty() {
+        return 'super:' + super.theProperty;
+      }
+    }
 
-// WHEN
-const so = new SyncOverrides();
+    // WHEN
+    const so = new SyncOverrides();
 
-// THEN
-expect(so.retrieveValueOfTheProperty()).toBe('super:initial value');
-```
+    // THEN
+    expect(so.retrieveValueOfTheProperty()).toBe('super:initial value');
+    ```
 
 <a id="getterOverrideErrorPropagates"></a>
 
@@ -50,31 +50,31 @@ When a host override of a property getter throws, and the kernel reads that prop
 back to the host caller that triggered the read, rather than returning a value. The error message the host raised MUST
 be preserved as it crosses the boundary and returns.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public theProperty = 'initial value';
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public theProperty = 'initial value';
 
-  public retrieveValueOfTheProperty() {
-    return this.theProperty;
-  }
-}
+      public retrieveValueOfTheProperty() {
+        return this.theProperty;
+      }
+    }
 
-// Host subclass whose getter override throws.
-class SyncOverrides extends SyncVirtualMethods {
-  public override get theProperty(): string {
-    throw new Error('Oh no, this is bad');
-  }
-}
+    // Host subclass whose getter override throws.
+    class SyncOverrides extends SyncVirtualMethods {
+      public override get theProperty(): string {
+        throw new Error('Oh no, this is bad');
+      }
+    }
 
-// WHEN
-const so = new SyncOverrides();
+    // WHEN
+    const so = new SyncOverrides();
 
-// THEN
-expect(() => so.retrieveValueOfTheProperty()).toThrow('Oh no, this is bad');
-```
+    // THEN
+    expect(() => so.retrieveValueOfTheProperty()).toThrow('Oh no, this is bad');
+    ```
 
 <a id="hostAccessorDoesNotOverridePrivateProperty"></a>
 
@@ -88,43 +88,43 @@ accessor as an override. The kernel MUST continue to use its own private propert
 read MUST return the original value, and a kernel write MUST update the kernel's own property without dispatching to the
 host setter.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class DoNotOverridePrivates {
-  private privateProperty = 'privateProperty';
+    ```ts
+    // GIVEN
+    export class DoNotOverridePrivates {
+      private privateProperty = 'privateProperty';
 
-  public privatePropertyValue() {
-    return this.privateProperty;
-  }
+      public privatePropertyValue() {
+        return this.privateProperty;
+      }
 
-  public changePrivatePropertyValue(newValue: string) {
-    this.privateProperty = newValue;
-  }
-}
+      public changePrivatePropertyValue(newValue: string) {
+        this.privateProperty = newValue;
+      }
+    }
 
-// Host subclass with a public accessor whose name coincides with the private property.
-class Override extends DoNotOverridePrivates {
-  public get privateProperty(): string {
-    return 'privateProperty-Override';
-  }
-  public set privateProperty(value: string) {
-    throw new Error('Boom');
-  }
-}
+    // Host subclass with a public accessor whose name coincides with the private property.
+    class Override extends DoNotOverridePrivates {
+      public get privateProperty(): string {
+        return 'privateProperty-Override';
+      }
+      public set privateProperty(value: string) {
+        throw new Error('Boom');
+      }
+    }
 
-// WHEN
-const obj = new Override();
+    // WHEN
+    const obj = new Override();
 
-// THEN
-// The host getter is not registered, so the kernel reads its own property.
-expect(obj.privatePropertyValue()).toBe('privateProperty');
+    // THEN
+    // The host getter is not registered, so the kernel reads its own property.
+    expect(obj.privatePropertyValue()).toBe('privateProperty');
 
-// The host setter is not registered either: the write updates the kernel's property and does not throw.
-obj.changePrivatePropertyValue('MyNewValue');
-expect(obj.privatePropertyValue()).toBe('MyNewValue');
-```
+    // The host setter is not registered either: the write updates the kernel's property and does not throw.
+    obj.changePrivatePropertyValue('MyNewValue');
+    expect(obj.privatePropertyValue()).toBe('MyNewValue');
+    ```
 
 <a id="hostMethodDoesNotOverridePrivateMethod"></a>
 
@@ -137,34 +137,34 @@ subclass declares a method whose name coincides with such a private method, the 
 override: it MUST NOT be included in the set of overrides the host declares to the kernel. The kernel MUST continue to
 use its own private method, so a kernel call that reaches the private method MUST return the original value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class DoNotOverridePrivates {
-  private privateMethod(): string {
-    return 'privateMethod';
-  }
+    ```ts
+    // GIVEN
+    export class DoNotOverridePrivates {
+      private privateMethod(): string {
+        return 'privateMethod';
+      }
 
-  public privateMethodValue() {
-    return this.privateMethod();
-  }
-}
+      public privateMethodValue() {
+        return this.privateMethod();
+      }
+    }
 
-// Host subclass with a public member whose name coincides with the private method.
-class Override extends DoNotOverridePrivates {
-  public privateMethod(): string {
-    return 'privateMethod-Override';
-  }
-}
+    // Host subclass with a public member whose name coincides with the private method.
+    class Override extends DoNotOverridePrivates {
+      public privateMethod(): string {
+        return 'privateMethod-Override';
+      }
+    }
 
-// WHEN
-const obj = new Override();
+    // WHEN
+    const obj = new Override();
 
-// THEN
-// The kernel calls its own private method, not the host member.
-expect(obj.privateMethodValue()).toBe('privateMethod');
-```
+    // THEN
+    // The kernel calls its own private method, not the host member.
+    expect(obj.privateMethodValue()).toBe('privateMethod');
+    ```
 
 <a id="hostMethodDoesNotOverridePrivateProperty"></a>
 
@@ -177,32 +177,32 @@ subclass declares a method whose name coincides with such a private property, th
 an override: it MUST NOT be included in the set of overrides the host declares to the kernel. The kernel MUST continue
 to use its own private property, so a kernel call that reads the private property MUST return the original value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class DoNotOverridePrivates {
-  private privateProperty = 'privateProperty';
+    ```ts
+    // GIVEN
+    export class DoNotOverridePrivates {
+      private privateProperty = 'privateProperty';
 
-  public privatePropertyValue() {
-    return this.privateProperty;
-  }
-}
+      public privatePropertyValue() {
+        return this.privateProperty;
+      }
+    }
 
-// Host subclass with a public method whose name coincides with the private property.
-class Override extends DoNotOverridePrivates {
-  public privateProperty(): string {
-    return 'privateProperty-Override';
-  }
-}
+    // Host subclass with a public method whose name coincides with the private property.
+    class Override extends DoNotOverridePrivates {
+      public privateProperty(): string {
+        return 'privateProperty-Override';
+      }
+    }
 
-// WHEN
-const obj = new Override();
+    // WHEN
+    const obj = new Override();
 
-// THEN
-// The kernel reads its own private property, not the host member.
-expect(obj.privatePropertyValue()).toBe('privateProperty');
-```
+    // THEN
+    // The kernel reads its own private property, not the host member.
+    expect(obj.privatePropertyValue()).toBe('privateProperty');
+    ```
 
 <a id="hostSubclassCanBeUsed"></a>
 
@@ -215,66 +215,66 @@ to the kernel by reference, as the base type, so that the kernel operates on the
 no overrides and only supplies constructor arguments to the base class, every member the kernel invokes MUST behave
 exactly as it does for a directly instantiated base class, including members inherited from the base.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export abstract class NumericValue {
-  public abstract readonly value: number;
-}
+    ```ts
+    // GIVEN
+    export abstract class NumericValue {
+      public abstract readonly value: number;
+    }
 
-export class Number extends NumericValue {
-  public constructor(public readonly value: number) {
-    super();
-  }
-}
+    export class Number extends NumericValue {
+      public constructor(public readonly value: number) {
+        super();
+      }
+    }
 
-export abstract class BinaryOperation extends NumericValue {
-  public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
-    super();
-  }
-}
+    export abstract class BinaryOperation extends NumericValue {
+      public constructor(public readonly lhs: NumericValue, public readonly rhs: NumericValue) {
+        super();
+      }
+    }
 
-export class Add extends BinaryOperation {
-  public get value() {
-    return this.lhs.value + this.rhs.value;
-  }
-}
+    export class Add extends BinaryOperation {
+      public get value() {
+        return this.lhs.value + this.rhs.value;
+      }
+    }
 
-export class Negate extends NumericValue {
-  public constructor(public readonly operand: NumericValue) {
-    super();
-  }
-  public get value() {
-    return -1 * this.operand.value;
-  }
-}
+    export class Negate extends NumericValue {
+      public constructor(public readonly operand: NumericValue) {
+        super();
+      }
+      public get value() {
+        return -1 * this.operand.value;
+      }
+    }
 
-export class Calculator extends NumericValue {
-  public curr: NumericValue = new Number(0);
-  public get value() {
-    return this.curr.value;
-  }
-  public neg() {
-    this.curr = new Negate(this.curr);
-  }
-}
+    export class Calculator extends NumericValue {
+      public curr: NumericValue = new Number(0);
+      public get value() {
+        return this.curr.value;
+      }
+      public neg() {
+        this.curr = new Negate(this.curr);
+      }
+    }
 
-// Host subclass that adds no overrides; it only fixes the constructor arguments of the base class.
-class AddTen extends Add {
-  public constructor(value: number) {
-    super(new Number(value), new Number(10));
-  }
-}
+    // Host subclass that adds no overrides; it only fixes the constructor arguments of the base class.
+    class AddTen extends Add {
+      public constructor(value: number) {
+        super(new Number(value), new Number(10));
+      }
+    }
 
-// WHEN
-const calc = new Calculator();
-calc.curr = new AddTen(33);
-calc.neg();
+    // WHEN
+    const calc = new Calculator();
+    calc.curr = new AddTen(33);
+    calc.neg();
 
-// THEN
-expect(calc.value).toBe(-43);
-```
+    // THEN
+    expect(calc.value).toBe(-43);
+    ```
 
 <a id="methodCallsUseHostOverride"></a>
 
@@ -287,49 +287,49 @@ kernel MUST be dispatched to the host override. This includes invocations the ke
 method and invocations the kernel makes while evaluating a property getter. The value the override returns MUST be the
 value the kernel uses. State the override keeps on the host instance MUST be observable on subsequent invocations.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public callerIsMethod() {
-    return this.virtualMethod(10);
-  }
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public callerIsMethod() {
+        return this.virtualMethod(10);
+      }
 
-  public get callerIsProperty() {
-    return this.virtualMethod(10);
-  }
-  public set callerIsProperty(x: number) {
-    this.virtualMethod(x);
-  }
+      public get callerIsProperty() {
+        return this.virtualMethod(10);
+      }
+      public set callerIsProperty(x: number) {
+        this.virtualMethod(x);
+      }
 
-  public virtualMethod(n: number): number {
-    return n * 2;
-  }
-}
+      public virtualMethod(n: number): number {
+        return n * 2;
+      }
+    }
 
-// Host subclass overriding the synchronous virtual method.
-class SyncOverrides extends SyncVirtualMethods {
-  public multiplier = 1;
+    // Host subclass overriding the synchronous virtual method.
+    class SyncOverrides extends SyncVirtualMethods {
+      public multiplier = 1;
 
-  public override virtualMethod(n: number): number {
-    return 5 * n * this.multiplier;
-  }
-}
+      public override virtualMethod(n: number): number {
+        return 5 * n * this.multiplier;
+      }
+    }
 
-// WHEN
-const obj = new SyncOverrides();
+    // WHEN
+    const obj = new SyncOverrides();
 
-// THEN
-expect(obj.callerIsMethod()).toBe(10 * 5);
+    // THEN
+    expect(obj.callerIsMethod()).toBe(10 * 5);
 
-// Host state affects the result the kernel observes.
-obj.multiplier = 5;
-expect(obj.callerIsMethod()).toBe(10 * 5 * 5);
+    // Host state affects the result the kernel observes.
+    obj.multiplier = 5;
+    expect(obj.callerIsMethod()).toBe(10 * 5 * 5);
 
-// The override is also reached when the kernel evaluates a property getter.
-expect(obj.callerIsProperty).toBe(10 * 5 * 5);
-```
+    // The override is also reached when the kernel evaluates a property getter.
+    expect(obj.callerIsProperty).toBe(10 * 5 * 5);
+    ```
 
 <a id="methodOverrideCanCallSuper"></a>
 
@@ -342,43 +342,43 @@ JavaScript implementation and return its result to the override. The override MA
 combine it with its own logic. The host MUST be able to select between calling the base implementation and computing its
 own result on a per-invocation basis.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public get callerIsProperty() {
-    return this.virtualMethod(10);
-  }
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public get callerIsProperty() {
+        return this.virtualMethod(10);
+      }
 
-  public virtualMethod(n: number): number {
-    return n * 2;
-  }
-}
-
-// Host subclass whose override can delegate to the base implementation.
-class SyncOverrides extends SyncVirtualMethods {
-  public multiplier = 5;
-  public returnSuper = false;
-
-  public override virtualMethod(n: number): number {
-    if (this.returnSuper) {
-      return super.virtualMethod(n);
+      public virtualMethod(n: number): number {
+        return n * 2;
+      }
     }
-    return n * this.multiplier;
-  }
-}
 
-// WHEN
-const obj = new SyncOverrides();
+    // Host subclass whose override can delegate to the base implementation.
+    class SyncOverrides extends SyncVirtualMethods {
+      public multiplier = 5;
+      public returnSuper = false;
 
-// THEN
-expect(obj.callerIsProperty).toBe(10 * 5);
+      public override virtualMethod(n: number): number {
+        if (this.returnSuper) {
+          return super.virtualMethod(n);
+        }
+        return n * this.multiplier;
+      }
+    }
 
-// The override now delegates to the base implementation, which returns n * 2.
-obj.returnSuper = true;
-expect(obj.callerIsProperty).toBe(10 * 2);
-```
+    // WHEN
+    const obj = new SyncOverrides();
+
+    // THEN
+    expect(obj.callerIsProperty).toBe(10 * 5);
+
+    // The override now delegates to the base implementation, which returns n * 2.
+    obj.returnSuper = true;
+    expect(obj.callerIsProperty).toBe(10 * 2);
+    ```
 
 <a id="overrideReceivesDeserializedArguments"></a>
 
@@ -391,40 +391,40 @@ representation of its declared type before running the override. A structured (m
 kernel MUST be delivered to the override with all of its entries intact. When the override forwards that argument back
 to the kernel, every value MUST round-trip unchanged.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export interface MyFirstStruct {
-  readonly astring: string;
-  readonly anumber: number;
-  readonly firstOptional?: string[];
-}
+    ```ts
+    // GIVEN
+    export interface MyFirstStruct {
+      readonly astring: string;
+      readonly anumber: number;
+      readonly firstOptional?: string[];
+    }
 
-export class DataRenderer {
-  public render(data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' }): string {
-    return this.renderMap(data);
-  }
+    export class DataRenderer {
+      public render(data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' }): string {
+        return this.renderMap(data);
+      }
 
-  public renderMap(map: { [key: string]: any }): string {
-    return JSON.stringify(map, null, 2);
-  }
-}
+      public renderMap(map: { [key: string]: any }): string {
+        return JSON.stringify(map, null, 2);
+      }
+    }
 
-// Host subclass overriding renderMap, forwarding the kernel-provided argument back to the kernel.
-class CustomRenderer extends DataRenderer {
-  public override renderMap(map: { [key: string]: any }): string {
-    return super.renderMap(map);
-  }
-}
+    // Host subclass overriding renderMap, forwarding the kernel-provided argument back to the kernel.
+    class CustomRenderer extends DataRenderer {
+      public override renderMap(map: { [key: string]: any }): string {
+        return super.renderMap(map);
+      }
+    }
 
-// WHEN
-// render() calls renderMap in the kernel, which the kernel dispatches to the host override, passing the default struct.
-const result = new CustomRenderer().render();
+    // WHEN
+    // render() calls renderMap in the kernel, which the kernel dispatches to the host override, passing the default struct.
+    const result = new CustomRenderer().render();
 
-// THEN
-expect(result).toBe('{\n  "anumber": 42,\n  "astring": "bazinga!"\n}');
-```
+    // THEN
+    expect(result).toBe('{\n  "anumber": 42,\n  "astring": "bazinga!"\n}');
+    ```
 
 <a id="propertyAccessesUseHostOverrides"></a>
 
@@ -437,45 +437,45 @@ whenever the property is read from JavaScript, and MUST invoke the host setter w
 JavaScript, passing the assigned value to the setter. The host override replaces the kernel's own accessor for both
 directions.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public theProperty = 'initial value';
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public theProperty = 'initial value';
 
-  public modifyValueOfTheProperty(value: string) {
-    this.theProperty = value;
-  }
+      public modifyValueOfTheProperty(value: string) {
+        this.theProperty = value;
+      }
 
-  public retrieveValueOfTheProperty() {
-    return this.theProperty;
-  }
-}
+      public retrieveValueOfTheProperty() {
+        return this.theProperty;
+      }
+    }
 
-// Host subclass overriding both the getter and the setter of `theProperty`.
-class SyncOverrides extends SyncVirtualMethods {
-  public anotherTheProperty = '';
+    // Host subclass overriding both the getter and the setter of `theProperty`.
+    class SyncOverrides extends SyncVirtualMethods {
+      public anotherTheProperty = '';
 
-  public override get theProperty() {
-    return 'I am an override!';
-  }
-  public override set theProperty(value: string) {
-    this.anotherTheProperty = value;
-  }
-}
+      public override get theProperty() {
+        return 'I am an override!';
+      }
+      public override set theProperty(value: string) {
+        this.anotherTheProperty = value;
+      }
+    }
 
-// WHEN
-const so = new SyncOverrides();
+    // WHEN
+    const so = new SyncOverrides();
 
-// THEN
-// Reading the property in the kernel dispatches to the host getter.
-expect(so.retrieveValueOfTheProperty()).toBe('I am an override!');
+    // THEN
+    // Reading the property in the kernel dispatches to the host getter.
+    expect(so.retrieveValueOfTheProperty()).toBe('I am an override!');
 
-// Writing the property in the kernel dispatches to the host setter.
-so.modifyValueOfTheProperty('New Value');
-expect(so.anotherTheProperty).toBe('New Value');
-```
+    // Writing the property in the kernel dispatches to the host setter.
+    so.modifyValueOfTheProperty('New Value');
+    expect(so.anotherTheProperty).toBe('New Value');
+    ```
 
 <a id="protectedGetterCanBeOverridden"></a>
 
@@ -487,40 +487,40 @@ A property that is declared as overridable but is not part of the public API (a 
 from the host. When the kernel reads such a property, it MUST dispatch to the host getter override and use the value it
 returns, exactly as it does for a public overridable property.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class OverridableProtectedMember {
-  protected readonly overrideReadOnly: string = 'Baz';
-  protected overrideReadWrite = 'zinga!';
+    ```ts
+    // GIVEN
+    export class OverridableProtectedMember {
+      protected readonly overrideReadOnly: string = 'Baz';
+      protected overrideReadWrite = 'zinga!';
 
-  public valueFromProtected(): string {
-    return this.overrideMe();
-  }
+      public valueFromProtected(): string {
+        return this.overrideMe();
+      }
 
-  protected overrideMe(): string {
-    return this.overrideReadOnly + this.overrideReadWrite;
-  }
-}
+      protected overrideMe(): string {
+        return this.overrideReadOnly + this.overrideReadWrite;
+      }
+    }
 
-// Host subclass overriding the protected property getters.
-class Overridden extends OverridableProtectedMember {
-  protected override get overrideReadOnly(): string {
-    return 'Cthulhu ';
-  }
-  protected override get overrideReadWrite(): string {
-    return 'Fhtagn!';
-  }
-}
+    // Host subclass overriding the protected property getters.
+    class Overridden extends OverridableProtectedMember {
+      protected override get overrideReadOnly(): string {
+        return 'Cthulhu ';
+      }
+      protected override get overrideReadWrite(): string {
+        return 'Fhtagn!';
+      }
+    }
 
-// WHEN
-// valueFromProtected calls overrideMe in the kernel, which reads the two protected properties.
-const overridden = new Overridden();
+    // WHEN
+    // valueFromProtected calls overrideMe in the kernel, which reads the two protected properties.
+    const overridden = new Overridden();
 
-// THEN
-expect(overridden.valueFromProtected()).toBe('Cthulhu Fhtagn!');
-```
+    // THEN
+    expect(overridden.valueFromProtected()).toBe('Cthulhu Fhtagn!');
+    ```
 
 <a id="protectedMethodCanBeOverridden"></a>
 
@@ -532,36 +532,36 @@ A member that is declared as overridable but is not part of the public API (a pr
 the host. When the kernel invokes such a method, it MUST dispatch to the host override and use the value the override
 returns, exactly as it does for a public overridable method.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class OverridableProtectedMember {
-  protected readonly overrideReadOnly: string = 'Baz';
-  protected overrideReadWrite = 'zinga!';
+    ```ts
+    // GIVEN
+    export class OverridableProtectedMember {
+      protected readonly overrideReadOnly: string = 'Baz';
+      protected overrideReadWrite = 'zinga!';
 
-  public valueFromProtected(): string {
-    return this.overrideMe();
-  }
+      public valueFromProtected(): string {
+        return this.overrideMe();
+      }
 
-  protected overrideMe(): string {
-    return this.overrideReadOnly + this.overrideReadWrite;
-  }
-}
+      protected overrideMe(): string {
+        return this.overrideReadOnly + this.overrideReadWrite;
+      }
+    }
 
-// Host subclass overriding the protected method.
-class Overridden extends OverridableProtectedMember {
-  protected override overrideMe(): string {
-    return 'Cthulhu Fhtagn!';
-  }
-}
+    // Host subclass overriding the protected method.
+    class Overridden extends OverridableProtectedMember {
+      protected override overrideMe(): string {
+        return 'Cthulhu Fhtagn!';
+      }
+    }
 
-// WHEN
-const overridden = new Overridden();
+    // WHEN
+    const overridden = new Overridden();
 
-// THEN
-expect(overridden.valueFromProtected()).toBe('Cthulhu Fhtagn!');
-```
+    // THEN
+    expect(overridden.valueFromProtected()).toBe('Cthulhu Fhtagn!');
+    ```
 
 <a id="protectedSetterCanBeOverridden"></a>
 
@@ -574,42 +574,42 @@ from the host. When the kernel assigns such a property, it MUST dispatch to the 
 being assigned. The override MAY transform the value before delegating to the base setter, and a subsequent read MUST
 observe the transformed value.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class OverridableProtectedMember {
-  protected readonly overrideReadOnly: string = 'Baz';
-  protected overrideReadWrite = 'zinga!';
+    ```ts
+    // GIVEN
+    export class OverridableProtectedMember {
+      protected readonly overrideReadOnly: string = 'Baz';
+      protected overrideReadWrite = 'zinga!';
 
-  public valueFromProtected(): string {
-    return this.overrideMe();
-  }
+      public valueFromProtected(): string {
+        return this.overrideMe();
+      }
 
-  public switchModes(): void {
-    this.overrideReadWrite = 'zaar...';
-  }
+      public switchModes(): void {
+        this.overrideReadWrite = 'zaar...';
+      }
 
-  protected overrideMe(): string {
-    return this.overrideReadOnly + this.overrideReadWrite;
-  }
-}
+      protected overrideMe(): string {
+        return this.overrideReadOnly + this.overrideReadWrite;
+      }
+    }
 
-// Host subclass overriding the protected property setter.
-class Overridden extends OverridableProtectedMember {
-  protected override set overrideReadWrite(value: string) {
-    super.overrideReadWrite = 'zzzzzzzzz' + value;
-  }
-}
+    // Host subclass overriding the protected property setter.
+    class Overridden extends OverridableProtectedMember {
+      protected override set overrideReadWrite(value: string) {
+        super.overrideReadWrite = 'zzzzzzzzz' + value;
+      }
+    }
 
-// WHEN
-// switchModes assigns overrideReadWrite in the kernel, which dispatches to the host setter.
-const overridden = new Overridden();
-overridden.switchModes();
+    // WHEN
+    // switchModes assigns overrideReadWrite in the kernel, which dispatches to the host setter.
+    const overridden = new Overridden();
+    overridden.switchModes();
 
-// THEN
-expect(overridden.valueFromProtected()).toBe('Bazzzzzzzzzzzaar...');
-```
+    // THEN
+    expect(overridden.valueFromProtected()).toBe('Bazzzzzzzzzzzaar...');
+    ```
 
 <a id="setterOverrideCanCallSuper"></a>
 
@@ -621,36 +621,36 @@ When a host override of a property setter assigns the base class value of that p
 in JavaScript. The override MAY transform the assigned value before delegating to the base setter. A subsequent read of
 the property MUST return the transformed value that the override stored.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public theProperty = 'initial value';
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public theProperty = 'initial value';
 
-  public modifyValueOfTheProperty(value: string) {
-    this.theProperty = value;
-  }
+      public modifyValueOfTheProperty(value: string) {
+        this.theProperty = value;
+      }
 
-  public retrieveValueOfTheProperty() {
-    return this.theProperty;
-  }
-}
+      public retrieveValueOfTheProperty() {
+        return this.theProperty;
+      }
+    }
 
-// Host subclass whose setter override transforms the value, then writes the base value.
-class SyncOverrides extends SyncVirtualMethods {
-  public override set theProperty(value: string) {
-    super.theProperty = value + ':by override';
-  }
-}
+    // Host subclass whose setter override transforms the value, then writes the base value.
+    class SyncOverrides extends SyncVirtualMethods {
+      public override set theProperty(value: string) {
+        super.theProperty = value + ':by override';
+      }
+    }
 
-// WHEN
-const so = new SyncOverrides();
-so.modifyValueOfTheProperty('New Value');
+    // WHEN
+    const so = new SyncOverrides();
+    so.modifyValueOfTheProperty('New Value');
 
-// THEN
-expect(so.retrieveValueOfTheProperty()).toBe('New Value:by override');
-```
+    // THEN
+    expect(so.retrieveValueOfTheProperty()).toBe('New Value:by override');
+    ```
 
 <a id="setterOverrideErrorPropagates"></a>
 
@@ -662,31 +662,31 @@ When a host override of a property setter throws, and the kernel assigns that pr
 back to the host caller that triggered the write, rather than completing the assignment. The error message the host
 raised MUST be preserved as it crosses the boundary and returns.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class SyncVirtualMethods {
-  public theProperty = 'initial value';
+    ```ts
+    // GIVEN
+    export class SyncVirtualMethods {
+      public theProperty = 'initial value';
 
-  public modifyValueOfTheProperty(value: string) {
-    this.theProperty = value;
-  }
-}
+      public modifyValueOfTheProperty(value: string) {
+        this.theProperty = value;
+      }
+    }
 
-// Host subclass whose setter override throws.
-class SyncOverrides extends SyncVirtualMethods {
-  public override set theProperty(value: string) {
-    throw new Error('Exception from overloaded setter');
-  }
-}
+    // Host subclass whose setter override throws.
+    class SyncOverrides extends SyncVirtualMethods {
+      public override set theProperty(value: string) {
+        throw new Error('Exception from overloaded setter');
+      }
+    }
 
-// WHEN
-const so = new SyncOverrides();
+    // WHEN
+    const so = new SyncOverrides();
 
-// THEN
-expect(() => so.modifyValueOfTheProperty('Hii')).toThrow('Exception from overloaded setter');
-```
+    // THEN
+    expect(() => so.modifyValueOfTheProperty('Hii')).toThrow('Exception from overloaded setter');
+    ```
 
 <a id="syncGetterOverrideCallingAsyncFails"></a>
 
@@ -699,46 +699,46 @@ MUST NOT invoke an asynchronous method of the kernel. A synchronous callback can
 if the override attempts such a call the kernel MUST report an error instead of returning a value. In this case the
 override is reached because the host reads a property whose kernel getter invokes the overridden method.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe(): Promise<number> {
-    return Promise.resolve(42);
-  }
-}
-
-export class SyncVirtualMethods {
-  public get callerIsProperty() {
-    return this.virtualMethod(10);
-  }
-
-  public virtualMethod(n: number): number {
-    return n * 2;
-  }
-}
-
-// Host override that calls back into an asynchronous kernel method.
-class SyncOverrides extends SyncVirtualMethods {
-  public callAsync = false;
-
-  public override virtualMethod(n: number): number {
-    if (this.callAsync) {
-      // Invoking an asynchronous kernel method from within a synchronous callback is not allowed.
-      return new AsyncVirtualMethods().callMe() as unknown as number;
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe(): Promise<number> {
+        return Promise.resolve(42);
+      }
     }
-    return n * 2;
-  }
-}
 
-// WHEN
-const obj = new SyncOverrides();
-obj.callAsync = true;
+    export class SyncVirtualMethods {
+      public get callerIsProperty() {
+        return this.virtualMethod(10);
+      }
 
-// THEN
-expect(() => obj.callerIsProperty).toThrow();
-```
+      public virtualMethod(n: number): number {
+        return n * 2;
+      }
+    }
+
+    // Host override that calls back into an asynchronous kernel method.
+    class SyncOverrides extends SyncVirtualMethods {
+      public callAsync = false;
+
+      public override virtualMethod(n: number): number {
+        if (this.callAsync) {
+          // Invoking an asynchronous kernel method from within a synchronous callback is not allowed.
+          return new AsyncVirtualMethods().callMe() as unknown as number;
+        }
+        return n * 2;
+      }
+    }
+
+    // WHEN
+    const obj = new SyncOverrides();
+    obj.callAsync = true;
+
+    // THEN
+    expect(() => obj.callerIsProperty).toThrow();
+    ```
 
 <a id="syncMethodOverrideCallingAsyncFails"></a>
 
@@ -751,46 +751,46 @@ asynchronous method of the kernel. A synchronous callback cannot wait for an asy
 attempts such a call the kernel MUST report an error instead of returning a value. In this case the override is reached
 because the host calls a synchronous method whose kernel implementation invokes the overridden method.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe(): Promise<number> {
-    return Promise.resolve(42);
-  }
-}
-
-export class SyncVirtualMethods {
-  public callerIsMethod() {
-    return this.virtualMethod(10);
-  }
-
-  public virtualMethod(n: number): number {
-    return n * 2;
-  }
-}
-
-// Host override that calls back into an asynchronous kernel method.
-class SyncOverrides extends SyncVirtualMethods {
-  public callAsync = false;
-
-  public override virtualMethod(n: number): number {
-    if (this.callAsync) {
-      // Invoking an asynchronous kernel method from within a synchronous callback is not allowed.
-      return new AsyncVirtualMethods().callMe() as unknown as number;
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe(): Promise<number> {
+        return Promise.resolve(42);
+      }
     }
-    return n * 2;
-  }
-}
 
-// WHEN
-const obj = new SyncOverrides();
-obj.callAsync = true;
+    export class SyncVirtualMethods {
+      public callerIsMethod() {
+        return this.virtualMethod(10);
+      }
 
-// THEN
-expect(() => obj.callerIsMethod()).toThrow();
-```
+      public virtualMethod(n: number): number {
+        return n * 2;
+      }
+    }
+
+    // Host override that calls back into an asynchronous kernel method.
+    class SyncOverrides extends SyncVirtualMethods {
+      public callAsync = false;
+
+      public override virtualMethod(n: number): number {
+        if (this.callAsync) {
+          // Invoking an asynchronous kernel method from within a synchronous callback is not allowed.
+          return new AsyncVirtualMethods().callMe() as unknown as number;
+        }
+        return n * 2;
+      }
+    }
+
+    // WHEN
+    const obj = new SyncOverrides();
+    obj.callAsync = true;
+
+    // THEN
+    expect(() => obj.callerIsMethod()).toThrow();
+    ```
 
 <a id="syncSetterOverrideCallingAsyncFails"></a>
 
@@ -803,45 +803,45 @@ MUST NOT invoke an asynchronous method of the kernel. A synchronous callback can
 if the override attempts such a call the kernel MUST report an error instead of returning a value. In this case the
 override is reached because the host assigns a property whose kernel setter invokes the overridden method.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export class AsyncVirtualMethods {
-  public async callMe(): Promise<number> {
-    return Promise.resolve(42);
-  }
-}
-
-export class SyncVirtualMethods {
-  public set callerIsProperty(x: number) {
-    this.virtualMethod(x);
-  }
-
-  public virtualMethod(n: number): number {
-    return n * 2;
-  }
-}
-
-// Host override that calls back into an asynchronous kernel method.
-class SyncOverrides extends SyncVirtualMethods {
-  public callAsync = false;
-
-  public override virtualMethod(n: number): number {
-    if (this.callAsync) {
-      // Invoking an asynchronous kernel method from within a synchronous callback is not allowed.
-      return new AsyncVirtualMethods().callMe() as unknown as number;
+    ```ts
+    // GIVEN
+    export class AsyncVirtualMethods {
+      public async callMe(): Promise<number> {
+        return Promise.resolve(42);
+      }
     }
-    return n * 2;
-  }
-}
 
-// WHEN
-const obj = new SyncOverrides();
-obj.callAsync = true;
+    export class SyncVirtualMethods {
+      public set callerIsProperty(x: number) {
+        this.virtualMethod(x);
+      }
 
-// THEN
-expect(() => {
-  obj.callerIsProperty = 12;
-}).toThrow();
-```
+      public virtualMethod(n: number): number {
+        return n * 2;
+      }
+    }
+
+    // Host override that calls back into an asynchronous kernel method.
+    class SyncOverrides extends SyncVirtualMethods {
+      public callAsync = false;
+
+      public override virtualMethod(n: number): number {
+        if (this.callAsync) {
+          // Invoking an asynchronous kernel method from within a synchronous callback is not allowed.
+          return new AsyncVirtualMethods().callMe() as unknown as number;
+        }
+        return n * 2;
+      }
+    }
+
+    // WHEN
+    const obj = new SyncOverrides();
+    obj.callAsync = true;
+
+    // THEN
+    expect(() => {
+      obj.callerIsProperty = 12;
+    }).toThrow();
+    ```
