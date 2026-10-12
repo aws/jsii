@@ -68,6 +68,19 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
 			// Specialize the return type to be the dynamic value type
 			targetType = typ
+		} else if typ, ok := c.anonymousObjectType(ref); ok {
+			if _, _, isStruct := c.Types().StructFields(typ); isStruct {
+				// Read the struct by value, then store a pointer to it, the same
+				// way struct values are represented elsewhere.
+				strct := reflect.New(typ)
+				if strct.Type().AssignableTo(ptr.Type()) {
+					c.castAndSetToPtr(strct.Elem(), data)
+					ptr.Set(strct)
+					return
+				}
+			} else if typ.AssignableTo(ptr.Type()) {
+				targetType = typ
+			}
 		}
 
 		// If it's currently tracked, return the current instance
@@ -128,6 +141,16 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 	}
 
 	ptr.Set(data)
+}
+
+// anonymousObjectType returns the registered type of an object that the kernel
+// labels as a plain "Object" (struct values and object literals), when it
+// implements exactly one jsii interface.
+func (c *Client) anonymousObjectType(ref api.ObjectRef) (reflect.Type, bool) {
+	if ref.TypeFQN() != "Object" || len(ref.Interfaces) != 1 {
+		return nil, false
+	}
+	return c.Types().FindType(ref.Interfaces[0])
 }
 
 // Accepts pointers to structs that implement interfaces and searches for an

@@ -1577,13 +1577,10 @@ func (suite *ComplianceSuite) TestUnionStructPropertyKeepsConcreteType() {
 	require.Nil(withNumber.Optional)
 	require.Equal(float64(5), withNumber.SecondLevel)
 
-	// A struct received in a union-typed (`any`) property deserializes to an
-	// opaque anonymous object proxy rather than the typed struct, so the host
-	// cannot read the nested struct's properties (`deeperRequiredProp`).
-	suite.FailTest("A struct received in a union-typed property is an opaque anonymous proxy; its properties cannot be read", "")
 	secondLevel, ok := withStruct.SecondLevel.(*calc.SecondLevelStruct)
 	require.True(ok)
 	require.Equal("exists", *secondLevel.DeeperRequiredProp)
+	require.Nil(secondLevel.DeeperOptionalProp)
 }
 
 func (suite *ComplianceSuite) TestUnionOfListAndObjectStructPropertyRoundTrips() {
