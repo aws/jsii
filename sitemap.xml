@@ -5,18 +5,6 @@
          <lastmod>2026-10-12</lastmod>
     </url>
     <url>
-         <loc>https://aws.github.io/jsii/compiler-and-rosetta-maintenance/</loc>
-         <lastmod>2026-10-12</lastmod>
-    </url>
-    <url>
-         <loc>https://aws.github.io/jsii/decisions/_README/</loc>
-         <lastmod>2026-10-12</lastmod>
-    </url>
-    <url>
-         <loc>https://aws.github.io/jsii/decisions/introduction/</loc>
-         <lastmod>2026-10-12</lastmod>
-    </url>
-    <url>
          <loc>https://aws.github.io/jsii/overview/features/</loc>
          <lastmod>2026-10-12</lastmod>
     </url>
@@ -98,6 +86,14 @@
     </url>
     <url>
          <loc>https://aws.github.io/jsii/specification/compliance-suite/12-runtime/</loc>
+         <lastmod>2026-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/support/</loc>
+         <lastmod>2026-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://aws.github.io/jsii/support/compiler-and-rosetta-maintenance/</loc>
          <lastmod>2026-10-12</lastmod>
     </url>
     <url>
