@@ -238,6 +238,20 @@ does not have any method or dynamic accessor. Otherwise, it must be passed by [R
     As discussed earlier, the `any` type is implicitly `optional`; but all other types' serialization process will only
     allow serialization of `undefined` if they were declared `optional`.
 
+### By-Value Semantics
+
+_Lists_, _maps_ and _structs_ are passed by-value. A copy of the value is produced each time it crosses the process
+boundary, in either direction, and **the two copies are independent: changing one is never reflected in the other.**
+This holds for arguments, return values and property reads alike.
+
+The receiver owns its copy. The _host_ can change a list, map or _struct_ it received and pass it on, for example as an
+argument to another call. To change the value held by the `node` process, the changed copy has to be passed back, for
+example by assigning it to the property it was read from.
+
+!!! info
+    A language binding can present by-value copies as read-only, to make it obvious that changing them has no effect in
+    the `node` process. This is a choice of the language binding, not a requirement of the _jsii_ type system.
+
 ### Array Serialization
 
 [array]: #array-serialization

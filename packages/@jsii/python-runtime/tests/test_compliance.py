@@ -1208,24 +1208,10 @@ def test_returned_array_can_be_read():
     assert ClassWithCollections.create_a_list() == ["one", "two"]
 
 
-@pytest.mark.skip(
-    reason="Not applicable: Python returns a plain, mutable list (not an immutable view)"
-)
-def test_returned_array_rejects_mutation():
-    pass
-
-
 def test_returned_map_can_be_read():
     result = ClassWithCollections.create_a_map()
     assert result == {"key1": "value1", "key2": "value2"}
     assert len(result) == 2
-
-
-@pytest.mark.skip(
-    reason="Not applicable: Python returns a plain, mutable dict (not an immutable view)"
-)
-def test_returned_map_rejects_mutation():
-    pass
 
 
 def test_array_property_can_be_read():
@@ -1240,35 +1226,14 @@ def test_map_property_can_be_read():
     assert len(result) == 1
 
 
-@pytest.mark.skip(
-    reason="Not applicable: Python returns a plain, mutable dict (not an immutable view)"
-)
-def test_map_property_rejects_mutation():
-    pass
-
-
 def test_static_array_property_can_be_read():
     assert ClassWithCollections.static_array == ["one", "two"]
-
-
-@pytest.mark.skip(
-    reason="Not applicable: Python returns a plain, mutable list (not an immutable view)"
-)
-def test_static_array_property_rejects_mutation():
-    pass
 
 
 def test_static_map_property_can_be_read():
     result = ClassWithCollections.static_map
     assert result == {"key1": "value1", "key2": "value2"}
     assert len(result) == 2
-
-
-@pytest.mark.skip(
-    reason="Not applicable: Python returns a plain, mutable dict (not an immutable view)"
-)
-def test_static_map_property_rejects_mutation():
-    pass
 
 
 #

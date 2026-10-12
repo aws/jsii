@@ -7,12 +7,15 @@ import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests that exercise behaviour that is specific to the Java binding (idiomatic {@code equals}/{@code hashCode},
- * generated builders, and the handling of private members). These used to be part of the language-agnostic compliance
+ * generated builders, unmodifiable collections, and the handling of private members). These used to be part of the language-agnostic compliance
  * suite, but they verify Java-specific guarantees rather than cross-language jsii behaviour, so they live here as plain
  * JUnit 5 tests, outside of the {@link software.amazon.jsii.ComplianceSuiteHarness} reporting.
  */
@@ -292,6 +295,44 @@ public class JavaTest {
     @Test
     public void canObtainStructReferenceWithOverloadedSetter() {
         assertNotNull(ConfusingToJackson.makeStructInstance());
+    }
+
+    // Lists and maps are passed by value, so the host receives a copy. The Java binding presents that copy as an
+    // unmodifiable collection.
+
+    @Test
+    public void mapPropertyIsUnmodifiable() {
+        Map<String, String> modifiableMap = new HashMap<>();
+        modifiableMap.put("key", "value");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
+
+        assertThrows(UnsupportedOperationException.class,
+                () -> classWithCollections.getMap().put("keyTwo", "valueTwo"));
+    }
+
+    @Test
+    public void staticArrayPropertyIsUnmodifiable() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.getStaticArray().add("three"));
+    }
+
+    @Test
+    public void staticMapPropertyIsUnmodifiable() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo"));
+    }
+
+    @Test
+    public void returnedArrayIsUnmodifiable() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.createAList().add("three"));
+    }
+
+    @Test
+    public void returnedMapIsUnmodifiable() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.createAMap().put("keyThree", "valueThree"));
     }
 
     @Test

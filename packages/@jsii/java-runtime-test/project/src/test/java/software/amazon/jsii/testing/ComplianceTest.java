@@ -1045,17 +1045,6 @@ public class ComplianceTest {
     }
 
     @Test
-    public void mapPropertyRejectsMutation() {
-        Map<String, String> modifiableMap = new HashMap<>();
-        modifiableMap.put("key", "value");
-
-        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
-
-        assertThrows(UnsupportedOperationException.class,
-                () -> classWithCollections.getMap().put("keyTwo", "valueTwo"));
-    }
-
-    @Test
     public void mapPropertyCanBeRead() {
         Map<String, String> modifiableMap = new HashMap<>();
         modifiableMap.put("key", "value");
@@ -1068,20 +1057,8 @@ public class ComplianceTest {
     }
 
     @Test
-    public void staticArrayPropertyRejectsMutation() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.getStaticArray().add("three"));
-    }
-
-    @Test
     public void staticArrayPropertyCanBeRead() {
         assertThat(ClassWithCollections.getStaticArray(), contains("one", "two"));
-    }
-
-    @Test
-    public void staticMapPropertyRejectsMutation() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo"));
     }
 
     @Test
@@ -1093,20 +1070,8 @@ public class ComplianceTest {
     }
 
     @Test
-    public void returnedArrayRejectsMutation() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.createAList().add("three"));
-    }
-
-    @Test
     public void returnedArrayCanBeRead() {
         assertThat(ClassWithCollections.createAList(), contains("one", "two"));
-    }
-
-    @Test
-    public void returnedMapRejectsMutation() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.createAMap().put("keyThree", "valueThree"));
     }
 
     @Test
