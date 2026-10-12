@@ -14,61 +14,61 @@ A property declared with an enum type MUST be readable and writable from the hos
 currently held in the kernel; writing MUST send the selected member so that subsequent reads, and kernel code that
 consumes the property, observe the new member.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export namespace composition {
-  export abstract class CompositeOperation {
-    public stringStyle = CompositeOperation.CompositionStringStyle.NORMAL;
-    public decorationPrefixes = ['<<[[{{'];
-    public decorationPostfixes = ['}}]]>>'];
+    ```ts
+    // GIVEN
+    export namespace composition {
+      export abstract class CompositeOperation {
+        public stringStyle = CompositeOperation.CompositionStringStyle.NORMAL;
+        public decorationPrefixes = ['<<[[{{'];
+        public decorationPostfixes = ['}}]]>>'];
 
-    public abstract readonly expression: { toString(): string };
+        public abstract readonly expression: { toString(): string };
 
-    public toString() {
-      switch (this.stringStyle) {
-        case CompositeOperation.CompositionStringStyle.NORMAL:
-          return this.expression.toString();
-        case CompositeOperation.CompositionStringStyle.DECORATED:
-          return this.decorationPrefixes.join('') + this.expression.toString() + this.decorationPostfixes.join('');
+        public toString() {
+          switch (this.stringStyle) {
+            case CompositeOperation.CompositionStringStyle.NORMAL:
+              return this.expression.toString();
+            case CompositeOperation.CompositionStringStyle.DECORATED:
+              return this.decorationPrefixes.join('') + this.expression.toString() + this.decorationPostfixes.join('');
+          }
+        }
+      }
+
+      export namespace CompositeOperation {
+        export enum CompositionStringStyle {
+          NORMAL,
+          DECORATED,
+        }
       }
     }
-  }
 
-  export namespace CompositeOperation {
-    export enum CompositionStringStyle {
-      NORMAL,
-      DECORATED,
+    export class Calculator extends composition.CompositeOperation {
+      // Maintains a current value; `add` and `pow` append operations to the expression.
+      public add(_value: number): void {
+        /* ... */
+      }
+      public pow(_value: number): void {
+        /* ... */
+      }
+      public get expression() {
+        /* ... */ return { toString: () => '(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))' };
+      }
     }
-  }
-}
 
-export class Calculator extends composition.CompositeOperation {
-  // Maintains a current value; `add` and `pow` append operations to the expression.
-  public add(_value: number): void {
-    /* ... */
-  }
-  public pow(_value: number): void {
-    /* ... */
-  }
-  public get expression() {
-    /* ... */ return { toString: () => '(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))' };
-  }
-}
+    // WHEN / THEN
+    const calc = new Calculator();
+    calc.add(9);
+    calc.pow(3);
 
-// WHEN / THEN
-const calc = new Calculator();
-calc.add(9);
-calc.pow(3);
+    expect(calc.stringStyle).toBe(composition.CompositeOperation.CompositionStringStyle.NORMAL);
 
-expect(calc.stringStyle).toBe(composition.CompositeOperation.CompositionStringStyle.NORMAL);
+    calc.stringStyle = composition.CompositeOperation.CompositionStringStyle.DECORATED;
+    expect(calc.stringStyle).toBe(composition.CompositeOperation.CompositionStringStyle.DECORATED);
 
-calc.stringStyle = composition.CompositeOperation.CompositionStringStyle.DECORATED;
-expect(calc.stringStyle).toBe(composition.CompositeOperation.CompositionStringStyle.DECORATED);
-
-expect(calc.toString()).toBe('<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>');
-```
+    expect(calc.toString()).toBe('<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>');
+    ```
 
 <a id="enumValuesReturnedByTheKernel"></a>
 
@@ -79,40 +79,40 @@ expect(calc.toString()).toBe('<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>'
 An enum member returned from the kernel MUST deserialize to a valid, non-absent host enum member. This MUST hold both
 for enums whose members are backed by strings and for enums whose members are backed by numbers.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN
-export enum StringEnum {
-  A = 'A!',
-  B = 'B?',
-  C = 'C.',
-}
+    ```ts
+    // GIVEN
+    export enum StringEnum {
+      A = 'A!',
+      B = 'B?',
+      C = 'C.',
+    }
 
-export enum AllTypesEnum {
-  MY_ENUM_VALUE,
-  YOUR_ENUM_VALUE = 100,
-  THIS_IS_GREAT,
-}
+    export enum AllTypesEnum {
+      MY_ENUM_VALUE,
+      YOUR_ENUM_VALUE = 100,
+      THIS_IS_GREAT,
+    }
 
-export class EnumDispenser {
-  public static randomStringLikeEnum(): StringEnum {
-    return StringEnum.B;
-  }
+    export class EnumDispenser {
+      public static randomStringLikeEnum(): StringEnum {
+        return StringEnum.B;
+      }
 
-  public static randomIntegerLikeEnum(): AllTypesEnum {
-    return AllTypesEnum.YOUR_ENUM_VALUE;
-  }
-}
+      public static randomIntegerLikeEnum(): AllTypesEnum {
+        return AllTypesEnum.YOUR_ENUM_VALUE;
+      }
+    }
 
-// WHEN
-const stringLike = EnumDispenser.randomStringLikeEnum();
-const integerLike = EnumDispenser.randomIntegerLikeEnum();
+    // WHEN
+    const stringLike = EnumDispenser.randomStringLikeEnum();
+    const integerLike = EnumDispenser.randomIntegerLikeEnum();
 
-// THEN
-expect(stringLike).toBeDefined();
-expect(integerLike).toBeDefined();
-```
+    // THEN
+    expect(stringLike).toBeDefined();
+    expect(integerLike).toBeDefined();
+    ```
 
 <a id="enumsFromDependenciesCrossTheBoundary"></a>
 
@@ -124,35 +124,35 @@ An enum declared in a dependency of the module under test MUST cross the boundar
 and written to a property, and when passed to and returned from methods. The host MUST resolve the enum to its
 declaration in the dependency, and the member MUST round-trip unchanged.
 
-### Reference Implementation
+??? note "Reference Implementation"
 
-```ts
-// GIVEN (declared in the dependency package)
-export enum EnumFromScopedModule {
-  VALUE1,
-  VALUE2,
-}
+    ```ts
+    // GIVEN (declared in the dependency package)
+    export enum EnumFromScopedModule {
+      VALUE1,
+      VALUE2,
+    }
 
-// GIVEN (declared in the module under test, which depends on the package above)
-export class ReferenceEnumFromScopedPackage {
-  public foo?: EnumFromScopedModule = EnumFromScopedModule.VALUE2;
+    // GIVEN (declared in the module under test, which depends on the package above)
+    export class ReferenceEnumFromScopedPackage {
+      public foo?: EnumFromScopedModule = EnumFromScopedModule.VALUE2;
 
-  public loadFoo(): EnumFromScopedModule | undefined {
-    return this.foo;
-  }
+      public loadFoo(): EnumFromScopedModule | undefined {
+        return this.foo;
+      }
 
-  public saveFoo(value: EnumFromScopedModule) {
-    this.foo = value;
-  }
-}
+      public saveFoo(value: EnumFromScopedModule) {
+        this.foo = value;
+      }
+    }
 
-// WHEN / THEN
-const obj = new ReferenceEnumFromScopedPackage();
-expect(obj.foo).toBe(EnumFromScopedModule.VALUE2);
+    // WHEN / THEN
+    const obj = new ReferenceEnumFromScopedPackage();
+    expect(obj.foo).toBe(EnumFromScopedModule.VALUE2);
 
-obj.foo = EnumFromScopedModule.VALUE1;
-expect(obj.loadFoo()).toBe(EnumFromScopedModule.VALUE1);
+    obj.foo = EnumFromScopedModule.VALUE1;
+    expect(obj.loadFoo()).toBe(EnumFromScopedModule.VALUE1);
 
-obj.saveFoo(EnumFromScopedModule.VALUE2);
-expect(obj.foo).toBe(EnumFromScopedModule.VALUE2);
-```
+    obj.saveFoo(EnumFromScopedModule.VALUE2);
+    expect(obj.foo).toBe(EnumFromScopedModule.VALUE2);
+    ```
