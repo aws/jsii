@@ -276,7 +276,15 @@ func (suite *ComplianceSuite) TestEnumsFromDependenciesCrossTheBoundary() {
 }
 
 func (suite *ComplianceSuite) TestOptionalConstructorParametersCanBeOmitted() {
-	suite.NotApplicableTest("Golang does not have overloaded functions so the genearated class only has a single New function")
+	require := suite.Require()
+
+	// Optional parameters are pointers in Go: passing nil omits the argument.
+	withoutProps := calc.NewCalculator(nil)
+	require.NotNil(withoutProps)
+	require.Nil(withoutProps.MaxValue())
+
+	withProps := calc.NewCalculator(&calc.CalculatorProps{MaximumValue: jsii.Number(10)})
+	require.Equal(float64(10), *withProps.MaxValue())
 }
 
 func (suite *ComplianceSuite) TestEnumPropertiesCanBeReadAndWritten() {
@@ -624,10 +632,12 @@ func (suite *ComplianceSuite) TestIncompleteStructIsRejected() {
 	s := calclib.MyFirstStruct{} // <-- this struct has required fields
 	obj := calc.NewGiveMeStructs()
 
-	suite.FailTest("No validation of required fields in structs", "https://github.com/aws/jsii/issues/2672")
-
-	// we expect a failure here when we pass the struct to js
-	require.PanicsWithError("", func() { obj.ReadFirstNumber(&s) })
+	// Required struct fields are checked when the struct is converted for the kernel,
+	// so the incomplete struct is never sent.
+	require.PanicsWithValue(
+		"Field scopejsiicalclib.MyFirstStruct.Anumber is required, but has nil value",
+		func() { obj.ReadFirstNumber(&s) },
+	)
 }
 
 func (suite *ComplianceSuite) TestUndefinedOptionalMapReadsAsAbsent() {
