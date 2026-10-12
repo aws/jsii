@@ -147,6 +147,14 @@ export interface CreateRequest {
    * Declarations of method overrides that should trigger callbacks
    */
   readonly overrides?: Override[];
+
+  /**
+   * A client-allocated object id to register the new instance under, instead of
+   * the kernel allocating one. Enables the host to pipeline `create` calls
+   * (use the reference before the kernel confirms it). Must be unique; the host
+   * is responsible for avoiding collisions with kernel-allocated ids.
+   */
+  readonly objid?: string;
 }
 
 export type CreateResponse = ObjRef;
@@ -161,11 +169,15 @@ export interface DelResponse {}
 export interface GetRequest {
   readonly objref: ObjRef;
   readonly property: string;
+  /** Client-allocated id to alias a reference-typed property value under. */
+  readonly objid?: string;
 }
 
 export interface StaticGetRequest {
   readonly fqn: string;
   readonly property: string;
+  /** Client-allocated id to alias a reference-typed property value under. */
+  readonly objid?: string;
 }
 
 export interface GetResponse {
@@ -191,12 +203,16 @@ export interface StaticInvokeRequest {
   readonly fqn: string;
   readonly method: string;
   readonly args?: any[];
+  /** Client-allocated id to alias the (reference-typed) result under. */
+  readonly objid?: string;
 }
 
 export interface InvokeRequest {
   readonly objref: ObjRef;
   readonly method: string;
   readonly args?: any[];
+  /** Client-allocated id to alias the (reference-typed) result under. */
+  readonly objid?: string;
 }
 
 export interface InvokeResponse {
