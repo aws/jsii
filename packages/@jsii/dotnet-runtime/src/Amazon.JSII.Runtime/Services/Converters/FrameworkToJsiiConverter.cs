@@ -61,6 +61,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     var propValue = prop.GetValue(value);
                     if (propValue == null)
                     {
+                        if (!jsiiProperty.IsOptional)
+                        {
+                            throw new ArgumentException(
+                                $"Missing value for required property '{jsiiProperty.Name}' of struct '{byValueAttribute.FullyQualifiedName}'",
+                                nameof(value));
+                        }
                         continue;
                     }
 

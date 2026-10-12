@@ -10,7 +10,7 @@ Language bindings must pass every test case. A category is complete when a langu
 | -------- | ------------------- | ------------------- |
 | python   | 95.45% (105 / 110)  | 11 / 12             |
 | java     | 100.00% (110 / 110) | 12 / 12             |
-| dotnet   | 94.55% (104 / 110)  | 10 / 12             |
+| dotnet   | 95.45% (105 / 110)  | 11 / 12             |
 | golang   | 86.36% (95 / 110)   | 8 / 12              |
 
 
@@ -105,7 +105,7 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | Test                                                                                                                                                                                                           | python | java  | dotnet | golang |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ------ | ------ |
 | [diamondInheritedStructPropertiesAppearOnce](compliance-suite/06-structs.md#diamondInheritedStructPropertiesAppearOnce "Diamond-inherited struct properties are exposed exactly once")                         | 🟢     | 🟢    | 🟢     | 🟢     |
-| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢     | 🟢    | 🔴     | 🟢     |
+| [incompleteStructIsRejected](compliance-suite/06-structs.md#incompleteStructIsRejected "Constructing a struct without a required property is rejected")                                                        | 🟢     | 🟢    | 🟢     | 🟢     |
 | [overlappingStructUnionsAreDisambiguated](compliance-suite/06-structs.md#overlappingStructUnionsAreDisambiguated "Overlapping struct types in a union are correctly disambiguated")                            | 🟢     | 🟢    | 🟢     | 🟢     |
 | [positionalArgumentAndStructPropertyWithSameName](compliance-suite/06-structs.md#positionalArgumentAndStructPropertyWithSameName "A positional argument and a struct property of the same name stay distinct") | 🟢     | 🟢    | 🟢     | 🟢     |
 | [receivedStructEqualsHostBuiltStruct](compliance-suite/06-structs.md#receivedStructEqualsHostBuiltStruct "A struct received from the kernel is indistinguishable from one built by the host")                  | 🟢     | 🟢    | 🟢     | 🟢     |
