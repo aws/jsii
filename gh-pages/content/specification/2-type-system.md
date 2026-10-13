@@ -311,6 +311,10 @@ the element type of the mapping, combined with the dynamic type of the value its
 }
 ```
 
+!!! warning
+    The key `__proto__` is not supported in maps or JSON values, including objects nested in them. The kernel rejects
+    such values received from the host with a serialization error.
+
 ### Reference Serialization
 
 [reference]: #reference-serialization
