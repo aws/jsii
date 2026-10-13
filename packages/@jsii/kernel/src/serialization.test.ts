@@ -1,4 +1,9 @@
-import { CANONICAL_ANY, OptionalValue, PrimitiveType } from '@jsii/spec';
+import {
+  CANONICAL_ANY,
+  CollectionKind,
+  OptionalValue,
+  PrimitiveType,
+} from '@jsii/spec';
 
 import { TOKEN_REF } from './api';
 import { ObjectTable } from './objects';
@@ -131,5 +136,60 @@ describe(SerializationClass.Scalar, () => {
         }
       });
     }
+  });
+});
+
+describe('"__proto__" keys are rejected', () => {
+  const TYPE_JSON: OptionalValue = { type: { primitive: PrimitiveType.Json } };
+  const TYPE_MAP_OF_ANY: OptionalValue = {
+    type: {
+      collection: { kind: CollectionKind.Map, elementtype: CANONICAL_ANY },
+    },
+  };
+
+  // JSON.parse creates "__proto__" as an own property, like the wire protocol does
+  const withProto = () => JSON.parse('{"__proto__": {"polluted": true}}');
+  const nestedProto = () =>
+    JSON.parse('{"outer": {"__proto__": {"polluted": true}}}');
+
+  afterEach(() => {
+    expect(({} as any).polluted).toBeUndefined();
+  });
+
+  test.each([
+    [
+      'Map (wrapped)',
+      SerializationClass.Map,
+      () => ({ '$jsii.map': withProto() }),
+      TYPE_MAP_OF_ANY,
+    ],
+    ['Map (unwrapped)', SerializationClass.Map, withProto, TYPE_MAP_OF_ANY],
+    ['Json', SerializationClass.Json, withProto, TYPE_JSON],
+    ['Json (nested)', SerializationClass.Json, nestedProto, TYPE_JSON],
+    ['Any', SerializationClass.Any, withProto, TYPE_ANY],
+    ['Any (nested)', SerializationClass.Any, nestedProto, TYPE_ANY],
+  ] as const)('deserialize %s', (_name, cls, value, type) => {
+    expect(() => SERIALIZERS[cls].deserialize(value(), type, host)).toThrow(
+      /Key '__proto__' is not supported/,
+    );
+  });
+
+  test.each([
+    ['Map', SerializationClass.Map, TYPE_MAP_OF_ANY],
+    ['Any', SerializationClass.Any, TYPE_ANY],
+  ] as const)('serialize %s', (_name, cls, type) => {
+    expect(() => SERIALIZERS[cls].serialize(withProto(), type, host)).toThrow(
+      /Key '__proto__' is not supported/,
+    );
+  });
+
+  test('other keys are still accepted', () => {
+    expect(
+      SERIALIZERS[SerializationClass.Json].deserialize(
+        JSON.parse('{"proto": 1, "constructor": 2}'),
+        TYPE_JSON,
+        host,
+      ),
+    ).toEqual({ proto: 1, constructor: 2 });
   });
 });

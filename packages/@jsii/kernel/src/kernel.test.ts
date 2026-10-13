@@ -1319,6 +1319,21 @@ defineTest('variadic methods can be called without any vararg', (sandbox) => {
   ).toEqual([1, 2, 3, 4]);
 });
 
+// Not recorded: `undefined` cannot be represented in the JSON replay log
+defineTest.skipIf(!!recordingOutput)(
+  'fails: variadic methods reject undefined required varargs',
+  (sandbox) => {
+    const obj = sandbox.create({ fqn: 'jsii-calc.VariadicMethod' });
+    expect(() =>
+      sandbox.invoke({
+        objref: obj,
+        method: 'asArray',
+        args: [1, 2, undefined, 4],
+      }),
+    ).toThrow(/Unexpected 'undefined' value at index 1 of variadic argument/);
+  },
+);
+
 defineTest('static properties - get', (sandbox) => {
   const value = sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'Foo' });
   expect(value).toEqual({ value: 'hello' });

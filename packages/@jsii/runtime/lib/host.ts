@@ -13,6 +13,32 @@ import { Input, IInputOutput } from './in-out';
 const HOST_STACK_TRACE_SYMBOL = Symbol.for('jsii.context.hostStackTrace');
 const HOST_DIR_NAME_SYMBOL = Symbol.for('jsii.context.hostDirName');
 
+/**
+ * The kernel methods that can be invoked through the `api` field of a request.
+ * Only these names are dispatched; any other property of the `Kernel` instance
+ * (including inherited ones such as `constructor`) is rejected.
+ */
+const KERNEL_API_NAMES: ReadonlySet<string> = new Set<keyof Kernel>([
+  'load',
+  'naming',
+  'stats',
+  'create',
+  'del',
+  'invoke',
+  'sinvoke',
+  'get',
+  'sget',
+  'set',
+  'sset',
+  'begin',
+  'sbegin',
+  'end',
+  'callbacks',
+  'complete',
+  'getBinScriptCommand',
+  'invokeBinScript',
+]);
+
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
   private readonly eventEmitter = new EventEmitter();
@@ -247,6 +273,9 @@ export class KernelHost {
    * Given a kernel api name, returns the function to invoke.
    */
   private findApi(apiName: string): (this: Kernel, arg: Input) => any {
+    if (!KERNEL_API_NAMES.has(apiName)) {
+      throw new Error(`Invalid kernel api call: ${apiName}`);
+    }
     const fn = (this.kernel as any)[apiName];
     if (typeof fn !== 'function') {
       throw new Error(`Invalid kernel api call: ${apiName}`);
