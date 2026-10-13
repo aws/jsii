@@ -915,7 +915,7 @@ export class Kernel {
         return direct;
       }
       const proto = Object.getPrototypeOf(obj);
-      if (proto == null && proto !== Object.prototype) {
+      if (proto == null || proto === Object.prototype) {
         // We reached Object or the prototype chain root, all hope is lost!
         return undefined;
       }
@@ -1133,11 +1133,11 @@ export class Kernel {
       const arg = args[i];
 
       if (param.variadic) {
-        if (params.length <= i) {
+        if (args.length <= i) {
           return;
         } // No vararg was provided
-        for (let j = i; j < params.length; j++) {
-          if (!param.optional && params[j] === undefined) {
+        for (let j = i; j < args.length; j++) {
+          if (!param.optional && args[j] === undefined) {
             throw new JsiiFault(
               `Unexpected 'undefined' value at index ${
                 j - i

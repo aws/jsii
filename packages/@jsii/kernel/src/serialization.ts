@@ -1032,7 +1032,17 @@ function flatMap<T, U>(xs: T[], fn: (x: T) => U[]): U[] {
 }
 
 /**
+ * Object keys that are not supported in maps or JSON values. Assigning them to
+ * a plain object would change its prototype instead of adding an entry.
+ */
+const UNSUPPORTED_KEYS: ReadonlySet<string> = new Set(['__proto__']);
+
+/**
  * Map an object's values, skipping 'undefined' values'
+ *
+ * @throws SerializationError if a value is mapped under an unsupported key
+ *         (`__proto__`). Keys whose mapped value is `undefined` (such as
+ *         unknown struct properties) are skipped as before.
  */
 function mapValues(
   value: unknown,
@@ -1052,6 +1062,13 @@ function mapValues(
     const wireValue = fn(v, k);
     if (wireValue === undefined) {
       continue;
+    }
+    if (UNSUPPORTED_KEYS.has(k)) {
+      throw new SerializationError(
+        `Key ${inspect(k)} is not supported in maps or JSON values`,
+        value,
+        host,
+      );
     }
     out[k] = wireValue;
   }
