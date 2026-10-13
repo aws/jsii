@@ -9,6 +9,7 @@ import * as api from './api';
 import { TOKEN_REF } from './api';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
+import { isValidPackageName } from './package-name';
 import {
   loadRuntimeAssembly,
   type AssemblyMetadata,
@@ -725,6 +726,12 @@ export class Kernel {
   }
 
   #getPackageDir(pkgname: string): string {
+    if (!isValidPackageName(pkgname)) {
+      throw new JsiiFault(
+        `Invalid package name: ${JSON.stringify(pkgname)} is not a valid npm package name`,
+      );
+    }
+
     if (!this.#installDir) {
       this.#installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
       this.#require = createRequire(this.#installDir);
@@ -733,7 +740,24 @@ export class Kernel {
 
       onExit.removeSync(this.#installDir);
     }
-    return path.join(this.#installDir, 'node_modules', pkgname);
+
+    const modulesDir = path.join(this.#installDir, 'node_modules');
+    const packageDir = path.join(modulesDir, pkgname);
+
+    // The name validation above should already guarantee this.
+    const relative = path.relative(modulesDir, packageDir);
+    if (
+      relative === '' ||
+      relative === '..' ||
+      relative.startsWith(`..${path.sep}`) ||
+      path.isAbsolute(relative)
+    ) {
+      throw new JsiiFault(
+        `Invalid package name: ${JSON.stringify(pkgname)} resolves outside of the install directory`,
+      );
+    }
+
+    return packageDir;
   }
 
   #create(req: api.CreateRequest): api.CreateResponse {

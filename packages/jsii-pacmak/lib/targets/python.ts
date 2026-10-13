@@ -16,8 +16,10 @@ import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
+import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { Target, TargetOptions } from '../target';
-import { shell, subprocess, zip } from '../util';
+import { topologicalSort } from '../toposort';
+import { subprocess, zip } from '../util';
 import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
@@ -32,8 +34,6 @@ import {
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
-import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
-import { topologicalSort } from '../toposort';
 
 import { TargetName } from './index';
 
@@ -105,7 +105,12 @@ export default class Python extends Target {
       env,
       retry: { maxAttempts: 5 },
     });
-    await shell(`${python} -m twine check ${path.join(outDir, '*')}`, {
+    // List the distributions ourselves (equivalent to the shell glob `*`) so
+    // that no shell is involved in running twine.
+    const dists = (await fs.readdir(outDir))
+      .filter((name) => !name.startsWith('.'))
+      .map((name) => path.join(outDir, name));
+    await subprocess(python, ['-m', 'twine', 'check', ...dists], {
       cwd: sourceDir,
       env,
     });

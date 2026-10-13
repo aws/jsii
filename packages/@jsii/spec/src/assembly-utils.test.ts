@@ -174,6 +174,72 @@ describe(loadAssemblyFromPath, () => {
 
     expect(() => loadAssemblyFromPath(tmpdir)).toThrow(/Invalid assembly/);
   });
+
+  test.each([
+    ['absolute path', path.resolve(os.tmpdir(), 'evil.jsii')],
+    ['parent traversal', '../evil.jsii'],
+    ['nested parent traversal', 'sub/../../evil.jsii'],
+    ['windows parent traversal', '..\\evil.jsii'],
+  ])('rejects redirect filename with %s', (_, filename) => {
+    fs.writeFileSync(
+      path.join(tmpdir, SPEC_FILE_NAME),
+      JSON.stringify({ schema: 'jsii/file-redirect', filename }),
+    );
+
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
+      /Invalid assembly redirect filename/,
+    );
+  });
+
+  test('rejects redirect target that is a symlink outside the package', () => {
+    const outside = makeTempDir();
+    try {
+      writeAssembly(outside, TEST_ASSEMBLY, { compress: false });
+      fs.symlinkSync(
+        path.join(outside, SPEC_FILE_NAME),
+        path.join(tmpdir, 'link.jsii'),
+      );
+      fs.writeFileSync(
+        path.join(tmpdir, SPEC_FILE_NAME),
+        JSON.stringify({ schema: 'jsii/file-redirect', filename: 'link.jsii' }),
+      );
+
+      expect(() => loadAssemblyFromPath(tmpdir)).toThrow(/resolves outside of/);
+    } finally {
+      fs.rmSync(outside, { recursive: true, force: true });
+    }
+  });
+
+  test('follows redirect into a subdirectory', () => {
+    fs.mkdirSync(path.join(tmpdir, 'sub'));
+    fs.writeFileSync(
+      path.join(tmpdir, 'sub', 'assembly.json'),
+      JSON.stringify(TEST_ASSEMBLY),
+    );
+    fs.writeFileSync(
+      path.join(tmpdir, SPEC_FILE_NAME),
+      JSON.stringify({
+        schema: 'jsii/file-redirect',
+        filename: 'sub/assembly.json',
+      }),
+    );
+
+    expect(loadAssemblyFromPath(tmpdir)).toEqual(TEST_ASSEMBLY);
+  });
+
+  test('rejects redirect loops', () => {
+    fs.writeFileSync(
+      path.join(tmpdir, SPEC_FILE_NAME),
+      JSON.stringify({
+        schema: 'jsii/file-redirect',
+        filename: SPEC_FILE_NAME,
+      }),
+    );
+
+    expect(() => loadAssemblyFromPath(tmpdir)).toThrow(
+      /Too many assembly redirects/,
+    );
+  });
 });
 
 describe(loadAssemblyFromBuffer, () => {

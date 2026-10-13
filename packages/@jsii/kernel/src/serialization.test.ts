@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import {
   CANONICAL_ANY,
   CollectionKind,
@@ -191,5 +192,61 @@ describe('"__proto__" keys are rejected', () => {
         host,
       ),
     ).toEqual({ proto: 1, constructor: 2 });
+  });
+});
+
+describe('cyclic type hierarchies', () => {
+  const structSerializer = SERIALIZERS[SerializationClass.Struct];
+
+  function iface(fqn: string, interfaces: string[]): spec.InterfaceType {
+    return {
+      assembly: 'test',
+      fqn,
+      kind: spec.TypeKind.Interface,
+      name: fqn.split('.').pop()!,
+      datatype: true,
+      interfaces,
+      properties: [
+        { name: 'prop', type: { primitive: spec.PrimitiveType.String } },
+      ],
+    };
+  }
+
+  const types: Record<string, spec.Type> = {
+    'test.Plain': iface('test.Plain', []),
+    'test.CycleA': iface('test.CycleA', ['test.CycleB']),
+    'test.CycleB': iface('test.CycleB', ['test.CycleA']),
+  };
+  const cyclicLookup: SerializerHost['lookupType'] = (fqn) => {
+    const t = types[fqn];
+    if (t == null) {
+      throw new Error(`Unknown type: ${fqn}`);
+    }
+    return t;
+  };
+  const cyclicHost: SerializerHost = {
+    ...host,
+    lookupType: cyclicLookup,
+    objects: new ObjectTable(cyclicLookup),
+  };
+
+  test('propertiesOf fails with an error instead of a stack overflow', () => {
+    expect(() =>
+      structSerializer.deserialize(
+        { prop: 'value' },
+        { type: { fqn: 'test.CycleA' } },
+        cyclicHost,
+      ),
+    ).toThrow(/Cyclic type hierarchy detected/);
+  });
+
+  test('isAssignable terminates on a cyclic hierarchy', () => {
+    expect(() =>
+      structSerializer.deserialize(
+        { '$jsii.struct': { fqn: 'test.CycleA', data: { prop: 'value' } } },
+        { type: { fqn: 'test.Plain' } },
+        cyclicHost,
+      ),
+    ).toThrow(/does not match expected type/);
   });
 });

@@ -17,6 +17,7 @@ import {
   TOKEN_STRUCT,
 } from './api';
 import { Kernel } from './kernel';
+import { isValidPackageName } from './package-name';
 import { closeRecording, recordInteraction } from './recording';
 import * as tar from './tar-cache';
 
@@ -97,6 +98,67 @@ defineTest.skipIf = (expr: boolean) => (expr ? defineTest.skip : defineTest);
     }
   },
 );
+
+describe('package name validation', () => {
+  const invalidNames = [
+    '',
+    '..',
+    '../escape',
+    '../../etc',
+    '@scope/../../escape',
+    '@scope/pkg/extra',
+    '/absolute/path',
+    'C:\\windows',
+    'back\\slash',
+    '.hidden',
+    '_underscore',
+    '-dash',
+    ' leading-space',
+    'trailing-space ',
+    'node_modules',
+    'FAVICON.ICO',
+    '@scope/.hidden',
+    '%2e%2e',
+    'unscoped%20space',
+    '@scope/with space',
+  ];
+
+  test.each(invalidNames)('load rejects %j', async (name) => {
+    const kernel = new Kernel(() => {
+      throw new Error('unexpected callback');
+    });
+    const tarball = await preparePackage('@scope/jsii-calc-base-of-base');
+
+    expect(() =>
+      kernel.load({ tarball, name, version: calcBaseVersion }),
+    ).toThrow(/Invalid package name/);
+  });
+
+  test.each(invalidNames)('getBinScriptCommand rejects %j', (assembly) => {
+    const kernel = new Kernel(() => {
+      throw new Error('unexpected callback');
+    });
+
+    expect(() =>
+      kernel.getBinScriptCommand({ assembly, script: 'calc' }),
+    ).toThrow(/Invalid package name/);
+  });
+
+  // Valid for existing packages, even though some are no longer valid for new ones.
+  test.each([
+    'jsii-calc',
+    '@scope/jsii-calc-lib',
+    'Legacy.Name_1~x',
+    "it's-(ok)*!",
+    '@_scope/_pkg',
+    '@.scope/pkg',
+    '@scope/-pkg',
+    'http',
+    'a'.repeat(215),
+  ])('accepts %j', (name) => {
+    expect(isValidPackageName(name)).toBe(true);
+  });
+});
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({});
