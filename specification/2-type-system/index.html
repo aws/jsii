@@ -3778,6 +3778,11 @@ the element type of the mapping, combined with the dynamic type of the value its
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The key <code>__proto__</code> is not supported in maps or JSON values, including objects nested in them. The kernel rejects
+such values received from the host with a serialization error.</p>
+</div>
 <h3 id="reference-serialization">Reference Serialization</h3>
 <p>Objects serialized by reference are passed using a special object that provides sufficient information to tie back to
 the instance within its owning process. It includes a <code>$jsii.byref</code> key associated with a string that uniquely
