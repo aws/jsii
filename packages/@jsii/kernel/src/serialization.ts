@@ -1078,20 +1078,28 @@ function mapValues(
 function propertiesOf(
   t: spec.Type,
   lookup: LookupType,
+  visited = new Set<string>(),
 ): { [name: string]: spec.Property } {
   if (!spec.isClassOrInterfaceType(t)) {
     return {};
   }
 
+  if (visited.has(t.fqn)) {
+    throw new Error(
+      `Cyclic type hierarchy detected: ${[...visited, t.fqn].join(' -> ')}`,
+    );
+  }
+  visited = new Set(visited).add(t.fqn);
+
   let ret: { [name: string]: spec.Property } = {};
 
   if (t.interfaces) {
     for (const iface of t.interfaces) {
-      ret = { ...ret, ...propertiesOf(lookup(iface), lookup) };
+      ret = { ...ret, ...propertiesOf(lookup(iface), lookup, visited) };
     }
   }
   if (spec.isClassType(t) && t.base) {
-    ret = { ...ret, ...propertiesOf(lookup(t.base), lookup) };
+    ret = { ...ret, ...propertiesOf(lookup(t.base), lookup, visited) };
   }
 
   for (const prop of t.properties ?? []) {
@@ -1114,6 +1122,7 @@ function isAssignable(
   actualTypeFqn: string,
   requiredType: spec.NamedTypeReference,
   lookup: LookupType,
+  visited = new Set<string>(),
 ): boolean {
   // The empty object is assignable to everything
   if (actualTypeFqn === EMPTY_OBJECT_FQN) {
@@ -1123,11 +1132,19 @@ function isAssignable(
   if (requiredType.fqn === actualTypeFqn) {
     return true;
   }
+
+  // Each type only needs to be checked once (diamond inheritance), and this
+  // also guarantees termination on cyclic type hierarchies.
+  if (visited.has(actualTypeFqn)) {
+    return false;
+  }
+  visited.add(actualTypeFqn);
+
   const actualType = lookup(actualTypeFqn);
   if (spec.isClassType(actualType)) {
     if (
       actualType.base &&
-      isAssignable(actualType.base, requiredType, lookup)
+      isAssignable(actualType.base, requiredType, lookup, visited)
     ) {
       return true;
     }
@@ -1135,7 +1152,7 @@ function isAssignable(
   if (spec.isClassOrInterfaceType(actualType) && actualType.interfaces) {
     return (
       actualType.interfaces.find((iface) =>
-        isAssignable(iface, requiredType, lookup),
+        isAssignable(iface, requiredType, lookup, visited),
       ) != null
     );
   }

@@ -725,6 +725,12 @@ export class Kernel {
   }
 
   #getPackageDir(pkgname: string): string {
+    if (!isValidPackageName(pkgname)) {
+      throw new JsiiFault(
+        `Invalid package name: ${JSON.stringify(pkgname)} is not a valid npm package name`,
+      );
+    }
+
     if (!this.#installDir) {
       this.#installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
       this.#require = createRequire(this.#installDir);
@@ -733,7 +739,24 @@ export class Kernel {
 
       onExit.removeSync(this.#installDir);
     }
-    return path.join(this.#installDir, 'node_modules', pkgname);
+
+    const modulesDir = path.join(this.#installDir, 'node_modules');
+    const packageDir = path.join(modulesDir, pkgname);
+
+    // The name validation above should already guarantee this.
+    const relative = path.relative(modulesDir, packageDir);
+    if (
+      relative === '' ||
+      relative === '..' ||
+      relative.startsWith(`..${path.sep}`) ||
+      path.isAbsolute(relative)
+    ) {
+      throw new JsiiFault(
+        `Invalid package name: ${JSON.stringify(pkgname)} resolves outside of the install directory`,
+      );
+    }
+
+    return packageDir;
   }
 
   #create(req: api.CreateRequest): api.CreateResponse {
@@ -1613,4 +1636,23 @@ class Assembly {
     public readonly closure: any,
     public readonly types: AssemblyTypes,
   ) {}
+}
+
+/**
+ * npm package name grammar (as enforced by `validate-npm-package-name` for new
+ * packages), except that upper-case characters are tolerated for legacy names.
+ * An optional `@scope/` prefix is followed by a single path segment, neither of
+ * which may start with `.` or `_`.
+ */
+const PACKAGE_NAME_REGEX =
+  /^(?:@[a-z0-9~-][a-z0-9._~-]*\/)?[a-z0-9~-][a-z0-9._~-]*$/i;
+
+/** @internal */
+export function isValidPackageName(name: unknown): name is string {
+  return (
+    typeof name === 'string' &&
+    name.length > 0 &&
+    name.length <= 214 &&
+    PACKAGE_NAME_REGEX.test(name)
+  );
 }
