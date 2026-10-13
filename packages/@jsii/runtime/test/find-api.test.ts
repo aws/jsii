@@ -2,11 +2,21 @@ import { KernelHost, IInputOutput, Input, Output } from '../lib';
 
 test.each(['constructor', 'callbackHandler', 'toString', 'hasOwnProperty'])(
   'rejects non-API kernel member %p',
-  (apiName) => {
-    const host = new KernelHost(new SpyInputOutput([{ api: apiName }]), {
-      noStack: true,
+  async (apiName) => {
+    const inout = new SpyInputOutput([{ api: apiName }]);
+    const host = new KernelHost(inout, { noStack: true });
+    await new Promise<void>((ok) => {
+      host.once('exit', () => ok());
+      host.run();
     });
-    expect(() => host.run()).toThrow(`Invalid kernel api call: ${apiName}`);
+    // The error is reported to the host as an error response.
+    expect(inout.outputs).toEqual([
+      {
+        error: `Invalid kernel api call: ${apiName}`,
+        name: 'Error',
+        stack: undefined,
+      },
+    ]);
   },
 );
 
