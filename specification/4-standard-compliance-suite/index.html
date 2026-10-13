@@ -2686,11 +2686,11 @@ the suite, every binding has to implement it.</p>
 user of <em>any</em> binding can rely on. That a struct received from the kernel compares equal to one built by the host is
 such a behavior. That the comparison is done by a method called <code>equals</code>, or that structs are constructed with a
 builder, is not. Most requirements can be observed in the messages exchanged with the <em>kernel</em>, but not all: rejecting
-an incomplete struct shows up as the <em>absence</em> of a message, and rejecting the mutation of a returned collection
-happens entirely on the host. Both are requirements all the same, because both are behaviors users depend on.</p>
-<p>Behaviors that only make sense for one language belong in that binding's own tests, not in the suite. When a binding
-can't implement a requirement, the requirement stays, and the binding reports the test as failing or not applicable,
-with the reason.</p>
+an incomplete struct shows up as the <em>absence</em> of a message. It is a requirement all the same, because it is a behavior
+users depend on.</p>
+<p>Behaviors that only make sense for one language belong in that binding's own tests, not in the suite. Every requirement
+applies to every binding. When a binding can't meet a requirement yet, it reports the test as not implemented, with the
+reason.</p>
 <h2 id="test-cases">Test Cases</h2>
 <p>Test cases live in <a href="https://github.com/aws/jsii/tree/main/tools/jsii-compliance/suite"><code>tools/jsii-compliance/suite</code></a>, one markdown file per test case, grouped in one directory per
 category. The categories are listed in the navigation of this site.</p>
@@ -2766,9 +2766,14 @@ document:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">Report</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/** For each test case, using the test case name according to the conventions of the language */</span>
 <span class="w">  </span><span class="p">[</span><span class="nx">testName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="cm">/** The result of the test: passing, failing, or not applicable to this language binding */</span>
-<span class="w">    </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">'success'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'failure'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'n/a'</span><span class="p">;</span>
-<span class="w">    </span><span class="cm">/** Why the test fails or doesn't apply */</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * The result of the test:</span>
+<span class="cm">     * - success: the test passes</span>
+<span class="cm">     * - failure: the test is expected to pass, but fails</span>
+<span class="cm">     * - not-implemented: the test is known not to pass yet</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">'success'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'failure'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'not-implemented'</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/** Why the test fails or is not implemented */</span>
 <span class="w">    </span><span class="nx">reason?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 <span class="w">    </span><span class="cm">/** A link to more information, such as the issue tracking a failure */</span>
 <span class="w">    </span><span class="nx">url?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
@@ -2798,7 +2803,7 @@ It then generates the test case pages of this site and the <a href="../6-complia
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-10-12
+    2026-10-13
   </span>
 
     

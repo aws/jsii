@@ -2327,17 +2327,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a-map-read-from-an-instance-property-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A map read from an instance property rejects mutation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#maps-of-object-references-can-be-read-from-the-kernel" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2360,32 +2349,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-array-returned-by-a-method-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        An array returned by a method rejects mutation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#a-map-returned-by-a-method-can-be-read" class="md-nav__link">
     <span class="md-ellipsis">
       
         A map returned by a method can be read
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#a-map-returned-by-a-method-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A map returned by a method rejects mutation
       
     </span>
   </a>
@@ -2404,32 +2371,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a-static-array-property-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A static array property rejects mutation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#a-static-map-property-can-be-read" class="md-nav__link">
     <span class="md-ellipsis">
       
         A static map property can be read
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#a-static-map-property-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A static map property rejects mutation
       
     </span>
   </a>
@@ -2835,17 +2780,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a-map-read-from-an-instance-property-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A map read from an instance property rejects mutation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#maps-of-object-references-can-be-read-from-the-kernel" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2868,32 +2802,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-array-returned-by-a-method-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        An array returned by a method rejects mutation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#a-map-returned-by-a-method-can-be-read" class="md-nav__link">
     <span class="md-ellipsis">
       
         A map returned by a method can be read
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#a-map-returned-by-a-method-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A map returned by a method rejects mutation
       
     </span>
   </a>
@@ -2912,32 +2824,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a-static-array-property-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A static array property rejects mutation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#a-static-map-property-can-be-read" class="md-nav__link">
     <span class="md-ellipsis">
       
         A static map property can be read
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#a-static-map-property-rejects-mutation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A static map property rejects mutation
       
     </span>
   </a>
@@ -3287,35 +3177,6 @@ back from the kernel and observe the same key/value pairs.</p>
 <span class="nx">expect</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">subject</span><span class="p">.</span><span class="nx">map</span><span class="p">)).</span><span class="nx">toHaveLength</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
 </code></pre></div>
 </details>
-<p><a id="mapPropertyRejectsMutation"></a></p>
-<h2 id="a-map-read-from-an-instance-property-rejects-mutation">A map read from an instance property rejects mutation</h2>
-<p><strong>Test:</strong> <code>mapPropertyRejectsMutation</code></p>
-<p>A map the host reads from an instance property is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected
-rather than silently mutating a copy that JavaScript will never see.</p>
-<details class="note">
-<summary>Reference Implementation</summary>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">map</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">};</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="nx">array</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
-
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">map</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nx">array</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">map</span><span class="p">;</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">array</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="p">({</span><span class="w"> </span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="s1">'value'</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">subject</span><span class="p">.</span><span class="nx">map</span><span class="p">;</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="p">(</span><span class="nx">map</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Readonly</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="p">)[</span><span class="s1">'keyTwo'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'valueTwo'</span><span class="p">;</span>
-<span class="p">}).</span><span class="nx">toThrow</span><span class="p">();</span>
-</code></pre></div>
-</details>
 <p><a id="mapsOfObjectsCanBeRead"></a></p>
 <h2 id="maps-of-object-references-can-be-read-from-the-kernel">Maps of object references can be read from the kernel</h2>
 <p><strong>Test:</strong> <code>mapsOfObjectsCanBeRead</code></p>
@@ -3388,28 +3249,6 @@ elements produced in JavaScript, in the same order.</p>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">list</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">'one'</span><span class="p">,</span><span class="w"> </span><span class="s1">'two'</span><span class="p">]);</span>
 </code></pre></div>
 </details>
-<p><a id="returnedArrayRejectsMutation"></a></p>
-<h2 id="an-array-returned-by-a-method-rejects-mutation">An array returned by a method rejects mutation</h2>
-<p><strong>Test:</strong> <code>returnedArrayRejectsMutation</code></p>
-<p>An array the host receives from the kernel is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned array as read-only, so that attempting to add, remove, or replace elements is rejected
-rather than silently mutating a copy that JavaScript will never see.</p>
-<details class="note">
-<summary>Reference Implementation</summary>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">createAList</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="s1">'one'</span><span class="p">,</span><span class="w"> </span><span class="s1">'two'</span><span class="p">];</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="p">.</span><span class="nx">createAList</span><span class="p">();</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="nx">list</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kt">string</span><span class="p">[]).</span><span class="nx">push</span><span class="p">(</span><span class="s1">'three'</span><span class="p">)).</span><span class="nx">toThrow</span><span class="p">();</span>
-</code></pre></div>
-</details>
 <p><a id="returnedMapCanBeRead"></a></p>
 <h2 id="a-map-returned-by-a-method-can-be-read">A map returned by a method can be read</h2>
 <p><strong>Test:</strong> <code>returnedMapCanBeRead</code></p>
@@ -3432,30 +3271,6 @@ exactly the key/value pairs produced in JavaScript.</p>
 <span class="nx">expect</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">map</span><span class="p">)).</span><span class="nx">toHaveLength</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
 </code></pre></div>
 </details>
-<p><a id="returnedMapRejectsMutation"></a></p>
-<h2 id="a-map-returned-by-a-method-rejects-mutation">A map returned by a method rejects mutation</h2>
-<p><strong>Test:</strong> <code>returnedMapRejectsMutation</code></p>
-<p>A map the host receives from the kernel is a snapshot of the value in JavaScript, not a live view of it. The host MUST
-present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected rather than
-silently mutating a copy that JavaScript will never see.</p>
-<details class="note">
-<summary>Reference Implementation</summary>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">createAMap</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">key1</span><span class="o">:</span><span class="w"> </span><span class="s1">'value1'</span><span class="p">,</span><span class="w"> </span><span class="nx">key2</span><span class="o">:</span><span class="w"> </span><span class="s1">'value2'</span><span class="w"> </span><span class="p">};</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="p">.</span><span class="nx">createAMap</span><span class="p">();</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="p">(</span><span class="nx">map</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Readonly</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="p">)[</span><span class="s1">'keyThree'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'valueThree'</span><span class="p">;</span>
-<span class="p">}).</span><span class="nx">toThrow</span><span class="p">();</span>
-</code></pre></div>
-</details>
 <p><a id="staticArrayPropertyCanBeRead"></a></p>
 <h2 id="a-static-array-property-can-be-read">A static array property can be read</h2>
 <p><strong>Test:</strong> <code>staticArrayPropertyCanBeRead</code></p>
@@ -3473,26 +3288,6 @@ class. The returned array MUST contain exactly the elements initialized in JavaS
 
 <span class="c1">// THEN</span>
 <span class="nx">expect</span><span class="p">(</span><span class="nx">list</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">'one'</span><span class="p">,</span><span class="w"> </span><span class="s1">'two'</span><span class="p">]);</span>
-</code></pre></div>
-</details>
-<p><a id="staticArrayPropertyRejectsMutation"></a></p>
-<h2 id="a-static-array-property-rejects-mutation">A static array property rejects mutation</h2>
-<p><strong>Test:</strong> <code>staticArrayPropertyRejectsMutation</code></p>
-<p>An array the host reads from a static property is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned array as read-only, so that attempting to add, remove, or replace elements is rejected
-rather than silently mutating a copy that JavaScript will never see.</p>
-<details class="note">
-<summary>Reference Implementation</summary>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">staticArray</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'one'</span><span class="p">,</span><span class="w"> </span><span class="s1">'two'</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="p">.</span><span class="nx">staticArray</span><span class="p">;</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="nx">list</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kt">string</span><span class="p">[]).</span><span class="nx">push</span><span class="p">(</span><span class="s1">'three'</span><span class="p">)).</span><span class="nx">toThrow</span><span class="p">();</span>
 </code></pre></div>
 </details>
 <p><a id="staticMapPropertyCanBeRead"></a></p>
@@ -3518,31 +3313,6 @@ instance of the class. The returned map MUST contain exactly the key/value pairs
 <span class="nx">expect</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">map</span><span class="p">)).</span><span class="nx">toHaveLength</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
 </code></pre></div>
 </details>
-<p><a id="staticMapPropertyRejectsMutation"></a></p>
-<h2 id="a-static-map-property-rejects-mutation">A static map property rejects mutation</h2>
-<p><strong>Test:</strong> <code>staticMapPropertyRejectsMutation</code></p>
-<p>A map the host reads from a static property is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected
-rather than silently mutating a copy that JavaScript will never see.</p>
-<details class="note">
-<summary>Reference Implementation</summary>
-<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">staticMap</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">key1</span><span class="o">:</span><span class="w"> </span><span class="s1">'value1'</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">key2</span><span class="o">:</span><span class="w"> </span><span class="s1">'value2'</span><span class="p">,</span>
-<span class="w">  </span><span class="p">};</span>
-<span class="p">}</span>
-
-<span class="c1">// WHEN</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ClassWithCollections</span><span class="p">.</span><span class="nx">staticMap</span><span class="p">;</span>
-
-<span class="c1">// THEN</span>
-<span class="nx">expect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="p">(</span><span class="nx">map</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Readonly</span><span class="o">&lt;</span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="p">)[</span><span class="s1">'keyTwo'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'valueTwo'</span><span class="p">;</span>
-<span class="p">}).</span><span class="nx">toThrow</span><span class="p">();</span>
-</code></pre></div>
-</details>
 
 
 
@@ -3563,7 +3333,7 @@ rather than silently mutating a copy that JavaScript will never see.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2026-10-12
+    2026-10-13
   </span>
 
     
