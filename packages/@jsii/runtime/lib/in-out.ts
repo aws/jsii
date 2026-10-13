@@ -48,17 +48,16 @@ export class InputOutput implements IInputOutput {
   }
 
   public read(): Input | undefined {
-    let reqLine = this.stdio.readLine();
-    if (!reqLine) {
-      return undefined;
-    }
+    let reqLine: string | undefined;
+    do {
+      reqLine = this.stdio.readLine();
+      if (!reqLine) {
+        return undefined;
+      }
+      // skip recorded responses
+    } while (reqLine.startsWith('< '));
 
-    // skip recorded responses
-    if (reqLine.startsWith('< ')) {
-      return this.read();
-    }
-
-    // stip "> " from recorded requests
+    // strip "> " from recorded requests
     if (reqLine.startsWith('> ')) {
       reqLine = reqLine.slice(2);
     }

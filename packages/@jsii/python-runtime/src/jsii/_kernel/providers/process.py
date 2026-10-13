@@ -310,6 +310,14 @@ class _NodeProcess:
         if self.sink_thread.is_alive():
             self.sink_thread.join(timeout=5)
 
+        # Close the remaining pipes to the child. STDERR is only closed once the
+        # sink thread is done with it, as it would otherwise still be reading.
+        assert self._process.stdout is not None
+        self._process.stdout.close()
+        if not self.sink_thread.is_alive():
+            assert self._process.stderr is not None
+            self._process.stderr.close()
+
         self._ctx_stack.close()
 
     def handshake(self) -> None:
