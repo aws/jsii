@@ -69,13 +69,8 @@ func (suite *ComplianceSuite) skipWithStatus(status string, reason string, url s
 	t.Skipf("%s: %s", status, reason)
 }
 
-// FailTest will report this test as failing with the URL of the github issue that
-// reports the bug or missing feature
-func (suite *ComplianceSuite) FailTest(reason string, issueUrl string) {
-	suite.skipWithStatus("failure", reason, issueUrl)
-}
-
-// NotApplicableTest will report this compliance test as N/A for this language
-func (suite *ComplianceSuite) NotApplicableTest(reason string) {
-	suite.skipWithStatus("n/a", reason, "")
+// NotImplementedTest will report this test as not implemented, with the URL of
+// the GitHub issue that tracks the bug or missing feature
+func (suite *ComplianceSuite) NotImplementedTest(reason string, issueUrl string) {
+	suite.skipWithStatus("not-implemented", reason, issueUrl)
 }

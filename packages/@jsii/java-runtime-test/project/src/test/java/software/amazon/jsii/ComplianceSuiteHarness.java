@@ -47,12 +47,12 @@ public final class ComplianceSuiteHarness implements BeforeEachCallback, AfterEa
     }
 
     /**
-     * Disabled tests don't run, so they are reported as failing with the reason they are disabled for.
+     * Disabled tests don't run, so they are reported as not implemented with the reason they are disabled for.
      */
     @Override
     public void testDisabled(final ExtensionContext extensionContext, final Optional<String> reason) {
         final ObjectNode entry = result.putObject(extensionContext.getRequiredTestMethod().getName());
-        entry.put("status", "failure");
+        entry.put("status", "not-implemented");
         reason.ifPresent(r -> entry.put("reason", r));
     }
 

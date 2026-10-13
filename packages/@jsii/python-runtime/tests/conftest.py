@@ -6,10 +6,6 @@ import pytest
 # Results of the compliance tests, written to compliance-report.json for tools/jsii-compliance
 _compliance_report: Dict[str, Dict[str, str]] = {}
 
-# Skipped tests whose skip reason starts with this are not applicable to Python:
-# @pytest.mark.skip(reason="Not applicable: <reason>")
-NOT_APPLICABLE = "Not applicable:"
-
 
 def pytest_runtest_logreport(report: pytest.TestReport) -> None:
     if not report.nodeid.startswith("tests/test_compliance.py::"):
@@ -35,12 +31,8 @@ def pytest_runtest_logreport(report: pytest.TestReport) -> None:
             else str(report.longrepr)
         )
         reason = reason.removeprefix("Skipped: ")
-        if reason.startswith(NOT_APPLICABLE):
-            reason = reason[len(NOT_APPLICABLE) :].strip()
-            _compliance_report[name] = {"status": "n/a", "reason": reason}
-        else:
-            # A skipped compliance test is not passing for this language
-            _compliance_report[name] = {"status": "failure", "reason": reason}
+        # A skipped compliance test is known not to work for this language
+        _compliance_report[name] = {"status": "not-implemented", "reason": reason}
     elif report.when == "call":
         _compliance_report[name] = {"status": "success"}
 

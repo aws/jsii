@@ -57,8 +57,8 @@ Each language binding writes a report during its `test` phase:
 ```json
 {
   "<test-case-name>": {
-    "status": "success | failure | n/a",
-    "reason": "optional, why the test fails or doesn't apply",
+    "status": "success | failure | not-implemented",
+    "reason": "optional, why the test fails or is not implemented",
     "url": "optional, a link to the issue tracking the failure"
   }
 }
@@ -67,6 +67,8 @@ Each language binding writes a report during its `test` phase:
 The status is shown as:
 
 - 🟢 - Test passes for this language.
-- 🔴 - Test is failing for this language: missing feature or bug in language bindings.
-- ⚪ - Test is not applicable for this language.
-- ⭕ - Test is not implemented (yet) for this language.
+- 🔴 - Test is expected to work for this language, but fails.
+- ⭕ - Test is not implemented for this language yet, or is known not to work. A test that is missing from the report
+  is also shown as not implemented.
+
+Failing and not implemented tests both count as not passing.

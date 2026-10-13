@@ -22,12 +22,12 @@ the suite, every binding has to implement it.
 user of _any_ binding can rely on. That a struct received from the kernel compares equal to one built by the host is
 such a behavior. That the comparison is done by a method called `equals`, or that structs are constructed with a
 builder, is not. Most requirements can be observed in the messages exchanged with the _kernel_, but not all: rejecting
-an incomplete struct shows up as the _absence_ of a message, and rejecting the mutation of a returned collection
-happens entirely on the host. Both are requirements all the same, because both are behaviors users depend on.
+an incomplete struct shows up as the _absence_ of a message. It is a requirement all the same, because it is a behavior
+users depend on.
 
-Behaviors that only make sense for one language belong in that binding's own tests, not in the suite. When a binding
-can't implement a requirement, the requirement stays, and the binding reports the test as failing or not applicable,
-with the reason.
+Behaviors that only make sense for one language belong in that binding's own tests, not in the suite. Every requirement
+applies to every binding. When a binding can't meet a requirement yet, it reports the test as not implemented, with the
+reason.
 
 [RFC 2119]: https://www.rfc-editor.org/rfc/rfc2119
 
@@ -118,9 +118,14 @@ document:
 interface Report {
   /** For each test case, using the test case name according to the conventions of the language */
   [testName: string]: {
-    /** The result of the test: passing, failing, or not applicable to this language binding */
-    status: 'success' | 'failure' | 'n/a';
-    /** Why the test fails or doesn't apply */
+    /**
+     * The result of the test:
+     * - success: the test passes
+     * - failure: the test is expected to pass, but fails
+     * - not-implemented: the test is known not to pass yet
+     */
+    status: 'success' | 'failure' | 'not-implemented';
+    /** Why the test fails or is not implemented */
     reason?: string;
     /** A link to more information, such as the issue tracking a failure */
     url?: string;

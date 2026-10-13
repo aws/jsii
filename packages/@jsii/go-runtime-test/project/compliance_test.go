@@ -730,10 +730,6 @@ func (suite *ComplianceSuite) TestStaticAsyncMethodsCanBeCalled() {
 	require.Equal(float64(42), *calc.StaticAsyncMethods_AddOne(jsii.Number(41)))
 }
 
-func (suite *ComplianceSuite) TestStaticArrayPropertyRejectsMutation() {
-	suite.NotApplicableTest("Go arrays are immutable by design")
-}
-
 func (suite *ComplianceSuite) TestStructsAreSentAsPlainData() {
 	require := suite.Require()
 
@@ -1026,10 +1022,6 @@ func (suite *ComplianceSuite) TestUndefinedOptionalListReadsAsAbsent() {
 	require.Nil(t, calc.DisappointingCollectionSource_MaybeList())
 }
 
-func (suite *ComplianceSuite) TestMapPropertyRejectsMutation() {
-	suite.NotApplicableTest("Go maps are immutable by design")
-}
-
 func (suite *ComplianceSuite) TestMultipleAsyncMethodsCanBeOverridden() {
 	t := suite.T()
 
@@ -1140,10 +1132,6 @@ func (suite *ComplianceSuite) TestPrivateConstructorClassFromStaticFactory() {
 	require.Equal(t, "Bye", *obj.ReadWriteString())
 	obj.SetReadWriteString(jsii.String("Hello"))
 	require.Equal(t, "Hello", *obj.ReadOnlyString())
-}
-
-func (suite *ComplianceSuite) TestReturnedArrayRejectsMutation() {
-	suite.NotApplicableTest("Go arrays are immutable by design")
 }
 
 func (suite *ComplianceSuite) TestOverlappingStructUnionsAreDisambiguated() {
@@ -1311,10 +1299,6 @@ func (suite *ComplianceSuite) TestArraysOfObjectsPreserveOrderAndType() {
 	require.Equal("(((0 + 5) + 10) + (2 * 3))", *sum.ToString())
 }
 
-func (suite *ComplianceSuite) TestStaticMapPropertyRejectsMutation() {
-	suite.NotApplicableTest("Golang does not have unmodifiable maps")
-}
-
 func (suite *ComplianceSuite) TestConstantsCanBeRead() {
 
 	require := suite.Require()
@@ -1330,10 +1314,6 @@ func (suite *ComplianceSuite) TestConstantsCanBeRead() {
 func (suite *ComplianceSuite) TestNonExportedClassReceivedAsInterface() {
 	require := suite.Require()
 	require.True(*calc.NewReturnsPrivateImplementationOfInterface().PrivateImplementation().Success())
-}
-
-func (suite *ComplianceSuite) TestReturnedMapRejectsMutation() {
-	suite.NotApplicableTest("Golang does not have unmodifiable maps")
 }
 
 func (suite *ComplianceSuite) TestStaticArrayPropertyCanBeRead() {
