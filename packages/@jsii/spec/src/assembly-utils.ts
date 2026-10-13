@@ -215,11 +215,16 @@ export function loadAssemblyFromFile(
  * (after resolving any symbolic links).
  */
 function readSupportFile(directory: string, filename: string): Buffer {
-  assertRelativeRedirectFilename(filename);
-
   const realDir = fs.realpathSync(directory);
   const realFile = fs.realpathSync(path.resolve(realDir, filename));
-  if (!isPathInside(realFile, realDir)) {
+
+  const relative = path.relative(realDir, realFile);
+  if (
+    relative === '' ||
+    relative === '..' ||
+    relative.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relative)
+  ) {
     throw new Error(
       `Assembly redirect target ${JSON.stringify(filename)} resolves outside of ${directory}`,
     );
@@ -242,16 +247,6 @@ function assertRelativeRedirectFilename(filename: string): void {
       `Invalid assembly redirect filename ${JSON.stringify(filename)}: must be a relative path inside the package`,
     );
   }
-}
-
-function isPathInside(child: string, parent: string): boolean {
-  const relative = path.relative(parent, child);
-  return (
-    relative !== '' &&
-    relative !== '..' &&
-    !relative.startsWith(`..${path.sep}`) &&
-    !path.isAbsolute(relative)
-  );
 }
 
 function followRedirect(

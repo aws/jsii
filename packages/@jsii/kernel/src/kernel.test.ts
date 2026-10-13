@@ -16,7 +16,8 @@ import {
   WireStruct,
   TOKEN_STRUCT,
 } from './api';
-import { isValidPackageName, Kernel } from './kernel';
+import { Kernel } from './kernel';
+import { isValidPackageName } from './package-name';
 import { closeRecording, recordInteraction } from './recording';
 import * as tar from './tar-cache';
 
@@ -111,8 +112,15 @@ describe('package name validation', () => {
     'back\\slash',
     '.hidden',
     '_underscore',
+    '-dash',
+    ' leading-space',
+    'trailing-space ',
+    'node_modules',
+    'FAVICON.ICO',
     '@scope/.hidden',
-    'a'.repeat(215),
+    '%2e%2e',
+    'unscoped%20space',
+    '@scope/with space',
   ];
 
   test.each(invalidNames)('load rejects %j', async (name) => {
@@ -136,12 +144,20 @@ describe('package name validation', () => {
     ).toThrow(/Invalid package name/);
   });
 
-  test.each(['jsii-calc', '@scope/jsii-calc-lib', 'Legacy.Name_1~x'])(
-    'accepts %j',
-    (name) => {
-      expect(isValidPackageName(name)).toBe(true);
-    },
-  );
+  // Valid for existing packages, even though some are no longer valid for new ones.
+  test.each([
+    'jsii-calc',
+    '@scope/jsii-calc-lib',
+    'Legacy.Name_1~x',
+    "it's-(ok)*!",
+    '@_scope/_pkg',
+    '@.scope/pkg',
+    '@scope/-pkg',
+    'http',
+    'a'.repeat(215),
+  ])('accepts %j', (name) => {
+    expect(isValidPackageName(name)).toBe(true);
+  });
 });
 
 defineTest('stats() return sandbox statistics', (sandbox) => {

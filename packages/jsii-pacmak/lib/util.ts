@@ -351,10 +351,15 @@ async function handleSubprocess(
 /**
  * Resolve a command to an executable on Windows
  *
- * Only directories on `PATH` are searched. Windows shells implicitly also look
- * in the current working directory first; we refuse to run a binary from there
- * and fail with an explicit error instead, rather than silently picking a
- * different binary than the shell would.
+ * A command containing a path separator is an explicit (absolute or relative)
+ * path and is used as given, like Windows shells do.
+ *
+ * A bare command name is only searched for on `PATH`. Windows shells
+ * implicitly also look in the current working directory first; if that would
+ * find a different file than `PATH` does, we fail with an explicit error rather
+ * than silently picking a different binary than the shell would. Symbolic links
+ * are resolved before comparing, and a dangling link in the current working
+ * directory is refused as well.
  */
 function resolveBinaryWindows(command: string): string {
   const extensions = (
@@ -362,28 +367,60 @@ function resolveBinaryWindows(command: string): string {
   ).split(';');
   const candidatesIn = (dir: string) =>
     ['', ...extensions].map((ext) => path.resolve(dir, `${command}${ext}`));
+  const findIn = (dir: string) =>
+    candidatesIn(dir).find((candidate) => fs.pathExistsSync(candidate));
 
+  if (/[\\/]/.test(command)) {
+    const explicit = findIn(process.cwd());
+    if (explicit == null) {
+      throw new Error(`Unable to resolve command: ${command}`);
+    }
+    return explicit;
+  }
+
+  const dirs = process.env.PATH?.split(path.delimiter) ?? [];
+  const fromPath = dirs
+    .filter((dir) => dir !== '')
+    .map(findIn)
+    .find((candidate) => candidate != null);
+
+  // `lstat` so that a dangling symbolic link is also detected.
   const inCwd = candidatesIn(process.cwd()).find((candidate) =>
-    fs.pathExistsSync(candidate),
+    lexists(candidate),
   );
-  if (inCwd != null) {
+  if (inCwd != null && (fromPath == null || !isSameFile(inCwd, fromPath))) {
     throw new Error(
       `Refusing to run ${command}: found ${inCwd} in the current working directory. Remove it, or run from a different directory.`,
     );
   }
 
-  const dirs = process.env.PATH?.split(path.delimiter) ?? [];
-  for (const dir of dirs) {
-    for (const candidate of candidatesIn(dir)) {
-      if (fs.pathExistsSync(candidate)) {
-        return candidate;
-      }
-    }
+  if (fromPath == null) {
+    throw new Error(
+      `Unable to resolve command: ${command} in ${process.env.PATH}`,
+    );
   }
+  return fromPath;
+}
 
-  throw new Error(
-    `Unable to resolve command: ${command} in ${process.env.PATH}`,
-  );
+function lexists(file: string): boolean {
+  try {
+    fs.lstatSync(file);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Whether both paths refer to the same file, after resolving symbolic links. */
+function isSameFile(left: string, right: string): boolean {
+  try {
+    return (
+      fs.realpathSync(left).toLowerCase() ===
+      fs.realpathSync(right).toLowerCase()
+    );
+  } catch {
+    return false;
+  }
 }
 
 /**

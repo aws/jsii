@@ -9,6 +9,7 @@ import * as api from './api';
 import { TOKEN_REF } from './api';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
+import { isValidPackageName } from './package-name';
 import {
   loadRuntimeAssembly,
   type AssemblyMetadata,
@@ -1636,23 +1637,4 @@ class Assembly {
     public readonly closure: any,
     public readonly types: AssemblyTypes,
   ) {}
-}
-
-/**
- * npm package name grammar (as enforced by `validate-npm-package-name` for new
- * packages), except that upper-case characters are tolerated for legacy names.
- * An optional `@scope/` prefix is followed by a single path segment, neither of
- * which may start with `.` or `_`.
- */
-const PACKAGE_NAME_REGEX =
-  /^(?:@[a-z0-9~-][a-z0-9._~-]*\/)?[a-z0-9~-][a-z0-9._~-]*$/i;
-
-/** @internal */
-export function isValidPackageName(name: unknown): name is string {
-  return (
-    typeof name === 'string' &&
-    name.length > 0 &&
-    name.length <= 214 &&
-    PACKAGE_NAME_REGEX.test(name)
-  );
 }
