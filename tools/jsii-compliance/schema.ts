@@ -90,7 +90,7 @@ export interface TestResult {
   /**
    * Status of execution.
    */
-  readonly status: 'success' | 'failure' | 'n/a';
+  readonly status: 'success' | 'failure' | 'not-implemented';
 
   /**
    * Status reason (displayed as a tooltip if defined)

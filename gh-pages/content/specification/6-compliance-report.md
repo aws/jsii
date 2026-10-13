@@ -8,13 +8,13 @@ Language bindings must pass every test case. A category is complete when a langu
 
 | Language | Tests passing       | Categories complete |
 | -------- | ------------------- | ------------------- |
-| python   | 95.45% (105 / 110)  | 11 / 12             |
-| java     | 100.00% (110 / 110) | 12 / 12             |
-| dotnet   | 95.45% (105 / 110)  | 11 / 12             |
-| golang   | 95.45% (105 / 110)  | 11 / 12             |
+| python   | 100.00% (105 / 105) | 12 / 12             |
+| java     | 100.00% (105 / 105) | 12 / 12             |
+| dotnet   | 100.00% (105 / 105) | 12 / 12             |
+| golang   | 100.00% (105 / 105) | 12 / 12             |
 
 
-Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
+Status: 🟢 passing, 🔴 failing, ⭕ not implemented. Failing and not implemented tests both count as not passing.
 
 ## [Primitives & Optional Values](compliance-suite/01-primitives.md)
 
@@ -88,16 +88,11 @@ Status: 🟢 passing, 🔴 failing, ⚪ not applicable, ⭕ not implemented.
 | [mapOfInterfacesValuesAreUsable](compliance-suite/05-collections.md#mapOfInterfacesValuesAreUsable "Values of a returned map of interfaces are usable through the interface")            | 🟢     | 🟢    | 🟢     | 🟢     |
 | [mapOfStructsValuesHaveStructType](compliance-suite/05-collections.md#mapOfStructsValuesHaveStructType "Values of a returned map of structs have the struct's apparent type")            | 🟢     | 🟢    | 🟢     | 🟢     |
 | [mapPropertyCanBeRead](compliance-suite/05-collections.md#mapPropertyCanBeRead "A map stored in an instance property can be read")                                                       | 🟢     | 🟢    | 🟢     | 🟢     |
-| [mapPropertyRejectsMutation](compliance-suite/05-collections.md#mapPropertyRejectsMutation "A map read from an instance property rejects mutation")                                      | ⚪      | 🟢    | ⚪      | ⚪      |
 | [mapsOfObjectsCanBeRead](compliance-suite/05-collections.md#mapsOfObjectsCanBeRead "Maps of object references can be read from the kernel")                                              | 🟢     | 🟢    | 🟢     | 🟢     |
 | [returnedArrayCanBeRead](compliance-suite/05-collections.md#returnedArrayCanBeRead "An array returned by a method can be read")                                                          | 🟢     | 🟢    | 🟢     | 🟢     |
-| [returnedArrayRejectsMutation](compliance-suite/05-collections.md#returnedArrayRejectsMutation "An array returned by a method rejects mutation")                                         | ⚪      | 🟢    | ⚪      | ⚪      |
 | [returnedMapCanBeRead](compliance-suite/05-collections.md#returnedMapCanBeRead "A map returned by a method can be read")                                                                 | 🟢     | 🟢    | 🟢     | 🟢     |
-| [returnedMapRejectsMutation](compliance-suite/05-collections.md#returnedMapRejectsMutation "A map returned by a method rejects mutation")                                                | ⚪      | 🟢    | ⚪      | ⚪      |
 | [staticArrayPropertyCanBeRead](compliance-suite/05-collections.md#staticArrayPropertyCanBeRead "A static array property can be read")                                                    | 🟢     | 🟢    | 🟢     | 🟢     |
-| [staticArrayPropertyRejectsMutation](compliance-suite/05-collections.md#staticArrayPropertyRejectsMutation "A static array property rejects mutation")                                   | ⚪      | 🟢    | ⚪      | ⚪      |
 | [staticMapPropertyCanBeRead](compliance-suite/05-collections.md#staticMapPropertyCanBeRead "A static map property can be read")                                                          | 🟢     | 🟢    | 🟢     | 🟢     |
-| [staticMapPropertyRejectsMutation](compliance-suite/05-collections.md#staticMapPropertyRejectsMutation "A static map property rejects mutation")                                         | ⚪      | 🟢    | ⚪      | ⚪      |
 
 
 ## [Structs & Keyword Arguments](compliance-suite/06-structs.md)

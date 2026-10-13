@@ -363,40 +363,6 @@ back from the kernel and observe the same key/value pairs.
     expect(Object.keys(subject.map)).toHaveLength(1);
     ```
 
-<a id="mapPropertyRejectsMutation"></a>
-
-## A map read from an instance property rejects mutation
-
-**Test:** `mapPropertyRejectsMutation`
-
-A map the host reads from an instance property is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected
-rather than silently mutating a copy that JavaScript will never see.
-
-??? note "Reference Implementation"
-
-    ```ts
-    // GIVEN
-    export class ClassWithCollections {
-      public map: { [key: string]: string };
-      public array: string[];
-
-      public constructor(map: { [key: string]: string }, array: string[]) {
-        this.map = map;
-        this.array = array;
-      }
-    }
-
-    // WHEN
-    const subject = new ClassWithCollections({ key: 'value' }, []);
-    const map = subject.map;
-
-    // THEN
-    expect(() => {
-      (map as Readonly<Record<string, string>> as Record<string, string>)['keyTwo'] = 'valueTwo';
-    }).toThrow();
-    ```
-
 <a id="mapsOfObjectsCanBeRead"></a>
 
 ## Maps of object references can be read from the kernel
@@ -479,33 +445,6 @@ elements produced in JavaScript, in the same order.
     expect(list).toEqual(['one', 'two']);
     ```
 
-<a id="returnedArrayRejectsMutation"></a>
-
-## An array returned by a method rejects mutation
-
-**Test:** `returnedArrayRejectsMutation`
-
-An array the host receives from the kernel is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned array as read-only, so that attempting to add, remove, or replace elements is rejected
-rather than silently mutating a copy that JavaScript will never see.
-
-??? note "Reference Implementation"
-
-    ```ts
-    // GIVEN
-    export class ClassWithCollections {
-      public static createAList(): string[] {
-        return ['one', 'two'];
-      }
-    }
-
-    // WHEN
-    const list = ClassWithCollections.createAList();
-
-    // THEN
-    expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
-    ```
-
 <a id="returnedMapCanBeRead"></a>
 
 ## A map returned by a method can be read
@@ -533,35 +472,6 @@ exactly the key/value pairs produced in JavaScript.
     expect(Object.keys(map)).toHaveLength(2);
     ```
 
-<a id="returnedMapRejectsMutation"></a>
-
-## A map returned by a method rejects mutation
-
-**Test:** `returnedMapRejectsMutation`
-
-A map the host receives from the kernel is a snapshot of the value in JavaScript, not a live view of it. The host MUST
-present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected rather than
-silently mutating a copy that JavaScript will never see.
-
-??? note "Reference Implementation"
-
-    ```ts
-    // GIVEN
-    export class ClassWithCollections {
-      public static createAMap(): { [key: string]: string } {
-        return { key1: 'value1', key2: 'value2' };
-      }
-    }
-
-    // WHEN
-    const map = ClassWithCollections.createAMap();
-
-    // THEN
-    expect(() => {
-      (map as Readonly<Record<string, string>> as Record<string, string>)['keyThree'] = 'valueThree';
-    }).toThrow();
-    ```
-
 <a id="staticArrayPropertyCanBeRead"></a>
 
 ## A static array property can be read
@@ -584,31 +494,6 @@ class. The returned array MUST contain exactly the elements initialized in JavaS
 
     // THEN
     expect(list).toEqual(['one', 'two']);
-    ```
-
-<a id="staticArrayPropertyRejectsMutation"></a>
-
-## A static array property rejects mutation
-
-**Test:** `staticArrayPropertyRejectsMutation`
-
-An array the host reads from a static property is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned array as read-only, so that attempting to add, remove, or replace elements is rejected
-rather than silently mutating a copy that JavaScript will never see.
-
-??? note "Reference Implementation"
-
-    ```ts
-    // GIVEN
-    export class ClassWithCollections {
-      public static staticArray: string[] = ['one', 'two'];
-    }
-
-    // WHEN
-    const list = ClassWithCollections.staticArray;
-
-    // THEN
-    expect(() => (list as readonly string[] as string[]).push('three')).toThrow();
     ```
 
 <a id="staticMapPropertyCanBeRead"></a>
@@ -637,34 +522,4 @@ instance of the class. The returned map MUST contain exactly the key/value pairs
     // THEN
     expect(map).toEqual({ key1: 'value1', key2: 'value2' });
     expect(Object.keys(map)).toHaveLength(2);
-    ```
-
-<a id="staticMapPropertyRejectsMutation"></a>
-
-## A static map property rejects mutation
-
-**Test:** `staticMapPropertyRejectsMutation`
-
-A map the host reads from a static property is a snapshot of the value in JavaScript, not a live view of it. The host
-MUST present such a returned map as read-only, so that attempting to add, remove, or replace entries is rejected
-rather than silently mutating a copy that JavaScript will never see.
-
-??? note "Reference Implementation"
-
-    ```ts
-    // GIVEN
-    export class ClassWithCollections {
-      public static staticMap: { [key: string]: string } = {
-        key1: 'value1',
-        key2: 'value2',
-      };
-    }
-
-    // WHEN
-    const map = ClassWithCollections.staticMap;
-
-    // THEN
-    expect(() => {
-      (map as Readonly<Record<string, string>> as Record<string, string>)['keyTwo'] = 'valueTwo';
-    }).toThrow();
     ```

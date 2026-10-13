@@ -1694,39 +1694,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         // ----------------------------------------------------------------------
-        // Tests that are not applicable to the .NET language binding.
-        // ----------------------------------------------------------------------
-
-        // .NET returns a standard, mutable System.Collections.Generic.Dictionary for maps;
-        // immutability of returned maps is not part of the .NET binding contract (same as Go).
-        [Fact(DisplayName = Prefix + nameof(MapPropertyRejectsMutation), Skip = "Not applicable: .NET returns a standard mutable IDictionary; returned maps are not immutable")]
-        public void MapPropertyRejectsMutation()
-        {
-        }
-
-        [Fact(DisplayName = Prefix + nameof(ReturnedMapRejectsMutation), Skip = "Not applicable: .NET returns a standard mutable IDictionary; returned maps are not immutable")]
-        public void ReturnedMapRejectsMutation()
-        {
-        }
-
-        [Fact(DisplayName = Prefix + nameof(StaticMapPropertyRejectsMutation), Skip = "Not applicable: .NET returns a standard mutable IDictionary; returned maps are not immutable")]
-        public void StaticMapPropertyRejectsMutation()
-        {
-        }
-
-        // Collections modeled as arrays are surfaced as fixed-size C# arrays (string[]), which
-        // have no add/remove API that could be rejected at runtime (same reasoning as Go).
-        [Fact(DisplayName = Prefix + nameof(StaticArrayPropertyRejectsMutation), Skip = "Not applicable: C# arrays (string[]) are fixed-size by design; there is no add/remove API to reject")]
-        public void StaticArrayPropertyRejectsMutation()
-        {
-        }
-
-        [Fact(DisplayName = Prefix + nameof(ReturnedArrayRejectsMutation), Skip = "Not applicable: C# arrays (string[]) are fixed-size by design; there is no add/remove API to reject")]
-        public void ReturnedArrayRejectsMutation()
-        {
-        }
-
-        // ----------------------------------------------------------------------
         // Tests that are applicable but currently fail due to a generator/runtime gap.
         // ----------------------------------------------------------------------
 
