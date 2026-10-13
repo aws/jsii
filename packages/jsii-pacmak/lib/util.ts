@@ -350,20 +350,31 @@ async function handleSubprocess(
 
 /**
  * Resolve a command to an executable on Windows
+ *
+ * Only directories on `PATH` are searched. Windows shells implicitly also look
+ * in the current working directory first; we refuse to run a binary from there
+ * and fail with an explicit error instead, rather than silently picking a
+ * different binary than the shell would.
  */
 function resolveBinaryWindows(command: string): string {
   const extensions = (
     process.env.PATHEXT ?? '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH'
   ).split(';');
+  const candidatesIn = (dir: string) =>
+    ['', ...extensions].map((ext) => path.resolve(dir, `${command}${ext}`));
 
-  const dirs = [
-    process.cwd(),
-    ...(process.env.PATH?.split(path.delimiter) ?? []),
-  ];
+  const inCwd = candidatesIn(process.cwd()).find((candidate) =>
+    fs.pathExistsSync(candidate),
+  );
+  if (inCwd != null) {
+    throw new Error(
+      `Refusing to run ${command}: found ${inCwd} in the current working directory. Remove it, or run from a different directory.`,
+    );
+  }
 
+  const dirs = process.env.PATH?.split(path.delimiter) ?? [];
   for (const dir of dirs) {
-    for (const ext of ['', ...extensions]) {
-      const candidate = path.resolve(dir, `${command}${ext}`);
+    for (const candidate of candidatesIn(dir)) {
       if (fs.pathExistsSync(candidate)) {
         return candidate;
       }

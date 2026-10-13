@@ -1,4 +1,86 @@
-import { AllAttemptsFailed, retry, wait } from '../lib/util';
+import * as fs from 'fs-extra';
+import * as os from 'os';
+import * as path from 'path';
+
+import { AllAttemptsFailed, retry, subprocess, wait } from '../lib/util';
+
+// Lets tests exercise Windows-only code paths on any host.
+const mockPlatform = jest.fn<NodeJS.Platform, []>();
+jest.mock('os', () => {
+  const actual = jest.requireActual('os');
+  return {
+    ...actual,
+    platform: () => mockPlatform() ?? actual.platform(),
+  };
+});
+
+// Exercises Windows binary resolution on any host by pretending to be win32.
+describe('subprocess binary resolution on Windows', () => {
+  let workdir: string;
+  let cwdDir: string;
+  let binDir: string;
+  const env = {
+    PATH: process.env.PATH,
+    PATHEXT: process.env.PATHEXT,
+    COMSPEC: process.env.COMSPEC,
+  };
+
+  beforeEach(async () => {
+    workdir = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-util-'));
+    cwdDir = path.join(workdir, 'cwd');
+    binDir = path.join(workdir, 'bin');
+    await fs.mkdirp(cwdDir);
+    await fs.mkdirp(binDir);
+    mockPlatform.mockReturnValue('win32');
+    jest.spyOn(process, 'cwd').mockReturnValue(cwdDir);
+    process.env.PATH = binDir;
+    process.env.PATHEXT = '.EXE;.CMD';
+  });
+
+  afterEach(async () => {
+    jest.restoreAllMocks();
+    mockPlatform.mockReset();
+    for (const [key, value] of Object.entries(env)) {
+      if (value === undefined) {
+        delete process.env[key];
+      } else {
+        process.env[key] = value;
+      }
+    }
+    await fs.remove(workdir);
+  });
+
+  // Uses a `#!` script standing in for cmd.exe, which only runs on POSIX hosts.
+  (process.platform === 'win32' ? test.skip : test)(
+    'runs a binary found on PATH',
+    async () => {
+      const fakeCmd = path.join(workdir, 'fake-cmd');
+      // Invoked as `<COMSPEC> /d /c <resolved> ...args`; print the resolved path.
+      await fs.writeFile(fakeCmd, '#!/bin/sh\necho "$3"\n', { mode: 0o755 });
+      process.env.COMSPEC = fakeCmd;
+      await fs.writeFile(path.join(binDir, 'tool.CMD'), '');
+
+      await expect(subprocess('tool', [])).resolves.toBe(
+        `${path.join(binDir, 'tool.CMD')}\n`,
+      );
+    },
+  );
+
+  test('refuses a binary found in the current working directory', async () => {
+    await fs.writeFile(path.join(binDir, 'tool.CMD'), '');
+    await fs.writeFile(path.join(cwdDir, 'tool.CMD'), '');
+
+    await expect(subprocess('tool', [])).rejects.toThrow(
+      /Refusing to run tool: found .* in the current working directory/,
+    );
+  });
+
+  test('fails if the binary is not found', async () => {
+    await expect(subprocess('tool', [])).rejects.toThrow(
+      /Unable to resolve command: tool/,
+    );
+  });
+});
 
 type Waiter = typeof wait;
 
