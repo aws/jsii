@@ -1141,6 +1141,22 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(obj.WasSet());
         }
 
+        [Fact(DisplayName = Prefix + nameof(JsonValuesCrossTheBoundaryUnchanged))]
+        public void JsonValuesCrossTheBoundaryUnchanged()
+        {
+            var json = JObject.Parse(
+                "{\"$jsii.date\":\"1970-01-01T00:00:00.000Z\"," +
+                "\"nested\":{\"$jsii.enum\":\"jsii-calc.AllTypesEnum/MY_ENUM_VALUE\"}," +
+                "\"list\":[{\"$jsii.map\":{\"key\":\"value\"}}]}"
+            );
+
+            Assert.True(JToken.DeepEquals(json, JToken.Parse(JsonFormatter.Stringify(json)!)));
+
+            var wrapper = new Dictionary<string, object> { { "payload", json } };
+            var expected = new JObject(new JProperty("payload", json.DeepClone()));
+            Assert.True(JToken.DeepEquals(expected, JToken.Parse(JsonFormatter.Stringify(wrapper)!)));
+        }
+
         [Fact(DisplayName = Prefix + nameof(StructsAreSentAsPlainData))]
         public void StructsAreSentAsPlainData()
         {
