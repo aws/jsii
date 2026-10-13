@@ -1,9 +1,15 @@
 import { mkdirSync, rmSync } from 'fs';
 import * as tar from 'tar';
 
-import { DiskCache } from '../disk-cache';
+import {
+  digestFile,
+  DiskCache,
+  InsecureDirectoryError,
+  LockTimeoutError,
+  readFileChunks,
+} from '../disk-cache';
 import { link } from '../link';
-import { defaultCacheRoot } from './default-cache-root';
+import { defaultCacheRoot, fallbackCacheRoot } from './default-cache-root';
 
 export type ExtractOptions = Omit<
   tar.TarOptionsWithAliasesAsyncNoFile,
@@ -56,6 +62,59 @@ export function extract(
 }
 
 /**
+ * Cache roots that were found to be unusable, so the warning is only emitted
+ * once per root.
+ */
+const unusableCacheRoots = new Set<string>();
+
+/**
+ * Opens the package cache, or returns `undefined` if it cannot be used.
+ *
+ * A root that is explicitly configured with `JSII_RUNTIME_PACKAGE_CACHE_ROOT`
+ * is never rejected: the environment is trusted, and the user may intend to
+ * share the cache. It is still created with private permissions if it does
+ * not exist.
+ *
+ * Otherwise, the default cache root is used, or the fallback cache root if the
+ * user has no home directory. Either must be private to the current user. If
+ * the default root is not, the fallback root is used instead. If neither is,
+ * packages are extracted without caching.
+ */
+function openCache(): DiskCache | undefined {
+  // An empty value is treated as unset (it would otherwise resolve to the
+  // current working directory).
+  const configuredRoot = process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
+  if (configuredRoot != null && configuredRoot !== '') {
+    return DiskCache.inDirectory(configuredRoot, { verifyPrivate: false });
+  }
+
+  const candidates = [defaultCacheRoot(), fallbackCacheRoot()].filter(
+    (root): root is string => root != null && !unusableCacheRoots.has(root),
+  );
+  for (const [index, cacheRoot] of candidates.entries()) {
+    try {
+      return DiskCache.inDirectory(cacheRoot, { verifyPrivate: true });
+    } catch (error: any) {
+      if (!(error instanceof InsecureDirectoryError)) {
+        throw error;
+      }
+      unusableCacheRoots.add(cacheRoot);
+      const next = candidates[index + 1];
+      console.error(
+        `[@jsii/kernel] WARNING: not using the package cache in ${cacheRoot}, because ${error.message}. ` +
+          `Other users could modify the cached packages. ${
+            next != null
+              ? `Using ${next} instead. `
+              : 'Packages are extracted without caching instead, which is slower. '
+          }Make sure the directory and all of its parents are owned by you (or root) and are not ` +
+          `writable by group or others, or set JSII_RUNTIME_PACKAGE_CACHE_ROOT to another directory.`,
+      );
+    }
+  }
+  return undefined;
+}
+
+/**
  * Extract the tarball into a cached directory, symlink that directory into the target location
  */
 function extractViaCache(
@@ -63,23 +122,74 @@ function extractViaCache(
   outDir: string,
   options: ExtractOptions = {},
   ...comments: readonly string[]
-): { cache: 'hit' | 'miss' } {
-  const cacheRoot =
-    process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT ?? defaultCacheRoot();
-  const dirCache = DiskCache.inDirectory(cacheRoot);
+): { cache?: 'hit' | 'miss' } {
+  const dirCache = openCache();
+  if (dirCache == null) {
+    return extractToOutDir(file, outDir, options);
+  }
 
-  const entry = dirCache.entryFor(file, ...comments);
-  const { path, cache } = entry.retrieve((path) => {
-    untarInto({
-      ...options,
-      cwd: path,
-      file,
+  const expectedDigest = digestFile(file, ...comments);
+  const entry = dirCache.entry(...comments, expectedDigest.toString('hex'));
+  let retrieved: { path: string; cache: 'hit' | 'miss' };
+  try {
+    retrieved = entry.retrieve((path) => {
+      const actualDigest = untarVerified(
+        { ...options, cwd: path, file },
+        comments,
+      );
+      if (!actualDigest.equals(expectedDigest)) {
+        throw new Error(
+          `${file} was modified while it was being extracted into the package cache`,
+        );
+      }
     });
-  });
+  } catch (error) {
+    if (!(error instanceof LockTimeoutError)) {
+      throw error;
+    }
+    // Another process has been populating this entry for a long time. Don't
+    // fail the load because of the cache, extract without it instead.
+    return extractToOutDir(file, outDir, options);
+  }
 
-  link(path, outDir);
+  link(retrieved.path, outDir);
 
-  return { cache };
+  return { cache: retrieved.cache };
+}
+
+/**
+ * Extracts the tarball, reading it only once, and returns the digest of the
+ * bytes that were actually extracted.
+ */
+function untarVerified(
+  options: tar.TarOptionsWithAliasesAsync & { cwd: string; file: string },
+  comments: readonly string[],
+): Buffer {
+  const { file, ...unpackOptions } = options;
+  try {
+    let unpackError: Error | undefined;
+    const unpack = new tar.UnpackSync(unpackOptions);
+    unpack.on('error', (error: Error) => (unpackError ??= error));
+
+    const digest = readFileChunks(
+      file,
+      (chunk) => {
+        unpack.write(chunk);
+        if (unpackError != null) {
+          throw unpackError;
+        }
+      },
+      ...comments,
+    );
+    unpack.end();
+    if (unpackError != null) {
+      throw unpackError;
+    }
+    return digest;
+  } catch (error) {
+    rmSync(options.cwd, { force: true, recursive: true });
+    throw error;
+  }
 }
 
 /**

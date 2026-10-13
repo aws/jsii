@@ -1,13 +1,16 @@
 import {
   copyFileSync,
   linkSync,
+  lstatSync,
   mkdirSync,
   readdirSync,
+  readlinkSync,
+  realpathSync,
   statSync,
   symlinkSync,
 } from 'fs';
 import * as os from 'os';
-import { dirname, join } from 'path';
+import { dirname, isAbsolute, join, relative } from 'path';
 
 /**
  * If `node` is started with `--preserve-symlinks`, the module loaded will
@@ -45,10 +48,34 @@ export function link(existingRoot: string, destinationRoot: string): void {
     }
   }
   // Fall back to the slow method
+  const realRoot = realpathSync(existingRoot);
   recurse(existingRoot, destinationRoot);
 
   function recurse(existing: string, destination: string): void {
-    const stat = statSync(existing);
+    // Never follow symbolic links found inside the tree: recreate them as-is
+    // instead, so the copy cannot read from (or reach) outside `existingRoot`.
+    const stat =
+      existing === existingRoot ? statSync(existing) : lstatSync(existing);
+    if (stat.isSymbolicLink()) {
+      try {
+        symlinkSync(readlinkSync(existing), destination);
+      } catch (e: any) {
+        if (e.code !== 'EPERM') {
+          throw e;
+        }
+        // Not allowed to create symlinks (Windows, non-Admin). Copy the target
+        // instead, but only if it resolves inside the tree being linked.
+        const target = realpathSync(existing);
+        const rel = relative(realRoot, target);
+        if (rel === '' || rel.startsWith('..') || isAbsolute(rel)) {
+          throw new Error(
+            `Refusing to copy ${existing}, a symbolic link pointing outside of ${existingRoot}`,
+          );
+        }
+        recurse(target, destination);
+      }
+      return;
+    }
     if (!stat.isDirectory()) {
       try {
         linkSync(existing, destination);
