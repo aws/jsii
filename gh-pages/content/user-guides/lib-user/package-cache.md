@@ -19,18 +19,21 @@ By default, the cache is stored in a directory that belongs to the current user:
 | Linux, others | `~/.cache/aws/jsii/package-cache`                   |
 | Windows       | `%LOCALAPPDATA%\AWS\jsii\package-cache`             |
 
-The cache contains code that is loaded and run by your applications, so it should be private to the current user.
-Directories created by the jsii runtime are only accessible by the current user. Before it uses a directory, the jsii
-runtime also checks, on a best-effort basis, that other users cannot modify it: the directory must be owned by the
-current user and not writable by group or others, and every parent directory must be owned by the current user or by
-`root`, and either not writable by group or others, or have the sticky bit set (like `/tmp`). These checks look at
-ownership and permission bits only. They do not take access control lists into account, and are skipped on Windows,
-where the default locations are private to the user.
+If the current user has no home directory, the cache is stored in a per-user directory in the system's temporary
+directory instead (`aws-jsii-package-cache-<uid>` in `os.tmpdir()`).
 
-If the current user has no home directory, or the default location does not pass these checks, the jsii runtime uses
-a per-user directory in the system's temporary directory instead (`aws-jsii-package-cache-<uid>` in `os.tmpdir()`),
-subject to the same checks. If that directory does not pass the checks either, packages are extracted without caching,
-which is slower. In both cases, the jsii runtime prints a warning naming the directory and the reason.
+The cache contains code that is loaded and run by your applications, so it should be private to the current user.
+Directories created by the jsii runtime are only accessible by the current user. Before it uses the default location,
+the jsii runtime also checks, on a best-effort basis, that other users cannot modify it: the directory must be
+owned by the current user and not writable by group or others, and every parent directory must be owned by the current
+user or by `root`, and either not writable by group or others, or have the sticky bit set (like `/tmp`). These checks
+look at ownership and permission bits only. They do not take access control lists into account, and are skipped on
+Windows, where the default locations are private to the user.
+
+If the cache cannot be used, because the default location does not pass these checks, or the cache directory cannot be
+created or written to, loading a *jsii module* fails with an error that names the directory and the reason. Fix the
+directory, choose another one with `JSII_RUNTIME_PACKAGE_CACHE_ROOT`, or turn off the cache with
+`JSII_RUNTIME_PACKAGE_CACHE=disabled`.
 
 ## Configuration
 

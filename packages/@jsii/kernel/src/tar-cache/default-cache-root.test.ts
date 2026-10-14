@@ -1,6 +1,7 @@
 import * as os from 'os';
+import { join } from 'path';
 
-import { defaultCacheRoot, fallbackCacheRoot } from './default-cache-root';
+import { defaultCacheRoot } from './default-cache-root';
 
 const mockHomedir = jest.fn<string, []>();
 jest.mock('os', () => ({
@@ -45,16 +46,16 @@ test.each([
 ] as const)('is under the home directory on %s', (platform, expected) => {
   mockPlatform(platform);
   mockHome('/Users/jsii');
-  expect(defaultCacheRoot()?.split(/[\\/]/).join('/')).toBe(expected);
+  expect(defaultCacheRoot().split(/[\\/]/).join('/')).toBe(expected);
 });
 
 test.each(['darwin', 'linux', 'freebsd'] as const)(
-  'is undefined on %s without a usable home directory',
+  'is a per-user directory in tmpdir() on %s without a usable home directory',
   (platform) => {
     mockPlatform(platform);
     for (const home of ['', 'relative/home', new Error('ENOENT')]) {
       mockHome(home);
-      expect(defaultCacheRoot()).toBeUndefined();
+      expect(defaultCacheRoot()).toBe(tmpdirRoot());
     }
   },
 );
@@ -67,7 +68,7 @@ describe('win32', () => {
     expect(defaultCacheRoot()).toContain(os.tmpdir());
   });
 
-  test('falls back to the home directory without LOCALAPPDATA', () => {
+  test('uses the home directory without LOCALAPPDATA', () => {
     for (const value of [undefined, '', 'relative']) {
       if (value == null) {
         delete process.env.LOCALAPPDATA;
@@ -75,44 +76,33 @@ describe('win32', () => {
         process.env.LOCALAPPDATA = value;
       }
       mockHome('/Users/jsii');
-      expect(defaultCacheRoot()?.split(/[\\/]/).join('/')).toBe(
+      expect(defaultCacheRoot().split(/[\\/]/).join('/')).toBe(
         '/Users/jsii/AppData/Local/AWS/jsii/package-cache',
       );
     }
   });
 
-  test('is undefined without LOCALAPPDATA and home directory', () => {
+  test('uses tmpdir() without LOCALAPPDATA and home directory', () => {
     delete process.env.LOCALAPPDATA;
     mockHome('');
-    expect(defaultCacheRoot()).toBeUndefined();
+    expect(defaultCacheRoot()).toBe(tmpdirRoot());
   });
 });
 
-test('is never under tmpdir()', () => {
-  for (const platform of ['darwin', 'linux', 'win32', 'aix'] as const) {
-    mockPlatform(platform);
-    delete process.env.LOCALAPPDATA;
-    mockHome('');
-    expect(defaultCacheRoot()).toBeUndefined();
+test('the tmpdir() location is not the shared directory older versions used', () => {
+  if (process.getuid?.() == null) {
+    return;
   }
+  mockHome('');
+  expect(defaultCacheRoot()).not.toBe(
+    join(os.tmpdir(), 'aws-jsii-package-cache'),
+  );
 });
 
-describe(fallbackCacheRoot, () => {
-  test('is a per-user directory under tmpdir()', () => {
-    const root = fallbackCacheRoot();
-    expect(root.startsWith(os.tmpdir())).toBe(true);
-    const uid = process.getuid?.();
-    if (uid != null) {
-      expect(root).toMatch(new RegExp(`aws-jsii-package-cache-${uid}$`));
-    }
-  });
-
-  test('is not the shared directory older versions used', () => {
-    if (process.getuid?.() == null) {
-      return;
-    }
-    expect(fallbackCacheRoot()).not.toBe(
-      `${os.tmpdir()}/aws-jsii-package-cache`,
-    );
-  });
-});
+function tmpdirRoot(): string {
+  const uid = process.getuid?.();
+  return join(
+    os.tmpdir(),
+    uid != null ? `aws-jsii-package-cache-${uid}` : 'aws-jsii-package-cache',
+  );
+}

@@ -18,12 +18,13 @@ import { join } from 'path';
 import { DiskCache } from './disk-cache';
 import { acquireLock, LockTimeoutError } from './lock-file';
 import {
-  ensurePrivateDirectory,
+  createPrivateDirectory,
   InsecureDirectoryError,
+  verifyExistingDirectoryIsPrivate,
 } from './private-directory';
 
 const posixOnly = process.platform === 'win32' ? test.skip : test;
-const PRIVATE = { verifyPrivate: true } as const;
+const PRIVATE = { verifyExistingIsPrivate: true } as const;
 
 let scratch: string;
 beforeEach(() => {
@@ -33,45 +34,67 @@ afterEach(() => {
   rmSync(scratch, { force: true, recursive: true });
 });
 
-describe(ensurePrivateDirectory, () => {
+describe(createPrivateDirectory, () => {
   posixOnly('creates missing directories with mode 0700', () => {
     const path = join(scratch, 'a', 'b', 'c');
-    const result = ensurePrivateDirectory(path);
+    const result = createPrivateDirectory(path);
     expect(result).toEqual({ path, created: true });
     for (const dir of ['a', 'a/b', 'a/b/c']) {
       expect(lstatSync(join(scratch, dir)).mode & 0o777).toBe(0o700);
     }
   });
 
+  posixOnly('leaves an existing directory untouched', () => {
+    const path = join(scratch, 'existing');
+    mkdirSync(path);
+    chmodSync(path, 0o755);
+    expect(createPrivateDirectory(path)).toEqual({ path, created: false });
+    expect(lstatSync(path).mode & 0o777).toBe(0o755);
+  });
+
+  posixOnly('returns the target of a symbolic link', () => {
+    const target = join(scratch, 'target');
+    mkdirSync(target);
+    symlinkSync(target, join(scratch, 'link'));
+    expect(createPrivateDirectory(join(scratch, 'link')).path).toBe(target);
+  });
+});
+
+describe(verifyExistingDirectoryIsPrivate, () => {
   test('accepts an existing private directory', () => {
     const path = join(scratch, 'existing');
     mkdirSync(path, { mode: 0o700 });
-    expect(ensurePrivateDirectory(path)).toEqual({ path, created: false });
+    expect(() => verifyExistingDirectoryIsPrivate(path)).not.toThrow();
   });
 
   posixOnly('rejects a group- or world-writable directory', () => {
     const path = join(scratch, 'shared');
     mkdirSync(path);
     chmodSync(path, 0o777);
-    expect(() => ensurePrivateDirectory(path)).toThrow(InsecureDirectoryError);
+    expect(() => verifyExistingDirectoryIsPrivate(path)).toThrow(
+      InsecureDirectoryError,
+    );
     chmodSync(path, 0o770);
-    expect(() => ensurePrivateDirectory(path)).toThrow(/writable by group/);
+    expect(() => verifyExistingDirectoryIsPrivate(path)).toThrow(
+      /writable by group/,
+    );
   });
 
   posixOnly('rejects a directory under a non-sticky writable parent', () => {
     const parent = join(scratch, 'parent');
     mkdirSync(join(parent, 'child'), { recursive: true, mode: 0o700 });
     chmodSync(parent, 0o777);
-    expect(() => ensurePrivateDirectory(join(parent, 'child'))).toThrow(
-      /ancestor directory .*parent/,
-    );
+    expect(() =>
+      verifyExistingDirectoryIsPrivate(join(parent, 'child')),
+    ).toThrow(/parent directory .*parent/);
   });
 
   posixOnly('accepts a directory under a sticky writable parent', () => {
     const parent = join(scratch, 'sticky');
     mkdirSync(parent);
     chmodSync(parent, 0o1777);
-    expect(ensurePrivateDirectory(join(parent, 'child')).created).toBe(true);
+    const { path } = createPrivateDirectory(join(parent, 'child'));
+    expect(() => verifyExistingDirectoryIsPrivate(path)).not.toThrow();
   });
 
   posixOnly('rejects a directory owned by another user', () => {
@@ -79,37 +102,36 @@ describe(ensurePrivateDirectory, () => {
     if (process.getuid?.() === 0) {
       return;
     }
-    expect(() => ensurePrivateDirectory('/')).toThrow(/is owned by uid 0/);
-  });
-
-  posixOnly('checks the target of a symbolic link, and returns it', () => {
-    const target = join(scratch, 'target');
-    mkdirSync(target, { mode: 0o700 });
-    const link = join(scratch, 'link');
-    symlinkSync(target, link);
-
-    expect(ensurePrivateDirectory(link).path).toBe(target);
-
-    chmodSync(target, 0o777);
-    expect(() => ensurePrivateDirectory(link)).toThrow(
-      new RegExp(`^${target} is writable`),
+    expect(() => verifyExistingDirectoryIsPrivate('/')).toThrow(
+      /is owned by uid 0/,
     );
   });
 
-  posixOnly('checks the ancestors of the symbolic link target', () => {
+  posixOnly('checks the parents of a symbolic link target', () => {
     const shared = join(scratch, 'shared');
     mkdirSync(join(shared, 'target'), { recursive: true, mode: 0o700 });
     chmodSync(shared, 0o777);
-    const link = join(scratch, 'link');
-    symlinkSync(join(shared, 'target'), link);
+    symlinkSync(join(shared, 'target'), join(scratch, 'link'));
 
-    expect(() => ensurePrivateDirectory(link)).toThrow(/ancestor directory/);
+    const { path } = createPrivateDirectory(join(scratch, 'link'));
+    expect(() => verifyExistingDirectoryIsPrivate(path)).toThrow(
+      /parent directory/,
+    );
   });
 
-  posixOnly('rejects a symbolic link to a file', () => {
+  posixOnly('rejects a symbolic link', () => {
+    mkdirSync(join(scratch, 'target'), { mode: 0o700 });
+    symlinkSync(join(scratch, 'target'), join(scratch, 'link'));
+    expect(() =>
+      verifyExistingDirectoryIsPrivate(join(scratch, 'link')),
+    ).toThrow(/is not a directory/);
+  });
+
+  posixOnly('rejects a file', () => {
     writeFileSync(join(scratch, 'file'), '');
-    symlinkSync(join(scratch, 'file'), join(scratch, 'link'));
-    expect(() => ensurePrivateDirectory(join(scratch, 'link'))).toThrow();
+    expect(() =>
+      verifyExistingDirectoryIsPrivate(join(scratch, 'file')),
+    ).toThrow(/is not a directory/);
   });
 });
 
@@ -246,13 +268,13 @@ describe(DiskCache, () => {
     mkdirSync(root);
     chmodSync(root, 0o777);
     expect(() =>
-      DiskCache.inDirectory(root, { verifyPrivate: false }),
+      DiskCache.inDirectory(root, { verifyExistingIsPrivate: false }),
     ).not.toThrow();
   });
 
   posixOnly('creates a private root when verification is off', () => {
     const root = join(scratch, 'new', 'root');
-    DiskCache.inDirectory(root, { verifyPrivate: false });
+    DiskCache.inDirectory(root, { verifyExistingIsPrivate: false });
     expect(lstatSync(join(scratch, 'new')).mode & 0o777).toBe(0o700);
     expect(lstatSync(root).mode & 0o777).toBe(0o700);
   });

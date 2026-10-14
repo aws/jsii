@@ -2,15 +2,17 @@ import { homedir, tmpdir } from 'os';
 import { isAbsolute, join } from 'path';
 
 /**
- * Determines the default location of the package cache.
+ * The default package cache location: in the user's cache directory, or a
+ * per-user directory in `os.tmpdir()` if there is no usable home directory.
  *
- * The location is derived from the current user's own directories.
- *
- * @returns the default package cache root, or `undefined` if the current user
- *          has no usable home directory. In that case, use
- *          {@link fallbackCacheRoot} instead.
+ * Callers must verify the location is private (`os.tmpdir()` may be shared).
  */
-export function defaultCacheRoot(): string | undefined {
+export function defaultCacheRoot(): string {
+  return userCacheRoot() ?? tmpdirCacheRoot();
+}
+
+/** In the user's cache directory, or `undefined` without a home directory. */
+function userCacheRoot(): string | undefined {
   if (process.platform === 'win32') {
     const localAppData =
       nonEmptyAbsolute(process.env.LOCALAPPDATA) ??
@@ -30,20 +32,10 @@ export function defaultCacheRoot(): string | undefined {
   );
 }
 
-/**
- * Determines the location of the package cache to use when the default one is
- * not available or not private to the current user.
- *
- * This is a per-user directory under `os.tmpdir()`. Because `os.tmpdir()` may
- * be shared with other users (e.g: `/tmp`), the caller MUST verify that the
- * directory is private to the current user before using it: another user
- * could have created it first.
- */
-export function fallbackCacheRoot(): string {
-  // The user ID is part of the name so that users sharing a temporary
-  // directory do not collide. Windows has no UIDs, but its temporary directory
-  // is normally per-user already.
+/** In `os.tmpdir()`, named by UID so users sharing it don't collide. */
+function tmpdirCacheRoot(): string {
   const uid = process.getuid?.();
+  // Windows has no UIDs, but its tmpdir is per-user.
   return join(
     tmpdir(),
     uid != null ? `aws-jsii-package-cache-${uid}` : 'aws-jsii-package-cache',
@@ -51,19 +43,14 @@ export function fallbackCacheRoot(): string {
 }
 
 /**
- * Calls `cb` with the current user's home directory, if one can be determined.
- *
- * `os.homedir()` uses `HOME` (or `USERPROFILE` on Windows) when it is set, and
- * otherwise falls back to the current user's entry in the password database.
+ * The user's home directory, if usable. `os.homedir()` uses `HOME` (or
+ * `USERPROFILE`), else the password database, and throws if neither exists.
  */
 function withHome(cb: (home: string) => string): string | undefined {
   let home: string | undefined;
   try {
     home = nonEmptyAbsolute(homedir());
   } catch {
-    // The current user has no home directory (e.g: no password database
-    // entry). We never fall back to the current working directory; the
-    // caller uses `fallbackCacheRoot()` instead.
     home = undefined;
   }
   return home && cb(home);

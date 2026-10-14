@@ -19,43 +19,38 @@ export class InsecureDirectoryError extends Error {
 }
 
 /**
- * Creates `path` (if needed) so that it is private to the current user, and
- * verifies that no other user can modify its contents.
+ * Creates `path` and any missing parents with mode `0700`. Existing
+ * directories are left untouched.
  *
- * On POSIX platforms, this requires that:
- * - `path` is a directory owned by the current user, and is not writable by
- *   group or others;
- * - every ancestor of `path` is owned by the current user or by `root`, and is
- *   either not writable by group or others, or has the sticky bit set (like
- *   `/tmp`). Otherwise another user could rename `path` and put a different
- *   directory in its place.
- *
- * Symbolic links are resolved first, and the checks apply to the resolved
- * location. Callers must use the returned path from then on: it contains no
- * symbolic links, so replacing a link in the original path later has no
- * effect. Directories that may be swapped for a link (anything another user
- * can write to) are rejected by the checks above.
- *
- * On Windows, directories are created with the default (inherited) ACL, and no
- * ownership checks are performed.
- *
- * @returns the real path of the directory.
- *
- * @throws InsecureDirectoryError if the directory is not private to the current
- *         user.
+ * @returns the real path, and whether `path` itself was created.
  */
-export function ensurePrivateDirectory(path: string): {
+export function createPrivateDirectory(path: string): {
   readonly path: string;
   readonly created: boolean;
 } {
-  // `mode` applies to every directory this creates, but not to existing ones.
   const created = mkdirSync(path, { recursive: true, mode: 0o700 }) != null;
-  const realPath = realpathSync(path);
+  return { path: realpathSync(path), created };
+}
 
+/**
+ * Verifies (best effort) that other users cannot modify the existing directory
+ * at `realPath`. Needed even after {@link createPrivateDirectory}, as the
+ * directory or its parents may already have existed.
+ *
+ * On POSIX, `realPath` must be a directory owned by the current user and not
+ * writable by group or others. Every parent must be owned by the current user
+ * or root, and not writable by group or others unless sticky (like `/tmp`).
+ * ACLs are not considered. Windows is not checked.
+ *
+ * @param realPath a path without symbolic links, which callers must keep using.
+ *
+ * @throws InsecureDirectoryError if other users may modify the directory.
+ */
+export function verifyExistingDirectoryIsPrivate(realPath: string): void {
   const uid = process.getuid?.();
   if (uid == null) {
     // Windows does not have POSIX ownership or permission bits.
-    return { path: realPath, created };
+    return;
   }
 
   const stat = lstatSync(realPath);
@@ -75,38 +70,36 @@ export function ensurePrivateDirectory(path: string): {
     );
   }
 
-  for (let ancestor = dirname(realPath); ; ancestor = dirname(ancestor)) {
-    const ancestorStat = lstatSync(ancestor);
-    if (ancestorStat.isSymbolicLink()) {
+  for (let parent = dirname(realPath); ; parent = dirname(parent)) {
+    const parentStat = lstatSync(parent);
+    if (parentStat.isSymbolicLink()) {
       // `realPath` has no symbolic links, so the path was changed concurrently.
       throw new InsecureDirectoryError(
         realPath,
-        `has an ancestor directory ${ancestor} that was replaced with a symbolic link`,
+        `has a parent directory ${parent} that was replaced with a symbolic link`,
       );
     }
-    if (ancestorStat.uid !== uid && ancestorStat.uid !== 0) {
+    if (parentStat.uid !== uid && parentStat.uid !== 0) {
       throw new InsecureDirectoryError(
         realPath,
-        `has an ancestor directory ${ancestor} that is owned by uid ${ancestorStat.uid}, which is neither the current user (uid ${uid}) nor root`,
+        `has a parent directory ${parent} that is owned by uid ${parentStat.uid}, which is neither the current user (uid ${uid}) nor root`,
       );
     }
     if (
-      (ancestorStat.mode & GROUP_OR_OTHER_WRITABLE) !== 0 &&
-      (ancestorStat.mode & STICKY_BIT) === 0
+      (parentStat.mode & GROUP_OR_OTHER_WRITABLE) !== 0 &&
+      (parentStat.mode & STICKY_BIT) === 0
     ) {
       throw new InsecureDirectoryError(
         realPath,
-        `has an ancestor directory ${ancestor} that is writable by group or others (mode ${formatMode(ancestorStat)})`,
+        `has a parent directory ${parent} that is writable by group or others (mode ${formatMode(parentStat)})`,
       );
     }
 
-    if (dirname(ancestor) === ancestor) {
+    if (dirname(parent) === parent) {
       // Reached the file system root
       break;
     }
   }
-
-  return { path: realPath, created };
 }
 
 function formatMode(stat: Stats): string {

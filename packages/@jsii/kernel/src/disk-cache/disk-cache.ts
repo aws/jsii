@@ -5,16 +5,17 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
-  realpathSync,
   rmdirSync,
   rmSync,
   writeFileSync,
 } from 'fs';
 import { dirname, join } from 'path';
 
-import { digestFile } from './digest-file';
 import { acquireLock } from './lock-file';
-import { ensurePrivateDirectory } from './private-directory';
+import {
+  createPrivateDirectory,
+  verifyExistingDirectoryIsPrivate,
+} from './private-directory';
 
 const MARKER_FILE_NAME = '.jsii-runtime-package-cache';
 
@@ -34,23 +35,22 @@ export class DiskCache {
   static readonly #CACHE = new Map<string, DiskCache>();
 
   /**
-   * Opens the cache in the provided directory.
+   * Opens the cache in `path`, creating it with mode `0700` if missing.
    *
-   * @param options.verifyPrivate when `true`, it is verified that no other
-   *        user can modify the directory's contents. When `false`, an existing
-   *        directory is used as-is. Either way, directories that are created
-   *        are private to the current user (mode `0700`).
+   * @param options.verifyExistingIsPrivate verify that other users cannot
+   *        modify the directory. Otherwise, an existing directory is used as-is.
    *
-   * @throws InsecureDirectoryError if `verifyPrivate` is `true` and the
-   *         directory is not private to the current user.
+   * @throws InsecureDirectoryError if verification fails.
    */
   public static inDirectory(
     path: string,
-    { verifyPrivate }: { readonly verifyPrivate: boolean },
+    { verifyExistingIsPrivate }: { readonly verifyExistingIsPrivate: boolean },
   ): DiskCache {
-    const { path: realPath, created } = verifyPrivate
-      ? ensurePrivateDirectory(path)
-      : createOrAcceptExistingDirectory(path);
+    const { path: realPath, created } = createPrivateDirectory(path);
+    if (verifyExistingIsPrivate) {
+      verifyExistingDirectoryIsPrivate(realPath);
+    }
+
     if (created && process.platform === 'darwin') {
       // Mark the directories for no iCloud sync, no Spotlight indexing, no TimeMachine backup
       // @see https://michaelbach.de/2019/03/19/MacOS-nosync-noindex-nobackup.html
@@ -95,11 +95,6 @@ export class DiskCache {
         ),
       ),
     );
-  }
-
-  public entryFor(path: string, ...comments: readonly string[]): Entry {
-    const rawDigest = digestFile(path, ...comments);
-    return this.entry(...comments, rawDigest.toString('hex'));
   }
 
   public pruneExpiredEntries() {
@@ -338,20 +333,6 @@ export interface LockedEntry {
    * The modification time of this file is used for cleanup.
    */
   markComplete(): void;
-}
-
-/**
- * Creates `path` (if needed), without checking an existing directory.
- * Directories that are created are private to the current user (mode `0700`).
- *
- * @returns the real path of the directory.
- */
-function createOrAcceptExistingDirectory(path: string): {
-  readonly path: string;
-  readonly created: boolean;
-} {
-  const created = mkdirSync(path, { recursive: true, mode: 0o700 }) != null;
-  return { path: realpathSync(path), created };
 }
 
 /**

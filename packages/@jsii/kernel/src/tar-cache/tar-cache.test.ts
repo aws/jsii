@@ -19,13 +19,16 @@ import * as tar from 'tar';
 import * as diskCache from '../disk-cache';
 import { link } from '../link';
 
-import { extract, getPackageCacheEnabled, setPackageCacheEnabled } from '.';
+import {
+  extract,
+  getPackageCacheEnabled,
+  PackageCacheError,
+  setPackageCacheEnabled,
+} from '.';
 
-const mockDefaultCacheRoot = jest.fn<string | undefined, []>();
-const mockFallbackCacheRoot = jest.fn<string, []>();
+const mockDefaultCacheRoot = jest.fn<string, []>();
 jest.mock('./default-cache-root', () => ({
   defaultCacheRoot: () => mockDefaultCacheRoot(),
-  fallbackCacheRoot: () => mockFallbackCacheRoot(),
 }));
 
 const posixOnly = process.platform === 'win32' ? test.skip : test;
@@ -39,8 +42,6 @@ beforeEach(() => {
   scratch = realpathSync(mkdtempSync(join(tmpdir(), 'jsii-tar-cache-test-')));
   mockDefaultCacheRoot.mockReset();
   mockDefaultCacheRoot.mockReturnValue(join(scratch, 'default-root'));
-  mockFallbackCacheRoot.mockReset();
-  mockFallbackCacheRoot.mockReturnValue(join(scratch, 'fallback-root'));
   mkdirSync(join(scratch, 'src', 'package'), { recursive: true });
   writeFileSync(join(scratch, 'src', 'package', 'index.js'), 'hello');
   tarball = join(scratch, 'package.tgz');
@@ -78,77 +79,84 @@ test('extracts via a private cache root', () => {
   });
 });
 
-posixOnly(
-  'uses the fallback root if the default root is writable by others',
-  () => {
-    const root = join(scratch, 'shared-cache');
-    mkdirSync(root);
-    chmodSync(root, 0o777);
-    delete process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
-    mockDefaultCacheRoot.mockReturnValue(root);
-
-    const consoleError = jest
-      .spyOn(console, 'error')
-      .mockImplementation(() => undefined);
-    try {
-      const outDir = join(scratch, 'out');
-      expect(extract(tarball, outDir, { strip: 1 }, 'pkg', '1.0.0')).toEqual({
-        cache: 'miss',
-      });
-      expect(readFileSync(join(outDir, 'index.js'), 'utf-8')).toBe('hello');
-      expect(consoleError).toHaveBeenCalledWith(
-        expect.stringMatching(
-          /not using the package cache in .*shared-cache.*writable by group or others.*Using .*fallback-root instead/,
-        ),
-      );
-      // Nothing was written into the insecure root
-      expect(readdirSync(root)).toEqual([]);
-      expect(existsSync(join(scratch, 'fallback-root', 'pkg'))).toBe(true);
-      expect(lstatSync(join(scratch, 'fallback-root')).mode & 0o777).toBe(
-        0o700,
-      );
-    } finally {
-      consoleError.mockRestore();
-    }
-  },
-);
-
-posixOnly('extracts without cache if no root is private', () => {
-  for (const name of ['shared-default', 'shared-fallback']) {
-    mkdirSync(join(scratch, name));
-    chmodSync(join(scratch, name), 0o777);
-  }
+posixOnly('fails if the default root is writable by others', () => {
+  const root = join(scratch, 'shared-cache');
+  mkdirSync(root);
+  chmodSync(root, 0o777);
   delete process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
-  mockDefaultCacheRoot.mockReturnValue(join(scratch, 'shared-default'));
-  mockFallbackCacheRoot.mockReturnValue(join(scratch, 'shared-fallback'));
+  mockDefaultCacheRoot.mockReturnValue(root);
 
-  const consoleError = jest
-    .spyOn(console, 'error')
-    .mockImplementation(() => undefined);
+  const outDir = join(scratch, 'out');
+  expect(() => extract(tarball, outDir, { strip: 1 }, 'pkg', '1.0.0')).toThrow(
+    PackageCacheError,
+  );
+  // Reported to the host as a kernel fault
+  expect(() => extract(tarball, outDir, { strip: 1 }, 'pkg', '1.0.0')).toThrow(
+    expect.objectContaining({ name: '@jsii/kernel.Fault' }),
+  );
+  expect(() => extract(tarball, outDir, { strip: 1 }, 'pkg', '1.0.0')).toThrow(
+    /Cannot use the jsii package cache in .*shared-cache: other users may be able to modify it.*writable by group or others.*JSII_RUNTIME_PACKAGE_CACHE_ROOT.*JSII_RUNTIME_PACKAGE_CACHE=disabled/,
+  );
+  // Nothing was written into the insecure root, or the output directory
+  expect(readdirSync(root)).toEqual([]);
+  expect(existsSync(outDir)).toBe(false);
+});
+
+posixOnly('fails if the default root cannot be created', () => {
+  const parent = join(scratch, 'read-only');
+  mkdirSync(parent);
+  chmodSync(parent, 0o500);
+  delete process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
+  mockDefaultCacheRoot.mockReturnValue(join(parent, 'cache'));
+
   try {
-    const outDir = join(scratch, 'out');
-    expect(extract(tarball, outDir, { strip: 1 }, 'pkg', '1.0.0')).toEqual({});
-    expect(readFileSync(join(outDir, 'index.js'), 'utf-8')).toBe('hello');
-    expect(lstatSync(outDir).isSymbolicLink()).toBe(false);
-    expect(consoleError).toHaveBeenLastCalledWith(
-      expect.stringMatching(/extracted without caching/),
-    );
-    expect(readdirSync(join(scratch, 'shared-default'))).toEqual([]);
-    expect(readdirSync(join(scratch, 'shared-fallback'))).toEqual([]);
+    let error: any;
+    try {
+      extract(tarball, join(scratch, 'out'), { strip: 1 }, 'pkg', '1.0.0');
+    } catch (e) {
+      error = e;
+    }
+    expect(error).toBeInstanceOf(PackageCacheError);
+    expect(error.message).toMatch(/read-only[\\/]cache: EACCES/);
+    expect(error.cause.code).toBe('EACCES');
   } finally {
-    consoleError.mockRestore();
+    chmodSync(parent, 0o700);
   }
 });
 
-test('uses the fallback root when there is no default cache root', () => {
+posixOnly('fails if the configured root cannot be created', () => {
+  writeFileSync(join(scratch, 'file'), '');
+  process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT = join(scratch, 'file', 'cache');
+  expect(() =>
+    extract(tarball, join(scratch, 'out'), { strip: 1 }, 'pkg', '1.0.0'),
+  ).toThrow(/Cannot use the jsii package cache in .*file[\\/]cache: ENOTDIR/);
+});
+
+test('does not wrap errors caused by the tarball', () => {
+  process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT = join(scratch, 'cache');
+  const corrupt = join(scratch, 'corrupt.tgz');
+  writeFileSync(corrupt, 'this is not a tarball');
+  let error: unknown;
+  try {
+    extract(corrupt, join(scratch, 'out'), { strict: true }, 'pkg', '1.0.0');
+  } catch (e) {
+    error = e;
+  }
+  expect(error).toBeDefined();
+  expect(error).not.toBeInstanceOf(PackageCacheError);
+});
+
+test('creates the default root in private mode', () => {
   delete process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
-  mockDefaultCacheRoot.mockReturnValue(undefined);
   const outDir = join(scratch, 'out');
   expect(extract(tarball, outDir, { strip: 1 }, 'pkg', '1.0.0')).toEqual({
     cache: 'miss',
   });
   expect(readFileSync(join(outDir, 'index.js'), 'utf-8')).toBe('hello');
-  expect(existsSync(join(scratch, 'fallback-root', 'pkg'))).toBe(true);
+  expect(existsSync(join(scratch, 'default-root', 'pkg'))).toBe(true);
+  if (process.platform !== 'win32') {
+    expect(lstatSync(join(scratch, 'default-root')).mode & 0o777).toBe(0o700);
+  }
 });
 
 posixOnly('uses an explicitly configured cache root as-is', () => {

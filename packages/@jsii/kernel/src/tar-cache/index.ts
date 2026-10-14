@@ -8,8 +8,9 @@ import {
   LockTimeoutError,
   readFileChunks,
 } from '../disk-cache';
+import { JsiiFault } from '../errors';
 import { link } from '../link';
-import { defaultCacheRoot, fallbackCacheRoot } from './default-cache-root';
+import { defaultCacheRoot } from './default-cache-root';
 
 export type ExtractOptions = Omit<
   tar.TarOptionsWithAliasesAsyncNoFile,
@@ -61,100 +62,119 @@ export function extract(
   }
 }
 
-/**
- * Cache roots that were found to be unusable, so the warning is only emitted
- * once per root.
- */
-const unusableCacheRoots = new Set<string>();
+/** The package cache cannot be used, because of its directory or state. */
+export class PackageCacheError extends JsiiFault {
+  public readonly cause: unknown;
+
+  public constructor(
+    public readonly cacheRoot: string,
+    reason: string,
+    cause?: unknown,
+  ) {
+    super(
+      `Cannot use the jsii package cache in ${cacheRoot}: ${reason}. ` +
+        'Fix the directory, set JSII_RUNTIME_PACKAGE_CACHE_ROOT to a different directory, ' +
+        'or disable the package cache with JSII_RUNTIME_PACKAGE_CACHE=disabled.',
+    );
+    this.cause = cause;
+  }
+}
+
+/** Wraps errors caused by the tarball, to re-throw them unchanged. */
+class ExtractionError extends Error {
+  public constructor(public readonly error: unknown) {
+    super(describe(error));
+    this.name = ExtractionError.name;
+  }
+}
 
 /**
- * Opens the package cache, or returns `undefined` if it cannot be used.
- *
- * A root that is explicitly configured with `JSII_RUNTIME_PACKAGE_CACHE_ROOT`
- * is never rejected: the environment is trusted, and the user may intend to
- * share the cache. It is still created with private permissions if it does
- * not exist.
- *
- * Otherwise, the default cache root is used, or the fallback cache root if the
- * user has no home directory. Either must be private to the current user. If
- * the default root is not, the fallback root is used instead. If neither is,
- * packages are extracted without caching.
+ * Opens the package cache. A configured `JSII_RUNTIME_PACKAGE_CACHE_ROOT` is
+ * used as-is; the default root must be private. Missing directories are
+ * created with mode `0700`.
  */
-function openCache(): DiskCache | undefined {
+function openCache(): { readonly cache: DiskCache; readonly root: string } {
   // An empty value is treated as unset (it would otherwise resolve to the
   // current working directory).
   const configuredRoot = process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
-  if (configuredRoot != null && configuredRoot !== '') {
-    return DiskCache.inDirectory(configuredRoot, { verifyPrivate: false });
-  }
+  const isConfigured = configuredRoot != null && configuredRoot !== '';
+  const root = isConfigured ? configuredRoot : defaultCacheRoot();
 
-  const candidates = [defaultCacheRoot(), fallbackCacheRoot()].filter(
-    (root): root is string => root != null && !unusableCacheRoots.has(root),
-  );
-  for (const [index, cacheRoot] of candidates.entries()) {
-    try {
-      return DiskCache.inDirectory(cacheRoot, { verifyPrivate: true });
-    } catch (error: any) {
-      if (!(error instanceof InsecureDirectoryError)) {
-        throw error;
-      }
-      unusableCacheRoots.add(cacheRoot);
-      const next = candidates[index + 1];
-      console.error(
-        `[@jsii/kernel] WARNING: not using the package cache in ${cacheRoot}, because ${error.message}. ` +
-          `Other users could modify the cached packages. ${
-            next != null
-              ? `Using ${next} instead. `
-              : 'Packages are extracted without caching instead, which is slower. '
-          }Make sure the directory and all of its parents are owned by you (or root) and are not ` +
-          `writable by group or others, or set JSII_RUNTIME_PACKAGE_CACHE_ROOT to another directory.`,
+  try {
+    const cache = DiskCache.inDirectory(root, {
+      verifyExistingIsPrivate: !isConfigured,
+    });
+    return { cache, root };
+  } catch (error) {
+    if (error instanceof InsecureDirectoryError) {
+      throw new PackageCacheError(
+        root,
+        `other users may be able to modify it, because ${error.message}. ` +
+          'Make sure the directory and all of its parents are owned by you (or root), ' +
+          'and are not writable by group or others',
+        error,
       );
     }
+    throw new PackageCacheError(root, describe(error), error);
   }
-  return undefined;
 }
 
 /**
  * Extract the tarball into a cached directory, symlink that directory into the target location
+ *
+ * @throws PackageCacheError if the cache cannot be used.
  */
 function extractViaCache(
   file: string,
   outDir: string,
   options: ExtractOptions = {},
   ...comments: readonly string[]
-): { cache?: 'hit' | 'miss' } {
-  const dirCache = openCache();
-  if (dirCache == null) {
-    return extractToOutDir(file, outDir, options);
-  }
+): { cache: 'hit' | 'miss' } {
+  const { cache: dirCache, root } = openCache();
 
   const expectedDigest = digestFile(file, ...comments);
   const entry = dirCache.entry(...comments, expectedDigest.toString('hex'));
+
   let retrieved: { path: string; cache: 'hit' | 'miss' };
   try {
     retrieved = entry.retrieve((path) => {
-      const actualDigest = untarVerified(
-        { ...options, cwd: path, file },
-        comments,
-      );
-      if (!actualDigest.equals(expectedDigest)) {
-        throw new Error(
-          `${file} was modified while it was being extracted into the package cache`,
+      try {
+        const actualDigest = untarVerified(
+          { ...options, cwd: path, file },
+          comments,
         );
+        if (!actualDigest.equals(expectedDigest)) {
+          throw new Error(
+            `${file} was modified while it was being extracted into the package cache`,
+          );
+        }
+      } catch (error) {
+        throw new ExtractionError(error);
       }
     });
   } catch (error) {
-    if (!(error instanceof LockTimeoutError)) {
-      throw error;
+    if (error instanceof ExtractionError) {
+      throw error.error;
     }
-    // Another process has been populating this entry for a long time. Don't
-    // fail the load because of the cache, extract without it instead.
-    return extractToOutDir(file, outDir, options);
+    if (error instanceof LockTimeoutError) {
+      throw new PackageCacheError(
+        root,
+        `timed out waiting for another process to release ${error.path}`,
+        error,
+      );
+    }
+    throw new PackageCacheError(root, describe(error), error);
   }
 
   link(retrieved.path, outDir);
 
   return { cache: retrieved.cache };
+}
+
+function describe(error: unknown): string {
+  // Not `instanceof Error`: errors may come from another realm (e.g: in tests).
+  const message = (error as { message?: unknown } | undefined)?.message;
+  return typeof message === 'string' ? message : String(error);
 }
 
 /**
