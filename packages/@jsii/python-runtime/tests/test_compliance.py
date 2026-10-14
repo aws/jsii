@@ -1019,6 +1019,19 @@ def test_interface_property_can_be_set():
     assert obj.was_set()
 
 
+def test_json_values_cross_the_boundary_unchanged():
+    json = {
+        "$jsii.date": "1970-01-01T00:00:00.000Z",
+        "nested": {"$jsii.enum": "jsii-calc.AllTypesEnum/MY_ENUM_VALUE"},
+        "list": [{"$jsii.map": {"key": "value"}}],
+    }
+
+    assert loads(cast(str, JsonFormatter.stringify(json))) == json
+    assert loads(cast(str, JsonFormatter.stringify({"payload": json}))) == {
+        "payload": json
+    }
+
+
 def test_structs_are_sent_as_plain_data():
     json = JsonFormatter.stringify(
         StructB(required_string="Bazinga!", optional_boolean=False)

@@ -8,10 +8,10 @@ Language bindings must pass every test case. A category is complete when a langu
 
 | Language | Tests passing       | Categories complete |
 | -------- | ------------------- | ------------------- |
-| python   | 100.00% (105 / 105) | 12 / 12             |
-| java     | 100.00% (105 / 105) | 12 / 12             |
-| dotnet   | 100.00% (105 / 105) | 12 / 12             |
-| golang   | 100.00% (105 / 105) | 12 / 12             |
+| python   | 100.00% (106 / 106) | 12 / 12             |
+| java     | 100.00% (106 / 106) | 12 / 12             |
+| dotnet   | 100.00% (106 / 106) | 12 / 12             |
+| golang   | 100.00% (106 / 106) | 12 / 12             |
 
 
 Status: 🟢 passing, 🔴 failing, ⭕ not implemented. Failing and not implemented tests both count as not passing.
@@ -24,6 +24,7 @@ Status: 🟢 passing, 🔴 failing, ⭕ not implemented. Failing and not impleme
 | [datesRoundTrip](compliance-suite/01-primitives.md#datesRoundTrip "Date values round-trip through typed and untyped properties")                                       | 🟢     | 🟢    | 🟢     | 🟢     |
 | [hostNullIsSentAsUndefined](compliance-suite/01-primitives.md#hostNullIsSentAsUndefined "An absent host value is transmitted as undefined")                            | 🟢     | 🟢    | 🟢     | 🟢     |
 | [isoDateStringsStayStrings](compliance-suite/01-primitives.md#isoDateStringsStayStrings "ISO-8601 strings are not interpreted as dates")                               | 🟢     | 🟢    | 🟢     | 🟢     |
+| [jsonValuesCrossTheBoundaryUnchanged](compliance-suite/01-primitives.md#jsonValuesCrossTheBoundaryUnchanged "JSON values cross the boundary unchanged")                | 🟢     | 🟢    | 🟢     | 🟢     |
 | [primitivePropertiesCanBeRead](compliance-suite/01-primitives.md#primitivePropertiesCanBeRead "Primitive properties of objects can be read")                           | 🟢     | 🟢    | 🟢     | 🟢     |
 | [primitivesRoundTrip](compliance-suite/01-primitives.md#primitivesRoundTrip "Primitive values round-trip with their declared type")                                    | 🟢     | 🟢    | 🟢     | 🟢     |
 | [undefinedOptionalListReadsAsAbsent](compliance-suite/01-primitives.md#undefinedOptionalListReadsAsAbsent "An undefined optional list reads as absent, not empty")     | 🟢     | 🟢    | 🟢     | 🟢     |

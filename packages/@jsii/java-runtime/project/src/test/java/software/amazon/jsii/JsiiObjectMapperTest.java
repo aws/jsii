@@ -9,10 +9,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,12 +77,87 @@ public final class JsiiObjectMapperTest {
   }
 
   @Test
+  public void testTreeToValueDoesNotWrapWireValues() throws Exception {
+    final JsonNode tree = new ObjectMapper().readTree("{\"key\":{\"nested\":[1,\"two\"]}}");
+
+    final Map<String, Object> result = JsiiObjectMapper.treeToValue(tree, NativeType.mapOf(NativeType.forClass(Object.class)));
+
+    assertEquals("{key={nested=[1, two]}}", result.toString());
+    // JsonNode-typed targets receive the tree as-is
+    assertSame(tree, JsiiObjectMapper.treeToValue(tree, NativeType.forClass(JsonNode.class)));
+  }
+
+  @Test
   public void testSerializationOfInstant() throws Exception {
     final Instant object = Instant.ofEpochMilli(1553691207095L);
 
     final String json = subject.writeValueAsString(object);
 
     assertEquals("{\"$jsii.date\":\"2019-03-27T12:53:27.095Z\"}", json);
+  }
+
+  @Test
+  public void testSerializationOfJsonNodeWrapsObjects() throws Exception {
+    final JsonNode node = new ObjectMapper().readTree(
+        "{\"$jsii.byref\":\"Foo@10001\",\"nested\":{\"$jsii.enum\":\"a.B/C\"},\"list\":[{\"$jsii.date\":\"x\"},1,null,\"s\"]}");
+
+    final String json = subject.writeValueAsString(node);
+
+    assertEquals(
+        "{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\",\"nested\":{\"$jsii.map\":{\"$jsii.enum\":\"a.B/C\"}},"
+            + "\"list\":[{\"$jsii.map\":{\"$jsii.date\":\"x\"}},1,null,\"s\"]}}",
+        json);
+  }
+
+  @Test
+  public void testSerializationOfJsonNodeNestedInNativeCollections() throws Exception {
+    final JsonNode node = new ObjectMapper().readTree("{\"$jsii.byref\":\"Foo@10001\"}");
+    final Map<String, Object> map = new LinkedHashMap<>();
+    map.put("payload", node);
+
+    assertEquals(
+        "{\"$jsii.map\":{\"payload\":{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\"}}}}",
+        subject.writeValueAsString(map));
+    assertEquals(
+        "[{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\"}}]",
+        subject.writeValueAsString(Collections.singletonList(node)));
+  }
+
+  @Test
+  public void testValueToTreeOfJsonNodeWrapsObjects() throws Exception {
+    final JsonNode node = new ObjectMapper().readTree("[{\"$jsii.byref\":\"Foo@10001\"}]");
+
+    final JsonNode tree = subject.valueToTree(node);
+
+    assertEquals("[{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\"}}]", tree.toString());
+  }
+
+  @Test
+  public void testSerializationOfJsonNodeScalars() throws Exception {
+    final ObjectMapper plain = new ObjectMapper();
+    for (final String scalar : new String[] { "1337", "13.37", "true", "null", "\"$jsii.byref\"" }) {
+      assertEquals(scalar, subject.writeValueAsString(plain.readTree(scalar)));
+    }
+  }
+
+  @Test
+  public void testSerializationOfJsiiSerializablesWithNestedJsonNode() throws Exception {
+    // Struct-like: the wire tree is written verbatim, while the user-provided JsonNode field value is wrapped.
+    final JsonNode userValue = new ObjectMapper().readTree("{\"$jsii.byref\":\"Foo@10001\"}");
+    final ObjectNode data = JsonNodeFactory.instance.objectNode();
+    data.set("field", subject.valueToTree(userValue));
+    final ObjectNode struct = JsonNodeFactory.instance.objectNode();
+    struct.put("fqn", "module.Struct");
+    struct.set("data", data);
+    final ObjectNode wire = JsonNodeFactory.instance.objectNode();
+    wire.set("$jsii.struct", struct);
+
+    final JsiiSerializable object = mock(JsiiSerializable.class);
+    when(object.$jsii$toJson()).thenReturn(wire);
+
+    assertEquals(
+        "{\"$jsii.struct\":{\"fqn\":\"module.Struct\",\"data\":{\"field\":{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\"}}}}}",
+        subject.writeValueAsString(object));
   }
 
   private static enum TestEnum {

@@ -730,6 +730,42 @@ func (suite *ComplianceSuite) TestStaticAsyncMethodsCanBeCalled() {
 	require.Equal(float64(42), *calc.StaticAsyncMethods_AddOne(jsii.Number(41)))
 }
 
+func (suite *ComplianceSuite) TestJsonValuesCrossTheBoundaryUnchanged() {
+	require := suite.Require()
+
+	// Go has no dedicated JSON tree type: JSON data is modeled using structs with json tags.
+	type listItem struct {
+		Map map[string]string `json:"$jsii.map"`
+	}
+	type nested struct {
+		Enum string `json:"$jsii.enum"`
+	}
+	type document struct {
+		Date   string     `json:"$jsii.date"`
+		Nested nested     `json:"nested"`
+		List   []listItem `json:"list"`
+	}
+
+	value := document{
+		Date:   "1970-01-01T00:00:00.000Z",
+		Nested: nested{Enum: "jsii-calc.AllTypesEnum/MY_ENUM_VALUE"},
+		List:   []listItem{{Map: map[string]string{"key": "value"}}},
+	}
+	expected := map[string]interface{}{
+		"$jsii.date": "1970-01-01T00:00:00.000Z",
+		"nested":     map[string]interface{}{"$jsii.enum": "jsii-calc.AllTypesEnum/MY_ENUM_VALUE"},
+		"list":       []interface{}{map[string]interface{}{"$jsii.map": map[string]interface{}{"key": "value"}}},
+	}
+
+	var actual map[string]interface{}
+	require.NoError(json.Unmarshal([]byte(*calc.JsonFormatter_Stringify(value)), &actual))
+	require.Equal(expected, actual)
+
+	var wrapped map[string]interface{}
+	require.NoError(json.Unmarshal([]byte(*calc.JsonFormatter_Stringify(map[string]document{"payload": value})), &wrapped))
+	require.Equal(map[string]interface{}{"payload": expected}, wrapped)
+}
+
 func (suite *ComplianceSuite) TestStructsAreSentAsPlainData() {
 	require := suite.Require()
 
