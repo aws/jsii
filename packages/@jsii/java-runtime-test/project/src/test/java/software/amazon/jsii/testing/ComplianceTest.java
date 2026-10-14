@@ -1374,6 +1374,23 @@ public class ComplianceTest {
     }
 
     @Test
+    public void jsonValuesCrossTheBoundaryUnchanged() throws IOException {
+        final ObjectMapper om = new ObjectMapper();
+        final JsonNode json = om.readTree(
+                "{\"$jsii.date\":\"1970-01-01T00:00:00.000Z\","
+                        + "\"nested\":{\"$jsii.enum\":\"jsii-calc.AllTypesEnum/MY_ENUM_VALUE\"},"
+                        + "\"list\":[{\"$jsii.map\":{\"key\":\"value\"}}]}");
+
+        assertEquals(json, om.readTree(JsonFormatter.stringify(json)));
+
+        final Map<String, Object> wrapper = new HashMap<>();
+        wrapper.put("payload", json);
+        final ObjectNode expected = om.createObjectNode();
+        expected.set("payload", json);
+        assertEquals(expected, om.readTree(JsonFormatter.stringify(wrapper)));
+    }
+
+    @Test
     public void structsAreSentAsPlainData() throws IOException {
         final ObjectMapper om = new ObjectMapper();
         final String json = JsonFormatter.stringify(StructB.builder().requiredString("Bazinga!").optionalBoolean(false).build());

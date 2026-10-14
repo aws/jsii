@@ -176,12 +176,44 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value.GetType().IsAssignableFrom(typeof(JObject)) || value.GetType().IsAssignableFrom(typeof(JArray)))
             {
-                result = value;
+                result = WrapJsonToken((JToken) value);
                 return true;
             }
 
             result = null;
             return false;
+        }
+
+        /// <summary>
+        /// Converts a user-provided JSON tree to its wire representation. Every JSON object in the tree is wrapped in a
+        /// <c>$jsii.map</c> envelope (the same way dictionaries are), so its keys are always treated as data by the
+        /// jsii kernel and never as wire tokens such as <c>$jsii.byref</c> or <c>$jsii.enum</c>.
+        /// </summary>
+        /// <param name="token">The JSON tree to convert</param>
+        /// <returns>A new JSON tree, safe to send to the jsii kernel</returns>
+        private static JToken WrapJsonToken(JToken token)
+        {
+            switch (token)
+            {
+                case JObject jObject:
+                    var data = new JObject();
+                    foreach (var property in jObject.Properties())
+                    {
+                        data.Add(new JProperty(property.Name, WrapJsonToken(property.Value)));
+                    }
+
+                    return new JObject(new JProperty("$jsii.map", data));
+                case JArray jArray:
+                    var array = new JArray();
+                    foreach (var element in jArray)
+                    {
+                        array.Add(WrapJsonToken(element));
+                    }
+
+                    return array;
+                default:
+                    return token.DeepClone();
+            }
         }
 
         protected override bool TryConvertNumber(object? value, bool isOptional, out object? result)

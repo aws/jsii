@@ -3,6 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Runtime.Services.Converters;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NSubstitute;
 using System;
@@ -176,7 +177,53 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 bool success = _converter.TryConvert(instance, _referenceMap, jObject, out object? actual);
 
                 Assert.True(success);
-                Assert.Same(jObject, actual);
+                Assert.Equal(
+                    "{\"$jsii.map\":{\"myArray\":[42,\"myString\",false,{\"$jsii.map\":{}},[],{\"$jsii.map\":{\"nested1\":\"value1\",\"nested2\":\"value2\"}}]}}",
+                    ((JToken) actual!).ToString(Formatting.None)
+                );
+            }
+
+            [Fact(DisplayName = _Prefix + nameof(ConvertsJsonValuesWithWireTokenKeysAsData))]
+            public void ConvertsJsonValuesWithWireTokenKeysAsData()
+            {
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Json));
+
+                JObject jObject = JObject.Parse(
+                    "{\"$jsii.byref\":\"Foo@10001\",\"nested\":{\"$jsii.enum\":\"a.B/C\"},\"list\":[{\"$jsii.date\":\"x\"}]}"
+                );
+
+                bool success = _converter.TryConvert(instance, _referenceMap, jObject, out object? actual);
+
+                Assert.True(success);
+                Assert.Equal(
+                    "{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\",\"nested\":{\"$jsii.map\":{\"$jsii.enum\":\"a.B/C\"}},\"list\":[{\"$jsii.map\":{\"$jsii.date\":\"x\"}}]}}",
+                    ((JToken) actual!).ToString(Formatting.None)
+                );
+                // The input is left untouched
+                Assert.Equal(
+                    "{\"$jsii.byref\":\"Foo@10001\",\"nested\":{\"$jsii.enum\":\"a.B/C\"},\"list\":[{\"$jsii.date\":\"x\"}]}",
+                    jObject.ToString(Formatting.None)
+                );
+            }
+
+            [Fact(DisplayName = _Prefix + nameof(ConvertsJsonValuesNestedInAnyCollections))]
+            public void ConvertsJsonValuesNestedInAnyCollections()
+            {
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
+
+                var value = new Dictionary<string, object>
+                {
+                    { "payload", JObject.Parse("{\"$jsii.byref\":\"Foo@10001\"}") },
+                    { "list", new object[] { JArray.Parse("[{\"$jsii.byref\":\"Foo@10001\"}]") } },
+                };
+
+                bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
+
+                Assert.True(success);
+                Assert.Equal(
+                    "{\"$jsii.map\":{\"payload\":{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\"}},\"list\":[[{\"$jsii.map\":{\"$jsii.byref\":\"Foo@10001\"}}]]}}",
+                    ((JToken) actual!).ToString(Formatting.None)
+                );
             }
 
             [Fact(DisplayName = _Prefix + nameof(FailsOnNullBoolean))]
@@ -667,7 +714,10 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
 
                 Assert.True(success);
-                Assert.Same(value, actual);
+                Assert.Equal(
+                    "{\"$jsii.map\":{\"myKey\":\"myValue\"}}",
+                    ((JToken) actual!).ToString(Formatting.None)
+                );
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsMap))]
