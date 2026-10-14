@@ -7,6 +7,7 @@ import * as path from 'path';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
+import { JsiiErrorType, JsiiFault, RuntimeError } from './errors';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
 import { isValidPackageName } from './package-name';
@@ -24,28 +25,8 @@ export const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'class-covariant-overrides',
 ];
 
-export const enum JsiiErrorType {
-  JSII_FAULT = '@jsii/kernel.Fault',
-  RUNTIME_ERROR = '@jsii/kernel.RuntimeError',
-}
-
-export interface JsiiError extends Error {
-  readonly name: JsiiErrorType;
-}
-
-export class JsiiFault extends Error implements JsiiError {
-  public readonly name = JsiiErrorType.JSII_FAULT;
-  public constructor(message: string) {
-    super(message);
-  }
-}
-
-export class RuntimeError extends Error implements JsiiError {
-  public readonly name = JsiiErrorType.RUNTIME_ERROR;
-  public constructor(message: string) {
-    super(message);
-  }
-}
+// In their own module, so modules imported here can extend them.
+export * from './errors';
 
 export class Kernel {
   /**
