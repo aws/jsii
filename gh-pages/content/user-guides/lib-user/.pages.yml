@@ -2,4 +2,5 @@
 title: Library Consumer Guide
 nav:
   - index.md
+  - package-cache.md
   - language-specific
