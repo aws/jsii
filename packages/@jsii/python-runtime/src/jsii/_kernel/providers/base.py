@@ -13,8 +13,6 @@ from ..types import (
     InvokeResponse,
     GetScriptCommandRequest,
     GetScriptCommandResponse,
-    InvokeScriptRequest,
-    InvokeScriptResponse,
     DeleteRequest,
     DeleteResponse,
     SetRequest,
@@ -52,9 +50,6 @@ class BaseProvider(metaclass=abc.ABCMeta):
     def getScriptCommand(
         self, request: GetScriptCommandRequest
     ) -> GetScriptCommandResponse: ...
-
-    @abc.abstractmethod
-    def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse: ...
 
     @abc.abstractmethod
     def create(self, request: CreateRequest) -> CreateResponse: ...

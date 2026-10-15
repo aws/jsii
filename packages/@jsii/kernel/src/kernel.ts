@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
 import * as os from 'os';
@@ -201,25 +200,6 @@ export class Kernel {
     req: api.GetScriptCommandRequest,
   ): api.GetScriptCommandResponse {
     return this.#getBinScriptCommand(req);
-  }
-
-  public invokeBinScript(
-    req: api.InvokeScriptRequest,
-  ): api.InvokeScriptResponse {
-    const { command, args, env } = this.#getBinScriptCommand(req);
-
-    const result = cp.spawnSync(command, args, {
-      encoding: 'utf-8',
-      env,
-      shell: true,
-    });
-
-    return {
-      stdout: result.stdout,
-      stderr: result.stderr,
-      status: result.status,
-      signal: result.signal,
-    };
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {

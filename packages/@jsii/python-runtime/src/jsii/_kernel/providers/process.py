@@ -44,8 +44,6 @@ from ..types import (
     InvokeResponse,
     GetScriptCommandRequest,
     GetScriptCommandResponse,
-    InvokeScriptRequest,
-    InvokeScriptResponse,
     SetRequest,
     SetResponse,
     StaticGetRequest,
@@ -166,10 +164,6 @@ class _NodeProcess:
             _with_api_key(
                 "getBinScriptCommand", self._serializer.unstructure_attrs_asdict
             ),
-        )
-        self._serializer.register_unstructure_hook(
-            InvokeScriptRequest,
-            _with_api_key("invokeBinScript", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
             CreateRequest,
@@ -380,9 +374,6 @@ class ProcessProvider(BaseProvider):
         self, request: GetScriptCommandRequest
     ) -> GetScriptCommandResponse:
         return self._process.send(request, GetScriptCommandResponse)
-
-    def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse:
-        return self._process.send(request, InvokeScriptResponse)
 
     def create(self, request: CreateRequest) -> CreateResponse:
         return self._process.send(request, CreateResponse)

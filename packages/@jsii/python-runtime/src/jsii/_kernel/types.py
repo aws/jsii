@@ -51,21 +51,6 @@ class GetScriptCommandResponse:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
-class InvokeScriptRequest:
-    assembly: str
-    script: str
-    args: List[Any] = attr.Factory(list)
-
-
-@attr.s(auto_attribs=True, frozen=True, slots=True)
-class InvokeScriptResponse:
-    status: int
-    stdout: str
-    stderr: str
-    signal: str
-
-
-@attr.s(auto_attribs=True, frozen=True, slots=True)
 class CreateRequest:
     fqn: str
     args: List[Any] = attr.Factory(list)
@@ -226,7 +211,6 @@ KernelRequest = Union[
     SetRequest,
     StaticGetRequest,
     InvokeRequest,
-    InvokeScriptRequest,
     StaticInvokeRequest,
     StatsRequest,
 ]
@@ -238,7 +222,6 @@ KernelResponse = Union[
     DeleteResponse,
     GetResponse,
     InvokeResponse,
-    InvokeScriptResponse,
     SetResponse,
     StatsResponse,
     Callback,
