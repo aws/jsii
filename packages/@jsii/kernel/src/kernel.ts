@@ -6,6 +6,7 @@ import * as path from 'path';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
+import { resolveBinScript } from './bin-script';
 import { JsiiErrorType, JsiiFault, RuntimeError } from './errors';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
@@ -1540,17 +1541,13 @@ export class Kernel {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
 
-      const scriptPath = epkg.bin?.[req.script];
-
-      if (!epkg.bin) {
-        throw new JsiiFault(`Script with name ${req.script} was not defined.`);
-      }
+      const command = resolveBinScript(packageDir, epkg.bin, req.script);
 
       // Make sure the current NODE_OPTIONS are honored if we shell out to node
       const nodeOptions = [...process.execArgv];
 
       return {
-        command: path.join(packageDir, scriptPath),
+        command,
         args: req.args ?? [],
         env: {
           ...process.env,
