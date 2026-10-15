@@ -36,7 +36,6 @@ const KERNEL_API_NAMES: ReadonlySet<string> = new Set<keyof Kernel>([
   'callbacks',
   'complete',
   'getBinScriptCommand',
-  'invokeBinScript',
 ]);
 
 export class KernelHost {

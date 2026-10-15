@@ -2361,35 +2361,6 @@ defineTest.skipIf(!!recordingOutput)(
   },
 );
 
-defineTest('invokeBinScript() return output', (sandbox) => {
-  const result = sandbox.invokeBinScript({
-    assembly: 'jsii-calc',
-    script: 'calc',
-  });
-
-  expect(result).toMatchObject<api.InvokeScriptResponse>({
-    status: 0,
-    stdout: 'Hello World!\n',
-    stderr: '',
-    signal: null,
-  });
-});
-
-defineTest('invokeBinScript() accepts arguments', (sandbox) => {
-  const result = sandbox.invokeBinScript({
-    assembly: 'jsii-calc',
-    script: 'calc',
-    args: ['arg1', 'arg2'],
-  });
-
-  expect(result).toMatchObject<api.InvokeScriptResponse>({
-    status: 0,
-    stdout: 'Hello World!\n  arguments: arg1, arg2\n',
-    stderr: '',
-    signal: null,
-  });
-});
-
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = {};

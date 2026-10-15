@@ -73,6 +73,38 @@ class TestInvokeBinScript:
         platform.system() == "Windows",
         reason="jsii-pacmak does not generate windows scripts",
     )
+    def test_invoke_script_with_args_unchanged(
+        self,
+        silence_node_deprecation_warnings,
+        disable_jsii_runtime_package_cache,
+        tmp_path,
+    ) -> None:
+        """Arguments must reach the script unchanged, and never be interpreted by a shell."""
+        marker = tmp_path / "injected"
+        script_path = f".env/bin/calc"
+        result = subprocess.run(
+            [
+                script_path,
+                "with space",
+                "$HOME",
+                f"; touch {marker}",
+                f"$(touch {marker})",
+                f"`touch {marker}`",
+            ],
+            capture_output=True,
+        )
+
+        assert result.returncode == 0
+        assert result.stdout == (
+            b"Hello World!\n  arguments: with space, $HOME, "
+            + f"; touch {marker}, $(touch {marker}), `touch {marker}`\n".encode()
+        )
+        assert not marker.exists()
+
+    @pytest.mark.skipif(
+        platform.system() == "Windows",
+        reason="jsii-pacmak does not generate windows scripts",
+    )
     def test_invoke_script_with_failure(
         self, silence_node_deprecation_warnings, disable_jsii_runtime_package_cache
     ) -> None:

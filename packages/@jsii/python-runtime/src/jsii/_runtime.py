@@ -87,10 +87,10 @@ class JSIIAssembly:
 
         response = _kernel.getBinScriptCommand(pkgname, script, args)
 
+        # Never run through a shell: the arguments must reach the script unchanged.
         result = subprocess.run(
-            " ".join([response.command, *response.args]),
-            encoding="utf-8",
-            shell=True,
+            [response.command, *response.args],
+            shell=False,
             env=response.env,
         )
         return result.returncode

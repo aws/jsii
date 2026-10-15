@@ -111,19 +111,6 @@ export interface GetScriptCommandResponse {
   env: Record<string, string>;
 }
 
-export interface InvokeScriptRequest {
-  readonly assembly: string;
-  readonly script: string;
-  readonly args?: string[];
-}
-
-export interface InvokeScriptResponse {
-  readonly status: number | null;
-  readonly stdout: string;
-  readonly stderr: string;
-  readonly signal: string | null;
-}
-
 export interface CreateRequest {
   /**
    * The FQN of the class of which an instance is requested (or "Object")
