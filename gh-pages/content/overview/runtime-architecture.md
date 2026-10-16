@@ -14,6 +14,8 @@ communication over its `STDIN`, `STDOUT` and `STDERR`, and manages a
 `@jsii/kernel` instance that acts as a container for the **Javascript** code
 that backs the *jsii* libraries.
 
+The security model of this architecture is described in [Security](./security.md).
+
 ## Architecture Overview
 
 A representation of the execution environment of an application using *jsii*
@@ -65,6 +67,7 @@ the request-response protocol is defined by the [kernel api specification]. On
   stream.
 
 [kernel api specification]: ../specification/3-kernel-api.md
+[configuration]: ../user-guides/lib-user/configuration.md
 
 In order to allow the hosted original **JavaScript** libraries to naturally
 interact with `process.stdout`, `process.stderr` and all other APIs that make
@@ -142,7 +145,7 @@ The initialization workflow can be described as:
 2. When the *host* code encounters a *jsii* entity for the first time (creating
     an instance of a *jsii* type, loading a static constant, ...), the *runtime
     client library* creates a child `node` process, and loads the `jsii-runtime`
-    library (specified by the `JSII_RUNTIME` environment variable, or the
+    library (specified by the [`JSII_RUNTIME`][configuration] environment variable, or the
     version that is bundled in the *runtime client library*)
 3. The *runtime client library*  interacts with the child `node` process by
     exchanging JSON-encoded messages through the `node` process' *STDIN* and

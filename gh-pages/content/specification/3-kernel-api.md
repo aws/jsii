@@ -8,6 +8,10 @@ the fundamental features necessary for _host_ processes to interact with the ori
     dialogue between the _host_ and _kernel_ processes. The `@jsii/runtime` is a very thin glue layer and it will
     eventually be merged into `@jsii/kernel`.
 
+!!! info
+    The _host_ library and its requests are trusted by the _kernel_. See [Security](../overview/security.md) for the
+    security model this API is designed for.
+
 ## Errors
 
 Most of the calls described in this document may result in an error being raised. It is the responsibility of the _host_
