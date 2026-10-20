@@ -334,7 +334,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      */
     private JsiiObject createNativeProxy(final String fqn, final JsiiObjectRef objRef) {
         try {
-            Class<?> klass = resolveJavaClass(fqn);
+            Class<?> klass = resolveJavaClass(proxyFqn(fqn, objRef));
             if (klass.isInterface() || Modifier.isAbstract(klass.getModifiers())) {
                 // "$" is used to represent inner classes in Java
                 klass = Class.forName(klass.getCanonicalName() + "$" + INTERFACE_PROXY_CLASS_NAME);
@@ -357,6 +357,31 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         } catch (ClassNotFoundException e) {
             this.log("WARNING: Cannot find the class: %s. Defaulting to JsiiObject", fqn);
             return new JsiiObject(objRef);
+        }
+    }
+
+    /**
+     * The jsii FQN to create a native proxy for.
+     *
+     * Objects without a jsii class (such as struct values and object literals) are labelled as {@code Object}. If such
+     * an object implements exactly one jsii interface, the proxy for that interface is used, so the object can be used
+     * as that type even when the declared type is a union or {@code any}.
+     *
+     * @param fqn The jsii FQN of the object reference.
+     * @param objRef The object reference.
+     * @return The FQN of the type to create a proxy for.
+     */
+    private String proxyFqn(final String fqn, final JsiiObjectRef objRef) {
+        if (!"Object".equals(fqn) || objRef.getInterfaces().size() != 1) {
+            return fqn;
+        }
+        final String iface = objRef.getInterfaces().iterator().next();
+        try {
+            resolveJavaClass(iface);
+            return iface;
+        } catch (final JsiiException e) {
+            // The interface's module is not loaded in Java: fall back to a plain JsiiObject
+            return fqn;
         }
     }
 

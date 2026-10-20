@@ -2,11 +2,13 @@ package software.amazon.jsii;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
@@ -43,7 +45,21 @@ public final class JsiiObjectMapper {
     if (tree == null) {
       return null;
     }
-    final Object result = INSTANCE.convertValue(tree, valueType.getJavaType());
+    final JavaType javaType = valueType.getJavaType();
+    final Class<?> targetClass = javaType.getRawClass();
+    final Object result;
+    if (targetClass != Object.class && !javaType.hasGenericTypes() && targetClass.isInstance(tree)) {
+      // Same shortcut as ObjectMapper.convertValue: the tree is already of the requested type.
+      result = tree;
+    } else {
+      // Read from the tree directly. ObjectMapper.convertValue would serialize the tree first, which would treat it as
+      // user-provided data (wrapping its objects in "$jsii.map") instead of a wire value received from the kernel.
+      try {
+        result = INSTANCE.readerFor(javaType).readValue(tree);
+      } catch (final IOException e) {
+        throw new IllegalArgumentException(e.getMessage(), e);
+      }
+    }
     return valueType.transform(result);
   }
 
@@ -91,6 +107,7 @@ public final class JsiiObjectMapper {
     module.addSerializer(Enum.class, new EnumSerializer());
     module.addSerializer(Instant.class, new InstantSerializer());
     module.addSerializer(JsiiSerializable.class, new JsiiSerializer());
+    module.addSerializer(JsonNode.class, new JsonNodeSerializer());
 
     this.objectMapper.findAndRegisterModules();
     this.objectMapper.registerModule(module);
@@ -214,8 +231,49 @@ public final class JsiiObjectMapper {
           getEngine().loadModule(jsii.module());
         }
       }
-      // Then dump the JSON out
-      jsonGenerator.writeTree(o.$jsii$toJson());
+      // Then dump the JSON out. This tree is already in wire format, so it is written as-is instead of going through
+      // the JsonNodeSerializer (which would treat it as user data and wrap its objects as maps).
+      final TreeNode tree = o.$jsii$toJson();
+      if (tree instanceof JsonSerializable) {
+        ((JsonSerializable) tree).serialize(jsonGenerator, serializerProvider);
+      } else {
+        jsonGenerator.writeTree(tree);
+      }
+    }
+  }
+
+  /**
+   * Serializer for JsonNode values provided by user code (e.g: an ObjectNode passed where `any` is expected).
+   *
+   * Such values are data, so every JSON object in the tree is wrapped in a "$jsii.map" envelope, the same way native
+   * Map instances are. This ensures keys such as "$jsii.byref" or "$jsii.enum" are never interpreted as wire tokens by
+   * the jsii kernel.
+   */
+  private static final class JsonNodeSerializer extends JsonSerializer<JsonNode> {
+    @Override
+    public void serialize(final JsonNode value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+      if (value.isObject()) {
+        gen.writeStartObject();
+        gen.writeFieldName(TOKEN_MAP);
+        gen.writeStartObject();
+        final Iterator<String> fieldNames = value.fieldNames();
+        while (fieldNames.hasNext()) {
+          final String fieldName = fieldNames.next();
+          gen.writeFieldName(fieldName);
+          this.serialize(value.get(fieldName), gen, serializers);
+        }
+        gen.writeEndObject();
+        gen.writeEndObject();
+      } else if (value.isArray()) {
+        gen.writeStartArray();
+        for (final JsonNode element : value) {
+          this.serialize(element, gen, serializers);
+        }
+        gen.writeEndArray();
+      } else {
+        // Scalars, nulls and POJO nodes (the latter delegate to the serializer of the wrapped value).
+        ((JsonSerializable) value).serialize(gen, serializers);
+      }
     }
   }
 

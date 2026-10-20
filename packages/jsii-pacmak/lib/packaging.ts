@@ -3,7 +3,7 @@ import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as path from 'path';
 
-import { Scratch, shell } from './util';
+import { Scratch, shell, subprocess } from './util';
 import * as logging from '../lib/logging';
 
 export const DEFAULT_PACK_COMMAND = 'npm pack';
@@ -55,22 +55,22 @@ export class JsiiModule {
    */
   public async npmPack(packCommand = DEFAULT_PACK_COMMAND) {
     this._tarball = await Scratch.make(async (tmpdir) => {
+      let out: string;
       if (packCommand === DEFAULT_PACK_COMMAND) {
-        // Quoting (JSON-stringifying) the module directory in order to avoid
-        // problems if there are spaces or other special characters in the path.
-        packCommand += ` ${JSON.stringify(this.moduleDirectory)}`;
-
+        // Pass the module directory as a separate argument rather than
+        // through a shell, so the path is never re-interpreted.
+        const args = ['pack', this.moduleDirectory];
         if (logging.level.valueOf() >= logging.LEVEL_VERBOSE) {
-          packCommand += ' --loglevel=verbose';
+          args.push('--loglevel=verbose');
         }
+        out = await subprocess('npm', args, { cwd: tmpdir });
       } else {
         // Ensure module is copied to tmpdir to ensure parallel execution does not contend on generated tarballs
         await fs.copy(this.moduleDirectory, tmpdir, { dereference: true });
-      }
 
-      const out = await shell(packCommand, {
-        cwd: tmpdir,
-      });
+        // A custom pack command is a user-provided command line, run as-is.
+        out = await shell(packCommand, { cwd: tmpdir });
+      }
 
       // Take only the last line of npm pack which should contain the
       // tarball name. otherwise, there can be a lot of extra noise there

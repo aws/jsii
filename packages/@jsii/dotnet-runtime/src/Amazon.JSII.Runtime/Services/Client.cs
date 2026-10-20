@@ -274,6 +274,16 @@ namespace Amazon.JSII.Runtime.Services
             return Send<BeginRequest, BeginResponse>(request);
         }
 
+        public BeginResponse StaticBegin(string fullyQualifiedName, string method, object?[]? arguments = null)
+        {
+            return StaticBegin(new StaticBeginRequest(fullyQualifiedName, method, arguments));
+        }
+
+        public BeginResponse StaticBegin(StaticBeginRequest request)
+        {
+            return Send<StaticBeginRequest, BeginResponse>(request);
+        }
+
         public EndResponse End(string promiseId)
         {
             return End(new EndRequest(promiseId));

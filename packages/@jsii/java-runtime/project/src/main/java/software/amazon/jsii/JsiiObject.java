@@ -189,6 +189,49 @@ public class JsiiObject implements JsiiSerializable {
     }
 
     /**
+     * Calls a static async method.
+     *
+     * @param nativeClass The java class.
+     * @param method The method to call.
+     * @param nativeType The return type.
+     * @param args The method arguments.
+     * @param <T> Return type.
+     *
+     * @return Return value.
+     */
+    @Nullable
+    @Internal
+    protected static <T> T jsiiStaticAsyncCall(final Class<?> nativeClass, final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
+        return jsiiStaticAsyncCall(JsiiEngine.getInstance(), nativeClass, method, nativeType, args);
+    }
+
+    /**
+     * Calls a static async method.
+     *
+     * This method is meant to be used only in unit tests.
+     *
+     * @param engine The JsiiEngine to use.
+     * @param nativeClass The java class.
+     * @param method The method to call.
+     * @param nativeType The return type.
+     * @param args The method arguments.
+     * @param <T> Return type.
+     *
+     * @return Return value.
+     */
+    @Nullable
+    @Internal
+    static <T> T jsiiStaticAsyncCall(final JsiiEngine engine, final Class<?> nativeClass, final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
+        final String fqn = engine.loadModuleForClass(nativeClass);
+        final JsiiClient client = engine.getClient();
+        final JsiiPromise promise = client.beginStaticAsyncMethod(fqn, method, JsiiObjectMapper.valueToTree(args));
+
+        engine.processAllPendingCallbacks();
+
+        return JsiiObjectMapper.treeToValue(client.endAsyncMethod(promise), nativeType);
+    }
+
+    /**
      * Calls an async method on the object.
      *
      * @param method The name of the method.

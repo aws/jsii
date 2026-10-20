@@ -1,6 +1,8 @@
 package kernel
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"reflect"
 	"time"
@@ -68,6 +70,19 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 		if typ, ok := c.Types().FindType(ref.TypeFQN()); ok && typ.AssignableTo(ptr.Type()) {
 			// Specialize the return type to be the dynamic value type
 			targetType = typ
+		} else if typ, ok := c.anonymousObjectType(ref); ok {
+			if _, _, isStruct := c.Types().StructFields(typ); isStruct {
+				// Read the struct by value, then store a pointer to it, the same
+				// way struct values are represented elsewhere.
+				strct := reflect.New(typ)
+				if strct.Type().AssignableTo(ptr.Type()) {
+					c.castAndSetToPtr(strct.Elem(), data)
+					ptr.Set(strct)
+					return
+				}
+			} else if typ.AssignableTo(ptr.Type()) {
+				targetType = typ
+			}
 		}
 
 		// If it's currently tracked, return the current instance
@@ -130,6 +145,16 @@ func (c *Client) castAndSetToPtr(ptr reflect.Value, data reflect.Value) {
 	ptr.Set(data)
 }
 
+// anonymousObjectType returns the registered type of an object that the kernel
+// labels as a plain "Object" (struct values and object literals), when it
+// implements exactly one jsii interface.
+func (c *Client) anonymousObjectType(ref api.ObjectRef) (reflect.Type, bool) {
+	if ref.TypeFQN() != "Object" || len(ref.Interfaces) != 1 {
+		return nil, false
+	}
+	return c.Types().FindType(ref.Interfaces[0])
+}
+
 // Accepts pointers to structs that implement interfaces and searches for an
 // existing object reference in the kernel. If it exists, it casts it to an
 // objref for the runtime. Recursively casts types that may contain nested
@@ -181,7 +206,7 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 					if (fieldVal.Kind() == reflect.Ptr || fieldVal.Kind() == reflect.Interface) && fieldVal.IsNil() {
 						// If there is the "field" tag, and it's "required", then panic since the value is nil.
 						if requiredOrOptional, found := field.Tag.Lookup("field"); found && requiredOrOptional == "required" {
-							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", field.Type, field.Name))
+							panic(fmt.Sprintf("Field %v.%v is required, but has nil value", elemVal.Type(), field.Name))
 						}
 						continue
 					}
@@ -209,7 +234,7 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 			return ref
 		}
 
-	case reflect.Slice:
+	case reflect.Slice, reflect.Array:
 		refs := make([]interface{}, dataVal.Len())
 		for i := 0; i < dataVal.Len(); i++ {
 			refs[i] = c.CastPtrToRef(dataVal.Index(i))
@@ -221,7 +246,61 @@ func (c *Client) CastPtrToRef(dataVal reflect.Value) interface{} {
 			return enumRef
 		}
 	}
+
+	if dataVal.Kind() == reflect.Struct || dataVal.Type().Implements(jsonMarshalerType) {
+		// Values that are not jsii types, but which encoding/json would render as
+		// arbitrary JSON (e.g: a struct passed by value, or a type with a custom
+		// MarshalJSON). Those are data, so they must not be sent as-is, otherwise
+		// their keys could be interpreted as wire tokens (e.g: "$jsii.byref").
+		return castValToWireJSON(dataVal)
+	}
+
 	return dataVal.Interface()
+}
+
+var jsonMarshalerType = reflect.TypeOf((*json.Marshaler)(nil)).Elem()
+
+// castValToWireJSON renders the provided value using encoding/json, then
+// converts the result to its jsii wire representation: every JSON object is
+// wrapped in a "$jsii.map" envelope (the same as go maps are), so that its keys
+// are always treated as data by the jsii kernel.
+func castValToWireJSON(dataVal reflect.Value) interface{} {
+	raw, err := json.Marshal(dataVal.Interface())
+	if err != nil {
+		panic(err)
+	}
+
+	decoder := json.NewDecoder(bytes.NewReader(raw))
+	// Preserve the exact representation of numbers
+	decoder.UseNumber()
+
+	var decoded interface{}
+	if err := decoder.Decode(&decoded); err != nil {
+		panic(err)
+	}
+
+	return wrapJSONValue(decoded)
+}
+
+// wrapJSONValue wraps all objects in the provided decoded JSON value in a
+// "$jsii.map" envelope, recursively.
+func wrapJSONValue(value interface{}) interface{} {
+	switch v := value.(type) {
+	case map[string]interface{}:
+		result := api.WireMap{MapData: make(map[string]interface{}, len(v))}
+		for key, elem := range v {
+			result.MapData[key] = wrapJSONValue(elem)
+		}
+		return result
+	case []interface{}:
+		result := make([]interface{}, len(v))
+		for i, elem := range v {
+			result[i] = wrapJSONValue(elem)
+		}
+		return result
+	default:
+		return v
+	}
 }
 
 // castPtrToDate obtains an api.WireDate from the provided reflect.Value if it

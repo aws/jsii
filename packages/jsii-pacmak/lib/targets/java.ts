@@ -3175,7 +3175,9 @@ class JavaGenerator extends Generator {
 
     if (method.static) {
       const javaClass = this.toSingleJavaType(cls);
-      statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${displayStatic(javaClass)}.class, `;
+      statement += `software.amazon.jsii.JsiiObject.${
+        async ? 'jsiiStaticAsyncCall' : 'jsiiStaticCall'
+      }(${displayStatic(javaClass)}.class, `;
     } else {
       statement += `software.amazon.jsii.Kernel.${
         async ? 'asyncCall' : 'call'

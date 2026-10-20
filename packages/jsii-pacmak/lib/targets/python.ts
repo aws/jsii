@@ -16,8 +16,10 @@ import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
+import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { Target, TargetOptions } from '../target';
-import { shell, subprocess, zip } from '../util';
+import { topologicalSort } from '../toposort';
+import { subprocess, zip } from '../util';
 import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
@@ -32,8 +34,6 @@ import {
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 import { toPythonVersionRange, toReleaseVersion } from './version-utils';
-import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
-import { topologicalSort } from '../toposort';
 
 import { TargetName } from './index';
 
@@ -105,7 +105,12 @@ export default class Python extends Target {
       env,
       retry: { maxAttempts: 5 },
     });
-    await shell(`${python} -m twine check ${path.join(outDir, '*')}`, {
+    // List the distributions ourselves (equivalent to the shell glob `*`) so
+    // that no shell is involved in running twine.
+    const dists = (await fs.readdir(outDir))
+      .filter((name) => !name.startsWith('.'))
+      .map((name) => path.join(outDir, name));
+    await subprocess(python, ['-m', 'twine', 'check', ...dists], {
       cwd: sourceDir,
       env,
     });
@@ -1036,6 +1041,10 @@ abstract class BaseProperty implements PythonBase {
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
     }
+    if (this.isStatic) {
+      // Makes type checkers treat `cls` as the class, not an instance
+      code.line('@builtins.classmethod');
+    }
     openSignature(
       code,
       'def',
@@ -1045,7 +1054,7 @@ abstract class BaseProperty implements PythonBase {
       // PyRight and MyPY both special-case @property, but not custom implementations such as our @classproperty...
       // MyPY reports on the re-declaration, but PyRight reports on the initial declaration (duh!)
       this.isStatic && !this.immutable
-        ? 'pyright: ignore [reportGeneralTypeIssues,reportRedeclaration]'
+        ? 'pyright: ignore [reportRedeclaration]'
         : undefined,
     );
     this.generator.emitDocString(code, this.apiLocation, this.docs, {
@@ -1076,6 +1085,9 @@ abstract class BaseProperty implements PythonBase {
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
+      if (this.isStatic) {
+        code.line('@builtins.classmethod');
+      }
       openSignature(
         code,
         'def',
@@ -1095,11 +1107,8 @@ abstract class BaseProperty implements PythonBase {
             this.pythonName
           }`,
         );
-        // In case of a static setter, the 'cls' type is the class type but because we use a custom
-        // decorator to make the setter operate on classes instead of objects, pyright doesn't know about
-        // that and thinks the first argument is an instance instead of a class. Shut it up.
         code.line(
-          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value) # pyright: ignore[reportArgumentType]`,
+          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
         );
       } else {
         code.line('...');
@@ -1595,6 +1604,10 @@ class StaticMethod extends BaseMethod {
   protected readonly decorator?: string = 'builtins.classmethod';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiMethod: string = 'sinvoke';
+}
+
+class StaticAsyncMethod extends StaticMethod {
+  protected readonly jsiiMethod: string = 'sainvoke';
 }
 
 class Initializer extends BaseMethod {
@@ -3020,9 +3033,10 @@ class PythonGenerator extends Generator {
     const { parameters = [] } = method;
 
     const klass = this.getPythonType(cls.fqn);
+    const StaticMethodType = method.async ? StaticAsyncMethod : StaticMethod;
 
     klass.addMember(
-      new StaticMethod(
+      new StaticMethodType(
         this,
         toPythonMethodName(method.name),
         method.name,

@@ -17,6 +17,7 @@ import {
   TOKEN_STRUCT,
 } from './api';
 import { Kernel } from './kernel';
+import { isValidPackageName } from './package-name';
 import { closeRecording, recordInteraction } from './recording';
 import * as tar from './tar-cache';
 
@@ -97,6 +98,67 @@ defineTest.skipIf = (expr: boolean) => (expr ? defineTest.skip : defineTest);
     }
   },
 );
+
+describe('package name validation', () => {
+  const invalidNames = [
+    '',
+    '..',
+    '../escape',
+    '../../etc',
+    '@scope/../../escape',
+    '@scope/pkg/extra',
+    '/absolute/path',
+    'C:\\windows',
+    'back\\slash',
+    '.hidden',
+    '_underscore',
+    '-dash',
+    ' leading-space',
+    'trailing-space ',
+    'node_modules',
+    'FAVICON.ICO',
+    '@scope/.hidden',
+    '%2e%2e',
+    'unscoped%20space',
+    '@scope/with space',
+  ];
+
+  test.each(invalidNames)('load rejects %j', async (name) => {
+    const kernel = new Kernel(() => {
+      throw new Error('unexpected callback');
+    });
+    const tarball = await preparePackage('@scope/jsii-calc-base-of-base');
+
+    expect(() =>
+      kernel.load({ tarball, name, version: calcBaseVersion }),
+    ).toThrow(/Invalid package name/);
+  });
+
+  test.each(invalidNames)('getBinScriptCommand rejects %j', (assembly) => {
+    const kernel = new Kernel(() => {
+      throw new Error('unexpected callback');
+    });
+
+    expect(() =>
+      kernel.getBinScriptCommand({ assembly, script: 'calc' }),
+    ).toThrow(/Invalid package name/);
+  });
+
+  // Valid for existing packages, even though some are no longer valid for new ones.
+  test.each([
+    'jsii-calc',
+    '@scope/jsii-calc-lib',
+    'Legacy.Name_1~x',
+    "it's-(ok)*!",
+    '@_scope/_pkg',
+    '@.scope/pkg',
+    '@scope/-pkg',
+    'http',
+    'a'.repeat(215),
+  ])('accepts %j', (name) => {
+    expect(isValidPackageName(name)).toBe(true);
+  });
+});
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({});
@@ -714,6 +776,44 @@ defineTest('async overrides: two overrides', async (sandbox) => {
   expect(result.result).toBe(775);
 });
 
+defineTest('async methods: static async method', async (sandbox) => {
+  const promise = sandbox.sbegin({
+    fqn: 'jsii-calc.PromiseNothing',
+    method: 'promiseIt',
+  });
+
+  const result = await sandbox.end({ promiseid: promise.promiseid });
+  expect(result.result).toBeUndefined();
+});
+
+defineTest('async methods: sbegin rejects non-async methods', (sandbox) => {
+  expect(() =>
+    sandbox.sbegin({
+      fqn: 'jsii-calc.Statics',
+      method: 'staticMethod',
+      args: ['Jsii'],
+    }),
+  ).toThrow(/expected to be an async method/);
+});
+
+defineTest('async methods: sbegin rejects instance methods', (sandbox) => {
+  expect(() =>
+    sandbox.sbegin({
+      fqn: 'jsii-calc.PromiseNothing',
+      method: 'instancePromiseIt',
+    }),
+  ).toThrow(/not a static method/);
+});
+
+defineTest('async methods: sinvoke rejects async methods', (sandbox) => {
+  expect(() =>
+    sandbox.sinvoke({
+      fqn: 'jsii-calc.PromiseNothing',
+      method: 'promiseIt',
+    }),
+  ).toThrow(/is an async method, use "sbegin" instead/);
+});
+
 /**
  * This test simulates a sitation where an async method is called, which invokes
  * an async override in return, but the override's promise is not called synchronously
@@ -1280,6 +1380,21 @@ defineTest('variadic methods can be called without any vararg', (sandbox) => {
     sandbox.invoke({ objref: obj, method: 'asArray', args: [4] }).result,
   ).toEqual([1, 2, 3, 4]);
 });
+
+// Not recorded: `undefined` cannot be represented in the JSON replay log
+defineTest.skipIf(!!recordingOutput)(
+  'fails: variadic methods reject undefined required varargs',
+  (sandbox) => {
+    const obj = sandbox.create({ fqn: 'jsii-calc.VariadicMethod' });
+    expect(() =>
+      sandbox.invoke({
+        objref: obj,
+        method: 'asArray',
+        args: [1, 2, undefined, 4],
+      }),
+    ).toThrow(/Unexpected 'undefined' value at index 1 of variadic argument/);
+  },
+);
 
 defineTest('static properties - get', (sandbox) => {
   const value = sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'Foo' });
@@ -2245,35 +2360,6 @@ defineTest.skipIf(!!recordingOutput)(
     });
   },
 );
-
-defineTest('invokeBinScript() return output', (sandbox) => {
-  const result = sandbox.invokeBinScript({
-    assembly: 'jsii-calc',
-    script: 'calc',
-  });
-
-  expect(result).toMatchObject<api.InvokeScriptResponse>({
-    status: 0,
-    stdout: 'Hello World!\n',
-    stderr: '',
-    signal: null,
-  });
-});
-
-defineTest('invokeBinScript() accepts arguments', (sandbox) => {
-  const result = sandbox.invokeBinScript({
-    assembly: 'jsii-calc',
-    script: 'calc',
-    args: ['arg1', 'arg2'],
-  });
-
-  expect(result).toMatchObject<api.InvokeScriptResponse>({
-    status: 0,
-    stdout: 'Hello World!\n  arguments: arg1, arg2\n',
-    stderr: '',
-    signal: null,
-  });
-});
 
 // =================================================================================================
 

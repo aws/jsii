@@ -111,19 +111,6 @@ export interface GetScriptCommandResponse {
   env: Record<string, string>;
 }
 
-export interface InvokeScriptRequest {
-  readonly assembly: string;
-  readonly script: string;
-  readonly args?: string[];
-}
-
-export interface InvokeScriptResponse {
-  readonly status: number | null;
-  readonly stdout: string;
-  readonly stderr: string;
-  readonly signal: string | null;
-}
-
 export interface CreateRequest {
   /**
    * The FQN of the class of which an instance is requested (or "Object")
@@ -209,6 +196,12 @@ export interface BeginRequest {
   readonly args?: any[];
 }
 
+export interface StaticBeginRequest {
+  readonly fqn: string;
+  readonly method: string;
+  readonly args?: any[];
+}
+
 export interface BeginResponse {
   readonly promiseid: string;
 }
@@ -264,6 +257,7 @@ export type KernelRequest =
   | SetRequest
   | InvokeRequest
   | BeginRequest
+  | StaticBeginRequest
   | EndRequest
   | CallbacksRequest
   | CompleteRequest

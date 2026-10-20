@@ -13,6 +13,7 @@ from ._runtime import (
     member,
     kernel,
     proxy_for,
+    unsafe_cast,
 )
 from . import python
 
@@ -33,6 +34,7 @@ sset = kernel.sset
 invoke = kernel.invoke
 ainvoke = kernel.ainvoke
 sinvoke = kernel.sinvoke
+sainvoke = kernel.sainvoke
 stats = kernel.stats
 
 
@@ -59,6 +61,7 @@ __all__ = [
     "member",
     "kernel",
     "proxy_for",
+    "unsafe_cast",
     "load",
     "create",
     "delete",
@@ -69,6 +72,7 @@ __all__ = [
     "invoke",
     "ainvoke",
     "sinvoke",
+    "sainvoke",
     "stats",
     "python",
 ]

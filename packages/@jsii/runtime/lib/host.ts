@@ -13,6 +13,31 @@ import { Input, IInputOutput } from './in-out';
 const HOST_STACK_TRACE_SYMBOL = Symbol.for('jsii.context.hostStackTrace');
 const HOST_DIR_NAME_SYMBOL = Symbol.for('jsii.context.hostDirName');
 
+/**
+ * The kernel methods that can be invoked through the `api` field of a request.
+ * Only these names are dispatched; any other property of the `Kernel` instance
+ * (including inherited ones such as `constructor`) is rejected.
+ */
+const KERNEL_API_NAMES: ReadonlySet<string> = new Set<keyof Kernel>([
+  'load',
+  'naming',
+  'stats',
+  'create',
+  'del',
+  'invoke',
+  'sinvoke',
+  'get',
+  'sget',
+  'set',
+  'sset',
+  'begin',
+  'sbegin',
+  'end',
+  'callbacks',
+  'complete',
+  'getBinScriptCommand',
+]);
+
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
   private readonly eventEmitter = new EventEmitter();
@@ -33,7 +58,7 @@ export class KernelHost {
 
   public run() {
     const req = this.inout.read();
-    if (!req || 'exit' in req) {
+    if (req === undefined || (isObject(req) && 'exit' in req)) {
       this.eventEmitter.emit('exit', req?.exit ?? 0);
       return; // done
     }
@@ -57,40 +82,42 @@ export class KernelHost {
     // bring back the result via a "complete" request.
     this.inout.write({ callback });
 
-    return completeCallback.call(this);
-
-    function completeCallback(this: KernelHost): api.CompleteRequest['result'] {
+    // Requests other than the completion of this callback are processed
+    // synchronously in a loop (rather than recursively), so that any number of
+    // them can be handled while waiting without growing the stack.
+    while (true) {
       const req = this.inout.read();
-      if (!req || 'exit' in req) {
+      if (req === undefined || (isObject(req) && 'exit' in req)) {
         throw new JsiiFault('Interrupted before callback returned');
       }
 
       // if this is a completion for the current callback, then we can
       // finally stop this nonsense and return the result.
-      const completeReq = req as { complete: api.CompleteRequest };
-      if (
-        'complete' in completeReq &&
-        completeReq.complete.cbid === callback.cbid
-      ) {
-        if (completeReq.complete.err) {
-          if (completeReq.complete.name === JsiiErrorType.JSII_FAULT) {
-            throw new JsiiFault(completeReq.complete.err);
-          }
-          throw new RuntimeError(completeReq.complete.err);
+      const complete = isObject(req)
+        ? (req as { complete?: unknown }).complete
+        : undefined;
+      if (isObject(complete)) {
+        const completeReq = complete as api.CompleteRequest;
+        if (completeReq.cbid !== callback.cbid) {
+          throw new JsiiFault(
+            `Unexpected completion of callback ${JSON.stringify(completeReq.cbid)} while waiting for ${callback.cbid}`,
+          );
         }
 
-        return completeReq.complete.result;
+        if (completeReq.err) {
+          if (completeReq.name === JsiiErrorType.JSII_FAULT) {
+            throw new JsiiFault(completeReq.err);
+          }
+          throw new RuntimeError(completeReq.err);
+        }
+
+        return completeReq.result;
       }
 
       // otherwise, process the request normally, but continue to wait for
-      // our callback to be completed. sync=true to enforce that `completeCallback`
-      // will be called synchronously and return value will be chained back so we can
-      // return it to the callback handler.
-      return this.processRequest(
-        req,
-        completeCallback.bind(this),
-        /* sync */ true,
-      );
+      // our callback to be completed. sync=true to enforce that the request is
+      // fully processed before `processRequest` returns.
+      this.processRequest(req, () => undefined, /* sync */ true);
     }
   }
 
@@ -113,34 +140,44 @@ export class KernelHost {
     next: () => T,
     sync = false,
   ): T | undefined {
-    if ('callback' in req) {
-      throw new JsiiFault(
-        'Unexpected `callback` result. This request should have been processed by a callback handler',
-      );
-    }
-
-    if (!('api' in req)) {
-      throw new JsiiFault('Malformed request, "api" field is required');
-    }
-
-    const apiReq = req;
-    const fn = this.findApi(apiReq.api);
-
-    const hostTrace = (req as any)['$jsii.stacktrace'];
-    (global as any)[HOST_STACK_TRACE_SYMBOL] = hostTrace ?? undefined;
-    (global as any)[HOST_DIR_NAME_SYMBOL] = __dirname;
-
     try {
+      if (!isObject(req)) {
+        throw new JsiiFault(
+          `Malformed request, expected a JSON object but received ${Array.isArray(req) ? 'an array' : req === null ? 'null' : `a ${typeof req}`}`,
+        );
+      }
+
+      if ('callback' in req) {
+        throw new JsiiFault(
+          'Unexpected `callback` result. This request should have been processed by a callback handler',
+        );
+      }
+
+      if (!('api' in req)) {
+        throw new JsiiFault('Malformed request, "api" field is required');
+      }
+
+      const apiReq = req;
+      const fn = this.findApi(apiReq.api);
+
+      const hostTrace = (req as any)['$jsii.stacktrace'];
+      (global as any)[HOST_STACK_TRACE_SYMBOL] = hostTrace ?? undefined;
+      (global as any)[HOST_DIR_NAME_SYMBOL] = __dirname;
+
       const ret = fn.call(this.kernel, req);
 
-      // special case for 'begin' and 'complete' which are on an async
+      // special case for 'begin', 'sbegin' and 'complete' which are on an async
       // promise path. in order to allow the kernel to actually fulfill
       // the promise, and continue any async flows (which may potentially
       // start other promises), we respond only within a setImmediate
       // block, which is scheduled in the same micro-tasks queue as
       // promises. see the kernel test 'async overrides: two overrides'
       // for an example for this use case.
-      if (apiReq.api === 'begin' || apiReq.api === 'complete') {
+      if (
+        apiReq.api === 'begin' ||
+        apiReq.api === 'sbegin' ||
+        apiReq.api === 'complete'
+      ) {
         checkIfAsyncIsAllowed();
 
         this.debug('processing pending promises before responding');
@@ -157,6 +194,12 @@ export class KernelHost {
       // if this is an async method, return immediately and
       // call next only when the promise is fulfilled.
       if (this.isPromise(ret)) {
+        if (sync) {
+          // The request is about to be rejected by `checkIfAsyncIsAllowed`, so
+          // nothing will observe this promise. Make sure its eventual rejection
+          // does not surface as an unhandled rejection.
+          Promise.resolve(ret).catch(() => undefined);
+        }
         checkIfAsyncIsAllowed();
 
         this.debug('waiting for promise to be fulfilled');
@@ -229,6 +272,9 @@ export class KernelHost {
    * Given a kernel api name, returns the function to invoke.
    */
   private findApi(apiName: string): (this: Kernel, arg: Input) => any {
+    if (!KERNEL_API_NAMES.has(apiName)) {
+      throw new Error(`Invalid kernel api call: ${apiName}`);
+    }
     const fn = (this.kernel as any)[apiName];
     if (typeof fn !== 'function') {
       throw new Error(`Invalid kernel api call: ${apiName}`);
@@ -243,4 +289,11 @@ export class KernelHost {
 
     console.error(...args);
   }
+}
+
+/**
+ * Whether `value` is a non-null, non-array object (i.e: a JSON object).
+ */
+function isObject(value: unknown): value is { [key: string]: any } {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }

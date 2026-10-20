@@ -2003,6 +2003,23 @@ export class StaticContext {
 }
 
 /**
+ * Validates that assigning a static property from a jsii host language updates
+ * the value on the JavaScript side.
+ */
+export class StaticPropertyAssignment {
+  public static value = 'default';
+
+  /**
+   * Reads `value` from within JavaScript, so that host language assignments are observable.
+   */
+  public static readValue(): string {
+    return StaticPropertyAssignment.value;
+  }
+
+  private constructor() {}
+}
+
+/**
  * This test is used to validate the runtimes can return correctly from a void callback.
  *
  * - Implement `overrideMe` (method does not have to do anything).
@@ -2749,6 +2766,15 @@ export class ConfusingToJackson {
     return {};
   }
 
+  /**
+   * Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+   */
+  public static roundTripStruct(
+    input: ConfusingToJacksonStruct,
+  ): ConfusingToJacksonStruct {
+    return { unionProperty: input.unionProperty };
+  }
+
   public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 
   private constructor() {}
@@ -3131,6 +3157,29 @@ export class VariadicTypeUnion {
 }
 
 /**
+ * Unions that include `Date`, which requires the generated Go runtime type
+ * checks to import the "time" package.
+ */
+export class ClassWithDateUnions {
+  public static staticMethodWithDateUnionParam(param: string | Date): string {
+    return String(param);
+  }
+
+  public constructor(public unionProperty: string | Date) {}
+
+  public methodWithDateUnionParam(param: string | Date): string {
+    return String(param);
+  }
+
+  public methodWithCollectionsOfDateUnionsParams(
+    list: Array<string | Date>,
+    map: Record<string, string | Date>,
+  ): number {
+    return list.length + Object.keys(map).length;
+  }
+}
+
+/**
  * Validate that namespaces being shadowed by local variables does not cause
  * type checking issues.
  *
@@ -3179,6 +3228,17 @@ export class PromiseNothing {
   public async instancePromiseIt(): Promise<void> {
     return PromiseNothing.promiseIt();
   }
+}
+
+/**
+ * Static asynchronous methods, used to verify that their arguments and results cross the language boundary.
+ */
+export class StaticAsyncMethods {
+  public static async addOne(value: number): Promise<number> {
+    return Promise.resolve(value + 1);
+  }
+
+  private constructor() {}
 }
 
 export class AnyPropertyAccess {

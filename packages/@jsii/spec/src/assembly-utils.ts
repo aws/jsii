@@ -107,6 +107,13 @@ export function writeAssembly(
   return compress;
 }
 
+/**
+ * The maximum number of `jsii/file-redirect` hops followed when loading an
+ * assembly. The jsii compiler only ever emits a single redirect (to the
+ * compressed assembly), so this leaves ample headroom while preventing loops.
+ */
+const MAX_ASSEMBLY_REDIRECTS = 5;
+
 const failNoReadfileProvided = (filename: string) => {
   throw new Error(
     `Unable to load assembly support file ${JSON.stringify(
@@ -133,7 +140,13 @@ export function loadAssemblyFromBuffer(
   let contents = JSON.parse(assemblyBuffer.toString('utf-8'));
 
   // check if the file holds instructions to the actual assembly file
+  let redirects = 0;
   while (isAssemblyRedirect(contents)) {
+    if (++redirects > MAX_ASSEMBLY_REDIRECTS) {
+      throw new Error(
+        `Too many assembly redirects (more than ${MAX_ASSEMBLY_REDIRECTS})`,
+      );
+    }
     contents = followRedirect(contents, readFile);
   }
 
@@ -188,12 +201,51 @@ export function loadAssemblyFromFile(
   try {
     return loadAssemblyFromBuffer(
       data,
-      (filename) => fs.readFileSync(path.resolve(pathToFile, '..', filename)),
+      (filename) => readSupportFile(path.dirname(pathToFile), filename),
       validate,
       supportedFeatures,
     );
   } catch (e: any) {
     throw new Error(`Error loading assembly from file ${pathToFile}:\n${e}`);
+  }
+}
+
+/**
+ * Reads an assembly support file, making sure it is located inside `directory`
+ * (after resolving any symbolic links).
+ */
+function readSupportFile(directory: string, filename: string): Buffer {
+  const realDir = fs.realpathSync(directory);
+  const realFile = fs.realpathSync(path.resolve(realDir, filename));
+
+  const relative = path.relative(realDir, realFile);
+  if (
+    relative === '' ||
+    relative === '..' ||
+    relative.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relative)
+  ) {
+    throw new Error(
+      `Assembly redirect target ${JSON.stringify(filename)} resolves outside of ${directory}`,
+    );
+  }
+
+  return fs.readFileSync(realFile);
+}
+
+/**
+ * Lexically checks that a redirect `filename` is a relative path that does not
+ * escape the directory containing the redirect.
+ */
+function assertRelativeRedirectFilename(filename: string): void {
+  if (
+    path.posix.isAbsolute(filename) ||
+    path.win32.isAbsolute(filename) ||
+    filename.split(/[\\/]/).includes('..')
+  ) {
+    throw new Error(
+      `Invalid assembly redirect filename ${JSON.stringify(filename)}: must be a relative path inside the package`,
+    );
   }
 }
 
@@ -203,6 +255,7 @@ function followRedirect(
 ) {
   // Validating the schema, this is cheap (the schema is small).
   validateAssemblyRedirect(assemblyRedirect);
+  assertRelativeRedirectFilename(assemblyRedirect.filename);
 
   let data = readFile(assemblyRedirect.filename);
   switch (assemblyRedirect.compression) {

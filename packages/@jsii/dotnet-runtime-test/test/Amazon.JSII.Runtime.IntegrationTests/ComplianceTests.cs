@@ -47,16 +47,16 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             _serviceContainerFixture.Dispose();
         }
 
-        [Fact(DisplayName = Prefix + nameof(UseNestedStruct))]
-        public void UseNestedStruct()
+        [Fact(DisplayName = Prefix + nameof(SubmoduleStructCanBePassed))]
+        public void SubmoduleStructCanBePassed()
         {
             StaticConsumer.Consume(
                 new Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.NestedStruct { Name = "Bond, James Bond" }
             );
         }
 
-        [Fact(DisplayName = Prefix + nameof(PrimitiveTypes))]
-        public void PrimitiveTypes()
+        [Fact(DisplayName = Prefix + nameof(PrimitivesRoundTrip))]
+        public void PrimitivesRoundTrip()
         {
             AllTypes types = new AllTypes();
 
@@ -81,8 +81,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(123d, types.JsonProperty["Foo"]?["Bar"]?.Value<double>());
         }
 
-        [Fact(DisplayName = Prefix + nameof(Dates))]
-        public void Dates()
+        [Fact(DisplayName = Prefix + nameof(DatesRoundTrip))]
+        public void DatesRoundTrip()
         {
             var types = new AllTypes();
 
@@ -95,8 +95,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(DateTime.UnixEpoch.AddSeconds(999), types.AnyProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(CollectionTypes))]
-        public void CollectionTypes()
+        [Fact(DisplayName = Prefix + nameof(CollectionPropertiesCanBeSetAndRead))]
+        public void CollectionPropertiesCanBeSetAndRead()
         {
             AllTypes types = new AllTypes();
 
@@ -111,21 +111,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(123d, types.MapProperty["Foo"].Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ComplexCollectionTypes))]
-        public void ComplexCollectionTypes()
-        {
-            // See https://github.com/aws/aws-cdk/issues/2496
-            AllTypes types = new AllTypes();
-            // complex map
-            IDictionary<string, object> map = new Dictionary<string, object>();
-            map.Add("Foo", new Dictionary<string, object>() { {"Key", 123d}});
-            types.AnyMapProperty = map;
-            var dict = (Dictionary<string, object>)types.AnyMapProperty["Foo"];
-            Assert.Equal(123d, dict["Key"]);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(DynamicTypes))]
-        public void DynamicTypes()
+        [Fact(DisplayName = Prefix + nameof(AnyValuesKeepTheirType))]
+        public void AnyValuesKeepTheirType()
         {
             AllTypes types = new AllTypes();
 
@@ -191,8 +178,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(200d, ((Multiply) types.AnyProperty).Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(UnionTypes))]
-        public void UnionTypes()
+        [Fact(DisplayName = Prefix + nameof(UnionPropertyAcceptsEachMemberType))]
+        public void UnionPropertyAcceptsEachMemberType()
         {
             AllTypes types = new AllTypes();
 
@@ -225,8 +212,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             */
         }
 
-        [Fact(DisplayName = Prefix + nameof(CreateObjectAndCtorOverloads))]
-        public void CreateObjectAndCtorOverloads()
+        [Fact(DisplayName = Prefix + nameof(OptionalConstructorParametersCanBeOmitted))]
+        public void OptionalConstructorParametersCanBeOmitted()
         {
             new Calculator();
             var calc = new Calculator(new CalculatorProps() {
@@ -235,8 +222,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(100, calc.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(GetSetPrimitiveProperties))]
-        public void GetSetPrimitiveProperties()
+        [Fact(DisplayName = Prefix + nameof(PrimitivePropertiesCanBeRead))]
+        public void PrimitivePropertiesCanBeRead()
         {
             var number = new Number(20);
             Assert.Equal(20d, number.Value);
@@ -248,8 +235,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(1d, new Power(new Number(999), new Number(0)).Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(CallMethods))]
-        public void CallMethods()
+        [Fact(DisplayName = Prefix + nameof(InstanceMethodsCanBeCalled))]
+        public void InstanceMethodsCanBeCalled()
         {
             var calc = new Calculator();
 
@@ -266,8 +253,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(-3200000d, calc.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(UnmarkshallIntoAbstractType))]
-        public void UnmarkshallIntoAbstractType()
+        [Fact(DisplayName = Prefix + nameof(AbstractTypedValueReceivedAsReference))]
+        public void AbstractTypedValueReceivedAsReference()
         {
             var calc = new Calculator();
 
@@ -276,8 +263,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(120d, value.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(GetAndSetNotPrimitiveProperties))]
-        public void GetAndSetNotPrimitiveProperties()
+        [Fact(DisplayName = Prefix + nameof(ObjectPropertiesCanBeReadAndAssigned))]
+        public void ObjectPropertiesCanBeReadAndAssigned()
         {
             var calc = new Calculator();
 
@@ -287,8 +274,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(-6400000d, calc.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(GetAndSetEnumValues))]
-        public void GetAndSetEnumValues()
+        [Fact(DisplayName = Prefix + nameof(EnumPropertiesCanBeReadAndWritten))]
+        public void EnumPropertiesCanBeReadAndWritten()
         {
             // TODO: Generator should create a parameterless constructor.
             Calculator calc = new Calculator(new CalculatorProps());
@@ -301,8 +288,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.ToString());
         }
 
-        [Fact(DisplayName = Prefix + nameof(EnumFromScopedModule))]
-        public void UseEnumFromScopedModule()
+        [Fact(DisplayName = Prefix + nameof(EnumsFromDependenciesCrossTheBoundary))]
+        public void EnumsFromDependenciesCrossTheBoundary()
         {
             ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
             Assert.Equal(EnumFromScopedModule.VALUE2, obj.Foo);
@@ -312,8 +299,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(EnumFromScopedModule.VALUE2, obj.Foo);
         }
 
-        [Fact(DisplayName = Prefix + nameof(UndefinedAndNull))]
-        public void UndefinedAndNull()
+        [Fact(DisplayName = Prefix + nameof(UnsetOptionalPropertyReadsAsAbsent))]
+        public void UnsetOptionalPropertyReadsAsAbsent()
         {
             // TODO: Generator should create a parameterless constructor.
             Calculator calculator = new Calculator(new CalculatorProps());
@@ -322,8 +309,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             calculator.MaxValue = null;
         }
 
-        [Fact(DisplayName = Prefix + nameof(Arrays))]
-        public void Arrays()
+        [Fact(DisplayName = Prefix + nameof(ArraysOfObjectsPreserveOrderAndType))]
+        public void ArraysOfObjectsPreserveOrderAndType()
         {
             var sum = new Sum
             {
@@ -335,8 +322,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("(((0 + 5) + 10) + (2 * 3))", sum.ToString());
         }
 
-        [Fact(DisplayName = Prefix + nameof(Maps))]
-        public void Maps()
+        [Fact(DisplayName = Prefix + nameof(MapsOfObjectsCanBeRead))]
+        public void MapsOfObjectsCanBeRead()
         {
             // TODO: Generator should create a parameterless constructor.
             var calc = new Calculator(new CalculatorProps());
@@ -355,20 +342,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             );
         }
 
-        [Fact(DisplayName = Prefix + nameof(FluentApi))]
-        public void FluentApi()
-        {
-            Calculator calc = new Calculator(new CalculatorProps
-            {
-                InitialValue = 20,
-                MaximumValue = 30,
-            });
-            calc.Add(3);
-            Assert.Equal(23, calc.Value);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(Exceptions))]
-        public void Exceptions()
+        [Fact(DisplayName = Prefix + nameof(KernelErrorsReachTheHost))]
+        public void KernelErrorsReachTheHost()
         {
             var calc = new Calculator(new CalculatorProps
             {
@@ -386,8 +361,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(33d, calc.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ExceptionMessage))]
-        public void ExceptionMessage()
+        [Fact(DisplayName = Prefix + nameof(KernelErrorMessageReachesTheHost))]
+        public void KernelErrorMessageReachesTheHost()
         {
             var e = Assert.Throws<Exception>(() =>
                 new AcceptsPath(new AcceptsPathProps { SourcePath = "A Bad Path" })
@@ -395,8 +370,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("Cannot find asset", e.Message);
         }
 
-        [Fact(DisplayName = Prefix + nameof(UnionProperties))]
-        public void UnionProperties()
+        [Fact(DisplayName = Prefix + nameof(UnionPropertyReturnsConcreteType))]
+        public void UnionPropertyReturnsConcreteType()
         {
             var calc = new Calculator();
 
@@ -408,8 +383,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.IsType<Power>(calc.UnionProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(SubClassing))]
-        public void SubClassing()
+        [Fact(DisplayName = Prefix + nameof(HostSubclassCanBeUsed))]
+        public void HostSubclassCanBeUsed()
         {
             var calc = new Calculator();
 
@@ -418,8 +393,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(-43d, calc.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestJsObjectLiteralToNative))]
-        public void TestJsObjectLiteralToNative()
+        [Fact(DisplayName = Prefix + nameof(ObjectLiteralReturnedAsClassIsUsable))]
+        public void ObjectLiteralReturnedAsClassIsUsable()
         {
             var obj = new JSObjectLiteralToNative();
             var obj2 = obj.ReturnLiteral();
@@ -428,8 +403,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(102d, obj2.PropB);
         }
 
-        [Fact(DisplayName = Prefix + nameof(CreationOfNativeObjectsFromJavaScriptObjects))]
-        public void CreationOfNativeObjectsFromJavaScriptObjects()
+        [Fact(DisplayName = Prefix + nameof(ObjectReferencesRoundTripThroughAny))]
+        public void ObjectReferencesRoundTripThroughAny()
         {
             var types = new AllTypes();
 
@@ -459,45 +434,45 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncOverrides_CallAsyncMethod))]
-        public void AsyncOverrides_CallAsyncMethod()
+        [Fact(DisplayName = Prefix + nameof(AsyncMethodsCanBeCalled))]
+        public void AsyncMethodsCanBeCalled()
         {
             AsyncVirtualMethods obj = new AsyncVirtualMethods();
             Assert.Equal(128d, obj.CallMe());
             Assert.Equal(528d, obj.OverrideMe(44));
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideAsyncMethod))]
-        public void AsyncOverrides_OverrideAsyncMethod()
+        [Fact(DisplayName = Prefix + nameof(AsyncMethodCanBeOverridden))]
+        public void AsyncMethodCanBeOverridden()
         {
             OverrideAsyncMethods obj = new OverrideAsyncMethods();
             Assert.Equal(4452d, obj.CallMe());
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideAsyncMethodByParentClass))]
-        public void AsyncOverrides_OverrideAsyncMethodByParentClass()
+        [Fact(DisplayName = Prefix + nameof(AsyncOverrideCanBeInherited))]
+        public void AsyncOverrideCanBeInherited()
         {
             OverrideAsyncMethodsByBaseClass obj = new OverrideAsyncMethodsByBaseClass();
             Assert.Equal(4452d, obj.CallMe());
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideCallsSuper))]
-        public void AsyncOverrides_OverrideCallsSuper()
+        [Fact(DisplayName = Prefix + nameof(AsyncOverrideCanCallSuper))]
+        public void AsyncOverrideCanCallSuper()
         {
             OverrideCallsSuper obj = new OverrideCallsSuper();
             Assert.Equal(1441d, obj.OverrideMe(12));
             Assert.Equal(1209d, obj.CallMe());
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncOverrides_TwoOverrides))]
-        public void AsyncOverrides_TwoOverrides()
+        [Fact(DisplayName = Prefix + nameof(MultipleAsyncMethodsCanBeOverridden))]
+        public void MultipleAsyncMethodsCanBeOverridden()
         {
             TwoOverrides obj = new TwoOverrides();
             Assert.Equal(684d, obj.CallMe());
         }
 
-        [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideThrows))]
-        public void AsyncOverrides_OverrideThrows()
+        [Fact(DisplayName = Prefix + nameof(AsyncOverrideErrorPropagates))]
+        public void AsyncOverrideErrorPropagates()
         {
             AsyncVirtualMethodsChild obj = new AsyncVirtualMethodsChild();
 
@@ -545,8 +520,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Get_Set))]
-        public void PropertyOverrides_Get_Set()
+        [Fact(DisplayName = Prefix + nameof(PropertyAccessesUseHostOverrides))]
+        public void PropertyAccessesUseHostOverrides()
         {
             SyncOverrides so = new SyncOverrides();
             Assert.Equal("I am an override!", so.RetrieveValueOfTheProperty());
@@ -554,8 +529,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("New Value", so.AnotherTheProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Get_CallsSuper))]
-        public void PropertyOverrides_Get_CallsSuper()
+        [Fact(DisplayName = Prefix + nameof(GetterOverrideCanCallSuper))]
+        public void GetterOverrideCanCallSuper()
         {
             SyncVirtualMethodsChild_Get_CallsSuper so = new SyncVirtualMethodsChild_Get_CallsSuper();
 
@@ -563,8 +538,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("super:initial value", so.TheProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Get_Throws))]
-        public void PropertyOverrides_Get_Throws()
+        [Fact(DisplayName = Prefix + nameof(GetterOverrideErrorPropagates))]
+        public void GetterOverrideErrorPropagates()
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
@@ -572,8 +547,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Contains("Oh no, this is bad", exception.Message);
         }
 
-        [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Set_CallsSuper))]
-        public void PropertyOverrides_Set_CallsSuper()
+        [Fact(DisplayName = Prefix + nameof(SetterOverrideCanCallSuper))]
+        public void SetterOverrideCanCallSuper()
         {
             SyncVirtualMethodsChild_Set_CallsSuper so = new SyncVirtualMethodsChild_Set_CallsSuper();
 
@@ -581,8 +556,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("New Value:by override", so.TheProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Set_Throws))]
-        public void PropertyOverrides_Set_Throws()
+        [Fact(DisplayName = Prefix + nameof(SetterOverrideErrorPropagates))]
+        public void SetterOverrideErrorPropagates()
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
@@ -590,8 +565,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Contains("Exception from overloaded setter", exception.Message);
         }
 
-        [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Interfaces))]
-        public void PropertyOverrides_Interfaces()
+        [Fact(DisplayName = Prefix + nameof(KernelUsesHostInterfaceAccessors))]
+        public void KernelUsesHostInterfaceAccessors()
         {
             InterfaceWithProperties obj = new InterfaceWithProperties();
             UsesInterfaceWithProperties interact = new UsesInterfaceWithProperties(obj);
@@ -600,8 +575,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("Hello!?", interact.WriteAndRead("Hello"));
         }
 
-        [Fact(DisplayName = Prefix + nameof(SyncOverrides_SyncOverrides))]
-        public void SyncOverrides_SyncOverrides()
+        [Fact(DisplayName = Prefix + nameof(MethodCallsUseHostOverride))]
+        public void MethodCallsUseHostOverride()
         {
             SyncOverrides obj = new SyncOverrides();
             Assert.Equal(10d * 5, obj.CallerIsMethod());
@@ -618,8 +593,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(10d * 5 * 3, obj.CallerIsAsync());
         }
 
-        [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsSuper))]
-        public void SyncOverrides_CallsSuper()
+        [Fact(DisplayName = Prefix + nameof(MethodOverrideCanCallSuper))]
+        public void MethodOverrideCanCallSuper()
         {
             SyncOverrides obj = new SyncOverrides();
             Assert.Equal(10d * 5, obj.CallerIsProperty);
@@ -628,8 +603,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(10d * 2, obj.CallerIsProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsDoubleAsyncMethodFails))]
-        public void SyncOverrides_CallsDoubleAsyncMethodFails()
+        [Fact(DisplayName = Prefix + nameof(SyncMethodOverrideCallingAsyncFails))]
+        public void SyncMethodOverrideCallingAsyncFails()
         {
             SyncOverrides obj = new SyncOverrides();
             obj.CallAsync = true;
@@ -637,8 +612,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Throws<JsiiError>(() => obj.CallerIsMethod());
         }
 
-        [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsDoubleAsyncPropertyGetterFails))]
-        public void SyncOverrides_CallsDoubleAsyncPropertyGetterFails()
+        [Fact(DisplayName = Prefix + nameof(SyncGetterOverrideCallingAsyncFails))]
+        public void SyncGetterOverrideCallingAsyncFails()
         {
             SyncOverrides obj = new SyncOverrides();
             obj.CallAsync = true;
@@ -646,8 +621,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Throws<JsiiError>(() => obj.CallerIsProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsDoubleAsyncPropertySetterFails))]
-        public void SyncOverrides_CallsDoubleAsyncPropertySetterFails()
+        [Fact(DisplayName = Prefix + nameof(SyncSetterOverrideCallingAsyncFails))]
+        public void SyncSetterOverrideCallingAsyncFails()
         {
             SyncOverrides obj = new SyncOverrides();
             obj.CallAsync = true;
@@ -655,8 +630,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Throws<JsiiError>(() => obj.CallerIsProperty = 12);
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestInterfaces))]
-        public void TestInterfaces()
+        [Fact(DisplayName = Prefix + nameof(ObjectsUsableThroughEveryInterface))]
+        public void ObjectsUsableThroughEveryInterface()
         {
             IFriendly friendly;
             IFriendlier friendlier;
@@ -702,8 +677,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
          * 2. obj => objref: when we call .isSameGenerator(x) we pass the pure native object back to jsii and we expect
          *    that a new object is not created again.
          */
-        [Fact(DisplayName = Prefix + nameof(TestNativeObjectsWithInterfaces))]
-        public void TestNativeObjectsWithInterfaces()
+        [Fact(DisplayName = Prefix + nameof(HostObjectsKeepIdentityAcrossTheBoundary))]
+        public void HostObjectsKeepIdentityAcrossTheBoundary()
         {
             // create a pure and native object, not part of the jsii hierarchy, only implements a jsii interface
             PureNativeFriendlyRandom pureNative = new PureNativeFriendlyRandom();
@@ -724,8 +699,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(200000d, generatorBoundToPureNative.NextTimes100());
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestLiteralInterface))]
-        public void TestLiteralInterface()
+        [Fact(DisplayName = Prefix + nameof(ObjectLiteralReturnedAsInterfaceIsUsable))]
+        public void ObjectLiteralReturnedAsInterfaceIsUsable()
         {
             JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
             IFriendly friendly = obj.GiveMeFriendly();
@@ -736,8 +711,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(42d, gen.Next());
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestInterfaceParameter))]
-        public void TestInterfaceParameter()
+        [Fact(DisplayName = Prefix + nameof(InterfaceValueCanBePassedBack))]
+        public void InterfaceValueCanBePassedBack()
         {
             var obj = new JSObjectLiteralForInterface();
             var friendly = obj.GiveMeFriendly();
@@ -748,8 +723,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("I am literally friendly! Let me buy you a drink!", betterGreeting);
         }
 
-        [Fact(DisplayName = Prefix + nameof(Structs_SerializeToJsii))]
-        public void Structs_SerializeToJsii()
+        [Fact(DisplayName = Prefix + nameof(StructsArePassedByValue))]
+        public void StructsArePassedByValue()
         {
             MyFirstStruct firstStruct = new MyFirstStruct
             {
@@ -781,8 +756,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Null(literal.Optional2);
         }
 
-        [Fact(DisplayName = Prefix + nameof(StaticsTest))]
-        public void StaticsTest()
+        [Fact(DisplayName = Prefix + nameof(StaticMembersCanBeUsed))]
+        public void StaticMembersCanBeUsed()
         {
             Assert.Equal("hello ,Yoyo!", Statics.StaticMethod("Yoyo"));
             Assert.Equal("default", Statics.Instance.Value);
@@ -795,8 +770,27 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(100, Statics.NonConstStatic);
         }
 
-        [Fact(DisplayName = Prefix + nameof(Consts))]
-        public void Consts()
+        [Fact(DisplayName = Prefix + nameof(StaticPropertyAssignmentUpdatesJavaScript))]
+        public void StaticPropertyAssignmentUpdatesJavaScript()
+        {
+            Assert.Equal("default", StaticPropertyAssignment.ReadValue());
+            try
+            {
+                StaticPropertyAssignment.Value = "assigned";
+
+                Assert.Equal("assigned", StaticPropertyAssignment.ReadValue());
+                Assert.Equal("assigned", StaticPropertyAssignment.Value);
+            }
+            finally
+            {
+                StaticPropertyAssignment.Value = "default";
+            }
+
+            Assert.Equal("default", StaticPropertyAssignment.ReadValue());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ConstantsCanBeRead))]
+        public void ConstantsCanBeRead()
         {
             Assert.Equal("hello", Statics.Foo);
             DoubleTrouble obj = Statics.ConstObj;
@@ -805,14 +799,16 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("world", Statics.ZooBar["hello"]);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ReservedKeywordsAreSlugifiedInMethodNames), Skip = "TODO")]
-        public void ReservedKeywordsAreSlugifiedInMethodNames()
+        [Fact(DisplayName = Prefix + nameof(ReservedWordMethodsAreCallable))]
+        public void ReservedWordMethodsAreCallable()
         {
-            throw new NotImplementedException();
+            var obj = new JavaReservedWords();
+            obj.Import();
+            obj.Const();
         }
 
-        [Fact(DisplayName = Prefix + nameof(NodeStandardLibrary))]
-        public void NodeStandardLibrary()
+        [Fact(DisplayName = Prefix + nameof(NodeStandardLibraryIsAvailable))]
+        public void NodeStandardLibraryIsAvailable()
         {
             NodeStandardLibrary obj = new NodeStandardLibrary();
             Assert.Equal("Hello, resource!", obj.FsReadFile());
@@ -822,8 +818,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 obj.CryptoSha256());
         }
 
-        [Fact(DisplayName = Prefix + nameof(ReturnAbstract))]
-        public void ReturnAbstract()
+        [Fact(DisplayName = Prefix + nameof(ObjectsReturnedAsAbstractTypeAreUsable))]
+        public void ObjectsReturnedAsAbstractTypeAreUsable()
         {
             var obj = new AbstractClassReturner();
             var obj2 = obj.GiveMeAbstract();
@@ -838,8 +834,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("hello-abstract-property", obj.ReturnAbstractFromProperty.AbstractProperty);
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestClassWithPrivateConstructorAndAutomaticProperties))]
-        public void TestClassWithPrivateConstructorAndAutomaticProperties()
+        [Fact(DisplayName = Prefix + nameof(PrivateConstructorClassFromStaticFactory))]
+        public void PrivateConstructorClassFromStaticFactory()
         {
             var obj = ClassWithPrivateConstructorAndAutomaticProperties.Create("Hello", "Bye");
             Assert.Equal("Bye", obj.ReadWriteString);
@@ -848,17 +844,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("Hello", obj.ReadOnlyString);
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestReturnInterfaceFromOverride))]
-        public void TestReturnInterfaceFromOverride()
-        {
-            var n = 1337;
-            var obj = new OverrideReturnsObject();
-            var arg = new NumberReturner(n);
-            Assert.Equal(4 * n, obj.Test(arg));
-        }
-
-        [Fact(DisplayName = Prefix + nameof(NullShouldBeTreatedAsUndefined))]
-        public void NullShouldBeTreatedAsUndefined()
+        [Fact(DisplayName = Prefix + nameof(HostNullIsSentAsUndefined))]
+        public void HostNullIsSentAsUndefined()
         {
             // ctor
             var obj = new NullShouldBeTreatedAsUndefined("param1");
@@ -880,74 +867,20 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.VerifyPropertyIsUndefined();
         }
 
-        [Fact(DisplayName = Prefix + nameof(OptionalAndVariadicArgumentsTest))]
-        public void OptionalAndVariadicArgumentsTest()
-        {
-            // ctor
-            new NullShouldBeTreatedAsUndefined("param1", null);
-            var objWithoutOptionalProvided = new NullShouldBeTreatedAsUndefined("param1");
-
-            // method argument called with null value
-            objWithoutOptionalProvided.GiveMeUndefined(null);
-
-            // method argument called without null value
-            objWithoutOptionalProvided.GiveMeUndefined();
-
-            // Array with no value in constructor params
-            var variadicClassNoParams = new VariadicMethod();
-
-            // Array with null value in constructor params
-#pragma warning disable CS8625
-            new VariadicMethod(null);
-#pragma warning restore CS8625
-
-            // Array with one value in constructor params
-            new VariadicMethod(1);
-
-            // Array with multiple values in constructor params
-            new VariadicMethod(1, 2, 3, 4);
-
-            // Variadic parameter with null passed
-#pragma warning disable CS8625
-            variadicClassNoParams.AsArray(double.MinValue, null);
-#pragma warning restore CS8625
-
-            // Variadic parameter with default value used
-            variadicClassNoParams.AsArray(double.MinValue);
-
-            var list = new List<double>();
-
-            // Variadic parameter with array with no value
-            variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
-
-            // Variadic parameter with array with one value
-            list.Add(1d);
-            variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
-
-            // Variadic parameter with array with multiple value
-            list.Add(2d);
-            list.Add(3d);
-            list.Add(4d);
-            list.Add(5d);
-            list.Add(6d);
-
-            variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
-        }
-
-        [Fact(DisplayName = Prefix + nameof(JsiiAgentIsCorrect))]
-        public void JsiiAgentIsCorrect()
+        [Fact(DisplayName = Prefix + nameof(KernelKnowsTheHostRuntime))]
+        public void KernelKnowsTheHostRuntime()
         {
             Assert.Equal("DotNet/" + Environment.Version + "/.NETCoreApp,Version=v6.0/1.0.0.0", JsiiAgent.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
-        public void ReceiveInstanceOfPrivateClass()
+        [Fact(DisplayName = Prefix + nameof(NonExportedClassReceivedAsInterface))]
+        public void NonExportedClassReceivedAsInterface()
         {
             Assert.True(new ReturnsPrivateImplementationOfInterface().PrivateImplementation.Success);
         }
 
-        [Fact(DisplayName = Prefix + nameof(ObjRefsAreLabelledUsingWithTheMostCorrectType))]
-        public void ObjRefsAreLabelledUsingWithTheMostCorrectType()
+        [Fact(DisplayName = Prefix + nameof(ObjectsReceivedAsMostDerivedPublicType))]
+        public void ObjectsReceivedAsMostDerivedPublicType()
         {
             var classRef = Constructors.MakeClass();
             var ifaceRef = Constructors.MakeInterface();
@@ -956,8 +889,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.NotEqual(typeof(InbetweenClass), ifaceRef.GetType());
         }
 
-        [Fact(DisplayName = Prefix + nameof(EraseUnsetDataValues))]
-        public void EraseUnsetDataValues()
+        [Fact(DisplayName = Prefix + nameof(UnsetStructPropertiesAreOmitted))]
+        public void UnsetStructPropertiesAreOmitted()
         {
             var opts = new EraseUndefinedHashValuesOptions {
                 Option1 = "option1"
@@ -970,8 +903,20 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(new Dictionary<string, object> { [ "prop1"] = "value1" }, EraseUndefinedHashValues.Prop2IsUndefined());
         }
 
-        [Fact(DisplayName = Prefix + nameof(ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut))]
-        public void ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut()
+        internal sealed class PartiallyInitializedThisConsumerImpl : PartiallyInitializedThisConsumer
+        {
+            public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
+            {
+                Assert.NotNull(obj);
+                Assert.Equal(DateTime.UnixEpoch, dt);
+                Assert.Equal(AllTypesEnum.THIS_IS_GREAT, ev);
+
+                return "OK";
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ConstructorCanPassThisToTheHost))]
+        public void ConstructorCanPassThisToTheHost()
         {
             var reflector = new PartiallyInitializedThisConsumerImpl();
             var obj = new ConstructorPassesThisOut(reflector);
@@ -979,17 +924,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.NotNull(obj);
         }
 
-        [Fact(DisplayName = Prefix + nameof(CorrectlyReturnsFromVoidCallback))]
-        public void CorrectlyReturnsFromVoidCallback()
-        {
-            var voidCallback = new VoidCallbackImpl();
-            voidCallback.CallMe();
-
-            Assert.True(voidCallback.MethodWasCalled);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(CallbacksCorrectlyDeserializeArguments))]
-        public void CallbacksCorrectlyDeserializeArguments()
+        [Fact(DisplayName = Prefix + nameof(OverrideReceivesDeserializedArguments))]
+        public void OverrideReceivesDeserializedArguments()
         {
             var obj = new DataRendererSubclass();
             Assert.Equal("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", obj.Render(null));
@@ -1001,15 +937,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }));
         }
 
-        [Fact(DisplayName = Prefix + nameof(MethodCanReturnArraysOfInterfaces))]
-        public void MethodCanReturnArraysOfInterfaces()
-        {
-            var interfaces = InterfacesMaker.MakeInterfaces(4);
-            Assert.Equal(4, interfaces.Length);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(CanLeverageIndirectInterfacePolymorphism))]
-        public void CanLeverageIndirectInterfacePolymorphism()
+        [Fact(DisplayName = Prefix + nameof(InterfaceValueWithPrivateTypeIsUsable))]
+        public void InterfaceValueWithPrivateTypeIsUsable()
         {
             var provider = new AnonymousImplementationProvider();
             Assert.Equal(1337d, provider.ProvideAsClass().Value);
@@ -1017,8 +946,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("to implement", provider.ProvideAsInterface().Verb());
         }
 
-        [Fact(DisplayName = Prefix + nameof(CorrectlyDeserializesStructUnions))]
-        public void CorrectlyDeserializesStructUnions()
+        [Fact(DisplayName = Prefix + nameof(OverlappingStructUnionsAreDisambiguated))]
+        public void OverlappingStructUnionsAreDisambiguated()
         {
             var a0 = new StructA { RequiredString = "Present!", OptionalString = "Bazinga!" };
             var a1 = new StructA { RequiredString = "Present!", OptionalNumber = 1337 };
@@ -1036,62 +965,17 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(StructUnionConsumer.IsStructB(b1));
         }
 
-        [Fact(DisplayName = Prefix + nameof(VariadicCallbacksAreHandledCorrectly))]
-        public void VariadicCallbacksAreHandledCorrectly()
-        {
-            var method = new OverrideVariadicMethod();
-            var invoker = new VariadicInvoker(method);
-            Assert.Equal(new double[]{2d}, invoker.AsArray(1));
-            Assert.Equal(new double[]{2d, 3d}, invoker.AsArray(1, 2));
-            Assert.Equal(new double[]{2d, 3d, 4d}, invoker.AsArray(1, 2, 3));
-        }
-
-        [Fact(DisplayName = Prefix + nameof(ReturnSubclassThatImplementsInterface976))]
-        public void ReturnSubclassThatImplementsInterface976()
+        [Fact(DisplayName = Prefix + nameof(ObjectsUsableThroughImplementedInterface))]
+        public void ObjectsUsableThroughImplementedInterface()
         {
             var obj = SomeTypeJsii976.ReturnReturn();
             Assert.Equal(333, obj.Foo);
-        }
 
-        private sealed class OverrideVariadicMethod : VariadicMethod
-        {
-            public override double[] AsArray(double first, params double[] others)
-            {
-#pragma warning disable CS8604
-                return base.AsArray(first + 1, others?.Select(n => n + 1).ToArray());
-#pragma warning restore CS8604
-            }
-        }
-
-        [Fact(DisplayName = Prefix + nameof(OptionalCallbackArgumentsAreHandledCorrectly))]
-        public void OptionalCallbackArgumentsAreHandledCorrectly()
-        {
-            var noOption = new InterfaceWithOptionalMethodArguments();
-            new OptionalArgumentInvoker(noOption).InvokeWithoutOptional();
-            Assert.True(noOption.Invoked);
-
-            var option = new InterfaceWithOptionalMethodArguments(1337);
-            new OptionalArgumentInvoker(option).InvokeWithOptional();
-            Assert.True(option.Invoked);
-        }
-
-        private sealed class InterfaceWithOptionalMethodArguments : DeputyBase, IInterfaceWithOptionalMethodArguments
-        {
-            private readonly double? _optionalValue;
-
-            public InterfaceWithOptionalMethodArguments(double? optionalValue = null)
-            {
-                _optionalValue = optionalValue;
-            }
-
-            public Boolean Invoked { get; private set; }
-
-            public void Hello(string arg1, double? arg2 = null)
-            {
-                Invoked = true;
-                Assert.Equal("Howdy", arg1);
-                Assert.Equal(_optionalValue, arg2);
-            }
+            // An anonymous object returned as `any` must also be usable through the interface it
+            // implements (this previously lived in the standalone `downcasting` test).
+            var anyValue = SomeTypeJsii976.ReturnAnonymous();
+            var realValue = ((DeputyBase) anyValue).UnsafeCast<IReturnJsii976>();
+            Assert.Equal(1337d, realValue.Foo);
         }
 
         class DataRendererSubclass : DataRenderer
@@ -1099,50 +983,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             public override string RenderMap(IDictionary<string, object> map)
             {
                 return base.RenderMap(map);
-            }
-        }
-
-        class VoidCallbackImpl : VoidCallback
-        {
-            protected override void OverrideMe()
-            {
-                // Do nothing!
-            }
-        }
-
-        class PartiallyInitializedThisConsumerImpl : PartiallyInitializedThisConsumer
-        {
-            public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
-            {
-                Assert.NotNull(obj);
-                Assert.Equal(DateTime.UnixEpoch, dt);
-                Assert.Equal(AllTypesEnum.THIS_IS_GREAT, ev);
-
-                return "OK";
-            }
-        }
-        class NumberReturner : DeputyBase, IReturnsNumber
-        {
-            public NumberReturner(double number)
-            {
-                NumberProp = new Number(number);
-            }
-
-            public Number NumberProp { get; }
-
-            public IDoublable ObtainNumber()
-            {
-                return new Doublable(this.NumberProp);
-            }
-
-            class Doublable : DeputyBase, IDoublable
-            {
-                public Doublable(Number number)
-                {
-                    this.DoubleValue = number.DoubleValue;
-                }
-
-                public Double DoubleValue { get; }
             }
         }
 
@@ -1274,35 +1114,51 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(StructsCanBeDowncastedToParentType))]
-        public void StructsCanBeDowncastedToParentType()
+        [Fact(DisplayName = Prefix + nameof(StructReceivedAsParentStructType))]
+        public void StructReceivedAsParentStructType()
         {
             Assert.NotNull(Demonstrate982.TakeThis());
             Assert.NotNull(Demonstrate982.TakeThisToo());
         }
 
-        [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalList))]
-        public void NullIsAValidOptionalList()
+        [Fact(DisplayName = Prefix + nameof(UndefinedOptionalListReadsAsAbsent))]
+        public void UndefinedOptionalListReadsAsAbsent()
         {
             Assert.Null(DisappointingCollectionSource.MaybeList);
         }
 
-        [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalMap))]
-        public void NullIsAValidOptionalMap()
+        [Fact(DisplayName = Prefix + nameof(UndefinedOptionalMapReadsAsAbsent))]
+        public void UndefinedOptionalMapReadsAsAbsent()
         {
             Assert.Null(DisappointingCollectionSource.MaybeMap);
         }
 
-        [Fact(DisplayName = Prefix + nameof(CanUseInterfaceSetters))]
-        public void CanUseInterfaceSetters()
+        [Fact(DisplayName = Prefix + nameof(InterfacePropertyCanBeSet))]
+        public void InterfacePropertyCanBeSet()
         {
             var obj = ObjectWithPropertyProvider.Provide();
             obj.Property = "New Value";
             Assert.True(obj.WasSet());
         }
 
-        [Fact(DisplayName = Prefix + nameof(StructsAreUndecoratedOntheWayToKernel))]
-        public void StructsAreUndecoratedOntheWayToKernel()
+        [Fact(DisplayName = Prefix + nameof(JsonValuesCrossTheBoundaryUnchanged))]
+        public void JsonValuesCrossTheBoundaryUnchanged()
+        {
+            var json = JObject.Parse(
+                "{\"$jsii.date\":\"1970-01-01T00:00:00.000Z\"," +
+                "\"nested\":{\"$jsii.enum\":\"jsii-calc.AllTypesEnum/MY_ENUM_VALUE\"}," +
+                "\"list\":[{\"$jsii.map\":{\"key\":\"value\"}}]}"
+            );
+
+            Assert.True(JToken.DeepEquals(json, JToken.Parse(JsonFormatter.Stringify(json)!)));
+
+            var wrapper = new Dictionary<string, object> { { "payload", json } };
+            var expected = new JObject(new JProperty("payload", json.DeepClone()));
+            Assert.True(JToken.DeepEquals(expected, JToken.Parse(JsonFormatter.Stringify(wrapper)!)));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StructsAreSentAsPlainData))]
+        public void StructsAreSentAsPlainData()
         {
             var json = JsonFormatter.Stringify(new StructB {RequiredString = "Bazinga!", OptionalBoolean = false})!;
             var actual = JObject.Parse(json);
@@ -1314,20 +1170,14 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(expected, actual);
         }
 
-        [Fact(DisplayName = Prefix + nameof(CanObtainReferenceWithOverloadedSetters))]
-        public void CanObtainReferenceWithOverloadedSetters()
+        [Fact(DisplayName = Prefix + nameof(ClassWithUnionPropertyCanBeReceived))]
+        public void ClassWithUnionPropertyCanBeReceived()
         {
             Assert.NotNull(ConfusingToJackson.MakeInstance());
         }
 
-        [Fact(DisplayName = Prefix + nameof(CanObtainStructReferenceWithOverloadedSetters))]
-        public void CanObtainStructReferenceWithOverloadedSetters()
-        {
-            Assert.NotNull(ConfusingToJackson.MakeStructInstance());
-        }
-
-        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently))]
-        public void PureInterfacesCanBeUsedTransparently()
+        [Fact(DisplayName = Prefix + nameof(HostCanImplementInterface))]
+        public void HostCanImplementInterface()
         {
             var expected = new StructB { RequiredString = "It's Britney b**ch!" };
             var del = new StructReturningDelegate(expected);
@@ -1350,8 +1200,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently_WhenTransitivelyImplemented))]
-        public void PureInterfacesCanBeUsedTransparently_WhenTransitivelyImplemented()
+        [Fact(DisplayName = Prefix + nameof(HostCanImplementInterfaceThroughSuperclass))]
+        public void HostCanImplementInterfaceThroughSuperclass()
         {
             var expected = new StructB { RequiredString = "It's Britney b**ch!" };
             var del = new IndirectlyImplementsStructReturningDelegate(expected);
@@ -1379,8 +1229,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently_WhenAddedToJsiiType))]
-        public void PureInterfacesCanBeUsedTransparently_WhenAddedToJsiiType()
+        [Fact(DisplayName = Prefix + nameof(HostSubclassCanImplementAdditionalInterface))]
+        public void HostSubclassCanImplementAdditionalInterface()
         {
             var expected = new StructB { RequiredString = "It's Britney b**ch!" };
             var del = new ImplementsAdditionalInterface(expected);
@@ -1403,8 +1253,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(LiftedKwargWithSameNameAsPositionalArg))]
-        public void LiftedKwargWithSameNameAsPositionalArg()
+        [Fact(DisplayName = Prefix + nameof(PositionalArgumentAndStructPropertyWithSameName))]
+        public void PositionalArgumentAndStructPropertyWithSameName()
         {
             // This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
             var bell = new Bell();
@@ -1414,8 +1264,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("Driiiing!", amb.Props.Scope);
         }
 
-        [Fact(DisplayName = Prefix + nameof(AbstractMembersAreCorrectlyHandled))]
-        public void AbstractMembersAreCorrectlyHandled()
+        [Fact(DisplayName = Prefix + nameof(HostImplementsAbstractMembers))]
+        public void HostImplementsAbstractMembers()
         {
             var abstractSuite = new AbstractSuiteImpl();
             Assert.Equal("Wrapped<String<Oomf!>>", abstractSuite.WorkItAll("Oomf!"));
@@ -1439,8 +1289,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_ListOfStructs))]
-        public void CollectionOfInterfaces_ListOfStructs()
+        [Fact(DisplayName = Prefix + nameof(ListOfStructsElementsHaveStructType))]
+        public void ListOfStructsElementsHaveStructType()
         {
             foreach (var elt in InterfaceCollections.ListOfStructs())
             {
@@ -1448,8 +1298,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_ListOfInterfaces))]
-        public void CollectionOfInterfaces_ListOfInterfaces()
+        [Fact(DisplayName = Prefix + nameof(ListOfInterfacesElementsAreUsable))]
+        public void ListOfInterfacesElementsAreUsable()
         {
             foreach (var elt in InterfaceCollections.ListOfInterfaces())
             {
@@ -1457,8 +1307,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_MapOfStructs))]
-        public void CollectionOfInterfaces_MapOfStructs()
+        [Fact(DisplayName = Prefix + nameof(MapOfStructsValuesHaveStructType))]
+        public void MapOfStructsValuesHaveStructType()
         {
             foreach (var elt in InterfaceCollections.MapOfStructs().Values)
             {
@@ -1466,8 +1316,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_MapOfInterfaces))]
-        public void CollectionOfInterfaces_MapOfInterfaces()
+        [Fact(DisplayName = Prefix + nameof(MapOfInterfacesValuesAreUsable))]
+        public void MapOfInterfacesValuesAreUsable()
         {
             foreach (var elt in InterfaceCollections.MapOfInterfaces().Values)
             {
@@ -1475,22 +1325,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(BurriedAnonymousObject))]
-        public void BurriedAnonymousObject()
-        {
-            var subject = new BurriedAnonymousObjectImpl();
-            Assert.True(subject.Check());
-        }
-
-        private sealed class BurriedAnonymousObjectImpl : BurriedAnonymousObject
-        {
-            public override object GiveItBack(object value) {
-                return value;
-            }
-        }
-
-        [Fact(DisplayName = Prefix + nameof(Iso8601DoesNotDeserializeToDate))]
-        public void Iso8601DoesNotDeserializeToDate()
+        [Fact(DisplayName = Prefix + nameof(IsoDateStringsStayStrings))]
+        public void IsoDateStringsStayStrings()
         {
             var now = $"{DateTime.UtcNow.ToString("s")}Z";
             var wallClock = new WallClock(now);
@@ -1525,21 +1361,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(ArrayOfInterfaces))]
-        public void ArrayOfInterfaces()
-        {
-            var bells = new IBell[1][];
-            bells[0] = new IBell[1];
-            bells[0][0] = new Bell();
-
-            var allTypes = new AllTypes();
-            allTypes.AnyProperty = bells;
-
-            Assert.Equal(bells, allTypes.AnyProperty);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(ClassCanBeUsedWhenNotExpressedlyLoaded))]
-        public void ClassCanBeUsedWhenNotExpressedlyLoaded()
+        [Fact(DisplayName = Prefix + nameof(TypesNotLoadedByTheHostCanBeReceived))]
+        public void TypesNotLoadedByTheHostCanBeReceived()
         {
             new Cdk16625Impl().Test();
         }
@@ -1550,10 +1373,356 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(StrippedDeprecatedMemberCanBeReceived))]
-        public void StrippedDeprecatedMemberCanBeReceived()
+        [Fact(DisplayName = Prefix + nameof(StrippedDeprecatedTypeCanBeReceived))]
+        public void StrippedDeprecatedTypeCanBeReceived()
         {
             Assert.NotNull(InterfaceFactory.Create());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(VariadicArgumentsAreForwarded))]
+        public void VariadicArgumentsAreForwarded()
+        {
+            var variadicMethod = new VariadicMethod(1);
+            var result = variadicMethod.AsArray(3, 4, 5, 6);
+            Assert.Equal(new[] { 1d, 3d, 4d, 5d, 6d }, result);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(EnumValuesReturnedByTheKernel))]
+        public void EnumValuesReturnedByTheKernel()
+        {
+            Assert.True(Enum.IsDefined(typeof(StringEnum), EnumDispenser.RandomStringLikeEnum()));
+            Assert.True(Enum.IsDefined(typeof(AllTypesEnum), EnumDispenser.RandomIntegerLikeEnum()));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(AsyncMethodReturningNothing))]
+        public void AsyncMethodReturningNothing()
+        {
+            // Verifies it's okay to return a Promise<void>.
+            new PromiseNothing().InstancePromiseIt();
+            PromiseNothing.PromiseIt();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticAsyncMethodsCanBeCalled))]
+        public void StaticAsyncMethodsCanBeCalled()
+        {
+            Assert.Equal(42d, StaticAsyncMethods.AddOne(41));
+        }
+
+        class BellRinger : DeputyBase, IBellRinger
+        {
+            public void YourTurn(IBell bell)
+            {
+                bell.Ring();
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CallbackReceivesInterfaceArguments))]
+        public void CallbackReceivesInterfaceArguments()
+        {
+            var ringer = new BellRinger();
+            Assert.True(ConsumerCanRingBell.StaticImplementedByObjectLiteral(ringer));
+            Assert.True(ConsumerCanRingBell.StaticImplementedByPrivateClass(ringer));
+            Assert.True(ConsumerCanRingBell.StaticImplementedByPublicClass(ringer));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ClassesCanReferenceEachOtherDuringInitialization))]
+        public void ClassesCanReferenceEachOtherDuringInitialization()
+        {
+            var outerClass = new Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.OuterClass();
+            Assert.NotNull(outerClass.InnerClass);
+        }
+
+        private sealed class DerivedFromAllTypes : AllTypes
+        {
+        }
+
+        [Fact(DisplayName = Prefix + nameof(InheritedPropertiesUsableOnHostSubclass))]
+        public void InheritedPropertiesUsableOnHostSubclass()
+        {
+            // make sure that fluent API can be assigned to objects from derived classes
+            var obj = new DerivedFromAllTypes();
+            obj.StringProperty = "Hello";
+            obj.NumberProperty = 12;
+            Assert.Equal("Hello", obj.StringProperty);
+            Assert.Equal(12d, obj.NumberProperty);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReservedWordClassPropertiesAreAccessible))]
+        public void ReservedWordClassPropertiesAreAccessible()
+        {
+            var obj = new ClassWithJavaReservedWords("one");
+            var result = obj.Import("two");
+            Assert.Equal("onetwo", result);
+
+            var words = new JavaReservedWords();
+            Assert.Equal("hello", words.While);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReservedWordStructPropertiesAreUsable))]
+        public void ReservedWordStructPropertiesAreUsable()
+        {
+            var @struct = new StructWithJavaReservedWords
+            {
+                Assert = "one",
+                Default = "two"
+            };
+
+            Assert.Equal("one", @struct.Assert);
+            Assert.Equal("two", @struct.Default);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(DiamondInheritedStructPropertiesAppearOnce))]
+        public void DiamondInheritedStructPropertiesAppearOnce()
+        {
+            var @struct = new DiamondInheritanceTopLevelStruct
+            {
+                BaseLevelProperty = "base",
+                FirstMidLevelProperty = "mid1",
+                SecondMidLevelProperty = "mid2",
+                TopLevelProperty = "top"
+            };
+
+            Assert.Equal("base", @struct.BaseLevelProperty);
+            Assert.Equal("mid1", @struct.FirstMidLevelProperty);
+            Assert.Equal("mid2", @struct.SecondMidLevelProperty);
+            Assert.Equal("top", @struct.TopLevelProperty);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReceivedStructEqualsHostBuiltStruct))]
+        public void ReceivedStructEqualsHostBuiltStruct()
+        {
+            var gms = new GiveMeStructs();
+            var returnedLiteral = gms.StructLiteral;
+            var nativeBuilt = new Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.StructWithOnlyOptionals
+            {
+                Optional1 = "optional1FromStructLiteral",
+                Optional3 = false
+            };
+
+            // .NET generated by-value classes do not override Equals, so compare the fields,
+            // which is what "indistinguishable from a natively-built struct" means here.
+            Assert.Equal(nativeBuilt.Optional1, returnedLiteral.Optional1);
+            Assert.Equal(nativeBuilt.Optional2, returnedLiteral.Optional2);
+            Assert.Equal(nativeBuilt.Optional3, returnedLiteral.Optional3);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(UnionStructPropertyKeepsConcreteType))]
+        public void UnionStructPropertyKeepsConcreteType()
+        {
+            // A union-typed struct property keeps its concrete type across the boundary.
+            var withStruct = StructPassing.RoundTrip(123, new TopLevelStruct
+            {
+                Required = "hello",
+                SecondLevel = new SecondLevelStruct { DeeperRequiredProp = "exists" }
+            });
+            Assert.Equal("hello", withStruct.Required);
+            Assert.Null(withStruct.Optional);
+            // The union member is received as a dynamically-typed object reference carrying the
+            // SecondLevelStruct interface; use the binding's UnsafeCast to read it as that interface.
+            var secondLevel = ((DeputyBase) withStruct.SecondLevel).UnsafeCast<ISecondLevelStruct>();
+            Assert.Equal("exists", secondLevel.DeeperRequiredProp);
+
+            var withNumber = StructPassing.RoundTrip(123, new TopLevelStruct
+            {
+                Required = "hello",
+                SecondLevel = 5d
+            });
+            Assert.Equal("hello", withNumber.Required);
+            Assert.Null(withNumber.Optional);
+            Assert.Equal(5d, withNumber.SecondLevel);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(UnionOfListAndObjectStructPropertyRoundTrips))]
+        public void UnionOfListAndObjectStructPropertyRoundTrips()
+        {
+            // A struct property typed as a union of a list and an object keeps its value and identity.
+            var friendly = new Add(new Number(1), new Number(2));
+
+            var single = ConfusingToJackson.RoundTripStruct(new ConfusingToJacksonStruct { UnionProperty = friendly });
+            Assert.Same(friendly, single.UnionProperty);
+
+            var list = ConfusingToJackson.RoundTripStruct(new ConfusingToJacksonStruct { UnionProperty = new object[] { friendly } });
+            var resultList = (object[]) list.UnionProperty!;
+            Assert.Single(resultList);
+            Assert.Same(friendly, resultList[0]);
+
+            var unset = ConfusingToJackson.RoundTripStruct(new ConfusingToJacksonStruct());
+            Assert.Null(unset.UnionProperty);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReturnedArrayCanBeRead))]
+        public void ReturnedArrayCanBeRead()
+        {
+            Assert.Equal(new[] { "one", "two" }, ClassWithCollections.CreateAList());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReturnedMapCanBeRead))]
+        public void ReturnedMapCanBeRead()
+        {
+            var result = ClassWithCollections.CreateAMap();
+            Assert.Equal("value1", result["key1"]);
+            Assert.Equal("value2", result["key2"]);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ArrayPropertyCanBeRead))]
+        public void ArrayPropertyCanBeRead()
+        {
+            var classWithCollections = new ClassWithCollections(
+                new Dictionary<string, string>(),
+                new[] { "one", "two" });
+            Assert.Equal(new[] { "one", "two" }, classWithCollections.Array);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(MapPropertyCanBeRead))]
+        public void MapPropertyCanBeRead()
+        {
+            var classWithCollections = new ClassWithCollections(
+                new Dictionary<string, string> { ["key"] = "value" },
+                System.Array.Empty<string>());
+            var result = classWithCollections.Map;
+            Assert.Equal("value", result["key"]);
+            Assert.Single(result);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticArrayPropertyCanBeRead))]
+        public void StaticArrayPropertyCanBeRead()
+        {
+            Assert.Equal(new[] { "one", "two" }, ClassWithCollections.StaticArray);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StaticMapPropertyCanBeRead))]
+        public void StaticMapPropertyCanBeRead()
+        {
+            var result = ClassWithCollections.StaticMap;
+            Assert.Equal("value1", result["key1"]);
+            Assert.Equal("value2", result["key2"]);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ProtectedMethodCanBeOverridden))]
+        public void ProtectedMethodCanBeOverridden()
+        {
+            const string challenge = "Cthulhu Fhtagn!";
+            var overridden = new OverrideProtectedMethod(challenge);
+            Assert.Equal(challenge, overridden.ValueFromProtected());
+        }
+
+        private sealed class OverrideProtectedMethod : OverridableProtectedMember
+        {
+            private readonly string _challenge;
+
+            public OverrideProtectedMethod(string challenge)
+            {
+                _challenge = challenge;
+            }
+
+            protected override string OverrideMe()
+            {
+                return _challenge;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ProtectedGetterCanBeOverridden))]
+        public void ProtectedGetterCanBeOverridden()
+        {
+            var overridden = new OverrideProtectedGetter();
+            Assert.Equal("Cthulhu Fhtagn!", overridden.ValueFromProtected());
+        }
+
+        private sealed class OverrideProtectedGetter : OverridableProtectedMember
+        {
+            protected override string OverrideReadOnly => "Cthulhu ";
+
+            protected override string OverrideReadWrite => "Fhtagn!";
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ProtectedSetterCanBeOverridden))]
+        public void ProtectedSetterCanBeOverridden()
+        {
+            const string challenge = "Bazzzzzzzzzzzaar...";
+            var overridden = new OverrideProtectedSetter();
+            overridden.SwitchModes();
+            Assert.Equal(challenge, overridden.ValueFromProtected());
+        }
+
+        private sealed class OverrideProtectedSetter : OverridableProtectedMember
+        {
+            protected override string OverrideReadWrite
+            {
+                get => base.OverrideReadWrite;
+                set => base.OverrideReadWrite = "zzzzzzzzz" + value;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(HostMethodDoesNotOverridePrivateMethod))]
+        public void HostMethodDoesNotOverridePrivateMethod()
+        {
+            var obj = new DoNotOverridePrivatesMethodPublic();
+            Assert.Equal("privateMethod", obj.PrivateMethodValue());
+        }
+
+        private sealed class DoNotOverridePrivatesMethodPublic : DoNotOverridePrivates
+        {
+            public string PrivateMethod()
+            {
+                return "privateMethod-Override";
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(HostMethodDoesNotOverridePrivateProperty))]
+        public void HostMethodDoesNotOverridePrivateProperty()
+        {
+            var obj = new DoNotOverridePrivatesPropertyByNamePublic();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyByNamePublic : DoNotOverridePrivates
+        {
+            public string PrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(HostAccessorDoesNotOverridePrivateProperty))]
+        public void HostAccessorDoesNotOverridePrivateProperty()
+        {
+            var obj = new DoNotOverridePrivatesPropertyGetterPublic();
+            Assert.Equal("privateProperty", obj.PrivatePropertyValue());
+
+            // verify the setter override is not invoked.
+            obj.ChangePrivatePropertyValue("MyNewValue");
+            Assert.Equal("MyNewValue", obj.PrivatePropertyValue());
+        }
+
+        private sealed class DoNotOverridePrivatesPropertyGetterPublic : DoNotOverridePrivates
+        {
+            public string GetPrivateProperty()
+            {
+                return "privateProperty-Override";
+            }
+
+            public void SetPrivateProperty(string value)
+            {
+                throw new RuntimeException("Boom");
+            }
+        }
+
+        // ----------------------------------------------------------------------
+        // Tests that are applicable but currently fail due to a generator/runtime gap.
+        // ----------------------------------------------------------------------
+
+        [Fact(DisplayName = Prefix + nameof(IncompleteStructIsRejected))]
+        public void IncompleteStructIsRejected()
+        {
+            var gms = new GiveMeStructs();
+
+            // Astring is required, but not set
+            var incomplete = new MyFirstStruct { Anumber = 1 };
+
+            var error = Assert.ThrowsAny<Exception>(() => gms.ReadFirstNumber(incomplete));
+            Assert.Contains("astring", error.Message);
         }
     }
 }

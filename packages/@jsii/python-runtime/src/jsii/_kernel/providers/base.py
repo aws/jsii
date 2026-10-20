@@ -13,8 +13,6 @@ from ..types import (
     InvokeResponse,
     GetScriptCommandRequest,
     GetScriptCommandResponse,
-    InvokeScriptRequest,
-    InvokeScriptResponse,
     DeleteRequest,
     DeleteResponse,
     SetRequest,
@@ -24,6 +22,7 @@ from ..types import (
     StaticSetRequest,
     BeginRequest,
     BeginResponse,
+    StaticBeginRequest,
     EndRequest,
     EndResponse,
     CallbacksRequest,
@@ -51,9 +50,6 @@ class BaseProvider(metaclass=abc.ABCMeta):
     def getScriptCommand(
         self, request: GetScriptCommandRequest
     ) -> GetScriptCommandResponse: ...
-
-    @abc.abstractmethod
-    def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse: ...
 
     @abc.abstractmethod
     def create(self, request: CreateRequest) -> CreateResponse: ...
@@ -89,6 +85,9 @@ class BaseProvider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def begin(self, request: BeginRequest) -> BeginResponse: ...
+
+    @abc.abstractmethod
+    def sbegin(self, request: StaticBeginRequest) -> BeginResponse: ...
 
     @abc.abstractmethod
     def end(self, request: EndRequest) -> EndResponse: ...

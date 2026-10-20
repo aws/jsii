@@ -1,5 +1,4 @@
 import * as spec from '@jsii/spec';
-import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import { createRequire } from 'module';
 import * as os from 'os';
@@ -7,8 +6,11 @@ import * as path from 'path';
 
 import * as api from './api';
 import { TOKEN_REF } from './api';
+import { resolveBinScript } from './bin-script';
+import { JsiiErrorType, JsiiFault, RuntimeError } from './errors';
 import { jsiiTypeFqn, ObjectTable, tagJsiiConstructor } from './objects';
 import * as onExit from './on-exit';
+import { isValidPackageName } from './package-name';
 import {
   loadRuntimeAssembly,
   type AssemblyMetadata,
@@ -23,28 +25,8 @@ export const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'class-covariant-overrides',
 ];
 
-export const enum JsiiErrorType {
-  JSII_FAULT = '@jsii/kernel.Fault',
-  RUNTIME_ERROR = '@jsii/kernel.RuntimeError',
-}
-
-export interface JsiiError extends Error {
-  readonly name: JsiiErrorType;
-}
-
-export class JsiiFault extends Error implements JsiiError {
-  public readonly name = JsiiErrorType.JSII_FAULT;
-  public constructor(message: string) {
-    super(message);
-  }
-}
-
-export class RuntimeError extends Error implements JsiiError {
-  public readonly name = JsiiErrorType.RUNTIME_ERROR;
-  public constructor(message: string) {
-    super(message);
-  }
-}
+// In their own module, so modules imported here can extend them.
+export * from './errors';
 
 export class Kernel {
   /**
@@ -221,25 +203,6 @@ export class Kernel {
     return this.#getBinScriptCommand(req);
   }
 
-  public invokeBinScript(
-    req: api.InvokeScriptRequest,
-  ): api.InvokeScriptResponse {
-    const { command, args, env } = this.#getBinScriptCommand(req);
-
-    const result = cp.spawnSync(command, args, {
-      encoding: 'utf-8',
-      env,
-      shell: true,
-    });
-
-    return {
-      stdout: result.stdout,
-      stderr: result.stderr,
-      status: result.status,
-      signal: result.signal,
-    };
-  }
-
   public create(req: api.CreateRequest): api.CreateResponse {
     return this.#create(req);
   }
@@ -413,7 +376,7 @@ export class Kernel {
 
     // verify this is not an async method
     if (ti.async) {
-      throw new JsiiFault(`${method} is an async method, use "begin" instead`);
+      throw new JsiiFault(`${method} is an async method, use "sbegin" instead`);
     }
 
     const prototype = this.#findSymbol(fqn);
@@ -474,16 +437,62 @@ export class Kernel {
       ),
     ) as Promise<any>;
 
+    return this.#registerPromise(promise, ti);
+  }
+
+  public sbegin(req: api.StaticBeginRequest): api.BeginResponse {
+    const { fqn, method } = req;
+    const args = req.args ?? [];
+
+    this.#debug('sbegin', fqn, method, args);
+
+    if (this.#syncInProgress) {
+      const inProgress =
+        typeof this.#syncInProgress === 'function'
+          ? this.#syncInProgress()
+          : this.#syncInProgress;
+      throw new JsiiFault(
+        `Cannot invoke async method '${fqn}.${method}' while sync ${inProgress} is being processed`,
+      );
+    }
+
+    const ti = this.#typeInfoForMethod(method, fqn);
+
+    if (!ti.static) {
+      throw new JsiiFault(`${fqn}.${method} is not a static method`);
+    }
+
+    // verify this is indeed an async method
+    if (!ti.async) {
+      throw new JsiiFault(`Method ${method} is expected to be an async method`);
+    }
+
+    const prototype = this.#findSymbol(fqn);
+    const fn = prototype[method] as (...params: any[]) => any;
+
+    const promise = fn.apply(
+      prototype,
+      this.#toSandboxValues(
+        args,
+        `static async method ${fqn}.${method}`,
+        ti.parameters,
+      ),
+    ) as Promise<any>;
+
+    return this.#registerPromise(promise, ti);
+  }
+
+  #registerPromise(
+    promise: Promise<any>,
+    method: spec.Method,
+  ): api.BeginResponse {
     // since we are planning to resolve this promise in a different scope
     // we need to handle rejections here [1]
     // [1]: https://stackoverflow.com/questions/40920179/should-i-refrain-from-handling-promise-rejection-asynchronously/40921505
     promise.catch((_) => undefined);
 
     const prid = this.#makeprid();
-    this.#promises.set(prid, {
-      promise,
-      method: ti,
-    });
+    this.#promises.set(prid, { promise, method });
 
     return { promiseid: prid };
   }
@@ -679,6 +688,12 @@ export class Kernel {
   }
 
   #getPackageDir(pkgname: string): string {
+    if (!isValidPackageName(pkgname)) {
+      throw new JsiiFault(
+        `Invalid package name: ${JSON.stringify(pkgname)} is not a valid npm package name`,
+      );
+    }
+
     if (!this.#installDir) {
       this.#installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
       this.#require = createRequire(this.#installDir);
@@ -687,7 +702,24 @@ export class Kernel {
 
       onExit.removeSync(this.#installDir);
     }
-    return path.join(this.#installDir, 'node_modules', pkgname);
+
+    const modulesDir = path.join(this.#installDir, 'node_modules');
+    const packageDir = path.join(modulesDir, pkgname);
+
+    // The name validation above should already guarantee this.
+    const relative = path.relative(modulesDir, packageDir);
+    if (
+      relative === '' ||
+      relative === '..' ||
+      relative.startsWith(`..${path.sep}`) ||
+      path.isAbsolute(relative)
+    ) {
+      throw new JsiiFault(
+        `Invalid package name: ${JSON.stringify(pkgname)} resolves outside of the install directory`,
+      );
+    }
+
+    return packageDir;
   }
 
   #create(req: api.CreateRequest): api.CreateResponse {
@@ -869,7 +901,7 @@ export class Kernel {
         return direct;
       }
       const proto = Object.getPrototypeOf(obj);
-      if (proto == null && proto !== Object.prototype) {
+      if (proto == null || proto === Object.prototype) {
         // We reached Object or the prototype chain root, all hope is lost!
         return undefined;
       }
@@ -1087,11 +1119,11 @@ export class Kernel {
       const arg = args[i];
 
       if (param.variadic) {
-        if (params.length <= i) {
+        if (args.length <= i) {
           return;
         } // No vararg was provided
-        for (let j = i; j < params.length; j++) {
-          if (!param.optional && params[j] === undefined) {
+        for (let j = i; j < args.length; j++) {
+          if (!param.optional && args[j] === undefined) {
             throw new JsiiFault(
               `Unexpected 'undefined' value at index ${
                 j - i
@@ -1509,17 +1541,13 @@ export class Kernel {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
 
-      const scriptPath = epkg.bin?.[req.script];
-
-      if (!epkg.bin) {
-        throw new JsiiFault(`Script with name ${req.script} was not defined.`);
-      }
+      const command = resolveBinScript(packageDir, epkg.bin, req.script);
 
       // Make sure the current NODE_OPTIONS are honored if we shell out to node
       const nodeOptions = [...process.execArgv];
 
       return {
-        command: path.join(packageDir, scriptPath),
+        command,
         args: req.args ?? [],
         env: {
           ...process.env,

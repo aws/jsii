@@ -44,8 +44,6 @@ from ..types import (
     InvokeResponse,
     GetScriptCommandRequest,
     GetScriptCommandResponse,
-    InvokeScriptRequest,
-    InvokeScriptResponse,
     SetRequest,
     SetResponse,
     StaticGetRequest,
@@ -53,6 +51,7 @@ from ..types import (
     StaticSetRequest,
     BeginRequest,
     BeginResponse,
+    StaticBeginRequest,
     EndRequest,
     EndResponse,
     CallbacksRequest,
@@ -120,6 +119,8 @@ def _with_reference(data, type_):
 
 
 def _unstructure_ref(value):
+    if value.interfaces:
+        return {"$jsii.byref": value.ref, "$jsii.interfaces": value.interfaces}
     return {"$jsii.byref": value.ref}
 
 
@@ -165,10 +166,6 @@ class _NodeProcess:
             ),
         )
         self._serializer.register_unstructure_hook(
-            InvokeScriptRequest,
-            _with_api_key("invokeBinScript", self._serializer.unstructure_attrs_asdict),
-        )
-        self._serializer.register_unstructure_hook(
             CreateRequest,
             _with_api_key("create", self._serializer.unstructure_attrs_asdict),
         )
@@ -201,6 +198,10 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             BeginRequest,
             _with_api_key("begin", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            StaticBeginRequest,
+            _with_api_key("sbegin", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
             EndRequest, _with_api_key("end", self._serializer.unstructure_attrs_asdict)
@@ -303,6 +304,14 @@ class _NodeProcess:
         if self.sink_thread.is_alive():
             self.sink_thread.join(timeout=5)
 
+        # Close the remaining pipes to the child. STDERR is only closed once the
+        # sink thread is done with it, as it would otherwise still be reading.
+        assert self._process.stdout is not None
+        self._process.stdout.close()
+        if not self.sink_thread.is_alive():
+            assert self._process.stderr is not None
+            self._process.stderr.close()
+
         self._ctx_stack.close()
 
     def handshake(self) -> None:
@@ -366,9 +375,6 @@ class ProcessProvider(BaseProvider):
     ) -> GetScriptCommandResponse:
         return self._process.send(request, GetScriptCommandResponse)
 
-    def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse:
-        return self._process.send(request, InvokeScriptResponse)
-
     def create(self, request: CreateRequest) -> CreateResponse:
         return self._process.send(request, CreateResponse)
 
@@ -394,6 +400,9 @@ class ProcessProvider(BaseProvider):
         return self._process.send(request, DeleteResponse)
 
     def begin(self, request: BeginRequest) -> BeginResponse:
+        return self._process.send(request, BeginResponse)
+
+    def sbegin(self, request: StaticBeginRequest) -> BeginResponse:
         return self._process.send(request, BeginResponse)
 
     def end(self, request: EndRequest) -> EndResponse:

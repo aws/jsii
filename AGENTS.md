@@ -244,11 +244,10 @@ The `@jsii/runtime` spawns two node processes: a wrapper process manages IPC wit
 - Adding a compliance test to a language binding without adding it to the suite definition will cause the build to fail.
 - If you add a test and don't regenerate the report, the build will also fail.
 - Report file: `gh-pages/content/specification/6-compliance-report.md` (checked into source control).
-- Report statuses:
+- Report statuses (failing and not implemented both count as not passing):
   - 🟢 — Test passes for this language
-  - ⚪ — Test is not applicable for this language
-  - ⭕ — Test is not implemented (yet) for this language
-  - 🔴 — Test is failing for this language
+  - 🔴 — Test is expected to pass for this language, but fails
+  - ⭕ — Test is not implemented for this language yet, or known not to pass
 
 ## PR Conventions
 

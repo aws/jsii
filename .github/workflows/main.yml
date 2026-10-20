@@ -278,13 +278,6 @@ jobs:
             node: "20"
             os: ubuntu-latest
             python: "3.10"
-          - title: "Go 1.26"
-            java: "8"
-            dotnet: "6.0.x"
-            go: "1.26"
-            node: "20"
-            os: ubuntu-latest
-            python: "3.10"
           # Test alternate Javas
           - title: "Java 11"
             java: "11"

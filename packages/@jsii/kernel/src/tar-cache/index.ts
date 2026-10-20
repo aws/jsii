@@ -1,7 +1,14 @@
 import { mkdirSync, rmSync } from 'fs';
 import * as tar from 'tar';
 
-import { DiskCache } from '../disk-cache';
+import {
+  digestFile,
+  DiskCache,
+  InsecureDirectoryError,
+  LockTimeoutError,
+  readFileChunks,
+} from '../disk-cache';
+import { JsiiFault } from '../errors';
 import { link } from '../link';
 import { defaultCacheRoot } from './default-cache-root';
 
@@ -55,8 +62,67 @@ export function extract(
   }
 }
 
+/** The package cache cannot be used, because of its directory or state. */
+export class PackageCacheError extends JsiiFault {
+  public readonly cause: unknown;
+
+  public constructor(
+    public readonly cacheRoot: string,
+    reason: string,
+    cause?: unknown,
+  ) {
+    super(
+      `Cannot use the jsii package cache in ${cacheRoot}: ${reason}. ` +
+        'Fix the directory, set JSII_RUNTIME_PACKAGE_CACHE_ROOT to a different directory, ' +
+        'or disable the package cache with JSII_RUNTIME_PACKAGE_CACHE=disabled.',
+    );
+    this.cause = cause;
+  }
+}
+
+/** Wraps errors caused by the tarball, to re-throw them unchanged. */
+class ExtractionError extends Error {
+  public constructor(public readonly error: unknown) {
+    super(describe(error));
+    this.name = ExtractionError.name;
+  }
+}
+
+/**
+ * Opens the package cache. A configured `JSII_RUNTIME_PACKAGE_CACHE_ROOT` is
+ * used as-is; the default root must be private. Missing directories are
+ * created with mode `0700`.
+ */
+function openCache(): { readonly cache: DiskCache; readonly root: string } {
+  // An empty value is treated as unset (it would otherwise resolve to the
+  // current working directory).
+  const configuredRoot = process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT;
+  const isConfigured = configuredRoot != null && configuredRoot !== '';
+  const root = isConfigured ? configuredRoot : defaultCacheRoot();
+
+  try {
+    const cache = DiskCache.inDirectory(root, {
+      verifyExistingIsPrivate: !isConfigured,
+    });
+    return { cache, root };
+  } catch (error) {
+    if (error instanceof InsecureDirectoryError) {
+      throw new PackageCacheError(
+        root,
+        `other users may be able to modify it, because ${error.message}. ` +
+          'Make sure the directory and all of its parents are owned by you (or root), ' +
+          'and are not writable by group or others',
+        error,
+      );
+    }
+    throw new PackageCacheError(root, describe(error), error);
+  }
+}
+
 /**
  * Extract the tarball into a cached directory, symlink that directory into the target location
+ *
+ * @throws PackageCacheError if the cache cannot be used.
  */
 function extractViaCache(
   file: string,
@@ -64,22 +130,86 @@ function extractViaCache(
   options: ExtractOptions = {},
   ...comments: readonly string[]
 ): { cache: 'hit' | 'miss' } {
-  const cacheRoot =
-    process.env.JSII_RUNTIME_PACKAGE_CACHE_ROOT ?? defaultCacheRoot();
-  const dirCache = DiskCache.inDirectory(cacheRoot);
+  const { cache: dirCache, root } = openCache();
 
-  const entry = dirCache.entryFor(file, ...comments);
-  const { path, cache } = entry.retrieve((path) => {
-    untarInto({
-      ...options,
-      cwd: path,
-      file,
+  const expectedDigest = digestFile(file, ...comments);
+  const entry = dirCache.entry(...comments, expectedDigest.toString('hex'));
+
+  let retrieved: { path: string; cache: 'hit' | 'miss' };
+  try {
+    retrieved = entry.retrieve((path) => {
+      try {
+        const actualDigest = untarVerified(
+          { ...options, cwd: path, file },
+          comments,
+        );
+        if (!actualDigest.equals(expectedDigest)) {
+          throw new Error(
+            `${file} was modified while it was being extracted into the package cache`,
+          );
+        }
+      } catch (error) {
+        throw new ExtractionError(error);
+      }
     });
-  });
+  } catch (error) {
+    if (error instanceof ExtractionError) {
+      throw error.error;
+    }
+    if (error instanceof LockTimeoutError) {
+      throw new PackageCacheError(
+        root,
+        `timed out waiting for another process to release ${error.path}`,
+        error,
+      );
+    }
+    throw new PackageCacheError(root, describe(error), error);
+  }
 
-  link(path, outDir);
+  link(retrieved.path, outDir);
 
-  return { cache };
+  return { cache: retrieved.cache };
+}
+
+function describe(error: unknown): string {
+  // Not `instanceof Error`: errors may come from another realm (e.g: in tests).
+  const message = (error as { message?: unknown } | undefined)?.message;
+  return typeof message === 'string' ? message : String(error);
+}
+
+/**
+ * Extracts the tarball, reading it only once, and returns the digest of the
+ * bytes that were actually extracted.
+ */
+function untarVerified(
+  options: tar.TarOptionsWithAliasesAsync & { cwd: string; file: string },
+  comments: readonly string[],
+): Buffer {
+  const { file, ...unpackOptions } = options;
+  try {
+    let unpackError: Error | undefined;
+    const unpack = new tar.UnpackSync(unpackOptions);
+    unpack.on('error', (error: Error) => (unpackError ??= error));
+
+    const digest = readFileChunks(
+      file,
+      (chunk) => {
+        unpack.write(chunk);
+        if (unpackError != null) {
+          throw unpackError;
+        }
+      },
+      ...comments,
+    );
+    unpack.end();
+    if (unpackError != null) {
+      throw unpackError;
+    }
+    return digest;
+  } catch (error) {
+    rmSync(options.cwd, { force: true, recursive: true });
+    throw error;
+  }
 }
 
 /**

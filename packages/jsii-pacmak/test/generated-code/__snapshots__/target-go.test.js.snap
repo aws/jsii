@@ -2851,6 +2851,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 ClassWithCollectionOfUnions.go
        ┣━ 📄 ClassWithCollections.go
        ┣━ 📄 ClassWithContainerTypes.go
+       ┣━ 📄 ClassWithDateUnions.go
        ┣━ 📄 ClassWithDocs.go
        ┣━ 📄 ClassWithJavaReservedWords.go
        ┣━ 📄 ClassWithMutableObjectLiteralProperty.go
@@ -3155,9 +3156,11 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┣━ 📄 StableClass.go
        ┣━ 📄 StableEnum.go
        ┣━ 📄 StableStruct.go
+       ┣━ 📄 StaticAsyncMethods.go
        ┣━ 📄 StaticContext.go
        ┣━ 📄 StaticHelloChild.go
        ┣━ 📄 StaticHelloParent.go
+       ┣━ 📄 StaticPropertyAssignment.go
        ┣━ 📄 Statics.go
        ┣━ 📄 Stringable.go
        ┣━ 📄 StringEnum.go
@@ -3224,7 +3227,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┣━ 📄 ConsumesUnion.go
        ┃  ┣━ 📄 IResolvable.go
        ┃  ┣━ 📄 main.go
-       ┃  ┗━ 📄 Resolvable.go
+       ┃  ┣━ 📄 Resolvable.go
+       ┃  ┗━ 📄 UnionResolvableStruct.go
        ┣━ 📄 UnionProperties.go
        ┣━ 📄 UpcasingReflectable.go
        ┣━ 📄 UseBundledDependency.go
@@ -4442,7 +4446,7 @@ func NewAsyncVirtualMethods_Override(a AsyncVirtualMethods) {
 func (a *jsiiProxy_AsyncVirtualMethods) CallMe() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"callMe",
 		nil, // no parameters
@@ -4455,7 +4459,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) CallMe() *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) CallMe2() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"callMe2",
 		nil, // no parameters
@@ -4468,7 +4472,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) CallMe2() *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) CallMeDoublePromise() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"callMeDoublePromise",
 		nil, // no parameters
@@ -4494,7 +4498,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) DontOverrideMe() *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) OverrideMe(mult *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"overrideMe",
 		[]interface{}{mult},
@@ -4507,7 +4511,7 @@ func (a *jsiiProxy_AsyncVirtualMethods) OverrideMe(mult *float64) *float64 {
 func (a *jsiiProxy_AsyncVirtualMethods) OverrideMeToo() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		a,
 		"overrideMeToo",
 		nil, // no parameters
@@ -5950,6 +5954,114 @@ func NewClassWithContainerTypes_Override(c ClassWithContainerTypes, array *[]*Du
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/ClassWithDateUnions.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Unions that include \`Date\`, which requires the generated Go runtime type checks to import the "time" package.
+type ClassWithDateUnions interface {
+	UnionProperty() interface{}
+	SetUnionProperty(val interface{})
+	MethodWithCollectionsOfDateUnionsParams(list *[]interface{}, map_ *map[string]interface{}) *float64
+	MethodWithDateUnionParam(param interface{}) *string
+}
+
+// The jsii proxy struct for ClassWithDateUnions
+type jsiiProxy_ClassWithDateUnions struct {
+	_ byte // padding
+}
+
+func (j *jsiiProxy_ClassWithDateUnions) UnionProperty() interface{} {
+	var returns interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func NewClassWithDateUnions(unionProperty interface{}) ClassWithDateUnions {
+	_init_.Initialize()
+
+	j := jsiiProxy_ClassWithDateUnions{}
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithDateUnions",
+		[]interface{}{unionProperty},
+		&j,
+	)
+
+	return &j
+}
+
+func NewClassWithDateUnions_Override(c ClassWithDateUnions, unionProperty interface{}) {
+	_init_.Initialize()
+
+	_jsii_.Create(
+		"jsii-calc.ClassWithDateUnions",
+		[]interface{}{unionProperty},
+		c,
+	)
+}
+
+func (j *jsiiProxy_ClassWithDateUnions)SetUnionProperty(val interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
+		val,
+	)
+}
+
+func ClassWithDateUnions_StaticMethodWithDateUnionParam(param interface{}) *string {
+	_init_.Initialize()
+
+	var returns *string
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.ClassWithDateUnions",
+		"staticMethodWithDateUnionParam",
+		[]interface{}{param},
+		&returns,
+	)
+
+	return returns
+}
+
+func (c *jsiiProxy_ClassWithDateUnions) MethodWithCollectionsOfDateUnionsParams(list *[]interface{}, map_ *map[string]interface{}) *float64 {
+	var returns *float64
+
+	_jsii_.Invoke(
+		c,
+		"methodWithCollectionsOfDateUnionsParams",
+		[]interface{}{list, map_},
+		&returns,
+	)
+
+	return returns
+}
+
+func (c *jsiiProxy_ClassWithDateUnions) MethodWithDateUnionParam(param interface{}) *string {
+	var returns *string
+
+	_jsii_.Invoke(
+		c,
+		"methodWithDateUnionParam",
+		[]interface{}{param},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/ClassWithDocs.go 1`] = `
 package jsiicalc
 
@@ -6332,6 +6444,22 @@ func ConfusingToJackson_MakeStructInstance() *ConfusingToJacksonStruct {
 		"jsii-calc.ConfusingToJackson",
 		"makeStructInstance",
 		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+// Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+func ConfusingToJackson_RoundTripStruct(input *ConfusingToJacksonStruct) *ConfusingToJacksonStruct {
+	_init_.Initialize()
+
+	var returns *ConfusingToJacksonStruct
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.ConfusingToJackson",
+		"roundTripStruct",
+		[]interface{}{input},
 		&returns,
 	)
 
@@ -13650,7 +13778,7 @@ func (n *jsiiProxy_NodeStandardLibrary) CryptoSha256() *string {
 func (n *jsiiProxy_NodeStandardLibrary) FsReadFile() *string {
 	var returns *string
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		n,
 		"fsReadFile",
 		nil, // no parameters
@@ -14907,7 +15035,7 @@ func NewPromiseNothing_Override(p PromiseNothing) {
 func PromiseNothing_PromiseIt() {
 	_init_.Initialize()
 
-	_jsii_.StaticInvokeVoid(
+	_jsii_.StaticAsyncInvokeVoid(
 		"jsii-calc.PromiseNothing",
 		"promiseIt",
 		nil, // no parameters
@@ -14915,7 +15043,7 @@ func PromiseNothing_PromiseIt() {
 }
 
 func (p *jsiiProxy_PromiseNothing) InstancePromiseIt() {
-	_jsii_.InvokeVoid(
+	_jsii_.AsyncInvokeVoid(
 		p,
 		"instancePromiseIt",
 		nil, // no parameters
@@ -16141,6 +16269,41 @@ type StableStruct struct {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StaticAsyncMethods.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Static asynchronous methods, used to verify that their arguments and results cross the language boundary.
+type StaticAsyncMethods interface {
+}
+
+// The jsii proxy struct for StaticAsyncMethods
+type jsiiProxy_StaticAsyncMethods struct {
+	_ byte // padding
+}
+
+func StaticAsyncMethods_AddOne(value *float64) *float64 {
+	_init_.Initialize()
+
+	var returns *float64
+
+	_jsii_.StaticAsyncInvoke(
+		"jsii-calc.StaticAsyncMethods",
+		"addOne",
+		[]interface{}{value},
+		&returns,
+	)
+
+	return returns
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StaticContext.go 1`] = `
 package jsiicalc
 
@@ -16325,6 +16488,62 @@ func StaticHelloParent_PROPERTY() *float64 {
 		&returns,
 	)
 	return returns
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/StaticPropertyAssignment.go 1`] = `
+package jsiicalc
+
+import (
+	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
+	_init_ "github.com/aws/jsii/jsii-calc/go/jsiicalc/v3/jsii"
+)
+
+// Validates that assigning a static property from a jsii host language updates the value on the JavaScript side.
+type StaticPropertyAssignment interface {
+}
+
+// The jsii proxy struct for StaticPropertyAssignment
+type jsiiProxy_StaticPropertyAssignment struct {
+	_ byte // padding
+}
+
+// Reads \`value\` from within JavaScript, so that host language assignments are observable.
+func StaticPropertyAssignment_ReadValue() *string {
+	_init_.Initialize()
+
+	var returns *string
+
+	_jsii_.StaticInvoke(
+		"jsii-calc.StaticPropertyAssignment",
+		"readValue",
+		nil, // no parameters
+		&returns,
+	)
+
+	return returns
+}
+
+func StaticPropertyAssignment_Value() *string {
+	_init_.Initialize()
+	var returns *string
+	_jsii_.StaticGet(
+		"jsii-calc.StaticPropertyAssignment",
+		"value",
+		&returns,
+	)
+	return returns
+}
+
+func StaticPropertyAssignment_SetValue(val *string) {
+	_init_.Initialize()
+	_jsii_.StaticSet(
+		"jsii-calc.StaticPropertyAssignment",
+		"value",
+		val,
+	)
 }
 
 
@@ -17577,7 +17796,7 @@ func (j *jsiiProxy_SyncVirtualMethods)SetValueOfOtherProperty(val *string) {
 func (s *jsiiProxy_SyncVirtualMethods) CallerIsAsync() *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		s,
 		"callerIsAsync",
 		nil, // no parameters
@@ -18653,7 +18872,7 @@ func NewVirtualMethodPlayground_Override(v VirtualMethodPlayground) {
 func (v *jsiiProxy_VirtualMethodPlayground) OverrideMeAsync(index *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		v,
 		"overrideMeAsync",
 		[]interface{}{index},
@@ -18679,7 +18898,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) OverrideMeSync(index *float64) *floa
 func (v *jsiiProxy_VirtualMethodPlayground) ParallelSumAsync(count *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		v,
 		"parallelSumAsync",
 		[]interface{}{count},
@@ -18692,7 +18911,7 @@ func (v *jsiiProxy_VirtualMethodPlayground) ParallelSumAsync(count *float64) *fl
 func (v *jsiiProxy_VirtualMethodPlayground) SerialSumAsync(count *float64) *float64 {
 	var returns *float64
 
-	_jsii_.Invoke(
+	_jsii_.AsyncInvoke(
 		v,
 		"serialSumAsync",
 		[]interface{}{count},
@@ -21511,6 +21730,18 @@ func init() {
 		},
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.ClassWithDateUnions",
+		reflect.TypeOf((*ClassWithDateUnions)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "methodWithCollectionsOfDateUnionsParams", GoMethod: "MethodWithCollectionsOfDateUnionsParams"},
+			_jsii_.MemberMethod{JsiiMethod: "methodWithDateUnionParam", GoMethod: "MethodWithDateUnionParam"},
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
+		func() interface{} {
+			return &jsiiProxy_ClassWithDateUnions{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.ClassWithDocs",
 		reflect.TypeOf((*ClassWithDocs)(nil)).Elem(),
 		nil, // no members
@@ -23230,6 +23461,14 @@ func init() {
 		reflect.TypeOf((*StableStruct)(nil)).Elem(),
 	)
 	_jsii_.RegisterClass(
+		"jsii-calc.StaticAsyncMethods",
+		reflect.TypeOf((*StaticAsyncMethods)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_StaticAsyncMethods{}
+		},
+	)
+	_jsii_.RegisterClass(
 		"jsii-calc.StaticContext",
 		reflect.TypeOf((*StaticContext)(nil)).Elem(),
 		nil, // no members
@@ -23253,6 +23492,14 @@ func init() {
 		nil, // no members
 		func() interface{} {
 			return &jsiiProxy_StaticHelloParent{}
+		},
+	)
+	_jsii_.RegisterClass(
+		"jsii-calc.StaticPropertyAssignment",
+		reflect.TypeOf((*StaticPropertyAssignment)(nil)).Elem(),
+		nil, // no members
+		func() interface{} {
+			return &jsiiProxy_StaticPropertyAssignment{}
 		},
 	)
 	_jsii_.RegisterClass(
@@ -26786,11 +27033,32 @@ import (
 )
 
 type ConsumesUnion interface {
+	UnionProperty() interface{}
+	SetUnionProperty(val interface{})
 }
 
 // The jsii proxy struct for ConsumesUnion
 type jsiiProxy_ConsumesUnion struct {
 	_ byte // padding
+}
+
+func (j *jsiiProxy_ConsumesUnion) UnionProperty() interface{} {
+	var returns interface{}
+	_jsii_.Get(
+		j,
+		"unionProperty",
+		&returns,
+	)
+	return returns
+}
+
+
+func (j *jsiiProxy_ConsumesUnion)SetUnionProperty(val interface{}) {
+	_jsii_.Set(
+		j,
+		"unionProperty",
+		val,
+	)
 }
 
 func ConsumesUnion_UnionType(param interface{}) {
@@ -26871,6 +27139,17 @@ func (r *jsiiProxy_Resolvable) Resolve() interface{} {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/union/UnionResolvableStruct.go 1`] = `
+package union
+
+
+type UnionResolvableStruct struct {
+	Value *string \`field:"required" json:"value" yaml:"value"\`
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/union/main.go 1`] = `
 package union
 
@@ -26884,7 +27163,9 @@ func init() {
 	_jsii_.RegisterClass(
 		"jsii-calc.union.ConsumesUnion",
 		reflect.TypeOf((*ConsumesUnion)(nil)).Elem(),
-		nil, // no members
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "unionProperty", GoGetter: "UnionProperty"},
+		},
 		func() interface{} {
 			return &jsiiProxy_ConsumesUnion{}
 		},
@@ -26910,6 +27191,10 @@ func init() {
 			_jsii_.InitJsiiProxy(&j.jsiiProxy_IResolvable)
 			return &j
 		},
+	)
+	_jsii_.RegisterStruct(
+		"jsii-calc.union.UnionResolvableStruct",
+		reflect.TypeOf((*UnionResolvableStruct)(nil)).Elem(),
 	)
 }
 
@@ -26990,6 +27275,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 ClassWithContainerTypes__checks.go
        ┣━ 🆕 ClassWithContainerTypes__no_checks.go
        ┣━ 📄 ClassWithContainerTypes.go.diff
+       ┣━ 🆕 ClassWithDateUnions__checks.go
+       ┣━ 🆕 ClassWithDateUnions__no_checks.go
+       ┣━ 📄 ClassWithDateUnions.go.diff
        ┣━ 🆕 ClassWithJavaReservedWords__checks.go
        ┣━ 🆕 ClassWithJavaReservedWords__no_checks.go
        ┣━ 📄 ClassWithJavaReservedWords.go.diff
@@ -27245,9 +27533,15 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/ 1`] = `
        ┣━ 🆕 StableClass__checks.go
        ┣━ 🆕 StableClass__no_checks.go
        ┣━ 📄 StableClass.go.diff
+       ┣━ 🆕 StaticAsyncMethods__checks.go
+       ┣━ 🆕 StaticAsyncMethods__no_checks.go
+       ┣━ 📄 StaticAsyncMethods.go.diff
        ┣━ 🆕 StaticContext__checks.go
        ┣━ 🆕 StaticContext__no_checks.go
        ┣━ 📄 StaticContext.go.diff
+       ┣━ 🆕 StaticPropertyAssignment__checks.go
+       ┣━ 🆕 StaticPropertyAssignment__no_checks.go
+       ┣━ 📄 StaticPropertyAssignment.go.diff
        ┣━ 🆕 Statics__checks.go
        ┣━ 🆕 Statics__no_checks.go
        ┣━ 📄 Statics.go.diff
@@ -28481,7 +28775,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/A
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		a,
  		"overrideMe",
 `;
@@ -29703,6 +29997,247 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 +
 `;
 
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithDateUnions.go.diff 1`] = `
+--- go/jsiicalc/ClassWithDateUnions.go	--no-runtime-type-checking
++++ go/jsiicalc/ClassWithDateUnions.go	--runtime-type-checking
+@@ -30,10 +30,13 @@
+ 
+ 
+ func NewClassWithDateUnions(unionProperty interface{}) ClassWithDateUnions {
+ 	_init_.Initialize()
+ 
++	if err := validateNewClassWithDateUnionsParameters(unionProperty); err != nil {
++		panic(err)
++	}
+ 	j := jsiiProxy_ClassWithDateUnions{}
+ 
+ 	_jsii_.Create(
+ 		"jsii-calc.ClassWithDateUnions",
+ 		[]interface{}{unionProperty},
+@@ -52,20 +55,26 @@
+ 		c,
+ 	)
+ }
+ 
+ func (j *jsiiProxy_ClassWithDateUnions)SetUnionProperty(val interface{}) {
++	if err := j.validateSetUnionPropertyParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"unionProperty",
+ 		val,
+ 	)
+ }
+ 
+ func ClassWithDateUnions_StaticMethodWithDateUnionParam(param interface{}) *string {
+ 	_init_.Initialize()
+ 
++	if err := validateClassWithDateUnions_StaticMethodWithDateUnionParamParameters(param); err != nil {
++		panic(err)
++	}
+ 	var returns *string
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.ClassWithDateUnions",
+ 		"staticMethodWithDateUnionParam",
+@@ -75,10 +84,13 @@
+ 
+ 	return returns
+ }
+ 
+ func (c *jsiiProxy_ClassWithDateUnions) MethodWithCollectionsOfDateUnionsParams(list *[]interface{}, map_ *map[string]interface{}) *float64 {
++	if err := c.validateMethodWithCollectionsOfDateUnionsParamsParameters(list, map_); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.Invoke(
+ 		c,
+ 		"methodWithCollectionsOfDateUnionsParams",
+@@ -88,10 +100,13 @@
+ 
+ 	return returns
+ }
+ 
+ func (c *jsiiProxy_ClassWithDateUnions) MethodWithDateUnionParam(param interface{}) *string {
++	if err := c.validateMethodWithDateUnionParamParameters(param); err != nil {
++		panic(err)
++	}
+ 	var returns *string
+ 
+ 	_jsii_.Invoke(
+ 		c,
+ 		"methodWithDateUnionParam",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithDateUnions__checks.go.diff 1`] = `
+--- go/jsiicalc/ClassWithDateUnions__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/ClassWithDateUnions__checks.go	--runtime-type-checking
+@@ -0,0 +1,129 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++	"time"
++)
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithCollectionsOfDateUnionsParamsParameters(list *[]interface{}, map_ *map[string]interface{}) error {
++	if list == nil {
++		return fmt.Errorf("parameter list is required, but nil was provided")
++	}
++	for idx_a33039, v := range *list {
++		switch v.(type) {
++		case *string:
++			// ok
++		case string:
++			// ok
++		case *time.Time:
++			// ok
++		case time.Time:
++			// ok
++		default:
++			return fmt.Errorf("parameter list[%#v] must be one of the allowed types: *string, *time.Time; received %#v (a %T)", idx_a33039, v, v)
++		}
++	}
++
++	if map_ == nil {
++		return fmt.Errorf("parameter map_ is required, but nil was provided")
++	}
++	for idx_509433, v := range *map_ {
++		switch v.(type) {
++		case *string:
++			// ok
++		case string:
++			// ok
++		case *time.Time:
++			// ok
++		case time.Time:
++			// ok
++		default:
++			return fmt.Errorf("parameter map_[%#v] must be one of the allowed types: *string, *time.Time; received %#v (a %T)", idx_509433, v, v)
++		}
++	}
++
++	return nil
++}
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithDateUnionParamParameters(param interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	switch param.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter param must be one of the allowed types: *string, *time.Time; received %#v (a %T)", param, param)
++	}
++
++	return nil
++}
++
++func validateClassWithDateUnions_StaticMethodWithDateUnionParamParameters(param interface{}) error {
++	if param == nil {
++		return fmt.Errorf("parameter param is required, but nil was provided")
++	}
++	switch param.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter param must be one of the allowed types: *string, *time.Time; received %#v (a %T)", param, param)
++	}
++
++	return nil
++}
++
++func (j *jsiiProxy_ClassWithDateUnions) validateSetUnionPropertyParameters(val interface{}) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++	switch val.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter val must be one of the allowed types: *string, *time.Time; received %#v (a %T)", val, val)
++	}
++
++	return nil
++}
++
++func validateNewClassWithDateUnionsParameters(unionProperty interface{}) error {
++	if unionProperty == nil {
++		return fmt.Errorf("parameter unionProperty is required, but nil was provided")
++	}
++	switch unionProperty.(type) {
++	case *string:
++		// ok
++	case string:
++		// ok
++	case *time.Time:
++		// ok
++	case time.Time:
++		// ok
++	default:
++		return fmt.Errorf("parameter unionProperty must be one of the allowed types: *string, *time.Time; received %#v (a %T)", unionProperty, unionProperty)
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithDateUnions__no_checks.go.diff 1`] = `
+--- go/jsiicalc/ClassWithDateUnions__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/ClassWithDateUnions__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,26 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithCollectionsOfDateUnionsParamsParameters(list *[]interface{}, map_ *map[string]interface{}) error {
++	return nil
++}
++
++func (c *jsiiProxy_ClassWithDateUnions) validateMethodWithDateUnionParamParameters(param interface{}) error {
++	return nil
++}
++
++func validateClassWithDateUnions_StaticMethodWithDateUnionParamParameters(param interface{}) error {
++	return nil
++}
++
++func (j *jsiiProxy_ClassWithDateUnions) validateSetUnionPropertyParameters(val interface{}) error {
++	return nil
++}
++
++func validateNewClassWithDateUnionsParameters(unionProperty interface{}) error {
++	return nil
++}
++
+`;
+
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ClassWithJavaReservedWords.go.diff 1`] = `
 --- go/jsiicalc/ClassWithJavaReservedWords.go	--no-runtime-type-checking
 +++ go/jsiicalc/ClassWithJavaReservedWords.go	--runtime-type-checking
@@ -30303,12 +30838,26 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
  		"unionProperty",
  		val,
  	)
+@@ -69,10 +72,13 @@
+ 
+ // Returns the struct it receives, so the host can observe how the union-typed property crosses the boundary.
+ func ConfusingToJackson_RoundTripStruct(input *ConfusingToJacksonStruct) *ConfusingToJacksonStruct {
+ 	_init_.Initialize()
+ 
++	if err := validateConfusingToJackson_RoundTripStructParameters(input); err != nil {
++		panic(err)
++	}
+ 	var returns *ConfusingToJacksonStruct
+ 
+ 	_jsii_.StaticInvoke(
+ 		"jsii-calc.ConfusingToJackson",
+ 		"roundTripStruct",
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ConfusingToJackson__checks.go.diff 1`] = `
 --- go/jsiicalc/ConfusingToJackson__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/ConfusingToJackson__checks.go	--runtime-type-checking
-@@ -0,0 +1,54 @@
+@@ -0,0 +1,65 @@
 +//go:build !no_runtime_type_checking
 +
 +package jsiicalc
@@ -30320,6 +30869,17 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 +
 +	"github.com/aws/jsii/jsii-calc/go/scopejsiicalclib"
 +)
++
++func validateConfusingToJackson_RoundTripStructParameters(input *ConfusingToJacksonStruct) error {
++	if input == nil {
++		return fmt.Errorf("parameter input is required, but nil was provided")
++	}
++	if err := _jsii_.ValidateStruct(input, func() string { return "parameter input" }); err != nil {
++		return err
++	}
++
++	return nil
++}
 +
 +func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val interface{}) error {
 +	switch val.(type) {
@@ -30368,12 +30928,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/C
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/ConfusingToJackson__no_checks.go.diff 1`] = `
 --- go/jsiicalc/ConfusingToJackson__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/ConfusingToJackson__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
 +
 +package jsiicalc
 +
 +// Building without runtime type checking enabled, so all the below just return nil
++
++func validateConfusingToJackson_RoundTripStructParameters(input *ConfusingToJacksonStruct) error {
++	return nil
++}
 +
 +func (j *jsiiProxy_ConfusingToJackson) validateSetUnionPropertyParameters(val interface{}) error {
 +	return nil
@@ -34336,6 +34900,63 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/S
 +
 `;
 
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticAsyncMethods.go.diff 1`] = `
+--- go/jsiicalc/StaticAsyncMethods.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticAsyncMethods.go	--runtime-type-checking
+@@ -15,10 +15,13 @@
+ }
+ 
+ func StaticAsyncMethods_AddOne(value *float64) *float64 {
+ 	_init_.Initialize()
+ 
++	if err := validateStaticAsyncMethods_AddOneParameters(value); err != nil {
++		panic(err)
++	}
+ 	var returns *float64
+ 
+ 	_jsii_.StaticAsyncInvoke(
+ 		"jsii-calc.StaticAsyncMethods",
+ 		"addOne",
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticAsyncMethods__checks.go.diff 1`] = `
+--- go/jsiicalc/StaticAsyncMethods__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticAsyncMethods__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateStaticAsyncMethods_AddOneParameters(value *float64) error {
++	if value == nil {
++		return fmt.Errorf("parameter value is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticAsyncMethods__no_checks.go.diff 1`] = `
+--- go/jsiicalc/StaticAsyncMethods__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticAsyncMethods__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateStaticAsyncMethods_AddOneParameters(value *float64) error {
++	return nil
++}
++
+`;
+
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticContext.go.diff 1`] = `
 --- go/jsiicalc/StaticContext.go	--no-runtime-type-checking
 +++ go/jsiicalc/StaticContext.go	--runtime-type-checking
@@ -34388,6 +35009,63 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/S
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateStaticContext_SetStaticVariableParameters(val *bool) error {
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticPropertyAssignment.go.diff 1`] = `
+--- go/jsiicalc/StaticPropertyAssignment.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticPropertyAssignment.go	--runtime-type-checking
+@@ -41,10 +41,13 @@
+ 	return returns
+ }
+ 
+ func StaticPropertyAssignment_SetValue(val *string) {
+ 	_init_.Initialize()
++	if err := validateStaticPropertyAssignment_SetValueParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.StaticSet(
+ 		"jsii-calc.StaticPropertyAssignment",
+ 		"value",
+ 		val,
+ 	)
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticPropertyAssignment__checks.go.diff 1`] = `
+--- go/jsiicalc/StaticPropertyAssignment__checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticPropertyAssignment__checks.go	--runtime-type-checking
+@@ -0,0 +1,16 @@
++//go:build !no_runtime_type_checking
++
++package jsiicalc
++
++import (
++	"fmt"
++)
++
++func validateStaticPropertyAssignment_SetValueParameters(val *string) error {
++	if val == nil {
++		return fmt.Errorf("parameter val is required, but nil was provided")
++	}
++
++	return nil
++}
++
+`;
+
+exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/StaticPropertyAssignment__no_checks.go.diff 1`] = `
+--- go/jsiicalc/StaticPropertyAssignment__no_checks.go	--no-runtime-type-checking
++++ go/jsiicalc/StaticPropertyAssignment__no_checks.go	--runtime-type-checking
+@@ -0,0 +1,10 @@
++//go:build no_runtime_type_checking
++
++package jsiicalc
++
++// Building without runtime type checking enabled, so all the below just return nil
++
++func validateStaticPropertyAssignment_SetValueParameters(val *string) error {
 +	return nil
 +}
 +
@@ -35923,7 +36601,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/V
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		v,
  		"overrideMeAsync",
 @@ -54,10 +57,13 @@
@@ -35951,7 +36629,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/V
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		v,
  		"parallelSumAsync",
 @@ -80,10 +89,13 @@
@@ -35965,7 +36643,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/V
 +	}
  	var returns *float64
  
- 	_jsii_.Invoke(
+ 	_jsii_.AsyncInvoke(
  		v,
  		"serialSumAsync",
 @@ -93,10 +105,13 @@
@@ -37957,7 +38635,20 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/s
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/ConsumesUnion.go.diff 1`] = `
 --- go/jsiicalc/union/ConsumesUnion.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/ConsumesUnion.go	--runtime-type-checking
-@@ -14,10 +14,13 @@
+@@ -25,20 +25,26 @@
+ 	return returns
+ }
+ 
+ 
+ func (j *jsiiProxy_ConsumesUnion)SetUnionProperty(val interface{}) {
++	if err := j.validateSetUnionPropertyParameters(val); err != nil {
++		panic(err)
++	}
+ 	_jsii_.Set(
+ 		j,
+ 		"unionProperty",
+ 		val,
+ 	)
  }
  
  func ConsumesUnion_UnionType(param interface{}) {
@@ -37976,7 +38667,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/ConsumesUnion__checks.go.diff 1`] = `
 --- go/jsiicalc/union/ConsumesUnion__checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/ConsumesUnion__checks.go	--runtime-type-checking
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,56 @@
 +//go:build !no_runtime_type_checking
 +
 +package union
@@ -38009,12 +38700,36 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 +	return nil
 +}
 +
++func (j *jsiiProxy_ConsumesUnion) validateSetUnionPropertyParameters(val interface{}) error {
++	switch val.(type) {
++	case IResolvable:
++		// ok
++	case *UnionResolvableStruct:
++		val := val.(*UnionResolvableStruct)
++		if err := _jsii_.ValidateStruct(val, func() string { return "parameter val" }); err != nil {
++			return err
++		}
++	case UnionResolvableStruct:
++		val_ := val.(UnionResolvableStruct)
++		val := &val_
++		if err := _jsii_.ValidateStruct(val, func() string { return "parameter val" }); err != nil {
++			return err
++		}
++	default:
++		if !_jsii_.IsAnonymousProxy(val) {
++			return fmt.Errorf("parameter val must be one of the allowed types: IResolvable, *UnionResolvableStruct; received %#v (a %T)", val, val)
++		}
++	}
++
++	return nil
++}
++
 `;
 
 exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/union/ConsumesUnion__no_checks.go.diff 1`] = `
 --- go/jsiicalc/union/ConsumesUnion__no_checks.go	--no-runtime-type-checking
 +++ go/jsiicalc/union/ConsumesUnion__no_checks.go	--runtime-type-checking
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,14 @@
 +//go:build no_runtime_type_checking
 +
 +package union
@@ -38022,6 +38737,10 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/go/jsiicalc/u
 +// Building without runtime type checking enabled, so all the below just return nil
 +
 +func validateConsumesUnion_UnionTypeParameters(param interface{}) error {
++	return nil
++}
++
++func (j *jsiiProxy_ConsumesUnion) validateSetUnionPropertyParameters(val interface{}) error {
 +	return nil
 +}
 +

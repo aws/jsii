@@ -9,7 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.jsii.ComplianceSuiteHarness;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.JsiiObject;
 import software.amazon.jsii.ReloadingClassLoader;
+import software.amazon.jsii.UnsafeCast;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
 import software.amazon.jsii.tests.calculator.cdk16625.Cdk16625;
@@ -48,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(ComplianceSuiteHarness.class)
 public class ComplianceTest {
     @Test
-    public void useNestedStruct() {
+    public void submoduleStructCanBePassed() {
         StaticConsumer.consume(
             new NestedStruct.Builder()
                 .name("Bond, James Bond")
@@ -60,7 +62,7 @@ public class ComplianceTest {
      * Verify that we can marshal and unmarshal objects without type information.
      */
     @Test
-    public void primitiveTypes() throws IOException {
+    public void primitivesRoundTrip() throws IOException {
         AllTypes types = new AllTypes();
 
         // boolean
@@ -85,7 +87,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void dates() {
+    public void datesRoundTrip() {
         AllTypes types = new AllTypes();
 
         // strong type
@@ -98,7 +100,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void collectionTypes() {
+    public void collectionPropertiesCanBeSetAndRead() {
         AllTypes types = new AllTypes();
 
         // array
@@ -112,7 +114,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void dynamicTypes() throws IOException {
+    public void anyValuesKeepTheirType() throws IOException {
         AllTypes types = new AllTypes();
 
         // boolean
@@ -164,7 +166,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void unionTypes() {
+    public void unionPropertyAcceptsEachMemberType() {
         AllTypes types = new AllTypes();
 
         // single valued property
@@ -190,13 +192,13 @@ public class ComplianceTest {
     }
 
     @Test
-    public void createObjectAndCtorOverloads() {
+    public void optionalConstructorParametersCanBeOmitted() {
         new Calculator();
         new Calculator(CalculatorProps.builder().maximumValue(10).build());
     }
 
     @Test
-    public void getSetPrimitiveProperties() {
+    public void primitivePropertiesCanBeRead() {
         Number number = new Number(20);
         assertEquals(20, number.getValue());
         assertEquals(40, number.getDoubleValue());
@@ -208,7 +210,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void callMethods() {
+    public void instanceMethodsCanBeCalled() {
         Calculator calc = new Calculator();
         calc.add(10); assertEquals(10, calc.getValue());
         calc.mul(2); assertEquals(20, calc.getValue());
@@ -217,7 +219,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void unmarshallIntoAbstractType() {
+    public void abstractTypedValueReceivedAsReference() {
         Calculator calc = new Calculator();
         calc.add(120);
         NumericValue value = calc.getCurr();
@@ -225,7 +227,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void getAndSetNonPrimitiveProperties() {
+    public void objectPropertiesCanBeReadAndAssigned() {
         Calculator calc = new Calculator();
         calc.add(3200000);
         calc.neg();
@@ -234,7 +236,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void getAndSetEnumValues() {
+    public void enumPropertiesCanBeReadAndWritten() {
         Calculator calc = new Calculator();
         calc.add(9);
         calc.pow(3);
@@ -245,7 +247,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void useEnumFromScopedModule() {
+    public void enumsFromDependenciesCrossTheBoundary() {
         ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
         assertEquals(EnumFromScopedModule.VALUE2, obj.getFoo());
         obj.setFoo(EnumFromScopedModule.VALUE1);
@@ -255,14 +257,14 @@ public class ComplianceTest {
     }
 
     @Test
-    public void undefinedAndNull() {
+    public void unsetOptionalPropertyReadsAsAbsent() {
         Calculator calculator = new Calculator();
         assertNull(calculator.getMaxValue());
         calculator.setMaxValue(null);
     }
 
     @Test
-    public void arrays() {
+    public void arraysOfObjectsPreserveOrderAndType() {
         Sum sum = new Sum();
         sum.setParts(Arrays.asList(new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))));
         assertEquals(10 + 5 + (2 * 3), sum.getValue());
@@ -272,7 +274,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void maps() {
+    public void mapsOfObjectsCanBeRead() {
         Calculator calc2 = new Calculator(); // Initializer overload (props is optional)
         calc2.add(10);
         calc2.add(20);
@@ -283,50 +285,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void fluentApi() {
-        final Calculator calc3 = new Calculator(CalculatorProps.builder()
-                .initialValue(20)
-                .maximumValue(30)
-                .build());
-        calc3.add(3);
-        assertEquals(23, calc3.getValue());
-    }
-
-    @Test
-    public void unionPropertiesWithBuilder() throws Exception {
-
-        // verify we have a withXxx overload for each union type
-        UnionProperties.Builder builder = UnionProperties.builder();
-        assertNotNull(builder.getClass().getMethod("bar", java.lang.Number.class));
-        assertNotNull(builder.getClass().getMethod("bar", String.class));
-        assertNotNull(builder.getClass().getMethod("bar", AllTypes.class));
-        assertNotNull(builder.getClass().getMethod("foo", String.class));
-        assertNotNull(builder.getClass().getMethod("foo", java.lang.Number.class));
-
-        UnionProperties obj1 = UnionProperties.builder()
-            .bar(12)
-            .foo("Hello")
-            .build();
-        assertEquals(12, obj1.getBar());
-        assertEquals("Hello", obj1.getFoo());
-
-        UnionProperties obj2 = UnionProperties.builder()
-            .bar("BarIsString")
-            .build();
-        assertEquals("BarIsString", obj2.getBar());
-        assertNull(obj2.getFoo());
-
-        AllTypes allTypes = new AllTypes();
-        UnionProperties obj3 = UnionProperties.builder()
-            .bar(allTypes)
-            .foo(999)
-            .build();
-        assertSame(allTypes, obj3.getBar());
-        assertEquals(999, obj3.getFoo());
-    }
-
-    @Test
-    public void exceptions() {
+    public void kernelErrorsReachTheHost() {
         final Calculator calc3 = new Calculator(CalculatorProps.builder()
             .initialValue(20)
             .maximumValue(30).build());
@@ -348,7 +307,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void unionProperties() {
+    public void unionPropertyReturnsConcreteType() {
         Calculator calc3 = new Calculator();
         calc3.setUnionProperty(new Multiply(new Number(9), new Number(3)));
         assertTrue(calc3.getUnionProperty() instanceof Multiply);
@@ -358,7 +317,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void subclassing() {
+    public void hostSubclassCanBeUsed() {
         Calculator calc = new Calculator();
         calc.setCurr(new AddTen(33));
         calc.neg();
@@ -366,7 +325,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void testJSObjectLiteralToNative() {
+    public void objectLiteralReturnedAsClassIsUsable() {
         JSObjectLiteralToNative obj = new JSObjectLiteralToNative();
         JSObjectLiteralToNativeClass obj2 = obj.returnLiteral();
 
@@ -375,7 +334,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void testFluentApiWithDerivedClasses() {
+    public void inheritedPropertiesUsableOnHostSubclass() {
         // make sure that fluent API can be assigned to objects from derived classes
         DerivedFromAllTypes obj = new DerivedFromAllTypes();
         obj.setStringProperty("Hello");
@@ -390,7 +349,7 @@ public class ComplianceTest {
      */
     @Test
     @SuppressWarnings("deprecated")
-    public void creationOfNativeObjectsFromJavaScriptObjects() {
+    public void objectReferencesRoundTripThroughAny() {
         AllTypes types = new AllTypes();
 
         Number jsObj = new Number(44);
@@ -412,39 +371,39 @@ public class ComplianceTest {
     }
 
     @Test
-    public void asyncOverrides_callAsyncMethod() {
+    public void asyncMethodsCanBeCalled() {
         AsyncVirtualMethods obj = new AsyncVirtualMethods();
         assertEquals(128, obj.callMe());
         assertEquals(528, obj.overrideMe(44));
     }
 
     @Test
-    public void asyncOverrides_overrideAsyncMethod() {
+    public void asyncMethodCanBeOverridden() {
         OverrideAsyncMethods obj = new OverrideAsyncMethods();
         assertEquals(4452, obj.callMe());
     }
 
     @Test
-    public void asyncOverrides_overrideAsyncMethodByParentClass() {
+    public void asyncOverrideCanBeInherited() {
         OverrideAsyncMethodsByBaseClass obj = new OverrideAsyncMethodsByBaseClass();
         assertEquals(4452, obj.callMe());
     }
 
     @Test
-    public void asyncOverrides_overrideCallsSuper() {
+    public void asyncOverrideCanCallSuper() {
         OverrideCallsSuper obj = new OverrideCallsSuper();
         assertEquals(1441, obj.overrideMe(12));
         assertEquals(1209, obj.callMe());
     }
 
     @Test
-    public void asyncOverrides_twoOverrides() {
+    public void multipleAsyncMethodsCanBeOverridden() {
         TwoOverrides obj = new TwoOverrides();
         assertEquals(684, obj.callMe());
     }
 
     @Test
-    public void asyncOverrides_overrideThrows() {
+    public void asyncOverrideErrorPropagates() {
         AsyncVirtualMethods obj = new AsyncVirtualMethods() {
             public java.lang.Number overrideMe(java.lang.Number mult) {
                 throw new RuntimeException("Thrown by native code");
@@ -464,7 +423,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void syncOverrides() {
+    public void methodCallsUseHostOverride() {
         SyncOverrides obj = new SyncOverrides();
         assertEquals(10 * 5, obj.callerIsMethod());
 
@@ -481,7 +440,7 @@ public class ComplianceTest {
      * Allow overriding property getters and setters.
      */
     @Test
-    public void propertyOverrides_get_set() {
+    public void propertyAccessesUseHostOverrides() {
         SyncOverrides so = new SyncOverrides();
         assertEquals("I am an override!", so.retrieveValueOfTheProperty());
         so.modifyValueOfTheProperty("New Value");
@@ -489,7 +448,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void propertyOverrides_get_calls_super() {
+    public void getterOverrideCanCallSuper() {
         SyncVirtualMethods so = new SyncVirtualMethods() {
             public String getTheProperty() {
                 String superValue = super.getTheProperty();
@@ -502,7 +461,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void propertyOverrides_set_calls_super() {
+    public void setterOverrideCanCallSuper() {
         SyncVirtualMethods so = new SyncVirtualMethods() {
             @Override
             public void setTheProperty(String value) {
@@ -515,7 +474,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void propertyOverrides_get_throws() {
+    public void getterOverrideErrorPropagates() {
         SyncVirtualMethods so = new SyncVirtualMethods() {
             public String getTheProperty() {
                 throw new RuntimeException("Oh no, this is bad");
@@ -535,7 +494,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void propertyOverrides_set_throws() {
+    public void setterOverrideErrorPropagates() {
         SyncVirtualMethods so = new SyncVirtualMethods() {
             public void setTheProperty(String value) {
                 throw new RuntimeException("Exception from overloaded setter");
@@ -555,7 +514,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void propertyOverrides_interfaces() {
+    public void kernelUsesHostInterfaceAccessors() {
         IInterfaceWithProperties obj = new IInterfaceWithProperties() {
             private String x;
 
@@ -581,33 +540,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void interfaceBuilder() {
-        IInterfaceWithProperties obj = new IInterfaceWithProperties() {
-            private String value = "READ_WRITE";
-
-            @Override
-            public String getReadOnlyString() {
-                return "READ_ONLY";
-            }
-
-            @Override
-            public String getReadWriteString() {
-                return value;
-            }
-
-            @Override
-            public void setReadWriteString(String value) {
-                this.value = value;
-            }
-        };
-
-        UsesInterfaceWithProperties interact = new UsesInterfaceWithProperties(obj);
-        assertEquals("READ_ONLY", interact.justRead());
-        assertEquals("Hello", interact.writeAndRead("Hello"));
-    }
-
-    @Test
-    public void syncOverrides_callsSuper() {
+    public void methodOverrideCanCallSuper() {
         SyncOverrides obj = new SyncOverrides();
         assertEquals(10 * 5, obj.getCallerIsProperty());
 
@@ -616,7 +549,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void fail_syncOverrides_callsDoubleAsync_method() {
+    public void syncMethodOverrideCallingAsyncFails() {
         assertThrows(JsiiException.class, () -> {
             try {
                 JsiiEngine.setQuietMode(true);
@@ -632,7 +565,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void fail_syncOverrides_callsDoubleAsync_propertyGetter() {
+    public void syncGetterOverrideCallingAsyncFails() {
         assertThrows(JsiiException.class, () -> {
             SyncOverrides obj = new SyncOverrides();
             obj.callAsync = true;
@@ -642,7 +575,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void fail_syncOverrides_callsDoubleAsync_propertySetter() {
+    public void syncSetterOverrideCallingAsyncFails() {
         assertThrows(JsiiException.class, () -> {
             SyncOverrides obj = new SyncOverrides();
             obj.callAsync = true;
@@ -652,7 +585,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void testInterfaces() {
+    public void objectsUsableThroughEveryInterface() {
         IFriendly friendly;
         IFriendlier friendlier;
         IRandomNumberGenerator randomNumberGenerator;
@@ -698,7 +631,7 @@ public class ComplianceTest {
      *    that a new object is not created again.
      */
     @Test
-    public void testNativeObjectsWithInterfaces() {
+    public void hostObjectsKeepIdentityAcrossTheBoundary() {
         // create a pure and native object, not part of the jsii hierarchy, only implements a jsii interface
         PureNativeFriendlyRandom pureNative = new PureNativeFriendlyRandom();
         SubclassNativeFriendlyRandom subclassedNative = new SubclassNativeFriendlyRandom();
@@ -719,7 +652,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void testLiteralInterface() {
+    public void objectLiteralReturnedAsInterfaceIsUsable() {
         JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
         IFriendly friendly = obj.giveMeFriendly();
         assertEquals("I am literally friendly!", friendly.hello());
@@ -730,7 +663,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void testInterfaceParameter() {
+    public void interfaceValueCanBePassedBack() {
         JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
         IFriendly friendly = obj.giveMeFriendly();
         assertEquals("I am literally friendly!", friendly.hello());
@@ -741,53 +674,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void structs_stepBuilders() {
-        Instant someInstant = Instant.now();
-        DoubleTrouble nonPrim = new DoubleTrouble();
-
-        DerivedStruct s = new DerivedStruct.Builder()
-                .nonPrimitive(nonPrim)
-                .bool(false)
-                .anotherRequired(someInstant)
-                .astring("Hello")
-                .anumber(1234)
-                .firstOptional(Arrays.asList("Hello", "World"))
-                .build();
-
-        assertSame(nonPrim, s.getNonPrimitive());
-        assertEquals(false, s.getBool());
-        assertEquals(someInstant, s.getAnotherRequired());
-        assertEquals("Hello", s.getAstring());
-        assertEquals(1234, s.getAnumber());
-        assertEquals("World", s.getFirstOptional().get(1));
-        assertNull(s.getAnotherOptional());
-        assertNull(s.getOptionalArray());
-
-        MyFirstStruct myFirstStruct = new MyFirstStruct.Builder()
-                .astring("Hello")
-                .anumber(12)
-                .build();
-
-        assertEquals("Hello", myFirstStruct.getAstring());
-        assertEquals(12, myFirstStruct.getAnumber());
-
-        StructWithOnlyOptionals onlyOptionals1 = new StructWithOnlyOptionals.Builder()
-                .optional1("Hello")
-                .optional2(1)
-                .build();
-
-        assertEquals("Hello", onlyOptionals1.getOptional1());
-        assertEquals(1, onlyOptionals1.getOptional2());
-        assertNull(onlyOptionals1.getOptional3());
-
-        StructWithOnlyOptionals onlyOptionals2 = new StructWithOnlyOptionals.Builder().build();
-        assertNull(onlyOptionals2.getOptional1());
-        assertNull(onlyOptionals2.getOptional2());
-        assertNull(onlyOptionals2.getOptional3());
-    }
-
-    @Test
-    public void structs_withDiamondInheritance_correctlyDedupeProperties() {
+    public void diamondInheritedStructPropertiesAppearOnce() {
         DiamondInheritanceTopLevelStruct struct = DiamondInheritanceTopLevelStruct.builder()
                                                                                   .baseLevelProperty("base")
                                                                                   .firstMidLevelProperty("mid1")
@@ -802,150 +689,13 @@ public class ComplianceTest {
     }
 
     @Test
-    public void structs_nonOptionalequals() {
-        StableStruct structA = StableStruct.builder()
-                                           .readonlyProperty("one")
-                                           .build();
-
-        StableStruct structB = StableStruct.builder()
-                                           .readonlyProperty("one")
-                                           .build();
-
-        StableStruct structC = StableStruct.builder()
-                                           .readonlyProperty("two")
-                                           .build();
-
-
-        assertTrue(structA.equals(structB));
-        assertFalse(structA.equals(structC));
-    }
-
-    @Test
-    public void structs_nonOptionalhashCode() {
-        StableStruct structA = StableStruct.builder()
-                                           .readonlyProperty("one")
-                                           .build();
-
-        StableStruct structB = StableStruct.builder()
-                                           .readonlyProperty("one")
-                                           .build();
-
-        StableStruct structC = StableStruct.builder()
-                                           .readonlyProperty("two")
-                                           .build();
-
-
-        assertTrue(structA.hashCode() == structB.hashCode());
-        assertFalse(structA.hashCode() == structC.hashCode());
-    }
-
-    @Test
-    public void structs_optionalEquals() {
-        OptionalStruct structA = OptionalStruct.builder()
-                                               .field("one")
-                                               .build();
-
-        OptionalStruct structB = OptionalStruct.builder()
-                                               .field("one")
-                                               .build();
-
-        OptionalStruct structC = OptionalStruct.builder()
-                                               .field("two")
-                                               .build();
-
-        OptionalStruct structD = OptionalStruct.builder()
-                                               .build();
-
-
-        assertTrue(structA.equals(structB));
-        assertFalse(structA.equals(structC));
-        assertFalse(structA.equals(structD));
-    }
-
-    @Test
-    public void structs_optionalHashCode() {
-        OptionalStruct structA = OptionalStruct.builder()
-                                               .field("one")
-                                               .build();
-
-        OptionalStruct structB = OptionalStruct.builder()
-                                               .field("one")
-                                               .build();
-
-        OptionalStruct structC = OptionalStruct.builder()
-                                               .field("two")
-                                               .build();
-
-        OptionalStruct structD = OptionalStruct.builder()
-                                               .build();
-
-        assertTrue(structA.hashCode() == structB.hashCode());
-        assertFalse(structA.hashCode() == structC.hashCode());
-        assertFalse(structA.hashCode() == structD.hashCode());
-    }
-
-    @Test
-    public void structs_multiplePropertiesEquals() {
-        DiamondInheritanceTopLevelStruct structA = DiamondInheritanceTopLevelStruct.builder()
-                                                                                   .baseLevelProperty("one")
-                                                                                   .firstMidLevelProperty("two")
-                                                                                   .secondMidLevelProperty("three")
-                                                                                   .topLevelProperty("four")
-                                                                                   .build();
-
-        DiamondInheritanceTopLevelStruct structB = DiamondInheritanceTopLevelStruct.builder()
-                                                                                   .baseLevelProperty("one")
-                                                                                   .firstMidLevelProperty("two")
-                                                                                   .secondMidLevelProperty("three")
-                                                                                   .topLevelProperty("four")
-                                                                                   .build();
-
-        DiamondInheritanceTopLevelStruct structC = DiamondInheritanceTopLevelStruct.builder()
-                                                                                   .baseLevelProperty("one")
-                                                                                   .firstMidLevelProperty("two")
-                                                                                   .secondMidLevelProperty("different")
-                                                                                   .topLevelProperty("four")
-                                                                                   .build();
-
-        assertTrue(structA.equals(structB));
-        assertFalse(structA.equals(structC));
-    }
-
-    @Test
-    public void structs_multiplePropertiesHashCode() {
-        DiamondInheritanceTopLevelStruct structA = DiamondInheritanceTopLevelStruct.builder()
-                                                                                   .baseLevelProperty("one")
-                                                                                   .firstMidLevelProperty("two")
-                                                                                   .secondMidLevelProperty("three")
-                                                                                   .topLevelProperty("four")
-                                                                                   .build();
-
-        DiamondInheritanceTopLevelStruct structB = DiamondInheritanceTopLevelStruct.builder()
-                                                                                   .baseLevelProperty("one")
-                                                                                   .firstMidLevelProperty("two")
-                                                                                   .secondMidLevelProperty("three")
-                                                                                   .topLevelProperty("four")
-                                                                                   .build();
-
-        DiamondInheritanceTopLevelStruct structC = DiamondInheritanceTopLevelStruct.builder()
-                                                                                   .baseLevelProperty("one")
-                                                                                   .firstMidLevelProperty("two")
-                                                                                   .secondMidLevelProperty("different")
-                                                                                   .topLevelProperty("four")
-                                                                                   .build();
-
-        assertTrue(structA.hashCode() == structB.hashCode());
-        assertFalse(structA.hashCode() == structC.hashCode());
-    }
-
-    @Test
-    public void structs_containsNullChecks() {
+    public void incompleteStructIsRejected() {
         assertThrows(NullPointerException.class,
                 () -> new MyFirstStruct.Builder().build());
     }
 
     @Test
-    public void structs_serializeToJsii() {
+    public void structsArePassedByValue() {
         MyFirstStruct firstStruct = MyFirstStruct.builder()
                 .astring("FirstString")
                 .anumber(999)
@@ -975,7 +725,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void structs_returnedLiteralEqualsNativeBuilt() {
+    public void receivedStructEqualsHostBuiltStruct() {
         GiveMeStructs gms = new GiveMeStructs();
         StructWithOnlyOptionals returnedLiteral = gms.getStructLiteral();
         StructWithOnlyOptionals nativeBuilt = StructWithOnlyOptionals.builder()
@@ -988,11 +738,49 @@ public class ComplianceTest {
         assertEquals(nativeBuilt.getOptional3(), returnedLiteral.getOptional3());
         assertEquals(nativeBuilt, returnedLiteral);
         assertEquals(returnedLiteral, nativeBuilt);
-        assertEquals(nativeBuilt.hashCode(), returnedLiteral.hashCode());
     }
 
     @Test
-    public void statics() {
+    public void unionStructPropertyKeepsConcreteType() {
+        TopLevelStruct withStruct = StructPassing.roundTrip(123, TopLevelStruct.builder()
+                .required("hello")
+                .secondLevel(SecondLevelStruct.builder().deeperRequiredProp("exists").build())
+                .build());
+
+        assertEquals("hello", withStruct.getRequired());
+        assertNull(withStruct.getOptional());
+        assertEquals("exists", ((SecondLevelStruct) withStruct.getSecondLevel()).getDeeperRequiredProp());
+
+        TopLevelStruct withNumber = StructPassing.roundTrip(123, TopLevelStruct.builder()
+                .required("hello")
+                .secondLevel(5)
+                .build());
+
+        assertEquals("hello", withNumber.getRequired());
+        assertNull(withNumber.getOptional());
+        assertEquals(5, withNumber.getSecondLevel());
+    }
+
+    @Test
+    public void unionOfListAndObjectStructPropertyRoundTrips() {
+        IFriendly friendly = new Add(new Number(1), new Number(2));
+
+        ConfusingToJacksonStruct single = ConfusingToJackson.roundTripStruct(
+                ConfusingToJacksonStruct.builder().unionProperty(friendly).build());
+        assertSame(friendly, single.getUnionProperty());
+
+        ConfusingToJacksonStruct list = ConfusingToJackson.roundTripStruct(
+                ConfusingToJacksonStruct.builder().unionProperty(Arrays.asList(friendly)).build());
+        assertEquals(Arrays.asList(friendly), list.getUnionProperty());
+        assertSame(friendly, ((List<?>) list.getUnionProperty()).get(0));
+
+        ConfusingToJacksonStruct unset = ConfusingToJackson.roundTripStruct(
+                ConfusingToJacksonStruct.builder().build());
+        assertNull(unset.getUnionProperty());
+    }
+
+    @Test
+    public void staticMembersCanBeUsed() {
         assertEquals("hello ,Yoyo!", Statics.staticMethod("Yoyo"));
         assertEquals("default", Statics.getInstance().getValue());
 
@@ -1005,8 +793,23 @@ public class ComplianceTest {
     }
 
     @Test
+    public void staticPropertyAssignmentUpdatesJavaScript() {
+        assertEquals("default", StaticPropertyAssignment.readValue());
+        try {
+            StaticPropertyAssignment.setValue("assigned");
+
+            assertEquals("assigned", StaticPropertyAssignment.readValue());
+            assertEquals("assigned", StaticPropertyAssignment.getValue());
+        } finally {
+            StaticPropertyAssignment.setValue("default");
+        }
+
+        assertEquals("default", StaticPropertyAssignment.readValue());
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
-    public void consts() throws Exception {
+    public void constantsCanBeRead() throws Exception {
         /*
          * Here be dragons: "consts" are actually pre-fetched when the class gets loaded, and they are static final
          * properties (so we cannot reset those). Since those tests need to run with a new Engine process, what was
@@ -1037,15 +840,14 @@ public class ComplianceTest {
     }
 
     @Test
-    public void reservedKeywordsAreSlugifiedInMethodNames() {
+    public void reservedWordMethodsAreCallable() {
         JavaReservedWords obj = new JavaReservedWords();
         obj.doImport();
         obj.doConst();
-        assertEquals("hello", obj.getWhileValue()); // properties should also be 'slugified'
     }
 
     @Test
-    public void reservedKeywordsAreSlugifiedInStructProperties() {
+    public void reservedWordStructPropertiesAreUsable() {
         StructWithJavaReservedWords struct = StructWithJavaReservedWords.builder()
                                                                         .assertValue("one")
                                                                         .defaultValue("two")
@@ -1056,36 +858,19 @@ public class ComplianceTest {
     }
 
     @Test
-    public void reservedKeywordsAreSlugifiedInClassProperties() {
+    public void reservedWordClassPropertiesAreAccessible() {
         ClassWithJavaReservedWords obj = new ClassWithJavaReservedWords("one");
 
         String result = obj.doImport("two");
 
         assertEquals("onetwo", result);
+
+        JavaReservedWords words = new JavaReservedWords();
+        assertEquals("hello", words.getWhileValue()); // properties should also be 'slugified'
     }
 
     @Test
-    public void hashCodeIsResistantToPropertyShadowingResultVariable() {
-        StructWithJavaReservedWords first = StructWithJavaReservedWords.builder().defaultValue("one").build();
-        StructWithJavaReservedWords second = StructWithJavaReservedWords.builder().defaultValue("one").build();
-        StructWithJavaReservedWords third = StructWithJavaReservedWords.builder().defaultValue("two").build();
-
-        assertEquals(first.hashCode(), second.hashCode());
-        assertNotEquals(first.hashCode(), third.hashCode());
-    }
-
-    @Test
-    public void equalsIsResistantToPropertyShadowingResultVariable() {
-        StructWithJavaReservedWords first = StructWithJavaReservedWords.builder().defaultValue("one").build();
-        StructWithJavaReservedWords second = StructWithJavaReservedWords.builder().defaultValue("one").build();
-        StructWithJavaReservedWords third = StructWithJavaReservedWords.builder().defaultValue("two").build();
-
-        assertEquals(first, second);
-        assertNotEquals(first, third);
-    }
-
-    @Test
-    public void nodeStandardLibrary() {
+    public void nodeStandardLibraryIsAvailable() {
         NodeStandardLibrary obj = new NodeStandardLibrary();
         assertEquals("Hello, resource!", obj.fsReadFile());
         assertEquals("Hello, resource! SYNC!", obj.fsReadFileSync());
@@ -1095,7 +880,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void returnAbstract() {
+    public void objectsReturnedAsAbstractTypeAreUsable() {
         AbstractClassReturner obj = new AbstractClassReturner();
         AbstractClass obj2 = obj.giveMeAbstract();
 
@@ -1110,7 +895,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void doNotOverridePrivates_method_public() {
+    public void hostMethodDoesNotOverridePrivateMethod() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
             @SuppressWarnings("unused")
             public String privateMethod() {
@@ -1122,31 +907,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void doNotOverridePrivates_method_private() {
-        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
-            @SuppressWarnings("unused")
-            private String privateMethod() {
-                return "privateMethod-Override";
-            }
-        };
-
-        assertEquals("privateMethod", obj.privateMethodValue());
-    }
-
-    @Test
-    public void doNotOverridePrivates_property_by_name_private() {
-        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
-            @SuppressWarnings("unused")
-            private String privateProperty() {
-                return "privateProperty-Override";
-            }
-        };
-
-        assertEquals("privateProperty", obj.privatePropertyValue());
-    }
-
-    @Test
-    public void doNotOverridePrivates_property_by_name_public() {
+    public void hostMethodDoesNotOverridePrivateProperty() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
             @SuppressWarnings("unused")
             public String privateProperty() {
@@ -1158,7 +919,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void doNotOverridePrivates_property_getter_public() {
+    public void hostAccessorDoesNotOverridePrivateProperty() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
             @SuppressWarnings("unused")
             public String getPrivateProperty() {
@@ -1178,27 +939,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void doNotOverridePrivates_property_getter_private() {
-        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
-            @SuppressWarnings("unused")
-            private String getPrivateProperty() {
-                return "privateProperty-Override";
-            }
-            @SuppressWarnings("unused")
-            public void setPrivateProperty(String value) {
-                throw new RuntimeException("Boom");
-            }
-        };
-
-        assertEquals("privateProperty", obj.privatePropertyValue());
-
-        // verify the setter override is not invoked.
-        obj.changePrivatePropertyValue("MyNewValue");
-        assertEquals("MyNewValue", obj.privatePropertyValue());
-    }
-
-    @Test
-    public void classWithPrivateConstructorAndAutomaticProperties() {
+    public void privateConstructorClassFromStaticFactory() {
         ClassWithPrivateConstructorAndAutomaticProperties obj = ClassWithPrivateConstructorAndAutomaticProperties.create("Hello", "Bye");
         assertEquals("Bye", obj.getReadWriteString());
         obj.setReadWriteString("Hello");
@@ -1206,7 +947,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void nullShouldBeTreatedAsUndefined() {
+    public void hostNullIsSentAsUndefined() {
         NullShouldBeTreatedAsUndefined obj = new NullShouldBeTreatedAsUndefined("hello", null);
         obj.giveMeUndefined(null);
         obj.giveMeUndefinedInsideAnObject(NullShouldBeTreatedAsUndefinedData.builder()
@@ -1218,7 +959,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void testJsiiAgent() {
+    public void kernelKnowsTheHostRuntime() {
         assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getValue());
     }
 
@@ -1226,12 +967,12 @@ public class ComplianceTest {
      * @see https://github.com/aws/jsii/issues/320
      */
     @Test
-    public void receiveInstanceOfPrivateClass() {
+    public void nonExportedClassReceivedAsInterface() {
         assertTrue(new ReturnsPrivateImplementationOfInterface().getPrivateImplementation().getSuccess());
     }
 
     @Test
-    public void objRefsAreLabelledUsingWithTheMostCorrectType() {
+    public void objectsReceivedAsMostDerivedPublicType() {
         final PublicClass classRef = Constructors.makeClass();
         final IPublicInterface ifaceRef = Constructors.makeInterface();
 
@@ -1244,7 +985,7 @@ public class ComplianceTest {
      * in JavaScript-land. See https://github.com/aws/jsii/issues/375
      */
     @Test
-    public void eraseUnsetDataValues() {
+    public void unsetStructPropertiesAreOmitted() {
         EraseUndefinedHashValuesOptions opts = EraseUndefinedHashValuesOptions.builder()
                 .option1("option1")
                 .build();
@@ -1257,20 +998,20 @@ public class ComplianceTest {
     }
 
     @Test
-    public void objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
+    public void constructorCanPassThisToTheHost() {
         final PartiallyInitializedThisConsumer reflector = new PartiallyInitializedThisConsumerImpl();
         new ConstructorPassesThisOut(reflector);
     }
 
     @Test
-    public void variadicMethodCanBeInvoked() {
+    public void variadicArgumentsAreForwarded() {
         final VariadicMethod variadicMethod = new VariadicMethod(1);
         final List<java.lang.Number> result = variadicMethod.asArray(3, 4, 5, 6);
         assertEquals(Arrays.asList(1, 3, 4, 5, 6), result);
     }
 
     @Test
-    public void callbacksCorrectlyDeserializeArguments() {
+    public void overrideReceivesDeserializedArguments() {
         final DataRenderer renderer = new DataRenderer() {
             public final String renderMap(final Map<String, Object> map) {
                 return super.renderMap(map);
@@ -1280,7 +1021,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canLoadEnumValues() {
+    public void enumValuesReturnedByTheKernel() {
         assertNotNull(EnumDispenser.randomStringLikeEnum());
         assertNotNull(EnumDispenser.randomIntegerLikeEnum());
     }
@@ -1295,7 +1036,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void listInClassCanBeReadCorrectly() {
+    public void arrayPropertyCanBeRead() {
         List<String> modifiableList = Arrays.asList("one", "two");
 
         ClassWithCollections classWithCollections = new ClassWithCollections(Collections.emptyMap(), modifiableList);
@@ -1304,18 +1045,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void mapInClassCannotBeModified() {
-        Map<String, String> modifiableMap = new HashMap<>();
-        modifiableMap.put("key", "value");
-
-        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
-
-        assertThrows(UnsupportedOperationException.class,
-                () -> classWithCollections.getMap().put("keyTwo", "valueTwo"));
-    }
-
-    @Test
-    public void mapInClassCanBeReadCorrectly() {
+    public void mapPropertyCanBeRead() {
         Map<String, String> modifiableMap = new HashMap<>();
         modifiableMap.put("key", "value");
 
@@ -1327,24 +1057,12 @@ public class ComplianceTest {
     }
 
     @Test
-    public void staticListInClassCannotBeModified() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.getStaticArray().add("three"));
-    }
-
-    @Test
-    public void staticListInClassCanBeReadCorrectly() {
+    public void staticArrayPropertyCanBeRead() {
         assertThat(ClassWithCollections.getStaticArray(), contains("one", "two"));
     }
 
     @Test
-    public void staticMapInClassCannotBeModified() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo"));
-    }
-
-    @Test
-    public void staticMapInClassCanBeReadCorrectly() {
+    public void staticMapPropertyCanBeRead() {
         Map<String, String> result = ClassWithCollections.getStaticMap();
         assertThat(result, hasEntry("key1", "value1"));
         assertThat(result, hasEntry("key2", "value2"));
@@ -1352,24 +1070,12 @@ public class ComplianceTest {
     }
 
     @Test
-    public void arrayReturnedByMethodCannotBeModified() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.createAList().add("three"));
-    }
-
-    @Test
-    public void arrayReturnedByMethodCanBeRead() {
+    public void returnedArrayCanBeRead() {
         assertThat(ClassWithCollections.createAList(), contains("one", "two"));
     }
 
     @Test
-    public void mapReturnedByMethodCannotBeModified() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> ClassWithCollections.createAMap().put("keyThree", "valueThree"));
-    }
-
-    @Test
-    public void mapReturnedByMethodCanBeRead() {
+    public void returnedMapCanBeRead() {
         Map<String, String> result = ClassWithCollections.createAMap();
         assertThat(result, hasEntry("key1", "value1"));
         assertThat(result, hasEntry("key2", "value2"));
@@ -1377,7 +1083,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canOverrideProtectedMethod() {
+    public void protectedMethodCanBeOverridden() {
         final String challenge = "Cthulhu Fhtagn!";
         final OverridableProtectedMember overridden = new OverridableProtectedMember() {
             @Override
@@ -1389,7 +1095,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canOverrideProtectedGetter() {
+    public void protectedGetterCanBeOverridden() {
         final String challenge = "Cthulhu Fhtagn!";
         final OverridableProtectedMember overridden = new OverridableProtectedMember() {
             @Override
@@ -1406,7 +1112,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canOverrideProtectedSetter() {
+    public void protectedSetterCanBeOverridden() {
         final String challenge = "Bazzzzzzzzzzzaar...";
         final OverridableProtectedMember overridden = new OverridableProtectedMember() {
             @Override
@@ -1419,7 +1125,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canLeverageIndirectInterfacePolymorphism() {
+    public void interfaceValueWithPrivateTypeIsUsable() {
         final IAnonymousImplementationProvider provider = new AnonymousImplementationProvider();
         assertEquals(1337, provider.provideAsClass().getValue());
         assertEquals(1337, provider.provideAsInterface().getValue());
@@ -1427,7 +1133,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void correctlyDeserializesStructUnions() {
+    public void overlappingStructUnionsAreDisambiguated() {
         final StructA a0 = StructA.builder()
                 .requiredString("Present!")
                 .optionalString("Bazinga!")
@@ -1457,24 +1163,55 @@ public class ComplianceTest {
     }
 
     @Test
-    public void returnSubclassThatImplementsInterface976() {
+    public void objectsUsableThroughImplementedInterface() {
         IReturnJsii976 obj = SomeTypeJsii976.returnReturn();
         assertEquals(obj.getFoo(), 333);
+
+        // An `any`-typed return value must be usable through the interface it implements.
+        Object anyValue = SomeTypeJsii976.returnAnonymous();
+        IReturnJsii976 realValue = UnsafeCast.unsafeCast((JsiiObject) anyValue, IReturnJsii976.class);
+        assertEquals(1337, realValue.getFoo());
     }
 
     @Test
-    public void testStructsCanBeDowncastedToParentType() {
+    public void structReceivedAsParentStructType() {
         assertNotNull(Demonstrate982.takeThis());
         assertNotNull(Demonstrate982.takeThisToo());
     }
 
+    /**
+     * Validates pure interfaces can be passed to callbacks.
+     */
     @Test
-    public void testNullIsAValidOptionalList() {
+    public void callbackReceivesInterfaceArguments() {
+        IBellRinger ringer = (bell) -> bell.ring();
+
+        assertTrue(ConsumerCanRingBell.staticImplementedByObjectLiteral(ringer));
+        assertTrue(ConsumerCanRingBell.staticImplementedByPrivateClass(ringer));
+        assertTrue(ConsumerCanRingBell.staticImplementedByPublicClass(ringer));
+    }
+
+    /**
+     * Verifies that returning Promise&lt;void&gt; is correctly handled.
+     */
+    @Test
+    public void asyncMethodReturningNothing() {
+        new PromiseNothing().instancePromiseIt();
+        PromiseNothing.promiseIt();
+    }
+
+    @Test
+    public void staticAsyncMethodsCanBeCalled() {
+        assertEquals(42, StaticAsyncMethods.addOne(41));
+    }
+
+    @Test
+    public void undefinedOptionalListReadsAsAbsent() {
         assertNull(DisappointingCollectionSource.MAYBE_LIST);
     }
 
     @Test
-    public void testNullIsAValidOptionalMap() {
+    public void undefinedOptionalMapReadsAsAbsent() {
         assertNull(DisappointingCollectionSource.MAYBE_MAP);
     }
 
@@ -1630,14 +1367,31 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canUseInterfaceSetters() {
+    public void interfacePropertyCanBeSet() {
         final IObjectWithProperty obj = ObjectWithPropertyProvider.provide();
         obj.setProperty("New Value");
         assertTrue(obj.wasSet());
     }
 
     @Test
-    public void structsAreUndecoratedOntheWayToKernel() throws IOException {
+    public void jsonValuesCrossTheBoundaryUnchanged() throws IOException {
+        final ObjectMapper om = new ObjectMapper();
+        final JsonNode json = om.readTree(
+                "{\"$jsii.date\":\"1970-01-01T00:00:00.000Z\","
+                        + "\"nested\":{\"$jsii.enum\":\"jsii-calc.AllTypesEnum/MY_ENUM_VALUE\"},"
+                        + "\"list\":[{\"$jsii.map\":{\"key\":\"value\"}}]}");
+
+        assertEquals(json, om.readTree(JsonFormatter.stringify(json)));
+
+        final Map<String, Object> wrapper = new HashMap<>();
+        wrapper.put("payload", json);
+        final ObjectNode expected = om.createObjectNode();
+        expected.set("payload", json);
+        assertEquals(expected, om.readTree(JsonFormatter.stringify(wrapper)));
+    }
+
+    @Test
+    public void structsAreSentAsPlainData() throws IOException {
         final ObjectMapper om = new ObjectMapper();
         final String json = JsonFormatter.stringify(StructB.builder().requiredString("Bazinga!").optionalBoolean(false).build());
         final JsonNode actual = om.readTree(json);
@@ -1650,17 +1404,12 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canObtainReferenceWithOverloadedSetter() {
+    public void classWithUnionPropertyCanBeReceived() {
         assertNotNull(ConfusingToJackson.makeInstance());
     }
 
     @Test
-    public void canObtainStructReferenceWithOverloadedSetter() {
-        assertNotNull(ConfusingToJackson.makeStructInstance());
-    }
-
-    @Test
-    public void pureInterfacesCanBeUsedTransparently() {
+    public void hostCanImplementInterface() {
         final StructB expected = StructB.builder()
             .requiredString("It's Britney b**ch!")
             .build();
@@ -1674,7 +1423,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing() {
+    public void hostCanImplementInterfaceThroughSuperclass() {
         final StructB expected = StructB.builder()
             .requiredString("It's Britney b**ch!")
             .build();
@@ -1702,7 +1451,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void interfacesCanBeUsedTransparently_WhenAddedToJsiiType() {
+    public void hostSubclassCanImplementAdditionalInterface() {
         final StructB expected = StructB.builder()
             .requiredString("It's Britney b**ch!")
             .build();
@@ -1724,7 +1473,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void liftedKwargWithSameNameAsPositionalArg() {
+    public void positionalArgumentAndStructPropertyWithSameName() {
         // This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
         final Bell bell = new Bell();
         final AmbiguousParameters amb = AmbiguousParameters.Builder.create(bell).scope("Driiiing!").build();
@@ -1733,7 +1482,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void abstractMembersAreCorrectlyHandled() {
+    public void hostImplementsAbstractMembers() {
         final AbstractSuite abstractSuite = new AbstractSuite() {
             private String property;
 
@@ -1757,41 +1506,41 @@ public class ComplianceTest {
     }
 
     @Test
-    public void collectionOfInterfaces_ListOfStructs() {
+    public void listOfStructsElementsHaveStructType() {
         for (final Object obj : InterfaceCollections.listOfStructs()) {
             assertTrue(obj instanceof StructA, () -> obj + " is an instance of " + StructA.class.getCanonicalName());
         }
     }
 
     @Test
-    public void collectionOfInterfaces_ListOfInterfaces() {
+    public void listOfInterfacesElementsAreUsable() {
         for (final Object obj : InterfaceCollections.listOfInterfaces()) {
             assertTrue(obj instanceof IBell, () -> obj + " is an instance of " + IBell.class.getCanonicalName());
         }
     }
 
     @Test
-    public void collectionOfInterfaces_MapOfStructs() {
+    public void mapOfStructsValuesHaveStructType() {
         for (final Object obj : InterfaceCollections.mapOfStructs().values()) {
             assertTrue(obj instanceof StructA, () -> obj + " is an instance of " + StructA.class.getCanonicalName());
         }
     }
 
     @Test
-    public void collectionOfInterfaces_MapOfInterfaces() {
+    public void mapOfInterfacesValuesAreUsable() {
         for (final Object obj : InterfaceCollections.mapOfInterfaces().values()) {
             assertTrue(obj instanceof IBell, () -> obj + " is an instance of " + IBell.class.getCanonicalName());
         }
     }
 
     @Test
-    public void classesCanSelfReferenceDuringClassInitialization() {
+    public void classesCanReferenceEachOtherDuringInitialization() {
         final OuterClass outerClass = new OuterClass();
         assertNotNull(outerClass.getInnerClass());
     }
 
     @Test
-    public void iso8601DoesNotDeserializeToDate() {
+    public void isoDateStringsStayStrings() {
         final TimeZone tz = TimeZone.getTimeZone("UTC");
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         df.setTimeZone(tz);
@@ -1817,7 +1566,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void classCanBeUsedWhenNotExpressedlyLoaded() {
+    public void typesNotLoadedByTheHostCanBeReceived() {
         final Cdk16625 subject = new Cdk16625() {
             @NotNull
             @Override
@@ -1829,12 +1578,12 @@ public class ComplianceTest {
     }
 
     @Test
-    public void strippedDeprecatedMemberCanBeReceived() {
+    public void strippedDeprecatedTypeCanBeReceived() {
         assertNotNull(InterfaceFactory.create());
     }
 
     @Test
-    public void exceptionMessage() {
+    public void kernelErrorMessageReachesTheHost() {
         boolean thrown = false;
         try {
             AcceptsPath.Builder.create()

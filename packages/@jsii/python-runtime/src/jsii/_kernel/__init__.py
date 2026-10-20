@@ -35,8 +35,6 @@ from .types import (
     InvokeResponse,
     GetScriptCommandRequest,
     GetScriptCommandResponse,
-    InvokeScriptRequest,
-    InvokeScriptResponse,
     KernelResponse,
     LoadRequest,
     ObjRef,
@@ -46,6 +44,7 @@ from .types import (
     StaticGetRequest,
     StaticInvokeRequest,
     StaticSetRequest,
+    StaticBeginRequest,
     StatsRequest,
 )
 from .._utils import Singleton
@@ -311,20 +310,6 @@ class Kernel(metaclass=Singleton):
             )
         )
 
-    def invokeBinScript(
-        self, pkgname: str, script: str, args: Optional[Sequence[str]] = None
-    ) -> InvokeScriptResponse:
-        if args is None:
-            args = []
-
-        return self.provider.invokeBinScript(
-            InvokeScriptRequest(
-                assembly=pkgname,
-                script=script,
-                args=_make_reference_for_native(self, args),
-            )
-        )
-
     # TODO: Is there a way to say that obj has to be an instance of klass?
     def create(self, klass: Type, obj: Any, args: Optional[List[Any]] = None) -> ObjRef:
         if args is None:
@@ -460,6 +445,28 @@ class Kernel(metaclass=Singleton):
                 args=_make_reference_for_native(self, args),
             )
         )
+        return self._await_promise(promise)
+
+    @_dereferenced
+    def sainvoke(
+        self, klass: Type, method: str, args: Optional[List[Any]] = None
+    ) -> Any:
+        if args is None:
+            args = []
+
+        promise = self.provider.sbegin(
+            StaticBeginRequest(
+                fqn=klass.__jsii_type__,
+                method=method,
+                args=_make_reference_for_native(self, args),
+            )
+        )
+        return self._await_promise(promise)
+
+    def _await_promise(self, promise: Any) -> Any:
+        """
+        Handles the callbacks of an async method call, then returns its result.
+        """
         if isinstance(promise, Callback):
             promise = _callback_till_result(self, promise, BeginResponse)
 
