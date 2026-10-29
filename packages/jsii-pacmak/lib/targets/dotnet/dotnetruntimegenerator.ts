@@ -59,11 +59,9 @@ export class DotNetRuntimeGenerator {
       if (initializer.parameters) {
         jsiiAttribute =
           `[JsiiClass(nativeType: typeof(${className}), fullyQualifiedName: ` +
-          `"${cls.fqn}", parametersJson: "${JSON.stringify(
-            initializer.parameters,
-          )
-            .replace(/"/g, '\\"')
-            .replace(/\\{2}"/g, 'test')}")]`;
+          `"${cls.fqn}", parametersJson: ${toCSharpString(
+            JSON.stringify(initializer.parameters),
+          )})]`;
       }
     }
     this.code.line(jsiiAttribute);
@@ -82,14 +80,10 @@ export class DotNetRuntimeGenerator {
     const isAsync =
       spec.isClassType(cls) && method.async ? ', isAsync: true' : '';
     const parametersJson = method.parameters
-      ? `, parametersJson: "${JSON.stringify(method.parameters)
-          .replace(/"/g, '\\"')
-          .replace(/\\{2}"/g, 'test')}"`
+      ? `, parametersJson: ${toCSharpString(JSON.stringify(method.parameters))}`
       : '';
     const returnsJson = method.returns
-      ? `, returnsJson: "${JSON.stringify(method.returns)
-          .replace(/"/g, '\\"')
-          .replace(/\\{2}"/g, 'test')}"`
+      ? `, returnsJson: ${toCSharpString(JSON.stringify(method.returns))}`
       : '';
     const jsiiAttribute = `[JsiiMethod(name: "${method.name}"${returnsJson}${parametersJson}${isAsync})]`;
     this.code.line(jsiiAttribute);
@@ -105,9 +99,7 @@ export class DotNetRuntimeGenerator {
     const isOptionalJsii = prop.optional ? ', isOptional: true' : '';
     const jsiiAttribute =
       `[JsiiProperty(name: "${prop.name}", ` +
-      `typeJson: "${JSON.stringify(prop.type)
-        .replace(/"/g, '\\"')
-        .replace(/\\{2}"/g, 'test')}"${isOptionalJsii})]`;
+      `typeJson: ${toCSharpString(JSON.stringify(prop.type))}${isOptionalJsii})]`;
     this.code.line(jsiiAttribute);
     this.emitDeprecatedAttributeIfNecessary(prop);
   }
@@ -227,12 +219,18 @@ export class DotNetRuntimeGenerator {
     if (docs) {
       if (docs.stability! === spec.Stability.Deprecated) {
         const attribute = docs.deprecated
-          ? `[System.Obsolete("${docs.deprecated
-              .replace(/\n/g, ' ') // Replacing new lines in Obsolete
-              .replace(/"/g, '\\"')}")]`
+          ? `[System.Obsolete(${toCSharpString(docs.deprecated.replace(/\n/g, ' '))})]`
           : '[System.Obsolete()]';
         this.code.line(attribute);
       }
     }
   }
+}
+
+// C# string literals also treat U+0085, U+2028 and U+2029 as line breaks
+function toCSharpString(value: string): string {
+  return JSON.stringify(value).replace(
+    /[\u0085\u2028\u2029]/g,
+    (char) => `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`,
+  );
 }
