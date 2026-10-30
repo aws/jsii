@@ -50,17 +50,18 @@ export class NodeRelease {
     new NodeRelease(19, { endOfLife: new Date('2023-06-01'), untested: true }),
     new NodeRelease(21, { endOfLife: new Date('2024-06-01'), untested: true }),
     new NodeRelease(23, { endOfLife: new Date('2025-06-01'), untested: true }),
-
-    // Currently active releases (as of last edit to this file...)
     new NodeRelease(18, {
       endOfLife: new Date('2025-04-30'),
       endOfJsiiSupport: new Date('2025-11-30'),
     }),
     new NodeRelease(20, { endOfLife: new Date('2026-04-30') }),
+
+    // Currently active releases (as of last edit to this file...)
     new NodeRelease(22, { endOfLife: new Date('2027-04-30') }),
     new NodeRelease(24, { endOfLife: new Date('2028-04-30') }),
 
     // Future (planned releases)
+    new NodeRelease(26, { endOfLife: new Date('2029-04-30') }),
   ];
 
   /**
