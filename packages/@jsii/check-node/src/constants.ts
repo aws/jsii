@@ -59,9 +59,10 @@ export class NodeRelease {
     // Currently active releases (as of last edit to this file...)
     new NodeRelease(22, { endOfLife: new Date('2027-04-30') }),
     new NodeRelease(24, { endOfLife: new Date('2028-04-30') }),
+    new NodeRelease(26, { endOfLife: new Date('2029-04-30') }),
 
     // Future (planned releases)
-    new NodeRelease(26, { endOfLife: new Date('2029-04-30') }),
+    new NodeRelease(27, { endOfLife: new Date('2030-04-30'), untested: true }),
   ];
 
   /**
