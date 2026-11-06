@@ -4,7 +4,6 @@ import * as path from 'path';
 import * as logging from './logging';
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
-import { TargetName } from './targets';
 import { Toposorted } from './toposort';
 import { Scratch, flatten } from './util';
 
@@ -74,7 +73,7 @@ export interface TargetBuilder {
  */
 export class IndependentPackageBuilder implements TargetBuilder {
   public constructor(
-    private readonly targetName: TargetName,
+    private readonly targetName: string,
     private readonly targetConstructor: TargetConstructor,
     private readonly modules: Toposorted<JsiiModule>,
     private readonly options: BuildOptions,
