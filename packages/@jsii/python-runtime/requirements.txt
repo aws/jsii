@@ -1,6 +1,6 @@
 black~=26.10
 mypy==2.4.1
-pip~=26.2
+pip~=26.3
 pytest~=9.2
 pytest-mypy~=1.1
 setuptools~=80.3
