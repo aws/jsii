@@ -41,7 +41,7 @@
     "@jsii/runtime": "^0.0.0",
     "@types/semver": "^7.8.0",
     "jsii-build-tools": "^0.0.0",
-    "semver": "^7.8.5",
+    "semver": "^7.8.6",
     "typescript": "6.x"
   }
 }
