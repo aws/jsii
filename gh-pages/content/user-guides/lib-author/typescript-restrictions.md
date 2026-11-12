@@ -179,10 +179,10 @@ export class Child extends Base {
 
 ### Re-declaring Interface Members
 
-An interface (or *struct*) may re-declare a member it inherits, but only if the re-declaration is *invariant*: it must
-have exactly the same type, optionality, mutability and (for methods) parameter list as the inherited declaration. This
-is useful to give the member different documentation, such as a different `@default` value. **C#** interfaces cannot
-narrow inherited members, so covariant re-declarations are rejected.
+An interface (or *struct*) may re-declare a member it inherits to give it different documentation, such as a different
+`@default` value. Only the documentation may change: the re-declaration must have exactly the same type, optionality,
+mutability and (for methods) parameter list as the inherited declaration. **C#** interfaces cannot narrow inherited
+members, so covariant re-declarations are rejected.
 
 ```ts hl_lines="8-10 12-13 15"
 export interface BaseOptions {

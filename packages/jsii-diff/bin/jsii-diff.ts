@@ -27,7 +27,7 @@ const LOG = log4js.getLogger('jsii-diff');
 const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'intersection-types',
   'class-covariant-overrides',
-  'interface-invariant-overrides',
+  'interface-member-doc-overrides',
 ];
 
 async function main(): Promise<number> {

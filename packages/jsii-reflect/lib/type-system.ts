@@ -24,7 +24,7 @@ import { findDependencyDirectory, isBuiltinModule } from './util';
 export const JSII_REFLECT_SUPPORTED_ASSEMBLY_FEATURES: JsiiFeature[] = [
   'intersection-types',
   'class-covariant-overrides',
-  'interface-invariant-overrides',
+  'interface-member-doc-overrides',
 ];
 
 /**

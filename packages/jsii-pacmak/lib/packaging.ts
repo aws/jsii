@@ -11,7 +11,7 @@ export const DEFAULT_PACK_COMMAND = 'npm pack';
 const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'intersection-types',
   'class-covariant-overrides',
-  'interface-invariant-overrides',
+  'interface-member-doc-overrides',
 ];
 
 export interface JsiiModuleOptions {
