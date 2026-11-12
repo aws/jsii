@@ -266,12 +266,15 @@ export class DotNetGenerator extends Generator {
       ? this.typeresolver.toDotNetType(method.returns.type)
       : 'void';
     const nullable = method.returns?.optional ? '?' : '';
+    const newModifier = this.interfaceMemberHidesBase(ifc, method.name)
+      ? 'new '
+      : '';
 
     const { parameters, whereClause, typeParameters } =
       this.typeresolver.renderGenericParameters(method.parameters);
 
     this.code.line(
-      `${returnType}${nullable} ${this.nameutils.convertMethodName(
+      `${newModifier}${returnType}${nullable} ${this.nameutils.convertMethodName(
         method.name,
       )}${typeParameters}(${this.renderParametersString(parameters)})${whereClause};`,
     );
@@ -325,7 +328,10 @@ export class DotNetGenerator extends Generator {
 
     // Specifying that a type is nullable is only required for primitive value types
     const isOptional = prop.optional ? '?' : '';
-    this.code.openBlock(`${propType}${isOptional} ${propName}`);
+    const newModifier = this.interfaceMemberHidesBase(ifc, prop.name)
+      ? 'new '
+      : '';
+    this.code.openBlock(`${newModifier}${propType}${isOptional} ${propName}`);
 
     if (prop.optional) {
       this.code.openBlock('get');
@@ -872,6 +878,24 @@ export class DotNetGenerator extends Generator {
 
     this.code.closeBlock();
     this.closeFileIfNeeded(name, namespace, isNested);
+  }
+
+  /**
+   * Whether an interface member re-declares (hides) a member of the same name
+   * from one of its base interfaces, in which case C# requires `new`.
+   */
+  private interfaceMemberHidesBase(
+    ifc: spec.InterfaceType,
+    memberName: string,
+  ): boolean {
+    const visit = (fqn: string): boolean => {
+      const base = this.findType(fqn) as spec.InterfaceType;
+      const declared =
+        (base.properties ?? []).some((p) => p.name === memberName) ||
+        (base.methods ?? []).some((m) => m.name === memberName);
+      return declared || (base.interfaces ?? []).some(visit);
+    };
+    return (ifc.interfaces ?? []).some(visit);
   }
 
   /**

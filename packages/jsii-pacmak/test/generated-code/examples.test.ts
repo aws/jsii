@@ -3,17 +3,47 @@ import * as fs from 'fs-extra';
 import * as jsii from 'jsii';
 import * as os from 'os';
 import * as path from 'path';
+import * as ts from 'typescript';
 
 import { checkTree, TREE } from './harness';
 import * as pacmak from '../../lib';
 
 const EXAMPLES_ROOT = path.resolve(__dirname, 'examples');
 
+/**
+ * Compiler errors to demote to warnings for specific examples, so we can
+ * observe the generated code for constructs the compiler currently rejects.
+ * Error codes cannot be re-categorized through `jsii.diagnostics`, so the
+ * category is shadowed on the code instance for the duration of the compile.
+ */
+const DEMOTED_ERRORS: Record<string, jsii.Code[]> = {
+  'redeclared-interface-member.ts': [
+    jsii.JsiiDiagnostic.JSII_5015_REDECLARED_INTERFACE_MEMBER,
+  ],
+};
+
+function compileExample(name: string, source: string) {
+  const demoted = DEMOTED_ERRORS[name] ?? [];
+  for (const code of demoted) {
+    Object.defineProperty(code, 'category', {
+      configurable: true,
+      value: ts.DiagnosticCategory.Warning,
+    });
+  }
+  try {
+    return jsii.compileJsiiForTest(source);
+  } finally {
+    for (const code of demoted) {
+      delete (code as any).category;
+    }
+  }
+}
+
 for (const name of fs.readdirSync(EXAMPLES_ROOT)) {
   const file = path.join(EXAMPLES_ROOT, name);
   test(name, async () => {
     const source = await fs.readFile(file, 'utf8');
-    const compiled = jsii.compileJsiiForTest(source);
+    const compiled = compileExample(name, source);
 
     const targets: AssemblyTargets = {
       dotnet: {

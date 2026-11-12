@@ -1088,6 +1088,7 @@ export function describeTypeReference(type?: TypeReference): string {
 export const ALL_SPEC_FEATURES = [
   'intersection-types',
   'class-covariant-overrides',
+  'interface-invariant-overrides',
 ] as const;
 
 /**
