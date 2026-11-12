@@ -103,6 +103,11 @@ posixOnly('fails if the default root is writable by others', () => {
 });
 
 posixOnly('fails if the default root cannot be created', () => {
+  // This test makes a directory read-only and expects creating the cache in it to fail.
+  // Root can write to read-only directories, so the test can't work when run as root (e.g. in CodeBuild).
+  if (process.getuid?.() === 0) {
+    return;
+  }
   const parent = join(scratch, 'read-only');
   mkdirSync(parent);
   chmodSync(parent, 0o500);
