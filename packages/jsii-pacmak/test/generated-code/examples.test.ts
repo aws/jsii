@@ -15,12 +15,11 @@ const EXAMPLES_ROOT = path.resolve(__dirname, 'examples');
  * observe the generated code for constructs the compiler currently rejects.
  * Error codes cannot be re-categorized through `jsii.diagnostics`, so the
  * category is shadowed on the code instance for the duration of the compile.
+ *
+ * Maps an example file name to the codes to demote, e.g.
+ * `{ 'my-example.ts': [jsii.JsiiDiagnostic.JSII_5015_REDECLARED_INTERFACE_MEMBER] }`.
  */
-const DEMOTED_ERRORS: Record<string, jsii.Code[]> = {
-  'redeclared-interface-member.ts': [
-    jsii.JsiiDiagnostic.JSII_5015_REDECLARED_INTERFACE_MEMBER,
-  ],
-};
+const DEMOTED_ERRORS: Record<string, jsii.Code[]> = {};
 
 function compileExample(name: string, source: string) {
   const demoted = DEMOTED_ERRORS[name] ?? [];
