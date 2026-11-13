@@ -1,4 +1,5 @@
 import { Separator } from '@inquirer/prompts';
+import * as path from 'path';
 
 import schema, {
   ConfigPromptsSchema,
@@ -51,6 +52,42 @@ function flattenNestedQuestions(
   );
 }
 
+/*
+ * jsii resolves "main" relative to tsc's outDir, so an outDir that does not
+ * contain "main" makes the compiler look for the entry point outside the
+ * project. Suggest the directory that holds "main" (no outDir when "main" is
+ * at the package root, which compiles in place) and reject other values.
+ */
+function outDirPrompt(question: NamedPrompt, main: string): NamedPrompt {
+  const mainFile = path.posix.normalize(main.replace(/\\/g, '/'));
+  const mainDir = path.posix.dirname(mainFile);
+
+  return {
+    ...question,
+    default: question.default ?? (mainDir === '.' ? undefined : mainDir),
+    validate: (val?: string) => {
+      const outDir = val?.trim();
+      if (!outDir) {
+        return true;
+      }
+
+      const relative = path.posix.relative(
+        path.posix.normalize(outDir.replace(/\\/g, '/')),
+        mainFile,
+      );
+      if (
+        relative === '..' ||
+        relative.startsWith('../') ||
+        path.posix.isAbsolute(relative)
+      ) {
+        return `"main" (${main}) must be inside the output directory. Use "${mainDir}", leave it empty to compile in place, or change "main" in package.json`;
+      }
+
+      return true;
+    },
+  };
+}
+
 function buildQuestions(
   schema: ConfigPromptsSchema,
   current: BasePackageJson,
@@ -80,10 +117,16 @@ function buildQuestions(
     default: 'jsii-managed',
   };
 
+  const main = getNestedValue(['main'], current);
+
   return [
     targetsPrompt,
     tsconfigPrompt,
-    ...flattenNestedQuestions(schema, current),
+    ...flattenNestedQuestions(schema, current).map((q) =>
+      q.name === 'jsii.tsc.outDir' && typeof main === 'string'
+        ? outDirPrompt(q, main)
+        : q,
+    ),
   ];
 }
 

@@ -229,10 +229,9 @@ const schema: ConfigPromptsSchema = {
     tsc: {
       outDir: {
         type: 'input',
-        message: 'Output Directory - Location for typescript compiler output',
-        default: 'dist',
+        message:
+          'Output Directory - Location for typescript compiler output, must contain "main" (leave empty to compile in place)',
         when: jsiiManagedConfig,
-        validate: hasLength,
       },
     },
 
