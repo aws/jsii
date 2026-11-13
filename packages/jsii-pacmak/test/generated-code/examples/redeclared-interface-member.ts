@@ -1,9 +1,8 @@
 // See: https://github.com/projen/projen/issues/1172
 //
 // A child interface re-declares a member of its parent with the SAME type,
-// only to change its documentation (e.g. a different `@default`). This is
-// currently rejected by the compiler (JSII5015); this fixture is compiled with
-// that diagnostic downgraded to a warning to observe what each target emits.
+// only to change its documentation (e.g. a different `@default`). The compiler
+// records this with the `interface-member-doc-overrides` assembly feature.
 
 /** Options for the base thing. */
 export interface BaseOptions {
