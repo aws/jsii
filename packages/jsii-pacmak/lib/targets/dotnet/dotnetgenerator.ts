@@ -256,6 +256,11 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
+    if (this.isRedeclaredInterfaceMember(ifc, method.name)) {
+      // See `isRedeclaredInterfaceMember`
+      return;
+    }
+
     this.dotnetDocGenerator.emitDocs(method, {
       api: 'member',
       fqn: ifc.fqn,
@@ -266,15 +271,12 @@ export class DotNetGenerator extends Generator {
       ? this.typeresolver.toDotNetType(method.returns.type)
       : 'void';
     const nullable = method.returns?.optional ? '?' : '';
-    const newModifier = this.interfaceMemberHidesBase(ifc, method.name)
-      ? 'new '
-      : '';
 
     const { parameters, whereClause, typeParameters } =
       this.typeresolver.renderGenericParameters(method.parameters);
 
     this.code.line(
-      `${newModifier}${returnType}${nullable} ${this.nameutils.convertMethodName(
+      `${returnType}${nullable} ${this.nameutils.convertMethodName(
         method.name,
       )}${typeParameters}(${this.renderParametersString(parameters)})${whereClause};`,
     );
@@ -305,6 +307,11 @@ export class DotNetGenerator extends Generator {
       );
     }
 
+    if (this.isRedeclaredInterfaceMember(ifc, prop.name)) {
+      // See `isRedeclaredInterfaceMember`
+      return;
+    }
+
     this.emitNewLineIfNecessary();
     this.dotnetDocGenerator.emitDocs(prop, {
       api: 'member',
@@ -328,10 +335,7 @@ export class DotNetGenerator extends Generator {
 
     // Specifying that a type is nullable is only required for primitive value types
     const isOptional = prop.optional ? '?' : '';
-    const newModifier = this.interfaceMemberHidesBase(ifc, prop.name)
-      ? 'new '
-      : '';
-    this.code.openBlock(`${newModifier}${propType}${isOptional} ${propName}`);
+    this.code.openBlock(`${propType}${isOptional} ${propName}`);
 
     if (prop.optional) {
       this.code.openBlock('get');
@@ -881,10 +885,19 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-   * Whether an interface member re-declares (hides) a member of the same name
-   * from one of its base interfaces, in which case C# requires `new`.
+   * Whether an interface member re-declares a member of the same name from one
+   * of its base interfaces.
+   *
+   * jsii only allows this when the signature is identical and just the docs
+   * differ. Such members are NOT emitted on the C# interface: C# interfaces
+   * cannot override members, so a re-declaration would introduce a second,
+   * unrelated member that hides the inherited one (CS0108). That changes the
+   * type's semantics, and the jsii runtime rejects classes that implement the
+   * two members separately ("Duplicate override"). The inherited member is
+   * used as-is instead. Datatype and proxy classes still emit the member with
+   * the nearest documentation.
    */
-  private interfaceMemberHidesBase(
+  private isRedeclaredInterfaceMember(
     ifc: spec.InterfaceType,
     memberName: string,
   ): boolean {

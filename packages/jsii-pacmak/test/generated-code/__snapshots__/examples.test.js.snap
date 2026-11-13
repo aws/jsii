@@ -3335,20 +3335,6 @@ namespace Example.Test.Demo
             }
         }
 
-        /// <summary>The name.</summary>
-        /// <remarks>
-        /// <strong>Default</strong>: "child"
-        /// </remarks>
-        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        new string? Name
-        {
-            get
-            {
-                return null;
-            }
-        }
-
         /// <summary>Options for the child thing.</summary>
         [JsiiTypeProxy(nativeType: typeof(IChildOptions), fullyQualifiedName: "testpkg.ChildOptions")]
         new internal sealed class _Proxy : DeputyBase, Example.Test.Demo.IChildOptions
@@ -3413,33 +3399,6 @@ namespace Example.Test.Demo
     [JsiiInterface(nativeType: typeof(IGrandChildOptions), fullyQualifiedName: "testpkg.GrandChildOptions")]
     public interface IGrandChildOptions : Example.Test.Demo.IChildOptions
     {
-        /// <summary>Some count.</summary>
-        /// <remarks>
-        /// <strong>Default</strong>: 3
-        /// </remarks>
-        [JsiiProperty(name: "count", typeJson: "{\\"primitive\\":\\"number\\"}", isOptional: true)]
-        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        new double? Count
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        /// <summary>The name.</summary>
-        /// <remarks>
-        /// <strong>Default</strong>: "grandchild"
-        /// </remarks>
-        [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}", isOptional: true)]
-        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        new string? Name
-        {
-            get
-            {
-                return null;
-            }
-        }
 
         /// <summary>Re-declares again, two levels down.</summary>
         [JsiiTypeProxy(nativeType: typeof(IGrandChildOptions), fullyQualifiedName: "testpkg.GrandChildOptions")]
@@ -3553,15 +3512,6 @@ namespace Example.Test.Demo
     [JsiiInterface(nativeType: typeof(IPoliteGreeter), fullyQualifiedName: "testpkg.IPoliteGreeter")]
     public interface IPoliteGreeter : Example.Test.Demo.IGreeter
     {
-        /// <summary>The greeting, but polite.</summary>
-        [JsiiProperty(name: "greeting", typeJson: "{\\"primitive\\":\\"string\\"}")]
-        new string Greeting
-        {
-            get;
-        }
-        /// <summary>Say hello, politely.</summary>
-        [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"who\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
-        new string Hello(string who);
 
         /// <summary>A behavioral interface that re-declares members of its parent.</summary>
         [JsiiTypeProxy(nativeType: typeof(IPoliteGreeter), fullyQualifiedName: "testpkg.IPoliteGreeter")]

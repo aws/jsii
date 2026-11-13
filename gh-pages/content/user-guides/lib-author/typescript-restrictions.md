@@ -203,6 +203,12 @@ export interface ChildOptions extends BaseOptions {
 }
 ```
 
+!!! info
+    **C#** interfaces cannot override inherited members: re-declaring one would introduce a second, unrelated member.
+    The generated **C#** interface therefore does not repeat the member, and only the inherited declaration (with the
+    parent's documentation) appears on it. The generated struct and proxy classes still use the re-declared
+    documentation.
+
 ## Index Signatures
 
 **TypeScript** allows declaring *additional properties* through the use of index signatures. These are however not
