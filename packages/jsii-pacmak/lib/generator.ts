@@ -6,6 +6,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 
+import { resolveRuntimeVersion } from './runtime-version';
 import { VERSION, VERSION_DESC } from './version';
 
 /**
@@ -35,12 +36,6 @@ export interface GeneratorOptions {
    * where compile-time type checking is not possible.
    */
   runtimeTypeChecking: boolean;
-
-  /**
-   * The minimum jsii runtime version the generated package must depend on.
-   * @default - the version of jsii-pacmak
-   */
-  runtimeVersion?: string;
 }
 
 export interface IGenerator {
@@ -99,6 +94,7 @@ export abstract class Generator implements IGenerator {
   private _assembly?: spec.Assembly;
   protected _reflectAssembly?: reflect.Assembly;
   private fingerprint?: string;
+  private _runtimeVersion?: string;
 
   public constructor(private readonly options: GeneratorOptions) {}
 
@@ -106,8 +102,14 @@ export abstract class Generator implements IGenerator {
     return this.options.runtimeTypeChecking;
   }
 
+  /**
+   * The minimum jsii runtime version the generated package must depend on.
+   */
   protected get runtimeVersion(): string {
-    return this.options.runtimeVersion ?? VERSION;
+    if (!this._runtimeVersion) {
+      throw new Error('Call load() first');
+    }
+    return this._runtimeVersion;
   }
 
   protected get assembly(): spec.Assembly {
@@ -131,11 +133,12 @@ export abstract class Generator implements IGenerator {
   }
 
   public async load(
-    _packageRoot: string,
+    packageRoot: string,
     assembly: reflect.Assembly,
   ): Promise<void> {
     this._reflectAssembly = assembly;
     this._assembly = assembly.spec;
+    this._runtimeVersion = await resolveRuntimeVersion(packageRoot);
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
     const hash = crypto
@@ -148,8 +151,6 @@ export abstract class Generator implements IGenerator {
       hash.update('\0').update(this.runtimeVersion);
     }
     this.fingerprint = hash.digest('base64');
-
-    return Promise.resolve();
   }
 
   /**

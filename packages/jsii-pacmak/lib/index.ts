@@ -7,6 +7,7 @@ import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
 import { assertSpecIsRosettaCompatible } from './rosetta-assembly';
+import { writePacmakManifest } from './runtime-version';
 import { ALL_BUILDERS, TargetName } from './targets';
 import { Timers } from './timer';
 import { Toposorted } from './toposort';
@@ -73,13 +74,11 @@ export async function pacmak({
     await updateAllNpmIgnores(modulesToPackageFlat);
   }
 
-  await timers.recordAsync('runtime version', async () => {
-    logging.info('Determining jsii runtime versions');
-    // In dependency order, so modules read the versions just written for their dependencies.
-    for (const modules of modulesToPackageSorted) {
-      // eslint-disable-next-line no-await-in-loop
-      await Promise.all(modules.map((m) => m.writeRuntimeVersion()));
-    }
+  await timers.recordAsync('pacmak manifest', () => {
+    logging.info('Writing pacmak manifests');
+    return Promise.all(
+      modulesToPackageFlat.map((m) => writePacmakManifest(m.moduleDirectory)),
+    );
   });
 
   const packCommand = argv['pack-command'];

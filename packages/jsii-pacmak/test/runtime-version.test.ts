@@ -9,6 +9,7 @@ import {
   writePacmakManifest,
 } from '../lib/runtime-version';
 import { subprocess } from '../lib/util';
+import { VERSION } from '../lib/version';
 
 jest.setTimeout(60_000);
 
@@ -150,19 +151,12 @@ test('uses own version for development builds of jsii-pacmak', async () => {
   await expect(resolveRuntimeVersion(root, '0.0.0')).resolves.toBe('0.0.0');
 });
 
-test('writePacmakManifest writes a manifest that is read back', async () => {
-  const dependent = await makePackage(workdir, 'dependent', {
-    dependencies: { root: '^1.0.0' },
-  });
-  await fs.move(root, path.join(dependent, 'node_modules', 'root'));
-  await writePacmakManifest(
-    path.join(dependent, 'node_modules', 'root'),
-    '1.141.0',
-  );
+test('writePacmakManifest records the runtime version of this jsii-pacmak', async () => {
+  await writePacmakManifest(root);
 
-  await expect(resolveRuntimeVersion(dependent, OWN_VERSION)).resolves.toBe(
-    '1.141.0',
-  );
+  await expect(
+    fs.readJson(path.join(root, PACMAK_MANIFEST_FILE)),
+  ).resolves.toEqual({ runtimeVersion: VERSION });
 });
 
 test('the manifest is included in the NPM package', async () => {
@@ -173,7 +167,7 @@ test('the manifest is included in the NPM package', async () => {
     defaultOutputDirectory: workdir,
   });
 
-  await mod.writeRuntimeVersion();
+  await writePacmakManifest(root);
   await mod.npmPack();
 
   const files = (await subprocess('tar', ['-tzf', mod.tarball]))

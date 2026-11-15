@@ -144,7 +144,6 @@ export class IndependentPackageBuilder implements TargetBuilder {
       packageDir: module.moduleDirectory,
       rosetta: options.rosetta,
       runtimeTypeChecking: options.runtimeTypeChecking,
-      runtimeVersion: module.runtimeVersion,
       targetName: this.targetName,
     });
   }

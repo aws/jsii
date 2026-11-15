@@ -19,8 +19,10 @@ export const PACMAK_MANIFEST_FILE = '.jsii.pacmak.json';
  */
 export interface PacmakManifest {
   /**
-   * The minimum version of the jsii runtime required by the packages generated for this module,
-   * including the requirements of all of its jsii dependencies.
+   * The minimum version of the jsii runtime required by the packages generated for this module.
+   *
+   * This does not include the requirements of the module's jsii dependencies, which record
+   * their own.
    */
   readonly runtimeVersion: string;
 }
@@ -104,16 +106,13 @@ export async function resolveRuntimeVersion(
 }
 
 /**
- * Writes the `.jsii.pacmak.json` file for a module.
+ * Writes the `.jsii.pacmak.json` file for a module, recording the jsii runtime version this
+ * jsii-pacmak requires.
  *
- * @param packageDir     the directory of the module being packaged.
- * @param runtimeVersion the minimum jsii runtime version, as returned by `resolveRuntimeVersion`.
+ * @param packageDir the directory of the module being packaged.
  */
-export async function writePacmakManifest(
-  packageDir: string,
-  runtimeVersion: string,
-): Promise<void> {
-  const manifest: PacmakManifest = { runtimeVersion };
+export async function writePacmakManifest(packageDir: string): Promise<void> {
+  const manifest: PacmakManifest = { runtimeVersion: VERSION };
   await fs.writeJson(path.join(packageDir, PACMAK_MANIFEST_FILE), manifest, {
     spaces: 2,
   });

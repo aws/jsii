@@ -217,12 +217,6 @@ export interface TargetOptions {
   runtimeTypeChecking: boolean;
 
   /**
-   * The minimum jsii runtime version the generated package must depend on.
-   * @default - the version of jsii-pacmak
-   */
-  runtimeVersion?: string;
-
-  /**
    * Whether to fingerprint the produced artifacts.
    * @default true
    */

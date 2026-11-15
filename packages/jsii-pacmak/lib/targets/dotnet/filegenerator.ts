@@ -6,7 +6,6 @@ import * as xmlbuilder from 'xmlbuilder';
 import { TargetName } from '..';
 import { DotNetNameUtils } from './nameutils';
 import * as logging from '../../logging';
-import { VERSION } from '../../version';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
 
@@ -43,7 +42,7 @@ export class FileGenerator {
     assm: Assembly,
     tarballFileName: string,
     code: CodeMaker,
-    runtimeVersion: string = VERSION,
+    runtimeVersion: string,
   ) {
     this.assm = assm;
     this.tarballFileName = tarballFileName;

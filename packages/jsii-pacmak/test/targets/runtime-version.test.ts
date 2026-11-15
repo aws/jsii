@@ -4,6 +4,7 @@ import { RosettaTabletReader } from 'jsii-rosetta';
 import * as os from 'os';
 import * as path from 'path';
 
+import * as runtimeVersion from '../../lib/runtime-version';
 import { Target, TargetOptions } from '../../lib/target';
 import { TargetName } from '../../lib/targets';
 import Dotnet from '../../lib/targets/dotnet';
@@ -25,6 +26,7 @@ beforeEach(async () => {
 });
 afterEach(async () => {
   await fs.remove(outDir);
+  jest.restoreAllMocks();
 });
 
 test.each([
@@ -53,8 +55,11 @@ test.each([
     `"jsii>=${RUNTIME_VERSION}, <2.0.0",`,
   ],
 ])(
-  '%s package depends on the provided jsii runtime version',
+  '%s package depends on the jsii runtime version required by dependencies',
   async (targetName, makeTarget, fileName, expected) => {
+    const resolveRuntimeVersion = jest
+      .spyOn(runtimeVersion, 'resolveRuntimeVersion')
+      .mockResolvedValue(RUNTIME_VERSION);
     const typeSystem = new TypeSystem();
     const assembly = await typeSystem.loadModule(PACKAGE_DIR);
     const tarball = path.join(outDir, 'mock-tarball.tgz');
@@ -66,11 +71,11 @@ test.each([
       packageDir: PACKAGE_DIR,
       rosetta: new RosettaTabletReader(),
       runtimeTypeChecking: true,
-      runtimeVersion: RUNTIME_VERSION,
       targetName,
     });
     const codeDir = path.join(outDir, 'code');
     await target.generateCode(codeDir, tarball);
+    expect(resolveRuntimeVersion).toHaveBeenCalledWith(PACKAGE_DIR);
 
     const file = findFile(codeDir, fileName);
     expect(file).toBeDefined();

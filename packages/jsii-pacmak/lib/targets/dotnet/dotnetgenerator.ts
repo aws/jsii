@@ -34,14 +34,11 @@ export class DotNetGenerator extends Generator {
 
   private dotnetDocGenerator!: DotNetDocGenerator;
 
-  private readonly runtimeVersion: string | undefined;
-
   public constructor(
     private readonly assembliesCurrentlyBeingCompiled: string[],
     options: {
       readonly rosetta: RosettaTabletReader;
       readonly runtimeTypeChecking: boolean;
-      readonly runtimeVersion?: string;
     },
   ) {
     super(options);
@@ -53,7 +50,6 @@ export class DotNetGenerator extends Generator {
     };
 
     this.rosetta = options.rosetta;
-    this.runtimeVersion = options.runtimeVersion;
   }
 
   public async load(

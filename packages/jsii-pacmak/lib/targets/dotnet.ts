@@ -251,7 +251,6 @@ export class DotnetBuilder implements TargetBuilder {
         packageDir: module.moduleDirectory,
         rosetta: this.options.rosetta,
         runtimeTypeChecking: this.options.runtimeTypeChecking,
-        runtimeVersion: module.runtimeVersion,
         targetName: this.targetName,
       },
       this.modules.map((m) => m.name),
