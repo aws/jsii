@@ -8,6 +8,7 @@ import { IGenerator, Legalese } from '../generator';
 import * as logging from '../logging';
 import { findLocalBuildDirs, Target, TargetOptions } from '../target';
 import { subprocess } from '../util';
+import { VERSION } from '../version';
 import { Documentation } from './go/documentation';
 import { GOMOD_FILENAME, RootPackage } from './go/package';
 import { JSII_INIT_PACKAGE } from './go/runtime';
@@ -158,14 +159,17 @@ class GoGenerator implements IGenerator {
 
   private readonly rosetta: RosettaTabletReader;
   private readonly runtimeTypeChecking: boolean;
+  private readonly runtimeVersion: string;
 
   public constructor(options: {
     readonly rosetta: RosettaTabletReader;
     readonly runtimeTypeChecking: boolean;
+    readonly runtimeVersion?: string;
   }) {
     this.rosetta = options.rosetta;
     this.documenter = new Documentation(this.code, this.rosetta);
     this.runtimeTypeChecking = options.runtimeTypeChecking;
+    this.runtimeVersion = options.runtimeVersion ?? VERSION;
   }
 
   public async load(_: string, assembly: Assembly): Promise<void> {
@@ -184,6 +188,7 @@ class GoGenerator implements IGenerator {
       code: this.code,
       documenter: this.documenter,
       runtimeTypeChecking: this.runtimeTypeChecking,
+      runtimeVersion: this.runtimeVersion,
     });
   }
 

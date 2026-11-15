@@ -6,7 +6,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 
-import { VERSION_DESC } from './version';
+import { VERSION, VERSION_DESC } from './version';
 
 /**
  * Options for the code generator framework.
@@ -35,6 +35,12 @@ export interface GeneratorOptions {
    * where compile-time type checking is not possible.
    */
   runtimeTypeChecking: boolean;
+
+  /**
+   * The minimum jsii runtime version the generated package must depend on.
+   * @default - the version of jsii-pacmak
+   */
+  runtimeVersion?: string;
 }
 
 export interface IGenerator {
@@ -100,6 +106,10 @@ export abstract class Generator implements IGenerator {
     return this.options.runtimeTypeChecking;
   }
 
+  protected get runtimeVersion(): string {
+    return this.options.runtimeVersion ?? VERSION;
+  }
+
   protected get assembly(): spec.Assembly {
     if (!this._assembly) {
       throw new Error(
@@ -128,12 +138,16 @@ export abstract class Generator implements IGenerator {
     this._assembly = assembly.spec;
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
-    this.fingerprint = crypto
+    const hash = crypto
       .createHash('sha256')
       .update(VERSION_DESC)
       .update('\0')
-      .update(this.assembly.fingerprint)
-      .digest('base64');
+      .update(this.assembly.fingerprint);
+    // The required runtime version can change when dependencies are updated, without the assembly changing.
+    if (this.runtimeVersion !== VERSION) {
+      hash.update('\0').update(this.runtimeVersion);
+    }
+    this.fingerprint = hash.digest('base64');
 
     return Promise.resolve();
   }

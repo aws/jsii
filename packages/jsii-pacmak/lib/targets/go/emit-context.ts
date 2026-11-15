@@ -14,4 +14,7 @@ export interface EmitContext {
 
   /** Whether runtime type checking code should be emitted */
   readonly runtimeTypeChecking: boolean;
+
+  /** The minimum jsii runtime version the generated module must depend on */
+  readonly runtimeVersion: string;
 }

@@ -20,7 +20,6 @@ import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { Target, TargetOptions } from '../target';
 import { topologicalSort } from '../toposort';
 import { subprocess, zip } from '../util';
-import { VERSION } from '../version';
 import { renderSummary, PropertyDefinition } from './_utils';
 import {
   NamingContext,
@@ -2332,7 +2331,12 @@ class Package {
   private readonly modules = new Map<string, PythonModule>();
   private readonly data = new Map<string, PackageData[]>();
 
-  public constructor(name: string, version: string, metadata: spec.Assembly) {
+  public constructor(
+    name: string,
+    version: string,
+    metadata: spec.Assembly,
+    private readonly runtimeVersion: string,
+  ) {
     this.name = name;
     this.version = version;
     this.metadata = metadata;
@@ -2444,7 +2448,7 @@ class Package {
       package_data: packageData,
       python_requires: '>=3.10',
       install_requires: [
-        `jsii${toPythonVersionRange(`^${VERSION}`)}`,
+        `jsii${toPythonVersionRange(`^${this.runtimeVersion}`)}`,
         'publication>=0.0.3',
       ]
         .concat(dependencies)
@@ -2913,6 +2917,7 @@ class PythonGenerator extends Generator {
       assm.targets!.python!.distName,
       toReleaseVersion(assm.version, TargetName.PYTHON),
       assm,
+      this.runtimeVersion,
     );
 
     // This is the '<packagename>._jsii' module for this assembly
