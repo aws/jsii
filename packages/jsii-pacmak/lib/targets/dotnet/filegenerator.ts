@@ -31,6 +31,7 @@ export class FileGenerator {
   private readonly assm: Assembly;
   private readonly tarballFileName: string;
   private readonly code: CodeMaker;
+  private readonly runtimeVersion: string;
   private readonly assemblyInfoNamespaces: string[] = [
     'Amazon.JSII.Runtime.Deputy',
   ];
@@ -38,10 +39,16 @@ export class FileGenerator {
 
   // We pass in an instance of CodeMaker so that the files get later saved
   // when calling the save() method on the .NET Generator.
-  public constructor(assm: Assembly, tarballFileName: string, code: CodeMaker) {
+  public constructor(
+    assm: Assembly,
+    tarballFileName: string,
+    code: CodeMaker,
+    runtimeVersion: string = VERSION,
+  ) {
     this.assm = assm;
     this.tarballFileName = tarballFileName;
     this.code = code;
+    this.runtimeVersion = runtimeVersion;
   }
 
   // Generates the .csproj file
@@ -132,7 +139,10 @@ export class FileGenerator {
     const itemGroup2 = rootNode.ele('ItemGroup');
     const packageReference = itemGroup2.ele('PackageReference');
     packageReference.att('Include', 'Amazon.JSII.Runtime');
-    packageReference.att('Version', toNuGetVersionRange(`^${VERSION}`));
+    packageReference.att(
+      'Version',
+      toNuGetVersionRange(`^${this.runtimeVersion}`),
+    );
 
     dependencies.forEach((value: DotNetDependency) => {
       if (value.partOfCompilation) {

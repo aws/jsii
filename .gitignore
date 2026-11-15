@@ -19,6 +19,7 @@ dist/
 *.map
 *.tsbuildinfo
 *.tabl.json
+.jsii.pacmak.json
 *.swp
 *.snk
 build/

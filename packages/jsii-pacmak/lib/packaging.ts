@@ -3,6 +3,7 @@ import * as fs from 'fs-extra';
 import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as path from 'path';
 
+import { resolveRuntimeVersion, writePacmakManifest } from './runtime-version';
 import { Scratch, shell, subprocess } from './util';
 import * as logging from '../lib/logging';
 
@@ -42,6 +43,7 @@ export class JsiiModule {
   public outputDirectory: string;
 
   private _tarball?: Scratch<string>;
+  private _runtimeVersion?: string;
   public _assembly?: Assembly;
 
   public constructor(options: JsiiModuleOptions) {
@@ -49,6 +51,27 @@ export class JsiiModule {
     this.moduleDirectory = options.moduleDirectory;
     this.outputDirectory = options.defaultOutputDirectory;
     this.dependencyNames = options.dependencyNames ?? [];
+  }
+
+  /**
+   * Determine the minimum jsii runtime version the generated packages must depend on, and record
+   * it in the module directory so that it is included in the NPM package.
+   *
+   * Must be called before `npmPack()`, and after it was called for all of this module's
+   * dependencies that are packaged in the same run.
+   */
+  public async writeRuntimeVersion() {
+    this._runtimeVersion = await resolveRuntimeVersion(this.moduleDirectory);
+    await writePacmakManifest(this.moduleDirectory, this._runtimeVersion);
+  }
+
+  public get runtimeVersion(): string {
+    if (!this._runtimeVersion) {
+      throw new Error(
+        'Runtime version not available yet, call writeRuntimeVersion() first',
+      );
+    }
+    return this._runtimeVersion;
   }
 
   /**

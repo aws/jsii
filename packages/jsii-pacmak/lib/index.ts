@@ -73,6 +73,15 @@ export async function pacmak({
     await updateAllNpmIgnores(modulesToPackageFlat);
   }
 
+  await timers.recordAsync('runtime version', async () => {
+    logging.info('Determining jsii runtime versions');
+    // In dependency order, so modules read the versions just written for their dependencies.
+    for (const modules of modulesToPackageSorted) {
+      // eslint-disable-next-line no-await-in-loop
+      await Promise.all(modules.map((m) => m.writeRuntimeVersion()));
+    }
+  });
+
   const packCommand = argv['pack-command'];
   await timers.recordAsync(packCommand, () => {
     logging.info('Packaging NPM bundles');
