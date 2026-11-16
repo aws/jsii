@@ -36,20 +36,18 @@ export interface PacmakManifest {
  * package must declare the highest runtime version required anywhere in its dependency closure.
  *
  * @param packageDir the directory of the module being packaged.
- * @param ownVersion the jsii runtime version this jsii-pacmak requires.
  *
  * @returns the minimum jsii runtime version.
  */
 export async function resolveRuntimeVersion(
   packageDir: string,
-  ownVersion: string = VERSION,
 ): Promise<string> {
   // Development builds of jsii-pacmak are used with locally built runtimes, versioned 0.0.0.
-  if (ownVersion === '0.0.0') {
-    return ownVersion;
+  if (VERSION === '0.0.0') {
+    return VERSION;
   }
 
-  let result = ownVersion;
+  let result = VERSION;
 
   await traverseDependencyGraph(packageDir, async (dir, pkg, isRoot) => {
     if (!pkg.jsii) {
