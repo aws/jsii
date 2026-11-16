@@ -256,6 +256,11 @@ export class DotNetGenerator extends Generator {
   }
 
   protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
+    if (this.isRedeclaredInterfaceMember(ifc, method.name)) {
+      // See `isRedeclaredInterfaceMember`
+      return;
+    }
+
     this.dotnetDocGenerator.emitDocs(method, {
       api: 'member',
       fqn: ifc.fqn,
@@ -300,6 +305,11 @@ export class DotNetGenerator extends Generator {
       throw new Error(
         `Property ${ifc.name}.${prop.name} is marked as static, but interfaces must not contain static members.`,
       );
+    }
+
+    if (this.isRedeclaredInterfaceMember(ifc, prop.name)) {
+      // See `isRedeclaredInterfaceMember`
+      return;
     }
 
     this.emitNewLineIfNecessary();
@@ -872,6 +882,33 @@ export class DotNetGenerator extends Generator {
 
     this.code.closeBlock();
     this.closeFileIfNeeded(name, namespace, isNested);
+  }
+
+  /**
+   * Whether an interface member re-declares a member of the same name from one
+   * of its base interfaces.
+   *
+   * jsii only allows this when the signature is identical and just the docs
+   * differ. Such members are NOT emitted on the C# interface: C# interfaces
+   * cannot override members, so a re-declaration would introduce a second,
+   * unrelated member that hides the inherited one (CS0108). That changes the
+   * type's semantics, and the jsii runtime rejects classes that implement the
+   * two members separately ("Duplicate override"). The inherited member is
+   * used as-is instead. Datatype and proxy classes still emit the member with
+   * the nearest documentation.
+   */
+  private isRedeclaredInterfaceMember(
+    ifc: spec.InterfaceType,
+    memberName: string,
+  ): boolean {
+    const visit = (fqn: string): boolean => {
+      const base = this.findType(fqn) as spec.InterfaceType;
+      const declared =
+        (base.properties ?? []).some((p) => p.name === memberName) ||
+        (base.methods ?? []).some((m) => m.name === memberName);
+      return declared || (base.interfaces ?? []).some(visit);
+    };
+    return (ifc.interfaces ?? []).some(visit);
   }
 
   /**

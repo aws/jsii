@@ -142,7 +142,8 @@ describe('jsii-config', () => {
       expect(types).toHaveProperty('default', 'index.d.ts');
 
       expect(tscOutDir).toHaveProperty('type', 'input');
-      expect(tscOutDir).toHaveProperty('default', 'dist');
+      // the directory that holds "main" (bin/jsii-config)
+      expect(tscOutDir).toHaveProperty('default', 'bin');
 
       expect(versionFormat).toHaveProperty('type', 'list');
       expect(versionFormat.choices).toContain('full');
@@ -255,7 +256,6 @@ describe('jsii-config', () => {
 
     [
       'types',
-      'jsii.tsc.outDir',
       'jsii.targets.java.package',
       'jsii.targets.java.maven.groupId',
       'jsii.targets.java.maven.artifactId',
@@ -282,6 +282,56 @@ describe('jsii-config', () => {
         'versionSuffix must begin with "-"',
       );
       expect(subject.validate('-xxx')).toEqual(true);
+    });
+  });
+
+  describe('tsc.outDir and main', () => {
+    const outDirQuestion = (main: string, outDir?: string) =>
+      findQuestion(
+        'jsii.tsc.outDir',
+        getQuestions({
+          ...packageJsonObject,
+          main,
+          ...(outDir ? { jsii: { tsc: { outDir } } } : {}),
+        }),
+      );
+
+    it('does not suggest an outDir when main is at the package root', () => {
+      const subject = outDirQuestion('index.js');
+
+      expect(subject.default).toBeUndefined();
+      expect(subject.validate('')).toBe(true);
+      expect(subject.validate('.')).toBe(true);
+      expect(subject.validate('dist')).toEqual(
+        '"main" (index.js) must be inside the output directory. Use ".", leave it empty to compile in place, or change "main" in package.json',
+      );
+    });
+
+    it('suggests the directory that holds main', () => {
+      const subject = outDirQuestion('dist/index.js');
+
+      expect(subject.default).toBe('dist');
+      expect(subject.validate('dist')).toBe(true);
+      expect(subject.validate('./dist/')).toBe(true);
+      expect(subject.validate('')).toBe(true);
+      expect(subject.validate('lib')).toEqual(
+        '"main" (dist/index.js) must be inside the output directory. Use "dist", leave it empty to compile in place, or change "main" in package.json',
+      );
+    });
+
+    it('accepts an outDir that is a parent of the directory that holds main', () => {
+      const subject = outDirQuestion('./lib/sub/index.js');
+
+      expect(subject.default).toBe('lib/sub');
+      expect(subject.validate('lib')).toBe(true);
+      expect(subject.validate('lib/other')).not.toBe(true);
+    });
+
+    it('keeps an existing outDir as the default but rejects it when it does not contain main', () => {
+      const subject = outDirQuestion('index.js', 'dist');
+
+      expect(subject.default).toBe('dist');
+      expect(subject.validate('dist')).not.toBe(true);
     });
   });
 

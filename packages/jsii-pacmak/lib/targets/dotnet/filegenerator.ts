@@ -4,11 +4,11 @@ import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
 
 import { TargetName } from '..';
+import { DotNetNameUtils } from './nameutils';
 import * as logging from '../../logging';
 import { VERSION } from '../../version';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
-import { DotNetNameUtils } from './nameutils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {

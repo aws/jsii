@@ -18,6 +18,7 @@ nav:
           - overview/features.md
           - overview/toolchain.md
           - overview/runtime-architecture.md
+          - overview/security.md
   - ...
 
 extra:

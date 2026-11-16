@@ -221,7 +221,8 @@ function partsToString(parts: string[]) {
   return parts.join('').trimRight();
 }
 
-const headings = ['=', '-', '^', '"'];
+// One underline character for each Markdown heading level (1 to 6)
+const headings = ['=', '-', '^', '"', '~', '+'];
 
 type Handler = (node: commonmark.Node, entering: boolean) => void;
 type Handlers = { [key in commonmark.NodeType]?: Handler };

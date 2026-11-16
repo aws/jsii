@@ -198,7 +198,7 @@ jobs:
         dotnet: ["6.0.x"]
         go: ["1.26"]
         java: ["8"]
-        node: ["20"] # EOS 2026-10-30
+        node: ["22"] # EOS 2027-10-30
         os: [ubuntu-latest]
         python: ["3.10"]
         # Add specific combinations to be tested against (to restrict cardinality)
@@ -209,7 +209,7 @@ jobs:
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             python: "3.10"
           # Test using macOS
           - title: "macOS"
@@ -217,16 +217,9 @@ jobs:
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             python: "3.10"
           # Test alternate Nodes
-          - title: "Node 20"
-            java: "8"
-            dotnet: "6.0.x"
-            go: "1.26"
-            node: "20" # EOL 2026-04-30
-            os: ubuntu-latest
-            python: "3.10"
           - title: "Node 22"
             java: "8"
             dotnet: "6.0.x"
@@ -241,33 +234,40 @@ jobs:
             node: "24" # EOL 2028-04-30
             os: ubuntu-latest
             python: "3.10"
+          - title: "Node 26"
+            java: "8"
+            dotnet: "6.0.x"
+            go: "1.26"
+            node: "26" # EOL 2029-04-30
+            os: ubuntu-latest
+            python: "3.10"
           # Test alternate .NETs
           - title: ".NET 7.0"
             java: "8"
             dotnet: "7.0.x"
             go: "1.26"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
             python: "3.10"
           - title: ".NET 8.0"
             java: "8"
             dotnet: "7.0.x"
             go: "1.26"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
             python: "3.10"
           - title: ".NET 9.0"
             java: "8"
             dotnet: "9.0.x"
             go: "1.26"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
             python: "3.10"
           - title: ".NET 10.0"
             java: "8"
             dotnet: "10.0.x"
             go: "1.26"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
             python: "3.10"
           # Test alternate Gos
@@ -275,7 +275,7 @@ jobs:
             java: "8"
             dotnet: "6.0.x"
             go: "1.26"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
             python: "3.10"
           # Test alternate Javas
@@ -283,7 +283,7 @@ jobs:
             java: "11"
             dotnet: "6.0.x"
             go: "1.26"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
             python: "3.10"
           # Test alternate Pythons
@@ -292,35 +292,35 @@ jobs:
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
           - title: "Python 3.11"
             python: "3.11"
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
           - title: "Python 3.12"
             python: "3.12"
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
           - title: "Python 3.13"
             python: "3.13"
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
           - title: "Python 3.14"
             python: "3.14"
             dotnet: "6.0.x"
             go: "1.26"
             java: "8"
-            node: "20"
+            node: "22"
             os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -453,10 +453,10 @@ jobs:
         with:
           distribution: "corretto"
           java-version: "20"
-      - name: Set up Node 20
+      - name: Set up Node 22
         uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "22"
       - name: Set up Python 3.11
         uses: actions/setup-python@v7
         with:

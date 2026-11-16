@@ -32,6 +32,7 @@ import { HierarchicalElement, HierarchicalSet } from './hierarchical-set';
 const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'intersection-types',
   'class-covariant-overrides',
+  'interface-member-doc-overrides',
 ];
 
 export interface JsiiQueryOptions {

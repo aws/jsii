@@ -23,6 +23,7 @@ import * as tar from './tar-cache';
 export const ASSEMBLY_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'intersection-types',
   'class-covariant-overrides',
+  'interface-member-doc-overrides',
 ];
 
 // In their own module, so modules imported here can extend them.

@@ -130,6 +130,13 @@ test('escape character escaping', () => {
   );
 });
 
+test.each([1, 2, 3, 4, 5, 6])('level %d heading', (level) => {
+  converts(
+    ['Some text.', '', `${'#'.repeat(level)} Heading`, '', 'More text.'],
+    ['Some text.', '', '', 'Heading', '', 'More text.'],
+  );
+});
+
 function converts(input: string[], output: string[]) {
   const converted = md2rst(input.join('\n'));
 

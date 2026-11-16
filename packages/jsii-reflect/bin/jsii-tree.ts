@@ -9,6 +9,7 @@ import { TypeSystem, TypeSystemTree } from '../lib';
 const JSII_TREE_SUPPORTED_FEATURES: spec.JsiiFeature[] = [
   'intersection-types',
   'class-covariant-overrides',
+  'interface-member-doc-overrides',
 ];
 
 async function main() {

@@ -119,7 +119,7 @@ export class ClassType extends ReferenceType {
         ),
       );
     }
-    return out;
+    return Array.from(new Set(out));
   }
 
   public isClassType(): this is ClassType {

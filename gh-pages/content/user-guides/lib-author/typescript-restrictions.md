@@ -177,6 +177,38 @@ export class Child extends Base {
 }
 ```
 
+### Re-declaring Interface Members
+
+An interface (or *struct*) may re-declare a member it inherits to give it different documentation, such as a different
+`@default` value. Only the documentation may change: the re-declaration must have exactly the same type, optionality,
+mutability and (for methods) parameter list as the inherited declaration. **C#** interfaces cannot narrow inherited
+members, so covariant re-declarations are rejected.
+
+```ts hl_lines="8-10 12-13 15"
+export interface BaseOptions {
+  /** @default "base" */
+  readonly name?: string;
+  readonly id?: string;
+}
+
+export interface ChildOptions extends BaseOptions {
+  // ✅ Same type and optionality, only the documentation changes
+  /** @default "child" */
+  readonly name?: string;
+
+  // 💥 Optional member made required
+  readonly id: string;
+
+  // 💥 A narrower type (e.g. a subclass of the inherited type) would also be rejected
+}
+```
+
+!!! info
+    **C#** interfaces cannot override inherited members: re-declaring one would introduce a second, unrelated member.
+    The generated **C#** interface therefore does not repeat the member, and only the inherited declaration (with the
+    parent's documentation) appears on it. The generated struct and proxy classes still use the re-declared
+    documentation.
+
 ## Index Signatures
 
 **TypeScript** allows declaring *additional properties* through the use of index signatures. These are however not
