@@ -2,8 +2,8 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as semver from 'semver';
 
+import { traverseDependencyGraph } from './dependency-graph';
 import * as logging from './logging';
-import { findDependencyDirectory, isBuiltinModule } from './util';
 import { VERSION } from './version';
 
 /**
@@ -53,8 +53,22 @@ export async function resolveRuntimeVersion(
   let result = ownVersion;
   let requiredBy: string | undefined;
 
-  const visited = new Set<string>();
-  await visit(await fs.realpath(packageDir), true);
+  await traverseDependencyGraph(packageDir, async (dir, pkg, isRoot) => {
+    if (!pkg.jsii) {
+      // Not a jsii package, so its dependencies are not jsii dependencies of the module.
+      return false;
+    }
+
+    if (!isRoot) {
+      const manifest = await readPacmakManifest(dir);
+      if (manifest && semver.gt(manifest.runtimeVersion, result)) {
+        result = manifest.runtimeVersion;
+        requiredBy = `${String(pkg.name)}@${String(pkg.version)}`;
+      }
+    }
+
+    return true;
+  });
 
   if (requiredBy) {
     logging.info(
@@ -62,47 +76,6 @@ export async function resolveRuntimeVersion(
     );
   }
   return result;
-
-  async function visit(dir: string, isRoot: boolean): Promise<void> {
-    if (visited.has(dir)) {
-      return;
-    }
-    visited.add(dir);
-
-    const pkg = await fs.readJson(path.join(dir, 'package.json'));
-    if (!pkg.jsii) {
-      // Not a jsii package, so its dependencies are not jsii dependencies of the module.
-      return;
-    }
-
-    if (!isRoot) {
-      const manifest = await readPacmakManifest(dir);
-      if (manifest && semver.gt(manifest.runtimeVersion, result)) {
-        result = manifest.runtimeVersion;
-        requiredBy = `${pkg.name}@${pkg.version}`;
-      }
-    }
-
-    const bundled = new Set<string>([
-      ...(pkg.bundleDependencies ?? []),
-      ...(pkg.bundledDependencies ?? []),
-    ]);
-    const dependencies = new Set<string>([
-      ...Object.keys(pkg.dependencies ?? {}),
-      ...Object.keys(pkg.peerDependencies ?? {}),
-    ]);
-
-    await Promise.all(
-      Array.from(dependencies)
-        .filter((dep) => !bundled.has(dep) && !isBuiltinModule(dep))
-        .map(async (dep) => {
-          const depDir = await tryFindDependencyDirectory(dep, dir);
-          if (depDir !== undefined) {
-            await visit(await fs.realpath(depDir), false);
-          }
-        }),
-    );
-  }
 }
 
 /**
@@ -132,22 +105,4 @@ async function readPacmakManifest(
     return undefined;
   }
   return fs.readJson(manifestFile);
-}
-
-async function tryFindDependencyDirectory(
-  dep: string,
-  searchStart: string,
-): Promise<string | undefined> {
-  try {
-    return await findDependencyDirectory(dep, searchStart);
-  } catch (e: any) {
-    // Some modules like `@types/node` cannot be require()d, and optional peer dependencies may
-    // not be installed at all. Neither can contribute a jsii runtime requirement.
-    if (
-      ['MODULE_NOT_FOUND', 'ERR_PACKAGE_PATH_NOT_EXPORTED'].includes(e.code)
-    ) {
-      return undefined;
-    }
-    throw e;
-  }
 }

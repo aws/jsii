@@ -120,7 +120,7 @@ test('ignores bundled dependencies', async () => {
   );
 });
 
-test('ignores dependencies that are not installed', async () => {
+test('fails on dependencies that are not installed', async () => {
   await fs.writeJson(path.join(root, 'package.json'), {
     name: 'root',
     version: '1.0.0',
@@ -128,8 +128,8 @@ test('ignores dependencies that are not installed', async () => {
     peerDependencies: { 'not-installed': '^1.0.0' },
   });
 
-  await expect(resolveRuntimeVersion(root, OWN_VERSION)).resolves.toBe(
-    OWN_VERSION,
+  await expect(resolveRuntimeVersion(root, OWN_VERSION)).rejects.toThrow(
+    /'not-installed'/,
   );
 });
 
