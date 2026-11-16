@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as semver from 'semver';
 
 import { traverseDependencyGraph } from './dependency-graph';
-import * as logging from './logging';
 import { VERSION } from './version';
 
 /**
@@ -51,7 +50,6 @@ export async function resolveRuntimeVersion(
   }
 
   let result = ownVersion;
-  let requiredBy: string | undefined;
 
   await traverseDependencyGraph(packageDir, async (dir, pkg, isRoot) => {
     if (!pkg.jsii) {
@@ -63,18 +61,12 @@ export async function resolveRuntimeVersion(
       const manifest = await readPacmakManifest(dir);
       if (manifest && semver.gt(manifest.runtimeVersion, result)) {
         result = manifest.runtimeVersion;
-        requiredBy = `${String(pkg.name)}@${String(pkg.version)}`;
       }
     }
 
     return true;
   });
 
-  if (requiredBy) {
-    logging.info(
-      `${packageDir}: requiring jsii runtime ${result} or later (required by ${requiredBy})`,
-    );
-  }
   return result;
 }
 
