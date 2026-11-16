@@ -1747,7 +1747,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jsii/spec@npm:0.0.0, @jsii/spec@workspace:packages/@jsii/spec":
+"@jsii/spec@npm:0.0.0, @jsii/spec@workspace:*, @jsii/spec@workspace:packages/@jsii/spec":
   version: 0.0.0-use.local
   resolution: "@jsii/spec@workspace:packages/@jsii/spec"
   dependencies:
@@ -1768,7 +1768,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.142.0, @jsii/spec@npm:^1.142.0":
+"@jsii/spec@npm:1.142.0":
   version: 1.142.0
   resolution: "@jsii/spec@npm:1.142.0"
   checksum: 10c0/11207a5e273c521e574bd164da9d2ba25d724541996bae1b6ca954936fc28797f45266ba395477f9e08fb69a55bbc0072ad983ca2d993af0dfa7e45f61239545
