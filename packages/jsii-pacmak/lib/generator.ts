@@ -7,7 +7,7 @@ import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 
 import { resolveRuntimeVersion } from './runtime-version';
-import { VERSION, VERSION_DESC } from './version';
+import { VERSION_DESC } from './version';
 
 /**
  * Options for the code generator framework.
@@ -141,16 +141,12 @@ export abstract class Generator implements IGenerator {
     this._runtimeVersion = await resolveRuntimeVersion(packageRoot);
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
-    const hash = crypto
+    this.fingerprint = crypto
       .createHash('sha256')
       .update(VERSION_DESC)
       .update('\0')
-      .update(this.assembly.fingerprint);
-    // The required runtime version can change when dependencies are updated, without the assembly changing.
-    if (this.runtimeVersion !== VERSION) {
-      hash.update('\0').update(this.runtimeVersion);
-    }
-    this.fingerprint = hash.digest('base64');
+      .update(this.assembly.fingerprint)
+      .digest('base64');
   }
 
   /**
