@@ -134,15 +134,17 @@ test('ignores dependencies that are not installed', async () => {
 });
 
 test.each([
-  ['an invalid version', { runtimeVersion: 'not-a-version' }],
-  ['a missing version', {}],
-  ['invalid JSON', '{ nope'],
-])('ignores a manifest with %s', async (_, manifest) => {
+  [
+    'an invalid version',
+    { runtimeVersion: 'not-a-version' },
+    /invalid runtimeVersion "not-a-version"/,
+  ],
+  ['a missing version', {}, /invalid runtimeVersion undefined/],
+  ['invalid JSON', '{ nope', /JSON/],
+])('fails on a manifest with %s', async (_, manifest, error) => {
   await makePackage(root, 'a', {}, manifest);
 
-  await expect(resolveRuntimeVersion(root, OWN_VERSION)).resolves.toBe(
-    OWN_VERSION,
-  );
+  await expect(resolveRuntimeVersion(root, OWN_VERSION)).rejects.toThrow(error);
 });
 
 test('uses own version for development builds of jsii-pacmak', async () => {
