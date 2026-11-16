@@ -61,7 +61,7 @@ The project is managed as a [monorepo] using [lerna].
 [monorepo]: https://github.com/babel/babel/blob/main/doc/design/monorepo.md
 [lerna]: https://github.com/lerna/lerna
 
-1. Check out this respository and change directory to its root.
+1. Check out this repository and change directory to its root.
 2. Run `yarn install && yarn build` to install lerna, bootstrap the repository
    and perform an initial build and test cycle.
 
@@ -153,7 +153,7 @@ Eslint and Prettier are used to lint and format our typescript code. The `lint`
 and `lint:fix` scripts can be run from the root or from a specific module.
 
 You can integrate the linting and formatting workflow with your editor or ide by
-installing the approporiate eslint plugin. For example, when using Visual Studio
+installing the appropriate eslint plugin. For example, when using Visual Studio
 Code, the [eslint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 exposes a number of options including "fix on save". This will auto correct lint
 and formatting errors whenever possible while saving a document.
@@ -240,7 +240,7 @@ When a new major version of node is released, we need to update the `@jsii/check
 This package is responsible for identifying which node version is being used by the current process,
 whether or not it is supported and tested, and produces appropriate warnings in case it isn't.
 
-> Note that `jsii` will execute on every node version, so "adding support" here only means supressing or showing
+> Note that `jsii` will execute on every node version, so "adding support" here only means suppressing or showing
 > warnings that inform the user on the level of support it has.
 
 ### Steps
