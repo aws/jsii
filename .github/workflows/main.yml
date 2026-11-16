@@ -322,6 +322,13 @@ jobs:
             java: "8"
             node: "22"
             os: ubuntu-latest
+          - title: "Python 3.15"
+            python: "3.15"
+            dotnet: "6.0.x"
+            go: "1.26"
+            java: "8"
+            node: "22"
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       # Check out the code
