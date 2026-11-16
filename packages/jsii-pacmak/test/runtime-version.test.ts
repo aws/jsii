@@ -137,9 +137,9 @@ test.each([
   [
     'an invalid version',
     { runtimeVersion: 'not-a-version' },
-    /invalid runtimeVersion "not-a-version"/,
+    /Invalid Version: not-a-version/,
   ],
-  ['a missing version', {}, /invalid runtimeVersion undefined/],
+  ['a missing version', {}, /Invalid version. Must be a string/],
   ['invalid JSON', '{ nope', /JSON/],
 ])('fails on a manifest with %s', async (_, manifest, error) => {
   await makePackage(root, 'a', {}, manifest);
