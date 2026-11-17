@@ -167,7 +167,7 @@ Several tools are involved in making this possible:
 - [`@jsii/kernel`][@jsii/kernel] (and [`@jsii/runtime`][@jsii/runtime]) provide the functionality exposed by the _kernel_ process, and allow the
   _host_ code to seamlessly interact with the **JavaScript** implementation.
 
-[jsii]: https://github.com/aws/jsii/tree/main/packages/jsii
+[jsii]: https://github.com/aws/jsii-compiler
 [jsii-pacmak]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
 [@jsii/kernel]: https://github.com/aws/jsii/tree/main/packages/@jsii/kernel
 [@jsii/runtime]: https://github.com/aws/jsii/tree/main/packages/@jsii/runtime
