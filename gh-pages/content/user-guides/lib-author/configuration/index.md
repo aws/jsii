@@ -299,7 +299,7 @@ As noted in the example above, the diagnostic code can be the human readable str
 `JSII`.
 
 The full list of diagnostic codes can be found in
-[`jsii-diagnostic.ts`](https://github.com/aws/jsii/tree/main/packages/jsii/lib/jsii-diagnostic.ts).
+[`jsii-diagnostic.ts`](https://github.com/aws/jsii-compiler/blob/main/src/jsii-diagnostic.ts).
 
 ## Dependency considerations
 

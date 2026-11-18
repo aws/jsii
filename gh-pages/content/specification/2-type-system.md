@@ -380,7 +380,7 @@ configuration cannot be reliably reprensented in certain other programming langu
 Since this would result in ambiguity that cannot be consistently resolved, a given type can only be exported as part of
 one _submodule_.
 
-[jsii]: https://github.com/aws/jsii/tree/main/packages/jsii
+[jsii]: https://github.com/aws/jsii-compiler
 [jsii-pacmak]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
 
 ### Declaration

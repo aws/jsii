@@ -5,8 +5,8 @@ the semantics behind the various entities it represents. This serves as a refere
 
 ## Schema
 
-`.jsii` assemblies are JSON-formatted documents. The specification is hosted under the [`jsii-spec`][jsii-spec] package.
-Refer to the inline documentation in the [`spec.ts`][spec.ts] file for more information about the general content of the
+`.jsii` assemblies are JSON-formatted documents. The specification is hosted under the [`@jsii/spec`][jsii-spec] package.
+Refer to the inline documentation in the [`assembly.ts`][assembly.ts] file for more information about the general content of the
 assembly documents.
 
 The most important part of the assembly documentation, which is described in detail in this document, is the `types`
@@ -15,8 +15,8 @@ qualified type names to a type specification.
 
 All `boolean` attributes in the document specification are optional, and are left out (`undefined`) when `false`.
 
-[jsii-spec]: https://github.com/aws/jsii/tree/main/packages/jsii-spec
-[spec.ts]: https://github.com/aws/jsii/tree/main/packages/jsii-spec/lib/spec.ts
+[jsii-spec]: https://github.com/aws/jsii/tree/main/packages/@jsii/spec
+[assembly.ts]: https://github.com/aws/jsii/blob/main/packages/@jsii/spec/src/assembly.ts
 
 ### Common Attributes
 
