@@ -952,11 +952,11 @@ class StaticConsumer(
 ):
     @jsii.member(jsii_name="consume")
     @builtins.classmethod
-    def consume(cls, *_args: typing.Any) -> None:
+    def consume(cls, *args: typing.Any) -> None:
         '''
-        :param _args: -
+        :param args: -
         '''
-        return typing.cast(None, jsii.sinvoke(cls, "consume", [*_args]))
+        return typing.cast(None, jsii.sinvoke(cls, "consume", [*args]))
 
 
 class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
@@ -1075,14 +1075,14 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
 +++ python/src/scope/jsii_calc_base_of_base/__init__.py	--runtime-type-checking
 @@ -46,10 +46,13 @@
      @builtins.classmethod
-     def consume(cls, *_args: typing.Any) -> None:
+     def consume(cls, *args: typing.Any) -> None:
          '''
-         :param _args: -
+         :param args: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__740535cda6ecbc578919a2921dd1fa0b87c5dd735a2acd391963310cdf59f47c)
-+            check_type(argname="argument _args", value=_args, expected_type=typing.Tuple[type_hints["_args"], ...]) # pyright: ignore [reportGeneralTypeIssues]
-         return typing.cast(None, jsii.sinvoke(cls, "consume", [*_args]))
++            check_type(argname="argument args", value=args, expected_type=typing.Tuple[type_hints["args"], ...]) # pyright: ignore [reportGeneralTypeIssues]
+         return typing.cast(None, jsii.sinvoke(cls, "consume", [*args]))
  
  
  class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
@@ -1108,7 +1108,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <runtime-type-check
  publication.publish()
  
 +def _typecheckingstub__740535cda6ecbc578919a2921dd1fa0b87c5dd735a2acd391963310cdf59f47c(
-+    *_args: typing.Any,
++    *args: typing.Any,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
@@ -3730,12 +3730,12 @@ class AllowedMethodNames(
         jsii.create(self.__class__, self, [])
 
     @jsii.member(jsii_name="getBar")
-    def get_bar(self, _p1: builtins.str, _p2: jsii.Number) -> None:
+    def get_bar(self, p1: builtins.str, p2: jsii.Number) -> None:
         '''
-        :param _p1: -
-        :param _p2: -
+        :param p1: -
+        :param p2: -
         '''
-        return typing.cast(None, jsii.invoke(self, "getBar", [_p1, _p2]))
+        return typing.cast(None, jsii.invoke(self, "getBar", [p1, p2]))
 
     @jsii.member(jsii_name="getFoo")
     def get_foo(self, with_param: builtins.str) -> builtins.str:
@@ -3746,22 +3746,22 @@ class AllowedMethodNames(
         return typing.cast(builtins.str, jsii.invoke(self, "getFoo", [with_param]))
 
     @jsii.member(jsii_name="setBar")
-    def set_bar(self, _x: builtins.str, _y: jsii.Number, _z: builtins.bool) -> None:
+    def set_bar(self, x: builtins.str, y: jsii.Number, z: builtins.bool) -> None:
         '''
-        :param _x: -
-        :param _y: -
-        :param _z: -
+        :param x: -
+        :param y: -
+        :param z: -
         '''
-        return typing.cast(None, jsii.invoke(self, "setBar", [_x, _y, _z]))
+        return typing.cast(None, jsii.invoke(self, "setBar", [x, y, z]))
 
     @jsii.member(jsii_name="setFoo")
-    def set_foo(self, _x: builtins.str, _y: jsii.Number) -> None:
+    def set_foo(self, x: builtins.str, y: jsii.Number) -> None:
         '''setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
 
-        :param _x: -
-        :param _y: -
+        :param x: -
+        :param y: -
         '''
-        return typing.cast(None, jsii.invoke(self, "setFoo", [_x, _y]))
+        return typing.cast(None, jsii.invoke(self, "setFoo", [x, y]))
 
 
 class AmbiguousParameters(
@@ -5595,16 +5595,16 @@ class DoNotRecognizeAnyAsOptional(
     @jsii.member(jsii_name="method")
     def method(
         self,
-        _required_any: typing.Any,
-        _optional_any: typing.Any = None,
-        _optional_string: typing.Optional[builtins.str] = None,
+        required_any: typing.Any,
+        optional_any: typing.Any = None,
+        optional_string: typing.Optional[builtins.str] = None,
     ) -> None:
         '''
-        :param _required_any: -
-        :param _optional_any: -
-        :param _optional_string: -
+        :param required_any: -
+        :param optional_any: -
+        :param optional_string: -
         '''
-        return typing.cast(None, jsii.invoke(self, "method", [_required_any, _optional_any, _optional_string]))
+        return typing.cast(None, jsii.invoke(self, "method", [required_any, optional_any, optional_string]))
 
 
 class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedClass"):
@@ -8929,12 +8929,12 @@ class NullShouldBeTreatedAsUndefined(
 ):
     '''jsii#282, aws-cdk#157: null should be treated as "undefined".'''
 
-    def __init__(self, _param1: builtins.str, optional: typing.Any = None) -> None:
+    def __init__(self, param1: builtins.str, optional: typing.Any = None) -> None:
         '''
-        :param _param1: -
+        :param param1: -
         :param optional: -
         '''
-        jsii.create(self.__class__, self, [_param1, optional])
+        jsii.create(self.__class__, self, [param1, optional])
 
     @jsii.member(jsii_name="giveMeUndefined")
     def give_me_undefined(self, value: typing.Any = None) -> None:
@@ -10620,27 +10620,27 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
     @builtins.classmethod
     def how_many_var_args_did_i_pass(
         cls,
-        _positional: jsii.Number,
+        positional: jsii.Number,
         *inputs: "TopLevelStruct",
     ) -> jsii.Number:
         '''
-        :param _positional: -
+        :param positional: -
         :param inputs: -
         '''
-        return typing.cast(jsii.Number, jsii.sinvoke(cls, "howManyVarArgsDidIPass", [_positional, *inputs]))
+        return typing.cast(jsii.Number, jsii.sinvoke(cls, "howManyVarArgsDidIPass", [positional, *inputs]))
 
     @jsii.member(jsii_name="roundTrip")
     @builtins.classmethod
     def round_trip(
         cls,
-        _positional: jsii.Number,
+        positional: jsii.Number,
         *,
         required: builtins.str,
         second_level: typing.Union[jsii.Number, typing.Union["SecondLevelStruct", typing.Dict[builtins.str, typing.Any]]],
         optional: typing.Optional[builtins.str] = None,
     ) -> "TopLevelStruct":
         '''
-        :param _positional: -
+        :param positional: -
         :param required: This is a required field.
         :param second_level: A union to really stress test our serialization.
         :param optional: You don't have to pass this.
@@ -10649,7 +10649,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
             required=required, second_level=second_level, optional=optional
         )
 
-        return typing.cast("TopLevelStruct", jsii.sinvoke(cls, "roundTrip", [_positional, input]))
+        return typing.cast("TopLevelStruct", jsii.sinvoke(cls, "roundTrip", [positional, input]))
 
 
 class StructUnionConsumer(
@@ -14498,22 +14498,22 @@ class MyClass(
     @jsii.member(jsii_name="bar")
     def bar(
         self,
-        _bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
+        bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
     ) -> None:
         '''
-        :param _bar: -
+        :param bar: -
         '''
-        return typing.cast(None, jsii.invoke(self, "bar", [_bar]))
+        return typing.cast(None, jsii.invoke(self, "bar", [bar]))
 
     @jsii.member(jsii_name="foo")
     def foo(
         self,
-        _values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
+        values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
     ) -> None:
         '''
-        :param _values: -
+        :param values: -
         '''
-        return typing.cast(None, jsii.invoke(self, "foo", [_values]))
+        return typing.cast(None, jsii.invoke(self, "foo", [values]))
 
 
 __all__ = [
@@ -17025,16 +17025,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  @jsii.enum(jsii_type="jsii-calc.AllTypesEnum")
  class AllTypesEnum(enum.Enum):
 @@ -411,36 +480,52 @@
-     def get_bar(self, _p1: builtins.str, _p2: jsii.Number) -> None:
+     def get_bar(self, p1: builtins.str, p2: jsii.Number) -> None:
          '''
-         :param _p1: -
-         :param _p2: -
+         :param p1: -
+         :param p2: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__99730dd857f01c8e93755d3e4f1e04f44efd2e63487e37db32f0fae8d36c618e)
-+            check_type(argname="argument _p1", value=_p1, expected_type=type_hints["_p1"])
-+            check_type(argname="argument _p2", value=_p2, expected_type=type_hints["_p2"])
-         return typing.cast(None, jsii.invoke(self, "getBar", [_p1, _p2]))
++            check_type(argname="argument p1", value=p1, expected_type=type_hints["p1"])
++            check_type(argname="argument p2", value=p2, expected_type=type_hints["p2"])
+         return typing.cast(None, jsii.invoke(self, "getBar", [p1, p2]))
  
      @jsii.member(jsii_name="getFoo")
      def get_foo(self, with_param: builtins.str) -> builtins.str:
@@ -17048,31 +17048,31 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          return typing.cast(builtins.str, jsii.invoke(self, "getFoo", [with_param]))
  
      @jsii.member(jsii_name="setBar")
-     def set_bar(self, _x: builtins.str, _y: jsii.Number, _z: builtins.bool) -> None:
+     def set_bar(self, x: builtins.str, y: jsii.Number, z: builtins.bool) -> None:
          '''
-         :param _x: -
-         :param _y: -
-         :param _z: -
+         :param x: -
+         :param y: -
+         :param z: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__12f6979e6d88948e4aebfe8c25ed814c21d19b4b549d6bc2db4620794e706238)
-+            check_type(argname="argument _x", value=_x, expected_type=type_hints["_x"])
-+            check_type(argname="argument _y", value=_y, expected_type=type_hints["_y"])
-+            check_type(argname="argument _z", value=_z, expected_type=type_hints["_z"])
-         return typing.cast(None, jsii.invoke(self, "setBar", [_x, _y, _z]))
++            check_type(argname="argument x", value=x, expected_type=type_hints["x"])
++            check_type(argname="argument y", value=y, expected_type=type_hints["y"])
++            check_type(argname="argument z", value=z, expected_type=type_hints["z"])
+         return typing.cast(None, jsii.invoke(self, "setBar", [x, y, z]))
  
      @jsii.member(jsii_name="setFoo")
-     def set_foo(self, _x: builtins.str, _y: jsii.Number) -> None:
+     def set_foo(self, x: builtins.str, y: jsii.Number) -> None:
          '''setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
  
-         :param _x: -
-         :param _y: -
+         :param x: -
+         :param y: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__ca978ab380897c8607252c370202d45bc72e8b5cdc52549bb53b870299333d52)
-+            check_type(argname="argument _x", value=_x, expected_type=type_hints["_x"])
-+            check_type(argname="argument _y", value=_y, expected_type=type_hints["_y"])
-         return typing.cast(None, jsii.invoke(self, "setFoo", [_x, _y]))
++            check_type(argname="argument x", value=x, expected_type=type_hints["x"])
++            check_type(argname="argument y", value=y, expected_type=type_hints["y"])
+         return typing.cast(None, jsii.invoke(self, "setFoo", [x, y]))
  
  
  class AmbiguousParameters(
@@ -17926,16 +17926,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
          return typing.cast(builtins.str, jsii.invoke(self, "privateMethodValue", []))
 @@ -2280,10 +2575,15 @@
          '''
-         :param _required_any: -
-         :param _optional_any: -
-         :param _optional_string: -
+         :param required_any: -
+         :param optional_any: -
+         :param optional_string: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__8ffaadb351f5c2c48a7368068d5c88e0c7836deefe0e13aa9fe53ac104052fd5)
-+            check_type(argname="argument _required_any", value=_required_any, expected_type=type_hints["_required_any"])
-+            check_type(argname="argument _optional_any", value=_optional_any, expected_type=type_hints["_optional_any"])
-+            check_type(argname="argument _optional_string", value=_optional_string, expected_type=type_hints["_optional_string"])
-         return typing.cast(None, jsii.invoke(self, "method", [_required_any, _optional_any, _optional_string]))
++            check_type(argname="argument required_any", value=required_any, expected_type=type_hints["required_any"])
++            check_type(argname="argument optional_any", value=optional_any, expected_type=type_hints["optional_any"])
++            check_type(argname="argument optional_string", value=optional_string, expected_type=type_hints["optional_string"])
+         return typing.cast(None, jsii.invoke(self, "method", [required_any, optional_any, optional_string]))
  
  
  class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedClass"):
@@ -18660,16 +18660,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  
      @builtins.property
 @@ -5610,17 +6077,24 @@
-     def __init__(self, _param1: builtins.str, optional: typing.Any = None) -> None:
+     def __init__(self, param1: builtins.str, optional: typing.Any = None) -> None:
          '''
-         :param _param1: -
+         :param param1: -
          :param optional: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__218107d38285901ff40e08163f0de0bac5d835bd64c21c0a735e8d72399ebe35)
-+            check_type(argname="argument _param1", value=_param1, expected_type=type_hints["_param1"])
++            check_type(argname="argument param1", value=param1, expected_type=type_hints["param1"])
 +            check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
-         jsii.create(self.__class__, self, [_param1, optional])
+         jsii.create(self.__class__, self, [param1, optional])
  
      @jsii.member(jsii_name="giveMeUndefined")
      def give_me_undefined(self, value: typing.Any = None) -> None:
@@ -19327,32 +19327,32 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 @@ -7303,10 +7935,14 @@
      ) -> jsii.Number:
          '''
-         :param _positional: -
+         :param positional: -
          :param inputs: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__e3587fc6359e7cd1adf0bb70ed66e1cd69faa462a530e07c8d25a96b942cb943)
-+            check_type(argname="argument _positional", value=_positional, expected_type=type_hints["_positional"])
++            check_type(argname="argument positional", value=positional, expected_type=type_hints["positional"])
 +            check_type(argname="argument inputs", value=inputs, expected_type=typing.Tuple[type_hints["inputs"], ...]) # pyright: ignore [reportGeneralTypeIssues]
-         return typing.cast(jsii.Number, jsii.sinvoke(cls, "howManyVarArgsDidIPass", [_positional, *inputs]))
+         return typing.cast(jsii.Number, jsii.sinvoke(cls, "howManyVarArgsDidIPass", [positional, *inputs]))
  
      @jsii.member(jsii_name="roundTrip")
      @builtins.classmethod
      def round_trip(
 @@ -7321,10 +7957,13 @@
-         :param _positional: -
+         :param positional: -
          :param required: This is a required field.
          :param second_level: A union to really stress test our serialization.
          :param optional: You don't have to pass this.
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__b60fd8dad9496da93546e0555f2f8a7a34711e7160c06dc64a47f095f1539d02)
-+            check_type(argname="argument _positional", value=_positional, expected_type=type_hints["_positional"])
++            check_type(argname="argument positional", value=positional, expected_type=type_hints["positional"])
          input = TopLevelStruct(
              required=required, second_level=second_level, optional=optional
          )
  
-         return typing.cast("TopLevelStruct", jsii.sinvoke(cls, "roundTrip", [_positional, input]))
+         return typing.cast("TopLevelStruct", jsii.sinvoke(cls, "roundTrip", [positional, input]))
 @@ -7341,10 +7980,13 @@
          struct: typing.Union[typing.Union["StructA", typing.Dict[builtins.str, typing.Any]], typing.Union["StructB", typing.Dict[builtins.str, typing.Any]]],
      ) -> builtins.bool:
@@ -20223,8 +20223,8 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    pass
 +
 +def _typecheckingstub__99730dd857f01c8e93755d3e4f1e04f44efd2e63487e37db32f0fae8d36c618e(
-+    _p1: builtins.str,
-+    _p2: jsii.Number,
++    p1: builtins.str,
++    p2: jsii.Number,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
@@ -20236,16 +20236,16 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    pass
 +
 +def _typecheckingstub__12f6979e6d88948e4aebfe8c25ed814c21d19b4b549d6bc2db4620794e706238(
-+    _x: builtins.str,
-+    _y: jsii.Number,
-+    _z: builtins.bool,
++    x: builtins.str,
++    y: jsii.Number,
++    z: builtins.bool,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
 +def _typecheckingstub__ca978ab380897c8607252c370202d45bc72e8b5cdc52549bb53b870299333d52(
-+    _x: builtins.str,
-+    _y: jsii.Number,
++    x: builtins.str,
++    y: jsii.Number,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
@@ -20658,9 +20658,9 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    pass
 +
 +def _typecheckingstub__8ffaadb351f5c2c48a7368068d5c88e0c7836deefe0e13aa9fe53ac104052fd5(
-+    _required_any: typing.Any,
-+    _optional_any: typing.Any = None,
-+    _optional_string: typing.Optional[builtins.str] = None,
++    required_any: typing.Any,
++    optional_any: typing.Any = None,
++    optional_string: typing.Optional[builtins.str] = None,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
@@ -20999,7 +20999,7 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    pass
 +
 +def _typecheckingstub__218107d38285901ff40e08163f0de0bac5d835bd64c21c0a735e8d72399ebe35(
-+    _param1: builtins.str,
++    param1: builtins.str,
 +    optional: typing.Any = None,
 +) -> None:
 +    """Type checking stubs"""
@@ -21322,14 +21322,14 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 +    pass
 +
 +def _typecheckingstub__e3587fc6359e7cd1adf0bb70ed66e1cd69faa462a530e07c8d25a96b942cb943(
-+    _positional: jsii.Number,
++    positional: jsii.Number,
 +    *inputs: TopLevelStruct,
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
 +def _typecheckingstub__b60fd8dad9496da93546e0555f2f8a7a34711e7160c06dc64a47f095f1539d02(
-+    _positional: jsii.Number,
++    positional: jsii.Number,
 +    *,
 +    required: builtins.str,
 +    second_level: typing.Union[jsii.Number, typing.Union[SecondLevelStruct, typing.Dict[builtins.str, typing.Any]]],
@@ -22523,28 +22523,28 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
 --- python/src/jsii_calc/module2689/methods/__init__.py	--no-runtime-type-checking
 +++ python/src/jsii_calc/module2689/methods/__init__.py	--runtime-type-checking
 @@ -51,23 +51,41 @@
-         _bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
+         bar: typing.Mapping[builtins.str, typing.Union["_scope_jsii_calc_base_734f0262.BaseProps", typing.Dict[builtins.str, typing.Any]]],
      ) -> None:
          '''
-         :param _bar: -
+         :param bar: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__cfbe1bc46497cbad551fc80c4d304742daa30493dee8c65b7119cafdeb06e9af)
-+            check_type(argname="argument _bar", value=_bar, expected_type=type_hints["_bar"])
-         return typing.cast(None, jsii.invoke(self, "bar", [_bar]))
++            check_type(argname="argument bar", value=bar, expected_type=type_hints["bar"])
+         return typing.cast(None, jsii.invoke(self, "bar", [bar]))
  
      @jsii.member(jsii_name="foo")
      def foo(
          self,
-         _values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
+         values: typing.Sequence["_scope_jsii_calc_lib_c61f082f.Number"],
      ) -> None:
          '''
-         :param _values: -
+         :param values: -
          '''
 +        if __debug__:
 +            type_hints = cached_type_hints(_typecheckingstub__40045f17e26efacbabd3e103d903497e18761a611301d901fcdebc3cf8baaced)
-+            check_type(argname="argument _values", value=_values, expected_type=type_hints["_values"])
-         return typing.cast(None, jsii.invoke(self, "foo", [_values]))
++            check_type(argname="argument values", value=values, expected_type=type_hints["values"])
+         return typing.cast(None, jsii.invoke(self, "foo", [values]))
  
  
  __all__ = [
@@ -22554,13 +22554,13 @@ exports[`Generated code for "jsii-calc": <runtime-type-check-diff>/python/src/js
  publication.publish()
 +
 +def _typecheckingstub__cfbe1bc46497cbad551fc80c4d304742daa30493dee8c65b7119cafdeb06e9af(
-+    _bar: typing.Mapping[builtins.str, typing.Union[_scope_jsii_calc_base_734f0262.BaseProps, typing.Dict[builtins.str, typing.Any]]],
++    bar: typing.Mapping[builtins.str, typing.Union[_scope_jsii_calc_base_734f0262.BaseProps, typing.Dict[builtins.str, typing.Any]]],
 +) -> None:
 +    """Type checking stubs"""
 +    pass
 +
 +def _typecheckingstub__40045f17e26efacbabd3e103d903497e18761a611301d901fcdebc3cf8baaced(
-+    _values: typing.Sequence[_scope_jsii_calc_lib_c61f082f.Number],
++    values: typing.Sequence[_scope_jsii_calc_lib_c61f082f.Number],
 +) -> None:
 +    """Type checking stubs"""
 +    pass
