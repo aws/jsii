@@ -36,6 +36,7 @@ import {
 } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
+import { escapeJavadoc } from './javadoc-escape';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
 import { containsUnionType } from '../type-utils';
@@ -1148,13 +1149,13 @@ class JavaGenerator extends Generator {
           moduleFqn: mod.name,
         }),
       ).split('\n')) {
-        this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
+        this.code.line(` * ${escapeJavadoc(line)}`);
       }
     }
     if (mod.docs.deprecated) {
       this.code.line(' *');
       // Javac won't allow @deprecated on packages, while @Deprecated is aaaabsolutely fine. Duh.
-      this.code.line(` * Deprecated: ${mod.docs.deprecated}`);
+      this.code.line(` * Deprecated: ${escapeJavadoc(mod.docs.deprecated)}`);
     }
     this.code.line(' */');
     this.emitStabilityAnnotations(mod);
@@ -1182,7 +1183,7 @@ class JavaGenerator extends Generator {
           moduleFqn,
         }),
       ).split('\n')) {
-        this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
+        this.code.line(` * ${escapeJavadoc(line)}`);
       }
     }
     this.code.line(' */');
@@ -2419,7 +2420,7 @@ class JavaGenerator extends Generator {
       );
       const summary = prop.docs?.summary ?? 'the value to be set';
       this.code.line(
-        ` * ${this.paramJavadoc(prop.fieldName, prop.nullable, summary)}`,
+        ` * ${escapeJavadoc(this.paramJavadoc(prop.fieldName, prop.nullable, summary))}`,
       );
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
@@ -2431,12 +2432,12 @@ class JavaGenerator extends Generator {
           }),
         ).trimRight();
         for (const line of remarks.split('\n')) {
-          this.code.line(` * ${indent} ${line}`);
+          this.code.line(` * ${indent} ${escapeJavadoc(line)}`);
         }
       }
       this.code.line(' * @return {@code this}');
       if (prop.docs?.deprecated) {
-        this.code.line(` * @deprecated ${prop.docs.deprecated}`);
+        this.code.line(` * @deprecated ${escapeJavadoc(prop.docs.deprecated)}`);
       }
       this.code.line(' */');
       this.emitStabilityAnnotations(prop.spec);
@@ -2949,7 +2950,7 @@ class JavaGenerator extends Generator {
 
     this.code.line('/**');
     for (const line of lines) {
-      this.code.line(` * ${escapeEndingComment(line)}`);
+      this.code.line(` * ${escapeJavadoc(line)}`);
     }
     this.code.line(' */');
   }
@@ -3873,11 +3874,6 @@ function myMarkDownToJavaDoc(source: string) {
 
 function stripNewLines(x: string) {
   return x.replace(/\n/g, '');
-}
-
-// Replace */ with *\/ to avoid closing the comment block
-function escapeEndingComment(x: string) {
-  return x.replace(/\*\//g, '*\\/');
 }
 
 type SymGen = () => string;

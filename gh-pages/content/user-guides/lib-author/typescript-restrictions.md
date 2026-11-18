@@ -342,4 +342,4 @@ a declaration is named after any target language's *reserved words*, as those wi
 !!! info
     The list of reserved words is derived from [`jsii/lib/reserved-words.ts`][reserved-words.ts].
 
-    [reserved-words.ts]: https://github.com/aws/jsii/tree/main/packages/jsii/lib/reserved-words.ts
+    [reserved-words.ts]: https://github.com/aws/jsii-compiler/blob/main/src/reserved-words.ts
