@@ -25,6 +25,16 @@ export interface ChildProps extends BaseProps {
   readonly own?: string;
 }
 
+export interface OptionalProps {
+  readonly opt?: string;
+}
+
+export class Ctor {
+  public constructor(_scope: string, _props?: OptionalProps) {
+    return;
+  }
+}
+
 export abstract class Edge {
   public static staticCls(_cls: string): void {
     return;
@@ -38,6 +48,7 @@ export abstract class Edge {
   public abstract keyword(_from: string): void;
   public abstract onlyUnderscores(_: string, __: string): void;
   public abstract digits(_1: string, _2fa: string): void;
+  public abstract nonAscii(_a\u{FB01}: string, afi: string): void;
   public abstract clash(_a: string, a: string): void;
   public abstract snakeClash(_myURL: string, myUrl: string): void;
   public abstract keywordClash(_class: string, class_: string): void;
@@ -45,6 +56,7 @@ export abstract class Edge {
   public abstract variadicSelf(..._self: string[]): void;
   public abstract variadic(..._values: string[]): void;
   public abstract shadows(_jsii: string, _typing: string, _builtins: string, _checkType: string): void;
+  public abstract shadowsToo(_datetime: string, _cachedTypeHints: string): void;
   public abstract lifted(_other: string, props: ChildProps): void;
   public abstract liftedClash(_own: string, props: ChildProps): void;
   public abstract inheritedLiftedClash(_inherited: string, props: ChildProps): void;
@@ -107,6 +119,7 @@ test.each([
   ['only_underscores', ['self', '_', '__']],
   ['digits', ['self', '_1', '_2fa']],
   ['destructured', ['self', '__0', 'other']],
+  ['non_ascii', ['self', '_a\u{FB01}', 'afi']],
   // ...or if it could collide with another parameter
   ['clash', ['self', '_a', 'a']],
   ['snake_clash', ['self', '_my_url', 'my_url']],
@@ -116,6 +129,7 @@ test.each([
   ['implicit_self', ['self', '_self']],
   ['variadic_self', ['self', '*_self']],
   ['shadows', ['self', '_jsii', '_typing', '_builtins', '_check_type']],
+  ['shadows_too', ['self', '_datetime', '_cached_type_hints']],
   // ...or with a lifted struct property, including an inherited one
   ['lifted', ['self', 'other', '*', 'own', 'inherited']],
   ['lifted_clash', ['self', '_own', '*', 'own', 'inherited']],
@@ -130,22 +144,49 @@ test.each([
   }
 });
 
-test('the docstring and the call into the kernel use the same names', () => {
-  expect(code).toContain(':param scope: -');
-  expect(code).toContain('jsii.invoke(self, "bind", [scope])');
-  expect(code).toContain('jsii.invoke(self, "clash", [_a, a])');
-  expect(code).toContain('jsii.invoke(self, "variadic", [*values])');
-  expect(code).toContain('jsii.invoke(self, "lifted", [other, props])');
+test('the docstring and the call into the kernel use the same names as the signature', () => {
+  const impl = classBlock('Impl');
+  expect(impl).toContain('def bind(self, scope: builtins.str)');
+  expect(impl).toContain(':param scope: -');
+  expect(impl).toContain('jsii.invoke(self, "bind", [scope])');
+  expect(impl).not.toContain('_scope');
+
+  expect(classBlock('Edge')).toContain(':param _a: -');
+  const proxy = classBlock('_EdgeProxy');
+  expect(proxy).toContain('jsii.invoke(self, "clash", [_a, a])');
+  expect(proxy).toContain('jsii.invoke(self, "variadic", [*values])');
+  expect(proxy).toContain('jsii.invoke(self, "lifted", [other, props])');
 });
+
+test('a lifted struct parameter is built under the same name it is passed as', () => {
+  const ctor = classBlock('Ctor');
+  expect(signaturesOf('__init__', ctor)).toEqual([
+    ['self', 'scope', '*', 'opt'],
+  ]);
+  expect(ctor).toContain('props = OptionalProps(opt=opt)');
+  expect(ctor).toContain('jsii.create(self.__class__, self, [scope, props])');
+  expect(ctor).not.toContain('_props');
+  expect(ctor).not.toContain('_scope');
+});
+
+/**
+ * The code of the class with the given name, up to the next line that isn't indented.
+ */
+function classBlock(name: string): string {
+  const start = code.indexOf(`\nclass ${name}(`);
+  expect(start).toBeGreaterThanOrEqual(0);
+  const end = code.slice(start + 1).search(/\n\S/);
+  return end < 0 ? code.slice(start) : code.slice(start, start + 1 + end);
+}
 
 /**
  * The parameter names of every `def <method>(...)` in the generated code (a method can appear in a
  * class, its proxy and a protocol).
  */
-function signaturesOf(method: string): string[][] {
+function signaturesOf(method: string, source = code): string[][] {
   const result = new Array<string[]>();
   const re = new RegExp(`def ${method}\\(([^)]*)\\)`, 'g');
-  for (const match of code.matchAll(re)) {
+  for (const match of source.matchAll(re)) {
     let params = match[1];
     // Drop the annotations' brackets, which may contain commas
     while (/\[[^[\]]*\]/.test(params)) {

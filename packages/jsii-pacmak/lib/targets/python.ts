@@ -265,8 +265,9 @@ const NAMES_USED_BY_METHOD_BODIES: readonly string[] = [
  * declared as `bind(_scope)` would take a different keyword argument than the `bind(scope)` it
  * overrides, and calls like `code.bind(scope=...)` would fail. The C# target already drops it.
  *
- * The leading underscores are kept if what is left doesn't start with a letter (`_`, `_1`, `__0`),
- * or if it could collide with one of `otherNames` or with a name the method body uses. The Python
+ * The leading underscores are kept if what is left isn't an ASCII identifier that starts with a
+ * letter (`_`, `_1`, `__0`, and non-ASCII names, which Python NFKC-normalizes), or if it could
+ * collide with one of `otherNames` or with a name the method body uses. The Python
  * name is snake_cased and may get a trailing `_`, so names are compared ignoring case and
  * underscores: `f(_a, a)`, `f(_myURL, myUrl)` and `f(_class, class_)` all keep the underscore.
  *
@@ -281,7 +282,7 @@ function withoutUnusedMarker(
   otherNames: readonly string[],
 ): string {
   const stripped = name.replace(/^_+/, '');
-  if (stripped === name || !/^[a-z]/i.test(stripped)) {
+  if (stripped === name || !/^[a-z][a-z0-9_]*$/i.test(stripped)) {
     return name;
   }
   const key = (s: string) => s.replace(/_/g, '').toLowerCase();
