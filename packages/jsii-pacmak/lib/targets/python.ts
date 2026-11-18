@@ -215,25 +215,22 @@ const toPythonPropertyName = (
 
 /**
  * Converts a given signature's parameter name to what should be emitted in Python. It slugifies the
- * positional parameter names that collide with a lifted prop by appending trailing `_`. There is no
- * risk of conflicting with an other positional parameter that ends with a `_` character because
- * this is prohibited by the `jsii` compiler (parameter names MUST be camelCase, and only a single
- * `_` is permitted when it is on **leading** position)
+ * positional parameter names that collide with a lifted prop by appending trailing `_`. The `jsii`
+ * compiler rejects a positional parameter that has the same name as a lifted prop (JSII5017), but it
+ * does not require parameter names to be camelCase.
  *
  * @param name              the name of the parameter that needs conversion.
  * @param liftedParamNames  the list of "lifted" keyword parameters in this signature. This must be
  *                          omitted when generating a name for a parameter that **is** lifted.
- * @param signatureParams   the names of all parameters of this signature. When given, a leading `_`
- *                          is dropped (see `withoutUnusedMarker`).
+ * @param otherNames        the other names the parameter must not collide with (see
+ *                          `withoutUnusedMarker`). When given, a leading `_` may be dropped.
  */
 function toPythonParameterName(
   name: string,
   liftedParamNames = new Set<string>(),
-  signatureParams?: readonly string[],
+  otherNames?: readonly string[],
 ): string {
-  const base = signatureParams
-    ? withoutUnusedMarker(name, signatureParams)
-    : name;
+  const base = otherNames ? withoutUnusedMarker(name, otherNames) : name;
   let result = toPythonIdentifier(toSnakeCase(base));
 
   while (liftedParamNames.has(result)) {
@@ -244,26 +241,52 @@ function toPythonParameterName(
 }
 
 /**
+ * The names a generated method body refers to (the module's imports), and the implicit `self` and
+ * `cls`. A parameter with one of these names would shadow it.
+ */
+const NAMES_USED_BY_METHOD_BODIES: readonly string[] = [
+  'self',
+  'cls',
+  'abc',
+  'builtins',
+  'datetime',
+  'enum',
+  'typing',
+  'jsii',
+  'publication',
+  'typing_extensions',
+  'cached_type_hints',
+  'check_type',
+];
+
+/**
  * In TypeScript, a leading `_` marks a parameter as intentionally unused (it exempts it from
  * `noUnusedParameters`); it is not meant to be part of the API. In Python it would be: an override
  * declared as `bind(_scope)` would take a different keyword argument than the `bind(scope)` it
  * overrides, and calls like `code.bind(scope=...)` would fail. The C# target already drops it.
  *
- * The underscore is kept if the name is only underscores, or if dropping it would clash with
- * another parameter of the same signature (e.g. `f(_a, a)`).
+ * The leading underscores are kept if what is left doesn't start with a letter (`_`, `_1`, `__0`),
+ * or if it could collide with one of `otherNames` or with a name the method body uses. The Python
+ * name is snake_cased and may get a trailing `_`, so names are compared ignoring case and
+ * underscores: `f(_a, a)`, `f(_myURL, myUrl)` and `f(_class, class_)` all keep the underscore.
+ *
+ * jsii-compiler's JSII5022 check applies the same rule (`_visibleParameterName`), so keep them in sync.
+ *
+ * @param name        the TypeScript name of the parameter.
+ * @param otherNames  the names of the signature's other parameters, and of the lifted struct's
+ *                    properties (including inherited ones).
  */
 function withoutUnusedMarker(
   name: string,
-  signatureParams: readonly string[],
+  otherNames: readonly string[],
 ): string {
-  const strip = (s: string) => s.replace(/^_+/, '');
-  const stripped = strip(name);
-  if (stripped === '' || stripped === name) {
+  const stripped = name.replace(/^_+/, '');
+  if (stripped === name || !/^[a-z]/i.test(stripped)) {
     return name;
   }
-  const clashes = signatureParams.some(
-    (other) =>
-      other !== name && toSnakeCase(strip(other)) === toSnakeCase(stripped),
+  const key = (s: string) => s.replace(/_/g, '').toLowerCase();
+  const clashes = [...otherNames, ...NAMES_USED_BY_METHOD_BODIES].some(
+    (other) => key(other) === key(stripped),
   );
   return clashes ? name : stripped;
 }
@@ -668,13 +691,14 @@ abstract class BaseMethod implements PythonBase {
    */
   private pythonParameterName(
     name: string,
+    context: EmitContext,
     liftedPropNames?: Set<string>,
   ): string {
-    return toPythonParameterName(
-      name,
-      liftedPropNames,
-      this.parameters.map((p) => p.name),
-    );
+    const otherNames = [
+      ...this.parameters.filter((p) => p.name !== name).map((p) => p.name),
+      ...this.getLiftedProperties(context.resolver).map((p) => p.prop.name),
+    ];
+    return toPythonParameterName(name, liftedPropNames, otherNames);
   }
 
   public requiredImports(context: EmitContext): PythonImports {
@@ -740,6 +764,7 @@ abstract class BaseMethod implements PythonBase {
       // resolved.
       const paramName: string = this.pythonParameterName(
         param.name,
+        context,
         liftedPropNames,
       );
 
@@ -767,7 +792,7 @@ abstract class BaseMethod implements PythonBase {
       )
       .map((param) => ({
         ...param,
-        name: this.pythonParameterName(param.name, liftedPropNames),
+        name: this.pythonParameterName(param.name, context, liftedPropNames),
       }));
 
     // If we have a lifted parameter, then we'll drop the last argument to our params
@@ -814,7 +839,7 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.pop();
 
       const lastParameter = this.parameters.slice(-1)[0];
-      const paramName = this.pythonParameterName(lastParameter.name);
+      const paramName = this.pythonParameterName(lastParameter.name, context);
       const paramType = toTypeName(lastParameter.type).pythonType(
         'type',
         context,
@@ -917,6 +942,7 @@ abstract class BaseMethod implements PythonBase {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = this.pythonParameterName(
       lastParameter.name,
+      context,
       liftedPropNames,
     );
     const typeName = toTypeName(lastParameter.type).pythonType(
@@ -968,7 +994,7 @@ abstract class BaseMethod implements PythonBase {
     // If the last arg is variadic, expand the tuple
     const params: string[] = [];
     for (const param of this.parameters) {
-      let expr = this.pythonParameterName(param.name, liftedPropNames);
+      let expr = this.pythonParameterName(param.name, context, liftedPropNames);
       if (param.variadic) {
         expr = `*${expr}`;
       }
