@@ -34,7 +34,7 @@ import {
   zip,
   ShellOptions,
 } from '../util';
-import { VERSION, VERSION_DESC } from '../version';
+import { VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 import { assertSpecIsRosettaCompatible } from '../rosetta-assembly';
@@ -1394,10 +1394,9 @@ class JavaGenerator extends Generator {
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
         version:
-          VERSION === '0.0.0'
+          this.runtimeVersion === '0.0.0'
             ? '[0.0.0-SNAPSHOT]'
-            : // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-              toMavenVersionRange(`^${VERSION}`),
+            : toMavenVersionRange(`^${this.runtimeVersion}`),
       });
 
       // Provides @org.jetbrains.* (compile-only: CLASS retention, no runtime behavior)

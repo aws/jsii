@@ -6,6 +6,7 @@ import * as path from 'path';
 
 import { IGenerator, Legalese } from '../generator';
 import * as logging from '../logging';
+import { resolveRuntimeVersion } from '../runtime-version';
 import { findLocalBuildDirs, Target, TargetOptions } from '../target';
 import { subprocess } from '../util';
 import { Documentation } from './go/documentation';
@@ -158,6 +159,7 @@ class GoGenerator implements IGenerator {
 
   private readonly rosetta: RosettaTabletReader;
   private readonly runtimeTypeChecking: boolean;
+  private runtimeVersion!: string;
 
   public constructor(options: {
     readonly rosetta: RosettaTabletReader;
@@ -168,9 +170,9 @@ class GoGenerator implements IGenerator {
     this.runtimeTypeChecking = options.runtimeTypeChecking;
   }
 
-  public async load(_: string, assembly: Assembly): Promise<void> {
+  public async load(packageDir: string, assembly: Assembly): Promise<void> {
     this.assembly = assembly;
-    return Promise.resolve();
+    this.runtimeVersion = await resolveRuntimeVersion(packageDir);
   }
 
   public async upToDate(_outDir: string) {
@@ -184,6 +186,7 @@ class GoGenerator implements IGenerator {
       code: this.code,
       documenter: this.documenter,
       runtimeTypeChecking: this.runtimeTypeChecking,
+      runtimeVersion: this.runtimeVersion,
     });
   }
 
