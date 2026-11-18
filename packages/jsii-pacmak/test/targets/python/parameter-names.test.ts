@@ -49,6 +49,7 @@ export abstract class Edge {
   public abstract onlyUnderscores(_: string, __: string): void;
   public abstract digits(_1: string, _2fa: string): void;
   public abstract nonAscii(_a\u{FB01}: string, afi: string): void;
+  public abstract nonAsciiOther(_afi: string, a\u{FB01}: string): void;
   public abstract clash(_a: string, a: string): void;
   public abstract snakeClash(_myURL: string, myUrl: string): void;
   public abstract keywordClash(_class: string, class_: string): void;
@@ -57,6 +58,7 @@ export abstract class Edge {
   public abstract variadic(..._values: string[]): void;
   public abstract shadows(_jsii: string, _typing: string, _builtins: string, _checkType: string): void;
   public abstract shadowsToo(_datetime: string, _cachedTypeHints: string): void;
+  public abstract shadowsImports(_abc: string, _enum: string, _publication: string, _typingExtensions: string): void;
   public abstract lifted(_other: string, props: ChildProps): void;
   public abstract liftedClash(_own: string, props: ChildProps): void;
   public abstract inheritedLiftedClash(_inherited: string, props: ChildProps): void;
@@ -120,6 +122,7 @@ test.each([
   ['digits', ['self', '_1', '_2fa']],
   ['destructured', ['self', '__0', 'other']],
   ['non_ascii', ['self', '_a\u{FB01}', 'afi']],
+  ['non_ascii_other', ['self', '_afi', 'a\u{FB01}']],
   // ...or if it could collide with another parameter
   ['clash', ['self', '_a', 'a']],
   ['snake_clash', ['self', '_my_url', 'my_url']],
@@ -130,6 +133,10 @@ test.each([
   ['variadic_self', ['self', '*_self']],
   ['shadows', ['self', '_jsii', '_typing', '_builtins', '_check_type']],
   ['shadows_too', ['self', '_datetime', '_cached_type_hints']],
+  [
+    'shadows_imports',
+    ['self', '_abc', '_enum', '_publication', '_typing_extensions'],
+  ],
   // ...or with a lifted struct property, including an inherited one
   ['lifted', ['self', 'other', '*', 'own', 'inherited']],
   ['lifted_clash', ['self', '_own', '*', 'own', 'inherited']],

@@ -268,8 +268,9 @@ const NAMES_USED_BY_METHOD_BODIES: readonly string[] = [
  * The leading underscores are kept if what is left isn't an ASCII identifier that starts with a
  * letter (`_`, `_1`, `__0`, and non-ASCII names, which Python NFKC-normalizes), or if it could
  * collide with one of `otherNames` or with a name the method body uses. The Python
- * name is snake_cased and may get a trailing `_`, so names are compared ignoring case and
- * underscores: `f(_a, a)`, `f(_myURL, myUrl)` and `f(_class, class_)` all keep the underscore.
+ * name is snake_cased and may get a trailing `_`, and Python NFKC-normalizes identifiers, so names
+ * are compared after NFKC and ignoring case and underscores: `f(_a, a)`, `f(_myURL, myUrl)`,
+ * `f(_class, class_)` and `f(_afi, aﬁ)` all keep the underscore.
  *
  * jsii-compiler's JSII5022 check applies the same rule (`_visibleParameterName`), so keep them in sync.
  *
@@ -285,7 +286,8 @@ function withoutUnusedMarker(
   if (stripped === name || !/^[a-z][a-z0-9_]*$/i.test(stripped)) {
     return name;
   }
-  const key = (s: string) => s.replace(/_/g, '').toLowerCase();
+  const key = (s: string) =>
+    s.normalize('NFKC').replace(/_/g, '').toLowerCase();
   const clashes = [...otherNames, ...NAMES_USED_BY_METHOD_BODIES].some(
     (other) => key(other) === key(stripped),
   );
