@@ -266,7 +266,7 @@ const NAMES_USED_BY_METHOD_BODIES: readonly string[] = [
  * overrides, and calls like `code.bind(scope=...)` would fail. The C# target already drops it.
  *
  * The leading underscores are kept if what is left isn't an ASCII identifier that starts with a
- * letter (`_`, `_1`, `__0`, and non-ASCII names, which Python NFKC-normalizes), or if it could
+ * letter (`_`, `_1`, `__0`, and, conservatively, non-ASCII names), or if it could
  * collide with one of `otherNames` or with a name the method body uses. The Python
  * name is snake_cased and may get a trailing `_`, and Python NFKC-normalizes identifiers, so names
  * are compared after NFKC and ignoring case and underscores: `f(_a, a)`, `f(_myURL, myUrl)`,

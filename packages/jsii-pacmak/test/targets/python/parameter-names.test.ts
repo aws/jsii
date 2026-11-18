@@ -50,6 +50,7 @@ export abstract class Edge {
   public abstract digits(_1: string, _2fa: string): void;
   public abstract nonAscii(_a\u{FB01}: string, afi: string): void;
   public abstract nonAsciiOther(_afi: string, a\u{FB01}: string): void;
+  public abstract nonAsciiAlone(_gr\u{F6}\u{DF}e: string): void;
   public abstract clash(_a: string, a: string): void;
   public abstract snakeClash(_myURL: string, myUrl: string): void;
   public abstract keywordClash(_class: string, class_: string): void;
@@ -123,6 +124,7 @@ test.each([
   ['destructured', ['self', '__0', 'other']],
   ['non_ascii', ['self', '_a\u{FB01}', 'afi']],
   ['non_ascii_other', ['self', '_afi', 'a\u{FB01}']],
+  ['non_ascii_alone', ['self', '_gr\u{F6}\u{DF}e']],
   // ...or if it could collide with another parameter
   ['clash', ['self', '_a', 'a']],
   ['snake_clash', ['self', '_my_url', 'my_url']],
