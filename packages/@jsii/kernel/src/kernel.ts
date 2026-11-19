@@ -236,6 +236,9 @@ export class Kernel {
 
     this.#debug('value:', value);
     const ret = this.#fromSandbox(value, ti, `of static property ${symbol}`);
+    if (req.objid != null) {
+      this.#objects.aliasObject(req.objid, value);
+    }
     this.#debug('ret', ret);
     return { value: ret };
   }
@@ -294,6 +297,9 @@ export class Kernel {
       ti,
       () => `of property ${fqn}.${property}`,
     );
+    if (req.objid != null) {
+      this.#objects.aliasObject(req.objid, value);
+    }
     this.#debug('ret:', ret);
     return { value: ret };
   }
@@ -358,6 +364,9 @@ export class Kernel {
       ti.returns ?? 'void',
       () => `returned by method ${fqn ? `${fqn}#` : ''}${method}`,
     );
+    if (req.objid != null) {
+      this.#objects.aliasObject(req.objid, ret);
+    }
     this.#debug('invoke result', result);
 
     return { result };
@@ -395,13 +404,15 @@ export class Kernel {
     });
 
     this.#debug('method returned:', ret);
-    return {
-      result: this.#fromSandbox(
-        ret,
-        ti.returns ?? 'void',
-        `returned by static method ${fqn}.${method}`,
-      ),
-    };
+    const result = this.#fromSandbox(
+      ret,
+      ti.returns ?? 'void',
+      `returned by static method ${fqn}.${method}`,
+    );
+    if (req.objid != null) {
+      this.#objects.aliasObject(req.objid, ret);
+    }
+    return { result };
   }
 
   public begin(req: api.BeginRequest): api.BeginResponse {
@@ -738,7 +749,12 @@ export class Kernel {
         ctorResult.parameters,
       ),
     );
-    const objref = this.#objects.registerObject(obj, fqn, req.interfaces ?? []);
+    const objref = this.#objects.registerObject(
+      obj,
+      fqn,
+      req.interfaces ?? [],
+      req.objid,
+    );
 
     // overrides: for each one of the override method names, installs a
     // method on the newly created object which represents the remote "reverse proxy".
