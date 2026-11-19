@@ -257,8 +257,13 @@ export class GoTypeRef {
     } else if (typeMap.type === 'interface') {
       const prefix = asRef && typeMap.value.datatype ? '*' : '';
       const baseName = typeMap.value.name;
-      // type is defined in the same scope as the current one, no namespace required
-      if (scope.packageName === typeMap.value.namespace && baseName) {
+      // type is defined in the same scope as the current one, no namespace required.
+      // Compare full import paths: submodules can share a package name
+      // (e.g. `asm.service` and `asm.interfaces.service` are both `service`).
+      if (
+        scope.goModuleName === typeMap.value.type?.pkg.goModuleName &&
+        baseName
+      ) {
         // if the current scope is the same as the types scope, return without a namespace
         return `${prefix}${baseName}`;
       }
