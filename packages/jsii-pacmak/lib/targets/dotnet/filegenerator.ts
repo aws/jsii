@@ -152,13 +152,15 @@ export class FileGenerator {
     // Suppress warnings about [Obsolete] members, this is the author's choice!
     warnings.comment('Silence [Obsolete] warnings');
     warnings.ele('NoWarn').text('0612,0618');
-    // Treat select warnings as errors, as these are likely codegen bugs:
+    // Treat select warnings as errors, as these are likely codegen bugs, or produce packages consumers cannot restore:
     warnings.comment(
-      'Treat warnings symptomatic of code generation bugs as errors',
+      'Treat warnings symptomatic of code generation bugs, and package downgrades, as errors',
     );
     warnings.ele(
       'WarningsAsErrors',
       [
+        // Package downgrade. An error by default in the .NET SDK, but setting this property replaces the SDK's value.
+        'NU1605',
         '0108', // 'member1' hides inherited member 'member2'. Use the new keyword if hiding was intended.
         '0109', // The member 'member' does not hide an inherited member. The new keyword is not required.
       ].join(','),

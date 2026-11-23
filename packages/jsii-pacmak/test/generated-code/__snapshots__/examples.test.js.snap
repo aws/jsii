@@ -100,8 +100,8 @@ exports[`diamond-struct-parameter.ts: <outDir>/dotnet/Example.Test.Demo/Example.
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
-    <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <!-- Treat warnings symptomatic of code generation bugs, and package downgrades, as errors -->
+    <WarningsAsErrors>NU1605,0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -1642,8 +1642,8 @@ exports[`javadoc-unicode-escape.ts: <outDir>/dotnet/Example.Test.Demo/Example.Te
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
-    <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <!-- Treat warnings symptomatic of code generation bugs, and package downgrades, as errors -->
+    <WarningsAsErrors>NU1605,0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -2669,8 +2669,8 @@ exports[`nested-types.ts: <outDir>/dotnet/Example.Test.Demo/Example.Test.Demo.cs
   <PropertyGroup>
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
-    <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <!-- Treat warnings symptomatic of code generation bugs, and package downgrades, as errors -->
+    <WarningsAsErrors>NU1605,0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
