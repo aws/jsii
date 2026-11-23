@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: build
+    name: Build DocSite
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
         with:
           cache: 'pip'
           cache-dependency-path: 'gh-pages/requirements-dev.txt'
-          python-version: '3.10'
+          python-version: '3.13'
       - name: Install Dependencies
         run: |-
           python3 -m venv ${{ runner.temp }}/venv
@@ -46,7 +46,7 @@ jobs:
           path: ${{ runner.temp }}/site/
 
   publish:
-    name: Publish
+    name: Publish DocSite
     needs: build
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     permissions:
