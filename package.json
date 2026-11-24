@@ -44,6 +44,7 @@
     "url": "https://github.com/aws/jsii.git"
   },
   "resolutions": {
+    "@jsii/check-node": "workspace:*",
     "jsii-rosetta/@jsii/spec": "workspace:*"
   },
   "workspaces": [

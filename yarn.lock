@@ -1830,7 +1830,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:0.0.0, @jsii/check-node@workspace:packages/@jsii/check-node":
+"@jsii/check-node@workspace:*, @jsii/check-node@workspace:packages/@jsii/check-node":
   version: 0.0.0-use.local
   resolution: "@jsii/check-node@workspace:packages/@jsii/check-node"
   dependencies:
@@ -1842,36 +1842,6 @@ __metadata:
     typescript: "npm:6.x"
   languageName: unknown
   linkType: soft
-
-"@jsii/check-node@npm:1.134.0":
-  version: 1.134.0
-  resolution: "@jsii/check-node@npm:1.134.0"
-  dependencies:
-    chalk: "npm:^4.1.2"
-    semver: "npm:^7.8.1"
-  checksum: 10c0/3341389e2fc3c7c7bb4be4a57f6ed3011b136bb106f9410d5cab42aae0faad1de92336bc9566fd120087665363c3ef175809e6e8c11da651ee269e3870b002d7
-  languageName: node
-  linkType: hard
-
-"@jsii/check-node@npm:1.143.0":
-  version: 1.143.0
-  resolution: "@jsii/check-node@npm:1.143.0"
-  dependencies:
-    chalk: "npm:^4.1.2"
-    semver: "npm:^7.8.6"
-  checksum: 10c0/f828ba4d536ab380866529499b230d40d9c5716e184e53fbaa84fb80ac15a085549a911570d0e6c8a1e459c5f7eed70faa2955b58bb5ddb8675a97f162187493
-  languageName: node
-  linkType: hard
-
-"@jsii/check-node@npm:^1.142.0":
-  version: 1.142.0
-  resolution: "@jsii/check-node@npm:1.142.0"
-  dependencies:
-    chalk: "npm:^4.1.2"
-    semver: "npm:^7.8.5"
-  checksum: 10c0/f35992d439ab1b6abf483b56b52326ea299815fea72f9aa945d13d237db270747c2449a47d0c9dc2538f65bff9d7482b09adc22e9f60e90275dd79258da92a4a
-  languageName: node
-  linkType: hard
 
 "@jsii/dotnet-runtime-test@workspace:packages/@jsii/dotnet-runtime-test":
   version: 0.0.0-use.local
@@ -2016,13 +1986,6 @@ __metadata:
   version: 1.134.0
   resolution: "@jsii/spec@npm:1.134.0"
   checksum: 10c0/925f6d956d34ce15929ac3d42e5ae229179abb1939898afc14b33218956e76f848f218dc17c55fde7f25c666da085af7a525f2edf82466440a2b7ea9ddb9ec91
-  languageName: node
-  linkType: hard
-
-"@jsii/spec@npm:1.143.0":
-  version: 1.143.0
-  resolution: "@jsii/spec@npm:1.143.0"
-  checksum: 10c0/ac3d402bb7c9da3ab096cf7cab842b10aff07f5fbecbd7d999ef77addae4f82ee038d3f302b719e336a6aca6fdb9526edc89bf778aa911591227534336af7dcf
   languageName: node
   linkType: hard
 
@@ -10456,7 +10419,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.1, semver@npm:^7.8.2, semver@npm:^7.8.5, semver@npm:^7.8.6":
+"semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.2, semver@npm:^7.8.5, semver@npm:^7.8.6":
   version: 7.8.6
   resolution: "semver@npm:7.8.6"
   bin:
