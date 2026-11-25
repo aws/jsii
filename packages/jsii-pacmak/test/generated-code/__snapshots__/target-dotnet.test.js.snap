@@ -73,7 +73,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -613,7 +613,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -1142,7 +1142,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -3693,7 +3693,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 

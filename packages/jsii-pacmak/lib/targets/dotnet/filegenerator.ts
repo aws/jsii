@@ -159,6 +159,8 @@ export class FileGenerator {
     warnings.ele(
       'WarningsAsErrors',
       [
+        // Keep the warnings the .NET SDK treats as errors by default (e.g: NU1605, package downgrade).
+        '$(WarningsAsErrors)',
         '0108', // 'member1' hides inherited member 'member2'. Use the new keyword if hiding was intended.
         '0109', // The member 'member' does not hide an inherited member. The new keyword is not required.
       ].join(','),

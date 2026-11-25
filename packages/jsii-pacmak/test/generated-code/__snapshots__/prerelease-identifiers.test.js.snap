@@ -91,7 +91,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -610,7 +610,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -1128,7 +1128,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] =
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
@@ -1624,7 +1624,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
