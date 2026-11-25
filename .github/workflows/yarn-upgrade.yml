@@ -109,6 +109,10 @@ jobs:
       - name: Run "yarn up"
         run: yarn up -R '*'
 
+      # `yarn up` can leave the lockfile in a state that `yarn install --immutable` rejects, so normalize it again.
+      - name: Run "yarn install" (post-upgrade)
+        run: yarn install --no-immutable
+
       # Next, create and upload the changes as a patch file. This will later be downloaded to create a pull request
       # Creating a pull request requires write permissions and it's best to keep write privileges isolated.
       - name: Create Patch
