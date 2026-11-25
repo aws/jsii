@@ -4022,7 +4022,7 @@ exports[`redeclared-interface-member.ts: <outDir>/dotnet/Example.Test.Demo/Examp
     <!-- Silence [Obsolete] warnings -->
     <NoWarn>0612,0618</NoWarn>
     <!-- Treat warnings symptomatic of code generation bugs as errors -->
-    <WarningsAsErrors>0108,0109</WarningsAsErrors>
+    <WarningsAsErrors>$(WarningsAsErrors),0108,0109</WarningsAsErrors>
   </PropertyGroup>
 </Project>
 
