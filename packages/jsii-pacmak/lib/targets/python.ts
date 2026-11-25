@@ -2546,7 +2546,8 @@ class Package {
     code.line('import setuptools');
     code.line();
     code.line('kwargs = json.loads(');
-    code.line('    """');
+    // A raw string, so that Python leaves the escapes in the JSON alone
+    code.line('    r"""');
     code.line(JSON.stringify(setupKwargs, null, 4));
     code.line('"""');
     code.line(')');

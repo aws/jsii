@@ -429,7 +429,7 @@ import json
 import setuptools
 
 kwargs = json.loads(
-    """
+    r"""
 {
     "name": "foo",
     "version": "1.2.3",
@@ -948,7 +948,7 @@ import json
 import setuptools
 
 kwargs = json.loads(
-    """
+    r"""
 {
     "name": "foo",
     "version": "1.2.3",
@@ -1447,7 +1447,7 @@ import json
 import setuptools
 
 kwargs = json.loads(
-    """
+    r"""
 {
     "name": "foo",
     "version": "2.0.0.rc42",
@@ -1943,7 +1943,7 @@ import json
 import setuptools
 
 kwargs = json.loads(
-    """
+    r"""
 {
     "name": "foo",
     "version": "4.5.6.dev1337",
