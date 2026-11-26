@@ -177,13 +177,10 @@ export class TypeSystem {
       }
 
       const root = this.addAssembly(asm, { isRoot });
-      // Using || instead of ?? because npmjs.com will alter the package.json file and possibly put `false` in pkg.bundleDependencies.
-      // This is actually non compliant to the package.json specification, but that's how it is...
-      const bundled: string[] =
-        pkg.bundledDependencies ?? pkg.bundleDependencies ?? [];
+      const bundled = bundledDependenciesOf(pkg);
 
       for (const name of dependenciesOf(pkg)) {
-        if (bundled.includes(name)) {
+        if (bundled.has(name)) {
           continue;
         }
 
@@ -406,6 +403,30 @@ function dependenciesOf(packageJson: any) {
   Object.keys(packageJson.dependencies ?? {}).forEach(deps.add.bind(deps));
   Object.keys(packageJson.peerDependencies ?? {}).forEach(deps.add.bind(deps));
   return Array.from(deps);
+}
+
+/**
+ * The names of the dependencies bundled in a package.
+ *
+ * `bundleDependencies` (or `bundledDependencies`) is usually a list of names, but it
+ * may also be a boolean: `true` bundles all `dependencies` and `false` bundles none.
+ * npm can also write `false` into the `package.json` of an installed package.
+ */
+function bundledDependenciesOf(packageJson: any): Set<string> {
+  const bundled = new Set<string>();
+  for (const value of [
+    packageJson.bundledDependencies,
+    packageJson.bundleDependencies,
+  ]) {
+    if (value === true) {
+      Object.keys(packageJson.dependencies ?? {}).forEach((m) =>
+        bundled.add(m),
+      );
+    } else if (Array.isArray(value)) {
+      value.forEach((m: string) => bundled.add(m));
+    }
+  }
+  return bundled;
 }
 
 function collectTypes<T extends Type>(

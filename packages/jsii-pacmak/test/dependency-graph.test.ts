@@ -181,6 +181,59 @@ test('dont call findDependencyDirectory for bundleDependencies AND bundledDepend
   expect(mockHost.findDependencyDirectory).not.toHaveBeenCalled();
 });
 
+test('bundleDependencies: false bundles nothing', async () => {
+  const packages: Record<string, { root: string; meta: any }> = {
+    A: {
+      root: join(tmpdir(), 'A'),
+      meta: { dependencies: { B: '*' }, bundleDependencies: false },
+    },
+    B: { root: join(tmpdir(), 'B'), meta: {} },
+  };
+
+  const cb: Callback = jest.fn().mockName('callback').mockReturnValue(true);
+
+  fakeReadJson(packages);
+
+  // WHEN
+  await expect(
+    traverseDependencyGraph(packages.A.root, cb, mockHost),
+  ).resolves.not.toThrow();
+
+  // THEN
+  expect(mockHost.findDependencyDirectory).toHaveBeenCalledTimes(1);
+  expect(cb).toHaveBeenCalledWith(packages.B.root, packages.B.meta, false);
+});
+
+test('bundleDependencies: true bundles all dependencies', async () => {
+  const packages: Record<string, { root: string; meta: any }> = {
+    A: {
+      root: join(tmpdir(), 'A'),
+      meta: {
+        dependencies: { B: '*' },
+        peerDependencies: { C: '*' },
+        bundleDependencies: true,
+      },
+    },
+    C: { root: join(tmpdir(), 'C'), meta: {} },
+  };
+
+  const cb: Callback = jest.fn().mockName('callback').mockReturnValue(true);
+
+  fakeReadJson(packages);
+
+  // WHEN
+  await expect(
+    traverseDependencyGraph(packages.A.root, cb, mockHost),
+  ).resolves.not.toThrow();
+
+  // THEN
+  expect(mockHost.findDependencyDirectory).toHaveBeenCalledTimes(1);
+  expect(mockHost.findDependencyDirectory).toHaveBeenCalledWith(
+    'C',
+    packages.A.root,
+  );
+});
+
 function fakeReadJson(
   fakePackages: Record<string, { root: string; meta: any }>,
 ) {

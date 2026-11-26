@@ -58,8 +58,8 @@ export interface TraverseDependencyGraphHost {
 export interface PackageJson {
   readonly dependencies?: { readonly [name: string]: string };
   readonly peerDependencies?: { readonly [name: string]: string };
-  readonly bundleDependencies?: string[];
-  readonly bundledDependencies?: string[];
+  readonly bundleDependencies?: string[] | boolean;
+  readonly bundledDependencies?: string[] | boolean;
 
   readonly [key: string]: unknown;
 }
@@ -88,15 +88,11 @@ async function real$traverseDependencyGraph(
     ...Object.keys(meta.dependencies ?? {}),
     ...Object.keys(meta.peerDependencies ?? {}),
   ]);
+  const bundled = bundledDependenciesOf(meta);
   return Promise.all(
     Array.from(deps)
       // No need to pacmak the dependency if it's built-in, or if it's bundled
-      .filter(
-        (m) =>
-          !util.isBuiltinModule(m) &&
-          !meta.bundledDependencies?.includes(m) &&
-          !meta.bundleDependencies?.includes(m),
-      )
+      .filter((m) => !util.isBuiltinModule(m) && !bundled.has(m))
       .map(async (dep) => {
         const dependencyDir = await host.findDependencyDirectory(
           dep,
@@ -111,4 +107,23 @@ async function real$traverseDependencyGraph(
       }),
     // The following ".then" literally just turns a `Promise<T>` into a `Promise<void>`. Convenient!
   ).then();
+}
+
+/**
+ * The names of the dependencies bundled in a package.
+ *
+ * `bundleDependencies` (or `bundledDependencies`) is usually a list of names, but it
+ * may also be a boolean: `true` bundles all `dependencies` and `false` bundles none.
+ * npm can also write `false` into the `package.json` of an installed package.
+ */
+function bundledDependenciesOf(meta: PackageJson): Set<string> {
+  const bundled = new Set<string>();
+  for (const value of [meta.bundledDependencies, meta.bundleDependencies]) {
+    if (value === true) {
+      Object.keys(meta.dependencies ?? {}).forEach((m) => bundled.add(m));
+    } else if (Array.isArray(value)) {
+      value.forEach((m) => bundled.add(m));
+    }
+  }
+  return bundled;
 }
