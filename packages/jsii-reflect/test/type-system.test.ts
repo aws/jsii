@@ -1,5 +1,7 @@
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
+import * as fs from 'fs-extra';
+import * as os from 'os';
 import * as path from 'path';
 
 import { TypeSystem } from '../lib';
@@ -432,6 +434,63 @@ test('Assembly allTypes includes submodule types', () => {
   });
 
   expect(asm.allTypes.map((t) => t.fqn)).toEqual(['testpkg.submod.Foo']);
+});
+
+describe('loadModule with a boolean bundleDependencies', () => {
+  // A depends on B, both are jsii modules: <tmp>/A and <tmp>/A/node_modules/B
+  let rootDir: string;
+  beforeEach(() => {
+    rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-reflect-bundle-'));
+    writeModule(path.join(rootDir, 'A', 'node_modules', 'B'), 'B', {});
+  });
+  afterEach(() => fs.removeSync(rootDir));
+
+  test('false bundles nothing, so B is loaded', async () => {
+    writeModule(path.join(rootDir, 'A'), 'A', { bundleDependencies: false });
+
+    const ts = new TypeSystem();
+    await ts.loadModule(path.join(rootDir, 'A'));
+
+    expect(ts.assemblies.map((a) => a.name)).toEqual(['A', 'B']);
+  });
+
+  test('true bundles all dependencies, so B is not loaded', async () => {
+    writeModule(path.join(rootDir, 'A'), 'A', { bundleDependencies: true });
+
+    const ts = new TypeSystem();
+    await ts.loadModule(path.join(rootDir, 'A'));
+
+    expect(ts.assemblies.map((a) => a.name)).toEqual(['A']);
+  });
+
+  function writeModule(dir: string, name: string, extra: object) {
+    const dependencies = name === 'A' ? { B: '1.0.0' } : undefined;
+    fs.mkdirpSync(dir);
+    fs.writeJsonSync(path.join(dir, 'package.json'), {
+      name,
+      version: '1.0.0',
+      main: 'index.js',
+      jsii: {},
+      dependencies,
+      ...extra,
+    });
+    fs.writeFileSync(path.join(dir, 'index.js'), '');
+    const assembly: spec.Assembly = {
+      schema: spec.SchemaVersion.LATEST,
+      name,
+      version: '1.0.0',
+      license: 'Apache-2.0',
+      homepage: 'https://example.com',
+      repository: { type: 'git', url: 'https://example.com' },
+      author: { name: 'Test', roles: ['author'] },
+      description: name,
+      jsiiVersion: '1.0.0',
+      fingerprint: name,
+      dependencies,
+      types: {},
+    };
+    spec.writeAssembly(dir, assembly);
+  }
 });
 
 function resolveModuleDir(name: string) {
