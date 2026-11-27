@@ -2840,7 +2840,10 @@ class PythonGenerator extends Generator {
       const exampleText = this.convertExample(docs.example, apiLocation);
 
       for (const line of exampleText.split('\n')) {
-        lines.push(`    ${line}`);
+        // The docstring is not a raw string, so backslashes must be escaped or
+        // Python would interpret them (e.g. "\n" would become a line break).
+        // This is the same escaping that `md2rst` applies to regular text.
+        lines.push(`    ${line.replace(/\\/g, '\\\\')}`);
       }
       brk();
     }
