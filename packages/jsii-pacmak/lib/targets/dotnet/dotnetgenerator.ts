@@ -99,6 +99,7 @@ export class DotNetGenerator extends Generator {
       this.assembly,
       tarballFileName,
       this.code,
+      this.runtimeVersion,
     );
     filegen.generateAssemblyInfoFile();
 

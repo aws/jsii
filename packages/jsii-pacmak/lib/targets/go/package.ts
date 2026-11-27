@@ -33,7 +33,6 @@ import {
   tarballName,
 } from './util';
 import { VersionFile } from './version-file';
-import { VERSION } from '../../version';
 
 export const GOMOD_FILENAME = 'go.mod';
 export const GO_VERSION = '1.26';
@@ -389,11 +388,11 @@ export class RootPackage extends Package {
     super.emit(context);
     this.emitJsiiPackage(context);
 
-    this.emitGomod(context.code);
+    this.emitGomod(context);
     this.versionFile.emit(context.code);
   }
 
-  private emitGomod(code: CodeMaker) {
+  private emitGomod({ code, runtimeVersion }: EmitContext) {
     code.openFile(GOMOD_FILENAME);
     code.line(`module ${this.goModuleName}`);
     code.line();
@@ -401,7 +400,7 @@ export class RootPackage extends Package {
     code.line();
     code.open('require (');
     // Strip " (build abcdef)" from the jsii version
-    code.line(`${JSII_RT_MODULE_NAME} v${VERSION}`);
+    code.line(`${JSII_RT_MODULE_NAME} v${runtimeVersion}`);
     const dependencies = this.packageDependencies;
     for (const dep of dependencies) {
       code.line(`${dep.goModuleName} v${dep.version}`);

@@ -6,6 +6,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 
+import { resolveRuntimeVersion } from './runtime-version';
 import { VERSION_DESC } from './version';
 
 /**
@@ -93,11 +94,22 @@ export abstract class Generator implements IGenerator {
   private _assembly?: spec.Assembly;
   protected _reflectAssembly?: reflect.Assembly;
   private fingerprint?: string;
+  private _runtimeVersion?: string;
 
   public constructor(private readonly options: GeneratorOptions) {}
 
   protected get runtimeTypeChecking() {
     return this.options.runtimeTypeChecking;
+  }
+
+  /**
+   * The minimum jsii runtime version the generated package must depend on.
+   */
+  protected get runtimeVersion(): string {
+    if (!this._runtimeVersion) {
+      throw new Error('Call load() first');
+    }
+    return this._runtimeVersion;
   }
 
   protected get assembly(): spec.Assembly {
@@ -121,11 +133,12 @@ export abstract class Generator implements IGenerator {
   }
 
   public async load(
-    _packageRoot: string,
+    packageRoot: string,
     assembly: reflect.Assembly,
   ): Promise<void> {
     this._reflectAssembly = assembly;
     this._assembly = assembly.spec;
+    this._runtimeVersion = await resolveRuntimeVersion(packageRoot);
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
     this.fingerprint = crypto
@@ -134,8 +147,6 @@ export abstract class Generator implements IGenerator {
       .update('\0')
       .update(this.assembly.fingerprint)
       .digest('base64');
-
-    return Promise.resolve();
   }
 
   /**

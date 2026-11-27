@@ -3,6 +3,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import { JsiiModule } from './packaging';
+import { PACMAK_MANIFEST_FILE } from './runtime-version';
 import { topologicalSort, Toposorted } from './toposort';
 import { findDependencyDirectory, isBuiltinModule } from './util';
 import * as logging from '../lib/logging';
@@ -163,6 +164,8 @@ async function updateNpmIgnore(
     spec.SPEC_FILE_NAME,
     spec.SPEC_FILE_NAME_COMPRESSED,
   );
+
+  includePattern('Include .jsii.pacmak.json', PACMAK_MANIFEST_FILE);
 
   if (modified) {
     await fs.writeFile(npmIgnorePath, `${lines.join('\n')}\n`);

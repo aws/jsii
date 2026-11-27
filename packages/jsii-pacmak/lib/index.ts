@@ -7,6 +7,7 @@ import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
 import { assertSpecIsRosettaCompatible } from './rosetta-assembly';
+import { writePacmakManifest } from './runtime-version';
 import { ALL_BUILDERS, TargetName } from './targets';
 import { Timers } from './timer';
 import { Toposorted } from './toposort';
@@ -72,6 +73,13 @@ export async function pacmak({
     // defined via --out, don't perform this verification.
     await updateAllNpmIgnores(modulesToPackageFlat);
   }
+
+  await timers.recordAsync('pacmak manifest', () => {
+    logging.info('Writing pacmak manifests');
+    return Promise.all(
+      modulesToPackageFlat.map((m) => writePacmakManifest(m.moduleDirectory)),
+    );
+  });
 
   const packCommand = argv['pack-command'];
   await timers.recordAsync(packCommand, () => {
