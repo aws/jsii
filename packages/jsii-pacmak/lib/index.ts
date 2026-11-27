@@ -6,8 +6,9 @@ import { cwd } from 'process';
 import * as logging from './logging';
 import { findJsiiModules, updateAllNpmIgnores } from './npm-modules';
 import { JsiiModule } from './packaging';
+import { loadTargetPlugins } from './plugins';
 import { assertSpecIsRosettaCompatible } from './rosetta-assembly';
-import { ALL_BUILDERS, TargetName } from './targets';
+import { ALL_BUILDERS, BuilderFactory, TargetName } from './targets';
 import { Timers } from './timer';
 import { Toposorted } from './toposort';
 import { flatten } from './util';
@@ -31,15 +32,28 @@ export async function pacmak({
   inputDirectories,
   outputDirectory,
   parallel = true,
+  plugins = [],
   recurse = false,
   rosettaTablet,
   rosettaUnknownSnippets = undefined,
   runtimeTypeChecking = true,
-  targets = Object.values(TargetName),
+  targets: requestedTargets,
   timers = new Timers(),
   updateNpmIgnoreFiles = false,
   validateAssemblies = false,
 }: PacmakOptions): Promise<void> {
+  const pluginBuilders = loadTargetPlugins(plugins);
+  const pluginTargets = new Set(Object.keys(pluginBuilders));
+  const validTargets = [...Object.values(TargetName), ...pluginTargets];
+  const targets = requestedTargets ?? validTargets;
+  for (const target of targets) {
+    if (!validTargets.includes(target)) {
+      throw new Error(
+        `Invalid target name: ${target} (valid values are: ${validTargets.join(', ')})`,
+      );
+    }
+  }
+
   const rosetta = new RosettaTabletReader({
     unknownSnippets: rosettaUnknownSnippets,
     prefixDisclaimer: true,
@@ -97,6 +111,7 @@ export async function pacmak({
     const targetSets = sliceTargets(
       modulesToPackageSorted,
       targets,
+      pluginTargets,
       forceTarget,
     );
     if (targetSets.every((s) => s.modulesSorted.length === 0)) {
@@ -131,6 +146,7 @@ export async function pacmak({
                   fingerprint,
                   force,
                   perLanguageDirectory,
+                  pluginBuilders,
                   rosetta,
                   runtimeTypeChecking,
                 },
@@ -267,12 +283,21 @@ export interface PacmakOptions {
   readonly runtimeTypeChecking?: boolean;
 
   /**
-   * The list of targets for which code should be generated. Unless `forceTarget` is `true`, a given target will only
-   * be generated for assemblies that have configured it.
+   * The list of targets for which code should be generated. Unless `forceTarget` is `true`, a built-in target will
+   * only be generated for assemblies that have configured it. A target provided by a plugin is generated for every
+   * assembly.
    *
-   * @default Object.values(TargetName)
+   * @default - every built-in target, and every target provided by `plugins`
    */
-  readonly targets?: readonly TargetName[];
+  readonly targets?: readonly string[];
+
+  /**
+   * External target plugins to load (module specifiers: npm package names or
+   * paths). Plugin target names become valid values for `targets`.
+   *
+   * @default []
+   */
+  readonly plugins?: readonly string[];
 
   /**
    * A `Timers` object, if you are interested in including the rosetta run in a larger set of timed operations.
@@ -309,6 +334,7 @@ async function buildTargetsForLanguage(
     fingerprint,
     force,
     perLanguageDirectory,
+    pluginBuilders,
     rosetta,
     runtimeTypeChecking,
   }: {
@@ -318,12 +344,14 @@ async function buildTargetsForLanguage(
     fingerprint: boolean;
     force: boolean;
     perLanguageDirectory: boolean;
+    pluginBuilders: Record<string, BuilderFactory>;
     rosetta: RosettaTabletReader;
     runtimeTypeChecking: boolean;
   },
 ): Promise<void> {
-  // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
-  const factory = ALL_BUILDERS[targetLanguage as TargetName];
+  const factory =
+    ALL_BUILDERS[targetLanguage as TargetName] ??
+    pluginBuilders[targetLanguage];
   if (!factory) {
     throw new Error(`Unsupported target: '${targetLanguage}'`);
   }
@@ -356,16 +384,23 @@ interface TargetSet {
 
 function sliceTargets(
   modulesSorted: Toposorted<JsiiModule>,
-  requestedTargets: readonly TargetName[],
+  requestedTargets: readonly string[],
+  pluginTargets: ReadonlySet<string>,
   force: boolean,
 ): readonly TargetSet[] {
   const ret = new Array<TargetSet>();
   for (const target of requestedTargets) {
+    // A plugin target was asked for explicitly by loading its plugin, and
+    // libraries are not expected to configure plugin languages, so it applies
+    // to every module whether or not the assembly configures it.
+    const everyModule = force || pluginTargets.has(target);
     ret.push({
       targetType: target,
       modulesSorted: modulesSorted
         .map((modules) =>
-          modules.filter((m) => force || m.availableTargets.includes(target)),
+          modules.filter(
+            (m) => everyModule || m.availableTargets.includes(target),
+          ),
         )
         .filter((ms) => ms.length > 0),
     });
